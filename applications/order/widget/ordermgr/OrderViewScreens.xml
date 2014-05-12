@@ -241,7 +241,7 @@ under the License.
                 <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="lookuporder"/>
                 <set field="asm_multipleSelect"  value="roleTypeId"/>
-                <set field="asm_formSize" value="700"/>
+                <set field="asm_formSize" value="1000"/>
                 <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
@@ -334,11 +334,11 @@ under the License.
                 <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/ReceivePayment.groovy"/>
                 <entity-and entity-name="OrderRole" list="orderRoles">
-                	<field-map field-name="orderId" value="${parameters.orderId}"/>
-                	<field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
+                  <field-map field-name="orderId" value="${parameters.orderId}"/>
+                  <field-map field-name="roleTypeId" value="BILL_FROM_VENDOR"/>
                 </entity-and>
                 <entity-and entity-name="PaymentMethod" list="paymentMethods">
-                	<field-map field-name="partyId" from-field="orderRoles[0].partyId"/>
+                  <field-map field-name="partyId" from-field="orderRoles[0].partyId"/>
                 </entity-and>
             </actions>
             <widgets>
