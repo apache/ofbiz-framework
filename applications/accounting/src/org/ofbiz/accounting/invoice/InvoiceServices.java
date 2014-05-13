@@ -1098,7 +1098,11 @@ public class InvoiceServices {
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
             }
-        } else {
+        } 
+        
+        // Either no orderShipment exists, or there's a null invoicePerShipment in the OrderHeader.
+        // In either case, use the default value from the properties
+        if (invoicePerShipment == null) {
             invoicePerShipment = UtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment");
         }
 
