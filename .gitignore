@@ -4,7 +4,8 @@ framework/base/lib/cobertura-*.jar
 framework/base/lib/asm*.jar
 framework/base/lib/oro*.jar
 framework/entity/lib/jdbc/postgresql-*.jar
-hot-deploy/*/build
+hot-deploy/*
+!hot-deploy/README.txt
 specialpurpose/*/build
 applications/content/index/
 bin/
@@ -25,6 +26,7 @@ runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/jetty
 runtime/tempfiles/*
+runtime/indexes/products/
 themes/flatgrey/webapp/flatgrey/javascript-min.css
 themes/flatgrey/webapp/flatgrey/js/application-min.js
 themes/flatgrey/webapp/flatgrey/maincss-min.css
