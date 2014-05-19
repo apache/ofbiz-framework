@@ -336,6 +336,24 @@ under the License.
         <attribute name="conversionParameters" mode="IN" type="Map" optional="true"/>
         <attribute name="convertedValue" mode="OUT" type="BigDecimal" optional="true"/>
     </service>
+    
+    <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversion">
+        <description>Returns true if an UomConversion record exists</description>
+        <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <attribute name="exist" mode="OUT" type="Boolean"/>
+    </service>
+    
+    <service name="checkUomConversionDated" engine="simple" default-entity-name="UomConversionDated"
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversionDated">
+        <description>Returns true if an UomConversionDated record exists</description>
+        <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
+        <auto-attributes include="pk" mode="IN"/>
+        <attribute name="exist" mode="OUT" type="Boolean"/>
+    </service>
+    
+    
     <service name="getFileUploadProgressStatus" engine="simple" location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getFileUploadProgressStatus" auth="false">
         <description>Look up progress made in File Upload process</description>
         <attribute name="uploadProgressListener" mode="IN" type="org.ofbiz.webapp.event.FileUploadProgressListener" optional="true"/>
@@ -768,14 +786,6 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
-    <service name="checkUomConversion" engine="simple" default-entity-name="UomConversion"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="checkUomConversion">
-        <description>Returns true if an UomConversion exists</description>
-        <permission-service service-name="commonGenericPermission" main-action="VIEW"/>
-        <auto-attributes include="pk" mode="IN"/>
-        <attribute name="exist" mode="OUT" type="Boolean"/>
-    </service>    
     
     <service name="getServerTimestamp" engine="simple" auth="false"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getServerTimestamp">

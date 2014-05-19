@@ -333,7 +333,7 @@ under the License.
         <field-to-result field="geoList"/>
     </simple-method>    
     
-    <simple-method method-name="checkUomConversion" short-description="Returns true if an UomConversion exists">
+    <simple-method method-name="checkUomConversion" short-description="Returns true if an UomConversion record exists">
         <entity-one entity-name="UomConversion" value-field="uomConversion">
             <field-map field-name="uomId" from-field="parameters.uomId"/>
             <field-map field-name="uomIdTo" from-field="parameters.uomIdTo"/>
@@ -341,25 +341,43 @@ under the License.
         <if-not-empty field="uomConversion">
             <set field="exist" value="true" type="Boolean"/>
             <else>
-                <set field="exist" value="false" type="Boolean"/>                
+                <set field="exist" value="false" type="Boolean"/>
             </else>
         </if-not-empty>
         <field-to-result field="exist"/>
     </simple-method>
+    
+    <simple-method method-name="checkUomConversionDated" short-description="Returns true if an UomConversionDated record exists">
+         <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
+            <condition-list>
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId"/>
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo"/>
+                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
+            </condition-list>
+        </entity-condition>
+        <if-not-empty field="uomConversions">
+            <set field="exist" value="true" type="Boolean"/>
+            <else>
+                <set field="exist" value="false" type="Boolean"/>
+            </else>
+        </if-not-empty>
+        <field-to-result field="exist"/>
+    </simple-method>
+    
 
-    <simple-method method-name="getServerTimestamp" login-required="false">      
+    <simple-method method-name="getServerTimestamp" login-required="false">
         <now field="serverTimestamp" type="java.sql.Timestamp"/>
         <field-to-result field="serverTimestamp"/>
-    </simple-method>            
+    </simple-method>
     
-    <simple-method method-name="getServerTimeZone" login-required="false">      
+    <simple-method method-name="getServerTimeZone" login-required="false">
         <set field="serverTimeZone" value="${util:defaultTimeZone()}" type="String"/>
         <field-to-result field="serverTimeZone"/>
-    </simple-method>            
+    </simple-method>
     
-    <simple-method method-name="getServerTimestampAsLong" login-required="false">      
+    <simple-method method-name="getServerTimestampAsLong" login-required="false">
         <now field="serverTimestamp" type="java.lang.Long"/>
         <field-to-result field="serverTimestamp"/>
-    </simple-method>        
+    </simple-method>
     
 </simple-methods>
