@@ -71,7 +71,7 @@ under the License.
         <action mode="sync" service="autoScrumNotification"/>
     </eca>
     <!-- when a communcation event is created check the subject for a PD# string, if found link the email to the certain product-->
-    <eca service="createCommunicationEvent" event="commit">
+<!--    <eca service="createCommunicationEvent" event="commit">
         <action service="linkToProduct" mode="sync"/>
     </eca>
-</service-eca>
+--></service-eca>
