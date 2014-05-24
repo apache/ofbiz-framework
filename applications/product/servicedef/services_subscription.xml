@@ -110,6 +110,8 @@ under the License.
         <attribute name="canclAutmExtTime" type="Integer" mode="IN" optional="true"/>
         <attribute name="canclAutmExtTimeUomId" type="String" mode="IN" optional="true"/>
         <attribute name="alwaysCreateNewRecord" type="String" mode="IN" optional="true"><!-- This defaults to Y (true) which means new Subscription records will be created instead of updating old ones with new thruDates. This keeps a more complete history of subscription activity. --></attribute>
+        <attribute name="gracePeriodOnExpiry" type="Integer" mode="IN" optional="true"/>
+        <attribute name="gracePeriodOnExpiryUomId" type="String" mode="IN" optional="true"/>
         <attribute name="subscriptionId" type="String" mode="OUT" optional="false"/>
     </service>
     <service name="processExtendSubscriptionByProduct" engine="java" auth="true"
@@ -154,5 +156,18 @@ under the License.
         location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="subscriptionPermissionCheck" auth="true">
         <description>Subscription Permission Checking Logic</description>
         <implements service="permissionInterface"/>
+    </service>
+    
+    <service name="runServiceOnSubscriptionExpiry" engine="java" auth="true" use-transaction="true"
+        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="runServiceOnSubscriptionExpiry">
+        <description>A service designed to be automatically run by job scheduler to trigger another service to run for each subscription which has expired.
+            This is done by looking for all subscriptions for which thruDate and gracePeriodOnExpiry are expired and where the automaticExtend flag is set to "N".
+            The service to run is found in SubscriptionResource.ServiceNameOnExpiry (by default OOTB: runSubscriptionExpired, see below)</description>
+    </service>
+    <service name="runSubscriptionExpired" engine="java" auth="true" use-transaction="true"
+        location="org.ofbiz.product.subscription.SubscriptionServices" invoke="runSubscriptionExpired">
+        <description>A dummy service to test subscription expiration, expected to change depending upon the specific service logic that providers will write. 
+            See https://issues.apache.org/jira/browse/OFBIZ-5333 for more information</description>
+        <attribute name="subscriptionId" type="String" mode="IN" optional="false"/>
     </service>
 </services>

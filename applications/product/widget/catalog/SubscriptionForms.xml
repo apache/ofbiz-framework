@@ -296,6 +296,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="gracePeriodOnExpiryUomId" title="${uiLabelMap.ProductGracePeriodUomId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                    <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="serviceNameOnExpiry" ><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 

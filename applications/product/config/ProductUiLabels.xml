@@ -17566,6 +17566,9 @@
         <value xml:lang="zh">商品收据</value>
         <value xml:lang="zh_TW">成品收據</value>
     </property>
+    <property key="ProductGracePeriodUomId">
+        <value xml:lang="en">Grace Period UOM Id</value>
+    </property>
     <property key="ProductGrams">
         <value xml:lang="de">Gramm</value>
         <value xml:lang="en">Grams</value>
@@ -28795,7 +28798,7 @@
         <value xml:lang="ja">リソースID ${subscriptionResourceId} の処理で申込作成中にエラー</value>
         <value xml:lang="vi">Lỗi tạo Bảo lãnh bán hàng khi xử lý Tài nguyên có Id ${subscriptionResourceId}</value>
         <value xml:lang="zh">创建订阅、当处理资源标识 ${subscriptionResourceId} 时出错</value>
-    </property>
+    </property>    
     <property key="ProductSubscriptionUpdateError">
         <value xml:lang="en">Error processing subscription update with ID ${subscriptionId}</value>
         <value xml:lang="it">Errore durante l'aggiornamento dell'abbonamento ${subscriptionId}</value>

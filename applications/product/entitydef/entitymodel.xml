@@ -4394,6 +4394,8 @@ under the License.
         <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
         <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
         <field name="canclAutmExtTimeUomId" type="id"><description>Unit Of Measure used for the automatic extension of the subscription.</description></field>
+        <field name="gracePeriodOnExpiry" type="numeric"><description>The time period (after the end of the thruDate) after which the subscription will be expired.</description></field>
+        <field name="gracePeriodOnExpiryUomId" type="id"><description>Unit Of Measure used for the grace period of the subscription.</description></field>
         <prim-key field="productId"/>
         <prim-key field="subscriptionResourceId"/>
         <prim-key field="fromDate"/>
@@ -4417,6 +4419,9 @@ under the License.
         </relation>
         <relation type="one" fk-name="PROD_SBRS_MTU" title="MaxLifeTime" rel-entity-name="Uom">
             <key-map field-name="maxLifeTimeUomId" rel-field-name="uomId"/>
+        </relation>
+        <relation type="one" fk-name="PROD_SBRS_GTU" title="GracePeriod" rel-entity-name="Uom">
+            <key-map field-name="gracePeriodOnExpiryUomId" rel-field-name="uomId"/>
         </relation>
     </entity>
     <entity entity-name="Subscription"
@@ -4455,6 +4460,9 @@ under the License.
         <field name="automaticExtend" type="indicator"><description>If this subscription is automatically extended with the same period as the initial period.</description></field>
         <field name="canclAutmExtTime" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
         <field name="canclAutmExtTimeUomId" type="id"><description>Unit Of Measure used for the automatic extension of the subscription.</description></field>
+        <field name="gracePeriodOnExpiry" type="numeric"><description>The time period (before the end of the thruDate) after which the automatic extension of the subscription will be executed.</description></field>
+        <field name="gracePeriodOnExpiryUomId" type="id"><description>Unit Of Measure used for the automatic extension of the subscription.</description></field>
+        <field name="serviceNameOnExpiry" type="long-varchar"><description>Name of service which will run on subscription expiration.</description></field>
         <prim-key field="subscriptionId"/>
         <relation type="one" fk-name="SUBSC_SRESRC" rel-entity-name="SubscriptionResource">
             <key-map field-name="subscriptionResourceId"/>
@@ -4526,6 +4534,9 @@ under the License.
         <relation type="many" rel-entity-name="SubscriptionTypeAttr">
             <key-map field-name="subscriptionTypeId"/>
         </relation>
+        <relation type="one" fk-name="SUBSC_GTU" title="GracePeriod" rel-entity-name="Uom">
+            <key-map field-name="gracePeriodOnExpiryUomId" rel-field-name="uomId"/>
+        </relation>
     </entity>
     <entity entity-name="SubscriptionActivity" package-name="org.ofbiz.product.subscription" title="Subscription Activity Entity">
         <field name="subscriptionActivityId" type="id-ne"></field>
@@ -4568,6 +4579,7 @@ under the License.
         <field name="description" type="description"></field>
         <field name="contentId" type="id"><description>Optional (use if applicable) ID of a Content record that this would represent a subscription to.</description></field>
         <field name="webSiteId" type="id"><description>Optional (use if applicable) ID of a WebSite record that this would represent a subscription to.</description></field>
+        <field name="serviceNameOnExpiry" type="long-varchar"><description>Name of service which will run on subscription expiration.</description></field>
         <prim-key field="subscriptionResourceId"/>
         <relation type="one" fk-name="SUBSC_RES_PARENT" title="Parent" rel-entity-name="SubscriptionResource">
             <key-map field-name="parentResourceId" rel-field-name="subscriptionResourceId"/>
