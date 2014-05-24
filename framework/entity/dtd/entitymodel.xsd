@@ -499,7 +499,13 @@ under the License.
     <xs:element name="extend-entity">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field">
+                    <xs:annotation>
+                        <xs:documentation>
+                            Only overrides of type, colName, description and enable-audit-log are currently supported
+                        </xs:documentation>
+                    </xs:annotation>                                
+                </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
             </xs:sequence>
