@@ -28,17 +28,19 @@ under the License.
             <td>${uiLabelMap.WebtoolsParameterValue}</td>
             <td>${uiLabelMap.WebtoolsServiceSaveValue} ?</td>
           </tr>
-          <#list serviceResultList as srl>
-            <tr>
-              <#if srl.hasChild=="Y">
-                <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
-              <#else>
-                <td>${srl.key?if_exists}</td>
-              </#if>
-              <td>${srl.value?if_exists}</td>
-              <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
-            </tr>
-          </#list>
+            <#if serviceResultList?has_content>
+              <#list serviceResultList as srl>
+                <tr>
+                  <#if srl.hasChild=="Y">
+                    <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
+                  <#else>
+                    <td>${srl.key?if_exists}</td>
+                  </#if>
+                    <td>${srl.value?if_exists}</td>
+                    <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
+                  </tr>
+               </#list>
+            </#if>
           <tr>
             <td>&nbsp;</td>
             <td class="label">${uiLabelMap.WebtoolsServiceClearPreviousParams} ? <input type="checkbox" name="_CLEAR_PREVIOUS_PARAMS_" /></td>
