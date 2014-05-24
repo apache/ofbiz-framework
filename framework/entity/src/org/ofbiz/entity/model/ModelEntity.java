@@ -47,8 +47,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelIndex.Field;
 import org.w3c.dom.Document;
@@ -366,11 +366,15 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 this.fieldsList.add(newField);
                 this.fieldsMap.put(newField.getName(), newField);
                 if (!newField.getIsPk()) {
-                    // this will always be true for now as extend-entity fields are always nonpks
                     if (existingField != null) {
                         this.nopks.remove(existingField);
                     }
                     this.nopks.add(newField);
+                } else {
+                    if (existingField != null) {
+                        this.pks.remove(existingField);
+                    }
+                    this.pks.add(newField);
                 }
             }
         }
