@@ -504,7 +504,7 @@ under the License.
                         <xs:documentation>
                             Only overrides of type, colName, description and enable-audit-log are currently supported
                         </xs:documentation>
-                    </xs:annotation>                                
+                    </xs:annotation>
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="index"/>
