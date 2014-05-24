@@ -20,6 +20,7 @@ package org.ofbiz.product.subscription;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -35,6 +36,8 @@ import org.ofbiz.common.uom.UomWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -219,6 +222,8 @@ public class SubscriptionServices {
                 subContext.put("automaticExtend", productSubscriptionResource.get("automaticExtend"));
                 subContext.put("canclAutmExtTime", productSubscriptionResource.get("canclAutmExtTime"));
                 subContext.put("canclAutmExtTimeUomId", productSubscriptionResource.get("canclAutmExtTimeUomId"));
+                subContext.put("gracePeriodOnExpiry", productSubscriptionResource.get("gracePeriodOnExpiry"));
+                subContext.put("gracePeriodOnExpiryUomId", productSubscriptionResource.get("gracePeriodOnExpiryUomId"));
 
                 Map<String, Object> ctx = dctx.getModelService("processExtendSubscription").makeValid(subContext, ModelService.IN_PARAM);
                 Map<String, Object> processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
@@ -297,5 +302,98 @@ public class SubscriptionServices {
         }
 
         return ServiceUtil.returnSuccess();
+    }
+    
+    public static Map<String, Object> runServiceOnSubscriptionExpiry( DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        
+        GenericValue userLogin = (GenericValue) context.get("userLogin");        
+        Map<String, Object> result = new HashMap<String, Object>();
+        Map<String, Object> expiryMap = new HashMap<String, Object>();
+        String gracePeriodOnExpiry = null;
+        String gracePeriodOnExpiryUomId = null;
+        String subscriptionId = null;
+        
+        try {
+            EntityCondition cond1 = EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "N");
+            EntityCondition cond2 = EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, null);
+            EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(cond1, cond2), EntityOperator.OR);
+            List<GenericValue> subscriptionList = null;
+            subscriptionList = delegator.findList("Subscription", cond, null,null, null, false);
+            
+            if (subscriptionList != null) {
+                for (GenericValue subscription : subscriptionList) {
+                    Calendar currentDate = Calendar.getInstance();
+                    currentDate.setTime(UtilDateTime.nowTimestamp());
+                    // check if the thruDate + grace period (if provided) is earlier than today's date
+                    Calendar endDateSubscription = Calendar.getInstance();
+                    int field = Calendar.MONTH;
+                    String subscriptionResourceId = subscription.getString("subscriptionResourceId");
+                    GenericValue subscriptionResource = null;
+                    subscriptionResource = delegator.findOne("SubscriptionResource", UtilMisc.toMap("subscriptionResourceId", subscriptionResourceId), false);
+                    subscriptionId = subscription.getString("subscriptionId");
+                    gracePeriodOnExpiry = subscription.getString("gracePeriodOnExpiry");
+                    gracePeriodOnExpiryUomId = subscription.getString("gracePeriodOnExpiryUomId");
+                    String serviceNameOnExpiry = subscriptionResource.getString("serviceNameOnExpiry");
+                    endDateSubscription.setTime(subscription.getTimestamp("thruDate"));
+                    
+                    if (gracePeriodOnExpiry != null && gracePeriodOnExpiryUomId != null) {
+                        if ("TF_day".equals(gracePeriodOnExpiryUomId)) {
+                            field = Calendar.DAY_OF_YEAR;
+                        } else if ("TF_wk".equals(gracePeriodOnExpiryUomId)) {
+                            field = Calendar.WEEK_OF_YEAR;
+                        } else if ("TF_mon".equals(gracePeriodOnExpiryUomId)) {
+                            field = Calendar.MONTH;
+                        } else if ("TF_yr".equals(gracePeriodOnExpiryUomId)) {
+                            field = Calendar.YEAR;
+                        } else {
+                            Debug.logWarning("Don't know anything about gracePeriodOnExpiryUomId [" + gracePeriodOnExpiryUomId + "], defaulting to month", module);
+                        }
+                        endDateSubscription.add(field, Integer.valueOf(gracePeriodOnExpiry).intValue());
+                    }
+                    
+                    if ((currentDate.after(endDateSubscription) || currentDate.equals(endDateSubscription)) && serviceNameOnExpiry != null) {
+                        if (userLogin != null) {
+                            expiryMap.put("userLogin", userLogin);
+                        }
+                        if (subscriptionId != null) {
+                            expiryMap.put("subscriptionId", subscriptionId);
+                        }
+                        result = dispatcher.runSync(serviceNameOnExpiry, expiryMap);
+                        if (ServiceUtil.isSuccess(result)) {
+                            Debug.logInfo("Subscription expired successfully for subscription ID:" + subscriptionId, module);
+                        } else if (ServiceUtil.isError(result)) {
+                            result = null;
+                            Debug.logError("Error expiring subscription while processing with subscriptionId: " + subscriptionId, module);
+                        }
+
+                        if (result != null && subscriptionId != null) {
+                            Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + result.get("successMessage"), module);
+                        } else if (result == null && subscriptionId != null) {
+                            Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, module);
+                            return ServiceUtil.returnError("Subscription couldn't be expired for subscriptionId: " + subscriptionId);
+                        }
+                    }
+                }
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError("Error while calling service specified in serviceNameOnExpiry", module);
+            return ServiceUtil.returnError(e.toString());
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+
+        return result;
+    }
+
+    public static Map<String, Object> runSubscriptionExpired(
+            DispatchContext dctx, Map<String, ? extends Object> context) {
+        String subscriptionId = (String) context.get("subscriptionId");
+        Map<String, Object> result = new HashMap<String, Object>();
+        if (subscriptionId != null) {
+            return ServiceUtil.returnSuccess("runSubscriptionExpired service called successfully with subscriptionId " + subscriptionId);
+        }
+        return result;
     }
 }
