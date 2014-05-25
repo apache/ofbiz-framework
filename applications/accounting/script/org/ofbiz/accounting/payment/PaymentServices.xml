@@ -219,15 +219,13 @@ under the License.
                 <field field="invoice" type="GenericValue"/>
             </call-class-method>
 
-            <if-empty field="paymentAppl.amountApplied">
-                <if-compare-field field="notAppliedInvoice" operator="less-equals" to-field="notAppliedPayment">
+                <if-compare-field field="notAppliedInvoice" operator="less-equals" to-field="notAppliedPayment" type="BigDecimal">
                     <set field="paymentAppl.amountApplied" from-field="notAppliedInvoice"/>
                     <else>
                         <set field="paymentAppl.amountApplied" from-field="notAppliedPayment"/>
                     </else>
                 </if-compare-field>
-            </if-empty>
-            
+
             <if-not-empty field="invoice.billingAccountId">
                 <set field="paymentAppl.billingAccountId" from-field="invoice.billingAccountId"/>
             </if-not-empty>

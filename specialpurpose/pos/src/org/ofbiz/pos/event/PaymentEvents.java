@@ -356,7 +356,7 @@ public class PaymentEvents {
             PosScreen newPos = pos.showPage("pospanel");
             newPos.showDialog("dialog/error/noitems");
         } else if (trans.getTotalDue().compareTo(BigDecimal.ZERO) > 0) {
-            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("Xuilabels", "NOT_ENOUGH_FUNDS", defaultLocale));
+            pos.showDialog("dialog/error/exception", UtilProperties.getMessage("XuiLabels", "NOT_ENOUGH_FUNDS", defaultLocale));
             trans.clearPayment("CASH");
         } else {
             // manual locks (not secured; will be unlocked on clear)
