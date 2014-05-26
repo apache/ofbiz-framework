@@ -12,6 +12,7 @@ ofbiz.jar
 changelog
 runtime/git-rebase/*
 runtime/svninfo.ftl
+runtime/gitnfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
 runtime/logs/cobertura-base.dat
@@ -39,3 +40,4 @@ themes/flatgrey/webapp/flatgrey/mainrtl-min.css
 .*.swp
 .*.swo
 framework/entity/lib/jdbc
+/runtime/gitinfo.ftl
