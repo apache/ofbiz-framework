@@ -223,6 +223,29 @@ under the License.
         <echo message=" " file="runtime/svninfo.ftl"/>
         <echo message="Done!"/>
     </target>
+    
+    <target name="gitinfo"
+        description="Update the Git Branch-revision info in the footer.">
+        <echo message="Creating gitinfo..."/>
+        <exec executable="git" outputproperty="branch">
+            <arg value="rev-parse"/>
+            <arg value="--abbrev-ref"/>
+            <arg value="HEAD"/>
+        </exec>
+        <exec executable="git" outputproperty="revision">
+            <arg value="rev-parse"/>
+            <arg value="HEAD"/>
+        </exec>
+        <echo message="Found Branch-revision: ${branch}-${revision}"/>
+        <echo message=" - Branch-revision: ${branch}-${revision}" file="runtime/gitinfo.ftl"/>
+        <echo message="Done!"/>
+    </target>
+
+    <target name="clean-gitinfo">
+        <echo message="Resetting svninfo..."/>
+        <echo message=" " file="runtime/gitinfo.ftl"/>
+        <echo message="Done!"/>
+    </target>
 
     <!-- ================================================================== -->
     <!-- Apply patches where needed                                         -->
@@ -301,6 +324,7 @@ under the License.
 
         <hotdeployant/>
         <antcall target="clean-svninfo"/>
+        <antcall target="clean-gitinfo"/>
 
         <echo message="[build] ========== Done Building (Compile) =========="/>
     </target>
