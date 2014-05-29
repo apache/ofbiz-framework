@@ -110,7 +110,6 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                <label>fromDateProp = ${fromDateProp}</label>
                         <screenlet>
                             <container>
                                 <platform-specific>
