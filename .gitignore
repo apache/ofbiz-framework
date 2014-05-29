@@ -12,7 +12,7 @@ ofbiz.jar
 changelog
 runtime/git-rebase/*
 runtime/svninfo.ftl
-runtime/gitnfo.ftl
+runtime/gitinfo.ftl
 runtime/test-list-build.xml
 runtime/logs/access_log.*
 runtime/logs/cobertura-base.dat
