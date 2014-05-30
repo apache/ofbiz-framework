@@ -1,0 +1,6 @@
+The 30 May 2014 a new self signed SSL certificate was created on the OFBiz demo VM with own CA following http://httpd.apache.org/docs/current/ssl/ssl_faq.html#realcert
+This certificate is valid for 10 years (until May 27 08:43:19 2024 GMT)
+Characteristics: C=US, ST=DE, L=Wilmington, O=Apache Software Fundation, OU=Apache OFBiz, CN=ofbiz-vm.apache.org/emailAddress=dev@ofbiz.apache.org
+The password is still the same: changeit
+
+I don't really understand the content and the need of framework/base/cert/ so I only added framework/base/cert/demoCA/newcerts/03.pem and this README
