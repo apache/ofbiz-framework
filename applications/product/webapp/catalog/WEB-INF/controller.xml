@@ -2367,7 +2367,7 @@ under the License.
     </request-map>
     <request-map uri="ListProductStoreFacilityFormOnly">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListProductStoreFacilityFormOnly"/>
+        <response name="success" type="view" value="ListProductStoreFacility"/>
     </request-map>
     <request-map uri="editProductStoreFacility"><security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductStoreFacility"/>
@@ -2387,8 +2387,8 @@ under the License.
     <request-map uri="deleteProductStoreFacility">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteProductStoreFacility"/>
-        <response name="success" type="view" value="ListProductStoreFacilityFormOnly"/>
-        <response name="error" type="view" value="ListProductStoreFacilityFormOnly"/>
+        <response name="success" type="view" value="ListProductStoreFacility"/>
+        <response name="error" type="view" value="ListProductStoreFacility"/>
     </request-map>
 
     <!-- ================ Keyword Thesaurus Requests ================= -->
@@ -3207,7 +3207,6 @@ under the License.
     <view-map name="EditProductStoreVendorShipments" type="screen" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreVendorShipments"/>
     <view-map name="ProductStoreFacilities" page="component://product/widget/catalog/CommonScreens.xml#ProductStoreFacilities" type="screen"/>
     <view-map name="ListProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacility" type="screen"/>
-    <view-map name="ListProductStoreFacilityFormOnly" page="component://product/widget/catalog/StoreScreens.xml#ListProductStoreFacilityFormOnly" type="screen"/>
     <view-map name="EditProductStoreFacility" page="component://product/widget/catalog/StoreScreens.xml#EditProductStoreFacility" type="screen"/>
     <view-map name="EditVendorProduct" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditVendorProduct"/>
     <view-map name="EditKeywordThesaurus" type="screen" page="component://product/widget/catalog/ThesaurusScreens.xml#EditKeywordThesaurus"/>
