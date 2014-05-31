@@ -127,7 +127,7 @@ under the License.
         <field name="fromDate" ><display type="date-time" /></field>
         <field name="thruDate" ><display type="date-time" /></field>
         <field name="deleteLink" title=" " >
-            <hyperlink target="javascript:ajaxUpdateArea('PrdStoreFacilityMgmtArea', 'deleteProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
+            <hyperlink target="javascript:ajaxUpdateArea('PP_ProductStoreFacilityPrdStoreFacilityMgmt00001', 'deleteProductStoreFacility', 'productStoreId=${productStoreId}&amp;facilityId=${facilityId}&amp;fromDate=${fromDate}');"
                target-type="plain" request-confirmation="true" image-location="/images/mini-trash.png" image-title="${uiLabelMap.CommonRemove}">
             </hyperlink>
         </field>
@@ -151,7 +151,7 @@ under the License.
         <field name="submitButton" title="${groovy: productStoreFacility == null ? uiLabelMap.CommonAdd : uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
-        <on-event-update-area event-type="submit" area-id="PrdStoreFacilityMgmtArea" area-target="ListProductStoreFacilityFormOnly?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
+        <on-event-update-area event-type="submit" area-id="PP_ProductStoreFacilityPrdStoreFacilityMgmt00001" area-target="ListProductStoreFacilityFormOnly?portalPortletId=PrdStoreFacilityMgmt&amp;productStoreId=${parameters.productStoreId}"/>
      </form>
 
      <!-- ProductStoreGroup Forms -->

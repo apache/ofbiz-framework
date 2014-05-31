@@ -564,6 +564,8 @@ under the License.
                 <set field="titleProperty" value="ProductStoreFacilityAssocList"/>
                 <set field="tabButtonItem" value="EditProductStoreFacilities"/>
                 <set field="productStoreId" from-field="parameters.productStoreId"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="portalPageId" value="ProductStoreFacility"/>
             </actions>
             <widgets>
