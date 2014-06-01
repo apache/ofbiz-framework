@@ -915,6 +915,8 @@ function showErrorAlertLoadUiLabel(errBoxTitleResource, errBoxTitleLabel, uiReso
                 }
             }
         });
+    } else {
+      alert(labels[uiResource][0]);
     }
 }
 

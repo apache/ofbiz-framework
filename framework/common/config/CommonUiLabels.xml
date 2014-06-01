@@ -4457,6 +4457,10 @@
         <value xml:lang="zh-CN">起始日期 / 终止日期</value>
         <value xml:lang="zh-TW">開始日/結束日</value>
     </property>
+    <property key="CommonFromDateThruDateCheck">
+        <value xml:lang="en">Thru date can't be same or smaller than from date</value>
+        <value xml:lang="fr">La date de fin ne peut être égale ou plus récente que la date de début</value>
+    </property>
     <property key="CommonFromDateTime">
         <value xml:lang="ar">تاريخ  و وقت البدء</value>
         <value xml:lang="cs">Od data a času</value>
