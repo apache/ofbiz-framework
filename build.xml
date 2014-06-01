@@ -242,7 +242,7 @@ under the License.
     </target>
 
     <target name="clean-gitinfo">
-        <echo message="Resetting svninfo..."/>
+        <echo message="Resetting gitinfo..."/>
         <echo message=" " file="runtime/gitinfo.ftl"/>
         <echo message="Done!"/>
     </target>
