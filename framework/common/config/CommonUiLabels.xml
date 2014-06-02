@@ -4439,7 +4439,7 @@
         <value xml:lang="ar">تاريخ البدء/تاريخ النهاية</value>
         <value xml:lang="cs">Od data / Do data</value>
         <value xml:lang="de">Von Datum / Bis Datum</value>
-        <value xml:lang="en">From Date / Thru Date</value>
+        <value xml:lang="en">From Date / Through Date</value>
         <value xml:lang="es">Desde la fecha / Hasta la fecha</value>
         <value xml:lang="fr">De la date / jusqu'à la date</value>
         <value xml:lang="hi-IN">दिनांक से/दिनांक तक</value>
@@ -4458,7 +4458,7 @@
         <value xml:lang="zh-TW">開始日/結束日</value>
     </property>
     <property key="CommonFromDateThruDateCheck">
-        <value xml:lang="en">Thru date can't be same or smaller than from date</value>
+        <value xml:lang="en">Through date can't be same or smaller than from date</value>
         <value xml:lang="fr">La date de fin ne peut être égale ou plus récente que la date de début</value>
     </property>
     <property key="CommonFromDateTime">
@@ -10921,7 +10921,7 @@
         <value xml:lang="ar">حتى</value>
         <value xml:lang="cs">Do</value>
         <value xml:lang="de">Bis</value>
-        <value xml:lang="en">Thru</value>
+        <value xml:lang="en">Through</value>
         <value xml:lang="es">Hasta</value>
         <value xml:lang="fr">Jusqu'à</value>
         <value xml:lang="hi-IN">तक</value>
@@ -10941,7 +10941,7 @@
         <value xml:lang="ar">التاريخ النهائي</value>
         <value xml:lang="cs">Do data</value>
         <value xml:lang="de">Bis Datum</value>
-        <value xml:lang="en">Thru Date</value>
+        <value xml:lang="en">Through Date</value>
         <value xml:lang="es">Hasta la fecha</value>
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="hi-IN">दिनांक तक</value>
@@ -10963,7 +10963,7 @@
         <value xml:lang="ar">التاريخ/الوقت النهائي</value>
         <value xml:lang="cs">Do data a času</value>
         <value xml:lang="de">Bis Datum  Zeit</value>
-        <value xml:lang="en">Thru Date  Time</value>
+        <value xml:lang="en">Through Date  Time</value>
         <value xml:lang="es">Hasta la fecha y hora</value>
         <value xml:lang="fr">jusqu'à la date et l'heure</value>
         <value xml:lang="hi-IN">दिनांक समय तक</value>
@@ -11627,7 +11627,7 @@
         <value xml:lang="ar">تحديث فعال حتى</value>
         <value xml:lang="cs">Aktualizace účinná do</value>
         <value xml:lang="de">Tatsächlich aktualisiert bis</value>
-        <value xml:lang="en">Updated Effective Thru</value>
+        <value xml:lang="en">Updated Effective Through</value>
         <value xml:lang="es">ACtualización efectiva hasta</value>
         <value xml:lang="fr">Mise à jour efficace jusqu'à</value>
         <value xml:lang="hi-IN">अद्यतित(Updated) प्रभावी तक</value>
@@ -11818,7 +11818,7 @@
         <value xml:lang="ar">ضالح حتى تاريخ</value>
         <value xml:lang="cs">Platnost do data</value>
         <value xml:lang="de">Gültig Bis Datum</value>
-        <value xml:lang="en">Valid Thru Date</value>
+        <value xml:lang="en">Valid Through Date</value>
         <value xml:lang="es">Válido hasta</value>
         <value xml:lang="fr">Valable jusqu'à</value>
         <value xml:lang="hi-IN">'दिनांक तक' मान्य</value>
@@ -13660,7 +13660,7 @@
         <value xml:lang="ar">حتي تاريخ</value>
         <value xml:lang="cs">Da data</value>
         <value xml:lang="de">Bis Datum</value>
-        <value xml:lang="en">Thru Date</value>
+        <value xml:lang="en">Through Date</value>
         <value xml:lang="es">Hasta fecha</value>
         <value xml:lang="fr">jusqu'à la date</value>
         <value xml:lang="hi-IN">दिनांक तक</value>

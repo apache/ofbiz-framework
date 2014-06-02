@@ -4482,7 +4482,7 @@
     </property>
     <property key="PartyContactEffectiveThru">
         <value xml:lang="de">Gültig bis</value>
-        <value xml:lang="en">Effective Thru</value>
+        <value xml:lang="en">Effective Through</value>
         <value xml:lang="es">Válido hasta</value>
         <value xml:lang="fr">Effectif jusqu'à</value>
         <value xml:lang="it">Effettivo Al</value>

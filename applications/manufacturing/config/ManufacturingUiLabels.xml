@@ -2118,7 +2118,7 @@
     </property>
     <property key="ManufacturingFixedAssetThruDateNotCorrect">
         <value xml:lang="de">Das Feld "Bis-Datum" ist falsch formatiert</value>
-        <value xml:lang="en">The Thru Date field is not formatted correctly</value>
+        <value xml:lang="en">The Through Date field is not formatted correctly</value>
         <value xml:lang="es">La fecha de fin no tiene el formato correcto</value>
         <value xml:lang="fr">Le champ de par la date n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Data Fine non è formattata correttamente</value>
@@ -3086,7 +3086,7 @@
         <value xml:lang="zh_TW">沒有選中生產運行</value>
     </property>
     <property key="ManufacturingNote1">
-        <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is</value>
+        <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Through Date. If the From Date is</value>
         <value xml:lang="es">entradas fecha/hora indican que la hora actual es antes de la fecha de o hasta. Si la fecha desde es</value>
         <value xml:lang="fr">Les lignes date/heure indiquent que l'heure en cours est avant la date ou après la date en cours. Si la date est </value>
         <value xml:lang="it">le voci data/ora indicano che l'orario attuale è prima della Data di Inizio o dopo la Data di Fine. Se la Data di Inizio è</value>
@@ -3098,7 +3098,7 @@
         <value xml:lang="zh_TW">當前時間在開始日期之前或結束日期之後的日期/時間記錄</value>
     </property>
     <property key="ManufacturingNote2">
-        <value xml:lang="en">, association has not started yet; if Thru Date is</value>
+        <value xml:lang="en">, association has not started yet; if Through Date is</value>
         <value xml:lang="es">, asociación aún sin empezar; si la fecha hasta es</value>
         <value xml:lang="fr">, l'association n'a pas commencé encore; si la date de fin est</value>
         <value xml:lang="it">, associazione non è ancora iniziata; se la Data di Fine è</value>

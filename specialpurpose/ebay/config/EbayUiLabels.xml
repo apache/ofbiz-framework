@@ -398,7 +398,7 @@
         <value xml:lang="zh">不能转换开始日期，从yyyy-MM-dd HH:mm:ss.SSS日期格式变为yyyy-MM-dd'T'HH:mm:ss.SSS'Z'日期格式</value>
     </property>
     <property key="ordersImportFromEbay.cannotConvertThruDate">
-        <value xml:lang="en">Cannot convert thru date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>
+        <value xml:lang="en">Cannot convert Through date, from yyyy-MM-dd HH:mm:ss.SSS date format to yyyy-MM-dd'T'HH:mm:ss.SSS'Z' date format</value>
         <value xml:lang="fr">Ne peut convertir la date de fin, depuis le format yyyy-MM-dd HH:mm:ss.SSS vers yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
         <value xml:lang="it">Non è possibile convertire la data a, dal formato yyyy-MM-dd HH:mm:ss al formato yyyy-MM-dd'T'HH:mm:ss.SSS'Z'</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนวันที่ถึง, จาก yyyy-MM-dd HH:mm:ss.SSS ถึงรูปแบบวันที่ yyyy-MM-dd'T'HH:mm:ss.SSS'Z' รูปแบบวันที่</value>

@@ -54,7 +54,7 @@
     </property>
     <property key="FormFieldTitle_actualThruDate">
         <value xml:lang="de">Entlassungsdatum</value>
-        <value xml:lang="en">Actual Thru Date</value>
+        <value xml:lang="en">Actual Through Date</value>
         <value xml:lang="fr">Date réelle de fin</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="ja">実績終了日</value>
@@ -315,7 +315,7 @@
         <value xml:lang="zh_TW">預計起始日期</value>
     </property>
     <property key="FormFieldTitle_estimatedThruDate">
-        <value xml:lang="en">Estimated Thru Date</value>
+        <value xml:lang="en">Estimated Through Date</value>
         <value xml:lang="fr">Date de fin estimée</value>
         <value xml:lang="it">Data Fine Stimata</value>
         <value xml:lang="ja">予定終了日</value>

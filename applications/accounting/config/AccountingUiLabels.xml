@@ -13957,7 +13957,7 @@
     </property>
     <property key="AccountingThruDate">
         <value xml:lang="ar">الأجل</value>
-        <value xml:lang="en">Thru Date</value>
+        <value xml:lang="en">Through Date</value>
         <value xml:lang="es">Fecha de término</value>
         <value xml:lang="fr">jusqu'à la date</value>
         <value xml:lang="hi_IN">दिनांक तक</value>
@@ -16331,7 +16331,7 @@
     </property>
     <property key="FormFieldTitle_dateThru">
         <value xml:lang="ar">الأجل</value>
-        <value xml:lang="en">Date Thru</value>
+        <value xml:lang="en">Date Through</value>
         <value xml:lang="es">hasta fecha</value>
         <value xml:lang="fr">Jusque (date)</value>
         <value xml:lang="hi_IN">दिनांक तक</value>
@@ -18457,7 +18457,7 @@
         <value xml:lang="zh_TW">時段一的總帳財務類型ID</value>
     </property>
     <property key="FormFieldTitle_period1ThruDate">
-        <value xml:lang="en">Period1 Thru Date</value>
+        <value xml:lang="en">Period1 Through Date</value>
         <value xml:lang="fr">Exercice 1 jusqu'à la date</value>
         <value xml:lang="hi_IN">अवधि1, दिनांक तक</value>
         <value xml:lang="it">Periodo 1 Alla Data</value>
@@ -18489,7 +18489,7 @@
         <value xml:lang="zh_TW">時段二的總帳財務類型編號</value>
     </property>
     <property key="FormFieldTitle_period2ThruDate">
-        <value xml:lang="en">Period2 Thru Date</value>
+        <value xml:lang="en">Period2 Through Date</value>
         <value xml:lang="fr">Exercice 2 jusqu'à la date</value>
         <value xml:lang="hi_IN">अवधि2, दिनांक तक</value>
         <value xml:lang="it">Periodo 2 Alla Data</value>
@@ -19472,7 +19472,7 @@
         <value xml:lang="zh_TW">會計交易編號</value>
     </property>
     <property key="FormFieldTitle_thruDueDate">
-        <value xml:lang="en">Thru Due Date</value>
+        <value xml:lang="en">Through Due Date</value>
         <value xml:lang="fr">Jusqu'à la date d'échéance</value>
         <value xml:lang="hi_IN">अन्तिम दिनांक तक</value>
         <value xml:lang="ja">支払期日(終)</value>
@@ -19482,7 +19482,7 @@
         <value xml:lang="zh">截止日期终于</value>
     </property>
     <property key="FormFieldTitle_thruInvoiceDate">
-        <value xml:lang="en">Thru Invoice Date</value>
+        <value xml:lang="en">Through Invoice Date</value>
         <value xml:lang="fr">Jusqu'à la date de facture</value>
         <value xml:lang="hi_IN">चालान दिनांक तक</value>
         <value xml:lang="ja">請求日(終)</value>
