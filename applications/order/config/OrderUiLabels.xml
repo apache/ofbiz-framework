@@ -10531,7 +10531,7 @@
     </property>
     <property key="OrderReportThruDate">
         <value xml:lang="de">Bis Datum(Auftrag Datum&lt;)</value>
-        <value xml:lang="en">Thru Date(Order Date&lt;)</value>
+        <value xml:lang="en">Through Date(Order Date&lt;)</value>
         <value xml:lang="es">Hasta Fecha(Fecha pedido &lt;)</value>
         <value xml:lang="fr">à la date(date de commande&lt;)</value>
         <value xml:lang="it">Fino alla Data(Data Ordine&lt;)</value>

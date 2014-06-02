@@ -2717,7 +2717,7 @@
     </property>
     <property key="FormFieldTitle_activationValidThru">
         <value xml:lang="de">Aktivierung gültig bis</value>
-        <value xml:lang="en">Activation Valid Thru</value>
+        <value xml:lang="en">Activation Valid Through</value>
         <value xml:lang="es">Activación válida hasta</value>
         <value xml:lang="fr">Activation valide jusqu'à</value>
         <value xml:lang="it">Attivazione Valida Fino A</value>
@@ -3120,7 +3120,7 @@
     </property>
     <property key="FormFieldTitle_availableThruDate">
         <value xml:lang="de">Verfügbar bis Datum</value>
-        <value xml:lang="en">Available Thru Date</value>
+        <value xml:lang="en">Available Through Date</value>
         <value xml:lang="es">Disponible hasta fecha</value>
         <value xml:lang="fr">Disponible jusqu'à</value>
         <value xml:lang="it">Disponibile Alla Data</value>
@@ -6119,7 +6119,7 @@
     </property>
     <property key="FormFieldTitle_purchaseThruDate">
         <value xml:lang="de">Einkauf Bis Datum</value>
-        <value xml:lang="en">Purchase Thru Date</value>
+        <value xml:lang="en">Purchase Through Date</value>
         <value xml:lang="es">Hasta fecha de compra</value>
         <value xml:lang="fr">Date par achat</value>
         <value xml:lang="it">Acquisto alla data </value>
@@ -7232,7 +7232,7 @@
     </property>
     <property key="FormFieldTitle_thruQuantity">
         <value xml:lang="de">Bis Menge</value>
-        <value xml:lang="en">Thru Quantity</value>
+        <value xml:lang="en">Through Quantity</value>
         <value xml:lang="es">Hasta cantidad</value>
         <value xml:lang="fr">Jusqu'à la quantité</value>
         <value xml:lang="it">Alla quantità</value>
@@ -12662,7 +12662,7 @@
     </property>
     <property key="ProductAvailableThruDate">
         <value xml:lang="de">Verfügbar bis Datum</value>
-        <value xml:lang="en">Available thru date</value>
+        <value xml:lang="en">Available Through date</value>
         <value xml:lang="es">Disponible hasta la fecha</value>
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="it">Disponibilità alla data</value>
@@ -14003,7 +14003,7 @@
     </property>
     <property key="ProductConditionsActionsRemoveBefore">
         <value xml:lang="de">Um eine Preisregel zu löschen, müssen entweder zuerst alle dazugehörigen Bedingungen und Aktionen entfernt ODER die Regel über das Ablaufdatum deaktiviert werden</value>
-        <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Thru Date</value>
+        <value xml:lang="en">To remove a price rule, you must before remove all conditions and actions OR disable it by entering a Through Date</value>
         <value xml:lang="fr">Pour supprimer une règle de prix, vous devez d'abord supprimer toutes les conditions et actions. Vous pouvez aussi la désactiver en entrant une date de fin appropriée</value>
         <value xml:lang="ja">価格ルールを削除するには、すべての条件およびアクションを削除するか、終了日を入れて無効にする必要があります</value>
         <value xml:lang="vi">Để loại bỏ Luật tính giá, trước tiên bạn cần loại bỏ toàn bộ các điều kiện và toán tử HOẶC vô hiệu hóa bởi nhập Ngày đến</value>
@@ -17783,7 +17783,7 @@
     </property>
     <property key="ProductHighlightedExplanation">
         <value xml:lang="de"> Datum/Zeit Angaben sind rot markiert wenn die aktuelle Zeit vor dem Von Datum oder nach dem Bis Datum ist. Wenn das Von Datum rot ist, ist die Zuordnung noch nicht aktiv; falls das Bis Datum rot ist, ist die Zuordnung abgelaufen (und sollte vermutlich gelöscht werden).</value>
-        <value xml:lang="en"> date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is red, association has not started yet; if Thru Date is red, association has expired (and should probably be deleted).</value>
+        <value xml:lang="en"> date/time entries denote that the current time is before the From Date or after the Through Date. If the From Date is red, association has not started yet; if Through Date is red, association has expired (and should probably be deleted).</value>
         <value xml:lang="es"> entrades de fecha/hora indican que la hora actual es anterior a la Fecha de Inicio o después de la Fecha de Fin. Si la fecha de inicio es red, la asociación no ha comenzado aún; si la fecha de fin es red, la asociación ha expirado (y probablemente debe ser eliminada).</value>
         <value xml:lang="fr"> date/heure sont notées en rouge lorsque l'heure précède la date de début ou dépasse la date de fin. Si la date de début est en rouge, l'association n'a pas pu encore débuter ; si la date de fin est en rouge, l'association a déjà expiré (et il faudra sûrement la supprimer).</value>
         <value xml:lang="it"> voci data/ora denotano che l'ora attuale è prima della Data Da o dopo la Data A. Se la Data Da è rossa, associazione non è stata ancora iniziata; se la Data A è rosso, associazione è scaduta (e dovrebbe essere probabilmente cancellata).</value>
@@ -24915,7 +24915,7 @@
     </property>
     <property key="ProductPurchaseThru">
         <value xml:lang="de">Einkäufe bis</value>
-        <value xml:lang="en">Purchase Thru</value>
+        <value xml:lang="en">Purchase Through</value>
         <value xml:lang="es">Comprar hasta</value>
         <value xml:lang="fr">Achat jusqu'à</value>
         <value xml:lang="it">Acquistato Fino A</value>
@@ -24929,7 +24929,7 @@
     </property>
     <property key="ProductPurchaseThruDate">
         <value xml:lang="de">Einkäufe bis Datum</value>
-        <value xml:lang="en">Purchase Thru Date</value>
+        <value xml:lang="en">Purchase Through Date</value>
         <value xml:lang="es">Fecha fin de la compra</value>
         <value xml:lang="fr">Achat jusqu'à la date</value>
         <value xml:lang="it">Acquistato Fino Alla Data</value>
@@ -26472,7 +26472,7 @@
     </property>
     <property key="ProductRuleNameFromDateThruDate">
         <value xml:lang="de">Name der Regel, Beschreibung, von Datum, bis Datum</value>
-        <value xml:lang="en">Rule Name, Description, From Date, Thru Date</value>
+        <value xml:lang="en">Rule Name, Description, From Date, Through Date</value>
         <value xml:lang="es">Nombre de la regla, Fecha de inicio, Fecha de fin</value>
         <value xml:lang="fr">Nom de la règle, description, de la date, jusqu'à la date</value>
         <value xml:lang="it">Nome regola, descrizione, da data, a data</value>
@@ -26595,7 +26595,7 @@
     </property>
     <property key="ProductSalesThruDate">
         <value xml:lang="de">Verkauf bis zum Datum</value>
-        <value xml:lang="en">Sales Discontinuation Thru Date</value>
+        <value xml:lang="en">Sales Discontinuation Through Date</value>
         <value xml:lang="es">Fecha final de venta</value>
         <value xml:lang="fr">Jusqu'à la date</value>
         <value xml:lang="it">Vendite Sospese Alla Data</value>
@@ -28139,7 +28139,7 @@
     </property>
     <property key="ProductShowProductsSoldThruTimestamp">
         <value xml:lang="de">Produkte anzeigen die verkauft wurden bis</value>
-        <value xml:lang="en">Show Products Sold Thru</value>
+        <value xml:lang="en">Show Products Sold Through</value>
         <value xml:lang="es">Mostrar productos vendidos hasta</value>
         <value xml:lang="fr">Montrer les produits vendus jusqu'au</value>
         <value xml:lang="it">Mostra Prodotti Venduti Fino Al</value>
@@ -28985,7 +28985,7 @@
     </property>
     <property key="ProductSupportThruDate">
         <value xml:lang="de">Unterstützt bis</value>
-        <value xml:lang="en">Support Thru Date</value>
+        <value xml:lang="en">Support Through Date</value>
         <value xml:lang="es">Fecha de fin del soporte</value>
         <value xml:lang="fr">Date de fin de support</value>
         <value xml:lang="it">Supporto Alla Data</value>
@@ -29232,7 +29232,7 @@
     </property>
     <property key="ProductThruDateAmountSequenceApplicationType">
         <value xml:lang="de">Bis Datum, Betrag, Sequenz, Anwendungstyp</value>
-        <value xml:lang="en">Thru Date, Amount, Sequence, Application Type</value>
+        <value xml:lang="en">Through Date, Amount, Sequence, Application Type</value>
         <value xml:lang="es">Fecha fin, Importe, Secuencia, Tipo de aplicación</value>
         <value xml:lang="fr">Jusqu'à la date; quantité; séquence; type d'application</value>
         <value xml:lang="it">Alla Data, Importo, Sequenza, Tipo Applicazione</value>
@@ -29246,11 +29246,11 @@
     </property>
     <property key="ProductThruDateSellThrough">
         <value xml:lang="de">Bis Verkaufsdatum</value>
-        <value xml:lang="en">Thru Date Sell Through</value>
+        <value xml:lang="en">Through Date Sell Through</value>
     </property>
     <property key="ProductThruDateTimePrice">
         <value xml:lang="de">Bis Datum/Zeit, Preis</value>
-        <value xml:lang="en">Thru Date/Time, Price</value>
+        <value xml:lang="en">Through Date/Time, Price</value>
         <value xml:lang="es">Fecha fin/Hora, Precio</value>
         <value xml:lang="fr">Jusqu'à la date et l'heure, le prix</value>
         <value xml:lang="it">Alla Data/Ora, Prezzo</value>
@@ -29264,7 +29264,7 @@
     </property>
     <property key="ProductThruDateTimeSequence">
         <value xml:lang="de">Bis Datum/Zeit Sequenz</value>
-        <value xml:lang="en">Thru Date/Time Sequence</value>
+        <value xml:lang="en">Through Date/Time Sequence</value>
         <value xml:lang="es">Fecha fin/Hora Secuencia</value>
         <value xml:lang="fr">Jusqu'à la date, l'heure et la séquence</value>
         <value xml:lang="it">Alla Data/Ora e Sequenza</value>
@@ -29278,7 +29278,7 @@
     </property>
     <property key="ProductThruDateTimeSequenceQuantity">
         <value xml:lang="de">Bis Datum/Zeit, Sequenz Menge</value>
-        <value xml:lang="en">Thru Date/Time, Sequence Quantity</value>
+        <value xml:lang="en">Through Date/Time, Sequence Quantity</value>
         <value xml:lang="es">Fecha fin/Hora, Secuencia y cantidad</value>
         <value xml:lang="fr">Jusqu'à la date et heure, séquence et quantité</value>
         <value xml:lang="it">Alla Data/Ora,Sequenza e Quantità</value>
@@ -29292,7 +29292,7 @@
     </property>
     <property key="ProductThruDateTimeSequenceType">
         <value xml:lang="de">Bis Datum/Zeit, Sequenztyp</value>
-        <value xml:lang="en">Thru Date/Time, Sequence Type</value>
+        <value xml:lang="en">Through Date/Time, Sequence Type</value>
         <value xml:lang="es">Fecha fin/Hora, Secuencia Tipo</value>
         <value xml:lang="fr">Jusqu'à la date et l'heure, la séquence et le type</value>
         <value xml:lang="it">Alla Data/Ora,Sequenza e Tipo</value>

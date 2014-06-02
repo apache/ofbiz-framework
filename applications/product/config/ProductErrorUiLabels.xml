@@ -725,7 +725,7 @@
     </property>
     <property key="productevents.thru_date_not_formatted_correctly">
         <value xml:lang="de">Bis Datum im falschen Format</value>
-        <value xml:lang="en">Thru Date not formatted correctly.</value>
+        <value xml:lang="en">Through Date not formatted correctly.</value>
         <value xml:lang="es">Fecha fin no formateada correctamente.</value>
         <value xml:lang="fr">Date de fin non composée correctement.</value>
         <value xml:lang="it">Data A non formattata correttamente.</value>
