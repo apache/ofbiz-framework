@@ -45,7 +45,7 @@
     <classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mx4j-remote-3.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/nekohtml-1.9.16.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4-patched-by-OFBIZ-3135.jar"/>    
+    <classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4-patched-by-OFBIZ-3135.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/resolver-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/serializer-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/slf4j-api-1.6.4.jar"/>
@@ -153,7 +153,7 @@
     <classpathentry kind="lib" path="specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>    
+    <classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/attributes.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaycalls.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaysdkcore.jar"/>
