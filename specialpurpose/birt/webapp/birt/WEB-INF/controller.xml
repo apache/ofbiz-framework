@@ -105,6 +105,9 @@ under the License.
         application/vnd.oasis.opendocument.text
         application/vnd.oasis.opendocument.spreadsheet
         application/vnd.oasis.opendocument.presentation
+        application/vnd.openxmlformats-officedocument.wordprocessingml.document
+        application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+        application/vnd.openxmlformats-officedocument.presentationml.presentation
      -->
     <view-map name="ViewHandler" type="birt" page="component://birt/webapp/birt/report/example.rptdesign" content-type="application/pdf"/>
     <view-map name="chartViewHandler" type="birt" page="component://birt/webapp/birt/report/chart.rptdesign" content-type="application/pdf"/>
