@@ -82,5 +82,8 @@ under the License.
         <para>application/vnd.oasis.opendocument.text</para>
         <para>application/vnd.oasis.opendocument.spreadsheet</para>
         <para>application/vnd.oasis.opendocument.presentation</para>
+        <para>application/vnd.openxmlformats-officedocument.wordprocessingml.document</para>
+        <para>application/vnd.openxmlformats-officedocument.spreadsheetml.sheet</para>
+        <para>application/vnd.openxmlformats-officedocument.presentationml.presentation</para>
     </section>
 </section>

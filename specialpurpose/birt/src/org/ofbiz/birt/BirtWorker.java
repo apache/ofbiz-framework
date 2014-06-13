@@ -124,6 +124,12 @@ public class BirtWorker {
             options.setOutputFormat("ods");
         } else if ("application/vnd.oasis.opendocument.presentation".equalsIgnoreCase(contentType)) { // Open Document Presentation
             options.setOutputFormat("odp");
+        } else if ("application/vnd.openxmlformats-officedocument.wordprocessingml.document".equalsIgnoreCase(contentType)) { // MS Word 2007
+            options.setOutputFormat("docx");
+        } else if ("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet".equalsIgnoreCase(contentType)) { // MS Excel 2007
+            options.setOutputFormat("xlsx");
+        } else if ("application/vnd.openxmlformats-officedocument.presentationml.presentation".equalsIgnoreCase(contentType)) { // MS Word 2007
+            options.setOutputFormat("pptx");
         } else {
             throw new GeneralException("Unknown content type : " + contentType);
         }
