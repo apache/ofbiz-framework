@@ -41,6 +41,7 @@ public class BirtContainer implements Container {
 
     private String name;
 
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFile = configFile;
@@ -49,6 +50,7 @@ public class BirtContainer implements Container {
     /**
      * start container
      */
+    @Override
     public boolean start() throws ContainerException {
         Debug.logInfo("Start BIRT container", module);
 
@@ -66,7 +68,7 @@ public class BirtContainer implements Container {
         EngineConfig config = new EngineConfig();
         String ofbizHome = System.getProperty("ofbiz.home");
         config.setTempDir(ofbizHome + File.separatorChar + "runtime" + File.separatorChar + "tempfiles");
-        config.setLogConfig(ofbizHome + File.separatorChar + "runtime" + File.separatorChar + "logs", Level.ALL);
+        config.setLogConfig(ofbizHome + File.separatorChar + "runtime" + File.separatorChar + "logs" + File.separatorChar + "birt", Level.ALL);
 
         // set system properties
         System.setProperty(IBirtConstants.SYS_PROP_WORKING_PATH, config.getTempDir());
@@ -104,9 +106,11 @@ public class BirtContainer implements Container {
         return false;
     }
 
+    @Override
     public void stop() throws ContainerException {
     }
 
+    @Override
     public String getName() {
         return name;
     }
