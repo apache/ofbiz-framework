@@ -486,7 +486,7 @@ public class InvoiceServices {
                 }
 
                 if ("ItemIssuance".equals(currentValue.getEntityName())) {
-                    List<GenericValue> shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", currentValue.get("shipmentId")), null, false);
+                    List<GenericValue> shipmentItemBillings = delegator.findByAnd("ShipmentItemBilling", UtilMisc.toMap("shipmentId", currentValue.get("shipmentId"), "shipmentItemSeqId", currentValue.get("shipmentItemSeqId")), null, false);
                     if (UtilValidate.isEmpty(shipmentItemBillings)) {
 
                         // create the ShipmentItemBilling record
