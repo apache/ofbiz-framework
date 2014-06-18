@@ -161,7 +161,7 @@ under the License.
                 <parameter param-name="facilityId"/>
             </link>
         </menu-item>
-        <menu-item name="EditFacilityAgreements" title="${uiLabelMap.PageTitleEditAgreement}">
+        <menu-item name="EditFacilityAgreements" title="${uiLabelMap.PageTitleViewFacilityAgreements}">
             <link target="EditFacilityAgreements">
                 <parameter param-name="facilityId"/>
             </link>

@@ -1552,18 +1552,12 @@ under the License.
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <entity-and entity-name="AgreementItemAndFacilityAppl" list="facilityAgreements">
                     <field-map field-name="facilityId"/>
-                    <field-map field-name="agreementTypeId" value="FACILITY_AGREEMENT"/>
                     <order-by field-name="fromDate"/>
                 </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
                     <decorator-section name="body">
-                        <container>
-                            <link target="/accounting/control/EditAgreement" url-mode="inter-app" text="${uiLabelMap.PageTitleEditAgreement}" style="buttontext">
-                                <parameter param-name="facilityId"/>
-                            </link>
-                        </container>
                         <screenlet title="${uiLabelMap.FacilityAgreements}">
                             <include-form name="ListFacilityAgreements" location="component://product/widget/facility/FacilityForms.xml"/>
                         </screenlet>
