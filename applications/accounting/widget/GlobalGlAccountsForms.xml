@@ -73,22 +73,17 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" from-field="entityName"/>
-                <field-map field-name="orderBy" value="glAccountId"/>
+                <field-map field-name="orderBy" value="accountCode"/>
                 <field-map field-name="noConditionFind" value="Y"/>
             </service>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </actions>
-        <!--auto-fields-entity entity-name="GlAccount" default-field-type="display"/-->
-        <field name="glAccountId" title="${uiLabelMap.CommonEdit}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate">
+        <field name="accountCode" title="${uiLabelMap.CommonCode}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${accountCode}" target="GlAccountNavigate">
                 <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
-        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
-        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
-        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"></display-entity></field>
-        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"></display-entity></field>
         <field name="parentGlAccountId">
             <display-entity entity-name="GlAccount" description="${accountName}" key-field-name="glAccountId">
                 <sub-hyperlink target="GlAccountNavigate" description="[${parentGlAccountId}]" use-when="parentGlAccountId!=null">
@@ -96,7 +91,14 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="accountCode"><hidden/></field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
+        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"/></field>
+        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"/></field>
+
+        <field name="description"><display/></field>
+        <field name="productId"><display-entity entity-name="Product"/></field>
+        <field name="externalId"><display/></field>
     </form>
 
     <form name="EditGlAccount" type="single" target="updateGlAccount" title="" default-map-name="glAccount"

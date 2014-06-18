@@ -46,22 +46,30 @@ under the License.
         <actions>
             <entity-condition entity-name="GlAccountOrganizationAndClass">
                 <condition-expr field-name="organizationPartyId" from-field="organizationPartyId"/>
-                <order-by field-name="glAccountId"/>
+                <order-by field-name="accountCode"/>
             </entity-condition>
         </actions>
-        <auto-fields-entity entity-name="GlAccount" default-field-type="display"/>
-        <field name="glAccountId" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${glAccountId}" target="GlAccountNavigate">
+        <field name="accountCode" title="${uiLabelMap.CommonCode}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${accountCode}" target="GlAccountNavigate">
                 <parameter param-name="glAccountId"/>
             </hyperlink>
         </field>
-        <field name="glAccountClassId">
-            <display-entity entity-name="GlAccountClass"/>
-        </field>
-        <field name="glAccountTypeId">
-            <display-entity entity-name="GlAccountType"/>
-        </field>
         <field name="accountName" entry-name="glAccountId"><display-entity entity-name="GlAccount" key-field-name="glAccountId" description="${accountName}"/></field>
+        <field name="parentGlAccountId">
+            <display-entity entity-name="GlAccount" description="${accountName}" key-field-name="glAccountId">
+                <sub-hyperlink target="GlAccountNavigate" description="[${parentGlAccountId}]" use-when="parentGlAccountId!=null">
+                    <parameter param-name="glAccountId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
+        <field name="glAccountTypeId"><display-entity entity-name="GlAccountType"/></field>
+        <field name="glAccountClassId"><display-entity entity-name="GlAccountClass"/></field>
+        <field name="glResourceTypeId"><display-entity entity-name="GlResourceType"/></field>
+        <field name="glXbrlClassId"><display-entity entity-name="GlXbrlClass"/></field>
+
+        <field name="description"><display/></field>
+        <field name="productId"><display-entity entity-name="Product"/></field>
+        <field name="externalId"><display/></field>
     </form>
 
     <form name="AddCompany" type="single" target="AdminMain" title="" >
