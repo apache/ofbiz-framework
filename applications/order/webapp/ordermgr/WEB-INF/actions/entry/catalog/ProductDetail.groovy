@@ -595,6 +595,9 @@ if (product) {
     accessoryProducts = dispatcher.runSync("getAssociatedProducts", [productId : productId, type : "PRODUCT_ACCESSORY", checkViewAllow : true, prodCatalogId : currentCatalogId]);
     context.accessoryProducts = accessoryProducts.assocProducts;
 
+    /*
+      The following code is commented out because it is just an example of the business logic to retrieve products with a similar feature.
+
     // get other cross-sell information: product with a common feature
     commonProductFeatureId = "SYMPTOM";
     // does this product have that feature?
@@ -633,6 +636,7 @@ if (product) {
             context.commonFeatureResultIds = commonFeatureResultIds;
         }
     }
+    */
 
     // get the DIGITAL_DOWNLOAD related Content records to show the contentName/description
     downloadProductContentAndInfoList = delegator.findByAnd("ProductContentAndInfo", [productId : productId, productContentTypeId : "DIGITAL_DOWNLOAD"], null, true);
