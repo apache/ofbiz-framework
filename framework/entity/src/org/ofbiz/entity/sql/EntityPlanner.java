@@ -18,12 +18,11 @@
  */
 package org.ofbiz.entity.sql;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.DynamicViewEntity;
@@ -232,7 +231,7 @@ public class EntityPlanner extends Planner<EntityPlanner, EntityCondition, Entit
     }
 
     private static List<ModelKeyMap> buildKeyMaps(Iterable<KeyMap> keyMaps) {
-        List<ModelKeyMap> entityKeyMaps = FastList.newInstance();
+        List<ModelKeyMap> entityKeyMaps = new ArrayList<ModelKeyMap>();
         for (KeyMap keyMap: keyMaps) {
             entityKeyMaps.add(new ModelKeyMap(keyMap.getLeftFieldName(), keyMap.getRightFieldName()));
         }
