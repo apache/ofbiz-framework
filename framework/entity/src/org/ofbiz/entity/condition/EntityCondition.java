@@ -20,11 +20,11 @@ package org.ofbiz.entity.condition;
 
 import static org.ofbiz.base.util.UtilGenerics.cast;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javolution.lang.Reusable;
-import javolution.util.FastList;
 
 import org.ofbiz.base.lang.IsEmpty;
 import org.ofbiz.entity.Delegator;
@@ -139,7 +139,7 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
 
     @Override
     public String toString() {
-        return makeWhereString(null, FastList.<EntityConditionParam>newInstance(), null);
+        return makeWhereString(null, new ArrayList<EntityConditionParam>(), null);
     }
 
     public void accept(EntityConditionVisitor visitor) {
