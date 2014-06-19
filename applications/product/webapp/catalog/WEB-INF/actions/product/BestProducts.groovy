@@ -49,7 +49,7 @@ orderHeaderList.each { orderHeader ->
         inListFlag = false
         
         bestSellingProducts.each { bestSellingProduct ->
-            if ((bestSellingProduct.productId).equals(orderItem.productId)) {
+            if ((bestSellingProduct.productId).equals(orderItem.productId) && (bestSellingProduct.currencyUom).equals(orderHeader.currencyUom)) {
                 inListFlag = true;
                 bestSellingProduct.amount += amount;
                 bestSellingProduct.qtyOrdered += qtyOrdered;
@@ -63,6 +63,7 @@ orderHeaderList.each { orderHeader ->
             orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME");
             orderItemDetail.amount = amount;
             orderItemDetail.qtyOrdered = qtyOrdered;
+            orderItemDetail.currencyUom = orderHeader.currencyUom;
             bestSellingProducts.add(orderItemDetail);
         }
     }
