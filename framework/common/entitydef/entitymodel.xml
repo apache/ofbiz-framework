@@ -75,6 +75,7 @@ under the License.
 
     <entity entity-name="EmailTemplateSetting" package-name="org.ofbiz.common.email" title="Email Template Setting Entity">
         <field name="emailTemplateSettingId" type="id-ne"></field>
+        <field name="emailType" type="id-ne"></field>
         <field name="description" type="description"></field>
         <field name="bodyScreenLocation" type="long-varchar"><description>if empty defaults to a screen based on the emailType</description></field>
         <field name="xslfoAttachScreenLocation" type="long-varchar"><description>if specified is used to generate XSL:FO that is transformed to a PDF via Apache FOP and attached to the email</description></field>
@@ -84,6 +85,9 @@ under the License.
         <field name="subject" type="comment"></field>
         <field name="contentType" type="long-varchar"></field>
         <prim-key field="emailTemplateSettingId"/>
+        <relation type="one" fk-name="EMAILSET_ENUM" rel-entity-name="Enumeration">
+            <key-map field-name="emailType" rel-field-name="enumId"/>
+        </relation>
     </entity>
 
   <!-- ========================================================= -->
