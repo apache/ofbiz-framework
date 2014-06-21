@@ -192,6 +192,7 @@ under the License.
     <entity entity-name="ServiceSemaphore" package-name="org.ofbiz.service.semaphore" title="Semaphore Lock Entity"
             sequence-bank-size="100">
         <field name="serviceName" type="name"></field>
+        <field name="lockedByInstanceId" type="id"></field>
         <field name="lockThread" type="name"></field>
         <field name="lockTime" type="date-time"></field>
         <prim-key field="serviceName"/>
