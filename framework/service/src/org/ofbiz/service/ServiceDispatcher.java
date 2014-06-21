@@ -105,6 +105,18 @@ public class ServiceDispatcher {
             }
         }
 
+        // clean up the service semaphores of same instance
+        if (delegator != null) {
+            try {
+                int rn = delegator.removeByAnd("ServiceSemaphore", "lockedByInstanceId", JobManager.instanceId);
+                if (rn > 0) {
+                    Debug.logInfo("[ServiceDispatcher.init] : Clean up " + rn + " service semaphors." , module);
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        }
+        
         // job manager needs to always be running, but the poller thread does not
         try {
             Delegator origDelegator = this.delegator;
