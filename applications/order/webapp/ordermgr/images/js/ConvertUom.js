@@ -21,7 +21,7 @@ function getConvertedPrice(element, uomId, uomIdTo, rowCount, orderCurrencyUnitP
     var request = jQuery('#getConvertedPrice').val();
     jQuery.ajax({
         url: request,
-        data: { uomId : uomId, uomIdTo : uomIdTo, originalValue : element.value }
+        data: { uomId : uomId, uomIdTo : uomIdTo, originalValue : element.value },
         async: true,
         type: "POST",
         success: function(data){
