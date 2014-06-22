@@ -780,8 +780,8 @@ public class ImageManagementServices {
             return file;
         }
         imageCount++;
-        String filePath = imagePath.substring(0, imagePath.indexOf("."));
-        String type = imagePath.substring(imagePath.indexOf(".") + 1);
+        String filePath = imagePath.substring(0, imagePath.lastIndexOf("."));
+        String type = imagePath.substring(imagePath.lastIndexOf(".") + 1);
         file = new File(filePath + "(" + imageCount + ")." + type);
         return checkExistsImage(file);
     }
