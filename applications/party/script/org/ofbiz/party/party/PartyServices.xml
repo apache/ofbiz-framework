@@ -154,8 +154,8 @@ under the License.
                     <if-not-empty field="partyNameHistoryCurrent.suffix">
                         <field-to-result field="partyNameHistoryCurrent.suffix" result-name="suffix"/>
                     </if-not-empty>
-                    <if-not-empty field="partyNameHistoryCurrent.gender">
-                        <field-to-result field="partyNameHistoryCurrent.gender" result-name="gender"/>
+                    <if-not-empty field="person.gender">
+                        <field-to-result field="person.gender" result-name="gender"/>
                     </if-not-empty>
 
 
