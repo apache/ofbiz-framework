@@ -95,8 +95,9 @@ public final class EntityDateFilterCondition extends EntityCondition {
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         // nothing to do here...
+        return this;
     }
 
     protected EntityCondition makeCondition() {

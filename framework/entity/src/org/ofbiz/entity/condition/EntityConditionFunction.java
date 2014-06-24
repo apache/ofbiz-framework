@@ -47,8 +47,9 @@ public abstract class EntityConditionFunction extends EntityCondition {
             return new NOT(condition.freeze());
         }
         @Override
-        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
             // nothing to do here...
+            return this;
         }
     }
 
