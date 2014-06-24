@@ -27,6 +27,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
@@ -139,10 +140,10 @@ public class GenericHelperDAO implements GenericHelper {
      *@return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
      *      DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
-    public EntityListIterator findListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
+    public EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
         EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
         throws GenericEntityException {
-        return genericDAO.selectListIteratorByCondition(modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
+        return genericDAO.selectListIteratorByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
     }
 
     public List<GenericValue> findByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
@@ -150,8 +151,8 @@ public class GenericHelperDAO implements GenericHelper {
         return genericDAO.selectByMultiRelation(value, modelRelationOne, modelEntityOne, modelRelationTwo, modelEntityTwo, orderBy);
     }
 
-    public long findCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
-        return genericDAO.selectCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return genericDAO.selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
     }
 
     /** Removes/deletes Generic Entity records found by all the specified condition
@@ -159,11 +160,11 @@ public class GenericHelperDAO implements GenericHelper {
      *@param condition The condition that restricts the list of removed values
      *@return int representing number of rows effected by this operation
      */
-    public int removeByCondition(ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
+    public int removeByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
         if (modelEntity == null || condition == null) {
             return 0;
         }
-        return genericDAO.deleteByCondition(modelEntity, condition);
+        return genericDAO.deleteByCondition(delegator, modelEntity, condition);
     }
 
     /** Store the Entity from the GenericValue to the persistent store
@@ -184,11 +185,11 @@ public class GenericHelperDAO implements GenericHelper {
      *@return int representing number of rows effected by this operation
      *@throws GenericEntityException
      */
-    public int storeByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         if (modelEntity == null || condition == null) {
             return 0;
         }
-        return genericDAO.updateByCondition(modelEntity, fieldsToSet, condition);
+        return genericDAO.updateByCondition(delegator, modelEntity, fieldsToSet, condition);
     }
 
     /** Check the datasource to make sure the entity definitions are correct, optionally adding missing entities or fields on the server

@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
@@ -57,6 +58,8 @@ public class SQLProcessor {
     public static List<String> CONNECTION_TEST_LIST = new ArrayList<String>();
     public static int MAX_CONNECTIONS = 1000;
     public static boolean ENABLE_TEST = false;
+
+    private final Delegator delegator;
 
     /** The datasource helper (see entityengine.xml <datasource name="..">) */
     private GenericHelperInfo helperInfo;
@@ -89,7 +92,8 @@ public class SQLProcessor {
      *
      * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      */
-    public SQLProcessor(GenericHelperInfo helperInfo) {
+    public SQLProcessor(Delegator delegator, GenericHelperInfo helperInfo) {
+        this.delegator = delegator;
         this.helperInfo = helperInfo;
         this._manualTX = true;
     }
@@ -101,7 +105,8 @@ public class SQLProcessor {
      * @param helperInfo  The datasource helper (see entityengine.xml &lt;datasource name=".."&gt;)
      * @param connection  The connection to be used
      */
-    public SQLProcessor(GenericHelperInfo helperInfo, Connection connection) {
+    public SQLProcessor(Delegator delegator, GenericHelperInfo helperInfo, Connection connection) {
+        this.delegator = delegator;
         this.helperInfo = helperInfo;
         this._connection = connection;
 
@@ -109,6 +114,10 @@ public class SQLProcessor {
         if (_connection != null) {
             _manualTX = false;
         }
+    }
+
+    public Delegator getDelegator() {
+        return delegator;
     }
 
     ResultSetMetaData getResultSetMetaData() {

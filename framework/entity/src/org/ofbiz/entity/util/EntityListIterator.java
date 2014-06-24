@@ -181,9 +181,6 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         value.setDelegator(this.delegator);
         value.synchronizedWithDatasource();
         this.haveMadeValue = true;
-        if (delegator != null) {
-            delegator.decryptFields(value);
-        }
         return value;
     }
 
@@ -498,7 +495,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
                     efo = new EntityFindOptions();
                     efo.setDistinct(distinctQuery);
                 }
-                resultSize = (int) genericDAO.selectCountByCondition(modelEntity, whereCondition, havingCondition, selectFields, efo);
+                resultSize = (int) genericDAO.selectCountByCondition(sqlp.getDelegator(), modelEntity, whereCondition, havingCondition, selectFields, efo);
             }
             return resultSize;
         } else if (this.last()) {

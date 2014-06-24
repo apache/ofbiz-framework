@@ -94,12 +94,6 @@ public final class EntityDateFilterCondition extends EntityCondition {
         return this;
     }
 
-    @Override
-    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        // nothing to do here...
-        return this;
-    }
-
     protected EntityCondition makeCondition() {
         return makeCondition(UtilDateTime.nowTimestamp(), fromDateName, thruDateName);
     }

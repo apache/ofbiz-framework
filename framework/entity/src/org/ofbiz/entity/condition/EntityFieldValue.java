@@ -194,9 +194,4 @@ public class EntityFieldValue extends EntityConditionValue {
     public EntityConditionValue freeze() {
         return this;
     }
-
-    @Override
-    public EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        return this;
-    }
 }

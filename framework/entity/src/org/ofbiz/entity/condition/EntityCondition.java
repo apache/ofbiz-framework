@@ -135,8 +135,6 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
 
     abstract public EntityCondition freeze();
 
-    abstract public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator);
-
     public void visit(EntityConditionVisitor visitor) {
         throw new IllegalArgumentException(getClass().getName() + ".visit not implemented");
     }

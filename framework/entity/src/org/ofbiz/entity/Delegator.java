@@ -257,13 +257,19 @@ public interface Delegator {
      */
     public GenericValue createSingle(String entityName, Object singlePkValue) throws GenericEntityException;
 
+    @Deprecated
     public void decryptFields(GenericEntity entity) throws GenericEntityException;
 
+    @Deprecated
     public void decryptFields(List<? extends GenericEntity> entities) throws GenericEntityException;
 
+    @Deprecated
     public void encryptFields(GenericEntity entity) throws GenericEntityException;
 
+    @Deprecated
     public void encryptFields(List<? extends GenericEntity> entities) throws GenericEntityException;
+
+    public Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException;
 
     @Deprecated
     public Object encryptFieldValue(String entityName, Object fieldValue) throws EntityCryptoException;

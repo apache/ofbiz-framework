@@ -798,7 +798,6 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
 
             value.setDelegator(this);
-            this.encryptFields(value);
 
             // if audit log on for any fields, save new value with no old value because it's a create
             if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
@@ -892,7 +891,6 @@ public class GenericDelegator implements Delegator {
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_CREATE, value, false);
 
             value.setDelegator(this);
-            this.encryptFields(value);
 
             // if audit log on for any fields, save new value with no old value because it's a create
             if (value != null && value.getModelEntity().getHasFieldWithAuditLog()) {
@@ -1196,7 +1194,7 @@ public class GenericDelegator implements Delegator {
                 removedEntities = this.findList(entityName, condition, null, null, null, false);
             }
 
-            int rowsAffected = helper.removeByCondition(modelEntity, condition);
+            int rowsAffected = helper.removeByCondition(this, modelEntity, condition);
 
             if (testMode) {
                 for (GenericValue entity : removedEntities) {
@@ -1310,7 +1308,7 @@ public class GenericDelegator implements Delegator {
                 updatedEntities = this.findList(entityName, condition, null, null, null, false);
             }
 
-            int rowsAffected =  helper.storeByCondition(modelEntity, fieldsToSet, condition);
+            int rowsAffected =  helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
 
             if (testMode) {
                 for (GenericValue entity : updatedEntities) {
@@ -1353,7 +1351,6 @@ public class GenericDelegator implements Delegator {
             GenericHelper helper = getEntityHelper(value.getEntityName());
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_STORE, value, false);
-            this.encryptFields(value);
 
             // if audit log on for any fields, save old value before the update so we still have both
             if (value.getModelEntity().getHasFieldWithAuditLog()) {
@@ -1439,7 +1436,6 @@ public class GenericDelegator implements Delegator {
                 GenericValue existing = null;
                 try {
                     existing = helper.findByPrimaryKey(primaryKey);
-                    this.decryptFields(existing);
                 } catch (GenericEntityNotFoundException e) {
                     existing = null;
                 }
@@ -1586,7 +1582,6 @@ public class GenericDelegator implements Delegator {
             }
             if (value != null) {
                 value.setDelegator(this);
-                this.decryptFields(value);
             }
 
             if (useCache) {
@@ -1770,16 +1765,14 @@ public class GenericDelegator implements Delegator {
 
         if (whereEntityCondition != null) {
             whereEntityCondition.checkCondition(modelEntity);
-            whereEntityCondition = whereEntityCondition.encryptConditionFields(modelEntity, this);
         }
         if (havingEntityCondition != null) {
             havingEntityCondition.checkCondition(modelEntity);
-            havingEntityCondition = havingEntityCondition.encryptConditionFields(modelEntity, this);
         }
 
         ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
         GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-        EntityListIterator eli = helper.findListIteratorByCondition(modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
+        EntityListIterator eli = helper.findListIteratorByCondition(this, modelEntity, whereEntityCondition, havingEntityCondition, fieldsToSelect, orderBy, findOptions);
         eli.setDelegator(this);
 
         ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
@@ -1851,7 +1844,7 @@ public class GenericDelegator implements Delegator {
         if (havingEntityCondition != null) havingEntityCondition.checkCondition(modelViewEntity);
 
         GenericHelper helper = getEntityHelper(dynamicViewEntity.getOneRealEntityName());
-        EntityListIterator eli = helper.findListIteratorByCondition(modelViewEntity, whereEntityCondition,
+        EntityListIterator eli = helper.findListIteratorByCondition(this, modelViewEntity, whereEntityCondition,
                 havingEntityCondition, fieldsToSelect, orderBy, findOptions);
         eli.setDelegator(this);
         //TODO: add decrypt fields
@@ -1878,16 +1871,14 @@ public class GenericDelegator implements Delegator {
 
             if (whereEntityCondition != null) {
                 whereEntityCondition.checkCondition(modelEntity);
-                whereEntityCondition = whereEntityCondition.encryptConditionFields(modelEntity, this);
             }
             if (havingEntityCondition != null) {
                 havingEntityCondition.checkCondition(modelEntity);
-                havingEntityCondition = havingEntityCondition.encryptConditionFields(modelEntity, this);
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
             GenericHelper helper = getEntityHelper(modelEntity.getEntityName());
-            long count = helper.findCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
+            long count = helper.findCountByCondition(this, modelEntity, whereEntityCondition, havingEntityCondition, findOptions);
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RETURN, EntityEcaHandler.OP_FIND, dummyValue, false);
             TransactionUtil.commit(beganTransaction);
@@ -2625,36 +2616,16 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#encryptFields(java.util.List)
      */
     @Override
+    @Deprecated
     public void encryptFields(List<? extends GenericEntity> entities) throws GenericEntityException {
-        if (entities != null) {
-            for (GenericEntity entity: entities) {
-                this.encryptFields(entity);
-            }
-        }
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#encryptFields(org.ofbiz.entity.GenericEntity)
      */
     @Override
+    @Deprecated
     public void encryptFields(GenericEntity entity) throws GenericEntityException {
-        ModelEntity model = entity.getModelEntity();
-        String entityName = model.getEntityName();
-
-        Iterator<ModelField> i = model.getFieldsIterator();
-        while (i.hasNext()) {
-            ModelField field = i.next();
-            ModelField.EncryptMethod encryptMethod = field.getEncryptMethod();
-            if (encryptMethod.isEncrypted()) {
-                Object obj = entity.get(field.getName());
-                if (obj != null) {
-                    if (obj instanceof String && UtilValidate.isEmpty(obj)) {
-                        continue;
-                    }
-                    entity.dangerousSetNoCheckButFast(field, this.encryptFieldValue(entityName, encryptMethod, obj));
-                }
-            }
-        }
     }
 
     /* (non-Javadoc)
@@ -2681,49 +2652,30 @@ public class GenericDelegator implements Delegator {
     }
 
     /* (non-Javadoc)
+     * @see org.ofbiz.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
+     */
+    @Override
+    public Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException {
+        if (UtilValidate.isNotEmpty(encValue)) {
+            return this.crypto.decrypt(entityName, encValue);
+        }
+        return null;
+    }
+
+    /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#decryptFields(java.util.List)
      */
     @Override
+    @Deprecated
     public void decryptFields(List<? extends GenericEntity> entities) throws GenericEntityException {
-        if (entities != null) {
-            for (GenericEntity entity: entities) {
-                this.decryptFields(entity);
-            }
-        }
     }
 
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#decryptFields(org.ofbiz.entity.GenericEntity)
      */
     @Override
+    @Deprecated
     public void decryptFields(GenericEntity entity) throws GenericEntityException {
-        ModelEntity model = entity.getModelEntity();
-        String entityName = model.getEntityName();
-
-        Iterator<ModelField> i = model.getFieldsIterator();
-        while (i.hasNext()) {
-            ModelField field = i.next();
-            ModelField.EncryptMethod encryptMethod = field.getEncryptMethod();
-            if (encryptMethod.isEncrypted()) {
-                String keyName = entityName;
-                if (model instanceof ModelViewEntity) {
-                    ModelViewEntity modelView = (ModelViewEntity) model;
-                    keyName = modelView.getAliasedEntity(modelView.getAlias(field.getName()).getEntityAlias(), modelReader).getEntityName();
-                }
-
-                String encValue = (String) entity.get(field.getName());
-                if (UtilValidate.isNotEmpty(encValue)) {
-                    try {
-                        entity.dangerousSetNoCheckButFast(field, crypto.decrypt(keyName, encValue));
-                    } catch (EntityCryptoException e) {
-                        // not fatal -- allow returning of the encrypted value
-                        if (Debug.warningOn()) {
-                            Debug.logWarning(e, "Problem decrypting field [" + entityName + " / " + field.getName() + "]", module);
-                        }
-                    }
-                }
-            }
-        }
     }
 
     /* (non-Javadoc)

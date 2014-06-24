@@ -153,45 +153,6 @@ public final class EntityExpr extends EntityCondition {
     }
 
     @Override
-    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        if (rhs == null) {
-            return this;
-        }
-        if (operator.getClass().equals(EntityJoinOperator.class)) {
-            EntityCondition newLhs = ((EntityCondition) lhs).encryptConditionFields(modelEntity, delegator);
-            EntityCondition newRhs = ((EntityCondition) rhs).encryptConditionFields(modelEntity, delegator);
-            if (newLhs != lhs || newRhs != rhs) {
-                return EntityCondition.makeCondition(newLhs, UtilGenerics.<EntityJoinOperator>cast(this.operator), newRhs);
-            }
-            return this;
-        }
-        if (rhs instanceof EntityConditionValue) {
-            EntityConditionValue newRhs = ((EntityConditionValue) rhs).encryptConditionFields(modelEntity, delegator);
-            if (newRhs != rhs) {
-                return EntityCondition.makeCondition(this.lhs, (EntityComparisonOperator) this.operator, newRhs);
-            } else {
-                return this;
-            }
-        }
-        ModelField modelField;
-        if (this.lhs instanceof String) {
-            modelField = modelEntity.getField((String) this.lhs);
-        } else if (this.lhs instanceof EntityFieldValue) {
-            modelField = ((EntityFieldValue) this.lhs).getModelField(modelEntity);
-        } else {
-            return this;
-        }
-        if (modelField != null && modelField.getEncryptMethod().isEncrypted()) {
-            try {
-                return EntityCondition.makeCondition(this.lhs, (EntityComparisonOperator) this.operator, delegator.encryptFieldValue(modelEntity.getEntityName(), modelField.getEncryptMethod(), this.rhs));
-            } catch (EntityCryptoException e) {
-                Debug.logWarning(e, "Error encrypting field [" + modelEntity.getEntityName() + "." + modelField.getName() + "] with value: " + this.rhs, module);
-            }
-        }
-        return this;
-    }
-
-    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityOperator(operator, lhs, rhs);
     }

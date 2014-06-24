@@ -70,7 +70,7 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         entity.setString("encryptedValue", nanoTime);
         entity.setString("saltedEncryptedValue", nanoTime);
         entity.store();
-        entity.refresh(); // this is a bug; store() ends up setting the encrypted value *into* the entity
+        //entity.refresh(); // this is a bug; store() ends up setting the encrypted value *into* the entity
         assertEquals(nanoTime, entity.getString("unencryptedValue"));
         assertEquals(nanoTime, entity.getString("encryptedValue"));
 

@@ -60,11 +60,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         }
 
         @Override
-        public EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-            return this;
-        }
-
-        @Override
         public ModelField getModelField(ModelEntity modelEntity) {
             return null;
         }
@@ -106,8 +101,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     public abstract Object getValue(Delegator delegator, Map<String, ? extends Object> map);
 
     public abstract EntityConditionValue freeze();
-
-    public abstract EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator);
 
     public abstract void visit(EntityConditionVisitor visitor);
 

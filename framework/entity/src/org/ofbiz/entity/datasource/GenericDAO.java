@@ -120,7 +120,7 @@ public class GenericDAO {
             throw new GenericModelException("Could not find ModelEntity record for entityName: " + entity.getEntityName());
         }
 
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo);
 
         try {
             return singleInsert(entity, modelEntity, modelEntity.getFieldsUnmodifiable(), sqlP);
@@ -225,7 +225,7 @@ public class GenericDAO {
     }
 
     private int customUpdate(GenericEntity entity, ModelEntity modelEntity, List<ModelField> fieldsToSave) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo);
         try {
             return singleUpdate(entity, modelEntity, fieldsToSave, sqlP);
         } catch (GenericEntityException e) {
@@ -302,8 +302,8 @@ public class GenericDAO {
         return retVal;
     }
 
-    public int updateByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+    public int updateByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
+        SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo);
 
         try {
             return updateByCondition(modelEntity, fieldsToSet, condition, sqlP);
@@ -497,7 +497,7 @@ public class GenericDAO {
     /* ====================================================================== */
 
     public void select(GenericEntity entity) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo);
 
         try {
             select(entity, sqlP);
@@ -597,7 +597,7 @@ public class GenericDAO {
         sqlBuffer.append(SqlJdbcUtil.makeFromClause(modelEntity, modelFieldTypeReader, datasource));
         sqlBuffer.append(SqlJdbcUtil.makeWhereClause(modelEntity, modelEntity.getPkFieldsUnmodifiable(), entity, "AND", datasource.getJoinStyle()));
 
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo);
 
         try {
             sqlP.prepareStatement(sqlBuffer.toString(), true, ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
@@ -633,7 +633,7 @@ public class GenericDAO {
      *@return EntityListIterator representing the result of the query: NOTE THAT THIS MUST BE CLOSED WHEN YOU ARE
      *      DONE WITH IT, AND DON'T LEAVE IT OPEN TOO LONG BEACUSE IT WILL MAINTAIN A DATABASE CONNECTION.
      */
-    public EntityListIterator selectListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
+    public EntityListIterator selectListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
             EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException {
         if (modelEntity == null) {
@@ -769,7 +769,7 @@ public class GenericDAO {
         // make the final SQL String
         String sql = sqlBuffer.toString();
 
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo);
         sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),
                 findOptions.getResultSetConcurrency(), findOptions.getFetchSize(), findOptions.getMaxRows());
 
@@ -912,7 +912,7 @@ public class GenericDAO {
 
     public List<GenericValue> selectByMultiRelation(GenericValue value, ModelRelation modelRelationOne, ModelEntity modelEntityOne,
         ModelRelation modelRelationTwo, ModelEntity modelEntityTwo, List<String> orderBy) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(value.getDelegator(), helperInfo);
 
         // get the tables names
         String atable = modelEntityOne.getTableName(datasource);
@@ -1013,11 +1013,11 @@ public class GenericDAO {
         return retlist;
     }
 
-    public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
-        return selectCountByCondition(modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
+    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+        return selectCountByCondition(delegator, modelEntity, whereEntityCondition, havingEntityCondition, null, findOptions);
     }
 
-    public long selectCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
+    public long selectCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, List<ModelField> selectFields, EntityFindOptions findOptions) throws GenericEntityException {
         if (modelEntity == null) {
             return 0;
         }
@@ -1112,7 +1112,7 @@ public class GenericDAO {
         String sql = sqlBuffer.toString();
         if (Debug.verboseOn()) Debug.logVerbose("Count select sql: " + sql, module);
 
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo);
         sqlP.prepareStatement(sql, findOptions.getSpecifyTypeAndConcur(), findOptions.getResultSetType(),
                 findOptions.getResultSetConcurrency(), findOptions.getFetchSize(), findOptions.getMaxRows());
         if (verboseOn) {
@@ -1154,7 +1154,7 @@ public class GenericDAO {
     /* ====================================================================== */
 
     public int delete(GenericEntity entity) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+        SQLProcessor sqlP = new SQLProcessor(entity.getDelegator(), helperInfo);
 
         try {
             return delete(entity, sqlP);
@@ -1191,8 +1191,8 @@ public class GenericDAO {
         return retVal;
     }
 
-    public int deleteByCondition(ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
-        SQLProcessor sqlP = new SQLProcessor(helperInfo);
+    public int deleteByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
+        SQLProcessor sqlP = new SQLProcessor(delegator, helperInfo);
 
         try {
             return deleteByCondition(modelEntity, condition, sqlP);

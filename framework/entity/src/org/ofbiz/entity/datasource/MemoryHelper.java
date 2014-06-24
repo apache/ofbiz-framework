@@ -33,6 +33,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericPK;
@@ -382,13 +383,13 @@ public class MemoryHelper implements GenericHelper {
         return null;
     }
 
-    public EntityListIterator findListIteratorByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition,
+    public EntityListIterator findListIteratorByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition,
                                                           EntityCondition havingEntityCondition, Collection<String> fieldsToSelect, List<String> orderBy, EntityFindOptions findOptions)
             throws GenericEntityException {
         return null;
     }
 
-    public long findCountByCondition(ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
+    public long findCountByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition whereEntityCondition, EntityCondition havingEntityCondition, EntityFindOptions findOptions) throws GenericEntityException {
         return 0;
     }
 
@@ -409,11 +410,11 @@ public class MemoryHelper implements GenericHelper {
         return removeAll(removeList);
     }
 
-    public int removeByCondition(ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
+    public int removeByCondition(Delegator delegator, ModelEntity modelEntity, EntityCondition condition) throws GenericEntityException {
         return removeFromCache(modelEntity.getEntityName(), condition);
     }
 
-    public int storeByCondition(ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
+    public int storeByCondition(Delegator delegator, ModelEntity modelEntity, Map<String, ? extends Object> fieldsToSet, EntityCondition condition) throws GenericEntityException {
         return 0;
     }
 
