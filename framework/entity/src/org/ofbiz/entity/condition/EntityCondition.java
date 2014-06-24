@@ -108,7 +108,7 @@ public abstract class EntityCondition extends EntityConditionBase implements IsE
 
     @Override
     public String toString() {
-        return makeWhereString(null, null, null);
+        return makeWhereString(null, new ArrayList<EntityConditionParam>(), null);
     }
 
     public void accept(EntityConditionVisitor visitor) {
