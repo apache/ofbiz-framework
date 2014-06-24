@@ -19,6 +19,7 @@
 package org.ofbiz.entity.condition;
 
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Encapsulates a list of EntityConditions to be used as a single EntityCondition combined as specified
@@ -26,6 +27,14 @@ import java.util.Iterator;
  */
 @SuppressWarnings("serial")
 public class EntityConditionList<T extends EntityCondition> extends EntityConditionListBase<T> {
+    public EntityConditionList(List<T> conditionList, EntityJoinOperator operator) {
+        super(conditionList, operator);
+    }
+
+    public void init(List<T> conditionList, EntityJoinOperator operator) {
+        this.conditionList = conditionList;
+        this.operator = operator;
+    }
 
     @Override
     public int getConditionListSize() {

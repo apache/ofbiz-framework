@@ -22,9 +22,6 @@ package org.ofbiz.entity.condition;
 import java.util.List;
 import java.util.Map;
 
-import javolution.context.ObjectFactory;
-import javolution.lang.Reusable;
-
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericModelException;
@@ -37,26 +34,10 @@ import org.ofbiz.entity.model.ModelField;
  *
  */
 @SuppressWarnings("serial")
-public abstract class EntityFunction<T extends Comparable<?>> extends EntityConditionValue implements Reusable {
+public abstract class EntityFunction<T extends Comparable<?>> extends EntityConditionValue {
 
     public static interface Fetcher<T> {
         T getValue(Object value);
-    }
-
-    public abstract static class SQLFunctionFactory<T extends Comparable<T>, F extends EntityFunction<T>> extends ObjectFactory<F> {
-        protected abstract void init(F function, Object value);
-
-        protected F createFunction(EntityConditionValue nested) {
-            F ef = object();
-            init(ef, nested);
-            return ef;
-        }
-
-        protected F createFunction(Object value) {
-            F ef = object();
-            init(ef, value);
-            return ef;
-        }
     }
 
     public static enum SQLFunction {
@@ -68,15 +49,15 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     public static final int ID_UPPER = SQLFunction.UPPER.ordinal();
     public static final int ID_LOWER = SQLFunction.LOWER.ordinal();
 
-    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { return LENGTH.lengthFactory.createFunction(nested); }
-    public static EntityFunction<Integer> LENGTH(Object value) { return LENGTH.lengthFactory.createFunction(value); }
-    public static EntityFunction<String> TRIM(EntityConditionValue nested) { return TRIM.trimFactory.createFunction(nested); }
-    public static EntityFunction<String> TRIM(Object value) { return TRIM.trimFactory.createFunction(value); }
-    public static EntityFunction<String> UPPER(EntityConditionValue nested) { return UPPER.upperFactory.createFunction(nested); }
-    public static EntityFunction<String> UPPER(Object value) { return UPPER.upperFactory.createFunction(value); }
-    public static EntityFunction<String> UPPER_FIELD(String fieldName) { return UPPER.upperFactory.createFunction(EntityFieldValue.makeFieldValue(fieldName)); }
-    public static EntityFunction<String> LOWER(EntityConditionValue nested) { return LOWER.lowerFactory.createFunction(nested); }
-    public static EntityFunction<String> LOWER(Object value) { return LOWER.lowerFactory.createFunction(value); }
+    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { return new LENGTH(nested); }
+    public static EntityFunction<Integer> LENGTH(Object value) { return new LENGTH(value); }
+    public static EntityFunction<String> TRIM(EntityConditionValue nested) { return new TRIM(nested); }
+    public static EntityFunction<String> TRIM(Object value) { return new TRIM(value); }
+    public static EntityFunction<String> UPPER(EntityConditionValue nested) { return new UPPER(nested); }
+    public static EntityFunction<String> UPPER(Object value) { return new UPPER(value); }
+    public static EntityFunction<String> UPPER_FIELD(String fieldName) { return new UPPER(EntityFieldValue.makeFieldValue(fieldName)); }
+    public static EntityFunction<String> LOWER(EntityConditionValue nested) { return new LOWER(nested); }
+    public static EntityFunction<String> LOWER(Object value) { return new LOWER(value); }
 
     /**
      * Length() entity function.
@@ -86,20 +67,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
         };
-        protected static final SQLFunctionFactory<Integer, LENGTH> lengthFactory = new SQLFunctionFactory<Integer, LENGTH>() {
-            @Override
-            protected LENGTH create() {
-                return new LENGTH();
-            }
 
-            @Override
-            protected void init(LENGTH function, Object value) {
-                function.init(value);
-            }
-        };
-        protected LENGTH() {}
-        public void init(Object value) {
-            super.init(FETCHER, SQLFunction.LENGTH, value);
+        private LENGTH(Object value) {
+            super(FETCHER, SQLFunction.LENGTH, value);
         }
     }
 
@@ -111,20 +81,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
         };
-        protected static final SQLFunctionFactory<String, TRIM> trimFactory = new SQLFunctionFactory<String, TRIM>() {
-            @Override
-            protected TRIM create() {
-                return new TRIM();
-            }
 
-            @Override
-            protected void init(TRIM function, Object value) {
-                function.init(value);
-            }
-        };
-        protected TRIM() {}
-        public void init(Object value) {
-            super.init(FETCHER, SQLFunction.TRIM, value);
+        private TRIM(Object value) {
+            super(FETCHER, SQLFunction.TRIM, value);
         }
     }
 
@@ -136,20 +95,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
-        protected static final SQLFunctionFactory<String, UPPER> upperFactory = new SQLFunctionFactory<String, UPPER>() {
-            @Override
-            protected UPPER create() {
-                return new UPPER();
-            }
 
-            @Override
-            protected void init(UPPER function, Object value) {
-                function.init(value);
-            }
-        };
-        protected UPPER() {}
-        public void init(Object value) {
-            super.init(FETCHER, SQLFunction.UPPER, value);
+        private UPPER(Object value) {
+            super(FETCHER, SQLFunction.UPPER, value);
         }
     }
 
@@ -161,53 +109,34 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toLowerCase(); }
         };
-        protected static final SQLFunctionFactory<String, LOWER> lowerFactory = new SQLFunctionFactory<String, LOWER>() {
-            @Override
-            protected LOWER create() {
-                return new LOWER();
-            }
 
-            @Override
-            protected void init(LOWER function, Object value) {
-                function.init(value);
-            }
-        };
-        protected LOWER() {}
-        public void init(Object value) {
-            super.init(FETCHER, SQLFunction.LOWER, value);
+        private LOWER(Object value) {
+            super(FETCHER, SQLFunction.LOWER, value);
         }
     }
 
-    protected SQLFunction function;
-    protected EntityConditionValue nested = null;
-    protected Object value = null;
-    protected Fetcher<T> fetcher = null;
-
-    protected EntityFunction() {}
+    protected final SQLFunction function;
+    protected final EntityConditionValue nested;
+    protected final Object value;
+    protected final Fetcher<T> fetcher;
 
     protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
-        this.init(fetcher, function, nested);
+        this.fetcher = fetcher;
+        this.function = function;
+        this.nested = nested;
+        this.value = null;
     }
 
     protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, Object value) {
-        this.init(fetcher, function, value);
-    }
-
-    public void init(Fetcher<T> fetcher, SQLFunction function, Object value) {
         this.fetcher = fetcher;
         this.function = function;
         if (value instanceof EntityConditionValue) {
             this.nested = (EntityConditionValue) value;
+            this.value = null;
         } else {
+            this.nested = null;
             this.value = value;
         }
-    }
-
-    public void reset() {
-        this.function = null;
-        this.nested = null;
-        this.value = null;
-        this.fetcher = null;
     }
 
     @Override

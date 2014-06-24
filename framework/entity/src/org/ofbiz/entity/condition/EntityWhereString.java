@@ -40,16 +40,12 @@ import org.ofbiz.entity.model.ModelEntity;
  *
  */
 @SuppressWarnings("serial")
-public class EntityWhereString extends EntityCondition {
+public final class EntityWhereString extends EntityCondition {
 
-    protected String sqlString;
+    protected final String sqlString;
 
-    public void init(String sqlString) {
+    public EntityWhereString(String sqlString) {
         this.sqlString = sqlString;
-    }
-
-    public void reset() {
-        this.sqlString = null;
     }
 
     @Override
