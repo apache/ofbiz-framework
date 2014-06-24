@@ -711,7 +711,8 @@ public class WebToolsServices {
                             javaNameMap.put("type", (field.getType()) != null ? field.getType() : null);
                             javaNameMap.put("javaType", (field.getType() != null && type != null) ? type.getJavaType() : "Undefined");
                             javaNameMap.put("sqlType", (type != null && type.getSqlType() != null) ? type.getSqlType() : "Undefined");
-                            javaNameMap.put("encrypted", field.getEncrypt());
+                            javaNameMap.put("encrypted", field.getEncryptMethod().isEncrypted());
+                            javaNameMap.put("encryptMethod", field.getEncryptMethod());
                             javaNameList.add(javaNameMap);
                         }
 

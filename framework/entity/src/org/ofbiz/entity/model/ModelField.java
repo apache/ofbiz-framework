@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.ofbiz.base.lang.ThreadSafe;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.w3c.dom.Document;
@@ -36,6 +37,27 @@ import org.w3c.dom.Element;
 @ThreadSafe
 @SuppressWarnings("serial")
 public final class ModelField extends ModelChild {
+    public static final String module = ModelField.class.getName();
+
+    public enum EncryptMethod {
+        FALSE {
+            public boolean isEncrypted() {
+                return false;
+            }
+        },
+        TRUE {
+            public boolean isEncrypted() {
+                return true;
+            }
+        },
+        SALT {
+            public boolean isEncrypted() {
+                return true;
+            }
+        };
+
+        public abstract boolean isEncrypted();
+    }
 
     /**
      * Returns a new <code>ModelField</code> instance, initialized with the specified values.
@@ -67,6 +89,10 @@ public final class ModelField extends ModelChild {
      * @param validators The validators for this field.
      */
     public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+        return create(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt ? EncryptMethod.TRUE : EncryptMethod.FALSE, isAutoCreatedInternal, enableAuditLog, validators);
+    }
+
+    public static ModelField create(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
         // TODO: Validate parameters.
         if (description == null) {
             description = "";
@@ -121,7 +147,11 @@ public final class ModelField extends ModelChild {
         if (isPk) {
             isNotNull = true;
         }
-        boolean encrypt = "true".equals(fieldElement.getAttribute("encrypt"));
+        EncryptMethod encrypt = EncryptMethod.valueOf(fieldElement.getAttribute("encrypt").toUpperCase());
+        if (encrypt == null) {
+            Debug.logWarning("invalid encrypt value: %s", module, fieldElement.getAttribute("encrypt"));
+            encrypt = EncryptMethod.FALSE;
+        }
         boolean enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
         List<String>validators = Collections.emptyList();
         List<? extends Element> elementList = UtilXml.childElementList(fieldElement, "validate");
@@ -151,7 +181,7 @@ public final class ModelField extends ModelChild {
         String description = "";
         String colValue = "";
         String fieldSet = "";
-        boolean encrypt = false;
+        EncryptMethod encrypt = EncryptMethod.FALSE;
         boolean enableAuditLog = false;
         return new ModelField(modelEntity, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, false, enableAuditLog, Collections.<String>emptyList());
     }
@@ -175,7 +205,7 @@ public final class ModelField extends ModelChild {
 
     /** boolean which specifies whether or not the Field is a Primary Key */
     private final boolean isPk;
-    private final boolean encrypt;
+    private final EncryptMethod encrypt;
     private final boolean isNotNull;
     private final boolean isAutoCreatedInternal;
     private final boolean enableAuditLog;
@@ -186,7 +216,7 @@ public final class ModelField extends ModelChild {
     /** validators to be called when an update is done */
     private final List<String> validators;
 
-    private ModelField(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, boolean encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
+    private ModelField(ModelEntity modelEntity, String description, String name, String type, String colName, String colValue, String fieldSet, boolean isNotNull, boolean isPk, EncryptMethod encrypt, boolean isAutoCreatedInternal, boolean enableAuditLog, List<String> validators) {
         super(modelEntity, description);
         this.name = name;
         this.type = type;
@@ -231,7 +261,12 @@ public final class ModelField extends ModelChild {
     }
 
     /** Returns <code>true</code> if this field is encrypted. */
+    @Deprecated
     public boolean getEncrypt() {
+        return this.encrypt.isEncrypted();
+    }
+
+    public EncryptMethod getEncryptMethod() {
         return this.encrypt;
     }
 
@@ -267,8 +302,8 @@ public final class ModelField extends ModelChild {
             root.setAttribute("col-name", this.getColName());
         }
         root.setAttribute("type", this.getType());
-        if (this.getEncrypt()) {
-            root.setAttribute("encrypt", "true");
+        if (this.getEncryptMethod().isEncrypted()) {
+            root.setAttribute("encrypt", this.getEncryptMethod().toString().toLowerCase());
         }
         if (this.getIsNotNull()) {
             root.setAttribute("not-null", "true");

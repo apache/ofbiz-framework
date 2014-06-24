@@ -40,6 +40,7 @@ import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.model.ModelField.EncryptMethod;
 
 public final class EntityCrypto {
 
@@ -65,7 +66,13 @@ public final class EntityCrypto {
     }
 
     /** Encrypts an Object into an encrypted hex encoded String */
+    @Deprecated
     public String encrypt(String keyName, Object obj) throws EntityCryptoException {
+        return encrypt(keyName, EncryptMethod.TRUE, obj);
+    }
+
+    /** Encrypts an Object into an encrypted hex encoded String */
+    public String encrypt(String keyName, EncryptMethod encryptMethod, Object obj) throws EntityCryptoException {
         try {
             SecretKey key = this.findKey(keyName, handlers[0]);
             if (key == null) {
@@ -91,7 +98,7 @@ public final class EntityCrypto {
                     }
                 }
             }
-            return handlers[0].encryptValue(key, UtilObject.getBytes(obj));
+            return handlers[0].encryptValue(encryptMethod, key, UtilObject.getBytes(obj));
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
@@ -212,7 +219,7 @@ public final class EntityCrypto {
         protected abstract String encodeKey(SecretKey key) throws GeneralException;
 
         protected abstract byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException;
-        protected abstract String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException;
+        protected abstract String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException;
     }
 
     protected static abstract class LegacyStorageHandler extends StorageHandler {
@@ -232,7 +239,7 @@ public final class EntityCrypto {
         }
 
         @Override
-        protected String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException {
+        protected String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException {
             return StringUtil.toHexString(DesCrypt.encrypt(key, objBytes));
         }
     };
@@ -306,11 +313,19 @@ public final class EntityCrypto {
         }
 
         @Override
-        protected String encryptValue(SecretKey key, byte[] objBytes) throws GeneralException {
-            Random random = new Random();
-            // random length 5-16
-            byte[] saltBytes = new byte[5 + random.nextInt(11)];
-            random.nextBytes(saltBytes);
+        protected String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException {
+            byte[] saltBytes;
+            switch (encryptMethod) {
+                case SALT:
+                    Random random = new Random();
+                    // random length 5-16
+                    saltBytes = new byte[5 + random.nextInt(11)];
+                    random.nextBytes(saltBytes);
+                    break;
+                default:
+                    saltBytes = new byte[0];
+                    break;
+            }
             byte[] allBytes = new byte[1 + saltBytes.length + objBytes.length];
             allBytes[0] = (byte) saltBytes.length;
             System.arraycopy(saltBytes, 0, allBytes, 1, saltBytes.length);

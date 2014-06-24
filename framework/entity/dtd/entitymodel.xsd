@@ -135,7 +135,15 @@ under the License.
         <xs:attribute name="name" type="xs:string" use="required"/>
         <xs:attribute name="col-name" type="xs:string"/>
         <xs:attribute name="type" type="xs:string" use="required"/>
-        <xs:attribute name="encrypt" default="false" type="boolean"/>
+        <xs:attribute name="encrypt" default="false">
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                    <xs:enumeration value="salt"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
         <xs:attribute name="enable-audit-log" default="false" type="boolean">
             <xs:annotation>
                 <xs:documentation>

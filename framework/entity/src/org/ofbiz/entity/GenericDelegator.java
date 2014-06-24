@@ -2644,13 +2644,14 @@ public class GenericDelegator implements Delegator {
         Iterator<ModelField> i = model.getFieldsIterator();
         while (i.hasNext()) {
             ModelField field = i.next();
-            if (field.getEncrypt()) {
+            ModelField.EncryptMethod encryptMethod = field.getEncryptMethod();
+            if (encryptMethod.isEncrypted()) {
                 Object obj = entity.get(field.getName());
                 if (obj != null) {
                     if (obj instanceof String && UtilValidate.isEmpty(obj)) {
                         continue;
                     }
-                    entity.dangerousSetNoCheckButFast(field, this.encryptFieldValue(entityName, obj));
+                    entity.dangerousSetNoCheckButFast(field, this.encryptFieldValue(entityName, encryptMethod, obj));
                 }
             }
         }
@@ -2660,12 +2661,21 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
      */
     @Override
+    @Deprecated
     public Object encryptFieldValue(String entityName, Object fieldValue) throws EntityCryptoException {
+        return encryptFieldValue(entityName, null, fieldValue);
+    }
+
+    @Override
+    public Object encryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, Object fieldValue) throws EntityCryptoException {
+        if (encryptMethod == null) {
+            encryptMethod = ModelField.EncryptMethod.TRUE;
+        }
         if (fieldValue != null) {
             if (fieldValue instanceof String && UtilValidate.isEmpty(fieldValue)) {
                 return fieldValue;
             }
-            return this.crypto.encrypt(entityName, fieldValue);
+            return this.crypto.encrypt(entityName, encryptMethod, fieldValue);
         }
         return fieldValue;
     }
@@ -2693,7 +2703,8 @@ public class GenericDelegator implements Delegator {
         Iterator<ModelField> i = model.getFieldsIterator();
         while (i.hasNext()) {
             ModelField field = i.next();
-            if (field.getEncrypt()) {
+            ModelField.EncryptMethod encryptMethod = field.getEncryptMethod();
+            if (encryptMethod.isEncrypted()) {
                 String keyName = entityName;
                 if (model instanceof ModelViewEntity) {
                     ModelViewEntity modelView = (ModelViewEntity) model;
