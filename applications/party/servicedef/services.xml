@@ -749,6 +749,7 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
         <attribute name="setRoleStatusToComplete" mode="IN" type="String" default-value="N"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>
     <service name="setCommunicationEventRoleStatus" engine="simple" default-entity-name="CommunicationEventRole"
             location="component://party/script/org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="setCommunicationEventRoleStatus" auth="true">
@@ -935,6 +936,7 @@ under the License.
         location="org.ofbiz.party.communication.CommunicationEventServices" invoke="setCommEventComplete" auth="true">
         <description>Sets the status of a communication event to COM_COMPLETE using the updateCommunicationEvent service</description>
         <attribute name="communicationEventId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="sendEmailDated" engine="simple" use-transaction="false"
