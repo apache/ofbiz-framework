@@ -10,10 +10,10 @@ OFBiz and the full text of the license used for each.
 For additional details, see the NOTICE file.
 =========================================================================
 The following libraries are licensed under the Apache License Version 2.0:
-framework/base/lib/ant-1.9.0-ant-launcher.jar
-framework/base/lib/ant-1.9.0-ant.jar
-framework/base/lib/ant-1.9.0-ant-junit.jar
-framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
+lib/ant/ant-1.9.0-ant-launcher.jar
+lib/ant/ant-1.9.0-ant.jar
+lib/ant/ant-1.9.0-ant-junit.jar
+lib/ant/ant-1.9.0-ant-apache-bsf.jar
 framework/base/lib/ant/ant-nodeps-1.8.1.jar
 framework/base/lib/avalon-framework-4.2.0.jar
 framework/base/lib/avalon-util-exception-1.0.0.jar
@@ -328,7 +328,7 @@ framework/images/webapp/images/date/timezones*
 The following libraries distributed with Apache OFBiz are licensed under the
 Apache Software License:
 framework/webapp/lib/DataVision-1.0.0.jar
-framework/base/lib/ant/ant-contrib-1.0b3.jar
+lib/ant/ant-contrib-1.0b3.jar
 =========================================================================
 Apache Software License
 
