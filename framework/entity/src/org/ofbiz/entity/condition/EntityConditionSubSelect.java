@@ -118,8 +118,12 @@ public class EntityConditionSubSelect extends EntityConditionValue {
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        whereCond.encryptConditionFields(modelEntity, delegator);
+    public EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        EntityCondition newWhereCond = whereCond.encryptConditionFields(modelEntity, delegator);
+        if (newWhereCond != whereCond) {
+            return new EntityConditionSubSelect(localModelEntity, keyFieldName, newWhereCond, requireAll);
+        }
+        return this;
     }
 
     public String getKeyFieldName() {

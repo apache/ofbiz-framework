@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.condition;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
@@ -96,9 +97,18 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
-    public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        List<T> newList = new ArrayList<T>(this.conditionList.size());
+        boolean changed = false;
         for (T cond: this.conditionList) {
-            cond.encryptConditionFields(modelEntity, delegator);
+            EntityCondition newCondition = cond.encryptConditionFields(modelEntity, delegator);
+            changed |= newCondition != cond;
+            newList.add((T) newCondition);
+        }
+        if (changed) {
+            return operator.freeze(newList);
+        } else {
+            return this;
         }
     }
 

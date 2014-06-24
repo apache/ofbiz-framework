@@ -1770,11 +1770,11 @@ public class GenericDelegator implements Delegator {
 
         if (whereEntityCondition != null) {
             whereEntityCondition.checkCondition(modelEntity);
-            whereEntityCondition.encryptConditionFields(modelEntity, this);
+            whereEntityCondition = whereEntityCondition.encryptConditionFields(modelEntity, this);
         }
         if (havingEntityCondition != null) {
             havingEntityCondition.checkCondition(modelEntity);
-            havingEntityCondition.encryptConditionFields(modelEntity, this);
+            havingEntityCondition = havingEntityCondition.encryptConditionFields(modelEntity, this);
         }
 
         ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);
@@ -1878,11 +1878,11 @@ public class GenericDelegator implements Delegator {
 
             if (whereEntityCondition != null) {
                 whereEntityCondition.checkCondition(modelEntity);
-                whereEntityCondition.encryptConditionFields(modelEntity, this);
+                whereEntityCondition = whereEntityCondition.encryptConditionFields(modelEntity, this);
             }
             if (havingEntityCondition != null) {
                 havingEntityCondition.checkCondition(modelEntity);
-                havingEntityCondition.encryptConditionFields(modelEntity, this);
+                havingEntityCondition = havingEntityCondition.encryptConditionFields(modelEntity, this);
             }
 
             ecaRunner.evalRules(EntityEcaHandler.EV_RUN, EntityEcaHandler.OP_FIND, dummyValue, false);

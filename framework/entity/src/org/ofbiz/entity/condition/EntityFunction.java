@@ -120,7 +120,16 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             super(fetcher, function, value);
         }
 
-        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        public EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+            if (nested != null) {
+                EntityConditionValue newNested = nested.encryptConditionFields(modelEntity, delegator);
+                if (newNested != nested) {
+                    return new EntityFunctionSingle<T>(fetcher, function, newNested) {};
+                }
+            } else {
+                // FIXME
+            }
+            return this;
         }
     }
 
@@ -129,7 +138,12 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
             super(fetcher, function, nested);
         }
 
-        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        public EntityConditionValue encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+            EntityConditionValue newNested = nested.encryptConditionFields(modelEntity, delegator);
+            if (newNested != nested) {
+                return new EntityFunctionSingle<T>(fetcher, function, newNested) {};
+            }
+            return this;
         }
     }
 
