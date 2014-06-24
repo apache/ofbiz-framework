@@ -160,16 +160,22 @@ public class EntityExpr extends EntityCondition {
 
     @Override
     public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        if (rhs instanceof EntityConditionValue) {
+            return;
+        }
+        ModelField modelField;
         if (this.lhs instanceof String) {
-            ModelField modelField = modelEntity.getField((String) this.lhs);
-            if (modelField != null && modelField.getEncrypt()) {
-                if (!(rhs instanceof EntityConditionValue)) {
-                    try {
-                        this.rhs = delegator.encryptFieldValue(modelEntity.getEntityName(), this.rhs);
-                    } catch (EntityCryptoException e) {
-                        Debug.logWarning(e, "Error encrypting field [" + modelEntity.getEntityName() + "." + modelField.getName() + "] with value: " + this.rhs, module);
-                    }
-                }
+            modelField = modelEntity.getField((String) this.lhs);
+        } else if (this.lhs instanceof EntityFieldValue) {
+            modelField = ((EntityFieldValue) this.lhs).getModelField(modelEntity);
+        } else {
+            return;
+        }
+        if (modelField != null && modelField.getEncrypt()) {
+            try {
+                this.rhs = delegator.encryptFieldValue(modelEntity.getEntityName(), this.rhs);
+            } catch (EntityCryptoException e) {
+                Debug.logWarning(e, "Error encrypting field [" + modelEntity.getEntityName() + "." + modelField.getName() + "] with value: " + this.rhs, module);
             }
         }
     }
