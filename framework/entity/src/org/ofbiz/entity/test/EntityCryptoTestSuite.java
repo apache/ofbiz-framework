@@ -18,9 +18,12 @@
  *******************************************************************************/
 package org.ofbiz.entity.test;
 
+import java.util.List;
+
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityConditionSubSelect;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.testtools.EntityTestCase;
 
@@ -107,5 +110,52 @@ public class EntityCryptoTestSuite extends EntityTestCase {
             EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime)
         );
         assertEquals(1, delegator.findList("TestingCrypto", condition, null, null, null, false).size());
+    }
+
+    protected EntityCondition makeSubSelectCondition(String nanoTime) {
+        return EntityCondition.makeCondition(
+            EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3")),
+            EntityOperator.AND,
+            EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime)
+        );
+    }
+
+    protected EntityConditionSubSelect makeSubSelect(String nanoTime) {
+        EntityCondition subCondition = makeSubSelectCondition(nanoTime);
+        return new EntityConditionSubSelect("TestingCrypto", "testingCryptoId", subCondition, true, delegator);
+    }
+
+    public void testCryptoSubSelect() throws Exception {
+        String nanoTime = "" + System.nanoTime();
+        EntityCondition condition;
+        List<GenericValue> results;
+
+        delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_1"));
+        delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_2"));
+        delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "SUB_SELECT_3"));
+
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_1", "testingCryptoTypeId", "SUB_SELECT_1", "encryptedValue", nanoTime));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_2", "testingCryptoTypeId", "SUB_SELECT_2", "encryptedValue", nanoTime));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "SUB_3", "testingCryptoTypeId", "SUB_SELECT_3", "encryptedValue", "constant"));
+
+        results = delegator.findList("TestingCrypto", EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime), null, UtilMisc.toList("testingCryptoId"), null, false);
+        assertEquals(2, results.size());
+        assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
+        assertEquals("SUB_2", results.get(1).get("testingCryptoId"));
+
+        results = delegator.findList("TestingCrypto", EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.IN, UtilMisc.toList("SUB_SELECT_1", "SUB_SELECT_3")), null, UtilMisc.toList("testingCryptoId"), null, false);
+        assertEquals(2, results.size());
+        assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
+        assertEquals("SUB_3", results.get(1).get("testingCryptoId"));
+
+        condition = makeSubSelectCondition(nanoTime);
+        results = delegator.findList("TestingCrypto", condition, null, UtilMisc.toList("testingCryptoId"), null, false);
+        assertEquals(1, results.size());
+        assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
+
+        condition = EntityCondition.makeCondition("testingCryptoId", EntityOperator.EQUALS, makeSubSelect(nanoTime));
+        results = delegator.findList("TestingCrypto", condition, null, UtilMisc.toList("testingCryptoId"), null, false);
+        assertEquals(1, results.size());
+        assertEquals("SUB_1", results.get(0).get("testingCryptoId"));
     }
 }

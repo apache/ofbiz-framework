@@ -160,6 +160,7 @@ public class EntityExpr extends EntityCondition {
             return;
         }
         if (rhs instanceof EntityConditionValue) {
+            ((EntityConditionValue) rhs).encryptConditionFields(modelEntity, delegator);
             return;
         }
         ModelField modelField;
