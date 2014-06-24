@@ -131,19 +131,7 @@ under the License.
 
     <target name="tests-cobertura" depends="jar">
         <mkdir dir="${build.dir}/cobertura-lib"/>
-        <taskdef resource="tasks.properties">
-            <classpath>
-                <fileset dir="${ofbiz.home.dir}/framework/base/lib">
-                    <include name="cobertura-1.9.4.1.jar" />
-                    <include name="log4j-1.2.17.jar" />
-                </fileset>
-                <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting">
-                    <include name="asm-3.2.jar" />
-                    <include name="asm-tree-3.2.jar" />
-                    <include name="jakarta-oro-2.0.8.jar" />
-                </fileset>
-            </classpath>
-        </taskdef>
+        <taskdef resource="tasks.properties" classpathref="cobertura.class.path"/>
         <delete file="${build.dir}/test-results/cobertura.dat"/>
         <cobertura-instrument datafile="${build.dir}/test-results/cobertura.dat" todir="${build.dir}/cobertura-lib">
             <fileset dir="${build.dir}/lib">
