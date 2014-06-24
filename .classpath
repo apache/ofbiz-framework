@@ -10,10 +10,11 @@
     <classpathentry kind="lib" path="applications/content/lib/tika-parsers-1.0.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/watermarker-0.0.4.jar"/>
     <classpathentry kind="lib" path="applications/product/lib/dozer-4.2.1.jar"/>
-    <classpathentry kind="lib" path="lib/ant/ant-1.9.0-ant.jar"/>
-    <classpathentry kind="lib" path="lib/ant/ant-1.9.0-ant-junit.jar"/>
-    <classpathentry kind="lib" path="lib/ant/ant-1.9.0-ant-launcher.jar"/>
-    <classpathentry kind="lib" path="lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant-junit.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant-launcher.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.8.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
