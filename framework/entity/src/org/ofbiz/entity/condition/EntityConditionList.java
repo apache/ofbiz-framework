@@ -31,11 +31,6 @@ public class EntityConditionList<T extends EntityCondition> extends EntityCondit
         super(conditionList, operator);
     }
 
-    public void init(List<T> conditionList, EntityJoinOperator operator) {
-        this.conditionList = conditionList;
-        this.operator = operator;
-    }
-
     @Override
     public int getConditionListSize() {
         return super.getConditionListSize();
