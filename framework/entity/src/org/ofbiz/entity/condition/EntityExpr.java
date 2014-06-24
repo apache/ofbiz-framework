@@ -171,9 +171,9 @@ public class EntityExpr extends EntityCondition {
         } else {
             return;
         }
-        if (modelField != null && modelField.getEncrypt()) {
+        if (modelField != null && modelField.getEncryptMethod().isEncrypted()) {
             try {
-                this.rhs = delegator.encryptFieldValue(modelEntity.getEntityName(), this.rhs);
+                this.rhs = delegator.encryptFieldValue(modelEntity.getEntityName(), modelField.getEncryptMethod(), this.rhs);
             } catch (EntityCryptoException e) {
                 Debug.logWarning(e, "Error encrypting field [" + modelEntity.getEntityName() + "." + modelField.getName() + "] with value: " + this.rhs, module);
             }

@@ -355,7 +355,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                     enableAuditLog = "true".equals(fieldElement.getAttribute("enable-audit-log"));
                 }
                 newField = ModelField.create(this, description, existingField.getName(), type, colName, existingField.getColValue(), existingField.getFieldSet(),
-                        existingField.getIsNotNull(), existingField.getIsPk(), existingField.getEncrypt(), existingField.getIsAutoCreatedInternal(),
+                        existingField.getIsNotNull(), existingField.getIsPk(), existingField.getEncryptMethod(), existingField.getIsAutoCreatedInternal(),
                         enableAuditLog, existingField.getValidators());
             }
             // add to the entity as a new field

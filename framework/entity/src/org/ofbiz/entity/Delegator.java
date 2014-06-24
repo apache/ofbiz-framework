@@ -33,6 +33,7 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.eca.EntityEcaHandler;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.model.ModelFieldTypeReader;
 import org.ofbiz.entity.model.ModelGroupReader;
@@ -264,7 +265,10 @@ public interface Delegator {
 
     public void encryptFields(List<? extends GenericEntity> entities) throws GenericEntityException;
 
+    @Deprecated
     public Object encryptFieldValue(String entityName, Object fieldValue) throws EntityCryptoException;
+
+    public Object encryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, Object fieldValue) throws EntityCryptoException;
 
     /**
      * Finds GenericValues by the conditions specified in the EntityCondition

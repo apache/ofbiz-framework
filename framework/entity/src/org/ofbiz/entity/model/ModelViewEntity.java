@@ -431,7 +431,7 @@ public class ModelViewEntity extends ModelEntity {
             String fieldSet = "";
             boolean isNotNull = false;
             boolean isPk = false;
-            boolean encrypt = false;
+            ModelField.EncryptMethod encryptMethod = ModelField.EncryptMethod.FALSE;
             boolean isAutoCreatedInternal = false;
             boolean enableAuditLog = false;
             List<String> validators = null;
@@ -458,7 +458,7 @@ public class ModelViewEntity extends ModelEntity {
                 } else {
                     isPk = aliasedField.getIsPk();
                 }
-                encrypt = aliasedField.getEncrypt();
+                encryptMethod = aliasedField.getEncryptMethod();
                 type = aliasedField.getType();
                 validators = aliasedField.getValidators();
                 colValue = alias.entityAlias + "." + SqlJdbcUtil.filterColName(aliasedField.getColName());
@@ -492,7 +492,7 @@ public class ModelViewEntity extends ModelEntity {
                     colValue = prefix + colValue + ")";
                 }
             }
-            ModelField field = ModelField.create(this, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encrypt, isAutoCreatedInternal, enableAuditLog, validators);
+            ModelField field = ModelField.create(this, description, name, type, colName, colValue, fieldSet, isNotNull, isPk, encryptMethod, isAutoCreatedInternal, enableAuditLog, validators);
             // if this is a groupBy field, add it to the groupBys list
             if (alias.groupBy || groupByFields.contains(alias.name)) {
                 this.groupBys.add(field);

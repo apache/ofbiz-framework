@@ -1335,7 +1335,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
         for (String curKey: new TreeSet<String>(fields.keySet())) {
             Object curValue = fields.get(curKey);
             ModelField field = this.getModelEntity().getField(curKey);
-            if (field.getEncrypt() && curValue instanceof String) {
+            if (field.getEncryptMethod().isEncrypted() && curValue instanceof String) {
                 String encryptField = (String) curValue;
                 // the encryptField may not actually be UTF8, it could be any
                 // random encoding; just treat it as a series of raw bytes.
