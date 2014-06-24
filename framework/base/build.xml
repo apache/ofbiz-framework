@@ -36,9 +36,6 @@ under the License.
         <fileset dir="${lib.dir}/scripting" includes="*.jar"/>
         <fileset dir="../start/build/lib" includes="*.jar"/>
     </path>
-    <patternset id="src-dirs">
-        <include name="build/gen-src/javacc"/>
-    </patternset>
 
     <filelist id="test.classes" dir="${src.dir}">
         <file name="org/ofbiz/base/lang/test/ComparableRangeTests.java"/>
@@ -87,7 +84,13 @@ under the License.
     </target>
 
     <target name="classes" depends="prepare,gen-src">
-        <javac16/>
+        <javac16>
+            <sourcepath>
+                <dirset dir="build/gen-src">
+                    <include name="javacc"/>
+                </dirset>
+            </sourcepath>
+        </javac16>
     </target>
 
     <target name="jar" depends="classes">

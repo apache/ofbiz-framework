@@ -42,12 +42,6 @@ under the License.
   </sequential>
  </macrodef>
 
- <path id="src-path">
-  <dirset dir=".">
-   <patternset refid="src-dirs"/>
-  </dirset>
- </path>
- <patternset id="src-dirs"/>
  <patternset id="src.inc.set">
   <include name="**/*.java"/>
  </patternset>
@@ -85,7 +79,7 @@ under the License.
  </presetdef>
 
  <presetdef name="javac16">
-  <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" sourcepathref="src-path" includeantruntime="false">
+  <default-javac compiler="javac1.6" target="1.6" source="1.6" encoding="UTF-8" includeantruntime="false">
    <compilerarg value="-Xlint:-path"/>
    <!--
    Please leave this line here.  It makes it easier to enable/disable it.
