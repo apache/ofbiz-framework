@@ -26,16 +26,66 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.GenericModelException;
+import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.model.ModelEntity;
 
 public class EntityConditionBuilder extends BuilderSupport {
+    public static final String module = EntityConditionBuilder.class.getName();
+
+    private static class ConditionHolder extends EntityCondition {
+        protected EntityCondition condition;
+
+        protected ConditionHolder(EntityCondition condition) {
+            this.condition = condition;
+        }
+
+        public Object asType(Class clz) {
+            Debug.logInfo("asType(%s): %s", module, clz, condition);
+            if (clz == EntityCondition.class) {
+                return condition;
+            }
+            return this;
+        }
+
+        public EntityCondition build() {
+            return condition;
+        }
+
+        public boolean isEmpty() {
+            return condition.isEmpty();
+        }
+
+        public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, Datasource datasourceInfo) {
+            return condition.makeWhereString(modelEntity, entityConditionParams, datasourceInfo);
+        }
+
+        public void checkCondition(ModelEntity modelEntity) throws GenericModelException {
+            condition.checkCondition(modelEntity);
+        }
+
+        public boolean mapMatches(Delegator delegator, Map<String, ? extends Object> map) {
+            return condition.mapMatches(delegator, map);
+        }
+
+        public EntityCondition freeze() {
+            return condition.freeze();
+        }
+
+        public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+            return condition.encryptConditionFields(modelEntity, delegator);
+        }
+    }
 
     @Override
     protected Object createNode(Object methodName) {
         String operatorName = ((String)methodName).toLowerCase();
         EntityJoinOperator operator = EntityOperator.lookupJoin(operatorName);
         List<EntityCondition> condList = new LinkedList<EntityCondition>();
-        return EntityCondition.makeCondition(condList, operator);
+        return new ConditionHolder(EntityCondition.makeCondition(condList, operator));
     }
 
     @Override
@@ -55,9 +105,9 @@ public class EntityConditionBuilder extends BuilderSupport {
             conditionList.add(EntityCondition.makeCondition(entry.getKey(), operator, entry.getValue()));
         }
         if (conditionList.size() == 1) {
-            return conditionList.get(0);
+            return new ConditionHolder(conditionList.get(0));
         } else {
-            return EntityCondition.makeCondition(conditionList);
+            return new ConditionHolder(EntityCondition.makeCondition(conditionList));
         }
     }
 
@@ -68,8 +118,8 @@ public class EntityConditionBuilder extends BuilderSupport {
 
     @Override
     protected void setParent(Object parent, Object child) {
-        // No add method on EntityConditionList?
-        EntityConditionList<EntityCondition> parentConList = UtilGenerics.cast(parent);
+        ConditionHolder holder = (ConditionHolder) parent;
+        EntityConditionList<EntityCondition> parentConList = UtilGenerics.cast(holder.condition);
         Iterator<EntityCondition> iterator = parentConList.getConditionIterator();
         List<EntityCondition> tempList = new LinkedList<EntityCondition>();
         while (iterator.hasNext()) {
@@ -77,10 +127,12 @@ public class EntityConditionBuilder extends BuilderSupport {
         }
         if (child instanceof EntityCondition) {
             tempList.add((EntityCondition)child);
-        } else if (child instanceof List<?>) {
+        } else if (child instanceof ConditionHolder) {
+            tempList.add(((ConditionHolder)child).condition);
+        } else {
             tempList.addAll(UtilGenerics.<EntityCondition>checkList(child));
         }
-        parentConList.init(tempList, parentConList.getOperator());
+        holder.condition = EntityCondition.makeCondition(tempList, parentConList.getOperator());
     }
 
 }
