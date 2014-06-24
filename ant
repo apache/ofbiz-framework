@@ -27,7 +27,7 @@ fi
 
 top="$(cd "$(dirname "$0")"; echo "$PWD")"
 find_jar() {
-    set -- "$top"/lib/ant/*ant-launcher.jar
+    set -- "$top"/framework/base/lib/*ant-launcher.jar
     if [ $# = 1 ] && [ -e "$1" ]; then
         echo "$1"
     else
@@ -35,5 +35,5 @@ find_jar() {
         exit 1
     fi
 }
-"$JAVA" -jar "$(find_jar)" -lib "$top/lib/ant" "$@"
+"$JAVA" -jar "$(find_jar)" -lib "$top/framework/base/lib/ant" "$@"
 
