@@ -49,6 +49,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
+import freemarker.template.Version;
 
 /**
  * Widget Library - Screen model HTML class.
@@ -58,10 +59,14 @@ public class HtmlWidget extends ModelScreenWidget {
     public static final String module = HtmlWidget.class.getName();
 
     private static final UtilCache<String, Template> specialTemplateCache = UtilCache.createUtilCache("widget.screen.template.ftl.general", 0, 0, false);
-    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(FreeMarkerWorker.configureBeansWrapper(new ExtendedWrapper()));
+    protected static Configuration specialConfig = FreeMarkerWorker.makeConfiguration(FreeMarkerWorker.configureBeansWrapper(new ExtendedWrapper(FreeMarkerWorker.version)));
 
     // not sure if this is the best way to get FTL to use my fancy MapModel derivative, but should work at least...
     public static class ExtendedWrapper extends BeansWrapper {
+        public ExtendedWrapper(Version version) {
+            super(version);
+        }
+
         @SuppressWarnings("unchecked")
         @Override
         public TemplateModel wrap(Object object) throws TemplateModelException {
