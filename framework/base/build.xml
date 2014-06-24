@@ -72,7 +72,7 @@ under the License.
         </condition>
         <condition property="exclude.cobertura" value="org/ofbiz/base/config/Cobertura*.java">
             <not>
-                <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="local.class.path"/>
+                <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="cobertura.class.path"/>
             </not>
         </condition>
         <patternset id="src.exc.set">
