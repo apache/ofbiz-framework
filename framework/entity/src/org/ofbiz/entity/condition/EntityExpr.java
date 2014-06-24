@@ -41,12 +41,12 @@ import org.ofbiz.entity.model.ModelFieldType;
  *
  */
 @SuppressWarnings("serial")
-public class EntityExpr extends EntityCondition {
+public final class EntityExpr extends EntityCondition {
     public static final String module = EntityExpr.class.getName();
 
-    private Object lhs = null;
-    private EntityOperator<Object, Object, ?> operator = null;
-    private Object rhs = null;
+    private final Object lhs;
+    private final EntityOperator<Object, Object, ?> operator;
+    private final Object rhs;
 
     public <L,R,LL,RR> EntityExpr(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         if (lhs == null) {

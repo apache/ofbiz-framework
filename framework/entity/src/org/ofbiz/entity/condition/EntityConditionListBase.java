@@ -38,8 +38,8 @@ import org.ofbiz.entity.model.ModelEntity;
 public abstract class EntityConditionListBase<T extends EntityCondition> extends EntityCondition {
     public static final String module = EntityConditionListBase.class.getName();
 
-    protected List<T> conditionList = null;
-    protected EntityJoinOperator operator = null;
+    protected final List<T> conditionList;
+    protected final EntityJoinOperator operator;
 
     protected EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
         this.conditionList = conditionList;
