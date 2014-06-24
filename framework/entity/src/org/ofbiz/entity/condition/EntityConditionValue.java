@@ -60,6 +60,10 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         }
 
         @Override
+        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        }
+
+        @Override
         public ModelField getModelField(ModelEntity modelEntity) {
             return null;
         }
@@ -102,6 +106,8 @@ public abstract class EntityConditionValue extends EntityConditionBase {
 
     public abstract EntityConditionValue freeze();
 
+    public abstract void encryptConditionFields(ModelEntity modelEntity, Delegator delegator);
+
     public abstract void visit(EntityConditionVisitor visitor);
 
     public void accept(EntityConditionVisitor visitor) {
@@ -109,7 +115,7 @@ public abstract class EntityConditionValue extends EntityConditionBase {
     }
 
     public void toString(StringBuilder sb) {
-        addSqlValue(sb, null, new ArrayList<EntityConditionParam>(), false, null);
+        addSqlValue(sb, null, null, false, null);
     }
 
     @Override

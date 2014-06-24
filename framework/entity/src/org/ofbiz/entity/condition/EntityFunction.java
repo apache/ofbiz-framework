@@ -63,7 +63,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      * Length() entity function.
      *
      */
-    public static class LENGTH extends EntityFunction<Integer> {
+    public static class LENGTH extends EntityFunctionSingle<Integer> {
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
             public Integer getValue(Object value) { return value.toString().length(); }
         };
@@ -77,7 +77,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      * Trim() entity function.
      *
      */
-    public static class TRIM extends EntityFunction<String> {
+    public static class TRIM extends EntityFunctionSingle<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().trim(); }
         };
@@ -91,7 +91,7 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      * Upper() entity function.
      *
      */
-    public static class UPPER extends EntityFunction<String> {
+    public static class UPPER extends EntityFunctionSingle<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toUpperCase(); }
         };
@@ -105,13 +105,31 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
      * Lower() entity function.
      *
      */
-    public static class LOWER extends EntityFunction<String> {
+    public static class LOWER extends EntityFunctionSingle<String> {
         public static Fetcher<String> FETCHER = new Fetcher<String>() {
             public String getValue(Object value) { return value.toString().toLowerCase(); }
         };
 
         private LOWER(Object value) {
             super(FETCHER, SQLFunction.LOWER, value);
+        }
+    }
+
+    public static abstract class EntityFunctionSingle<T extends Comparable<?>> extends EntityFunction<T> {
+        protected EntityFunctionSingle(Fetcher<T> fetcher, SQLFunction function, Object value) {
+            super(fetcher, function, value);
+        }
+
+        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        }
+    }
+
+    public static abstract class EntityFunctionNested<T extends Comparable<?>> extends EntityFunction<T> {
+        protected EntityFunctionNested(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
+            super(fetcher, function, nested);
+        }
+
+        public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
         }
     }
 
@@ -142,9 +160,9 @@ public abstract class EntityFunction<T extends Comparable<?>> extends EntityCond
     @Override
     public EntityConditionValue freeze() {
         if (nested != null) {
-            return new EntityFunction<T>(fetcher, function, nested.freeze()) {};
+            return new EntityFunctionNested<T>(fetcher, function, nested.freeze()) {};
         } else {
-            return new EntityFunction<T>(fetcher, function, value) {};
+            return new EntityFunctionSingle<T>(fetcher, function, value) {};
         }
     }
 
