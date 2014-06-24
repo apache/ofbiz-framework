@@ -48,7 +48,7 @@ public class EntityExpr extends EntityCondition {
     private EntityOperator<Object, Object, ?> operator = null;
     private Object rhs = null;
 
-    public <L,R,LL,RR> void init(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
+    public <L,R,LL,RR> EntityExpr(L lhs, EntityComparisonOperator<LL,RR> operator, R rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The field name/value cannot be null");
         }
@@ -79,7 +79,7 @@ public class EntityExpr extends EntityCondition {
         //Debug.logInfo("new EntityExpr internal field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
     }
 
-    public void init(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
+    public EntityExpr(EntityCondition lhs, EntityJoinOperator operator, EntityCondition rhs) {
         if (lhs == null) {
             throw new IllegalArgumentException("The left EntityCondition argument cannot be null");
         }
@@ -93,12 +93,6 @@ public class EntityExpr extends EntityCondition {
         this.lhs = lhs;
         this.operator = UtilGenerics.cast(operator);
         this.rhs = rhs;
-    }
-
-    public void reset() {
-        this.lhs = null;
-        this.operator = null;
-        this.rhs = null;
     }
 
     public Object getLhs() {

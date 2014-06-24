@@ -32,13 +32,9 @@ import org.ofbiz.entity.util.EntityUtil;
  *
  */
 @SuppressWarnings("serial")
-public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
+public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
 
-    protected Map<String, ? extends Object> fieldMap = null;
-
-    public static <V> List<EntityExpr> makeConditionList(EntityComparisonOperator<?,V> op, V... keysValues) {
-        return makeConditionList(EntityUtil.makeFields(keysValues), op);
-    }
+    protected final Map<String, ? extends Object> fieldMap;
 
     public static <V> List<EntityExpr> makeConditionList(Map<String, V> fieldMap, EntityComparisonOperator<?,V> op) {
         if (fieldMap == null) {
@@ -51,23 +47,13 @@ public class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return list;
     }
 
-    public <V> void init(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
-        super.init(makeConditionList(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
-        Map<String, ? extends Object>  fieldMap = EntityUtil.makeFields(keysValues);
-        this.fieldMap = fieldMap == null ? Collections.<String, Object>emptyMap() : fieldMap;
-        this.operator = joinOp;
+    public <V> EntityFieldMap(EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp, V... keysValues) {
+        this(EntityUtil.makeFields(keysValues), UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp), joinOp);
     }
 
-    public <V> void init(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp) {
-        super.init(makeConditionList(fieldMap, UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
+    public <V> EntityFieldMap(Map<String, V> fieldMap, EntityComparisonOperator<?,?> compOp, EntityJoinOperator joinOp) {
+        super(makeConditionList(fieldMap, UtilGenerics.<EntityComparisonOperator<String,V>>cast(compOp)), joinOp);
         this.fieldMap = fieldMap == null ? Collections.<String, Object>emptyMap() : fieldMap;
-        this.operator = joinOp;
-    }
-
-    @Override
-    public void reset() {
-        super.reset();
-        this.fieldMap = null;
     }
 
     public Object getField(String name) {

@@ -40,29 +40,9 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     protected List<T> conditionList = null;
     protected EntityJoinOperator operator = null;
 
-    protected EntityConditionListBase() {}
-
-    public EntityConditionListBase(EntityJoinOperator operator, T... conditionList) {
-        this.init(operator, conditionList);
-    }
-
-    public EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
-        this.init(conditionList, operator);
-    }
-
-    public void init(EntityJoinOperator operator, T... conditionList) {
-        this.conditionList = Arrays.asList(conditionList);
-        this.operator = operator;
-    }
-
-    public void init(List<T> conditionList, EntityJoinOperator operator) {
+    protected EntityConditionListBase(List<T> conditionList, EntityJoinOperator operator) {
         this.conditionList = conditionList;
         this.operator = operator;
-    }
-
-    public void reset() {
-        this.conditionList = null;
-        this.operator = null;
     }
 
     public EntityJoinOperator getOperator() {

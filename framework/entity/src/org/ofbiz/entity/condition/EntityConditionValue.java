@@ -22,9 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javolution.context.ObjectFactory;
-import javolution.lang.Reusable;
-
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -39,22 +36,11 @@ import org.ofbiz.entity.model.ModelField;
 @SuppressWarnings("serial")
 public abstract class EntityConditionValue extends EntityConditionBase {
 
-    public static EntityConditionValue CONSTANT_NUMBER(Number value) { return ConstantNumberValue.createConstantNumberValue(value); }
-    public static class ConstantNumberValue extends EntityConditionValue implements Reusable {
-        protected static ConstantNumberValue createConstantNumberValue(Number value) {
-            ConstantNumberValue cnv = factory.object();
-            cnv.init(value);
-            return cnv;
-        }
-        protected static final ObjectFactory<ConstantNumberValue> factory = new ObjectFactory<ConstantNumberValue>() {
-            protected ConstantNumberValue create() {
-                return new ConstantNumberValue();
-            }
-        };
-
+    public static EntityConditionValue CONSTANT_NUMBER(Number value) { return new ConstantNumberValue(value); }
+    public static final class ConstantNumberValue extends EntityConditionValue {
         private Number value;
 
-        protected void init(Number value) {
+        private ConstantNumberValue(Number value) {
             this.value = value;
         }
 
@@ -81,11 +67,6 @@ public abstract class EntityConditionValue extends EntityConditionBase {
         @Override
         public Object getValue(Delegator delegator, Map<String, ? extends Object> map) {
             return value;
-        }
-
-        @Override
-        public void reset() {
-            this.value = value;
         }
 
         @Override
