@@ -141,10 +141,7 @@ public class FinAccountHelper {
          finAccountCode = finAccountCode.toUpperCase().replaceAll("[^0-9A-Z]", "");
 
          // now we need to get the encrypted version of the fin account code the user passed in to look up against FinAccount
-         // we do this by making a temporary generic entity with same finAccountCode and then doing a match
-         GenericValue encryptedFinAccount = delegator.makeValue("FinAccount", UtilMisc.toMap("finAccountCode", finAccountCode));
-         delegator.encryptFields(encryptedFinAccount);
-         String encryptedFinAccountCode = encryptedFinAccount.getString("finAccountCode");
+         String encryptedFinAccountCode = (String) delegator.encryptFieldValue("FinAccount", finAccountCode);
 
          // now look for the account
          List<GenericValue> accounts = delegator.findByAnd("FinAccount", UtilMisc.toMap("finAccountCode", encryptedFinAccountCode), null, false);

@@ -74,10 +74,6 @@ public class EntityConditionBuilder extends BuilderSupport {
         public EntityCondition freeze() {
             return condition.freeze();
         }
-
-        public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-            return condition.encryptConditionFields(modelEntity, delegator);
-        }
     }
 
     @Override

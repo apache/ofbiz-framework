@@ -97,22 +97,6 @@ public abstract class EntityConditionListBase<T extends EntityCondition> extends
     }
 
     @Override
-    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        List<T> newList = new ArrayList<T>(this.conditionList.size());
-        boolean changed = false;
-        for (T cond: this.conditionList) {
-            EntityCondition newCondition = cond.encryptConditionFields(modelEntity, delegator);
-            changed |= newCondition != cond;
-            newList.add((T) newCondition);
-        }
-        if (changed) {
-            return operator.freeze(newList);
-        } else {
-            return this;
-        }
-    }
-
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityConditionListBase<?>)) return false;
         EntityConditionListBase<?> other = UtilGenerics.cast(obj);

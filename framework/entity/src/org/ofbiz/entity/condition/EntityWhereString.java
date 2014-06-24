@@ -82,12 +82,6 @@ public final class EntityWhereString extends EntityCondition {
     }
 
     @Override
-    public EntityCondition encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
-        // nothing to do here...
-        return this;
-    }
-
-    @Override
     public void visit(EntityConditionVisitor visitor) {
         visitor.acceptEntityWhereString(this);
     }

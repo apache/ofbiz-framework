@@ -526,12 +526,23 @@ public class SqlJdbcUtil {
                     entity.getEntityName() + "." + curField.getName() + ".");
         }
 
+        ModelEntity model = entity.getModelEntity();
+        String encryptionKeyName = entity.getEntityName();
+        if (curField.getEncryptMethod().isEncrypted() && model instanceof ModelViewEntity) {
+            ModelViewEntity modelView = (ModelViewEntity) model;
+            encryptionKeyName = modelView.getAliasedEntity(modelView.getAlias(curField.getName()).getEntityAlias(), entity.getDelegator().getModelReader()).getEntityName();
+        }
+
         // ----- Try out the new handler code -----
 
         JdbcValueHandler<?> handler = mft.getJdbcValueHandler();
         if (handler != null) {
             try {
-                entity.dangerousSetNoCheckButFast(curField, handler.getValue(rs, ind));
+                Object jdbcValue = handler.getValue(rs, ind);
+                if (jdbcValue instanceof String && curField.getEncryptMethod().isEncrypted()) {
+                    jdbcValue = entity.getDelegator().decryptFieldValue(encryptionKeyName, (String) jdbcValue);
+                }
+                entity.dangerousSetNoCheckButFast(curField, jdbcValue);
                 return;
             } catch (Exception e) {
                 Debug.logError(e, module);
@@ -585,6 +596,9 @@ public class SqlJdbcUtil {
                         }
                     } else {
                         String value = rs.getString(ind);
+                        if (value instanceof String && curField.getEncryptMethod().isEncrypted()) {
+                            value = (String) entity.getDelegator().decryptFieldValue(encryptionKeyName, value);
+                        }
                         entity.dangerousSetNoCheckButFast(curField, value);
                     }
                     break;
@@ -777,6 +791,10 @@ public class SqlJdbcUtil {
 
         // ----- Try out the new handler code -----
 
+        ModelField.EncryptMethod encryptMethod = modelField.getEncryptMethod();
+        if (encryptMethod.isEncrypted()) {
+            fieldValue = sqlP.getDelegator().encryptFieldValue(entityName, encryptMethod, fieldValue);
+        }
         JdbcValueHandler<T> handler = UtilGenerics.cast(mft.getJdbcValueHandler());
         if (handler != null) {
             try {
