@@ -20,6 +20,8 @@ package org.ofbiz.entity.test;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.testtools.EntityTestCase;
 
 public class EntityCryptoTestSuite extends EntityTestCase {
@@ -86,14 +88,24 @@ public class EntityCryptoTestSuite extends EntityTestCase {
 
     public void testCryptoLookup() throws Exception {
         String nanoTime = "" + System.nanoTime();
+        EntityCondition condition;
 
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP"));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-null", "testingCryptoTypeId", "LOOKUP"));
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "lookup-value", "testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime, "saltedEncryptedValue", nanoTime));
 
+        // This ends up using EntityExpr contained in EntityConditionList
         assertEquals(1, delegator.findByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP", "encryptedValue", null), null, false).size());
         assertEquals(1, delegator.findByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", null), null, false).size());
         assertEquals(1, delegator.findByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP", "encryptedValue", nanoTime), null, false).size());
         assertEquals(0, delegator.findByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "LOOKUP", "saltedEncryptedValue", nanoTime), null, false).size());
+
+        // This ends up using EntityExpr contained in EntityExpr
+        condition = EntityCondition.makeCondition(
+            EntityCondition.makeCondition("testingCryptoTypeId", EntityOperator.EQUALS, "LOOKUP"),
+            EntityOperator.AND,
+            EntityCondition.makeCondition("encryptedValue", EntityOperator.EQUALS, nanoTime)
+        );
+        assertEquals(1, delegator.findList("TestingCrypto", condition, null, null, null, false).size());
     }
 }

@@ -154,6 +154,11 @@ public class EntityExpr extends EntityCondition {
 
     @Override
     public void encryptConditionFields(ModelEntity modelEntity, Delegator delegator) {
+        if (operator.getClass().equals(EntityJoinOperator.class)) {
+            ((EntityCondition) lhs).encryptConditionFields(modelEntity, delegator);
+            ((EntityCondition) rhs).encryptConditionFields(modelEntity, delegator);
+            return;
+        }
         if (rhs instanceof EntityConditionValue) {
             return;
         }
