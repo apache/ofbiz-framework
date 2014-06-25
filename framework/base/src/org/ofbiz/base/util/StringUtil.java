@@ -311,7 +311,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str, boolean trim) {
-        return strToMap(str, null, trim);
+        return strToMap(str, "|", trim);
     }
 
     /**
@@ -330,7 +330,7 @@ public class StringUtil {
      * @return a Map of name/value pairs
      */
     public static Map<String, String> strToMap(String str) {
-        return strToMap(str, null, false);
+        return strToMap(str, "|", false);
     }
 
 
