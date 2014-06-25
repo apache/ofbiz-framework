@@ -49,11 +49,11 @@ public class InventoryItemTransferTest extends OFBizTestCase {
     }
 
     public void testCreateInventoryItemsTransfer() throws Exception {
+        // create
         Map<String, Object> ctx = FastMap.newInstance();
-        String statusId = "IXF_REQUESTED";
         String inventoryItemId = "9005";
         ctx.put("inventoryItemId", inventoryItemId);
-        ctx.put("statusId", statusId);
+        ctx.put("statusId", "IXF_REQUESTED");
         ctx.put("facilityId", "WebStoreWarehouse");
         ctx.put("facilityIdTo", "WebStoreWarehouse");
         ctx.put("receiveDate", UtilDateTime.nowTimestamp());
@@ -62,17 +62,14 @@ public class InventoryItemTransferTest extends OFBizTestCase {
         Map<String, Object> resp = dispatcher.runSync("createInventoryTransfer", ctx);
         inventoryTransferId = (String) resp.get("inventoryTransferId");
         assertNotNull(inventoryTransferId);
-    }
 
-    public void testUpdateInventoryItemTransfer() throws Exception {
-        Map<String, Object> ctx = FastMap.newInstance();
-        String statusId = "IXF_COMPLETE";
+        // transfer
+        ctx = FastMap.newInstance();
         ctx.put("inventoryTransferId", inventoryTransferId);
-        String inventoryItemId = delegator.findOne("InventoryTransfer", UtilMisc.toMap("inventoryTransferId", inventoryTransferId), false).getString("inventoryItemId");
         ctx.put("inventoryItemId", inventoryItemId);
-        ctx.put("statusId", statusId);
+        ctx.put("statusId", "IXF_COMPLETE");
         ctx.put("userLogin", userLogin);
-        Map<String, Object> resp = dispatcher.runSync("updateInventoryTransfer", ctx);
+        resp = dispatcher.runSync("updateInventoryTransfer", ctx);
         String respMsg = (String) resp.get("responseMessage");
         assertNotSame("error", respMsg);
     }
