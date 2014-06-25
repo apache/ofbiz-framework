@@ -143,6 +143,9 @@ public class EmailServices {
             sendTo = redirectAddress;
             sendCc = null;
             sendBcc = null;
+            if (subject.length() > 255) {
+                subject = subject.substring(0, 255);
+            }
         }
 
         String sendFrom = (String) context.get("sendFrom");
