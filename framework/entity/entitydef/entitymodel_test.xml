@@ -216,4 +216,11 @@ under the License.
         </complex-alias>
       </alias>
     </view-entity>
+    <entity entity-name="TestingRemoveAll"
+        package-name="org.ofbiz.entity.test"
+        title="Testing Entity">
+        <field name="testingRemoveAllId" type="id-ne"/>
+        <field name="description" type="description"/>
+        <prim-key field="testingRemoveAllId"/>
+    </entity>
 </entitymodel>
