@@ -84,13 +84,13 @@ under the License.
     </target>
 
     <target name="classes" depends="prepare,gen-src">
-        <javac16>
+        <javac17>
             <sourcepath>
                 <dirset dir="build/gen-src">
                     <include name="javacc"/>
                 </dirset>
             </sourcepath>
-        </javac16>
+        </javac17>
     </target>
 
     <target name="jar" depends="classes">
