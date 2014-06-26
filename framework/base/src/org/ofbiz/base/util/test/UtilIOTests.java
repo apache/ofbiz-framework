@@ -138,6 +138,8 @@ public class UtilIOTests extends GenericTestCaseBase {
     }
 
     protected void checkBasicReadWriteObject(Object value, String text) throws Exception {
+        String lineEnding = System.getProperty("line.separator");
+        text = text.replaceAll("\n", lineEnding);
         byte[] bytes = text.getBytes("UTF-8");
         assertEquals("read bytes " + value.getClass().getName(), value, UtilIO.readObject(new ByteArrayInputStream(bytes)));
         assertEquals("read chars " + value.getClass().getName(), value, UtilIO.readObject(text.toCharArray()));
@@ -147,7 +149,7 @@ public class UtilIOTests extends GenericTestCaseBase {
         assertEquals("write stream " + value.getClass().getName(), text, new String(baos.toByteArray(), "UTF-8"));
         StringBuilder sb = new StringBuilder();
         UtilIO.writeObject(sb, value);
-        sb.append('\n');
+        sb.append(lineEnding);
         assertEquals("write builder " + value.getClass().getName(), text, sb.toString());
     }
 

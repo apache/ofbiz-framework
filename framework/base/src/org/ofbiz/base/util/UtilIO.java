@@ -382,6 +382,9 @@ public final class UtilIO {
                 if (buffer[length - 1] == '\n') {
                     length--;
                 }
+                if (buffer[length - 1] == '\r') {
+                    length--;
+                }
                 return convertObject(String.class, new String(buffer, i + 1, length - i - 1), type);
             }
         } catch (Exception e) {
