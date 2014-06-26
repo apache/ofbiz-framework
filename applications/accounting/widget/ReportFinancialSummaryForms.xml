@@ -532,6 +532,7 @@ under the License.
             <drop-down>
                 <entity-options entity-name="CustomTimePeriod" key-field-name="customTimePeriodId" description="${periodName}: ${fromDate} - ${thruDate}" filter-by-date="false">
                     <entity-constraint name="periodTypeId" operator="like" value="FISCAL_%"/>
+                    <entity-constraint name="organizationPartyId" operator="equals" value="${organizationPartyId}"/>
                     <entity-order-by field-name="-thruDate"/>
                     <entity-order-by field-name="periodNum"/>
                 </entity-options>
