@@ -129,6 +129,10 @@ under the License.
         <run-junit/>
     </target>
 
+    <patternset id="cobertura-src-dirs">
+        <include name="src"/>
+    </patternset>
+
     <target name="tests-cobertura" depends="jar">
         <mkdir dir="${build.dir}/cobertura-lib"/>
         <taskdef resource="tasks.properties" classpathref="cobertura.class.path"/>
@@ -143,8 +147,7 @@ under the License.
         <mkdir dir="${build.dir}/test-results/cobertura-report"/>
         <cobertura-report datafile="${build.dir}/test-results/cobertura.dat" destdir="${build.dir}/test-results/cobertura-report">
             <dirset dir=".">
-                <patternset refid="src-dirs"/>
-                <include name="src"/>
+                <patternset refid="cobertura-src-dirs"/>
             </dirset>
 
             <include name="**/*.java"/>
