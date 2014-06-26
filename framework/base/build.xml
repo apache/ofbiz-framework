@@ -60,6 +60,11 @@ under the License.
         <file name="org/ofbiz/base/concurrent/test/TTLCachedObjectTest.java"/>
     </filelist>
 
+    <patternset id="cobertura-src-dirs">
+        <include name="build/gen-src"/>
+        <include name="src"/>
+    </patternset>
+
     <target name="init">
         <!-- make sure we have crypto packages available -->
         <condition property="exclude.crypto" value="org/ofbiz/base/crypto/**">

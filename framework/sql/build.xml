@@ -47,6 +47,11 @@ under the License.
         <file name="org/ofbiz/sql/test/SelectTest.java"/>
         <file name="org/ofbiz/sql/test/SQLTest.java"/>
     </filelist>
+    <patternset id="cobertura-src-dirs">
+        <include name="build/gen-src/javacc"/>
+        <include name="build/gen-src/jjtree"/>
+        <include name="src"/>
+    </patternset>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
