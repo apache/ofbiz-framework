@@ -19,5 +19,21 @@ REM # under the License.
 REM #####################################################################
 ECHO ON
 
-"%JAVA_HOME%\bin\java" -jar framework/base/lib/ant-1.9.0-ant-launcher.jar -lib framework/base/lib/ant %1 %2 %3 %4 %5 %6
+IF DEFINED JAVA_HOME (
+	SET JAVA="%JAVA_HOME%\bin\java"
+) ELSE (
+	SET JAVA="java"
+)
+
+SET TOP=%~dp0
+SET LAUNCHER_JAR=
+SET BASE_LIB=%TOP%\framework\base\lib
+SET ANT_LIB=%BASE_LIB%\ant
+FOR %%G IN (%BASE_LIB%\ant-*-ant-launcher.jar) DO SET LAUNCHER_JAR=%BASE_LIB%\%%G
+ECHO %LAUNCHER_JAR%
+IF [%LAUNCHER_JAR%] == [] (
+	ECHO "Couldn't find ant-launcher.jar"
+) ELSE (
+	%JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
+)
 
