@@ -143,7 +143,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="quantity" value="${groovy: quantity ?: 1}" type="BigDecimal"/>
-            <set field="total" value="${quantity * amount ?: 0}" type="BigDecimal"/>
+            <set field="total" value="${quantity * amount}" type="BigDecimal"/>
         </row-actions>
         <auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
@@ -348,7 +348,7 @@ under the License.
    <form name="EditInvoiceItems" type="multi"  list-name="invoiceItems" default-entity-name="InvoiceItem" target="updateInvoiceItem?invoiceId=${invoiceId}&amp;viewSize=${viewSize}&amp;viewIndex=${viewIndex}" title="Edit Invoice Items" paginate-target="listInvoiceItems"
        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
        <row-actions>
-           <set field="total" value="${groovy: (quantity ?: 1) * (amount ?: 0)}" type="BigDecimal"/>
+           <set field="total" value="${groovy: (quantity ?: 1) * amount}" type="BigDecimal"/>
        </row-actions>
        <field name="viewSize"><hidden value="${viewSize}"/></field>
        <field name="viewIndex"><hidden value="${viewIndex}"/></field>
