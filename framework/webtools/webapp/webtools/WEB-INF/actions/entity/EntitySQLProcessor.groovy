@@ -34,7 +34,7 @@ mgr = delegator.getModelGroupReader();
 groups = mgr.getGroupNames(delegator.getDelegatorName());
 
 if (sqlCommand && selGroup) {
-    du = new SQLProcessor(delegator.getGroupHelperInfo(selGroup));
+    du = new SQLProcessor(delegator, delegator.getGroupHelperInfo(selGroup));
     try {
         if (sqlCommand.toUpperCase().startsWith("SELECT")) {
             rs = du.executeQuery(sqlCommand);
