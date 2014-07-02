@@ -315,6 +315,10 @@ public class ShoppingCartHelper {
                     String orderItemSeqId = (String) value;
                     orderItem = orderHelper.getOrderItem(orderItemSeqId);
                 }
+                // do not include PROMO items
+                if (orderItem.get("isPromo") != null && "Y".equals(orderItem.getString("isPromo"))) {
+                    continue;
+                }
                 orderItemTypeId = orderItem.getString("orderItemTypeId");
                 productId = orderItem.getString("productId");
                 // do not store rental items
