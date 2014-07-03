@@ -18,7 +18,7 @@ old: the previous stable version (currently 12.04)
         ps aux | grep ofbizDemo
 
         The first column on the left tell you the username the demo is
-        being run as - it should say ofbizDemo !
+        being run as - it should say ofbizDemo (UID) or 9997 (GID) !
 {checking}
 
 Also note that the demos are usually updated and started/stopped
