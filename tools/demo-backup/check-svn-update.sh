@@ -3,8 +3,6 @@
 # check trunk for updates
 
 cd /home/ofbizDemo/trunk
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/
-
 svn st -u | grep '*'
 
 if [ $? = 0 ]; then
@@ -20,8 +18,6 @@ fi
 # check branch for updates
 
 cd /home/ofbizDemo/branch13.7
-export JAVA_HOME=/usr/lib/jvm/java-6-openjdk-amd64/
-
 svn st -u | grep '*'
 
 if [ $? = 0 ]; then
@@ -35,7 +31,6 @@ if [ $? = 0 ]; then
 fi
 
 cd /home/ofbizDemo/branch12.4
-
 svn st -u | grep '*'
 
 if [ $? = 0 ]; then
