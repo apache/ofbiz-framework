@@ -150,29 +150,33 @@ under the License.
         </div>
         <div class="screenlet-body">
               <#if orderItemShipGroup?has_content>
-                <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress", false)>
+                <#if (orderItemShipGroup.contacMechId)?has_content>
+                  <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress", false)>
+                </#if>
                 <#assign carrier = orderItemShipGroup.carrierPartyId?default("N/A")>
                 <table cellpadding="4" cellspacing="4" class="basic-table">
                   <tr>
                     <td valign="top">
-                      <span class="label">${uiLabelMap.ProductShipToAddress}</span>
-                      <br />
-                      ${uiLabelMap.CommonTo}: ${postalAddress.toName?default("")}
-                      <br />
-                      <#if postalAddress.attnName?has_content>
-                          ${uiLabelMap.CommonAttn}: ${postalAddress.attnName}
-                          <br />
+                      <#if postalAddress?exists >
+                        <span class="label">${uiLabelMap.ProductShipToAddress}</span>
+                        <br />
+                        ${uiLabelMap.CommonTo}: ${postalAddress.toName?default("")}
+                        <br />
+                        <#if postalAddress.attnName?has_content>
+                            ${uiLabelMap.CommonAttn}: ${postalAddress.attnName}
+                            <br />
+                        </#if>
+                        ${postalAddress.address1}
+                        <br />
+                        <#if postalAddress.address2?has_content>
+                            ${postalAddress.address2}
+                            <br />
+                        </#if>
+                        ${postalAddress.city?if_exists}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode?if_exists}
+                        <br />
+                        ${postalAddress.countryGeoId!}
+                        <br />
                       </#if>
-                      ${postalAddress.address1}
-                      <br />
-                      <#if postalAddress.address2?has_content>
-                          ${postalAddress.address2}
-                          <br />
-                      </#if>
-                      ${postalAddress.city?if_exists}, ${postalAddress.stateProvinceGeoId?if_exists} ${postalAddress.postalCode?if_exists}
-                      <br />
-                      ${postalAddress.countryGeoId}
-                      <br />
                     </td>
                     <td>&nbsp;</td>
                     <td valign="top">
@@ -189,7 +193,8 @@ under the License.
                         <font color="${color}">${carrier}</font>
                         &nbsp;
                       </#if>
-                      ${orderItemShipGroup.shipmentMethodTypeId?default("??")}
+                      <#assign description = (delegator.findOne("ShipmentMethodType", {"shipmentMethodTypeId":orderItemShipGroup.shipmentMethodTypeId}, false)).description>
+                      ${description!"??"}
                       <br />
                       <span class="label">${uiLabelMap.ProductEstimatedShipCostForShipGroup}</span>
                       <br />
