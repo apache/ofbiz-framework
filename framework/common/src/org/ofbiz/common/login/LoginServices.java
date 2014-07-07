@@ -921,7 +921,6 @@ public class LoginServices {
             passwordChangeHistoryLimit = 0;
         }
         Debug.logInfo(" password.change.history.limit is set to " + passwordChangeHistoryLimit, module);
-        Debug.logInfo(" userLogin is set to " + userLogin, module);
         if (passwordChangeHistoryLimit > 0 && userLogin != null) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
             Delegator delegator = userLogin.getDelegator();
