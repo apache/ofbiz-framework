@@ -252,20 +252,20 @@ under the License.
                             -->
                             <select name="shipmentMethod">
                                 <#if shipGroup.shipmentMethodTypeId?has_content>
-                                <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId?exists && shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
+                                  <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId?exists && shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
                                 <#else>
-                                <option value=""/>
+                                  <option value="NO_SHIPPING@_NA_@CARRIER">&nbsp;No Shipping</option>
                                 </#if>
                                 <#list productStoreShipmentMethList as productStoreShipmentMethod>
-                                <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId + "@" + productStoreShipmentMethod.roleTypeId>
-                                <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
-                                <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
-                                </#if>
+                                  <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId + "@" + productStoreShipmentMethod.roleTypeId>
+                                  <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
+                                    <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
+                                  </#if>
                                 </#list>
                             </select>
                             <#else>
                                 <#if (shipGroup.carrierPartyId)?default("_NA_") != "_NA_">
-                                ${shipGroup.carrierPartyId?if_exists}
+                                    ${shipGroup.carrierPartyId?if_exists}
                                 </#if>
                                 <#if shipmentMethodType?has_content>
                                     ${shipmentMethodType.get("description",locale)?default("")}
