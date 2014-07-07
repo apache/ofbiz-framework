@@ -140,26 +140,28 @@ if (orderId) {
 
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
-            if (!shipment) {
-
-                // Generate the shipment cost estimate for the ship group
-                productStoreId = orh.getProductStoreId();
-                shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
-                shippableItems = delegator.findList("OrderItemAndShipGrpInvResAndItemSum", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
-                shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
-                shippableWeight = new Double(orh.getShippableWeight(shipGroupSeqId).doubleValue());
-                shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
-                shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
-                context.shipmentCostEstimateForShipGroup = shipmentCostEstimate;
-                context.productStoreId = productStoreId;
-
-                if (!picklistBinId) {
-                    packSession.addItemInfo(shippableItems);
-                    //context.put("itemInfos", shippableItemInfo);
+                if (!shipment) {
+    
+                    // Generate the shipment cost estimate for the ship group
+                    productStoreId = orh.getProductStoreId();
+                    shippableItemInfo = orh.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
+                    shippableItems = delegator.findList("OrderItemAndShipGrpInvResAndItemSum", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
+                    shippableTotal = new Double(orh.getShippableTotal(shipGroupSeqId).doubleValue());
+                    shippableWeight = new Double(orh.getShippableWeight(shipGroupSeqId).doubleValue());
+                    shippableQuantity = new Double(orh.getShippableQuantity(shipGroupSeqId).doubleValue());
+                    if (orderItemShipGroup.contactMechId && orderItemShipGroup.shipmentMethodTypeId && orderItemShipGroup.carrierPartyId && orderItemShipGroup.carrierRoleTypeId) {
+                        shipmentCostEstimate = packSession.getShipmentCostEstimate(orderItemShipGroup, productStoreId, shippableItemInfo, shippableTotal, shippableWeight, shippableQuantity);
+                        context.shipmentCostEstimateForShipGroup = shipmentCostEstimate;
+                    }
+                    context.productStoreId = productStoreId;
+    
+                    if (!picklistBinId) {
+                        packSession.addItemInfo(shippableItems);
+                        //context.put("itemInfos", shippableItemInfo);
+                    }
+                } else {
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderHasBeenAlreadyVerified", [orderId : orderId], locale));
                 }
-            } else {
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorOrderHasBeenAlreadyVerified", [orderId : orderId], locale));
-            }
             } else {
                 request.setAttribute("errorMessageList", ['No ship group sequence ID. Cannot process.']);
             }
