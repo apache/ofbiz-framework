@@ -81,8 +81,9 @@ framework/catalina/lib/tomcat-7.0.54-catalina.jar
 framework/catalina/lib/tomcat-7.0.54-jasper.jar
 framework/catalina/lib/tomcat-7.0.54-tomcat-api.jar
 framework/catalina/lib/tomcat-7.0.54-tomcat-coyote.jar
-framework/catalina/lib/tomcat-7.0.54-tomcat-juli.jar
 framework/catalina/lib/tomcat-7.0.54-tomcat-util.jar
+framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli.jar
+framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli-adapters.jar
 framework/entity/lib/commons-dbcp-1.4.jar
 framework/entity/lib/jdbc/derby-10.10.1.1.jar
 framework/entity/lib/jdbc/derbytools-10.8.2.2.jar
