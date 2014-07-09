@@ -1617,13 +1617,14 @@
         <value xml:lang="zh">交付日期</value>
         <value xml:lang="zh_TW">交付日期</value>
     </property>
-    <property key="ManufacturingDependentWorkEfforts">
+    <property key="ManufacturingSucceedingProductionRun">
         <value xml:lang="de">Abhängige Produktionsaufträge</value>
-        <value xml:lang="en">Dependent Production Runs</value>
+        <value xml:lang="en">Succeeding Production Run(s)</value>
         <value xml:lang="es">Esfuerzos de trabajo dependientes</value>
         <value xml:lang="fr">Exécution de production dépendantes</value>
-        <value xml:lang="it">Ordini di produzione dipendenti</value>
+        <value xml:lang="it">Ordini di produzione successivi</value>
         <value xml:lang="ja">依存する生産実行</value>
+        <value xml:lang="nl">Opvolgende productierun(s)</value>
         <value xml:lang="pt_BR">Execuções de produção dependentes</value>
         <value xml:lang="ro">Comenzi lansate in Productie?</value>
         <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
@@ -2660,13 +2661,14 @@
         <value xml:lang="zh">生产管理应用</value>
         <value xml:lang="zh_TW">生產管理應用</value>
     </property>
-    <property key="ManufacturingMandatoryWorkEfforts">
+    <property key="ManufacturingPrecedingProductionRun">
         <value xml:lang="de">Erforderliche Produktionsaufträge</value>
-        <value xml:lang="en">Mandatory Production Runs</value>
+        <value xml:lang="en">Preceding Production Run(s)</value>
         <value xml:lang="es">Órdenes de producción obligatorias</value>
         <value xml:lang="fr">Cadences de production obligatoires</value>
-        <value xml:lang="it">Cicli Produzione Obbligatori</value>
+        <value xml:lang="it">Cicli Produzione Precedenti</value>
         <value xml:lang="ja">生産強制実行</value>
+        <value xml:lang="nl">Voorafgaande productierun(s)</value>
         <value xml:lang="pt_BR">Execuções de produção obrigatórias</value>
         <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
         <value xml:lang="th">คำสั่งในการผลิต</value>
