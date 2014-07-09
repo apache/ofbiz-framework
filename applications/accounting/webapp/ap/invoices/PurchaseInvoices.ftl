@@ -175,7 +175,6 @@ function runAction() {
       <#-- Header Begins -->
       <tr class="header-row-2">
         <td>${uiLabelMap.FormFieldTitle_invoiceId}</td>
-        <td>${uiLabelMap.FormFieldTitle_invoiceTypeId}</td>
         <td>${uiLabelMap.AccountingInvoiceDate}</td>
         <td>${uiLabelMap.AccountingDueDate}</td>
         <td>${uiLabelMap.CommonStatus}</td>
@@ -196,7 +195,6 @@ function runAction() {
           <#assign statusItem = invoice.getRelatedOne("StatusItem", true)>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-            <td>${invoice.invoiceTypeDesc?default(invoice.invoiceTypeId)}</td>
             <td><#if invoice.get("invoiceDate")?has_content>${invoice.get("invoiceDate")?date}</td></#if>
             <td><#if invoice.get("dueDate")?has_content>${invoice.get("dueDate")?date}</td></#if>
             <td>${statusItem.description?default(invoice.statusId)}</td>
