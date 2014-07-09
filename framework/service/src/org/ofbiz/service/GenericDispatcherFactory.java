@@ -89,6 +89,9 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
             cloned.requireNewTransaction = requireNewTransaction;
+            if (requireNewTransaction) {
+                cloned.useTransaction = true;
+            }
             if (transactionTimeout != -1) {
                 cloned.transactionTimeout = transactionTimeout;
             }
@@ -112,6 +115,9 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
             cloned.requireNewTransaction = requireNewTransaction;
+            if (requireNewTransaction) {
+                cloned.useTransaction = true;
+            }
             if (transactionTimeout != -1) {
                 cloned.transactionTimeout = transactionTimeout;
             }
@@ -129,6 +135,9 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
             // clone the model service for updates
             ModelService cloned = new ModelService(service);
             cloned.requireNewTransaction = requireNewTransaction;
+            if (requireNewTransaction) {
+                cloned.useTransaction = true;
+            }
             if (transactionTimeout != -1) {
                 cloned.transactionTimeout = transactionTimeout;
             }

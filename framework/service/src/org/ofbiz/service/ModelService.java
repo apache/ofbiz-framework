@@ -225,8 +225,12 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
         this.auth = model.auth;
         this.export = model.export;
         this.validate = model.validate;
-        this.useTransaction = model.useTransaction || true;
+        this.useTransaction = model.useTransaction;
         this.requireNewTransaction = model.requireNewTransaction;
+        if (this.requireNewTransaction && !this.useTransaction) {
+            // requireNewTransaction implies that a transaction is used
+            this.useTransaction = true;
+        }
         this.transactionTimeout = model.transactionTimeout;
         this.maxRetry = model.maxRetry;
         this.permissionServiceName = model.permissionServiceName;
