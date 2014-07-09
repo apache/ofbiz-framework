@@ -868,7 +868,12 @@ under the License.
                     <if-not-empty field="itemAdjustment">
                         <iterate list="itemAdjustment" entry="orderAdjustment">
                             <set field="createInvoiceItemContext.invoiceId" from-field="invoice.invoiceId"/>
-                            <set field="createInvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                            <if-compare field="invoice.invoiceTypeId" value="PURCHASE_INVOICE" operator="equals">
+                                <set field="createInvoiceItemContext.invoiceItemTypeId" value="PITM_SALES_TAX"/>
+                            <else>
+                                <set field="createInvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                            </else>
+                            </if-compare>
                             <set field="createInvoiceItemContext.overrideGlAccountId" from-field="orderAdjustment.overrideGlAccountId"/>
                             <set field="createInvoiceItemContext.productId" from-field="itemMap.productList[countItemId]"/>
                             <set field="createInvoiceItemContext.taxAuthPartyId" from-field="orderAdjustment.taxAuthPartyId"/>
@@ -886,7 +891,12 @@ under the License.
                 <iterate list="orderAdjustments" entry="Adjustment">
                     <if-not-empty field="Adjustment">
                         <set field="InvoiceItemContext.invoiceId" from-field="invoice.invoiceId"/>
-                        <set field="InvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                        <if-compare field="invoice.invoiceTypeId" value="PURCHASE_INVOICE" operator="equals">
+                            <set field="InvoiceItemContext.invoiceItemTypeId" value="PITM_SALES_TAX"/>
+                        <else>
+                            <set field="InvoiceItemContext.invoiceItemTypeId" value="ITM_SALES_TAX"/>
+                        </else>
+                        </if-compare>
                         <set field="InvoiceItemContext.overrideGlAccountId" from-field="Adjustment.overrideGlAccountId"/>
                         <set field="InvoiceItemContext.taxAuthPartyId" from-field="Adjustment.taxAuthPartyId"/>
                         <set field="InvoiceItemContext.taxAuthGeoId" from-field="Adjustment.taxAuthGeoId"/>
