@@ -78,7 +78,7 @@ function getInvoiceRunningTotal() {
 
 function setServiceName(selection) {
     if ( selection.value == 'massInvoicesToApprove' || selection.value == 'massInvoicesToReceive' || selection.value == 'massInvoicesToReady' || selection.value == 'massInvoicesToPaid' || selection.value == 'massInvoicesToWriteoff' || selection.value == 'massInvoicesToCancel') {
-        document.listPurchaseInvoices.action = jQuery('#invoiceStatusChange').value;
+        document.listPurchaseInvoices.action = 'massChangeInvoiceStatus';
     } else {
         document.listPurchaseInvoices.action = selection.value;
     }
