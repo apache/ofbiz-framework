@@ -26,7 +26,7 @@ under the License.
 
     <!-- Entity Import Services
          Transacitons are turned off for these services because they set transactions and timeouts inside the services with txTimeout parameter -->
-    <service name="parseEntityXmlFile" engine="java" require-new-transaction="true"
+    <service name="parseEntityXmlFile" engine="java"
             location="org.ofbiz.webtools.WebToolsServices" invoke="parseEntityXmlFile" auth="true" use-transaction="false">
         <description>Parses an entity xml file or an entity xml text</description>
         <permission-service service-name="entityMaintPermCheck" main-action="VIEW"/>
