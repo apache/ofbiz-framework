@@ -108,8 +108,9 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-jasper.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-tomcat-api.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-tomcat-coyote.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-tomcat-juli.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-tomcat-util.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.4.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-3.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
