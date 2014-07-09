@@ -213,6 +213,11 @@ public class ModelServiceReader implements Serializable {
         service.validate = !"false".equalsIgnoreCase(serviceElement.getAttribute("validate"));
         service.useTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("use-transaction"));
         service.requireNewTransaction = !"false".equalsIgnoreCase(serviceElement.getAttribute("require-new-transaction"));
+        if (service.requireNewTransaction && !service.useTransaction) {
+            // requireNewTransaction implies that a transaction is used
+            service.useTransaction = true;
+            Debug.logWarning("In service definition [" + service.name + "] the value use-transaction has been changed from false to true as required when require-new-transaction is set to true", module);
+        }
         service.hideResultInLog = !"false".equalsIgnoreCase(serviceElement.getAttribute("hideResultInLog"));        
 
         // set the semaphore sleep/wait times
