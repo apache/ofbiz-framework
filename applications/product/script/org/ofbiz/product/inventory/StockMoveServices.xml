@@ -225,6 +225,7 @@ under the License.
 
         <iterate entry="productFacilityLocationQuantityTest" list="productFacilityLocationQuantityTestList">
             <!-- TODO: this comparison could be done by the database and be more efficient, but since we don't have field to field comparisons in the entity engine or EntityCondition operations in simple-methods, some work needs to be done before that can happen -->
+            <set field="minimumStock" from-field="productFacilityLocationQuantityTest.minimumStock" default-value="0" type="BigDecimal"/>
             <if>
                 <condition>
                     <and>
@@ -233,12 +234,11 @@ under the License.
                         <or>
                             <and>
                                 <if-empty field="productFacilityLocationQuantityTest.availableToPromiseTotal"/>
-                                <not><if-empty field="productFacilityLocationQuantityTest.minimumStock"/></not>
-                                <if-compare field="productFacilityLocationQuantityTest.minimumStock" operator="greater" value="0" type="BigDecimal"></if-compare>
+                                <if-compare field="minimumStock" operator="greater" value="0" type="BigDecimal"></if-compare>
                             </and>
                             <and>
                                 <not><if-empty field="productFacilityLocationQuantityTest.availableToPromiseTotal"/></not>
-                                <if-compare-field field="productFacilityLocationQuantityTest.availableToPromiseTotal" to-field="productFacilityLocationQuantityTest.minimumStock" operator="less" type="BigDecimal"/>
+                                <if-compare-field field="productFacilityLocationQuantityTest.availableToPromiseTotal" to-field="minimumStock" operator="less" type="BigDecimal"/>
                             </and>
                         </or>
                     </and>
