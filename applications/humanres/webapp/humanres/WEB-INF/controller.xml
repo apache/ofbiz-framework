@@ -717,7 +717,7 @@ under the License.
     <request-map uri="deleteEmplPositionType">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmplPositionType"/>
-        <response name="success" type="view" value="FindEmplPositionTypes"/>
+        <response name="success" type="request-redirect-noparam" value="FindEmplPositionTypes"/>
     </request-map>
     <request-map uri="EditEmplPositionTypeRates">
         <security https="true" auth="true"/>
