@@ -1322,6 +1322,7 @@ under the License.
             <!-- should never be empty - referential integrity enforced -->
 
             <set field="eventDate" from-field="parameters.eventDate"/>
+            <set field="setPackedOnly" from-field="parameters.setPackedOnly"/>
             <call-simple-method method-name="createShipmentForFacilityAndShipGroup"/>
         </iterate>
 
@@ -1549,12 +1550,12 @@ under the License.
                     <set from-field="eventDate" field="packedContext.eventDate"/>
                     <set value="SHIPMENT_PACKED" field="packedContext.statusId"/>
                     <call-service service-name="updateShipment" in-map-name="packedContext"/>
-                    <!-- update the shipment status to shipped -->
-                    <if-not-empty field="setPackedOnly">
+                    <!-- update the shipment status to shipped (if setPackedOnly has NOT been set) -->
+                    <if-empty field="setPackedOnly">
                         <set from-field="shipment.shipmentId" field="packedContext.shipmentId"/>
                         <set value="SHIPMENT_SHIPPED" field="packedContext.statusId"/>
                         <call-service service-name="updateShipment" in-map-name="packedContext"/>
-                    </if-not-empty>
+                    </if-empty>
                   </then>
                   <else> <!-- PURCHASE_ORDER -->
                     <!-- update the shipment status to shipped -->
