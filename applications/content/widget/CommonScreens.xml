@@ -56,7 +56,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="cms" location="component://content/widget/cms/CMSMenus.xml"/>
@@ -66,7 +66,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -91,7 +91,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="content" location="component://content/widget/content/ContentMenus.xml"/>
@@ -101,7 +101,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <container>
@@ -142,7 +142,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="contentTopMenu" location="component://content/widget/content/ContentMenus.xml"/>
@@ -152,7 +152,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <container style="no-clear">
@@ -181,7 +181,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="dataresourceTopMenu" location="component://content/widget/content/DataResourceMenus.xml"/>
@@ -191,7 +191,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <section>
@@ -246,7 +246,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="contentsetup" location="component://content/widget/contentsetup/ContentSetupMenus.xml"/>
@@ -256,7 +256,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -281,7 +281,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="dataresourcesetup" location="component://content/widget/datasetup/DataResourceSetupMenus.xml"/>
@@ -291,7 +291,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
@@ -361,7 +361,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <include-menu name="layout" location="component://content/widget/layout/LayoutMenus.xml"/>
@@ -371,7 +371,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>

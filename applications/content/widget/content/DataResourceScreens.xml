@@ -51,7 +51,7 @@ under the License.
     <screen name="findDataResourceSearchResults">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
