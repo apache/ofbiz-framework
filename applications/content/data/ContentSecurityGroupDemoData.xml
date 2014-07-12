@@ -33,6 +33,8 @@ under the License.
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_CREATE"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_UPDATE"/>
     <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_ROLE_DELETE"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="CONTENTMGR_VIEW"/>
+    <SecurityGroupPermission groupId="CONTENT_USER" permissionId="OFBTOOLS_VIEW"/>
 
     <!-- Control Applet security -->
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="SEND_CONTROL_APPLET"/>
