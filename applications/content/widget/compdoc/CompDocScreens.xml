@@ -21,7 +21,7 @@ under the License.
     <screen name="ListContentApproval">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set field="rootContentId" from-field="parameters.rootContentId" default-value="${parameters.contentId}"/>
@@ -85,7 +85,7 @@ under the License.
     <screen name="ListWaitingContentApproval">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" default-value="${parameters.contentId}" field="rootContentId"/>
@@ -119,7 +119,7 @@ under the License.
     <screen name="EditContentApproval">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
@@ -150,7 +150,7 @@ under the License.
     <screen name="ListContentRevisions">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -186,7 +186,7 @@ under the License.
     <screen name="EditContentRevision">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" default-value="${parameters.contentId}" field="rootContentId"/>
@@ -215,7 +215,7 @@ under the License.
     <screen name="ListContentRevisionItem">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -247,7 +247,7 @@ under the License.
     <screen name="EditContentRevisionItem">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -319,7 +319,7 @@ under the License.
     <screen name="ListCompDoc">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="empty"/>
@@ -360,7 +360,7 @@ under the License.
     <screen name="ViewInstances">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -471,7 +471,7 @@ under the License.
     <screen name="EditChildCompDoc">
         <section>
              <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="subtree"/>
@@ -848,7 +848,7 @@ under the License.
     <screen name="AddRootCompDocInstance">
         <section>
              <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -881,7 +881,7 @@ under the License.
     <screen name="AddRootCompDocTemplate">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
@@ -901,7 +901,7 @@ under the License.
     <screen name="AddChildCompDocInstance">
         <section>
              <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
@@ -937,7 +937,7 @@ under the License.
     <screen name="AddChildCompDocTemplate">
         <section>
              <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
@@ -964,7 +964,7 @@ under the License.
     <screen name="ViewCompDocTemplateTree">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
             <actions>
                 <set from-field="parameters.rootContentId" field="rootContentId"/>
@@ -1002,7 +1002,7 @@ under the License.
     <screen name="ViewCompDocInstanceTree">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
             </condition>
 
             <actions>
@@ -1212,7 +1212,7 @@ under the License.
     <screen name="ListContentRevisionItemApproval">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="empty"/>
@@ -1243,7 +1243,7 @@ under the License.
     <screen name="EditCompDocContentRole">
         <section>
             <condition>
-                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                <if-has-permission permission="CONTENTMGR" action="_UPDATE"/>
             </condition>
             <actions>
                 <set field="menuName" value="tree"/>
