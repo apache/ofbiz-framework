@@ -334,7 +334,6 @@ under the License.
         <attribute name="shoppingCart" type="org.ofbiz.order.shoppingcart.ShoppingCart" mode="IN" optional="false"/>
         <attribute name="calcTax" type="Boolean" mode="IN" optional="true" default-value="true"/>
         <attribute name="deleteItems" type="Boolean" mode="IN" optional="true" default-value="false"/>
-        <!-- <attribute name="locale" type="" mode="IN" optional="false"/> -->
         <attribute name="changeMap" type="Map" mode="IN" optional="false"/>
     </service>
     <service name="appendOrderItem" engine="java" auth="true"
