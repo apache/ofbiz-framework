@@ -501,6 +501,8 @@
                 <select-field field-name="middleName"/>
                 <select-field field-name="groupName"/>
                 <select-field field-name="roleTypeId"/>
+                <select-field field-name="fromDate"/>
+                <select-field field-name="thruDate"/>
                 <order-by field-name="lastName"/>
                 <order-by field-name="firstName"/>
                 <order-by field-name="groupName"/>
@@ -519,6 +521,8 @@
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
         <field name="actualHours" entry-name="actualHours" map-name="result.projectInfo"><display/></field>
         <field name="nonBilledHours"  entry-name="actualNonBilledHours" map-name="result.projectInfo"><display/></field>
     </form>
@@ -531,6 +535,8 @@
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
     </form>
     <form name="ListProjectCompanyParties" type="list" list-name="companyAssigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -547,6 +553,8 @@
             </hyperlink>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
         <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
     </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns"
