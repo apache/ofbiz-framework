@@ -337,8 +337,6 @@ context.dispArrList = dispArrList;
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-selDisp = parameters.selDisp ?: "webtools";
-
 curDispatchContext = dispatcher.getDispatchContext();
 context.dispatcherName = dispatcher.getName();
 

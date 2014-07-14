@@ -336,34 +336,13 @@ under the License.
 
   <#-- Show alphabetical index -->
   <#if serviceNamesAlphaList?exists && serviceNamesAlphaList?has_content>
-    <form id='dispForm' method='post' action='<@ofbizUrl>${url}</@ofbizUrl>'>
       <div class="button-bar">
         <#assign isfirst=true>
         <#list serviceNamesAlphaList as alpha>
           <a href='<@ofbizUrl>${url}?constraint=alpha@${alpha}</@ofbizUrl>'>${alpha}</a>
           <#assign isfirst=false>
         </#list>
-        <#if dispArrList?exists && dispArrList?has_content>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <script language='javascript' type='text/javascript'>
-            function submitDispForm(){
-                selObj = document.getElementById('sd');
-                var dispVar = selObj.options[selObj.selectedIndex].value;
-                if(dispVar != ''){
-                    document.getElementById('dispForm').submit();
-                }
-            }
-          </script>
-          <select id='sd' name='selDisp' onchange='submitDispForm();'>
-            <option value='' selected="selected">${uiLabelMap.WebtoolsSelectDispatcher}</option>
-            <option value='' ></option>
-            <#list dispArrList as disp>
-              <option value='${disp}'>${disp}</option>
-            </#list>
-          </select>
-        </#if>
       </div>
-    </form>
   </#if>
 
   <div class="screenlet">
