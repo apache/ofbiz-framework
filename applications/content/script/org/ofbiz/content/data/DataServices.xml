@@ -60,6 +60,7 @@ under the License.
 
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="newEntity" result-name="dataResource"/>
     </simple-method>
 
     <simple-method method-name="updateDataResource" short-description="Update a Data Resource">
