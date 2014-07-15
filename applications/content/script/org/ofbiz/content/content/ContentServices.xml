@@ -778,13 +778,13 @@
             <results-to-map map-name="persistOut"/>
         </call-service>
 
-        <iterate-map key="key" value="val" map="persistOut">
+        <set-service-fields service-name="createCommContentDataResource" mode="OUT" map="persistOut" to-map="filteredPersistOut"/>
+        <iterate-map key="key" value="val" map="filteredPersistOut">
             <if-compare field="key" operator="equals" value="responseMessage">
                 <continue/>
             </if-compare>
             <field-to-result field="val" result-name="${key}"/>
         </iterate-map>
-
         <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
         <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
         <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
