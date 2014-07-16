@@ -21,7 +21,10 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <description>Portal ControlServlet Configuration File</description>
-    
+
+    <request-map uri="main">
+        <response name="success" type="view" value="showPortalPage"/>
+    </request-map>
     <!-- Portlet show requests -->
     <request-map uri="showPortlet">
         <security https="true" auth="true"/>

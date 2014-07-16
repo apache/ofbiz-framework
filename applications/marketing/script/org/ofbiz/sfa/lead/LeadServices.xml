@@ -139,7 +139,7 @@
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
             <set from-field="nowTimestamp" field="deletePartyRelationship.thruDate"/>
             <call-service service-name="updatePartyRelationship" in-map-name="deletePartyRelationship"/>
-            <log level="info" message="Expiring relationship  ${deletePartyRelationship}"> </log>
+            <log level="info" message="Expiring relationship  ${deletePartyRelationship}"/>
             <clear-field field="deletePartyRelationship"/>
             <clear-field field="partyRelationship"/>
         </if-not-empty>

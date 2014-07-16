@@ -121,7 +121,7 @@ public class ServiceArtifactInfo extends ArtifactInfoBase {
     }
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
-            if (entityName.contains("${")) {
+            if (UtilValidate.isEmail(entityName) || entityName.contains("${")) {
                 continue;
             }
             // attempt to convert relation names to entity names

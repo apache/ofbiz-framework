@@ -485,9 +485,6 @@ under the License.
                         <screenlet title="${uiLabelMap.AccountingAgreementItem}">
                             <include-form name="ViewAgreementItemInfoForReport" location="component://accounting/widget/AgreementForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.AccountingAgreementItemFacilitiesForReport}">
-                            <include-form name="ListAgreementItemFacilitiesForReport" location="component://accounting/widget/AgreementForms.xml"/>
-                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

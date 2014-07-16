@@ -947,8 +947,7 @@ under the License.
             - editPicklistItem 
     -->
     <simple-method method-name="editPicklistItem" short-description="Edit a Picklist Item">
-        <log level="info"><string>Edit a Picklist Item</string></log>
-        
+
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="picklistItem"/>
