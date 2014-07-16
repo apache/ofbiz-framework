@@ -244,8 +244,7 @@ public class JavaMailContainer implements Container {
         if (port1==0) {
             strport = props.getProperty("mail.port");
             if (!UtilValidate.isEmpty(strport)) {
-                port1 = Integer.valueOf(props.getProperty("mail.port"))
-                        .intValue();
+                port1 = Integer.valueOf(props.getProperty("mail.port")).intValue();
             }
         }
         // override the port if have found one.
