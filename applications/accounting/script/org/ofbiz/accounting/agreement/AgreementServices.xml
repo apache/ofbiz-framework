@@ -100,12 +100,12 @@ under the License.
             </iterate>
         </if-compare>
         <if-compare field="parameters.copyAgreementFacilities" value="Y" operator="equals">
-            <get-related value-field="agreement" relation-name="AgreementFaclityAppl" list="agreementFaclityAppls"/>
-            <iterate list="agreementFaclityAppls" entry="agreementFaclityAppl">
-                <clear-field field="createAgreementFaclityApplInMap"/>
-                <set-service-fields service-name="createAgreementFaclityAppl" to-map="createAgreementFaclityApplInMap" map="agreementFaclityAppl"/>
-                <set from-field="agreementIdTo" field="createAgreementFaclityApplInMap.agreementId"/>
-                <call-service service-name="createAgreementFaclityAppl" in-map-name="createAgreementFaclityApplInMap"/>
+            <get-related value-field="agreement" relation-name="AgreementFacilityAppl" list="agreementFacilityAppls"/>
+            <iterate list="agreementFacilityAppls" entry="agreementFacilityAppl">
+                <clear-field field="createAgreementFacilityApplInMap"/>
+                <set-service-fields service-name="createAgreementFacilityAppl" to-map="createAgreementFacilityApplInMap" map="agreementFacilityAppl"/>
+                <set from-field="agreementIdTo" field="createAgreementFacilityApplInMap.agreementId"/>
+                <call-service service-name="createAgreementFacilityAppl" in-map-name="createAgreementFacilityApplInMap"/>
             </iterate>
         </if-compare>
         <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
