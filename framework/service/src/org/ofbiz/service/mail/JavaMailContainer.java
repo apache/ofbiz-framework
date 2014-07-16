@@ -25,6 +25,7 @@ import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
 import javax.mail.FetchProfile;
 import javax.mail.Flags;
 import javax.mail.Folder;
@@ -34,23 +35,23 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.URLName;
-import javax.mail.internet.MimeMessage;
-import javax.mail.search.FlagTerm;
 import javax.mail.event.StoreEvent;
 import javax.mail.event.StoreListener;
+import javax.mail.internet.MimeMessage;
+import javax.mail.search.FlagTerm;
 
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
 
 public class JavaMailContainer implements Container {
@@ -77,6 +78,7 @@ public class JavaMailContainer implements Container {
      * @throws org.ofbiz.base.container.ContainerException
      *
      */
+    @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
         this.configFile = configFile;
@@ -91,6 +93,7 @@ public class JavaMailContainer implements Container {
      * @throws org.ofbiz.base.container.ContainerException
      *
      */
+    @Override
     public boolean start() throws ContainerException {
         ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
         String dispatcherName = ContainerConfig.getPropertyValue(cfg, "dispatcher-name", "JavaMailDispatcher");
@@ -141,12 +144,14 @@ public class JavaMailContainer implements Container {
      * @throws org.ofbiz.base.container.ContainerException
      *
      */
+    @Override
     public void stop() throws ContainerException {
         // stop the poller
         this.pollTimer.shutdown();
         Debug.logWarning("stop JavaMail poller", module);
     }
 
+    @Override
     public String getName() {
         return name;
     }
@@ -229,13 +234,32 @@ public class JavaMailContainer implements Container {
                 host = props.getProperty("mail.host");
             }
         }
-
+        
+        // check the port
+        int port1 = 0;
+        String strport = props.getProperty("mail." + protocol + ".port");
+        if (!UtilValidate.isEmpty(strport)) {
+            port1 = Integer.valueOf(strport).intValue();
+        }
+        if (port1==0) {
+            strport = props.getProperty("mail.port");
+            if (!UtilValidate.isEmpty(strport)) {
+                port1 = Integer.valueOf(props.getProperty("mail.port"))
+                        .intValue();
+            }
+        }
+        // override the port if have found one.
+        if (port1!=0) {
+            port = port1;
+        }
+ 
         if (Debug.verboseOn()) Debug.logVerbose("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
         return new URLName(protocol, host, port, file, userName, password);
     }
 
     class LoggingStoreListener implements StoreListener {
 
+        @Override
         public void notification(StoreEvent event) {
             String typeString = "";
             switch (event.getMessageType()) {
@@ -261,6 +285,7 @@ public class JavaMailContainer implements Container {
             this.userLogin = userLogin;
         }
 
+        @Override
         public void run() {
             if (UtilValidate.isNotEmpty(stores)) {
                 for (Map.Entry<Store, Session> entry: stores.entrySet()) {
