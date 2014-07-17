@@ -239,12 +239,20 @@ public class JavaMailContainer implements Container {
         int portProps = 0;
         String portStr = props.getProperty("mail." + protocol + ".port");
         if (!UtilValidate.isEmpty(portStr)) {
-            portProps = Integer.valueOf(portStr);
+            try {
+                portProps = Integer.valueOf(portStr);
+            } catch (NumberFormatException e) {
+                Debug.logError("The port given in property mail." + protocol + ".port is wrong, please check", module);
+            }
         }
         if (portProps == 0) {
             portStr = props.getProperty("mail.port");
             if (!UtilValidate.isEmpty(portStr)) {
-                portProps = Integer.valueOf(props.getProperty("mail.port"));
+                try {
+                    portProps = Integer.valueOf(props.getProperty("mail.port"));
+                } catch (NumberFormatException e) {
+                    Debug.logError("The port given in property mail.port is wrong, please check", module);
+                }
             }
         }
         // override the port if have found one.
