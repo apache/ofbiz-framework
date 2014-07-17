@@ -236,20 +236,20 @@ public class JavaMailContainer implements Container {
         }
         
         // check the port
-        int port1 = 0;
-        String strport = props.getProperty("mail." + protocol + ".port");
-        if (!UtilValidate.isEmpty(strport)) {
-            port1 = Integer.valueOf(strport).intValue();
+        int portProps = 0;
+        String portStr = props.getProperty("mail." + protocol + ".port");
+        if (!UtilValidate.isEmpty(portStr)) {
+            portProps = Integer.valueOf(portStr);
         }
-        if (port1==0) {
-            strport = props.getProperty("mail.port");
-            if (!UtilValidate.isEmpty(strport)) {
-                port1 = Integer.valueOf(props.getProperty("mail.port")).intValue();
+        if (portProps == 0) {
+            portStr = props.getProperty("mail.port");
+            if (!UtilValidate.isEmpty(portStr)) {
+                portProps = Integer.valueOf(props.getProperty("mail.port"));
             }
         }
         // override the port if have found one.
-        if (port1!=0) {
-            port = port1;
+        if (portProps != 0) {
+            port = portProps;
         }
  
         if (Debug.verboseOn()) Debug.logVerbose("Update URL - " + protocol + "://" + userName + "@" + host + ":" + port + "!" + password + ";" + file, module);
