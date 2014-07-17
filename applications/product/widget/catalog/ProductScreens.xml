@@ -854,7 +854,11 @@ under the License.
 
                 <!-- default currency in framework/common/config/general.properties -->
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-
+                <set field="orderBy" from-field="parameters.sortField" default-value="partyId"/>
+                <entity-and entity-name="SupplierProduct" list="productSuppliers">
+                    <field-map field-name="productId" from-field="parameters.productId"/>
+                    <order-by field-name="${orderBy}"/>
+                </entity-and>
                 <entity-one entity-name="SupplierProduct" value-field="supplierProduct" auto-field-map="true"/>
             </actions>
             <widgets>

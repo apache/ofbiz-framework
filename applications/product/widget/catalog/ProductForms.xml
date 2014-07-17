@@ -925,17 +925,8 @@ under the License.
         <field use-when="supplierProduct == null" name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
         <field use-when="supplierProduct != null" name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>
-    <form name="ListSupplierProducts" type="list" target="updateSupplierProduct" title="" list-name="listIt"
+    <form name="ListSupplierProducts" type="list" target="updateSupplierProduct" title="" list-name="productSuppliers"
         odd-row-style="alternate-row" default-table-style="basic-table">
-        <actions>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
-                <field-map field-name="inputFields" from-field="requestParameters"/>
-                <field-map field-name="entityName" value="SupplierProduct"/>
-                <field-map field-name="orderBy" from-field="parameters.sortField"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
-            </service>
-        </actions>
         <field name="partyId" title="${uiLabelMap.ProductSupplier}">
             <display-entity entity-name="PartyNameView" also-hidden="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
                 <sub-hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyId}" link-style="buttontext">
@@ -945,10 +936,10 @@ under the License.
         </field>
         <field name="supplierProductId"><display/></field>
         <field name="minimumOrderQuantity" title="${uiLabelMap.ProductMinimumOrderQuantity}" sort-field="true">
-            <display type="date-time"/>
+            <display/>
         </field>
         <field name="orderQtyIncrements" title="${uiLabelMap.ProductOrderQtyIncrements}" sort-field="true">
-            <display type="date-time"/>
+            <display/>
         </field>
         <field name="supplierPrefOrderId">
             <display-entity entity-name="SupplierPrefOrder"/>
