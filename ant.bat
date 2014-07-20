@@ -1,4 +1,4 @@
-ECHO OFF
+@ECHO OFF
 REM #####################################################################
 REM # Licensed to the Apache Software Foundation (ASF) under one
 REM # or more contributor license agreements.  See the NOTICE file
@@ -17,12 +17,11 @@ REM # KIND, either express or implied.  See the License for the
 REM # specific language governing permissions and limitations
 REM # under the License.
 REM #####################################################################
-ECHO ON
 
 IF DEFINED JAVA_HOME (
-	SET JAVA="%JAVA_HOME%\bin\java"
+  SET JAVA="%JAVA_HOME%\bin\java"
 ) ELSE (
-	SET JAVA="java"
+  SET JAVA="java"
 )
 
 SET TOP=%~dp0
@@ -30,10 +29,11 @@ SET LAUNCHER_JAR=
 SET BASE_LIB=%TOP%\framework\base\lib
 SET ANT_LIB=%BASE_LIB%\ant
 FOR %%G IN (%BASE_LIB%\ant-*-ant-launcher.jar) DO SET LAUNCHER_JAR=%%G
-ECHO %LAUNCHER_JAR%
+REM ECHO %LAUNCHER_JAR%
 IF [%LAUNCHER_JAR%] == [] (
-	ECHO "Couldn't find ant-launcher.jar"
-) ELSE (
-	%JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
+  ECHO "Couldn't find ant-launcher.jar"
+) ELSE (      
+  ECHO %JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
+  %JAVA% -jar "%LAUNCHER_JAR%" -lib "%ANT_LIB%" %1 %2 %3 %4 %5 %6
 )
 
