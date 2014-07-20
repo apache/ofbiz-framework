@@ -24,6 +24,7 @@ import java.io.Writer;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,6 +33,8 @@ import org.w3c.dom.Element;
  * working with WebDAV requests and responses.*/
 public class ResponseHelper {
 
+    public static final String module = ResponseHelper.class.getName();
+    
     public static final String DAV_NAMESPACE_URI = "DAV:";
     public static final String STATUS_200 = "HTTP/1.1 200 OK";
     public static final String STATUS_400 = "HTTP/1.1 400 Bad Request";
@@ -39,14 +42,17 @@ public class ResponseHelper {
     public static final String STATUS_403 = "HTTP/1.1 403 Forbidden";
     public static final String STATUS_404 = "HTTP/1.1 404 Not Found";
 
-    @SuppressWarnings("deprecation")
     public static void prepareResponse(HttpServletResponse response, int statusCode, String statusString) {
         response.setContentType("application/xml");
         response.setCharacterEncoding("UTF-8");
         if (statusString == null) {
             response.setStatus(statusCode);
         } else {
-            response.setStatus(statusCode, statusString);
+            try {
+                response.sendError(statusCode, statusString);
+            } catch (IOException e) {
+                Debug.logError(e, module);
+            }
         }
     }
 
