@@ -44,4 +44,12 @@ under the License.
         location="webapp/ofbizsetup"
         base-permission="OFBTOOLS,SETUP"
         mount-point="/ofbizsetup"/>
+    
+    <webapp name="ordermgr-js"
+        title="ordermgr-js"
+        server="default-server"
+        location="webapp/ordermgr-js"
+        mount-point="/ordermgr-js"
+        app-bar-display="false"/>
+    
 </ofbiz-component>

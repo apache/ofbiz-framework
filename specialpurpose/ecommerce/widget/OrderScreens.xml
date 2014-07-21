@@ -612,7 +612,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EcommerceOnePageCheckout"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/checkoutProcess.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/geoAutoCompleter.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditBillingAddress.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditEmailAndTelecomNumber.groovy"/>
