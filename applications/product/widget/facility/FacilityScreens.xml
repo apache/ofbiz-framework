@@ -1093,7 +1093,7 @@ under the License.
                 <entity-one entity-name="Facility" value-field="facility"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.ProductReceiveInventory}"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/ordermgr/images/js/ConvertUom.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/ordermgr-js/ConvertUom.js" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">

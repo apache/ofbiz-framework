@@ -52,9 +52,9 @@ under the License.
             <actions>
                 <set field="titleProperty" value="OrderViewOrder"/>
                 <set field="headerItem" value="findorders"/>
-                <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/order.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/OrderShippingInfo.js" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/ordermgr/images/js/geoAutoCompleter.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/order.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/OrderShippingInfo.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/ordermgr-js/geoAutoCompleter.js" global="true"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderView.groovy"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/OrderViewWebSecure.groovy"/>
             </actions>
