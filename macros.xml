@@ -18,17 +18,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 <project name="Ant - Macros">
- <condition property="antatleast171">
-  <antversion atleast="1.7.1"/>
- </condition>
- <fail unless="antatleast171" message="Please upgrade ant to at least 1.7.1"/>
+ <property name="minimumantversion" value="1.9.0"/>
+
+ <antversion property="antversion" atleast="${minimumantversion}"/>
+ <fail unless="antversion" message="Please upgrade ant to at least ${minimumantversion}. Current ant version is ${ant.version}"/>
 
  <condition property="javaatleast17">
   <not>
    <matches pattern="^1\.[0-6]($|\..*)" string="${ant.java.version}"/>
   </not>
  </condition>
- <fail unless="javaatleast17" message="Please upgrade java to at least 1.7"/>
+ <fail unless="javaatleast17" message="Please upgrade java to at least 1.7. Current Java version is ${ant.java.version}"/>
 
  <dirname property="ofbiz.home.dir" file="${ant.file.Ant - Macros}"/>
  <macrodef name="iterate">
@@ -55,9 +55,6 @@ under the License.
  </path>
  <path id="rhino.class.path">
   <pathelement location="${ofbiz.home.dir}/extension/rhino/lib/js-1.7.R1.jar"/>
- </path>
- <path id="ant.lib.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  </path>
  <path id="junit.class.path">
   <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
@@ -191,14 +188,11 @@ under the License.
    </classpath>
   </groovyc>
  </presetdef>
-
   <taskdef resource="net/sf/antcontrib/antlib.xml">
     <classpath>
         <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-contrib-1.0b3.jar"/>
     </classpath>
   </taskdef>
- <taskdef name="javacc" classname="org.apache.tools.ant.taskdefs.optional.javacc.JavaCC" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
- <taskdef name="jjtree" classname="org.apache.tools.ant.taskdefs.optional.javacc.JJTree" classpath="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.1.jar"/>
  <macrodef name="ofbiz-javacc">
   <attribute name="dir"/>
   <attribute name="file"/>
@@ -222,39 +216,6 @@ under the License.
            includes="*.java" />
        <delete dir="@{prefix}build/classes/@{dir}"/>
      </then>
-   </if>
-  </sequential>
- </macrodef>
-
- <macrodef name="ofbiz-jjtree">
-  <attribute name="dir"/>
-  <attribute name="file"/>
-  <attribute name="prefix" default=""/>
-  <sequential>
-   <if>
-     <not>
-      <uptodate
-       srcfile="@{prefix}src/@{dir}/@{file}.jjt"
-       targetfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"/>
-     </not>
-     <delete dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
-     <mkdir dir="@{prefix}build/gen-src/jjtree/@{dir}"/>
-     <jjtree target="@{prefix}src/@{dir}/@{file}.jjt"
-      javacchome="${ofbiz.home.dir}/lib/build/javacc"
-      outputdirectory="@{prefix}build/gen-src/jjtree/@{dir}"/>
-   </if>
-   <if>
-     <not>
-      <uptodate
-       srcfile="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"
-       targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
-     </not>
-     <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <javacc target="@{prefix}build/gen-src/jjtree/@{dir}/@{file}.jj"
-      javacchome="${ofbiz.home.dir}/lib/build/javacc"
-      outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
-     <delete dir="@{prefix}build/classes/@{dir}"/>
    </if>
   </sequential>
  </macrodef>
