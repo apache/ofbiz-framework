@@ -19,11 +19,11 @@
 
 package org.ofbiz.entity.connection;
 
-import org.apache.commons.dbcp.managed.ManagedDataSource;
-import org.apache.commons.dbcp.managed.TransactionRegistry;
-import org.apache.commons.pool.ObjectPool;
+import org.apache.commons.dbcp2.managed.ManagedDataSource;
+import org.apache.commons.dbcp2.managed.TransactionRegistry;
+import org.apache.commons.pool2.ObjectPool;
 
-import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPool;
 import org.ofbiz.base.util.Debug;
 
 import java.sql.Connection;
@@ -35,9 +35,6 @@ public class DebugManagedDataSource extends ManagedDataSource {
 
     public static final String module = DebugManagedDataSource.class.getName();
 
-    public DebugManagedDataSource() {
-        super();
-    }
     public DebugManagedDataSource(ObjectPool pool, TransactionRegistry transactionRegistry) {
         super(pool, transactionRegistry);
     }
@@ -45,11 +42,11 @@ public class DebugManagedDataSource extends ManagedDataSource {
     @Override
     public Connection getConnection() throws SQLException {
         if (Debug.verboseOn()) {
-            if (super._pool instanceof GenericObjectPool) {
-                GenericObjectPool objectPool = (GenericObjectPool)super._pool;
-                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + objectPool.getNumActive() + "/" + objectPool.getNumActive() + objectPool.getNumIdle() + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxActive(), module);
+            if (super.getPool() instanceof GenericObjectPool) {
+                GenericObjectPool objectPool = (GenericObjectPool)super.getPool();
+                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + objectPool.getNumActive() + "/" + objectPool.getNumActive() + objectPool.getNumIdle() + "; min idle/max idle/max total: " + objectPool.getMinIdle() + "/" + objectPool.getMaxIdle() + "/" + objectPool.getMaxTotal(), module);
             } else {
-                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + super._pool.getNumActive() + "/" + (super._pool.getNumActive() + super._pool.getNumIdle()), module);
+                Debug.logVerbose("Borrowing a connection from the pool; used/total: " + super.getPool().getNumActive() + "/" + (super.getPool().getNumActive() + super.getPool().getNumIdle()), module);
             }
         }
         return super.getConnection();
@@ -57,14 +54,14 @@ public class DebugManagedDataSource extends ManagedDataSource {
 
     public Map<String, Object> getInfo() {
         Map<String, Object> dataSourceInfo = new HashMap<String, Object>();
-        dataSourceInfo.put("poolNumActive", super._pool.getNumActive());
-        dataSourceInfo.put("poolNumIdle", super._pool.getNumIdle());
-        dataSourceInfo.put("poolNumTotal", (super._pool.getNumIdle() + super._pool.getNumActive()));
-        if (super._pool instanceof GenericObjectPool) {
-            GenericObjectPool objectPool = (GenericObjectPool)super._pool;
-            dataSourceInfo.put("poolMaxActive", objectPool.getMaxActive());
+        dataSourceInfo.put("poolNumActive", super.getPool().getNumActive());
+        dataSourceInfo.put("poolNumIdle", super.getPool().getNumIdle());
+        dataSourceInfo.put("poolNumTotal", (super.getPool().getNumIdle() + super.getPool().getNumActive()));
+        if (super.getPool() instanceof GenericObjectPool) {
+            GenericObjectPool objectPool = (GenericObjectPool)super.getPool();
+            dataSourceInfo.put("poolMaxActive", objectPool.getMaxTotal());
             dataSourceInfo.put("poolMaxIdle", objectPool.getMaxIdle());
-            dataSourceInfo.put("poolMaxWait", objectPool.getMaxWait());
+            dataSourceInfo.put("poolMaxWait", objectPool.getMaxWaitMillis());
             dataSourceInfo.put("poolMinEvictableIdleTimeMillis", objectPool.getMinEvictableIdleTimeMillis());
             dataSourceInfo.put("poolMinIdle", objectPool.getMinIdle());
         }

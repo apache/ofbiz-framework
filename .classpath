@@ -73,7 +73,7 @@
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-logging-1.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-modeler-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-net-3.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/commons/commons-pool-1.5.7.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/commons/commons-pool2-2.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.4.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-csv-1.0.jar"/>
@@ -110,7 +110,7 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.54-tomcat-util.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.54-tomcat-juli-adapters.jar"/>
-    <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.4.jar"/>
+    <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-3.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
