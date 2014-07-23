@@ -28,14 +28,15 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.transaction.TransactionManager;
 
-import org.apache.commons.dbcp.ConnectionFactory;
-import org.apache.commons.dbcp.DriverConnectionFactory;
-import org.apache.commons.dbcp.PoolableConnectionFactory;
-import org.apache.commons.dbcp.managed.LocalXAConnectionFactory;
-import org.apache.commons.dbcp.managed.ManagedDataSource;
-import org.apache.commons.dbcp.managed.PoolableManagedConnectionFactory;
-import org.apache.commons.dbcp.managed.XAConnectionFactory;
-import org.apache.commons.pool.impl.GenericObjectPool;
+import org.apache.commons.dbcp2.ConnectionFactory;
+import org.apache.commons.dbcp2.DriverConnectionFactory;
+import org.apache.commons.dbcp2.PoolableConnectionFactory;
+import org.apache.commons.dbcp2.managed.LocalXAConnectionFactory;
+import org.apache.commons.dbcp2.managed.ManagedDataSource;
+import org.apache.commons.dbcp2.managed.PoolableManagedConnectionFactory;
+import org.apache.commons.dbcp2.managed.XAConnectionFactory;
+import org.apache.commons.pool2.impl.GenericObjectPool;
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
@@ -103,20 +104,10 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         // wrap it with a LocalXAConnectionFactory
         XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);
 
-        // configure the pool settings
-        GenericObjectPool pool = new GenericObjectPool();
-
-        pool.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-        pool.setMaxActive(maxSize);
-        pool.setMaxIdle(maxIdle);
-        pool.setMinIdle(minSize);
-        pool.setMaxWait(120000);
-
         // create the pool object factory
-        PoolableConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, pool, null, null, true, true);
+        PoolableConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, null);
         factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
         factory.setDefaultReadOnly(false);
-
         String transIso = jdbcElement.getIsolationLevel();
         if (!transIso.isEmpty()) {
             if ("Serializable".equals(transIso)) {
@@ -131,7 +122,15 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
                 factory.setDefaultTransactionIsolation(Connection.TRANSACTION_NONE);
             }
         }
-        pool.setFactory(factory);
+
+        // configure the pool settings
+        GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
+        poolConfig.setMaxWaitMillis(120000);
+        poolConfig.setMaxTotal(maxSize);
+        poolConfig.setMaxIdle(maxIdle);
+        poolConfig.setMinIdle(minSize);
+        poolConfig.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
+        GenericObjectPool pool = new GenericObjectPool(factory, poolConfig);
 
         // mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
         mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
