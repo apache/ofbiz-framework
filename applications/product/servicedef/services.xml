@@ -250,12 +250,14 @@ under the License.
     <service name="createProductPrice" default-entity-name="ProductPrice" engine="simple"
                 location="component://product/script/org/ofbiz/product/price/PriceServices.xml" invoke="createProductPrice" auth="true">
         <description>
-            Create an ProductPrice. 
-            Price is always stored without tax. 
+            Create a Product Price. 
+            
             If taxAuthGeoId and taxAuthPartyId are (or taxAuthCombinedId is) passed in then the price will be considered a price 
             with tax included (the priceWithoutTax, priceWithTax, taxAmount, and taxPercentage fields will also be populated).
-            If the taxInPrice field is 'Y' then the price field will be left with the price included (price will be equal to priceWithTax), 
+            
+            If the taxInPrice field is 'Y' then the price field will be left with the tax included (price will be equal to priceWithTax),            
             otherwise tax will be removed from the passed in price and the price field will be equal to the priceWithoutTax field.
+            
             If taxAuthGeoId or taxAuthPartyId empty, and taxAuthCombinedId is empty, then the taxInPrice field will be ignored.
         </description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
