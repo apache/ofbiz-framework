@@ -425,7 +425,7 @@ public class TaxAuthorityServices {
 
                 GenericValue productPrice = null;
                 if (product != null && taxAuthPartyId != null && taxAuthGeoId != null) {
-                    // find a ProductPrice for the productId and taxAuth* valxues, and see if it has a priceWithTax value
+                    // find a ProductPrice for the productId and taxAuth* values, and see if it has a priceWithTax value
                     Map<String, String> priceFindMap = UtilMisc.toMap("productId", product.getString("productId"), 
                             "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
                             "productPricePurposeId", "PURCHASE");
@@ -504,9 +504,9 @@ public class TaxAuthorityServices {
                     BigDecimal enteredTotalPriceWithTax = priceWithTax.multiply(itemQuantity);
                     BigDecimal calcedTotalPriceWithTax = (baseSubtotal).add(baseTaxAmount);
                     if (!enteredTotalPriceWithTax.equals(calcedTotalPriceWithTax)) {
-                        // if the calced amount is higher than the entered amount we want the value to be negative 
+                        // if the calculated amount is higher than the entered amount we want the value to be negative 
                         //     to get it down to match the entered amount
-                        // so, subtract the calced amount from the entered amount (ie: correction = entered - calced)
+                        // so, subtract the calculated amount from the entered amount (ie: correction = entered - calculated)
                         BigDecimal correctionAmount = enteredTotalPriceWithTax.subtract(calcedTotalPriceWithTax);
                         //Debug.logInfo("=================== correctionAmount=" + correctionAmount, module);
                         
