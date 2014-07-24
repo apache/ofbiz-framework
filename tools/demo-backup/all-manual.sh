@@ -31,4 +31,4 @@ cd /home/ofbizDemo/branch12.4
     sleep 10
     nohup tools/startofbiz.sh &
 
-cd /home/ofbiz
+cd /home/ofbizDemo

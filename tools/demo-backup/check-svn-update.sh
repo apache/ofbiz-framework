@@ -22,7 +22,7 @@ svn st -u | grep '*'
 
 if [ $? = 0 ]; then
     svn up
-    ./ant stop -Dportoffset=10000 
+    ./ant stop -Dportoffset=10000
     ./ant clean-all
     ./ant load-demo
     ./ant svninfo
@@ -45,5 +45,5 @@ if [ $? = 0 ]; then
     ./ant load-demo
     ./ant svninfo
     sleep 10
-    tools/startofbiz.sh
+    nohup tools/startofbiz.sh &
 fi
