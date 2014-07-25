@@ -27,8 +27,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFinancialSummaryReportOptions"/>
                 <set field="headerItem" value="FinancialSummryReports"/>
 
-                <set field="month" from-field="parameters.month" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
-                <set field="year" from-field="parameters.year" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
+                <set field="month" from-field="parameters.month" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -60,8 +60,8 @@ under the License.
             <actions>
                 <set field="headerItem" value="FinancialSummryReports"/>
 
-                <set field="month" from-field="parameters.month" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
-                <set field="year" from-field="parameters.year" type="Integer" default-value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
+                <set field="month" from-field="parameters.month" type="Integer" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;MM&quot;)}"/>
+                <set field="year" from-field="parameters.year" type="Integer" default-value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy&quot;)}"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
                 <set field="currencyUomId" from-field="parameters.currencyUomId"/>
 

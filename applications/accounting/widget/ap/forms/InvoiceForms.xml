@@ -33,10 +33,10 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="amountToApply" value="${bsh:
+            <set field="amountToApply" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
-            <set field="total" value="${bsh:
+            <set field="total" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>

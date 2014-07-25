@@ -84,11 +84,11 @@ under the License.
                 <field-map field-name="compareDate" from-field="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="paidInvoice" value="${bsh: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
-            <set field="amountToApply" value="${bsh:
+            <set field="paidInvoice" value="${groovy: org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).compareTo(java.math.BigDecimal.ZERO)==0}" type="Boolean"/>
+            <set field="amountToApply" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
-            <set field="total" value="${bsh:
+            <set field="total" value="${groovy:
                 import java.text.NumberFormat;
                 return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId)));}"/>
         </row-actions>
@@ -104,22 +104,22 @@ under the License.
         <field name="description"><display/></field>
         <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
         <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
-        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="invoiceDate"><display description="${groovy:invoiceDate.toString().substring(0,10)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="capture" use-when="${bsh:!paidInvoice}" widget-style="buttontext">
+        <field name="capture" use-when="${groovy:!paidInvoice}" widget-style="buttontext">
             <hyperlink target="capturePaymentsByInvoice" description="${uiLabelMap.AccountingCapture}">
                 <parameter param-name="invoiceId"/>
                 <parameter param-name="billingAccountId"/>
             </hyperlink>
         </field>
-        <field name="capture" use-when="${bsh:paidInvoice}"><display/></field>
+        <field name="capture" use-when="${groovy:paidInvoice}"><display/></field>
     </form>
 
     <form name="EditBillingAccount" type="single" target="updateBillingAccount" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <actions>
-            <set field="availableBalance" value="${bsh:billingAccount != null ? org.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
+            <set field="availableBalance" value="${groovy:billingAccount != null ? org.ofbiz.order.order.OrderReadHelper.getBillingAccountBalance(billingAccount) : 0}" type="BigDecimal"/>
         </actions>
         <alt-target use-when="billingAccount==null" target="createBillingAccount"/>
         <auto-fields-service service-name="updateBillingAccount" map-name="billingAccount"/>
@@ -152,7 +152,7 @@ under the License.
         </field>
         <!--
         <field name="netBalance" title="${uiLabelMap.AccountingBillingNetBalance}" tooltip="${uiLabelMap.AccountingBillingNetBalanceMessage}">
-            <display description="${bsh:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
+            <display description="${groovy:org.ofbiz.accounting.payment.BillingAccountWorker.getBillingAccountNetBalance(delegator, billingAccountId)}" type="currency" currency="${billingAccount.accountCurrencyUomId}"/>
         </field>
         -->
         <field name="availableBalance" title="${uiLabelMap.AccountingBillingAvailableBalance}" tooltip="${uiLabelMap.AccountingBillingAvailableBalanceMessage}">
