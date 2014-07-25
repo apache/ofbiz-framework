@@ -457,15 +457,28 @@ under the License.
         <xs:attribute type="xs:nonNegativeInteger" name="idle-maxsize">
             <xs:annotation>
                 <xs:documentation>
-                    Maximum number of idle connections that should remain in the pool.  Defaults to 50% of pool-maxsize.
+                    Maximum number of idle connections that should remain in the pool. Defaults to 50% of pool-maxsize and always greater than pool-minsize.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:nonNegativeInteger" name="time-between-eviction-runs-millis" default="600000"/>
-        <xs:attribute type="xs:nonNegativeInteger" name="pool-sleeptime" default="300000">
+        <xs:attribute type="xs:nonNegativeInteger" name="time-between-eviction-runs-millis" default="600000">
             <xs:annotation>
                 <xs:documentation>
-                    This parameter is currently not implemented
+                    Sets the number of milliseconds between eviction runs for idle connections.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:nonNegativeInteger" name="soft-min-evictable-idle-time-millis" default="600000">
+            <xs:annotation>
+                <xs:documentation>
+                    Sets the minimum amount of time a connection may sit idle in the pool before it is eligible for eviction.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:nonNegativeInteger" name="pool-sleeptime" default="120000">
+            <xs:annotation>
+                <xs:documentation>
+                    Sets the maximum amount of time (in milliseconds) to wait for a connection when the pool is exhausted
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -493,7 +506,35 @@ under the License.
         <xs:attribute type="xs:string" name="pool-jdbc-test-stmt">
             <xs:annotation>
                 <xs:documentation>
-                    This parameter is currently not implemented
+                    Connection validation query
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="test-on-create" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Run validation query when a connection is created in the pool
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="test-on-borrow" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Run validation query when a connection is borrowed from pool
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="test-on-return" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Run validation query when a connection is returned to pool
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:boolean" name="test-while-idle" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Run validation query while connection is in idle in the pool with frequency set in time-between-eviction-runs-millis
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>

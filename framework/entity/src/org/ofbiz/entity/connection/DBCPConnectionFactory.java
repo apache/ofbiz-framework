@@ -77,9 +77,8 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         // pool settings
         int maxSize = jdbcElement.getPoolMaxsize();
         int minSize = jdbcElement.getPoolMinsize();
-        int timeBetweenEvictionRunsMillis = jdbcElement.getTimeBetweenEvictionRunsMillis();
         int maxIdle = jdbcElement.getIdleMaxsize();
-        // Don't allow a maxIdle of less than pool-minsize
+        // maxIdle must be greater than pool-minsize
         maxIdle = maxIdle > minSize ? maxIdle : minSize;
         // load the driver
         Driver jdbcDriver;
@@ -106,7 +105,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
         // create the pool object factory
         PoolableConnectionFactory factory = new PoolableManagedConnectionFactory(xacf, null);
-        factory.setValidationQuery("select 1 from entity_key_store where key_name = ''");
+        factory.setValidationQuery(jdbcElement.getPoolJdbcTestStmt());
         factory.setDefaultReadOnly(false);
         String transIso = jdbcElement.getIsolationLevel();
         if (!transIso.isEmpty()) {
@@ -125,15 +124,28 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
 
         // configure the pool settings
         GenericObjectPoolConfig poolConfig = new GenericObjectPoolConfig();
-        poolConfig.setMaxWaitMillis(120000);
         poolConfig.setMaxTotal(maxSize);
+        // settings for idle connections
         poolConfig.setMaxIdle(maxIdle);
         poolConfig.setMinIdle(minSize);
-        poolConfig.setTimeBetweenEvictionRunsMillis(timeBetweenEvictionRunsMillis);
-        GenericObjectPool pool = new GenericObjectPool(factory, poolConfig);
+        poolConfig.setTimeBetweenEvictionRunsMillis(jdbcElement.getTimeBetweenEvictionRunsMillis());
+        poolConfig.setMinEvictableIdleTimeMillis(-1); // disabled in favour of setSoftMinEvictableIdleTimeMillis(...)
+        poolConfig.setSoftMinEvictableIdleTimeMillis(jdbcElement.getSoftMinEvictableIdleTimeMillis());
+        poolConfig.setNumTestsPerEvictionRun(maxSize); // test all the idle connections
+        // settings for when the pool is exhausted
+        poolConfig.setBlockWhenExhausted(true); // the thread requesting the connection waits if no connection is available
+        poolConfig.setMaxWaitMillis(jdbcElement.getPoolSleeptime()); // throw an exception if, after getPoolSleeptime() ms, no connection is available for the requesting thread
+        // settings for the execution of the validation query
+        poolConfig.setTestOnCreate(jdbcElement.getTestOnCreate());
+        poolConfig.setTestOnBorrow(jdbcElement.getTestOnBorrow());
+        poolConfig.setTestOnReturn(jdbcElement.getTestOnReturn());
+        poolConfig.setTestWhileIdle(jdbcElement.getTestWhileIdle());
 
-        // mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
-        mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
+        GenericObjectPool pool = new GenericObjectPool(factory, poolConfig);
+        factory.setPool(pool);
+
+        mds = new ManagedDataSource(pool, xacf.getTransactionRegistry());
+        //mds = new DebugManagedDataSource(pool, xacf.getTransactionRegistry()); // Useful to debug the usage of connections in the pool
         mds.setAccessToUnderlyingConnectionAllowed(true);
 
         // cache the pool

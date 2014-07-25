@@ -40,11 +40,16 @@ public final class InlineJdbc extends JdbcElement {
     private final int poolMinsize; // type = xs:nonNegativeInteger
     private final int idleMaxsize; // type = xs:nonNegativeInteger
     private final int timeBetweenEvictionRunsMillis; // type = xs:nonNegativeInteger
+    private final int softMinEvictableIdleTimeMillis; // type = xs:nonNegativeInteger
     private final int poolSleeptime; // type = xs:nonNegativeInteger
     private final int poolLifetime; // type = xs:nonNegativeInteger
     private final int poolDeadlockMaxwait; // type = xs:nonNegativeInteger
     private final int poolDeadlockRetrywait; // type = xs:nonNegativeInteger
     private final String poolJdbcTestStmt; // type = xs:string
+    private final boolean testOnCreate; // type = xs:boolean
+    private final boolean testOnBorrow; // type = xs:boolean
+    private final boolean testOnReturn; // type = xs:boolean
+    private final boolean testWhileIdle; // type = xs:boolean
     private final String poolXaWrapperClass; // type = xs:string
 
     InlineJdbc(Element element) throws GenericEntityConfException {
@@ -107,6 +112,16 @@ public final class InlineJdbc extends JdbcElement {
                 throw new GenericEntityConfException("<inline-jdbc> element time-between-eviction-runs-millis attribute is invalid" + lineNumberText);
             }
         }
+        String softMinEvictableIdleTimeMillis = element.getAttribute("soft-min-evictable-idle-time-millis");
+        if (softMinEvictableIdleTimeMillis.isEmpty()) {
+            this.softMinEvictableIdleTimeMillis = 600000;
+        } else {
+            try {
+                this.softMinEvictableIdleTimeMillis = Integer.parseInt(softMinEvictableIdleTimeMillis);
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<inline-jdbc> element soft-min-evictable-idle-time-millis attribute is invalid" + lineNumberText);
+            }
+        }
         String poolSleeptime = element.getAttribute("pool-sleeptime");
         if (poolSleeptime.isEmpty()) {
             this.poolSleeptime = 300000;
@@ -148,6 +163,10 @@ public final class InlineJdbc extends JdbcElement {
             }
         }
         this.poolJdbcTestStmt = element.getAttribute("pool-jdbc-test-stmt").intern();
+        this.testOnCreate = "true".equals(element.getAttribute("test-on-create"));
+        this.testOnBorrow = "true".equals(element.getAttribute("test-on-borrow"));
+        this.testOnReturn = "true".equals(element.getAttribute("test-on-return"));
+        this.testWhileIdle = "true".equals(element.getAttribute("test-while-idle"));
         this.poolXaWrapperClass = element.getAttribute("pool-xa-wrapper-class").intern();
     }
 
@@ -196,6 +215,11 @@ public final class InlineJdbc extends JdbcElement {
         return this.timeBetweenEvictionRunsMillis;
     }
 
+    /** Returns the value of the <code>time-between-eviction-runs-millis</code> attribute. */
+    public int getSoftMinEvictableIdleTimeMillis() {
+        return this.softMinEvictableIdleTimeMillis;
+    }
+
     /** Returns the value of the <code>pool-sleeptime</code> attribute. */
     public int getPoolSleeptime() {
         return this.poolSleeptime;
@@ -219,6 +243,26 @@ public final class InlineJdbc extends JdbcElement {
     /** Returns the value of the <code>pool-jdbc-test-stmt</code> attribute. */
     public String getPoolJdbcTestStmt() {
         return this.poolJdbcTestStmt;
+    }
+
+    /** Returns the value of the <code>test-on-create</code> attribute. */
+    public boolean getTestOnCreate() {
+        return this.testOnCreate;
+    }
+
+    /** Returns the value of the <code>test-on-create</code> attribute. */
+    public boolean getTestOnBorrow() {
+        return this.testOnBorrow;
+    }
+
+    /** Returns the value of the <code>test-on-create</code> attribute. */
+    public boolean getTestOnReturn() {
+        return this.testOnReturn;
+    }
+
+    /** Returns the value of the <code>test-on-create</code> attribute. */
+    public boolean getTestWhileIdle() {
+        return this.testWhileIdle;
     }
 
     /** Returns the value of the <code>pool-xa-wrapper-class</code> attribute. */
