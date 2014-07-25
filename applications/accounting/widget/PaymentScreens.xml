@@ -168,11 +168,11 @@ under the License.
                 <set field="tabButtonItem" value="editPaymentApplications"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-field="payment"/>
-                <set field="appliedAmount" type="String" value="${bsh:
+                <set field="appliedAmount" type="String" value="${groovy:
                     import java.text.NumberFormat;
                     return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment)));}"/>
-                <set field="notAppliedAmount" type="BigDecimal" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
-                <set field="notAppliedAmountStr" type="String" value="${bsh:
+                <set field="notAppliedAmount" type="BigDecimal" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)}"/>
+                <set field="notAppliedAmountStr" type="String" value="${groovy:
                     import java.text.NumberFormat;
                     return(NumberFormat.getCurrencyInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment)));}"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/payment/ListNotAppliedInvoices.groovy"/>
@@ -351,8 +351,8 @@ under the License.
                 <entity-one entity-name="Payment" value-field="payment"/>
                 <set field="finAccountTransId" from-field="payment.finAccountTransId"/>
                 <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
-                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment).toString()}"/>
-                <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
+                <set field="appliedAmount" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentApplied(payment).toString()}"/>
+                <set field="notAppliedAmount" value="${groovy:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotApplied(payment).toString()}"/>
                 <entity-condition entity-name="AcctgTransAndEntries" list="AcctgTransAndEntries">
                     <condition-expr field-name="paymentId" from-field="paymentId"/>
                     <order-by field-name="acctgTransId"/>

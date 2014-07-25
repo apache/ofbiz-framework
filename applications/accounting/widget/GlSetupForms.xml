@@ -501,7 +501,7 @@ under the License.
             <entity-one entity-name="GlAccountClass" value-field="revenueGlAccountClass">
                 <field-map field-name="glAccountClassId" value="REVENUE"/>
             </entity-one>
-            <set field="revenueAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass)}" type="List"/>
+            <set field="revenueAccountClassIds" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass)}" type="List"/>
         </actions>
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
@@ -555,7 +555,7 @@ under the License.
             <entity-one entity-name="GlAccountClass" value-field="expenseGlAccountClass">
                 <field-map field-name="glAccountClassId" value="EXPENSE"/>
             </entity-one>
-            <set field="expenseAccountClassIds" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass)}" type="List"/>
+            <set field="expenseAccountClassIds" value="${groovy:org.ofbiz.accounting.util.UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass)}" type="List"/>
         </actions>
         <auto-fields-service service-name="addInvoiceItemTypeGlAssignment"/>
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
