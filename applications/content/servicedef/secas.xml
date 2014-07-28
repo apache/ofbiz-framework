@@ -105,7 +105,7 @@ under the License.
     </eca>
 
     <!-- electronic text; needs dataResourceId -->
-    <eca service="createElectronicText" event="in-validate">
+    <eca service="createElectronicText" event="invoke">
         <condition field-name="dataResourceId" operator="is-empty"/>
         <set field-name="dataResourceTypeId" value="ELECTRONIC_TEXT"/>
         <action service="createDataResource" mode="sync" result-to-context="true"/>
