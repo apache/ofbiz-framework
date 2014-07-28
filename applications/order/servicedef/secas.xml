@@ -88,7 +88,7 @@ under the License.
         <action service="releaseOrderPayments" mode="sync"/>
         <action service="processRefundReturnForReplacement" mode="sync"/>
     </eca>
-    <eca service="changeOrderStatus" event="global-commit" run-on-error="false">
+    <eca service="changeOrderStatus" event="global-commit-post-run" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
         <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
         <action service="createInvoiceFromOrder" mode="sync"/>
@@ -236,7 +236,7 @@ under the License.
         <action service="processCreditReturn" mode="sync"/>
         <action service="processRefundOnlyReturn" mode="sync"/>
     </eca>
-    <eca service="updateReturnStatusFromReceipt" event="global-commit">
+    <eca service="updateReturnStatusFromReceipt" event="global-commit-post-run">
         <condition field-name="returnHeaderStatus" operator="equals" value="RETURN_RECEIVED"/>
         <action service="addProductsBackToCategory" mode="sync"/>
         <action service="processWaitReplacementReturn" mode="sync"/>
