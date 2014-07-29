@@ -23,62 +23,68 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Manufacturing: Edit production run</title>
+    <title>Manufacturing: Edit Production Run</title>
     <para>
-    This screen displays the production run. Through this screen you can:
+    This screen displays the details of a Production Run. Through this screen you can:
     </para>
     <itemizedlist>
-        <listitem><para>Edit the base details of the production run</para></listitem>
-        <listitem><para>Create tasks - Click 'Taksks'</para></listitem>
-        <listitem><para>Add materials - Click 'Materials'</para></listitem>
-        <listitem><para>Associate equipment - Click 'Equipment'</para></listitem>
-        <listitem><para>View associated (dependent) productie runs - click 'Assocs'</para></listitem>
-        <listitem><para>View associated content - Click 'Content'</para></listitem>
-        <listitem><para>View actual cost of the production run - Click 'Actual Costs'</para></listitem>
+        <listitem><para>Edit the basic details of the Production Run</para></listitem>
+        <listitem><para>Create tasks that will be performed as part of the Production Run by clicking 'Tasks'</para></listitem>
+        <listitem><para>Add materials that the Production Run will use to make the manufactured product by clicking 'Materials'</para></listitem>
+        <listitem><para>Associate equipment that will be used as part of Production by clicking 'Equipment'</para></listitem>
+        <listitem><para>View any associated (or dependent) Production Runs by clicking 'Assocs'</para></listitem>
+        <listitem><para>View any associated content by clicking 'Content'</para></listitem>
+        <listitem><para>View the actual cost of the Production Run by click 'Actual Costs'</para></listitem>
     </itemizedlist>
     <section>
-    <title>Base details production run</title>
+    <title>Basic Production Run Details</title>
     <para>
-    This section displays the base details of the production run. Additionally you can edit the details.
+    This section displays the basic details of the Production Run. This includes information about the 
+    Facility where the Production Run will take place, the quantity of product to be produced and the proposed start and 
+    completion date.</para>
+    <para>The majority of these fields are editable, the exception being the "Calculated completion date".
     </para>
-    <para>In this section following action can be performed:</para>
+    <para>This section also allows you to change the Production Run status as follows:</para>
     <itemizedlist>
-        <listitem><para>Cancel - to cancel the production run.</para></listitem>
-        <listitem><para>Quick close - to close the production run</para></listitem>
-        <listitem><para>Quick complete - to mark the production run as 'complete'</para></listitem>
-        <listitem><para>Confirm - to confirm the production run</para></listitem>
-        <listitem><para>Schedule -to schedule the production run in the calendar</para></listitem>
-        <listitem><para>Print - to create a pdf file of the production run</para></listitem>
+        <listitem><para>"Cancel" - To cancel the Production Run.</para></listitem>
+        <listitem><para>"Quick Close" - To close the Production Run</para></listitem>
+        <listitem><para>"Quick complete" - To mark the Production Run as 'complete'</para></listitem>
+        <listitem><para>"Confirm" - To confirm the Production Run</para></listitem>
+        <listitem><para>"Schedule" -To schedule the Production Run in the calendar</para></listitem>
+        <listitem><para>"Print" - To create a pdf file of the Production Run</para></listitem>
     </itemizedlist>
     </section>
     <section>
-    <title>Order items</title>
+    <title>Order Items</title>
     <para>
-        This section displays an overview of associated order items.
+        This section displays an overview of associated order items if the Production Run will be used 
+        to fulfill an order.
     </para>
     </section>
     <section>
     <title>Tasks</title>
     <para>
-        This section displays an overview of associated tasks
+        This section displays an overview of associated tasks that will be performed as part of the Production Run.
+        These are also called "Routing Tasks"
     </para>
     </section>
     <section>
     <title>Materials</title>
     <para>
-        this section displays an overview of the required materials
+        This section displays an overview of the required materials that will be used during the Production Run. This
+        information is taken from the Bill of Materials.
     </para>
     </section>
     <section>
-    <title>Equipment</title>
+    <title>Equipment/Production Run Fixed Assets</title>
     <para>
-        This section displays the required equimpent to be used in the productionn run.
+        This section displays the required equipment or machinery to be used in the Production Pun.
     </para>
     </section>
     <section>
     <title>Notes</title>
     <para>
-        this sections displays an overview of associated notes.
+        This section displays an overview of any associated Production Run notes.
     </para>
     </section>
 </section>

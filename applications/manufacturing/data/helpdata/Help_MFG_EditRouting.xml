@@ -23,8 +23,12 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Manufacturing: Create and edit Routing</title>
+    <title>Manufacturing: Create and Edit Routing</title>
     <para>
-    In this screen you can create new a new routing and edit an existing routing.
+    <para>In this screen you can :</para>
+    <itemizedlist>
+    <listitem><para>Create new a new Routing or;</para></listitem> 
+    <listitem><para>Edit an existing Routing.</para></listitem>
+    </itemizedlist>
     </para>
 </section>
