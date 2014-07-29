@@ -36,7 +36,7 @@
     <ContentAssoc mapKey="MANUFACTURING_main" contentId="HELP_MFG" contentIdTo="MFG_Main" contentAssocTypeId="TREE_CHILD" fromDate="2012-01-12 01:01:01" sequenceNum="000"/>
     
     <DataResource dataResourceId="MFG_ProdRuns" localeString="en" dataResourceTypeId="OFBIZ_FILE" 
-        objectInfo="applications/manufacturing/data/helpdata/Help_MFG_findProductionRun.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
+        objectInfo="applications/manufacturing/data/helpdata/Help_MFG_FindProductionRun.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS"
         dataResourceName="MFG_ProdRuns" mimeTypeId="text/xml" isPublic="Y" />
     <Content contentId="MFG_ProdRuns" contentTypeId="DOCUMENT" contentName="Production Runs" templateDataResourceId="HELP_TEMPL" 
         dataResourceId="MFG_ProdRuns" statusId="CTNT_IN_PROGRESS" mimeTypeId="text/html"/>

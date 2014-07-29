@@ -25,6 +25,32 @@
     xmlns="http://docbook.org/ns/docbook">
        <title>Manufacturing: Main</title>
         <para>
-        This is the start screen of the application.
+        The default screen is the JobShop menu.</para>
+        <para>The JobShop is used to manage and track all the manufacturing or assembling work.
+        The work (or job) carried out in the JobShop is called a Production Run. Production Runs
+        can also be called Work Orders.
         </para>
+        <para>Production Runs are the work list of the manufacturing department and include details of:</para>
+        <itemizedlist>
+        <listitem>
+        <para>the product to be manufactured</para></listitem>
+        <listitem
+        ><para>the raw materials or sub assemblies to use</para></listitem>
+        <listitem><para>the steps needed to make the finished product</para></listitem>
+        </itemizedlist>
+        <title>How do I create a new Production Run?</title>
+        <para>Productions Runs can be created manually or automatically. To create one manually:</para>
+        <orderedlist>
+        <listitem><para>Click the "Create a Production Run" button</para></listitem>
+        
+        </orderedlist>
+        <title>How do I locate an existing Production Run?</title>
+        <para>To locate an existing Production Run</para>
+        <orderedlist>
+        <listitem><para>Click "Find"</para></listitem>
+        <listitem><para>A list of any existing Production Runs will be displayed</para></listitem>
+        <listitem><para>Click the Production Run Id to view the Production Run details</para></listitem>
+        </orderedlist>
+        <title>How do I delete a Production Run?</title>
+        <para>Production Runs cannot be deleted but they can be cancelled instead.</para> 
 </section>

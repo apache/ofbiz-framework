@@ -23,11 +23,15 @@
     xmlns:xi="http://www.w3.org/2001/XInclude"
     xsi:schemaLocation="http://docbook.org/ns/docbook ../../../../content/dtd/docbook.xsd"
     xmlns="http://docbook.org/ns/docbook">
-    <title>Manufacturing: Create and edit routing associated product-link</title>
+    <title>Manufacturing: Create and Edit Routing associated product-link</title>
     <para>
-    In this screen can you create a link to a product for the route. 
-    You can also edit a existing product link.
+    In this screen can you create a link to a product for the routing.</para>
     
+    <para>The product specified here will be linked to this routing. This means that when a Production Run 
+    is created for this product, it will automatically use this routing by default.</para>
+    <para>
+    You can also edit an existing product link.</para>
+    <para>
     An overview of the associated products is displayed in the lower section of the screen.
     </para>
 </section>

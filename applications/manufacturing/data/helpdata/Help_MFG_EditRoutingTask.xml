@@ -25,6 +25,15 @@
     xmlns="http://docbook.org/ns/docbook">
     <title>Manufacturing: Create and edit route task</title>
     <para>
-    In this screen you can create a new routing task and modify an existing routing task.
+    A "Routing Task" is an individual step or activity that is used in the manufacturing or assembling process of a 
+    product.</para>
+    <para>Examples include:</para>
+    <itemizedlist>
+    <listitem><para>Weighing out Raw Materials</para></listitem>
+    <listitem><para>Assembling a Product</para></listitem>
+    <listitem><para>Machining or Processing Materials</para></listitem>
+   </itemizedlist>
+    <para>
+        In this screen you can create a new routing task and modify an existing Routing Task.
     </para>
 </section>
