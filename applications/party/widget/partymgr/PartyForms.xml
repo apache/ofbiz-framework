@@ -840,8 +840,10 @@ under the License.
         <field name="partyIdTo" entry-name="parameters.partyId"><display/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleTypeAndParty" key-field-name="roleTypeId" description="${description}">
+                    <entity-constraint name="partyId" value="${partyId}"/>
                     <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
