@@ -22,7 +22,7 @@ under the License.
     <fo:table-body>
       <fo:table-row >
         <fo:table-cell>
-      <fo:block>_______________________________  </fo:block>
+          <fo:block>_______________________________</fo:block>
       </fo:table-cell>
     </fo:table-row>
       <fo:table-row >
