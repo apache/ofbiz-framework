@@ -22,6 +22,11 @@ under the License.
     <fo:table-body>
       <fo:table-row >
         <fo:table-cell>
+      <fo:block>_______________________________  </fo:block>
+      </fo:table-cell>
+    </fo:table-row>
+      <fo:table-row >
+        <fo:table-cell>
                <fo:block>${uiLabelMap.CommonTo}: </fo:block>
        <#if billingAddress?has_content>
         <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
