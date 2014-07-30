@@ -198,4 +198,8 @@ under the License.
     <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
     <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard=""
         titleOnCard="" firstNameOnCard="FRENCH" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="FRENCHCUSTOMER"/>
+    
+    <PartyTaxAuthInfo partyId="FrenchCustomer" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2001-05-13 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/>
+    <!--PartyTaxAuthInfo partyId="Company" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2014-01-01 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/-->
+    
 </entity-engine-xml>
