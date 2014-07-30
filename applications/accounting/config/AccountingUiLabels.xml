@@ -1567,7 +1567,7 @@
         <value xml:lang="de">Kundenrechnungsart zu Ertragskonto zuweisen</value>
         <value xml:lang="en">Assign Sales Invoice type to Revenue GL Account Number</value>
         <value xml:lang="es">Asignar tipo de factura de venta a ingresos número de cuenta de LM de ingresos</value>
-        <value xml:lang="fr">Allouer un type de facture de vente au compte comptable no.</value>
+        <value xml:lang="fr">Allouer un type de facture de vente au compte comptable n°</value>
         <value xml:lang="hi_IN">राजस्व सामान्य बही खाता निरुपित करने के लिए बिक्री चालान प्रकार संख्या</value>
         <value xml:lang="it">Assegna Tipo Fattura Vendita al Numero Conto Profitti Gl</value>
         <value xml:lang="ja">収入GL勘定に販売請求種類を割当</value>
@@ -3978,7 +3978,7 @@
         <value xml:lang="de">Kunden-Nr.</value>
         <value xml:lang="en">Cust.Nr</value>
         <value xml:lang="es">Nr Cliente</value>
-        <value xml:lang="fr">No. de Client</value>
+        <value xml:lang="fr">N° de Client</value>
         <value xml:lang="hi_IN">ग्राहक कोड</value>
         <value xml:lang="it">Cod.Cliente</value>
         <value xml:lang="ja">顧客No</value>
@@ -7185,7 +7185,7 @@
         <value xml:lang="ar">رقم الفاتورة</value>
         <value xml:lang="en">Inv.Nr</value>
         <value xml:lang="es">Nr.Fact</value>
-        <value xml:lang="fr">Fact. no.</value>
+        <value xml:lang="fr">Fact. n°</value>
         <value xml:lang="hi_IN">चालान संख्या</value>
         <value xml:lang="it">Nr.Fattura</value>
         <value xml:lang="ja">請求No</value>
@@ -8306,7 +8306,7 @@
     <property key="AccountingItemNr">
         <value xml:lang="en">ItemNr</value>
         <value xml:lang="es">NrElemento</value>
-        <value xml:lang="fr">Item no.</value>
+        <value xml:lang="fr">Item n°</value>
         <value xml:lang="hi_IN">मद संख्या</value>
         <value xml:lang="it">Nr.Riga</value>
         <value xml:lang="ja">アイテムNo</value>
