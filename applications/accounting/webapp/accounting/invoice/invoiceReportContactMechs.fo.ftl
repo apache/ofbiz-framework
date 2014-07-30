@@ -27,25 +27,25 @@ under the License.
     </fo:table-row>
       <fo:table-row >
         <fo:table-cell>
-               <fo:block>${uiLabelMap.CommonTo}: </fo:block>
-       <#if billingAddress?has_content>
-        <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
-        <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
-        <#if billingAddress.attnName?exists>
-            <fo:block>${billingAddress.attnName}</fo:block>
-        </#if>
-            <fo:block>${billingAddress.address1?if_exists}</fo:block>
-        <#if billingAddress.address2?exists>
-            <fo:block>${billingAddress.address2}</fo:block>
-        </#if>
-        <fo:block>${billingAddress.city?if_exists} ${billingAddress.stateProvinceGeoId?if_exists} ${billingAddress.postalCode?if_exists}</fo:block>
-        <#if billToPartyTaxId?has_content>
-            <fo:block>${uiLabelMap.PartyTaxId}: ${billToPartyTaxId}</fo:block>
-        </#if>
-    <#else>
-        <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound}${billToParty.partyId}</fo:block>
-    </#if>
-        </fo:table-cell>
+          <fo:block>${uiLabelMap.CommonTo}: </fo:block>
+            <#if billingAddress?has_content>
+                <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
+                <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
+                <#if billingAddress.attnName?exists>
+                    <fo:block>${billingAddress.attnName}</fo:block>
+                </#if>
+                    <fo:block>${billingAddress.address1?if_exists}</fo:block>
+                <#if billingAddress.address2?exists>
+                    <fo:block>${billingAddress.address2}</fo:block>
+                </#if>
+                <fo:block>${billingAddress.city?if_exists} ${billingAddress.stateProvinceGeoId?if_exists} ${billingAddress.postalCode?if_exists}</fo:block>
+                <#if billToPartyTaxId?has_content>
+                    <fo:block>${uiLabelMap.PartyTaxId}: ${billToPartyTaxId}</fo:block>
+                </#if>
+            <#else>
+                <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound}${billToParty.partyId}</fo:block>
+            </#if>
+       </fo:table-cell>
     </fo:table-row>
   </fo:table-body>
 </fo:table>
