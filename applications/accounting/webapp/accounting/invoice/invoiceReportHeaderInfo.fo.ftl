@@ -37,20 +37,6 @@ under the License.
   <fo:table-cell><fo:block><#if billToParty?has_content>${billToParty.partyId}</#if></fo:block></fo:table-cell>
 </fo:table-row>
 
-<#if sendingPartyTaxId?has_content>
-  <fo:table-row>
-    <fo:table-cell><fo:block>${uiLabelMap.PartyTaxId}:</fo:block></fo:table-cell>
-    <fo:table-cell><fo:block> ${billToPartyTaxId}</fo:block></fo:table-cell>
-  </fo:table-row>
-</#if>
-
-<#if billToPartyTaxId?has_content>
-  <fo:table-row>
-    <fo:table-cell><fo:block>${uiLabelMap.PartyClientTaxId}:</fo:block></fo:table-cell>
-    <fo:table-cell><fo:block> ${billToPartyTaxId}</fo:block></fo:table-cell>
-  </fo:table-row>
-</#if>
-
 <fo:table-row>
   <fo:table-cell><fo:block>${uiLabelMap.AccountingInvNr}:</fo:block></fo:table-cell>
   <fo:table-cell><fo:block><#if invoice?has_content>${invoice.invoiceId}</#if></fo:block></fo:table-cell>

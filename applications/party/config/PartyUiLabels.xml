@@ -11837,9 +11837,10 @@
     </property>
     <property key="PartyTaxId">
         <value xml:lang="de">Steuer ID</value>
-        <value xml:lang="en">Vendor Tax ID</value>
+        <value xml:lang="en">Tax ID</value>
+        <value xml:lang="en_IN">TIN</value>
         <value xml:lang="es">Código de Impuesto</value>
-        <value xml:lang="fr">N° de TVA du vend.</value>
+        <value xml:lang="fr">Id. de TVA</value>
         <value xml:lang="hi_IN">कर(tax) क्रमांक</value>
         <value xml:lang="it">ID Tasse</value>
         <value xml:lang="ja">税務ID</value>
@@ -11851,10 +11852,6 @@
         <value xml:lang="vi">Thuế</value>
         <value xml:lang="zh">税务标识</value>
         <value xml:lang="zh_TW">稅務ID</value>
-    </property>
-    <property key="PartyClientTaxId">
-        <value xml:lang="en">Client Tax ID</value>
-        <value xml:lang="fr">N° de TVA du client</value>
     </property>
     <property key="PartyTaxIdentification">
         <value xml:lang="de">Steuernummer und Befreiung</value>
