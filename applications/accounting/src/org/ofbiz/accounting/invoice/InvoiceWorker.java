@@ -515,7 +515,10 @@ public class InvoiceWorker {
             List<GenericValue> acctgTransEntries = invoice.getRelated("AcctgTrans", null, null, false);
             if (UtilValidate.isNotEmpty(acctgTransEntries)) {
                 GenericValue acctgTransEntry = (acctgTransEntries.get(0)).getRelated("AcctgTransEntry", null, null, false).get(0);
-                conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
+                BigDecimal origAmount = acctgTransEntry.getBigDecimal("origAmount");
+                if (origAmount.compareTo(ZERO) == 1) {
+                    conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
+                }
             }
             // check if a payment is applied and use the currency conversion from there
             if (UtilValidate.isEmpty(conversionRate)) {
