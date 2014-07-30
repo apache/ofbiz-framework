@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
 <fo:table table-layout="fixed" width="100%">
-<fo:table-column column-width="1in"/>
+<fo:table-column column-width="1.5in"/>
 <fo:table-column column-width="2.5in"/>
 <fo:table-body>
 <fo:table-row>
@@ -34,13 +34,20 @@ under the License.
 
 <fo:table-row>
   <fo:table-cell><fo:block>${uiLabelMap.AccountingCustNr}:</fo:block></fo:table-cell>
-  <fo:table-cell><fo:block><#if billingParty?has_content>${billingParty.partyId}</#if></fo:block></fo:table-cell>
+  <fo:table-cell><fo:block><#if billToParty?has_content>${billToParty.partyId}</#if></fo:block></fo:table-cell>
 </fo:table-row>
 
-<#if billingPartyTaxId?has_content>
+<#if sendingPartyTaxId?has_content>
   <fo:table-row>
     <fo:table-cell><fo:block>${uiLabelMap.PartyTaxId}:</fo:block></fo:table-cell>
-    <fo:table-cell><fo:block> ${billingPartyTaxId}</fo:block></fo:table-cell>
+    <fo:table-cell><fo:block> ${billToPartyTaxId}</fo:block></fo:table-cell>
+  </fo:table-row>
+</#if>
+
+<#if billToPartyTaxId?has_content>
+  <fo:table-row>
+    <fo:table-cell><fo:block>${uiLabelMap.PartyClientTaxId}:</fo:block></fo:table-cell>
+    <fo:table-cell><fo:block> ${billToPartyTaxId}</fo:block></fo:table-cell>
   </fo:table-row>
 </#if>
 

@@ -30,9 +30,9 @@ under the License.
     <#if invoiceDetailList?has_content>
       <#list invoiceDetailList as invoiceDetail>
         <#assign invoice = invoiceDetail.invoice />
-        <#if invoiceDetail.billingParty?has_content>
-          <#assign billingParty = invoiceDetail.billingParty />
-          <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : billingParty.partyId}, true)>
+        <#if invoiceDetail.billToParty?has_content>
+          <#assign billToParty = invoiceDetail.billToParty />
+          <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : billToParty.partyId}, true)>
         </#if>
         <fo:page-sequence master-reference="main">
           <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
@@ -70,10 +70,10 @@ under the License.
                                 </fo:block>
                               </fo:table-cell>
                             </fo:table-row>
-                            <#if invoiceDetail.billingPartyTaxId?has_content>
+                            <#if invoiceDetail.billToPartyTaxId?has_content>
                               <fo:table-row>
                                 <fo:table-cell><fo:block>${uiLabelMap.PartyTaxId}:</fo:block></fo:table-cell>
-                                <fo:table-cell><fo:block> ${invoiceDetail.billingPartyTaxId}</fo:block></fo:table-cell>
+                                <fo:table-cell><fo:block> ${invoiceDetail.billToPartyTaxId}</fo:block></fo:table-cell>
                               </fo:table-row>
                             </#if>
                             <fo:table-row>
@@ -95,7 +95,7 @@ under the License.
               </fo:table>
             </fo:block>
               
-            <#if billingParty?has_content>
+            <#if billToParty?has_content>
               <fo:block>
                 <fo:table width="100%" table-layout="fixed" space-after="0.3in">
                   <fo:table-column column-width="3.5in"/>
@@ -105,8 +105,8 @@ under the License.
                         <fo:block>${uiLabelMap.CommonTo}: </fo:block>
                         <#if invoiceDetail.billingAddress?has_content>
                           <#assign billingAddress = invoiceDetail.billingAddress />
-                          <#assign billingPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billingParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
-                          <fo:block>${billingPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
+                          <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
+                          <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
                           <#if billingAddress.attnName?exists>
                             <fo:block>${billingAddress.attnName}</fo:block>
                           </#if>
