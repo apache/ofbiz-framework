@@ -39,6 +39,9 @@ under the License.
             <fo:block>${billingAddress.address2}</fo:block>
         </#if>
         <fo:block>${billingAddress.city?if_exists} ${billingAddress.stateProvinceGeoId?if_exists} ${billingAddress.postalCode?if_exists}</fo:block>
+        <#if billToPartyTaxId?has_content>
+            <fo:block>${uiLabelMap.PartyTaxId}: ${billToPartyTaxId}</fo:block>
+        </#if>
     <#else>
         <fo:block>${uiLabelMap.AccountingNoGenBilAddressFound}${billToParty.partyId}</fo:block>
     </#if>
