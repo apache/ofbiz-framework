@@ -65,16 +65,16 @@ invoiceIds.each { invoiceId ->
         if (billingAddress) {
             invoicesMap.billingAddress = billingAddress;
         }
-        billingParty = InvoiceWorker.getBillToParty(invoice);
-        invoicesMap.billingParty = billingParty;
+        billToParty = InvoiceWorker.getBillToParty(invoice);
+        invoicesMap.billToParty = billToParty;
         sendingParty = InvoiceWorker.getSendFromParty(invoice);
         invoicesMap.sendingParty = sendingParty;
 
         // This snippet was added for adding Tax ID in invoice header if needed 
         sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false);
-        billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo", null, null, false);
+        billingTaxInfos = billToParty.getRelated("PartyTaxAuthInfo", null, null, false);
         sendingPartyTaxId = null;
-        billingPartyTaxId = null;
+        billToPartyTaxId = null;
 
         if (billingAddress) {
             sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
@@ -84,15 +84,15 @@ invoiceIds.each { invoiceId ->
             }
             billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
                 if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                     billingPartyTaxId = billingTaxInfos[i-1].partyTaxId;
+                     billToPartyTaxId = billingTaxInfos[i-1].partyTaxId;
                 }
             }
         }
         if (sendingPartyTaxId) {
             invoicesMap.sendingPartyTaxId = sendingPartyTaxId;
         }
-        if (billingPartyTaxId) {
-            invoicesMap.billingPartyTaxId = billingPartyTaxId;
+        if (billToPartyTaxId) {
+            invoicesMap.billToPartyTaxId = billToPartyTaxId;
         }
     
         terms = invoice.getRelated("InvoiceTerm", null, null, false);

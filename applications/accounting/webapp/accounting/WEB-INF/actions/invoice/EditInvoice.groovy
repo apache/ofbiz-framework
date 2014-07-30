@@ -56,8 +56,8 @@ if (invoice) {
     if (billingAddress) {
         context.billingAddress = billingAddress;
     }
-    billingParty = InvoiceWorker.getBillToParty(invoice);
-    context.billingParty = billingParty;
+    billToParty = InvoiceWorker.getBillToParty(invoice);
+    context.billToParty = billToParty;
     sendingParty = InvoiceWorker.getSendFromParty(invoice);
     context.sendingParty = sendingParty;
 
@@ -77,10 +77,15 @@ if (invoice) {
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
         taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false);
         if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
-            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
+            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billToParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
             taxInfo = EntityUtil.getFirst(taxInfos);
             if (taxInfo) {
-                context.billingPartyTaxId = taxInfo.partyTaxId;
+                context.billToPartyTaxId = taxInfo.partyTaxId;
+            }
+            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : sendingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
+            taxInfo = EntityUtil.getFirst(taxInfos);
+            if (taxInfo) {
+                context.sendingPartyTaxId = taxInfo.partyTaxId;
             }
             vatTaxesByTypeAmount = vatTaxesByType[taxRate.taxAuthorityRateSeqId];
             if (!vatTaxesByTypeAmount) {
@@ -102,9 +107,9 @@ if (invoice) {
                 //*________________this snippet was added for adding Tax ID in invoice header if needed _________________
 
                sendingTaxInfos = sendingParty.getRelated("PartyTaxAuthInfo", null, null, false);
-               billingTaxInfos = billingParty.getRelated("PartyTaxAuthInfo", null, null, false);
+               billingTaxInfos = billToParty.getRelated("PartyTaxAuthInfo", null, null, false);
                sendingPartyTaxId = null;
-               billingPartyTaxId = null;
+               billToPartyTaxId = null;
 
                if (billingAddress) {
                    sendingTaxInfos.eachWithIndex { sendingTaxInfo, i ->
@@ -114,15 +119,15 @@ if (invoice) {
                    }
                    billingTaxInfos.eachWithIndex { billingTaxInfo, i ->
                        if (billingTaxInfo.taxAuthGeoId.equals(billingAddress.countryGeoId)) {
-                            billingPartyTaxId = billingTaxInfos[i-1].partyTaxId;
+                            billToPartyTaxId = billingTaxInfos[i-1].partyTaxId;
                        }
                    }
                }
                if (sendingPartyTaxId) {
                    context.sendingPartyTaxId = sendingPartyTaxId;
                }
-               if (billingPartyTaxId && !context.billingPartyTaxId) {
-                   context.billingPartyTaxId = billingPartyTaxId;
+               if (billToPartyTaxId && !context.billToPartyTaxId) {
+                   context.billToPartyTaxId = billToPartyTaxId;
                }
                //________________this snippet was added for adding Tax ID in invoice header if needed _________________*/
 
