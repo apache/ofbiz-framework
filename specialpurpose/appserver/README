@@ -1,7 +1,7 @@
 For Websphere community edition or Geronimo refer to the Guidelines in the OFBiz documentation : http://docs.ofbiz.org/x/Ah
 Else to generate configuration files from the templates in a sub-directory of the templates directory just run something like (from the ofbiz.home directory):
 
-java -jar ofbiz.jar -setup test
+java -jar ofbiz.jar setup test
 
 All template files in the given sub-directory, in case "test", will be processed and put in a corresponding sub-directory of ${ofbiz.home}/setup.
 
