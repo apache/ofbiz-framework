@@ -69,27 +69,27 @@ public class UtilJ2eeCompat {
             Debug.logInfo("serverInfo: " + serverInfo, module);
 
             if (serverInfo.indexOf(RESIN) >= 0) {
-                Debug.logImportant("Resin detected, disabling the flush on the region render from PageContext for better performance", module);
+                Debug.logInfo("Resin detected, disabling the flush on the region render from PageContext for better performance", module);
                 doflush = false;
             } else if (serverInfo.indexOf(REX_IP) >= 0) {
-                Debug.logImportant("Trade City RexIP detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("Trade City RexIP detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             } else if (serverInfo.indexOf(TOMCAT) >= 0) {
-                Debug.logImportant("Apache Tomcat detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("Apache Tomcat detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             } else if (serverInfo.indexOf(JRUN) >= 0) {
-                Debug.logImportant("JRun detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("JRun detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             } else if (serverInfo.indexOf(JETTY) >= 0) {
-                Debug.logImportant("Jetty detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("Jetty detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             } else if (serverInfo.indexOf(ORION) >= 0) {
-                Debug.logImportant("Orion detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("Orion detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
-                Debug.logImportant("Orion detected, using non-nested JspException", module);
+                Debug.logInfo("Orion detected, using non-nested JspException", module);
                 nestjspexception = false;
             } else if (serverInfo.indexOf(WEBSPHERE) >= 0) {
-                Debug.logImportant("IBM Websphere Application Server detected, using response.getWriter to write text out instead of response.getOutputStream", module);
+                Debug.logInfo("IBM Websphere Application Server detected, using response.getWriter to write text out instead of response.getOutputStream", module);
                 usestream = false;
             }
 

@@ -236,7 +236,7 @@ public class GenericDelegator implements Delegator {
 
         // do the entity model check
         List<String> warningList = new LinkedList<String>();
-        Debug.logImportant("Doing entity definition check...", module);
+        Debug.logInfo("Doing entity definition check...", module);
         ModelEntityChecker.checkEntities(this, warningList);
         if (warningList.size() > 0) {
             Debug.logWarning("=-=-=-=-= Found " + warningList.size() + " warnings when checking the entity definitions:", module);

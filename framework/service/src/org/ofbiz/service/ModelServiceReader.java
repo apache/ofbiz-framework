@@ -182,11 +182,11 @@ public class ModelServiceReader implements Serializable {
         }
         if (this.isFromURL) {
             utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
-            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
+            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
         } else {
             utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
-            if (Debug.importantOn()) {
-                Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
+            if (Debug.infoOn()) {
+                Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
             }
         }
         return modelServices;

@@ -81,14 +81,14 @@ public class ServiceGroupReader {
             groupsCache.put(groupName, new GroupModel(group));
             numDefs++;
         }
-        if (Debug.importantOn()) {
+        if (Debug.infoOn()) {
             String resourceLocation = handler.getLocation();
             try {
                 resourceLocation = handler.getURL().toExternalForm();
             } catch (GenericConfigException e) {
                 Debug.logError(e, "Could not get resource URL", module);
             }
-            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(numDefs), 3) + "] Group definitions from " + resourceLocation, module);
+            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(numDefs), 3) + "] Group definitions from " + resourceLocation, module);
         }
     }
 
