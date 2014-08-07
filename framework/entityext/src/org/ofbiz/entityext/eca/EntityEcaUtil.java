@@ -136,7 +136,7 @@ public class EntityEcaUtil {
             rules.add(new EntityEcaRule(e));
         }
         try {
-            Debug.logImportant("Loaded [" + StringUtil.leftPad(Integer.toString(rules.size()), 3) + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
+            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(rules.size()), 3) + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
         } catch (GenericConfigException e) {
             Debug.logError(e, module);
         }
