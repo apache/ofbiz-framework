@@ -33,7 +33,6 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 public class Config {
-    public static final double REQUIRED_JDK = 1.6;
 
     private static String getConfigFileName(String command) {
         // default command is "start"
@@ -165,7 +164,6 @@ public class Config {
         if (required) {
             System.err.println("");
             System.err.println("Required library " + jarName + " could not be located.");
-            System.err.println("Make sure you using Java2 SDK " + REQUIRED_JDK + "+ and NOT the JRE.");
             System.err.println("You may need to copy " + jarName + " into a loadable lib directory");
             System.err.println("(i.e. OFBIZ_HOME or OFBIZ_HOME/base/lib)");
             System.err.println("");
@@ -285,14 +283,6 @@ public class Config {
         // check the java_version
         String javaVersion = System.getProperty("java.version");
         String javaVendor = System.getProperty("java.vendor");
-        double version = Double.parseDouble(javaVersion.substring(0, javaVersion.indexOf(".") + 2));
-        if (REQUIRED_JDK > version) {
-            System.err.println("");
-            System.err.println("Java Version - " + javaVendor + " " + javaVersion + " - is not supported by OFBiz.");
-            System.err.println("Please install Java2 SDK " + REQUIRED_JDK + "+");
-            System.err.println("");
-            System.exit(-1);
-        }
 
         Properties props = this.getPropertiesFile(config);
         System.out.println("Start.java using configuration file " + config);
