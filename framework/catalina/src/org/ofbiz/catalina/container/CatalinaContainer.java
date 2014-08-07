@@ -237,13 +237,6 @@ public class CatalinaContainer implements Container {
     }
 
     public boolean start() throws ContainerException {
-        // Start the Tomcat server
-        try {
-            tomcat.getServer().start();
-        } catch (LifecycleException e) {
-            throw new ContainerException(e);
-        }
-
         // load the web applications
         loadComponents();
 
@@ -259,6 +252,12 @@ public class CatalinaContainer implements Container {
                 Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
                     (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
             }
+        }
+        // Start the Tomcat server
+        try {
+            tomcat.getServer().start();
+        } catch (LifecycleException e) {
+            throw new ContainerException(e);
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), module);
         return true;
@@ -607,7 +606,6 @@ public class CatalinaContainer implements Container {
             public Context call() throws ContainerException, LifecycleException {
                 StandardContext context = configureContext(engine, host, appInfo);
                 context.setParent(host);
-                context.start();
                 return context;
             }
         };
