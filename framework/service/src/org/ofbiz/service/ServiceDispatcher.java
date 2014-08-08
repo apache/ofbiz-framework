@@ -88,7 +88,6 @@ public class ServiceDispatcher {
     protected JmsListenerFactory jlf = null;
 
     protected ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
-        Debug.logInfo("[ServiceDispatcher] : Creating new instance.", module);
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
         ServiceEcaUtil.readConfig();
