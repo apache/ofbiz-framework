@@ -372,7 +372,7 @@ public class ServiceUtil {
     }
 
     public static Map<String, Object> purgeOldJobs(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Debug.logWarning("WARNING: purgeOldJobs service invoked. This service is obsolete - the Job Scheduler will purge old jobs automatically.", module);
+        Debug.logWarning("purgeOldJobs service invoked. This service is obsolete - the Job Scheduler will purge old jobs automatically.", module);
         String sendPool = null;
         Calendar cal = Calendar.getInstance();
         try {
