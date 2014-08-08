@@ -140,10 +140,10 @@ public class ModelReader implements Serializable {
 
         // check to see if entity with same name has already been read
         if (entityCache.containsKey(entityName) && !redefinedEntity) {
-            Debug.logWarning("WARNING: Entity " + entityName +
+            Debug.logWarning("Entity " + entityName +
                 " is defined more than once, most recent will over-write " +
                 "previous definition(s)", module);
-            Debug.logWarning("WARNING: Entity " + entityName + " was found in " +
+            Debug.logWarning("Entity " + entityName + " was found in " +
                 entityResourceHandler + ", but was already defined in " +
                 entityResourceHandlerMap.get(entityName).toString(), module);
         }
@@ -423,7 +423,7 @@ TEMP_VIEW_LOOP:
                         for (String message : orderedMessages) {
                             Debug.logInfo(message, module);
                         }
-                        Debug.logInfo("FINISHED LOADING ENTITIES - ALL FILES; #Entities=" + numEntities + " #ViewEntities=" + numViewEntities + " #Fields=" + numFields + " #Relationships=" + numRelations + " #AutoRelationships=" + numAutoRelations, module);
+                        Debug.logInfo("Finished loading entities; #Entities=" + numEntities + " #ViewEntities=" + numViewEntities + " #Fields=" + numFields + " #Relationships=" + numRelations + " #AutoRelationships=" + numAutoRelations, module);
                     }
                 }
             }

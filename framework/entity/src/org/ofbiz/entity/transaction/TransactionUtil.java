@@ -747,9 +747,9 @@ public class TransactionUtil implements Status {
     private static void setTransactionBeginStack(Exception newExc) {
         if (transactionBeginStack.get() != null) {
             Exception e = transactionBeginStack.get();
-            Debug.logWarning(e, "WARNING: In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", module);
+            Debug.logWarning(e, "In setTransactionBeginStack a stack placeholder was already in place, here is where the transaction began: ", module);
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "WARNING: In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In setTransactionBeginStack a stack placeholder was already in place, here is the current location: ", module);
         }
         transactionBeginStack.set(newExc);
         Long curThreadId = Thread.currentThread().getId();
@@ -763,7 +763,7 @@ public class TransactionUtil implements Status {
         Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "WARNING: In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In clearTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
             return null;
         } else {
             transactionBeginStack.set(null);
@@ -775,7 +775,7 @@ public class TransactionUtil implements Status {
         Exception e = transactionBeginStack.get();
         if (e == null) {
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "WARNING: In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In getTransactionBeginStack no stack placeholder was in place, here is the current location: ", module);
         }
         return e;
     }
@@ -834,9 +834,9 @@ public class TransactionUtil implements Status {
     private static void setSetRollbackOnlyCause(RollbackOnlyCause newRoc) {
         if (setRollbackOnlyCause.get() != null) {
             RollbackOnlyCause roc = setRollbackOnlyCause.get();
-            roc.logError("WARNING: In setSetRollbackOnlyCause a stack placeholder was already in place, here is the original rollbackOnly cause: ");
+            roc.logError("In setSetRollbackOnlyCause a stack placeholder was already in place, here is the original rollbackOnly cause: ");
             Exception e2 = new Exception("Current Stack Trace");
-            Debug.logWarning(e2, "WARNING: In setSetRollbackOnlyCause a stack placeholder was already in place, here is the current location: ", module);
+            Debug.logWarning(e2, "In setSetRollbackOnlyCause a stack placeholder was already in place, here is the current location: ", module);
         }
         setRollbackOnlyCause.set(newRoc);
     }
@@ -859,7 +859,7 @@ public class TransactionUtil implements Status {
     public static RollbackOnlyCause getSetRollbackOnlyCause() {
         if (setRollbackOnlyCause.get() == null) {
             Exception e = new Exception("Current Stack Trace");
-            Debug.logWarning(e, "WARNING: In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
+            Debug.logWarning(e, "In getSetRollbackOnlyCause no stack placeholder was in place, here is the current location: ", module);
         }
         return setRollbackOnlyCause.get();
     }

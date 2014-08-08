@@ -59,7 +59,7 @@ public class ContentUrlTag extends BodyTagSupport {
 
     public static void appendContentPrefix(HttpServletRequest request, Appendable urlBuffer) throws IOException {
         if (request == null) {
-            Debug.logWarning("WARNING: request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no WebSite or security setting known)", module);
+            Debug.logWarning("Request was null in appendContentPrefix; this probably means this was used where it shouldn't be, like using ofbizContentUrl in a screen rendered through a service; using best-bet behavior: standard prefix from url.properties (no WebSite or security setting known)", module);
             String prefix = UtilProperties.getPropertyValue("url", "content.url.prefix.standard");
             if (prefix != null) {
                 urlBuffer.append(prefix.trim());
