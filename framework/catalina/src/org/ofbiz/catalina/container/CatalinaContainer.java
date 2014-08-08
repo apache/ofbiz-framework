@@ -563,7 +563,7 @@ public class CatalinaContainer implements Container {
     }
 
     protected Callable<Context> createContext(final ComponentConfig.WebappInfo appInfo) throws ContainerException {
-        Debug.logInfo("createContext(" + appInfo.name + ")", module);
+        Debug.logInfo("Creating context [" + appInfo.name + "]", module);
         final Engine engine = engines.get(appInfo.server);
         if (engine == null) {
             Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
@@ -680,7 +680,6 @@ public class CatalinaContainer implements Container {
         Engine egn = (Engine) context.getParent().getParent();
         egn.setService(tomcat.getService());
 
-        Debug.logInfo("host[" + host + "].addChild(" + context + ")", module);
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(new WebappLoader(ClassLoaderContainer.getClassLoader()));
