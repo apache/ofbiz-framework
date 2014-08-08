@@ -252,7 +252,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         if (!haveShowHasNextWarning) {
             // DEJ20050207 To further discourage use of this, and to find existing use, always log a big warning showing where it is used:
             Exception whereAreWe = new Exception();
-            Debug.logWarning(whereAreWe, "WARNING: For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example", module);
+            Debug.logWarning(whereAreWe, "For performance reasons do not use the EntityListIterator.hasNext() method, just call next() until it returns null; see JavaDoc comments in the EntityListIterator class for details and an example", module);
 
             haveShowHasNextWarning = true;
         }

@@ -131,7 +131,7 @@ public class MapStack<K> extends MapContext<K, Object> {
     public Object put(K key, Object value) {
         if ("context".equals(key)) {
             if (value == null || this != value) {
-                Debug.logWarning("WARNING: Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden by the current MapStack self-reference: " + value, module);
+                Debug.logWarning("Putting a value in a MapStack with key [context] that is not this MapStack, will be hidden by the current MapStack self-reference: " + value, module);
             }
         }
 

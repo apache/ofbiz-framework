@@ -90,7 +90,7 @@ public class ServiceContainer implements Container {
             dispatcher = dispatcherFactory.createLocalDispatcher(dispatcherName, delegator);
             dispatcherCache.putIfAbsent(dispatcherName, dispatcher);
             dispatcher = dispatcherCache.get(dispatcherName);
-            if (Debug.infoOn()) Debug.logInfo("Created new dispatcher [" + dispatcherName + "] (" + Thread.currentThread().getName() + ")", module);
+            if (Debug.infoOn()) Debug.logInfo("Created new dispatcher [" + dispatcherName + "]", module);
         }
         return dispatcher;
     }

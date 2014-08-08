@@ -160,10 +160,10 @@ public final class BshUtil {
         } catch (EvalError ee) {
             Throwable t = ee.getCause();
             if (t == null) {
-                Debug.logWarning(ee, "WARNING: no cause (from getCause) found for BSH EvalError: " + ee.toString(), module);
+                Debug.logWarning(ee, "No cause (from getCause) found for BSH EvalError: " + ee.toString(), module);
                 t = ee;
             } else {
-                Debug.logError(t, "ERROR: Got cause (from getCause) for BSH EvalError: " + ee.toString(), module);
+                Debug.logError(t, "Got cause (from getCause) for BSH EvalError: " + ee.toString(), module);
             }
 
             String errMsg = "Error running BSH script at [" + location + "], line [" + ee.getErrorLineNumber() + "]: " + t.toString();

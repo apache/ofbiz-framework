@@ -332,14 +332,14 @@ public class DatabaseUtil {
 
                                     // NOTE: this may need a toUpperCase in some cases, keep an eye on it, okay just compare with ignore case
                                     if (!ccInfo.typeName.equalsIgnoreCase(typeName)) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] is of type [" + ccInfo.typeName + "] in the database, but is defined as type [" +
                                             typeName + "] in the entity definition.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
                                     if (columnSize != -1 && ccInfo.columnSize != -1 && columnSize != ccInfo.columnSize && (columnSize * 3) != ccInfo.columnSize) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a column size of [" + ccInfo.columnSize +
                                             "] in the database, but is defined to have a column size of [" + columnSize + "] in the entity definition.";
                                         Debug.logWarning(message, module);
@@ -350,7 +350,7 @@ public class DatabaseUtil {
                                         }
                                     }
                                     if (decimalDigits != -1 && decimalDigits != ccInfo.decimalDigits) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] has a decimalDigits of [" + ccInfo.decimalDigits +
                                             "] in the database, but is defined to have a decimalDigits of [" + decimalDigits + "] in the entity definition.";
                                         Debug.logWarning(message, module);
@@ -359,13 +359,13 @@ public class DatabaseUtil {
 
                                     // do primary key matching check
                                     if (checkPks && ccInfo.isPk && !field.getIsPk()) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS a primary key in the database, but IS NOT a primary key in the entity definition. The primary key for this table needs to be re-created or modified so that this column is NOT part of the primary key.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
                                     }
                                     if (checkPks && !ccInfo.isPk && field.getIsPk()) {
-                                        String message = "WARNING: Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
+                                        String message = "Column [" + ccInfo.columnName + "] of table [" + tableName + "] of entity [" +
                                             entity.getEntityName() + "] IS NOT a primary key in the database, but IS a primary key in the entity definition. The primary key for this table needs to be re-created or modified to add this column to the primary key. Note that data may need to be added first as a primary key column cannot have an null values.";
                                         Debug.logError(message, module);
                                         if (messages != null) messages.add(message);
@@ -2631,13 +2631,13 @@ public class DatabaseUtil {
     /* ====================================================================== */
     public int createDeclaredIndices(ModelEntity entity, List<String> messages) {
         if (entity == null) {
-            String message = "ERROR: ModelEntity was null and is required to create declared indices for a table";
+            String message = "ModelEntity was null and is required to create declared indices for a table";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return 0;
         }
         if (entity instanceof ModelViewEntity) {
-            String message = "WARNING: Cannot create declared indices for a view entity";
+            String message = "Cannot create declared indices for a view entity";
             Debug.logWarning(message, module);
             if (messages != null) messages.add(message);
             return 0;
@@ -2842,13 +2842,13 @@ public class DatabaseUtil {
 
     public int createForeignKeyIndices(ModelEntity entity, int constraintNameClipLength, List<String> messages) {
         if (entity == null) {
-            String message = "ERROR: ModelEntity was null and is required to create foreign keys indices for a table";
+            String message = "ModelEntity was null and is required to create foreign keys indices for a table";
             Debug.logError(message, module);
             if (messages != null) messages.add(message);
             return 0;
         }
         if (entity instanceof ModelViewEntity) {
-            String message = "WARNING: Cannot create foreign keys indices for a view entity";
+            String message = "Cannot create foreign keys indices for a view entity";
             Debug.logWarning(message, module);
             if (messages != null) messages.add(message);
             return 0;

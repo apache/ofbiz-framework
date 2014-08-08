@@ -145,7 +145,7 @@ public class ModelServiceReader implements Serializable {
 
                     // check to see if service with same name has already been read
                     if (modelServices.containsKey(serviceName)) {
-                        Debug.logWarning("WARNING: Service " + serviceName + " is defined more than once, " +
+                        Debug.logWarning("Service " + serviceName + " is defined more than once, " +
                             "most recent will over-write previous definition(s)", module);
                     }
 

@@ -111,7 +111,7 @@ public class HtmlFormWrapper {
         if (contextStack instanceof MapStack) {
             return renderFormString((MapStack) contextStack);
         } else {
-            Debug.logWarning("WARNING: call renderFormString with a non-MapStack: " + (contextStack == null ? "null" : contextStack.getClass().getName()), module);
+            Debug.logWarning("Call renderFormString with a non-MapStack: " + (contextStack == null ? "null" : contextStack.getClass().getName()), module);
             return renderFormString();
         }
     }
