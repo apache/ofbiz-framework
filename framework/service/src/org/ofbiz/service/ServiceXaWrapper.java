@@ -34,7 +34,9 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * ServiceXaWrapper - XA Resource wrapper for running services on commit() or rollback()
+ * @deprecated - Use ServiceSynchronization instead (via LocalDispatcher)
  */
+@Deprecated
 public class ServiceXaWrapper extends GenericXaResource {
 
     public static final String module = ServiceXaWrapper.class.getName();

@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.transaction.Transaction;
-import javax.transaction.xa.XAException;
 
 import org.ofbiz.service.calendar.RecurrenceRule;
 import org.ofbiz.entity.Delegator;
@@ -117,14 +116,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     public void addRollbackService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
-        ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
-        xa.setRollbackService(serviceName, context, true, persist);
-        try {
-            xa.enlist();
-        } catch (XAException e) {
-            Debug.logError(e, module);
-            throw new GenericServiceException(e.getMessage(), e);
-        }
+        ServiceSynchronization.registerRollbackService(this.getDispatchContext(), serviceName, null, context, true, persist);
     }
 
     public void addRollbackService(String serviceName, boolean persist, Object... context) throws GenericServiceException {
@@ -132,14 +124,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     public void addCommitService(String serviceName, Map<String, ? extends Object> context, boolean persist) throws GenericServiceException {
-        ServiceXaWrapper xa = new ServiceXaWrapper(this.getDispatchContext());
-        xa.setCommitService(serviceName, context, true, persist);
-        try {
-            xa.enlist();
-        } catch (XAException e) {
-            Debug.logError(e, module);
-            throw new GenericServiceException(e.getMessage(), e);
-        }
+        ServiceSynchronization.registerCommitService(this.getDispatchContext(), serviceName, null, context, true, persist);
     }
 
     public void addCommitService(String serviceName, boolean persist, Object... context) throws GenericServiceException {

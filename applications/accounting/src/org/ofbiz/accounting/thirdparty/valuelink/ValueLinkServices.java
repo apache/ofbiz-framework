@@ -24,8 +24,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.transaction.xa.XAException;
-
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -48,7 +46,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.ServiceXaWrapper;
 
 /**
  * ValueLinkServices - Integration with ValueLink Gift Cards
@@ -792,13 +789,11 @@ public class ValueLinkServices {
         // Activate/Rollback is not supported by valuelink
         if (!vlInterface.equals("Activate")) {
             // create the listener
-            ServiceXaWrapper xaw = new ServiceXaWrapper(dctx);
-            xaw.setRollbackService("vlTimeOutReversal", context);
-            //xaw.setCommitService("vlTimeOutReversal", context);
             Debug.logInfo("Set 704 context : " + context, module);
             try {
-                xaw.enlist();
-            } catch (XAException e) {
+                dctx.getDispatcher().addRollbackService("vlTimeOutReversal", context, false);
+                //dctx.getDispatcher().addCommitService("vlTimeOutReversal", context, false);
+            } catch (GenericServiceException e) {
                 Debug.logError(e, "Unable to setup 0704 Timeout Reversal", module);
             }
         }
@@ -1214,14 +1209,10 @@ public class ValueLinkServices {
             }
 
             if (!failure) {
-                // set the void on rollback wrapper
-                ServiceXaWrapper xaw = new ServiceXaWrapper(dctx);
-                activateCtx.put("cardNumber", activateResult.get("cardNumber"));
-                activateCtx.put("pin", activateResult.get("pin"));
-                xaw.setRollbackService("voidActivateGiftCard", activateCtx);
+                // set the void on rollback
                 try {
-                    xaw.enlist();
-                } catch (XAException e) {
+                    dispatcher.addRollbackService("voidActivateGiftCard", activateCtx, false);
+                } catch (GenericServiceException e) {
                     Debug.logError(e, "Unable to setup Activate/Void on error", module);
                 }
             }
