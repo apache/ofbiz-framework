@@ -1,5 +1,6 @@
 package org.ofbiz.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -31,7 +32,7 @@ public class ServiceSynchronization implements Synchronization {
     public static final String MODULE = ServiceSynchronization.class.getName();
 
     private static Map<Transaction, ServiceSynchronization> syncingleton = new WeakHashMap<Transaction, ServiceSynchronization>();
-    private List<ServiceExecution> services = FastList.newInstance();
+    private List<ServiceExecution> services = new ArrayList<ServiceExecution>();
 
     public static void registerCommitService(DispatchContext dctx, String serviceName, String runAsUser, Map<String, ? extends Object> context, boolean async, boolean persist) throws GenericServiceException {
         ServiceSynchronization sync = ServiceSynchronization.getInstance();
