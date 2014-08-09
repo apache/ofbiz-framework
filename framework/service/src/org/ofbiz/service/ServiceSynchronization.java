@@ -1,6 +1,7 @@
 package org.ofbiz.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.WeakHashMap;
@@ -10,9 +11,6 @@ import javax.transaction.Status;
 import javax.transaction.Synchronization;
 import javax.transaction.SystemException;
 import javax.transaction.Transaction;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.transaction.GenericTransactionException;
@@ -125,7 +123,7 @@ public class ServiceSynchronization implements Synchronization {
                                 if (model.validate) {
                                     thisContext = model.makeValid(context, ModelService.IN_PARAM);
                                 } else {
-                                    thisContext = FastMap.newInstance();
+                                    thisContext = new HashMap<String, Object>();
                                     thisContext.putAll(context);
                                 }
 
