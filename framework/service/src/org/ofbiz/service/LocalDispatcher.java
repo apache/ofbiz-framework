@@ -281,7 +281,7 @@ public interface LocalDispatcher {
 
 
     /**
-     * Adds a rollback service to the current TX using the ServiceXaWrapper
+     * Adds a rollback service to the current TX using ServiceSynchronization
      * @param serviceName
      * @param context
      * @param persist
@@ -291,7 +291,7 @@ public interface LocalDispatcher {
     public void addRollbackService(String serviceName, boolean persist, Object... context) throws GenericServiceException;
 
     /**
-     * Adds a commit service to the current TX using the ServiceXaWrapper
+     * Adds a commit service to the current TX using ServiceSynchronization
      * @param serviceName
      * @param context
      * @param persist

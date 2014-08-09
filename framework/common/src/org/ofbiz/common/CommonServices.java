@@ -40,7 +40,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.mail.internet.MimeMessage;
-import javax.transaction.xa.XAException;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -65,8 +64,8 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceSynchronization;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.ServiceXaWrapper;
 import org.ofbiz.service.mail.MimeMessageWrapper;
 import org.owasp.esapi.errors.EncodingException;
 
@@ -142,23 +141,19 @@ public class CommonServices {
     }
 
     public static Map<String, Object> testRollbackListener(DispatchContext dctx, Map<String, ?> context) {
-        Locale locale = (Locale) context.get("locale");
-        ServiceXaWrapper xar = new ServiceXaWrapper(dctx);
-        xar.setRollbackService("testScv", context);
         try {
-            xar.enlist();
-        } catch (XAException e) {
+            ServiceSynchronization.registerRollbackService(dctx, "testScv", null, context, false, false);
+        } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
+        Locale locale = (Locale) context.get("locale");
         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonTestRollingBack", locale));
     }
 
     public static Map<String, Object> testCommitListener(DispatchContext dctx, Map<String, ?> context) {
-        ServiceXaWrapper xar = new ServiceXaWrapper(dctx);
-        xar.setCommitService("testScv", context);
         try {
-            xar.enlist();
-        } catch (XAException e) {
+            ServiceSynchronization.registerCommitService(dctx, "testScv", null, context, false, false);
+        } catch (GenericServiceException e) {
             Debug.logError(e, module);
         }
         return ServiceUtil.returnSuccess();

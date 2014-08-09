@@ -22,8 +22,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import javax.transaction.xa.XAException;
-
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -33,8 +31,8 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceSynchronization;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.ServiceXaWrapper;
 import org.w3c.dom.Element;
 
 /**
@@ -115,19 +113,12 @@ public class ServiceEcaAction implements java.io.Serializable {
         }
 
         if (eventName.startsWith("global-")) {
-            // XA resource ECA
-            ServiceXaWrapper xaw = new ServiceXaWrapper(dctx);
             if (eventName.equals("global-rollback")) {
-                xaw.setRollbackService(serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
+                ServiceSynchronization.registerRollbackService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             } else if (eventName.equals("global-commit")) {
-                xaw.setCommitService(serviceName, runAsUser, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
+                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             } else if (eventName.equals("global-commit-post-run")) {
-                xaw.setCommitService(serviceName, runAsUser, context, "async".equals(serviceMode), persist);   // using the actual context so we get updates
-            }
-            try {
-                xaw.enlist();
-            } catch (XAException e) {
-                throw new GenericServiceException("Unable to enlist ServiceXaWrapper with transaction", e);
+                ServiceSynchronization.registerCommitService(dctx, serviceName, runAsUser, context, "async".equals(serviceMode), persist); // using the actual context so we get updates
             }
         } else {
             // standard ECA
