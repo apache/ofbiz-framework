@@ -3635,30 +3635,30 @@ public class OrderServices {
 
         // go through the item map and obtain the totals per item
         Map<String, BigDecimal> itemTotals = new HashMap<String, BigDecimal>();
-            for (String key : itemQtyMap.keySet()) {
-                String quantityStr = itemQtyMap.get(key);
-                BigDecimal groupQty = BigDecimal.ZERO;
-                try {
-                    groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
-                } catch (GeneralException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-    
-                if (groupQty.compareTo(BigDecimal.ONE) < 0) {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                            "OrderItemQtyMustBePositive", locale));
-                }
-    
-                String[] itemInfo = key.split(":");
-                BigDecimal tally = itemTotals.get(itemInfo[0]);
-                if (tally == null) {
-                    tally = groupQty;
-                } else {
-                    tally = tally.add(groupQty);
-                }
-                itemTotals.put(itemInfo[0], tally);
+        for (String key : itemQtyMap.keySet()) {
+            String quantityStr = itemQtyMap.get(key);
+            BigDecimal groupQty = BigDecimal.ZERO;
+            try {
+                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
             }
+
+            if (groupQty.compareTo(BigDecimal.ONE) < 0) {
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                        "OrderItemQtyMustBePositive", locale));
+            }
+
+            String[] itemInfo = key.split(":");
+            BigDecimal tally = itemTotals.get(itemInfo[0]);
+            if (tally == null) {
+                tally = groupQty;
+            } else {
+                tally = tally.add(groupQty);
+            }
+            itemTotals.put(itemInfo[0], tally);
+        }
 
         // set the items amount/price
         for (String itemSeqId : itemTotals.keySet()) {
@@ -3769,35 +3769,35 @@ public class OrderServices {
         }
 
         // update the group amounts
-            for (String key : itemQtyMap.keySet()) {
-                String quantityStr = itemQtyMap.get(key);
-                BigDecimal groupQty = BigDecimal.ZERO;
-                try {
-                    groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
-                } catch (GeneralException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-
-                String[] itemInfo = key.split(":");
-                @SuppressWarnings("unused")
-                int groupIdx = -1;
-                try {
-                    groupIdx = Integer.parseInt(itemInfo[1]);
-                } catch (NumberFormatException e) {
-                    Debug.logError(e, module);
-                    return ServiceUtil.returnError(e.getMessage());
-                }
-
-                // set the group qty
-                ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
-                if (cartItem != null) {
-                Debug.logInfo("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
-                cart.setItemShipGroupQty(cartItem, groupQty, groupIdx - 1);
-                Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
-                Debug.logInfo("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
-                }
+        for (String key : itemQtyMap.keySet()) {
+            String quantityStr = itemQtyMap.get(key);
+            BigDecimal groupQty = BigDecimal.ZERO;
+            try {
+                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+            } catch (GeneralException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
             }
+
+            String[] itemInfo = key.split(":");
+            @SuppressWarnings("unused")
+            int groupIdx = -1;
+            try {
+                groupIdx = Integer.parseInt(itemInfo[1]);
+            } catch (NumberFormatException e) {
+                Debug.logError(e, module);
+                return ServiceUtil.returnError(e.getMessage());
+            }
+
+            // set the group qty
+            ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
+            if (cartItem != null) {
+            Debug.logInfo("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+            cart.setItemShipGroupQty(cartItem, groupQty, groupIdx - 1);
+            Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
+            Debug.logInfo("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+            }
+        }
 
         // save all the updated information
         try {
