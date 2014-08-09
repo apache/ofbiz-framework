@@ -3633,40 +3633,32 @@ public class OrderServices {
                     "OrderShoppingCartEmpty", locale));
         }
 
-        // go through the item attributes map once to get a list of key names
-        Set<String> attributeNames =FastSet.newInstance();
-        Set<String> keys  = itemAttributesMap.keySet();
-        for (String key : keys) {
-            String[] attributeInfo = key.split(":");
-            attributeNames.add(attributeInfo[0]);
-        }
-
         // go through the item map and obtain the totals per item
         Map<String, BigDecimal> itemTotals = new HashMap<String, BigDecimal>();
-        for (String key : itemQtyMap.keySet()) {
-            String quantityStr = itemQtyMap.get(key);
-            BigDecimal groupQty = BigDecimal.ZERO;
-            try {
-                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
+            for (String key : itemQtyMap.keySet()) {
+                String quantityStr = itemQtyMap.get(key);
+                BigDecimal groupQty = BigDecimal.ZERO;
+                try {
+                    groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+    
+                if (groupQty.compareTo(BigDecimal.ONE) < 0) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource,
+                            "OrderItemQtyMustBePositive", locale));
+                }
+    
+                String[] itemInfo = key.split(":");
+                BigDecimal tally = itemTotals.get(itemInfo[0]);
+                if (tally == null) {
+                    tally = groupQty;
+                } else {
+                    tally = tally.add(groupQty);
+                }
+                itemTotals.put(itemInfo[0], tally);
             }
-
-            if (groupQty.compareTo(BigDecimal.ONE) < 0) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resource,
-                        "OrderItemQtyMustBePositive", locale));
-            }
-
-            String[] itemInfo = key.split(":");
-            BigDecimal tally = itemTotals.get(itemInfo[0]);
-            if (tally == null) {
-                tally = groupQty;
-            } else {
-                tally = tally.add(groupQty);
-            }
-            itemTotals.put(itemInfo[0], tally);
-        }
 
         // set the items amount/price
         for (String itemSeqId : itemTotals.keySet()) {
@@ -3720,6 +3712,14 @@ public class OrderServices {
 
                 // update the order item attributes
                 if (itemAttributesMap != null) {
+                    // go through the item attributes map once to get a list of key names
+                    Set<String> attributeNames =FastSet.newInstance();
+                    Set<String> keys  = itemAttributesMap.keySet();
+                    for (String key : keys) {
+                        String[] attributeInfo = key.split(":");
+                        attributeNames.add(attributeInfo[0]);
+                    }
+                    
                     String attrValue = null;
                     for (String attrName : attributeNames) {
                         attrValue = itemAttributesMap.get(attrName + ":" + itemSeqId);
@@ -3735,64 +3735,69 @@ public class OrderServices {
             }
         }
         // Create Estimated Delivery dates
-        for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
-            String itemSeqId =  entry.getKey();
+        if (null != itemEstimatedDeliveryDateMap) {
+            for (Map.Entry<String, String> entry : itemEstimatedDeliveryDateMap.entrySet()) {
+                String itemSeqId =  entry.getKey();
 
-            // ignore internationalised variant of dates
-            if (!itemSeqId.endsWith("_i18n")) {
-                String estimatedDeliveryDate = entry.getValue();
-                if (UtilValidate.isNotEmpty(estimatedDeliveryDate)) {
-                    Timestamp deliveryDate = Timestamp.valueOf(estimatedDeliveryDate);
-                    ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                    cartItem.setDesiredDeliveryDate(deliveryDate);
+                // ignore internationalised variant of dates
+                if (!itemSeqId.endsWith("_i18n")) {
+                    String estimatedDeliveryDate = entry.getValue();
+                    if (UtilValidate.isNotEmpty(estimatedDeliveryDate)) {
+                        Timestamp deliveryDate = Timestamp.valueOf(estimatedDeliveryDate);
+                        ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                        cartItem.setDesiredDeliveryDate(deliveryDate);
+                    }
                 }
             }
         }
 
         // Create Estimated ship dates
-        for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
-            String itemSeqId =  entry.getKey();
+        if (null != itemEstimatedShipDateMap) {
+            for (Map.Entry<String, String> entry : itemEstimatedShipDateMap.entrySet()) {
+                String itemSeqId =  entry.getKey();
 
-            // ignore internationalised variant of dates
-            if (!itemSeqId.endsWith("_i18n")) {
-                String estimatedShipDate = entry.getValue();
-                if (UtilValidate.isNotEmpty(estimatedShipDate)) {
-                    Timestamp shipDate = Timestamp.valueOf(estimatedShipDate);
-                    ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
-                    cartItem.setEstimatedShipDate(shipDate);
+                // ignore internationalised variant of dates
+                if (!itemSeqId.endsWith("_i18n")) {
+                    String estimatedShipDate = entry.getValue();
+                    if (UtilValidate.isNotEmpty(estimatedShipDate)) {
+                        Timestamp shipDate = Timestamp.valueOf(estimatedShipDate);
+                        ShoppingCartItem cartItem = cart.findCartItem(itemSeqId);
+                        cartItem.setEstimatedShipDate(shipDate);
+                    }
                 }
             }
         }
 
         // update the group amounts
-        for (String key : itemQtyMap.keySet()) {
-            String quantityStr = itemQtyMap.get(key);
-            BigDecimal groupQty = BigDecimal.ZERO;
-            try {
-                groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
-            } catch (GeneralException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
-            }
+            for (String key : itemQtyMap.keySet()) {
+                String quantityStr = itemQtyMap.get(key);
+                BigDecimal groupQty = BigDecimal.ZERO;
+                try {
+                    groupQty = (BigDecimal) ObjectType.simpleTypeConvert(quantityStr, "BigDecimal", null, locale);
+                } catch (GeneralException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
 
-            String[] itemInfo = key.split(":");
-            int groupIdx = -1;
-            try {
-                groupIdx = Integer.parseInt(itemInfo[1]);
-            } catch (NumberFormatException e) {
-                Debug.logError(e, module);
-                return ServiceUtil.returnError(e.getMessage());
-            }
+                String[] itemInfo = key.split(":");
+                @SuppressWarnings("unused")
+                int groupIdx = -1;
+                try {
+                    groupIdx = Integer.parseInt(itemInfo[1]);
+                } catch (NumberFormatException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
 
-            // set the group qty
-            ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
-            if (cartItem != null) {
+                // set the group qty
+                ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
+                if (cartItem != null) {
                 Debug.logInfo("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
                 cart.setItemShipGroupQty(cartItem, groupQty, groupIdx - 1);
                 Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
                 Debug.logInfo("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+                }
             }
-        }
 
         // save all the updated information
         try {
@@ -4053,7 +4058,7 @@ public class OrderServices {
             cart.setItemShipGroupEstimate(shippingTotal, gi);
         }
 
-        // calc the sales tax        
+        // calc the sales tax
         CheckOutHelper coh = new CheckOutHelper(dispatcher, delegator, cart);
         if (calcTax) {
             try {
@@ -4103,7 +4108,7 @@ public class OrderServices {
                 for (GenericValue stored: toStore) {
                     if ("OrderAdjustment".equals(stored.getEntityName())) {
                         if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
-                                "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
+                               "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
                                 stored.get("orderId").equals(orderId) &&
                                 stored.get("shipGroupSeqId").equals(shipGroupSeqId)) {
                             // Removing objects from toStore list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
@@ -4159,10 +4164,10 @@ public class OrderServices {
 
         // get the promo uses and codes
         for (String promoCodeEntered : cart.getProductPromoCodesEntered()) {
-            GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");                                   
+            GenericValue orderProductPromoCode = delegator.makeValue("OrderProductPromoCode");
             orderProductPromoCode.set("orderId", orderId);
             orderProductPromoCode.set("productPromoCodeId", promoCodeEntered);
-            toStore.add(orderProductPromoCode);                                    
+            toStore.add(orderProductPromoCode);
         }
         for (GenericValue promoUse : cart.makeProductPromoUses()) {
             promoUse.set("orderId", orderId);
