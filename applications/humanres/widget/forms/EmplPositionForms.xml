@@ -109,7 +109,7 @@ under the License.
         <auto-fields-service service-name="updateEmplPositionFulfillment"/>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView">
-                <sub-hyperlink target="viewprofile" link-style="smallSubmit" target-type="inter-app" description="${partyId}">
+                <sub-hyperlink target="EmployeeProfile" link-style="smallSubmit" description="${partyId}">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
             </display-entity>
