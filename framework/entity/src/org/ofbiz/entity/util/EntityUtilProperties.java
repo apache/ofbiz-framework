@@ -55,15 +55,15 @@ public class EntityUtilProperties implements Serializable {
         
         // find system property
         try {
-            GenericValue systemProperty = delegator.findOne("SystemProperty", UtilMisc.toMap("systemResourceId", resource, "systemPropertyId", name), false);
-            if (UtilValidate.isNotEmpty(systemProperty)) {
+            GenericValue systemProperty = delegator.findOne("SystemProperty", UtilMisc.toMap("systemResourceId", resource, "systemPropertyId", name), true);
+            if (systemProperty != null) {
                 String systemPropertyValue = systemProperty.getString("systemPropertyValue");
                 if (UtilValidate.isNotEmpty(systemPropertyValue)) {
                     return systemPropertyValue;
                 }
             }
         } catch (Exception e) {
-            Debug.logWarning("Could not get a sytem property for " + name + " : " + e.getMessage(), module);
+            Debug.logWarning("Could not get a system property for " + name + " : " + e.getMessage(), module);
         }
         return null;
     }
