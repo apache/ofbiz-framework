@@ -18965,7 +18965,7 @@
     </property>
     <property key="Uom.description.OTH_ea">
         <value xml:lang="en">Each</value>
-        <value xml:lang="fr">Pièce</value>
+        <value xml:lang="fr">Pièce/s</value>
         <value xml:lang="it">Ciascuno</value>
         <value xml:lang="ja">各</value>
         <value xml:lang="pt_BR">Cada</value>
