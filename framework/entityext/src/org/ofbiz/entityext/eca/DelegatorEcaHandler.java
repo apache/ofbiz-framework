@@ -22,7 +22,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
+import java.util.concurrent.atomic.AtomicReference;
 
+import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -42,7 +48,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
     protected Delegator delegator = null;
     protected String delegatorName = null;
     protected String entityEcaReaderName = null;
-    protected DispatchContext dctx = null;
+    protected AtomicReference<Future<DispatchContext>> dctx = new AtomicReference<Future<DispatchContext>>();
 
     public DelegatorEcaHandler() { }
 
@@ -50,10 +56,30 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         this.delegator = delegator;
         this.delegatorName = delegator.getDelegatorName();
         this.entityEcaReaderName = EntityEcaUtil.getEntityEcaReaderName(delegator.getDelegatorBaseName());
-        this.dctx = EntityServiceFactory.getDispatchContext(delegator);
+
+        Callable<DispatchContext> creator = new Callable<DispatchContext>() {
+            public DispatchContext call() {
+                return EntityServiceFactory.getDispatchContext(DelegatorEcaHandler.this.delegator);
+            }
+        };
+        FutureTask<DispatchContext> futureTask = new FutureTask<DispatchContext>(creator);
+        if (this.dctx.compareAndSet(null, futureTask)) {
+            ExecutionPool.GLOBAL_BATCH.submit(futureTask);
+        }
 
         //preload the cache
         EntityEcaUtil.getEntityEcaCache(this.entityEcaReaderName);
+    }
+
+    protected DispatchContext getDispatchContext() throws GenericEntityException {
+        Future<DispatchContext> future = this.dctx.get();
+        try {
+            return future != null ? future.get() : null;
+        } catch (ExecutionException e) {
+            throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
+        } catch (InterruptedException e) {
+            throw (GenericEntityException) new GenericEntityException(e.getMessage()).initCause(e);
+        }
     }
 
     public Map<String, List<EntityEcaRule>> getEntityEventMap(String entityName) {
@@ -80,7 +106,7 @@ public class DelegatorEcaHandler implements EntityEcaHandler<EntityEcaRule> {
         if (!rules.isEmpty() && Debug.verboseOn()) Debug.logVerbose("Running ECA (" + event + ").", module);
         Set<String> actionsRun = new TreeSet<String>();
         for (EntityEcaRule eca: rules) {
-            eca.eval(currentOperation, this.dctx, value, isError, actionsRun);
+            eca.eval(currentOperation, this.getDispatchContext(), value, isError, actionsRun);
         }
     }
 }
