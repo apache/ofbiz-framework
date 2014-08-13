@@ -81,8 +81,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.w3c.dom.Document;
 
 /*
@@ -151,7 +149,6 @@ public class CatalinaContainer implements Container {
         SSLUtil.loadJsseProperties();
     }
 
-    protected Delegator delegator = null;
     protected Tomcat tomcat = null;
     protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
     protected Map<String, Engine> engines = new HashMap<String, Engine>();
@@ -179,7 +176,6 @@ public class CatalinaContainer implements Container {
         //int debug = ContainerConfig.getPropertyValue(cc, "debug", 0);
 
         // grab some global context settings
-        this.delegator = DelegatorFactory.getDelegator(ContainerConfig.getPropertyValue(cc, "delegator-name", "default"));
         this.contextReloadable = ContainerConfig.getPropertyValue(cc, "apps-context-reloadable", false);
         this.crossContext = ContainerConfig.getPropertyValue(cc, "apps-cross-context", true);
         this.distribute = ContainerConfig.getPropertyValue(cc, "apps-distributable", true);
