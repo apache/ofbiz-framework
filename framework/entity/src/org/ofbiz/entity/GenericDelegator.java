@@ -252,7 +252,7 @@ public class GenericDelegator implements Delegator {
         Set<String> groupNames = getModelGroupReader().getGroupNames(delegatorBaseName);
         List<Future<Void>> futures = new LinkedList<Future<Void>>();
         for (String groupName: groupNames) {
-            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createHelperCallable(groupName)));
+            futures.add(ExecutionPool.GLOBAL_BATCH.submit(createHelperCallable(groupName)));
         }
         ExecutionPool.getAllFutures(futures);
 
