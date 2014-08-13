@@ -77,12 +77,12 @@ public class ServiceEcaUtil {
         }
         for (ServiceEcas serviceEcas : serviceEcasList) {
             ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, serviceEcas.getLoader(), serviceEcas.getLocation());
-            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createEcaLoaderCallable(handler)));
+            futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(handler)));
         }
 
         // get all of the component resource eca stuff, ie specified in each ofbiz-component.xml file
         for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("eca")) {
-            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createEcaLoaderCallable(componentResourceInfo.createResourceHandler())));
+            futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(componentResourceInfo.createResourceHandler())));
         }
 
         for (List<ServiceEcaRule> handlerRules: ExecutionPool.getAllFutures(futures)) {
