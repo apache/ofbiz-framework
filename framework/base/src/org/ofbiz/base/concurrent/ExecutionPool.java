@@ -25,6 +25,7 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.ThreadFactory;
@@ -39,6 +40,7 @@ import org.ofbiz.base.util.Debug;
 public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
     public static final ScheduledExecutorService GLOBAL_EXECUTOR = getExecutor(null, "OFBiz-config", -1, false);
+    public static final ForkJoinPool GLOBAL_FORK_JOIN = getForkJoinPool(-1);
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -81,6 +83,10 @@ public final class ExecutionPool {
             executor.prestartAllCoreThreads();
         }
         return executor;
+    }
+
+    public static ForkJoinPool getForkJoinPool(int threadCount) {
+        return new ForkJoinPool(autoAdjustThreadCount(threadCount));
     }
 
     public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {

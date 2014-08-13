@@ -258,12 +258,12 @@ public class DispatchContext implements Serializable {
             }
             for (GlobalServices globalServices : globalServicesList) {
                 ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServices.getLoader(), globalServices.getLocation());
-                futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(handler)));
+                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
             }
 
             // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
             for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
+                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
             }
             for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
                 if (servicesMap != null) {

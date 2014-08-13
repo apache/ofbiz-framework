@@ -152,7 +152,7 @@ public class ArtifactInfoFactory {
 
         Set<String> serviceNames = this.getDispatchContext().getAllServiceNames();
         for (String serviceName: serviceNames) {
-            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(prepareTaskForServiceAnalysis(serviceName)));
+            futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(prepareTaskForServiceAnalysis(serviceName)));
         }
         // how to get all Service ECAs to prepare? don't worry about it, will be populated from service load, ie all ECAs for each service
 
@@ -160,7 +160,7 @@ public class ArtifactInfoFactory {
         ExecutionPool.getAllFutures(futures);
         futures = new ArrayList<Future<Void>>();
         for (ComponentConfig componentConfig: componentConfigs) {
-            futures.add(ExecutionPool.GLOBAL_EXECUTOR.submit(prepareTaskForComponentAnalysis(componentConfig)));
+            futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(prepareTaskForComponentAnalysis(componentConfig)));
         }
         ExecutionPool.getAllFutures(futures);
         Debug.logInfo("Artifact info objects loaded.", module);
