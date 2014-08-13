@@ -37,4 +37,8 @@ under the License.
     <entity-resource type="data" reader-name="demo" loader="main" location="data/TenantDemoData.xml"/>
     
     <test-suite loader="main" location="testdef/entitytests.xml"/>
+   
+    <container name="delegator-container" loaders="main" class="org.ofbiz.entity.DelegatorContainer">
+        <property name="preload-delegators" value="default"/>
+    </container>
 </ofbiz-component>
