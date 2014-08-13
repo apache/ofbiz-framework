@@ -106,7 +106,7 @@ public class GenericDelegator implements Delegator {
 
     protected Cache cache = null;
 
-    protected DistributedCacheClear distributedCacheClear = null;
+    protected final AtomicReference<Future<DistributedCacheClear>> distributedCacheClear = new AtomicReference<Future<DistributedCacheClear>>();
     protected boolean warnNoEcaHandler = false;
     protected final AtomicReference<Future<EntityEcaHandler<?>>> entityEcaHandler = new AtomicReference<Future<EntityEcaHandler<?>>>();
     protected final AtomicReference<SequenceUtil> AtomicRefSequencer = new AtomicReference<SequenceUtil>(null);
@@ -2074,8 +2074,12 @@ public class GenericDelegator implements Delegator {
     public void clearAllCaches(boolean distribute) {
         cache.clear();
 
-        if (distribute && this.distributedCacheClear != null) {
-            this.distributedCacheClear.clearAllCaches();
+        if (!distribute) {
+            return;
+        }
+        DistributedCacheClear dcc = getDistributedCacheClear();
+        if (dcc != null) {
+            dcc.clearAllCaches();
         }
     }
 
@@ -2138,8 +2142,13 @@ public class GenericDelegator implements Delegator {
 
             cache.remove(dummyPK);
 
-            if (distribute && this.distributedCacheClear != null) {
-                this.distributedCacheClear.distributedClearCacheLineFlexible(dummyPK);
+            if (!distribute) {
+                return;
+            }
+
+            DistributedCacheClear dcc = getDistributedCacheClear();
+            if (dcc != null) {
+                dcc.distributedClearCacheLineFlexible(dummyPK);
             }
         }
     }
@@ -2165,8 +2174,13 @@ public class GenericDelegator implements Delegator {
 
             cache.remove(entityName, condition);
 
-            if (distribute && this.distributedCacheClear != null) {
-                this.distributedCacheClear.distributedClearCacheLineByCondition(entityName, condition);
+            if (!distribute) {
+                return;
+            }
+
+            DistributedCacheClear dcc = getDistributedCacheClear();
+            if (dcc != null) {
+                dcc.distributedClearCacheLineByCondition(entityName, condition);
             }
         }
     }
@@ -2195,8 +2209,13 @@ public class GenericDelegator implements Delegator {
 
         cache.remove(primaryKey);
 
-        if (distribute && this.distributedCacheClear != null) {
-            this.distributedCacheClear.distributedClearCacheLine(primaryKey);
+        if (!distribute) {
+            return;
+        }
+
+        DistributedCacheClear dcc = getDistributedCacheClear();
+        if (dcc != null) {
+            dcc.distributedClearCacheLine(primaryKey);
         }
     }
 
@@ -2225,8 +2244,13 @@ public class GenericDelegator implements Delegator {
 
         cache.remove(value);
 
-        if (distribute && this.distributedCacheClear != null) {
-            this.distributedCacheClear.distributedClearCacheLine(value);
+        if (!distribute) {
+            return;
+        }
+
+        DistributedCacheClear dcc = getDistributedCacheClear();
+        if (dcc != null) {
+            dcc.distributedClearCacheLine(value);
         }
     }
 
@@ -2310,7 +2334,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public void setDistributedCacheClear(DistributedCacheClear distributedCacheClear) {
-        this.distributedCacheClear = distributedCacheClear;
+        this.distributedCacheClear.set(new ConstantFuture<DistributedCacheClear>(distributedCacheClear));
     }
 
     // ======= XML Related Methods ========
@@ -2818,7 +2842,7 @@ public class GenericDelegator implements Delegator {
         newDelegator.delegatorBaseName = this.delegatorBaseName;
         newDelegator.delegatorInfo = this.delegatorInfo;
         newDelegator.cache = this.cache;
-        newDelegator.distributedCacheClear = this.distributedCacheClear;
+        newDelegator.distributedCacheClear.set(this.distributedCacheClear.get());
         newDelegator.originalDelegatorName = getOriginalDelegatorName();
         newDelegator.entityEcaHandler.set(this.entityEcaHandler.get());
         newDelegator.crypto = this.crypto;
@@ -2926,10 +2950,22 @@ public class GenericDelegator implements Delegator {
     @Override
     public void initDistributedCacheClear() {
         // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to DistributedCacheClear
-        if (this.distributedCacheClear != null) {
+        if (this.distributedCacheClear.get() != null) {
             return;
         }
 
+        Callable<DistributedCacheClear> creator = new Callable<DistributedCacheClear>() {
+            public DistributedCacheClear call() {
+                return createDistributedCacheClear();
+            }
+        };
+        FutureTask<DistributedCacheClear> futureTask = new FutureTask<DistributedCacheClear>(creator);
+        if (distributedCacheClear.compareAndSet(null, futureTask)) {
+            ExecutionPool.GLOBAL_BATCH.submit(futureTask);
+        }
+    }
+
+    protected DistributedCacheClear createDistributedCacheClear() {
         // If useDistributedCacheClear is false do nothing: the distributedCacheClear member field with a null value would cause dcc code to do nothing
         if (useDistributedCacheClear()) {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
@@ -2939,8 +2975,9 @@ public class GenericDelegator implements Delegator {
 
             try {
                 Class<?> dccClass = loader.loadClass(distributedCacheClearClassName);
-                this.distributedCacheClear = UtilGenerics.cast(dccClass.newInstance());
-                this.distributedCacheClear.setDelegator(this, this.delegatorInfo.getDistributedCacheClearUserLoginId());
+                DistributedCacheClear distributedCacheClear = UtilGenerics.cast(dccClass.newInstance());
+                distributedCacheClear.setDelegator(this, this.delegatorInfo.getDistributedCacheClearUserLoginId());
+                return distributedCacheClear;
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "DistributedCacheClear class with name " + distributedCacheClearClassName + " was not found, distributed cache clearing will be disabled", module);
             } catch (InstantiationException e) {
@@ -2953,6 +2990,19 @@ public class GenericDelegator implements Delegator {
         } else {
             Debug.logVerbose("Distributed Cache Clear System disabled for delegator [" + delegatorFullName + "]", module);
         }
+        return null;
+    }
+
+    protected DistributedCacheClear getDistributedCacheClear() {
+        Future<DistributedCacheClear> future = this.distributedCacheClear.get();
+        try {
+            return future != null ? future.get() : null;
+        } catch (ExecutionException e) {
+            Debug.logError(e, "Could not fetch DistributedCacheClear from the asynchronous instantiation", module);
+        } catch (InterruptedException e) {
+            Debug.logError(e, "Could not fetch DistributedCacheClear from the asynchronous instantiation", module);
+        }
+        return null;
     }
 
     @Override
