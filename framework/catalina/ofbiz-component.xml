@@ -28,7 +28,6 @@ under the License.
 
     <container name="catalina-container" loaders="main" class="org.ofbiz.catalina.container.CatalinaContainer">
         <!-- static configuration for tomcat -->
-        <property name="delegator-name" value="default"/>
         <property name="use-naming" value="false"/>
         <property name="debug" value="0"/>
         <property name="catalina-runtime-home" value="runtime/catalina"/>
@@ -186,7 +185,6 @@ under the License.
     </container>
     <container name="catalina-container-test" loaders="test" class="org.ofbiz.catalina.container.CatalinaContainer">
         <!-- static configuration for tomcat -->
-        <property name="delegator-name" value="default"/>
         <property name="use-naming" value="false"/>
         <property name="debug" value="0"/>
         <property name="catalina-runtime-home" value="runtime/catalina"/>
