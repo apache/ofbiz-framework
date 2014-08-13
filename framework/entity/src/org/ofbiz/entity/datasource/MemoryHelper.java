@@ -282,7 +282,7 @@ public class MemoryHelper implements GenericHelper {
         this.helperName = helperName;
         modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
         Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
-        this.executor = ExecutionPool.getExecutor(MEMORY_HELPER_THREAD_GROUP, "OFBiz-entity-datasource(" + helperName + ")", datasourceInfo.getMaxWorkerPoolSize(), false);
+        this.executor = ExecutionPool.getScheduledExecutor(MEMORY_HELPER_THREAD_GROUP, "OFBiz-entity-datasource(" + helperName + ")", datasourceInfo.getMaxWorkerPoolSize(), false);
     }
 
     public String getHelperName() {

@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilGenerics;
 
 @SourceMonitored
 public abstract class TTLObject<T> implements ObjectWrapper<T> {
-    private static final ScheduledExecutorService updateExecutor = ExecutionPool.getExecutor(new ThreadGroup("TTLObject"), "TTLObject(async-update)", -2, true);
+    private static final ScheduledExecutorService updateExecutor = ExecutionPool.getScheduledExecutor(new ThreadGroup("TTLObject"), "TTLObject(async-update)", -2, true);
 
     private static final <T> T getConfigForClass(ConcurrentHashMap<String, T> config, Class<?> c) {
         Class<?> ptr = c;
