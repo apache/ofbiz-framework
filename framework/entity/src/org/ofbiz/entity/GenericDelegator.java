@@ -30,13 +30,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.ofbiz.base.concurrent.ConstantFuture;
 import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -105,7 +108,7 @@ public class GenericDelegator implements Delegator {
 
     protected DistributedCacheClear distributedCacheClear = null;
     protected boolean warnNoEcaHandler = false;
-    protected EntityEcaHandler<?> entityEcaHandler = null;
+    protected final AtomicReference<Future<EntityEcaHandler<?>>> entityEcaHandler = new AtomicReference<Future<EntityEcaHandler<?>>>();
     protected final AtomicReference<SequenceUtil> AtomicRefSequencer = new AtomicReference<SequenceUtil>(null);
     protected EntityCrypto crypto = null;
 
@@ -320,9 +323,23 @@ public class GenericDelegator implements Delegator {
     @Override
     public synchronized void initEntityEcaHandler() {
         // Nothing to do if already assigned: the class loader has already been called, the class instantiated and casted to EntityEcaHandler
-        if (this.entityEcaHandler != null || this.warnNoEcaHandler) {
+        if (this.entityEcaHandler.get() != null || this.warnNoEcaHandler) {
             return;
         }
+
+        Callable<EntityEcaHandler<?>> creator = new Callable<EntityEcaHandler<?>>() {
+            public EntityEcaHandler<?> call() {
+                return createEntityEcaHandler();
+            }
+        };
+        FutureTask<EntityEcaHandler<?>> futureTask = new FutureTask<EntityEcaHandler<?>>(creator);
+        if (this.entityEcaHandler.compareAndSet(null, futureTask)) {
+            // This needs to use BATCH, as the service engine might add it's own items into a thread pool.
+            ExecutionPool.GLOBAL_BATCH.submit(futureTask);
+        }
+    }
+
+    protected EntityEcaHandler<?> createEntityEcaHandler() {
         // If useEntityEca is false do nothing: the entityEcaHandler member field with a null value would cause its code to do nothing
         if (this.delegatorInfo.getEntityEcaEnabled()) {
             //time to do some tricks with manual class loading that resolves circular dependencies, like calling services
@@ -332,8 +349,9 @@ public class GenericDelegator implements Delegator {
 
             try {
                 Class<?> eecahClass = loader.loadClass(entityEcaHandlerClassName);
-                this.entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
-                this.entityEcaHandler.setDelegator(this);
+                EntityEcaHandler<?> entityEcaHandler = UtilGenerics.cast(eecahClass.newInstance());
+                entityEcaHandler.setDelegator(this);
+                return entityEcaHandler;
             } catch (ClassNotFoundException e) {
                 Debug.logWarning(e, "EntityEcaHandler class with name " + entityEcaHandlerClassName + " was not found, Entity ECA Rules will be disabled", module);
             } catch (InstantiationException e) {
@@ -347,6 +365,7 @@ public class GenericDelegator implements Delegator {
             Debug.logInfo("Entity ECA Handler disabled for delegator [" + delegatorFullName + "]", module);
             this.warnNoEcaHandler = true;
         }
+        return null;
     }
 
     /* (non-Javadoc)
@@ -2431,7 +2450,7 @@ public class GenericDelegator implements Delegator {
         if (this.testRollbackInProgress) {
             return createEntityEcaRuleRunner(null, null);
         }
-        return createEntityEcaRuleRunner(this.entityEcaHandler, entityName);
+        return createEntityEcaRuleRunner(getEntityEcaHandler(), entityName);
     }
 
     protected static <T> EntityEcaRuleRunner<T> createEntityEcaRuleRunner(EntityEcaHandler<T> entityEcaHandler, String entityName) {
@@ -2443,7 +2462,7 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public <T> void setEntityEcaHandler(EntityEcaHandler<T> entityEcaHandler) {
-        this.entityEcaHandler = entityEcaHandler;
+        this.entityEcaHandler.set(new ConstantFuture<EntityEcaHandler<?>>(entityEcaHandler));
         this.warnNoEcaHandler = false;
     }
 
@@ -2452,7 +2471,15 @@ public class GenericDelegator implements Delegator {
      */
     @Override
     public <T> EntityEcaHandler<T> getEntityEcaHandler() {
-        return UtilGenerics.cast(this.entityEcaHandler);
+        Future<EntityEcaHandler<?>> future = this.entityEcaHandler.get();
+        try {
+            return UtilGenerics.cast(future != null ? future.get() : null);
+        } catch (ExecutionException e) {
+            Debug.logError(e, "Could not fetch EntityEcaHandler from the asynchronous instantiation", module);
+        } catch (InterruptedException e) {
+            Debug.logError(e, "Could not fetch EntityEcaHandler from the asynchronous instantiation", module);
+        }
+        return null;
     }
 
     /* (non-Javadoc)
@@ -2793,7 +2820,7 @@ public class GenericDelegator implements Delegator {
         newDelegator.cache = this.cache;
         newDelegator.distributedCacheClear = this.distributedCacheClear;
         newDelegator.originalDelegatorName = getOriginalDelegatorName();
-        newDelegator.entityEcaHandler = this.entityEcaHandler;
+        newDelegator.entityEcaHandler.set(this.entityEcaHandler.get());
         newDelegator.crypto = this.crypto;
         // In case this delegator is in testMode give it a reference to
         // the rollback list
@@ -2818,7 +2845,7 @@ public class GenericDelegator implements Delegator {
     @Override
     public GenericDelegator makeTestDelegator(String delegatorName) {
         GenericDelegator testDelegator = this.cloneDelegator(delegatorName);
-        testDelegator.entityEcaHandler = null;
+        testDelegator.entityEcaHandler.set(null);
         testDelegator.initEntityEcaHandler();
         testDelegator.setTestMode(true);
         return testDelegator;
