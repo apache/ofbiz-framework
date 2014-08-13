@@ -63,15 +63,20 @@ public final class ExecutionPool {
         return new ExecutionPoolThreadFactory(group, namePrefix);
     }
 
-    public static ScheduledExecutorService getExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
+    public static int autoAdjustThreadCount(int threadCount) {
         if (threadCount == 0) {
-            threadCount = 1;
+            return 1;
         } else if (threadCount < 0) {
             int numCpus = Runtime.getRuntime().availableProcessors();
-            threadCount = Math.abs(threadCount) * numCpus;
+            return Math.abs(threadCount) * numCpus;
+        } else {
+            return threadCount;
         }
+    }
+
+    public static ScheduledExecutorService getExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
         ThreadFactory threadFactory = createThreadFactory(group, namePrefix);
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, threadFactory);
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(autoAdjustThreadCount(threadCount), threadFactory);
         if (preStart) {
             executor.prestartAllCoreThreads();
         }
