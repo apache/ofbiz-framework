@@ -40,6 +40,19 @@ import java.util.concurrent.atomic.AtomicReference;
  */
 public final class Start {
 
+    /*
+     * This class implements a thread-safe state machine. The design is critical
+     * for reliable starting and stopping of the server.
+     * 
+     * The machine's current state and state changes must be encapsulated in this
+     * class. Client code may query the current state, but it may not change it.
+     * 
+     * This class uses a singleton pattern to guarantee that only one server instance
+     * is running in the VM. Client code retrieves the instance by using the getInstance()
+     * static method.
+     * 
+     */
+
     private static final Start instance = new Start();
 
     private static Command checkCommand(Command command, Command wanted) {
@@ -129,14 +142,14 @@ public final class Start {
 
     // ---------------------------------------------- //
 
-    private Config config = null;
+    Config config = null;
     private final List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
     private Thread adminPortThread = null;
 
-    /** DO NOT REMOVE: This method is needed by commons-daemon in reflection mode. */
-    public Start() {
+    // DO NOT CHANGE THIS!
+    private Start() {
     }
 
     private void createListenerThread() throws StartupException {
@@ -164,7 +177,7 @@ public final class Start {
         return serverState.get();
     }
 
-    private void init(String[] args, boolean fullInit) throws StartupException {
+    void init(String[] args, boolean fullInit) throws StartupException {
         String globalSystemPropsFileName = System.getProperty("ofbiz.system.props");
         if (globalSystemPropsFileName != null) {
             FileInputStream stream = null;
@@ -298,7 +311,7 @@ public final class Start {
         return sendSocketCommand(Control.SHUTDOWN);
     }
 
-    private void shutdownServer() {
+    void shutdownServer() {
         ServerState currentState;
         do {
             currentState = this.serverState.get();
@@ -329,7 +342,7 @@ public final class Start {
      * 
      * @return <code>true</code> if all loaders were started.
      */
-    private boolean startStartLoaders() {
+    boolean startStartLoaders() {
         synchronized (this.loaders) {
             // start the loaders
             for (StartupLoader loader : this.loaders) {
@@ -357,28 +370,12 @@ public final class Start {
         }
     }
 
-    private void stopServer() {
+    void stopServer() {
         shutdownServer();
         System.exit(0);
     }
 
-    // ----------------------------------------------- //
-    // commons-daemon interface
-    // http://commons.apache.org/proper/commons-daemon/jsvc.html
-    // ----------------------------------------------- //
-
-    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
-    public void init(String[] args) throws StartupException {
-        init(args, true);
-    }
-
-    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
-    public void destroy() {
-        // FIXME: undo init() calls.
-    }
-
-    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
-    public void start() throws Exception {
+    void start() throws Exception {
         if (!startStartLoaders()) {
             if (this.serverState.get() == ServerState.STOPPING) {
                 return;
@@ -389,11 +386,6 @@ public final class Start {
         if (config.shutdownAfterLoad) {
             stopServer();
         }
-    }
-
-    // DO NOT REMOVE: This method is needed by commons-daemon in reflection mode.
-    public void stop() {
-        shutdownServer();
     }
 
     // ----------------------------------------------- //
