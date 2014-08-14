@@ -180,6 +180,65 @@ if (orderHeader) {
     shipGroups = delegator.findByAnd("OrderItemShipGroup", [orderId : orderId], ["shipGroupSeqId"], false);
     context.shipGroups = shipGroups;
 
+
+    orderItemDatas = [];
+    orderItemList.each { orderItem ->
+        BigDecimal cancelQuantity = orderItem.get("cancelQuantity");
+        BigDecimal quantity = orderItem.get("quantity");
+        if ( cancelQuantity != null ) {
+            quantityOrdered = quantity.subtract(cancelQuantity);
+        } else {
+            quantityOrdered = quantity;
+        }
+        OISGAssContents = [];
+        shipGroups.each { shipGroup ->
+            OISGAssContents.addAll(EntityUtil.filterByAnd(shipGroup.getRelated("OrderItemShipGroupAssoc"), UtilMisc.toMap("orderItemSeqId", orderItem.getString("orderItemSeqId"))));
+        }
+        BigDecimal totalQuantityPlanned = 0;
+        OISGAssContents.each { OISGAssContent ->
+           BigDecimal cancelQty = OISGAssContent.get("cancelQuantity");
+           BigDecimal qty = OISGAssContent.get("quantity");
+           if (qty != null) {
+               totalQuantityPlanned = totalQuantityPlanned.add(qty);
+           }
+           if (cancelQty != null){
+               OISGAssContent.set("quantity", qty.subtract(cancelQty));
+           } else {
+               OISGAssContent.set("quantity", qty);
+           }
+        }
+        totalQuantityToPlan = totalQuantityPlanned - quantityOrdered;
+        BigDecimal quantityNotAvailable = 0;
+        List<GenericValue> oisgirs = orderItem.getRelated("OrderItemShipGrpInvRes", null, null, false);
+        for (GenericValue oisgir : oisgirs) {
+            if (UtilValidate.isNotEmpty(oisgir.get("quantityNotAvailable"))) {
+                quantityNotAvailable = quantityNotAvailable.add(oisgir.getBigDecimal("quantityNotAvailable"));
+            }
+        }
+        orderItemData = [:];
+        orderItemData.put("orderItem", orderItem);
+        orderItemData.put("OISGAssContents", OISGAssContents);
+        orderItemData.put("product", orderItem.getRelatedOne("Product", false));
+        orderItemData.put("quantityOrdered", quantityOrdered);
+        orderItemData.put("totalQuantityPlanned", totalQuantityPlanned);
+        orderItemData.put("totalQuantityToPlan", totalQuantityToPlan);
+        orderItemData.put("quantityNotAvailable", quantityNotAvailable);
+        orderItemDatas.add(orderItemData);
+    }
+    context.put("orderItemDatas", orderItemDatas);
+    
+    // create the actualDate for calendar
+    actualDateCal = Calendar.getInstance();
+    actualDateCal.setTime(new java.util.Date());
+    actualDateCal.set(Calendar.HOUR_OF_DAY, actualDateCal.getActualMinimum(Calendar.HOUR_OF_DAY));
+    actualDateCal.set(Calendar.MINUTE, actualDateCal.getActualMinimum(Calendar.MINUTE));
+    actualDateCal.set(Calendar.SECOND, actualDateCal.getActualMinimum(Calendar.SECOND));
+    actualDateCal.set(Calendar.MILLISECOND, actualDateCal.getActualMinimum(Calendar.MILLISECOND));
+    actualDateTs = new Timestamp(actualDateCal.getTimeInMillis());
+    actualDateStr = actualDateTs.toString();
+    actualDateStr = actualDateStr.substring(0, actualDateStr.indexOf('.'));
+    context.put("actualDateStr", actualDateStr);
+
     // get Shipment tracking info
     osisCond = EntityCondition.makeCondition([orderId : orderId], EntityOperator.AND);
     osisOrder = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId"];
@@ -357,6 +416,53 @@ if (orderHeader) {
         context.requiredProductQuantityMap = FastMap.newInstance();
         context.onOrderProductQuantityMap = FastMap.newInstance();
     }
+
+        // list to find all the POSTAL_ADDRESS for the shipment party.
+    orderParty = delegator.findOne("Party", [partyId : partyId], false);
+    shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+    context.shippingContactMechList = shippingContactMechList;
+
+    // list to find all the shipmentMethods from the view named "ProductStoreShipmentMethView".
+    if (productStore) {
+        context.productStoreShipmentMethList = delegator.findByAnd('ProductStoreShipmentMethView', [productStoreId: productStore.productStoreId], ['sequenceNumber'], true);
+    }
+
+    // Get a map of returnable items
+    returnableItems = [:];
+    returnableItemServiceMap = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
+    if (returnableItemServiceMap.returnableItems) {
+        returnableItems = returnableItemServiceMap.returnableItems;
+    }
+    context.returnableItems = returnableItems;
+
+    // get the catalogIds for appending items
+    if (context.request != null) {
+        if ("SALES_ORDER".equals(orderType) && productStore) {
+            catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStore.productStoreId, partyId);
+        } else {
+            catalogCol = CatalogWorker.getAllCatalogIds(request);
+        }
+        if (catalogCol) {
+            currentCatalogId = catalogCol[0];
+            currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
+            context.catalogCol = catalogCol;
+            context.currentCatalogId = currentCatalogId;
+            context.currentCatalogName = currentCatalogName;
+        }
+    }
+
+   // list to find all the POSTAL_ADDRESS for the party.
+   orderParty = delegator.findOne("Party", [partyId : partyId], false);
+   postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
+   context.postalContactMechList = postalContactMechList;
+
+   // list to find all the TELECOM_NUMBER for the party.
+   telecomContactMechList = ContactHelper.getContactMechByType(orderParty,"TELECOM_NUMBER", false);
+   context.telecomContactMechList = telecomContactMechList;
+
+   // list to find all the EMAIL_ADDRESS for the party.
+   emailContactMechList = ContactHelper.getContactMechByType(orderParty,"EMAIL_ADDRESS", false);
+   context.emailContactMechList = emailContactMechList;
 }
 
 paramString = "";
@@ -394,57 +500,6 @@ if (workEffortId && assignPartyId && assignRoleTypeId && fromDate) {
     }
 }
 
-if (orderHeader) {
-    // list to find all the POSTAL_ADDRESS for the shipment party.
-    orderParty = delegator.findOne("Party", [partyId : partyId], false);
-    shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-    context.shippingContactMechList = shippingContactMechList;
-
-    // list to find all the shipmentMethods from the view named "ProductStoreShipmentMethView".
-    if (productStore) {
-        context.productStoreShipmentMethList = delegator.findByAnd('ProductStoreShipmentMethView', [productStoreId: productStore.productStoreId], ['sequenceNumber'], true);
-    }
-
-    // Get a map of returnable items
-    returnableItems = [:];
-    returnableItemServiceMap = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
-    if (returnableItemServiceMap.returnableItems) {
-        returnableItems = returnableItemServiceMap.returnableItems;
-    }
-    context.returnableItems = returnableItems;
-
-    // get the catalogIds for appending items
-    if (context.request != null) {
-        if ("SALES_ORDER".equals(orderType) && productStore) {
-            catalogCol = CatalogWorker.getCatalogIdsAvailable(delegator, productStore.productStoreId, partyId);
-        } else {
-            catalogCol = CatalogWorker.getAllCatalogIds(request);
-        }
-        if (catalogCol) {
-            currentCatalogId = catalogCol[0];
-            currentCatalogName = CatalogWorker.getCatalogName(request, currentCatalogId);
-            context.catalogCol = catalogCol;
-            context.currentCatalogId = currentCatalogId;
-            context.currentCatalogName = currentCatalogName;
-        }
-    }
-}
-
-if (orderHeader) {
-   // list to find all the POSTAL_ADDRESS for the party.
-   orderParty = delegator.findOne("Party", [partyId : partyId], false);
-   postalContactMechList = ContactHelper.getContactMechByType(orderParty,"POSTAL_ADDRESS", false);
-   context.postalContactMechList = postalContactMechList;
-
-   // list to find all the TELECOM_NUMBER for the party.
-   telecomContactMechList = ContactHelper.getContactMechByType(orderParty,"TELECOM_NUMBER", false);
-   context.telecomContactMechList = telecomContactMechList;
-
-   // list to find all the EMAIL_ADDRESS for the party.
-   emailContactMechList = ContactHelper.getContactMechByType(orderParty,"EMAIL_ADDRESS", false);
-   context.emailContactMechList = emailContactMechList;
-}
-
 if (orderItems) {
     orderItem = EntityUtil.getFirst(orderItems);
     context.orderItem = orderItem;
@@ -453,45 +508,45 @@ if (orderItems) {
 // getting online ship estimates corresponding to this Order from UPS when "Hold" button will be clicked, when user packs from weight package screen.
 // This case comes when order's shipping amount is  more then or less than default percentage (defined in shipment.properties) of online UPS shipping amount.
 
-    condn = EntityCondition.makeCondition([
-                                      EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
-                                      EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SHIPMENT_PICKED")],
-                                  EntityOperator.AND);
-    shipments = delegator.findList("Shipment", condn, null, null, null, false);
-    if (shipments) {
-        pickedShipmentId = EntityUtil.getFirst(shipments).shipmentId;
-        shipmentRouteSegment = EntityUtil.getFirst(delegator.findList("ShipmentRouteSegment",EntityCondition.makeCondition([shipmentId : pickedShipmentId]), null, null, null, false));
-        context.shipmentRouteSegmentId = shipmentRouteSegment.shipmentRouteSegmentId;
-        context.pickedShipmentId = pickedShipmentId;
-        if (pickedShipmentId && shipmentRouteSegment.trackingIdNumber) {
-            if ("UPS" == shipmentRouteSegment.carrierPartyId && productStore) {
-                resultMap = dispatcher.runSync('upsShipmentAlternateRatesEstimate', [productStoreId: productStore.productStoreId, shipmentId: pickedShipmentId]);
-                shippingRates = resultMap.shippingRates;
-                shippingRateList = [];
-                shippingRates.each { shippingRate ->
-                    shippingMethodAndRate = [:];
-                    serviceCodes = shippingRate.keySet();
-                    serviceCodes.each { serviceCode ->
-                        carrierShipmentMethod = EntityUtil.getFirst(delegator.findByAnd("CarrierShipmentMethod", [partyId : "UPS", carrierServiceCode : serviceCode], null, false));
-                        shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
-                        rate = shippingRate.get(serviceCode);
-                        shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated("ShipmentMethodType", null, null, false)).description;
-                        shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
-                        shippingMethodAndRate.rate = rate;
-                        shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription;
-                        shippingRateList.add(shippingMethodAndRate);
-                    }
-               }
-                context.shippingRateList = shippingRateList;
-            }
+condn = EntityCondition.makeCondition([
+            EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
+            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "SHIPMENT_PICKED")],
+            EntityOperator.AND);
+shipments = delegator.findList("Shipment", condn, null, null, null, false);
+if (shipments) {
+    pickedShipmentId = EntityUtil.getFirst(shipments).shipmentId;
+    shipmentRouteSegment = EntityUtil.getFirst(delegator.findList("ShipmentRouteSegment",EntityCondition.makeCondition([shipmentId : pickedShipmentId]), null, null, null, false));
+    context.shipmentRouteSegmentId = shipmentRouteSegment.shipmentRouteSegmentId;
+    context.pickedShipmentId = pickedShipmentId;
+    if (pickedShipmentId && shipmentRouteSegment.trackingIdNumber) {
+        if ("UPS" == shipmentRouteSegment.carrierPartyId && productStore) {
+            resultMap = dispatcher.runSync('upsShipmentAlternateRatesEstimate', [productStoreId: productStore.productStoreId, shipmentId: pickedShipmentId]);
+            shippingRates = resultMap.shippingRates;
+            shippingRateList = [];
+            shippingRates.each { shippingRate ->
+                shippingMethodAndRate = [:];
+                serviceCodes = shippingRate.keySet();
+                serviceCodes.each { serviceCode ->
+                    carrierShipmentMethod = EntityUtil.getFirst(delegator.findByAnd("CarrierShipmentMethod", [partyId : "UPS", carrierServiceCode : serviceCode], null, false));
+                    shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
+                    rate = shippingRate.get(serviceCode);
+                    shipmentMethodDescription = EntityUtil.getFirst(carrierShipmentMethod.getRelated("ShipmentMethodType", null, null, false)).description;
+                    shippingMethodAndRate.shipmentMethodTypeId = carrierShipmentMethod.shipmentMethodTypeId;
+                    shippingMethodAndRate.rate = rate;
+                    shippingMethodAndRate.shipmentMethodDescription = shipmentMethodDescription;
+                    shippingRateList.add(shippingMethodAndRate);
+                }
+           }
+            context.shippingRateList = shippingRateList;
         }
     }
+}
 
-    // get orderAdjustmentId for SHIPPING_CHARGES
-    orderAdjustmentId = null;
-    orderAdjustments.each { orderAdjustment ->
-        if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
-            orderAdjustmentId = orderAdjustment.orderAdjustmentId;
-        }
+// get orderAdjustmentId for SHIPPING_CHARGES
+orderAdjustmentId = null;
+orderAdjustments.each { orderAdjustment ->
+    if(orderAdjustment.orderAdjustmentTypeId.equals("SHIPPING_CHARGES")) {
+        orderAdjustmentId = orderAdjustment.orderAdjustmentId;
     }
-    context.orderAdjustmentId = orderAdjustmentId;
+}
+context.orderAdjustmentId = orderAdjustmentId;
