@@ -142,7 +142,7 @@ public final class Start {
 
     // ---------------------------------------------- //
 
-    Config config = null;
+    private Config config = null;
     private final List<String> loaderArgs = new ArrayList<String>();
     private final ArrayList<StartupLoader> loaders = new ArrayList<StartupLoader>();
     private final AtomicReference<ServerState> serverState = new AtomicReference<ServerState>(ServerState.STARTING);
