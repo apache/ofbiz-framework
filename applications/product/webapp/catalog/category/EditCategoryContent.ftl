@@ -24,7 +24,7 @@ under the License.
         <form action="<@ofbizUrl>updateCategoryContent</@ofbizUrl>" method="post" style="margin: 0;" name="categoryForm">
             <table cellspacing="0" class="basic-table">
                 <tr>
-                    <td width="26%" align="right" class="label"><input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />${uiLabelMap.ProductProductCategoryType}</td>
+                    <td width="26%" align="right" class="label"><input type="hidden" name="productCategoryId" value="${productCategoryId!}" />${uiLabelMap.ProductProductCategoryType}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
                         <select name="productCategoryTypeId" size="1">
@@ -38,27 +38,27 @@ under the License.
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductName}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
+                    <td width="74%"><input type="text" value="${(productCategory.categoryName)!}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductCategoryDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%" colspan="4" valign="top">
-                        <textarea name="description" cols="60" rows="2">${(productCategory.description)?if_exists}</textarea>
+                        <textarea name="description" cols="60" rows="2">${(productCategory.description)!}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" valign="top" class="label">${uiLabelMap.ProductLongDescription}</td>
                     <td>&nbsp;</td>
                     <td width="74%" colspan="4" valign="top">
-                        <textarea name="longDescription" cols="60" rows="7">${(productCategory.longDescription)?if_exists}</textarea>
+                        <textarea name="longDescription" cols="60" rows="7">${(productCategory.longDescription)!}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDetailScreen}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250" />
+                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen!}"</#if> name="detailScreen" size="60" maxlength="250" />
                         <br />
                         <span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>

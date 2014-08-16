@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-${virtualJavaScript?if_exists}
+${virtualJavaScript!}
 <#assign addedJavaScript = requestAttributes.addedJavaScript?default("N")/>
 <#if ("N" == addedJavaScript)>
   ${setRequestAttribute("addedJavaScript", "Y")}
@@ -104,7 +104,7 @@ ${virtualJavaScript?if_exists}
     function isVirtualInline(inlineCounter, product) {
         var isVirtual = false;
         var fieldName = 'VIR' + inlineCounter;
-        <#if virtualJavaScript?exists>
+        <#if virtualJavaScript??>
         for (i = 0; i < window[fieldName].length; i++) {
             if (window[fieldName][i] == product) {
                 isVirtual = true;
@@ -230,7 +230,7 @@ ${virtualJavaScript?if_exists}
  </script>
 </#if>
 
-<#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
+<#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
   <script language="JavaScript" type="text/javascript">
         function checkRadioButtoninline${inlineCounter}(inlineCounter, productId) {
         var add_product_id = 'add_product_id' + inlineCounter;
@@ -253,32 +253,32 @@ ${virtualJavaScript?if_exists}
 </#if>
 
 
-<#assign price = priceMap?if_exists/>
+<#assign price = priceMap!/>
 <div id="inlineproductdetail${inlineCounter}">
 <table border="0" cellpadding="2" cellspacing="0" width="100%">
   <tr>
     <td align="left" valign="top" width="0">
-      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists>
+      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")!>
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?string?has_content>
         <input type="hidden" name="detailImage${inlineCounter}" value="${firstDetailImage?default(mainDetailImageUrl?default("_NONE_"))}"/>
-        <a href="javascript:popupDetailInline('${inlineCounter}');"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage${inlineCounter}' vspace='5' hspace='5' class='cssImgLarge' align='left' alt="" /></a>
+        <a href="javascript:popupDetailInline('${inlineCounter}');"><img src='<@ofbizContentUrl>${contentPathPrefix!}${productLargeImageUrl!}</@ofbizContentUrl>' name='mainImage${inlineCounter}' vspace='5' hspace='5' class='cssImgLarge' align='left' alt="" /></a>
       </#if>
     </td>
     <td align="right" valign="top" width="100%">
-    <#--    <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>  -->
+    <#--    <h2>${productContentWrapper.get("PRODUCT_NAME")!}</h2>  -->
         <#assign inStock = true>
-        <#if product.isVirtual?if_exists?upper_case == "Y">
-        <#if product.virtualVariantMethodEnum?if_exists == "VV_FEATURETREE" && featureLists?has_content>
+        <#if product.isVirtual!?upper_case == "Y">
+        <#if product.virtualVariantMethodEnum! == "VV_FEATURETREE" && featureLists?has_content>
             <#list featureLists as featureList>
                 <#list featureList as feature>
                     <#if feature_index == 0>
                         <div>${feature.description}: <select id="FT${inlineCounter}${feature.productFeatureTypeId}" name="FT${inlineCounter}${feature.productFeatureTypeId}" onchange="javascript:checkRadioButtoninline${inlineCounter}('${inlineCounter}', '${product.productId}');">
                         <option value="select" selected="selected"> select option </option>
                     <#else>
-                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price?exists>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option>
+                        <option value="${feature.productFeatureId}">${feature.description} <#if feature.price??>(+ <@ofbizCurrency amount=feature.price?string isoCode=feature.currencyUomId/>)</#if></option>
                     </#if>
                 </#list>
                 </select>
@@ -287,8 +287,8 @@ ${virtualJavaScript?if_exists}
               <input type="hidden" name="product_id${inlineCounter}" value="${product.productId}"/>
               <input type="hidden" name="add_product_id${inlineCounter}" value="NULL"/>
           </#if>
-          <#if !product.virtualVariantMethodEnum?exists || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
-           <#if variantTree?exists && (variantTree.size() > 0)>
+          <#if !product.virtualVariantMethodEnum?? || product.virtualVariantMethodEnum == "VV_VARIANTTREE">
+           <#if variantTree?? && (variantTree.size() > 0)>
             <#list featureSet as currentType>
               <div>
                 <select name="FT${inlineCounter}${currentType}" onchange="javascript:getListInline('${inlineCounter}', this.name, (this.selectedIndex-1), 1);">
@@ -319,21 +319,21 @@ ${virtualJavaScript?if_exists}
               <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
               <#assign inStock = false>
             <#else>
-              <div><b>${product.inventoryMessage?if_exists}</b></div>
+              <div><b>${product.inventoryMessage!}</b></div>
             </#if>
           </#if>
         </#if>
       </td></tr>
       <tr><td COLSPAN="2" align="right">
         <#-- check to see if introductionDate hasnt passed yet -->
-        <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
+        <#if product.introductionDate?? && nowTimestamp.before(product.introductionDate)>
         <p>&nbsp;</p>
           <div style="color: red;">${uiLabelMap.ProductProductNotYetMadeAvailable}.</div>
         <#-- check to see if salesDiscontinuationDate has passed -->
-        <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.after(product.salesDiscontinuationDate)>
+        <#elseif product.salesDiscontinuationDate?? && nowTimestamp.after(product.salesDiscontinuationDate)>
           <div style="color: red;">${uiLabelMap.ProductProductNoLongerAvailable}.</div>
         <#-- check to see if the product requires inventory check and has inventory -->
-        <#elseif product.virtualVariantMethodEnum?if_exists != "VV_FEATURETREE">
+        <#elseif product.virtualVariantMethodEnum! != "VV_FEATURETREE">
           <#if inStock>
             <#if product.requireAmount?default("N") == "Y">
               <#assign hiddenStyle = "visible">
@@ -349,12 +349,12 @@ ${virtualJavaScript?if_exists}
       </td></tr>
 
       <tr><td COLSPAN="2" align="right">
-      <#if variantTree?exists && 0 < variantTree.size()>
+      <#if variantTree?? && 0 < variantTree.size()>
         <script language="JavaScript" type="text/javascript">eval("list"+ "${inlineCounter}" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) . For now commented out, before fixing a bug
-      <#if variantSample?exists && 0 < variantSample.size()>
+      <#if variantSample?? && 0 < variantSample.size()>
         <#assign imageKeys = variantSample.keySet()>
         <#assign imageMap = variantSample>
         <p>&nbsp;</p>
@@ -365,15 +365,15 @@ ${virtualJavaScript?if_exists}
             <#list imageKeys as key>
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)?if_exists>
+                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)!>
                 <#if !imageUrl?string?has_content>
-                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
+                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")!>
                 </#if>
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = "/images/defaultImage.jpg">
                 </#if>
                 <td align="center" valign="bottom">
-                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" alt="" /></a>
+                  <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix!}${imageUrl}</@ofbizContentUrl>" border="0" width="60" height="60" alt="" /></a>
                   <br />
                   <a href="javascript:getListInline('${inlineCounter}', 'FT${inlineCounter}${featureOrderFirst}','${indexer}',1);" class="linktext">${key}</a>
                 </td>

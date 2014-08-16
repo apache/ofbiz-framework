@@ -37,7 +37,7 @@ under the License.
               <td>
                 <#assign enabled = uiLabelMap.PartyEnabled>
                 <#if (userUserLogin.enabled)?default("Y") == "N">
-                  <#if userUserLogin.disabledDateTime?exists>
+                  <#if userUserLogin.disabledDateTime??>
                     <#assign disabledTime = userUserLogin.disabledDateTime.toString()>
                   <#else>
                     <#assign disabledTime = "??">

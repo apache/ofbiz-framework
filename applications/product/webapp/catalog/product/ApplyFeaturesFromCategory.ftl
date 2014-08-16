@@ -17,10 +17,10 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if curProductFeatureCategory?exists>
-<a href="<@ofbizUrl>EditFeature?productFeatureCategoryId=${productFeatureCategoryId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewFeature}</a>
-<#elseif productFeatureGroup?exists>
-<a href="<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit} ${productFeatureGroup.description?if_exists}</a>
+<#if curProductFeatureCategory??>
+<a href="<@ofbizUrl>EditFeature?productFeatureCategoryId=${productFeatureCategoryId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductCreateNewFeature}</a>
+<#elseif productFeatureGroup??>
+<a href="<@ofbizUrl>EditFeatureGroupAppls?productFeatureGroupId=${productFeatureGroup.productFeatureGroupId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit} ${productFeatureGroup.description!}</a>
 </#if>
 <#if productId?has_content>
     <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReturnToEditProduct}</a>
@@ -28,7 +28,7 @@ under the License.
 </#if>
 
 <#if (listSize > 0)>
-<#assign selectedFeatureApplTypeId = selFeatureApplTypeId?if_exists>
+<#assign selectedFeatureApplTypeId = selFeatureApplTypeId!>
 
     <#if productId?has_content>
       <#assign productString = "&amp;productId=" + productId>
@@ -39,11 +39,11 @@ under the License.
             <span>
             <b>
             <#if (viewIndex > 0)>
-            <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
+            <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId!}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${productString!}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
             </#if>
             ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
             <#if (listSize > highIndex)>
-            | <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
+            | <a href="<@ofbizUrl>ApplyFeaturesFromCategory?productFeatureCategoryId=${productFeatureCategoryId!}&amp;productFeatureApplTypeId=${selectedFeatureApplTypeId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${productString!}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
             </#if>
             </b>
             </span>
@@ -76,7 +76,7 @@ under the License.
         <input type="hidden" name="productFeatureId_o_${rowCount}" value="${productFeature.productFeatureId}" />
         <td><a href="<@ofbizUrl>EditFeature?productFeatureId=${productFeature.productFeatureId}</@ofbizUrl>" class="buttontext">${productFeature.productFeatureId}</a></td>
         <td>${productFeature.description!}</td>
-        <td><#if curProductFeatureType?exists>${curProductFeatureType.description!}<#else> [${productFeature.productFeatureTypeId}]</#if></td>
+        <td><#if curProductFeatureType??>${curProductFeatureType.description!}<#else> [${productFeature.productFeatureTypeId}]</#if></td>
         <td>
           <select name="productFeatureApplTypeId_o_${rowCount}" size="1">
             <#list productFeatureApplTypes as productFeatureApplType>
@@ -90,8 +90,8 @@ under the License.
         <td>
            <@htmlTemplate.renderDateTimeField name="thruDate_o_${rowCount}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="thruDate_o_${rowCount}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
         </td>
-        <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}" /></td>
-        <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}" /></td>
+        <td><input type="text" size="6" name="amount_o_${rowCount}" value="${productFeature.defaultAmount!}" /></td>
+        <td><input type="text" size="5" name="sequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum!}" /></td>
         <td align="right">
             <input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');" />
         </td>
@@ -106,6 +106,6 @@ under the License.
 </#list>
 <tr><td colspan="9" align="center"><input type="submit" value="${uiLabelMap.CommonApply}" /></td></tr>
 </#if>
-<input type="hidden" name="_rowCount" value="${rowCount?if_exists}"/>
+<input type="hidden" name="_rowCount" value="${rowCount!}"/>
 </form>
 </table>

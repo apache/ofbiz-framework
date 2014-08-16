@@ -21,14 +21,14 @@ under the License.
     <fo:block font-size="14pt" font-weight="bold" text-align="center">${uiLabelMap.AccountingDepositSlip}</fo:block>
     <fo:block font-size="12pt" text-align="left"  font-weight="bold">
          <#if paymentGroup?has_content>
-            ${uiLabelMap.AccountingPaymentGroupId} : ${parameters.paymentGroupId?if_exists}
+            ${uiLabelMap.AccountingPaymentGroupId} : ${parameters.paymentGroupId!}
         <#else>
-            ${uiLabelMap.FormFieldTitle_finAccountTransId} : ${parameters.finAccountTransId?if_exists}
+            ${uiLabelMap.FormFieldTitle_finAccountTransId} : ${parameters.finAccountTransId!}
         </#if>
     </fo:block>
     <fo:block font-size="12pt" text-align="left">
         <#if paymentGroup?has_content>
-            ${uiLabelMap.AccountingPaymentGroupName} : ${paymentGroup.paymentGroupName?if_exists}
+            ${uiLabelMap.AccountingPaymentGroupName} : ${paymentGroup.paymentGroupName!}
         </#if>
     </fo:block>
     <fo:block><fo:leader/></fo:block>
@@ -70,21 +70,21 @@ under the License.
                         </#if>
                         <#if payment.paymentMethodTypeId?has_content>
                             <#assign paymentMethodType = delegator.findOne("PaymentMethodType", {"paymentMethodTypeId" : payment.paymentMethodTypeId}, false)/>
-                            <#if payment.paymentMethodTypeId?if_exists == "CREDIT_CARD">
+                            <#if payment.paymentMethodTypeId! == "CREDIT_CARD">
                                 <#assign creditCard = delegator.findOne("CreditCard", {"paymentMethodId" : payment.paymentMethodId}, false)/>
                             </#if>
                         </#if>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
-                                <fo:block>${payment.paymentId?if_exists}</fo:block>
+                                <fo:block>${payment.paymentId!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="center">
-                                    ${payment.paymentRefNum?if_exists}
+                                    ${payment.paymentRefNum!}
                                 </fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
-                                <fo:block text-align="right">${paymentMethodType.description?if_exists} <#if creditCard?has_content && creditCard??>(${creditCard.cardType?if_exists})</#if></fo:block>
+                                <fo:block text-align="right">${paymentMethodType.description!} <#if creditCard?has_content && creditCard??>(${creditCard.cardType!})</#if></fo:block>
                                 <#assign creditCard = null/>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
@@ -100,9 +100,9 @@ under the License.
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" border="1pt solid" border-width=".1mm">
                                 <fo:block text-align="right">
-                                    <@ofbizCurrency amount=payment.amount?if_exists isoCode=payment.currencyUomId?if_exists/>
-                                    <#assign totalAmount = totalAmount + payment.amount?if_exists/>
-                                    <#assign currencyUomId = payment.currencyUomId?if_exists/>
+                                    <@ofbizCurrency amount=payment.amount! isoCode=payment.currencyUomId!/>
+                                    <#assign totalAmount = totalAmount + payment.amount!/>
+                                    <#assign currencyUomId = payment.currencyUomId!/>
                                 </fo:block>
                             </fo:table-cell>
                         </fo:table-row>
@@ -116,7 +116,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell padding="4pt" background-color="#D4D0C8">
                             <fo:block text-align="right">
-                                <@ofbizCurrency amount=totalAmount?if_exists isoCode=currencyUomId?if_exists/>
+                                <@ofbizCurrency amount=totalAmount! isoCode=currencyUomId!/>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>

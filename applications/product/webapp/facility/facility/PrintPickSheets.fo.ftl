@@ -34,10 +34,10 @@ under the License.
                     <#assign orderId = order.orderId>
                     <#assign orderDate = order.orderDate>
                     <#list orderInfoList as orderInfo>
-                        <#if orderInfo.get("${orderId}")?exists>
+                        <#if orderInfo.get("${orderId}")??>
                             <#assign orderDetail = orderInfo.get("${orderId}")>
                             <#assign orderDate = orderDetail.orderDate>
-                            <#if orderDetail.billingAddress?exists>
+                            <#if orderDetail.billingAddress??>
                                 <#assign billAddress = orderDetail.billingAddress>
                             </#if>
                             <#assign shipAddress = orderDetail.shippingAddress>
@@ -73,12 +73,12 @@ under the License.
                                                      <fo:table-row>
                                                          <fo:table-cell>
                                                              <fo:block font-weight="bold">${uiLabelMap.OrderShipToParty}:</fo:block>
-                                                             <fo:block>${shipAddress.toName?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.address1?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.city?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.countryGeoId?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.postalCode?if_exists}</fo:block>
-                                                             <fo:block> ${shipAddress.stateProvinceGeoId?if_exists}</fo:block>
+                                                             <fo:block>${shipAddress.toName!}</fo:block>
+                                                             <fo:block> ${shipAddress.address1!}</fo:block>
+                                                             <fo:block> ${shipAddress.city!}</fo:block>
+                                                             <fo:block> ${shipAddress.countryGeoId!}</fo:block>
+                                                             <fo:block> ${shipAddress.postalCode!}</fo:block>
+                                                             <fo:block> ${shipAddress.stateProvinceGeoId!}</fo:block>
                                                          </fo:table-cell>
                                                          <fo:table-cell>
                                                              <fo:table>
@@ -88,12 +88,12 @@ under the License.
                                                                          <fo:table-cell>
                                                                              <#if billAddress?has_content>
                                                                                  <fo:block font-weight="bold">${uiLabelMap.OrderOrderBillToParty}:</fo:block>
-                                                                                 <fo:block> ${billAddress.toName?if_exists}</fo:block>
-                                                                                 <fo:block> ${billAddress.address1?if_exists}</fo:block>
-                                                                                 <fo:block> ${billAddress.city?if_exists}</fo:block>
-                                                                                 <fo:block> ${billAddress.countryGeoId?if_exists}</fo:block>
-                                                                                 <fo:block> ${billAddress.postalCode?if_exists}</fo:block>
-                                                                                 <fo:block> ${billAddress.stateProvinceGeoId?if_exists}</fo:block>
+                                                                                 <fo:block> ${billAddress.toName!}</fo:block>
+                                                                                 <fo:block> ${billAddress.address1!}</fo:block>
+                                                                                 <fo:block> ${billAddress.city!}</fo:block>
+                                                                                 <fo:block> ${billAddress.countryGeoId!}</fo:block>
+                                                                                 <fo:block> ${billAddress.postalCode!}</fo:block>
+                                                                                 <fo:block> ${billAddress.stateProvinceGeoId!}</fo:block>
                                                                              </#if>
                                                                          </fo:table-cell>
                                                                      </fo:table-row>
@@ -125,7 +125,7 @@ under the License.
                                                                   <fo:block>${uiLabelMap.ProductShipmentMethod}:</fo:block>
                                                              </fo:table-cell>
                                                              <fo:table-cell>
-                                                                 <fo:block font-weight="bold">${carrierPartyId?if_exists}-${shipmentMethodType?if_exists}</fo:block>
+                                                                 <fo:block font-weight="bold">${carrierPartyId!}-${shipmentMethodType!}</fo:block>
                                                              </fo:table-cell>
                                                          </fo:table-row>
                                                      </fo:table-body>
@@ -157,17 +157,17 @@ under the License.
                                 <#assign totalQty = 0>
                                 <#assign rowColor = "#D4D0C8"/>
                                 <#list itemInfoList as itemInfo>
-                                    <#if itemInfo.get("${orderId}")?exists >
+                                    <#if itemInfo.get("${orderId}")?? >
                                         <#assign infoItems = itemInfo.get("${orderId}")>
                                         <#list infoItems as infoItem>
                                                 <#assign orderItemShipGrpInvRes = infoItem.orderItemShipGrpInvRes>
                                                 <#assign quantityToPick = Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantity}") >
-                                                <#if orderItemShipGrpInvRes.quantityNotAvailable?exists >
+                                                <#if orderItemShipGrpInvRes.quantityNotAvailable?? >
                                                         <#assign quantityToPick = quantityToPick - Static["java.lang.Integer"].parseInt("${orderItemShipGrpInvRes.quantityNotAvailable}")>
                                                 </#if>
                                                 <#assign orderItem = orderItemShipGrpInvRes.getRelatedOne("OrderItem", false)>
                                                 <#assign product = orderItem.getRelatedOne("Product", false)>
-                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct", null, null, false))?if_exists>
+                                                <#assign supplierProduct = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(product.getRelated("SupplierProduct", null, null, false))!>
                                                 <#assign inventoryItem = infoItem.inventoryItem>
                                             <#if (quantityToPick > 0)>
                                             <fo:table-row background-color="${rowColor}">
@@ -178,14 +178,14 @@ under the License.
                                                     <fo:table-cell><fo:block font-size="10pt">_NA_</fo:block></fo:table-cell>
                                                 </#if>
                                                 <fo:table-cell><fo:block font-size="10pt">${product.productId} </fo:block></fo:table-cell>
-                                                <fo:table-cell><fo:block font-size="10pt">${product.internalName?if_exists} </fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt">${product.internalName!} </fo:block></fo:table-cell>
                                                 <#if supplierProduct?has_content >
-                                                    <fo:table-cell><fo:block font-size="10pt">${supplierProduct.supplierProductId?if_exists} </fo:block></fo:table-cell>
+                                                    <fo:table-cell><fo:block font-size="10pt">${supplierProduct.supplierProductId!} </fo:block></fo:table-cell>
                                                 <#else>
                                                     <fo:table-cell><fo:block font-size="10pt">  </fo:block></fo:table-cell>
                                                 </#if>
                                                 <#assign totalQty = totalQty + quantityToPick>
-                                                <fo:table-cell><fo:block font-size="10pt">${quantityToPick?if_exists} </fo:block></fo:table-cell>
+                                                <fo:table-cell><fo:block font-size="10pt">${quantityToPick!} </fo:block></fo:table-cell>
                                                 <fo:table-cell><fo:block font-size="10pt"><@ofbizCurrency amount=orderItem.unitPrice isoCode=currencyUomId/></fo:block></fo:table-cell>
                                             </fo:table-row>
                                             </#if>
@@ -212,7 +212,7 @@ under the License.
                                                                         <#assign product = inventoryItem.getRelatedOne("Product", false)/>
                                                                         <fo:table-row background-color="${rowColor}">
                                                                             <#-- bin location -->
-                                                                            <fo:table-cell ><fo:block font-size="10pt"><#if inventoryItem?exists>${inventoryItem.locationSeqId?default("_NA_")}</#if></fo:block></fo:table-cell>
+                                                                            <fo:table-cell ><fo:block font-size="10pt"><#if inventoryItem??>${inventoryItem.locationSeqId?default("_NA_")}</#if></fo:block></fo:table-cell>
 
                                                                             <#-- product ID -->
                                                                             <#if product?has_content>
@@ -230,13 +230,13 @@ under the License.
 
                                                                             <#-- supplier -->
                                                                             <#if vendor?has_content > 
-                                                                                <fo:table-cell><fo:block font-size="10pt">${vendor.supplierProductId?if_exists}</fo:block></fo:table-cell> 
+                                                                                <fo:table-cell><fo:block font-size="10pt">${vendor.supplierProductId!}</fo:block></fo:table-cell> 
                                                                             <#else>
                                                                                 <fo:table-cell><fo:block font-size="10pt"> </fo:block></fo:table-cell>
                                                                             </#if>
 
                                                                             <#-- quantity -->
-                                                                            <fo:table-cell><fo:block font-size="10pt">${workEffortInventoryAssign.quantity?if_exists}</fo:block></fo:table-cell>
+                                                                            <fo:table-cell><fo:block font-size="10pt">${workEffortInventoryAssign.quantity!}</fo:block></fo:table-cell>
 
                                                                             <#-- unit price -->
                                                                             <fo:table-cell ><fo:block></fo:block></fo:table-cell>
@@ -276,7 +276,7 @@ under the License.
                                      </#if>
                                  </#list>
                                  <#list orderChargeList as orderCharge>
-                                     <#if orderCharge.get("${orderId}")?exists >
+                                     <#if orderCharge.get("${orderId}")?? >
                                          <#assign charges = orderCharge.get("${orderId}")>
                                          <fo:table-row>
                                              <fo:table-cell><fo:block>${uiLabelMap.OrderSubTotal}:</fo:block></fo:table-cell>

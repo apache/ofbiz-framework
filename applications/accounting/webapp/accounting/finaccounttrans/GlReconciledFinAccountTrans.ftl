@@ -38,30 +38,30 @@ under the License.
         <table>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_glReconciliationName}</span></td>
-            <td>${currentGlReconciliation.glReconciliationName?if_exists}</td>
+            <td>${currentGlReconciliation.glReconciliationName!}</td>
           </tr>
-          <#if currentGlReconciliation.statusId?exists>
+          <#if currentGlReconciliation.statusId??>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
               <#assign currentStatus = currentGlReconciliation.getRelatedOne("StatusItem", true)>
-              <td>${currentStatus.description?if_exists}</td>
+              <td>${currentStatus.description!}</td>
             </tr>
           </#if>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
-            <td>${currentGlReconciliation.reconciledDate?if_exists}</td>
+            <td>${currentGlReconciliation.reconciledDate!}</td>
           </tr>
           <tr>
             <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
             <td><@ofbizCurrency amount=currentGlReconciliation.openingBalance?default('0')/></td>
           </tr>
-          <#if currentGlReconciliation.reconciledBalance?exists>
+          <#if currentGlReconciliation.reconciledBalance??>
             <tr>
               <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
               <td><@ofbizCurrency amount=currentGlReconciliation.reconciledBalance?default('0')/></td>
             </tr>
           </#if>
-          <#if currentClosingBalance?exists>
+          <#if currentClosingBalance??>
             <tr>
               <td><span class="label">${uiLabelMap.FormFieldTitle_closingBalance}</span></td>
               <td><@ofbizCurrency amount=currentClosingBalance/></td>
@@ -83,30 +83,30 @@ under the License.
         <table>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_glReconciliationName}</span></td>
-            <td>${previousGlReconciliation.glReconciliationName?if_exists}</td>
+            <td>${previousGlReconciliation.glReconciliationName!}</td>
           </tr>
-          <#if previousGlReconciliation.statusId?exists>
+          <#if previousGlReconciliation.statusId??>
             <tr>
               <td><span class="label">${uiLabelMap.CommonStatus}</span></td>
               <#assign previousStatus = previousGlReconciliation.getRelatedOne("StatusItem", true)>
-              <td>${previousStatus.description?if_exists}</td>
+              <td>${previousStatus.description!}</td>
             </tr>
           </#if>
           <tr>
             <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledDate}</span></td>
-            <td>${previousGlReconciliation.reconciledDate?if_exists}</td>
+            <td>${previousGlReconciliation.reconciledDate!}</td>
           </tr>
           <tr>
             <td><span class="label">${uiLabelMap.AccountingOpeningBalance}</span></td>
             <td><@ofbizCurrency amount=previousGlReconciliation.openingBalance?default('0')/></td>
           </tr>
-          <#if previousGlReconciliation.reconciledBalance?exists>
+          <#if previousGlReconciliation.reconciledBalance??>
             <tr>
               <td><span class="label">${uiLabelMap.FormFieldTitle_reconciledBalance}</span></td>
               <td><@ofbizCurrency amount=previousGlReconciliation.reconciledBalance?default('0')/></td>
             </tr>
           </#if>
-          <#if previousClosingBalance?exists>
+          <#if previousClosingBalance??>
             <tr>
               <td><span class="label">${uiLabelMap.FormFieldTitle_closingBalance}</span></td>
               <td><@ofbizCurrency amount=previousClosingBalance/></td>
@@ -172,21 +172,21 @@ under the License.
                   <input name="finAccountTransId_o_${finAccountTrans_index}" type="hidden" value="${finAccountTrans.finAccountTransId}"/>
                   <input name="organizationPartyId_o_${finAccountTrans_index}" type="hidden" value="${defaultOrganizationPartyId}"/>
                   <input id="finAccountTransId_${finAccountTrans_index}" name="_rowSubmit_o_${finAccountTrans_index}" type="hidden" value="Y"/>
-                  ${finAccountTrans.finAccountTransId?if_exists}</td>
-              <td>${finAccountTransType.description?if_exists}</td>
+                  ${finAccountTrans.finAccountTransId!}</td>
+              <td>${finAccountTransType.description!}</td>
               <td><#if partyName?has_content>${(partyName.firstName)!} ${(partyName.lastName)!} ${(partyName.groupName)!}<a href="/partymgr/control/viewprofile?partyId=${partyName.partyId}">[${(partyName.partyId)!}]</a></#if></td>
-              <td>${finAccountTrans.transactionDate?if_exists}</td>
-              <td>${finAccountTrans.entryDateId?if_exists}</td>
+              <td>${finAccountTrans.transactionDate!}</td>
+              <td>${finAccountTrans.entryDateId!}</td>
               <td><@ofbizCurrency amount=finAccountTrans.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td>
                 <#if finAccountTrans.paymentId?has_content>
                   <a href="<@ofbizUrl>paymentOverview?paymentId=${finAccountTrans.paymentId}</@ofbizUrl>">${finAccountTrans.paymentId}</a>
                 </#if>
               </td>
-              <td><#if paymentType?has_content>${paymentType.description?if_exists}</#if></td>
-              <td><#if paymentMethodType?has_content>${paymentMethodType.description?if_exists}</#if></td>
-              <td><#if status?has_content>${status.description?if_exists}</#if></td>
-              <td>${finAccountTrans.comments?if_exists}</td>
+              <td><#if paymentType?has_content>${paymentType.description!}</#if></td>
+              <td><#if paymentMethodType?has_content>${paymentMethodType.description!}</#if></td>
+              <td><#if status?has_content>${status.description!}</#if></td>
+              <td>${finAccountTrans.comments!}</td>
               <#if finAccountTrans.statusId == "FINACT_TRNS_CREATED">
                 <td align="center"><a href="javascript:document.reomveFinAccountTransAssociation_${finAccountTrans.finAccountTransId}.submit();" class="buttontext">${uiLabelMap.CommonRemove}</a></td>
               <#else>

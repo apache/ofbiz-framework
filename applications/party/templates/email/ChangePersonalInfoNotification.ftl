@@ -19,12 +19,12 @@ under the License.
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <title>${title?if_exists}</title>
+        <title>${title!}</title>
         <link rel="stylesheet" href="${baseUrl}/images/maincss.css" type="text/css"/>
     </head>
     <body>
-        <h1>${title?if_exists}</h1>
-        <p>Hello ${(parameters.partyAndPerson.salutation)?if_exists} ${(parameters.partyAndPerson.personalTitle)?if_exists} ${(parameters.partyAndPerson.firstName)?if_exists} ${(parameters.partyAndPerson.middleName)?if_exists} ${(parameters.partyAndPerson.lastName)?if_exists} ${(parameters.partyAndPerson.suffix)?if_exists},</p>
+        <h1>${title!}</h1>
+        <p>Hello ${(parameters.partyAndPerson.salutation)!} ${(parameters.partyAndPerson.personalTitle)!} ${(parameters.partyAndPerson.firstName)!} ${(parameters.partyAndPerson.middleName)!} ${(parameters.partyAndPerson.lastName)!} ${(parameters.partyAndPerson.suffix)!},</p>
         <p>Your personal information has been updated successfully.</p>
     </body>
 </html>

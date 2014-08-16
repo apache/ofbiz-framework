@@ -33,7 +33,7 @@ under the License.
   </div>
   <div class="screenlet-body">
         <form method="post" action="<@ofbizUrl>appendItemToOrder</@ofbizUrl>" name="appendItemForm">
-            <input type="hidden" size="25" name="orderId" value="${orderId?if_exists}"/>
+            <input type="hidden" size="25" name="orderId" value="${orderId!}"/>
             <#if !catalogCol?has_content>
                 <input type="hidden" name="prodCatalogId" value=""/>
             </#if>
@@ -69,7 +69,7 @@ under the License.
                 <tr>
                   <td class="label">${uiLabelMap.OrderPrice}</td>
                   <td>
-                    <input type="text" size="6" name="basePrice" value="${requestParameters.price?if_exists}"/>
+                    <input type="text" size="6" name="basePrice" value="${requestParameters.price!}"/>
                     <input type="checkbox" name="overridePrice" value="Y"/>&nbsp;${uiLabelMap.OrderOverridePrice}
                   </td>
                 </tr>

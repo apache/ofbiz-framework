@@ -38,7 +38,7 @@ under the License.
             <td class="button-col">
               <a href="/catalog/control/FindProductStoreRoles?partyId=${productStoreRole.partyId}&amp;productStoreId=${productStore.productStoreId}">${productStore.storeName?default("${uiLabelMap.ProductNoDescription}")} (${productStore.productStoreId})</a>
             </td>
-            <td>${roleType.description?if_exists}</td>
+            <td>${roleType.description!}</td>
           </tr>
         </#list>
       </table>

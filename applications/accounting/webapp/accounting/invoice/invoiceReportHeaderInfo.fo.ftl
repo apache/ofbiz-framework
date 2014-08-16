@@ -29,7 +29,7 @@ under the License.
 
 <fo:table-row>
   <fo:table-cell><fo:block>${uiLabelMap.AccountingInvoiceDateAbbr}:</fo:block></fo:table-cell>
-  <fo:table-cell><fo:block>${invoiceDate?if_exists}</fo:block></fo:table-cell>
+  <fo:table-cell><fo:block>${invoiceDate!}</fo:block></fo:table-cell>
 </fo:table-row>
 
 <fo:table-row>

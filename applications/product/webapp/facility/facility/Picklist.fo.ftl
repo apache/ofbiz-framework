@@ -26,7 +26,7 @@ under the License.
     <fo:table-row>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
             <#if (facilityLocation?has_content) && (facilityLocation?is_hash)>
-                <fo:block>${facilityLocation.areaId?if_exists}-${facilityLocation.aisleId?if_exists}-${facilityLocation.sectionId?if_exists}-${facilityLocation.levelId?if_exists}-${facilityLocation.positionId?if_exists}</fo:block>
+                <fo:block>${facilityLocation.areaId!}-${facilityLocation.aisleId!}-${facilityLocation.sectionId!}-${facilityLocation.levelId!}-${facilityLocation.positionId!}</fo:block>
             <#else>
                 <fo:block>[${uiLabelMap.ProductNoLocation}]</fo:block>
             </#if>
@@ -38,7 +38,7 @@ under the License.
                 <fo:block> </fo:block>
             </#if>
             <#if (facilityLocationInfo?has_content) && (facilityLocationInfo?is_hash) && (facilityLocationInfo.message)?has_content>
-                <fo:block>${facilityLocationInfo.message?if_exists}</fo:block>
+                <fo:block>${facilityLocationInfo.message!}</fo:block>
             </#if>
         </fo:table-cell>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
@@ -51,7 +51,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
             <#list picklistBinInfoList as picklistBinInfo>
-                <fo:block>${picklistBinInfo.picklistBin.primaryOrderId?if_exists}</fo:block>
+                <fo:block>${picklistBinInfo.picklistBin.primaryOrderId!}</fo:block>
             </#list>
         </fo:table-cell>
     </fo:table-row>
@@ -69,7 +69,7 @@ under the License.
     <fo:table-row>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
             <#if facilityLocation?has_content>
-                <fo:block>${facilityLocation.areaId?if_exists}-${facilityLocation.aisleId?if_exists}-${facilityLocation.sectionId?if_exists}-${facilityLocation.levelId?if_exists}-${facilityLocation.positionId?if_exists}</fo:block>
+                <fo:block>${facilityLocation.areaId!}-${facilityLocation.aisleId!}-${facilityLocation.sectionId!}-${facilityLocation.levelId!}-${facilityLocation.positionId!}</fo:block>
             <#else>
                 <fo:block>[${uiLabelMap.ProductNoLocation}]</fo:block>
             </#if>
@@ -89,7 +89,7 @@ under the License.
         </fo:table-cell>
         <fo:table-cell padding="2pt" background-color="${rowColor}">
             <fo:block>
-                ${picklistItemInfo.inventoryItemAndLocation.inventoryItemId}<#if picklistItemInfo.inventoryItemAndLocation.binNumber?exists>:${picklistItemInfo.inventoryItemAndLocation.binNumber}</#if>
+                ${picklistItemInfo.inventoryItemAndLocation.inventoryItemId}<#if picklistItemInfo.inventoryItemAndLocation.binNumber??>:${picklistItemInfo.inventoryItemAndLocation.binNumber}</#if>
             </fo:block>
         </fo:table-cell>
     </fo:table-row>
@@ -200,7 +200,7 @@ under the License.
     <#list picklistInfo.picklistBinInfoList as picklistBinInfo>
         <#assign rowColor = "white">
         <#assign picklistBin = picklistBinInfo.picklistBin>
-        <#assign picklistItemInfoList = picklistBinInfo.picklistItemInfoList?if_exists>
+        <#assign picklistItemInfoList = picklistBinInfo.picklistItemInfoList!>
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block text-align="right">
@@ -242,7 +242,7 @@ under the License.
                         <#assign orderItem = picklistItemInfo.orderItem>
                         <#assign product = picklistItemInfo.product>
                         <#assign picklistItemProduct = picklistItemInfo.inventoryItemAndLocation.getRelatedOne("InventoryItem", false).getRelatedOne("Product", false)>
-                        <#assign orderItemShipGrpInvRes = picklistItemInfo.orderItemShipGrpInvRes?if_exists>
+                        <#assign orderItemShipGrpInvRes = picklistItemInfo.orderItemShipGrpInvRes!>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
                                 <fo:block><#--${picklistItem.orderId}:${picklistItem.shipGroupSeqId}:-->${picklistItem.orderItemSeqId}</fo:block>

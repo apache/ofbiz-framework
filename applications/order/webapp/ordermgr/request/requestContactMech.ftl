@@ -21,13 +21,13 @@ under the License.
 
 <#if "POSTAL_ADDRESS" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyAddressMailingShipping>
-  <#assign postalAddress = fulfillContactMech.getRelatedOne("PostalAddress", true)?if_exists>
+  <#assign postalAddress = fulfillContactMech.getRelatedOne("PostalAddress", true)!>
 <#elseif "EMAIL_ADDRESS" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyToEmailAddress>
-  <#assign emailAddress = fulfillContactMech.infoString?if_exists>
+  <#assign emailAddress = fulfillContactMech.infoString!>
 <#elseif "TELECOM_NUMBER" == fulfillContactMech.contactMechTypeId>
   <#assign label = uiLabelMap.PartyPhoneNumber>
-  <#assign telecomNumber = fulfillContactMech.getRelatedOne("TelecomNumber", true)?if_exists>
+  <#assign telecomNumber = fulfillContactMech.getRelatedOne("TelecomNumber", true)!>
 </#if>
 
 <div class="screenlet">
@@ -48,14 +48,14 @@ under the License.
                       <#if postalAddress?has_content>
                         <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.PartyAddrToName}</span>&nbsp;${postalAddress.toName}<br /></#if>
                         <#if postalAddress.attnName?has_content><span class="label">${uiLabelMap.PartyAddrAttnName}</span>&nbsp;${postalAddress.attnName}<br /></#if>
-                        ${postalAddress.address1?if_exists}<br />
+                        ${postalAddress.address1!}<br />
                         <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
-                        ${postalAddress.city?if_exists},
+                        ${postalAddress.city!},
                         <#if postalAddress.stateProvinceGeoId?has_content>
                             <#assign stateProvince = postalAddress.getRelatedOne("StateProvinceGeo", true)>
                             ${stateProvince.abbreviation?default(stateProvince.geoId)}
                         </#if>
-                        ${postalAddress.postalCode?if_exists}
+                        ${postalAddress.postalCode!}
                         <#if postalAddress.countryGeoId?has_content><br />
                              <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
                              ${country.geoName?default(country.geoId)}
@@ -63,7 +63,7 @@ under the License.
                       </#if>
 
                       <#if telecomNumber?has_content>
-                        ${telecomNumber.countryCode?if_exists}
+                        ${telecomNumber.countryCode!}
                         <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if>${telecomNumber.contactNumber?default("000-0000")}
                         <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode = "011">
                           <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="buttontext">${uiLabelMap.CommonLookupAnywho}</a>

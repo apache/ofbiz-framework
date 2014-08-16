@@ -20,7 +20,7 @@ under the License.
 <#assign shoppingCartOrderType = "">
 <#assign shoppingCartProductStore = "NA">
 <#assign shoppingCartChannelType = "">
-<#if shoppingCart?exists>
+<#if shoppingCart??>
   <#assign shoppingCartOrderType = shoppingCart.getOrderType()>
   <#assign shoppingCartProductStore = shoppingCart.getProductStoreId()?default("NA")>
   <#assign shoppingCartChannelType = shoppingCart.getChannelType()?default("")>
@@ -36,7 +36,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+      <li class="h3">${uiLabelMap.OrderSalesOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
       <li><a href="javascript:document.salesentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
       <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
     </ul>
@@ -44,7 +44,7 @@ under the License.
   </div>
   <div class="screenlet-body">
       <form method="post" name="salesentryform" action="<@ofbizUrl>initorderentry</@ofbizUrl>">
-      <input type="hidden" name="originOrderId" value="${parameters.originOrderId?if_exists}"/>
+      <input type="hidden" name="originOrderId" value="${parameters.originOrderId!}"/>
       <input type="hidden" name="finalizeMode" value="type"/>
       <input type="hidden" name="orderMode" value="SALES_ORDER"/>
       <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -54,17 +54,17 @@ under the License.
           <td >&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <select name="productStoreId"<#if sessionAttributes.orderMode?exists> disabled</#if>>
+              <select name="productStoreId"<#if sessionAttributes.orderMode??> disabled</#if>>
                 <#assign currentStore = shoppingCartProductStore>
                 <#if defaultProductStore?has_content>
-                   <option value="${defaultProductStore.productStoreId}">${defaultProductStore.storeName?if_exists}</option>
+                   <option value="${defaultProductStore.productStoreId}">${defaultProductStore.storeName!}</option>
                    <option value="${defaultProductStore.productStoreId}">----</option>
                 </#if>
                 <#list productStores as productStore>
-                  <option value="${productStore.productStoreId}"<#if productStore.productStoreId == currentStore> selected="selected"</#if>>${productStore.storeName?if_exists}</option>
+                  <option value="${productStore.productStoreId}"<#if productStore.productStoreId == currentStore> selected="selected"</#if>>${productStore.storeName!}</option>
                 </#list>
               </select>
-              <#if sessionAttributes.orderMode?exists>${uiLabelMap.OrderCannotBeChanged}</#if>
+              <#if sessionAttributes.orderMode??>${uiLabelMap.OrderCannotBeChanged}</#if>
             </div>
           </td>
         </tr>
@@ -78,7 +78,7 @@ under the License.
               <select name="salesChannelEnumId">
                 <#assign currentChannel = shoppingCartChannelType>
                 <#if defaultSalesChannel?has_content>
-                   <option value="${defaultSalesChannel.enumId}">${defaultSalesChannel.description?if_exists}</option>
+                   <option value="${defaultSalesChannel.enumId}">${defaultSalesChannel.description!}</option>
                    <option value="${defaultSalesChannel.enumId}"> ---- </option>
                 </#if>
                 <option value="">${uiLabelMap.OrderNoChannel}</option>
@@ -90,10 +90,10 @@ under the License.
           </td>
         </tr>
         <tr><td colspan="4">&nbsp;</td></tr>
-        <#if partyId?exists>
+        <#if partyId??>
           <#assign thisPartyId = partyId>
         <#else>
-          <#assign thisPartyId = requestParameters.partyId?if_exists>
+          <#assign thisPartyId = requestParameters.partyId!>
         </#if>
         <tr>
           <td>&nbsp;</td>
@@ -111,7 +111,7 @@ under the License.
           <td>&nbsp;</td>
           <td valign='middle'>
             <div class='tabletext'>
-              <@htmlTemplate.lookupField value='${thisPartyId?if_exists}' formName="salesentryform" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
+              <@htmlTemplate.lookupField value='${thisPartyId!}' formName="salesentryform" name="partyId" id="partyId" fieldFormName="LookupCustomerName"/>
             </div>
           </td>
         </tr>
@@ -128,7 +128,7 @@ under the License.
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="h3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart?exists>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
+        <li class="h3">${uiLabelMap.OrderPurchaseOrder}<#if shoppingCart??>&nbsp;${uiLabelMap.OrderInProgress}</#if></li>
         <li><a href="javascript:document.poentryform.submit();">${uiLabelMap.CommonContinue}</a></li>
         <li><a href="/partymgr/control/findparty?${StringUtil.wrapString(externalKeyParam)}">${uiLabelMap.PartyFindParty}</a></li>
       </ul>
@@ -139,10 +139,10 @@ under the License.
       <input type='hidden' name='finalizeMode' value='type'/>
       <input type='hidden' name='orderMode' value='PURCHASE_ORDER'/>
       <table width="100%" border='0' cellspacing='0' cellpadding='0'>
-        <#if partyId?exists>
+        <#if partyId??>
           <#assign thisPartyId = partyId>
         <#else>
-          <#assign thisPartyId = requestParameters.partyId?if_exists>
+          <#assign thisPartyId = requestParameters.partyId!>
         </#if>
         <tr>
           <td>&nbsp;</td>

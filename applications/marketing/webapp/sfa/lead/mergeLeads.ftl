@@ -27,16 +27,16 @@ under the License.
         <#if contactInfoList?has_content >
           <#assign contactInfo1 = contactInfoList[0]/>
           <#assign contactInfo2 = contactInfoList[1]/>
-          <input type="hidden" name="partyIdTo" value="${contactInfo1.partyId?if_exists}" />
-          <input type="hidden" name="partyId" value="${contactInfo2.partyId?if_exists}" />
+          <input type="hidden" name="partyIdTo" value="${contactInfo1.partyId!}" />
+          <input type="hidden" name="partyId" value="${contactInfo2.partyId!}" />
 
-          <input type="hidden" name="addrContactMechIdTo" value="${contactInfo1.addrContactMechId?if_exists}" />
-          <input type="hidden" name="phoneContactMechIdTo" value="${contactInfo1.phoneContactMechId?if_exists}" />
-          <input type="hidden" name="emailContactMechIdTo" value="${contactInfo1.emailContactMechId?if_exists}" />
+          <input type="hidden" name="addrContactMechIdTo" value="${contactInfo1.addrContactMechId!}" />
+          <input type="hidden" name="phoneContactMechIdTo" value="${contactInfo1.phoneContactMechId!}" />
+          <input type="hidden" name="emailContactMechIdTo" value="${contactInfo1.emailContactMechId!}" />
 
-          <input type="hidden" name="addrContactMechId" value="${contactInfo2.addrContactMechId?if_exists}" />
-          <input type="hidden" name="phoneContactMechId" value="${contactInfo2.phoneContactMechId?if_exists}" />
-          <input type="hidden" name="emailContactMechId" value="${contactInfo2.emailContactMechId?if_exists}" />
+          <input type="hidden" name="addrContactMechId" value="${contactInfo2.addrContactMechId!}" />
+          <input type="hidden" name="phoneContactMechId" value="${contactInfo2.phoneContactMechId!}" />
+          <input type="hidden" name="emailContactMechId" value="${contactInfo2.emailContactMechId!}" />
 
           <table  >
             <tr>
@@ -47,14 +47,14 @@ under the License.
             </tr>
             <tr>
               <td width="20%">${uiLabelMap.PartyFirstName}</td>
-              <td width="30%"><h3>${contactInfo1.firstName?if_exists}</h3></td>
-              <td width="30%"><h3>${contactInfo2.firstName?if_exists}</h3></td>
+              <td width="30%"><h3>${contactInfo1.firstName!}</h3></td>
+              <td width="30%"><h3>${contactInfo2.firstName!}</h3></td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%">${uiLabelMap.PartyLastName}</td>
-              <td width="30%"><h3>${contactInfo1.lastName?if_exists}</h3></td>
-              <td width="30%"><h3>${contactInfo2.lastName?if_exists}</h3></td>
+              <td width="30%"><h3>${contactInfo1.lastName!}</h3></td>
+              <td width="30%"><h3>${contactInfo2.lastName!}</h3></td>
               <td width="20%"></td>
             </tr>
             <tr>
@@ -63,65 +63,65 @@ under the License.
             </tr>
             <tr>
               <td width="20%" >${uiLabelMap.PartyAddressLine1}</td>
-              <td width="30%">${contactInfo1.address1?if_exists}</td>
-              <td width="30%">${contactInfo2.address1?if_exists}</td>
+              <td width="30%">${contactInfo1.address1!}</td>
+              <td width="30%">${contactInfo2.address1!}</td>
               <td width="20%"><input type="checkbox" name="useAddress2" value="Y"/></td>
             </tr>
 
             <tr>
               <td width="20%" >${uiLabelMap.PartyAddressLine2}</td>
-              <td width="30%">${contactInfo1.address2?if_exists}</td>
-              <td width="30%">${contactInfo2.address2?if_exists}</td>
+              <td width="30%">${contactInfo1.address2!}</td>
+              <td width="30%">${contactInfo2.address2!}</td>
               <td width="20%"></td>
             </tr>
 
             <tr>
               <td width="20%" >${uiLabelMap.PartyCity}</td>
-              <td width="30%">${contactInfo1.city?if_exists}</td>
-              <td width="30%">${contactInfo2.city?if_exists}</td>
+              <td width="30%">${contactInfo1.city!}</td>
+              <td width="30%">${contactInfo2.city!}</td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%">${uiLabelMap.PartyState}</td>
-              <td width="30%">${contactInfo1.state?if_exists}</td>
-              <td width="30%">${contactInfo2.state?if_exists}</td>
+              <td width="30%">${contactInfo1.state!}</td>
+              <td width="30%">${contactInfo2.state!}</td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%">${uiLabelMap.PartyZipCode}</td>
-              <td width="30%">${contactInfo1.postalCode?if_exists}</td>
-              <td width="30%">${contactInfo2.postalCode?if_exists}</td>
+              <td width="30%">${contactInfo1.postalCode!}</td>
+              <td width="30%">${contactInfo2.postalCode!}</td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%" >${uiLabelMap.CommonCountry}</td>
-              <td width="30%">${contactInfo1.country?if_exists}</td>
-              <td width="30%">${contactInfo2.country?if_exists}</td>
+              <td width="30%">${contactInfo1.country!}</td>
+              <td width="30%">${contactInfo2.country!}</td>
               <td width="20%"></td>
             </tr>
             <tr><td><br /><h3>${uiLabelMap.PartyPrimaryPhone}</h3></td></tr>
             <tr>
               <td width="20%">${uiLabelMap.CommonCountryCode}</td>
-              <td width="30%">${contactInfo1.countryCode?if_exists}</td>
-              <td width="30%">${contactInfo2.countryCode?if_exists}</td>
+              <td width="30%">${contactInfo1.countryCode!}</td>
+              <td width="30%">${contactInfo2.countryCode!}</td>
               <td width="10%"><input type="checkbox" name="useContactNum2" value="Y"/></td>
             </tr>
             <tr>
               <td width="20%" >${uiLabelMap.PartyAreaCode}</td>
-              <td width="30%">${contactInfo1.areaCode?if_exists}</td>
-              <td width="30%">${contactInfo2.areaCode?if_exists}</td>
+              <td width="30%">${contactInfo1.areaCode!}</td>
+              <td width="30%">${contactInfo2.areaCode!}</td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%" >${uiLabelMap.PartyPhoneNumber}</td>
-              <td width="30%">${contactInfo1.contactNumber?if_exists}</td>
-              <td width="30%">${contactInfo2.contactNumber?if_exists}</td>
+              <td width="30%">${contactInfo1.contactNumber!}</td>
+              <td width="30%">${contactInfo2.contactNumber!}</td>
               <td width="20%"></td>
             </tr>
             <tr>
               <td width="20%" >${uiLabelMap.PartyEmailAddress}</td>
-              <td width="30%">${contactInfo1.primaryEmail?if_exists}</td>
-              <td width="30%">${contactInfo2.primaryEmail?if_exists}</td>
+              <td width="30%">${contactInfo1.primaryEmail!}</td>
+              <td width="30%">${contactInfo2.primaryEmail!}</td>
               <td width="10%"><input type="checkbox" name="useEmail2" value="Y"/></td>
             </tr>
             <tr>

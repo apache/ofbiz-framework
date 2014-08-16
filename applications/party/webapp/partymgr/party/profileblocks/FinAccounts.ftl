@@ -22,13 +22,13 @@ under the License.
         <b>${uiLabelMap.AccountingAccountNumber}:</b> <a href="/accounting/control/EditFinAccount?finAccountId=${ownedFinAccount.finAccountId}${StringUtil.wrapString(externalKeyParam)}"
              class="smallSubmit">${ownedFinAccount.finAccountId}</a>
         <b>${uiLabelMap.AccountingAccountType}:</b> ${(ownedFinAccountType.description)?default('N/A')}
-        <b>${uiLabelMap.FormFieldTitle_finAccountName}:</b> ${ownedFinAccount.finAccountName?if_exists}
+        <b>${uiLabelMap.FormFieldTitle_finAccountName}:</b> ${ownedFinAccount.finAccountName!}
     </p>
     <p>
-        <b>${uiLabelMap.AccountingCurrency}:</b> ${(accountCurrencyUom.description)?if_exists} [${ownedFinAccount.currencyUomId?if_exists}]
-        <b>${uiLabelMap.AccountingDateOpened}:</b> ${ownedFinAccount.fromDate?if_exists}
+        <b>${uiLabelMap.AccountingCurrency}:</b> ${(accountCurrencyUom.description)!} [${ownedFinAccount.currencyUomId!}]
+        <b>${uiLabelMap.AccountingDateOpened}:</b> ${ownedFinAccount.fromDate!}
         <b>${uiLabelMap.CommonStatus}:</b> ${(finAccountStatusItem.description)?default("Active")}
-        <#if ownedFinAccount.replenishLevel?exists>
+        <#if ownedFinAccount.replenishLevel??>
             <b>${uiLabelMap.FormFieldTitle_replenishLevel}:</b> <@ofbizCurrency amount=ownedFinAccount.replenishLevel isoCode=ownedFinAccount.currencyUomId/>
         </#if>
     </p>
@@ -52,11 +52,11 @@ under the License.
                     <#assign displayAmount = -displayAmount>
                 </#if>
                 <tr>
-                    <td>${ownedFinAccountTrans.transactionDate?if_exists}</td>
+                    <td>${ownedFinAccountTrans.transactionDate!}</td>
                     <td>${ownedFinAccountTrans.finAccountTransId}</td>
-                    <td>${ownedFinAccountTrans.orderId?if_exists}:${ownedFinAccountTrans.orderItemSeqId?if_exists}</td>
-                    <td>${ownedFinAccountTrans.paymentId?if_exists}</td>
-                    <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)?if_exists}</td>
+                    <td>${ownedFinAccountTrans.orderId!}:${ownedFinAccountTrans.orderItemSeqId!}</td>
+                    <td>${ownedFinAccountTrans.paymentId!}</td>
+                    <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)!}</td>
                     <td><@ofbizCurrency amount=displayAmount isoCode=ownedFinAccount.currencyUomId/></td>
                 </tr>
             </#list>
@@ -85,9 +85,9 @@ under the License.
             <tbody>
                 <#list ownedFinAccountAuthList as ownedFinAccountAuth>
                     <tr>
-                        <td>${ownedFinAccountAuth.authorizationDate?if_exists}</td>
+                        <td>${ownedFinAccountAuth.authorizationDate!}</td>
                         <td>${ownedFinAccountAuth.finAccountAuthId}</td>
-                        <td>${ownedFinAccountAuth.thruDate?if_exists}</td>
+                        <td>${ownedFinAccountAuth.thruDate!}</td>
                         <td><@ofbizCurrency amount=-ownedFinAccountAuth.amount isoCode=ownedFinAccount.currencyUomId/></td>
                     </tr>
                 </#list>

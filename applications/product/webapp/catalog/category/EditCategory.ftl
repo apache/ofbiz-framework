@@ -30,10 +30,10 @@ function insertImageName(type,nameValue) {
             <#if !(clientFileName?has_content)>
                 <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
             <#else>
-                <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-                <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-                <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-                <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+                <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName!}</b></div>
+                <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse!}</b></div>
+                <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath!}</b></div>
+                <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl!}</@ofbizContentUrl>">${imageUrl!}</a></b></div>
             </#if>
         </div>
     </div>
@@ -100,10 +100,10 @@ function insertImageName(type,nameValue) {
                             <#list productCategoryTypes as productCategoryTypeData>
                                 <#if requestParameters.productCategoryTypeId?has_content>
                                     <#assign selectedKey = requestParameters.productCategoryTypeId>
-                                <#elseif (productCategory?has_content && productCategory.productCategoryTypeId?if_exists == productCategoryTypeData.productCategoryTypeId)>
+                                <#elseif (productCategory?has_content && productCategory.productCategoryTypeId! == productCategoryTypeData.productCategoryTypeId)>
                                     <#assign selectedKey = productCategory.productCategoryTypeId>
                                 </#if>
-                                <option <#if selectedKey == productCategoryTypeData.productCategoryTypeId?if_exists>selected="selected"</#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
+                                <option <#if selectedKey == productCategoryTypeData.productCategoryTypeId!>selected="selected"</#if> value="${productCategoryTypeData.productCategoryTypeId}">${productCategoryTypeData.get("description",locale)}</option>
                             </#list>
                         </select>
                     </td>
@@ -111,18 +111,18 @@ function insertImageName(type,nameValue) {
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductProductCategoryName}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><input type="text" value="${(productCategory.categoryName)?if_exists}" name="categoryName" size="60" maxlength="60"/></td>
+                    <td width="74%"><input type="text" value="${(productCategory.categoryName)!}" name="categoryName" size="60" maxlength="60"/></td>
                 </tr>
                 <tr>
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductProductCategoryDescription}</td>
                     <td>&nbsp;</td>
-                    <td width="74%"><textarea name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)?if_exists}</#if></textarea></td>
+                    <td width="74%"><textarea name="description" cols="60" rows="2"><#if productCategory?has_content>${(productCategory.description)!}</#if></textarea></td>
                 </tr>
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductCategoryImageUrl}
-                        <#if (productCategory.categoryImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Category Image" src="<@ofbizContentUrl>${(productCategory.categoryImageUrl)?if_exists}</@ofbizContentUrl>" class="cssImgSmall" /></a>
+                        <#if (productCategory.categoryImageUrl)??>
+                            <a href="<@ofbizContentUrl>${(productCategory.categoryImageUrl)!}</@ofbizContentUrl>" target="_blank"><img alt="Category Image" src="<@ofbizContentUrl>${(productCategory.categoryImageUrl)!}</@ofbizContentUrl>" class="cssImgSmall" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -141,8 +141,8 @@ function insertImageName(type,nameValue) {
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductLinkOneImageUrl}
-                        <#if (productCategory.linkOneImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)?if_exists}</@ofbizContentUrl>" class="cssImgSmall" /></a>
+                        <#if (productCategory.linkOneImageUrl)??>
+                            <a href="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)!}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkOneImageUrl)!}</@ofbizContentUrl>" class="cssImgSmall" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -161,8 +161,8 @@ function insertImageName(type,nameValue) {
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductLinkTwoImageUrl}
-                        <#if (productCategory.linkTwoImageUrl)?exists>
-                            <a href="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)?if_exists}</@ofbizContentUrl>" class="cssImgSmall" /></a>
+                        <#if (productCategory.linkTwoImageUrl)??>
+                            <a href="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)!}</@ofbizContentUrl>" target="_blank"><img alt="Link One Image" src="<@ofbizContentUrl>${(productCategory.linkTwoImageUrl)!}</@ofbizContentUrl>" class="cssImgSmall" /></a>
                         </#if>
                     </td>
                     <td>&nbsp;</td>
@@ -182,7 +182,7 @@ function insertImageName(type,nameValue) {
                     <td width="26%" align="right" class="label">${uiLabelMap.ProductDetailScreen}</td>
                     <td>&nbsp;</td>
                     <td width="74%">
-                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen?if_exists}"</#if> name="detailScreen" size="60" maxlength="250"/>
+                        <input type="text" <#if productCategory?has_content>value="${productCategory.detailScreen!}"</#if> name="detailScreen" size="60" maxlength="250"/>
                         <br /><span class="tooltip">${uiLabelMap.ProductDefaultsTo} &quot;categorydetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#categorydetail&quot;</span>
                     </td>
                 </tr>
@@ -213,7 +213,7 @@ function insertImageName(type,nameValue) {
             <h3>${uiLabelMap.ProductCategoryUploadImage}</h3>
         </div>
         <div class="screenlet-body">
-            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId?if_exists}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
+            <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>UploadCategoryImage?productCategoryId=${productCategoryId!}&amp;upload_file_type=category</@ofbizUrl>" name="imageUploadForm">
                 <table cellspacing="0" class="basic-table">
                     <tr><td>
                         <input type="file" size="50" name="fname"/>

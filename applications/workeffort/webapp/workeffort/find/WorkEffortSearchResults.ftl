@@ -58,7 +58,7 @@ under the License.
           <#assign workEffort = delegator.findOne("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", workEffortId), false)>
           <tr>
             <td>
-              <a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffortId}</@ofbizUrl>" class="buttontext">${workEffortId} ${(workEffort.workEffortName)?if_exists}</a>
+              <a href="<@ofbizUrl>EditWorkEffort?workEffortId=${workEffortId}</@ofbizUrl>" class="buttontext">${workEffortId} ${(workEffort.workEffortName)!}</a>
             </td>
           </tr>
         </#list>

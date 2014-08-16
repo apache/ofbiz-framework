@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
+<#assign shoppingCart = sessionAttributes.shoppingCart!>
 <#if shoppingCart?has_content>
     <#assign shoppingCartSize = shoppingCart.size()>
 <#else>
@@ -57,19 +57,19 @@ under the License.
               <tr>
                 <td>${cartLine.getQuantity()?string.number}</td>
                 <td>
-                  <#if cartLine.getProductId()?exists>
-                      <#if cartLine.getParentProductId()?exists>
+                  <#if cartLine.getProductId()??>
+                      <#if cartLine.getParentProductId()??>
                           <a href="<@ofbizCatalogAltUrl productId=cartLine.getParentProductId()/>" class="linktext">${cartLine.getName()}</a>
                       <#else>
                           <a href="<@ofbizCatalogAltUrl productId=cartLine.getProductId()/>" class="linktext">${cartLine.getName()}</a>
                       </#if>
                   <#else>
-                    <strong>${cartLine.getItemTypeDescription()?if_exists}</strong>
+                    <strong>${cartLine.getItemTypeDescription()!}</strong>
                   </#if>
                 </td>
                 <td><@ofbizCurrency amount=cartLine.getDisplayItemSubTotal() isoCode=shoppingCart.getCurrency()/></td>
               </tr>
-              <#if cartLine.getReservStart()?exists>
+              <#if cartLine.getReservStart()??>
                 <tr><td>&nbsp;</td><td colspan="2">(${cartLine.getReservStart()?string("yyyy-MM-dd")}, ${cartLine.getReservLength()} <#if cartLine.getReservLength() == 1>${uiLabelMap.CommonDay}<#else>${uiLabelMap.CommonDays}</#if>)</td></tr>
               </#if>
             </#list>

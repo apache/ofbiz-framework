@@ -68,26 +68,26 @@ under the License.
     <fo:table-body>
       <fo:table-row>
         <fo:table-cell number-rows-spanned="4">
-          <#assign address = data.address?if_exists>
-          <fo:block>${uiLabelMap.CommonTo}: ${address.toName?if_exists}</fo:block>
+          <#assign address = data.address!>
+          <fo:block>${uiLabelMap.CommonTo}: ${address.toName!}</fo:block>
           <#if address.attnName?has_content>
-          <fo:block>${uiLabelMap.CommonAttn}: ${address.attnName?if_exists}</fo:block>
+          <fo:block>${uiLabelMap.CommonAttn}: ${address.attnName!}</fo:block>
           </#if>
-          <fo:block>${address.address1?if_exists}</fo:block>
-          <fo:block>${address.address2?if_exists}</fo:block>
+          <fo:block>${address.address1!}</fo:block>
+          <fo:block>${address.address2!}</fo:block>
           <fo:block>
-            ${address.city?if_exists}<#if address.stateProvinceGeoId?has_content>, ${address.stateProvinceGeoId}</#if>
-            ${address.postalCode?if_exists} ${address.countryGeoId?if_exists}
+            ${address.city!}<#if address.stateProvinceGeoId?has_content>, ${address.stateProvinceGeoId}</#if>
+            ${address.postalCode!} ${address.countryGeoId!}
           </fo:block>
 
-          <#if data.phoneNumber?exists>
-            <fo:block><#if data.phoneNumber.areaCode?exists>(${data.phoneNumber.areaCode}) </#if>${data.phoneNumber.contactNumber}</fo:block>
+          <#if data.phoneNumber??>
+            <fo:block><#if data.phoneNumber.areaCode??>(${data.phoneNumber.areaCode}) </#if>${data.phoneNumber.contactNumber}</fo:block>
           </#if>
         </fo:table-cell>
       </fo:table-row>
       <fo:table-row>
         <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.ProductShipmentMethod}</fo:block></fo:table-cell>
-        <fo:table-cell><#if data.carrierShipmentMethod?exists><fo:block>${data.carrierShipmentMethod.partyId} ${data.shipmentMethodType.description}</fo:block></#if></fo:table-cell>
+        <fo:table-cell><#if data.carrierShipmentMethod??><fo:block>${data.carrierShipmentMethod.partyId} ${data.shipmentMethodType.description}</fo:block></#if></fo:table-cell>
       </fo:table-row>
       <fo:table-row>
         <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderShipBeforeDate}</fo:block></fo:table-cell>
@@ -141,7 +141,7 @@ under the License.
           <fo:block>${line.product.productId}</fo:block>
         </fo:table-cell>
         <fo:table-cell background-color="${rowColor}">
-          <fo:block>${line.orderItem.itemDescription?if_exists}</fo:block>
+          <fo:block>${line.orderItem.itemDescription!}</fo:block>
         </fo:table-cell>
         <fo:table-cell background-color="${rowColor}">
           <fo:block text-align="right">${line.quantityInGroup?default(0)}</fo:block>
@@ -155,7 +155,7 @@ under the License.
 
       </fo:table-row>
 
-      <#list line.expandedList?if_exists as expandedLine>
+      <#list line.expandedList! as expandedLine>
       <fo:table-row>
         <fo:table-cell background-color="${rowColor}" font-style="italic">
           <fo:block margin-left="20pt">${expandedLine.product.productId}</fo:block>

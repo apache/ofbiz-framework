@@ -18,13 +18,13 @@ under the License.
 -->
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductReceiveReturn} ${uiLabelMap.CommonInto} <#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId}:${facility.facilityId?if_exists}]</h3>
+        <h3>${uiLabelMap.ProductReceiveReturn} ${uiLabelMap.CommonInto} <#if facility?has_content>"${facility.facilityName?default("Not Defined")}"</#if> [${uiLabelMap.CommonId}:${facility.facilityId!}]</h3>
     </div>
     <div class="screenlet-body">
         <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNewFacility}</a>
         <#-- Receiving Results -->
         <#if receivedItems?has_content>
-          <h3>${uiLabelMap.ProductReceiptForReturn} ${uiLabelMap.CommonNbr}<a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">${returnHeader.returnId}</a></h3>
+          <h3>${uiLabelMap.ProductReceiptForReturn} ${uiLabelMap.CommonNbr}<a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}" class="buttontext">${returnHeader.returnId}</a></h3>
           <#if "RETURN_RECEIVED" == returnHeader.getString("statusId")>
             <h3>${uiLabelMap.ProductReturnCompletelyReceived}</h3>
           </#if>
@@ -58,13 +58,13 @@ under the License.
         <#if returnHeader?has_content>
           <form method="post" action="<@ofbizUrl>receiveReturnedProduct</@ofbizUrl>" name='selectAllForm'>
             <#-- general request fields -->
-            <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}" />
-            <input type="hidden" name="returnId" value="${requestParameters.returnId?if_exists}" />
+            <input type="hidden" name="facilityId" value="${requestParameters.facilityId!}" />
+            <input type="hidden" name="returnId" value="${requestParameters.returnId!}" />
             <input type="hidden" name="_useRowSubmit" value="Y" />
             <#assign now = Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().toString()>
             <#assign rowCount = 0>
             <table cellspacing="0" class="basic-table">
-              <#if !returnItems?exists || returnItems?size == 0>
+              <#if !returnItems?? || returnItems?size == 0>
                 <tr>
                   <td colspan="2" class="label">${uiLabelMap.ProductNoItemsToReceive}</td>
                 </tr>
@@ -72,7 +72,7 @@ under the License.
                 <tr>
                   <td>
                     <h3>
-                      ${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam?if_exists}" class="buttontext">#${returnHeader.returnId}</a>
+                      ${uiLabelMap.ProductReceiveReturn} <a href="/ordermgr/control/returnMain?returnId=${returnHeader.returnId}${externalKeyParam!}" class="buttontext">#${returnHeader.returnId}</a>
                       <#if parameters.shipmentId?has_content>${uiLabelMap.ProductShipmentId} <a href="<@ofbizUrl>ViewShipment?shipmentId=${parameters.shipmentId}</@ofbizUrl>" class="buttontext">${parameters.shipmentId}</a></#if>
                     </h3>
                   </td>
@@ -84,13 +84,13 @@ under the License.
 
                 <#list returnItems as returnItem>
                   <#assign defaultQuantity = returnItem.returnQuantity - receivedQuantities[returnItem.returnItemSeqId]?double>
-                  <#assign orderItem = returnItem.getRelatedOne("OrderItem", false)?if_exists>
+                  <#assign orderItem = returnItem.getRelatedOne("OrderItem", false)!>
                   <#if (orderItem?has_content && 0 < defaultQuantity)>
-                  <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType", false))?if_exists>
+                  <#assign orderItemType = (orderItem.getRelatedOne("OrderItemType", false))!>
                   <input type="hidden" name="returnId_o_${rowCount}" value="${returnItem.returnId}" />
                   <input type="hidden" name="returnItemSeqId_o_${rowCount}" value="${returnItem.returnItemSeqId}" />
-                  <input type="hidden" name="shipmentId_o_${rowCount}" value="${parameters.shipmentId?if_exists}" />
-                  <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId?if_exists}" />
+                  <input type="hidden" name="shipmentId_o_${rowCount}" value="${parameters.shipmentId!}" />
+                  <input type="hidden" name="facilityId_o_${rowCount}" value="${requestParameters.facilityId!}" />
                   <input type="hidden" name="datetimeReceived_o_${rowCount}" value="${now}" />
                   <input type="hidden" name="quantityRejected_o_${rowCount}" value="0" />
                   <input type="hidden" name="comments_o_${rowCount}" value="${uiLabelMap.OrderReturnedItemRaNumber} ${returnItem.returnId}" />
@@ -104,21 +104,21 @@ under the License.
                       <table cellspacing="0" class="basic-table">
                         <tr>
                           <#assign productId = "">
-                          <#if orderItem.productId?exists>
+                          <#if orderItem.productId??>
                             <#assign product = orderItem.getRelatedOne("Product", false)>
                             <#assign productId = product.productId>
                             <#assign serializedInv = product.getRelated("InventoryItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false)>
                             <input type="hidden" name="productId_o_${rowCount}" value="${product.productId}" />
                             <td width="45%">
                               <div>
-                                ${returnItem.returnItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam?if_exists}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${product.internalName?if_exists}</a> : ${product.description?if_exists}
+                                ${returnItem.returnItemSeqId}:&nbsp;<a href="/catalog/control/EditProduct?productId=${product.productId}${externalKeyParam!}" target="catalog" class="buttontext">${product.productId}&nbsp;-&nbsp;${product.internalName!}</a> : ${product.description!}
                                 <#if serializedInv?has_content><font color='red'>**${uiLabelMap.ProductSerializedInventoryFound}**</font></#if>
                               </div>
                             </td>
                           <#elseif orderItem?has_content>
                             <td width="45%">
                               <div>
-                                ${returnItem.returnItemSeqId}:&nbsp;<b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription?if_exists}&nbsp;&nbsp;
+                                ${returnItem.returnItemSeqId}:&nbsp;<b>${orderItemType.get("description",locale)}</b> : ${orderItem.itemDescription!}&nbsp;&nbsp;
                                 <input type="text" size="12" name="productId_o_${rowCount}" />
                                 <a href="/catalog/control/EditProduct?${StringUtil.wrapString(externalKeyParam)}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateProduct}</a>
                               </div>
@@ -126,7 +126,7 @@ under the License.
                           <#else>
                             <td width="45%">
                               <div>
-                                ${returnItem.returnItemSeqId}:&nbsp;${returnItem.get("description",locale)?if_exists}
+                                ${returnItem.returnItemSeqId}:&nbsp;${returnItem.get("description",locale)!}
                               </div>
                             </td>
                           </#if>
@@ -137,20 +137,20 @@ under the License.
                             <div class="label">${uiLabelMap.ProductLocation}</div>
                           </td>
                           <td align="right">
-                            <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))?if_exists>
+                            <#assign facilityLocations = (product.getRelated("ProductFacilityLocation", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", facilityId), null, false))!>
                             <#if facilityLocations?has_content>
                               <select name="locationSeqId_o_${rowCount}">
                                 <#list facilityLocations as productFacilityLocation>
                                   <#assign facility = productFacilityLocation.getRelatedOne("Facility", true)>
-                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation", false)?if_exists>
-                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists>
-                                  <option value="${productFacilityLocation.locationSeqId}"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?exists>(${facilityLocationTypeEnum.get("description",locale)})</#if>[${productFacilityLocation.locationSeqId}]</option>
+                                  <#assign facilityLocation = productFacilityLocation.getRelatedOne("FacilityLocation", false)!>
+                                  <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))!>
+                                  <option value="${productFacilityLocation.locationSeqId}"><#if facilityLocation??>${facilityLocation.areaId!}:${facilityLocation.aisleId!}:${facilityLocation.sectionId!}:${facilityLocation.levelId!}:${facilityLocation.positionId!}</#if><#if facilityLocationTypeEnum??>(${facilityLocationTypeEnum.get("description",locale)})</#if>[${productFacilityLocation.locationSeqId}]</option>
                                 </#list>
                                 <option value="">${uiLabelMap.ProductNoLocation}</option>
                               </select>
                             <#else>
                               <span>
-                                <#if parameters.facilityId?exists>
+                                <#if parameters.facilityId??>
                                     <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
                                 <#else>
                                     <#assign LookupFacilityLocationView="LookupFacilityLocation">
@@ -222,7 +222,7 @@ under the License.
                   </tr>
                   <tr>
                     <td colspan="2" align="right">
-                      <a href="<@ofbizUrl>ReceiveReturn?facilityId=${requestParameters.facilityId?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReturnToReceiving}</a>
+                      <a href="<@ofbizUrl>ReceiveReturn?facilityId=${requestParameters.facilityId!}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReturnToReceiving}</a>
                     </td>
                   </tr>
                 <#else>
@@ -241,7 +241,7 @@ under the License.
           <#-- Initial Screen -->
         <#else>
           <form name="selectAllForm" method="post" action="<@ofbizUrl>ReceiveReturn</@ofbizUrl>">
-            <input type="hidden" name="facilityId" value="${requestParameters.facilityId?if_exists}" />
+            <input type="hidden" name="facilityId" value="${requestParameters.facilityId!}" />
             <input type="hidden" name="initialSelected" value="Y" />
             <table cellspacing="0" class="basic-table">
               <tr><td colspan="4"><h3>${uiLabelMap.ProductReceiveReturn}</h3></td></tr>
@@ -249,7 +249,7 @@ under the License.
                 <td width="15%" align='right' class="label">${uiLabelMap.ProductReturnNumber}</td>
                 <td>&nbsp;</td>
                 <td width="90%">
-                  <input type="text" name="returnId" size="20" maxlength="20" value="${requestParameters.returnId?if_exists}" />
+                  <input type="text" name="returnId" size="20" maxlength="20" value="${requestParameters.returnId!}" />
                 </td>
                 <td>&nbsp;</td>
               </tr>

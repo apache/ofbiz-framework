@@ -28,8 +28,8 @@
     jQuery(document).ready(loadTrees);
     jQuery(document).ready(createEditor);
 
-    var contentRoot = '${contentRoot?if_exists}';
-    var webSiteId = '${webSiteId?if_exists}';
+    var contentRoot = '${contentRoot!}';
+    var webSiteId = '${webSiteId!}';
     var editorUrl = '<@ofbizUrl>/views/WebSiteCMSContent</@ofbizUrl>';
     var aliasUrl = '<@ofbizUrl>/views/WebSiteCMSPathAlias</@ofbizUrl>';
     var metaUrl = '<@ofbizUrl>/views/WebSiteCMSMetaInfo</@ofbizUrl>';
@@ -53,7 +53,7 @@
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', jQuery('#${assoc.contentIdTo}'), '');"}},
            
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)?if_exists/>
+            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
                 "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}", "contentAssocTypeId" : "${assoc.contentAssocTypeId}"}
             <#if assocChilds?has_content>
                 ,"children": [
@@ -74,7 +74,7 @@
             <#assign content = assoc.getRelatedOne("ToContent", false)/>
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('${assoc.contentIdTo}');"}},
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)?if_exists/>
+            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
                 "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
             <#if assocChilds?has_content>
                 ,"children": [
@@ -96,7 +96,7 @@
             <#assign content = assoc.getRelatedOne("ToContent", false)/>
             {
             "data": {"title" : cutNameLength("${content.contentName!assoc.contentIdTo}"), "attr": {"href": "javascript:void(0);", "onClick" : "callDocument('', '${assoc.contentIdTo}', '', '');"}},
-            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)?if_exists/>
+            <#assign assocChilds  = content.getRelated("FromContentAssoc", null, null, false)!/>
                 "attr": {"id" : "${assoc.contentIdTo}", "contentId" : "${assoc.contentId}", "fromDate" : "${assoc.fromDate}"}
             <#if assocChilds?has_content>
                 ,"children": [

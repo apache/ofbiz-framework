@@ -22,7 +22,7 @@ under the License.
   <div class="screenlet-title-bar">
     <h3>${uiLabelMap.ManufacturingEditCalendarExceptionDayFor}&nbsp;
     <#if (techDataCalendar.description)?has_content>"${(techDataCalendar.get("description",locale))}"</#if>
-    [${uiLabelMap.CommonId} ${techDataCalendar.calendarId?if_exists}]</h3>
+    [${uiLabelMap.CommonId} ${techDataCalendar.calendarId!}]</h3>
   </div>
   <div class="screenlet-body">
     ${listCalendarExceptionDayWrapper.renderFormString(context)}

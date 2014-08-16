@@ -30,21 +30,21 @@
             <PersonName>${PersonName?xml}</PersonName>
             <CompanyName>${CompanyName?xml}</CompanyName>
             <PhoneNumber>${PhoneNumber?xml}</PhoneNumber>
-            <#if FaxNumber?exists>
+            <#if FaxNumber??>
                 <FaxNumber>${FaxNumber?xml}</FaxNumber>
             </#if>
-            <#if EMailAddress?exists>
+            <#if EMailAddress??>
                 <#-- Freemarker has a problem with the E-MailAddress tag name, so the opening and closing tags need to be wrapped in the noparse directive. -->
                 <#noparse><E-MailAddress></#noparse>${EMailAddress?xml}<#noparse></E-MailAddress></#noparse>
             </#if>
         </Contact>
         <Address>
             <Line1>${Line1?xml}</Line1>
-            <#if Line2?exists>
+            <#if Line2??>
                 <Line2>${Line2?xml}</Line2>
             </#if>
             <City>${City?xml}</City>
-            <#if StateOrProvinceCode?exists>
+            <#if StateOrProvinceCode??>
                 <StateOrProvinceCode>${StateOrProvinceCode?xml}</StateOrProvinceCode>
             </#if>
             <PostalCode>${PostalCode?xml}</PostalCode>

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if product?exists && mainProducts?exists>
+<#if product?? && mainProducts??>
     <select name="parentProductId" onchange="javascript:displayProductVirtualVariantId(this.value);">
         <option value="">Select Unit Of Measure</option>
         <#list mainProducts as mainProduct>

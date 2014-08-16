@@ -48,66 +48,66 @@ under the License.
      </tr>
      <#list acctgTransAndEntries as acctgTransEntry>
      <tr>
-       <td>${acctgTransEntry.acctgTransId?if_exists}</td>
-       <td>${acctgTransEntry.acctgTransEntrySeqId?if_exists}</td>
-       <td>${acctgTransEntry.isPosted?if_exists}</td>
+       <td>${acctgTransEntry.acctgTransId!}</td>
+       <td>${acctgTransEntry.acctgTransEntrySeqId!}</td>
+       <td>${acctgTransEntry.isPosted!}</td>
        <td>
          <#if acctgTransEntry.glFiscalTypeId?has_content>
            <#assign glFiscalType = delegator.findOne("GlFiscalType", {"glFiscalTypeId" : acctgTransEntry.glFiscalTypeId}, false)/>
-             ${glFiscalType.description?if_exists}
+             ${glFiscalType.description!}
          </#if>
        </td>
        <td>
          <#if acctgTransEntry.acctgTransTypeId?has_content>
            <#assign acctgTransType = delegator.findOne("AcctgTransType", {"acctgTransTypeId" : acctgTransEntry.acctgTransTypeId}, false)/>
-             ${acctgTransType.description?if_exists}
+             ${acctgTransType.description!}
          </#if>
        </td>
-       <td>${acctgTransEntry.transactionDate?if_exists}</td>
-       <td>${acctgTransEntry.postedDate?if_exists}</td>
-       <td>${acctgTransEntry.glJournal?if_exists}</td>
-       <td>${acctgTransEntry.transTypeDescription?if_exists}</td>
-       <td>${acctgTransEntry.invoiceId?if_exists}</td>
-       <td>${acctgTransEntry.glAccountId?if_exists}</td>
-       <td>${acctgTransEntry.productId?if_exists}</td>
-       <td>${acctgTransEntry.debitCreditFlag?if_exists}</td>
-       <td>${acctgTransEntry.amount?if_exists}</td>
-       <td>${acctgTransEntry.origAmount?if_exists}</td>
+       <td>${acctgTransEntry.transactionDate!}</td>
+       <td>${acctgTransEntry.postedDate!}</td>
+       <td>${acctgTransEntry.glJournal!}</td>
+       <td>${acctgTransEntry.transTypeDescription!}</td>
+       <td>${acctgTransEntry.invoiceId!}</td>
+       <td>${acctgTransEntry.glAccountId!}</td>
+       <td>${acctgTransEntry.productId!}</td>
+       <td>${acctgTransEntry.debitCreditFlag!}</td>
+       <td>${acctgTransEntry.amount!}</td>
+       <td>${acctgTransEntry.origAmount!}</td>
        <td>
          <#if acctgTransEntry.organizationPartyId?has_content>
            <#assign partyName = delegator.findOne("PartyNameView", {"partyId" : acctgTransEntry.organizationPartyId}, false)>
            <#if partyName.partyTypeId == "PERSON">
-             ${partyName.firstName?if_exists} ${partyName.lastName?if_exists}
+             ${partyName.firstName!} ${partyName.lastName!}
            <#elseif (partyName.partyTypeId) != "PARTY_GROUP">
-             ${partyName.groupName?if_exists}
+             ${partyName.groupName!}
            </#if>
          </#if>
        </td>
        <td>
          <#if (acctgTransEntry.glAccountTypeId)?has_content>
            <#assign glAccountType = delegator.findOne("GlAccountType", {"glAccountTypeId" : acctgTransEntry.glAccountTypeId}, false)>
-             ${glAccountType.description?if_exists}
+             ${glAccountType.description!}
          </#if>
        </td>
-       <td>${acctgTransEntry.accountCode?if_exists}</td>
-       <td>${acctgTransEntry.accountName?if_exists}</td>
+       <td>${acctgTransEntry.accountCode!}</td>
+       <td>${acctgTransEntry.accountName!}</td>
        <td>
          <#if acctgTransEntry.glAccountClassId?has_content>
            <#assign glAccountClass = delegator.findOne("GlAccountClass", {"glAccountClassId" : acctgTransEntry.glAccountClassId}, false)/>
-             ${glAccountClass.description?if_exists}
+             ${glAccountClass.description!}
          </#if>
        </td>
-       <td>${acctgTransEntry.partyId?if_exists}</td>
+       <td>${acctgTransEntry.partyId!}</td>
        <td>
          <#if acctgTransEntry.reconcileStatusId?has_content>
            <#assign status = delegator.findOne("StatusItem", {"statusId" : finAccountTrans.statusId}, true)>
-             ${status.description?if_exists}
+             ${status.description!}
          </#if>
        </td>
        <td>
          <#if acctgTransEntry.acctgTransEntryTypeId?has_content>
            <#assign acctgTransEntryType = delegator.findOne("AcctgTransEntryType", {"acctgTransEntryTypeId" : acctgTransEntry.acctgTransEntryTypeId}, true)>
-             ${acctgTransEntryType.description?if_exists}
+             ${acctgTransEntryType.description!}
          </#if>
        </td>
      </tr>

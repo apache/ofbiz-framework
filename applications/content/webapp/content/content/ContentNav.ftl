@@ -108,7 +108,7 @@ var rawdata = [
 
 <#-------------------------------------------------------------------------------------callDocument function-->
     function callDocument(contentId) {
-        var tabitem='${tabButtonItem?if_exists}';
+        var tabitem='${tabButtonItem!}';
         if (tabitem=="navigateContent")
             listDocument = '<@ofbizUrl>/views/ListDocument</@ofbizUrl>';
         if (tabitem=="LookupContentTree")

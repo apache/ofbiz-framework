@@ -28,7 +28,7 @@ under the License.
             <#assign productCategory = productPromoCategory.getRelatedOne("ProductCategory", true)>
             <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories! = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
@@ -38,7 +38,7 @@ under the License.
             <#assign productCategory = productPromoCategory.getRelatedOne("ProductCategory", true)>
             <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories! = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>
@@ -48,7 +48,7 @@ under the License.
             <#assign productCategory = productPromoCategory.getRelatedOne("ProductCategory", true)>
             <div>
                 -&nbsp;<a href="<@ofbizUrl>category/~category_id=${productPromoCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${(productCategory.description)?default(productPromoCategory.productCategoryId)}</a>
-                <#if productPromoCategory.includeSubCategories?if_exists = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
+                <#if productPromoCategory.includeSubCategories! = "Y">(${uiLabelMap.OrderIncludeSubCategories})</#if>
             </div>
           </#list>
         </#if>

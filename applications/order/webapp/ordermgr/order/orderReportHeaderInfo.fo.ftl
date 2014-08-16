@@ -43,7 +43,7 @@ under the License.
                       <fo:table-cell><fo:block>${uiLabelMap.OrderCurrentStatus}</fo:block></fo:table-cell>
                       <fo:table-cell><fo:block font-weight="bold">${currentStatus.get("description",locale)}</fo:block></fo:table-cell>
                     </fo:table-row>
-                    <#if orderItem.cancelBackOrderDate?exists>
+                    <#if orderItem.cancelBackOrderDate??>
                       <fo:table-row>
                         <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_cancelBackOrderDate}</fo:block></fo:table-cell>
                         <#assign dateFormat = Static["java.text.DateFormat"].LONG>

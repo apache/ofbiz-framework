@@ -30,15 +30,15 @@ function insertImageName(size,nameValue) {
     <#if !(clientFileName?has_content)>
         <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
     <#else>
-        <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-        <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-        <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-        <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+        <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName!}</b></div>
+        <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse!}</b></div>
+        <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath!}</b></div>
+        <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl!}</@ofbizContentUrl>">${imageUrl!}</a></b></div>
     </#if>
 <br />
 </#if>
 
-<#if !(configItem?exists)>
+<#if !(configItem??)>
     <h3>${uiLabelMap.ProductCouldNotFindProductConfigItem} "${configItemId}".</h3>
 <#else>
     <table cellspacing="0" class="basic-table">
@@ -60,7 +60,7 @@ function insertImageName(size,nameValue) {
             <td>${productContent.fromDate?default("N/A")}</td>
             <td>${productContent.thruDate?default("N/A")}</td>
             <td><a href="<@ofbizUrl>removeContentFromProductConfigItem?configItemId=${productContent.configItemId}&amp;contentId=${productContent.contentId}&amp;confItemContentTypeId=${productContent.confItemContentTypeId}&amp;fromDate=${productContent.fromDate}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
-            <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
+            <td><a href="/content/control/EditContent?contentId=${productContent.contentId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}" class="buttontext">${uiLabelMap.ProductEditContent} ${entry.content.contentId}</td>
          </tr>
          <#-- toggle the row color -->
          <#if rowClass == "2">
@@ -95,26 +95,26 @@ function insertImageName(size,nameValue) {
         </div>
         <div class="screenlet-body">
             <form action="<@ofbizUrl>updateProductConfigItemContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
-                <input type="hidden" name="configItemId" value="${configItemId?if_exists}" />
+                <input type="hidden" name="configItemId" value="${configItemId!}" />
                 <table cellspacing="0" class="basic-table">
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">${uiLabelMap.CommonDescription}</td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                        <textarea name="description" cols="60" rows="2">${(configItem.description)?if_exists}</textarea>
+                        <textarea name="description" cols="60" rows="2">${(configItem.description)!}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">${uiLabelMap.ProductLongDescription}</td>
                     <td>&nbsp;</td>
                     <td width="80%" colspan="4" valign="top">
-                        <textarea name="longDescription" cols="60" rows="7">${(configItem.longDescription)?if_exists}</textarea>
+                        <textarea name="longDescription" cols="60" rows="7">${(configItem.longDescription)!}</textarea>
                     </td>
                 </tr>
                 <tr>
                     <td width="20%" align="right" valign="top" class="label">
                         ${uiLabelMap.ProductSmallImage}
-                        <#if (configItem.imageUrl)?exists>
+                        <#if (configItem.imageUrl)??>
                             <a href="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Image" src="<@ofbizContentUrl>${configItem.imageUrl}</@ofbizContentUrl>" class="cssImgSmall" /></a>
                         </#if>
                     </td>

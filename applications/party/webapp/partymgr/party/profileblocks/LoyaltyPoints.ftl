@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-  <#if monthsToInclude?exists && totalSubRemainingAmount?exists && totalOrders?exists>
+  <#if monthsToInclude?? && totalSubRemainingAmount?? && totalOrders??>
     <div id="totalOrders" class="screenlet">
       <div class="screenlet-title-bar">
         <ul>

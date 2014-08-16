@@ -38,7 +38,7 @@ under the License.
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block font-size="14pt">${uiLabelMap.OrderReportSalesByStore}</fo:block>
-            <#if !showProductStore><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.ProductProductStore}: ${parameters.productStoreId} - ${productReportList.get(0).storeName?if_exists}</fo:block></#if>
+            <#if !showProductStore><fo:block font-size="10pt">${uiLabelMap.CommonFor} ${uiLabelMap.ProductProductStore}: ${parameters.productStoreId} - ${productReportList.get(0).storeName!}</fo:block></#if>
             <#if !showToParty><fo:block font-size="10pt">${uiLabelMap.PartyParty}: ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, toPartyId, false)}</fo:block></#if>
             <fo:block font-size="10pt">${uiLabelMap.FormFieldTitle_orderStatusId}:
                 <#if parameters.orderStatusId?has_content>${parameters.orderStatusId}<#else>${uiLabelMap.CommonAny}</#if>
@@ -66,21 +66,21 @@ under the License.
                 <fo:table-body>
                     <#assign rowColor = "white">
                     <#list productReportList as productReport>
-                      <#if productReport.quantityOrdered?exists && (productReport.quantityOrdered > 0)>
+                      <#if productReport.quantityOrdered?? && (productReport.quantityOrdered > 0)>
                         <fo:table-row>
                             <#if showProductStore>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${productReport.productStoreId?if_exists}</fo:block>
+                                    <fo:block>${productReport.productStoreId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.internalName?default("")} (${productReport.productId?if_exists})</fo:block>
+                                <fo:block>${productReport.internalName?default("")} (${productReport.productId!})</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.quantityOrdered?if_exists}</fo:block>
+                                <fo:block>${productReport.quantityOrdered!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.unitPrice?if_exists}</fo:block>
+                                <fo:block>${productReport.unitPrice!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->

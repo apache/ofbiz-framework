@@ -41,14 +41,14 @@ under the License.
             <#if (visitObj_index > 4)><#break></#if>
               <tr>
                 <td class="button-col">
-                  <a href="<@ofbizUrl>visitdetail?visitId=${visitObj.visitId?if_exists}</@ofbizUrl>">${visitObj.visitId?if_exists}</a>
+                  <a href="<@ofbizUrl>visitdetail?visitId=${visitObj.visitId!}</@ofbizUrl>">${visitObj.visitId!}</a>
                 </td>
-                <td>${visitObj.userLoginId?if_exists}</td>
-                <td>${visitObj.userCreated?if_exists}</td>
-                <td>${visitObj.webappName?if_exists}</td>
-                <td>${visitObj.clientIpAddress?if_exists}</td>
-                <td>${(visitObj.fromDate.toString())?if_exists}</td>
-                <td>${(visitObj.thruDate.toString())?if_exists}</td>
+                <td>${visitObj.userLoginId!}</td>
+                <td>${visitObj.userCreated!}</td>
+                <td>${visitObj.webappName!}</td>
+                <td>${visitObj.clientIpAddress!}</td>
+                <td>${(visitObj.fromDate.toString())!}</td>
+                <td>${(visitObj.thruDate.toString())!}</td>
               </tr>
           </#list>
         </table>

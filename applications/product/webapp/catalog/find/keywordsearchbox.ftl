@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if (requestAttributes.uiLabelMap)?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
+<#if (requestAttributes.uiLabelMap)??><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -36,19 +36,19 @@ under the License.
   <fieldset>
     <div>
       <label for="keywordSearchString">${uiLabelMap.ProductKeywords}:</label>
-      <input type="text" name="SEARCH_STRING" id="keywordSearchString" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING?if_exists}" />
+      <input type="text" name="SEARCH_STRING" id="keywordSearchString" size="20" maxlength="50" value="${requestParameters.SEARCH_STRING!}" />
     </div>
     <div>
       <label for="keywordSearchCategoryId">${uiLabelMap.ProductCategoryId}:</label>
-      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="keywordsearchform" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" fieldFormName="LookupProductCategory"/>
+      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}" formName="keywordsearchform" name="SEARCH_CATEGORY_ID" id="keywordSearchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
       <label for="keywordSearchCointains">${uiLabelMap.CommonNoContains}</label>
-      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if requestParameters.SEARCH_CONTAINS?if_exists == "N">checked="checked"</#if> />
+      <input type="checkbox" name="SEARCH_CONTAINS" id="keywordSearchCointains" value="N" <#if requestParameters.SEARCH_CONTAINS! == "N">checked="checked"</#if> />
       <label for="keywordSearchOperatorOr">${uiLabelMap.CommonAny}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if requestParameters.SEARCH_OPERATOR?if_exists != "AND">checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorOr" value="OR" <#if requestParameters.SEARCH_OPERATOR! != "AND">checked="checked"</#if> />
       <label for="keywordSearchOperatorAnd">${uiLabelMap.CommonAll}</label>
-      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if requestParameters.SEARCH_OPERATOR?if_exists == "AND">checked="checked"</#if> />
+      <input type="radio" name="SEARCH_OPERATOR" id="keywordSearchOperatorAnd" value="AND" <#if requestParameters.SEARCH_OPERATOR! == "AND">checked="checked"</#if> />
     </div>
     <div>
       <input type="submit" name="find" value="${uiLabelMap.CommonFind}" class="buttontext" />
@@ -59,7 +59,7 @@ under the License.
   <fieldset>
     <div>
       <label for="searchCategoryId">${uiLabelMap.ProductCategoryId}:</label>
-      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="advancedsearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
+      <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}" formName="advancedsearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
     </div>
     <div>
     <a href="javascript:document.getElementById('advancedSearchForm').submit()" class="buttontext">${uiLabelMap.ProductAdvancedSearch}</a>
@@ -70,7 +70,7 @@ under the License.
   <fieldset>
     <input type="hidden" name="viewSize" value="20" />
     <input type="hidden" name="viewIndex" value="1" />
-    <@htmlTemplate.lookupField value="${requestParameters.productId?if_exists}" formName="productjumpform" name="productId" id="productJumpFormProductId" fieldFormName="LookupProduct"/>
+    <@htmlTemplate.lookupField value="${requestParameters.productId!}" formName="productjumpform" name="productId" id="productJumpFormProductId" fieldFormName="LookupProduct"/>
     <select name="DUMMYPAGE" id="dummyPage" onchange="submitProductJump()">
         <option value="<@ofbizUrl>EditProduct</@ofbizUrl>">-${uiLabelMap.ProductProductJump}-</option>
         <option value="<@ofbizUrl>EditProductQuickAdmin</@ofbizUrl>">${uiLabelMap.ProductQuickAdmin}</option>

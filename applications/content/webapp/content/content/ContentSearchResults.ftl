@@ -58,7 +58,7 @@ under the License.
           <#assign content = delegator.findOne("Content", Static["org.ofbiz.base.util.UtilMisc"].toMap("contentId", contentId), false)>
           <tr>
             <td>
-              <a href="<@ofbizUrl>editContent?contentId=${contentId}</@ofbizUrl>" class="buttontext">${contentId} ${(content.contentName)?if_exists}</a>
+              <a href="<@ofbizUrl>editContent?contentId=${contentId}</@ofbizUrl>" class="buttontext">${contentId} ${(content.contentName)!}</a>
             </td>
           </tr>
         </#list>

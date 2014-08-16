@@ -177,16 +177,16 @@ function submitForm(form, mode, value) {
                       </td>
                       <td valign="top">
                         <div>
-                          <#if shoppingCart.getShippingContactMechId()?exists>
+                          <#if shoppingCart.getShippingContactMechId()??>
                             <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                           </#if>
-                          <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+                          <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                           <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
                         </div>
                       </td>
                     </tr>
                   </#list>
-                  <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
+                  <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
                     <tr>
                       <td width="1%" valign="top">
                         <input type="radio" name="shipping_method" value="Default" checked="checked"/>
@@ -231,11 +231,11 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <textarea cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+                      <textarea cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()!}</textarea>
                     </td>
                   </tr>
                  <#if shipping == true>
-                  <#if productStore.showCheckoutGiftOptions?if_exists != "N" && giftEnable?if_exists != "N">
+                  <#if productStore.showCheckoutGiftOptions! != "N" && giftEnable! != "N">
                   <tr><td colspan="2"><hr /></td></tr>
                   <tr>
                     <td colspan="2">
@@ -254,7 +254,7 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td colspan="2">
-                      <textarea cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+                      <textarea cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
                     </td>
                   </tr>
                   <#else/>
@@ -273,15 +273,15 @@ function submitForm(form, mode, value) {
                       <div>
                       <b>
                       <#list emailList as email>
-                        ${email.infoString?if_exists}<#if email_has_next>,</#if>
+                        ${email.infoString!}<#if email_has_next>,</#if>
                       </#list>
                       </b>
                       </div>
-                      <div>${uiLabelMap.OrderUpdateEmailAddress} <a href="<#if customerDetailLink?exists>${customerDetailLink}${shoppingCart.getPartyId()}" target="partymgr"
+                      <div>${uiLabelMap.OrderUpdateEmailAddress} <a href="<#if customerDetailLink??>${customerDetailLink}${shoppingCart.getPartyId()}" target="partymgr"
                         <#else><@ofbizUrl>viewprofile?DONE_PAGE=quickcheckout</@ofbizUrl>"</#if> class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
                       <br />
                       <div>${uiLabelMap.OrderCommaSeperatedEmailAddresses}:</div>
-                      <input type="text" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
+                      <input type="text" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()!}"/>
                     </td>
                   </tr>
                 </table>
@@ -302,10 +302,10 @@ function submitForm(form, mode, value) {
                   <tr>
                     <td colspan="2">
                       <span>${uiLabelMap.CommonAdd}:</span>
-                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
+                      <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD??>
                         <a href="javascript:submitForm(document.checkoutInfoForm, 'NC', '');" class="buttontext">${uiLabelMap.AccountingCreditCard}</a>
                       </#if>
-                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
+                      <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT??>
                         <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEFTAccount}</a>
                       </#if>
                     </td>
@@ -317,7 +317,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   <tr><td colspan="2"><hr /></td></tr>
-                  <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE?exists>
+                  <#if productStorePaymentMethodTypeIdMap.EXT_OFFLINE??>
                   <tr>
                     <td width="1%">
                       <input type="radio" name="checkOutPaymentId" value="EXT_OFFLINE" <#if "EXT_OFFLINE" == checkOutPaymentId>checked="checked"</#if>/>
@@ -327,7 +327,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   </#if>
-                  <#if productStorePaymentMethodTypeIdMap.EXT_COD?exists>
+                  <#if productStorePaymentMethodTypeIdMap.EXT_COD??>
                   <tr>
                     <td width="1%">
                       <input type="radio" name="checkOutPaymentId" value="EXT_COD" <#if "EXT_COD" == checkOutPaymentId>checked="checked"</#if>/>
@@ -337,7 +337,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   </#if>
-                  <#if productStorePaymentMethodTypeIdMap.EXT_WORLDPAY?exists>
+                  <#if productStorePaymentMethodTypeIdMap.EXT_WORLDPAY??>
                   <tr>
                     <td width="1%">
                       <input type="radio" name="checkOutPaymentId" value="EXT_WORLDPAY" <#if "EXT_WORLDPAY" == checkOutPaymentId>checked="checked"</#if>/>
@@ -347,7 +347,7 @@ function submitForm(form, mode, value) {
                     </td>
                   </tr>
                   </#if>
-                  <#if productStorePaymentMethodTypeIdMap.EXT_PAYPAL?exists>
+                  <#if productStorePaymentMethodTypeIdMap.EXT_PAYPAL??>
                   <tr>
                     <td width="1%">
                       <input type="radio" name="checkOutPaymentId" value="EXT_PAYPAL" <#if "EXT_PAYPAL" == checkOutPaymentId>checked="checked"</#if>/>
@@ -382,7 +382,7 @@ function submitForm(form, mode, value) {
                   <#else>
                   <#list paymentMethodList as paymentMethod>
                     <#if paymentMethod.paymentMethodTypeId == "CREDIT_CARD">
-                     <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD?exists>
+                     <#if productStorePaymentMethodTypeIdMap.CREDIT_CARD??>
                       <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)>
                       <tr>
                         <td width="1%">
@@ -397,21 +397,21 @@ function submitForm(form, mode, value) {
                       </tr>
                      </#if>
                     <#elseif paymentMethod.paymentMethodTypeId == "EFT_ACCOUNT">
-                     <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
+                     <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT??>
                       <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
                       <tr>
                         <td width="1%">
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
                         </td>
                         <td width="50%">
-                          <span>${uiLabelMap.AccountingEFTAccount}:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>
+                          <span>${uiLabelMap.AccountingEFTAccount}:&nbsp;${eftAccount.bankName!}: ${eftAccount.accountNumber!}</span>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                           <#if paymentMethod.description?has_content><br /><span>(${paymentMethod.description})</span></#if>
                         </td>
                       </tr>
                      </#if>
                     <#elseif paymentMethod.paymentMethodTypeId == "GIFT_CARD">
-                     <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
+                     <#if productStorePaymentMethodTypeIdMap.GIFT_CARD??>
                       <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
 
                       <#if giftCard?has_content && giftCard.cardNumber?has_content>
@@ -446,7 +446,7 @@ function submitForm(form, mode, value) {
                   </#if>
 
                 <#-- special billing account functionality to allow use w/ a payment method -->
-                <#if productStorePaymentMethodTypeIdMap.EXT_BILLACT?exists>
+                <#if productStorePaymentMethodTypeIdMap.EXT_BILLACT??>
                   <#if billingAccountList?has_content>
                     <tr><td colspan="2"><hr /></td></tr>
                     <tr>
@@ -476,7 +476,7 @@ function submitForm(form, mode, value) {
                 </#if>
                 <#-- end of special billing account functionality -->
 
-                <#if productStorePaymentMethodTypeIdMap.GIFT_CARD?exists>
+                <#if productStorePaymentMethodTypeIdMap.GIFT_CARD??>
                   <tr><td colspan="2"><hr /></td></tr>
                   <tr>
                     <td width="1%">
@@ -491,7 +491,7 @@ function submitForm(form, mode, value) {
                       <div>${uiLabelMap.AccountingNumber}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="15" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="15" name="giftCardNumber" value="${(requestParameters.giftCardNumber)!}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                   <#if shoppingCart.isPinRequiredForGC(delegator)>
@@ -500,7 +500,7 @@ function submitForm(form, mode, value) {
                       <div>${uiLabelMap.AccountingPIN}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="10" name="giftCardPin" value="${(requestParameters.giftCardPin)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="10" name="giftCardPin" value="${(requestParameters.giftCardPin)!}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                   </#if>
@@ -509,7 +509,7 @@ function submitForm(form, mode, value) {
                       <div>${uiLabelMap.AccountingAmount}</div>
                     </td>
                     <td width="50%">
-                      <input type="text" size="6" name="giftCardAmount" value="${(requestParameters.giftCardAmount)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
+                      <input type="text" size="6" name="giftCardAmount" value="${(requestParameters.giftCardAmount)!}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>
                     </td>
                   </tr>
                 </#if>

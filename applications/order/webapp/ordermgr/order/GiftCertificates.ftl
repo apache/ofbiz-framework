@@ -19,15 +19,15 @@ under the License.
 
 <form id="addGiftCertificate" action="<@ofbizUrl>addGiftCertificateSurvey</@ofbizUrl>" method="post">
   <fieldset>
-    <#if surveyId?exists && surveyId?has_content>
+    <#if surveyId?? && surveyId?has_content>
       <input type="hidden" name="quantity" value="1" />
-      <input type="hidden" name="surveyId" value="${surveyId?if_exists}" />
+      <input type="hidden" name="surveyId" value="${surveyId!}" />
       <#if giftCardProductList?has_content>
         <label>${uiLabelMap.OrderSelectGiftAmount}</label>
         <#list giftCardProductList?sort_by("price") as giftCardProduct>
           <div>
-            <input type="radio" name="add_product_id" id="productId_${giftCardProduct.price?if_exists}" value="${giftCardProduct.productId?if_exists}" checked="checked" />
-            <label for="productId_${giftCardProduct.price?if_exists}"> ${giftCardProduct.productId?if_exists}&nbsp;:&nbsp;${giftCardProduct.productName?if_exists}&nbsp;:&nbsp;<@ofbizCurrency amount=giftCardProduct.price?if_exists isoCode=currencyUomId/></label>
+            <input type="radio" name="add_product_id" id="productId_${giftCardProduct.price!}" value="${giftCardProduct.productId!}" checked="checked" />
+            <label for="productId_${giftCardProduct.price!}"> ${giftCardProduct.productId!}&nbsp;:&nbsp;${giftCardProduct.productName!}&nbsp;:&nbsp;<@ofbizCurrency amount=giftCardProduct.price! isoCode=currencyUomId/></label>
           </div>
         </#list>
         <div>

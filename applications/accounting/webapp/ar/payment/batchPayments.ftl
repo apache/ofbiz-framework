@@ -139,19 +139,19 @@ function setServiceName(selection) {
                         <option value="massPaymentsToVoid">${uiLabelMap.AccountingPaymentTabStatusToVoid}</option>
                     </select>
                     <input id="submitButton" type="button" onclick="javascript:jQuery('#paymentBatchForm').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
-                    <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}" />
+                    <input type="hidden" name='organizationPartyId' value="${organizationPartyId!}" />
                     <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT" />
                     <input type="hidden" name="groupInOneTransaction" value="Y" />
                     <input type="hidden" name="paymentStatusChange" id="paymentStatusChange" value="<@ofbizUrl>massChangePaymentStatus</@ofbizUrl>" />
-                    <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId?if_exists}" />
+                    <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId!}" />
                     <#if finAccountId?has_content>
-                        <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}" />
+                        <input type="hidden" name='finAccountId' value="${finAccountId!}" />
                     </#if>
-                    <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}" />
-                    <input type="hidden" name='cardType' value="${cardType?if_exists}" />
-                    <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}" />
-                    <input type="hidden" name='fromDate' value="${fromDate?if_exists}" />
-                    <input type="hidden" name='thruDate' value="${thruDate?if_exists}" />
+                    <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId!}" />
+                    <input type="hidden" name='cardType' value="${cardType!}" />
+                    <input type="hidden" name='partyIdFrom' value="${partyIdFrom!}" />
+                    <input type="hidden" name='fromDate' value="${fromDate!}" />
+                    <input type="hidden" name='thruDate' value="${thruDate!}" />
                 </div>
                 </div>
                 <div id="createPaymentBatch" style="display: none;" class="align-float">
@@ -198,23 +198,23 @@ function setServiceName(selection) {
                         <td>
                           ${payment.statusDesc?default(payment.statusId)}
                         </td>
-                        <td>${(payment.comments)?if_exists}</td>
+                        <td>${(payment.comments)!}</td>
                         <td>
-                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(payment.partyFromFirstName)?if_exists} ${(payment.partyFromLastName)?if_exists} ${(payment.partyFromGroupName)?if_exists}[${(payment.partyIdFrom)?if_exists}]</a>
+                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdFrom}">${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}[${(payment.partyIdFrom)!}]</a>
                         </td>
                         <td>
-                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdTo}">${(payment.partyToFirstName)?if_exists} ${(payment.partyToLastName)?if_exists} ${(payment.partyToGroupName)?if_exists}[${(payment.partyIdTo)?if_exists}]</a>
+                          <a href="/partymgr/control/viewprofile?partyId=${payment.partyIdTo}">${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}[${(payment.partyIdTo)!}]</a>
                         </td>
-                        <td>${payment.effectiveDate?if_exists}</td>
+                        <td>${payment.effectiveDate!}</td>
                         <td><@ofbizCurrency amount = payment.amount isoCode = payment.currencyUomId /></td>
                         <td>
                           <#assign amountToApply = Static["org.ofbiz.accounting.payment.PaymentWorker"].getPaymentNotApplied(payment) />
                           <@ofbizCurrency amount = amountToApply isoCode = amountToApply.currencyUomId />
                         </td>
                         <td>
-                          <#assign creditCard = (delegator.findOne("CreditCard", {"paymentMethodId" : payment.paymentMethodId}, false))?if_exists />
+                          <#assign creditCard = (delegator.findOne("CreditCard", {"paymentMethodId" : payment.paymentMethodId}, false))! />
                           ${payment.paymentMethodTypeDesc?default(payment.paymentMethodTypeId)}
-                          <#if creditCard?has_content>/${(creditCard.cardType)?if_exists}</#if>
+                          <#if creditCard?has_content>/${(creditCard.cardType)!}</#if>
                         </td>
                         <td>
                           <input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal('paymentId_${payment_index}');" />

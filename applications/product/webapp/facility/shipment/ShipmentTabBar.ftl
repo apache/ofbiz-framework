@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if requestAttributes.uiLabelMap?exists>
+<#if requestAttributes.uiLabelMap??>
 <#assign uiLabelMap = requestAttributes.uiLabelMap>
 </#if>
 <#assign selected = tabButtonItem?default("void")>
@@ -25,17 +25,17 @@ under the License.
         <ul>
             <li<#if selected="ViewShipment"> class="selected"</#if>><a href="<@ofbizUrl>ViewShipment?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.CommonView}</a></li>
             <li<#if selected="EditShipment"> class="selected"</#if>><a href="<@ofbizUrl>EditShipment?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a></li>
-        <#if (shipment.shipmentTypeId)?exists && shipment.shipmentTypeId = "PURCHASE_RETURN">
+        <#if (shipment.shipmentTypeId)?? && shipment.shipmentTypeId = "PURCHASE_RETURN">
             <li<#if selected="AddItemsFromInventory"> class="selected"</#if>><a href="<@ofbizUrl>AddItemsFromInventory?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
         </#if>
-        <#if (shipment.shipmentTypeId)?exists && shipment.shipmentTypeId = "SALES_SHIPMENT">
+        <#if (shipment.shipmentTypeId)?? && shipment.shipmentTypeId = "SALES_SHIPMENT">
             <li<#if selected="EditShipmentPlan"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPlan?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentPlan}</a></li>
             <li<#if selected="AddItemsFromOrder"> class="selected"</#if>><a href="<@ofbizUrl>AddItemsFromOrder?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
             <li<#if selected="EditShipmentItems"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentItems?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductItems}</a></li>
             <li<#if selected="EditShipmentPackages"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPackages?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductPackages}</a></li>
             <li<#if selected="EditShipmentRouteSegments"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentRouteSegments?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductRouteSegments}</a></li>
         </#if>
-        <#if (shipment.shipmentTypeId)?exists && shipment.shipmentTypeId='PURCHASE_SHIPMENT'>
+        <#if (shipment.shipmentTypeId)?? && shipment.shipmentTypeId='PURCHASE_SHIPMENT'>
             <li<#if selected="EditShipmentPlan"> class="selected"</#if>><a href="<@ofbizUrl>EditShipmentPlan?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductOrderItems}</a></li>
             <li<#if selected="ViewShipmentReceipts"> class="selected"</#if>><a href="<@ofbizUrl>ViewShipmentReceipts?shipmentId=${shipmentId}</@ofbizUrl>">${uiLabelMap.ProductShipmentReceipts}</a></li>
         </#if>

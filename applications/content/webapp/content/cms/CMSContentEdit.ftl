@@ -32,7 +32,7 @@ ${menuWrapper.renderMenuString()}
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
     <td>
-      <h1>${contentId?if_exists}
+      <h1>${contentId!}
       </h1>
     </td>
     <td align="right">
@@ -43,7 +43,7 @@ ${menuWrapper.renderMenuString()}
 
 
 <#if currentValue?has_content>
-    <@renderTextData content=currentValue textData=textData?if_exists />
+    <@renderTextData content=currentValue textData=textData! />
 </#if>
 <#--
 <#if textList?has_content>
@@ -178,7 +178,7 @@ ${menuWrapper.renderMenuString()}
             <div class="boxhead">&nbsp;Image Information</div>
           </td>
           <td valign="middle" align="right">
-            <a href="<@ofbizUrl>EditAddImage?contentId=${imgContentId?if_exists}dataResourceId=${imgDataResourceId?if_exists}</@ofbizUrl>" class="submenutextright">Update</a>
+            <a href="<@ofbizUrl>EditAddImage?contentId=${imgContentId!}dataResourceId=${imgDataResourceId!}</@ofbizUrl>" class="submenutextright">Update</a>
           </td>
         </tr>
       </table>
@@ -191,7 +191,7 @@ ${menuWrapper.renderMenuString()}
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
     <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Image</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
-        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" alt="" />
+        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId!}</@ofbizUrl>" alt="" />
 <div></td></tr>
   </table>
           </td>
@@ -215,7 +215,7 @@ ${menuWrapper.renderMenuString()}
             <@renderTextData contentId=contentId textData=currentTextData />
         </#if>
     </#if>
-    <#assign contentAssocViewList =Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewList(delegator, contentId, null, "SUB_CONTENT", null, null)?if_exists />
+    <#assign contentAssocViewList =Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewList(delegator, contentId, null, "SUB_CONTENT", null, null)! />
     <#list contentAssocViewList as contentAssocDataResourceView>
         <#assign contentId2 = contentAssocDataResourceView.contentId/>
         <#assign mapKey = contentAssocDataResourceView.mapKey/>
@@ -229,7 +229,7 @@ ${menuWrapper.renderMenuString()}
 -->
 
 <#macro renderTextData content textData >
-    <#assign contentId=content.contentId?if_exists/>
+    <#assign contentId=content.contentId!/>
 <table border="0" width='100%' cellspacing='0' cellpadding='0' class='boxoutside'>
   <tr>
     <td width='100%'>
@@ -239,7 +239,7 @@ ${menuWrapper.renderMenuString()}
             <div class="boxhead">&nbsp;</div>
           </td>
           <td valign="middle" align="right">
-            <a href="<@ofbizUrl>EditAddContent?contentId=${content.contentId?if_exists}&amp;contentIdTo=${content.caContentIdTo?if_exists}&amp;contentAssocTypeId=${content.caContentAssocTypeId?if_exists}&amp;fromDate=${content.caFromDate?if_exists}&amp;mapKey=${content.caMapKey?if_exists}</@ofbizUrl>" class="submenutextright">Update</a>
+            <a href="<@ofbizUrl>EditAddContent?contentId=${content.contentId!}&amp;contentIdTo=${content.caContentIdTo!}&amp;contentAssocTypeId=${content.caContentAssocTypeId!}&amp;fromDate=${content.caFromDate!}&amp;mapKey=${content.caMapKey!}</@ofbizUrl>" class="submenutextright">Update</a>
           </td>
         </tr>
       </table>
@@ -251,8 +251,8 @@ ${menuWrapper.renderMenuString()}
         <tr>
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.contentName?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.description?if_exists}<div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Content Name</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.contentName!}</div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Description</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${content.description!}<div></td></tr>
   </table>
           </td>
         </tr>
@@ -266,7 +266,7 @@ ${menuWrapper.renderMenuString()}
           <td>
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
     <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b></b></div></td><td>&nbsp;</td><td><div class='tabletext'>
-<#-- ${textData?if_exists} -->
+<#-- ${textData!} -->
 <@renderContentAsText subContentId=content.contentId  editRequestName="/EditAddContent"/>
 <div></td></tr>
   </table>
@@ -280,15 +280,15 @@ ${menuWrapper.renderMenuString()}
 
 <#macro publishContent forumId contentId formAction="/updatePublishLinksMulti"  indentIndex=0 catTrail=[]>
 
-<#local thisContentId=catTrail[indentIndex]?if_exists/>
+<#local thisContentId=catTrail[indentIndex]!/>
 
 <#assign viewIdx = "" />
 <#if requestParameters.viewIndex?has_content>
-<#assign viewIdx = requestParameters.viewIndex?if_exists?number />
+<#assign viewIdx = requestParameters.viewIndex!?number />
 </#if>
 <#assign viewSz = "" />
 <#if requestParameters.viewSize?has_content>
-<#assign viewSz = requestParameters.viewSize?if_exists?number />
+<#assign viewSz = requestParameters.viewSize!?number />
 </#if>
 
 <#local indent = "">
@@ -314,7 +314,7 @@ ${menuWrapper.renderMenuString()}
 
 <@loopSubContent contentId=forumId viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="SUBSITE" returnAfterPickWhen="1==1";>
     <#local isPublished = "" />
-    <#assign contentAssocViewFrom=Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)?if_exists />
+    <#assign contentAssocViewFrom=Static["org.ofbiz.content.content.ContentWorker"].getContentAssocViewFrom(delegator, subContentId, contentId, "PUBLISH_LINK", null, null)! />
     <#if contentAssocViewFrom?has_content>
         <#local isPublished = "checked='checked'" />
     </#if>
@@ -322,7 +322,7 @@ ${menuWrapper.renderMenuString()}
          <td >
             ${indent}
             <#local plusMinus="-"/>
-            ${plusMinus} ${content.contentName?if_exists}
+            ${plusMinus} ${content.contentName!}
          </td >
          <td  >
             <input type="checkbox" name="publish_o_${rowCount}" value="Y" ${isPublished}/>

@@ -33,7 +33,7 @@ under the License.
           <#list notes as noteRef>
             <tr>
               <td>
-                <div><b>${uiLabelMap.FormFieldTitle_noteName}: </b>${noteRef.noteName?if_exists}</div>
+                <div><b>${uiLabelMap.FormFieldTitle_noteName}: </b>${noteRef.noteName!}</div>
                 <#if noteRef.noteParty?has_content>
                   <div><b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, noteRef.noteParty, true)}</div>
                 </#if>

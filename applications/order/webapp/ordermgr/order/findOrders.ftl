@@ -84,37 +84,37 @@ function toggleOrderIdList() {
   </#if>
   <input type="hidden" name="viewSize" value="${viewSize}"/>
   <input type="hidden" name="viewIndex" value="${viewIndex}"/>
-  <input type='hidden' name='correspondingPoId' value='${requestParameters.correspondingPoId?if_exists}'/>
-  <input type='hidden' name='internalCode' value='${requestParameters.internalCode?if_exists}'/>
-  <input type='hidden' name='productId' value='${requestParameters.productId?if_exists}'/>
-  <input type='hidden' name='goodIdentificationTypeId' value='${requestParameters.goodIdentificationTypeId?if_exists}'/>
-  <input type='hidden' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue?if_exists}'/>
-  <input type='hidden' name='inventoryItemId' value='${requestParameters.inventoryItemId?if_exists}'/>
-  <input type='hidden' name='serialNumber' value='${requestParameters.serialNumber?if_exists}'/>
-  <input type='hidden' name='softIdentifier' value='${requestParameters.softIdentifier?if_exists}'/>
-  <input type='hidden' name='partyId' value='${requestParameters.partyId?if_exists}'/>
-  <input type='hidden' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/>
-  <input type='hidden' name='billingAccountId' value='${requestParameters.billingAccountId?if_exists}'/>
-  <input type='hidden' name='createdBy' value='${requestParameters.createdBy?if_exists}'/>
-  <input type='hidden' name='minDate' value='${requestParameters.minDate?if_exists}'/>
-  <input type='hidden' name='maxDate' value='${requestParameters.maxDate?if_exists}'/>
-  <input type='hidden' name='roleTypeId' value="${requestParameters.roleTypeId?if_exists}"/>
-  <input type='hidden' name='orderTypeId' value='${requestParameters.orderTypeId?if_exists}'/>
-  <input type='hidden' name='salesChannelEnumId' value='${requestParameters.salesChannelEnumId?if_exists}'/>
-  <input type='hidden' name='productStoreId' value='${requestParameters.productStoreId?if_exists}'/>
-  <input type='hidden' name='orderWebSiteId' value='${requestParameters.orderWebSiteId?if_exists}'/>
-  <input type='hidden' name='orderStatusId' value='${requestParameters.orderStatusId?if_exists}'/>
-  <input type='hidden' name='hasBackOrders' value='${requestParameters.hasBackOrders?if_exists}'/>
-  <input type='hidden' name='filterInventoryProblems' value='${requestParameters.filterInventoryProblems?if_exists}'/>
-  <input type='hidden' name='filterPartiallyReceivedPOs' value='${requestParameters.filterPartiallyReceivedPOs?if_exists}'/>
-  <input type='hidden' name='filterPOsOpenPastTheirETA' value='${requestParameters.filterPOsOpenPastTheirETA?if_exists}'/>
-  <input type='hidden' name='filterPOsWithRejectedItems' value='${requestParameters.filterPOsWithRejectedItems?if_exists}'/>
-  <input type='hidden' name='countryGeoId' value='${requestParameters.countryGeoId?if_exists}'/>
-  <input type='hidden' name='includeCountry' value='${requestParameters.includeCountry?if_exists}'/>
-  <input type='hidden' name='isViewed' value='${requestParameters.isViewed?if_exists}'/>
-  <input type='hidden' name='shipmentMethod' value='${requestParameters.shipmentMethod?if_exists}'/>
-  <input type='hidden' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult?if_exists}'/>
-  <input type='hidden' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult?if_exists}'/>
+  <input type='hidden' name='correspondingPoId' value='${requestParameters.correspondingPoId!}'/>
+  <input type='hidden' name='internalCode' value='${requestParameters.internalCode!}'/>
+  <input type='hidden' name='productId' value='${requestParameters.productId!}'/>
+  <input type='hidden' name='goodIdentificationTypeId' value='${requestParameters.goodIdentificationTypeId!}'/>
+  <input type='hidden' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue!}'/>
+  <input type='hidden' name='inventoryItemId' value='${requestParameters.inventoryItemId!}'/>
+  <input type='hidden' name='serialNumber' value='${requestParameters.serialNumber!}'/>
+  <input type='hidden' name='softIdentifier' value='${requestParameters.softIdentifier!}'/>
+  <input type='hidden' name='partyId' value='${requestParameters.partyId!}'/>
+  <input type='hidden' name='userLoginId' value='${requestParameters.userLoginId!}'/>
+  <input type='hidden' name='billingAccountId' value='${requestParameters.billingAccountId!}'/>
+  <input type='hidden' name='createdBy' value='${requestParameters.createdBy!}'/>
+  <input type='hidden' name='minDate' value='${requestParameters.minDate!}'/>
+  <input type='hidden' name='maxDate' value='${requestParameters.maxDate!}'/>
+  <input type='hidden' name='roleTypeId' value="${requestParameters.roleTypeId!}"/>
+  <input type='hidden' name='orderTypeId' value='${requestParameters.orderTypeId!}'/>
+  <input type='hidden' name='salesChannelEnumId' value='${requestParameters.salesChannelEnumId!}'/>
+  <input type='hidden' name='productStoreId' value='${requestParameters.productStoreId!}'/>
+  <input type='hidden' name='orderWebSiteId' value='${requestParameters.orderWebSiteId!}'/>
+  <input type='hidden' name='orderStatusId' value='${requestParameters.orderStatusId!}'/>
+  <input type='hidden' name='hasBackOrders' value='${requestParameters.hasBackOrders!}'/>
+  <input type='hidden' name='filterInventoryProblems' value='${requestParameters.filterInventoryProblems!}'/>
+  <input type='hidden' name='filterPartiallyReceivedPOs' value='${requestParameters.filterPartiallyReceivedPOs!}'/>
+  <input type='hidden' name='filterPOsOpenPastTheirETA' value='${requestParameters.filterPOsOpenPastTheirETA!}'/>
+  <input type='hidden' name='filterPOsWithRejectedItems' value='${requestParameters.filterPOsWithRejectedItems!}'/>
+  <input type='hidden' name='countryGeoId' value='${requestParameters.countryGeoId!}'/>
+  <input type='hidden' name='includeCountry' value='${requestParameters.includeCountry!}'/>
+  <input type='hidden' name='isViewed' value='${requestParameters.isViewed!}'/>
+  <input type='hidden' name='shipmentMethod' value='${requestParameters.shipmentMethod!}'/>
+  <input type='hidden' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult!}'/>
+  <input type='hidden' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult!}'/>
 </form>
 </#if>
 <form method="post" name="lookuporder" id="lookuporder" action="<@ofbizUrl>searchorders</@ofbizUrl>" onsubmit="javascript:lookupOrders();">
@@ -130,8 +130,8 @@ function toggleOrderIdList() {
       <#if requestParameters.hideFields?default("N") == "Y">
         <li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields}.submit()">${uiLabelMap.CommonShowLookupFields}</a></li>
       <#else>
-        <#if orderList?exists><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields?default("Y")}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
-        <li><a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${uiLabelMap.PartyLookupParty}</a></li>
+        <#if orderList??><li><a href="javascript:document.lookupandhidefields${requestParameters.hideFields?default("Y")}.submit()">${uiLabelMap.CommonHideFields}</a></li></#if>
+        <li><a href="/partymgr/control/findparty?externalLoginKey=${requestAttributes.externalLoginKey!}">${uiLabelMap.PartyLookupParty}</a></li>
         <li><a href="javascript:lookupOrders(true);">${uiLabelMap.OrderLookupOrder}</a></li>
       </#if>
     </ul>
@@ -156,17 +156,17 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderCustomerPo}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='correspondingPoId' value='${requestParameters.correspondingPoId?if_exists}'/></td>
+                <td align='left'><input type='text' name='correspondingPoId' value='${requestParameters.correspondingPoId!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderInternalCode}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='internalCode' value='${requestParameters.internalCode?if_exists}'/></td>
+                <td align='left'><input type='text' name='internalCode' value='${requestParameters.internalCode!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.ProductProductId}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='productId' value='${requestParameters.productId?if_exists}'/></td>
+                <td align='left'><input type='text' name='productId' value='${requestParameters.productId!}'/></td>
               </tr>
               <#if goodIdentificationTypes?has_content>
               <tr>
@@ -188,23 +188,23 @@ function toggleOrderIdList() {
               <tr>
                   <td width='25%' align='right' class='label'>${uiLabelMap.ProductGoodIdentification}</td>
                   <td width='5%'>&nbsp;</td>
-                  <td align='left'><input type='text' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue?if_exists}'/></td>
+                  <td align='left'><input type='text' name='goodIdentificationIdValue' value='${requestParameters.goodIdentificationIdValue!}'/></td>
               </tr>
               </#if>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.ProductInventoryItemId}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='inventoryItemId' value='${requestParameters.inventoryItemId?if_exists}'/></td>
+                <td align='left'><input type='text' name='inventoryItemId' value='${requestParameters.inventoryItemId!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.ProductSerialNumber}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='serialNumber' value='${requestParameters.serialNumber?if_exists}'/></td>
+                <td align='left'><input type='text' name='serialNumber' value='${requestParameters.serialNumber!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.ProductSoftIdentifier}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='softIdentifier' value='${requestParameters.softIdentifier?if_exists}'/></td>
+                <td align='left'><input type='text' name='softIdentifier' value='${requestParameters.softIdentifier!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.PartyRoleType}</td>
@@ -225,13 +225,13 @@ function toggleOrderIdList() {
                 <td width='25%' align='right' class='label'>${uiLabelMap.PartyPartyId}</td>
                 <td width='5%'>&nbsp;</td>
                 <td align='left'>
-                  <@htmlTemplate.lookupField value='${requestParameters.partyId?if_exists}' formName="lookuporder" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
+                  <@htmlTemplate.lookupField value='${requestParameters.partyId!}' formName="lookuporder" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
                 </td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonUserLoginId}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='userLoginId' value='${requestParameters.userLoginId?if_exists}'/></td>
+                <td align='left'><input type='text' name='userLoginId' value='${requestParameters.userLoginId!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderOrderType}</td>
@@ -252,12 +252,12 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.AccountingBillingAccount}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='billingAccountId' value='${requestParameters.billingAccountId?if_exists}'/></td>
+                <td align='left'><input type='text' name='billingAccountId' value='${requestParameters.billingAccountId!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonCreatedBy}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='createdBy' value='${requestParameters.createdBy?if_exists}'/></td>
+                <td align='left'><input type='text' name='createdBy' value='${requestParameters.createdBy!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderSalesChannel}</td>
@@ -281,12 +281,12 @@ function toggleOrderIdList() {
                 <td align='left'>
                   <select name='productStoreId'>
                     <#if currentProductStore?has_content>
-                    <option value="${currentProductStore.productStoreId}">${currentProductStore.storeName?if_exists}</option>
+                    <option value="${currentProductStore.productStoreId}">${currentProductStore.storeName!}</option>
                     <option value="${currentProductStore.productStoreId}">---</option>
                     </#if>
                     <option value="">${uiLabelMap.CommonAnyStore}</option>
                     <#list productStores as store>
-                      <option value="${store.productStoreId}">${store.storeName?if_exists}</option>
+                      <option value="${store.productStoreId}">${store.storeName!}</option>
                     </#list>
                   </select>
                 </td>
@@ -302,7 +302,7 @@ function toggleOrderIdList() {
                     </#if>
                     <option value="">${uiLabelMap.CommonAnyWebSite}</option>
                     <#list webSites as webSite>
-                      <option value="${webSite.webSiteId}">${webSite.siteName?if_exists}</option>
+                      <option value="${webSite.webSiteId}">${webSite.siteName!}</option>
                     </#list>
                   </select>
                 </td>
@@ -344,13 +344,13 @@ function toggleOrderIdList() {
                   <select name="shipmentMethod">
                     <#if currentCarrierShipmentMethod?has_content>
                       <#assign currentShipmentMethodType = currentCarrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
-                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId?if_exists} ${currentShipmentMethodType.description?if_exists}</option>
+                      <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">${currentCarrierShipmentMethod.partyId!} ${currentShipmentMethodType.description!}</option>
                       <option value="${currentCarrierShipmentMethod.partyId}@${currentCarrierShipmentMethod.shipmentMethodTypeId}">---</option>
                     </#if>
                     <option value="">${uiLabelMap.OrderSelectShippingMethod}</option>
                     <#list carrierShipmentMethods as carrierShipmentMethod>
                       <#assign shipmentMethodType = carrierShipmentMethod.getRelatedOne("ShipmentMethodType", false)>
-                      <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId?if_exists} ${shipmentMethodType.description?if_exists}</option>
+                      <option value="${carrierShipmentMethod.partyId}@${carrierShipmentMethod.shipmentMethodTypeId}">${carrierShipmentMethod.partyId!} ${shipmentMethodType.description!}</option>
                     </#list>
                   </select>
                 </td>
@@ -373,12 +373,12 @@ function toggleOrderIdList() {
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderAddressVerification}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult?if_exists}'/></td>
+                <td align='left'><input type='text' name='gatewayAvsResult' value='${requestParameters.gatewayAvsResult!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderScore}</td>
                 <td width='5%'>&nbsp;</td>
-                <td align='left'><input type='text' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult?if_exists}'/></td>
+                <td align='left'><input type='text' name='gatewayScoreResult' value='${requestParameters.gatewayScoreResult!}'/></td>
               </tr>
               <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.CommonDateFilter}</td>
@@ -387,13 +387,13 @@ function toggleOrderIdList() {
                   <table class="basic-table" cellspacing='0'>
                     <tr>
                       <td nowrap="nowrap">
-                        <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" value="${requestParameters.minDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" value="${requestParameters.minDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class='label'>${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>
                       <td nowrap="nowrap">
-                        <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" value="${requestParameters.maxDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" value="${requestParameters.maxDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class='label'>${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>
@@ -464,7 +464,7 @@ function toggleOrderIdList() {
                     <#if requestParameters.countryGeoId?has_content>
                         <#assign countryGeoId = requestParameters.countryGeoId>
                         <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", countryGeoId), true)>
-                        <option value="${countryGeoId}">${geo.geoName?if_exists}</option>
+                        <option value="${countryGeoId}">${geo.geoName!}</option>
                         <option value="${countryGeoId}">---</option>
                     <#else>
                         <option value="">---</option>
@@ -549,7 +549,7 @@ document.lookuporder.orderId.focus();
       <input type="hidden" name="viewSize"/>
       <input type="hidden" name="viewIndex"/>
       <input type="hidden" name="hideFields"/>
-      <#if paramIdList?exists && paramIdList?has_content>
+      <#if paramIdList?? && paramIdList?has_content>
         <#list paramIdList as paramIds>
           <#assign paramId = paramIds.split("=")/>
           <input type="hidden" name="${paramId[0]}" value="${paramId[1]}"/>
@@ -614,9 +614,9 @@ document.lookuporder.orderId.focus();
             <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if orderType.orderTypeId == "PURCHASE_ORDER">
-              <#assign displayParty = orh.getSupplierAgent()?if_exists>
+              <#assign displayParty = orh.getSupplierAgent()!>
             <#else>
-              <#assign displayParty = orh.getPlacingParty()?if_exists>
+              <#assign displayParty = orh.getPlacingParty()!>
             </#if>
             <#assign partyId = displayParty.partyId?default("_NA_")>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -639,13 +639,13 @@ document.lookuporder.orderId.focus();
                 <#if placingParty?has_content>
                   <#assign partyId = placingParty.partyId>
                   <#if placingParty.getEntityName() == "Person">
-                    <#if placingParty.lastName?exists>
-                      ${placingParty.lastName}<#if placingParty.firstName?exists>, ${placingParty.firstName}</#if>
+                    <#if placingParty.lastName??>
+                      ${placingParty.lastName}<#if placingParty.firstName??>, ${placingParty.firstName}</#if>
                     <#else>
                       ${uiLabelMap.CommonNA}
                     </#if>
                   <#else>
-                    <#if placingParty.groupName?exists>
+                    <#if placingParty.groupName??>
                       ${placingParty.groupName}
                     <#else>
                       ${uiLabelMap.CommonNA}
@@ -703,7 +703,7 @@ document.lookuporder.orderId.focus();
             <td colspan='4'><h3>${uiLabelMap.OrderNoOrderFound}</h3></td>
           </tr>
         </#if>
-        <#if lookupErrorMessage?exists>
+        <#if lookupErrorMessage??>
           <tr>
             <td colspan='4'><h3>${lookupErrorMessage}</h3></td>
           </tr>

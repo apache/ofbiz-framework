@@ -25,7 +25,7 @@ under the License.
       <#-- header box -->
         <div class="screenlet">
             <div class="screenlet-title-bar">
-                <div class="h3">PO For ${partyId?if_exists}</div>
+                <div class="h3">PO For ${partyId!}</div>
             </div>
             <div class="screenlet-body">
                 <table width="100%" border="0" cellpadding="1" cellspacing="0">

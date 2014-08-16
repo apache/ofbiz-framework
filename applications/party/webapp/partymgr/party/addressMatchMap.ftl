@@ -84,7 +84,7 @@ under the License.
               <td>${map.mapKey}</td>
               <td>=></td>
               <td>${map.mapValue}</td>
-              <td>${map.sequenceNum?if_exists}</td>
+              <td>${map.sequenceNum!}</td>
               <td class="button-col"><a href="<@ofbizUrl>removeAddressMatchMap?mapKey=${map.mapKey}&amp;mapValue=${map.mapValue}</@ofbizUrl>">${uiLabelMap.CommonDelete}</a></td>
             </tr>
             <#-- toggle the row color -->

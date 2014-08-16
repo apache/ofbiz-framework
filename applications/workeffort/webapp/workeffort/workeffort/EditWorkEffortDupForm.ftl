@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
         <form action="<@ofbizUrl>DuplicateWorkEffort</@ofbizUrl>" method="post">
-            <input type="hidden" name="oldWorkEffortId" value="${workEffortId?if_exists}"/>
+            <input type="hidden" name="oldWorkEffortId" value="${workEffortId!}"/>
             <div>
                 <span class="label">${uiLabelMap.ProductDuplicateRemoveSelectedWithNewId}</span>
                 <input type="text" size="20" maxlength="20" name="workEffortId"/>&nbsp;<input type="submit" class="smallSubmit" value="${uiLabelMap.CommonDuplicate}!"/>

@@ -21,11 +21,11 @@ under the License.
             <fo:list-block provisional-distance-between-starts="40mm">
                 <fo:list-item>
                     <fo:list-item-label><fo:block font-size="12">${uiLabelMap.ManufacturingProductionRunId}</fo:block></fo:list-item-label>
-                    <fo:list-item-body start-indent="body-start()"><fo:block><fo:inline font-size="14" font-weight="bold" space-end="5mm">${productionRunData.workEffortId?if_exists}</fo:inline><#if productionRunData.productionRunName?exists> ${productionRunData.productionRunName}</#if></fo:block></fo:list-item-body>
+                    <fo:list-item-body start-indent="body-start()"><fo:block><fo:inline font-size="14" font-weight="bold" space-end="5mm">${productionRunData.workEffortId!}</fo:inline><#if productionRunData.productionRunName??> ${productionRunData.productionRunName}</#if></fo:block></fo:list-item-body>
                 </fo:list-item>
                 <fo:list-item>
                     <fo:list-item-label><fo:block font-size="12">${uiLabelMap.ProductProductId}</fo:block></fo:list-item-label>
-                    <fo:list-item-body start-indent="body-start()"><fo:block><fo:inline font-size="14" font-weight="bold" space-end="5mm">${productionRunData.productId?if_exists}</fo:inline><#if productionRunData.product.productName?exists> ${productionRunData.product.productName}</#if></fo:block></fo:list-item-body>
+                    <fo:list-item-body start-indent="body-start()"><fo:block><fo:inline font-size="14" font-weight="bold" space-end="5mm">${productionRunData.productId!}</fo:inline><#if productionRunData.product.productName??> ${productionRunData.product.productName}</#if></fo:block></fo:list-item-body>
                 </fo:list-item>
             </fo:list-block>
             <fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block>
@@ -38,19 +38,19 @@ under the License.
                             <fo:list-block provisional-distance-between-starts="50mm">
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingQuantityToProduce}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block>${productionRunData.quantityToProduce?if_exists}</fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block>${productionRunData.quantityToProduce!}</fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item space-after="5mm">
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingQuantityRemaining}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block>${quantityRemaining?if_exists}</fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block>${quantityRemaining!}</fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingEstimatedStartDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedStartDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedStartDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingEstimatedCompletionDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedCompletionDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.estimatedCompletionDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.estimatedCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>
                         </fo:table-cell>
@@ -58,19 +58,19 @@ under the License.
                             <fo:list-block provisional-distance-between-starts="50mm">
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingQuantityProduced}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block>${productionRunData.quantityProduced?if_exists}</fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block>${productionRunData.quantityProduced!}</fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item space-after="5mm">
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingQuantityRejected}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block>${quantityRejected?if_exists}</fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block>${quantityRejected!}</fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.CommonStartDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualStartDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualStartDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualStartDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
                                     <fo:list-item-label><fo:block>${uiLabelMap.ManufacturingActualCompletionDate}</fo:block></fo:list-item-label>
-                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualCompletionDate?exists>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
+                                    <fo:list-item-body start-indent="body-start()"><fo:block><#if productionRunData.actualCompletionDate??>${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(productionRunData.actualCompletionDate, "dd/MM/yyyy")}</#if></fo:block></fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>
                         </fo:table-cell>
@@ -103,19 +103,19 @@ under the License.
 
                        <fo:table-row>
                             <fo:table-cell>
-                                <fo:block>${productionRunComponentData.productId?if_exists}</fo:block>
+                                <fo:block>${productionRunComponentData.productId!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunComponentData.internalName?if_exists}</fo:block>
+                                <fo:block>${productionRunComponentData.internalName!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunComponentData.estimatedQuantity?if_exists}</fo:block>
+                                <fo:block>${productionRunComponentData.estimatedQuantity!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunComponentData.issuedQuantity?if_exists}</fo:block>
+                                <fo:block>${productionRunComponentData.issuedQuantity!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${resQuantityComp?if_exists}</fo:block>
+                                <fo:block>${resQuantityComp!}</fo:block>
                              </fo:table-cell>
                         </fo:table-row>
                     </#list>
@@ -145,19 +145,19 @@ under the License.
                     <#list productionRunRoutingTasks as productionRunRoutingTask>
                         <fo:table-row>
                             <fo:table-cell>
-                                <fo:block>${productionRunRoutingTask.fixedAssetId?if_exists}</fo:block>
+                                <fo:block>${productionRunRoutingTask.fixedAssetId!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunRoutingTask.workEffortName?if_exists}</fo:block>
+                                <fo:block>${productionRunRoutingTask.workEffortName!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunRoutingTask.description?if_exists}</fo:block>
+                                <fo:block>${productionRunRoutingTask.description!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunRoutingTask.estimatedSetupMillis?if_exists}</fo:block>
+                                <fo:block>${productionRunRoutingTask.estimatedSetupMillis!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell>
-                                <fo:block>${productionRunRoutingTask.estimatedMilliSeconds?if_exists}</fo:block>
+                                <fo:block>${productionRunRoutingTask.estimatedMilliSeconds!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                     </#list>
@@ -181,7 +181,7 @@ under the License.
                     <#list productionRunContents as productionRunContent>
                         <fo:table-row>
                             <fo:table-cell padding="2pt">
-                                <fo:block>${productionRunContent.contentName?if_exists}</fo:block>
+                                <fo:block>${productionRunContent.contentName!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt">
                                 <fo:block><fo:basic-link background-color="lightblue" external-destination="<@ofbizContentUrl>/content/control/ViewBinaryDataResource?dataResourceId=${productionRunContent.drDataResourceId}</@ofbizContentUrl>">${uiLabelMap.CommonView}</fo:basic-link></fo:block>

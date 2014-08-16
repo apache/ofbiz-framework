@@ -25,7 +25,7 @@ under the License.
       <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
     </#list>
     <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
-    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
+    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
 
     <#if !productIds?has_content>
       <br /><h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
@@ -109,7 +109,7 @@ under the License.
     </table>
 
     <form method="post" name="products">
-      <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
+      <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
       <table cellspacing="0" class="basic-table">
         <#assign listIndex = lowIndex>
         <#assign rowClass = "2">
@@ -118,7 +118,7 @@ under the License.
           <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
             <td>
               <input type="checkbox" name="selectResult" value="${productId}" onchange="checkProductToBagTextArea(this, '${productId}');"/>
-              <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)?if_exists}</a>
+              <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)!}</a>
             </td>
           </tr>
           <#-- toggle the row color -->

@@ -20,7 +20,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.ProductIssueInventoryItemsToShipment}: [${shipmentId?if_exists}]</li>
+      <li class="h3">${uiLabelMap.ProductIssueInventoryItemsToShipment}: [${shipmentId!}]</li>
     </ul>
   </div>
   <div class="screenlet-body">
@@ -38,7 +38,7 @@ under the License.
       <#list items as item>
         <tr>
           <td><a href="/ordermgr/control/returnMain?returnId=${item.returnId}" class="buttontext">${item.returnId}</a> [${item.returnItemSeqId}]</td>
-          <td><a href="/catalog/control/EditProductInventoryItems?productId=${item.productId}" class="buttontext">${item.productId}</a> ${item.internalName?if_exists}</td>
+          <td><a href="/catalog/control/EditProductInventoryItems?productId=${item.productId}" class="buttontext">${item.productId}</a> ${item.internalName!}</td>
           <td>${item.returnQuantity}</td>
           <td>${item.shipmentItemQty}</td>
           <td>${item.totalQtyIssued}</td>

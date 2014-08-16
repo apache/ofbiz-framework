@@ -45,9 +45,9 @@ under the License.
         <#assign alt_row = false>
         <#list surveyQuestionAndApplList as surveyQuestionAndAppl>
           <#assign questionType = surveyQuestionAndAppl.getRelatedOne("SurveyQuestionType", true)/>
-          <#assign questionCat = surveyQuestionAndAppl.getRelatedOne("SurveyQuestionCategory", true)?if_exists/>
-          <#assign currentSurveyPage = surveyQuestionAndAppl.getRelatedOne("SurveyPage", true)?if_exists/>
-          <#assign currentSurveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)?if_exists/>
+          <#assign questionCat = surveyQuestionAndAppl.getRelatedOne("SurveyQuestionCategory", true)!/>
+          <#assign currentSurveyPage = surveyQuestionAndAppl.getRelatedOne("SurveyPage", true)!/>
+          <#assign currentSurveyMultiResp = surveyQuestionAndAppl.getRelatedOne("SurveyMultiResp", true)!/>
           <#if currentSurveyMultiResp?has_content>
             <#assign currentSurveyMultiRespColumns = currentSurveyMultiResp.getRelated("SurveyMultiRespColumn", null, null, false)/>
           <#else/>
@@ -61,25 +61,25 @@ under the License.
               <input type="hidden" name="fromDate" value="${surveyQuestionAndAppl.fromDate}" />
               <td>${surveyQuestionAndAppl.surveyQuestionId}</td>
               <td>${questionType.get("description",locale)}</td>
-              <td>${(questionCat.description)?if_exists}</td>
-              <td>${surveyQuestionAndAppl.description?if_exists}</td>
-              <td><input type="text" name="question" size="30" value="${surveyQuestionAndAppl.question?if_exists?html}" />
+              <td>${(questionCat.description)!}</td>
+              <td>${surveyQuestionAndAppl.description!}</td>
+              <td><input type="text" name="question" size="30" value="${surveyQuestionAndAppl.question!?html}" />
               <td>
                 <select name="surveyPageId">
                   <#if surveyQuestionAndAppl.surveyPageSeqId?has_content>
-                    <option value="${surveyQuestionAndAppl.surveyPageSeqId}">${(currentSurveyPage.pageName)?if_exists} [${surveyQuestionAndAppl.surveyPageSeqId}]</option>
+                    <option value="${surveyQuestionAndAppl.surveyPageSeqId}">${(currentSurveyPage.pageName)!} [${surveyQuestionAndAppl.surveyPageSeqId}]</option>
                     <option value="${surveyQuestionAndAppl.surveyPageSeqId}">----</option>
                   </#if>
                   <option value=""></option>
                   <#list surveyPageList as surveyPage>
-                    <option value="${surveyPage.surveyPageSeqId}">${surveyPage.pageName?if_exists} [${surveyPage.surveyPageSeqId}]</option>
+                    <option value="${surveyPage.surveyPageSeqId}">${surveyPage.pageName!} [${surveyPage.surveyPageSeqId}]</option>
                   </#list>
                 </select>
               </td>
               <td>
                 <select name="surveyMultiRespId">
                   <#if surveyQuestionAndAppl.surveyMultiRespId?has_content>
-                    <option value="${surveyQuestionAndAppl.surveyMultiRespId}">${(currentSurveyMultiResp.multiRespTitle)?if_exists} [${surveyQuestionAndAppl.surveyMultiRespId}]</option>
+                    <option value="${surveyQuestionAndAppl.surveyMultiRespId}">${(currentSurveyMultiResp.multiRespTitle)!} [${surveyQuestionAndAppl.surveyMultiRespId}]</option>
                     <option value="${surveyQuestionAndAppl.surveyMultiRespId}">----</option>
                   </#if>
                   <option value=""></option>
@@ -93,7 +93,7 @@ under the License.
                 <select name="surveyMultiRespColId">
                   <#if surveyQuestionAndAppl.surveyMultiRespColId?has_content>
                     <#assign currentSurveyMultiRespColumn = surveyQuestionAndAppl.getRelatedOne("SurveyMultiRespColumn", false)/>
-                    <option value="${currentSurveyMultiRespColumn.surveyMultiRespColId}">${(currentSurveyMultiRespColumn.columnTitle)?if_exists} [${currentSurveyMultiRespColumn.surveyMultiRespColId}]</option>
+                    <option value="${currentSurveyMultiRespColumn.surveyMultiRespColId}">${(currentSurveyMultiRespColumn.columnTitle)!} [${currentSurveyMultiRespColumn.surveyMultiRespColId}]</option>
                     <option value="${currentSurveyMultiRespColumn.surveyMultiRespColId}">----</option>
                   </#if>
                   <option value=""></option>
@@ -103,7 +103,7 @@ under the License.
                 </select>
               </td>
               <#else/>
-                <td><input type="text" name="surveyMultiRespColId" size="4" value="${surveyQuestionAndAppl.surveyMultiRespColId?if_exists}"/></td>
+                <td><input type="text" name="surveyMultiRespColId" size="4" value="${surveyQuestionAndAppl.surveyMultiRespColId!}"/></td>
               </#if>
               <td>
                 <select name="requiredField">
@@ -112,9 +112,9 @@ under the License.
                   <option>Y</option><option>N</option>
                 </select>
               </td>
-              <td><input type="text" name="sequenceNum" size="5" value="${surveyQuestionAndAppl.sequenceNum?if_exists}"/></td>
-              <td><input type="text" name="withSurveyQuestionId" size="5" value="${surveyQuestionAndAppl.withSurveyQuestionId?if_exists}"/></td>
-              <td><input type="text" name="withSurveyOptionSeqId" size="5" value="${surveyQuestionAndAppl.withSurveyOptionSeqId?if_exists}"/></td>
+              <td><input type="text" name="sequenceNum" size="5" value="${surveyQuestionAndAppl.sequenceNum!}"/></td>
+              <td><input type="text" name="withSurveyQuestionId" size="5" value="${surveyQuestionAndAppl.withSurveyQuestionId!}"/></td>
+              <td><input type="text" name="withSurveyOptionSeqId" size="5" value="${surveyQuestionAndAppl.withSurveyOptionSeqId!}"/></td>
               <td><input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/></td>
               <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${surveyQuestionAndAppl.surveyQuestionId}#edit</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}&nbsp;${uiLabelMap.ContentSurveyQuestion}</a></td>
               </form>
@@ -137,7 +137,7 @@ under the License.
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <ul>
-          <li class="h3">${uiLabelMap.ContentSurveyApplyQuestionFromCategory} - ${surveyQuestionCategory.description?if_exists} [${surveyQuestionCategory.surveyQuestionCategoryId}]</li>
+          <li class="h3">${uiLabelMap.ContentSurveyApplyQuestionFromCategory} - ${surveyQuestionCategory.description!} [${surveyQuestionCategory.surveyQuestionCategoryId}]</li>
         </ul>
         <br class="clear"/>
       </div>
@@ -167,9 +167,9 @@ under the License.
               <input type="hidden" name="surveyQuestionCategoryId" value="${requestParameters.surveyQuestionCategoryId}" />
               <tr<#if alt_row> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${question.surveyQuestionId}&amp;surveyQuestionCategoryId=${requestParameters.surveyQuestionCategoryId}#edit</@ofbizUrl>" class="buttontext">${question.surveyQuestionId}</a></td>
-                <td>${question.description?if_exists}</td>
+                <td>${question.description!}</td>
                 <td>${questionType.get("description",locale)}</td>
-                <td>${question.question?if_exists}</td>
+                <td>${question.question!}</td>
               <td>
                 <select name="surveyPageId">
                   <option value=""></option>
@@ -267,7 +267,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>
-      <li class="h3">${uiLabelMap.ContentSurveyOptions} - ${uiLabelMap.CommonId} ${surveyQuestion.surveyQuestionId?if_exists}</li>
+      <li class="h3">${uiLabelMap.ContentSurveyOptions} - ${uiLabelMap.CommonId} ${surveyQuestion.surveyQuestionId!}</li>
     </ul>
     <br class="clear"/>
   </div>
@@ -282,8 +282,8 @@ under the License.
       <#assign alt_row = false>
       <#list questionOptions as option>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${option.description?if_exists}</td>
-          <td>${option.sequenceNum?if_exists}</td>
+          <td>${option.description!}</td>
+          <td>${option.sequenceNum!}</td>
           <td><a href="<@ofbizUrl>EditSurveyQuestions?surveyId=${requestParameters.surveyId}&amp;surveyQuestionId=${option.surveyQuestionId}&amp;surveyOptionSeqId=${option.surveyOptionSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonEdit}</a></td>
           <td>
             <form id="deleteSurveyQuestionOption_${option_index}" action="<@ofbizUrl>deleteSurveyQuestionOption</@ofbizUrl>" method="post">

@@ -29,10 +29,10 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
 <#include "publishlib.ftl" />
 -->
 <#if !rootForumId?has_content>
-    <#assign rootForumId=requestParameters.rootForumId?if_exists/>
+    <#assign rootForumId=requestParameters.rootForumId!/>
 </#if>
 <#if !rootForumId?has_content>
-    <#assign rootForumId=defaultSiteId?if_exists/>
+    <#assign rootForumId=defaultSiteId!/>
 </#if>
 <@checkPermission entityOperation="_ADMIN" targetOperation="CONTENT_ADMIN" >
 <br />
@@ -47,7 +47,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           </td>
           <td valign="middle">
             <div class="boxhead">
-             <input type="text" name="rootForumId" size="20" value="${rootForumId?if_exists}"/>
+             <input type="text" name="rootForumId" size="20" value="${rootForumId!}"/>
             </div>
           </td>
           <td valign="middle" align="right">
@@ -109,7 +109,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
 
 <#macro showSites forumId formAction="/enableSites"  indentIndex=0 catTrail=[]>
 
-<#local thisContentId=catTrail[indentIndex]?if_exists/>
+<#local thisContentId=catTrail[indentIndex]!/>
 
 <#local indent = "">
 <#if 0 < indentIndex >
@@ -124,7 +124,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
          <td >
             ${indent}
             <#local plusMinus="-"/>
-            ${plusMinus} ${content.contentName?if_exists}
+            ${plusMinus} ${content.contentName!}
          </td >
          <td >
             <a class="buttontext" href="<@ofbizUrl>CMSSites?rootForumId=${rootForumId}&amp;moderatedSiteId=${content.contentId}</@ofbizUrl>">Moderate</a>
@@ -160,7 +160,7 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
           <td> <b>name:</b>${content.contentName} </td>
       <@injectNodeTrailCsv subContentId=content.contentId redo="true" contentAssocTypeId="PUBLISH_LINK">
           <td>
-  <a class="tabButton" href="<@ofbizUrl>CMSContentEdit?contentId=${content.contentId}&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >View</a>
+  <a class="tabButton" href="<@ofbizUrl>CMSContentEdit?contentId=${content.contentId}&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" >View</a>
           </td>
           <td>
           <b>submitted:</b>
@@ -227,9 +227,9 @@ function call_fieldlookup4(rootForumId, parentForumId ) {
             <#list blogRoleIdList as roleTypeId>
               <#assign cappedSiteRole= Static["org.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
-              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if siteRoleMap[cappedSiteRole]?if_exists == "Y">checked="checked"</#if>/>
+              <input type="checkbox" name="${cappedSiteRole}_o_${rowCount}" value="Y" <#if siteRoleMap[cappedSiteRole]! == "Y">checked="checked"</#if>/>
               </td>
-          <input type="hidden" name="${cappedSiteRole}FromDate_o_${rowCount}" value="${siteRoleMap[cappedSiteRole + "FromDate"]?if_exists}"/>
+          <input type="hidden" name="${cappedSiteRole}FromDate_o_${rowCount}" value="${siteRoleMap[cappedSiteRole + "FromDate"]!}"/>
             </#list>
           </tr>
           <input type="hidden" name="contentId_o_${rowCount}" value="${forumId}"/>

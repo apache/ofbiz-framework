@@ -31,7 +31,7 @@ under the License.
       <#assign cardNumberDisplay = cardNumber>
     </#if>
   </#if>
-  ${cardNumberDisplay?if_exists}
+  ${cardNumberDisplay!}
 </#macro>
 
   <div id="partyPaymentMethod" class="screenlet">
@@ -69,14 +69,14 @@ under the License.
                   &nbsp;-&nbsp;
                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
                     ${creditCard.cardType}
-                    <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/>
+                    <@maskSensitiveNumber cardNumber=creditCard.cardNumber!/>
                     ${creditCard.expireDate}
                   <#else>
                     ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                   </#if>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate})</#if>
                 </td>
                 <td class="button-col">
@@ -96,12 +96,12 @@ under the License.
                   <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
                     ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
                   <#else>
-                    <@maskSensitiveNumber cardNumber=giftCard.cardNumber?if_exists/>
+                    <@maskSensitiveNumber cardNumber=giftCard.cardNumber!/>
                     <#if !cardNumberDisplay?has_content>N/A</#if>
                   </#if>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</b></#if>
                 </td>
                 <td class="button-col">
@@ -117,7 +117,7 @@ under the License.
                 <td>
                   ${eftAccount.nameOnAccount} - <#if eftAccount.bankName?has_content>${uiLabelMap.PartyBank}: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.PartyAccount} #: ${eftAccount.accountNumber}</#if>                  <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
                   <#if paymentMethod.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
                 </td>
                 <td class="button-col">
@@ -133,7 +133,7 @@ under the License.
                 <td>
                   <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                   <#if paymentMethod.glAccountId?has_content>(for GL Account ${paymentMethod.glAccountId})</#if>
-                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate?if_exists})</#if>
+                  <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate!})</#if>
                   <#if paymentMethod.thruDate?has_content>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${paymentMethod.thruDate.toString()}</#if>
                 </td>
                 <td class="button-col">
@@ -162,7 +162,7 @@ under the License.
                   <#if billing.description?has_content>(${billing.description})</#if>
                   <#if billing.accountLimit?has_content>(${uiLabelMap.AccountingAccountLimit} $${billing.accountLimit})</#if>
                   <#if billing.accountBalance?has_content>(${uiLabelMap.AccountingBillingAvailableBalance} $${billing.accountBalance})</#if>
-                  <#if billing.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${billing.fromDate?if_exists})</#if>
+                  <#if billing.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${billing.fromDate!})</#if>
                   <#if billing.thruDate?has_content><b>(${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${billing.thruDate.toString()}</b></#if>
               </td>
               <td class="button-col">

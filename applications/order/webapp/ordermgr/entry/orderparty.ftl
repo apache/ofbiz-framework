@@ -36,12 +36,12 @@ under the License.
         <tr>
           <td align="center">
             <#if person?has_content>
-              <div><a href="${customerDetailLink}${partyId}" class="buttontext">${person.firstName?if_exists}&nbsp;${person.lastName?if_exists}</a></div>
+              <div><a href="${customerDetailLink}${partyId}" class="buttontext">${person.firstName!}&nbsp;${person.lastName!}</a></div>
             <#elseif partyGroup?has_content>
-                              <div class='tabletext'><a href="${customerDetailLink}${partyId}" class="buttontext">${partyGroup.groupName?if_exists}</a></div>
+                              <div class='tabletext'><a href="${customerDetailLink}${partyId}" class="buttontext">${partyGroup.groupName!}</a></div>
             </#if>
             <form method="post" action="<@ofbizUrl>orderentry</@ofbizUrl>" name="setpartyform">
-              <div><input type="text" name="partyId" size='10' value="${partyId?if_exists}" /></div>
+              <div><input type="text" name="partyId" size='10' value="${partyId!}" /></div>
               <div>
                 <a href="javascript:document.setpartyform.submit();" class="buttontext">${uiLabelMap.CommonSet}</a>&nbsp;|&nbsp;<a href="/partymgr/control/findparty" class="buttontext">${uiLabelMap.CommonFind}</a><#if partyId?default("_NA_") != "_NA_" && partyId?default("_NA_") != "">&nbsp;|&nbsp;<a href="${customerDetailLink}${partyId}" class="buttontext">${uiLabelMap.CommonView}</a></#if>
               </div>

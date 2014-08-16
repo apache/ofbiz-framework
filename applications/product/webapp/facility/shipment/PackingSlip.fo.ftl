@@ -20,7 +20,7 @@ under the License.
 <#escape x as x?xml>
 
     <#if hasPermission>
-        <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup", false)?if_exists>
+        <#assign shipGroup = shipment.getRelatedOne("PrimaryOrderItemShipGroup", false)!>
         <#assign carrier = (shipGroup.carrierPartyId)?default("N/A")>
             <#if packages?has_content>
             <#list packages as package>
@@ -54,15 +54,15 @@ under the License.
                         <fo:table-cell padding="2pt">
                             <fo:block>
                                 <#if destinationPostalAddress?has_content>
-                                  <fo:block>${uiLabelMap.CommonTo}: ${destinationPostalAddress.toName?if_exists}</fo:block>
+                                  <fo:block>${uiLabelMap.CommonTo}: ${destinationPostalAddress.toName!}</fo:block>
                                   <#if destinationPostalAddress.attnName?has_content>
-                                    <fo:block>${uiLabelMap.CommonAttn}: ${destinationPostalAddress.attnName?if_exists}</fo:block>
+                                    <fo:block>${uiLabelMap.CommonAttn}: ${destinationPostalAddress.attnName!}</fo:block>
                                   </#if>
-                                  <fo:block>${destinationPostalAddress.address1?if_exists}</fo:block>
-                                  <fo:block>${destinationPostalAddress.address2?if_exists}</fo:block>
+                                  <fo:block>${destinationPostalAddress.address1!}</fo:block>
+                                  <fo:block>${destinationPostalAddress.address2!}</fo:block>
                                   <fo:block>
-                                    ${destinationPostalAddress.city?if_exists}<#if destinationPostalAddress.stateProvinceGeoId?has_content>, ${destinationPostalAddress.stateProvinceGeoId}</#if>
-                                    ${destinationPostalAddress.postalCode?if_exists} ${destinationPostalAddress.countryGeoId?if_exists}
+                                    ${destinationPostalAddress.city!}<#if destinationPostalAddress.stateProvinceGeoId?has_content>, ${destinationPostalAddress.stateProvinceGeoId}</#if>
+                                    ${destinationPostalAddress.postalCode!} ${destinationPostalAddress.countryGeoId!}
                                   </fo:block>
                                 </#if>
                             </fo:block>
@@ -72,13 +72,13 @@ under the License.
                                 <#if carrier != "_NA_">
                                    ${carrier}
                                 </#if>
-                                <#if (shipGroup.shipmentMethodTypeId)?exists>
+                                <#if (shipGroup.shipmentMethodTypeId)??>
                                   ${(shipGroup.getRelatedOne("ShipmentMethodType", false).get("description", locale))?default(shipGroup.shipmentMethodTypeId)}
                                 </#if>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell padding="2pt">
-                            <fo:block text-align="right">${shipment.handlingInstructions?if_exists}</fo:block>
+                            <fo:block text-align="right">${shipment.handlingInstructions!}</fo:block>
                         </fo:table-cell>
                     </fo:table-row>
                 </fo:table-body>
@@ -148,7 +148,7 @@ under the License.
             <fo:table>
                 <fo:table-column column-width="450pt"/>
                 <fo:table-body>
-                    <#if shipGroup.giftMessage?exists >
+                    <#if shipGroup.giftMessage?? >
                         <fo:table-row font-weight="bold">
                             <fo:table-cell>
                                 <fo:block>${uiLabelMap.OrderGiftMessage}</fo:block>

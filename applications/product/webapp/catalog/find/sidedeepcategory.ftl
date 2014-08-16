@@ -22,31 +22,31 @@ under the License.
   <#if parentCategory.productCategoryId != category.productCategoryId>
     <#local pStr = "&amp;pcategory=" + parentCategory.productCategoryId>
   </#if>
-  <#if curCategoryId?exists && curCategoryId == category.productCategoryId>
+  <#if curCategoryId?? && curCategoryId == category.productCategoryId>
     <div class="browsecategorytext">
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>
+        <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>
+        <#elseif catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?has_content>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybuttondisabled">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>
         <#else>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybuttondisabled">${category.categoryName?default(category.description)?if_exists} [${category.productCategoryId}]</a>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybuttondisabled">${category.categoryName?default(category.description)!} [${category.productCategoryId}]</a>
        </#if>
     </div>
   <#else>
     <div class="browsecategorytext">
-        <#if catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>
-        <#elseif catContentWrappers?exists && catContentWrappers[category.productCategoryId]?exists && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?has_content>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>
+        <#if catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")?has_content>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("CATEGORY_NAME")} [${category.productCategoryId}]</a>
+        <#elseif catContentWrappers?? && catContentWrappers[category.productCategoryId]?? && catContentWrappers[category.productCategoryId].get("DESCRIPTION")?has_content>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybutton">${catContentWrappers[category.productCategoryId].get("DESCRIPTION")} [${category.productCategoryId}]</a>
         <#else>
-          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr?if_exists}</@ofbizUrl>" class="browsecategorybutton">${category.categoryName?default(category.description)?if_exists} [${category.productCategoryId}]</a>
+          <a href="<@ofbizUrl>EditCategory?productCategoryId=${category.productCategoryId}${pStr!}</@ofbizUrl>" class="browsecategorybutton">${category.categoryName?default(category.description)!} [${category.productCategoryId}]</a>
        </#if>
     </div>
   </#if>
 
-  <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?exists && curCategoryId == category.productCategoryId)>
+  <#if (Static["org.ofbiz.product.category.CategoryWorker"].checkTrailItem(request, category.getString("productCategoryId"))) || (curCategoryId?? && curCategoryId == category.productCategoryId)>
     <#local subCatList = Static["org.ofbiz.product.category.CategoryWorker"].getRelatedCategoriesRet(request, "subCatList", category.getString("productCategoryId"), true)>
-    <#if subCatList?exists>
+    <#if subCatList??>
       <#list subCatList as subCat>
         <div class="browsecategorylist">
           <@categoryList parentCategory=category category=subCat/>
@@ -58,15 +58,15 @@ under the License.
 
 <div><a href='<@ofbizUrl>ChooseTopCategory</@ofbizUrl>' class='buttontext'>${uiLabelMap.ProductChooseTopCategory}</a></div>
 <div class="browsecategorylist">
-<#if currentTopCategory?exists>
-  <#if curCategoryId?exists && curCategoryId == currentTopCategory.productCategoryId>
+<#if currentTopCategory??>
+  <#if curCategoryId?? && curCategoryId == currentTopCategory.productCategoryId>
     <div style='text-indent: -10px;'><b>${currentTopCategory.categoryName?default("No Name")} [${currentTopCategory.productCategoryId}]</b></div>
   <#else>
-    <div class='browsecategorytext'><a href="<@ofbizUrl>EditCategory?productCategoryId=${currentTopCategory.productCategoryId}</@ofbizUrl>" class='browsecategorybutton'>${currentTopCategory.categoryName?default(currentTopCategory.description)?if_exists} [${currentTopCategory.productCategoryId}]</a></div>
+    <div class='browsecategorytext'><a href="<@ofbizUrl>EditCategory?productCategoryId=${currentTopCategory.productCategoryId}</@ofbizUrl>" class='browsecategorybutton'>${currentTopCategory.categoryName?default(currentTopCategory.description)!} [${currentTopCategory.productCategoryId}]</a></div>
   </#if>
 </#if>
   <div class="browsecategorylist">
-    <#if topLevelList?exists>
+    <#if topLevelList??>
       <#list topLevelList as category>
         <@categoryList parentCategory=category category=category/>
       </#list>

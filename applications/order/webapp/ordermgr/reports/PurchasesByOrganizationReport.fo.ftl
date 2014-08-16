@@ -62,13 +62,13 @@ under the License.
                     <#list productReportList as productReport>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.internalName?if_exists} (${productReport.productId?if_exists})</fo:block>
+                                <fo:block>${productReport.internalName!} (${productReport.productId!})</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.quantity?if_exists}</fo:block>
+                                <fo:block>${productReport.quantity!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${productReport.unitPrice?if_exists}</fo:block>
+                                <fo:block>${productReport.unitPrice!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->

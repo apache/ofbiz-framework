@@ -30,7 +30,7 @@ under the License.
       <a href="javascript:document.paysetupform.submit()" class="buttontext">${uiLabelMap.CommonSave}</a>
 
       <form method="post" action="<@ofbizUrl>receiveOfflinePayments/${donePage}</@ofbizUrl>" name="paysetupform">
-        <#if requestParameters.workEffortId?exists>
+        <#if requestParameters.workEffortId??>
             <input type="hidden" name="workEffortId" value="${requestParameters.workEffortId}" />
         </#if>
         <input type="hidden" name="partyId" value="${orderRoles[0].partyId}" />

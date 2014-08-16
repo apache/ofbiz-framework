@@ -70,29 +70,29 @@ under the License.
                         <fo:table-row>
                             <#if showProductStore>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchasePaymentSummary.productStoreId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchasePaymentSummary.productStoreId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showOriginFacility>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchasePaymentSummary.originFacilityId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchasePaymentSummary.originFacilityId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showTerminal>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchasePaymentSummary.terminalId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchasePaymentSummary.terminalId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showStatus>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchasePaymentSummary.statusId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchasePaymentSummary.statusId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchasePaymentSummary.get("description",locale)?if_exists}</fo:block>
+                                <fo:block>${orderPurchasePaymentSummary.get("description",locale)!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchasePaymentSummary.maxAmount?if_exists}</fo:block>
+                                <fo:block>${orderPurchasePaymentSummary.maxAmount!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->

@@ -39,7 +39,7 @@ under the License.
               <td><input type="text" size='15' name="description_o_${feature_index}" /></td>
               <td><select name='productFeatureTypeId_o_${feature_index}' size="1">
                   <#list productFeatureTypes as productFeatureType>
-                  <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)?if_exists}</option>
+                  <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)!}</option>
                   </#list>
                   </select>
                   <input name='productFeatureCategoryId_o_${feature_index}' type="hidden" value="${productFeatureCategoryId}" />

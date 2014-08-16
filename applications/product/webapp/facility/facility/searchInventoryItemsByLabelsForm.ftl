@@ -27,12 +27,12 @@ under the License.
     <tr>
       <td>
           <div>
-          <span class="label">${labelType.description?if_exists} [${labelType.inventoryItemLabelTypeId}]</span>
+          <span class="label">${labelType.description!} [${labelType.inventoryItemLabelTypeId}]</span>
           &nbsp;
           <select name="inventoryItemLabelId_${index}">
             <option></option>
             <#list labels as label>
-            <option value="${label.inventoryItemLabelId}" <#if parameters["inventoryItemLabelId_" + index]?has_content && parameters["inventoryItemLabelId_" + index] == label.inventoryItemLabelId>selected="selected"</#if>>${label.description?if_exists} [${label.inventoryItemLabelId}]</option>
+            <option value="${label.inventoryItemLabelId}" <#if parameters["inventoryItemLabelId_" + index]?has_content && parameters["inventoryItemLabelId_" + index] == label.inventoryItemLabelId>selected="selected"</#if>>${label.description!} [${label.inventoryItemLabelId}]</option>
             </#list>
           </select>
           </div>

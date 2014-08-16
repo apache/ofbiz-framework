@@ -22,8 +22,8 @@
     <input type="hidden" name="dataResourceTypeId" value="SHORT_TEXT"/>
     <input type="hidden" name="contentAssocTypeId" value="SUB_CONTENT"/>
     <input type="hidden" name="statusId" value="CTNT_PUBLISHED"/>
-    <input type="hidden" name="ownerContentId" value="${(content.contentId)?if_exists}"/>
-    <input type="hidden" name="contentIdFrom" value="${(content.contentId)?if_exists}"/>
+    <input type="hidden" name="ownerContentId" value="${(content.contentId)!}"/>
+    <input type="hidden" name="contentIdFrom" value="${(content.contentId)!}"/>
 </#macro>
 
 <#-- cms menu bar -->
@@ -107,19 +107,19 @@
     <table>
         <tr>
             <td class="label">Page Title</td>
-            <td><input type="text" name="title" value="${(title.objectInfo)?if_exists}" size="40" /></td>
+            <td><input type="text" name="title" value="${(title.objectInfo)!}" size="40" /></td>
         </tr>
         <tr>
             <td class="label">Title Property</td>
-            <td><input type="text" name="titleProperty" value="${(titleProperty.objectInfo)?if_exists}" size="40" /></td>
+            <td><input type="text" name="titleProperty" value="${(titleProperty.objectInfo)!}" size="40" /></td>
         </tr>
         <tr>
             <td class="label">Meta-Description</td>
-            <td><input type="text" name="metaDescription" value="${(metaDescription.objectInfo)?if_exists}" size="40" /></td>
+            <td><input type="text" name="metaDescription" value="${(metaDescription.objectInfo)!}" size="40" /></td>
         </tr>
         <tr>
             <td class="label">Meta-Keywords</td>
-            <td><input type="text" name="metaKeywords" value="${(metaKeywords.objectInfo)?if_exists}" size="40" /></td>
+            <td><input type="text" name="metaKeywords" value="${(metaKeywords.objectInfo)!}" size="40" /></td>
         </tr>
         <tr><td colspan="2">&nbsp;</td></tr>
         <tr>

@@ -288,7 +288,7 @@ Doc.B
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt">${component.orderItem.selectedAmount?if_exists}</fo:inline>
+                                <fo:inline font-size="10pt">${component.orderItem.selectedAmount!}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

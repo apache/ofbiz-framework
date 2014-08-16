@@ -125,8 +125,8 @@ under the License.
         </form>
         <br/><br/>
         <form id="updateMapForm" method="post" action="<@ofbizUrl>editGeoLocation</@ofbizUrl>">
-            <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
-            <input type="hidden" name="geoPointId" value="${geoPointId?if_exists}"/>
+            <input type="hidden" name="partyId" value="${partyId!}"/>
+            <input type="hidden" name="geoPointId" value="${geoPointId!}"/>
             <input type="hidden" name="lat" id="lat"/>
             <input type="hidden" name="lng" id="lng"/>
             <input type="submit" id="createMapButton" class="smallSubmit" value="${uiLabelMap.CommonSubmit}">

@@ -35,7 +35,7 @@ under the License.
     <div class="screenlet-body">
       <#if shoppingCart.getOrderType() == "SALES_ORDER">
         <div>
-          <#if quantityOnHandTotal?exists && availableToPromiseTotal?exists && (productId)?exists>
+          <#if quantityOnHandTotal?? && availableToPromiseTotal?? && (productId)??>
             <ul>
               <li>
                 <label>${uiLabelMap.ProductQuantityOnHand}</label>: ${quantityOnHandTotal}
@@ -69,9 +69,9 @@ under the License.
           <td>
             <form name="qohAtpForm" method="post" action="<@ofbizUrl>${target}</@ofbizUrl>">
               <fieldset>
-                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                <input type="hidden" name="facilityId" value="${facilityId!}"/>
                 <input type="hidden" name="productId"/>
-                <input type="hidden" id="ownerPartyId" name="ownerPartyId" value="${shoppingCart.getBillToCustomerPartyId()?if_exists}" />
+                <input type="hidden" id="ownerPartyId" name="ownerPartyId" value="${shoppingCart.getBillToCustomerPartyId()!}" />
               </fieldset>
             </form>
             <form method="post" action="<@ofbizUrl>additem</@ofbizUrl>" name="quickaddform" style="margin: 0;">
@@ -106,11 +106,11 @@ under the License.
                   <td align="right"><div>${uiLabelMap.OrderDesiredDeliveryDate} :</div></td>
                   <td>
                     <div>
-                      <#if useAsDefaultDesiredDeliveryDate?exists> 
+                      <#if useAsDefaultDesiredDeliveryDate??> 
                         <#assign value = defaultDesiredDeliveryDate>
                       </#if>
                       <@htmlTemplate.renderDateTimeField name="itemDesiredDeliveryDate" value="${value!''}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="item1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                      <input type="checkbox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate?exists> checked="checked"</#if>/>
+                      <input type="checkbox" name="useAsDefaultDesiredDeliveryDate" value="true"<#if useAsDefaultDesiredDeliveryDate??> checked="checked"</#if>/>
                       ${uiLabelMap.OrderUseDefaultDesiredDeliveryDate}
                     </div>
                   </td>
@@ -150,8 +150,8 @@ under the License.
                   <td align="right"><div>${uiLabelMap.CommonComment} :</div></td>
                   <td>
                     <div>
-                      <input type="text" size="25" name="itemComment" value="${defaultComment?if_exists}" />
-                      <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment?exists>checked="checked"</#if> />
+                      <input type="text" size="25" name="itemComment" value="${defaultComment!}" />
+                      <input type="checkbox" name="useAsDefaultComment" value="true" <#if useAsDefaultComment??>checked="checked"</#if> />
                       ${uiLabelMap.OrderUseDefaultComment}
                     </div>
                   </td>
@@ -172,12 +172,12 @@ under the License.
                 <div>
                     ${uiLabelMap.OrderOrderItemType}:&nbsp;<select name="add_item_type"><option value="BULK_ORDER_ITEM">${uiLabelMap.ProductBulkItem}</option><option value="WORK_ORDER_ITEM">${uiLabelMap.ProductWorkItem}</option></select>
                     <br/>${uiLabelMap.ProductProductCategory}:&nbsp;
-                    <@htmlTemplate.lookupField formName="bulkworkaddform" value="${requestParameters.add_category_id?if_exists}" name="add_category_id" id="add_category_id" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField formName="bulkworkaddform" value="${requestParameters.add_category_id!}" name="add_category_id" id="add_category_id" fieldFormName="LookupProductCategory"/>
                 </div>
                 <div>
                     ${uiLabelMap.CommonDescription}:&nbsp;<input type="text" size="25" name="add_item_description" value=""/>
                     ${uiLabelMap.OrderQuantity}:&nbsp;<input type="text" size="3" name="quantity" value="${requestParameters.quantity?default("1")}"/>
-                    ${uiLabelMap.OrderPrice}:&nbsp;<input type="text" size="6" name="price" value="${requestParameters.price?if_exists}"/>
+                    ${uiLabelMap.OrderPrice}:&nbsp;<input type="text" size="6" name="price" value="${requestParameters.price!}"/>
                     <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderAddToOrder}"/>
                 </div>
             </form>
@@ -192,4 +192,4 @@ under the License.
   document.quickaddform.add_product_id.focus();
 </script>
 
-<!-- Internal cart info: productStoreId=${shoppingCart.getProductStoreId()?if_exists} locale=${shoppingCart.getLocale()?if_exists} currencyUom=${shoppingCart.getCurrency()?if_exists} userLoginId=${(shoppingCart.getUserLogin().getString("userLoginId"))?if_exists} autoUserLogin=${(shoppingCart.getAutoUserLogin().getString("userLoginId"))?if_exists} -->
+<!-- Internal cart info: productStoreId=${shoppingCart.getProductStoreId()!} locale=${shoppingCart.getLocale()!} currencyUom=${shoppingCart.getCurrency()!} userLoginId=${(shoppingCart.getUserLogin().getString("userLoginId"))!} autoUserLogin=${(shoppingCart.getAutoUserLogin().getString("userLoginId"))!} -->

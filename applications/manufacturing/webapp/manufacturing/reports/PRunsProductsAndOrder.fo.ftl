@@ -228,7 +228,7 @@ Doc.D
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="8pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="8pt">${productionRun.product.brandName?if_exists}</fo:inline>
+                                <fo:inline font-size="8pt">${productionRun.product.brandName!}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -259,7 +259,7 @@ Doc.D
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="9pt">${productionRun.product.internalName?if_exists}</fo:inline>
+                                <fo:inline font-size="9pt">${productionRun.product.internalName!}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -311,7 +311,7 @@ Doc.D
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="12pt">${productionRun.location?if_exists}</fo:inline>
+                                <fo:inline font-size="12pt">${productionRun.location!}</fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>

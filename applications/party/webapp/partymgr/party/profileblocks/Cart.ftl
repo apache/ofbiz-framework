@@ -44,10 +44,10 @@ under the License.
             </tr>
             <#list savedCartItems as savedCartItem>
               <tr>
-                <td>${savedCartItem.shoppingListItemSeqId?if_exists}</td>
-                <td class="button-col"><a href="/catalog/control/EditProduct?productId=${savedCartItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${savedCartItem.productId?if_exists}</a></td>
-                <td>${savedCartItem.quantity?if_exists}</td>
-                <td>${savedCartItem.quantityPurchased?if_exists}</td>
+                <td>${savedCartItem.shoppingListItemSeqId!}</td>
+                <td class="button-col"><a href="/catalog/control/EditProduct?productId=${savedCartItem.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey}">${savedCartItem.productId!}</a></td>
+                <td>${savedCartItem.quantity!}</td>
+                <td>${savedCartItem.quantityPurchased!}</td>
               </tr>
             </#list>
           </table>

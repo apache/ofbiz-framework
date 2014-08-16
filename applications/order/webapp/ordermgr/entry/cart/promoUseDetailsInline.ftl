@@ -24,11 +24,11 @@ under the License.
             <#list shoppingCart.getProductPromoUseInfoIter() as productPromoUseInfo>
                 <li>
                     <#-- TODO: when promo pretty print is done show promo short description here -->
-                       ${uiLabelMap.OrderPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoUseInfo.productPromoId?if_exists}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a>
+                       ${uiLabelMap.OrderPromotion} <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromoUseInfo.productPromoId!}</@ofbizUrl>" class="button">${uiLabelMap.CommonDetails}</a>
                     <#if productPromoUseInfo.productPromoCodeId?has_content> - ${uiLabelMap.OrderWithPromoCode} [${productPromoUseInfo.productPromoCodeId}]</#if>
                     <#if (productPromoUseInfo.totalDiscountAmount != 0)> - ${uiLabelMap.CommonTotalValue} <@ofbizCurrency amount=(-1*productPromoUseInfo.totalDiscountAmount) isoCode=shoppingCart.getCurrency()/></#if>
                     <#if productPromoUseInfo.productPromoCodeId?has_content>
-                        <a href="<@ofbizUrl>removePromotion?promoCode=${productPromoUseInfo.productPromoCodeId?if_exists}</@ofbizUrl>" class="button">${uiLabelMap.OrderRemovePromotion}</a>
+                        <a href="<@ofbizUrl>removePromotion?promoCode=${productPromoUseInfo.productPromoCodeId!}</@ofbizUrl>" class="button">${uiLabelMap.OrderRemovePromotion}</a>
                     </#if>
                 </li>
                 <#if (productPromoUseInfo.quantityLeftInActions > 0)>
@@ -41,9 +41,9 @@ under the License.
         <#list shoppingCart.items() as cartLine>
             <#assign cartLineIndex = shoppingCart.getItemIndex(cartLine)>
             <#if cartLine.getIsPromo()>
-                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${uiLabelMap.OrderIsAPromotionalItem}</li>
+                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()!}] - ${uiLabelMap.OrderIsAPromotionalItem}</li>
             <#else>
-                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()?if_exists}] - ${cartLine.getPromoQuantityUsed()?string.number}/${cartLine.getQuantity()?string.number} ${uiLabelMap.CommonUsed} - ${cartLine.getPromoQuantityAvailable()?string.number} ${uiLabelMap.CommonAvailable}
+                <li>${uiLabelMap.OrderItemN} ${cartLineIndex+1} [${cartLine.getProductId()!}] - ${cartLine.getPromoQuantityUsed()?string.number}/${cartLine.getQuantity()?string.number} ${uiLabelMap.CommonUsed} - ${cartLine.getPromoQuantityAvailable()?string.number} ${uiLabelMap.CommonAvailable}
                     <ul>
                         <#list cartLine.getQuantityUsedPerPromoActualIter() as quantityUsedPerPromoActualEntry>
                             <#assign productPromoActualPK = quantityUsedPerPromoActualEntry.getKey()>

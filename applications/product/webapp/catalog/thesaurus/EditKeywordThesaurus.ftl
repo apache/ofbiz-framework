@@ -79,7 +79,7 @@ under the License.
                   <input type="hidden" name="alternateKeyword" value="${keyword.alternateKeyword}" />
                   <input type="submit" value="X" />
                 </form>
-                ${keyword.alternateKeyword}&nbsp;(${uiLabelMap.ProductRelationship}:${(relationship.get("description",locale))?default(keyword.relationshipEnumId?if_exists)})
+                ${keyword.alternateKeyword}&nbsp;(${uiLabelMap.ProductRelationship}:${(relationship.get("description",locale))?default(keyword.relationshipEnumId!)})
               </div>
               <#-- toggle the row color -->
               <#if rowClass == "2">

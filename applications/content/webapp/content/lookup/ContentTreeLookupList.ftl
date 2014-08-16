@@ -69,29 +69,29 @@
       <#if tabButtonItem=="ListContentTree">
         <#--Form ListContentTree-->
           <tr <#if alt_row> class="alternate-row"</#if>> 
-              <td><a class="plain" href="javascript:set_value('${contentData.contentId?if_exists}')">${contentData.contentId?if_exists}</a></td>
-              <td>${contentData.contentName?if_exists}</td>
-              <td>${contentData.mimeTypeId?if_exists}</td>
+              <td><a class="plain" href="javascript:set_value('${contentData.contentId!}')">${contentData.contentId!}</a></td>
+              <td>${contentData.contentName!}</td>
+              <td>${contentData.mimeTypeId!}</td>
           </tr>
       <#elseif tabButtonItem=="ListDocument">
           <#--Form ListDocument-->
           <tr <#if alt_row> class="alternate-row"</#if>>
-              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId?if_exists}">${contentData.contentName?if_exists}[${contentData.contentId?if_exists}]</a></td>
-              <td><a class="plain" href="/content/control/showContent?contentId=${contentData.contentId?if_exists}" target="_blank">${uiLabelMap.CommonView}</a></td>
-              <td>${contentData.contentTypeId?if_exists}</td>
-              <td>${contentData.mimeTypeId?if_exists}</td>
-              <td>${contentData.statusId?if_exists}</td>
+              <td><a class="plain" href="/content/control/editContent?contentId=${contentData.contentId!}">${contentData.contentName!}[${contentData.contentId!}]</a></td>
+              <td><a class="plain" href="/content/control/showContent?contentId=${contentData.contentId!}" target="_blank">${uiLabelMap.CommonView}</a></td>
+              <td>${contentData.contentTypeId!}</td>
+              <td>${contentData.mimeTypeId!}</td>
+              <td>${contentData.statusId!}</td>
               <#if contentData.caFromDate?has_content>
              <#assign caFromDate = Static["org.ofbiz.base.util.UtilDateTime"].toDateString(contentData.caFromDate, "dd/MM/yyyy")/>
             </#if> 
-              <td>${caFromDate?if_exists}</td>
+              <td>${caFromDate!}</td>
               <td><a href="javascript:document.listDocumentForm_${listcount}.submit()" >${uiLabelMap.CommonDelete}</a></td>
           </tr>
           <form action="<@ofbizUrl>removeDocumentFromTree</@ofbizUrl>" name="listDocumentForm_${listcount}" method="post">
-            <input type="hidden" name="contentId" value="${contentData.contentIdStart?if_exists}"/>
-            <input type="hidden" name="contentIdTo" value="${contentData.contentId?if_exists}"/>
-            <input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId?if_exists}"/>
-            <input type="hidden" name="fromDate" value="${contentData.fromDate?if_exists}"/>
+            <input type="hidden" name="contentId" value="${contentData.contentIdStart!}"/>
+            <input type="hidden" name="contentIdTo" value="${contentData.contentId!}"/>
+            <input type="hidden" name="contentAssocTypeId" value="${contentData.caContentAssocTypeId!}"/>
+            <input type="hidden" name="fromDate" value="${contentData.fromDate!}"/>
           </form>
      </#if>
          <#assign alt_row = !alt_row/>

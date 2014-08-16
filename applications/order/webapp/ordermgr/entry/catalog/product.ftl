@@ -20,6 +20,6 @@ ${pages.get("/entry/OrderEntryTabBar.ftl")}
 <#if requestAttributes.product?has_content>
   ${pages.get(requestAttributes.detailTemplate)}
 <#else>
-  <#assign productId = requestAttributes.productId?if_exists>
-  <center><h2>${uiLabelMap.ProductProductNotFound} ${productId?if_exists}!</h2></center>
+  <#assign productId = requestAttributes.productId!>
+  <center><h2>${uiLabelMap.ProductProductNotFound} ${productId!}!</h2></center>
 </#if>

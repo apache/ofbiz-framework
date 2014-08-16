@@ -27,7 +27,7 @@ under the License.
 <br />
 <div>${uiLabelMap.CommonSortedBy}: ${searchSortOrderString}</div>
 <br />
-<div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
+<div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
 
 <#if !productIds?has_content>
   <h2>&nbsp;${uiLabelMap.ProductNoResultsFound}.</h2>
