@@ -272,8 +272,13 @@ under the License.
                                                 <tr valign="top">
                                                     <td><b>${uiLabelMap.OrderRemaining}</b></td>
                                                     <td>${remainingQuantity}</td>
-                                                    <td><b>${uiLabelMap.OrderQtyShipped}</b></td>
-                                                    <td>${shippedQuantity}</td>
+                                                    <#if orderHeader.orderTypeId == "PURCHASE_ORDER">
+                                                        <td><b>${uiLabelMap.OrderPlannedInReceive}</b></td>
+                                                        <td>${totalReceived}</td>
+                                                    <#else>
+                                                        <td><b>${uiLabelMap.OrderQtyShipped}</b></td>
+                                                        <td>${shippedQuantity}</td>
+                                                    </#if>
                                                 </tr>
                                                 <tr valign="top">
                                                     <td><b>${uiLabelMap.OrderShortfalled}</b></td>
