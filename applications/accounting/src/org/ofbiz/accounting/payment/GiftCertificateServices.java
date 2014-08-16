@@ -891,10 +891,6 @@ public class GiftCertificateServices {
             if (productStoreEmail == null) {
                 Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
             } else {
-                ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-                uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-                uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-                answerMap.put("uiLabelMap", uiLabelMap);
                 answerMap.put("locale", locale);
 
                 // set the bcc address(s)
@@ -906,7 +902,6 @@ public class GiftCertificateServices {
                         bcc = orderEmails;
                     }
                 }
-
                 Map<String, Object> emailCtx = FastMap.newInstance();
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
@@ -921,7 +916,7 @@ public class GiftCertificateServices {
                 emailCtx.put("sendBcc", bcc);
                 emailCtx.put("subject", productStoreEmail.getString("subject"));
                 emailCtx.put("userLogin", userLogin);
-
+                
                 // send off the email async so we will retry on failed attempts
                 // SC 20060405: Changed to runSync because runAsync kept getting an error:
                 // Problem serializing service attributes (Cannot serialize object of class java.util.PropertyResourceBundle)
@@ -1136,10 +1131,6 @@ public class GiftCertificateServices {
         if (productStoreEmail == null) {
             Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
         } else {
-            ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-            uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-            uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-            answerMap.put("uiLabelMap", uiLabelMap);
             answerMap.put("locale", locale);
 
             Map<String, Object> emailCtx = FastMap.newInstance();

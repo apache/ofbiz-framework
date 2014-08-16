@@ -29,20 +29,6 @@
         <value xml:lang="zh">关于我们</value>
         <value xml:lang="zh_TW">關於我們</value>
     </property>
-    <property key="EcommerceANew">
-        <value xml:lang="da">en ny</value>
-        <value xml:lang="de">Ein neues</value>
-        <value xml:lang="en">a new</value>
-        <value xml:lang="fr">un nouvel</value>
-        <value xml:lang="it">una nuova</value>
-        <value xml:lang="ja">お知らせ</value>
-        <value xml:lang="nl">een nieuw(e)</value>       
-        <value xml:lang="pt_BR">uma nova</value>
-        <value xml:lang="th">ใหม่</value>
-        <value xml:lang="vi">mới</value>
-        <value xml:lang="zh">一个新的</value>
-        <value xml:lang="zh_TW">一個新的</value>
-    </property>
     <property key="EcommerceAccountInformation">
         <value xml:lang="da">Konto information</value>
         <value xml:lang="en">Account Information</value>
@@ -2302,32 +2288,6 @@
         <value xml:lang="zh">新注册列表</value>
         <value xml:lang="zh_TW">新註冊列表</value>
     </property>
-    <property key="EcommerceNewPasswordMssgEncryptionOff">
-        <value xml:lang="da">Deres adgangskode er:</value>
-        <value xml:lang="de">Ihr Passwort ist: </value>
-        <value xml:lang="en">Your password is :- </value>
-        <value xml:lang="fr">Votre mot de passe est : </value>
-        <value xml:lang="it">La tua password è :- </value>
-        <value xml:lang="ja">あなたのパスワードは :-</value>
-        <value xml:lang="nl">Uw wachtwoord is :</value>     
-        <value xml:lang="pt_BR">Sua senha é:</value>
-        <value xml:lang="zh">你的密码是：- </value>
-        <value xml:lang="vi">Mật khẩu của bạn :-</value>
-        <value xml:lang="zh_TW">你的密碼是 :- </value>
-    </property>
-    <property key="EcommerceNewPasswordMssgEncryptionOn">
-        <value xml:lang="da">Deres nye adgangskode er :- </value>
-        <value xml:lang="de">Ihr neues Passwort ist : </value>
-        <value xml:lang="en">Your new password is :- </value>
-        <value xml:lang="fr">Votre nouveau mot de passe est : </value>
-        <value xml:lang="it">La nuova password è :- </value>
-        <value xml:lang="ja">あなたの新しいパスワードは :-</value>
-        <value xml:lang="nl">Uw nieuwe wachtwoord is : </value>     
-        <value xml:lang="pt_BR">Sua nova senha é:</value>
-        <value xml:lang="zh">你的新密码是：- </value>
-        <value xml:lang="zh_TW">你的新密碼是 :- </value>
-        <value xml:lang="vi">Mật khẩu mới của bạn :-</value>
-    </property>
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="da">Der er ikke fundet nogen digitale produkter</value>
         <value xml:lang="de">Keine digitalen Produkte gefunden</value>
@@ -2696,20 +2656,6 @@
         <value xml:lang="vi">mật khẩu là</value>
         <value xml:lang="zh">密码是</value>
         <value xml:lang="zh_TW">密碼是</value>
-    </property>
-    <property key="EcommercePasswordSentToYou">
-        <value xml:lang="da">kodeord er sendt til Dem</value>
-        <value xml:lang="de">Passwort das Ihnen zugesendet wurde</value>
-        <value xml:lang="en">password sent to you</value>
-        <value xml:lang="fr">mot de passe qui vous a été envoyé</value>
-        <value xml:lang="it">password inviata a te</value>
-        <value xml:lang="ja">パスワードを送信しました</value>
-        <value xml:lang="nl">Wachtwoord dat naar u verzonden is</value>     
-        <value xml:lang="pt_BR">Senha enviada para você</value>
-        <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
-        <value xml:lang="vi">mật khẩu được gửi tới bạn</value>
-        <value xml:lang="zh">密码发送给你了</value>
-        <value xml:lang="zh_TW">密碼已發送給你</value>
     </property>
     <property key="EcommercePleaseWait">
         <value xml:lang="da">Vent venligst</value>
@@ -3841,20 +3787,6 @@
         <value xml:lang="vi">Cảm ơn</value>
         <value xml:lang="zh">谢谢你</value>
         <value xml:lang="zh_TW">謝謝你</value>
-    </property>
-    <property key="EcommerceThisEmailIsInResponseToYourRequestToHave">
-        <value xml:lang="da">Denne E-mail er et svar på Deres forespørgsel for at få</value>
-        <value xml:lang="de">Dieses E-Mail ist eine Antwort auf Ihre Anfrage zu </value>
-        <value xml:lang="en">This email is in response to your request to have</value>
-        <value xml:lang="fr">Ce courriel en réponse à votre demande d'obtenir</value>
-        <value xml:lang="it">Questa email ti è stata inviata in seguito alla tua richiesta.</value>
-        <value xml:lang="ja">このメールはあなたがリクエストされたものです</value>
-        <value xml:lang="nl">Deze email is verzonden naar aanleiding van uw verzoek.</value>    
-        <value xml:lang="pt_BR">Este e-mail lhe foi enviado devido ao seu pedido</value>
-        <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
-        <value xml:lang="vi">Thư điện tử này để phản hồi việc bạn yêu cầu muốn có</value>
-        <value xml:lang="zh">这个电子邮件是回答你要求的</value>
-        <value xml:lang="zh_TW">此電子郵件是回覆你的要求的</value>
     </property>
     <property key="EcommerceToOrderCreateCustRequestFromCart">
         <value xml:lang="da">For at bestille, opret kundeanmodning fra indkøbskurv</value>

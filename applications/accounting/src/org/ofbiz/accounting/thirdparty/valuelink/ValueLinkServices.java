@@ -1173,7 +1173,6 @@ public class ValueLinkServices {
         // get the send to email address - key defined in properties file
         String sendToKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.sendToEmail");
         String sendToEmail = (String) answerMap.get(sendToKey);
-
         // get the copyMe flag and set the order email address
         String orderEmails = orh.getOrderEmailString();
         String copyMeField = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.copyMe");
@@ -1262,10 +1261,6 @@ public class ValueLinkServices {
             if (productStoreEmail == null) {
                 Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
             } else {
-                ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-                uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-                uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-                answerMap.put("uiLabelMap", uiLabelMap);
                 answerMap.put("locale", locale);
 
                 // set the bcc address(s)
@@ -1515,10 +1510,6 @@ public class ValueLinkServices {
             Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
         } else {
             Map<String, Object> emailCtx = FastMap.newInstance();
-            ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-            uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-            uiLabelMap.addBottomResourceBundle("CommonUiLabels");
-            answerMap.put("uiLabelMap", uiLabelMap);
             answerMap.put("locale", locale);
 
             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
