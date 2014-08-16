@@ -60,18 +60,18 @@ under the License.
       </tfoot>
       <tbody>
         <#list shoppingCart.items() as cartLine>
-          <#if cartLine.getProductId()?exists>
-            <#if cartLine.getParentProductId()?exists>
+          <#if cartLine.getProductId()??>
+            <#if cartLine.getParentProductId()??>
               <#assign parentProductId = cartLine.getParentProductId() />
             <#else>
               <#assign parentProductId = cartLine.getProductId() />
             </#if>
-            <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
+            <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)! />
             <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
           </#if>
           <tr id="cartItemDisplayRow_${cartLine_index}">
-            <td headers="orderItem"><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt = "Product Image" /></td>
-            <td headers="description">${cartLine.getName()?if_exists}</td>
+            <td headers="orderItem"><img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt = "Product Image" /></td>
+            <td headers="description">${cartLine.getName()!}</td>
             <td headers="unitPrice">${cartLine.getDisplayPrice()}</td>
             <td headers="quantity"><span id="completedCartItemQty_${cartLine_index}">${cartLine.getQuantity()?string.number}</span></td>
             <td headers="adjustment"><span id="completedCartItemAdjustment_${cartLine_index}"><@ofbizCurrency amount=cartLine.getOtherAdjustments() isoCode=shoppingCart.getCurrency() /></span></td>
@@ -130,20 +130,20 @@ under the License.
             <#list shoppingCart.items() as cartLine>
               <tr id="cartItemRow_${cartLine_index}">
                 <td headers="editOrderItem">
-                  <#if cartLine.getProductId()?exists>
-                    <#if cartLine.getParentProductId()?exists>
+                  <#if cartLine.getProductId()??>
+                    <#if cartLine.getParentProductId()??>
                       <#assign parentProductId = cartLine.getParentProductId() />
                     <#else>
                       <#assign parentProductId = cartLine.getProductId() />
                     </#if>
-                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
+                    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)! />
                     <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "" /></#if>
                     <#if smallImageUrl?string?has_content>
-                      <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" />
+                      <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Product Image" />
                     </#if>
                   </#if>
                 </td>
-                <td headers="editDescription">${cartLine.getName()?if_exists}</td>
+                <td headers="editDescription">${cartLine.getName()!}</td>
                 <td headers="editUnitPrice" id="itemUnitPrice_${cartLine_index}"><@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=shoppingCart.getCurrency() /></td>
                 <td headers="editQuantity">
                   <#if cartLine.getIsPromo()>

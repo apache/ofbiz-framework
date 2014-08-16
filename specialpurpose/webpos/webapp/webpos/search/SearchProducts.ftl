@@ -19,7 +19,7 @@ under the License.
 <form name="SearchProducts" method="post" action="<@ofbizUrl>AddItem</@ofbizUrl>">
   <div>
     <input type="hidden" id="quantity" name="quantity" value="1" />
-    <input type="hidden" id="add_product_id" name="add_product_id" value="${parameters.add_product_id?if_exists}" />
+    <input type="hidden" id="add_product_id" name="add_product_id" value="${parameters.add_product_id!}" />
     <input type="hidden" id="goodIdentificationTypeId" name="goodIdentificationTypeId" value="" />
     <label for="searchBy"><b>&nbsp;${uiLabelMap.WebPosSearchBy}</b></label>
     <select id="searchBy" name="searchBy">

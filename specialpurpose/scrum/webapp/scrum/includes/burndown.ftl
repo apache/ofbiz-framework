@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign sprint = delegator.findOne("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), false)?if_exists />
+<#assign sprint = delegator.findOne("WorkEffort", Static["org.ofbiz.base.util.UtilMisc"].toMap("workEffortId", parameters.get("sprintId")), false)! />
 <#assign actualStartDay = Static["org.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualStartDate, timeZone, locale)/>
 <#assign actualCompletionDay = Static["org.ofbiz.base.util.UtilDateTime"].getDayStart(sprint.actualCompletionDate, timeZone, locale)/>
 <#assign dayNumber = ((actualCompletionDay.getTime() - actualStartDay.getTime())/1000/60/60/24) + 1/>
@@ -26,12 +26,12 @@ under the License.
 <#if members.size() &gt; 0 >
     <#assign maxHours = estimatedHrs * members.size()/>
     <div id="params_birtReport" style='display:none'>
-        <INPUT type="HIDDEN" name="sprintId" value="${sprint.workEffortId?if_exists}"/>
-        <INPUT type="HIDDEN" name="actualStartDate" value="${sprint.actualStartDate?if_exists}"/>
-        <INPUT type="HIDDEN" name="actualCompletionDate" value="${sprint.actualCompletionDate?if_exists}"/>
-        <INPUT type="HIDDEN" name="dayNumber" value="${dayNumber?if_exists}"/>
-        <INPUT type="HIDDEN" name="estimatedHrs" value="${estimatedHrs?if_exists}"/>
-        <INPUT type="HIDDEN" name="maxHours" value="${maxHours?if_exists}"/>
+        <INPUT type="HIDDEN" name="sprintId" value="${sprint.workEffortId!}"/>
+        <INPUT type="HIDDEN" name="actualStartDate" value="${sprint.actualStartDate!}"/>
+        <INPUT type="HIDDEN" name="actualCompletionDate" value="${sprint.actualCompletionDate!}"/>
+        <INPUT type="HIDDEN" name="dayNumber" value="${dayNumber!}"/>
+        <INPUT type="HIDDEN" name="estimatedHrs" value="${estimatedHrs!}"/>
+        <INPUT type="HIDDEN" name="maxHours" value="${maxHours!}"/>
     </div>
     <form id="form_birtReport" method="post"></form>
     <script type="text/javascript">

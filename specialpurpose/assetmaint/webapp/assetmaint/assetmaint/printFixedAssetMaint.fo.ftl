@@ -41,25 +41,25 @@ under the License.
         <#if fixedAsset.fixedAssetName?has_content>
         <fo:table-row>
            <fo:table-cell><fo:block>${uiLabelMap.AccountingFixedAssetName}</fo:block></fo:table-cell>
-           <fo:table-cell><fo:block>${fixedAsset.fixedAssetName?if_exists}</fo:block></fo:table-cell>
+           <fo:table-cell><fo:block>${fixedAsset.fixedAssetName!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
         <#if fixedAsset.serialNumber?has_content>
         <fo:table-row>
             <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_serialNumber}</fo:block></fo:table-cell>
-            <fo:table-cell><fo:block font-weight="bold">${fixedAsset.serialNumber?if_exists}</fo:block></fo:table-cell>
+            <fo:table-cell><fo:block font-weight="bold">${fixedAsset.serialNumber!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
         <#if fixedAsset.locatedAtFacilityId?has_content>
         <fo:table-row>
             <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_locatedAtFacilityId}</fo:block></fo:table-cell>
-            <fo:table-cell><fo:block>${maintenance.facilityName?if_exists}</fo:block></fo:table-cell>
+            <fo:table-cell><fo:block>${maintenance.facilityName!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
         <#if fixedAssetIdentValue?has_content>
         <fo:table-row>
             <fo:table-cell><fo:block>${uiLabelMap.AccountingFixedAssetIdents}</fo:block></fo:table-cell>
-            <fo:table-cell><fo:block>${fixedAssetIdentValue?if_exists}</fo:block></fo:table-cell>
+            <fo:table-cell><fo:block>${fixedAssetIdentValue!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
       </#if>
@@ -87,23 +87,23 @@ under the License.
         <#if productMaintName?has_content>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.CommonName}</fo:block></fo:table-cell>
-          <fo:table-cell><fo:block>${productMaintName?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block>${productMaintName!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
         <#if productMaintTypeDesc?has_content>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.AccountingFixedAssetMaintType}</fo:block></fo:table-cell>
-          <fo:table-cell><fo:block font-weight="bold">${productMaintTypeDesc?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block font-weight="bold">${productMaintTypeDesc!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.AccountingFixedAssetMaintIntervalQuantity}</fo:block></fo:table-cell>
-          <fo:table-cell><fo:block font-weight="bold">${fixedAssetMaint.intervalQuantity?if_exists} ${intervalUomDesc?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block font-weight="bold">${fixedAssetMaint.intervalQuantity!} ${intervalUomDesc!}</fo:block></fo:table-cell>
         </fo:table-row>
         <#if productMeterTypeDesc?has_content>
         <fo:table-row>
           <fo:table-cell><fo:block>Meter type</fo:block></fo:table-cell>
-          <fo:table-cell><fo:block font-weight="bold">${productMeterTypeDesc?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell><fo:block font-weight="bold">${productMeterTypeDesc!}</fo:block></fo:table-cell>
         </fo:table-row>
         </#if>
       </#if>
@@ -138,7 +138,7 @@ under the License.
                 <fo:table-cell><fo:block></fo:block></fo:table-cell>
             </#if>
         </fo:table-row>
-        <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType", false)?if_exists>
+        <#assign workEffortPurposeType = scheduleWorkEffort.getRelatedOne("WorkEffortPurposeType", false)!>
         <#if workEffortPurposeType?has_content>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.FormFieldTitle_workEffortPurposeTypeId}</fo:block></fo:table-cell>
@@ -147,11 +147,11 @@ under the License.
         </#if>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.CommonName}</fo:block></fo:table-cell>
-          <fo:table-cell number-columns-spanned="3"><fo:block font-weight="bold">${scheduleWorkEffort.workEffortName?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell number-columns-spanned="3"><fo:block font-weight="bold">${scheduleWorkEffort.workEffortName!}</fo:block></fo:table-cell>
         </fo:table-row>
         <fo:table-row>
           <fo:table-cell><fo:block>${uiLabelMap.CommonDescription}</fo:block></fo:table-cell>
-          <fo:table-cell number-columns-spanned="3"><fo:block font-weight="bold">${scheduleWorkEffort.description?if_exists}</fo:block></fo:table-cell>
+          <fo:table-cell number-columns-spanned="3"><fo:block font-weight="bold">${scheduleWorkEffort.description!}</fo:block></fo:table-cell>
         </fo:table-row>
       </#if>
     </fo:table-body>
@@ -170,13 +170,13 @@ under the License.
       </fo:table-header>
       <fo:table-body>
         <#list itemIssuanceList as itemIssuance>
-          <#assign productId = itemIssuance.productId?if_exists>
+          <#assign productId = itemIssuance.productId!>
           <#assign quantity = itemIssuance.quantity?default(0)>
             <fo:table-row>
               <fo:table-cell>
                 <fo:block>
-                  <#if productId?exists>
-                    ${itemIssuance.productId?default("N/A")} - ${itemIssuance.internalName?if_exists} - ${itemIssuance.description?if_exists} - ${itemIssuance.comments?if_exists}
+                  <#if productId??>
+                    ${itemIssuance.productId?default("N/A")} - ${itemIssuance.internalName!} - ${itemIssuance.description!} - ${itemIssuance.comments!}
                   </#if>
                 </fo:block>
               </fo:table-cell>
@@ -202,7 +202,7 @@ under the License.
               <fo:block>Author : ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</fo:block>
               <fo:block>Date : ${note.noteDateTime?string.short}</fo:block>
               <#escape x as x?html>
-                <fo:block>${note.noteInfo?if_exists}</fo:block>
+                <fo:block>${note.noteInfo!}</fo:block>
               </#escape>
             </fo:table-cell>
           </fo:table-row>

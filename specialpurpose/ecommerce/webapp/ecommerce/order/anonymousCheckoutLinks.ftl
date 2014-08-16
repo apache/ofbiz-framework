@@ -22,29 +22,29 @@ function submitForm(form) {
 }
 </script>
 <div>
-    <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Personal Info</a>
-    <#if (enableShippingAddress)?exists>
-        <a href="<@ofbizUrl>setShipping</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Shipping Address</a>
+    <a href="<@ofbizUrl>setCustomer</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Personal Info</a>
+    <#if (enableShippingAddress)??>
+        <a href="<@ofbizUrl>setShipping</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Shipping Address</a>
     <#else>
         <span class="buttontextdisabled">Shipping Address</span>
     </#if>
-    <#if (enableShipmentMethod)?exists>
-        <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Shipping Options</a>
+    <#if (enableShipmentMethod)??>
+        <a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Shipping Options</a>
     <#else>
         <span class="buttontextdisabled">Shipping Options</span>
     </#if>
-    <#if (enablePaymentOptions)?exists>
-        <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Payment Options</a>
+    <#if (enablePaymentOptions)??>
+        <a href="<@ofbizUrl>setPaymentOption</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Payment Options</a>
     <#else>
         <span class="buttontextdisabled">Payment Options</span>
     </#if>
-    <#if (enablePaymentInformation)?exists>
-        <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId?if_exists}</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Payment Information</a>
+    <#if (enablePaymentInformation)??>
+        <a href="<@ofbizUrl>setPaymentInformation?paymentMethodTypeId=${requestParameters.paymentMethodTypeId!}</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Payment Information</a>
     <#else>
         <span class="buttontextdisabled">Payment Information</span>
     </#if>
-    <#if (enableReviewOrder)?exists>
-        <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Review Order</a>
+    <#if (enableReviewOrder)??>
+        <a href="<@ofbizUrl>reviewOrder</@ofbizUrl>" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Review Order</a>
     <#else>
         <span class="buttontextdisabled">Review Order</span>
     </#if>

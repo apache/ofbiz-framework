@@ -24,7 +24,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)?if_exists}</title>
+  <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)!}</title>
   <#if layoutSettings.VT_SHORTCUT_ICON?has_content>
     <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
   <#elseif layoutSettings.shortcutIcon?has_content>
@@ -56,11 +56,11 @@ under the License.
     </#list>
   </#if>
   <#-- Append CSS for catalog -->
-  <#if catalogStyleSheet?exists>
+  <#if catalogStyleSheet??>
     <link rel="stylesheet" href="${StringUtil.wrapString(catalogStyleSheet)}" type="text/css"/>
   </#if>
   <#-- Append CSS for tracking codes -->
-  <#if sessionAttributes.overrideCss?exists>
+  <#if sessionAttributes.overrideCss??>
     <link rel="stylesheet" href="${StringUtil.wrapString(sessionAttributes.overrideCss)}" type="text/css"/>
   </#if>
   <#if layoutSettings.javaScripts?has_content>
@@ -79,7 +79,7 @@ under the License.
       <script type="text/javascript" src="<@ofbizContentUrl>${StringUtil.wrapString(javaScript)}</@ofbizContentUrl>"></script>
     </#list>
   </#if>
-  ${layoutSettings.extraHead?if_exists}
+  ${layoutSettings.extraHead!}
   <#if layoutSettings.VT_EXTRA_HEAD?has_content>
     <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
       ${extraHead}
@@ -88,17 +88,17 @@ under the License.
 
   <#-- Meta tags if defined by the page action -->
   <meta name="generator" content="Apache OFBiz - eCommerce"/>
-  <#if metaDescription?exists>
+  <#if metaDescription??>
     <meta name="description" content="${metaDescription}"/>
   </#if>
-  <#if metaKeywords?exists>
+  <#if metaKeywords??>
     <meta name="keywords" content="${metaKeywords}"/>
   </#if>
   <#if webAnalyticsConfigs?has_content>
     <script language="JavaScript" type="text/javascript">
     <#list webAnalyticsConfigs as webAnalyticsConfig>
       <#if  webAnalyticsConfig.webAnalyticsTypeId != "BACKEND_ANALYTICS">
-        ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
+        ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
       </#if>
     </#list>
     </script>

@@ -53,7 +53,7 @@ under the License.
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr>
         <td align="right" valign="middle">
-          <div>${(productFeatureType.get("description",locale))?if_exists}:</div>
+          <div>${(productFeatureType.get("description",locale))!}:</div>
         </td>
         <td valign="middle">
           <div>

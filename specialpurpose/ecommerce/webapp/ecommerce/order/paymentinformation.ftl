@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if requestParameters.paymentMethodTypeId?has_content>
-   <#assign paymentMethodTypeId = "${requestParameters.paymentMethodTypeId?if_exists}">
+   <#assign paymentMethodTypeId = "${requestParameters.paymentMethodTypeId!}">
 </#if>
 <script language="JavaScript" type="text/javascript">
 function shipBillAddr() {
@@ -27,9 +27,9 @@ function shipBillAddr() {
       <#assign singleUse = "">
     </#if>
     if (document.billsetupform.useShipAddr.checked) {
-        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard?if_exists}&amp;paymentMethodTypeId=${paymentMethodTypeId?if_exists}&amp;useShipAddr=Y${singleUse}");
+        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard!}&amp;paymentMethodTypeId=${paymentMethodTypeId!}&amp;useShipAddr=Y${singleUse}");
     } else {
-        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard?if_exists}&amp;paymentMethodTypeId=${paymentMethodTypeId?if_exists}${singleUse}");
+        window.location.replace("setPaymentInformation?createNew=Y&amp;addGiftCard=${requestParameters.addGiftCard!}&amp;paymentMethodTypeId=${paymentMethodTypeId!}${singleUse}");
     }
 }
 </script>
@@ -40,32 +40,32 @@ function shipBillAddr() {
     </div>
     <div class="screenlet-body">
           <#-- after initial screen; show detailed screens for selected type -->
-          <#if paymentMethodTypeId?if_exists == "CREDIT_CARD">
-            <#if creditCard?has_content && postalAddress?has_content && !requestParameters.useShipAddr?exists>
+          <#if paymentMethodTypeId! == "CREDIT_CARD">
+            <#if creditCard?has_content && postalAddress?has_content && !requestParameters.useShipAddr??>
               <form method="post" action="<@ofbizUrl>changeCreditCardAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
-                <input type="hidden" name="paymentMethodId" value="${creditCard.paymentMethodId?if_exists}"/>
-                <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
-            <#elseif requestParameters.useShipAddr?exists>
+                <input type="hidden" name="paymentMethodId" value="${creditCard.paymentMethodId!}"/>
+                <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId!}"/>
+            <#elseif requestParameters.useShipAddr??>
               <form method="post" action="<@ofbizUrl>enterCreditCard</@ofbizUrl>" name="${parameters.formNameValue}">
             <#else>
               <form method="post" action="<@ofbizUrl>enterCreditCardAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
-          <#elseif paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
+          <#elseif paymentMethodTypeId! == "EFT_ACCOUNT">
             <#if eftAccount?has_content && postalAddress?has_content>
               <form method="post" action="<@ofbizUrl>changeEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
-                <input type="hidden" name="paymentMethodId" value="${eftAccount.paymentMethodId?if_exists}"/>
-                <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
-            <#elseif requestParameters.useShipAddr?exists>
+                <input type="hidden" name="paymentMethodId" value="${eftAccount.paymentMethodId!}"/>
+                <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId!}"/>
+            <#elseif requestParameters.useShipAddr??>
               <form method="post" action="<@ofbizUrl>enterEftAccount</@ofbizUrl>" name="${parameters.formNameValue}">
             <#else>
               <form method="post" action="<@ofbizUrl>enterEftAccountAndBillingAddress</@ofbizUrl>" name="${parameters.formNameValue}">
             </#if>
-          <#elseif paymentMethodTypeId?if_exists == "GIFT_CARD"> <#--Don't know much how this is handled -->
+          <#elseif paymentMethodTypeId! == "GIFT_CARD"> <#--Don't know much how this is handled -->
             <form method="post" action="<@ofbizUrl>enterGiftCard</@ofbizUrl>" name="${parameters.formNameValue}">
-          <#elseif paymentMethodTypeId?if_exists == "EXT_OFFLINE">
+          <#elseif paymentMethodTypeId! == "EXT_OFFLINE">
             <form method="post" action="<@ofbizUrl>processPaymentSettings</@ofbizUrl>" name="${parameters.formNameValue}">
           <#else>
-            <div>${uiLabelMap.AccountingPaymentMethodTypeNotHandled} ${paymentMethodTypeId?if_exists}</div>
+            <div>${uiLabelMap.AccountingPaymentMethodTypeNotHandled} ${paymentMethodTypeId!}</div>
           </#if>
 
           <#if requestParameters.singleUsePayment?default("N") == "Y">
@@ -74,17 +74,17 @@ function shipBillAddr() {
           </#if>
           <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS"/>
           <input type="hidden" name="partyId" value="${partyId}"/>
-          <input type="hidden" name="paymentMethodTypeId" value="${paymentMethodTypeId?if_exists}"/>
+          <input type="hidden" name="paymentMethodTypeId" value="${paymentMethodTypeId!}"/>
           <input type="hidden" name="createNew" value="Y"/>
-          <#if requestParameters.useShipAddr?exists>
-            <input type="hidden" name="contactMechId" value="${parameters.contactMechId?if_exists}"/>
+          <#if requestParameters.useShipAddr??>
+            <input type="hidden" name="contactMechId" value="${parameters.contactMechId!}"/>
           </#if>
 
           <table width="100%" border="0" cellpadding="1" cellspacing="0">
-            <#if cart.getShippingContactMechId()?exists && paymentMethodTypeId?if_exists != "GIFT_CARD">
+            <#if cart.getShippingContactMechId()?? && paymentMethodTypeId! != "GIFT_CARD">
               <tr>
                 <td width="26%" align="right" valign="top">
-                  <input type="checkbox" name="useShipAddr" value="Y" onclick="javascript:shipBillAddr();" <#if useShipAddr?exists>checked="checked"</#if>/>
+                  <input type="checkbox" name="useShipAddr" value="Y" onclick="javascript:shipBillAddr();" <#if useShipAddr??>checked="checked"</#if>/>
                 </td>
                 <td colspan="2" valign="middle">
                   <div>${uiLabelMap.FacilityBillingAddressSameShipping}</div>
@@ -95,7 +95,7 @@ function shipBillAddr() {
               </tr>
             </#if>
 
-            <#if (paymentMethodTypeId?if_exists == "CREDIT_CARD" || paymentMethodTypeId?if_exists == "EFT_ACCOUNT")>
+            <#if (paymentMethodTypeId! == "CREDIT_CARD" || paymentMethodTypeId! == "EFT_ACCOUNT")>
               <tr>
                 <td width="26%" align="right" valign="top"><div class="tableheadtext">${uiLabelMap.PartyBillingAddress}</div></td>
                 <td width="5">&nbsp;</td>
@@ -105,7 +105,7 @@ function shipBillAddr() {
             </#if>
 
             <#-- credit card fields -->
-            <#if paymentMethodTypeId?if_exists == "CREDIT_CARD">
+            <#if paymentMethodTypeId! == "CREDIT_CARD">
               <#if !creditCard?has_content>
                 <#assign creditCard = requestParameters>
               </#if>
@@ -122,7 +122,7 @@ function shipBillAddr() {
             </#if>
 
             <#-- eft fields -->
-            <#if paymentMethodTypeId?if_exists =="EFT_ACCOUNT">
+            <#if paymentMethodTypeId! =="EFT_ACCOUNT">
               <#if !eftAccount?has_content>
                 <#assign eftAccount = requestParameters>
               </#if>
@@ -138,28 +138,28 @@ function shipBillAddr() {
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingNameOnAccount}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccount.nameOnAccount?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="nameOnAccount" value="${eftAccount.nameOnAccount!}"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingCompanyNameOnAccount}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccount.companyNameOnAccount?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="companyNameOnAccount" value="${eftAccount.companyNameOnAccount!}"/>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingBankName}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccount.bankName?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="bankName" value="${eftAccount.bankName!}"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingRoutingNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccount.routingNumber?if_exists}"/>
+                  <input type="text" class="inputBox" size="10" maxlength="30" name="routingNumber" value="${eftAccount.routingNumber!}"/>
                 *</td>
               </tr>
               <tr>
@@ -167,7 +167,7 @@ function shipBillAddr() {
                 <td width="5">&nbsp;</td>
                 <td width="74%">
                   <select name="accountType" class="selectBox">
-                    <option>${eftAccount.accountType?if_exists}</option>
+                    <option>${eftAccount.accountType!}</option>
                     <option></option>
                     <option>Checking</option>
                     <option>Savings</option>
@@ -178,23 +178,23 @@ function shipBillAddr() {
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingAccountNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccount.accountNumber?if_exists}"/>
+                  <input type="text" class="inputBox" size="20" maxlength="40" name="accountNumber" value="${eftAccount.accountNumber!}"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.CommonDescription}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${eftAccount.description?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${eftAccount.description!}"/>
                 </td>
               </tr>
             </#if>
 
             <#-- gift card fields -->
-            <#if requestParameters.addGiftCard?default("") == "Y" || paymentMethodTypeId?if_exists == "GIFT_CARD">
+            <#if requestParameters.addGiftCard?default("") == "Y" || paymentMethodTypeId! == "GIFT_CARD">
               <input type="hidden" name="addGiftCard" value="Y"/>
-              <#assign giftCard = giftCard?if_exists>
-              <#if paymentMethodTypeId?if_exists != "GIFT_CARD">
+              <#assign giftCard = giftCard!>
+              <#if paymentMethodTypeId! != "GIFT_CARD">
                 <tr>
                   <td colspan="3"><hr /></td>
                 </tr>
@@ -208,29 +208,29 @@ function shipBillAddr() {
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingGiftCardNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="20" maxlength="60" name="giftCardNumber" value="${giftCard.cardNumber?if_exists}"/>
+                  <input type="text" class="inputBox" size="20" maxlength="60" name="giftCardNumber" value="${giftCard.cardNumber!}"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingPINNumber}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="10" maxlength="60" name="giftCardPin" value="${giftCard.pinNumber?if_exists}"/>
+                  <input type="text" class="inputBox" size="10" maxlength="60" name="giftCardPin" value="${giftCard.pinNumber!}"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right" valign="middle"><div>${uiLabelMap.CommonDescription}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${giftCard.description?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${giftCard.description!}"/>
                 </td>
               </tr>
-              <#if paymentMethodTypeId?if_exists != "GIFT_CARD">
+              <#if paymentMethodTypeId! != "GIFT_CARD">
                 <tr>
                   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.AccountingAmountToUse}</div></td>
                   <td width="5">&nbsp;</td>
                   <td width="74%">
-                    <input type="text" class="inputBox" size="5" maxlength="10" name="giftCardAmount" value="${giftCard.pinNumber?if_exists}"/>
+                    <input type="text" class="inputBox" size="5" maxlength="10" name="giftCardAmount" value="${giftCard.pinNumber!}"/>
                   *</td>
                 </tr>
               </#if>

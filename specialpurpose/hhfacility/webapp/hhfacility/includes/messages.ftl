@@ -19,20 +19,20 @@ under the License.
 
 <#if requestAttributes.errorMessageList?has_content><#assign errorMessageList=requestAttributes.errorMessageList></#if>
 <#if requestAttributes.eventMessageList?has_content><#assign eventMessageList=requestAttributes.eventMessageList></#if>
-<#if requestAttributes.serviceValidationException?exists><#assign serviceValidationException = requestAttributes.serviceValidationException></#if>
+<#if requestAttributes.serviceValidationException??><#assign serviceValidationException = requestAttributes.serviceValidationException></#if>
 <#if requestAttributes.uiLabelMap?has_content><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
 <#if !errorMessage?has_content>
-  <#assign errorMessage = requestAttributes._ERROR_MESSAGE_?if_exists>
+  <#assign errorMessage = requestAttributes._ERROR_MESSAGE_!>
 </#if>
 <#if !errorMessageList?has_content>
-  <#assign errorMessageList = requestAttributes._ERROR_MESSAGE_LIST_?if_exists>
+  <#assign errorMessageList = requestAttributes._ERROR_MESSAGE_LIST_!>
 </#if>
 <#if !eventMessage?has_content>
-  <#assign eventMessage = requestAttributes._EVENT_MESSAGE_?if_exists>
+  <#assign eventMessage = requestAttributes._EVENT_MESSAGE_!>
 </#if>
 <#if !eventMessageList?has_content>
-  <#assign eventMessageList = requestAttributes._EVENT_MESSAGE_LIST_?if_exists>
+  <#assign eventMessageList = requestAttributes._EVENT_MESSAGE_LIST_!>
 </#if>
 
 <#-- display the error messages -->

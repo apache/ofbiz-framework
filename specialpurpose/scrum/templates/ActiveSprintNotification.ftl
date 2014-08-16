@@ -22,12 +22,12 @@ under the License.
         <title>${title}</title>
     </head>
     <body>
-        <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your Sprint <b>${sprint.workEffortName?if_exists} [${sprint.workEffortId?if_exists}]</b> in project <b>${project.workEffortName?if_exists} [${project.workEffortId?if_exists}]</b> 
-            of the product <b>${prodcut.internalName?if_exists} [${prodcut.productId?if_exists}]</b> has been started.
+        <p>Hello ${person.firstName!} ${person.lastName!},</p>
+        <p>Your Sprint <b>${sprint.workEffortName!} [${sprint.workEffortId!}]</b> in project <b>${project.workEffortName!} [${project.workEffortId!}]</b> 
+            of the product <b>${prodcut.internalName!} [${prodcut.productId!}]</b> has been started.
         <br />
         <br />
-        The complete information about this sprint can be found <a href="${StringUtil.wrapString(baseSecureUrl?if_exists)}/scrum/control/ViewSprint?sprintId=${sprint.workEffortId?if_exists}">here.....</a>
+        The complete information about this sprint can be found <a href="${StringUtil.wrapString(baseSecureUrl!)}/scrum/control/ViewSprint?sprintId=${sprint.workEffortId!}">here.....</a>
         <br /><br />
         Regards.<br /><br />
         Thank you for your business.

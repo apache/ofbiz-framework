@@ -23,7 +23,7 @@ under the License.
 <table width='100%' cellpadding='0' cellspacing='0' border='0'>
   <tr>
     <td>
-      <h1>${contentIdTo?if_exists}
+      <h1>${contentIdTo!}
       </h1>
     </td>
     <td align="right">
@@ -36,15 +36,15 @@ under the License.
 <div class="screenlet">
     
         <div class="boxlink">
-            <a href="<@ofbizUrl>editforuminfo?contentId=${contentId?if_exists}&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}&amp;contentIdTo=${contentIdTo?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
+            <a href="<@ofbizUrl>editforuminfo?contentId=${contentId!}&amp;nodeTrailCsv=${nodeTrailCsv!}&amp;contentIdTo=${contentIdTo!}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <h3>${uiLabelMap.EcommerceContentInformation}</h3>
    
     <div class="screenlet-body">
   <table>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.ProductContentId}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentId?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.EcommerceContentName}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentName?if_exists}</div></td></tr>
-    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.CommonDescription}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${description?if_exists}<div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.ProductContentId}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentId!}</div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.EcommerceContentName}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${contentName!}</div></td></tr>
+    <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>${uiLabelMap.CommonDescription}</b></div></td><td>&nbsp;</td><td><div class='tabletext'>${description!}<div></td></tr>
   </table>
     </div>
 </div>
@@ -52,14 +52,14 @@ under the License.
 <div class="screenlet">
     
         <div class="boxlink">
-            <a href="<@ofbizUrl>editaddimage?contentIdTo=${contentId?if_exists}&amp;dataResourceId=${txtDataResourceId?if_exists}&amp;mapKey=IMAGE&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
+            <a href="<@ofbizUrl>editaddimage?contentIdTo=${contentId!}&amp;dataResourceId=${txtDataResourceId!}&amp;mapKey=IMAGE&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <h3>${uiLabelMap.EcommerceImageInformation}</h3>
     
     <div class="screenlet-body">
   <table>
     <tr><td align="right" nowrap="nowrap"><div class='tabletext'>${uiLabelMap.EcommerceImage}</div></td><td>&nbsp;</td><td><div class='tabletext'>
-        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId?if_exists}</@ofbizUrl>" alt="" class='cssImgStandard' />
+        <img src="<@ofbizUrl>img?imgId=${imgDataResourceId!}</@ofbizUrl>" alt="" class='cssImgStandard' />
 <div></td></tr>
   </table>
     </div>
@@ -67,13 +67,13 @@ under the License.
 
 <div class="screenlet">
         <div class="boxlink">
-            <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&amp;dataResourceId=${txtDataResourceId?if_exists}&amp;mapKey=SUMMARY&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
+            <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId!}&amp;dataResourceId=${txtDataResourceId!}&amp;mapKey=SUMMARY&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <h3>${uiLabelMap.EcommerceSummaryInformation}</h3>
     <div class="screenlet-body">
   <table>
     <tr><td><div class='tabletext'>${uiLabelMap.ContentSummary}</div></td><td>&nbsp;</td><td><div class='tabletext'>
-${summaryData?if_exists}
+${summaryData!}
 <div></td></tr>
   </table>
     </div>
@@ -81,13 +81,13 @@ ${summaryData?if_exists}
 
 <div class="screenlet">
         <div class="boxlink">
-            <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId?if_exists}&amp;dataResourceId=${txtDataResourceId?if_exists}&amp;mapKey=ARTICLE&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
+            <a href="<@ofbizUrl>editaddforumdata?contentIdTo=${contentId!}&amp;dataResourceId=${txtDataResourceId!}&amp;mapKey=ARTICLE&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonUpdate}</a>
         </div>
         <h3>&nbsp;${uiLabelMap.EcommerceArticleInformation}</h3>
     <div class="screenlet-body">
   <table width="100%" border="0" cellpadding="0" cellspacing='0'>
     <tr><td align="right" nowrap="nowrap"><div class='tabletext'><b>Article</b></div></td><td>&nbsp;</td><td><div class='tabletext'>
-${textData?if_exists}
+${textData!}
 <div></td></tr>
   </table>
     </div>

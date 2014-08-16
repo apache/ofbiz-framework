@@ -57,8 +57,8 @@
 <#assign textDataResourceId=""/>
 
 <#if textContent?has_content >
-    <#assign textContentId=textContent.contentId?if_exists/>
-    <#assign textDataResourceId=textContent.drDataResourceId?if_exists/>
+    <#assign textContentId=textContent.contentId!/>
+    <#assign textDataResourceId=textContent.drDataResourceId!/>
 </#if>
 
 <#if textElectronicText?has_content && textElectronicText.textData?has_content >
@@ -69,8 +69,8 @@
 <#assign imageDataResourceId=""/>
 
 <#if imageContent?has_content >
-    <#assign imageContentId=imageContent.contentId?if_exists/>
-    <#assign imageDataResourceId=imageContent.drDataResourceId?if_exists/>
+    <#assign imageContentId=imageContent.contentId!/>
+    <#assign imageDataResourceId=imageContent.drDataResourceId!/>
 </#if>
 
 <input type="hidden" name="textContentId" value="${textContentId}"/>
@@ -89,7 +89,7 @@
         </td>
         <td>&nbsp;</td>
         <td width="60%">
-        <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData?if_exists}</textarea>
+        <textarea class="textAreaBox" class="inputBox" name="textData" cols="60" rows="24">${textData!}</textarea>
         </td>
         <td width="10%" align="right">
         <span class="treeHeader"> </span>

@@ -21,7 +21,7 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <#if task?has_content>
-        <li class="h3">&nbsp;${uiLabelMap.PageTitleEditTask}&nbsp;#${project.workEffortId?if_exists} ${uiLabelMap.CommonInformation}</li>
+        <li class="h3">&nbsp;${uiLabelMap.PageTitleEditTask}&nbsp;#${project.workEffortId!} ${uiLabelMap.CommonInformation}</li>
       <#else>
         <li class="h3">&nbsp;${uiLabelMap.PageTitleAddTask}</li>
       </#if>
@@ -38,17 +38,17 @@ under the License.
     </#if>
         <table width="100%" cellpadding="2" cellspacing="0">
         <tr>
-          <#if !(task?exists)>
-            <td><input type="hidden" name="workEffortTypeId" value="${parameters.workEffortTypeId?if_exists}"/></td>
+          <#if !(task??)>
+            <td><input type="hidden" name="workEffortTypeId" value="${parameters.workEffortTypeId!}"/></td>
           <#else>
-            <td><input type="hidden" name="workEffortTypeId" value="${task.workEffortTypeId?if_exists}"/></td>
-            <td><input type="hidden" name="workEffortId" value="${task.workEffortId?if_exists}"/></td>
-            <td><input type="hidden" name="workEffortName" value="${task.workEffortName?if_exists}"/></td>
+            <td><input type="hidden" name="workEffortTypeId" value="${task.workEffortTypeId!}"/></td>
+            <td><input type="hidden" name="workEffortId" value="${task.workEffortId!}"/></td>
+            <td><input type="hidden" name="workEffortName" value="${task.workEffortName!}"/></td>
           </#if>
         </tr>
         <tr>
-            <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom?if_exists}"/></td>
-            <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom?if_exists}"/></td>
+            <td><input type="hidden" name="workEffortIdFrom" value="${workEffortIdFrom!}"/></td>
+            <td><input type="hidden" name="workEffortParentId" value="${workEffortIdFrom!}"/></td>
             <td><input type="hidden" name="workEffortAssocTypeId" value="WORK_EFF_BREAKDOWN"/>
         </tr>
         <tr>
@@ -63,23 +63,23 @@ under the License.
           </td>
         </tr>
         <tr>
-          <#if task?exists>
+          <#if task??>
             <td class="label" >${uiLabelMap.ProjectMgrWorkEffortId}</td>
-            <td>${task.workEffortId?if_exists}</td>
+            <td>${task.workEffortId!}</td>
           </#if>
         </tr>
         <tr>
           <td class="label" >${uiLabelMap.CommonName}*</td>
-            <#if task?exists>
-              <td>${task.workEffortName?if_exists}<span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
+            <#if task??>
+              <td>${task.workEffortName!}<span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
             <#else>
               <td><input type="text" name="workEffortName" value=""/><span class="tooltip">${uiLabelMap.CommonRequired}</span></td>
             </#if>
         </tr>
         <tr>
           <td class="label" >${uiLabelMap.CommonDescription}</td>
-            <#if task?exists>
-              <td><input type="text" name="description" value="${task.description?if_exists}"/></td>
+            <#if task??>
+              <td><input type="text" name="description" value="${task.description!}"/></td>
             <#else>
               <td><input type="text" name="description" value=""/></td>
           </#if>
@@ -88,8 +88,8 @@ under the License.
           <td class="label" >${uiLabelMap.CommonStatus}</td>
           <td>
             <select name="currentStatusId">
-              <#if task?exists>
-                <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")?if_exists>
+              <#if task??>
+                <#assign currentStatus = task.geRelatedOne("CurrentStatusItem")!>
                 <option selected="selected" value="${currentStatus.currentStatusId}">${currentStatus.description}</option>
                 <#assign statusValidChangeToDetailList = delegator.findByAnd("StatusValidChangeToDetail", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", currentStatus.currentStatusId), null, false)>
                 <#list statusValidChangeToDetailList as statusValidChangeToDetail>
@@ -100,13 +100,13 @@ under the License.
                 <#assign statusItemTasks = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "TASK_STATUS"), null, false)>
                 <#assign statusItemEvents = delegator.findByAnd("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusTypeId", "EVENT_STATUS"), null, false)>
                 <#list statusItemGenrals as statusItem>
-                  <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortGeneral}]${statusItem.description}</option>
+                  <option value="${statusItem.statusId!}">[${uiLabelMap.WorkEffortGeneral}]${statusItem.description}</option>
                 </#list>
                 <#list statusItemTasks as statusItem>
-                  <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortTask}]${statusItem.description}</option>
+                  <option value="${statusItem.statusId!}">[${uiLabelMap.WorkEffortTask}]${statusItem.description}</option>
                 </#list>
                 <#list statusItemEvents as statusItem>
-                  <option value="${statusItem.statusId?if_exists}">[${uiLabelMap.WorkEffortEvent}]${statusItem.description}</option>
+                  <option value="${statusItem.statusId!}">[${uiLabelMap.WorkEffortEvent}]${statusItem.description}</option>
                 </#list>
               </#if>
             </select>
@@ -116,10 +116,10 @@ under the License.
           <td class="label">${uiLabelMap.CommonPriority}</td>
           <td>
             <#if task?has_content>
-              <#assign priority = task.priority?if_exists>
+              <#assign priority = task.priority!>
             </#if>
             <select name="priority" size="1">
-              <#if priority?exists>
+              <#if priority??>
                 <option selected="selected" value="${priority}">${priority}</option>
                 <option></option>
                 <option value=1>${uiLabelMap.WorkEffortPriorityOne}</option>
@@ -151,10 +151,10 @@ under the License.
           <td>
             <#assign enumerations = delegator.findByAnd("Enumeration", Static["org.ofbiz.base.util.UtilMisc"].toMap("enumTypeId", "WORK_EFF_SCOPE"), null, false)>
             <select name="scopeEnumId">
-              <#if task?exists>
-                <#assign scopeEnumId = task.scopeEnumId?if_exists>
+              <#if task??>
+                <#assign scopeEnumId = task.scopeEnumId!>
                 <#list enumerations as enumeration>
-                  <option <#if "${enumeration.enumId}" == scopeEnumId?if_exists>selected="selected"</#if>>${enumeration.description}</option>
+                  <option <#if "${enumeration.enumId}" == scopeEnumId!>selected="selected"</#if>>${enumeration.description}</option>
                 </#list>
               <#else>
                 <#list enumerations as enumeration>
@@ -167,8 +167,8 @@ under the License.
         <tr>
           <td class="label">${uiLabelMap.WorkEffortEstimatedStartDate}</td>
           <td>
-            <#if task?exists>
-              <@htmlTemplate.renderDateTimeField name="estimatedStartDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.estimatedStartDate?if_exists}" size="25" maxlength="30" id="estimatedStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+            <#if task??>
+              <@htmlTemplate.renderDateTimeField name="estimatedStartDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.estimatedStartDate!}" size="25" maxlength="30" id="estimatedStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             <#else>
               <@htmlTemplate.renderDateTimeField name="estimatedStartDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="estimatedStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             </#if>
@@ -177,8 +177,8 @@ under the License.
          <tr>
            <td class="label">${uiLabelMap.WorkEffortEstimatedCompletionDate}</td>
            <td>
-             <#if task?exists>
-               <@htmlTemplate.renderDateTimeField name="estimatedCompletionDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.estimatedCompletionDate?if_exists}" size="25" maxlength="30" id="estimatedCompletionDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+             <#if task??>
+               <@htmlTemplate.renderDateTimeField name="estimatedCompletionDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.estimatedCompletionDate!}" size="25" maxlength="30" id="estimatedCompletionDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              <#else>
                <@htmlTemplate.renderDateTimeField name="estimatedCompletionDate" className="" event="" action="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="estimatedCompletionDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              </#if>
@@ -189,8 +189,8 @@ under the License.
            <td>
 
 
-             <#if task?exists>
-               <@htmlTemplate.renderDateTimeField name="actualStartDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.actualStartDate?if_exists}" size="25" maxlength="30" id="actualStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+             <#if task??>
+               <@htmlTemplate.renderDateTimeField name="actualStartDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.actualStartDate!}" size="25" maxlength="30" id="actualStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              <#else>
                <@htmlTemplate.renderDateTimeField name="actualStartDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="actualStartDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              </#if>
@@ -200,8 +200,8 @@ under the License.
            <td class="label">${uiLabelMap.FormFieldTitle_actualCompletionDate}</td>
            <td>
 
-             <#if task?exists>
-               <@htmlTemplate.renderDateTimeField name="actualCompletionDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.actualCompletionDate?if_exists}" size="25" maxlength="30" id="actualCompletionDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+             <#if task??>
+               <@htmlTemplate.renderDateTimeField name="actualCompletionDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${task.actualCompletionDate!}" size="25" maxlength="30" id="actualCompletionDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              <#else>
                <@htmlTemplate.renderDateTimeField name="actualCompletionDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="actualCompletionDate2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
              </#if>

@@ -16,10 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey?if_exists>
+<#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey!>
 
-<#if (requestAttributes.person)?exists><#assign person = requestAttributes.person></#if>
-<#if (requestAttributes.partyGroup)?exists><#assign partyGroup = requestAttributes.partyGroup></#if>
+<#if (requestAttributes.person)??><#assign person = requestAttributes.person></#if>
+<#if (requestAttributes.partyGroup)??><#assign partyGroup = requestAttributes.partyGroup></#if>
 <#assign docLangAttr = locale.toString()?replace("_", "-")>
 <#assign langDir = "ltr">
 <#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
@@ -28,7 +28,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
+    <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)!}</#if></title>
     <#if layoutSettings.shortcutIcon?has_content>
       <#assign shortcutIcon = layoutSettings.shortcutIcon/>
     <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>
@@ -83,17 +83,17 @@ under the License.
     <#if layoutSettings.WEB_ANALYTICS?has_content>
       <script language="JavaScript" type="text/javascript">
         <#list layoutSettings.WEB_ANALYTICS as webAnalyticsConfig>
-          ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode?if_exists)}
+          ${StringUtil.wrapString(webAnalyticsConfig.webAnalyticsCode!)}
         </#list>
       </script>
     </#if>
 </head>
-<#if layoutSettings.headerImageLinkUrl?exists>
+<#if layoutSettings.headerImageLinkUrl??>
   <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
 <#else>
   <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
 </#if>
-<#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl?if_exists}">
+<#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 
 <body>
   <div id="wait-spinner" style="display:none">
@@ -108,14 +108,14 @@ under the License.
     <#if (userPreferences.COMPACT_HEADER)?default("N") == "N">
       <div id="masthead">
         <ul>
-          <#if layoutSettings.headerImageUrl?exists>
+          <#if layoutSettings.headerImageUrl??>
             <#assign headerImageUrl = layoutSettings.headerImageUrl>
-          <#elseif layoutSettings.commonHeaderImageUrl?exists>
+          <#elseif layoutSettings.commonHeaderImageUrl??>
             <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
-          <#elseif layoutSettings.VT_HDR_IMAGE_URL?exists>
+          <#elseif layoutSettings.VT_HDR_IMAGE_URL??>
             <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
           </#if>
-          <#if headerImageUrl?exists>
+          <#if headerImageUrl??>
             <#if organizationLogoLinkURL?has_content>
                 <li id="org-logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${StringUtil.wrapString(organizationLogoLinkURL)}</@ofbizContentUrl>"></a></li>
                 <#else>
@@ -124,9 +124,9 @@ under the License.
           </#if>
           <#if layoutSettings.middleTopMessage1?has_content && layoutSettings.middleTopMessage1 != " ">
             <li class="last-system-msg">
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink1!)}">${layoutSettings.middleTopMessage1?if_exists}</a><br/>
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink2!)}">${layoutSettings.middleTopMessage2?if_exists}</a><br/>
-                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink3!)}">${layoutSettings.middleTopMessage3?if_exists}</a>
+                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink1!)}">${layoutSettings.middleTopMessage1!}</a><br/>
+                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink2!)}">${layoutSettings.middleTopMessage2!}</a><br/>
+                <a href="${StringUtil.wrapString(layoutSettings.middleTopLink3!)}">${layoutSettings.middleTopMessage3!}</a>
             </li>
           </#if>
         </ul>

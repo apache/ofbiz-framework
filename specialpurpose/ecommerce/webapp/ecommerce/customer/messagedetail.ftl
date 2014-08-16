@@ -18,17 +18,17 @@ under the License.
 -->
 
 <#assign delegator = requestAttributes.delegator>
-<#if communicationEvent.partyIdFrom?exists>
+<#if communicationEvent.partyIdFrom??>
     <#assign fromName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdFrom, true)>
 </#if>
-<#if communicationEvent.partyIdTo?exists>
+<#if communicationEvent.partyIdTo??>
     <#assign toName = Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, communicationEvent.partyIdTo, true)>
 </#if>
 
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="boxlink">
-            <#if (communicationEvent.partyIdFrom?if_exists != (userLogin.partyId)?if_exists)>
+            <#if (communicationEvent.partyIdFrom! != (userLogin.partyId)!)>
               <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="submenutext">${uiLabelMap.PartyReply}</a>
             </#if>
             <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewList}</a>
@@ -40,11 +40,11 @@ under the License.
           <tr><td>&nbsp;</td></tr>
           <tr>
               <td align="right"><div class="tableheadtext">${uiLabelMap.CommonFrom}:</div></td>
-              <td><div>${fromName?if_exists}</div></td>
+              <td><div>${fromName!}</div></td>
           </tr>
           <tr>
               <td align="right"><div class="tableheadtext">${uiLabelMap.CommonTo}:</div></td>
-              <td><div>${toName?if_exists}</div></td>
+              <td><div>${toName!}</div></td>
           </tr>
           <tr>
               <td align="right"><div class="tableheadtext">${uiLabelMap.CommonDate}:</div></td>

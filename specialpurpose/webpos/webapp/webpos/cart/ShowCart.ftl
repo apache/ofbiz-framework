@@ -35,7 +35,7 @@ under the License.
     <tr>
       <td>${uiLabelMap.WebPosTransactionId}</td>
       <td><b>${transactionId?default("NA")}</b></td>
-      <td>${(paymentCash.get("description", locale))?if_exists}</td>
+      <td>${(paymentCash.get("description", locale))!}</td>
       <td align="right"><b><@ofbizCurrency amount=cashAmount isoCode=shoppingCart.getCurrency()/></b></td>
       <td>${uiLabelMap.WebPosTotalItemSubTotal}</td>
       <td align="right"><b><@ofbizCurrency amount=shoppingCart.getDisplaySubTotal() isoCode=shoppingCart.getCurrency()/></b></td>
@@ -43,7 +43,7 @@ under the License.
     <tr>
       <td>${uiLabelMap.WebPosDrawer}</td>
       <td><b>${drawerNumber?default(0)}</b></td>
-      <td>${(paymentCheck.get("description", locale))?if_exists}</td>
+      <td>${(paymentCheck.get("description", locale))!}</td>
       <td align="right"><b><@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/></b></td>
       <td>${uiLabelMap.WebPosTotalPromotions}</td>
       <td align="right"><b><@ofbizCurrency amount=shoppingCart.getOrderOtherAdjustmentTotal() isoCode=shoppingCart.getCurrency()/></b></td>
@@ -51,7 +51,7 @@ under the License.
     <tr>
       <td>${uiLabelMap.WebPosTerminal}</td>
       <td><b><#if isOpen>${uiLabelMap.WebPosTerminalOpen}<#else>${uiLabelMap.WebPosTerminalClose}</#if></b></td>
-      <td>${(paymentGift.get("description", locale))?if_exists}</td>
+      <td>${(paymentGift.get("description", locale))!}</td>
       <td align="right"><b><@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/></b></td>
       <td>${uiLabelMap.WebPosTotalSalesTax}</td>
       <td align="right"><b><@ofbizCurrency amount=shoppingCart.getTotalSalesTax() isoCode=shoppingCart.getCurrency()/></b></td>
@@ -59,7 +59,7 @@ under the License.
     <tr>
       <td></td>
       <td></td>
-      <td>${(paymentCredit.get("description", locale))?if_exists}</td>
+      <td>${(paymentCredit.get("description", locale))!}</td>
       <td align="right"><b><@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/></b></td>
       <td>${uiLabelMap.WebPosTotalShipping}</td>
       <td align="right"><b><@ofbizCurrency amount=shoppingCart.getTotalShipping() isoCode=shoppingCart.getCurrency()/></b></td>
@@ -96,24 +96,24 @@ under the License.
         <tr id="cartLine${cartLineIndex}" <#if alt_row>class="pos-cart-even"<#else>class="pos-cart-odd"</#if>>
           <td>
             <div>
-              <#if cartLine.getProductId()?exists>
+              <#if cartLine.getProductId()??>
                 <#-- product item -->
                 <#-- start code to display a small image of the product -->
-                <#if cartLine.getParentProductId()?exists>
+                <#if cartLine.getParentProductId()??>
                   <#assign parentProductId = cartLine.getParentProductId()/>
                 <#else>
                   <#assign parentProductId = cartLine.getProductId()/>
                 </#if>
-                <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
+                <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)!>
                 <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                 <#if smallImageUrl?string?has_content>
-                  <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
+                  <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
                 </#if>
                 <#-- end code to display a small image of the product -->
-                ${cartLine.getProductId()} - ${cartLine.getName()?if_exists} : ${cartLine.getDescription()?if_exists}
+                ${cartLine.getProductId()} - ${cartLine.getName()!} : ${cartLine.getDescription()!}
               <#else>
                 <#-- this is a non-product item -->
-                <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
+                <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
               </#if>
             </div>
           </td>

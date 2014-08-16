@@ -21,7 +21,7 @@ under the License.
   <h3>${uiLabelMap.AccountingCardInfoNotBelongToYou}.</h3>
 <a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="button">${uiLabelMap.CommonGoBack}</a>
 <#else>
-  <#if !creditCard?exists>
+  <#if !creditCard??>
       <h2>${uiLabelMap.AccountingAddNewCreditCard}</h2>
       <form method="post" action="<@ofbizUrl>createCreditCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editcreditcardform">
       <div>
@@ -57,21 +57,21 @@ under the License.
                    <#list curPartyContactMechPurposes as curPartyContactMechPurpose>
                      <#assign curContactMechPurposeType = curPartyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true) />
                      <div>
-                       ${curContactMechPurposeType.get("description",locale)?if_exists}
-                       <#if curPartyContactMechPurpose.thruDate?exists>
+                       ${curContactMechPurposeType.get("description",locale)!}
+                       <#if curPartyContactMechPurpose.thruDate??>
                          ((${uiLabelMap.CommonExpire}:${curPartyContactMechPurpose.thruDate.toString()})
                        </#if>
                      </div>
                    </#list>
                    <div>
-                   <#if curPostalAddress.toName?exists>${uiLabelMap.CommonTo}: ${curPostalAddress.toName}<br /></#if>
-                   <#if curPostalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${curPostalAddress.attnName}<br /></#if>
-                     ${curPostalAddress.address1?if_exists}<br />
-                   <#if curPostalAddress.address2?exists>${curPostalAddress.address2}<br /></#if>
+                   <#if curPostalAddress.toName??>${uiLabelMap.CommonTo}: ${curPostalAddress.toName}<br /></#if>
+                   <#if curPostalAddress.attnName??>${uiLabelMap.PartyAddrAttnName}: ${curPostalAddress.attnName}<br /></#if>
+                     ${curPostalAddress.address1!}<br />
+                   <#if curPostalAddress.address2??>${curPostalAddress.address2}<br /></#if>
                      ${curPostalAddress.city}<#if curPostalAddress.stateProvinceGeoId?has_content>,&nbsp;${curPostalAddress.stateProvinceGeoId}</#if>&nbsp;${curPostalAddress.postalCode}
-                   <#if curPostalAddress.countryGeoId?exists><br />${curPostalAddress.countryGeoId}</#if>
-                   <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())?if_exists})</div>
-                   <#if curPartyContactMech.thruDate?exists><div>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</#if>
+                   <#if curPostalAddress.countryGeoId??><br />${curPostalAddress.countryGeoId}</#if>
+                   <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(curPartyContactMech.fromDate.toString())!})</div>
+                   <#if curPartyContactMech.thruDate??><div>${uiLabelMap.CommonDelete}:&nbsp;${curPartyContactMech.thruDate.toString()}</#if>
                    </div>
                  </td>
                </tr>
@@ -102,24 +102,24 @@ under the License.
                    <#list partyContactMechPurposes as partyContactMechPurpose>
                      <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true) />
                      <div>
-                       ${contactMechPurposeType.get("description",locale)?if_exists}
-                       <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate})</#if>
+                       ${contactMechPurposeType.get("description",locale)!}
+                       <#if partyContactMechPurpose.thruDate??>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate})</#if>
                      </div>
                    </#list>
                    <div>
-                     <#if postalAddress.toName?exists>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
-                     <#if postalAddress.attnName?exists>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
-                     ${postalAddress.address1?if_exists}<br />
-                     <#if postalAddress.address2?exists>${postalAddress.address2}<br /></#if>
+                     <#if postalAddress.toName??>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
+                     <#if postalAddress.attnName??>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
+                     ${postalAddress.address1!}<br />
+                     <#if postalAddress.address2??>${postalAddress.address2}<br /></#if>
                      ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode}
-                     <#if postalAddress.countryGeoId?exists><br />${postalAddress.countryGeoId}</#if>
+                     <#if postalAddress.countryGeoId??><br />${postalAddress.countryGeoId}</#if>
                    </div>
-                   <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())?if_exists})</div>
-                   <#if partyContactMech.thruDate?exists><div>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
+                   <div>(${uiLabelMap.CommonUpdated}:&nbsp;${(partyContactMech.fromDate.toString())!})</div>
+                   <#if partyContactMech.thruDate??><div>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
                  </td>
                </tr>
                </#list>
-               <#if !postalAddressInfos?has_content && !curContactMech?exists>
+               <#if !postalAddressInfos?has_content && !curContactMech??>
                  <tr><td colspan="2"><div>${uiLabelMap.PartyNoContactInformation}.</div></td></tr>
                </#if>
                <tr>

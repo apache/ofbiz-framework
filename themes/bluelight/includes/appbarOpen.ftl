@@ -16,22 +16,22 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if (requestAttributes.externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
-<#if (externalLoginKey)?exists><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey?if_exists></#if>
+<#if (requestAttributes.externalLoginKey)??><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey!></#if>
+<#if (externalLoginKey)??><#assign externalKeyParam = "?externalLoginKey=" + requestAttributes.externalLoginKey!></#if>
 <#assign ofbizServerName = application.getAttribute("_serverId")?default("default-server")>
 <#assign contextPath = request.getContextPath()>
 <#assign displayApps = Static["org.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "main")>
 <#assign displaySecondaryApps = Static["org.ofbiz.webapp.control.LoginWorker"].getAppBarWebInfos(security, userLogin, ofbizServerName, "secondary")>
 
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
-<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+<#if appModelMenu.getModelMenuItemByName(headerItem)??>
   <#if headerItem!="main">
     <#assign show_last_menu = true>
   </#if>
 </#if>
 
 <div class="tabbar">
-    <div class="breadcrumbs<#if show_last_menu?exists> menu_selected</#if>">
+    <div class="breadcrumbs<#if show_last_menu??> menu_selected</#if>">
     <div class="breadcrumbs-start">
       <div id="main-navigation">
         <h2>${uiLabelMap.CommonApplications}</h2>
@@ -50,10 +50,10 @@ under the License.
               <#if thisApp != "/">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
-              <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
+              <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
                 <!-- do not display this component-->
               <#else>
-                  <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
+                  <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
               </#if>
             </#list>
            </ul></li>
@@ -70,10 +70,10 @@ under the License.
               <#if thisApp != "/">
                 <#assign thisURL = thisURL + "/control/main">
               </#if>
-              <#if layoutSettings.suppressTab?exists && display.name == layoutSettings.suppressTab>
+              <#if layoutSettings.suppressTab?? && display.name == layoutSettings.suppressTab>
                 <!-- do not display this component-->
               <#else>
-                <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap?exists> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
+                <li <#if selected>class="selected"</#if>><a href="${thisURL + externalKeyParam}" <#if uiLabelMap??> title="${uiLabelMap[display.description]}">${uiLabelMap[display.title]}<#else> title="${display.description}">${display.title}</#if></a></li>
               </#if>
             </#list>
             </ul>

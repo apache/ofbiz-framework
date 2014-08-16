@@ -158,25 +158,25 @@ will generally always be reserved for the logo at the top of the page.
     <div>
       <label for="USER_FIRST_NAME">${uiLabelMap.PartyFirstName}*</label>
       <@fieldErrors fieldName="USER_FIRST_NAME"/>
-      <input type="text" name="USER_FIRST_NAME" id="USER_FIRST_NAME" value="${requestParameters.USER_FIRST_NAME?if_exists}" />
+      <input type="text" name="USER_FIRST_NAME" id="USER_FIRST_NAME" value="${requestParameters.USER_FIRST_NAME!}" />
     </div>
 
     <div>
       <label for="USER_MIDDLE_NAME">${uiLabelMap.PartyMiddleInitial}</label>
       <@fieldErrors fieldName="USER_MIDDLE_NAME"/>
-      <input type="text" name="USER_MIDDLE_NAME" id="USER_MIDDLE_NAME" value="${requestParameters.USER_MIDDLE_NAME?if_exists}" />
+      <input type="text" name="USER_MIDDLE_NAME" id="USER_MIDDLE_NAME" value="${requestParameters.USER_MIDDLE_NAME!}" />
     </div>
 
     <div>
       <label for="USER_LAST_NAME">${uiLabelMap.PartyLastName}*</label>
       <@fieldErrors fieldName="USER_LAST_NAME"/>
-      <input type="text" name="USER_LAST_NAME" id="USER_LAST_NAME" value="${requestParameters.USER_LAST_NAME?if_exists}" />
+      <input type="text" name="USER_LAST_NAME" id="USER_LAST_NAME" value="${requestParameters.USER_LAST_NAME!}" />
     </div>
 
     <div>
       <label for="USER_SUFFIX">${uiLabelMap.PartySuffix}</label>
       <@fieldErrors fieldName="USER_SUFFIX"/>
-      <input type="text" class='inputBox' name="USER_SUFFIX" id="USER_SUFFIX" value="${requestParameters.USER_SUFFIX?if_exists}" />
+      <input type="text" class='inputBox' name="USER_SUFFIX" id="USER_SUFFIX" value="${requestParameters.USER_SUFFIX!}" />
     </div>
 
   </fieldset>
@@ -186,25 +186,25 @@ will generally always be reserved for the logo at the top of the page.
     <div>
       <label for="CUSTOMER_ADDRESS1">${uiLabelMap.PartyAddressLine1}*</label>
       <@fieldErrors fieldName="CUSTOMER_ADDRESS1"/>
-      <input type="text" name="CUSTOMER_ADDRESS1" id="CUSTOMER_ADDRESS1" value="${requestParameters.CUSTOMER_ADDRESS1?if_exists}" />
+      <input type="text" name="CUSTOMER_ADDRESS1" id="CUSTOMER_ADDRESS1" value="${requestParameters.CUSTOMER_ADDRESS1!}" />
     </div>
 
     <div>
       <label for="CUSTOMER_ADDRESS2">${uiLabelMap.PartyAddressLine2}</label>
       <@fieldErrors fieldName="CUSTOMER_ADDRESS2"/>
-      <input type="text" name="CUSTOMER_ADDRESS2" id="CUSTOMER_ADDRESS2" value="${requestParameters.CUSTOMER_ADDRESS2?if_exists}" />
+      <input type="text" name="CUSTOMER_ADDRESS2" id="CUSTOMER_ADDRESS2" value="${requestParameters.CUSTOMER_ADDRESS2!}" />
     </div>
 
     <div>
       <label for="CUSTOMER_CITY">${uiLabelMap.PartyCity}*</label>
       <@fieldErrors fieldName="CUSTOMER_CITY"/>
-      <input type="text" name="CUSTOMER_CITY" id="CUSTOMER_CITY" value="${requestParameters.CUSTOMER_CITY?if_exists}" />
+      <input type="text" name="CUSTOMER_CITY" id="CUSTOMER_CITY" value="${requestParameters.CUSTOMER_CITY!}" />
     </div>
 
     <div>
       <label for="CUSTOMER_POSTAL_CODE">${uiLabelMap.PartyZipCode}*</label>
       <@fieldErrors fieldName="CUSTOMER_POSTAL_CODE"/>
-      <input type="text" name="CUSTOMER_POSTAL_CODE" id="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE?if_exists}" />
+      <input type="text" name="CUSTOMER_POSTAL_CODE" id="CUSTOMER_POSTAL_CODE" value="${requestParameters.CUSTOMER_POSTAL_CODE!}" />
     </div>
   
     <div>
@@ -256,10 +256,10 @@ will generally always be reserved for the logo at the top of the page.
       <tbody>
         <tr>
           <th scope="row">${uiLabelMap.PartyHomePhone}</th>
-          <td><input type="text" name="CUSTOMER_HOME_COUNTRY" size="5" value="${requestParameters.CUSTOMER_HOME_COUNTRY?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_HOME_AREA" size="5" value="${requestParameters.CUSTOMER_HOME_AREA?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_HOME_CONTACT" value="${requestParameters.CUSTOMER_HOME_CONTACT?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_HOME_EXT" size="6" value="${requestParameters.CUSTOMER_HOME_EXT?if_exists}"/></td>
+          <td><input type="text" name="CUSTOMER_HOME_COUNTRY" size="5" value="${requestParameters.CUSTOMER_HOME_COUNTRY!}" /></td>
+          <td><input type="text" name="CUSTOMER_HOME_AREA" size="5" value="${requestParameters.CUSTOMER_HOME_AREA!}" /></td>
+          <td><input type="text" name="CUSTOMER_HOME_CONTACT" value="${requestParameters.CUSTOMER_HOME_CONTACT!}" /></td>
+          <td><input type="text" name="CUSTOMER_HOME_EXT" size="6" value="${requestParameters.CUSTOMER_HOME_EXT!}"/></td>
           <td>
             <select name="CUSTOMER_HOME_ALLOW_SOL">
               <#if (((requestParameters.CUSTOMER_HOME_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -272,10 +272,10 @@ will generally always be reserved for the logo at the top of the page.
         </tr>
         <tr>
           <th scope="row">${uiLabelMap.PartyBusinessPhone}</th>
-          <td><input type="text" name="CUSTOMER_WORK_COUNTRY" size="5" value="${requestParameters.CUSTOMER_WORK_COUNTRY?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_WORK_AREA" size="5" value="${requestParameters.CUSTOMER_WORK_AREA?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_WORK_CONTACT" value="${requestParameters.CUSTOMER_WORK_CONTACT?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_WORK_EXT" size="6" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" /></td>
+          <td><input type="text" name="CUSTOMER_WORK_COUNTRY" size="5" value="${requestParameters.CUSTOMER_WORK_COUNTRY!}" /></td>
+          <td><input type="text" name="CUSTOMER_WORK_AREA" size="5" value="${requestParameters.CUSTOMER_WORK_AREA!}" /></td>
+          <td><input type="text" name="CUSTOMER_WORK_CONTACT" value="${requestParameters.CUSTOMER_WORK_CONTACT!}" /></td>
+          <td><input type="text" name="CUSTOMER_WORK_EXT" size="6" value="${requestParameters.CUSTOMER_WORK_EXT!}" /></td>
           <td>
             <select name="CUSTOMER_WORK_ALLOW_SOL">
               <#if (((requestParameters.CUSTOMER_WORK_ALLOW_SOL)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -288,9 +288,9 @@ will generally always be reserved for the logo at the top of the page.
         </tr>
         <tr>
           <th scope="row">${uiLabelMap.PartyFaxNumber}</th>
-          <td><input type="text" name="CUSTOMER_FAX_COUNTRY" size="5" value="${requestParameters.CUSTOMER_FAX_COUNTRY?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_FAX_AREA" size="5" value="${requestParameters.CUSTOMER_FAX_AREA?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_FAX_CONTACT" value="${requestParameters.CUSTOMER_FAX_CONTACT?if_exists}" /></td>
+          <td><input type="text" name="CUSTOMER_FAX_COUNTRY" size="5" value="${requestParameters.CUSTOMER_FAX_COUNTRY!}" /></td>
+          <td><input type="text" name="CUSTOMER_FAX_AREA" size="5" value="${requestParameters.CUSTOMER_FAX_AREA!}" /></td>
+          <td><input type="text" name="CUSTOMER_FAX_CONTACT" value="${requestParameters.CUSTOMER_FAX_CONTACT!}" /></td>
           <td></td>
           <td>
             <select name="CUSTOMER_FAX_ALLOW_SOL">
@@ -304,9 +304,9 @@ will generally always be reserved for the logo at the top of the page.
         </tr>
         <tr>
           <th scope="row">${uiLabelMap.PartyMobilePhone}</th>
-          <td><input type="text" name="CUSTOMER_MOBILE_COUNTRY" size="5" value="${requestParameters.CUSTOMER_MOBILE_COUNTRY?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_MOBILE_AREA" size="5" value="${requestParameters.CUSTOMER_MOBILE_AREA?if_exists}" /></td>
-          <td><input type="text" name="CUSTOMER_MOBILE_CONTACT" value="${requestParameters.CUSTOMER_MOBILE_CONTACT?if_exists}" /></td>
+          <td><input type="text" name="CUSTOMER_MOBILE_COUNTRY" size="5" value="${requestParameters.CUSTOMER_MOBILE_COUNTRY!}" /></td>
+          <td><input type="text" name="CUSTOMER_MOBILE_AREA" size="5" value="${requestParameters.CUSTOMER_MOBILE_AREA!}" /></td>
+          <td><input type="text" name="CUSTOMER_MOBILE_CONTACT" value="${requestParameters.CUSTOMER_MOBILE_CONTACT!}" /></td>
           <td></td>
           <td>
             <select name="CUSTOMER_MOBILE_ALLOW_SOL">
@@ -327,7 +327,7 @@ will generally always be reserved for the logo at the top of the page.
     <div>
       <label for= "CUSTOMER_EMAIL">${uiLabelMap.PartyEmailAddress}*</label>
       <@fieldErrors fieldName="CUSTOMER_EMAIL"/>
-      <input type="text" name="CUSTOMER_EMAIL" id="CUSTOMER_EMAIL" value="${requestParameters.CUSTOMER_EMAIL?if_exists}" onchange="changeEmail()" onkeyup="changeEmail()" />
+      <input type="text" name="CUSTOMER_EMAIL" id="CUSTOMER_EMAIL" value="${requestParameters.CUSTOMER_EMAIL!}" onchange="changeEmail()" onkeyup="changeEmail()" />
     </div>
     <div>
       <label for="CUSTOMER_EMAIL_ALLOW_SOL">${uiLabelMap.PartyAllowSolicitation}</label>
@@ -356,10 +356,10 @@ will generally always be reserved for the logo at the top of the page.
       <div>
         <label for="USERNAME">${uiLabelMap.CommonUsername}*</label>
         <#if requestParameters.preferredUsername?has_content>
-            <input type="text" name="showUserName" id="showUserName" value="${requestParameters.USERNAME?if_exists}" disabled="disabled"/>
-            <input type="hidden" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}"/>
+            <input type="text" name="showUserName" id="showUserName" value="${requestParameters.USERNAME!}" disabled="disabled"/>
+            <input type="hidden" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME!}"/>
         <#else>
-            <input type="text" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME?if_exists}" onfocus="clickUsername();" onchange="changeEmail();"/>
+            <input type="text" name="USERNAME" id="USERNAME" value="${requestParameters.USERNAME!}" onfocus="clickUsername();" onchange="changeEmail();"/>
         </#if>
       </div>
     </#if>
@@ -383,7 +383,7 @@ will generally always be reserved for the logo at the top of the page.
       <div>
         <label for="PASSWORD_HINT">${uiLabelMap.PartyPasswordHint}</label>
         <@fieldErrors fieldName="PASSWORD_HINT"/>
-        <input type="text" class='inputBox' name="PASSWORD_HINT" id="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT?if_exists}" maxlength="100"/>
+        <input type="text" class='inputBox' name="PASSWORD_HINT" id="PASSWORD_HINT" value="${requestParameters.PASSWORD_HINT!}" maxlength="100"/>
       </div>
     <#else/>
       <div>

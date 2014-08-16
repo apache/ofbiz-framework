@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign facility = parameters.facilityId>
-<#if parameters.idValue?if_exists?has_content>
+<#if parameters.idValue!?has_content>
     <#assign idValue = parameters.idValue?has_content>
 </#if>
 
@@ -36,7 +36,7 @@ under the License.
                 </td>
                 <td>&nbsp;&nbsp;</td>
                 <td>
-                    <a href="<@ofbizUrl>productstocktake?facilityId=${facility.facilityId?if_exists}&amp;productId=${product.productId}</@ofbizUrl>" class="buttontext">${(product.internalName)?if_exists}</a>
+                    <a href="<@ofbizUrl>productstocktake?facilityId=${facility.facilityId!}&amp;productId=${product.productId}</@ofbizUrl>" class="buttontext">${(product.internalName)!}</a>
                 </td>
             </tr>
         </#list>

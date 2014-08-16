@@ -21,26 +21,26 @@ under the License.
 <form id="editBillToPostalAddress" method="post" action="">
   <fieldset>
     <input type="hidden" name="setBillingPurpose" value="Y" />
-    <input type="hidden" name="contactMechId" value="${billToContactMechId?if_exists}" />
+    <input type="hidden" name="contactMechId" value="${billToContactMechId!}" />
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
-    <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
+    <input type="hidden" name="productStoreId" value="${productStoreId!}" />
     <div>
       <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*</label>
-      <input type="text" class="required" name="address1" id="billToAddress1" value="${billToAddress1?if_exists}" maxlength="30" />
+      <input type="text" class="required" name="address1" id="billToAddress1" value="${billToAddress1!}" maxlength="30" />
       <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
       <label for="billToAddress2">${uiLabelMap.PartyAddressLine2}</label>
-      <input type="text" name="address2" id="billToAddress2" value="${billToAddress2?if_exists}" maxlength="30" />
+      <input type="text" name="address2" id="billToAddress2" value="${billToAddress2!}" maxlength="30" />
     </div>
     <div>
       <label for="billToCity">${uiLabelMap.PartyCity}*</label>
-      <input type="text" class="required" name="city" id="billToCity" value="${billToCity?if_exists}" maxlength="30" />
+      <input type="text" class="required" name="city" id="billToCity" value="${billToCity!}" maxlength="30" />
       <span id="advice-required-billToCity" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
       <label for="billToPostalCode">${uiLabelMap.PartyZipCode}*</label>
-      <input type="text" class="required" name="postalCode" id="billToPostalCode" value="${billToPostalCode?if_exists}" maxlength="10" />
+      <input type="text" class="required" name="postalCode" id="billToPostalCode" value="${billToPostalCode!}" maxlength="10" />
       <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
     </div>
     <div>
@@ -70,16 +70,16 @@ under the License.
         <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"></span>
         <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"></span>
         <span id="billToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-        <input type="hidden" name="phoneContactMechId" value="${billToTelecomNumber.contactMechId?if_exists}" />
-        <input type="text" name="countryCode" id="billToCountryCode" class="required" value="${billToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3" />
-        - <input type="text" name="areaCode" id="billToAreaCode" class="required" value="${billToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3" />
-        - <input type="text" name="contactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${billToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7" />
-        - <input type="text" name="extension" value="${extension?default("${billToExtension?if_exists}")}" size="3" maxlength="3" />
+        <input type="hidden" name="phoneContactMechId" value="${billToTelecomNumber.contactMechId!}" />
+        <input type="text" name="countryCode" id="billToCountryCode" class="required" value="${billToTelecomNumber.countryCode!}" size="3" maxlength="3" />
+        - <input type="text" name="areaCode" id="billToAreaCode" class="required" value="${billToTelecomNumber.areaCode!}" size="3" maxlength="3" />
+        - <input type="text" name="contactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${billToTelecomNumber.contactNumber!}")}" size="6" maxlength="7" />
+        - <input type="text" name="extension" value="${extension?default("${billToExtension!}")}" size="3" maxlength="3" />
       </div>
     </#if>
     <div class="inline">
       <label for="setShippingPurposeForBilling">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
-      <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForBilling" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
+      <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForBilling" value="Y" <#if setShippingPurpose??>checked="checked"</#if> />
     </div>
       <#--
     <div>

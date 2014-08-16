@@ -20,7 +20,7 @@ under the License.
 <p>
 <h3>${uiLabelMap.EcommerceYourNamePhoneAndEmail}</h3>
 <form id="editCustomerNamePhoneAndEmail" name="${parameters.formNameValue}" method="post" action="<@ofbizUrl>processCustomerSettings</@ofbizUrl>">
-  <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
+  <input type="hidden" name="partyId" value="${parameters.partyId!}"/>
   <fieldset>
     <div>
     <span>
@@ -40,19 +40,19 @@ under the License.
     </span>
     <span>
       <label for="firstName">${uiLabelMap.PartyFirstName}</label>
-      <input type="text" name="firstName" value="${parameters.firstName?if_exists}" /> *
+      <input type="text" name="firstName" value="${parameters.firstName!}" /> *
     </span>
     <span>
       <label for="middleName">${uiLabelMap.PartyMiddleInitial}</label>
-      <input type="text" name="middleName" value="${parameters.middleName?if_exists}" />
+      <input type="text" name="middleName" value="${parameters.middleName!}" />
     </span>
     <span>
       <label for="lastName">${uiLabelMap.PartyLastName}</label>
-      <input type="text" name="lastName" value="${parameters.lastName?if_exists}" /> *
+      <input type="text" name="lastName" value="${parameters.lastName!}" /> *
     </span>
     <span>
       <label for="suffix">${uiLabelMap.PartySuffix}</label>
-      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix?if_exists}" />
+      <input type="text" class='inputBox' name="suffix" value="${parameters.suffix!}" />
     </span>
     </div>
   </fieldset>
@@ -69,11 +69,11 @@ under the License.
     </tr>
     <tr>
     <th scope="row">${uiLabelMap.PartyHomePhone}</th>
-    <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId?if_exists}"/>
-    <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode?if_exists}" /></td>
-    <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}" /></td>
-    <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}" /></td>
-    <td><input type="text" name="homeExt" value="${parameters.homeExt?if_exists}" /></td>
+    <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId!}"/>
+    <td><input type="text" name="homeCountryCode" value="${parameters.homeCountryCode!}" /></td>
+    <td><input type="text" name="homeAreaCode" value="${parameters.homeAreaCode!}" /></td>
+    <td><input type="text" name="homeContactNumber" value="${parameters.homeContactNumber!}" /></td>
+    <td><input type="text" name="homeExt" value="${parameters.homeExt!}" /></td>
     <td>
       <select name="homeSol">
         <#if (((parameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -86,11 +86,11 @@ under the License.
   </tr>
   <tr>
     <th scope="row">${uiLabelMap.PartyBusinessPhone}</th>
-    <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId?if_exists}"/>
-    <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode?if_exists}" /></td>
-    <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode?if_exists}" /></td>
-    <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber?if_exists}" /></td>
-    <td><input type="text" name="workExt" value="${parameters.workExt?if_exists}" /></td>
+    <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId!}"/>
+    <td><input type="text" name="workCountryCode" value="${parameters.workCountryCode!}" /></td>
+    <td><input type="text" name="workAreaCode" value="${parameters.workAreaCode!}" /></td>
+    <td><input type="text" name="workContactNumber" value="${parameters.workContactNumber!}" /></td>
+    <td><input type="text" name="workExt" value="${parameters.workExt!}" /></td>
     <td>
       <select name="workSol">
         <#if (((parameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -106,8 +106,8 @@ under the License.
     <div>
     <span>
       <label for="emailAddress">${uiLabelMap.PartyEmailAddress}</label>
-      <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
-      <input type="text" class="inputBox" name="emailAddress" value="${parameters.emailAddress?if_exists}"/> *
+      <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId!}"/>
+      <input type="text" class="inputBox" name="emailAddress" value="${parameters.emailAddress!}"/> *
     </span>
     <span>
       <label for="emailSol">${uiLabelMap.PartyAllowSolicitation}</label>

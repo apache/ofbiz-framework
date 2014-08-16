@@ -196,14 +196,14 @@ under the License.
   <div class="screenlet-title-bar">
   <ul>
     <li class="h3">Items to export</li>
-    <li><a href="<@ofbizUrl>clearExpListing</@ofbizUrl>?productStoreId=${productStoreId?if_exists}">Clear Listing</a></li>
-    <#if isExportValid?exists && isExportValid == "true">
-    <li><a href="<@ofbizUrl>exportListingToEbay</@ofbizUrl>?productStoreId=${productStoreId?if_exists}">Export Products Listing</a></li>
+    <li><a href="<@ofbizUrl>clearExpListing</@ofbizUrl>?productStoreId=${productStoreId!}">Clear Listing</a></li>
+    <#if isExportValid?? && isExportValid == "true">
+    <li><a href="<@ofbizUrl>exportListingToEbay</@ofbizUrl>?productStoreId=${productStoreId!}">Export Products Listing</a></li>
     </#if>
   </ul><br class="clear"/></div>
   <div class="screenlet-body">
 <form id="ProductsExportToEbay" method="post" action="<@ofbizUrl>exportProductsFromEbayStore</@ofbizUrl>" name="ProductsExportToEbay">
-    <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
+    <input type="hidden" name="productStoreId" value="${productStoreId!}"/>
     <table class="basic-table"  cellspacing="0">
         <tr><td>
         <#if addItemObj?has_content>
@@ -214,9 +214,9 @@ under the License.
                        <#if contentList?has_content>
                            <#list contentList as content>
                                  <#if !isProductId?has_content>
-                                    <li <#if id == 1>class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
+                                    <li <#if id == 1>class="selected" <#assign isProductId = content.product.productId!><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId!}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName!}[${content.product.productId}]</a></li>
                                  <#else>
-                                    <li <#if isProductId?exists && isProductId?if_exists == content.product.productId?if_exists >class="selected" <#assign isProductId = content.product.productId?if_exists><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName?if_exists}[${content.product.productId}]</a></li>
+                                    <li <#if isProductId?? && isProductId! == content.product.productId! >class="selected" <#assign isProductId = content.product.productId!><#else>id="tabHeader${id}"</#if>><a href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>exportProductListing</@ofbizUrl>?isProductId=${content.product.productId!}';document.getElementById('ProductsExportToEbay').submit();">${content.product.productName!}[${content.product.productId}]</a></li>
                                  </#if>
                                  <#assign id = id+1>
                            </#list>
@@ -224,37 +224,37 @@ under the License.
                     </ul>
                      <br class="clear"/>
                 </div>
-        <#assign addItemList = addItemObj.itemListing?if_exists>
+        <#assign addItemList = addItemObj.itemListing!>
         <#if addItemList?has_content>
             <#list addItemList as addItemObj>
-                 <#assign addItem = addItemObj.addItemCall?if_exists>
-                 <#assign isSaved = addItemObj.isSaved?if_exists>
-                 <#assign isAutoRelist = addItemObj.isAutoRelist?if_exists>
-                 <#assign requireEbayInventory = addItemObj.requireEbayInventory?if_exists>
-                 <#assign item = addItem.getItem()?if_exists>
-                 <#assign primaryCate = item.getPrimaryCategory()?if_exists>
-                 <#assign storeFront = item.getStorefront()?if_exists>
-                 <#if isProductId == item.getSKU()?if_exists>
-                     <input type="hidden" name="productId" value="${item.getSKU()?if_exists}"/>
+                 <#assign addItem = addItemObj.addItemCall!>
+                 <#assign isSaved = addItemObj.isSaved!>
+                 <#assign isAutoRelist = addItemObj.isAutoRelist!>
+                 <#assign requireEbayInventory = addItemObj.requireEbayInventory!>
+                 <#assign item = addItem.getItem()!>
+                 <#assign primaryCate = item.getPrimaryCategory()!>
+                 <#assign storeFront = item.getStorefront()!>
+                 <#if isProductId == item.getSKU()!>
+                     <input type="hidden" name="productId" value="${item.getSKU()!}"/>
                      <#assign smallImageUrl = "">
                      <#if contentList?has_content>
                           <#list contentList as content>
-                                <#if content.product.productId?if_exists == item.getSKU()?if_exists><#assign smallImageUrl = content.productContentWrapper.get("SMALL_IMAGE_URL")?if_exists></#if>
+                                <#if content.product.productId! == item.getSKU()!><#assign smallImageUrl = content.productContentWrapper.get("SMALL_IMAGE_URL")!></#if>
                           </#list>
                      </#if>
                      <#if !smallImageUrl?string?has_content><#assign smallImageUrl = "/images/defaultImage.jpg"></#if>
                           <table cellspacing="0" width="70%">
                             <tr>
                                 <td class="label">ItemID</td>
-                                <td><input type="text" readonly="readonly" name="item" value="${item.getItemID()?if_exists}"/></td>
+                                <td><input type="text" readonly="readonly" name="item" value="${item.getItemID()!}"/></td>
                                 <td class="label">Item Fee</td>
                                 <td>
                                     <div>
-                                        <input type="text" readonly="readonly" name="itemFee" value="${request.getAttribute("itemFee")?if_exists}"/>
+                                        <input type="text" readonly="readonly" name="itemFee" value="${request.getAttribute("itemFee")!}"/>
                                         <!-- itemlisting buttons bar -->
                                         <a href="#" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>updateProductExportDetail</@ofbizUrl>';document.ProductsExportToEbay.submit();" class="buttontext">${uiLabelMap.CommonSave}</a>
                                     <#-- request.setAttribute("isSaved")-->
-                                    <#if isSaved?exists && isSaved=="Y">
+                                    <#if isSaved?? && isSaved=="Y">
                                         <a href="#" class="buttontext" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>verifyItemBeforeAddAndExportToEbay</@ofbizUrl>';document.ProductsExportToEbay.submit();">Verifly Item</a>
                                     </#if>
                                         <a href="#" class="buttontext" onclick="javascript:document.ProductsExportToEbay.action='<@ofbizUrl>removeProductFromListing</@ofbizUrl>';document.ProductsExportToEbay.submit();">Remove</a>
@@ -265,7 +265,7 @@ under the License.
                             </tr>
                           </table>
                           <div class="screenlet">
-                              <div class="screenlet-title-bar"><ul><li class="h3">Product ${item.getSKU()?if_exists}</li></ul><br class="clear"/></div>
+                              <div class="screenlet-title-bar"><ul><li class="h3">Product ${item.getSKU()!}</li></ul><br class="clear"/></div>
                               <div class="screenlet-body">
                                  <!-- ebay setting section -->
                                  <table width="100%" cellspacing="0">
@@ -275,8 +275,8 @@ under the License.
                                         <tr>
                                             <td class="label">SiteId</td>
                                             <td>
-                                                <#assign site = item.getSite().value()?if_exists>
-                                                <input type="text" readonly="readonly" name="site" value="${item.getSite().name()?if_exists} [${item.getSite()?if_exists}]"/>
+                                                <#assign site = item.getSite().value()!>
+                                                <input type="text" readonly="readonly" name="site" value="${item.getSite().name()!} [${item.getSite()!}]"/>
                                             </td>
                                         </tr>
                                         <!-- set ebay category -->
@@ -287,32 +287,32 @@ under the License.
                                                   <div id="loading"></div>
                                                   <select id="ebayCategory" name="ebayCategory"  onchange="retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayCategoryByParent</@ofbizUrl>',this.value,'${productStoreId}','ebayCategory')">
                                                         <option value="">Please select</option>
-                                                        <#if categories?exists>
+                                                        <#if categories??>
                                                             <#if primaryCate?has_content>
                                                                 <#if !primaryCate.isLeafCategory()?has_content> 
                                                                     <#assign  leafCate  = "false">
                                                                 <#else>
                                                                     <#assign  leafCate  = "true">
                                                                 </#if>
-                                                                <#assign  primaryCateId  = primaryCate.getCategoryID()?if_exists>
-                                                                 <option selected="selected" value="${primaryCate.getCategoryID()?if_exists}:${leafCate?if_exists}" >${primaryCate.getCategoryName()?if_exists}</option>
+                                                                <#assign  primaryCateId  = primaryCate.getCategoryID()!>
+                                                                 <option selected="selected" value="${primaryCate.getCategoryID()!}:${leafCate!}" >${primaryCate.getCategoryName()!}</option>
                                                             <#else>
                                                                 <#list categories as csCate>
                                                                     <#if !csCate.isLeafCategory()?has_content> 
                                                                         <#assign  leafCate  = "false">
                                                                     <#else>
-                                                                        CH_${primaryCate.getCategoryID()?if_exists}<#assign  leafCate  = "true">
+                                                                        CH_${primaryCate.getCategoryID()!}<#assign  leafCate  = "true">
                                                                     </#if>
-                                                                    <#assign  primaryCateId  = csCate.getCategoryID()?if_exists>
-                                                                    <option value="${csCate.getCategoryID()?if_exists}:${leafCate?if_exists}" >${csCate.getCategoryName()?if_exists}</option>
+                                                                    <#assign  primaryCateId  = csCate.getCategoryID()!>
+                                                                    <option value="${csCate.getCategoryID()!}:${leafCate!}" >${csCate.getCategoryName()!}</option>
                                                                 </#list>
                                                             </#if>
                                                         </#if>
                                                   </select>
-                                                  <a class="buttontext" href="javascript:retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayCategoryByParent</@ofbizUrl>','CH_<#if primaryCate?has_content>${primaryCate.getCategoryID()?if_exists}</#if>','${productStoreId}','ebayCategory')">${uiLabelMap.EbayChangeCategory}</a> <a class="buttontext" href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>setSelectedCategory</@ofbizUrl>?isProductId=${isProductId?if_exists}';document.getElementById('ProductsExportToEbay').submit();">${uiLabelMap.EbaySet}</a>
+                                                  <a class="buttontext" href="javascript:retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayCategoryByParent</@ofbizUrl>','CH_<#if primaryCate?has_content>${primaryCate.getCategoryID()!}</#if>','${productStoreId}','ebayCategory')">${uiLabelMap.EbayChangeCategory}</a> <a class="buttontext" href="javascript:document.getElementById('ProductsExportToEbay').action = '<@ofbizUrl>setSelectedCategory</@ofbizUrl>?isProductId=${isProductId!}';document.getElementById('ProductsExportToEbay').submit();">${uiLabelMap.EbaySet}</a>
                                               </div>
-                                              <input type="hidden" name="primaryCateId" value="${primaryCateId?if_exists}"/>
-                                              <div id="ebayCategory_Name">${priCateName?if_exists}</div>
+                                              <input type="hidden" name="primaryCateId" value="${primaryCateId!}"/>
+                                              <div id="ebayCategory_Name">${priCateName!}</div>
                                             </td>
                                         </tr>
                                         <!-- end of set category -->
@@ -324,30 +324,30 @@ under the License.
                                                   <select id="ebayStore1Category" name="ebayStore1Category" onchange="retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayStoreCategoryByParent</@ofbizUrl>',this.value,'${productStoreId}','ebayStore1Category')">
                                                         <option value="">Please select</option>
                                                         <option value="">------</option>
-                                                        <#if storeCategories?exists>
+                                                        <#if storeCategories??>
                                                             <#if storeFront?has_content>
                                                                 <#--if !storeFront.isLeafCategory()?has_content> 
                                                                     <#assign  leafCate  = "false">
                                                                 <#else>
                                                                     <#assign  leafCate  = "true">
                                                                 </#if-->
-                                                                <#assign storeCate1Id  = storeFront.getStoreCategoryID()?if_exists>
-                                                                 <option selected="selected" value="${storeFront.getStoreCategoryID()?if_exists}" >${storeFront.getStoreCategoryID()?if_exists}</option>
+                                                                <#assign storeCate1Id  = storeFront.getStoreCategoryID()!>
+                                                                 <option selected="selected" value="${storeFront.getStoreCategoryID()!}" >${storeFront.getStoreCategoryID()!}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
                                                                     <#--if !csCate.IsLeafCategory?has_content> 
                                                                         <#assign  leafCate  = "false">
                                                                     <#else>
-                                                                        CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
+                                                                        CH_${storeFront.getStoreCategoryID()!}<#assign  leafCate  = "true">
                                                                     </#if-->
-                                                                    <#assign categoryId = csCate.getCategoryID()?if_exists>
-                                                                    <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
+                                                                    <#assign categoryId = csCate.getCategoryID()!>
+                                                                    <option value="${csCate.getCategoryID()!}" >${csCate.getName()!}</option>
                                                                 </#list>
                                                             </#if>
                                                         </#if>
                                                   </select>
                                               </div>
-                                              <input type="hidden" name="storeCate1Id" value="${storeCate1Id?if_exists}"/>
+                                              <input type="hidden" name="storeCate1Id" value="${storeCate1Id!}"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -357,73 +357,73 @@ under the License.
                                                   <div id="loading"></div>
                                                   <select id="ebayStore2Category" name="ebayStore2Category" onchange="retrieveEbayCategoryByParent('<@ofbizUrl>retrieveEbayStoreCategoryByParent</@ofbizUrl>',this.value,'${productStoreId}','ebayStore2Category')">
                                                         <option value="">Please select</option>
-                                                        <#if storeCategories?exists>
+                                                        <#if storeCategories??>
                                                             <#if storeFront?has_content>
                                                                 <#--if !storeFront.isLeafCategory()?has_content> 
                                                                     <#assign  leafCate  = "false">
                                                                 <#else>
                                                                     <#assign  leafCate  = "true">
                                                                 </#if-->
-                                                                <#assign storeCate2Id  = storeFront.getStoreCategory2ID()?if_exists>
-                                                                 <option selected="selected" value="${storeFront.getStoreCategory2ID()?if_exists}" >${storeFront.getStoreCategory2ID()?if_exists}</option>
+                                                                <#assign storeCate2Id  = storeFront.getStoreCategory2ID()!>
+                                                                 <option selected="selected" value="${storeFront.getStoreCategory2ID()!}" >${storeFront.getStoreCategory2ID()!}</option>
                                                             <#else>
                                                                 <#list storeCategories as csCate>
                                                                     <#--if !csCate.IsLeafCategory?has_content> 
                                                                         <#assign  leafCate  = "false">
                                                                     <#else>
-                                                                        CH_${storeFront.getStoreCategoryID()?if_exists}<#assign  leafCate  = "true">
+                                                                        CH_${storeFront.getStoreCategoryID()!}<#assign  leafCate  = "true">
                                                                     </#if-->
-                                                                    <#assign categoryId = csCate.getCategoryID()?if_exists>
-                                                                    <option value="${csCate.getCategoryID()?if_exists}" >${csCate.getName()?if_exists}</option>
+                                                                    <#assign categoryId = csCate.getCategoryID()!>
+                                                                    <option value="${csCate.getCategoryID()!}" >${csCate.getName()!}</option>
                                                                 </#list>
                                                             </#if>
                                                         </#if>
                                                   </select>
                                               </div>
-                                              <input type="hidden" name="storeCate2Id" value="${storeCate2Id?if_exists}"/>
+                                              <input type="hidden" name="storeCate2Id" value="${storeCate2Id!}"/>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td class="label">Title</td>
-                                            <td><input type="text" size="60"  name="title" value="${item.getTitle()?if_exists}"/></td>
+                                            <td><input type="text" size="60"  name="title" value="${item.getTitle()!}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">SKU</td>
-                                            <td><input type="text" readonly="readonly" name="sku" value="${item.getSKU()?if_exists}"/></td>
+                                            <td><input type="text" readonly="readonly" name="sku" value="${item.getSKU()!}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">PictureURL</td>
                                             <td>
-                                                <#assign pic = item.getPictureDetails()?if_exists>
-                                                <#assign picUrls = pic.getPictureURL()?if_exists>
-                                                <#assign picUrl = picUrls[0]?if_exists>
-                                                <input type="text" size="60" name="pictureUrl" value="${picUrl?if_exists}"/>
+                                                <#assign pic = item.getPictureDetails()!>
+                                                <#assign picUrls = pic.getPictureURL()!>
+                                                <#assign picUrl = picUrls[0]!>
+                                                <input type="text" size="60" name="pictureUrl" value="${picUrl!}"/>
                                             </td>
                                         </tr>
                                         <#--tr>
                                             <td class="label">Description</td>
                                             <input type="text" rows="3" cols="50" rows="4" name="description" size="50" value=""/>
-                                            <td><textarea  name="description" style="height:88px;width:350px;"><#if item.getDescription()?exists>Description of item<#else>${item.getDescription()?if_exists}</#if></textarea></td>
+                                            <td><textarea  name="description" style="height:88px;width:350px;"><#if item.getDescription()??>Description of item<#else>${item.getDescription()!}</#if></textarea></td>
                                         </tr-->
                                         <tr>
                                             <td class="label">${uiLabelMap.CommonCountry}</td>
-                                             <#if item.getCountry().value()?exists>
+                                             <#if item.getCountry().value()??>
                                                 <#assign country = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(delegator.findByAnd("Geo", {"geoCode": item.getCountry().value()}, null, false))/>
                                                 <#if country?has_content>
                                                     <#assign countryname = country.geoName/>
                                                 </#if>
                                             </#if>
-                                            <td><input type="text" readonly="readonly" name="country" size="20" value="${countryname?if_exists?default(item.getCountry().value()?if_exists)}"/></td>
+                                            <td><input type="text" readonly="readonly" name="country" size="20" value="${countryname!?default(item.getCountry().value()!)}"/></td>
                                         </tr>
                                         <tr>
                                             <td class="label">${uiLabelMap.FormFieldTitle_location}</td>
-                                            <td><input type="text" name="location" size="50" maxlength="50" value="${item.getLocation()?if_exists}" /></td>
+                                            <td><input type="text" name="location" size="50" maxlength="50" value="${item.getLocation()!}" /></td>
                                         </tr>
                                         <tr>
                                             <td class="label"><b>Enable auto-relist item</b></td>
                                             <td><input type="checkbox" name="isAutoRelist" value="Y" <#if isAutoRelist == "Y">checked="checked"</#if>/></td>
                                         </tr>
-                                        <#if isReserve?exists && isReserve == true>
+                                        <#if isReserve?? && isReserve == true>
                                         <tr>
                                             <td class="label"><b>Require eBay Inventory</b></td>
                                             <td><input type="checkbox" name="requireEbayInventory" value="Y" <#if requireEbayInventory == "Y">checked="checked"</#if>/></td>
@@ -439,10 +439,10 @@ under the License.
                                     <table width="100%" height="100%" id="table2" cellspacing="0">
                                         <tr>
                                                     <td>
-                                                        <img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
-                                                        ${uiLabelMap.ProductProductId}   : ${item.getSKU()?if_exists}<br />
-                                                        ${uiLabelMap.ProductProductName} : ${item.getTitle()?if_exists}<br />
-                                                        ${uiLabelMap.CommonDescription}  : ${item.getDescription()?if_exists}
+                                                        <img src="<@ofbizContentUrl>${contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" alt="Small Image"/><br />
+                                                        ${uiLabelMap.ProductProductId}   : ${item.getSKU()!}<br />
+                                                        ${uiLabelMap.ProductProductName} : ${item.getTitle()!}<br />
+                                                        ${uiLabelMap.CommonDescription}  : ${item.getDescription()!}
                                                     </td>
                                                 </tr>
                                             </table>
@@ -452,26 +452,26 @@ under the License.
                               </div>
                           </div>
                           <!-- item specifices section -->
-                          <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                          <#if primaryCate?has_content && primaryCate.getCategoryID()?? && listingTypes?has_content>
                              <#if checkSpecific == "true">
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Item specifices</li></ul><br class="clear"/></div>
                                      <div class="screenlet-body">
                                         <table width="50%" height="100%" id="table2"  cellspacing="0">
                                         <#list categorySpecifix?keys as key>
-                                            <#assign values = categorySpecifix.get(key)?if_exists/>
+                                            <#assign values = categorySpecifix.get(key)!/>
                                             <#assign i = 0/>
                                             <#list values?keys as nameSpecific>
-                                            <#assign itemSpecifics = values.get(nameSpecific)?if_exists/>
+                                            <#assign itemSpecifics = values.get(nameSpecific)!/>
                                                 <#if itemSpecifics?has_content>
                                                     <tr>
-                                                        <td class="label">${nameSpecific?if_exists}</td>
-                                                        <input type="hidden" name="nameValueListType_o_${i}" value="${nameSpecific?if_exists}"/>
+                                                        <td class="label">${nameSpecific!}</td>
+                                                        <input type="hidden" name="nameValueListType_o_${i}" value="${nameSpecific!}"/>
                                                         <td>
                                                             <select id="categorySpecifics" name="categorySpecifics_o_${i}">
                                                                <option  value="" ></option>
                                                                <#list itemSpecifics as itemSpecific>
-                                                                   <option  value="${itemSpecific?if_exists}" >${itemSpecific?if_exists}</option>
+                                                                   <option  value="${itemSpecific!}" >${itemSpecific!}</option>
                                                                </#list>
                                                             </select>
                                                         </td>
@@ -487,7 +487,7 @@ under the License.
                              </#if>
                           </#if>
                           <!-- Setup ad templates section -->
-                          <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                          <#if primaryCate?has_content && primaryCate.getCategoryID()?? && listingTypes?has_content>
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Details</li></ul><br class="clear"/></div>
                                  <div class="screenlet-body">
@@ -511,7 +511,7 @@ under the License.
                                                                 }
                                                         </script>
                                                         <textarea id="description" name="description" style="width:800px; height:300px">
-                                                            <#if item.getDescription()?exists>description<#else>${item.getDescription()?if_exists}</#if>
+                                                            <#if item.getDescription()??>description<#else>${item.getDescription()!}</#if>
                                                         </textarea>
                                                         <script type="text/javascript">
                                                               jQuery('#description').elrte(opts);
@@ -529,9 +529,9 @@ under the License.
                                                         <td class="label">Select Theme</td>
                                                         <td>
                                                              <#if adItemTemplates?has_content>
-                                                                <select id="themeGroup" disabled onchange="javascript:retrieveTemplateByTemGroupId(this.value,'${productStoreId?if_exists}','${primaryCate.getCategoryID()?if_exists}');" name="themeGroup">
+                                                                <select id="themeGroup" disabled onchange="javascript:retrieveTemplateByTemGroupId(this.value,'${productStoreId!}','${primaryCate.getCategoryID()!}');" name="themeGroup">
                                                                 <#list adItemTemplates as adItemTemplate>
-                                                                    <option value="${adItemTemplate.TemplateGroupId?if_exists}">${adItemTemplate.TemplateGroupName?if_exists}</option>
+                                                                    <option value="${adItemTemplate.TemplateGroupId!}">${adItemTemplate.TemplateGroupName!}</option>
                                                                 </#list>
                                                                 </select>
                                                             </#if>
@@ -567,7 +567,7 @@ under the License.
                              </div>
                           </#if>
                           <!-- product Price Type -->
-                          <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                          <#if primaryCate?has_content && primaryCate.getCategoryID()?? && listingTypes?has_content>
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Listing Type</li></ul><br class="clear"/></div>
                                  <div class="screenlet-body">
@@ -579,10 +579,10 @@ under the License.
                                            <#assign tabName = "">
                                            <#list listingTypes as listingType>
                                                <#-- default with aution and fixed price -->
-                                               <#if listingType.type?if_exists.equals("Chinese") || listingType.type?if_exists == "FixedPriceItem">
-                                                    <#if listingType.type?if_exists.equals("Chinese") > <#assign tabName = "Auction"></#if>
-                                                    <#if listingType.type?if_exists.equals("FixedPriceItem") > <#assign tabName = "Fixed Price"></#if>
-                                                    <li  <#if id==1 > style="margin-left: 1px" id="tabHeaderActive_"<#else> id="tabHeader_${id}" </#if>><a href="javascript:void(0)" onclick="toggleTab(${id},2)"><span>${tabName?if_exists}</span></a></li>
+                                               <#if listingType.type.equals("Chinese") || listingType.type == "FixedPriceItem">
+                                                    <#if listingType.type.equals("Chinese") > <#assign tabName = "Auction"></#if>
+                                                    <#if listingType.type.equals("FixedPriceItem") > <#assign tabName = "Fixed Price"></#if>
+                                                    <li  <#if id==1 > style="margin-left: 1px" id="tabHeaderActive_"<#else> id="tabHeader_${id}" </#if>><a href="javascript:void(0)" onclick="toggleTab(${id},2)"><span>${tabName!}</span></a></li>
                                                     <#assign id = id + 1>
                                                </#if>
                                             </#list>
@@ -591,26 +591,26 @@ under the License.
                                     <div id="tabscontent">
                                        <#assign id = 1>
                                        <#list listingTypes as listingType>
-                                        <#if listingType.type?if_exists.equals("Chinese") || listingType.type?if_exists == "FixedPriceItem">
-                                        <#if listingType.type?if_exists.equals("Chinese") > <#assign tabName = "Auction"></#if>
-                                        <#if listingType.type?if_exists.equals("FixedPriceItem") ><#assign tabName = "Fixed Price"></#if>
+                                        <#if listingType.type.equals("Chinese") || listingType.type! == "FixedPriceItem">
+                                        <#if listingType.type.equals("Chinese") > <#assign tabName = "Auction"></#if>
+                                        <#if listingType.type.equals("FixedPriceItem") ><#assign tabName = "Fixed Price"></#if>
                                        <div id="tabContent${id}" class="tabContent" <#if id != 1>style="display:none;"</#if>>
                                             <br />
                                             <table width="50%" height="100%" id="table2" cellspacing="0">
                                                     <tr>
                                                          <td class="label"></td>
                                                         <td>
-                                                            <#if listingType.type?if_exists.equals("Chinese")>
-                                                                <input type="radio" name="listype" value="auction"/><b>${tabName?if_exists}</b>
-                                                                <#--<input type="checkbox" value="Y" name="enabledAuction_${id}" /><b>${tabName?if_exists}</b></checkbox-->
-                                                            <#elseif listingType.type?if_exists == "FixedPriceItem">
-                                                                <input type="radio" name="listype" value="fixedprice"/><b>${tabName?if_exists}</b>
-                                                                <#--input type="checkbox" value="Y" name="enabledFixedPrice_${id}" /><b>${tabName?if_exists}</b></checkbox-->
+                                                            <#if listingType.type.equals("Chinese")>
+                                                                <input type="radio" name="listype" value="auction"/><b>${tabName!}</b>
+                                                                <#--<input type="checkbox" value="Y" name="enabledAuction_${id}" /><b>${tabName!}</b></checkbox-->
+                                                            <#elseif listingType.type == "FixedPriceItem">
+                                                                <input type="radio" name="listype" value="fixedprice"/><b>${tabName!}</b>
+                                                                <#--input type="checkbox" value="Y" name="enabledFixedPrice_${id}" /><b>${tabName!}</b></checkbox-->
                                                             </#if>
                                                         </td>
                                                         <td class="label">Duration</td>
                                                         <td>
-                                                            <#assign durations = listingType.durations?if_exists>
+                                                            <#assign durations = listingType.durations!>
                                                             <#if durations?has_content>
                                                             <select name="duration_${id}">
                                                                     <#list durations as duration>
@@ -619,7 +619,7 @@ under the License.
                                                                         <#elseif duration == "GTC">
                                                                             <#assign dura = "Good 'Til Cancelled">
                                                                         </#if>
-                                                                        <option value="${duration?if_exists}">${dura?if_exists} ${uiLabelMap.CommonDays}</option>
+                                                                        <option value="${duration!}">${dura!} ${uiLabelMap.CommonDays}</option>
                                                                     </#list>
                                                             </select>
                                                             </#if>
@@ -628,7 +628,7 @@ under the License.
                                                     <tr>
                                                         <td class="label">${uiLabelMap.CommonQuantity}</td>
                                                         <td>
-                                                            <#if listingType.type?if_exists.equals("FixedPriceItem") >
+                                                            <#if listingType.type.equals("FixedPriceItem") >
                                                                 <input type="text" size="3" value="1" name="quantity_${id}" size="12" maxlength="3"/>
                                                             <#else>
                                                                 <input type="text" size="3" value="1"  disabled  name="quantity_${id}" size="12" maxlength="3"/>
@@ -639,32 +639,32 @@ under the License.
                                                     </tr>
                                                     <#if productPrices?has_content>
                                                         <#list productPrices as productPrice>
-                                                            <#assign currencyUomId = productPrice.currencyUomId?if_exists>
+                                                            <#assign currencyUomId = productPrice.currencyUomId!>
                                                             <#if productPrice.productPriceTypeId == "MINIMUM_PRICE">
-                                                                <#assign min = productPrice.price?if_exists>
+                                                                <#assign min = productPrice.price!>
                                                             <#elseif productPrice.productPriceTypeId == "MAXIMUM_PRICE">
-                                                                <#assign max = productPrice.price?if_exists>
+                                                                <#assign max = productPrice.price!>
                                                             </#if>
                                                         </#list>
                                                     </#if>
                                                     <tr>
-                                                    <input type="hidden" name="currencyId_${id}" value="${currencyUomId?if_exists}"/>
-                                                        <#if listingType.type?if_exists.equals("FixedPriceItem") >
+                                                    <input type="hidden" name="currencyId_${id}" value="${currencyUomId!}"/>
+                                                        <#if listingType.type.equals("FixedPriceItem") >
                                                             <td class="label">Start Price</td>
-                                                            <td><input type="text"  size="6" name="startPrice_${id}" value="${min?if_exists}" />${currencyUomId?if_exists}</td>
+                                                            <td><input type="text"  size="6" name="startPrice_${id}" value="${min!}" />${currencyUomId!}</td>
                                                             <td class="label"></td>
                                                             <td></td>
                                                         <#else>
                                                             <td class="label">Start Price</td>
-                                                            <td><input type="text" size="6" name="startPrice_${id}" value="${min?if_exists}" />${currencyUomId?if_exists}</td>
+                                                            <td><input type="text" size="6" name="startPrice_${id}" value="${min!}" />${currencyUomId!}</td>
                                                             <td class="label">BIN Price</td>
-                                                            <td><input type="text"  size="6" name="buyItNowPrice_${id}" value="${max?if_exists}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId?if_exists}</td>
+                                                            <td><input type="text"  size="6" name="buyItNowPrice_${id}" value="${max!}" <#if listingType.type.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId!}</td>
                                                         </#if>
                                                     </tr>
-                                                    <#if !listingType.type?if_exists.equals("FixedPriceItem") >
+                                                    <#if !listingType.type.equals("FixedPriceItem") >
                                                     <tr>
                                                         <td class="label">Reserve Price</td>
-                                                        <td><input type="text" size="6" name="reservePrice_${id}" <#if listingType.type?if_exists.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId?if_exists}</td>
+                                                        <td><input type="text" size="6" name="reservePrice_${id}" <#if listingType.type.equals("FixedPriceItem") >disabled="disabled"</#if> />${currencyUomId!}</td>
                                                         <td class="label"></td>
                                                         <td></td>
                                                     </tr>
@@ -675,7 +675,7 @@ under the License.
                                                          <td class="label">Postal code</td>
                                                         <td><input type="text" size="10" name="postalCode_${id}" /></td>
                                                     </tr>
-                                                    <#if listingType.type?if_exists.equals("FixedPriceItem") >
+                                                    <#if listingType.type.equals("FixedPriceItem") >
                                                     <tr>
                                                         <td class="label"></td><!-- use when fixed price and store fixed price -->
                                                         <td><input type="checkbox" value="true" name="enableBestOffer_${id}" /><b>Enable Best Offer</b></td>
@@ -696,7 +696,7 @@ under the License.
                             </div>
                           </#if>
                           <!-- payment section -->
-                          <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                          <#if primaryCate?has_content && primaryCate.getCategoryID()?? && listingTypes?has_content>
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Payment</li></ul><br class="clear"/></div>
                                  <div class="screenlet-body">
@@ -717,11 +717,11 @@ under the License.
                                                                     <#list paymentMethods as paymentMethod>
                                                                         <#if paymentMethod.value()??>
                                                                             <#if j == 0><tr></#if>
-                                                                        <#if paymentMethod.compareTo(buyerPayMethCode_PAY_PAL?if_exists) == 0 >
+                                                                        <#if paymentMethod.compareTo(buyerPayMethCode_PAY_PAL!) == 0 >
                                                                                 <#assign is_payPal = true>
                                                                         </#if>
-                                                                        <td valign="top"><input type="checkbox" value="true" name="Payments_${paymentMethod.value()?if_exists}" /></td>
-                                                                        <td align="left"><b>${paymentMethod.value()?if_exists}</b></td>
+                                                                        <td valign="top"><input type="checkbox" value="true" name="Payments_${paymentMethod.value()!}" /></td>
+                                                                        <td align="left"><b>${paymentMethod.value()!}</b></td>
                                                                         <#if j == 3>
                                                                              </tr>
                                                                              <#assign j = 0>
@@ -733,7 +733,7 @@ under the License.
                                                                 </table>
                                                                 <#--assign i = 0>
                                                                 <#list paymentMethods as paymentMethod>
-                                                                    <input type="checkbox" value="${paymentMethod.name()?if_exists}" name="${paymentMethod.name()?if_exists}_${id}">${paymentMethod.value()?if_exists}</checkbox><span style="width:40px"/><#if i==3><br /><#assign i = -1></#if>
+                                                                    <input type="checkbox" value="${paymentMethod.name()!}" name="${paymentMethod.name()!}_${id}">${paymentMethod.value()!}</checkbox><span style="width:40px"/><#if i==3><br /><#assign i = -1></#if>
                                                                     <#assign i=i+1> 
                                                                 </#list-->
                                                             </#if>
@@ -752,7 +752,7 @@ under the License.
                                  </div>
                              </div>
                           </#if>
-                          <#if primaryCate?has_content && primaryCate.getCategoryID()?exists && listingTypes?has_content>
+                          <#if primaryCate?has_content && primaryCate.getCategoryID()?? && listingTypes?has_content>
                              <div class="screenlet">
                                  <div class="screenlet-title-bar"><ul><li class="h3">Shipping Service</li></ul><br class="clear"/></div>
                                  <div class="screenlet-body">
@@ -774,8 +774,8 @@ under the License.
                                           </#if>
                                           <#if shippingServiceDetails?has_content>
                                           <#list shippingServiceDetails as shippingServiceDetail>
-                                              <#assign shippingService = shippingServiceDetail.getShippingService()?if_exists>
-                                              <option value="${shippingService?if_exists}">${shippingService?if_exists}</option>
+                                              <#assign shippingService = shippingServiceDetail.getShippingService()!>
+                                              <option value="${shippingService!}">${shippingService!}</option>
                                           </#list>   
                                           </#if>
                                           </select>
@@ -793,10 +793,10 @@ under the License.
                                              <table>
                                                     <#assign j=0>
                                                     <#list shippingLocationDetails as shippingLocationDetail>
-                                                        <#assign shippingLocation = shippingLocationDetail.getShippingLocation()?if_exists>
+                                                        <#assign shippingLocation = shippingLocationDetail.getShippingLocation()!>
                                                         <#if j==0><tr></#if>
-                                                          <td valign="top"><input type="checkbox" value="true" name="Shipping_${shippingLocation?if_exists}" /></td>
-                                                          <td align="left"><b>${shippingLocationDetail.getDescription()?if_exists}</b></td>
+                                                          <td valign="top"><input type="checkbox" value="true" name="Shipping_${shippingLocation!}" /></td>
+                                                          <td align="left"><b>${shippingLocationDetail.getDescription()!}</b></td>
                                                         <#if j==3></tr><#assign j=0><#else><#assign j=j+1></#if>
                                                     </#list>
                                              </table>

@@ -19,8 +19,8 @@ under the License.
 <#assign contentRootId = "WebStoreCONTENT"/>
 
 <#-- variable setup and worker calls -->
-<#assign curCategoryId = requestAttributes.curCategoryId?if_exists>
-<#assign forumTrailCsv=requestParameters.forumTrailCsv?if_exists/>
+<#assign curCategoryId = requestAttributes.curCategoryId!>
+<#assign forumTrailCsv=requestParameters.forumTrailCsv!/>
 <#assign forumTrail=[]/>
 <#assign firstContentId=""/>
 <#if forumTrailCsv?has_content>

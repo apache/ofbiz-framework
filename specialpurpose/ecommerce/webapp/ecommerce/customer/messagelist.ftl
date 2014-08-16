@@ -52,7 +52,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="boxlink">
-            <#if parameters.showSent?if_exists == "true">
+            <#if parameters.showSent! == "true">
               <a href="<@ofbizUrl>messagelist</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewReceivedOnly}</a>
             <#else>
               <a href="<@ofbizUrl>messagelist?showSent=true</@ofbizUrl>" class="submenutextright">${uiLabelMap.EcommerceViewSent}</a>
@@ -73,10 +73,10 @@ under the License.
               <td>&nbsp;</td>
             </tr>
             <tr><td colspan="5"><hr /></td></tr>
-            <#list receivedCommunicationEvents?if_exists as receivedCommunicationEvent>
+            <#list receivedCommunicationEvents! as receivedCommunicationEvent>
               <@showMessage communicationEvent=receivedCommunicationEvent isSentMessage=false index=receivedCommunicationEvent_index/>
             </#list>
-            <#list sentCommunicationEvents?if_exists as sentCommunicationEvent>
+            <#list sentCommunicationEvents! as sentCommunicationEvent>
               <@showMessage communicationEvent=sentCommunicationEvent isSentMessage=true index=sentCommunicationEvent_index/>
             </#list>
           </#if>

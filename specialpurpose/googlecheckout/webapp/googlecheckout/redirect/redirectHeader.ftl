@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if parameters.redirect?exists>
+<#if parameters.redirect??>
 <html>
 <head>
 <meta HTTP-EQUIV="REFRESH" content="0; url=${parameters.redirect}"/>

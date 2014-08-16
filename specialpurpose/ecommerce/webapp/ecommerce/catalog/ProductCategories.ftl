@@ -29,7 +29,7 @@ jQuery(window).load(createTree());
 
 <#-- creating the JSON Data -->
 var rawdata = [
-  <#if (requestAttributes.topLevelList)?exists>
+  <#if (requestAttributes.topLevelList)??>
     <#assign topLevelList = requestAttributes.topLevelList>
   </#if>
   <#if (topLevelList?has_content)>
@@ -40,7 +40,7 @@ var rawdata = [
   <#if (rootCat?has_content)>
     <#list rootCat?sort_by("productCategoryId") as root>
             {
-            "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string}<#elseif root.categoryDescription?exists>${root.categoryDescription?js_string}<#else>${root.productCategoryId?js_string}</#if>"), "attr": { "href":"javascript: void(0);", "onClick":"callDocument('${root.productCategoryId}', '${root.parentCategoryId}')" , "class" : "${root.cssClass?if_exists}"}},
+            "data": {"title" : unescapeHtmlText("<#if root.categoryName??>${root.categoryName?js_string}<#elseif root.categoryDescription??>${root.categoryDescription?js_string}<#else>${root.productCategoryId?js_string}</#if>"), "attr": { "href":"javascript: void(0);", "onClick":"callDocument('${root.productCategoryId}', '${root.parentCategoryId}')" , "class" : "${root.cssClass!}"}},
             "attr": {"id" : "${root.productCategoryId}"}
             <#if root.child?has_content>
                 ,"children": [

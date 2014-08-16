@@ -19,11 +19,11 @@ under the License.
 
 <div data-role="content">
 <ul data-role="listview">
-<li><a accesskey="1" href="<@ofbizUrl>/receipt?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Goods Receipt</a></li>
-<li><a accesskey="2" href="<@ofbizUrl>/movement?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Inventory Movement</a></li>
-<li><a accesskey="3" href="<@ofbizUrl>/picking?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Picking</a></li>
-<li><a accesskey="4" href="<@ofbizUrl>/packing?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Packing</a></li>
-<li><a accesskey="5" href="<@ofbizUrl>/stocktake?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Stocktake</a></li>
+<li><a accesskey="1" href="<@ofbizUrl>/receipt?facilityId=${parameters.facilityId!}</@ofbizUrl>">Goods Receipt</a></li>
+<li><a accesskey="2" href="<@ofbizUrl>/movement?facilityId=${parameters.facilityId!}</@ofbizUrl>">Inventory Movement</a></li>
+<li><a accesskey="3" href="<@ofbizUrl>/picking?facilityId=${parameters.facilityId!}</@ofbizUrl>">Picking</a></li>
+<li><a accesskey="4" href="<@ofbizUrl>/packing?facilityId=${parameters.facilityId!}</@ofbizUrl>">Packing</a></li>
+<li><a accesskey="5" href="<@ofbizUrl>/stocktake?facilityId=${parameters.facilityId!}</@ofbizUrl>">Stocktake</a></li>
 </ul>
 </div>
 

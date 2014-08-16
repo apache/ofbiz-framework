@@ -75,16 +75,16 @@ function submitForm(form, mode, value) {
                   </td>
                   <td valign="top">
                     <div>
-                      <#if shoppingCart.getShippingContactMechId()?exists>
+                      <#if shoppingCart.getShippingContactMechId()??>
                         <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                       </#if>
-                      <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+                      <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                       <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
                     </div>
                   </td>
                 </tr>
               </#list>
-              <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
+              <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
                 <tr>
                   <td width="1%" valign="top">
                     <input type="radio" name="shipping_method" value="Default" checked="checked" />
@@ -124,20 +124,20 @@ function submitForm(form, mode, value) {
               </tr>
               <tr>
                 <td colspan="2">
-                  <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+                  <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="shipping_instructions">${shoppingCart.getShippingInstructions()!}</textarea>
                 </td>
               </tr>
               <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
                   <h2>${uiLabelMap.OrderPoNumber}</h2>&nbsp;
-                  <#if shoppingCart.getPoNumber()?exists && shoppingCart.getPoNumber() != "(none)">
+                  <#if shoppingCart.getPoNumber()?? && shoppingCart.getPoNumber() != "(none)">
                     <#assign currentPoNumber = shoppingCart.getPoNumber()>
                   </#if>
-                  <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${currentPoNumber?if_exists}"/>
+                  <input type="text" class="inputBox" name="correspondingPoId" size="15" value="${currentPoNumber!}"/>
                 </td>
               </tr>
-              <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+              <#if productStore.showCheckoutGiftOptions! != "N">
               <tr><td colspan="2"><hr /></td></tr>
               <tr>
                 <td colspan="2">
@@ -156,7 +156,7 @@ function submitForm(form, mode, value) {
               </tr>
               <tr>
                 <td colspan="2">
-                  <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+                  <textarea class="textAreaBox" cols="30" rows="3" wrap="hard" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
                 </td>
               </tr>
               <#else/>
@@ -174,14 +174,14 @@ function submitForm(form, mode, value) {
                   <div>
                     <b>
                       <#list emailList as email>
-                        ${email.infoString?if_exists}<#if email_has_next>,</#if>
+                        ${email.infoString!}<#if email_has_next>,</#if>
                       </#list>
                     </b>
                   </div>
                   <div>${uiLabelMap.OrderUpdateEmailAddress} <a href="<@ofbizUrl>viewprofile?DONE_PAGE=checkoutoptions</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyProfile}</a>.</div>
                   <br />
                   <div>${uiLabelMap.OrderCommaSeperatedEmailAddresses}:</div>
-                  <input type="text" class="inputBox" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()?if_exists}"/>
+                  <input type="text" class="inputBox" size="30" name="order_additional_emails" value="${shoppingCart.getOrderAdditionalEmails()!}"/>
                 </td>
               </tr>
             </table>

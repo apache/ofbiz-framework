@@ -20,9 +20,9 @@ under the License.
 
   <div id="ecom-header">
     <div id="left">
-      <#if sessionAttributes.overrideLogo?exists>
+      <#if sessionAttributes.overrideLogo??>
         <img src="<@ofbizContentUrl>${sessionAttributes.overrideLogo}</@ofbizContentUrl>" alt="Logo"/>
-      <#elseif catalogHeaderLogo?exists>
+      <#elseif catalogHeaderLogo??>
         <img src="<@ofbizContentUrl>${catalogHeaderLogo}</@ofbizContentUrl>" alt="Logo"/>
       <#elseif layoutSettings.VT_HDR_IMAGE_URL?has_content>
         <img src="<@ofbizContentUrl>${layoutSettings.VT_HDR_IMAGE_URL.get(0)}</@ofbizContentUrl>" alt="Logo"/>
@@ -32,11 +32,11 @@ under the License.
       ${screens.render("component://ecommerce/widget/CartScreens.xml#microcart")}
     </div>
     <div id="middle">
-      <#if !productStore?exists>
+      <#if !productStore??>
         <h2>${uiLabelMap.EcommerceNoProductStore}</h2>
       </#if>
-      <#if (productStore.title)?exists><div id="company-name">${productStore.title}</div></#if>
-      <#if (productStore.subtitle)?exists><div id="company-subtitle">${productStore.subtitle}</div></#if>
+      <#if (productStore.title)??><div id="company-name">${productStore.title}</div></#if>
+      <#if (productStore.subtitle)??><div id="company-subtitle">${productStore.subtitle}</div></#if>
       <div id="welcome-message">
         <#if sessionAttributes.autoName?has_content>
           ${uiLabelMap.CommonWelcome}&nbsp;${sessionAttributes.autoName?html}!
@@ -66,7 +66,7 @@ under the License.
     </ul>
     <ul id="right-links">
       <!-- NOTE: these are in reverse order because they are stacked right to left instead of left to right -->
-      <#if !userLogin?has_content || (userLogin.userLoginId)?if_exists != "anonymous">
+      <#if !userLogin?has_content || (userLogin.userLoginId)! != "anonymous">
         <li id="header-bar-viewprofile"><a href="<@ofbizUrl>viewprofile</@ofbizUrl>">${uiLabelMap.CommonProfile}</a></li>
         <li id="header-bar-ListMessages"><a href="<@ofbizUrl>messagelist</@ofbizUrl>">${uiLabelMap.CommonMessages}</a></li>
         <li id="header-bar-ListQuotes"><a href="<@ofbizUrl>ListQuotes</@ofbizUrl>">${uiLabelMap.OrderOrderQuotes}</a></li>

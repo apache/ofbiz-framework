@@ -38,7 +38,7 @@ under the License.
         </div>
         <div>
           <label for="passwordHint">${uiLabelMap.PartyPasswordHint}</label>
-          <input type="text" class='inputBox' maxlength="100" name="passwordHint" id="passwordHint" value="${userLoginData.passwordHint?if_exists}" />
+          <input type="text" class='inputBox' maxlength="100" name="passwordHint" id="passwordHint" value="${userLoginData.passwordHint!}" />
         </div>
         <label>${uiLabelMap.CommonFieldsMarkedAreRequired}</label>
       </fieldset>

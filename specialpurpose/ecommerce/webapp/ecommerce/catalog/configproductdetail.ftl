@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#-- variable setup -->
-<#assign productContentWrapper = productContentWrapper?if_exists>
-<#assign price = priceMap?if_exists>
+<#assign productContentWrapper = productContentWrapper!>
+<#assign price = priceMap!>
 <#-- end variable setup -->
 
 <#-- virtual product javascript -->
-${virtualJavaScript?if_exists}
+${virtualJavaScript!}
 <script language="JavaScript" type="text/javascript">
 <!--
     var detailImageUrl = null;
@@ -37,7 +37,7 @@ ${virtualJavaScript?if_exists}
      }
      function isVirtual(product) {
         var isVirtual = false;
-        <#if virtualJavaScript?exists>
+        <#if virtualJavaScript??>
         for (i = 0; i < VIR.length; i++) {
             if (VIR[i] == product) {
                 isVirtual = true;
@@ -165,15 +165,15 @@ function getConfigDetails(event) {
 <table>
 
   <#-- Category next/previous -->
-  <#if category?exists>
+  <#if category??>
     <tr>
       <td colspan="2" align="right">
-        <#if previousProductId?exists>
-          <a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${previousProductId?if_exists}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonPrevious}</a>&nbsp;|&nbsp;
+        <#if previousProductId??>
+          <a href='<@ofbizUrl>product/~category_id=${categoryId!}/~product_id=${previousProductId!}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonPrevious}</a>&nbsp;|&nbsp;
         </#if>
-        <a href="<@ofbizUrl>category/~category_id=${categoryId?if_exists}</@ofbizUrl>" class="buttontext">${(category.categoryName)?default(category.description)?if_exists}</a>
-        <#if nextProductId?exists>
-          &nbsp;|&nbsp;<a href='<@ofbizUrl>product/~category_id=${categoryId?if_exists}/~product_id=${nextProductId?if_exists}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonNext}</a>
+        <a href="<@ofbizUrl>category/~category_id=${categoryId!}</@ofbizUrl>" class="buttontext">${(category.categoryName)?default(category.description)!}</a>
+        <#if nextProductId??>
+          &nbsp;|&nbsp;<a href='<@ofbizUrl>product/~category_id=${categoryId!}/~product_id=${nextProductId!}</@ofbizUrl>' class="buttontext">${uiLabelMap.CommonNext}</a>
         </#if>
       </td>
     </tr>
@@ -184,19 +184,19 @@ function getConfigDetails(event) {
   <#-- Product image/name/price -->
   <tr>
     <td valign="top" width="0">
-      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")?if_exists>
+      <#assign productLargeImageUrl = productContentWrapper.get("LARGE_IMAGE_URL")!>
       <#-- remove the next two lines to always display the virtual image first (virtual images must exist) -->
       <#if firstLargeImage?has_content>
         <#assign productLargeImageUrl = firstLargeImage>
       </#if>
       <#if productLargeImageUrl?string?has_content>
-        <a href="javascript:popupDetail();"><img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${productLargeImageUrl?if_exists}</@ofbizContentUrl>' name='mainImage' vspace='5' hspace='5' class='cssImgXLarge' align='left' alt="" /></a>
+        <a href="javascript:popupDetail();"><img src='<@ofbizContentUrl>${contentPathPrefix!}${productLargeImageUrl!}</@ofbizContentUrl>' name='mainImage' vspace='5' hspace='5' class='cssImgXLarge' align='left' alt="" /></a>
       </#if>
     </td>
     <td align="right" valign="top">
-      <h2>${productContentWrapper.get("PRODUCT_NAME")?if_exists}</h2>
-      <div>${productContentWrapper.get("DESCRIPTION")?if_exists}</div>
-      <div><b>${product.productId?if_exists}</b></div>
+      <h2>${productContentWrapper.get("PRODUCT_NAME")!}</h2>
+      <div>${productContentWrapper.get("DESCRIPTION")!}</div>
+      <div><b>${product.productId!}</b></div>
       <#-- example of showing a certain type of feature with the product -->
       <#if sizeProductFeatureAndAppls?has_content>
         <div>
@@ -219,30 +219,30 @@ function getConfigDetails(event) {
               - if price < defaultPrice and defaultPrice < listPrice, show default
               - if isSale show price with salePrice style and print "On Sale!"
       -->
-      <#if totalPrice?exists>
+      <#if totalPrice??>
         <div>${uiLabelMap.ProductAggregatedPrice}: <span id='totalPrice' class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=totalPrice.currencyUsed/></span></div>
       <#else>
-      <#if price.competitivePrice?exists && price.price?exists && price.price < price.competitivePrice>
+      <#if price.competitivePrice?? && price.price?? && price.price < price.competitivePrice>
         <div>${uiLabelMap.ProductCompareAtPrice}: <span class='basePrice'><@ofbizCurrency amount=price.competitivePrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
+      <#if price.listPrice?? && price.price?? && price.price < price.listPrice>
         <div>${uiLabelMap.ProductListPrice}: <span class='basePrice'><@ofbizCurrency amount=price.listPrice isoCode=price.currencyUsed/></span></div>
       </#if>
-      <#if price.listPrice?exists && price.defaultPrice?exists && price.price?exists && price.price < price.defaultPrice && price.defaultPrice < price.listPrice>
+      <#if price.listPrice?? && price.defaultPrice?? && price.price?? && price.price < price.defaultPrice && price.defaultPrice < price.listPrice>
         <div>${uiLabelMap.ProductRegularPrice}: <span class='basePrice'><@ofbizCurrency amount=price.defaultPrice isoCode=price.currencyUsed/></span></div>
       </#if>
       <div>
 
-          <#if price.isSale?exists && price.isSale>
+          <#if price.isSale?? && price.isSale>
             <span class='salePrice'>${uiLabelMap.OrderOnSale}!</span>
             <#assign priceStyle = "salePrice">
           <#else>
             <#assign priceStyle = "regularPrice">
           </#if>
-            ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual?if_exists> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
+            ${uiLabelMap.OrderYourPrice}: <#if "Y" = product.isVirtual!> from </#if><span class='${priceStyle}'><@ofbizCurrency amount=price.price isoCode=price.currencyUsed/></span>
 
       </div>
-      <#if price.listPrice?exists && price.price?exists && price.price < price.listPrice>
+      <#if price.listPrice?? && price.price?? && price.price < price.listPrice>
         <#assign priceSaved = price.listPrice - price.price>
         <#assign percentSaved = (priceSaved / price.listPrice) * 100>
         <div>${uiLabelMap.OrderSave}: <span class="basePrice"><@ofbizCurrency amount=priceSaved isoCode=price.currencyUsed/> (${percentSaved?int}%)</span></div>
@@ -250,18 +250,18 @@ function getConfigDetails(event) {
       </#if>
 
       <#-- Included quantities/pieces -->
-      <#if product.quantityIncluded?exists && product.quantityIncluded != 0>
+      <#if product.quantityIncluded?? && product.quantityIncluded != 0>
         <div>${uiLabelMap.OrderIncludes}:
-          ${product.quantityIncluded?if_exists}
-          ${product.quantityUomId?if_exists}
+          ${product.quantityIncluded!}
+          ${product.quantityUomId!}
         </div>
       </#if>
-      <#if product.piecesIncluded?exists && product.piecesIncluded?long != 0>
+      <#if product.piecesIncluded?? && product.piecesIncluded?long != 0>
         <div>${uiLabelMap.OrderPieces}:
           ${product.piecesIncluded}
         </div>
       </#if>
-      <#if daysToShip?exists>
+      <#if daysToShip??>
         <div>${uiLabelMap.ProductUsuallyShipsIn} ${daysToShip} ${uiLabelMap.CommonDays}</div>
       </#if>
 
@@ -271,7 +271,7 @@ function getConfigDetails(event) {
         <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
       </div>
 
-      <#if disFeatureList?exists && 0 < disFeatureList.size()>
+      <#if disFeatureList?? && 0 < disFeatureList.size()>
         <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
             <div>
@@ -281,11 +281,11 @@ function getConfigDetails(event) {
             <div>&nbsp;</div>
       </#if>
 
-      <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform" style='margin: 0;'>
+      <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="addform" style='margin: 0;'>
         <#assign inStock = true>
         <#-- Variant Selection -->
-        <#if product.isVirtual?exists && product.isVirtual?upper_case == "Y">
-          <#if variantTree?exists && 0 < variantTree.size()>
+        <#if product.isVirtual?? && product.isVirtual?upper_case == "Y">
+          <#if variantTree?? && 0 < variantTree.size()>
             <#list featureSet as currentType>
               <div>
                 <select name="FT${currentType}" onchange="javascript:getList(this.name, (this.selectedIndex-1), 1);">
@@ -304,13 +304,13 @@ function getConfigDetails(event) {
         <#else>
           <input type='hidden' name="product_id" value='${product.productId}' />
           <input type='hidden' name="add_product_id" value='${product.productId}' />
-          <#if productNotAvailable?exists>
+          <#if productNotAvailable??>
             <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
             <#if isStoreInventoryRequired>
               <div class='tabletext'><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
               <#assign inStock = false>
             <#else>
-              <div class='tabletext'><b>${product.inventoryMessage?if_exists}</b></div>
+              <div class='tabletext'><b>${product.inventoryMessage!}</b></div>
             </#if>
           </#if>
         </#if>
@@ -318,11 +318,11 @@ function getConfigDetails(event) {
         </td></tr><tr><td colspan="2" align="right">
 
         <#-- check to see if introductionDate hasn't passed yet -->
-        <#if product.introductionDate?exists && nowTimestamp.before(product.introductionDate)>
+        <#if product.introductionDate?? && nowTimestamp.before(product.introductionDate)>
           <p>&nbsp;</p>
           <div class='tabletext' style='color: red;'>${uiLabelMap.ProductProductNotYetMadeAvailable}.</div>
         <#-- check to see if salesDiscontinuationDate has passed -->
-        <#elseif product.salesDiscontinuationDate?exists && nowTimestamp.after(product.salesDiscontinuationDate)>
+        <#elseif product.salesDiscontinuationDate?? && nowTimestamp.after(product.salesDiscontinuationDate)>
           <div class='tabletext' style='color: red;'>${uiLabelMap.ProductProductNoLongerAvailable}.</div>
         <#-- check to see if the product requires inventory check and has inventory -->
         <#else>
@@ -342,12 +342,12 @@ function getConfigDetails(event) {
             <#else>
               <a href="javascript:addItem()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.OrderAddToCart}</span></a>&nbsp;
               <input type="text" size="5" name="quantity" value="1" />
-                <#if minimumQuantity?exists &&  minimumQuantity &gt; 0>
+                <#if minimumQuantity?? &&  minimumQuantity &gt; 0>
                   Minimum order quantity is ${minimumQuantity}.
                </#if>
             </#if>
           </#if>
-          <#if requestParameters.category_id?exists>
+          <#if requestParameters.category_id??>
             <input type='hidden' name='category_id' value='${requestParameters.category_id}' />
           </#if>
         </#if>
@@ -355,10 +355,10 @@ function getConfigDetails(event) {
     <div>
       <#if sessionAttributes.userLogin?has_content && sessionAttributes.userLogin.userLoginId != "anonymous">
 
-        <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+        <form name="addToShoppingList" method="post" action="<@ofbizUrl>addItemToShoppingList<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
           <input type="hidden" name="productId" value="${product.productId}" />
           <input type="hidden" name="product_id" value="${product.productId}" />
-          <input type="hidden" name="configId" value="${configId?if_exists}" />
+          <input type="hidden" name="configId" value="${configId!}" />
           <select name="shoppingListId">
             <#if shoppingLists?has_content>
               <#list shoppingLists as shoppingList>
@@ -378,12 +378,12 @@ function getConfigDetails(event) {
       </#if>
       </div>
       <#-- Prefill first select box (virtual products only) -->
-      <#if variantTree?exists && 0 < variantTree.size()>
+      <#if variantTree?? && 0 < variantTree.size()>
         <script language="JavaScript" type="text/javascript">eval("list" + "${featureOrderFirst}" + "()");</script>
       </#if>
 
       <#-- Swatches (virtual products only) -->
-      <#if variantSample?exists && 0 < variantSample.size()>
+      <#if variantSample?? && 0 < variantSample.size()>
         <#assign imageKeys = variantSample.keySet()>
         <#assign imageMap = variantSample>
         <p>&nbsp;</p>
@@ -394,15 +394,15 @@ function getConfigDetails(event) {
             <#list imageKeys as key>
               <#assign swatchProduct = imageMap.get(key)>
               <#if swatchProduct?has_content && indexer < maxIndex>
-                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)?if_exists>
+                <#assign imageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(swatchProduct, "SMALL_IMAGE_URL", request)!>
                 <#if !imageUrl?string?has_content>
-                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")?if_exists>
+                  <#assign imageUrl = productContentWrapper.get("SMALL_IMAGE_URL")!>
                 </#if>
                 <#if !imageUrl?string?has_content>
                   <#assign imageUrl = "/images/defaultImage.jpg">
                 </#if>
                 <td align="center" valign="bottom">
-                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix?if_exists}${imageUrl}</@ofbizContentUrl>" class='cssImgSmall' alt="" /></a>
+                  <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);"><img src="<@ofbizContentUrl>${contentPathPrefix!}${imageUrl}</@ofbizContentUrl>" class='cssImgSmall' alt="" /></a>
                   <br />
                   <a href="javascript:getList('FT${featureOrderFirst}','${indexer}',1);" class="buttontext">${key}</a>
                 </td>
@@ -423,7 +423,7 @@ function getConfigDetails(event) {
   <#-- Long description of product -->
   <tr>
     <td colspan="2">
-      <div>${productContentWrapper.get("LONG_DESCRIPTION")?if_exists}</div>
+      <div>${productContentWrapper.get("LONG_DESCRIPTION")!}</div>
     </td>
   </tr>
 
@@ -433,7 +433,7 @@ function getConfigDetails(event) {
   <#-- Product Configurator -->
   <tr>
     <td colspan="2">
-      <form name="configform" id="configFormId" method="post" action="<@ofbizUrl>product<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
+      <form name="configform" id="configFormId" method="post" action="<@ofbizUrl>product<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>">
         <input type='hidden' name='add_product_id' value='${product.productId}' />
         <input type='hidden' name='add_category_id' value='' />
         <input type='hidden' name='quantity' value='1' />
@@ -456,14 +456,14 @@ function getConfigDetails(event) {
               <div>${question.question}</div>
               <#if question.isFirst()>
                 <a name='#${question.getConfigItem().getString("configItemId")}'></a>
-                <div>${question.description?if_exists}</div>
-                <#assign instructions = question.content.get("INSTRUCTIONS")?if_exists>
+                <div>${question.description!}</div>
+                <#assign instructions = question.content.get("INSTRUCTIONS")!>
                 <#if instructions?has_content>
                   <a href="javascript:showErrorAlert("${uiLabelMap.CommonErrorMessage2}","${instructions}");" class="buttontext">Instructions</a>
                 </#if>
-                <#assign image = question.content.get("IMAGE_URL")?if_exists>
+                <#assign image = question.content.get("IMAGE_URL")!>
                 <#if image?string?has_content>
-                  <img src='<@ofbizContentUrl>${contentPathPrefix?if_exists}${image?if_exists}</@ofbizContentUrl>' vspace='5' hspace='5' class='cssImgXLarge' align='left' alt="" />
+                  <img src='<@ofbizContentUrl>${contentPathPrefix!}${image!}</@ofbizContentUrl>' vspace='5' hspace='5' class='cssImgXLarge' align='left' alt="" />
                 </#if>
               <#else>
                 <div><a href='#${question.getConfigItem().getString("configItemId")}' class="buttontext">Details</a></div>
@@ -482,13 +482,13 @@ function getConfigDetails(event) {
               <#if question.isSingleChoice()>
                 <#-- Single choice question -->
                 <#assign options = question.options>
-                <#assign selectedOption = question.getSelected()?if_exists>
+                <#assign selectedOption = question.getSelected()!>
                 <#assign selectedPrice = 0.0>
                 <#if selectedOption?has_content>
                   <#assign selectedPrice = selectedOption.getPrice()>
                 </#if>
                 <#-- The single choice input can be implemented with radio buttons or a select field -->
-                <#if renderSingleChoiceWithRadioButtons?exists && "Y" == renderSingleChoiceWithRadioButtons>
+                <#if renderSingleChoiceWithRadioButtons?? && "Y" == renderSingleChoiceWithRadioButtons>
                 <#-- This is the radio button implementation -->
                 <#if !question.isMandatory()>
                   <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>' /> No option</div>
@@ -496,7 +496,7 @@ function getConfigDetails(event) {
                 <#assign optionCounter = 0>
                 <#list options as option>
                   <#assign componentCounter = 0>
-                  <#if showOffsetPrice?exists && "Y" == showOffsetPrice>
+                  <#if showOffsetPrice?? && "Y" == showOffsetPrice>
                     <#assign shownPrice = option.price - selectedPrice>
                   <#else>
                     <#assign shownPrice = option.price>
@@ -537,7 +537,7 @@ function getConfigDetails(event) {
                 <#assign options = question.options>
                 <#assign optionCounter = 0>
                 <#list options as option>
-                  <#if showOffsetPrice?exists && "Y" == showOffsetPrice>
+                  <#if showOffsetPrice?? && "Y" == showOffsetPrice>
                     <#assign shownPrice = option.price - selectedPrice>
                   <#else>
                     <#assign shownPrice = option.price>
@@ -602,8 +602,8 @@ function getConfigDetails(event) {
   <tr>
     <td colspan="2">
       <div>${uiLabelMap.OrderCustomerReviews}:</div>
-      <#if averageRating?exists && (averageRating > 0) && numRatings?exists && (numRatings > 1)>
-          <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
+      <#if averageRating?? && (averageRating > 0) && numRatings?? && (numRatings > 1)>
+          <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings??>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
       </#if>
     </td>
   </tr>
@@ -611,7 +611,7 @@ function getConfigDetails(event) {
   <#if productReviews?has_content>
     <#list productReviews as productReview>
       <#assign postedUserLogin = productReview.getRelatedOne("UserLogin", false)>
-      <#assign postedPerson = postedUserLogin.getRelatedOne("Person", false)?if_exists>
+      <#assign postedPerson = postedUserLogin.getRelatedOne("Person", false)!>
       <tr>
         <td colspan="2">
           <table border="0" cellpadding="0" cellspacing='0'>
@@ -620,10 +620,10 @@ function getConfigDetails(event) {
                 <div>${uiLabelMap.CommonBy}: <#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.OrderAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
               </td>
               <td>
-                <div>${uiLabelMap.CommonOn}: ${productReview.postedDateTime?if_exists}</div>
+                <div>${uiLabelMap.CommonOn}: ${productReview.postedDateTime!}</div>
               </td>
               <td>
-                <div>${uiLabelMap.OrderRanking}: ${productReview.productRating?if_exists?string}</div>
+                <div>${uiLabelMap.OrderRanking}: ${productReview.productRating!?string}</div>
               </td>
             </tr>
             <tr>
@@ -633,7 +633,7 @@ function getConfigDetails(event) {
             </tr>
             <tr>
               <td colspan="3">
-                <div>${productReview.productReview?if_exists}</div>
+                <div>${productReview.productReview!}</div>
               </td>
             </tr>
 
@@ -643,7 +643,7 @@ function getConfigDetails(event) {
     </#list>
     <tr>
       <td colspan="2">
-        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&amp;product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReviewThisProduct}!</a>
+        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId!}&amp;product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReviewThisProduct}!</a>
       </td>
     </tr>
   <#else>
@@ -654,7 +654,7 @@ function getConfigDetails(event) {
     </tr>
     <tr>
       <td colspan="2">
-        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&amp;product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
+        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId!}&amp;product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
       </td>
     </tr>
 </table>
@@ -668,15 +668,15 @@ function getConfigDetails(event) {
   </#if>
   <#if assocProducts?has_content>
     <tr><td>&nbsp;</td></tr>
-    <tr><td colspan="2"><h2>${beforeName?if_exists}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")?if_exists}</#if>${afterName?if_exists}</h2></td></tr>
+    <tr><td colspan="2"><h2>${beforeName!}<#if showName == "Y">${productContentWrapper.get("PRODUCT_NAME")!}</#if>${afterName!}</h2></td></tr>
 
     <#list assocProducts as productAssoc>
       <tr><td>
         <div>
-          <a href='<@ofbizUrl>${targetRequest}/<#if categoryId?exists>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo?if_exists}</@ofbizUrl>' class="buttontext">
-            ${productAssoc.productIdTo?if_exists}
+          <a href='<@ofbizUrl>${targetRequest}/<#if categoryId??>~category_id=${categoryId}/</#if>~product_id=${productAssoc.productIdTo!}</@ofbizUrl>' class="buttontext">
+            ${productAssoc.productIdTo!}
           </a>
-          - ${productAssoc.reason?if_exists}
+          - ${productAssoc.reason!}
         </div>
       </td></tr>
       ${setRequestAttribute("optProductId", productAssoc.productIdTo)}

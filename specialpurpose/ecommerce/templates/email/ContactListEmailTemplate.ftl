@@ -27,10 +27,10 @@ under the License.
                 <label>E-mail: ${emailAddress}</label>
                 <input type="hidden" name="contactListId" value="${contactListId}" />
                 <input type="hidden" name="partyId" value="${partyId}" />
-                <input type="hidden" name="preferredContactMechId" value="${preferredContactMechId?if_exists}" />
+                <input type="hidden" name="preferredContactMechId" value="${preferredContactMechId!}" />
                 <input type="hidden" name="fromDate" value="${fromDate}" />
                 <input type="hidden" name="statusId" value="CLPT_UNSUBS_PENDING" />
-                <input type="hidden" name="optInVerifyCode" value="${optInVerifyCode?if_exists}" />
+                <input type="hidden" name="optInVerifyCode" value="${optInVerifyCode!}" />
                 <input type="submit" name="submitButton" value="Click here to unsubscribe your newsletter subscription." />
             </fieldset>
         </form>

@@ -18,7 +18,7 @@ under the License.
 -->
 <#if result?has_content>
 <div align="center">
-<h2>Subversion Information for repository : <b><a href=${result.repository?if_exists}> ${result.repository?if_exists}</a></b>, revision# <b>${result.revision?if_exists}</b></h2>
+<h2>Subversion Information for repository : <b><a href=${result.repository!}> ${result.repository!}</a></b>, revision# <b>${result.revision!}</b></h2>
 </div>
 <div>
     <br/><h3>Log message</h3>
@@ -26,7 +26,7 @@ under the License.
 </div>
 <div>
     <#assign oldrevision = result.revision?number - 1 >
-    <br/><h3>The differences between revisions: ${oldrevision?if_exists} and ${result.revision?if_exists} </h3>
+    <br/><h3>The differences between revisions: ${oldrevision!} and ${result.revision!} </h3>
     <br/><pre>${result.diffMessage}</pre>
 </div>
 </#if>

@@ -19,8 +19,8 @@ under the License.
 
 <#-- NOTE: this template is used for the orderstatus screen in ecommerce AND for order notification emails through the OrderNoticeEmail.ftl file -->
 <#-- the "urlPrefix" value will be prepended to URLs by the ofbizUrl transform if/when there is no "request" object in the context -->
-<#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
-<#if (orderHeader.externalId)?exists && (orderHeader.externalId)?has_content >
+<#if baseEcommerceSecureUrl??><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
+<#if (orderHeader.externalId)?? && (orderHeader.externalId)?has_content >
   <#assign externalOrder = "(" + orderHeader.externalId + ")"/>
 </#if>
 
@@ -29,7 +29,7 @@ under the License.
 <div class="columnLeft">
 <div class="screenlet">
   <h3>
-    <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED" && roleTypeId?if_exists == "PLACING_CUSTOMER">
+    <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)! == "ORDER_COMPLETED" && roleTypeId! == "PLACING_CUSTOMER">
       <a href="<@ofbizUrl fullPath="true">makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
     </#if>
     ${uiLabelMap.OrderOrder}
@@ -37,14 +37,14 @@ under the License.
       ${uiLabelMap.CommonNbr}<a href="<@ofbizUrl fullPath="true">orderstatus?orderId=${orderHeader.orderId}</@ofbizUrl>" class="lightbuttontext">${orderHeader.orderId}</a>
     </#if>
     ${uiLabelMap.CommonInformation}
-    <#if (orderHeader.orderId)?exists>
-      ${externalOrder?if_exists} [ <a href="<@ofbizUrl fullPath="true">order.pdf?orderId=${(orderHeader.orderId)?if_exists}</@ofbizUrl>" class="lightbuttontext">PDF</a> ]
+    <#if (orderHeader.orderId)??>
+      ${externalOrder!} [ <a href="<@ofbizUrl fullPath="true">order.pdf?orderId=${(orderHeader.orderId)!}</@ofbizUrl>" class="lightbuttontext">PDF</a> ]
     </#if>
   </h3>
   <#-- placing customer information -->
   <ul>
-    <#if localOrderReadHelper?exists && orderHeader?has_content>
-      <#assign displayParty = localOrderReadHelper.getPlacingParty()?if_exists/>
+    <#if localOrderReadHelper?? && orderHeader?has_content>
+      <#assign displayParty = localOrderReadHelper.getPlacingParty()!/>
       <#if displayParty?has_content>
         <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
       </#if>
@@ -69,7 +69,7 @@ under the License.
         ${orderHeader.orderDate.toString()}
       </li>
     </#if>
-    <#if distributorId?exists>
+    <#if distributorId??>
       <li>
         ${uiLabelMap.OrderDistributor}
         ${distributorId}
@@ -94,10 +94,10 @@ under the License.
               <#if paymentAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${paymentAddress.attnName}</#if>
               ${paymentAddress.address1}
               <#if paymentAddress.address2?has_content>${paymentAddress.address2}</#if>
-              <#assign paymentStateGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
-              ${paymentAddress.city}<#if paymentStateGeo?has_content>, ${paymentStateGeo.geoName?if_exists}</#if> ${paymentAddress.postalCode?if_exists}
-              <#assign paymentCountryGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.countryGeoId?if_exists}, false))?if_exists />
-              <#if paymentCountryGeo?has_content>${paymentCountryGeo.geoName?if_exists}</#if>
+              <#assign paymentStateGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.stateProvinceGeoId!}, false))! />
+              ${paymentAddress.city}<#if paymentStateGeo?has_content>, ${paymentStateGeo.geoName!}</#if> ${paymentAddress.postalCode!}
+              <#assign paymentCountryGeo = (delegator.findOne("Geo", {"geoId", paymentAddress.countryGeoId!}, false))! />
+              <#if paymentCountryGeo?has_content>${paymentCountryGeo.geoName!}</#if>
               ${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}
             </#if>
           <#else>
@@ -120,7 +120,7 @@ under the License.
           <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId && creditCard?has_content>
             <#if outputted?default(false)>
             </#if>
-            <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)?if_exists>
+            <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)!>
             <li>
               <ul>
                 <li> ${uiLabelMap.AccountingCreditCard}
@@ -139,7 +139,7 @@ under the License.
             <#if outputted?default(false)>
             </#if>
             <#if giftCard?has_content && giftCard.cardNumber?has_content>
-              <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)?if_exists>
+              <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)!>
               <#assign giftCardNumber = "">
               <#assign pcardNumber = giftCard.cardNumber>
               <#if pcardNumber?has_content>
@@ -162,12 +162,12 @@ under the License.
           <#elseif "EFT_ACCOUNT" == paymentMethod.paymentMethodTypeId && eftAccount?has_content>
             <#if outputted?default(false)>
             </#if>
-            <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)?if_exists>
+            <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)!>
             <li>
               <ul>
                 <li>
                   ${uiLabelMap.AccountingEFTAccount}
-                  ${eftAccount.nameOnAccount?if_exists}
+                  ${eftAccount.nameOnAccount!}
                 </li>
                 <li>
                   <#if eftAccount.companyNameOnAccount?has_content>${eftAccount.companyNameOnAccount}</#if>
@@ -197,10 +197,10 @@ under the License.
                   <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}</#if>
                 </li>
                 <li>
-                <#assign pmBillingStateGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
-                ${pmBillingAddress.city}<#if pmBillingStateGeo?has_content>, ${ pmBillingStateGeo.geoName?if_exists}</#if> ${pmBillingAddress.postalCode?if_exists}
-                <#assign pmBillingCountryGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.countryGeoId?if_exists}, false))?if_exists />
-                <#if pmBillingCountryGeo?has_content>${pmBillingCountryGeo.geoName?if_exists}</#if>
+                <#assign pmBillingStateGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.stateProvinceGeoId!}, false))! />
+                ${pmBillingAddress.city}<#if pmBillingStateGeo?has_content>, ${ pmBillingStateGeo.geoName!}</#if> ${pmBillingAddress.postalCode!}
+                <#assign pmBillingCountryGeo = (delegator.findOne("Geo", {"geoId", pmBillingAddress.countryGeoId!}, false))! />
+                <#if pmBillingCountryGeo?has_content>${pmBillingCountryGeo.geoName!}</#if>
                 </li>
               </ul>
             </li>
@@ -215,14 +215,14 @@ under the License.
         <#assign outputted = true>
         <li>
           ${uiLabelMap.AccountingBillingAccount}
-          #${billingAccount.billingAccountId?if_exists} - ${billingAccount.description?if_exists}
+          #${billingAccount.billingAccountId!} - ${billingAccount.description!}
         </li>
       </#if>
       <#if (customerPoNumberSet?has_content)>
         <li>
           ${uiLabelMap.OrderPurchaseOrderNumber}
           <#list customerPoNumberSet as customerPoNumber>
-            ${customerPoNumber?if_exists}
+            ${customerPoNumber!}
           </#list>
         </li>
       </#if>
@@ -238,10 +238,10 @@ under the License.
     <#assign groupIdx = 0>
     <#list orderItemShipGroups as shipGroup>
       <#if orderHeader?has_content>
-        <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
-        <#assign groupNumber = shipGroup.shipGroupSeqId?if_exists>
+        <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress", false)!>
+        <#assign groupNumber = shipGroup.shipGroupSeqId!>
       <#else>
-        <#assign shippingAddress = cart.getShippingAddress(groupIdx)?if_exists>
+        <#assign shippingAddress = cart.getShippingAddress(groupIdx)!>
         <#assign groupNumber = groupIdx + 1>
       </#if>
       <ul>
@@ -262,12 +262,12 @@ under the License.
                 <#if shippingAddress.address2?has_content>${shippingAddress.address2}</#if>
               </li>
               <li>
-                <#assign shippingStateGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.stateProvinceGeoId?if_exists}, false))?if_exists />
-                ${shippingAddress.city}<#if shippingStateGeo?has_content>, ${shippingStateGeo.geoName?if_exists}</#if> ${shippingAddress.postalCode?if_exists}
+                <#assign shippingStateGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.stateProvinceGeoId!}, false))! />
+                ${shippingAddress.city}<#if shippingStateGeo?has_content>, ${shippingStateGeo.geoName!}</#if> ${shippingAddress.postalCode!}
               </li>
               <li>
-                <#assign shippingCountryGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.countryGeoId?if_exists}, false))?if_exists />
-                <#if shippingCountryGeo?has_content>${shippingCountryGeo.geoName?if_exists}</#if>
+                <#assign shippingCountryGeo = (delegator.findOne("Geo", {"geoId", shippingAddress.countryGeoId!}, false))! />
+                <#if shippingCountryGeo?has_content>${shippingCountryGeo.geoName!}</#if>
               </li>
             </ul>
           </li>
@@ -277,17 +277,17 @@ under the License.
             <li>
               ${uiLabelMap.OrderMethod}:
               <#if orderHeader?has_content>
-                <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType", false)?if_exists>
-                <#assign carrierPartyId = shipGroup.carrierPartyId?if_exists>
+                <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType", false)!>
+                <#assign carrierPartyId = shipGroup.carrierPartyId!>
               <#else>
-                <#assign shipmentMethodType = cart.getShipmentMethodType(groupIdx)?if_exists>
-                <#assign carrierPartyId = cart.getCarrierPartyId(groupIdx)?if_exists>
+                <#assign shipmentMethodType = cart.getShipmentMethodType(groupIdx)!>
+                <#assign carrierPartyId = cart.getCarrierPartyId(groupIdx)!>
               </#if>
-              <#if carrierPartyId?exists && carrierPartyId != "_NA_">${carrierPartyId?if_exists}</#if>
+              <#if carrierPartyId?? && carrierPartyId != "_NA_">${carrierPartyId!}</#if>
               ${(shipmentMethodType.description)?default("N/A")}
             </li>
             <li>
-              <#if shippingAccount?exists>${uiLabelMap.AccountingUseAccount}: ${shippingAccount}</#if>
+              <#if shippingAccount??>${uiLabelMap.AccountingUseAccount}: ${shippingAccount}</#if>
             </li>
           </ul>
         </li>
@@ -322,9 +322,9 @@ under the License.
           </li>
           <#-- shipping instructions -->
           <#if orderHeader?has_content>
-            <#assign shippingInstructions = shipGroup.shippingInstructions?if_exists>
+            <#assign shippingInstructions = shipGroup.shippingInstructions!>
           <#else>
-            <#assign shippingInstructions =  cart.getShippingInstructions(groupIdx)?if_exists>
+            <#assign shippingInstructions =  cart.getShippingInstructions(groupIdx)!>
           </#if>
           <#if shippingInstructions?has_content>
             <li>
@@ -335,12 +335,12 @@ under the License.
           <#-- gift settings -->
           <#if orderHeader?has_content>
             <#assign isGift = shipGroup.isGift?default("N")>
-            <#assign giftMessage = shipGroup.giftMessage?if_exists>
+            <#assign giftMessage = shipGroup.giftMessage!>
           <#else>
             <#assign isGift = cart.getIsGift(groupIdx)?default("N")>
-            <#assign giftMessage = cart.getGiftMessage(groupIdx)?if_exists>
+            <#assign giftMessage = cart.getGiftMessage(groupIdx)!>
           </#if>
-          <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+          <#if productStore.showCheckoutGiftOptions! != "N">
           <li>
             ${uiLabelMap.OrderGift}?
             <#if isGift?default("N") == "N">${uiLabelMap.OrderThisIsNotGift}.</#if>

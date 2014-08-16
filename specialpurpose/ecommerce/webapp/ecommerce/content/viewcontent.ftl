@@ -20,8 +20,8 @@ under the License.
 <div class="screenlet">
 <div style="margin:10px;">
 <#-- Do this so that we don't have to find the content twice (again in renderSubContent) -->
-<#assign subContentId=requestParameters.contentId?if_exists/>
-<#assign nodeTrailCsv=requestParameters.nodeTrailCsv?if_exists/>
+<#assign subContentId=requestParameters.contentId!/>
+<#assign nodeTrailCsv=requestParameters.nodeTrailCsv!/>
 <#-- <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in viewcontent, nodeTrailCsv:" + nodeTrailCsv, "")/> -->
 <#if ancestorList?has_content && (0 < ancestorList?size) >
     <#assign lastContent=ancestorList?last />
@@ -58,7 +58,7 @@ under the License.
 </#if>
 <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in viewcontent, subContent:" + subContent, "")/>
 <br />
-<h1>${uiLabelMap.EcommerceContentFor} [${subContentId}] ${subContent.contentName?if_exists} - ${subContent.description?if_exists}:</h1><br />
+<h1>${uiLabelMap.EcommerceContentFor} [${subContentId}] ${subContent.contentName!} - ${subContent.description!}:</h1><br />
 <table border="0" class="blogtext">
     <tr>
     <td width="40">&nbsp;</td>
@@ -70,7 +70,7 @@ under the License.
 <@wrapSubContentCache subContentId=subContentId wrapTemplateId="WRAP_VIEW" >
 </@wrapSubContentCache >
 <@checkPermission mode="equals" entityOperation="_CREATE" targetOperation="HAS_USER_ROLE" >
-    <a class="tabButton" href="<@ofbizUrl>createforumresponse?contentIdTo=${requestParameters.contentId}&amp;nodeTrailCsv=${nodeTrailCsv?if_exists}</@ofbizUrl>" >Respond</a>
+    <a class="tabButton" href="<@ofbizUrl>createforumresponse?contentIdTo=${requestParameters.contentId}&amp;nodeTrailCsv=${nodeTrailCsv!}</@ofbizUrl>" >Respond</a>
 </@checkPermission>
 -->
 <br />
@@ -82,7 +82,7 @@ under the License.
       <#assign thisNodeTrailCsv = nodeTrailCsv />
       <tr>
         <td colspan="3" align="right">
-          <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId}&amp;nodeTrailCsv=${thisNodeTrailCsv?if_exists}</@ofbizUrl>" >${content.contentName?if_exists}</a>
+          <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId}&amp;nodeTrailCsv=${thisNodeTrailCsv!}</@ofbizUrl>" >${content.contentName!}</a>
         </td>
       </tr>
     </@loopSubContent>
@@ -90,7 +90,7 @@ under the License.
 <hr />
 <#--
 <@checkPermission mode="not-equals" subContentId=subContentId targetOperation="CONTENT_CREATE|CONTENT_RESPOND" contentPurposeList="RESPONSE" >
-            ${permissionErrorMsg?if_exists}
+            ${permissionErrorMsg!}
 </@checkPermission>
 -->
 
@@ -115,15 +115,15 @@ under the License.
          <td>
             ${indent}
             <#if content.contentTypeId == "WEB_SITE_PUB_PT" >
-              <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${content.contentId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName?if_exists}
+              <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${content.contentId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName!}
             <#else>
-              <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${content.contentId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName?if_exists}
+              <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${content.contentId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonBackTo}</a> &nbsp;${content.contentName!}
             </#if>
             <#local indent = indent + "&nbsp;&nbsp;&nbsp;&nbsp;">
-            [${content.contentId?if_exists}]
+            [${content.contentId!}]
             <#if searchOn?has_content && searchOn?lower_case == "true">
                 &nbsp;
-              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${siteId?if_exists}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
+              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${siteId!}&nodeTrailCsv=${csv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
             </#if>
         </#if>
          </td>

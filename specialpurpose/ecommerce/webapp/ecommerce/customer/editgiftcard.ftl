@@ -21,7 +21,7 @@ under the License.
   <p><h3>${uiLabelMap.AccountingCardInfoNotBelongToYou}.</h3></p>
 &nbsp;<a href="<@ofbizUrl>${donePage}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonGoBack}]</a>
 <#else>
-    <#if !giftCard?exists>
+    <#if !giftCard??>
       <h1>${uiLabelMap.AccountingAddNewGiftCard}</h1>
       <form method="post" action="<@ofbizUrl>createGiftCard?DONE_PAGE=${donePage}</@ofbizUrl>" name="editgiftcardform" style="margin: 0;">
     <#else>
@@ -39,7 +39,7 @@ under the License.
       <td width="74%">
         <#if giftCardData?has_content && giftCardData.cardNumber?has_content>
           <#assign pcardNumberDisplay = "">
-          <#assign pcardNumber = giftCardData.cardNumber?if_exists>
+          <#assign pcardNumber = giftCardData.cardNumber!>
           <#if pcardNumber?has_content>
             <#assign psize = pcardNumber?length - 4>
             <#if 0 < psize>
@@ -52,14 +52,14 @@ under the License.
             </#if>
           </#if>
         </#if>
-        <input type="text" class="inputBox" size="20" maxlength="60" name="cardNumber" value="${pcardNumberDisplay?if_exists}" />
+        <input type="text" class="inputBox" size="20" maxlength="60" name="cardNumber" value="${pcardNumberDisplay!}" />
       </td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div>${uiLabelMap.AccountingPINNumber}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="password" class="inputBox" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber?if_exists}" />
+        <input type="password" class="inputBox" size="10" maxlength="60" name="pinNumber" value="${giftCardData.pinNumber!}" />
       </td>
     </tr>
     <tr>
@@ -68,9 +68,9 @@ under the License.
       <td width="74%">
         <#assign expMonth = "">
         <#assign expYear = "">
-        <#if giftCardData?exists && giftCardData.expireDate?exists>
+        <#if giftCardData?? && giftCardData.expireDate??>
           <#assign expDate = giftCard.expireDate>
-          <#if (expDate?exists && expDate.indexOf("/") > 0)>
+          <#if (expDate?? && expDate.indexOf("/") > 0)>
             <#assign expMonth = expDate.substring(0,expDate.indexOf("/"))>
             <#assign expYear = expDate.substring(expDate.indexOf("/")+1)>
           </#if>
@@ -79,10 +79,10 @@ under the License.
           <#if giftCardData?has_content && expMonth?has_content>
             <#assign ccExprMonth = expMonth>
           <#else>
-            <#assign ccExprMonth = requestParameters.expMonth?if_exists>
+            <#assign ccExprMonth = requestParameters.expMonth!>
           </#if>
           <#if ccExprMonth?has_content>
-            <option value="${ccExprMonth?if_exists}">${ccExprMonth?if_exists}</option>
+            <option value="${ccExprMonth!}">${ccExprMonth!}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
         </select>
@@ -90,10 +90,10 @@ under the License.
           <#if giftCard?has_content && expYear?has_content>
             <#assign ccExprYear = expYear>
           <#else>
-            <#assign ccExprYear = requestParameters.expYear?if_exists>
+            <#assign ccExprYear = requestParameters.expYear!>
           </#if>
           <#if ccExprYear?has_content>
-            <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
+            <option value="${ccExprYear!}">${ccExprYear!}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
         </select>
@@ -103,7 +103,7 @@ under the License.
       <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonDescription}</div></td>
       <td width="5">&nbsp;</td>
       <td width="74%">
-        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description?if_exists}" />
+        <input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${paymentMethodData.description!}" />
       </td>
     </tr>
   </table>

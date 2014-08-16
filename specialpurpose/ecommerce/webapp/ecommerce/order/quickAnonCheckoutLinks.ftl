@@ -22,9 +22,9 @@ function submitForm(form) {
 }
 </script>
 <div>
-    <a href="<@ofbizUrl>quickAnonSetCustomer</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Personal Info</a>
-    <#if (enableShipmentMethod)?exists>
-        <a href="<@ofbizUrl>quickAnonOrderReview</@ofbizUrl>" class="buttontext" <#if callSubmitForm?exists>onclick="javascript:submitForm(document.${parameters.formNameValue?if_exists});"</#if>>Review Order</a>
+    <a href="<@ofbizUrl>quickAnonSetCustomer</@ofbizUrl>" class="buttontext" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Personal Info</a>
+    <#if (enableShipmentMethod)??>
+        <a href="<@ofbizUrl>quickAnonOrderReview</@ofbizUrl>" class="buttontext" <#if callSubmitForm??>onclick="javascript:submitForm(document.${parameters.formNameValue!});"</#if>>Review Order</a>
     <#else>
         <span class="buttontextdisabled">Review Order</span>
     </#if>

@@ -79,16 +79,16 @@ function onClickShippingMethod(e) {
                     <div>
                          <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
                          <input type="radio" onclick="return onClickShippingMethod(event)" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
-                         <#if shoppingCart.getShippingContactMechId()?exists>
+                         <#if shoppingCart.getShippingContactMechId()??>
                              <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
                          </#if>
-                         <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+                         <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
                          <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if></#if>
                     </div>
                 </td>
             </tr>
             </#list>
-            <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
+            <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
             <tr>
               <td width="1%" valign="top">
                 <div><input type="radio"  onclick="return onClickShippingMethod(event)" name="shipping_method" value="Default" checked="checked"/>${uiLabelMap.OrderUseDefault}.</div>
@@ -107,17 +107,17 @@ function onClickShippingMethod(e) {
             </tr>
             <tr>
               <td colspan="2">
-                <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+                <textarea class='textAreaBox' cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()!}</textarea>
               </td>
             </tr>
             <tr><td colspan="2"><hr /></td></tr>
             <tr>
               <td colspan="2">
                 <h2>${uiLabelMap.OrderPoNumber}</h2>&nbsp;
-                <input type="text" class='inputBox' name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()?if_exists}'/>
+                <input type="text" class='inputBox' name="correspondingPoId" size="15" value='${shoppingCart.getPoNumber()!}'/>
               </td>
             </tr>
-            <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+            <#if productStore.showCheckoutGiftOptions! != "N">
             <tr><td colspan="2"><hr /></td></tr>
             <tr>
               <td colspan="2">
@@ -136,7 +136,7 @@ function onClickShippingMethod(e) {
             </tr>
             <tr>
               <td colspan="2">
-                <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+                <textarea class='textAreaBox' cols="30" rows="3" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
               </td>
             </tr>
             </#if>

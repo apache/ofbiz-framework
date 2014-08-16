@@ -55,7 +55,7 @@ under the License.
                                 </div>
                                 <div class="productinfo">
                                     <ul>
-                                    <#if productCategoryMembers?exists>
+                                    <#if productCategoryMembers??>
                                         <#assign i = 0/>
                                         <#list productCategoryMembers as productCategoryMember>
                                             <#if (i > 2)>

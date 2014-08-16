@@ -30,11 +30,11 @@ under the License.
         <!-- Sitelogo and sitename -->
         <a class="sitelogo" href="<@ofbizUrl>main</@ofbizUrl>" title="${uiLabelMap.CommonMain}"></a>
         <div class="sitename">
-          <#if !productStore?exists>
+          <#if !productStore??>
             <h1><a href="<@ofbizUrl>main</@ofbizUrl>" title="Go to Start page">${uiLabelMap.EcommerceNoProductStore}</a></h1>
           </#if>
-          <#if (productStore.title)?exists><h1><a href="<@ofbizUrl>main</@ofbizUrl>" title="Go to Start page">${productStore.title}</a></h1></#if>
-          <#if (productStore.subtitle)?exists><h2>${productStore.subtitle}</h2></#if>
+          <#if (productStore.title)??><h1><a href="<@ofbizUrl>main</@ofbizUrl>" title="Go to Start page">${productStore.title}</a></h1></#if>
+          <#if (productStore.subtitle)??><h2>${productStore.subtitle}</h2></#if>
         </div>
 
         <!-- Navigation Level 0 -->

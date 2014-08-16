@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)?if_exists)}
-${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)?if_exists)}
+${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)!)}
+${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)!)}
 
 ${decoratedContent}
 
-${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)?if_exists)}
+${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)!)}

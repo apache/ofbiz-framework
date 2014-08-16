@@ -26,20 +26,20 @@ under the License.
         <input type="hidden" name="roleTypeId" value="CUSTOMER" />
         <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL" />
         <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
-        <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
+        <input type="hidden" name="productStoreId" value="${productStoreId!}" />
           <div>
             <label for="firstName">${uiLabelMap.PartyFirstName}* <span id="advice-required-firstName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-            <input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" maxlength="30" />
+            <input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName!}" maxlength="30" />
           </div>
           <div>
             <label for="lastName">${uiLabelMap.PartyLastName}* <span id="advice-required-lastName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-            <input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" maxlength="30" />
+            <input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName!}" maxlength="30" />
           </div>
           <div>
             <label for="emailAddress">${uiLabelMap.CommonEmail}*
               <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             </label>
-            <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" maxlength="255" />
+            <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress!}" maxlength="255" />
           </div>
           <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
       </fieldset>
@@ -47,16 +47,16 @@ under the License.
           <legend>${uiLabelMap.EcommerceAccountInformation}</legend>
             <div>
               <label for="username">${uiLabelMap.CommonUsername}* <span id="advice-required-username" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="text" name="username" id="username" class="required" value="${parameters.username?if_exists}" maxlength="255" />
+              <input type="text" name="username" id="username" class="required" value="${parameters.username!}" maxlength="255" />
             </div>
             <div>
               <label for="password">${uiLabelMap.CommonPassword}* <span id="advice-required-password" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="password" name="password" id="password" class="required validate-password" value="${parameters.password?if_exists}" maxlength="16" />
+              <input type="password" name="password" id="password" class="required validate-password" value="${parameters.password!}" maxlength="16" />
               <span id="advice-validate-password-password" class="errorMessage" style="display:none">${uiLabelMap["loginservices.password_may_not_equal_username"]}</span>
             </div>
             <div>
               <label for="passwordVerify">${uiLabelMap.PartyRepeatPassword}* <span id="advice-required-passwordVerify" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="password" name="passwordVerify" id="passwordVerify" class="required validate-passwordVerify" value="${parameters.passwordVerify?if_exists}" maxlength="16" />
+              <input type="password" name="passwordVerify" id="passwordVerify" class="required validate-passwordVerify" value="${parameters.passwordVerify!}" maxlength="16" />
               <span id="advice-validate-passwordVerify-passwordVerify" class="errorMessage" style="display:none">${uiLabelMap["loginservices.password_did_not_match_verify_password"]}</span>
             </div>
       </fieldset>
@@ -64,19 +64,19 @@ under the License.
           <legend>${uiLabelMap.OrderShippingInformation}</legend>
           <div>
             <label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-            <input type="text" name="shipToAddress1" id="shipToAddress1" class="required" value="${parameters.shipToAddress1?if_exists}" />
+            <input type="text" name="shipToAddress1" id="shipToAddress1" class="required" value="${parameters.shipToAddress1!}" />
           </div>
           <div>
             <label for="shipToAddress2">${uiLabelMap.PartyAddressLine2}</label>
-            <input type="text" name="shipToAddress2" id="shipToAddress2" value="${parameters.shipToAddress2?if_exists}" />
+            <input type="text" name="shipToAddress2" id="shipToAddress2" value="${parameters.shipToAddress2!}" />
           </div>
           <div>
             <label for="shipToCity">${uiLabelMap.CommonCity}* <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-            <input type="text" name="shipToCity" id="shipToCity" class="required" value="${parameters.shipToCity?if_exists}" />
+            <input type="text" name="shipToCity" id="shipToCity" class="required" value="${parameters.shipToCity!}" />
           </div>
           <div>
             <label for="shipToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-            <input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10" />
+            <input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode!}" maxlength="10" />
           </div>
           <div>
             <label for="shipToCountryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
@@ -107,10 +107,10 @@ under the License.
             <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
             <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
             <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-            <input type="text" name="shipToCountryCode" id="shipToCountryCode" value="${parameters.shipToCountryCode?if_exists}" size="3" maxlength="3" />
-            - <input type="text" name="shipToAreaCode" id="shipToAreaCode" value="${parameters.shipToAreaCode?if_exists}" size="3" maxlength="3" />
-            - <input type="text" name="shipToContactNumber" id="shipToContactNumber" value="${contactNumber?default("${parameters.shipToContactNumber?if_exists}")}" size="6" maxlength="7" />
-            - <input type="text" name="shipToExtension" id="shipToExtension" value="${extension?default("${parameters.shipToExtension?if_exists}")}" size="3" maxlength="3" />
+            <input type="text" name="shipToCountryCode" id="shipToCountryCode" value="${parameters.shipToCountryCode!}" size="3" maxlength="3" />
+            - <input type="text" name="shipToAreaCode" id="shipToAreaCode" value="${parameters.shipToAreaCode!}" size="3" maxlength="3" />
+            - <input type="text" name="shipToContactNumber" id="shipToContactNumber" value="${contactNumber?default("${parameters.shipToContactNumber!}")}" size="6" maxlength="7" />
+            - <input type="text" name="shipToExtension" id="shipToExtension" value="${extension?default("${parameters.shipToExtension!}")}" size="3" maxlength="3" />
           </div>
           <div class="inline">
             <input type="checkbox" class="checkbox" name="useShippingAddressForBilling" id="useShippingAddressForBilling" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked="checked"</#if> />
@@ -121,19 +121,19 @@ under the License.
           <legend>${uiLabelMap.PageTitleBillingInformation}</legend>
             <div>
               <label for="billToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="text" name="billToAddress1" id="billToAddress1" class="required" value="${parameters.billToAddress1?if_exists}" />
+              <input type="text" name="billToAddress1" id="billToAddress1" class="required" value="${parameters.billToAddress1!}" />
             </div>
             <div>
               <label for="billToAddress2">${uiLabelMap.PartyAddressLine2}</label>
-              <input type="text" name="billToAddress2" id="billToAddress2" value="${parameters.billToAddress2?if_exists}" />
+              <input type="text" name="billToAddress2" id="billToAddress2" value="${parameters.billToAddress2!}" />
             </div>
             <div>
               <label for="billToCity">${uiLabelMap.CommonCity}*<span id="advice-required-billToCity" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="text" name="billToCity" id="billToCity" class="required" value="${parameters.billToCity?if_exists}" />
+              <input type="text" name="billToCity" id="billToCity" class="required" value="${parameters.billToCity!}" />
             </div>
             <div>
               <label for="billToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-              <input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10" />
+              <input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode!}" maxlength="10" />
             </div>
             <div>
               <label for="billToCountryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
@@ -162,10 +162,10 @@ under the License.
               <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"></span>
               <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"></span>
               <span id="billToPhoneRequired" style="display: none;" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
-              <input type="text" name="billToCountryCode" id="billToCountryCode" value="${parameters.billToCountryCode?if_exists}" size="3" maxlength="3"/>
-              - <input type="text" name="billToAreaCode" id="billToAreaCode" value="${parameters.billToAreaCode?if_exists}" size="3" maxlength="3"/>
-              - <input type="text" name="billToContactNumber" id="billToContactNumber" value="${contactNumber?default("${parameters.billToContactNumber?if_exists}")}" size="6" maxlength="7"/>
-              - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
+              <input type="text" name="billToCountryCode" id="billToCountryCode" value="${parameters.billToCountryCode!}" size="3" maxlength="3"/>
+              - <input type="text" name="billToAreaCode" id="billToAreaCode" value="${parameters.billToAreaCode!}" size="3" maxlength="3"/>
+              - <input type="text" name="billToContactNumber" id="billToContactNumber" value="${contactNumber?default("${parameters.billToContactNumber!}")}" size="6" maxlength="7"/>
+              - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension!}")}" size="3" maxlength="3"/>
             </div>
       </fieldset>
       <div><a id="submitNewUserForm" href="javascript:void(0);" class="button">${uiLabelMap.CommonSubmit}</a></div>

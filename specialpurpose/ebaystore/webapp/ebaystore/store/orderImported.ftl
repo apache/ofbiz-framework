@@ -66,9 +66,9 @@ function uploadTrackingCode(orderId, productStoreId) {
             <#assign statusItem = orderHeader.getRelatedOne("StatusItem", true)>
             <#assign orderType = orderHeader.getRelatedOne("OrderType", true)>
             <#if orderType.orderTypeId == "PURCHASE_ORDER">
-              <#assign displayParty = orh.getSupplierAgent()?if_exists>
+              <#assign displayParty = orh.getSupplierAgent()!>
             <#else>
-              <#assign displayParty = orh.getPlacingParty()?if_exists>
+              <#assign displayParty = orh.getPlacingParty()!>
             </#if>
             <#assign partyId = displayParty.partyId?default("_NA_")>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -120,7 +120,7 @@ function uploadTrackingCode(orderId, productStoreId) {
             <td colspan='4'><h3>${uiLabelMap.EbayNoOrderImported}.</h3></td>
           </tr>
         </#if>
-        <#if lookupErrorMessage?exists>
+        <#if lookupErrorMessage??>
           <tr>
             <td colspan='4'><h3>${lookupErrorMessage}</h3></td>
           </tr>

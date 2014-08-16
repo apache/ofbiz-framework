@@ -19,7 +19,7 @@ under the License.
 
 <#-- NOTE: this template is used for the orderstatus screen in ecommerce AND for order notification emails through the OrderNoticeEmail.ftl file -->
 <#-- the "urlPrefix" value will be prepended to URLs by the ofbizUrl transform if/when there is no "request" object in the context -->
-<#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
+<#if baseEcommerceSecureUrl??><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
   <tr>
@@ -29,7 +29,7 @@ under the License.
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <div class="boxlink">
-                <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)?if_exists == "ORDER_COMPLETED">
+                <#if maySelectItems?default("N") == "Y" && returnLink?default("N") == "Y" && (orderHeader.statusId)! == "ORDER_COMPLETED">
                     <a href="<@ofbizUrl>makeReturn?orderId=${orderHeader.orderId}</@ofbizUrl>" class="submenutextright">${uiLabelMap.OrderRequestReturn}</a>
                 </#if>
             </div>
@@ -38,8 +38,8 @@ under the License.
         <div class="screenlet-body">
             <table width="100%" border="0" cellpadding="1">
                 <#-- placing customer information -->
-                <#if localOrderReadHelper?exists && orderHeader?has_content>
-                  <#assign displayParty = localOrderReadHelper.getPlacingParty()?if_exists/>
+                <#if localOrderReadHelper?? && orderHeader?has_content>
+                  <#assign displayParty = localOrderReadHelper.getPlacingParty()!/>
                   <#if displayParty?has_content>
                       <#assign displayPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", displayParty.partyId, "compareDate", orderHeader.orderDate, "userLogin", userLogin))/>
                   </#if>
@@ -83,7 +83,7 @@ under the License.
                     </td>
                   </tr>
                 </#if>
-                <#if distributorId?exists>
+                <#if distributorId??>
                   <tr><td colspan="7"><hr /></td></tr>
                   <tr>
                     <td align="right" valign="top" width="15%">
@@ -116,10 +116,10 @@ under the License.
             <#assign groupIdx = 0>
             <#list orderItemShipGroups as shipGroup>
                 <#if orderHeader?has_content>
-                  <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
-                  <#assign groupNumber = shipGroup.shipGroupSeqId?if_exists>
+                  <#assign shippingAddress = shipGroup.getRelatedOne("PostalAddress", false)!>
+                  <#assign groupNumber = shipGroup.shipGroupSeqId!>
                 <#else>
-                  <#assign shippingAddress = cart.getShippingAddress(groupIdx)?if_exists>
+                  <#assign shippingAddress = cart.getShippingAddress(groupIdx)!>
                   <#assign groupNumber = groupIdx + 1>
                 </#if>
 
@@ -137,8 +137,8 @@ under the License.
                         ${shippingAddress.address1}<br />
                         <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
                         ${shippingAddress.city}<#if shippingAddress.stateProvinceGeoId?has_content>, ${shippingAddress.stateProvinceGeoId} </#if>
-                        ${shippingAddress.postalCode?if_exists}<br />
-                        ${shippingAddress.countryGeoId?if_exists}
+                        ${shippingAddress.postalCode!}<br />
+                        ${shippingAddress.countryGeoId!}
                       </div>
                     </td>
                   </tr>

@@ -18,7 +18,7 @@ under the License.
 -->
 <html xmlns="http://www.w3.org/1999/xhtml">
 
-<#if locale?exists>
+<#if locale??>
     <#assign initialLocale = locale.toString()>
 <#else>
     <#assign initialLocale = "en">

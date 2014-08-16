@@ -34,23 +34,23 @@ under the License.
         <input type="hidden" id="shippingLocation" name="shippingLocation" value="N"/>
         <div id="billingAddress">
           <table class="basic-table" cellspacing="0">
-          <#if billingPostalAddress?exists>
-            <#if personBillTo?exists>
+          <#if billingPostalAddress??>
+            <#if personBillTo??>
             <tr>
               <td><b><#if personBillTo.lastName?has_content>${personBillTo.lastName}</#if> <#if personBillTo.firstName?has_content>${personBillTo.firstName}</#if></b></td>
             </tr>
             </#if>
-            <#assign state = billingPostalAddress.getRelatedOne("StateProvinceGeo", false)?if_exists/>
-            <#assign country = billingPostalAddress.getRelatedOne("CountryGeo", false)?if_exists/>
+            <#assign state = billingPostalAddress.getRelatedOne("StateProvinceGeo", false)!/>
+            <#assign country = billingPostalAddress.getRelatedOne("CountryGeo", false)!/>
             <tr>
               <td><#if billingPostalAddress.address1?has_content>${billingPostalAddress.address1}</#if></td>
             </tr>
             <tr>
-              <td><#if billingPostalAddress.city?has_content>${billingPostalAddress.city},</#if> <#if state?exists && state?has_content && state.geoCode?has_content>${state.geoCode}</#if> <#if billingPostalAddress.postalCode?has_content>${billingPostalAddress.postalCode}</#if>
+              <td><#if billingPostalAddress.city?has_content>${billingPostalAddress.city},</#if> <#if state?? && state?has_content && state.geoCode?has_content>${state.geoCode}</#if> <#if billingPostalAddress.postalCode?has_content>${billingPostalAddress.postalCode}</#if>
               </td>
             </tr>
             <tr>
-              <td><#if country?exists && country?has_content &&country.get("geoName", locale)?has_content>${country.get("geoName", locale)}</#if>
+              <td><#if country?? && country?has_content &&country.get("geoName", locale)?has_content>${country.get("geoName", locale)}</#if>
               </td>
             </tr>
             <#else>
@@ -65,25 +65,25 @@ under the License.
         </div>
         <div id="shippingAddress" style="display:none">
           <table class="basic-table" cellspacing="0">
-          <#if shippingPostalAddress?exists>
-            <#if personShipTo?exists>
+          <#if shippingPostalAddress??>
+            <#if personShipTo??>
             <tr>
               <td><b><#if personShipTo.lastName?has_content>${personShipTo.lastName}</#if> <#if personShipTo.firstName?has_content>${personShipTo.firstName}</#if></b></td>
             </tr>
             </#if>
-            <#assign state = shippingPostalAddress.getRelatedOne("StateProvinceGeo", false)?if_exists/>
-            <#assign country = shippingPostalAddress.getRelatedOne("CountryGeo", false)?if_exists/>
+            <#assign state = shippingPostalAddress.getRelatedOne("StateProvinceGeo", false)!/>
+            <#assign country = shippingPostalAddress.getRelatedOne("CountryGeo", false)!/>
             <tr>
               <td><#if shippingPostalAddress.address1?has_content>${shippingPostalAddress.address1}</#if></td>
             </tr>
             <tr>
-              <td><#if shippingPostalAddress.city?has_content>${shippingPostalAddress.city},</#if> <#if state?exists && state?has_content && state.geoCode?has_content>${state.geoCode}</#if> <#if shippingPostalAddress.postalCode?has_content>${shippingPostalAddress.postalCode}</#if>
+              <td><#if shippingPostalAddress.city?has_content>${shippingPostalAddress.city},</#if> <#if state?? && state?has_content && state.geoCode?has_content>${state.geoCode}</#if> <#if shippingPostalAddress.postalCode?has_content>${shippingPostalAddress.postalCode}</#if>
               </td>
             </tr>
             <tr>
               <td>
                 <input type="hidden" id="shipToSelected" value="Y"/>
-                <#if country?exists && country?has_content && country.get("geoName", locale)?has_content>${country.get("geoName", locale)}</#if>
+                <#if country?? && country?has_content && country.get("geoName", locale)?has_content>${country.get("geoName", locale)}</#if>
               </td>
             </tr>
             <#else>

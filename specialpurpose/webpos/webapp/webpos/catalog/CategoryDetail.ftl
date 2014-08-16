@@ -16,21 +16,21 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if productCategoryMembers?exists>
+<#if productCategoryMembers??>
 <table>
   <#assign numButton = 1/>
   <#assign cell = 0/>
   <tr>    
   <#list productCategoryMembers as productCategoryMember>
-  <#assign product = productCategoryMember.getRelatedOne("Product", false)?if_exists>
-  <#if product?exists && product?has_content>
-    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "SMALL_IMAGE_URL", locale, dispatcher)?if_exists />
+  <#assign product = productCategoryMember.getRelatedOne("Product", false)!>
+  <#if product?? && product?has_content>
+    <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "SMALL_IMAGE_URL", locale, dispatcher)! />
     <#if !smallImageUrl?string?has_content>
       <#assign smallImageUrl = "/images/defaultImage.jpg">
     </#if>
-    <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher)?if_exists />
+    <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher)! />
     <#if !productName?string?has_content>
-      <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "DESCRIPTION", locale, dispatcher)?if_exists />
+      <#assign productName = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "DESCRIPTION", locale, dispatcher)! />
     </#if>
     <#assign addItemLink = "javascript:addItem('" + product.productId + "', '1', 'Y');">
     <td>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
+<#if requestAttributes.uiLabelMap??><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 <#assign useMultitenant = Static["org.ofbiz.base.util.UtilProperties"].getPropertyValue("general.properties", "multitenant")>
 
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
@@ -43,13 +43,13 @@ under the License.
             <td><input type="password" name="PASSWORD" value="" size="20"/></td>
           </tr>
           <#if ("Y" == useMultitenant) >
-              <#if !requestAttributes.tenantId?exists>
+              <#if !requestAttributes.tenantId??>
                   <tr>
                       <td class="label">${uiLabelMap.CommonTenantId}</td>
-                      <td><input type="text" name="tenantId" value="${parameters.tenantId?if_exists}" size="20"/></td>
+                      <td><input type="text" name="tenantId" value="${parameters.tenantId!}" size="20"/></td>
                   </tr>
               <#else>
-                  <input type="hidden" name="tenantId" value="${requestAttributes.tenantId?if_exists}"/>
+                  <input type="hidden" name="tenantId" value="${requestAttributes.tenantId!}"/>
               </#if>
           </#if>
           <tr>

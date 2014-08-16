@@ -21,7 +21,7 @@ under the License.
 <#-- <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"> <html> -->
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-  <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)?if_exists}</title>
+  <title><#if title?has_content>${title}<#elseif titleProperty?has_content>${uiLabelMap.get(titleProperty)}</#if>: ${(productStore.storeName)!}</title>
   <#if layoutSettings.shortcutIcon?has_content>
     <link rel="shortcut icon" href="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>" />
   </#if>
@@ -38,18 +38,18 @@ under the License.
     </#list>
   </#if>
   <#-- Append CSS for catalog -->
-  <#if catalogStyleSheet?exists>
+  <#if catalogStyleSheet??>
     <link rel="stylesheet" href="${catalogStyleSheet}" type="text/css"/>
   </#if>
   <#-- Append CSS for tracking codes -->
-  <#if sessionAttributes.overrideCss?exists>
+  <#if sessionAttributes.overrideCss??>
     <link rel="stylesheet" href="${sessionAttributes.overrideCss}" type="text/css"/>
   </#if>
   <#-- Meta tags if defined by the page action -->
-  <#if metaDescription?exists>
+  <#if metaDescription??>
     <meta name="description" content="${metaDescription}"/>
   </#if>
-  <#if metaKeywords?exists>
+  <#if metaKeywords??>
     <meta name="keywords" content="${metaKeywords}"/>
   </#if>
 </head>

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
+<#assign shoppingCart = sessionAttributes.shoppingCart!>
 <#if shoppingCart?has_content>
     <#assign shoppingCartSize = shoppingCart.size()>
 <#else>
@@ -36,8 +36,8 @@ under the License.
     <ul>
       <li><a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.OrderViewCart}]</a></li>
       <#if (shoppingCartSize > 0)>
-            <#if !initialLocaleComplete?exists || initialLocaleComplete?length == 2 >
-                <#if initialLocaleComplete?exists && initialLocaleComplete?length == 2  && initialLocaleComplete == "fr">
+            <#if !initialLocaleComplete?? || initialLocaleComplete?length == 2 >
+                <#if initialLocaleComplete?? && initialLocaleComplete?length == 2  && initialLocaleComplete == "fr">
                     <#assign initialLocaleComplete = "fr_FR"><#-- same idea can be used with other default locale --> 
                 <#else>
                     <#assign initialLocaleComplete = "en_US">

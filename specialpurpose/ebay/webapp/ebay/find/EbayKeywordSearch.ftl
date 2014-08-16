@@ -25,7 +25,7 @@ under the License.
       <div><a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>${searchConstraintString}</div>
     </#list>
     <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
-    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
+    <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
 
     <#if !productIds?has_content>
       <div><h2>${uiLabelMap.ProductNoResultsFound}.</h2></div>
@@ -76,8 +76,8 @@ under the License.
       <@paginationPanel />
       <form method="post" name="products" action="">
         <fieldset>
-          <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
-          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)?if_exists}" />
+          <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
+          <input type="hidden" name="SEARCH_CATEGORY_ID" value="${(requestParameters.SEARCH_CATEGORY_ID)!}" />
           <table class="basic-table border-top border-bottom">
             <#assign listIndex = lowIndex />
             <#assign altRow = false />
@@ -87,7 +87,7 @@ under the License.
               <tr <#if altRow> class="alternate-row"</#if>>
                 <td>
                   <input type="checkbox" name="selectResult" value="${productId}"/>
-                  <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)?if_exists}</a>
+                  <a href="<@ofbizUrl>EditProduct?productId=${productId}</@ofbizUrl>" class="buttontext">[${productId}] ${(product.internalName)!}</a>
                 </td>
               </tr>
             </#list>

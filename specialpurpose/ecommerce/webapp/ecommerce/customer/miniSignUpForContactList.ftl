@@ -21,8 +21,8 @@ under the License.
 <#macro contactList publicEmailContactLists>
   <select name="contactListId" class="selectBox" style="width:134px">
     <#list publicEmailContactLists as publicEmailContactList>
-      <#assign publicContactMechType = publicEmailContactList.contactList.getRelatedOne("ContactMechType", true)?if_exists>
-        <option value="${publicEmailContactList.contactList.contactListId}">${publicEmailContactList.contactListType.description?if_exists} - ${publicEmailContactList.contactList.contactListName?if_exists}</option>
+      <#assign publicContactMechType = publicEmailContactList.contactList.getRelatedOne("ContactMechType", true)!>
+        <option value="${publicEmailContactList.contactList.contactListId}">${publicEmailContactList.contactListType.description!} - ${publicEmailContactList.contactList.contactListName!}</option>
     </#list>
   </select>
 </#macro>
@@ -67,7 +67,7 @@ under the License.
           <div>
             <select name="preferredContactMechId" class="selectBox">
               <#list partyAndContactMechList as partyAndContactMech>
-                <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
+                <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode!}-${partyAndContactMech.tnAreaCode!}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2!}, ${partyAndContactMech.paCity!}, ${partyAndContactMech.paStateProvinceGeoId!}, ${partyAndContactMech.paPostalCode!}, ${partyAndContactMech.paPostalCodeExt!} ${partyAndContactMech.paCountryGeoId!}</#if></option>
               </#list>
             </select>
           </div>

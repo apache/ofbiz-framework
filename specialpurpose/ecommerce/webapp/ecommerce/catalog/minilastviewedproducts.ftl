@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign maxToShow = 4/>
-<#assign lastViewedProducts = sessionAttributes.lastViewedProducts?if_exists/>
+<#assign lastViewedProducts = sessionAttributes.lastViewedProducts!/>
 <#if lastViewedProducts?has_content>
   <#if (lastViewedProducts?size > maxToShow)><#assign limit=maxToShow/><#else><#assign limit=(lastViewedProducts?size-1)/></#if>
   <div id="minilastviewedproducts" class="screenlet">  

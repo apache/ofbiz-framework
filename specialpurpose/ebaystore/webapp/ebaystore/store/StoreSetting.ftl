@@ -124,20 +124,20 @@ under the License.
 </script>
 
   <#if parameters.ebayStore?has_content>
-    <#assign ebayStore = parameters.ebayStore?if_exists>
+    <#assign ebayStore = parameters.ebayStore!>
     <#--${ebayStore}-->
     <form name="StoreSettingForm" id="StoreSettingForm" method="post" action="<@ofbizUrl>editEbayStoreDetail</@ofbizUrl>" style="margin: 0;">
-        <input type="hidden" name="themeType" value="${themeType?if_exists}"/>
-        <input type="hidden" name="storeUrl" value="${ebayStore.storeUrl?if_exists}"/>
-        <input type="hidden" name="storeLogoId" value="${ebayStore.storeLogoId?if_exists}"/>
-        <input type="hidden" name="storeLogoName" value="${ebayStore.storeLogoName?if_exists}"/>
-        <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}"/>
+        <input type="hidden" name="themeType" value="${themeType!}"/>
+        <input type="hidden" name="storeUrl" value="${ebayStore.storeUrl!}"/>
+        <input type="hidden" name="storeLogoId" value="${ebayStore.storeLogoId!}"/>
+        <input type="hidden" name="storeLogoName" value="${ebayStore.storeLogoName!}"/>
+        <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}"/>
       <fieldset>
         <table cellspacing="0" class="basic-table">
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreName} :</td>
               <td valign="middle">
-                    <input type="text" name="storeName" value="${ebayStore.storeName?if_exists}" onKeyDown="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));"
+                    <input type="text" name="storeName" value="${ebayStore.storeName!}" onKeyDown="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));"
                     onKeyUp="countAreaChars(document.StoreSettingForm.storeName,35,document.getElementById('charsleft1'));" />
                     <div id="charsleft1"></div>
               </td>
@@ -147,28 +147,28 @@ under the License.
               <td valign="middle">
                     <textarea rows="4" cols="80" name="storeDesc"
                     onKeyDown="countAreaChars(document.StoreSettingForm.storeDesc,300,document.getElementById('charsleft2'));"
-                    onKeyUp="countAreaChars(document.StoreSettingForm.storeDesc,300,document.getElementById('charsleft2'));">${ebayStore.storeDesc?if_exists}</textarea>
+                    onKeyUp="countAreaChars(document.StoreSettingForm.storeDesc,300,document.getElementById('charsleft2'));">${ebayStore.storeDesc!}</textarea>
                     <div id="charsleft2"></div>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreURL} :</td>
               <td valign="middle">
-                   <a href="${ebayStore.storeUrl?if_exists}" target="_blank">${ebayStore.storeUrl?if_exists}</a>
+                   <a href="${ebayStore.storeUrl!}" target="_blank">${ebayStore.storeUrl!}</a>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreLogoURL} :</td>
               <td valign="middle">
-                   <input type="text" name="storeLogoURL" size="50" value="${ebayStore.storeLogoURL?if_exists}"/>
+                   <input type="text" name="storeLogoURL" size="50" value="${ebayStore.storeLogoURL!}"/>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle"></td>
               <td valign="middle">
                    <div onclick="javascript:switchTheme();">
-                   <input type="radio" name="storeThemeType" <#if themeType?if_exists == "Basic">checked="checked"</#if> value="Basic" default="default" /> Basic Theme
-                   <input type="radio"  name="storeThemeType" <#if themeType?if_exists == "Advanced">checked="checked"</#if> value="Advanced" /> Advanced Theme
+                   <input type="radio" name="storeThemeType" <#if themeType! == "Basic">checked="checked"</#if> value="Basic" default="default" /> Basic Theme
+                   <input type="radio"  name="storeThemeType" <#if themeType! == "Advanced">checked="checked"</#if> value="Advanced" /> Advanced Theme
                    </div>
               </td>
             </tr>
@@ -179,9 +179,9 @@ under the License.
                 <select id="storeAdvancedTheme" name="storeAdvancedTheme" >
                    <#if storeAdvanceThemeOptList?has_content>
                        <#list storeAdvanceThemeOptList as storeAdvanceThemeOpt>
-                                    <option value="${storeAdvanceThemeOpt.storeThemeId?if_exists}"
-                                    <#if ebayStore.storeThemeId.equals(storeAdvanceThemeOpt.storeThemeId?if_exists)>selected="selected"</#if>>
-                                    ${storeAdvanceThemeOpt.storeThemeName?if_exists}</option>
+                                    <option value="${storeAdvanceThemeOpt.storeThemeId!}"
+                                    <#if ebayStore.storeThemeId.equals(storeAdvanceThemeOpt.storeThemeId!)>selected="selected"</#if>>
+                                    ${storeAdvanceThemeOpt.storeThemeName!}</option>
                         </#list>
                    </#if>
                 </select>
@@ -193,9 +193,9 @@ under the License.
               <td valign="middle">
                 <select name="storeAdvancedThemeColor">
                         <#list storeAdvancedThemeColorOptList as storeAdvancedThemeColorOpt>
-                                <option value="${storeAdvancedThemeColorOpt.storeColorSchemeId?if_exists}"
-                                <#if ebayStore.storeColorSchemeId.equals(storeAdvancedThemeColorOpt.storeColorSchemeId?if_exists)>selected="selected"</#if>>
-                                ${storeAdvancedThemeColorOpt.storeColorName?if_exists}</option>
+                                <option value="${storeAdvancedThemeColorOpt.storeColorSchemeId!}"
+                                <#if ebayStore.storeColorSchemeId.equals(storeAdvancedThemeColorOpt.storeColorSchemeId!)>selected="selected"</#if>>
+                                ${storeAdvancedThemeColorOpt.storeColorName!}</option>
                         </#list>
                 </select>
               </td>
@@ -206,13 +206,13 @@ under the License.
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreBasicTheme} :</td>
               <td valign="middle">
                 <#assign currentStoreThemeIdAndSchemeId = ebayStore.storeThemeId?string+"-"+ebayStore.storeColorSchemeId?string>
-                <select id="storeBasicTheme" name="storeBasicTheme" onchange="javascript:retrieveThemeColorSchemeByThemeId('<@ofbizUrl>retrieveThemeColorSchemeByThemeId</@ofbizUrl>',this.value,'${parameters.productStoreId?if_exists}');">
+                <select id="storeBasicTheme" name="storeBasicTheme" onchange="javascript:retrieveThemeColorSchemeByThemeId('<@ofbizUrl>retrieveThemeColorSchemeByThemeId</@ofbizUrl>',this.value,'${parameters.productStoreId!}');">
                    <#if storeThemeOptList?has_content>
                        <#list storeThemeOptList as storeThemeOpt>
                                     <#assign storeThemeIdAndSchemeId = storeThemeOpt.storeThemeId+"-"+storeThemeOpt.storeColorSchemeId>
-                                    <option value="${storeThemeIdAndSchemeId?if_exists}" 
-                                        <#if currentStoreThemeIdAndSchemeId == storeThemeIdAndSchemeId?if_exists>selected="selected"</#if>>
-                                        ${storeThemeOpt.storeColorSchemeName?if_exists}
+                                    <option value="${storeThemeIdAndSchemeId!}" 
+                                        <#if currentStoreThemeIdAndSchemeId == storeThemeIdAndSchemeId!>selected="selected"</#if>>
+                                        ${storeThemeOpt.storeColorSchemeName!}
                                     </option>
                         </#list>
                    </#if>
@@ -228,19 +228,19 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStorePrimaryColor} :</td>
               <td valign="middle">
-                   ${uiLabelMap.CommonNbr}<input type="text" id="storePrimaryColor" name="storePrimaryColor" size="10" value="${ebayStore.storeColorPrimary?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storePrimaryColor" name="storePrimaryColor" size="10" value="${ebayStore.storeColorPrimary!}"/>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreSecondColor} :</td>
               <td valign="middle">
-                   ${uiLabelMap.CommonNbr}<input type="text" id="storeSecondaryColor" name="storeSecondaryColor" size="10" value="${ebayStore.storeColorSecondary?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storeSecondaryColor" name="storeSecondaryColor" size="10" value="${ebayStore.storeColorSecondary!}"/>
               </td>
             </tr>
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreAccentColor} :</td>
               <td valign="middle">
-                   ${uiLabelMap.CommonNbr}<input type="text" id="storeAccentColor" name="storeAccentColor" size="10" value="${ebayStore.storeColorAccent?if_exists}"/>
+                   ${uiLabelMap.CommonNbr}<input type="text" id="storeAccentColor" name="storeAccentColor" size="10" value="${ebayStore.storeColorAccent!}"/>
               </td>
             </tr>
             <tr>
@@ -263,30 +263,30 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreName} :</td>
               <td valign="middle">
-               <#if storeFontTheme?exists>
-                    <#if ebayStore.storeNameColor?exists>
-                        <#assign storeFontColor = ebayStore.storeNameColor?if_exists>
+               <#if storeFontTheme??>
+                    <#if ebayStore.storeNameColor??>
+                        <#assign storeFontColor = ebayStore.storeNameColor!>
                     <#else>
-                        <#assign storeFontColor = storeFontTheme.storeFontTypeNameFaceColor?if_exists>
+                        <#assign storeFontColor = storeFontTheme.storeFontTypeNameFaceColor!>
                     </#if>
                     <table width="450">
                         <tr>
                             <td>
                                 <select id="storeNameFont" name="storeNameFont">
                                     <#list storeFontTheme.storeFontTypeFontFaceList as storeFontTypeFontFace>
-                                        <option <#if storeFontTypeFontFace.storeFontValue?if_exists.equals(ebayStore.storeNameFontFace?if_exists) >selected="selected"</#if> value="${storeFontTypeFontFace.storeFontName?if_exists}">${storeFontTypeFontFace.storeFontName?if_exists}</option>
+                                        <option <#if storeFontTypeFontFace.storeFontValue.equals(ebayStore.storeNameFontFace) >selected="selected"</#if> value="${storeFontTypeFontFace.storeFontName!}">${storeFontTypeFontFace.storeFontName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
                                 <select id="storeNameFontSize" name="storeNameFontSize">
                                     <#list storeFontTheme.storeFontTypeSizeFaceList as storeFontTypeSizeFace>
-                                        <option <#if storeFontTypeSizeFace.storeFontSizeValue?if_exists.equals(ebayStore.storeNameFontFaceSize?if_exists) >selected="selected"</#if> value="${storeFontTypeSizeFace.storeFontSizeName?if_exists}">${storeFontTypeSizeFace.storeFontSizeName?if_exists}</option>
+                                        <option <#if storeFontTypeSizeFace.storeFontSizeValue.equals(ebayStore.storeNameFontFaceSize) >selected="selected"</#if> value="${storeFontTypeSizeFace.storeFontSizeName!}">${storeFontTypeSizeFace.storeFontSizeName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
-                                ${uiLabelMap.CommonNbr}<input id="storeNameFontColor" type="text" size="10" name="storeNameFontColor" value="${storeFontColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeNameFontColor" type="text" size="10" name="storeNameFontColor" value="${storeFontColor!}"/>
                             </td>
                         </tr>
                     </table>
@@ -296,30 +296,30 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreSectionTitle} :</td>
               <td valign="middle">
-               <#if storeFontTheme?exists>
-                    <#if ebayStore.storeTitleColor?exists>
-                        <#assign storeTitleColor = ebayStore.storeTitleColor?if_exists>
+               <#if storeFontTheme??>
+                    <#if ebayStore.storeTitleColor??>
+                        <#assign storeTitleColor = ebayStore.storeTitleColor!>
                     <#else>
-                        <#assign storeTitleColor = storeFontTheme.storeFontTypeTitleColor?if_exists>
+                        <#assign storeTitleColor = storeFontTheme.storeFontTypeTitleColor!>
                     </#if>
                     <table width="450">
                         <tr>
                             <td>
                                 <select id="storeTitleFont" name="storeTitleFont">
                                     <#list storeFontTheme.storeFontTypeFontTitleList as storeFontTypeFontTitle>
-                                        <option <#if storeFontTypeFontTitle.storeFontValue?if_exists.equals(ebayStore.storeTitleFontFace?if_exists) >selected="selected"</#if> value="${storeFontTypeFontTitle.storeFontName?if_exists}">${storeFontTypeFontTitle.storeFontName?if_exists}</option>
+                                        <option <#if storeFontTypeFontTitle.storeFontValue.equals(ebayStore.storeTitleFontFace) >selected="selected"</#if> value="${storeFontTypeFontTitle.storeFontName!}">${storeFontTypeFontTitle.storeFontName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
                                 <select id="storeTitleFontSize" name="storeTitleFontSize">
                                     <#list storeFontTheme.storeFontSizeTitleList as storeFontSizeTitle>
-                                        <option <#if storeFontSizeTitle.storeFontSizeValue?if_exists.equals(ebayStore.storeTitleFontFaceSize?if_exists) >selected="selected"</#if> value="${storeFontSizeTitle.storeFontSizeName?if_exists}">${storeFontSizeTitle.storeFontSizeName?if_exists}</option>
+                                        <option <#if storeFontSizeTitle.storeFontSizeValue.equals(ebayStore.storeTitleFontFaceSize) >selected="selected"</#if> value="${storeFontSizeTitle.storeFontSizeName!}">${storeFontSizeTitle.storeFontSizeName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
-                                ${uiLabelMap.CommonNbr}<input id="storeTitleFontColor" type="text" size="10" name="storeTitleFontColor" value="${storeTitleColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeTitleFontColor" type="text" size="10" name="storeTitleFontColor" value="${storeTitleColor!}"/>
                             </td>
                         </tr>
                     </table>
@@ -329,30 +329,30 @@ under the License.
             <tr>
               <td class="label" align="right" valign="middle">${uiLabelMap.EbayStoreStoreDesc} :</td>
               <td valign="middle">
-              <#if storeFontTheme?exists>
-                    <#if ebayStore.storeDescColor?exists>
-                        <#assign storeDescColor = ebayStore.storeDescColor?if_exists>
+              <#if storeFontTheme??>
+                    <#if ebayStore.storeDescColor??>
+                        <#assign storeDescColor = ebayStore.storeDescColor!>
                     <#else>
-                        <#assign storeDescColor = storeFontTheme.storeFontTypeDescColor?if_exists>
+                        <#assign storeDescColor = storeFontTheme.storeFontTypeDescColor!>
                     </#if>
                     <table width="450">
                         <tr>
                             <td>
                                 <select id="storeDescFont" name="storeDescFont">
                                     <#list storeFontTheme.storeFontTypeFontDescList as storeFontTypeFontDesc>
-                                        <option <#if storeFontTypeFontDesc.storeFontValue?if_exists.equals(ebayStore.storeDescFontFace?if_exists) >selected="selected"</#if> value="${storeFontTypeFontDesc.storeFontName?if_exists}">${storeFontTypeFontDesc.storeFontName?if_exists}</option>
+                                        <option <#if storeFontTypeFontDesc.storeFontValue.equals(ebayStore.storeDescFontFace!) >selected="selected"</#if> value="${storeFontTypeFontDesc.storeFontName!}">${storeFontTypeFontDesc.storeFontName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
                                 <select id="storeDescFontSize" name="storeDescFontSize">
                                     <#list storeFontTheme.storeDescSizeList as storeDescSize>
-                                        <option <#if storeDescSize.storeFontSizeValue?if_exists.equals(ebayStore.storeDescSizeCode?if_exists) >selected="selected"</#if> value="${storeDescSize.storeFontSizeName?if_exists}">${storeDescSize.storeFontSizeName?if_exists}</option>
+                                        <option <#if storeDescSize.storeFontSizeValue.equals(ebayStore.storeDescSizeCode) >selected="selected"</#if> value="${storeDescSize.storeFontSizeName!}">${storeDescSize.storeFontSizeName!}</option>
                                     </#list>
                                 </select>
                             </td>
                             <td>
-                                ${uiLabelMap.CommonNbr}<input id="storeDescFontColor" type="text" size="10" name="storeDescFontColor" value="${storeDescColor?if_exists}"/>
+                                ${uiLabelMap.CommonNbr}<input id="storeDescFontColor" type="text" size="10" name="storeDescFontColor" value="${storeDescColor!}"/>
                             </td>
                         </tr>
                     </table>
@@ -364,7 +364,7 @@ under the License.
               <td valign="middle">
                     <select id="storeCustomHeaderLayout" name="storeCustomHeaderLayout">
                         <#list ebayStore.storeCustomHeaderLayoutList as storeCustomHeaderLayout>
-                               <option <#if storeCustomHeaderLayout.storeCustomHeaderLayoutValue?if_exists.equals(ebayStore.storeCustomHeaderLayout?if_exists) >selected="selected"</#if> value="${storeCustomHeaderLayout.storeCustomHeaderLayoutName?if_exists}">${storeCustomHeaderLayout.storeCustomHeaderLayoutValue?if_exists}</option>
+                               <option <#if storeCustomHeaderLayout.storeCustomHeaderLayoutValue.equals(ebayStore.storeCustomHeaderLayout) >selected="selected"</#if> value="${storeCustomHeaderLayout.storeCustomHeaderLayoutName!}">${storeCustomHeaderLayout.storeCustomHeaderLayoutValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -373,7 +373,7 @@ under the License.
               <td class="label" align="right" valign="middle"></td>
               <td valign="middle">
                     <textarea rows="8" cols="40" name="storeCustomHeader">
-                    ${ebayStore.storeCustomHeader?if_exists}</textarea>
+                    ${ebayStore.storeCustomHeader!}</textarea>
               </td>
             </tr>
             <tr>
@@ -381,7 +381,7 @@ under the License.
               <td valign="middle">
                     <select id="storeHeaderStyle" name="storeHeaderStyle">
                         <#list ebayStore.storeHeaderStyleList as storeHeaderStyle>
-                               <option <#if storeHeaderStyle.storeHeaderStyleValue?if_exists.equals(ebayStore.storeHeaderStyle?if_exists) >selected="selected"</#if> value="${storeHeaderStyle.storeHeaderStyleName?if_exists}">${storeHeaderStyle.storeHeaderStyleValue?if_exists}</option>
+                               <option <#if storeHeaderStyle.storeHeaderStyleValue.equals(ebayStore.storeHeaderStyle) >selected="selected"</#if> value="${storeHeaderStyle.storeHeaderStyleName!}">${storeHeaderStyle.storeHeaderStyleValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -389,7 +389,7 @@ under the License.
             <#--tr>
               <td class="label" align="right" valign="middle">Home Page :</td>
               <td valign="middle">
-                    <input type="text" id="homePage" name="homePage" value="${ebayStore.storeHomePage?if_exists}"/>
+                    <input type="text" id="homePage" name="homePage" value="${ebayStore.storeHomePage!}"/>
               </td>
             </tr-->
             <tr>
@@ -397,7 +397,7 @@ under the License.
               <td valign="middle">
                     <select id="storeItemLayout" name="storeItemLayout">
                         <#list ebayStore.storeItemLayoutList as storeItemLayout>
-                               <option <#if storeItemLayout.storeItemLayoutValue?if_exists.equals(ebayStore.storeItemLayoutSelected?if_exists) >selected="selected"</#if> value="${storeItemLayout.storeItemLayoutName?if_exists}">${storeItemLayout.storeItemLayoutValue?if_exists}</option>
+                               <option <#if storeItemLayout.storeItemLayoutValue.equals(ebayStore.storeItemLayoutSelected) >selected="selected"</#if> value="${storeItemLayout.storeItemLayoutName!}">${storeItemLayout.storeItemLayoutValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -407,7 +407,7 @@ under the License.
               <td valign="middle">
                     <select id="storeItemSortOrder" name="storeItemSortOrder">
                         <#list ebayStore.storeItemSortOrderList as storeItemSortOrder>
-                               <option <#if storeItemSortOrder.storeItemSortLayoutValue?if_exists.equals(ebayStore.storeItemSortOrderSelected?if_exists) >selected="selected"</#if> value="${storeItemSortOrder.storeItemSortLayoutName?if_exists}">${storeItemSortOrder.storeItemSortLayoutValue?if_exists}</option>
+                               <option <#if storeItemSortOrder.storeItemSortLayoutValue.equals(ebayStore.storeItemSortOrderSelected) >selected="selected"</#if> value="${storeItemSortOrder.storeItemSortLayoutName!}">${storeItemSortOrder.storeItemSortLayoutValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -417,7 +417,7 @@ under the License.
               <td valign="middle">
                     <select id="storeCustomListingHeaderDisplay" name="storeCustomListingHeaderDisplay">
                         <#list ebayStore.storeCustomListingHeaderDisplayList as storeCustomListingHeaderDisplay>
-                               <option <#if storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue?if_exists.equals(ebayStore.storeCustomListingHeaderDisplayValue?if_exists) >selected="selected"</#if> value="${storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue?if_exists}">${storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue?if_exists}</option>
+                               <option <#if storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue.equals(ebayStore.storeCustomListingHeaderDisplayValue) >selected="selected"</#if> value="${storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue!}">${storeCustomListingHeaderDisplay.storeCustomHeaderLayoutValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -427,7 +427,7 @@ under the License.
               <td valign="middle">
                     <select id="storeMerchDisplay" name="storeMerchDisplay">
                         <#list ebayStore.storeMerchDisplayList as storeMerchDisplay>
-                               <option <#if storeMerchDisplay.merchDisplayCodeValue?if_exists.equals(ebayStore.storeMerchDisplay?if_exists) >selected="selected"</#if> value="${storeMerchDisplay.merchDisplayCodeName?if_exists}">${storeMerchDisplay.merchDisplayCodeValue?if_exists}</option>
+                               <option <#if storeMerchDisplay.merchDisplayCodeValue.equals(ebayStore.storeMerchDisplay) >selected="selected"</#if> value="${storeMerchDisplay.merchDisplayCodeName!}">${storeMerchDisplay.merchDisplayCodeValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -437,7 +437,7 @@ under the License.
               <td valign="middle">
                     <select id="storeMerchDisplay" name="storeSubscriptionDisplay">
                         <#list ebayStore.storeSubscriptionLevelList as storeSubscriptionLevel>
-                               <option <#if storeSubscriptionLevel.storeSubscriptionLevelCodeValue?if_exists.equals(ebayStore.storeSubscriptionLevel?if_exists) >selected="selected"</#if> value="${storeSubscriptionLevel.storeSubscriptionLevelCodeName?if_exists}">${storeSubscriptionLevel.storeSubscriptionLevelCodeValue?if_exists}</option>
+                               <option <#if storeSubscriptionLevel.storeSubscriptionLevelCodeValue.equals(ebayStore.storeSubscriptionLevel) >selected="selected"</#if> value="${storeSubscriptionLevel.storeSubscriptionLevelCodeName!}">${storeSubscriptionLevel.storeSubscriptionLevelCodeValue!}</option>
                         </#list>
                     </select>
               </td>
@@ -457,10 +457,10 @@ under the License.
    </form>
   </#if>
  <script language="Javascript" type="text/javascript">
-    <#if themeType?if_exists == "Basic">
+    <#if themeType! == "Basic">
         document.StoreSettingForm.storeAdvancedTheme.disabled = true;
         document.StoreSettingForm.storeAdvancedThemeColor.disabled = true;
-    <#elseif themeType?if_exists == "Advanced">
+    <#elseif themeType! == "Advanced">
         document.StoreSettingForm.storeBasicTheme.disabled = true;
         document.StoreSettingForm.storePrimaryColor.disabled = true;
         document.StoreSettingForm.storeSecondaryColor.disabled = true;

@@ -24,17 +24,17 @@ under the License.
   </tr>
   <tr>
       <td align="right"><div class="tableheadtext">Currency:</div></td>
-      <td><div>${(accountCurrencyUom.description)?if_exists} [${ownedFinAccount.currencyUomId?if_exists}]</div></td>
+      <td><div>${(accountCurrencyUom.description)!} [${ownedFinAccount.currencyUomId!}]</div></td>
   </tr>
   <tr>
       <td align="right"><div class="tableheadtext">Date Opened:</div></td>
-      <td><div>${ownedFinAccount.fromDate?if_exists}</div></td>
+      <td><div>${ownedFinAccount.fromDate!}</div></td>
   </tr>
   <tr>
       <td align="right"><div class="tableheadtext">Status:</div></td>
       <td><div>${(finAccountStatusItem.description)?default("Active")}</div></td>
   </tr>
-  <#if ownedFinAccount.replenishLevel?exists>
+  <#if ownedFinAccount.replenishLevel??>
   <tr>
       <td align="right"><div class="tableheadtext">Replenish Level:</div></td>
       <td><div>${ownedFinAccount.replenishLevel}</div></td>
@@ -58,11 +58,11 @@ under the License.
       <#assign displayAmount = -displayAmount/>
     </#if>
   <tr>
-    <td>${ownedFinAccountTrans.transactionDate?if_exists}</td>
+    <td>${ownedFinAccountTrans.transactionDate!}</td>
     <td>${ownedFinAccountTrans.finAccountTransId}</td>
-    <td><#if ownedFinAccountTrans.orderId?has_content>${ownedFinAccountTrans.orderId?if_exists}:${ownedFinAccountTrans.orderItemSeqId?if_exists}<#else>&nbsp;</#if></td>
-    <td><#if ownedFinAccountTrans.paymentId?has_content>${ownedFinAccountTrans.paymentId?if_exists}<#else>&nbsp;</#if></td>
-    <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)?if_exists}</td>
+    <td><#if ownedFinAccountTrans.orderId?has_content>${ownedFinAccountTrans.orderId!}:${ownedFinAccountTrans.orderItemSeqId!}<#else>&nbsp;</#if></td>
+    <td><#if ownedFinAccountTrans.paymentId?has_content>${ownedFinAccountTrans.paymentId!}<#else>&nbsp;</#if></td>
+    <td>${finAccountTransType.description?default(ownedFinAccountTrans.finAccountTransTypeId)!}</td>
     <td><@ofbizCurrency amount=displayAmount isoCode=ownedFinAccount.currencyUomId/></td>
   </tr>
   </#list>
@@ -90,9 +90,9 @@ under the License.
   </tr>
   <#list ownedFinAccountAuthList as ownedFinAccountAuth>
   <tr>
-    <td>${ownedFinAccountAuth.authorizationDate?if_exists}</td>
+    <td>${ownedFinAccountAuth.authorizationDate!}</td>
     <td>${ownedFinAccountAuth.finAccountAuthId}</td>
-    <td>${ownedFinAccountAuth.thruDate?if_exists}</td>
+    <td>${ownedFinAccountAuth.thruDate!}</td>
     <td><@ofbizCurrency amount=-ownedFinAccountAuth.amount isoCode=ownedFinAccount.currencyUomId/></td>
   </tr>
   </#list>
