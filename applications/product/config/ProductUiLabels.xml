@@ -10329,6 +10329,9 @@
         <value xml:lang="zh">批量添加供货商产品</value>
         <value xml:lang="zh_TW">批量添加供貨商產品</value>
     </property>
+    <property key="PageTitleLookupCostComponentCalc">
+        <value xml:lang="en">Lookup Cost Component Calculation</value>
+    </property>
     <property key="PageTitleLookupFacility">
         <value xml:lang="de">Einrichtung nachschlagen</value>
         <value xml:lang="en">Lookup Facility</value>
@@ -14313,6 +14316,12 @@
         <value xml:lang="vi">Sao chép Thành phần của Phân loại Quản lý tới Phân loại Quản lý khác</value>
         <value xml:lang="zh">把产品分类成员复制到另一个分类</value>
         <value xml:lang="zh_TW">把產品分類成員複制到另一個分類</value>
+    </property>
+    <property key="ProductCostComponentCalcId">
+        <value xml:lang="en">Cost Component Calc Id</value>
+    </property>
+    <property key="ProductCostGlAccountTypeId">
+        <value xml:lang="en">Cost Gl Account Type Id</value>
     </property>
     <property key="ProductCostPrice">
         <value xml:lang="de">Kosten Preis</value>
@@ -21906,6 +21915,9 @@
         <value xml:lang="vi">Id tại Nhà sản xuất</value>
         <value xml:lang="zh">制造商给的标识 </value>
         <value xml:lang="zh_TW">製造商給的ID </value>
+    </property>
+    <property key="ProductOffsettingGlAccountTypeId">
+        <value xml:lang="en">Off Setting GL Account Type Id</value>
     </property>
     <property key="ProductOneInventoryFacility">
         <value xml:lang="de">Eine Lagereinrichtung</value>
