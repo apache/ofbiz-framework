@@ -1313,6 +1313,12 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="costComponentId" use-when="costComponent!=null"><display/></field>
         <field name="costComponentId" use-when="costComponent==null"><hidden/></field>
+        <field name="productFeatureId"><lookup target-form-name="LookupProductFeature"/></field>
+        <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="geoId"><lookup target-form-name="LookupGeo"/></field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="costComponentCalcId"><lookup target-form-name="LookupCostComponentCalc"/></field>
         <field name="costComponentTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CostComponentType" description="${description}">
