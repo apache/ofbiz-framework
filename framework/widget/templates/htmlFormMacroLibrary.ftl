@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#macro renderField text>
-  <#if text?exists>
+  <#if text??>
     ${text}<#lt/>
   </#if>
 </#macro>
@@ -125,34 +125,34 @@ under the License.
         if (Date.CultureInfo != undefined) {
           var initDate = <#if value?has_content>jQuery("#${id}_i18n").val()<#else>""</#if>;
           if (initDate != "") {
-            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
+            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
             <#-- bad hack because the JS date parser doesn't understand dots in the date / time string -->
             if (initDate.indexOf('.') != -1) {
               initDate = initDate.substring(0, initDate.indexOf('.'));
             }
-            var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+            var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
             var dateObj = Date.parseExact(initDate, ofbizTime);
             var formatedObj = dateObj.toString(dateFormat);
             jQuery("#${id}_i18n").val(formatedObj);
           }
 
           jQuery("#${id}").change(function() {
-            var ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+            var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
             var newValue = ""
             if (this.value != "") {
               var dateObj = Date.parseExact(this.value, ofbizTime);
-              var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
+              var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
               newValue = dateObj.toString(dateFormat);
             }
             jQuery("#${id}_i18n").val(newValue);
           });
           jQuery("#${id}_i18n").change(function() {
-            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?exists && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>,
+            var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>,
             newValue = "",
             dateObj = Date.parseExact(this.value, dateFormat),
             ofbizTime;
             if (this.value != "" && dateObj !== null) {
-              ofbizTime = "<#if shortDateInput?exists && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
+              ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
               newValue = dateObj.toString(ofbizTime);
             }
             else { // invalid input
@@ -170,7 +170,7 @@ under the License.
         });
       }
 
-      <#if shortDateInput?exists && shortDateInput>
+      <#if shortDateInput?? && shortDateInput>
         jQuery("#${id}").datepicker({
       <#else>
         jQuery("#${id}").datetimepicker({
@@ -296,7 +296,7 @@ under the License.
     <#if confirmation?has_content>onclick="return confirm('${confirmation?js_string}');"</#if>/>
   <#else>
     <input type="<#if containerId?has_content>button<#else>submit</#if>" <@renderClass className alert />
-    <#if name?exists> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
+    <#if name??> name="${name}"</#if><#if title?has_content> value="${title}"</#if><#if event?has_content> ${event}="${action}"</#if>
     <#if containerId?has_content> onclick="<#if confirmation?has_content>if (confirm('${confirmation?js_string}')) </#if>ajaxSubmitFormUpdateAreas('${containerId}', '${ajaxUrl}')"
       <#else><#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}');"</#if>
     </#if>/>
@@ -517,7 +517,7 @@ under the License.
       </span><#rt/>
     </#if>
     <#rt/>
-    <input id="${name?html}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle?exists> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
+    <input id="${name?html}_fld1_value" type="text" <@renderClass className alert /><#if name?has_content> name="${name}_fld1_value"</#if><#if localizedInputTitle??> title="${localizedInputTitle?html}"</#if><#if value2?has_content> value="${value2}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if>/><#rt/>
     <#if dateType != "time">
       <script type="text/javascript">
         <#if dateType == "date">

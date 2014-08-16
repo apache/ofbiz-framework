@@ -38,7 +38,7 @@ under the License.
                         </#if>
                         </td>
                         <#list fieldList as field>
-                            <td>${record.fields.get(field.name)?if_exists?string}</td>
+                            <td>${record.fields.get(field.name)!?string}</td>
                         </#list>
                     </tr>
                     <#assign alt_row = !alt_row>

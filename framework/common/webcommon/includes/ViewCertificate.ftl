@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()?if_exists/>
+<#assign components = Static["org.ofbiz.base.component.ComponentConfig"].getAllComponents()!/>
 <#if (requestParameters.certString?has_content)>
     <#assign cert = Static["org.ofbiz.base.util.KeyStoreUtil"].pemToCert(requestParameters.certString)/>
 </#if>
@@ -49,7 +49,7 @@ under the License.
         <td>&nbsp;</td>
       </tr>
       <#list components as component>
-        <#assign keystores = component.getKeystoreInfos()?if_exists/>
+        <#assign keystores = component.getKeystoreInfos()!/>
           <#list keystores as store>
             <#if (store.isTrustStore())>
               <tr>

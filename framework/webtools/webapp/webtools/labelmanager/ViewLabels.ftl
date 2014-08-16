@@ -25,12 +25,12 @@ under the License.
       <td>${uiLabelMap.WebtoolsLabelManagerReferences}</td>
       <#list localesFound as localeFound>
         <#assign showLocale = true>
-        <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
+        <#if parameters.labelLocaleName?? && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
           <#assign showLocale = false>
         </#if>
         <#if showLocale == true>
-          <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)?if_exists/>
-          <#if locale?exists && locale?has_content>
+          <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
+          <#if locale?? && locale?has_content>
             <#assign langAttr = localeFound.toString()?replace("_", "-")>
             <#assign langDir = "ltr">
             <#if "ar.iw"?contains(langAttr?substring(0, 2))>
@@ -45,7 +45,7 @@ under the License.
         </#if>
       </#list>
     </tr>
-    <#if parameters.searchLabels?exists>
+    <#if parameters.searchLabels??>
       <#assign rowNum = "2">
       <#assign rowNumber = 1>
       <#assign totalLabels = 0>
@@ -56,43 +56,43 @@ under the License.
         <#assign label = labels.get(labelList)>
         <#assign labelKey = label.labelKey>
         <#assign totalLabels = totalLabels + 1>
-        <#if references?exists>
+        <#if references??>
           <#assign referenceNum = 0>
-          <#assign reference = references.get(labelKey)?if_exists>
-          <#if reference?exists && reference?has_content>
+          <#assign reference = references.get(labelKey)!>
+          <#if reference?? && reference?has_content>
             <#assign referenceNum = reference.size()>
           </#if>
         </#if>
         <#assign showLabel = true>
-        <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y" 
-            && parameters.labelLocaleName?exists && parameters.labelLocaleName != "">
-          <#assign labelValue = label.getLabelValue(parameters.labelLocaleName)?if_exists>
-          <#if labelValue?exists && labelValue?has_content>
-            <#assign value = labelValue.getLabelValue()?if_exists>
-            <#if value?exists && value?has_content>
+        <#if parameters.onlyMissingTranslations?? && parameters.onlyMissingTranslations == "Y" 
+            && parameters.labelLocaleName?? && parameters.labelLocaleName != "">
+          <#assign labelValue = label.getLabelValue(parameters.labelLocaleName)!>
+          <#if labelValue?? && labelValue?has_content>
+            <#assign value = labelValue.getLabelValue()!>
+            <#if value?? && value?has_content>
               <#assign showLabel = false>
             </#if>
           </#if>
         </#if>
-        <#if showLabel && parameters.onlyNotUsedLabels?exists && parameters.onlyNotUsedLabels == "Y" && (referenceNum > 0)>
+        <#if showLabel && parameters.onlyNotUsedLabels?? && parameters.onlyNotUsedLabels == "Y" && (referenceNum > 0)>
             <#assign showLabel = false>
         </#if>
-        <#if showLabel && parameters.labelKey?exists && parameters.labelKey != "" && parameters.labelKey != label.labelKey>
+        <#if showLabel && parameters.labelKey?? && parameters.labelKey != "" && parameters.labelKey != label.labelKey>
           <#assign showLabel = false>
         </#if>
-        <#if showLabel && parameters.labelFileName?exists && parameters.labelFileName != "" && parameters.labelFileName != label.fileName>
+        <#if showLabel && parameters.labelFileName?? && parameters.labelFileName != "" && parameters.labelFileName != label.fileName>
           <#assign showLabel = false>
         </#if>
         <#if showLabel == true>
           <tr <#if rowNum == "1">class="alternate-row"</#if>>
             <td>${rowNumber}</td>
-            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&amp;sourceFileName=${label.fileName}&amp;sourceKeyComment=${label.labelKeyComment?if_exists}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
+            <td><a href="<@ofbizUrl>UpdateLabel?sourceKey=${labelKey}&amp;sourceFileName=${label.fileName}&amp;sourceKeyComment=${label.labelKeyComment!}</@ofbizUrl>" <#if previousKey == labelKey>class="submenutext"</#if>>${label.labelKey}</a></td>
             <td>${label.fileName}</td>
             <td><a href="<@ofbizUrl>ViewReferences?sourceKey=${labelKey}&amp;labelFileName=${label.fileName}</@ofbizUrl>">${uiLabelMap.WebtoolsLabelManagerReferences}</a></td>
             <#list localesFound as localeFound>
-              <#assign labelVal = label.getLabelValue(localeFound)?if_exists>
+              <#assign labelVal = label.getLabelValue(localeFound)!>
               <#assign showLocale = true>
-              <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
+              <#if parameters.labelLocaleName?? && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
                 <#assign showLocale = false>
               </#if>
               <#if showLocale>

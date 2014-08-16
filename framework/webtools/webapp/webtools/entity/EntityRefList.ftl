@@ -67,7 +67,7 @@ under the License.
                     <#if forstatic>
                         <a href="<@ofbizUrl>entityref_main#${entity.entityName}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
                     <#else>
-                        <a href="<@ofbizUrl>view/entityref_main#${entity.entityName}${entity.url?if_exists}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
+                        <a href="<@ofbizUrl>view/entityref_main#${entity.entityName}${entity.url!}</@ofbizUrl>" target="entityFrame">${entity.entityName}</a>
                     </#if>
                     <br />
                 </#list>

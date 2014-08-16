@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet-body">
-  <#if parameters.searchLabels?exists>
+  <#if parameters.searchLabels??>
   <table class="basic-table hover-bar" cellspacing="3">
     <tr class="header-row">
       <td>${uiLabelMap.WebtoolsLabelManagerRow}</td>

@@ -22,7 +22,7 @@ under the License.
 </#list>
 
 <#-- Here is some alternate code to get states limited to a region
-<#if requestParameters.CUSTOMER_COUNTRY?exists>
+<#if requestParameters.CUSTOMER_COUNTRY??>
     <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,requestParameters.CUSTOMER_COUNTRY)>
 <#else>
     <#assign stateAssocs = Static["org.ofbiz.common.CommonWorkers"].getAssociatedStateList(delegator,null)>

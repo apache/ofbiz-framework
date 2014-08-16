@@ -25,7 +25,7 @@ under the License.
           ${uiLabelMap.WebtoolsLabelManagerKey}
         </td>
         <td>
-          <input type="text" name="labelKey" size="30" maxlength="70" value="${parameters.labelKey?if_exists}" />
+          <input type="text" name="labelKey" size="30" maxlength="70" value="${parameters.labelKey!}" />
         </td>
         <td class="label">
           ${uiLabelMap.WebtoolsLabelManagerComponentName}
@@ -34,7 +34,7 @@ under the License.
           <select name="labelComponentName">
             <option value="">${uiLabelMap.WebtoolsLabelManagerAllComponents}</option>
             <#list componentNamesFound as componentNameFound>
-              <option <#if parameters.labelComponentName?exists && parameters.labelComponentName == componentNameFound>selected="selected"</#if> value="${componentNameFound}">${componentNameFound}</option>
+              <option <#if parameters.labelComponentName?? && parameters.labelComponentName == componentNameFound>selected="selected"</#if> value="${componentNameFound}">${componentNameFound}</option>
             </#list>
           </select>
         </td>
@@ -48,7 +48,7 @@ under the License.
             <option value="">${uiLabelMap.WebtoolsLabelManagerAllFiles}</option>
             <#list filesFound as fileInfo>
               <#assign fileName = fileInfo.getFileName()/>
-              <option <#if parameters.labelFileName?exists && parameters.labelFileName == fileName>selected="selected"</#if> value="${fileName}">${fileName}</option>
+              <option <#if parameters.labelFileName?? && parameters.labelFileName == fileName>selected="selected"</#if> value="${fileName}">${fileName}</option>
             </#list>
           </select>
         </td>
@@ -59,7 +59,7 @@ under the License.
           <select name="labelLocaleName">
             <option value="">${uiLabelMap.WebtoolsLabelManagerAllLocales}</option>
             <#list localesFound as localeFound>
-              <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)?if_exists/>
+              <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
               <#assign langAttr = localeFound.toString()?replace("_", "-")>
               <#assign langDir = "ltr">
               <#if 1 < langAttr?length>
@@ -67,7 +67,7 @@ under the License.
                   <#assign langDir = "rtl">
                 </#if>
               </#if>
-              <option <#if parameters.labelLocaleName?exists && parameters.labelLocaleName == localeFound>selected="selected"</#if> value="${localeFound}" lang="${langAttr}" dir="${langDir}"><#if locale?exists && locale?has_content>${locale.getDisplayName(locale)}<#else>${localeFound}</#if></option>
+              <option <#if parameters.labelLocaleName?? && parameters.labelLocaleName == localeFound>selected="selected"</#if> value="${localeFound}" lang="${langAttr}" dir="${langDir}"><#if locale?? && locale?has_content>${locale.getDisplayName(locale)}<#else>${localeFound}</#if></option>
             </#list>
           </select>
         </td>
@@ -77,13 +77,13 @@ under the License.
           ${uiLabelMap.WebtoolsLabelManagerOnlyNotUsedLabels}
         </td>
         <td>
-          <input type="checkbox" name="onlyNotUsedLabels" value="Y" <#if parameters.onlyNotUsedLabels?exists && parameters.onlyNotUsedLabels == "Y">checked="checked"</#if> />
+          <input type="checkbox" name="onlyNotUsedLabels" value="Y" <#if parameters.onlyNotUsedLabels?? && parameters.onlyNotUsedLabels == "Y">checked="checked"</#if> />
         </td>
         <td class="label">
           ${uiLabelMap.WebtoolsLabelManagerOnlyMissingTranslations}
         </td>
         <td>
-          <input type="checkbox" name="onlyMissingTranslations" value="Y" <#if parameters.onlyMissingTranslations?exists && parameters.onlyMissingTranslations == "Y">checked="checked"</#if> />
+          <input type="checkbox" name="onlyMissingTranslations" value="Y" <#if parameters.onlyMissingTranslations?? && parameters.onlyMissingTranslations == "Y">checked="checked"</#if> />
         </td>
       </tr>
       <tr>

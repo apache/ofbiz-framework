@@ -31,19 +31,19 @@ under the License.
       </tr>
       <#assign alt_row = false>
       <#list allThreadList as javaThread>
-      <#if javaThread?exists>
+      <#if javaThread??>
         <#assign stackTraceArray = javaThread.getStackTrace()/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-          <td valign="top">${(javaThread.getThreadGroup().getName())?if_exists}</td>
+          <td valign="top">${(javaThread.getThreadGroup().getName())!}</td>
           <td valign="top">${javaThread.getId()?string}</td>
           <td valign="top">
-            <b>${javaThread.getName()?if_exists}</b>
+            <b>${javaThread.getName()!}</b>
             <#list 1..maxElements as stackIdx>
-              <#assign stackElement = stackTraceArray[stackIdx]?if_exists/>
+              <#assign stackElement = stackTraceArray[stackIdx]!/>
               <#if (stackElement.toString())?has_content><div>${stackElement.toString()}</div></#if>
             </#list>
           </td>
-          <td valign="top">${javaThread.getState().name()?if_exists}&nbsp;</td>
+          <td valign="top">${javaThread.getState().name()!}&nbsp;</td>
           <td valign="top">${javaThread.getPriority()}</td>
           <td valign="top">${javaThread.isDaemon()?string}<#-- /${javaThread.isAlive()?string}/${javaThread.isInterrupted()?string} --></td>
         </tr>

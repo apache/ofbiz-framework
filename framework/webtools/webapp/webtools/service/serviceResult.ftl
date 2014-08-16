@@ -32,12 +32,12 @@ under the License.
               <#list serviceResultList as srl>
                 <tr>
                   <#if srl.hasChild=="Y">
-                    <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}">${srl.key?if_exists}</a></td>
+                    <td><a href="<@ofbizUrl>/serviceResult?servicePath=</@ofbizUrl><#if parameters.servicePath??>${parameters.servicePath}||</#if>${srl.key!}">${srl.key!}</a></td>
                   <#else>
-                    <td>${srl.key?if_exists}</td>
+                    <td>${srl.key!}</td>
                   </#if>
-                    <td>${srl.value?if_exists}</td>
-                    <td><input type="checkbox" name="<#if parameters.servicePath?exists>${parameters.servicePath}||</#if>${srl.key?if_exists}" /></td>
+                    <td>${srl.value!}</td>
+                    <td><input type="checkbox" name="<#if parameters.servicePath??>${parameters.servicePath}||</#if>${srl.key!}" /></td>
                   </tr>
                </#list>
             </#if>

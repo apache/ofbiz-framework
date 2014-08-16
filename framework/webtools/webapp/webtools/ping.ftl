@@ -17,5 +17,5 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-${requestAttributes._ERROR_MESSAGE_?if_exists}
-${requestAttributes.message?if_exists}
+${requestAttributes._ERROR_MESSAGE_!}
+${requestAttributes.message!}

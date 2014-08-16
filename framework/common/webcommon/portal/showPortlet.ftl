@@ -27,5 +27,5 @@ under the License.
   </td></tr>
 </table>
 <#else/>
-<h2>Portlet '${parameters.portalPortletId?if_exists}' not found. You may not have the necessary seed or other data for it.</h2>
+<h2>Portlet '${parameters.portalPortletId!}' not found. You may not have the necessary seed or other data for it.</h2>
 </#if>

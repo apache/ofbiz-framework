@@ -18,7 +18,7 @@ under the License.
 -->
 <h1>Connection Pool Status</h1>
 
-<#assign groups = delegator.getModelGroupReader().getGroupNames(delegator.getDelegatorName())?if_exists/>
+<#assign groups = delegator.getModelGroupReader().getGroupNames(delegator.getDelegatorName())!/>
 <table class="basic-table light-grid hover-bar">
     <tr class="header-row">
         <td>Helper Name</td>
@@ -34,20 +34,20 @@ under the License.
     <#assign alt_row = false>
     <#if (groups?has_content)>
         <#list groups as group>
-            <#assign helper = delegator.getGroupHelperName(group)?if_exists/>
+            <#assign helper = delegator.getGroupHelperName(group)!/>
             <#if (helper?has_content)>
-                <#assign dataSourceInfo = Static["org.ofbiz.entity.connection.DBCPConnectionFactory"].getDataSourceInfo(helper)?if_exists/>
+                <#assign dataSourceInfo = Static["org.ofbiz.entity.connection.DBCPConnectionFactory"].getDataSourceInfo(helper)!/>
                 <#if (dataSourceInfo?has_content)>
                     <tr>
                         <td>${helper}</td>
-                        <td>${dataSourceInfo.poolNumActive?if_exists}</td>
-                        <td>${dataSourceInfo.poolNumIdle?if_exists}</td>
-                        <td>${dataSourceInfo.poolNumTotal?if_exists}</td>
-                        <td>${dataSourceInfo.poolMaxActive?if_exists}</td>
-                        <td>${dataSourceInfo.poolMaxIdle?if_exists}</td>
-                        <td>${dataSourceInfo.poolMinIdle?if_exists}</td>
-                        <td>${dataSourceInfo.poolMinEvictableIdleTimeMillis?if_exists}</td>
-                        <td>${dataSourceInfo.poolMaxWait?if_exists}</td>
+                        <td>${dataSourceInfo.poolNumActive!}</td>
+                        <td>${dataSourceInfo.poolNumIdle!}</td>
+                        <td>${dataSourceInfo.poolNumTotal!}</td>
+                        <td>${dataSourceInfo.poolMaxActive!}</td>
+                        <td>${dataSourceInfo.poolMaxIdle!}</td>
+                        <td>${dataSourceInfo.poolMinIdle!}</td>
+                        <td>${dataSourceInfo.poolMinEvictableIdleTimeMillis!}</td>
+                        <td>${dataSourceInfo.poolMaxWait!}</td>
                     </tr>
                 </#if>
             </#if>

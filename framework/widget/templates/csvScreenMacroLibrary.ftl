@@ -40,7 +40,7 @@ under the License.
 
 <#macro renderHorizontalSeparator id style></#macro>
 <#macro renderLabel text id style>
-    <#if text?exists>
+    <#if text??>
         ${text}<#lt/>
     </#if>
 </#macro>

@@ -46,17 +46,17 @@ under the License.
 <#macro renderContentBegin editRequest enableEditValue editContainerStyle><#if editRequest?has_content && enableEditValue == "true"><div class=${editContainerStyle}></#if></#macro>
 <#macro renderContentBody></#macro>
 <#macro renderContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
-<#if editRequest?exists && enableEditValue == "true">
-<#if urlString?exists><a href="${urlString}">${editMode}</a><#rt/></#if>
-<#if editContainerStyle?exists></div><#rt/></#if>
+<#if editRequest?? && enableEditValue == "true">
+<#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
+<#if editContainerStyle??></div><#rt/></#if>
 </#if>
 </#macro>
-<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?exists && enableEditValue == "true"><div class="${editContainerStyle}"></#if></#macro>
+<#macro renderSubContentBegin editContainerStyle editRequest enableEditValue><#if editRequest?? && enableEditValue == "true"><div class="${editContainerStyle}"></#if></#macro>
 <#macro renderSubContentBody></#macro>
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue>
-<#if editRequest?exists && enableEditValue == "true">
-<#if urlString?exists><a href="${urlString}">${editMode}</a><#rt/></#if>
-<#if editContainerStyle?exists></div><#rt/></#if>
+<#if editRequest?? && enableEditValue == "true">
+<#if urlString??><a href="${urlString}">${editMode}</a><#rt/></#if>
+<#if editContainerStyle??></div><#rt/></#if>
 </#if>
 </#macro>
 

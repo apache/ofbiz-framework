@@ -23,7 +23,7 @@ under the License.
       <h3>${uiLabelMap.CommonForgotYourPassword}?</h3>
     </div>
     <div class="screenlet-body">
-      <form method="post" action="<@ofbizUrl>forgotPassword${previousParams?if_exists}</@ofbizUrl>" name="forgotpassword">
+      <form method="post" action="<@ofbizUrl>forgotPassword${previousParams!}</@ofbizUrl>" name="forgotpassword">
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.CommonUsername}</td>

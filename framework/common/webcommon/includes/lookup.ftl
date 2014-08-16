@@ -26,7 +26,7 @@ under the License.
 <html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${title?if_exists}</title>
+    <title>${title!}</title>
     <#-- the trick "<scr" + "ipt below is because browsers should not parse the contents of CDATA elements, but apparently they do. -->
     <script language="JavaScript" type="text/javascript">//<![CDATA[
     var jQueryLibLoaded = false;

@@ -37,12 +37,12 @@ under the License.
   <#if !"INTERSECTION.UNION.DIFFERENCE.SUBSTITUTION"?contains(temporalExpression.tempExprTypeId)>
     <tr>
       <td class="label">${uiLabelMap.CommonDescription}</td>
-      <td><input type="text" name="description" value="${temporalExpression.description?if_exists}" maxlength="60" size="20"/></td>
+      <td><input type="text" name="description" value="${temporalExpression.description!}" maxlength="60" size="20"/></td>
     </tr>
   <#else>
     <tr>
       <td class="label">${uiLabelMap.CommonDescription}</td>
-      <td>${temporalExpression.get("description",locale)?if_exists}</td>
+      <td>${temporalExpression.get("description",locale)!}</td>
     </tr>
   </#if>
     <#if temporalExpression.tempExprTypeId == "DATE_RANGE">

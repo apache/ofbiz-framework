@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if tobrowser?exists && tobrowser>
+<#if tobrowser?? && tobrowser>
 <h1>${uiLabelMap.WebtoolsExportFromDataSource}</h1>
 <br />
 <p>This page can be used to export data from the database. The exported documents will have a root tag of "&lt;entity-engine-xml&gt;".</p>
@@ -59,7 +59,7 @@ under the License.
     <table class="basic-table">
       <tr>
         <td class="label">${uiLabelMap.WebtoolsOutputDirectory}</td>
-        <td><input type="text" size="60" name="outpath" value="${parameters.outpath?if_exists}"/></td>
+        <td><input type="text" size="60" name="outpath" value="${parameters.outpath!}"/></td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsMaxRecordsPerFile}</td>
@@ -67,7 +67,7 @@ under the License.
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsSingleFilename}</td>
-        <td><input type="text" size="60" name="filename" value="${parameters.filename?if_exists}"/></td>
+        <td><input type="text" size="60" name="filename" value="${parameters.filename!}"/></td>
       </tr>
       <tr>
         <td class="label">${uiLabelMap.WebtoolsRecordsUpdatedSince}</td>
@@ -90,7 +90,7 @@ under the License.
     <p>${uiLabelMap.WebtoolsEntityNames}:</p>
     <@displayButtonBar/>
       <div>${uiLabelMap.WebtoolsEntitySyncDump}:
-        <input name="entitySyncId" size="30" value="${entitySyncId?if_exists}"/>
+        <input name="entitySyncId" size="30" value="${entitySyncId!}"/>
       </div>
       ${uiLabelMap.WebtoolsPreConfiguredSet}:
       <select name="preConfiguredSetName">
