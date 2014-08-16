@@ -27,7 +27,7 @@ import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.store.*;
-import org.ofbiz.webapp.website.WebSiteWorker
+
 
 orderId = parameters.orderId;
 orderHeader = null;
@@ -148,7 +148,6 @@ if (orderHeader) {
         }
     }
 
-    webSiteId = orderHeader.webSiteId ?: WebSiteWorker.getWebSiteId(request);
 
     payToPartyId = productStore.payToPartyId;
     paymentAddress =  PaymentWorker.getPaymentAddress(delegator, payToPartyId);
