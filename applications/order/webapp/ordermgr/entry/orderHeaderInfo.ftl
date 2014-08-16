@@ -17,12 +17,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
+<#assign shoppingCart = sessionAttributes.shoppingCart!>
 <#assign currencyUomId = shoppingCart.getCurrency()>
 <#assign partyId = shoppingCart.getPartyId()>
 <#assign partyMap = Static["org.ofbiz.party.party.PartyWorker"].getPartyOtherValues(request, partyId, "party", "person", "partyGroup")>
-<#assign agreementId = shoppingCart.getAgreementId()?if_exists>
-<#assign quoteId = shoppingCart.getQuoteId()?if_exists>
+<#assign agreementId = shoppingCart.getAgreementId()!>
+<#assign quoteId = shoppingCart.getQuoteId()!>
 
 <#if shoppingCart?has_content>
     <#assign shoppingCartSize = shoppingCart.size()>
@@ -44,12 +44,12 @@ under the License.
               </form>
               <p>
               <strong>${uiLabelMap.Party}</strong>:
-                  <a href="${customerDetailLink}${partyId}${externalKeyParam?if_exists}" target="partymgr" class="buttontext">${partyId}</a>
-                  <#if partyMap.person?exists>
-                    ${partyMap.person.firstName?if_exists}&nbsp;${partyMap.person.lastName?if_exists}
+                  <a href="${customerDetailLink}${partyId}${externalKeyParam!}" target="partymgr" class="buttontext">${partyId}</a>
+                  <#if partyMap.person??>
+                    ${partyMap.person.firstName!}&nbsp;${partyMap.person.lastName!}
                   </#if>
-                  <#if partyMap.partyGroup?exists>
-                    ${partyMap.partyGroup.groupName?if_exists}
+                  <#if partyMap.partyGroup??>
+                    ${partyMap.partyGroup.groupName!}
                   </#if>
               </p>
             <#if shoppingCart.getOrderType() != "PURCHASE_ORDER">

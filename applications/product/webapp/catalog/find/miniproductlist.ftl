@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if productCategory?exists>
+<#if productCategory??>
   <#if productCategoryMembers?has_content>
       <#list productCategoryMembers as productCategoryMember>
         <#assign product = productCategoryMember.getRelatedOne("Product", true)>

@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if showPromoText?exists && showPromoText>
+<#if showPromoText?? && showPromoText>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="h3">${uiLabelMap.OrderSpecialOffers}</div>
@@ -27,7 +27,7 @@ under the License.
           <#list productPromos as productPromo>
             <tr>
               <td>
-                <div><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> ${StringUtil.wrapString(productPromo.promoText?if_exists)}</div>
+                <div><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a> ${StringUtil.wrapString(productPromo.promoText!)}</div>
               </td>
             </tr>
             <#if productPromo_has_next>

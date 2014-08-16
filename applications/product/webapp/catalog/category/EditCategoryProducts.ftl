@@ -17,20 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#if activeOnly>
-    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;activeOnly=false</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveAndInactive}</a>
+    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;activeOnly=false</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveAndInactive}</a>
 <#else>
-    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;activeOnly=true</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveOnly}</a>
+    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;activeOnly=true</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductActiveOnly}</a>
 </#if>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <#if (listSize > 0)>
             <div class="boxhead-right">
                 <#if (viewIndex > 1)>
-                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
+                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
                 </#if>
                 <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
-                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
                 </#if>
                 &nbsp;
             </div>
@@ -55,7 +55,7 @@ under the License.
               <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
               <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
               <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
-              <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+              <input type="hidden" name="productCategoryId" value="${productCategoryId!}" />
               <table cellspacing="0" class="basic-table">
                  <tr class="header-row">
                     <td>${uiLabelMap.ProductProductNameId}</td>
@@ -69,27 +69,27 @@ under the License.
                 <#assign suffix = "_o_" + productCategoryMember_index>
                 <#assign product = productCategoryMember.getRelatedOne("Product", false)>
                 <#assign hasntStarted = false>
-                <#if productCategoryMember.fromDate?exists && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                <#if productCategoryMember.fromDate?? && nowTimestamp.before(productCategoryMember.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                 <#assign hasExpired = false>
-                <#if productCategoryMember.thruDate?exists && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                <#if productCategoryMember.thruDate?? && nowTimestamp.after(productCategoryMember.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
                   <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                     <td>
-                      <#if (product.smallImageUrl)?exists>
-                         <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" class="cssImgSmall" align="middle" /></a>
+                      <#if (product.smallImageUrl)??>
+                         <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)!}</@ofbizUrl>"><img alt="Small Image" src="<@ofbizContentUrl>${product.smallImageUrl}</@ofbizContentUrl>" class="cssImgSmall" align="middle" /></a>
                       </#if>
-                      <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)?if_exists}</@ofbizUrl>" class="buttontext"><#if product?exists>${(product.internalName)?if_exists}</#if> [${(productCategoryMember.productId)?if_exists}]</a>
+                      <a href="<@ofbizUrl>EditProduct?productId=${(productCategoryMember.productId)!}</@ofbizUrl>" class="buttontext"><#if product??>${(product.internalName)!}</#if> [${(productCategoryMember.productId)!}]</a>
                     </td>
-                    <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)?if_exists}</td>
+                    <td <#if hasntStarted> style="color: red;"</#if>>${(productCategoryMember.fromDate)!}</td>
                     <td align="center">
-                        <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)?if_exists}" />
-                        <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)?if_exists}" />
-                        <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)?if_exists}" />
+                        <input type="hidden" name="productId${suffix}" value="${(productCategoryMember.productId)!}" />
+                        <input type="hidden" name="productCategoryId${suffix}" value="${(productCategoryMember.productCategoryId)!}" />
+                        <input type="hidden" name="fromDate${suffix}" value="${(productCategoryMember.fromDate)!}" />
                         <#if hasExpired><#assign class="alert"></#if>
-                        <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryMember.thruDate)?if_exists}" size="25" maxlength="30" id="thruDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                        <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)?if_exists}" />
-                        <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)?if_exists}" />
+                        <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productCategoryMember.thruDate)!}" size="25" maxlength="30" id="thruDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <input type="text" size="5" name="sequenceNum${suffix}" value="${(productCategoryMember.sequenceNum)!}" />
+                        <input type="text" size="5" name="quantity${suffix}" value="${(productCategoryMember.quantity)!}" />
                         <br />
-                        <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)?if_exists}</textarea>
+                        <textarea name="comments${suffix}" rows="2" cols="40">${(productCategoryMember.comments)!}</textarea>
                     </td>
                     <td align="center">
                       <a href="javascript:document.deleteProductFromCategory_o_${rowCount}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -116,9 +116,9 @@ under the License.
            <form name="deleteProductFromCategory_o_${rowCount}" method="post" action="<@ofbizUrl>removeCategoryProductMember</@ofbizUrl>">
               <input type="hidden" name="VIEW_SIZE" value="${viewSize}"/>
               <input type="hidden" name="VIEW_INDEX" value="${viewIndex}"/>
-              <input type="hidden" name="productId" value="${(productCategoryMember.productId)?if_exists}" />
-              <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)?if_exists}"/>
-              <input type="hidden" name="fromDate" value="${(productCategoryMember.fromDate)?if_exists}"/>
+              <input type="hidden" name="productId" value="${(productCategoryMember.productId)!}" />
+              <input type="hidden" name="productCategoryId" value="${(productCategoryMember.productCategoryId)!}"/>
+              <input type="hidden" name="fromDate" value="${(productCategoryMember.fromDate)!}"/>
               <input type="hidden" name="activeOnly" value="${activeOnly.toString()}"/>
            </form>
            <#assign rowCount = rowCount + 1>
@@ -129,11 +129,11 @@ under the License.
         <#if (listSize > 0)>
             <div class="boxhead-right">
                 <#if (viewIndex > 1)>
-                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
+                    <a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutext">${uiLabelMap.CommonPrevious}</a> |
                 </#if>
                 <span class="submenutextinfo">${lowIndex} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}</span>
                 <#if (listSize > highIndex)>
-                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
+                    | <a class="lightbuttontext" href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}&amp;activeOnly=${activeOnly.toString()}</@ofbizUrl>" class="submenutextright">${uiLabelMap.CommonNext}</a>
                 </#if>
                 &nbsp;
             </div>
@@ -152,7 +152,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr><td>
                 <form method="post" action="<@ofbizUrl>addCategoryProductMember</@ofbizUrl>" style="margin: 0;" name="addProductCategoryMemberForm">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+                    <input type="hidden" name="productCategoryId" value="${productCategoryId!}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
                         <span class="label">${uiLabelMap.ProductProductId}</span>
@@ -178,7 +178,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr><td>
                 <form method="post" action="<@ofbizUrl>copyCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="copyCategoryProductMembersForm">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+                    <input type="hidden" name="productCategoryId" value="${productCategoryId!}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
                         <span class="label">${uiLabelMap.ProductTargetProductCategory}</span>
@@ -207,7 +207,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr><td>
                 <form method="post" action="<@ofbizUrl>expireAllCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="expireAllCategoryProductMembersForm">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+                    <input type="hidden" name="productCategoryId" value="${productCategoryId!}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
                         <span class="label">${uiLabelMap.ProductOptionalExpirationDate}</span>
@@ -227,7 +227,7 @@ under the License.
         <table cellspacing="0" class="basic-table">
             <tr><td>
                 <form method="post" action="<@ofbizUrl>removeExpiredCategoryProductMembers</@ofbizUrl>" style="margin: 0;" name="removeExpiredCategoryProductMembersForm">
-                    <input type="hidden" name="productCategoryId" value="${productCategoryId?if_exists}" />
+                    <input type="hidden" name="productCategoryId" value="${productCategoryId!}" />
                     <input type="hidden" name="activeOnly" value="${activeOnly.toString()}" />
                     <div>
                         <span class="label">${uiLabelMap.ProductOptionalExpiredBeforeDate}</span>

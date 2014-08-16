@@ -23,7 +23,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <h3>
-            <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId?if_exists}]</b>
+            <b>${uiLabelMap.ProductCheckingForExistingProductInCategory} <#if (productCategory.description)?has_content>"${productCategory.description}"</#if> [${uiLabelMap.CommonId}:${productCategoryId!}]</b>
             <#if productFeatureAndTypeDatas?has_content>
             ${uiLabelMap.CommonWhere}
                 <#list productFeatureAndTypeDatas as productFeatureAndTypeData>
@@ -60,7 +60,7 @@ under the License.
         <form name="createProductInCategoryForm" method="post" action="<@ofbizUrl>createProductInCategory</@ofbizUrl>" style="margin: 0;">
             <input type="hidden" name="productCategoryId" value="${productCategoryId}" />
             <table cellspacing="0" class="basic-table">
-                <#list productFeatureAndTypeDatas?if_exists as productFeatureAndTypeData>
+                <#list productFeatureAndTypeDatas! as productFeatureAndTypeData>
                 <#assign productFeatureType = productFeatureAndTypeData.productFeatureType>
                 <#assign productFeature = productFeatureAndTypeData.productFeature>
                 <#assign productFeatureTypeId = productFeatureType.productFeatureTypeId>
@@ -70,7 +70,7 @@ under the License.
                     <td>
                         <div>
                             ${productFeature.description}
-                            <#if requestParameters["pftsel_" + productFeatureTypeId]?exists>
+                            <#if requestParameters["pftsel_" + productFeatureTypeId]??>
                                 <input type="hidden" name="pftsel_${productFeatureTypeId}" value="Y"/>
                                 [${uiLabelMap.ProductSelectable}]
                             <#else>
@@ -84,36 +84,36 @@ under the License.
                 <tr>
                     <td width="15%">${uiLabelMap.ProductInternalName}:</td>
                     <td>
-                        <input type="hidden" name="internalName" value="${requestParameters.internalName?if_exists}"/>
+                        <input type="hidden" name="internalName" value="${requestParameters.internalName!}"/>
                         <div>&nbsp;${requestParameters.internalName?default("&nbsp;")}</div>
                     </td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductProductName}:</td>
                     <td>
-                        <input type="hidden" name="productName" value="${requestParameters.productName?if_exists}"/>
+                        <input type="hidden" name="productName" value="${requestParameters.productName!}"/>
                         <div>&nbsp;${requestParameters.productName?default("&nbsp;")}</div>
                     </td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductShortDescription}:</td>
                     <td>
-                        <input type="hidden" name="description" value="${requestParameters.description?if_exists}"/>
+                        <input type="hidden" name="description" value="${requestParameters.description!}"/>
                         <div>&nbsp;${requestParameters.description?default("&nbsp;")}</div>
                     </td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductDefaultPrice}:</td>
                     <td>
-                        <input type="hidden" name="defaultPrice" value="${requestParameters.defaultPrice?if_exists}"/>
-                        <input type="hidden" name="currencyUomId" value="${requestParameters.currencyUomId?if_exists}"/>
+                        <input type="hidden" name="defaultPrice" value="${requestParameters.defaultPrice!}"/>
+                        <input type="hidden" name="currencyUomId" value="${requestParameters.currencyUomId!}"/>
                         <div>&nbsp;${requestParameters.defaultPrice?default("&nbsp;")}&nbsp;${requestParameters.currencyUomId?default("&nbsp;")}</div>
                     </td>
                 </tr>
                 <tr>
                     <td width="15%">${uiLabelMap.ProductAverageCost}:</td>
                     <td>
-                        <input type="hidden" name="averageCost" value="${requestParameters.averageCost?if_exists}"/>
+                        <input type="hidden" name="averageCost" value="${requestParameters.averageCost!}"/>
                         <div>&nbsp;${requestParameters.averageCost?default("&nbsp;")}</div>
                     </td>
                 </tr>

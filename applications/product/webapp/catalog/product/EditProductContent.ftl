@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if product?exists>
+<#if product??>
 <script language="JavaScript" type="text/javascript">
     function insertNowTimestamp(field) {
         eval('document.productForm.' + field + '.value="${nowTimestampString}";');
@@ -31,50 +31,50 @@ under the License.
         <#if !(clientFileName?has_content)>
     <div>${uiLabelMap.ProductNoFileSpecifiedForUpload}.</div>
         <#else>
-    <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName?if_exists}</b></div>
-    <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse?if_exists}</b></div>
-    <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath?if_exists}</b></div>
-    <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl?if_exists}</@ofbizContentUrl>">${imageUrl?if_exists}</a></b></div>
+    <div>${uiLabelMap.ProductTheFileOnYourComputer}: <b>${clientFileName!}</b></div>
+    <div>${uiLabelMap.ProductServerFileName}: <b>${fileNameToUse!}</b></div>
+    <div>${uiLabelMap.ProductServerDirectory}: <b>${imageServerPath!}</b></div>
+    <div>${uiLabelMap.ProductTheUrlOfYourUploadedFile}: <b><a href="<@ofbizContentUrl>${imageUrl!}</@ofbizContentUrl>">${imageUrl!}</a></b></div>
         </#if>
     <br />
     </#if>
     <form action="<@ofbizUrl>updateProductContent</@ofbizUrl>" method="post" style="margin: 0;" name="productForm">
-        <input type="hidden" name="productId" value="${productId?if_exists}"/>
+        <input type="hidden" name="productId" value="${productId!}"/>
         <table cellspacing="0" class="basic-table">
             <tr>
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductName}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <input type="text" name="productName" value="${(product.productName?html)?if_exists}" size="30" maxlength="60"/>
+                    <input type="text" name="productName" value="${(product.productName?html)!}" size="30" maxlength="60"/>
                 </td>
             </tr>
             <tr>
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductDescription}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <textarea name="description" cols="60" rows="2">${(product.description)?if_exists}</textarea>
+                    <textarea name="description" cols="60" rows="2">${(product.description)!}</textarea>
                 </td>
             </tr>
             <tr>
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductLongDescription}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <textarea class="dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)?if_exists}</textarea>
+                    <textarea class="dojo-ResizableTextArea" name="longDescription" cols="60" rows="7">${(product.longDescription)!}</textarea>
                 </td>
             </tr>
             <tr>
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductDetailScreen}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <input type="text" name="detailScreen" value="${(product.detailScreen)?if_exists}" size="60" maxlength="250"/>
+                    <input type="text" name="detailScreen" value="${(product.detailScreen)!}" size="60" maxlength="250"/>
                     <br /><span class="tooltip">${uiLabelMap.ProductIfNotSpecifiedDefaultsIsProductdetail} &quot;productdetail&quot;, ${uiLabelMap.ProductDetailScreenMessage}: &quot;component://ecommerce/widget/CatalogScreens.xml#productdetail&quot;</span>
                 </td>
             </tr>
             <tr>
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductSmallImage}</b></div>
-    <#if (product.smallImageUrl)?exists>
-                    <a href="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)?if_exists}</@ofbizContentUrl>" class="cssImgSmall"/></a>
+    <#if (product.smallImageUrl)??>
+                    <a href="<@ofbizContentUrl>${(product.smallImageUrl)!}</@ofbizContentUrl>" target="_blank"><img alt="Small Image" src="<@ofbizContentUrl>${(product.smallImageUrl)!}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
                 <td>&nbsp;</td>
@@ -93,7 +93,7 @@ under the License.
             <tr>
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductMediumImage}</b></div>
-    <#if (product.mediumImageUrl)?exists>
+    <#if (product.mediumImageUrl)??>
                     <a href="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Medium Image" src="<@ofbizContentUrl>${product.mediumImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
@@ -113,7 +113,7 @@ under the License.
             <tr>
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductLargeImage}</b></div>
-    <#if (product.largeImageUrl)?exists>
+    <#if (product.largeImageUrl)??>
                     <a href="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Large Image" src="<@ofbizContentUrl>${product.largeImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
@@ -133,7 +133,7 @@ under the License.
             <tr>
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductDetailImage}</b></div>
-    <#if (product.detailImageUrl)?exists>
+    <#if (product.detailImageUrl)??>
                     <a href="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Detail Image" src="<@ofbizContentUrl>${product.detailImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>
@@ -153,7 +153,7 @@ under the License.
             <tr>
                 <td width="20%" align="right" valign="top">
                     <div><b>${uiLabelMap.ProductOriginalImage}</b></div>
-    <#if (product.originalImageUrl)?exists>
+    <#if (product.originalImageUrl)??>
                     <a href="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" target="_blank"><img alt="Original Image" src="<@ofbizContentUrl>${product.originalImageUrl}</@ofbizContentUrl>" class="cssImgSmall"/></a>
     </#if>
                 </td>

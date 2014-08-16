@@ -35,9 +35,9 @@ var rawdata = [
             <#if (rootCat?has_content)>
                 <#list rootCat as root>
                     {
-                    "data": {"title" : unescapeHtmlText("<#if root.categoryName?exists>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"href" : "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>","onClick" : "callDocument('${root.productCategoryId}', 'catalog');"}},
+                    "data": {"title" : unescapeHtmlText("<#if root.categoryName??>${root.categoryName?js_string} [${root.productCategoryId}]<#else>${root.productCategoryId?js_string}</#if>"), "attr": {"href" : "<@ofbizUrl>/EditProdCatalog?prodCatalogId=${root.productCategoryId}</@ofbizUrl>","onClick" : "callDocument('${root.productCategoryId}', 'catalog');"}},
                     "attr": {"id" : "${root.productCategoryId}", "rel" : "root", "isCatalog" : "${root.isCatalog?string}" ,"isCategoryType" : "${root.isCategoryType?string}"}
-                    <#if root.child?exists>
+                    <#if root.child??>
                     ,"state" : "closed"
                     </#if>
                     <#if root_has_next>
@@ -59,7 +59,7 @@ var rawdata = [
             $.cookie('jstree_open', null);
         <#else>
         <#-- Coloring the category when type the product categoryId manualy at the url bar -->
-            $.cookie('jstree_select', "<#if productCategoryId?exists>${productCategoryId}<#elseif prodCatalogId?exists>${prodCatalogId}<#elseif showProductCategoryId?exists>${showProductCategoryId}</#if>");
+            $.cookie('jstree_select', "<#if productCategoryId??>${productCategoryId}<#elseif prodCatalogId??>${prodCatalogId}<#elseif showProductCategoryId??>${showProductCategoryId}</#if>");
         </#if>
         jQuery("#tree").jstree({
         "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],

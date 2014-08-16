@@ -30,7 +30,7 @@ under the License.
       <#assign cardNumberDisplay = cardNumber>
     </#if>
   </#if>
-  ${cardNumberDisplay?if_exists}
+  ${cardNumberDisplay!}
 </#macro>
 
 <div class="screenlet">
@@ -59,14 +59,14 @@ under the License.
              <#else>
                <td>${payment.paymentId}</td>
              </#if>
-             <td>${partyName.groupName?if_exists}${partyName.lastName?if_exists} ${partyName.firstName?if_exists} ${partyName.middleName?if_exists}
+             <td>${partyName.groupName!}${partyName.lastName!} ${partyName.firstName!} ${partyName.middleName!}
              <#if security.hasPermission("PARTYMGR_VIEW", session) || security.hasPermission("PARTYMGR_ADMIN", session)>
                [<a href="/partymgr/control/viewprofile?partyId=${partyId}">${partyId}</a>]
              <#else>
                [${partyId}]
              </#if>
              </td>
-             <td><@ofbizCurrency amount=payment.amount?if_exists/></td>
+             <td><@ofbizCurrency amount=payment.amount!/></td>
              <td>${statusItem.description}</td>
            </tr>
          </#list>
@@ -96,12 +96,12 @@ under the License.
          <#assign orderPaymentStatuses = orderReadHelper.getOrderPaymentStatuses()>
          <#if orderPaymentStatuses?has_content>
            <#list orderPaymentStatuses as orderPaymentStatus>
-             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem", false)?if_exists>
+             <#assign statusItem = orderPaymentStatus.getRelatedOne("StatusItem", false)!>
              <#if statusItem?has_content>
                 <div>
                   ${statusItem.get("description",locale)} <#if orderPaymentStatus.statusDatetime?has_content>- ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(orderPaymentStatus.statusDatetime, "", locale, timeZone)!}</#if>
                   &nbsp;
-                  ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin?if_exists}]
+                  ${uiLabelMap.CommonBy} - [${orderPaymentStatus.statusUserLogin!}]
                 </div>
              </#if>
            </#list>
@@ -120,13 +120,13 @@ under the License.
           </#if>
           <#assign outputted = "true">
           <#-- try the paymentMethod first; if paymentMethodId is specified it overrides paymentMethodTypeId -->
-          <#assign paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod", false)?if_exists>
+          <#assign paymentMethod = orderPaymentPreference.getRelatedOne("PaymentMethod", false)!>
           <#if !paymentMethod?has_content>
             <#assign paymentMethodType = orderPaymentPreference.getRelatedOne("PaymentMethodType", false)>
             <#if paymentMethodType.paymentMethodTypeId == "EXT_BILLACT">
                 <#assign outputted = "false">
                 <#-- billing account -->
-                <#if billingAccount?exists>
+                <#if billingAccount??>
                   <#if outputted?default("false") == "true">
                     <tr><td colspan="4"><hr /></td></tr>
                   </#if>
@@ -144,7 +144,7 @@ under the License.
                         <table class="basic-table" cellspacing='0'>
                             <tr>
                                 <td valign="top">
-                                    ${uiLabelMap.CommonNbr}<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description?if_exists}
+                                    ${uiLabelMap.CommonNbr}<a href="/accounting/control/EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${billingAccount.billingAccountId}</a>  - ${billingAccount.description!}
                                 </td>
                                 <td valign="top" align="right">
                                     <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED" && orderPaymentPreference.statusId != "PAYMENT_RECEIVED">
@@ -163,7 +163,7 @@ under the License.
                                   <input type="hidden" name="orderId" value="${orderId}" />
                                   <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                                   <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                                  <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                                  <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                                 </form>
                               </div>
                             </#if>
@@ -172,10 +172,10 @@ under the License.
                   </tr>
                 </#if>
             <#elseif paymentMethodType.paymentMethodTypeId == "FIN_ACCOUNT">
-              <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount", false)?if_exists/>
+              <#assign finAccount = orderPaymentPreference.getRelatedOne("FinAccount", false)!/>
               <#if (finAccount?has_content)>
                 <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
-                <#assign finAccountType = finAccount.getRelatedOne("FinAccountType", false)?if_exists/>
+                <#assign finAccountType = finAccount.getRelatedOne("FinAccountType", false)!/>
                 <tr>
                   <td align="right" valign="top" width="29%">
                     <div>
@@ -193,16 +193,16 @@ under the License.
                       </#if>
                       #${finAccount.finAccountCode?default(finAccount.finAccountId)} (<a href="/accounting/control/EditFinAccount?finAccountId=${finAccount.finAccountId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${finAccount.finAccountId}</a>)
                       <br />
-                      ${finAccount.finAccountName?if_exists}
+                      ${finAccount.finAccountName!}
                       <br />
 
                       <#-- Authorize and Capture transactions -->
                       <div>
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
-                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
                     </div>
@@ -214,7 +214,7 @@ under the License.
                           ${(transactionCode.get("description",locale))?default("Unknown")}:
                           <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                           <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
-                          (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
+                          (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                           <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
                           <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
                           <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.CommonDetails}</a>
@@ -232,7 +232,7 @@ under the License.
                             <input type="hidden" name="orderId" value="${orderId}" />
                             <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                             <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                            <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                            <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                           </form>
                         </div>
                      </#if>
@@ -258,7 +258,7 @@ under the License.
             <#else>
               <tr>
                 <td align="right" valign="top" width="29%">
-                  <div>&nbsp;<span class="label">${paymentMethodType.get("description",locale)?if_exists}</span>&nbsp;
+                  <div>&nbsp;<span class="label">${paymentMethodType.get("description",locale)!}</span>&nbsp;
                   <#if orderPaymentPreference.maxAmount?has_content>
                   <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                   </#if>
@@ -271,11 +271,11 @@ under the License.
                       <#if orderPaymentPreference.maxAmount?has_content>
                          <br />${uiLabelMap.OrderPaymentMaximumAmount}: <@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>
                       </#if>
-                      <br />&nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                      <br />&nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                     </div>
                     <#--
-                    <div><@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>&nbsp;-&nbsp;${(orderPaymentPreference.authDate.toString())?if_exists}</div>
-                    <div>&nbsp;<#if orderPaymentPreference.authRefNum?exists>(${uiLabelMap.OrderReference}: ${orderPaymentPreference.authRefNum})</#if></div>
+                    <div><@ofbizCurrency amount=orderPaymentPreference.maxAmount?default(0.00) isoCode=currencyUomId/>&nbsp;-&nbsp;${(orderPaymentPreference.authDate.toString())!}</div>
+                    <div>&nbsp;<#if orderPaymentPreference.authRefNum??>(${uiLabelMap.OrderReference}: ${orderPaymentPreference.authRefNum})</#if></div>
                     -->
                   </td>
                 <#else>
@@ -292,7 +292,7 @@ under the License.
                           <input type="hidden" name="orderId" value="${orderId}" />
                           <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                           <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                          <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                          <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                         </form>
                       </div>
                     </#if>
@@ -316,11 +316,11 @@ under the License.
                 </#if>
             </#if>
           <#else>
-            <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
+            <#if paymentMethod.paymentMethodTypeId! == "CREDIT_CARD">
               <#assign gatewayResponses = orderPaymentPreference.getRelated("PaymentGatewayResponse", null, null, false)>
-              <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)?if_exists>
+              <#assign creditCard = paymentMethod.getRelatedOne("CreditCard", false)!>
               <#if creditCard?has_content>
-                <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)?if_exists>
+                <#assign pmBillingAddress = creditCard.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">
@@ -334,7 +334,7 @@ under the License.
                 <td valign="top" width="60%">
                   <div>
                     <#if creditCard?has_content>
-                      <#if creditCard.companyNameOnCard?exists>${creditCard.companyNameOnCard}<br /></#if>
+                      <#if creditCard.companyNameOnCard??>${creditCard.companyNameOnCard}<br /></#if>
                       <#if creditCard.titleOnCard?has_content>${creditCard.titleOnCard}&nbsp;</#if>
                       ${creditCard.firstNameOnCard?default("N/A")}&nbsp;
                       <#if creditCard.middleNameOnCard?has_content>${creditCard.middleNameOnCard}&nbsp;</#if>
@@ -344,22 +344,22 @@ under the License.
 
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
                         ${creditCard.cardType}
-                        <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/>
+                        <@maskSensitiveNumber cardNumber=creditCard.cardNumber!/>
                         ${creditCard.expireDate}
-                        &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                        &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
                         ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
-                        &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                        &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       </#if>
                       <br />
 
                       <#-- Authorize and Capture transactions -->
                       <div>
                         <#if orderPaymentPreference.statusId != "PAYMENT_SETTLED">
-                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId?if_exists}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
+                          <a href="/accounting/control/AuthorizeTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingAuthorize}</a>
                         </#if>
                         <#if orderPaymentPreference.statusId == "PAYMENT_AUTHORIZED">
-                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId?if_exists}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
+                          <a href="/accounting/control/CaptureTransaction?orderId=${orderId!}&amp;orderPaymentPreferenceId=${orderPaymentPreference.orderPaymentPreferenceId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.AccountingCapture}</a>
                         </#if>
                       </div>
                     <#else>
@@ -374,7 +374,7 @@ under the License.
                         ${(transactionCode.get("description",locale))?default("Unknown")}:
                         <#if gatewayResponse.transactionDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(gatewayResponse.transactionDate, "", locale, timeZone)!} </#if>
                         <@ofbizCurrency amount=gatewayResponse.amount isoCode=currencyUomId/><br />
-                        (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum?if_exists}
+                        (<span class="label">${uiLabelMap.OrderReference}</span>&nbsp;${gatewayResponse.referenceNum!}
                         <span class="label">${uiLabelMap.OrderAvs}</span>&nbsp;${gatewayResponse.gatewayAvsResult?default("N/A")}
                         <span class="label">${uiLabelMap.OrderScore}</span>&nbsp;${gatewayResponse.gatewayScoreResult?default("N/A")})
                         <a href="/accounting/control/ViewGatewayResponse?paymentGatewayResponseId=${gatewayResponse.paymentGatewayResponseId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.CommonDetails}</a>
@@ -391,16 +391,16 @@ under the License.
                         <input type="hidden" name="orderId" value="${orderId}" />
                         <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                         <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                       </form>
                    </#if>
                   </#if>
                 </td>
               </tr>
-            <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
+            <#elseif paymentMethod.paymentMethodTypeId! == "EFT_ACCOUNT">
               <#assign eftAccount = paymentMethod.getRelatedOne("EftAccount", false)>
               <#if eftAccount?has_content>
-                <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)?if_exists>
+                <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">
@@ -414,8 +414,8 @@ under the License.
                 <td valign="top" width="60%">
                   <div>
                     <#if eftAccount?has_content>
-                      ${eftAccount.nameOnAccount?if_exists}<br />
-                      <#if eftAccount.companyNameOnAccount?exists>${eftAccount.companyNameOnAccount}<br /></#if>
+                      ${eftAccount.nameOnAccount!}<br />
+                      <#if eftAccount.companyNameOnAccount??>${eftAccount.companyNameOnAccount}<br /></#if>
                       ${uiLabelMap.AccountingBankName}: ${eftAccount.bankName}, ${eftAccount.routingNumber}<br />
                       ${uiLabelMap.AccountingAccount}#: ${eftAccount.accountNumber}
                     <#else>
@@ -431,7 +431,7 @@ under the License.
                         <input type="hidden" name="orderId" value="${orderId}" />
                         <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                         <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                       </form>
                    </#if>
                   </#if>
@@ -452,10 +452,10 @@ under the License.
                   </td>
                 </tr>
               </#if>
-            <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
+            <#elseif paymentMethod.paymentMethodTypeId! == "GIFT_CARD">
               <#assign giftCard = paymentMethod.getRelatedOne("GiftCard", false)>
-              <#if giftCard?exists>
-                <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)?if_exists>
+              <#if giftCard??>
+                <#assign pmBillingAddress = giftCard.getRelatedOne("PostalAddress", false)!>
               </#if>
               <tr>
                 <td align="right" valign="top" width="29%">
@@ -471,11 +471,11 @@ under the License.
                     <#if giftCard?has_content>
                       <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
                         ${giftCard.cardNumber?default("N/A")} [${giftCard.pinNumber?default("N/A")}]
-                        &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                        &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       <#else>
-                      <@maskSensitiveNumber cardNumber=giftCard.cardNumber?if_exists/>
+                      <@maskSensitiveNumber cardNumber=giftCard.cardNumber!/>
                       <#if !cardNumberDisplay?has_content>N/A</#if>
-                        &nbsp;[<#if oppStatusItem?exists>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
+                        &nbsp;[<#if oppStatusItem??>${oppStatusItem.get("description",locale)}<#else>${orderPaymentPreference.statusId}</#if>]
                       </#if>
                     <#else>
                       ${uiLabelMap.CommonInformation} ${uiLabelMap.CommonNot} ${uiLabelMap.CommonAvailable}
@@ -490,7 +490,7 @@ under the License.
                         <input type="hidden" name="orderId" value="${orderId}" />
                         <input type="hidden" name="orderPaymentPreferenceId" value="${orderPaymentPreference.orderPaymentPreferenceId}" />
                         <input type="hidden" name="statusId" value="PAYMENT_CANCELLED" />
-                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId?if_exists}" />
+                        <input type="hidden" name="checkOutPaymentId" value="${paymentMethod.paymentMethodTypeId!}" />
                       </form>
                    </#if>
                   </#if>
@@ -525,8 +525,8 @@ under the License.
                   ${pmBillingAddress.address1}<br />
                   <#if pmBillingAddress.address2?has_content>${pmBillingAddress.address2}<br /></#if>
                   ${pmBillingAddress.city}<#if pmBillingAddress.stateProvinceGeoId?has_content>, ${pmBillingAddress.stateProvinceGeoId} </#if>
-                  ${pmBillingAddress.postalCode?if_exists}<br />
-                  ${pmBillingAddress.countryGeoId?if_exists}
+                  ${pmBillingAddress.postalCode!}<br />
+                  ${pmBillingAddress.countryGeoId!}
                 </div>
               </td>
               <td width="10%">&nbsp;</td>
@@ -554,7 +554,7 @@ under the License.
           <tr>
             <td align="right" valign="top" width="29%"><span class="label">${uiLabelMap.OrderPONumber}</span></td>
             <td width="1%">&nbsp;</td>
-            <td valign="top" width="60%">${customerPoNumber?if_exists}</td>
+            <td valign="top" width="60%">${customerPoNumber!}</td>
             <td width="10%">&nbsp;</td>
           </tr>
         </#if>
@@ -583,7 +583,7 @@ under the License.
    <tr><td colspan="4"><hr /></td></tr>
    <tr><td colspan="4">
    <form name="addPaymentMethodToOrder" method="post" action="<@ofbizUrl>addPaymentMethodToOrder</@ofbizUrl>">
-   <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
+   <input type="hidden" name="orderId" value="${orderId!}"/>
    <table class="basic-table" cellspacing='0'>
    <tr>
       <td width="29%" align="right" nowrap="nowrap"><span class="label">${uiLabelMap.AccountingPaymentMethod}</span></td>
@@ -592,19 +592,19 @@ under the License.
          <select name="paymentMethodId">
            <#list paymentMethodValueMaps as paymentMethodValueMap>
              <#assign paymentMethod = paymentMethodValueMap.paymentMethod/>
-             <option value="${paymentMethod.get("paymentMethodId")?if_exists}">
+             <option value="${paymentMethod.get("paymentMethodId")!}">
                <#if "CREDIT_CARD" == paymentMethod.paymentMethodTypeId>
                  <#assign creditCard = paymentMethodValueMap.creditCard/>
                  <#if (creditCard?has_content)>
                    <#if security.hasEntityPermission("PAY_INFO", "_VIEW", session) || security.hasEntityPermission("ACCOUNTING", "_VIEW", session)>
-                     ${creditCard.cardType?if_exists} <@maskSensitiveNumber cardNumber=creditCard.cardNumber?if_exists/> ${creditCard.expireDate?if_exists}
+                     ${creditCard.cardType!} <@maskSensitiveNumber cardNumber=creditCard.cardNumber!/> ${creditCard.expireDate!}
                    <#else>
                      ${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                    </#if>
                  </#if>
                <#else>
-                 ${paymentMethod.paymentMethodTypeId?if_exists}
-                 <#if paymentMethod.description?exists>${paymentMethod.description}</#if>
+                 ${paymentMethod.paymentMethodTypeId!}
+                 <#if paymentMethod.description??>${paymentMethod.description}</#if>
                    (${paymentMethod.paymentMethodId})
                  </#if>
                </option>

@@ -29,7 +29,7 @@ under the License.
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingCompanyNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-      <input type="text" size="30" maxlength="60" name="companyNameOnCard" value="${creditCard.companyNameOnCard?if_exists}"/>
+      <input type="text" size="30" maxlength="60" name="companyNameOnCard" value="${creditCard.companyNameOnCard!}"/>
     </td>
   </tr>
   <tr>
@@ -49,21 +49,21 @@ under the License.
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingFirstNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-      <input type="text" size="20" maxlength="60" name="firstNameOnCard" value="${(creditCard.firstNameOnCard)?if_exists}"/>
+      <input type="text" size="20" maxlength="60" name="firstNameOnCard" value="${(creditCard.firstNameOnCard)!}"/>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingMiddleNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-      <input type="text" size="15" maxlength="60" name="middleNameOnCard" value="${(creditCard.middleNameOnCard)?if_exists}"/>
+      <input type="text" size="15" maxlength="60" name="middleNameOnCard" value="${(creditCard.middleNameOnCard)!}"/>
     </td>
   </tr>
   <tr>
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.AccountingLastNameCard}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-      <input type="text" size="20" maxlength="60" name="lastNameOnCard" value="${(creditCard.lastNameOnCard)?if_exists}"/>
+      <input type="text" size="20" maxlength="60" name="lastNameOnCard" value="${(creditCard.lastNameOnCard)!}"/>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
   <tr>
@@ -88,7 +88,7 @@ under the License.
     <td width="5">&nbsp;</td>
     <td width="74%">
       <select name="cardType">
-        <#if creditCard.cardType?exists>
+        <#if creditCard.cardType??>
           <option>${creditCard.cardType}</option>
           <option value="${creditCard.cardType}">---</option>
         </#if>
@@ -104,7 +104,7 @@ under the License.
             <#if cardNumberMinDisplay?has_content>
                 <#-- create a display version of the card where all but the last four digits are * -->
                 <#assign cardNumberDisplay = "">
-                <#assign cardNumber = creditCard.cardNumber?if_exists>
+                <#assign cardNumber = creditCard.cardNumber!>
                 <#if cardNumber?has_content>
                     <#assign size = cardNumber?length - 4>
                     <#if (size > 0)>
@@ -117,12 +117,12 @@ under the License.
                         <#assign cardNumberDisplay = cardNumber>
                     </#if>
                 </#if>
-                <input type="text" class="required" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay?if_exists}" />
+                <input type="text" class="required" size="20" maxlength="30" name="cardNumber" onfocus="javascript:this.value = '';" value="${cardNumberDisplay!}" />
             <#else>
-                <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber?if_exists}"/>
+                <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber!}"/>
             </#if>
         <#else>
-            <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber?if_exists}"/>
+            <input type="text" size="20" maxlength="30" name="cardNumber" value="${creditCard.cardNumber!}"/>
         </#if>
     <#if showToolTip?has_content><span class="tooltip">${uiLabelMap.CommonRequired}</span><#else>*</#if></td>
   </tr>
@@ -130,7 +130,7 @@ under the License.
     <td width="26%" align="right" valign="middle">${uiLabelMap.AccountingCardSecurityCode}</td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCard.cardSecurityCode?if_exists}" />
+        <input type="text" size="5" maxlength="10" name="cardSecurityCode" value="${creditCard.cardSecurityCode!}" />
     </td>
   </tr>-->
   <tr>
@@ -139,9 +139,9 @@ under the License.
     <td width="74%">
       <#assign expMonth = "">
       <#assign expYear = "">
-      <#if creditCard?exists && creditCard.expireDate?exists>
+      <#if creditCard?? && creditCard.expireDate??>
         <#assign expDate = creditCard.expireDate>
-        <#if (expDate?exists && expDate.indexOf("/") > 0)>
+        <#if (expDate?? && expDate.indexOf("/") > 0)>
           <#assign expMonth = expDate.substring(0,expDate.indexOf("/"))>
           <#assign expYear = expDate.substring(expDate.indexOf("/")+1)>
         </#if>
@@ -150,10 +150,10 @@ under the License.
         <#if creditCard?has_content && expMonth?has_content>
           <#assign ccExprMonth = expMonth>
         <#else>
-          <#assign ccExprMonth = requestParameters.expMonth?if_exists>
+          <#assign ccExprMonth = requestParameters.expMonth!>
         </#if>
         <#if ccExprMonth?has_content>
-          <option value="${ccExprMonth?if_exists}">${ccExprMonth?if_exists}</option>
+          <option value="${ccExprMonth!}">${ccExprMonth!}</option>
         </#if>
         ${screens.render("component://common/widget/CommonScreens.xml#ccmonths")}
       </select>
@@ -161,10 +161,10 @@ under the License.
         <#if creditCard?has_content && expYear?has_content>
           <#assign ccExprYear = expYear>
         <#else>
-          <#assign ccExprYear = requestParameters.expYear?if_exists>
+          <#assign ccExprYear = requestParameters.expYear!>
         </#if>
         <#if ccExprYear?has_content>
-          <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
+          <option value="${ccExprYear!}">${ccExprYear!}</option>
         </#if>
         ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
       </select>
@@ -174,7 +174,7 @@ under the License.
     <td width="26%" align="right" valign="middle"><b>${uiLabelMap.CommonDescription}</b></td>
     <td width="5">&nbsp;</td>
     <td width="74%">
-      <input type="text" size="20" maxlength="30" name="description" value="${paymentMethod.description?if_exists}"/>
+      <input type="text" size="20" maxlength="30" name="description" value="${paymentMethod.description!}"/>
     </td>
   </tr>
 

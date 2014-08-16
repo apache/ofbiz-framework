@@ -39,9 +39,9 @@ under the License.
                                 <#list orderTerms as orderTerm>
                                     <tr <#if orderTerm_index % 2 != 0>class="alternate-row"</#if> >
                                         <td nowrap="nowrap">${orderTerm.getRelatedOne('TermType', false).get('description', locale)}</td>
-                                        <td align="center">${orderTerm.termValue?if_exists}</td>
-                                        <td align="center">${orderTerm.termDays?if_exists}</td>
-                                        <td nowrap="nowrap">${orderTerm.textValue?if_exists}</td>
+                                        <td align="center">${orderTerm.termValue!}</td>
+                                        <td align="center">${orderTerm.termDays!}</td>
+                                        <td nowrap="nowrap">${orderTerm.textValue!}</td>
                                         <td align="right">
                                             <a href="<@ofbizUrl>setOrderTerm?termIndex=${orderTerm_index}&amp;createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                                             <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${orderTerm_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
@@ -56,7 +56,7 @@ under the License.
                             </table>
                         <#else>
                             <form method="post" action="<@ofbizUrl>addOrderTerm</@ofbizUrl>" name="termform">
-                                <input type="hidden" name="termIndex" value="${termIndex?if_exists}" />
+                                <input type="hidden" name="termIndex" value="${termIndex!}" />
                                 <table class="basic-table">
                                     <tr>
                                         <td width="26%" align="right" valign="top">
@@ -66,7 +66,7 @@ under the License.
                                         <td width="74%">
                                             <select name="termTypeId">
                                                 <option value=""></option>
-                                                <#list termTypes?if_exists as termType>
+                                                <#list termTypes! as termType>
                                                     <option value="${termType.termTypeId}"
                                                         <#if termTypeId?default('') == termType.termTypeId>selected="selected"</#if>
                                                     >${termType.get('description', locale)}</option>
@@ -80,7 +80,7 @@ under the License.
                                     </td>
                                     <td width="5">&nbsp;</td>
                                     <td width="74%">
-                                        <input type="text" size="30" maxlength="60" name="termValue" value="${termValue?if_exists}" />
+                                        <input type="text" size="30" maxlength="60" name="termValue" value="${termValue!}" />
                                     </td>
                                     </tr>
                                     <tr>
@@ -89,7 +89,7 @@ under the License.
                                         </td>
                                         <td width="5">&nbsp;</td>
                                         <td width="74%">
-                                            <input type="text" size="30" maxlength="60" name="termDays" value="${termDays?if_exists}" />
+                                            <input type="text" size="30" maxlength="60" name="termDays" value="${termDays!}" />
                                         </td>
                                     </tr>
                                     <tr>
@@ -98,7 +98,7 @@ under the License.
                                         </td>
                                         <td width="5">&nbsp;</td>
                                         <td width="74%">
-                                            <input type="text" size="30" maxlength="255" name="textValue" value="${textValue?if_exists}" />
+                                            <input type="text" size="30" maxlength="255" name="textValue" value="${textValue!}" />
                                         </td>
                                     </tr>
                                     <tr>

@@ -254,7 +254,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt"><#if productionRun.location?exists>${productionRun.location.locationSeqId?if_exists}</#if></fo:inline>
+                                <fo:inline font-size="10pt"><#if productionRun.location??>${productionRun.location.locationSeqId!}</#if></fo:inline>
                             </fo:block>
                         </fo:table-cell>
                         <fo:table-cell>
@@ -266,7 +266,7 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <fo:inline font-size="10pt"><#if productionRun.location?exists>${productionRun.location.locationSeqId?if_exists}</#if></fo:inline>
+                                <fo:inline font-size="10pt"><#if productionRun.location??>${productionRun.location.locationSeqId!}</#if></fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>

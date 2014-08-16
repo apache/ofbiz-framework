@@ -34,7 +34,7 @@ under the License.
             <tr><td colspan="7"><hr /></td></tr>
         </#if>
         <#-- order for party -->
-        <#if (orderForParty?exists)>
+        <#if (orderForParty??)>
             <tr>
                 <td align="right" valign="top" width="15%">
                     <span>&nbsp;<b>${uiLabelMap.OrderOrderFor}</b> </span>
@@ -132,7 +132,7 @@ under the License.
             </tr>
         </#if>
             <tr><td colspan="7"><hr /></td></tr>
-        <#if orderType != "PURCHASE_ORDER" && (productStore.showCheckoutGiftOptions)?if_exists != "N">
+        <#if orderType != "PURCHASE_ORDER" && (productStore.showCheckoutGiftOptions)! != "N">
         <#-- gift settings -->
             <tr>
                 <td align="right" valign="top" width="15%">

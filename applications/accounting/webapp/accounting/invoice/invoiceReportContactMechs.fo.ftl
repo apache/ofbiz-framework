@@ -31,14 +31,14 @@ under the License.
             <#if billingAddress?has_content>
                 <#assign billToPartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", billToParty.partyId, "compareDate", invoice.invoiceDate, "userLogin", userLogin))/>
                 <fo:block>${billToPartyNameResult.fullName?default(billingAddress.toName)?default("Billing Name Not Found")}</fo:block>
-                <#if billingAddress.attnName?exists>
+                <#if billingAddress.attnName??>
                     <fo:block>${billingAddress.attnName}</fo:block>
                 </#if>
-                    <fo:block>${billingAddress.address1?if_exists}</fo:block>
-                <#if billingAddress.address2?exists>
+                    <fo:block>${billingAddress.address1!}</fo:block>
+                <#if billingAddress.address2??>
                     <fo:block>${billingAddress.address2}</fo:block>
                 </#if>
-                <fo:block>${billingAddress.city?if_exists} ${billingAddress.stateProvinceGeoId?if_exists} ${billingAddress.postalCode?if_exists}</fo:block>
+                <fo:block>${billingAddress.city!} ${billingAddress.stateProvinceGeoId!} ${billingAddress.postalCode!}</fo:block>
                 <#if billToPartyTaxId?has_content>
                     <fo:block>${uiLabelMap.PartyTaxId}: ${billToPartyTaxId}</fo:block>
                 </#if>

@@ -43,22 +43,22 @@ under the License.
             </fo:table-header>
             <fo:table-body>
                 <#list orderItemList as orderItem>
-                    <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)?if_exists>
-                    <#assign productId = orderItem.productId?if_exists>
+                    <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
+                    <#assign productId = orderItem.productId!>
                     <#assign remainingQuantity = (orderItem.quantity?default(0) - orderItem.cancelQuantity?default(0))>
                     <#assign itemAdjustment = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentsTotal(orderItem, orderAdjustments, true, false, false)>
-                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId?if_exists)?if_exists>
+                    <#assign internalImageUrl = Static["org.ofbiz.product.imagemanagement.ImageManagementHelper"].getInternalImageUrl(request, productId!)!>
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
                                 <#if orderItem.supplierProductId?has_content>
-                                    ${orderItem.supplierProductId} - ${orderItem.itemDescription?if_exists}
-                                <#elseif productId?exists>
-                                    ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
-                                <#elseif orderItemType?exists>
-                                    ${orderItemType.get("description",locale)} - ${orderItem.itemDescription?if_exists}
+                                    ${orderItem.supplierProductId} - ${orderItem.itemDescription!}
+                                <#elseif productId??>
+                                    ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription!}
+                                <#elseif orderItemType??>
+                                    ${orderItemType.get("description",locale)} - ${orderItem.itemDescription!}
                                 <#else>
-                                    ${orderItem.itemDescription?if_exists}
+                                    ${orderItem.itemDescription!}
                                 </#if>
                             </fo:block>
                         </fo:table-cell>
@@ -109,7 +109,7 @@ under the License.
                                 <fo:block font-weight="bold">
                                     ${adjustmentType.get("description",locale)} :
                                     <#if orderHeaderAdjustment.get("description")?has_content>
-                                        (${orderHeaderAdjustment.get("description")?if_exists})
+                                        (${orderHeaderAdjustment.get("description")!})
                                     </#if>
                                 </fo:block>
                             </fo:table-cell>
@@ -194,7 +194,7 @@ under the License.
                         <#if (note.internalNote?has_content) && (note.internalNote != "Y")>
                             <fo:table-row>
                                 <fo:table-cell number-columns-spanned="1">
-                                    <fo:block>${note.noteInfo?if_exists}</fo:block>
+                                    <fo:block>${note.noteInfo!}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="2">
                                     <fo:block>
@@ -205,7 +205,7 @@ under the License.
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell number-columns-spanned="1">
-                                    <fo:block>${uiLabelMap.CommonAt}: ${note.noteDateTime?string?if_exists}</fo:block>
+                                    <fo:block>${uiLabelMap.CommonAt}: ${note.noteDateTime?string!}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                         </#if>

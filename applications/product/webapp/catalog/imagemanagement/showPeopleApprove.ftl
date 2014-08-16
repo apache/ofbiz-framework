@@ -40,7 +40,7 @@ jQuery(document).ready(function(){
                 <table>
                     <#assign userLoginApprovers  = delegator.findByAnd("UserLogin",Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", partyRole.partyId))/>
                     <#assign userLoginApprover = userLoginApprovers[0]>
-                    <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)?if_exists>
+                    <#assign userLoginAndPartyDetails = delegator.findOne("UserLoginAndPartyDetails", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", userLoginApprover.partyId, "userLoginId", userLoginApprover.userLoginId), false)!>
                     <#if userLoginAndPartyDetails?has_content>
                         <#assign partyContentDetail  = delegator.findByAnd("ContentApproval",Static["org.ofbiz.base.util.UtilMisc"].toMap("roleTypeId", "IMAGEAPPROVER", "approvalStatusId", "IM_PENDING", "partyId", userLoginAndPartyDetails.partyId))/>
                         <#assign imageApproveSize = partyContentDetail.size()>
@@ -48,13 +48,13 @@ jQuery(document).ready(function(){
                             <#if userMap.checkUser == userLoginAndPartyDetails.userLoginId>
                                 <td>
                                     <div>
-                                        <b>${userLoginAndPartyDetails.firstName?if_exists} ${userLoginAndPartyDetails.middleName?if_exists} ${userLoginAndPartyDetails.lastName?if_exists} (${imageApproveSize})</b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b>${userLoginAndPartyDetails.firstName!} ${userLoginAndPartyDetails.middleName!} ${userLoginAndPartyDetails.lastName!} (${imageApproveSize})</b>&nbsp;&nbsp;|&nbsp;&nbsp;
                                     </div>
                                 </td>
                             <#else>
                                 <td>
                                     <div>
-                                        <b><a href="<@ofbizUrl>ImageApprove</@ofbizUrl>" class="text">${userLoginAndPartyDetails.firstName?if_exists} ${userLoginAndPartyDetails.middleName?if_exists} ${userLoginAndPartyDetails.lastName?if_exists} (${imageApproveSize})</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b><a href="<@ofbizUrl>ImageApprove</@ofbizUrl>" class="text">${userLoginAndPartyDetails.firstName!} ${userLoginAndPartyDetails.middleName!} ${userLoginAndPartyDetails.lastName!} (${imageApproveSize})</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;
                                     </div>
                                 </td>
                             </#if>
@@ -62,13 +62,13 @@ jQuery(document).ready(function(){
                             <#if userMap.checkUser == userLoginAndPartyDetails.userLoginId>
                                 <td>
                                     <div>
-                                        <b>${userLoginAndPartyDetails.firstName?if_exists} ${userLoginAndPartyDetails.middleName?if_exists} ${userLoginAndPartyDetails.lastName?if_exists} (${imageApproveSize})</b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b>${userLoginAndPartyDetails.firstName!} ${userLoginAndPartyDetails.middleName!} ${userLoginAndPartyDetails.lastName!} (${imageApproveSize})</b>&nbsp;&nbsp;|&nbsp;&nbsp;
                                     </div>
                                 </td>
                             <#else>
                                 <td>
                                     <div>
-                                        <b><a href="<@ofbizUrl>ListPeopleApproved?createdByUserLogin=${userLoginAndPartyDetails.userLoginId}</@ofbizUrl>" class="text">${userLoginAndPartyDetails.firstName?if_exists} ${userLoginAndPartyDetails.middleName?if_exists} ${userLoginAndPartyDetails.lastName?if_exists} (${imageApproveSize})</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;
+                                        <b><a href="<@ofbizUrl>ListPeopleApproved?createdByUserLogin=${userLoginAndPartyDetails.userLoginId}</@ofbizUrl>" class="text">${userLoginAndPartyDetails.firstName!} ${userLoginAndPartyDetails.middleName!} ${userLoginAndPartyDetails.lastName!} (${imageApproveSize})</a></b>&nbsp;&nbsp;|&nbsp;&nbsp;
                                     </div>
                                 </td>
                             </#if>

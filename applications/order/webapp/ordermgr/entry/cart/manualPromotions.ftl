@@ -29,13 +29,13 @@ under the License.
           <select name="productPromoId_1">
             <option value=""></option>
             <#list allProductPromos as productPromo>
-              <option value="${productPromo.productPromoId}">${productPromo.promoName?if_exists}</option>
+              <option value="${productPromo.productPromoId}">${productPromo.promoName!}</option>
             </#list>
           </select>
           <select name="productPromoId_2">
             <option value=""></option>
             <#list allProductPromos as productPromo>
-              <option value="${productPromo.productPromoId}">${productPromo.promoName?if_exists}</option>
+              <option value="${productPromo.productPromoId}">${productPromo.promoName!}</option>
             </#list>
           </select>
           <input type="submit" class="smallSubmit" value="${uiLabelMap.OrderDoPromotions}" />

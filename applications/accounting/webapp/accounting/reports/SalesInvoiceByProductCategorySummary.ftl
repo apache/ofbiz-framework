@@ -19,7 +19,7 @@ under the License.
 
 <#macro resultSummary resultMap>
     <#if resultMap?has_content>
-        ${resultMap.quantityTotal?default(0)}:${resultMap.amountTotal?default(0)}:<#if (resultMap.quantityTotal?exists && resultMap.quantityTotal > 0)>${resultMap.amountTotal/resultMap.quantityTotal}<#else/>0</#if>
+        ${resultMap.quantityTotal?default(0)}:${resultMap.amountTotal?default(0)}:<#if (resultMap.quantityTotal?? && resultMap.quantityTotal > 0)>${resultMap.amountTotal/resultMap.quantityTotal}<#else/>0</#if>
     <#else/>
         0:0:0
     </#if>
@@ -27,9 +27,9 @@ under the License.
 
 <ul>
     <li>Month: ${month}/${year}</li>
-    <li>Root Category: ${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(rootProductCategory, "CATEGORY_NAME", locale, dispatcher))?if_exists} [${rootProductCategoryId}]</li>
-    <li>Organization: ${(organizationPartyName.groupName)?if_exists} [${organizationPartyId?default("No Organization Specified")}]</li>
-    <li>Currency: ${(currencyUom.description)?if_exists} [${currencyUomId?default("No Currency Specified")}]</li>
+    <li>Root Category: ${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(rootProductCategory, "CATEGORY_NAME", locale, dispatcher))!} [${rootProductCategoryId}]</li>
+    <li>Organization: ${(organizationPartyName.groupName)!} [${organizationPartyId?default("No Organization Specified")}]</li>
+    <li>Currency: ${(currencyUom.description)!} [${currencyUomId?default("No Currency Specified")}]</li>
 </ul>
 <div>NOTE: each set of numbers is: &lt;quantity&gt;:&lt;total amount&gt;:&lt;average amount&gt;</div>
 <table class="basic-table" cellspacing="0">
@@ -38,10 +38,10 @@ under the License.
         <td>Day</td>
         <td>[No Product]</td>
     <#list productList as product>
-        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher))?if_exists)}<br />P:[${product.productId}]</td>
+        <td>${product.internalName?default((Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(product, "PRODUCT_NAME", locale, dispatcher))!)}<br />P:[${product.productId}]</td>
     </#list>
     <#list productCategoryList as productCategory>
-        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher))?if_exists}<br />C:[${productCategory.productCategoryId}]</td>
+        <td>${(Static["org.ofbiz.product.category.CategoryContentWrapper"].getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, dispatcher))!}<br />C:[${productCategory.productCategoryId}]</td>
     </#list>
     </tr>
     <#-- Days of the month -->
@@ -54,11 +54,11 @@ under the License.
             <td class="label">${(productNullResult_index + 1)}</td>
             <td><@resultSummary resultMap=productNullResult/></td>
         <#list productList as product>
-            <#assign productResult = productResultMap[product.productId]?if_exists/>
+            <#assign productResult = productResultMap[product.productId]!/>
             <td><@resultSummary resultMap=productResult/></td>
         </#list>
         <#list productCategoryList as productCategory>
-            <#assign categoryResult = categoryResultMap[productCategory.productCategoryId]?if_exists/>
+            <#assign categoryResult = categoryResultMap[productCategory.productCategoryId]!/>
             <td><@resultSummary resultMap=categoryResult/></td>
         </#list>
         </tr>
@@ -69,11 +69,11 @@ under the License.
         <td class="label">Month Total</td>
         <td><@resultSummary resultMap=monthProductNullResult/></td>
     <#list productList as product>
-        <#assign productResult = monthProductResultMap[product.productId]?if_exists/>
+        <#assign productResult = monthProductResultMap[product.productId]!/>
         <td><@resultSummary resultMap=productResult/></td>
     </#list>
     <#list productCategoryList as productCategory>
-        <#assign categoryResult = monthCategoryResultMap[productCategory.productCategoryId]?if_exists/>
+        <#assign categoryResult = monthCategoryResultMap[productCategory.productCategoryId]!/>
         <td><@resultSummary resultMap=categoryResult/></td>
     </#list>
     </tr>

@@ -173,7 +173,7 @@ under the License.
                                             <fo:block text-align="center" font-size="5pt">${(acctgTransEntry.debitCreditFlag)!}</fo:block>        
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
-                                            <fo:block text-align="center" font-size="5pt"><#if acctgTransEntry.amount?exists><@ofbizCurrency amount=(acctgTransEntry.amount)! isoCode=(acctgTransEntry.currencyUomId)!/></#if></fo:block>        
+                                            <fo:block text-align="center" font-size="5pt"><#if acctgTransEntry.amount??><@ofbizCurrency amount=(acctgTransEntry.amount)! isoCode=(acctgTransEntry.currencyUomId)!/></#if></fo:block>        
                                         </fo:table-cell>
                                         <fo:table-cell border="1pt solid" border-width=".1mm">
                                             <fo:block text-align="center" font-size="5pt">

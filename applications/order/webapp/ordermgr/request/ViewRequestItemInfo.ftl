@@ -33,13 +33,13 @@ under the License.
             </tr>
             <#assign alt_row = false>
             <#list requestItems as requestItem>
-                <#if requestItem.productId?exists>
+                <#if requestItem.productId??>
                     <#assign product = requestItem.getRelatedOne("Product", false)>
                 </#if>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td valign="top">
                         <div>
-                            <#if showRequestManagementLinks?exists>
+                            <#if showRequestManagementLinks??>
                                 <a href="<@ofbizUrl>EditRequestItem?custRequestId=${requestItem.custRequestId}&amp;custRequestItemSeqId=${requestItem.custRequestItemSeqId}</@ofbizUrl>" class="buttontext">${requestItem.custRequestItemSeqId}</a>
                             <#else>
                                 ${requestItem.custRequestItemSeqId}
@@ -48,16 +48,16 @@ under the License.
                     </td>
                     <td valign="top">
                         <div>
-                            ${(product.internalName)?if_exists}&nbsp;
-                            <#if showRequestManagementLinks?exists>
-                                <a href="/catalog/control/EditProduct?productId=${requestItem.productId?if_exists}" class="buttontext">${requestItem.productId?if_exists}</a>
+                            ${(product.internalName)!}&nbsp;
+                            <#if showRequestManagementLinks??>
+                                <a href="/catalog/control/EditProduct?productId=${requestItem.productId!}" class="buttontext">${requestItem.productId!}</a>
                             <#else>
-                                <a href="<@ofbizUrl>product?product_id=${requestItem.productId?if_exists}</@ofbizUrl>" class="buttontext">${requestItem.productId?if_exists}</a>
+                                <a href="<@ofbizUrl>product?product_id=${requestItem.productId!}</@ofbizUrl>" class="buttontext">${requestItem.productId!}</a>
                             </#if>
                         </div>
                     </td>
-                    <td align="right" valign="top">${requestItem.quantity?if_exists}</td>
-                    <td align="right" valign="top">${requestItem.selectedAmount?if_exists}</td>
+                    <td align="right" valign="top">${requestItem.quantity!}</td>
+                    <td align="right" valign="top">${requestItem.selectedAmount!}</td>
                     <td align="right" valign="top"><@ofbizCurrency amount=requestItem.maximumAmount isoCode=request.maximumAmountUomId/></td>
                 </tr>
                 <#-- toggle the row color -->

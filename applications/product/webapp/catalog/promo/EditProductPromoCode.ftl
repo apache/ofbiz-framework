@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if productPromoCode?exists>
+<#if productPromoCode??>
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.ProductPromoCodeEmails}</h3>
@@ -34,16 +34,16 @@ under the License.
             </#list>
             <div>
                 <form method="post" action="<@ofbizUrl>createProductPromoCodeEmail</@ofbizUrl>" style="margin: 0;">
-                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId?if_exists}"/>
+                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId!}"/>
                     <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                     <span class="label">${uiLabelMap.ProductAddEmail}:</span><input type="text" size="40" name="emailAddress" />
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
                 </form>
-                <#if productPromoCode.requireEmailOrParty?if_exists == "N">
+                <#if productPromoCode.requireEmailOrParty! == "N">
                     <div class="tooltip">${uiLabelMap.ProductNoteRequireEmailParty}</div>
                 </#if>
-                <form method="post" action="<@ofbizUrl>createBulkProductPromoCodeEmail?productPromoCodeId=${productPromoCodeId?if_exists}</@ofbizUrl>" enctype="multipart/form-data" style="margin: 0;">
-                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId?if_exists}"/>
+                <form method="post" action="<@ofbizUrl>createBulkProductPromoCodeEmail?productPromoCodeId=${productPromoCodeId!}</@ofbizUrl>" enctype="multipart/form-data" style="margin: 0;">
+                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId!}"/>
                     <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                     <input type="file" size="40" name="uploadedFile" />
                     <input type="submit" value="${uiLabelMap.CommonUpload}" />
@@ -61,7 +61,7 @@ under the License.
             </#list>
             <div>
                 <form method="post" action="<@ofbizUrl>createProductPromoCodeParty</@ofbizUrl>">
-                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId?if_exists}"/>
+                    <input type="hidden" name="productPromoCodeId" value="${productPromoCodeId!}"/>
                     <input type="hidden" name="productPromoId" value="${productPromoId}"/>
                     <span class="label">${uiLabelMap.ProductAddPartyId}:</span><input type="text" size="10" name="partyId" />
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />

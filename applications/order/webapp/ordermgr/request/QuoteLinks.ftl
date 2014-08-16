@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if custRequestItem?exists>
+<#if custRequestItem??>
   <#if quoteId?has_content>
   <div><a href="<@ofbizUrl>EditQuoteItemForRequest?quoteId=${quoteId}&custRequestId=${custRequestItem.custRequestId}&custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PageTitleEditQuoteItemForCustRequest}</a> [${quoteId}]</div>
   <#else>

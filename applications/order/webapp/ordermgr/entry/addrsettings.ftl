@@ -39,13 +39,13 @@ under the License.
 
         <#-- postal addresses for chosen id -->
 
-        <#if partyContactMechPurposes?exists>
+        <#if partyContactMechPurposes??>
           <#list partyContactMechPurposes as partyContactMechPurpose>
             <#assign shippingAddress = partyContactMechPurpose.getRelatedOne("PostalAddress", false)/>
 
             <#-- skip non-postal addresses -->
 
-            <#if shippingAddress.toName?exists>
+            <#if shippingAddress.toName??>
               <tr>
                 <td valign="top" nowrap="nowrap">
                   <input type="radio" name="shipping_contact_mech_id" value="${partyContactMechPurpose.contactMechId}" />

@@ -49,25 +49,25 @@ under the License.
                         <#assign orderItemShipGrpInvResList = orderReadHelper.getOrderItemShipGrpInvResList(orderItem)>
                         <#if orderHeader.orderTypeId == "SALES_ORDER"><#assign pickedQty = orderReadHelper.getItemPickedQuantityBd(orderItem)></#if>
                         <tr<#if itemClass == "1"> class="alternate-row"</#if>>
-                            <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)?if_exists>
-                            <#assign productId = orderItem.productId?if_exists>
-                            <#if productId?exists && productId == "shoppingcart.CommentLine">
+                            <#assign orderItemType = orderItem.getRelatedOne("OrderItemType", false)!>
+                            <#assign productId = orderItem.productId!>
+                            <#if productId?? && productId == "shoppingcart.CommentLine">
                                 <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
                             <#else>
                                 <td colspan="7">
                                     <div class="order-item-description">
                                         <#if orderItem.supplierProductId?has_content>
-                                            ${orderItem.supplierProductId} - ${orderItem.itemDescription?if_exists}
-                                        <#elseif productId?exists>
-                                            ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription?if_exists}
-                                            <#if (product.salesDiscontinuationDate)?exists && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
+                                            ${orderItem.supplierProductId} - ${orderItem.itemDescription!}
+                                        <#elseif productId??>
+                                            ${orderItem.productId?default("N/A")} - ${orderItem.itemDescription!}
+                                            <#if (product.salesDiscontinuationDate)?? && Static["org.ofbiz.base.util.UtilDateTime"].nowTimestamp().after(product.salesDiscontinuationDate)>
                                                 <br />
                                                 <span style="color: red;">${uiLabelMap.OrderItemDiscontinued}: ${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(product.salesDiscontinuationDate, "", locale, timeZone)!}</span>
                                             </#if>
-                                        <#elseif orderItemType?exists>
-                                            ${orderItemType.description} - ${orderItem.itemDescription?if_exists}
+                                        <#elseif orderItemType??>
+                                            ${orderItemType.description} - ${orderItem.itemDescription!}
                                         <#else>
-                                            ${orderItem.itemDescription?if_exists}
+                                            ${orderItem.itemDescription!}
                                         </#if>
                                         <#assign orderItemAttributes = orderItem.getRelated("OrderItemAttribute", null, null, false)/>
                                         <#if orderItemAttributes?has_content>
@@ -98,16 +98,16 @@ under the License.
                             </#if>
                         </tr>
                         <tr<#if itemClass == "1"> class="alternate-row"</#if>>
-                            <#if productId?exists && productId == "shoppingcart.CommentLine">
+                            <#if productId?? && productId == "shoppingcart.CommentLine">
                                 <td colspan="7" valign="top" class="label"> &gt;&gt; ${orderItem.itemDescription}</td>
                             <#else>
                                 <td valign="top">
                                     <#if productId?has_content>
                                         <#assign product = orderItem.getRelatedOne("Product", true)>
                                     </#if>
-                                    <#if productId?exists>
+                                    <#if productId??>
                                         <#-- INVENTORY -->
-                                        <#if (orderHeader.statusId != "ORDER_COMPLETED") && availableToPromiseMap?exists && quantityOnHandMap?exists && availableToPromiseMap.get(productId)?exists && quantityOnHandMap.get(productId)?exists>
+                                        <#if (orderHeader.statusId != "ORDER_COMPLETED") && availableToPromiseMap?? && quantityOnHandMap?? && availableToPromiseMap.get(productId)?? && quantityOnHandMap.get(productId)??>
                                             <#assign quantityToProduce = 0>
                                             <#assign atpQuantity = availableToPromiseMap.get(productId)?default(0)>
                                             <#assign qohQuantity = quantityOnHandMap.get(productId)?default(0)>
@@ -133,12 +133,12 @@ under the License.
                                                             <td>${uiLabelMap.OrderRequiredForSO}</td>
                                                             <td style="padding-left: 15px; text-align: left;">${requiredQuantity}</td>
                                                         </tr>
-                                                        <#if availableToPromiseByFacilityMap?exists && quantityOnHandByFacilityMap?exists && quantityOnHandByFacilityMap.get(productId)?exists && availableToPromiseByFacilityMap.get(productId)?exists>
+                                                        <#if availableToPromiseByFacilityMap?? && quantityOnHandByFacilityMap?? && quantityOnHandByFacilityMap.get(productId)?? && availableToPromiseByFacilityMap.get(productId)??>
                                                             <#assign atpQuantityByFacility = availableToPromiseByFacilityMap.get(productId)?default(0)>
                                                             <#assign qohQuantityByFacility = quantityOnHandByFacilityMap.get(productId)?default(0)>
                                                             <tr>
                                                                 <td>
-                                                                    ${uiLabelMap.ProductInInventory} [${facility.facilityName?if_exists}] ${uiLabelMap.ProductQoh}
+                                                                    ${uiLabelMap.ProductInInventory} [${facility.facilityName!}] ${uiLabelMap.ProductQoh}
                                                                 </td>
                                                                 <td style="padding-left: 15px; text-align: left;">
                                                                     ${qohQuantityByFacility} (${uiLabelMap.ProductAtp}: ${atpQuantityByFacility})
@@ -192,8 +192,8 @@ under the License.
                                                     <a href="javascript:document.OrderApproveOrderItem_${orderItem.orderItemSeqId?default("")}.submit()" class="buttontext">${uiLabelMap.OrderApproveOrder}</a>
                                                     <form name="OrderApproveOrderItem_${orderItem.orderItemSeqId?default("")}" method="post" action="<@ofbizUrl>changeOrderItemStatus</@ofbizUrl>">
                                                         <input type="hidden" name="statusId" value="ITEM_APPROVED"/>
-                                                        <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
-                                                        <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId?if_exists}"/>
+                                                        <input type="hidden" name="orderId" value="${orderId!}"/>
+                                                        <input type="hidden" name="orderItemSeqId" value="${orderItem.orderItemSeqId!}"/>
                                                     </form>
                                                 </div>
                                             </#if>
@@ -204,7 +204,7 @@ under the License.
                                             </#list>
                                         </div>
                                     </div>
-                                    <#assign returns = orderItem.getRelated("ReturnItem", null, null, false)?if_exists>
+                                    <#assign returns = orderItem.getRelated("ReturnItem", null, null, false)!>
                                     <#if returns?has_content>
                                         <#list returns as returnItem>
                                             <#assign returnHeader = returnItem.getRelatedOne("ReturnHeader", false)>
@@ -224,13 +224,13 @@ under the License.
                                                     <#assign shippedQuantity = orderReadHelper.getItemShippedQuantity(orderItem)>
                                                     <#assign shipmentReceipts = delegator.findByAnd("ShipmentReceipt", {"orderId" : orderHeader.getString("orderId"), "orderItemSeqId" : orderItem.orderItemSeqId}, null, false)/>
                                                     <#assign totalReceived = 0.0>
-                                                    <#if shipmentReceipts?exists && shipmentReceipts?has_content>
+                                                    <#if shipmentReceipts?? && shipmentReceipts?has_content>
                                                         <#list shipmentReceipts as shipmentReceipt>
-                                                            <#if shipmentReceipt.quantityAccepted?exists && shipmentReceipt.quantityAccepted?has_content>
+                                                            <#if shipmentReceipt.quantityAccepted?? && shipmentReceipt.quantityAccepted?has_content>
                                                                 <#assign  quantityAccepted = shipmentReceipt.quantityAccepted>
                                                                 <#assign totalReceived = quantityAccepted + totalReceived>
                                                             </#if>
-                                                            <#if shipmentReceipt.quantityRejected?exists && shipmentReceipt.quantityRejected?has_content>
+                                                            <#if shipmentReceipt.quantityRejected?? && shipmentReceipt.quantityRejected?has_content>
                                                                 <#assign  quantityRejected = shipmentReceipt.quantityRejected>
                                                                 <#assign totalReceived = quantityRejected + totalReceived>
                                                             </#if>
@@ -318,7 +318,7 @@ under the License.
                             </#if>
                         </tr>
                         <#-- show info from workeffort -->
-                        <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)?if_exists>
+                        <#assign workOrderItemFulfillments = orderItem.getRelated("WorkOrderItemFulfillment", null, null, false)!>
                         <#if workOrderItemFulfillments?has_content>
                             <#list workOrderItemFulfillments as workOrderItemFulfillment>
                                 <#assign workEffort = workOrderItemFulfillment.getRelatedOne("WorkEffort", true)>
@@ -330,7 +330,7 @@ under the License.
                                             <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortId}${StringUtil.wrapString(externalKeyParam)}"
                                                 class="buttontext">${workEffort.workEffortId}</a>
                                             ${uiLabelMap.OrderCurrentStatus}
-                                            ${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}
+                                            ${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}
                                         <#else>
                                             ${uiLabelMap.CommonFrom}
                                             : <#if workEffort.estimatedStartDate?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(workEffort.estimatedStartDate, "", locale, timeZone)!}</#if> ${uiLabelMap.CommonTo}
@@ -355,9 +355,9 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td>&nbsp;</td>
                                     <td colspan="6">
-                                        <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${description?if_exists})
+                                        <span class="label">${uiLabelMap.OrderLinkedToOrderItem}</span>&nbsp;(${description!})
                                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}"
-                                           class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                                           class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description!}
                                     </td>
                                 </tr>
                             </#list>
@@ -372,15 +372,15 @@ under the License.
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td>&nbsp;</td>
                                     <td colspan="6">
-                                        <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;(${description?if_exists})
+                                        <span class="label">${uiLabelMap.OrderLinkedFromOrderItem}</span>&nbsp;(${description!})
                                         <a href="/ordermgr/control/orderview?orderId=${linkedOrderId}"
-                                           class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description?if_exists}
+                                           class="buttontext">${linkedOrderId}/${linkedOrderItemSeqId}</a>&nbsp;${linkedOrderItemValueStatus.description!}
                                     </td>
                                 </tr>
                             </#list>
                         </#if>
                         <#-- show linked requirements -->
-                        <#assign linkedRequirements = orderItem.getRelated("OrderRequirementCommitment", null, null, false)?if_exists>
+                        <#assign linkedRequirements = orderItem.getRelated("OrderRequirementCommitment", null, null, false)!>
                         <#if linkedRequirements?has_content>
                             <#list linkedRequirements as linkedRequirement>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -394,7 +394,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- show linked quote -->
-                        <#assign linkedQuote = orderItem.getRelatedOne("QuoteItem", true)?if_exists>
+                        <#assign linkedQuote = orderItem.getRelatedOne("QuoteItem", true)!>
                         <#if linkedQuote?has_content>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td>&nbsp;</td>
@@ -407,13 +407,13 @@ under the License.
                         </#if>
                         <#-- now show adjustment details per line item -->
                         <#assign orderItemAdjustments = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemAdjustmentList(orderItem, orderAdjustments)>
-                        <#if orderItemAdjustments?exists && orderItemAdjustments?has_content>
+                        <#if orderItemAdjustments?? && orderItemAdjustments?has_content>
                             <#list orderItemAdjustments as orderItemAdjustment>
                                 <#assign adjustmentType = orderItemAdjustment.getRelatedOne("OrderAdjustmentType", true)>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderAdjustment}</span>&nbsp;${adjustmentType.get("description",locale)}
-                                        ${StringUtil.wrapString(orderItemAdjustment.get("description",locale)?if_exists)}
+                                        ${StringUtil.wrapString(orderItemAdjustment.get("description",locale)!)}
                                         <#if orderItemAdjustment.comments?has_content>
                                             (${orderItemAdjustment.comments?default("")})
                                         </#if>
@@ -425,20 +425,20 @@ under the License.
                                             <#if orderItemAdjustment.primaryGeoId?has_content>
                                                 <#assign primaryGeo = orderItemAdjustment.getRelatedOne("PrimaryGeo", true)/>
                                                 <#if primaryGeo.geoName?has_content>
-                                                    <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation?if_exists}]
+                                                    <span class="label">${uiLabelMap.OrderJurisdiction}</span>&nbsp;${primaryGeo.geoName} [${primaryGeo.abbreviation!}]
                                                 </#if>
                                                 <#if orderItemAdjustment.secondaryGeoId?has_content>
                                                     <#assign secondaryGeo = orderItemAdjustment.getRelatedOne("SecondaryGeo", true)/>
-                                                    <span class="label">${uiLabelMap.CommonIn}</span>&nbsp;${secondaryGeo.geoName} [${secondaryGeo.abbreviation?if_exists}])
+                                                    <span class="label">${uiLabelMap.CommonIn}</span>&nbsp;${secondaryGeo.geoName} [${secondaryGeo.abbreviation!}])
                                                 </#if>
                                             </#if>
-                                            <#if orderItemAdjustment.sourcePercentage?exists>
+                                            <#if orderItemAdjustment.sourcePercentage??>
                                                 <span class="label">${uiLabelMap.OrderRate}</span>&nbsp;${orderItemAdjustment.sourcePercentage?string("0.######")}
                                             </#if>
                                             <#if orderItemAdjustment.customerReferenceId?has_content>
                                                 <span class="label">${uiLabelMap.OrderCustomerTaxId}</span>&nbsp;${orderItemAdjustment.customerReferenceId}
                                             </#if>
-                                            <#if orderItemAdjustment.exemptAmount?exists>
+                                            <#if orderItemAdjustment.exemptAmount??>
                                                 <span class="label">${uiLabelMap.OrderExemptAmount}</span>&nbsp;${orderItemAdjustment.exemptAmount}
                                             </#if>
                                         </#if>
@@ -454,15 +454,15 @@ under the License.
                         </#if>
                         <#-- now show price info per line item -->
                         <#assign orderItemPriceInfos = orderReadHelper.getOrderItemPriceInfos(orderItem)>
-                        <#if orderItemPriceInfos?exists && orderItemPriceInfos?has_content>
+                        <#if orderItemPriceInfos?? && orderItemPriceInfos?has_content>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td colspan="7">&nbsp;</td>
                             </tr>
                             <#list orderItemPriceInfos as orderItemPriceInfo>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
-                                        <span class="label">${uiLabelMap.ProductPriceRuleNameId}</span>&nbsp;[${orderItemPriceInfo.productPriceRuleId?if_exists}:${orderItemPriceInfo.productPriceActionSeqId?if_exists}]
-                                        ${orderItemPriceInfo.description?if_exists}
+                                        <span class="label">${uiLabelMap.ProductPriceRuleNameId}</span>&nbsp;[${orderItemPriceInfo.productPriceRuleId!}:${orderItemPriceInfo.productPriceActionSeqId!}]
+                                        ${orderItemPriceInfo.description!}
                                     </td>
                                     <td>&nbsp;</td>
                                     <td align="right">
@@ -474,7 +474,7 @@ under the License.
                         </#if>
                         <#-- now show survey information per line item -->
                         <#assign orderItemSurveyResponses = Static["org.ofbiz.order.order.OrderReadHelper"].getOrderItemSurveyResponse(orderItem)>
-                        <#if orderItemSurveyResponses?exists && orderItemSurveyResponses?has_content>
+                        <#if orderItemSurveyResponses?? && orderItemSurveyResponses?has_content>
                             <#list orderItemSurveyResponses as survey>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
@@ -487,7 +487,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- display the ship estimated/before/after dates -->
-                        <#if orderItem.estimatedShipDate?exists>
+                        <#if orderItem.estimatedShipDate??>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
                                     <span class="label">${uiLabelMap.OrderEstimatedShipDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedShipDate, "", locale, timeZone)!}
@@ -495,7 +495,7 @@ under the License.
                                 <td colspan="5">&nbsp;</td>
                             </tr>
                         </#if>
-                        <#if orderItem.estimatedDeliveryDate?exists>
+                        <#if orderItem.estimatedDeliveryDate??>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
                                     <span class="label">${uiLabelMap.OrderOrderQuoteEstimatedDeliveryDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.estimatedDeliveryDate, "", locale, timeZone)!}
@@ -503,7 +503,7 @@ under the License.
                                 <td colspan="5">&nbsp;</td>
                             </tr>
                         </#if>
-                        <#if orderItem.shipAfterDate?exists>
+                        <#if orderItem.shipAfterDate??>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
                                     <span class="label">${uiLabelMap.OrderShipAfterDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipAfterDate, "", locale, timeZone)!}
@@ -511,7 +511,7 @@ under the License.
                                 <td colspan="5">&nbsp;</td>
                             </tr>
                         </#if>
-                        <#if orderItem.shipBeforeDate?exists>
+                        <#if orderItem.shipBeforeDate??>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                 <td align="right" colspan="2">
                                     <span class="label">${uiLabelMap.OrderShipBeforeDate}</span>&nbsp;${Static["org.ofbiz.base.util.UtilFormatOut"].formatDate(orderItem.shipBeforeDate, "", locale, timeZone)!}
@@ -520,11 +520,11 @@ under the License.
                             </tr>
                         </#if>
                         <#-- now show ship group info per line item -->
-                        <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false)?if_exists>
+                        <#assign orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false)!>
                         <#if orderItemShipGroupAssocs?has_content>
                             <#list orderItemShipGroupAssocs as shipGroupAssoc>
                                 <#assign shipGroup = shipGroupAssoc.getRelatedOne("OrderItemShipGroup", false)>
-                                <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
+                                <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)!>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
                                         <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;[${shipGroup.shipGroupSeqId}]
@@ -538,7 +538,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show inventory reservation info per line item -->
-                        <#if orderItemShipGrpInvResList?exists && orderItemShipGrpInvResList?has_content>
+                        <#if orderItemShipGrpInvResList?? && orderItemShipGrpInvResList?has_content>
                             <#list orderItemShipGrpInvResList as orderItemShipGrpInvRes>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
                                     <td align="right" colspan="2">
@@ -564,7 +564,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show planned shipment info per line item -->
-                        <#assign orderShipments = orderItem.getRelated("OrderShipment", null, null, false)?if_exists>
+                        <#assign orderShipments = orderItem.getRelated("OrderShipment", null, null, false)!>
                         <#if orderShipments?has_content>
                             <#list orderShipments as orderShipment>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -582,7 +582,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show item issuances (shipment) per line item -->
-                        <#assign itemIssuances = itemIssuancesPerItem.get(orderItem.get("orderItemSeqId"))?if_exists>
+                        <#assign itemIssuances = itemIssuancesPerItem.get(orderItem.get("orderItemSeqId"))!>
                         <#if itemIssuances?has_content>
                             <#list itemIssuances as itemIssuance>
                             <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -591,7 +591,7 @@ under the License.
                                         <span class="label">${uiLabelMap.OrderIssuedToShipmentItem}</span>&nbsp;
                                         <a target="facility"
                                            href="/facility/control/ViewShipment?shipmentId=${itemIssuance.shipmentId}${StringUtil.wrapString(externalKeyParam)}"
-                                           class="buttontext">${itemIssuance.shipmentId}</a>: ${itemIssuance.shipmentItemSeqId?if_exists}
+                                           class="buttontext">${itemIssuance.shipmentId}</a>: ${itemIssuance.shipmentItemSeqId!}
                                     <#else>
                                         <span class="label">${uiLabelMap.OrderIssuedWithoutShipment}</span>
                                     </#if>
@@ -613,7 +613,7 @@ under the License.
                                             <span class="label">${uiLabelMap.CommonInventory}</span>
                                             <a href="/facility/control/EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId}${StringUtil.wrapString(externalKeyParam)}"
                                                class="buttontext">${itemIssuance.inventoryItemId}</a>
-                                            <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId?if_exists}
+                                            <span class="label">${uiLabelMap.OrderShipGroup}</span>&nbsp;${itemIssuance.shipGroupSeqId!}
                                             <#if (inventoryItem.serialNumber?has_content)>
                                                 <br />
                                                 <span class="label">${uiLabelMap.ProductSerialNumber}</span>&nbsp;${inventoryItem.serialNumber}&nbsp;
@@ -628,7 +628,7 @@ under the License.
                             </#list>
                         </#if>
                         <#-- now show shipment receipts per line item -->
-                        <#assign shipmentReceipts = orderItem.getRelated("ShipmentReceipt", null, null, false)?if_exists>
+                        <#assign shipmentReceipts = orderItem.getRelated("ShipmentReceipt", null, null, false)!>
                         <#if shipmentReceipts?has_content>
                             <#list shipmentReceipts as shipmentReceipt>
                                 <tr<#if itemClass == "1"> class="alternate-row"</#if>>
@@ -637,7 +637,7 @@ under the License.
                                             <span class="label">${uiLabelMap.OrderShipmentReceived}</span>&nbsp;
                                             <a target="facility"
                                                href="/facility/control/ViewShipment?shipmentId=${shipmentReceipt.shipmentId}${StringUtil.wrapString(externalKeyParam)}"
-                                               class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId?if_exists}
+                                               class="buttontext">${shipmentReceipt.shipmentId}</a>:${shipmentReceipt.shipmentItemSeqId!}
                                         </#if>
                                         &nbsp;<#if shipmentReceipt.datetimeReceived?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(shipmentReceipt.datetimeReceived, "", locale, timeZone)!}</#if>&nbsp;
                                         <span class="label">${uiLabelMap.CommonInventory}</span>&nbsp;

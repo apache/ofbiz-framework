@@ -29,20 +29,20 @@ under the License.
         <#assign alt_row = false>
         <#list shipmentPackageDatas as shipmentPackageData>
           <#assign shipmentPackage = shipmentPackageData.shipmentPackage>
-          <#assign shipmentPackageContents = shipmentPackageData.shipmentPackageContents?if_exists>
-          <#assign shipmentPackageRouteSegs = shipmentPackageData.shipmentPackageRouteSegs?if_exists>
-          <#assign weightUom = shipmentPackageData.weightUom?if_exists>
+          <#assign shipmentPackageContents = shipmentPackageData.shipmentPackageContents!>
+          <#assign shipmentPackageRouteSegs = shipmentPackageData.shipmentPackageRouteSegs!>
+          <#assign weightUom = shipmentPackageData.weightUom!>
           <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td>${shipmentPackage.shipmentPackageSeqId}</td>
-            <td>${(shipmentPackage.dateCreated.toString())?if_exists}</td>
-            <td><span class="label">${uiLabelMap.ProductWeight}</span> ${shipmentPackage.weight?if_exists}</td>
-            <td><span class="label">${uiLabelMap.ProductWeightUnit}</span> <#if weightUom?has_content>${weightUom.get("description",locale)}<#else>${shipmentPackage.weightUomId?if_exists}</#if></td>
+            <td>${(shipmentPackage.dateCreated.toString())!}</td>
+            <td><span class="label">${uiLabelMap.ProductWeight}</span> ${shipmentPackage.weight!}</td>
+            <td><span class="label">${uiLabelMap.ProductWeightUnit}</span> <#if weightUom?has_content>${weightUom.get("description",locale)}<#else>${shipmentPackage.weightUomId!}</#if></td>
           </tr>
           <#list shipmentPackageContents as shipmentPackageContent>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>&nbsp;</td>
               <td><span class="label">${uiLabelMap.ProductItem}</span> ${shipmentPackageContent.shipmentItemSeqId}</td>
-              <td><span class="label">${uiLabelMap.ProductQuantity}</span> ${shipmentPackageContent.quantity?if_exists}</td>
+              <td><span class="label">${uiLabelMap.ProductQuantity}</span> ${shipmentPackageContent.quantity!}</td>
               <td>&nbsp;</td>
             </tr>
           </#list>
@@ -50,8 +50,8 @@ under the License.
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td>&nbsp;</td>
               <td><span class="label">${uiLabelMap.ProductRouteSegment}</span> ${shipmentPackageRouteSeg.shipmentRouteSegmentId}</td>
-              <td><span class="label">${uiLabelMap.ProductTracking}</span> ${shipmentPackageRouteSeg.trackingCode?if_exists}</td>
-              <td><span class="label">${uiLabelMap.ProductBox}</span> ${shipmentPackageRouteSeg.boxNumber?if_exists}</td>
+              <td><span class="label">${uiLabelMap.ProductTracking}</span> ${shipmentPackageRouteSeg.trackingCode!}</td>
+              <td><span class="label">${uiLabelMap.ProductBox}</span> ${shipmentPackageRouteSeg.boxNumber!}</td>
             </tr>
           </#list>
           <#-- toggle the row color -->

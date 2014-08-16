@@ -33,7 +33,7 @@ under the License.
         <fo:static-content flow-name="xsl-region-before">
             <fo:block line-height="10pt" font-size="8pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
 
-                <#if shipment?exists>
+                <#if shipment??>
                     Doc.E1
                 <#else>
                     Doc.E0
@@ -62,7 +62,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <#if shipment?exists>
+                                <#if shipment??>
                                 <fo:inline font-size="10pt">${uiLabelMap.ProductShipmentPlan}:</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${shipment.shipmentId}</fo:inline>
                                 <#else>
@@ -74,7 +74,7 @@ under the License.
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
                                 <fo:inline font-size="10pt">${uiLabelMap.ProductProductCategory}:</fo:inline>
-                                <fo:inline font-weight="bold" font-size="10pt"><#if category?exists>${category.description?if_exists}</#if></fo:inline>
+                                <fo:inline font-weight="bold" font-size="10pt"><#if category??>${category.description!}</#if></fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -94,8 +94,8 @@ under the License.
                         </fo:table-cell>
                         <fo:table-cell>
                             <fo:block line-height="13pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-                                <fo:inline font-size="10pt"><#if featureType?exists>${featureType.get("description",locale)?if_exists}: </#if></fo:inline>
-                                <fo:inline font-weight="bold" font-size="10pt"><#if feature.productFeature?exists>${feature.productFeature.description?if_exists}</#if></fo:inline>
+                                <fo:inline font-size="10pt"><#if featureType??>${featureType.get("description",locale)!}: </#if></fo:inline>
+                                <fo:inline font-weight="bold" font-size="10pt"><#if feature.productFeature??>${feature.productFeature.description!}</#if></fo:inline>
                             </fo:block>
                         </fo:table-cell>
                     </fo:table-row>
@@ -109,9 +109,9 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block line-height="12pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="start">
-                                <#if shipment?exists>
+                                <#if shipment??>
                                 <fo:inline font-size="10pt">${uiLabelMap.ManufacturingEstimatedShipDate} :</fo:inline>
-                                <fo:inline font-weight="bold" font-size="10pt">${shipment.estimatedShipDate?if_exists}</fo:inline>
+                                <fo:inline font-weight="bold" font-size="10pt">${shipment.estimatedShipDate!}</fo:inline>
                                 <#else>
                                 <fo:inline font-size="10pt">${uiLabelMap.ManufacturingPickingPeriod} :</fo:inline>
                                 <fo:inline font-weight="bold" font-size="10pt">${mrpName}</fo:inline>
@@ -201,27 +201,27 @@ under the License.
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-                ${productionRun.product.productHeight?if_exists}
+                ${productionRun.product.productHeight!}
             </fo:block>
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-                ${productionRun.product.productWidth?if_exists}
+                ${productionRun.product.productWidth!}
             </fo:block>
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                ${productionRun.product.internalName?if_exists}
+                ${productionRun.product.internalName!}
             </fo:block>
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always" text-align="end">
-                ${productionRun.productionRun.quantityToProduce?if_exists}
+                ${productionRun.productionRun.quantityToProduce!}
             </fo:block>
         </fo:table-cell>
         <fo:table-cell border-style="solid" border-color="black" border-width="1pt">
             <fo:block line-height="12pt" font-size="10pt" space-before.optimum="1.5pt" space-after.optimum="1.5pt" keep-together="always">
-                ${productionRun.product.brandName?if_exists}
+                ${productionRun.product.brandName!}
             </fo:block>
         </fo:table-cell>
     </fo:table-row>

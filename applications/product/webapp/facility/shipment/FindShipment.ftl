@@ -48,7 +48,7 @@ function lookupShipments() {
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentId}</td>
                 <td width="5%">&nbsp;</td>
-                <td><input type="text" name="shipmentId" value="${shipmentId?if_exists}" /></td>
+                <td><input type="text" name="shipmentId" value="${shipmentId!}" /></td>
               </tr>
               <tr>
                 <td width="25%" align="right" class="label">${uiLabelMap.ProductShipmentType}</td>
@@ -133,13 +133,13 @@ function lookupShipments() {
                   <table cellspacing="0" class="basic-table">
                     <tr>
                       <td>
-                        <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.minDate?if_exists}" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="minDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.minDate!}" size="25" maxlength="30" id="minDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class="label">${uiLabelMap.CommonFrom}</span>
                       </td>
                     </tr>
                     <tr>
                       <td>
-                        <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.maxDate?if_exists}" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                        <@htmlTemplate.renderDateTimeField name="maxDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.maxDate!}" size="25" maxlength="30" id="maxDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                         <span class="label">${uiLabelMap.CommonThru}</span>
                       </td>
                     </tr>
@@ -150,7 +150,7 @@ function lookupShipments() {
         </form>
     </div>
 </div>
-<#if shipmentList?exists>
+<#if shipmentList??>
 <div id="findOrders_2" class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -185,17 +185,17 @@ function lookupShipments() {
         <#if shipmentList?has_content>
           <#assign alt_row = false>
           <#list shipmentList as shipment>
-            <#assign originFacility = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.originFacilityId), true)?if_exists />
-            <#assign destinationFacility = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.destinationFacilityId), true)?if_exists />
-            <#assign statusItem = delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", shipment.statusId), true)?if_exists/>
-            <#assign shipmentType = delegator.findOne("ShipmentType", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentTypeId", shipment.shipmentTypeId), true)?if_exists/>
+            <#assign originFacility = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.originFacilityId), true)! />
+            <#assign destinationFacility = delegator.findOne("Facility", Static["org.ofbiz.base.util.UtilMisc"].toMap("facilityId", shipment.destinationFacilityId), true)! />
+            <#assign statusItem = delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", shipment.statusId), true)!/>
+            <#assign shipmentType = delegator.findOne("ShipmentType", Static["org.ofbiz.base.util.UtilMisc"].toMap("shipmentTypeId", shipment.shipmentTypeId), true)!/>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td><a href="<@ofbizUrl>ViewShipment?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${shipment.shipmentId}</a></td>
               <td>${(shipmentType.get("description",locale))?default(shipmentType.shipmentTypeId?default(""))}</td>
               <td>${(statusItem.get("description",locale))?default(statusItem.statusId?default("N/A"))}</td>
-              <td>${(originFacility.facilityName)?if_exists} [${shipment.originFacilityId?if_exists}]</td>
-              <td>${(destinationFacility.facilityName)?if_exists} [${shipment.destinationFacilityId?if_exists}]</td>
-              <td><span style="white-space: nowrap;">${(shipment.estimatedShipDate.toString())?if_exists}</span></td>
+              <td>${(originFacility.facilityName)!} [${shipment.originFacilityId!}]</td>
+              <td>${(destinationFacility.facilityName)!} [${shipment.destinationFacilityId!}]</td>
+              <td><span style="white-space: nowrap;">${(shipment.estimatedShipDate.toString())!}</span></td>
               <td align="right">
                 <a href="<@ofbizUrl>ViewShipment?shipmentId=${shipment.shipmentId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonView}</a>
               </td>

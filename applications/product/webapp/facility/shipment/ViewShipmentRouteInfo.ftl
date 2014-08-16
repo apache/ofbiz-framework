@@ -46,53 +46,53 @@ under the License.
         <#assign alt_row = false>
         <#list shipmentRouteSegmentDatas as shipmentRouteSegmentData>
             <#assign shipmentRouteSegment = shipmentRouteSegmentData.shipmentRouteSegment>
-            <#assign shipmentPackageRouteSegs = shipmentRouteSegmentData.shipmentPackageRouteSegs?if_exists>
-            <#assign originFacility = shipmentRouteSegmentData.originFacility?if_exists>
-            <#assign destFacility = shipmentRouteSegmentData.destFacility?if_exists>
-            <#assign shipmentMethodType = shipmentRouteSegmentData.shipmentMethodType?if_exists>
-            <#assign carrierPerson = shipmentRouteSegmentData.carrierPerson?if_exists>
-            <#assign carrierPartyGroup = shipmentRouteSegmentData.carrierPartyGroup?if_exists>
-            <#assign originPostalAddress = shipmentRouteSegmentData.originPostalAddress?if_exists>
-            <#assign destPostalAddress = shipmentRouteSegmentData.destPostalAddress?if_exists>
-            <#assign originTelecomNumber = shipmentRouteSegmentData.originTelecomNumber?if_exists>
-            <#assign destTelecomNumber = shipmentRouteSegmentData.destTelecomNumber?if_exists>
-            <#assign carrierServiceStatusItem = shipmentRouteSegmentData.carrierServiceStatusItem?if_exists>
-            <#assign currencyUom = shipmentRouteSegmentData.currencyUom?if_exists>
-            <#assign billingWeightUom = shipmentRouteSegmentData.billingWeightUom?if_exists>
-            <#assign carrierServiceStatusValidChangeToDetails = shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails?if_exists>
+            <#assign shipmentPackageRouteSegs = shipmentRouteSegmentData.shipmentPackageRouteSegs!>
+            <#assign originFacility = shipmentRouteSegmentData.originFacility!>
+            <#assign destFacility = shipmentRouteSegmentData.destFacility!>
+            <#assign shipmentMethodType = shipmentRouteSegmentData.shipmentMethodType!>
+            <#assign carrierPerson = shipmentRouteSegmentData.carrierPerson!>
+            <#assign carrierPartyGroup = shipmentRouteSegmentData.carrierPartyGroup!>
+            <#assign originPostalAddress = shipmentRouteSegmentData.originPostalAddress!>
+            <#assign destPostalAddress = shipmentRouteSegmentData.destPostalAddress!>
+            <#assign originTelecomNumber = shipmentRouteSegmentData.originTelecomNumber!>
+            <#assign destTelecomNumber = shipmentRouteSegmentData.destTelecomNumber!>
+            <#assign carrierServiceStatusItem = shipmentRouteSegmentData.carrierServiceStatusItem!>
+            <#assign currencyUom = shipmentRouteSegmentData.currencyUom!>
+            <#assign billingWeightUom = shipmentRouteSegmentData.billingWeightUom!>
+            <#assign carrierServiceStatusValidChangeToDetails = shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails!>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>${shipmentRouteSegment.shipmentRouteSegmentId}</td>
                 <td>
-                    <span>${(carrierPerson.firstName)?if_exists} ${(carrierPerson.middleName)?if_exists} ${(carrierPerson.lastName)?if_exists} ${(carrierPartyGroup.groupName)?if_exists} [${shipmentRouteSegment.carrierPartyId?if_exists}]</span>
-                    <span>${shipmentMethodType.description?default(shipmentRouteSegment.shipmentMethodTypeId?if_exists)}</span>
+                    <span>${(carrierPerson.firstName)!} ${(carrierPerson.middleName)!} ${(carrierPerson.lastName)!} ${(carrierPartyGroup.groupName)!} [${shipmentRouteSegment.carrierPartyId!}]</span>
+                    <span>${shipmentMethodType.description?default(shipmentRouteSegment.shipmentMethodTypeId!)}</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
-                    <span>${(originFacility.facilityName)?if_exists} [${originFacility.facilityId?if_exists}]</span>
+                    <span>${(originFacility.facilityName)!} [${originFacility.facilityId!}]</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
-                    <span>${(destFacility.facilityName)?if_exists} [${destFacility.facilityId?if_exists}]</span>
+                    <span>${(destFacility.facilityName)!} [${destFacility.facilityId!}]</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
-                    <span><#if originPostalAddress?has_content>${uiLabelMap.CommonTo} : ${originPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn} : ${originPostalAddress.attnName?if_exists}, ${originPostalAddress.address1?if_exists}, ${originPostalAddress.address2?if_exists}, ${originPostalAddress.city?if_exists}, ${originPostalAddress.stateProvinceGeoId?if_exists}, ${originPostalAddress.postalCode?if_exists}, ${originPostalAddress.countryGeoId?if_exists}</#if> [${shipmentRouteSegment.originContactMechId?if_exists}]</span>
+                    <span><#if originPostalAddress?has_content>${uiLabelMap.CommonTo} : ${originPostalAddress.toName!}, ${uiLabelMap.CommonAttn} : ${originPostalAddress.attnName!}, ${originPostalAddress.address1!}, ${originPostalAddress.address2!}, ${originPostalAddress.city!}, ${originPostalAddress.stateProvinceGeoId!}, ${originPostalAddress.postalCode!}, ${originPostalAddress.countryGeoId!}</#if> [${shipmentRouteSegment.originContactMechId!}]</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
-                    <span><#if destPostalAddress?has_content>${uiLabelMap.CommonTo} : ${destPostalAddress.toName?if_exists}, ${uiLabelMap.CommonAttn} : ${destPostalAddress.attnName?if_exists}, ${destPostalAddress.address1?if_exists}, ${destPostalAddress.address2?if_exists}, ${destPostalAddress.city?if_exists}, ${destPostalAddress.stateProvinceGeoId?if_exists}, ${destPostalAddress.postalCode?if_exists}, ${destPostalAddress.countryGeoId?if_exists}</#if> [${shipmentRouteSegment.destContactMechId?if_exists}]</span>
+                    <span><#if destPostalAddress?has_content>${uiLabelMap.CommonTo} : ${destPostalAddress.toName!}, ${uiLabelMap.CommonAttn} : ${destPostalAddress.attnName!}, ${destPostalAddress.address1!}, ${destPostalAddress.address2!}, ${destPostalAddress.city!}, ${destPostalAddress.stateProvinceGeoId!}, ${destPostalAddress.postalCode!}, ${destPostalAddress.countryGeoId!}</#if> [${shipmentRouteSegment.destContactMechId!}]</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductOrigin}</span>
-                    <span><#if originTelecomNumber?has_content>${originTelecomNumber.countryCode?if_exists}  ${originTelecomNumber.areaCode?if_exists} ${originTelecomNumber.contactNumber?if_exists}</#if> [${shipmentRouteSegment.originTelecomNumberId?if_exists}]</span>
+                    <span><#if originTelecomNumber?has_content>${originTelecomNumber.countryCode!}  ${originTelecomNumber.areaCode!} ${originTelecomNumber.contactNumber!}</#if> [${shipmentRouteSegment.originTelecomNumberId!}]</span>
                     <br />
                     <span class="label">${uiLabelMap.ProductDest}</span>
-                    <span><#if destTelecomNumber?has_content>${destTelecomNumber.countryCode?if_exists}  ${destTelecomNumber.areaCode?if_exists} ${destTelecomNumber.contactNumber?if_exists}</#if> [${shipmentRouteSegment.destTelecomNumberId?if_exists}]</span>
+                    <span><#if destTelecomNumber?has_content>${destTelecomNumber.countryCode!}  ${destTelecomNumber.areaCode!} ${destTelecomNumber.contactNumber!}</#if> [${shipmentRouteSegment.destTelecomNumberId!}]</span>
                     <br />
                 </td>
                 <td>
                     <div>${(carrierServiceStatus.description)?default("&nbsp;")}</div>
                     <div>${shipmentRouteSegment.trackingIdNumber?default("&nbsp;")}</div>
-                    <div>${(shipmentRouteSegment.estimatedStartDate.toString())?if_exists} - ${(shipmentRouteSegment.estimatedArrivalDate.toString())?if_exists}</div>
-                    <div>${(shipmentRouteSegment.actualStartDate.toString())?if_exists} - ${(shipmentRouteSegment.actualArrivalDate.toString())?if_exists}</div>
+                    <div>${(shipmentRouteSegment.estimatedStartDate.toString())!} - ${(shipmentRouteSegment.estimatedArrivalDate.toString())!}</div>
+                    <div>${(shipmentRouteSegment.actualStartDate.toString())!} - ${(shipmentRouteSegment.actualArrivalDate.toString())!}</div>
                 </td>
                 <td>
-                    <div>${shipmentRouteSegment.billingWeight?if_exists} ${(billingWeightUom.get("description",locale))?if_exists} [${(billingWeightUom.abbreviation)?if_exists}]</div>
+                    <div>${shipmentRouteSegment.billingWeight!} ${(billingWeightUom.get("description",locale))!} [${(billingWeightUom.abbreviation)!}]</div>
                     <div>${(currencyUom.get("description",locale))?default("&nbsp;")}</div>
                     <div>${(shipmentRouteSegment.actualTransportCost)?default("&nbsp;")}</div>
                     <div>${(shipmentRouteSegment.actualServiceCost)?default("&nbsp;")}</div>
@@ -104,8 +104,8 @@ under the License.
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>&nbsp;</td>
                 <td><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackageRouteSeg.shipmentPackageSeqId}</td>
-                <td><span class="label">${uiLabelMap.ProductTracking}</span> ${shipmentPackageRouteSeg.trackingCode?if_exists}</td>
-                <td><span class="label">${uiLabelMap.ProductBox}</span> ${shipmentPackageRouteSeg.boxNumber?if_exists}</td>
+                <td><span class="label">${uiLabelMap.ProductTracking}</span> ${shipmentPackageRouteSeg.trackingCode!}</td>
+                <td><span class="label">${uiLabelMap.ProductBox}</span> ${shipmentPackageRouteSeg.boxNumber!}</td>
             </tr>
             </#list>
             <#-- toggle the row color -->

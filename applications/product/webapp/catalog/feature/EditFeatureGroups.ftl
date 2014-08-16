@@ -36,7 +36,7 @@ under the License.
                 <td>
                     <form method='post' action='<@ofbizUrl>UpdateProductFeatureGroup</@ofbizUrl>'>
                     <input type='hidden' name="productFeatureGroupId" value="${productFeatureGroup.productFeatureGroupId}" />
-                    <input type='text' size='30' name="description" value="${productFeatureGroup.description?if_exists}" />
+                    <input type='text' size='30' name="description" value="${productFeatureGroup.description!}" />
                     <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                     </form>
                 </td>

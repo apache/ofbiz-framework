@@ -38,30 +38,30 @@ under the License.
             </thead>
             <tbody>
                 <#list inventoryItemList as inventoryItem>
-                    <#assign product = inventoryItem.getRelatedOne('Product', false)?if_exists>
+                    <#assign product = inventoryItem.getRelatedOne('Product', false)!>
                     <tr>
-                        <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}" class="linktext">${inventoryItem.inventoryItemId}</a></td>
+                        <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${inventoryItem.inventoryItemId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}" class="linktext">${inventoryItem.inventoryItemId}</a></td>
                         <td>
                             <#if product?has_content>
                                 <#if product.isVariant?default('N') == 'Y'>
-                                    <#assign product = Static['org.ofbiz.product.product.ProductWorker'].getParentProduct(product.productId, delegator)?if_exists>
+                                    <#assign product = Static['org.ofbiz.product.product.ProductWorker'].getParentProduct(product.productId, delegator)!>
                                 </#if>
                                 <#if product?has_content>
-                                    <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)?if_exists>
-                                    <a href="/catalog/control/EditProduct?productId=${product.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey?if_exists}">${productName?default(product.productId)}</a>
+                                    <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)!>
+                                    <a href="/catalog/control/EditProduct?productId=${product.productId}&amp;externalLoginKey=${requestAttributes.externalLoginKey!}">${productName?default(product.productId)}</a>
                                 </#if>
                             </#if>
                         </td>
-                        <td>${inventoryItem.serialNumber?if_exists}</td>
+                        <td>${inventoryItem.serialNumber!}</td>
                         <td>
-                          ${inventoryItem.softIdentifier?if_exists}
+                          ${inventoryItem.softIdentifier!}
                           <#if (inventoryItem.softIdentifier?has_content && inventoryItem.softIdentifier?matches("\\d+"))>
                             <#assign sid = Static["java.lang.Long"].decode(inventoryItem.softIdentifier)/>
                             (0x${Static["java.lang.Long"].toHexString(sid)})
                           </#if>
                         </td>
-                        <td>${inventoryItem.activationNumber?if_exists}</td>
-                        <td>${inventoryItem.activationValidThru?if_exists}</td>
+                        <td>${inventoryItem.activationNumber!}</td>
+                        <td>${inventoryItem.activationValidThru!}</td>
                     </tr>
                 </#list>
             </tbody>

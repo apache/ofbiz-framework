@@ -19,15 +19,15 @@ under the License.
 
     <div class="button-bar button-style-1">
       <a href="<@ofbizUrl>EditFacility</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacility}</a>
-      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId?if_exists}</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacilityLocation}</a>
+      <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId!}</@ofbizUrl>" class="create">${uiLabelMap.ProductNewFacilityLocation}</a>
     </div>
 
     <form action="<@ofbizUrl>FindFacilityLocation</@ofbizUrl>" method="get" name="findFacilityLocation" class="basic-form">
-        <#if (facilityId?exists)>
+        <#if (facilityId??)>
             <input type="hidden" name="facilityId" value="${facilityId}" />
         </#if>        
         <table class="basic-table" cellspacing="0">
-        <#if !(facilityId?exists)>
+        <#if !(facilityId??)>
             <tr>
                 <td class="label">${uiLabelMap.ProductFacility}</td>
                 <td><input type="text" value="" size="19" maxlength="20" /></td>
@@ -36,7 +36,7 @@ under the License.
         <tr>
             <td class="label">${uiLabelMap.ProductLocationSeqId}</td>
             <td>
-                <#if parameters.facilityId?exists>
+                <#if parameters.facilityId??>
                     <#assign LookupFacilityLocationView="LookupFacilityLocation?facilityId=${facilityId}">
                 <#else>
                     <#assign LookupFacilityLocationView="LookupFacilityLocation">
@@ -71,10 +71,10 @@ under the License.
         </table>
     </form>
 
-    <#if foundLocations?exists>
+    <#if foundLocations??>
         <#-- TODO: Put this in a screenlet - make it look more like the party find screen -->
         <br />
-        <h3>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility?exists>${(facility.facilityName)?if_exists}</#if> [ID:${facilityId?if_exists}]</h3>
+        <h3>${uiLabelMap.CommonFound}:&nbsp;${foundLocations.size()}&nbsp;${uiLabelMap.ProductLocationsFor}&nbsp;<#if facility??>${(facility.facilityName)!}</#if> [ID:${facilityId!}]</h3>
         <br />
         <table class="basic-table hover-bar" cellspacing="0">
         <tr class="header-row-2">
@@ -90,22 +90,22 @@ under the License.
         </tr>
         <#assign rowClass = "2">
         <#list foundLocations as location>
-        <#assign locationTypeEnum = location.getRelatedOne("TypeEnumeration", true)?if_exists>
+        <#assign locationTypeEnum = location.getRelatedOne("TypeEnumeration", true)!>
         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-            <td><a href="<@ofbizUrl>EditFacility?facilityId=${(location.facilityId)?if_exists}</@ofbizUrl>">${(location.facilityId)?if_exists}</a></td>
-            <td><a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${(location.locationSeqId)?if_exists}</a></td>
-            <td>${(locationTypeEnum.get("description",locale))?default(location.locationTypeEnumId?if_exists)}</td>
-            <td>${(location.areaId)?if_exists}</td>
-            <td>${(location.aisleId)?if_exists}</td>
-            <td>${(location.sectionId)?if_exists}</td>
-            <td>${(location.levelId)?if_exists}</td>
-            <td>${(location.positionId)?if_exists}</td>
+            <td><a href="<@ofbizUrl>EditFacility?facilityId=${(location.facilityId)!}</@ofbizUrl>">${(location.facilityId)!}</a></td>
+            <td><a href="<@ofbizUrl>EditFacilityLocation?facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)!}</@ofbizUrl>">${(location.locationSeqId)!}</a></td>
+            <td>${(locationTypeEnum.get("description",locale))?default(location.locationTypeEnumId!)}</td>
+            <td>${(location.areaId)!}</td>
+            <td>${(location.aisleId)!}</td>
+            <td>${(location.sectionId)!}</td>
+            <td>${(location.levelId)!}</td>
+            <td>${(location.positionId)!}</td>
             <td class="button-col">
-              <a href="<@ofbizUrl>EditInventoryItem?facilityId=${(location.facilityId)?if_exists}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.ProductNewInventoryItem}</a>
-              <#if itemId?exists>
-                <a href="<@ofbizUrl>UpdateInventoryItem?inventoryItemId=${itemId}&facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.ProductSetItem} ${itemId}</a>
+              <a href="<@ofbizUrl>EditInventoryItem?facilityId=${(location.facilityId)!}&locationSeqId=${(location.locationSeqId)!}</@ofbizUrl>">${uiLabelMap.ProductNewInventoryItem}</a>
+              <#if itemId??>
+                <a href="<@ofbizUrl>UpdateInventoryItem?inventoryItemId=${itemId}&facilityId=${facilityId}&locationSeqId=${(location.locationSeqId)!}</@ofbizUrl>">${uiLabelMap.ProductSetItem} ${itemId}</a>
               </#if>
-              <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${(location.facilityId)?if_exists}&locationSeqId=${(location.locationSeqId)?if_exists}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
+              <a href="<@ofbizUrl>EditFacilityLocation?facilityId=${(location.facilityId)!}&locationSeqId=${(location.locationSeqId)!}</@ofbizUrl>">${uiLabelMap.CommonEdit}</a>
             </td>
         </tr>
         <#-- toggle the row color -->

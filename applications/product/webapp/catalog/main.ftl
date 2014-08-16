@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if !sessionAttributes.userLogin?exists>
+<#if !sessionAttributes.userLogin??>
   <div class='label'> ${uiLabelMap.ProductGeneralMessage}.</div>
 </#if>
 <br />

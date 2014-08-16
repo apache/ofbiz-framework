@@ -74,35 +74,35 @@ under the License.
                         <fo:table-row>
                             <#if showProductStore>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchaseProductSummary.productStoreId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchaseProductSummary.productStoreId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showOriginFacility>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchaseProductSummary.originFacilityId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchaseProductSummary.originFacilityId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showTerminal>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchaseProductSummary.terminalId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchaseProductSummary.terminalId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <#if showStatus>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${orderPurchaseProductSummary.statusId?if_exists}</fo:block>
+                                    <fo:block>${orderPurchaseProductSummary.statusId!}</fo:block>
                                 </fo:table-cell>
                             </#if>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchaseProductSummary.productId?if_exists}</fo:block>
+                                <fo:block>${orderPurchaseProductSummary.productId!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchaseProductSummary.internalName?if_exists}</fo:block>
+                                <fo:block>${orderPurchaseProductSummary.internalName!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchaseProductSummary.quantity?if_exists}</fo:block>
+                                <fo:block>${orderPurchaseProductSummary.quantity!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                <fo:block>${orderPurchaseProductSummary.cancelQuantity?if_exists}</fo:block>
+                                <fo:block>${orderPurchaseProductSummary.cancelQuantity!}</fo:block>
                             </fo:table-cell>
                         </fo:table-row>
                         <#-- toggle the row color -->

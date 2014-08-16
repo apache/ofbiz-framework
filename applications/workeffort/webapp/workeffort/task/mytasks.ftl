@@ -32,10 +32,10 @@ under the License.
     <#assign alt_row = false>
     <#list tasks as workEffort>
       <tr<#if alt_row> class="alternate-row"</#if>>
-        <td>${(workEffort.estimatedStartDate)?if_exists}</td>
+        <td>${(workEffort.estimatedStartDate)!}</td>
         <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
-        <td>${workEffort.priority?if_exists}</td>
-        <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}</td>
+        <td>${workEffort.priority!}</td>
+        <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
       </tr>
       <#assign alt_row = !alt_row>
     </#list>
@@ -57,10 +57,10 @@ under the License.
       <#assign alt_row = false>
       <#list activities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
-          <td>${workEffort.priority?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)!}</td>
+          <td>${workEffort.priority!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
@@ -87,10 +87,10 @@ under the License.
       <#assign alt_row = false>
       <#list roleActivities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
-          <td>${workEffort.priority?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)!}</td>
+          <td>${workEffort.priority!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <#-- <td>${workEffort.partyId}</td> -->
           <td>${workEffort.roleTypeId}</td>
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>
@@ -117,10 +117,10 @@ under the License.
       <#assign alt_row = false>
       <#list groupActivities as workEffort>
         <tr<#if alt_row> class="alternate-row"</#if>>
-          <td>${(workEffort.estimatedStartDate)?if_exists}</td>
-          <td>${workEffort.priority?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))?if_exists}</td>
-          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))?if_exists}</td>
+          <td>${(workEffort.estimatedStartDate)!}</td>
+          <td>${workEffort.priority!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("currentStatusId")), true).get("description",locale))!}</td>
+          <td>${(delegator.findOne("StatusItem", Static["org.ofbiz.base.util.UtilMisc"].toMap("statusId", workEffort.getString("statusId")), true).get("description",locale))!}</td>
           <td>${workEffort.groupPartyId}</td>
           <#-- <td>${workEffort.roleTypeId}</td> -->
           <td><a href="<@ofbizUrl>WorkEffortSummary?workEffortId=${workEffort.workEffortId}</@ofbizUrl>">${workEffort.workEffortName}</a></td>

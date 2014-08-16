@@ -24,7 +24,7 @@ function setWeight(weight) {
 </script>
 
 <#if security.hasEntityPermission("FACILITY", "_VIEW", session)>
-  <h1>${uiLabelMap.ProductQuickShipOrderFrom} ${facility.facilityName?if_exists} [${uiLabelMap.CommonId}:${facilityId?if_exists}]</h1>
+  <h1>${uiLabelMap.ProductQuickShipOrderFrom} ${facility.facilityName!} [${uiLabelMap.CommonId}:${facilityId!}]</h1>
   <div class="button-bar">
     <a href="<@ofbizUrl>quickShipOrder?facilityId=${facilityId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductNextShipment}</a>
     <#if shipment?has_content>
@@ -32,26 +32,26 @@ function setWeight(weight) {
     </#if>
   </div>
 
-  <#if shipment?exists>
+  <#if shipment??>
     <#if 1 < shipmentPackages.size()>
       <#-- multiple packages -->
       <div><font color="red">${uiLabelMap.ProductMorePackageFoundShipment}.</font></div>
     <#else>
       <#-- single package -->
-      <#assign shipmentPackage = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))?if_exists>
+      <#assign shipmentPackage = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentPackages))!>
       <#if shipmentPackage?has_content>
         <#assign weight = (shipmentPackage.weight)?default(0.00)>
-        <#if (0 < weight?double) && !requestParameters.reweigh?exists>
+        <#if (0 < weight?double) && !requestParameters.reweigh??>
           <#if 1 < shipmentRoutes.size()>
             <#-- multiple routes -->
             <div><font color="red">${uiLabelMap.ProductMoreRouteSegmentFound}.</font></div>
-          <#elseif !requestParameters.shipmentRouteSegmentId?exists || requestAttributes._ERROR_MESSAGE_?exists>
+          <#elseif !requestParameters.shipmentRouteSegmentId?? || requestAttributes._ERROR_MESSAGE_??>
             <form name="routeForm" method="post" action="<@ofbizUrl>setQuickRouteInfo</@ofbizUrl>">
-              <#assign shipmentRoute = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))?if_exists>
-              <#assign carrierPerson = (shipmentRoute.getRelatedOne("CarrierPerson", false))?if_exists>
-              <#assign carrierPartyGroup = (shipmentRoute.getRelatedOne("CarrierPartyGroup", false))?if_exists>
-              <#assign shipmentMethodType = (shipmentRoute.getRelatedOne("ShipmentMethodType", false))?if_exists>
-              <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+              <#assign shipmentRoute = (Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRoutes))!>
+              <#assign carrierPerson = (shipmentRoute.getRelatedOne("CarrierPerson", false))!>
+              <#assign carrierPartyGroup = (shipmentRoute.getRelatedOne("CarrierPartyGroup", false))!>
+              <#assign shipmentMethodType = (shipmentRoute.getRelatedOne("ShipmentMethodType", false))!>
+              <input type="hidden" name="facilityId" value="${facilityId!}"/>
               <input type="hidden" name="shipmentId" value="${shipmentRoute.shipmentId}"/>
               <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRoute.shipmentRouteSegmentId}"/>
               <table border="0" cellpadding="2" cellspacing="0">
@@ -61,13 +61,13 @@ function setWeight(weight) {
                   <td width="1%" nowrap="nowrap">
                     <select name="carrierPartyId">
                       <#if shipmentRoute.carrierPartyId?has_content>
-                        <option value="${shipmentRoute.carrierPartyId}">${(carrierPerson.firstName)?if_exists} ${(carrierPerson.middleName)?if_exists} ${(carrierPerson.lastName)?if_exists} ${(carrierPartyGroup.groupName)?if_exists} [${shipmentRoute.carrierPartyId}]</option>
+                        <option value="${shipmentRoute.carrierPartyId}">${(carrierPerson.firstName)!} ${(carrierPerson.middleName)!} ${(carrierPerson.lastName)!} ${(carrierPartyGroup.groupName)!} [${shipmentRoute.carrierPartyId}]</option>
                         <option value="${shipmentRoute.carrierPartyId}">---</option>
                       <#else>
                         <option value="">&nbsp;</option>
                       </#if>
                       <#list carrierPartyDatas as carrierPartyData>
-                        <option value="${carrierPartyData.party.partyId}">${(carrierPartyData.person.firstName)?if_exists} ${(carrierPartyData.person.middleName)?if_exists} ${(carrierPartyData.person.lastName)?if_exists} ${(carrierPartyData.partyGroup.groupName)?if_exists} [${carrierPartyData.party.partyId}]</option>
+                        <option value="${carrierPartyData.party.partyId}">${(carrierPartyData.person.firstName)!} ${(carrierPartyData.person.middleName)!} ${(carrierPartyData.person.lastName)!} ${(carrierPartyData.partyGroup.groupName)!} [${carrierPartyData.party.partyId}]</option>
                       </#list>
                     </select>
                   </td>
@@ -123,8 +123,8 @@ function setWeight(weight) {
           </#if>
         <#else>
           <form name="weightForm" method="post" action="<@ofbizUrl>setQuickPackageWeight</@ofbizUrl>">
-            <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom", false)?if_exists>
-            <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+            <#assign weightUom = shipmentPackage.getRelatedOne("WeightUom", false)!>
+            <input type="hidden" name="facilityId" value="${facilityId!}"/>
             <input type="hidden" name="shipmentId" value="${shipmentPackage.shipmentId}"/>
             <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>
             <table cellspacing="0" class="basic-table">
@@ -176,15 +176,15 @@ function setWeight(weight) {
     </#if>
   <#else>
     <form name="selectOrderForm" method="post" action="<@ofbizUrl>createQuickShipment</@ofbizUrl>">
-      <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
-      <input type="hidden" name="originFacilityId" value="${facilityId?if_exists}" />
+      <input type="hidden" name="facilityId" value="${facilityId!}" />
+      <input type="hidden" name="originFacilityId" value="${facilityId!}" />
       <input type="hidden" name="setPackedOnly" value="Y" />
       <table border='0' cellpadding='2' cellspacing='0'>
         <tr>
           <td width="25%" align='right'><span class="label">${uiLabelMap.ProductOrderNumber}</span></td>
           <td width="1">&nbsp;</td>
           <td width="25%">
-            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId?if_exists}" />
+            <input type="text" name="orderId" size="20" maxlength="20" value="${requestParameters.orderId!}" />
           </td>
           <td>&nbsp;</td>
         </tr>

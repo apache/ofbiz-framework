@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <div class="screenlet">
-  <#if partyId?exists>
+  <#if partyId??>
     <#assign title = uiLabelMap.PartyParty>
   <#else>
     <#assign title = uiLabelMap.PartyActive>
@@ -25,9 +25,9 @@ under the License.
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">${title}&nbsp;${uiLabelMap.PartyVisitListing}</li>
-      <#if !partyId?exists && showAll?lower_case == "true">
+      <#if !partyId?? && showAll?lower_case == "true">
         <li><a href="<@ofbizUrl>showvisits?showAll=false</@ofbizUrl>">${uiLabelMap.PartyShowActive}</a></li>
-      <#elseif !partyId?exists>
+      <#elseif !partyId??>
         <li><a href="<@ofbizUrl>showvisits?showAll=true</@ofbizUrl>">${uiLabelMap.PartyShowAll}</a></li>
       </#if>
     </ul>
@@ -66,14 +66,14 @@ under the License.
         <#list visitList as visitObj>
           <tr<#if alt_row> class="alternate-row"</#if>>
             <td class="button-col"><a href="<@ofbizUrl>visitdetail?visitId=${visitObj.visitId}</@ofbizUrl>">${visitObj.visitId}</a></td>
-            <td>${visitObj.visitorId?if_exists}</td>
-            <td class="button-col"><a href="<@ofbizUrl>viewprofile?partyId=${visitObj.partyId?if_exists}</@ofbizUrl>">${visitObj.partyId?if_exists}</a></td>
-            <td>${visitObj.userLoginId?if_exists}</td>
-            <td>${visitObj.userCreated?if_exists}</td>
-            <td>${visitObj.webappName?if_exists}</td>
-            <td>${visitObj.clientIpAddress?if_exists}</td>
-            <td>${(visitObj.fromDate?string)?if_exists}</td>
-            <td>${(visitObj.thruDate?string)?if_exists}</td>
+            <td>${visitObj.visitorId!}</td>
+            <td class="button-col"><a href="<@ofbizUrl>viewprofile?partyId=${visitObj.partyId!}</@ofbizUrl>">${visitObj.partyId!}</a></td>
+            <td>${visitObj.userLoginId!}</td>
+            <td>${visitObj.userCreated!}</td>
+            <td>${visitObj.webappName!}</td>
+            <td>${visitObj.clientIpAddress!}</td>
+            <td>${(visitObj.fromDate?string)!}</td>
+            <td>${(visitObj.thruDate?string)!}</td>
           </tr>
           <#assign alt_row = !alt_row>
         </#list>

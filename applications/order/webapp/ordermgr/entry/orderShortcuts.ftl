@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign shoppingCart = sessionAttributes.shoppingCart?if_exists>
+<#assign shoppingCart = sessionAttributes.shoppingCart!>
 
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -35,16 +35,16 @@ under the License.
             <#if shoppingCart.getOrderType() == "SALES_ORDER">
               <li><a href="<@ofbizUrl>createCustRequestFromCart?destroyCart=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateCustRequestFromCart}</a></li>
             </#if>
-            <li><a href="/partymgr/control/findparty?${externalKeyParam?if_exists}" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
+            <li><a href="/partymgr/control/findparty?${externalKeyParam!}" class="buttontext">${uiLabelMap.PartyFindParty}</a></li>
             <#if shoppingCart.getOrderType() == "SALES_ORDER">
               <li><a href="<@ofbizUrl>setCustomer</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyCreateNewCustomer}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>checkinits</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyChangeParty}</a></li>
             <#if security.hasEntityPermission("CATALOG", "_CREATE", session)>
-               <li><a href="/catalog/control/EditProduct?${externalKeyParam?if_exists}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></li>
+               <li><a href="/catalog/control/EditProduct?${externalKeyParam!}" target="catalog" class="buttontext">${uiLabelMap.ProductCreateNewProduct}</a></li>
             </#if>
             <li><a href="<@ofbizUrl>quickadd</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickAdd}</a></li>
-            <#if shoppingLists?exists>
+            <#if shoppingLists??>
               <li><a href="<@ofbizUrl>viewPartyShoppingLists?partyId=${partyId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PageTitleShoppingList}</a></li>
             </#if>
         </ul>

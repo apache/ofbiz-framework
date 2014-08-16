@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if quote?exists>
+<#if quote??>
 <form action="<@ofbizUrl>copyQuote</@ofbizUrl>" method="post">
     <input type="hidden" name="quoteId" value="${quoteId}"/>
     <div>

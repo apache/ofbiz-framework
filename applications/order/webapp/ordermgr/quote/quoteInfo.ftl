@@ -29,7 +29,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}
+                    ${(quoteType.get("description",locale))?default(quote.quoteTypeId!)}
                 </td>
             </tr>
             <tr><td colspan="3"><hr /></td></tr>
@@ -41,7 +41,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${(salesChannel.get("description",locale))?default(quote.salesChannelEnumId?if_exists)}
+                    ${(salesChannel.get("description",locale))?default(quote.salesChannelEnumId!)}
                 </td>
             </tr>
             <tr><td colspan="3"><hr /></td></tr>
@@ -53,7 +53,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}
+                    ${(statusItem.get("description", locale))?default(quote.statusId!)}
                 </td>
             </tr>
             <#-- party -->
@@ -64,7 +64,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${quote.partyId?if_exists}
+                    ${quote.partyId!}
                 </td>
             </tr>
             <#-- quote name -->
@@ -75,7 +75,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${quote.quoteName?if_exists}
+                    ${quote.quoteName!}
                 </td>
             </tr>
             <#-- quote description -->
@@ -86,7 +86,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${quote.description?if_exists}
+                    ${quote.description!}
                 </td>
             </tr>
             <#-- quote currency -->
@@ -97,7 +97,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    <#if currency?exists>${currency.get("description",locale)?default(quote.currencyUomId?if_exists)}</#if>
+                    <#if currency??>${currency.get("description",locale)?default(quote.currencyUomId!)}</#if>
                 </td>
             </tr>
             <#-- quote currency -->
@@ -108,7 +108,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    <#if store?exists>${store.storeName?default(quote.productStoreId?if_exists)}</#if>
+                    <#if store??>${store.storeName?default(quote.productStoreId!)}</#if>
                 </td>
             </tr>
         </table>

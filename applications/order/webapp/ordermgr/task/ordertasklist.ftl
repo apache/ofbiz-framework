@@ -69,7 +69,7 @@ under the License.
                           <#list poList as orderHeaderAndRole>
                             <#assign orh = Static["org.ofbiz.order.order.OrderReadHelper"].getHelper(orderHeaderAndRole)>
                             <#assign statusItem = orderHeaderAndRole.getRelatedOne("StatusItem", true)>
-                            <#assign placingParty = orh.getPlacingParty()?if_exists>
+                            <#assign placingParty = orh.getPlacingParty()!>
                             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                               <td><a href="<@ofbizUrl>orderview?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>${orderHeaderAndRole.orderId}</a></td>
                               <td>
@@ -78,13 +78,13 @@ under the License.
                                   <#if placingParty?has_content>
                                     <#assign partyId = placingParty.partyId>
                                     <#if placingParty.getEntityName() == "Person">
-                                      <#if placingParty.lastName?exists>
-                                        ${placingParty.lastName}<#if placingParty.firstName?exists>, ${placingParty.firstName}</#if>
+                                      <#if placingParty.lastName??>
+                                        ${placingParty.lastName}<#if placingParty.firstName??>, ${placingParty.firstName}</#if>
                                       <#else>
                                         ${uiLabelMap.CommonNA}
                                       </#if>
                                     <#else>
-                                      <#if placingParty.groupName?exists>
+                                      <#if placingParty.groupName??>
                                         ${placingParty.groupName}
                                       <#else>
                                         ${uiLabelMap.CommonNA}
@@ -98,7 +98,7 @@ under the License.
                               <td><span style="white-space: nowrap;">${orderHeaderAndRole.getString("orderDate")}</span></td>
                               <td>${statusItem.get("description",locale)?default(statusItem.statusId?default("N/A"))}</td>
                               <td align="right">${orh.getTotalOrderItemsQuantity()?string.number}</td>
-                              <td align="right"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orderHeaderAndRole.currencyUom?if_exists/></td>
+                              <td align="right"><@ofbizCurrency amount=orh.getOrderGrandTotal() isoCode=orderHeaderAndRole.currencyUom!/></td>
                               <td width="1">&nbsp;&nbsp;</td>
                               <td align='right'>
                                 <a href="<@ofbizUrl>OrderDeliveryScheduleInfo?orderId=${orderHeaderAndRole.orderId}</@ofbizUrl>" class='buttontext'>Schedule&nbsp;Delivery</a>
@@ -141,7 +141,7 @@ under the License.
                               </td>
                               <td>
                                 <div>
-                                  <#if task.customerPartyId?exists>
+                                  <#if task.customerPartyId??>
                                     <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                     N/A
@@ -156,7 +156,7 @@ under the License.
                               <td width="1" align="right"><@ofbizCurrency amount=task.grandTotal isoCode=orderCurrencyMap.get(task.orderId)/></td>
                               <td width="1">&nbsp;&nbsp;</td>
                               <td>
-                                <#if task.actualStartDate?exists>
+                                <#if task.actualStartDate??>
                                   <#assign actualStartDate = task.get("actualStartDate").toString()>
                                 <#else>
                                   <#assign actualStartDate = "N/A">
@@ -205,7 +205,7 @@ under the License.
                               <input type="hidden" name="orderId" value="${task.orderId}" />
                               <input type="hidden" name="workEffortId" value="${task.workEffortId}" />
                               <input type="hidden" name="taskStatus" value="${task.currentStatusId}" />
-                              <#if task.statusId?exists && task.statusId == "CAL_SENT">
+                              <#if task.statusId?? && task.statusId == "CAL_SENT">
                                 <input type="hidden" name="partyId" value="${userLogin.partyId}" />
                                 <input type="hidden" name="roleTypeId" value="${task.roleTypeId}" />
                                 <input type="hidden" name="fromDate" value="${task.get("fromDate").toString()}" />
@@ -228,7 +228,7 @@ under the License.
                                   </a>
                                 </td>
                                 <td>
-                                  <#if task.customerPartyId?exists>
+                                  <#if task.customerPartyId??>
                                   <a href="${customerDetailLink}${task.customerPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="buttontext">${Static["org.ofbiz.order.task.TaskWorker"].getCustomerName(task)}</a>
                                   <#else>
                                   &nbsp;
@@ -242,7 +242,7 @@ under the License.
                                 <td width="1" align="right"><@ofbizCurrency amount=task.grandTotal isoCode=orderCurrencyMap.get(task.orderId)/></td>
                                 <td width="1">&nbsp;&nbsp;</td>
                                 <td>
-                                  <#if task.actualStartDate?exists>
+                                  <#if task.actualStartDate??>
                                     <#assign actualStartDate = task.get("actualStartDate").toString()>
                                   <#else>
                                     <#assign actualStartDate = "N/A">
@@ -263,7 +263,7 @@ under the License.
                                     ${Static["org.ofbiz.order.task.TaskWorker"].getPrettyStatus(task)}
                                   </a>
                                 </td>
-                                <#if task.statusId?exists && task.statusId == "CAL_SENT">
+                                <#if task.statusId?? && task.statusId == "CAL_SENT">
                                   <td align="right"><input type="checkbox" name="delegate" value="true" checked="checked" /></td>
                                 <#else>
                                   <td align="right"><input type="checkbox" name="delegate" value="true" /></td>

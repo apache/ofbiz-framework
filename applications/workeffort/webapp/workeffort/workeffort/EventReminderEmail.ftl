@@ -63,7 +63,7 @@ under the License.
         <tbody>
           <#list partyAssignments as wepa>
             <tr>
-              <td>${wepa.groupName?if_exists}${wepa.firstName?if_exists} ${wepa.lastName?if_exists}</td>
+              <td>${wepa.groupName!}${wepa.firstName!} ${wepa.lastName!}</td>
               <td>${(wepa.getRelatedOne("RoleType", false).description)?default("&nbsp;")}</td>
               <td>${wepa.fromDate?default("&nbsp;")}</td>
               <td>${wepa.thruDate?default("&nbsp;")}</td>

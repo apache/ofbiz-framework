@@ -38,12 +38,12 @@ under the License.
               <#assign survey = storeSurvey.getRelatedOne("Survey", false)>
               <tr valign="middle"<#if alt_row>class="alternate-row"</#if>>
                 <td>${surveyType.get("description",locale)}</td>
-                <td>${storeSurvey.groupName?if_exists}</td>
+                <td>${storeSurvey.groupName!}</td>
                 <td><a href="/content/control/EditSurvey?surveyId=${storeSurvey.surveyId}" class="buttontext">${survey.description?default("[" + survey.surveyId + "]")}</a></td>
                 <td>${storeSurvey.productId?default("${uiLabelMap.CommonNA}")}</td>
                 <td>${storeSurvey.productCategoryId?default("${uiLabelMap.CommonNA}")}</td>
-                <td>${storeSurvey.fromDate?if_exists?string}</td>
-                <td>${storeSurvey.sequenceNum?if_exists}</td>
+                <td>${storeSurvey.fromDate!?string}</td>
+                <td>${storeSurvey.sequenceNum!}</td>
                 <td>
                   <form name="deleteProductStoreSurveyAppl_${storeSurvey_index}" method="post" action="<@ofbizUrl>deleteProductStoreSurveyAppl</@ofbizUrl>">
                     <input type="hidden" name="productStoreId" value="${productStoreId}" />

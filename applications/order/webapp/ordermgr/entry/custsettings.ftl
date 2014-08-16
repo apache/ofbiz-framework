@@ -30,35 +30,35 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.CommonTitle}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="personalTitle" value="${requestParameters.personalTitle?if_exists}" size="10" maxlength="30"/>
+                  <input type="text" name="personalTitle" value="${requestParameters.personalTitle!}" size="10" maxlength="30"/>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.PartyFirstName}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="firstName" value="${requestParameters.firstName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" name="firstName" value="${requestParameters.firstName!}" size="30" maxlength="30"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.PartyMiddleInitial}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="middleName" value="${requestParameters.middleName?if_exists}" size="4" maxlength="4"/>
+                  <input type="text" name="middleName" value="${requestParameters.middleName!}" size="4" maxlength="4"/>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.PartyLastName}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="lastName" value="${requestParameters.lastName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" name="lastName" value="${requestParameters.lastName!}" size="30" maxlength="30"/>
                 *</td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.PartySuffix}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="suffix" value="${requestParameters.suffix?if_exists}" size="10" maxlength="30"/>
+                  <input type="text" name="suffix" value="${requestParameters.suffix!}" size="10" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -68,10 +68,10 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.PartyHomePhone}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="homeCountryCode" value="${requestParameters.homeCountryCode?if_exists}" size="4" maxlength="10"/>
-                  -&nbsp;<input type="text" name="homeAreaCode" value="${requestParameters.homeAreaCode?if_exists}" size="4" maxlength="10"/>*
-                  -&nbsp;<input type="text" name="homeContactNumber" value="${requestParameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>*
-                  &nbsp;ext&nbsp;<input type="text" name="homeExt" value="${requestParameters.homeExt?if_exists}" size="6" maxlength="10"/>
+                  <input type="text" name="homeCountryCode" value="${requestParameters.homeCountryCode!}" size="4" maxlength="10"/>
+                  -&nbsp;<input type="text" name="homeAreaCode" value="${requestParameters.homeAreaCode!}" size="4" maxlength="10"/>*
+                  -&nbsp;<input type="text" name="homeContactNumber" value="${requestParameters.homeContactNumber!}" size="15" maxlength="15"/>*
+                  &nbsp;ext&nbsp;<input type="text" name="homeExt" value="${requestParameters.homeExt!}" size="6" maxlength="10"/>
                   <br/>
                   <select name="homeSol">
                     <#if (((requestParameters.homeSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -86,10 +86,10 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}<br/>${uiLabelMap.OrderAllowSolicitation}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="workCountryCode" value="${requestParameters.CUSTOMER_WORK_COUNTRY?if_exists}" size="4" maxlength="10"/>
-                  -&nbsp;<input type="text" name="workAreaCode" value="${requestParameters.CUSTOMER_WORK_AREA?if_exists}" size="4" maxlength="10"/>
-                  -&nbsp;<input type="text" name="workContactNumber" value="${requestParameters.CUSTOMER_WORK_CONTACT?if_exists}" size="15" maxlength="15"/>
-                  &nbsp;ext&nbsp;<input type="text" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT?if_exists}" size="6" maxlength="10"/>
+                  <input type="text" name="workCountryCode" value="${requestParameters.CUSTOMER_WORK_COUNTRY!}" size="4" maxlength="10"/>
+                  -&nbsp;<input type="text" name="workAreaCode" value="${requestParameters.CUSTOMER_WORK_AREA!}" size="4" maxlength="10"/>
+                  -&nbsp;<input type="text" name="workContactNumber" value="${requestParameters.CUSTOMER_WORK_CONTACT!}" size="15" maxlength="15"/>
+                  &nbsp;ext&nbsp;<input type="text" name="workExt" value="${requestParameters.CUSTOMER_WORK_EXT!}" size="6" maxlength="10"/>
                   <br/>
                   <select name="workSol">
                     <#if (((requestParameters.workSol)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
@@ -125,7 +125,7 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.CommonUsername}</div></td>
                 <td width="5">&nbsp;</td>
                 <td width="74%">
-                  <input type="text" name="userLoginId" value="${requestParameters.USERNAME?if_exists}" size="20" maxlength="250"/>
+                  <input type="text" name="userLoginId" value="${requestParameters.USERNAME!}" size="20" maxlength="250"/>
                 </td>
               </tr>
               </form>

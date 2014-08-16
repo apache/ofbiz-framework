@@ -107,18 +107,18 @@ function enableSubmitButton() {
       <#assign alt_row = false>
       <#list invoices as invoice>
         <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
-        <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
-        <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)?if_exists/>
+        <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)!>
+        <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, false)!/>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
           <td><input type="checkbox" id="invoiceId_${invoice_index}" name="invoiceIds" value="${invoice.invoiceId}" onclick="javascript:enableSubmitButton();"/></td>
           <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
-          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists}</a></td>
-          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.invoiceRolePartyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)?if_exists}</a></td>
-          <td>${statusItem.get("description")?if_exists}</td>
-          <td>${invoice.get("referenceNumber")?if_exists}</td>
-          <td>${invoice.get("description")?if_exists}</td>
-          <td>${invoice.get("invoiceDate")?if_exists}</td>
-          <td>${invoice.get("dueDate")?if_exists}</td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!}</a></td>
+          <td><a href="/partymgr/control/viewprofile?partyId=${invoice.invoiceRolePartyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.invoiceRolePartyId, false)!}</a></td>
+          <td>${statusItem.get("description")!}</td>
+          <td>${invoice.get("referenceNumber")!}</td>
+          <td>${invoice.get("description")!}</td>
+          <td>${invoice.get("invoiceDate")!}</td>
+          <td>${invoice.get("dueDate")!}</td>
           <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
           <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
           <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>

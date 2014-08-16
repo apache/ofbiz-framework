@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if productPromoId?exists && productPromo?exists>
+<#if productPromoId?? && productPromo??>
     <div class="screenlet">
         <div class="screenlet-title-bar">
             <h3>${uiLabelMap.PageTitleEditProductPromoStores}</h3>
@@ -35,20 +35,20 @@ under the License.
                 <#assign line = line + 1>
                 <#assign productStore = productStorePromoAppl.getRelatedOne("ProductStore", false)>
                 <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                    <td><a href="<@ofbizUrl>EditProductStore?productStoreId=${productStorePromoAppl.productStoreId}</@ofbizUrl>" class="buttontext"><#if productStore?exists>${(productStore.storeName)?if_exists}</#if>[${productStorePromoAppl.productStoreId}]</a></td>
+                    <td><a href="<@ofbizUrl>EditProductStore?productStoreId=${productStorePromoAppl.productStoreId}</@ofbizUrl>" class="buttontext"><#if productStore??>${(productStore.storeName)!}</#if>[${productStorePromoAppl.productStoreId}]</a></td>
                     <#assign hasntStarted = false>
-                    <#if (productStorePromoAppl.getTimestamp("fromDate"))?exists && nowTimestamp.before(productStorePromoAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
-                    <td <#if hasntStarted>style="color: red;"</#if>>${productStorePromoAppl.fromDate?if_exists}</td>
+                    <#if (productStorePromoAppl.getTimestamp("fromDate"))?? && nowTimestamp.before(productStorePromoAppl.getTimestamp("fromDate"))> <#assign hasntStarted = true></#if>
+                    <td <#if hasntStarted>style="color: red;"</#if>>${productStorePromoAppl.fromDate!}</td>
                     <td align="center">
                         <#assign hasExpired = false>
-                        <#if (productStorePromoAppl.getTimestamp("thruDate"))?exists && nowTimestamp.after(productStorePromoAppl.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
+                        <#if (productStorePromoAppl.getTimestamp("thruDate"))?? && nowTimestamp.after(productStorePromoAppl.getTimestamp("thruDate"))> <#assign hasExpired = true></#if>
                         <form method="post" action="<@ofbizUrl>promo_updateProductStorePromoAppl</@ofbizUrl>" name="lineForm${line}">
                             <input type="hidden" name="productStoreId" value="${productStorePromoAppl.productStoreId}" />
                             <input type="hidden" name="productPromoId" value="${productStorePromoAppl.productPromoId}" />
                             <input type="hidden" name="fromDate" value="${productStorePromoAppl.fromDate}" />
                             <#if hasExpired><#assign class="alert"></#if>
-                            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productStorePromoAppl.thruDate)?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                            <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)?if_exists}" />
+                            <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="${class!''}" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${(productStorePromoAppl.thruDate)!}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                            <input type="text" size="5" name="sequenceNum" value="${(productStorePromoAppl.sequenceNum)!}" />
                             <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                         </form>
                     </td>
@@ -81,7 +81,7 @@ under the License.
                 <input type="hidden" name="tryEntity" value="true"/>
                 <select name="productStoreId">
                 <#list productStores as productStore>
-                    <option value="${(productStore.productStoreId)?if_exists}">${(productStore.storeName)?if_exists} [${(productStore.productStoreId)?if_exists}]</option>
+                    <option value="${(productStore.productStoreId)!}">${(productStore.storeName)!} [${(productStore.productStoreId)!}]</option>
                 </#list>
                 </select>
                 <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>

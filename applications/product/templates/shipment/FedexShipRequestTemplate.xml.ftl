@@ -38,20 +38,20 @@
         <CurrencyCode>${CurrencyCode?xml}</CurrencyCode>
         <Origin>
             <Contact>
-                <#if OriginContactPersonName?exists>
+                <#if OriginContactPersonName??>
                     <PersonName>${OriginContactPersonName?xml}</PersonName>
-                <#elseif OriginContactCompanyName?exists>
+                <#elseif OriginContactCompanyName??>
                     <CompanyName>${OriginContactCompanyName?xml}</CompanyName>
                 </#if>
                 <PhoneNumber>${OriginContactPhoneNumber?xml}</PhoneNumber>
             </Contact>
             <Address>
                 <Line1>${OriginAddressLine1?xml}</Line1>
-                <#if OriginAddressLine2?exists>
+                <#if OriginAddressLine2??>
                     <Line2>${OriginAddressLine2?xml}</Line2>
                 </#if>
                 <City>${OriginAddressCity?xml}</City>
-                <#if OriginAddressStateOrProvinceCode?exists>
+                <#if OriginAddressStateOrProvinceCode??>
                     <StateOrProvinceCode>${OriginAddressStateOrProvinceCode?xml}</StateOrProvinceCode>
                 </#if>
                 <PostalCode>${OriginAddressPostalCode?xml}</PostalCode>
@@ -60,20 +60,20 @@
         </Origin>
         <Destination>
             <Contact>
-                <#if DestinationContactPersonName?exists>
+                <#if DestinationContactPersonName??>
                     <PersonName>${DestinationContactPersonName?xml}</PersonName>
-                <#elseif DestinationContactCompanyName?exists>
+                <#elseif DestinationContactCompanyName??>
                     <CompanyName>${DestinationContactCompanyName?xml}</CompanyName>
                 </#if>
                 <PhoneNumber>${DestinationContactPhoneNumber?xml}</PhoneNumber>
             </Contact>
             <Address>
                 <Line1>${DestinationAddressLine1?xml}</Line1>
-                <#if DestinationAddressLine2?exists>
+                <#if DestinationAddressLine2??>
                     <Line2>${DestinationAddressLine2?xml}</Line2>
                 </#if>
                 <City>${DestinationAddressCity?xml}</City>
-                <#if DestinationAddressStateOrProvinceCode?exists>
+                <#if DestinationAddressStateOrProvinceCode??>
                     <StateOrProvinceCode>${DestinationAddressStateOrProvinceCode?xml}</StateOrProvinceCode>
                 </#if>
                 <PostalCode>${DestinationAddressPostalCode?xml}</PostalCode>
@@ -86,24 +86,24 @@
         <ReferenceInfo>
             <CustomerReference>${CustomerReference?xml}</CustomerReference>
         </ReferenceInfo>
-        <#if DimensionsUnits?exists>
+        <#if DimensionsUnits??>
             <Dimensions>
-                <#if DimensionsLength?exists>
+                <#if DimensionsLength??>
                     <Length>${DimensionsLength?xml}</Length>
                 </#if>
-                <#if DimensionsWidth?exists>
+                <#if DimensionsWidth??>
                     <Width>${DimensionsWidth?xml}</Width>
                 </#if>
-                <#if DimensionsHeight?exists>
+                <#if DimensionsHeight??>
                     <Height>${DimensionsHeight?xml}</Height>
                 </#if>
                 <Units>${DimensionsUnits?xml}</Units>
             </Dimensions>
         </#if>
-        <#if HomeDeliveryType?exists>
+        <#if HomeDeliveryType??>
             <HomeDelivery>
                 <Type>${HomeDeliveryType?xml}</Type>
-                <#if HomeDeliveryDate?exists>
+                <#if HomeDeliveryDate??>
                     <Date>${HomeDeliveryDate?string("yyyy-MM-dd")}</Date>
                 </#if>
                 <PhoneNumber>${DestinationContactPhoneNumber?xml}</PhoneNumber>
@@ -113,7 +113,7 @@
             <Type>${LabelType?xml}</Type>
             <ImageType>${LabelImageType?xml}</ImageType>
         </Label>
-        <#if HomeDeliveryType?exists>
+        <#if HomeDeliveryType??>
             <SpecialServices>
                 <ResidentialDelivery>true</ResidentialDelivery>
             </SpecialServices>

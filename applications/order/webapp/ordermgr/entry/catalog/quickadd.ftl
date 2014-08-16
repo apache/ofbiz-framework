@@ -21,17 +21,17 @@ under the License.
   <table border='0'  cellpadding='3' cellspacing='0'>
     <tr>
       <td>
-        <h2>${productCategory.categoryName?if_exists}</h2>
+        <h2>${productCategory.categoryName!}</h2>
       </td>
       <td align="right">
         <form name="choosequickaddform" method="post" action="<@ofbizUrl>quickadd</@ofbizUrl>" style='margin: 0;'>
           <select name='category_id'>
-            <option value='${productCategory.productCategoryId}'>${productCategory.categoryName?if_exists}</option>
+            <option value='${productCategory.productCategoryId}'>${productCategory.categoryName!}</option>
             <option value='${productCategory.productCategoryId}'>--</option>
             <#list quickAddCats as quickAddCatalogId>
               <#assign loopCategory = delegator.findOne("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", quickAddCatalogId), true)>
               <#if loopCategory?has_content>
-                <option value='${quickAddCatalogId}'>${loopCategory.categoryName?if_exists}</option>
+                <option value='${quickAddCatalogId}'>${loopCategory.categoryName!}</option>
               </#if>
             </#list>
           </select>
@@ -39,15 +39,15 @@ under the License.
         </form>
       </td>
     </tr>
-    <#if productCategory.categoryImageUrl?exists || productCategory.longDescription?exists>
+    <#if productCategory.categoryImageUrl?? || productCategory.longDescription??>
       <tr><td colspan='2'><hr class='sepbar'/></td></tr>
       <tr>
         <td valign="top" width="0" colspan='2'>
           <div>
-            <#if productCategory.categoryImageUrl?exists>
+            <#if productCategory.categoryImageUrl??>
               <img src="<@ofbizContentUrl>${productCategory.categoryImageUrl}</@ofbizContentUrl>" vspace="5" hspace="5" class="cssImgLarge" alt="" />
             </#if>
-            ${productCategory.longDescription?if_exists}
+            ${productCategory.longDescription!}
           </div>
         </td>
       </tr>
@@ -55,7 +55,7 @@ under the License.
   </table>
 </#if>
 
-<#if productCategoryMembers?exists && 0 < productCategoryMembers?size>
+<#if productCategoryMembers?? && 0 < productCategoryMembers?size>
   <br />
   <center>
   <form method="post" action="<@ofbizUrl>addtocartbulk</@ofbizUrl>" name="bulkaddform" style='margin: 0;'>

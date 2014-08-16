@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign partyGroup = delegator.findOne("PartyGroup", {"partyId" : parameters.partyId?if_exists}, true)/>
+<#assign partyGroup = delegator.findOne("PartyGroup", {"partyId" : parameters.partyId!}, true)/>
 <#if partyGroup?has_content>
-    <#assign partyname = partyGroup.groupName?if_exists/>
+    <#assign partyname = partyGroup.groupName!/>
 </#if>
 <script type="text/javascript">
     <!--
-    var answer = confirm ("Are you sure you want to remove '<#if partyname?exists>${partyname}<#else>${parameters.partyId?if_exists}</#if>'?")
+    var answer = confirm ("Are you sure you want to remove '<#if partyname??>${partyname}<#else>${parameters.partyId!}</#if>'?")
     if (answer)
        document.removeInternalOrg.submit();
     else
@@ -31,7 +31,7 @@ under the License.
 </script>
 <div id="rmvinternalorg" title="Remove Internal Organization">
     <form name="removeInternalOrg" method="post" action="<@ofbizUrl>removeInternalOrg</@ofbizUrl>">
-        <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
-        <input type="hidden" name="parentpartyId" value="${parameters.parentpartyId?if_exists}"/>
+        <input type="hidden" name="partyId" value="${parameters.partyId!}"/>
+        <input type="hidden" name="parentpartyId" value="${parameters.parentpartyId!}"/>
     </form>
 </div>

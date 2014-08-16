@@ -22,8 +22,8 @@ under the License.
   <form method="post" enctype="multipart/form-data" action="<@ofbizUrl>updateSurveyResponse</@ofbizUrl>" name="EditSurveyResponseForm" style="margin: 0;">
     <div>${uiLabelMap.PartyPartyId}: <@htmlTemplate.lookupField value="${userLogin.partyId}" formName="EditSurveyResponseForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
     <#-- pass through the dataResourceId so the response can be associated with it -->
-    <input type="hidden" name="dataResourceId" value="${parameters.dataResourceId?if_exists}"/>
-    <input type="hidden" name="rootContentId" value="${parameters.rootContentId?if_exists}"/>
+    <input type="hidden" name="dataResourceId" value="${parameters.dataResourceId!}"/>
+    <input type="hidden" name="rootContentId" value="${parameters.rootContentId!}"/>
     ${StringUtil.wrapString(surveyString)}
   </form>
 <#else>

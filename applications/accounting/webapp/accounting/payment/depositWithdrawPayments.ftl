@@ -73,13 +73,13 @@ function getPaymentRunningTotal() {
     <div class="screenlet-body">
         <form id="depositWithdrawPaymentsForm" name="depositWithdrawPaymentsForm" method="post" action="<@ofbizUrl>depositWithdrawPayments</@ofbizUrl>">
             <#if paymentList?has_content>
-                <input type="hidden" name='organizationPartyId' value="${organizationPartyId?if_exists}" />
-                <input type="hidden" name='finAccountId' value="${finAccountId?if_exists}" />
-                <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId?if_exists}" />
-                <input type="hidden" name='cardType' value="${cardType?if_exists}" />
-                <input type="hidden" name='partyIdFrom' value="${partyIdFrom?if_exists}" />
-                <input type="hidden" name='fromDate' value="${fromDate?if_exists}" />
-                <input type="hidden" name='thruDate' value="${thruDate?if_exists}" />
+                <input type="hidden" name='organizationPartyId' value="${organizationPartyId!}" />
+                <input type="hidden" name='finAccountId' value="${finAccountId!}" />
+                <input type="hidden" name='paymentMethodTypeId' value="${paymentMethodTypeId!}" />
+                <input type="hidden" name='cardType' value="${cardType!}" />
+                <input type="hidden" name='partyIdFrom' value="${partyIdFrom!}" />
+                <input type="hidden" name='fromDate' value="${fromDate!}" />
+                <input type="hidden" name='thruDate' value="${thruDate!}" />
                 <input type="hidden" name='paymentGroupTypeId' value="BATCH_PAYMENT" />
                 <div>
                     <span class="label">${uiLabelMap.AccountingRunningTotal} :</span>
@@ -99,11 +99,11 @@ function getPaymentRunningTotal() {
                     <#list paymentList as payment>
                         <tr <#if alt_row> class="alternate-row"</#if>>
                             <td><a href="<@ofbizUrl>paymentOverview?paymentId=${payment.paymentId}</@ofbizUrl>">${payment.paymentId}</a></td>
-                            <td>${payment.paymentTypeDesc?if_exists}</td>
+                            <td>${payment.paymentTypeDesc!}</td>
                             <td>${(payment.partyFromFirstName)!} ${(payment.partyFromLastName)!} ${(payment.partyFromGroupName)!}</td>
                             <td>${(payment.partyToFirstName)!} ${(payment.partyToLastName)!} ${(payment.partyToGroupName)!}</td>
                             <td><@ofbizCurrency amount=payment.amount isoCode=payment.currencyUomId/></td>
-                            <td>${payment.effectiveDate?if_exists}</td>
+                            <td>${payment.effectiveDate!}</td>
                             <td align="right">${uiLabelMap.AccountingDeposit}<input type="checkbox" id="paymentId_${payment_index}" name="paymentIds" value="${payment.paymentId}" onclick="javascript:getPaymentRunningTotal();"/></td>
                         </tr>
                         <#assign alt_row = !alt_row>

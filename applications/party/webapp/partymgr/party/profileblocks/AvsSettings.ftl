@@ -28,7 +28,7 @@ under the License.
       <span class="label">${uiLabelMap.PartyAvsString}</span>${(avsOverride.avsDeclineString)?default("${uiLabelMap.CommonGlobal}")}
       <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session)>
         <a href="<@ofbizUrl>editAvsOverride?partyId=${party.partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonEdit}</a>
-        <#if avsOverride?exists>
+        <#if avsOverride??>
           <a href="<@ofbizUrl>resetAvsOverride?partyId=${party.partyId}</@ofbizUrl>" class="smallSubmit">${uiLabelMap.CommonReset}</a>
         </#if>
       </#if>

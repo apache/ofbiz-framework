@@ -24,7 +24,7 @@ under the License.
             <fo:block font-weight="bold">${uiLabelMap.OrderOrderQuoteType}</fo:block>
         </fo:list-item-label>
         <fo:list-item-body start-indent="body-start()">
-            <fo:block font-weight="bold">${(quoteType.get("description",locale))?default(quote.quoteTypeId?if_exists)}</fo:block>
+            <fo:block font-weight="bold">${(quoteType.get("description",locale))?default(quote.quoteTypeId!)}</fo:block>
         </fo:list-item-body>
     </fo:list-item>
     <fo:list-item>
@@ -32,7 +32,7 @@ under the License.
             <fo:block>${uiLabelMap.OrderOrderQuoteIssueDate}</fo:block>
         </fo:list-item-label>
         <fo:list-item-body start-indent="body-start()">
-            <fo:block>${(quote.issueDate.toString())?if_exists}</fo:block>
+            <fo:block>${(quote.issueDate.toString())!}</fo:block>
         </fo:list-item-body>
     </fo:list-item>
     <fo:list-item>
@@ -48,7 +48,7 @@ under the License.
             <fo:block>${uiLabelMap.CommonStatus}</fo:block>
         </fo:list-item-label>
         <fo:list-item-body start-indent="body-start()">
-            <fo:block font-weight="bold">${(statusItem.get("description", locale))?default(quote.statusId?if_exists)}</fo:block>
+            <fo:block font-weight="bold">${(statusItem.get("description", locale))?default(quote.statusId!)}</fo:block>
         </fo:list-item-body>
     </fo:list-item>
 </fo:list-block>

@@ -48,7 +48,7 @@ under the License.
     }
 </script>
 
-<#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && (!orderHeader.salesChannelEnumId?exists || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
+<#if security.hasEntityPermission("ORDERMGR", "_UPDATE", session) && (!orderHeader.salesChannelEnumId?? || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
   <div class="screenlet">
     <div class="screenlet-title-bar">
       <ul><li class="h3">&nbsp;${uiLabelMap.OrderActions}</li></ul>
@@ -100,7 +100,7 @@ under the License.
                   <li>
                     <form name="receiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
                       <input type="hidden" name="initialSelected" value="Y"/>
-                      <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                      <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
                       <select name="facilityId">
                         <#list ownedFacilities as facility>
                           <option value="${facility.facilityId}">${facility.facilityName}</option>
@@ -112,7 +112,7 @@ under the License.
                   <li>
                     <form name="partialReceiveInventoryForm" action="/facility/control/ReceiveInventory" method="post">
                       <input type="hidden" name="initialSelected" value="Y"/>
-                      <input type="hidden" name="purchaseOrderId" value="${orderId?if_exists}"/>
+                      <input type="hidden" name="purchaseOrderId" value="${orderId!}"/>
                       <input type="hidden" name="partialReceive" value="Y"/>
                       <select name="facilityId">
                         <#list ownedFacilities as facility>
@@ -156,7 +156,7 @@ under the License.
             <li>
             <form name="quickreturn" method="post" action="<@ofbizUrl>quickreturn</@ofbizUrl>">
               <input type="hidden" name="orderId" value="${orderId}"/>
-              <input type="hidden" name="party_id" value="${partyId?if_exists}"/>
+              <input type="hidden" name="party_id" value="${partyId!}"/>
               <input type="hidden" name="returnHeaderTypeId" value="${returnHeaderTypeId}"/>
               <input type="hidden" name="needsInventoryReceive" value="${needsInventoryReceive?default("N")}"/>
             </form>
@@ -189,10 +189,10 @@ under the License.
   </div>
 </#if>
 
-<#if shipGroups?has_content && (!orderHeader.salesChannelEnumId?exists || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
+<#if shipGroups?has_content && (!orderHeader.salesChannelEnumId?? || orderHeader.salesChannelEnumId != "POS_SALES_CHANNEL")>
 <#list shipGroups as shipGroup>
-  <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType", false)?if_exists>
-  <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)?if_exists>
+  <#assign shipmentMethodType = shipGroup.getRelatedOne("ShipmentMethodType", false)!>
+  <#assign shipGroupAddress = shipGroup.getRelatedOne("PostalAddress", false)!>
   <div class="screenlet">
     <div class="screenlet-title-bar">
        <ul>
@@ -204,10 +204,10 @@ under the License.
     </div>
     <div class="screenlet-body" id="ShipGroupScreenletBody_${shipGroup.shipGroupSeqId}">
         <form name="updateOrderItemShipGroup" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
-        <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
-        <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId?if_exists}"/>
+        <input type="hidden" name="orderId" value="${orderId!}"/>
+        <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
         <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-        <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}"/>
+        <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId!}"/>
         <table class="basic-table" cellspacing='0'>
                 <tr>
                     <td align="right" valign="top" width="15%">
@@ -218,13 +218,13 @@ under the License.
                         <div>
                             <#if orderHeader?has_content && orderHeader.statusId != "ORDER_CANCELLED" && orderHeader.statusId != "ORDER_COMPLETED" && orderHeader.statusId != "ORDER_REJECTED">
                             <select name="contactMechId">
-                                <option selected="selected" value="${shipGroup.contactMechId?if_exists}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
+                                <option selected="selected" value="${shipGroup.contactMechId!}">${(shipGroupAddress.address1)?default("")} - ${shipGroupAddress.city?default("")}</option>
                                 <#if shippingContactMechList?has_content>
                                 <option disabled="disabled" value=""></option>
                                 <#list shippingContactMechList as shippingContactMech>
-                                <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress", false)?if_exists>
+                                <#assign shippingPostalAddress = shippingContactMech.getRelatedOne("PostalAddress", false)!>
                                 <#if shippingContactMech.contactMechId?has_content>
-                                <option value="${shippingContactMech.contactMechId?if_exists}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
+                                <option value="${shippingContactMech.contactMechId!}">${(shippingPostalAddress.address1)?default("")} - ${shippingPostalAddress.city?default("")}</option>
                                 </#if>
                                 </#list>
                                 </#if>
@@ -252,18 +252,18 @@ under the License.
                             -->
                             <select name="shipmentMethod">
                                 <#if shipGroup.shipmentMethodTypeId?has_content>
-                                  <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId?exists && shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
+                                  <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId?? && shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
                                 </#if>
                                 <#list productStoreShipmentMethList as productStoreShipmentMethod>
                                   <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId + "@" + productStoreShipmentMethod.roleTypeId>
                                   <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
-                                    <option value="${shipmentMethodTypeAndParty?if_exists}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId?if_exists}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
+                                    <option value="${shipmentMethodTypeAndParty!}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId!}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>
                                   </#if>
                                 </#list>
                             </select>
                             <#else>
                                 <#if (shipGroup.carrierPartyId)?default("_NA_") != "_NA_">
-                                    ${shipGroup.carrierPartyId?if_exists}
+                                    ${shipGroup.carrierPartyId!}
                                 </#if>
                                 <#if shipmentMethodType?has_content>
                                     ${shipmentMethodType.get("description",locale)?default("")}
@@ -296,10 +296,10 @@ under the License.
       </form>
       <div id="newShippingAddressForm" class="popup" style="display: none;">
         <form id="addShippingAddress" name="addShippingAddress" method="post" action="addShippingAddress">
-          <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
-          <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
-          <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}"/>
-          <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId?if_exists}"/>
+          <input type="hidden" name="orderId" value="${orderId!}"/>
+          <input type="hidden" name="partyId" value="${partyId!}"/>
+          <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId!}"/>
+          <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
           <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
           <div class="form-row">
             <label for="address1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-address1" style="display: none" class="custom-advice">(required)</span></label>
@@ -321,7 +321,7 @@ under the License.
             <label for="countryGeoId">${uiLabelMap.CommonCountry}* <span id="advice-required-countryGeoId" style="display: none" class="custom-advice">(required)</span></label>
             <div class="form-field">
               <select name="shipToCountryGeoId" id="countryGeoId" class="required">
-                <#if countryGeoId?exists>
+                <#if countryGeoId??>
                   <option value="${countryGeoId}">${countryGeoId}</option>
                 </#if>
                 ${screens.render("component://common/widget/CommonScreens.xml#countries")}
@@ -396,8 +396,8 @@ under the License.
                       <tr>
                         <td>
                           <#assign shipmentMethodAndAmount = shippingRate.shipmentMethodTypeId + "@" + "UPS" + "*" + shippingRate.rate>
-                          <input type='radio' name='shipmentMethodAndAmount' value='${shipmentMethodAndAmount?if_exists}' />
-                          UPS&nbsp;${shippingRate.shipmentMethodDescription?if_exists}
+                          <input type='radio' name='shipmentMethodAndAmount' value='${shipmentMethodAndAmount!}' />
+                          UPS&nbsp;${shippingRate.shipmentMethodDescription!}
                           <#if (shippingRate.rate > -1)>
                             <@ofbizCurrency amount=shippingRate.rate isoCode=orderReadHelper.getCurrency()/>
                           <#else>
@@ -406,14 +406,14 @@ under the License.
                         </td>
                       </tr>
                     </#list>
-                    <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegmentId?if_exists}"/>
-                    <input type="hidden" name="shipmentId" value="${pickedShipmentId?if_exists}"/>
-                    <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId?if_exists}"/>
-                    <input type="hidden" name="orderId" value="${orderId?if_exists}"/>
-                    <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId?if_exists}"/>
+                    <input type="hidden" name="shipmentRouteSegmentId" value="${shipmentRouteSegmentId!}"/>
+                    <input type="hidden" name="shipmentId" value="${pickedShipmentId!}"/>
+                    <input type="hidden" name="orderAdjustmentId" value="${orderAdjustmentId!}"/>
+                    <input type="hidden" name="orderId" value="${orderId!}"/>
+                    <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
                     <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
-                    <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId?if_exists}"/>
-                    <input type="hidden" name="shippingAmount" value="${shippingAmount?if_exists}"/>
+                    <input type="hidden" name="oldContactMechId" value="${shipGroup.contactMechId!}"/>
+                    <input type="hidden" name="shippingAmount" value="${shippingAmount!}"/>
                     <tr>
                       <td valign="top" width="80%">
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" class="smallSubmit"/>
@@ -441,7 +441,7 @@ under the License.
               </#if>
               <#if orderShipmentInfoSummaryList?has_content>
                 <#list orderShipmentInfoSummaryList as orderShipmentInfoSummary>
-                  <#if orderShipmentInfoSummary.shipGroupSeqId?if_exists == shipGroup.shipGroupSeqId?if_exists>
+                  <#if orderShipmentInfoSummary.shipGroupSeqId! == shipGroup.shipGroupSeqId!>
                     <div>
                       <#if (orderShipmentInfoSummaryList?size > 1)>${orderShipmentInfoSummary.shipmentPackageSeqId}: </#if>
                       ${uiLabelMap.CommonIdCode}: ${orderShipmentInfoSummary.trackingCode?default("[${uiLabelMap.OrderNotYetKnown}]")}
@@ -508,7 +508,7 @@ under the License.
                   <a href="javascript:addInstruction('${shipGroup.shipGroupSeqId}');" class="buttontext" id="addInstruction_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonAdd}</a>
                 </#if>
                 <a href="javascript:saveInstruction('${shipGroup.shipGroupSeqId}');" class="buttontext" id="saveInstruction_${shipGroup.shipGroupSeqId}" style="display:none">${uiLabelMap.CommonSave}</a>
-                <textarea name="shippingInstructions" id="shippingInstructions_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.shippingInstructions?if_exists}</textarea>
+                <textarea name="shippingInstructions" id="shippingInstructions_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.shippingInstructions!}</textarea>
               </form>
             <#else>
               <#if shipGroup.shippingInstructions?has_content>
@@ -537,7 +537,7 @@ under the License.
               <#else>
                 <a href="javascript:addGiftMessage('${shipGroup.shipGroupSeqId}');" class="buttontext" id="addGiftMessage_${shipGroup.shipGroupSeqId}">${uiLabelMap.CommonAdd}</a>
               </#if>
-              <textarea name="giftMessage" id="giftMessage_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.giftMessage?if_exists}</textarea>
+              <textarea name="giftMessage" id="giftMessage_${shipGroup.shipGroupSeqId}" style="display:none" rows="0" cols="0">${shipGroup.giftMessage!}</textarea>
               <a href="javascript:saveGiftMessage('${shipGroup.shipGroupSeqId}');" class="buttontext" id="saveGiftMessage_${shipGroup.shipGroupSeqId}" style="display:none">${uiLabelMap.CommonSave}</a>
             </form>
           </td>
@@ -554,9 +554,9 @@ under the License.
               <form name="setShipGroupDates_${shipGroup.shipGroupSeqId}" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
                 <input type="hidden" name="orderId" value="${orderHeader.orderId}"/>
                 <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
-                <@htmlTemplate.renderDateTimeField name="shipAfterDate" event="" action="" value="${shipGroup.shipAfterDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipAfterDate_${shipGroup.shipGroupSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                <@htmlTemplate.renderDateTimeField name="shipAfterDate" event="" action="" value="${shipGroup.shipAfterDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipAfterDate_${shipGroup.shipGroupSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 <br/>
-                <@htmlTemplate.renderDateTimeField name="shipByDate" event="" action="" value="${shipGroup.shipByDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipByDate_${shipGroup.shipGroupSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                <@htmlTemplate.renderDateTimeField name="shipByDate" event="" action="" value="${shipGroup.shipByDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="shipByDate_${shipGroup.shipGroupSeqId}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                 <input type="submit" value="${uiLabelMap.CommonUpdate}"/>
                 </form>
             </td>
@@ -578,7 +578,7 @@ under the License.
                         <#assign shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", {"shipmentId" : shipment.shipmentId}, null, false)>
                         <#if shipmentRouteSegments?has_content>
                           <#assign shipmentRouteSegment = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(shipmentRouteSegments)>
-                          <#if "UPS" == (shipmentRouteSegment.carrierPartyId)?if_exists>
+                          <#if "UPS" == (shipmentRouteSegment.carrierPartyId)!>
                             <a href="javascript:document.upsEmailReturnLabel${shipment_index}.submit();" class="buttontext">${uiLabelMap.ProductEmailReturnShippingLabelUPS}</a>
                           </#if>
                           <form name="upsEmailReturnLabel${shipment_index}" method="post" action="<@ofbizUrl>upsEmailReturnLabelOrder</@ofbizUrl>">
@@ -605,7 +605,7 @@ under the License.
              <#if orderHeader.orderTypeId == "SALES_ORDER">
                <#if !shipGroup.supplierPartyId?has_content>
                  <#if orderHeader.statusId == "ORDER_APPROVED">
-                 <a href="/facility/control/PackOrder?facilityId=${storeFacilityId?if_exists}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
+                 <a href="/facility/control/PackOrder?facilityId=${storeFacilityId!}&amp;orderId=${orderId}&amp;shipGroupSeqId=${shipGroup.shipGroupSeqId}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${uiLabelMap.OrderPackShipmentForShipGroup}</a>
                  <br />
                  </#if>
                  <a href="javascript:document.createShipment_${shipGroup.shipGroupSeqId}.submit()" class="buttontext">${uiLabelMap.OrderNewShipmentForShipGroup}</a>
@@ -613,8 +613,8 @@ under the License.
                    <input type="hidden" name="primaryOrderId" value="${orderId}"/>
                    <input type="hidden" name="primaryShipGroupSeqId" value="${shipGroup.shipGroupSeqId}"/>
                    <input type="hidden" name="statusId" value="SHIPMENT_INPUT" />
-                   <input type="hidden" name="facilityId" value="${storeFacilityId?if_exists}" />
-                   <input type="hidden" name="estimatedShipDate" value="${shipGroup.shipByDate?if_exists}"/>
+                   <input type="hidden" name="facilityId" value="${storeFacilityId!}" />
+                   <input type="hidden" name="estimatedShipDate" value="${shipGroup.shipByDate!}"/>
                  </form>
                </#if>
              <#else>
@@ -627,8 +627,8 @@ under the License.
                        <input type="hidden" name="shipmentTypeId" value="PURCHASE_SHIPMENT"/>
                        <input type="hidden" name="statusId" value="PURCH_SHIP_CREATED"/>
                        <input type="hidden" name="externalLoginKey" value="${externalLoginKey}"/>
-                       <input type="hidden" name="estimatedShipDate" value="${shipGroup.estimatedShipDate?if_exists}"/>
-                       <input type="hidden" name="estimatedArrivalDate" value="${shipGroup.estimatedDeliveryDate?if_exists}"/>
+                       <input type="hidden" name="estimatedShipDate" value="${shipGroup.estimatedShipDate!}"/>
+                       <input type="hidden" name="estimatedArrivalDate" value="${shipGroup.estimatedDeliveryDate!}"/>
                        <select name="destinationFacilityId">
                          <#list facilities as facility>
                            <option value="${facility.facilityId}">${facility.facilityName}</option>

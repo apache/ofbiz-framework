@@ -32,19 +32,19 @@ function call_fieldlookup3(view_name) {
         rowCountElement = document.createElement("input");
         rowCountElement.setAttribute("name", "partyId");
         rowCountElement.setAttribute("type", "hidden");
-        rowCountElement.setAttribute("value", "${partyId?if_exists}");
+        rowCountElement.setAttribute("value", "${partyId!}");
         document.forms.siteRoleForm.appendChild(rowCountElement);
 
         rowCountElement = document.createElement("input");
         rowCountElement.setAttribute("name", "userLoginId");
         rowCountElement.setAttribute("type", "hidden");
-        rowCountElement.setAttribute("value", "${userLoginId?if_exists}");
+        rowCountElement.setAttribute("value", "${userLoginId!}");
         document.forms.siteRoleForm.appendChild(rowCountElement);
 
         rowCountElement = document.createElement("input");
         rowCountElement.setAttribute("name", "webSitePublishPoint");
         rowCountElement.setAttribute("type", "hidden");
-        rowCountElement.setAttribute("value", "${webSitePublishPoint?if_exists}");
+        rowCountElement.setAttribute("value", "${webSitePublishPoint!}");
         document.forms.siteRoleForm.appendChild(rowCountElement);
 
         document.forms.siteRoleForm.submit();
@@ -65,10 +65,10 @@ function call_fieldlookup3(view_name) {
           </td>
           <td valign="middle">
             <div class="boxhead">
-             <input type="text" name="webSitePublishPoint" size="20" value="${webSitePublishPoint?if_exists}" />
+             <input type="text" name="webSitePublishPoint" size="20" value="${webSitePublishPoint!}" />
              <input type="submit" value="${uiLabelMap.CommonRefresh}"/>
-             <input type="hidden" name="partyId" value="${partyId?if_exists}"/>
-             <input type="hidden" name="userLoginId" value="${userLoginId?if_exists}"/>
+             <input type="hidden" name="partyId" value="${partyId!}"/>
+             <input type="hidden" name="userLoginId" value="${userLoginId!}"/>
             </div>
           </td>
         </tr>
@@ -90,7 +90,7 @@ function call_fieldlookup3(view_name) {
       <#assign rowCount=0/>
         <#list siteList as map>
           <tr>
-            <td class="">${map.partyId?if_exists}</td>
+            <td class="">${map.partyId!}</td>
             <#list blogRoleIdList as roleTypeId>
               <#assign cappedSiteRole= Static["org.ofbiz.entity.model.ModelUtil"].dbNameToVarName(roleTypeId) />
               <td align="center">
@@ -104,7 +104,7 @@ function call_fieldlookup3(view_name) {
         </#list>
           <tr>
             <td>
-              <div class="smallSubmit" ><a href="javascript:submitRows('${rowCount?if_exists}')">${uiLabelMap.CommonUpdate}</a></div>
+              <div class="smallSubmit" ><a href="javascript:submitRows('${rowCount!}')">${uiLabelMap.CommonUpdate}</a></div>
             </td>
           </tr>
       </table>

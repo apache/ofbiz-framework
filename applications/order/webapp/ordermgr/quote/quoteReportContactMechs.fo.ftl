@@ -26,7 +26,7 @@ under the License.
                     <fo:table-cell>
                         <fo:block>
                             <fo:block font-weight="bold">${uiLabelMap.OrderAddress}: </fo:block>
-                            <#if quote.partyId?exists>
+                            <#if quote.partyId??>
                                 <#assign quotePartyNameResult = dispatcher.runSync("getPartyNameForDate", Static["org.ofbiz.base.util.UtilMisc"].toMap("partyId", quote.partyId, "compareDate", quote.issueDate, "userLogin", userLogin))/>
                                 <fo:block>${quotePartyNameResult.fullName?default("[${uiLabelMap.OrderPartyNameNotFound}]")}</fo:block>
                             <#else>
@@ -38,7 +38,7 @@ under the License.
                 <fo:table-row>
                     <fo:table-cell>
                         <fo:block>
-                            <#if toPostalAddress?exists>
+                            <#if toPostalAddress??>
                                 ${setContextField("postalAddress", toPostalAddress)}
                                 ${screens.render("component://party/widget/partymgr/PartyScreens.xml#postalAddressPdfFormatter")}
                             </#if>
@@ -55,23 +55,23 @@ under the License.
             <fo:table-body>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.OrderOrderQuoteName}:</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${quote.quoteName?if_exists}</fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block>${quote.quoteName!}</fo:block></fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.CommonDescription}:</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${quote.description?if_exists}</fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block>${quote.description!}</fo:block></fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.CommonCurrency}:</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block><#if currency?exists>${currency.get("description",locale)?default(quote.currencyUomId?if_exists)}</#if></fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block><#if currency??>${currency.get("description",locale)?default(quote.currencyUomId!)}</#if></fo:block></fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.CommonValidFromDate}:</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${(quote.validFromDate.toString())?if_exists}</fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block>${(quote.validFromDate.toString())!}</fo:block></fo:table-cell>
                 </fo:table-row>
                 <fo:table-row>
                     <fo:table-cell><fo:block>${uiLabelMap.CommonValidThruDate}:</fo:block></fo:table-cell>
-                    <fo:table-cell><fo:block>${(quote.validThruDate.toString())?if_exists}</fo:block></fo:table-cell>
+                    <fo:table-cell><fo:block>${(quote.validThruDate.toString())!}</fo:block></fo:table-cell>
                 </fo:table-row>
             </fo:table-body>
         </fo:table>

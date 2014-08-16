@@ -65,14 +65,14 @@ under the License.
                       <#if contactMechPurposeType?has_content>
                         <#assign popUptitle = contactMechPurposeType.get("description", locale) + uiLabelMap.CommonGeoLocation>
                       </#if>
-                      <a href="javascript:popUp('<@ofbizUrl>PartyGeoLocation?geoPointId=${postalAddress.geoPointId}&partyId=${partyId}</@ofbizUrl>', '${popUptitle?if_exists}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
+                      <a href="javascript:popUp('<@ofbizUrl>PartyGeoLocation?geoPointId=${postalAddress.geoPointId}&partyId=${partyId}</@ofbizUrl>', '${popUptitle!}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                     </#if>
                   </#if>
                 <#elseif "TELECOM_NUMBER" = contactMech.contactMechTypeId>
                   <#if contactMechMap.telecomNumber?has_content>
                     <#assign telecomNumber = contactMechMap.telecomNumber>
                     <div>
-                      ${telecomNumber.countryCode?if_exists}
+                      ${telecomNumber.countryCode!}
                       <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode?default("000")}-</#if><#if telecomNumber.contactNumber?has_content>${telecomNumber.contactNumber?default("000-0000")}</#if>
                       <#if partyContactMech.extension?has_content>${uiLabelMap.PartyContactExt}&nbsp;${partyContactMech.extension}</#if>
                         <#if !telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011">
@@ -83,7 +83,7 @@ under the License.
                   </#if>
                 <#elseif "EMAIL_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
-                    ${contactMech.infoString?if_exists}
+                    ${contactMech.infoString!}
                     <form method="post" action="<@ofbizUrl>NewDraftCommunicationEvent</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createEmail${contactMech.infoString?replace("&#64;","")?replace(".","")}">
                       <#if userLogin.partyId?has_content>
                       <input name="partyIdFrom" value="${userLogin.partyId}" type="hidden"/>
@@ -97,18 +97,18 @@ under the License.
                   </div>
                 <#elseif "WEB_ADDRESS" = contactMech.contactMechTypeId>
                   <div>
-                    ${contactMech.infoString?if_exists}
+                    ${contactMech.infoString!}
                     <#assign openAddress = contactMech.infoString?default("")>
                     <#if !openAddress?starts_with("http") && !openAddress?starts_with("HTTP")><#assign openAddress = "http://" + openAddress></#if>
                     <a target="_blank" href="${openAddress}" class="buttontext">${uiLabelMap.CommonOpenPageNewWindow}</a>
                   </div>
                 <#else>
-                  <div>${contactMech.infoString?if_exists}</div>
+                  <div>${contactMech.infoString!}</div>
                 </#if>
                 <div>(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate})</div>
                 <#if partyContactMech.thruDate?has_content><div><b>${uiLabelMap.PartyContactEffectiveThru}:&nbsp;${partyContactMech.thruDate}</b></div></#if>
                 <#-- create cust request -->
-                <#if custRequestTypes?exists>
+                <#if custRequestTypes??>
                   <form name="createCustRequestForm" action="<@ofbizUrl>createCustRequest</@ofbizUrl>" method="post" onsubmit="javascript:submitFormDisableSubmits(this)">
                     <input type="hidden" name="partyId" value="${partyId}"/>
                     <input type="hidden" name="fromPartyId" value="${partyId}"/>
@@ -122,7 +122,7 @@ under the License.
                   </form>
                 </#if>
               </td>
-              <td valign="top"><b>(${partyContactMech.allowSolicitation?if_exists})</b></td>
+              <td valign="top"><b>(${partyContactMech.allowSolicitation!})</b></td>
               <td class="button-col">
                 <#if security.hasEntityPermission("PARTYMGR", "_UPDATE", session) || userLogin.partyId == partyId>
                   <a href="<@ofbizUrl>editcontactmech?partyId=${partyId}&amp;contactMechId=${contactMech.contactMechId}</@ofbizUrl>">${uiLabelMap.CommonUpdate}</a>

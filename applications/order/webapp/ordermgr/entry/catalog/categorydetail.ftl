@@ -67,31 +67,31 @@ under the License.
 </#macro>
 
 
-<#if productCategory?exists>
-    <#assign categoryName = categoryContentWrapper.get("CATEGORY_NAME")?if_exists/>
-    <#assign categoryDescription = categoryContentWrapper.get("DESCRIPTION")?if_exists/>
+<#if productCategory??>
+    <#assign categoryName = categoryContentWrapper.get("CATEGORY_NAME")!/>
+    <#assign categoryDescription = categoryContentWrapper.get("DESCRIPTION")!/>
     <#if categoryName?has_content>
         <h1>${categoryName}</h1>
     </#if>
     <#if categoryDescription?has_content>
         <h1>${categoryDescription}</h1>
     </#if>
-    <#if hasQuantities?exists>
-      <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>
+    <#if hasQuantities??>
+      <form method="post" action="<@ofbizUrl>addCategoryDefaults<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="thecategoryform" style='margin: 0;'>
         <input type='hidden' name='add_category_id' value='${productCategory.productCategoryId}'/>
-        <#if requestParameters.product_id?exists><input type='hidden' name='product_id' value='${requestParameters.product_id}'/></#if>
-        <#if requestParameters.category_id?exists><input type='hidden' name='category_id' value='${requestParameters.category_id}'/></#if>
-        <#if requestParameters.VIEW_INDEX?exists><input type='hidden' name='VIEW_INDEX' value='${requestParameters.VIEW_INDEX}'/></#if>
-        <#if requestParameters.SEARCH_STRING?exists><input type='hidden' name='SEARCH_STRING' value='${requestParameters.SEARCH_STRING}'/></#if>
-        <#if requestParameters.SEARCH_CATEGORY_ID?exists><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>
+        <#if requestParameters.product_id??><input type='hidden' name='product_id' value='${requestParameters.product_id}'/></#if>
+        <#if requestParameters.category_id??><input type='hidden' name='category_id' value='${requestParameters.category_id}'/></#if>
+        <#if requestParameters.VIEW_INDEX??><input type='hidden' name='VIEW_INDEX' value='${requestParameters.VIEW_INDEX}'/></#if>
+        <#if requestParameters.SEARCH_STRING??><input type='hidden' name='SEARCH_STRING' value='${requestParameters.SEARCH_STRING}'/></#if>
+        <#if requestParameters.SEARCH_CATEGORY_ID??><input type='hidden' name='SEARCH_CATEGORY_ID' value='${requestParameters.SEARCH_CATEGORY_ID}'/></#if>
         <a href="javascript:document.thecategoryform.submit()" class="buttontext"><span style="white-space: nowrap;">${uiLabelMap.ProductAddProductsUsingDefaultQuantities}</span></a>
       </form>
     </#if>
     <#if searchInCategory?default("Y") == "Y">
         <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchInCategory}</a>
     </#if>
-    <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
-    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
+    <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")!/>
+    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")!/>
     <#if categoryImageUrl?string?has_content || longDescription?has_content>
       <div>
         <#if categoryImageUrl?string?has_content>
@@ -116,11 +116,11 @@ under the License.
 
 <#if productCategoryMembers?has_content>
     <#-- Pagination -->
-    <#if paginateEcommerceStyle?exists>
+    <#if paginateEcommerceStyle??>
         <@paginationControls/>
     <#else>
         <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
-        <#assign commonUrl = "category?category_id="+ parameters.category_id?if_exists + "&"/>
+        <#assign commonUrl = "category?category_id="+ parameters.category_id! + "&"/>
         <#--assign viewIndex = viewIndex - 1/-->
         <#assign viewIndexFirst = 0/>
         <#assign viewIndexPrevious = viewIndex - 1/>
@@ -163,7 +163,7 @@ under the License.
         </table>
       </#if>
       </div>
-    <#if paginateEcommerceStyle?exists>
+    <#if paginateEcommerceStyle??>
         <@paginationControls/>
     </#if>
 <#else>

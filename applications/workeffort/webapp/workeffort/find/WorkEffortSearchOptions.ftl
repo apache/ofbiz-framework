@@ -28,7 +28,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortKeywords}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}"/>&nbsp;
               ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if>/>
               ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if>/>
             </div>
@@ -38,7 +38,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortReviews}</td>
           <td valign="middle">
             <div>
-              <input type="text" name="SEARCH_STRING_REVIEW_TEXT" size="40" value="${requestParameters.SEARCH_STRING_REVIEW_TEXT?if_exists}"/>&nbsp;
+              <input type="text" name="SEARCH_STRING_REVIEW_TEXT" size="40" value="${requestParameters.SEARCH_STRING_REVIEW_TEXT!}"/>&nbsp;
             </div>
           </td>
         </tr>
@@ -46,7 +46,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.FormFieldTitle_workEffortId}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.SEARCH_WORK_EFFORT_ID?if_exists}" formName="advToKeyWordSearchForm" name="SEARCH_WORK_EFFORT_ID" id="SEARCH_WORK_EFFORT_ID" fieldFormName="LookupWorkEffort"/>
+              <@htmlTemplate.lookupField value="${requestParameters.SEARCH_WORK_EFFORT_ID!}" formName="advToKeyWordSearchForm" name="SEARCH_WORK_EFFORT_ID" id="SEARCH_WORK_EFFORT_ID" fieldFormName="LookupWorkEffort"/>
             </div>
           </td>
         </tr>
@@ -70,7 +70,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.PartyPartyId}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.partyId?if_exists}" formName="advToKeyWordSearchForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
+              <@htmlTemplate.lookupField value="${requestParameters.partyId!}" formName="advToKeyWordSearchForm" name="partyId" id="partyId" fieldFormName="LookupPartyName"/>
             </div>
           </td>
         </tr>
@@ -91,7 +91,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId1}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.productId_1?if_exists}" formName="advToKeyWordSearchForm" name="productId_1" id="productId_1" fieldFormName="LookupProduct"/>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_1!}" formName="advToKeyWordSearchForm" name="productId_1" id="productId_1" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>
@@ -99,7 +99,7 @@ under the License.
           <td align="right" valign="middle" class="label">${uiLabelMap.WorkEffortProductId2}</td>
           <td valign="middle">
             <div>
-              <@htmlTemplate.lookupField value="${requestParameters.productId_2?if_exists}" formName="advToKeyWordSearchForm" name="productId_2" id="productId_2" fieldFormName="LookupProduct"/>
+              <@htmlTemplate.lookupField value="${requestParameters.productId_2!}" formName="advToKeyWordSearchForm" name="productId_2" id="productId_2" fieldFormName="LookupProduct"/>
             </div>
           </td>
         </tr>
@@ -109,13 +109,13 @@ under the License.
             <table class="basic-table" cellspacing="0">
                <tr>
                   <td nowrap="nowrap">
-                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.fromDate?if_exists}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.fromDate!}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <span>${uiLabelMap.CommonFrom}</span>
                   </td>
                </tr>
                <tr>
                   <td nowrap="nowrap">
-                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.thruDate?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${requestParameters.thruDate!}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <span>${uiLabelMap.CommonThru}</span>
                   </td>
                </tr>

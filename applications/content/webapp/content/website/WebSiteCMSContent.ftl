@@ -163,7 +163,7 @@
 <#if (dataResourceTypeId?has_content)>
     <form name="cmsform" enctype="multipart/form-data" method="post" action="<@ofbizUrl>${formAction}</@ofbizUrl>" style="margin: 0;">
         <#if (content?has_content)>
-            <input type="hidden" name="dataResourceId" value="${(dataResource.dataResourceId)?if_exists}"/>
+            <input type="hidden" name="dataResourceId" value="${(dataResource.dataResourceId)!}"/>
             <input type="hidden" name="contentId" value="${content.contentId}"/>
 
             <#list requestParameters.keySet() as paramName>
@@ -189,7 +189,7 @@
         </#if>
         </#if>
         <input type="hidden" name="webSiteId" value="${webSiteId}"/>
-        <input type="hidden" name="dataResourceName" value="${(dataResource.dataResourceName)?if_exists}"/>
+        <input type="hidden" name="dataResourceName" value="${(dataResource.dataResourceName)!}"/>
 
         <table>
           <#if (content?has_content)>
@@ -201,19 +201,19 @@
           <tr>
             <td class="label">${uiLabelMap.CommonName}</td>
             <td>
-                <input type="text" name="contentName" value="${(content.contentName)?if_exists}" size="40"/>
+                <input type="text" name="contentName" value="${(content.contentName)!}" size="40"/>
             </td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.CommonDescription}</td>
             <td>
-                <textarea name="description" cols="40" rows="6">${(content.description)?if_exists}</textarea>
+                <textarea name="description" cols="40" rows="6">${(content.description)!}</textarea>
             </td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.ContentMapKey}</td>
             <td>
-                <input type="text" name="mapKey" value="${(assoc.mapKey)?if_exists}" size="40"/>
+                <input type="text" name="mapKey" value="${(assoc.mapKey)!}" size="40"/>
             </td>
           </tr>
           <tr>
@@ -237,7 +237,7 @@
           <tr>
             <td class="label">${uiLabelMap.CommonSequenceNum}</td>
             <td>
-              <input type="text" name="sequenceNum" value="${(currentPurpose.sequenceNum)?if_exists}" size="5" />
+              <input type="text" name="sequenceNum" value="${(currentPurpose.sequenceNum)!}" size="5" />
             </td>
           </tr>
           <tr>
@@ -246,7 +246,7 @@
                 <select name="dataTemplateTypeId">
                     <#if (dataResource?has_content)>
                         <#if (dataResource.dataTemplateTypeId?has_content)>
-                            <#assign thisType = dataResource.getRelatedOne("DataTemplateType", false)?if_exists/>
+                            <#assign thisType = dataResource.getRelatedOne("DataTemplateType", false)!/>
                             <option value="${thisType.dataTemplateTypeId}">${thisType.description}</option>
                             <option value="${thisType.dataTemplateTypeId}">----</option>
                         </#if>
@@ -282,7 +282,7 @@
                     <#if (content?has_content)>
                         <#if (content.templateDataResourceId?has_content && content.templateDataResourceId != "NONE")>
                             <#assign template = content.getRelatedOne("TemplateDataResource", false)/>
-                            <option value="${template.dataResourceId}">${template.dataResourceName?if_exists}</option>
+                            <option value="${template.dataResourceId}">${template.dataResourceName!}</option>
                             <option value="${template.dataResourceId}">----</option>
                         </#if>
                     </#if>
@@ -359,14 +359,14 @@
             <tr>
               <td class="label">${uiLabelMap.ContentUrl}</td>
               <td>
-                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
+                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)!}"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'SHORT_TEXT')>
             <tr>
               <td class="label">${uiLabelMap.ContentText}</td>
               <td>
-                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)?if_exists}"/>
+                <input type="text" name="objectInfo" size="40" maxsize="255" value="${(dataResource.objectInfo)!}"/>
               </td>
             </tr>
           <#elseif (dataResourceTypeId == 'ELECTRONIC_TEXT')>

@@ -28,7 +28,7 @@ under the License.
             <td width="80%"><b>${uiLabelMap.ProductRuleNameFromDateThruDate}</b></td>
             <td width="10%"><b>&nbsp;</b></td>
           </tr>
-        <#if productPriceRule?exists>
+        <#if productPriceRule??>
           <#assign productPriceConds = productPriceRule.getRelated("ProductPriceCond", null, null, false)>
           <#assign productPriceActions = productPriceRule.getRelated("ProductPriceAction", null, null, false)>
           <tr valign="middle">
@@ -37,11 +37,11 @@ under the License.
                 <form method="post" action="<@ofbizUrl>updateProductPriceRule</@ofbizUrl>" name="updateProductPriceRule">
                     <input type="hidden" name="productPriceRuleId" value="${productPriceRule.productPriceRuleId}" />
                     <input type="text" size="15" name="ruleName" value="${productPriceRule.ruleName}" />
-                    <input type="text" size="15" name="description" value="${productPriceRule.description?if_exists}" />
-                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.fromDate?if_exists}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.thruDate?if_exists}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <input type="text" size="15" name="description" value="${productPriceRule.description!}" />
+                    <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.fromDate!}" size="25" maxlength="30" id="fromDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+                    <@htmlTemplate.renderDateTimeField name="thruDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productPriceRule.thruDate!}" size="25" maxlength="30" id="thruDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     &nbsp;&nbsp;
-                    <#assign saleRule = productPriceRule.isSale?exists && productPriceRule.isSale == "Y">
+                    <#assign saleRule = productPriceRule.isSale?? && productPriceRule.isSale == "Y">
                     <div>
                     <span class="label"><b>${uiLabelMap.ProductNotifySale}</b></span>&nbsp;
                     <input type="radio" name="isSale" value="Y" <#if saleRule>checked="checked"</#if> />${uiLabelMap.CommonYes}&nbsp;
@@ -83,8 +83,8 @@ under the License.
                                 <input type="hidden" name="productPriceCondSeqId" value="${productPriceCond.productPriceCondSeqId}"/>
                                 <select name="inputParamEnumId" size="1">
                                     <#if productPriceCond.inputParamEnumId?has_content>
-                                      <#assign inputParamEnum = productPriceCond.getRelatedOne("InputParamEnumeration", true)?if_exists>
-                                      <option value="${productPriceCond.inputParamEnumId}"><#if inputParamEnum?exists>${inputParamEnum.get("description",locale)}<#else>[${productPriceCond.inputParamEnumId}]</#if></option>
+                                      <#assign inputParamEnum = productPriceCond.getRelatedOne("InputParamEnumeration", true)!>
+                                      <option value="${productPriceCond.inputParamEnumId}"><#if inputParamEnum??>${inputParamEnum.get("description",locale)}<#else>[${productPriceCond.inputParamEnumId}]</#if></option>
                                       <option value="${productPriceCond.inputParamEnumId}">&nbsp;</option>
                                     <#else>
                                       <option value="">&nbsp;</option>
@@ -95,8 +95,8 @@ under the License.
                                 </select>
                                 <select name="operatorEnumId" size="1">
                                     <#if productPriceCond.operatorEnumId?has_content>
-                                      <#assign operatorEnum = productPriceCond.getRelatedOne("OperatorEnumeration", true)?if_exists>
-                                      <option value="${productPriceCond.operatorEnumId}"><#if operatorEnum?exists>${operatorEnum.get("description",locale)}<#else>[${productPriceCond.operatorEnumId}]</#if></option>
+                                      <#assign operatorEnum = productPriceCond.getRelatedOne("OperatorEnumeration", true)!>
+                                      <option value="${productPriceCond.operatorEnumId}"><#if operatorEnum??>${operatorEnum.get("description",locale)}<#else>[${productPriceCond.operatorEnumId}]</#if></option>
                                       <option value="${productPriceCond.operatorEnumId}">&nbsp;</option>
                                     <#else>
                                       <option value="">&nbsp;</option>
@@ -105,7 +105,7 @@ under the License.
                                       <option value="${condOperEnum.enumId}">${condOperEnum.get("description",locale)}<#--[${condOperEnum.enumId}]--></option>
                                     </#list>
                                 </select>
-                                <input type="text" size="20" name="condValue" value="${productPriceCond.condValue?if_exists}" />
+                                <input type="text" size="20" name="condValue" value="${productPriceCond.condValue!}" />
                                 <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                             </form>
                         </td>
@@ -167,7 +167,7 @@ under the License.
                                 <select name="productPriceActionTypeId" size="1">
                                     <#if productPriceAction.productPriceActionTypeId?has_content>
                                       <#assign productPriceActionType = productPriceAction.getRelatedOne("ProductPriceActionType", true)>
-                                      <option value="${productPriceAction.productPriceActionTypeId}"><#if productPriceActionType?exists>${productPriceActionType.get("description",locale)}<#else>[${productPriceAction.productPriceActionTypeId}]</#if></option>
+                                      <option value="${productPriceAction.productPriceActionTypeId}"><#if productPriceActionType??>${productPriceActionType.get("description",locale)}<#else>[${productPriceAction.productPriceActionTypeId}]</#if></option>
                                       <option value="${productPriceAction.productPriceActionTypeId}">&nbsp;</option>
                                     <#else>
                                       <option value="">&nbsp;</option>
@@ -176,7 +176,7 @@ under the License.
                                       <option value="${productPriceActionType.productPriceActionTypeId}">${productPriceActionType.get("description",locale)}<#--[${productPriceActionType.productPriceActionTypeId}]--></option>
                                     </#list>
                                 </select>
-                                <input type="text" size="8" name="amount" value="${productPriceAction.amount?if_exists}" />
+                                <input type="text" size="8" name="amount" value="${productPriceAction.amount!}" />
                                 <input type="submit" value="${uiLabelMap.CommonUpdate}" />
                             </form>
                         </td>

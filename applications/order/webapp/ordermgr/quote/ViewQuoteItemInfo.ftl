@@ -50,7 +50,7 @@ under the License.
             <#assign totalQuoteAmount = 0.0>
             <#assign alt_row = false/>
             <#list quoteItems as quoteItem>
-                <#if quoteItem.productId?exists>
+                <#if quoteItem.productId??>
                     <#assign product = quoteItem.getRelatedOne("Product", false)>
                 <#else>
                     <#assign product = null> <#-- don't drag it along to the next iteration -->
@@ -71,7 +71,7 @@ under the License.
                 <tr <#if alt_row>class="alternate-row" </#if>>
                     <td >
                         <div>
-                        <#if showQuoteManagementLinks?exists && quoteItem.isPromo?default("N") == "N" && quote.statusId=="QUO_CREATED">
+                        <#if showQuoteManagementLinks?? && quoteItem.isPromo?default("N") == "N" && quote.statusId=="QUO_CREATED">
                             <a href="<@ofbizUrl>EditQuoteItem?quoteId=${quoteItem.quoteId}&amp;quoteItemSeqId=${quoteItem.quoteItemSeqId}</@ofbizUrl>" class="buttontext">${quoteItem.quoteItemSeqId}</a>
                         <#else>
                             ${quoteItem.quoteItemSeqId}
@@ -81,23 +81,23 @@ under the License.
                     </td>
                     <td valign="top">
                         <div>
-                            ${(product.internalName)?if_exists}&nbsp;
-                            <#if showQuoteManagementLinks?exists>
-                                <a href="/catalog/control/EditProduct?productId=${quoteItem.productId?if_exists}" class="buttontext">
-                                  <#if quoteItem.productId?exists>
+                            ${(product.internalName)!}&nbsp;
+                            <#if showQuoteManagementLinks??>
+                                <a href="/catalog/control/EditProduct?productId=${quoteItem.productId!}" class="buttontext">
+                                  <#if quoteItem.productId??>
                                     ${quoteItem.productId}
                                   <#else>
                                     ${uiLabelMap.ProductCreateProduct}
                                   </#if>
                                 </a>
                             <#else>
-                                <a href="<@ofbizUrl>product?product_id=${quoteItem.productId?if_exists}</@ofbizUrl>" class="buttontext">${quoteItem.productId?if_exists}</a>
+                                <a href="<@ofbizUrl>product?product_id=${quoteItem.productId!}</@ofbizUrl>" class="buttontext">${quoteItem.productId!}</a>
                             </#if>
                         </div>
                     </td>
                     <td></td>
-                    <td align="right" valign="top">${quoteItem.quantity?if_exists}</td>
-                    <td align="right" valign="top">${quoteItem.selectedAmount?if_exists}</td>
+                    <td align="right" valign="top">${quoteItem.quantity!}</td>
+                    <td align="right" valign="top">${quoteItem.selectedAmount!}</td>
                     <td align="right" valign="top"><@ofbizCurrency amount=quoteItem.quoteUnitPrice isoCode=quote.currencyUomId/></td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAdjustmentAmount isoCode=quote.currencyUomId/></td>
                     <td align="right" valign="top"><@ofbizCurrency amount=totalQuoteItemAmount isoCode=quote.currencyUomId/></td>
@@ -105,10 +105,10 @@ under the License.
                 <#list quoteTerms as quoteTerm>
                 <#assign termDescription = delegator.findOne("TermType",{"termTypeId":quoteTerm.termTypeId}, false)>
                 <tr <#if alt_row>class="alternate-row" </#if>>
-                    <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${termDescription.description?if_exists}</td>
-                    <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termValue?if_exists}</td>
-                    <td valign="top"><#if quoteTerm.termDays?exists>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termDays?if_exists}</#if></td>
-                    <td valign="top"><#if quoteTerm.description?exists>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.description}</#if></td>
+                    <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${termDescription.description!}</td>
+                    <td valign="top">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termValue!}</td>
+                    <td valign="top"><#if quoteTerm.termDays??>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.termDays!}</#if></td>
+                    <td valign="top"><#if quoteTerm.description??>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${quoteTerm.description}</#if></td>
                     <td align="right" valign="top"></td>
                     <td align="right" valign="top"></td>
                     <td align="right" valign="top"></td>
@@ -119,7 +119,7 @@ under the License.
                 <#list quoteItemAdjustments as quoteItemAdjustment>
                     <#assign adjustmentType = quoteItemAdjustment.getRelatedOne("OrderAdjustmentType", false)>
                     <tr class="alternate-row">
-                        <td align="right" colspan="4"><span class="label">${adjustmentType.get("description",locale)?if_exists}</span></td>
+                        <td align="right" colspan="4"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
                         <td align="right"><@ofbizCurrency amount=quoteItemAdjustment.amount isoCode=quote.currencyUomId/></td>
                         <td>&nbsp;</td>
                     </tr>
@@ -137,10 +137,10 @@ under the License.
             <#assign findAdjustment = false>
             <#list quoteAdjustments as quoteAdjustment>
                 <#assign adjustmentType = quoteAdjustment.getRelatedOne("OrderAdjustmentType", false)>
-                <#if !quoteAdjustment.quoteItemSeqId?exists>
+                <#if !quoteAdjustment.quoteItemSeqId??>
                     <#assign totalQuoteHeaderAdjustmentAmount = quoteAdjustment.amount?default(0) + totalQuoteHeaderAdjustmentAmount>
                     <tr>
-                      <td align="right" colspan="6"><span class="label">${adjustmentType.get("description",locale)?if_exists}</span></td>
+                      <td align="right" colspan="6"><span class="label">${adjustmentType.get("description",locale)!}</span></td>
                       <td align="right"><@ofbizCurrency amount=quoteAdjustment.amount isoCode=quote.currencyUomId/></td>
                     </tr>
                 </#if>

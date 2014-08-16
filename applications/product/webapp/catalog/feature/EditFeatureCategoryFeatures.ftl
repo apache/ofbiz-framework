@@ -18,11 +18,11 @@ under the License.
 -->
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductEditFeaturesForFeatureCategory} "${(curProductFeatureCategory.description)?if_exists}"</h3>
+        <h3>${uiLabelMap.ProductEditFeaturesForFeatureCategory} "${(curProductFeatureCategory.description)!}"</h3>
     </div>
     <div class="screenlet-body">
         <div class="button-bar">
-          <a href="<@ofbizUrl>CreateFeature?productFeatureCategoryId=${productFeatureCategoryId?if_exists}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductCreateNewFeature}</a>
+          <a href="<@ofbizUrl>CreateFeature?productFeatureCategoryId=${productFeatureCategoryId!}</@ofbizUrl>" class="buttontext create">${uiLabelMap.ProductCreateNewFeature}</a>
         </div>
         <br/>
         <form action="<@ofbizUrl>QuickAddProductFeatures</@ofbizUrl>" method="post">
@@ -52,11 +52,11 @@ under the License.
                     <span class="label">
                     <b>
                     <#if (viewIndex > 0)>
-                    <a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
+                    <a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex-1}${productString!}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonPrevious}]</a> |
                     </#if>
                     ${lowIndex+1} - ${highIndex} ${uiLabelMap.CommonOf} ${listSize}
                     <#if (listSize > highIndex)>
-                    | <a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId?if_exists}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${productString?if_exists}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
+                    | <a href="<@ofbizUrl>EditFeatureCategoryFeatures?productFeatureCategoryId=${productFeatureCategoryId!}&amp;VIEW_SIZE=${viewSize}&amp;VIEW_INDEX=${viewIndex+1}${productString!}</@ofbizUrl>" class="buttontext">[${uiLabelMap.CommonNext}]</a>
                     </#if>
                     </b>
                     </span>
@@ -94,29 +94,29 @@ under the License.
               <td><input type="text" size='15' name="description_o_${rowCount}" value="${productFeature.description}" /></td>
               <td><select name='productFeatureTypeId_o_${rowCount}' size="1">
                 <#if productFeature.productFeatureTypeId?has_content>
-                  <option value='${productFeature.productFeatureTypeId}'><#if curProductFeatureType?exists>${curProductFeatureType.get("description",locale)?if_exists}<#else> [${productFeature.productFeatureTypeId}]</#if></option>
+                  <option value='${productFeature.productFeatureTypeId}'><#if curProductFeatureType??>${curProductFeatureType.get("description",locale)!}<#else> [${productFeature.productFeatureTypeId}]</#if></option>
                   <option value='${productFeature.productFeatureTypeId}'>---</option>
                 </#if>
                 <#list productFeatureTypes as productFeatureType>
-                  <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)?if_exists}</option>
+                  <option value='${productFeatureType.productFeatureTypeId}'>${productFeatureType.get("description",locale)!}</option>
                 </#list>
               </select></td>
               <td><select name='productFeatureCategoryId_o_${rowCount}' size="1">
                 <#if productFeature.productFeatureCategoryId?has_content>
                   <#assign curProdFeatCat = productFeature.getRelatedOne("ProductFeatureCategory", false)>
-                  <option value='${productFeature.productFeatureCategoryId}'>${(curProdFeatCat.description)?if_exists} [${productFeature.productFeatureCategoryId}]</option>
+                  <option value='${productFeature.productFeatureCategoryId}'>${(curProdFeatCat.description)!} [${productFeature.productFeatureCategoryId}]</option>
                   <option value='${productFeature.productFeatureCategoryId}'>---</option>
                 </#if>
                 <#list productFeatureCategories as productFeatureCategory>
-                  <option value='${productFeatureCategory.productFeatureCategoryId}'>${productFeatureCategory.get("description",locale)?if_exists} [${productFeatureCategory.productFeatureCategoryId}]</option>
+                  <option value='${productFeatureCategory.productFeatureCategoryId}'>${productFeatureCategory.get("description",locale)!} [${productFeatureCategory.productFeatureCategoryId}]</option>
                 </#list>
               </select></td>
-              <td><input type="text" size='10' name="uomId_o_${rowCount}" value="${productFeature.uomId?if_exists}" /></td>
-              <td><input type="text" size='5' name="numberSpecified_o_${rowCount}" value="${productFeature.numberSpecified?if_exists}" /></td>
-              <td><input type="text" size='5' name="defaultAmount_o_${rowCount}" value="${productFeature.defaultAmount?if_exists}" /></td>
-              <td><input type="text" size='5' name="defaultSequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum?if_exists}" /></td>
-              <td><input type="text" size='5' name="idCode_o_${rowCount}" value="${productFeature.idCode?if_exists}" /></td>
-              <td><input type="text" size='5' name="abbrev_o_${rowCount}" value="${productFeature.abbrev?if_exists}" /></td>
+              <td><input type="text" size='10' name="uomId_o_${rowCount}" value="${productFeature.uomId!}" /></td>
+              <td><input type="text" size='5' name="numberSpecified_o_${rowCount}" value="${productFeature.numberSpecified!}" /></td>
+              <td><input type="text" size='5' name="defaultAmount_o_${rowCount}" value="${productFeature.defaultAmount!}" /></td>
+              <td><input type="text" size='5' name="defaultSequenceNum_o_${rowCount}" value="${productFeature.defaultSequenceNum!}" /></td>
+              <td><input type="text" size='5' name="idCode_o_${rowCount}" value="${productFeature.idCode!}" /></td>
+              <td><input type="text" size='5' name="abbrev_o_${rowCount}" value="${productFeature.abbrev!}" /></td>
               <td align="right"><input type="checkbox" name="_rowSubmit_o_${rowCount}" value="Y" onclick="javascript:checkToggle(this, 'selectAllForm');highlightRow(this,'productFeatureId_tableRow_${rowCount}');" /></td>
             </tr>
             <#assign rowCount = rowCount + 1>

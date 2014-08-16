@@ -25,7 +25,7 @@ under the License.
           <td>
               <#if postalAddress?has_content>
               <form method="post" action="<@ofbizUrl>updatePostalAddressOrderEntry</@ofbizUrl>" name="checkoutsetupform">
-                <input type="hidden" name="contactMechId" value="${shipContactMechId?if_exists}"/>
+                <input type="hidden" name="contactMechId" value="${shipContactMechId!}"/>
               <#else>
               <form method="post" action="<@ofbizUrl>createPostalAddress</@ofbizUrl>" name="checkoutsetupform">
                 <input type="hidden" name="contactMechTypeId" value="POSTAL_ADDRESS"/>
@@ -33,14 +33,14 @@ under the License.
               </#if>
                 <input type="hidden" name="partyId" value="${cart.getPartyId()?default("_NA_")}"/>
                 <input type="hidden" name="finalizeMode" value="ship"/>
-                <#if orderPerson?exists && orderPerson?has_content>
+                <#if orderPerson?? && orderPerson?has_content>
                   <#assign toName = "">
                   <#if orderPerson.personalTitle?has_content><#assign toName = orderPerson.personalTitle + " "></#if>
                   <#assign toName = toName + orderPerson.firstName + " ">
                   <#if orderPerson.middleName?has_content><#assign toName = toName + orderPerson.middleName + " "></#if>
                   <#assign toName = toName + orderPerson.lastName>
                   <#if orderPerson.suffix?has_content><#assign toName = toName + " " + orderPerson.suffix></#if>
-                <#elseif parameters.toName?exists>
+                <#elseif parameters.toName??>
                   <#assign toName = parameters.toName>
                 <#else>
                   <#assign toName = "">
@@ -57,28 +57,28 @@ under the License.
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAttentionName}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" size="30" maxlength="60" name="attnName" value="${parameters.attnName?if_exists}"/>
+                      <input type="text" size="30" maxlength="60" name="attnName" value="${parameters.attnName!}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAddressLine} 1</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" size="30" maxlength="30" name="address1" value="${parameters.address1?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="address1" value="${parameters.address1!}"/>
                     *</td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonAddressLine} 2</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" size="30" maxlength="30" name="address2" value="${parameters.address2?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="address2" value="${parameters.address2!}"/>
                     </td>
                   </tr>
                   <tr>
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonCity}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" size="30" maxlength="30" name="city" value="${parameters.city?if_exists}"/>
+                      <input type="text" size="30" maxlength="30" name="city" value="${parameters.city!}"/>
                     *</td>
                   </tr>
                   <tr>
@@ -95,7 +95,7 @@ under the License.
                     <td width="26%" align="right" valign="top"><div>${uiLabelMap.CommonZipPostalCode}</div></td>
                     <td width="5">&nbsp;</td>
                     <td width="74%">
-                      <input type="text" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode?if_exists}"/>
+                      <input type="text" size="12" maxlength="10" name="postalCode" value="${parameters.postalCode!}"/>
                     *</td>
                   </tr>
                   <tr>

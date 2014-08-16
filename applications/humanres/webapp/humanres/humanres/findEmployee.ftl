@@ -26,7 +26,7 @@ under the License.
             <#if parameters.hideFields?default("N") == "Y">
                 <li><a href="<@ofbizUrl>findEmployees?hideFields=N${paramList}</@ofbizUrl>">${uiLabelMap.CommonShowLookupFields}</a></li>
             <#else>
-            <#if partyList?exists><li><a href="<@ofbizUrl>findEmployees?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
+            <#if partyList??><li><a href="<@ofbizUrl>findEmployees?hideFields=Y${paramList}</@ofbizUrl>">${uiLabelMap.CommonHideFields}</a></li></#if>
                 <li><a href="javascript:document.lookupparty.submit();">${uiLabelMap.PartyLookupParty}</a></li>
             </#if>
         </ul>
@@ -52,30 +52,30 @@ under the License.
                 </tr>
                 <tr><td class='label'>${uiLabelMap.PartyPartyId}</td>
                     <td>
-                      <@htmlTemplate.lookupField value='${requestParameters.partyId?if_exists}' formName="lookupparty" name="partyId" id="partyId" fieldFormName="LookupPerson"/>
+                      <@htmlTemplate.lookupField value='${requestParameters.partyId!}' formName="lookupparty" name="partyId" id="partyId" fieldFormName="LookupPerson"/>
                     </td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyUserLogin}</td>
-                    <td><input type="text" name="userLoginId" value="${parameters.userLoginId?if_exists}"/></td>
+                    <td><input type="text" name="userLoginId" value="${parameters.userLoginId!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyLastName}</td>
-                    <td><input type="text" name="lastName" value="${parameters.lastName?if_exists}"/></td>
+                    <td><input type="text" name="lastName" value="${parameters.lastName!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyFirstName}</td>
-                    <td><input type="text" name="firstName" value="${parameters.firstName?if_exists}"/></td>
+                    <td><input type="text" name="firstName" value="${parameters.firstName!}"/></td>
                 </tr>
-                <tr><td><input type="hidden" name="groupName" value="${parameters.groupName?if_exists}"/></td></tr>
+                <tr><td><input type="hidden" name="groupName" value="${parameters.groupName!}"/></td></tr>
                 <tr><td><input type="hidden" name="roleTypeId" value="EMPLOYEE"/></td></tr>
             <#if extInfo == "P">
                 <tr><td colspan="3"><hr /></td></tr><tr>
                     <td class="label">${uiLabelMap.CommonAddress1}</td>
-                    <td><input type="text" name="address1" value="${parameters.address1?if_exists}"/></td>
+                    <td><input type="text" name="address1" value="${parameters.address1!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.CommonAddress2}</td>
-                    <td><input type="text" name="address2" value="${parameters.address2?if_exists}"/></td>
+                    <td><input type="text" name="address2" value="${parameters.address2!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.CommonCity}</td>
-                    <td><input type="text" name="city" value="${parameters.city?if_exists}"/></td>
+                    <td><input type="text" name="city" value="${parameters.city!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.CommonStateProvince}</td>
                     <td><select name="stateProvinceGeoId">
@@ -89,25 +89,25 @@ under the License.
                     </td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyPostalCode}</td>
-                    <td><input type="text" name="postalCode" value="${parameters.postalCode?if_exists}"/></td>
+                    <td><input type="text" name="postalCode" value="${parameters.postalCode!}"/></td>
                 </tr>
             </#if>
             <#if extInfo == "T">
                 <tr><td colspan="3"><hr /></td></tr>
                 <tr><td class="label">${uiLabelMap.CommonCountryCode}</td>
-                    <td><input type="text" name="countryCode" value="${parameters.countryCode?if_exists}"/></td>
+                    <td><input type="text" name="countryCode" value="${parameters.countryCode!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyAreaCode}</td>
-                    <td><input type="text" name="areaCode" value="${parameters.areaCode?if_exists}"/></td>
+                    <td><input type="text" name="areaCode" value="${parameters.areaCode!}"/></td>
                 </tr>
                 <tr><td class="label">${uiLabelMap.PartyContactNumber}</td>
-                    <td><input type="text" name="contactNumber" value="${parameters.contactNumber?if_exists}"/></td>
+                    <td><input type="text" name="contactNumber" value="${parameters.contactNumber!}"/></td>
                 </tr>
             </#if>
             <#if extInfo == "O">
                 <tr><td colspan="3"><hr /></td></tr>
                 <tr><td class="label">${uiLabelMap.PartyContactInformation}</td>
-                    <td><input type="text" name="infoString" value="${parameters.infoString?if_exists}"/></td>
+                    <td><input type="text" name="infoString" value="${parameters.infoString!}"/></td>
                 </tr>
             </#if>
                 <tr><td colspan="3"><hr /></td></tr>
@@ -129,7 +129,7 @@ under the License.
     //-->
         </script>
     </#if>
-    <#if partyList?exists>
+    <#if partyList??>
     <br />
     <div id="findEmployeeResults" class="screenlet">
         <div class="screenlet-title-bar">
@@ -171,7 +171,7 @@ under the License.
             </tr>
             <#assign alt_row = false>
             <#list partyList as partyRow>
-            <#assign partyType = partyRow.getRelatedOne("PartyType", false)?if_exists>
+            <#assign partyType = partyRow.getRelatedOne("PartyType", false)!>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td><a href="<@ofbizUrl>EmployeeProfile?partyId=${partyRow.partyId}</@ofbizUrl>">${partyRow.partyId}</a></td>
                 <td><#if partyRow.containsKey("userLoginId")>
@@ -204,15 +204,15 @@ under the License.
                     </#if>
                 </td>
                 <#if extInfo?default("") == "T">
-                    <td>${partyRow.areaCode?if_exists}</td>
+                    <td>${partyRow.areaCode!}</td>
                 </#if>
                 <#if extInfo?default("") == "P" >
-                    <td>${partyRow.city?if_exists}, ${partyRow.stateProvinceGeoId?if_exists}</td>
+                    <td>${partyRow.city!}, ${partyRow.stateProvinceGeoId!}</td>
                 </#if>
                 <#if extInfo?default("") == "P">
-                    <td>${partyRow.postalCode?if_exists}</td>
+                    <td>${partyRow.postalCode!}</td>
                 </#if>
-                <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
+                <td><#if partyType.description??>${partyType.get("description", locale)}<#else>???</#if></td>
                 <td class="button-col align-float">
                     <a href="<@ofbizUrl>EmployeeProfile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
                 </td>
@@ -226,7 +226,7 @@ under the License.
             <span class="h3">${uiLabelMap.PartyNoPartiesFound}</span>
         </div>
     </#if>
-    <#if lookupErrorMessage?exists>
+    <#if lookupErrorMessage??>
         <div><h3>${lookupErrorMessage}</h3></div>
     </#if>
         <div>&nbsp;</div>

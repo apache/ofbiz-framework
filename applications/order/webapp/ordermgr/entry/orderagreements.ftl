@@ -30,7 +30,7 @@ under the License.
   <div class="screenlet-body">
     <table>
 
-      <#if agreements?exists>
+      <#if agreements??>
       <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='Y'/></td></tr>
       
       <tr>
@@ -46,7 +46,7 @@ under the License.
             <select name="agreementId">
             <option value="">${uiLabelMap.CommonNone}</option>
             <#list agreements as agreement>
-            <option value='${agreement.agreementId}' >${agreement.agreementId} - ${agreement.description?if_exists}</option>
+            <option value='${agreement.agreementId}' >${agreement.agreementId} - ${agreement.description!}</option>
             </#list>
             </select>
           </div>
@@ -55,7 +55,7 @@ under the License.
       <#else>
       <tr><td colspan="4">&nbsp;<input type='hidden' name='hasAgreements' value='N'/></td></tr>
       </#if>
-      <#if agreementRoles?exists>
+      <#if agreementRoles??>
         <tr>
           <td>&nbsp;</td>
           <td align='right' valign='top' nowrap="nowrap">
@@ -69,7 +69,7 @@ under the License.
               <select name="agreementId">
               <option value="">${uiLabelMap.CommonNone}</option>
               <#list agreementRoles as agreementRole>
-                  <option value='${agreementRole.agreementId?if_exists}' >${agreementRole.agreementId?if_exists} - ${agreementRole.roleTypeId?if_exists}</option>
+                  <option value='${agreementRole.agreementId!}' >${agreementRole.agreementId!} - ${agreementRole.roleTypeId!}</option>
               </#list>
               </select>
             </div>
@@ -118,7 +118,7 @@ under the License.
         <td>&nbsp;</td>
         <td align='right' valign='middle' nowrap="nowrap">
           <div class='tableheadtext'>
-            <#if agreements?exists>${uiLabelMap.OrderSelectCurrencyOr}
+            <#if agreements??>${uiLabelMap.OrderSelectCurrencyOr}
             <#else>${uiLabelMap.OrderSelectCurrency}
             </#if>
           </div>
@@ -145,7 +145,7 @@ under the License.
         <td>
            <#if catalogCol?has_content>
            <select name='CURRENT_CATALOG_ID'>
-            <#list catalogCol?if_exists as catalogId>
+            <#list catalogCol! as catalogId>
               <#assign thisCatalogName = Static["org.ofbiz.product.catalog.CatalogWorker"].getCatalogName(request, catalogId)>
               <option value="${catalogId}" <#if currentCatalogId?default('') == catalogId>selected="selected"</#if> >${thisCatalogName}</option>
             </#list>

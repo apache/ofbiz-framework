@@ -50,13 +50,13 @@ under the License.
                     <#assign suffix = "_o_" + productCategoryRollup_index>
                     <#assign curCategory = productCategoryRollup.getRelatedOne("ParentProductCategory", false)>
                     <#assign hasntStarted = false>
-                    <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                    <#if productCategoryRollup.fromDate?? && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>
-                    <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                    <#if productCategoryRollup.thruDate?? && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
                     <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                         <td><#if curCategory?has_content>
                                 <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
-                                    <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)?if_exists>
+                                    <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                     <#if catContentWrapper?has_content>
                                         ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
                                     <#else>
@@ -73,7 +73,7 @@ under the License.
                             <input type="hidden" name="parentProductCategoryId${suffix}" value="${productCategoryRollup.parentProductCategoryId}" />
                             <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}" />
                             <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="${productCategoryRollup.thruDate!''}" size="25" maxlength="30" id="thruDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
-                            <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" />
+                            <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum!}" />
                         </td>
                         <td>
                             <a href="javascript:document.removeProductCategoryFromCategory_${productCategoryRollup_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -115,7 +115,7 @@ under the License.
                 <form method="post" action="<@ofbizUrl>addProductCategoryToCategory</@ofbizUrl>" style="margin: 0;" name="addParentForm">
                     <input type="hidden" name="productCategoryId" value="${productCategoryId}" />
                     <input type="hidden" name="showProductCategoryId" value="${productCategoryId}" />
-                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="addParentForm" name="parentProductCategoryId" id="parentProductCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}" formName="addParentForm" name="parentProductCategoryId" id="parentProductCategoryId" fieldFormName="LookupProductCategory"/>
                     <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
@@ -158,13 +158,13 @@ under the License.
                     <#assign lineChild = lineChild + 1>
                     <#assign curCategory = productCategoryRollup.getRelatedOne("CurrentProductCategory", false)>
                     <#assign hasntStarted = false>
-                    <#if productCategoryRollup.fromDate?exists && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
+                    <#if productCategoryRollup.fromDate?? && nowTimestamp.before(productCategoryRollup.getTimestamp("fromDate"))><#assign hasntStarted = true></#if>
                     <#assign hasExpired = false>
-                    <#if productCategoryRollup.thruDate?exists && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
+                    <#if productCategoryRollup.thruDate?? && nowTimestamp.after(productCategoryRollup.getTimestamp("thruDate"))><#assign hasExpired = true></#if>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
                             <td><#if curCategory?has_content>
                                     <a href="<@ofbizUrl>EditCategory?productCategoryId=${curCategory.productCategoryId}</@ofbizUrl>" >
-                                        <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)?if_exists>
+                                        <#assign catContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(curCategory, request)!>
                                         <#if catContentWrapper?has_content>
                                             ${catContentWrapper.get("CATEGORY_NAME")!catContentWrapper.get("DESCRIPTION")!curCategory.categoryName!curCategory.description!}
                                         <#else>
@@ -181,7 +181,7 @@ under the License.
                                 <input type="hidden" name="fromDate${suffix}" value="${productCategoryRollup.fromDate}" />
                                 <@htmlTemplate.renderDateTimeField name="thruDate${suffix}" event="" action="" className="" alert="" title="Thru Date" value="${productCategoryRollup.thruDate!''}" size="25" maxlength="50" id="thruDatefromDate${suffix}" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
 
-                                <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum?if_exists}" />
+                                <input type="text" size="5" name="sequenceNum${suffix}" value="${productCategoryRollup.sequenceNum!}" />
                             </td>
                             <td>
                                 <a href="javascript:document.removeProductCategoryFromCategory_1_${productCategoryRollup_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -223,7 +223,7 @@ under the License.
                 <form method="post" action="<@ofbizUrl>addProductCategoryToCategory</@ofbizUrl>" style="margin: 0;" name="addChildForm">
                     <input type="hidden" name="showProductCategoryId" value="${productCategoryId}" />
                     <input type="hidden" name="parentProductCategoryId" value="${productCategoryId}" />
-                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}"  formName="addChildForm" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}"  formName="addChildForm" name="productCategoryId" id="productCategoryId" fieldFormName="LookupProductCategory"/>
                     <@htmlTemplate.renderDateTimeField name="fromDate" event="" action="" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" value="" size="25" maxlength="30" id="fromDate_2" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
                     <input type="submit" value="${uiLabelMap.CommonAdd}" />
                 </form>

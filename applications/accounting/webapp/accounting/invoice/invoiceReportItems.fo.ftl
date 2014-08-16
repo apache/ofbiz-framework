@@ -54,7 +54,7 @@ under the License.
           <#assign termType = term.getRelatedOne("TermType", false)/>
           <fo:table-row>
             <fo:table-cell>
-              <fo:block font-size ="10pt" font-weight="bold">${termType.description?if_exists} ${term.description?if_exists} ${term.termDays?if_exists} ${term.textValue?if_exists}</fo:block>
+              <fo:block font-size ="10pt" font-weight="bold">${termType.description!} ${term.description!} ${term.termDays!} ${term.textValue!}</fo:block>
             </fo:table-cell>
           </fo:table-row>
           </#list>
@@ -98,12 +98,12 @@ under the License.
             <#assign itemType = invoiceItem.getRelatedOne("InvoiceItemType", false)>
             <#assign isItemAdjustment = Static["org.ofbiz.entity.util.EntityTypeUtil"].hasParentType(delegator, "InvoiceItemType", "invoiceItemTypeId", itemType.getString("invoiceItemTypeId"), "parentTypeId", "INVOICE_ADJ")/>
 
-            <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)?if_exists>
-            <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling", null, null, false)?if_exists>
+            <#assign taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false)!>
+            <#assign itemBillings = invoiceItem.getRelated("OrderItemBilling", null, null, false)!>
             <#if itemBillings?has_content>
                 <#assign itemBilling = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(itemBillings)>
                 <#if itemBilling?has_content>
-                    <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)?if_exists>
+                    <#assign itemIssuance = itemBilling.getRelatedOne("ItemIssuance", false)!>
                     <#if itemIssuance?has_content>
                         <#assign newShipmentId = itemIssuance.shipmentId>
                         <#assign issuedDateTime = itemIssuance.issuedDateTime/>
@@ -118,7 +118,7 @@ under the License.
                 <#assign description=itemType.get("description",locale)>
             </#if>
 
-            <#if newShipmentId?exists & newShipmentId != currentShipmentId>
+            <#if newShipmentId?? & newShipmentId != currentShipmentId>
                 <#-- the shipment id is printed at the beginning for each
                      group of invoice items created for the same shipment
                 -->
@@ -129,7 +129,7 @@ under the License.
                 </fo:table-row>
                 <fo:table-row height="14px">
                    <fo:table-cell number-columns-spanned="5">
-                        <fo:block font-weight="bold"> ${uiLabelMap.ProductShipmentId}: ${newShipmentId}<#if issuedDateTime?exists> ${uiLabelMap.CommonDate}: ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(issuedDateTime)}</#if></fo:block>
+                        <fo:block font-weight="bold"> ${uiLabelMap.ProductShipmentId}: ${newShipmentId}<#if issuedDateTime??> ${uiLabelMap.CommonDate}: ${Static["org.ofbiz.base.util.UtilDateTime"].toDateString(issuedDateTime)}</#if></fo:block>
                    </fo:table-cell>
                 </fo:table-row>
                 <#assign currentShipmentId = newShipmentId>
@@ -137,23 +137,23 @@ under the License.
             <#if !isItemAdjustment>
                 <fo:table-row height="14px" space-start=".15in">
                     <fo:table-cell>
-                        <fo:block text-align="left">${invoiceItem.productId?if_exists} </fo:block>
+                        <fo:block text-align="left">${invoiceItem.productId!} </fo:block>
                     </fo:table-cell>
                     <fo:table-cell border-top-style="solid" border-top-width="thin" border-top-color="black">
-                        <fo:block text-align="left">${description?if_exists}</fo:block>
+                        <fo:block text-align="left">${description!}</fo:block>
                     </fo:table-cell>
                       <fo:table-cell>
-                        <fo:block text-align="right"> <#if invoiceItem.quantity?exists>${invoiceItem.quantity?string.number}</#if> </fo:block>
+                        <fo:block text-align="right"> <#if invoiceItem.quantity??>${invoiceItem.quantity?string.number}</#if> </fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <#if invoiceItem.quantity?exists><@ofbizCurrency amount=invoiceItem.amount?if_exists isoCode=invoice.currencyUomId?if_exists/></#if> </fo:block>
+                        <fo:block> <#if invoiceItem.quantity??><@ofbizCurrency amount=invoiceItem.amount! isoCode=invoice.currencyUomId!/></#if> </fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right">
-                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId?if_exists/> </fo:block>
+                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
             <#else>
-                <#if !(invoiceItem.parentInvoiceId?exists && invoiceItem.parentInvoiceItemSeqId?exists)>
+                <#if !(invoiceItem.parentInvoiceId?? && invoiceItem.parentInvoiceItemSeqId??)>
                     <fo:table-row>
                         <fo:table-cell><fo:block/></fo:table-cell>
                         <fo:table-cell border-top-style="solid" border-top-width="thin" border-top-color="black"><fo:block/></fo:table-cell>
@@ -162,10 +162,10 @@ under the License.
                 </#if>
                 <fo:table-row height="14px" space-start=".15in">
                     <fo:table-cell number-columns-spanned="2">
-                        <fo:block text-align="right">${description?if_exists}</fo:block>
+                        <fo:block text-align="right">${description!}</fo:block>
                     </fo:table-cell>
                     <fo:table-cell text-align="right" number-columns-spanned="3">
-                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId?if_exists/> </fo:block>
+                        <fo:block> <@ofbizCurrency amount=(Static["org.ofbiz.accounting.invoice.InvoiceWorker"].getInvoiceItemTotal(invoiceItem)) isoCode=invoice.currencyUomId!/> </fo:block>
                     </fo:table-cell>
                 </fo:table-row>
             </#if>
@@ -185,7 +185,7 @@ under the License.
               <fo:block font-weight="bold">${uiLabelMap.AccountingTotalCapital}</fo:block>
            </fo:table-cell>
            <fo:table-cell text-align="right" border-top-style="solid" border-top-width="thin" border-top-color="black">
-              <fo:block><@ofbizCurrency amount=invoiceTotal isoCode=invoice.currencyUomId?if_exists/></fo:block>
+              <fo:block><@ofbizCurrency amount=invoiceTotal isoCode=invoice.currencyUomId!/></fo:block>
            </fo:table-cell>
         </fo:table-row>
         <fo:table-row height="7px">
@@ -202,7 +202,7 @@ under the License.
            </fo:table-cell>
            <fo:table-cell text-align="right" border-top-style="solid" border-top-width="thin" border-top-color="black">
               <fo:block>
-                 <@ofbizCurrency amount=invoiceNoTaxTotal isoCode=invoice.currencyUomId?if_exists/>
+                 <@ofbizCurrency amount=invoiceNoTaxTotal isoCode=invoice.currencyUomId!/>
               </fo:block>
            </fo:table-cell>
         </fo:table-row>
@@ -241,7 +241,7 @@ under the License.
             <fo:block>${taxRate.description}</fo:block>
         </fo:table-cell>
         <fo:table-cell number-columns-spanned="1" text-align="right">
-            <fo:block font-weight="bold"><@ofbizCurrency amount=vatTaxesByType[vatTaxId] isoCode=invoice.currencyUomId?if_exists/></fo:block>
+            <fo:block font-weight="bold"><@ofbizCurrency amount=vatTaxesByType[vatTaxId] isoCode=invoice.currencyUomId!/></fo:block>
         </fo:table-cell>
     </fo:table-row>
     </#list>

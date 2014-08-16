@@ -17,20 +17,20 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if facility?exists && facilityId?has_content>
+<#if facility?? && facilityId?has_content>
   <form action="<@ofbizUrl>UpdateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" class="basic-form">
-  <input type="hidden" name="facilityId" value="${facilityId?if_exists}" />
+  <input type="hidden" name="facilityId" value="${facilityId!}" />
   <table class="basic-table" cellspacing='0'>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityId}</td>
     <td>
-      ${facilityId?if_exists} <span class="tooltip">${uiLabelMap.ProductNotModificationRecrationFacility}</span>
+      ${facilityId!} <span class="tooltip">${uiLabelMap.ProductNotModificationRecrationFacility}</span>
     </td>
   </tr>
 <#else>
   <form action="<@ofbizUrl>CreateFacility</@ofbizUrl>" name="EditFacilityForm" method="post" class="basic-form">
-  <#if facilityId?exists>
-    <h3>${uiLabelMap.ProductCouldNotFindFacilityWithId} "${facilityId?if_exists}".</h3>
+  <#if facilityId??>
+    <h3>${uiLabelMap.ProductCouldNotFindFacilityWithId} "${facilityId!}".</h3>
   </#if>
   <table class="basic-table" cellspacing='0'>
 </#if>
@@ -38,10 +38,10 @@ under the License.
     <td class="label">${uiLabelMap.ProductFacilityTypeId}</td>
     <td>
       <select name="facilityTypeId">
-        <option selected="selected" value='${facilityType.facilityTypeId?if_exists}'>${facilityType.get("description",locale)?if_exists}</option>
-        <option value='${facilityType.facilityTypeId?if_exists}'>----</option>
+        <option selected="selected" value='${facilityType.facilityTypeId!}'>${facilityType.get("description",locale)!}</option>
+        <option value='${facilityType.facilityTypeId!}'>----</option>
         <#list facilityTypes as nextFacilityType>
-          <option value='${nextFacilityType.facilityTypeId?if_exists}'>${nextFacilityType.get("description",locale)?if_exists}</option>
+          <option value='${nextFacilityType.facilityTypeId!}'>${nextFacilityType.get("description",locale)!}</option>
         </#list>
       </select>
     </td>
@@ -49,13 +49,13 @@ under the License.
   <tr>
     <td class="label">${uiLabelMap.FormFieldTitle_parentFacilityId}</td>
     <td>
-      <@htmlTemplate.lookupField value="${facility.parentFacilityId?if_exists}" formName="EditFacilityForm" name="parentFacilityId" id="parentFacilityId" fieldFormName="LookupFacility"/>
+      <@htmlTemplate.lookupField value="${facility.parentFacilityId!}" formName="EditFacilityForm" name="parentFacilityId" id="parentFacilityId" fieldFormName="LookupFacility"/>
     </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilityOwner}</td>
     <td>
-      <@htmlTemplate.lookupField value="${facility.ownerPartyId?if_exists}" formName="EditFacilityForm" name="ownerPartyId" id="ownerPartyId" fieldFormName="LookupPartyName"/>
+      <@htmlTemplate.lookupField value="${facility.ownerPartyId!}" formName="EditFacilityForm" name="ownerPartyId" id="ownerPartyId" fieldFormName="LookupPartyName"/>
       <span class="tooltip">${uiLabelMap.CommonRequired}</span>
     </td>
   </tr>
@@ -91,13 +91,13 @@ under the License.
   <tr>
     <td class="label">${uiLabelMap.ProductName}</td>
     <td>
-      <input type="text" name="facilityName" value="${facility.facilityName?if_exists}" size="30" maxlength="60" />
+      <input type="text" name="facilityName" value="${facility.facilityName!}" size="30" maxlength="60" />
       <span class="tooltip">${uiLabelMap.CommonRequired}</span>
     </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductFacilitySize}</td>
-    <td><input type="text" name="facilitySize" value="${facility.facilitySize?if_exists}" size="10" maxlength="20" /></td>
+    <td><input type="text" name="facilitySize" value="${facility.facilitySize!}" size="10" maxlength="20" /></td>
   </tr>
   <tr>
    <td class="label">${uiLabelMap.ProductFacilityDefaultAreaUnit}</td>
@@ -116,11 +116,11 @@ under the License.
   </tr>  
   <tr>
     <td class="label">${uiLabelMap.ProductProductDescription}</td>
-    <td ><input type="text" name="description" value="${facility.description?if_exists}" size="60" maxlength="250" /></td>
+    <td ><input type="text" name="description" value="${facility.description!}" size="60" maxlength="250" /></td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.ProductDefaultDaysToShip}</td>
-    <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip?if_exists}" size="10" maxlength="20" /></td>
+    <td><input type="text" name="defaultDaysToShip" value="${facility.defaultDaysToShip!}" size="10" maxlength="20" /></td>
   </tr>
   <tr>
     <td>&nbsp;</td>

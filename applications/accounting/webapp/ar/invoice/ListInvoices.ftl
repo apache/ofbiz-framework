@@ -115,7 +115,7 @@ under the License.
   <#assign invoiceList  =  invoices.getCompleteList() />
   <#assign eliClose = invoices.close() />
 </#if>
-<#if invoiceList?has_content && (parameters.noConditionFind)?if_exists == 'Y'>
+<#if invoiceList?has_content && (parameters.noConditionFind)! == 'Y'>
   <div>
     <span class="label">${uiLabelMap.AccountingRunningTotalOutstanding} :</span>
     <span class="label" id="showInvoiceRunningTotal"></span>
@@ -134,12 +134,12 @@ under the License.
       </select>
       <input id="submitButton" type="button"  onclick="javascript:jQuery('#listInvoices').submit();" value="${uiLabelMap.CommonRun}" disabled="disabled" />
       <input type="hidden" name="organizationPartyId" value="${defaultOrganizationPartyId}"/>
-      <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom?if_exists}"/>
-      <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId?if_exists}"/>
-      <input type="hidden" name="fromInvoiceDate" value="${parameters.fromInvoiceDate?if_exists}"/>
-      <input type="hidden" name="thruInvoiceDate" value="${parameters.thruInvoiceDate?if_exists}"/>
-      <input type="hidden" name="fromDueDate" value="${parameters.fromDueDate?if_exists}"/>
-      <input type="hidden" name="thruDueDate" value="${parameters.thruDueDate?if_exists}"/>
+      <input type="hidden" name="partyIdFrom" value="${parameters.partyIdFrom!}"/>
+      <input type="hidden" name="statusId" id="statusId" value="${parameters.statusId!}"/>
+      <input type="hidden" name="fromInvoiceDate" value="${parameters.fromInvoiceDate!}"/>
+      <input type="hidden" name="thruInvoiceDate" value="${parameters.thruInvoiceDate!}"/>
+      <input type="hidden" name="fromDueDate" value="${parameters.fromDueDate!}"/>
+      <input type="hidden" name="thruDueDate" value="${parameters.thruDueDate!}"/>
       <input type="hidden" name="invoiceStatusChange" id="invoiceStatusChange" value="<@ofbizUrl>massChangeInvoiceStatus</@ofbizUrl>"/>
     </div>
 
@@ -163,21 +163,21 @@ under the License.
         <#assign alt_row = false>
         <#list invoiceList as invoice>
           <#assign invoicePaymentInfoList = dispatcher.runSync("getInvoicePaymentInfoList", Static["org.ofbiz.base.util.UtilMisc"].toMap("invoiceId", invoice.invoiceId, "userLogin", userLogin))/>
-          <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)?if_exists>
+          <#assign invoicePaymentInfo = invoicePaymentInfoList.get("invoicePaymentInfoList").get(0)!>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
               <td><a class="buttontext" href="<@ofbizUrl>invoiceOverview?invoiceId=${invoice.invoiceId}</@ofbizUrl>">${invoice.get("invoiceId")}</a></td>
               <td>
                 <#assign invoiceType = delegator.findOne("InvoiceType", {"invoiceTypeId" : invoice.invoiceTypeId}, true) />
                 ${invoiceType.description?default(invoice.invoiceTypeId)}
               </td>
-              <td>${(invoice.invoiceDate)?if_exists}</td>
+              <td>${(invoice.invoiceDate)!}</td>
               <td>
                 <#assign statusItem = delegator.findOne("StatusItem", {"statusId" : invoice.statusId}, true) />
                 ${statusItem.description?default(invoice.statusId)}
               </td>
-              <td>${(invoice.description)?if_exists}</td>
-              <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)?if_exists} [${(invoice.partyIdFrom)?if_exists}] </a></td>
-              <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyId, false)?if_exists} [${(invoice.partyId)?if_exists}]</a></td>
+              <td>${(invoice.description)!}</td>
+              <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyIdFrom}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyIdFrom, false)!} [${(invoice.partyIdFrom)!}] </a></td>
+              <td><a href="/partymgr/control/viewprofile?partyId=${invoice.partyId}">${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, invoice.partyId, false)!} [${(invoice.partyId)!}]</a></td>
               <td><@ofbizCurrency amount=invoicePaymentInfo.amount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td><@ofbizCurrency amount=invoicePaymentInfo.paidAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>
               <td><@ofbizCurrency amount=invoicePaymentInfo.outstandingAmount isoCode=defaultOrganizationPartyCurrencyUomId/></td>

@@ -34,19 +34,19 @@ under the License.
             <#assign itemIssuances = shipmentItemData.itemIssuances>
             <#assign orderShipments = shipmentItemData.orderShipments>
             <#assign shipmentPackageContents = shipmentItemData.shipmentPackageContents>
-            <#assign product = shipmentItemData.product?if_exists>
+            <#assign product = shipmentItemData.product!>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>${shipmentItem.shipmentItemSeqId}</td>
-                <td colspan="2">${(product.internalName)?if_exists} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId?if_exists}" class="buttontext">${shipmentItem.productId?if_exists}</a></td>
+                <td colspan="2">${(product.internalName)!} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId!}" class="buttontext">${shipmentItem.productId!}</a></td>
                 <td>${shipmentItem.quantity?default("&nbsp;")}</td>
                 <td colspan="2">${shipmentItem.shipmentContentDescription?default("&nbsp;")}</td>
             </tr>
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId?if_exists}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${orderShipment.orderId?if_exists}</a>${orderShipment.orderItemSeqId?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${orderShipment.orderId!}</a>${orderShipment.orderItemSeqId!}</td>
                     <td>&nbsp;</td>
-                    <td>${orderShipment.quantity?if_exists}</td>
+                    <td>${orderShipment.quantity!}</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                 </tr>
@@ -54,10 +54,10 @@ under the License.
             <#list itemIssuances as itemIssuance>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId?if_exists}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${itemIssuance.orderId?if_exists}</a>${itemIssuance.orderItemSeqId?if_exists}</td>
-                    <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId?if_exists}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId?if_exists}</a></td>
-                    <td>${itemIssuance.quantity?if_exists}</td>
-                    <td>${itemIssuance.issuedDateTime?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId!}&amp;externalLoginKey=${requestAttributes.externalLoginKey}" class="buttontext">${itemIssuance.orderId!}</a>${itemIssuance.orderItemSeqId!}</td>
+                    <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId!}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId!}</a></td>
+                    <td>${itemIssuance.quantity!}</td>
+                    <td>${itemIssuance.issuedDateTime!}</td>
                     <td class="label">${uiLabelMap.ProductFuturePartyRoleList}</td>
                 </tr>
             </#list>
@@ -65,7 +65,7 @@ under the License.
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
                     <td colspan="2"><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackageContent.shipmentPackageSeqId}</td>
-                    <td>${shipmentPackageContent.quantity?if_exists}</td>
+                    <td>${shipmentPackageContent.quantity!}</td>
                     <td colspan="2">&nbsp;</td>
                 </tr>
             </#list>

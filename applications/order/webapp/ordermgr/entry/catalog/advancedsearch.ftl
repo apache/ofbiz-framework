@@ -25,14 +25,14 @@ under the License.
   <table border="0" wdith="100%">
     <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}" />
     <#if searchCategory?has_content>
-        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}" />
+        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId!}" />
         <tr>
           <td align="right" valign="middle">
             <div>${uiLabelMap.ProductCategory}:</div>
           </td>
           <td valign="middle">
             <div>
-              <b>"${(searchCategory.description)?if_exists}"</b>${uiLabelMap.ProductIncludeSubCategories}
+              <b>"${(searchCategory.description)!}"</b>${uiLabelMap.ProductIncludeSubCategories}
               ${uiLabelMap.CommonYes}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked" />
               ${uiLabelMap.CommonNo}<input type="radio" name="SEARCH_SUB_CATEGORIES" value="N" />
             </div>
@@ -45,7 +45,7 @@ under the License.
       </td>
       <td valign="middle">
         <div>
-          <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}" />&nbsp;
+          <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}" />&nbsp;
           ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> />
           ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />
         </div>
@@ -57,7 +57,7 @@ under the License.
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr>
         <td align="right" valign="middle">
-          <div>${(productFeatureType.get("description",locale))?if_exists}:</div>
+          <div>${(productFeatureType.get("description",locale))!}:</div>
         </td>
         <td valign="middle">
           <div>
@@ -80,7 +80,7 @@ under the License.
           <select name="SEARCH_SUPPLIER_ID">
             <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
             <#list supplerPartyRoleAndPartyDetails as supplerPartyRoleAndPartyDetail>
-              <option value="${supplerPartyRoleAndPartyDetail.partyId}"<#if (sessionAttributes.orderPartyId?exists & sessionAttributes.orderPartyId = supplerPartyRoleAndPartyDetail.partyId)> selected="selected"</#if>>${supplerPartyRoleAndPartyDetail.groupName?if_exists} ${supplerPartyRoleAndPartyDetail.firstName?if_exists} ${supplerPartyRoleAndPartyDetail.lastName?if_exists} [${supplerPartyRoleAndPartyDetail.partyId}]</option>
+              <option value="${supplerPartyRoleAndPartyDetail.partyId}"<#if (sessionAttributes.orderPartyId?? & sessionAttributes.orderPartyId = supplerPartyRoleAndPartyDetail.partyId)> selected="selected"</#if>>${supplerPartyRoleAndPartyDetail.groupName!} ${supplerPartyRoleAndPartyDetail.firstName!} ${supplerPartyRoleAndPartyDetail.lastName!} [${supplerPartyRoleAndPartyDetail.partyId}]</option>
             </#list>
           </select>
         </div>

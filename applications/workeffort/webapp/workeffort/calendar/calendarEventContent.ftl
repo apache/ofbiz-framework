@@ -25,7 +25,7 @@ under the License.
   <#if workOrderItemFulfillments?has_content>
     <#list workOrderItemFulfillments as workOrderItemFulfillment>
       <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${workOrderItemFulfillment.orderId}" class="event">${workOrderItemFulfillment.orderId} / ${workOrderItemFulfillment.orderItemSeqId}</a>
-      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", workOrderItemFulfillment.orderId, "orderItemSeqId", workOrderItemFulfillment.orderItemSeqId}, null, false)?if_exists/>
+      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", workOrderItemFulfillment.orderId, "orderItemSeqId", workOrderItemFulfillment.orderItemSeqId}, null, false)!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>
           ${uiLabelMap.OrderShipBeforeDate}: ${orderItemAndShipGroupAssoc.shipByDate}
@@ -37,11 +37,11 @@ under the License.
   <a href="/manufacturing/control/ShowProductionRun?productionRunId=${workEffort.workEffortParentId}" class="event">
     ${workEffort.workEffortParentId} / ${workEffort.workEffortId}
   </a>
-  &nbsp;${workEffort.workEffortName?default("Undefined")}<#if workEffort.reservPersons?exists>&nbsp;Persons:${workEffort.reservPersons}</#if>
+  &nbsp;${workEffort.workEffortName?default("Undefined")}<#if workEffort.reservPersons??>&nbsp;Persons:${workEffort.reservPersons}</#if>
   <#if parentWorkOrderItemFulfillments?has_content>
     <#list parentWorkOrderItemFulfillments as parentWorkOrderItemFulfillment>
       <br/>${uiLabelMap.OrderOrderId}: <a href="/ordermgr/control/orderview?orderId=${parentWorkOrderItemFulfillment.orderId}" class="event">${parentWorkOrderItemFulfillment.orderId} / ${parentWorkOrderItemFulfillment.orderItemSeqId}</a>
-      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", parentWorkOrderItemFulfillment.orderId, "orderItemSeqId", parentWorkOrderItemFulfillment.orderItemSeqId}, null, false)?if_exists/>
+      <#assign orderItemAndShipGroupAssocs = delegator.findByAnd("OrderHeaderItemAndShipGroup", {"orderId", parentWorkOrderItemFulfillment.orderId, "orderItemSeqId", parentWorkOrderItemFulfillment.orderItemSeqId}, null, false)!/>
       <#list orderItemAndShipGroupAssocs as orderItemAndShipGroupAssoc>
         <#if orderItemAndShipGroupAssoc.shipByDate?has_content>
           ${uiLabelMap.OrderShipBeforeDate}: ${orderItemAndShipGroupAssoc.shipByDate}
@@ -51,10 +51,10 @@ under the License.
   </#if>
 <#else>
   <#-- Allow containing screens to specify the URL for editing an event -->
-  <#if !editCalEventUrl?exists>
+  <#if !editCalEventUrl??>
     <#assign editCalEventUrl = parameters._LAST_VIEW_NAME_>
   </#if>
-  <a href="<@ofbizUrl>${editCalEventUrl}?form=edit&amp;parentTypeId=${parentTypeId?if_exists}&amp;period=${periodType?if_exists}&amp;start=${parameters.start?if_exists}&amp;workEffortId=${workEffort.workEffortId}${addlParam?if_exists}${urlParam?if_exists}</@ofbizUrl>" class="event">
+  <a href="<@ofbizUrl>${editCalEventUrl}?form=edit&amp;parentTypeId=${parentTypeId!}&amp;period=${periodType!}&amp;start=${parameters.start!}&amp;workEffortId=${workEffort.workEffortId}${addlParam!}${urlParam!}</@ofbizUrl>" class="event">
     ${workEffort.workEffortId}
   </a>
   &nbsp;${workEffort.workEffortName?default("")}

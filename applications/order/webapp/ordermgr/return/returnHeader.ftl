@@ -25,18 +25,18 @@ under the License.
         <br class="clear"/>
     </div>
     <div class="screenlet-body">
-        <#if returnHeader?exists>
+        <#if returnHeader??>
             <form name="returnhead" method="post" action="<@ofbizUrl>updateReturn</@ofbizUrl>">
             <input type="hidden" name="returnId" value="${returnHeader.returnId}" />
             <input type="hidden" name="returnHeaderTypeId" value="CUSTOMER_RETURN"/>
-            <input type="hidden" name="currentStatusId" value="${returnHeader.statusId?if_exists}" />
+            <input type="hidden" name="currentStatusId" value="${returnHeader.statusId!}" />
         <#else>
             <form name="returnhead" method="post" action="<@ofbizUrl>createReturn</@ofbizUrl>">
             <input type="hidden" name="returnHeaderTypeId" value="CUSTOMER_RETURN"/>
         </#if>
 
         <table cellspacing="0" class="basic-table">
-          <#if returnHeader?exists>
+          <#if returnHeader??>
           <tr>
             <td width='14%'>&nbsp;</td>
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.OrderReturnId}</td>
@@ -49,8 +49,8 @@ under the License.
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.CommonCurrency}</td>
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
-          <#if returnHeader?exists>
-              ${returnHeader.currencyUomId?if_exists}
+          <#if returnHeader??>
+              ${returnHeader.currencyUomId!}
           <#else>
              <select name="currencyUomId">
                 <#if (orderHeader?has_content) && (orderHeader.currencyUom?has_content)>
@@ -74,10 +74,10 @@ under the License.
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.OrderEntryDate}</td>
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
-              <#if returnInfo.entryDate?exists>
+              <#if returnInfo.entryDate??>
                 <#assign entryDate = returnInfo.get("entryDate").toString()>
               </#if>
-              <@htmlTemplate.renderDateTimeField name="entryDate" event="" action="" value="${entryDate?if_exists}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="entryDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
+              <@htmlTemplate.renderDateTimeField name="entryDate" event="" action="" value="${entryDate!}" className="" alert="" title="Format: yyyy-MM-dd HH:mm:ss.SSS" size="25" maxlength="30" id="entryDate1" dateType="date" shortDateInput=false timeDropdownParamName="" defaultDateTimeString="" localizedIconTitle="" timeDropdown="" timeHourName="" classString="" hour1="" hour2="" timeMinutesName="" minutes="" isTwelveHour="" ampmName="" amSelected="" pmSelected="" compositeType="" formName=""/>
             </td>
           </tr>
           <tr>
@@ -85,7 +85,7 @@ under the License.
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.OrderReturnFromParty}</td>
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
-              <@htmlTemplate.lookupField value='${returnInfo.fromPartyId?if_exists}' formName="returnhead" name="fromPartyId" id="fromPartyId" fieldFormName="LookupPartyName"/>
+              <@htmlTemplate.lookupField value='${returnInfo.fromPartyId!}' formName="returnhead" name="fromPartyId" id="fromPartyId" fieldFormName="LookupPartyName"/>
             </td>
           </tr>
           <tr>
@@ -94,7 +94,7 @@ under the License.
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
               <select name='destinationFacilityId'>
-                <#if currentFacility?exists>
+                <#if currentFacility??>
                   <option value="${currentFacility.facilityId}">${currentFacility.facilityName?default(currentFacility.facilityId)}</option>
                   <option value="${currentFacility.facilityId}">---</option>
                 </#if>
@@ -111,13 +111,13 @@ under the License.
             <td width='74%'>
               <#if billingAccountList?has_content>
                 <select name='billingAccountId'>
-                  <#if currentAccount?exists>
-                    <option value="${currentAccount.billingAccountId}">${currentAccount.billingAccountId}: ${currentAccount.description?if_exists}</option>
+                  <#if currentAccount??>
+                    <option value="${currentAccount.billingAccountId}">${currentAccount.billingAccountId}: ${currentAccount.description!}</option>
                     <option value="${currentAccount.billingAccountId}">---</option>
                   </#if>
                   <option value="">${uiLabelMap.AccountingNewBillingAccount}</option>
                   <#list billingAccountList as ba>
-                    <option value="${ba.billingAccountId}">${ba.billingAccountId}: ${ba.description?if_exists}</option>
+                    <option value="${ba.billingAccountId}">${ba.billingAccountId}: ${ba.description!}</option>
                   </#list>
                 </select>
               <#else>
@@ -130,13 +130,13 @@ under the License.
             <td width='6%' align='right' nowrap="nowrap" class="label">${uiLabelMap.FormFieldTitle_paymentMethodId}</td>
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
-              <#if creditCardList?exists || eftAccountList?exists>
+              <#if creditCardList?? || eftAccountList??>
                 <select name='paymentMethodId'>
-                  <#if currentCreditCard?exists>
+                  <#if currentCreditCard??>
                     <option value="${currentCreditCard.paymentMethodId}">CC:&nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(currentCreditCard)}</option>
                   </#if>
-                  <#if currentEftAccount?exists>
-                    <option value="${currentEftAccount.paymentMethodId}">EFT:&nbsp;${currentEftAccount.nameOnAccount?if_exists}, ${currentEftAccount.accountNumber?if_exists}</option>
+                  <#if currentEftAccount??>
+                    <option value="${currentEftAccount.paymentMethodId}">EFT:&nbsp;${currentEftAccount.nameOnAccount!}, ${currentEftAccount.accountNumber!}</option>
                   </#if>
                   <option value=""></option>
                   <#if creditCardList?has_content>
@@ -147,12 +147,12 @@ under the License.
                   </#if>
                   <#if eftAccountList?has_content>
                     <#list eftAccountList as eftAccount>
-                      <option value="${eftAccount.paymentMethodId}">EFT:&nbsp;${eftAccount.nameOnAccount?if_exists}, ${eftAccount.accountNumber?if_exists}</option>
+                      <option value="${eftAccount.paymentMethodId}">EFT:&nbsp;${eftAccount.nameOnAccount!}, ${eftAccount.accountNumber!}</option>
                     </#list>
                   </#if>
                 </select>
               <#else>
-                <input type='text' size='20' name='paymentMethodId' value="${returnHeader?if_exists.paymentMethodId?if_exists}"/>
+                <input type='text' size='20' name='paymentMethodId' value="${(returnHeader.paymentMethodId)!}"/>
               </#if>
               <#if (returnHeader.fromPartyId)?has_content>
                 <a href="/partymgr/control/editcreditcard?partyId=${returnHeader.fromPartyId}${StringUtil.wrapString(externalKeyParam)}" target="partymgr" class="smallSubmit">${uiLabelMap.AccountingCreateNewCreditCard}</a>
@@ -165,7 +165,7 @@ under the License.
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
               <select name='needsInventoryReceive'>
-                <#if needsInventoryReceive?exists>
+                <#if needsInventoryReceive??>
                   <#if "Y" == needsInventoryReceive>
                     <option selected="selected" value="${needsInventoryReceive}">${uiLabelMap.CommonYes}</option>
                   <#elseif "N" == needsInventoryReceive>
@@ -185,7 +185,7 @@ under the License.
             <td width='6%'>&nbsp;</td>
             <td width='74%'>
               <select name="statusId">
-                <#if currentStatus?exists>
+                <#if currentStatus??>
                   <option value="${currentStatus.statusId}">${currentStatus.get("description",locale)}</option>
                   <option value="${currentStatus.statusId}">---</option>
                 </#if>
@@ -256,7 +256,7 @@ under the License.
             <#if postalAddress?has_content>
                     <div>
                       <#if (editable)>
-                        <input type='radio' name="originContactMechId" value="${postalAddress.contactMechId?if_exists}"
+                        <input type='radio' name="originContactMechId" value="${postalAddress.contactMechId!}"
                           <#if ( postalAddressFrom?has_content && postalAddressFrom.contactMechId?default("") == postalAddress.contactMechId)>checked="checked"</#if> />
                       </#if>
                       <#if postalAddress.toName?has_content><span class="label">${uiLabelMap.CommonTo}</span>&nbsp;${postalAddress.toName}<br /></#if>

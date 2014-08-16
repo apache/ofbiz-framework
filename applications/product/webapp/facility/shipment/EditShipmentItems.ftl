@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if shipment?exists>
+<#if shipment??>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -42,12 +42,12 @@ under the License.
             <#assign itemIssuances = shipmentItemData.itemIssuances>
             <#assign orderShipments = shipmentItemData.orderShipments>
             <#assign shipmentPackageContents = shipmentItemData.shipmentPackageContents>
-            <#assign product = shipmentItemData.product?if_exists>
+            <#assign product = shipmentItemData.product!>
             <#assign totalQuantityPackaged = shipmentItemData.totalQuantityPackaged>
             <#assign totalQuantityToPackage = shipmentItemData.totalQuantityToPackage>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>${shipmentItem.shipmentItemSeqId}</td>
-                <td colspan="2">${(product.internalName)?if_exists} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId?if_exists}" class="buttontext">${shipmentItem.productId?if_exists}</a></td>
+                <td colspan="2">${(product.internalName)!} <a href="/catalog/control/EditProduct?productId=${shipmentItem.productId!}" class="buttontext">${shipmentItem.productId!}</a></td>
                 <td>${shipmentItem.quantity?default("&nbsp;")}</td>
                 <td colspan="2">${shipmentItem.shipmentContentDescription?default("&nbsp;")}</td>
                 <td><a href="javascript:document.deleteShipmentItem${shipmentItemData_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
@@ -59,9 +59,9 @@ under the License.
             <#list orderShipments as orderShipment>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId?if_exists}" class="buttontext">${orderShipment.orderId?if_exists}</a> ${orderShipment.orderItemSeqId?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${orderShipment.orderId!}" class="buttontext">${orderShipment.orderId!}</a> ${orderShipment.orderItemSeqId!}</td>
                     <td>&nbsp;</td>
-                    <td>${orderShipment.quantity?if_exists}</td>
+                    <td>${orderShipment.quantity!}</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td>&nbsp;<#-- don't allow a delete, need to implement a cancel issuance <a href="<@ofbizUrl>deleteShipmentItemIssuance?shipmentId=${shipmentId}&amp;itemIssuanceId=${itemIssuance.itemIssuanceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a> --></td>
@@ -70,10 +70,10 @@ under the License.
             <#list itemIssuances as itemIssuance>
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
-                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId?if_exists}" class="buttontext">${itemIssuance.orderId?if_exists}</a> ${itemIssuance.orderItemSeqId?if_exists}</td>
-                    <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId?if_exists}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId?if_exists}</a></td>
-                    <td>${itemIssuance.quantity?if_exists}</td>
-                    <td>${itemIssuance.issuedDateTime?if_exists}</td>
+                    <td><span class="label">${uiLabelMap.ProductOrderItem}</span> <a href="/ordermgr/control/orderview?orderId=${itemIssuance.orderId!}" class="buttontext">${itemIssuance.orderId!}</a> ${itemIssuance.orderItemSeqId!}</td>
+                    <td><span class="label">${uiLabelMap.ProductInventory}</span> <a href="<@ofbizUrl>EditInventoryItem?inventoryItemId=${itemIssuance.inventoryItemId!}</@ofbizUrl>" class="buttontext">${itemIssuance.inventoryItemId!}</a></td>
+                    <td>${itemIssuance.quantity!}</td>
+                    <td>${itemIssuance.issuedDateTime!}</td>
                     <td class="label">${uiLabelMap.ProductFuturePartyRoleList}</td>
                     <td>&nbsp;<#-- don't allow a delete, need to implement a cancel issuance <a href="<@ofbizUrl>deleteShipmentItemIssuance?shipmentId=${shipmentId}&amp;itemIssuanceId=${itemIssuance.itemIssuanceId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a> --></td>
                 </tr>
@@ -82,10 +82,10 @@ under the License.
                 <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                     <td>&nbsp;</td>
                     <td colspan="2"><span class="label">${uiLabelMap.ProductPackage}</span> ${shipmentPackageContent.shipmentPackageSeqId}</td>
-                    <td>${shipmentPackageContent.quantity?if_exists}&nbsp;</td>
+                    <td>${shipmentPackageContent.quantity!}&nbsp;</td>
                     <#if shipmentPackageContent.subProductId?has_content>
                     <td><span class="label">${uiLabelMap.ProductSubProduct}</span> ${shipmentPackageContent.subProductId}</td>
-                    <td>${shipmentPackageContent.subProductQuantity?if_exists}</td>
+                    <td>${shipmentPackageContent.subProductQuantity!}</td>
                     <#else>
                     <td colspan="2">&nbsp;</td>
                     </#if>
@@ -146,7 +146,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId!}]</li>
         </ul>
         <br class="clear"/>
     </div>

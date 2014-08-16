@@ -31,12 +31,12 @@ under the License.
     <#assign alt_row = false>
     <#list glAcctBalancesByCostCenter as glAcctBalanceByCostCenter>
         <tr <#if alt_row> class="alternate-row"</#if>>
-          <td>${glAcctBalanceByCostCenter.glAccountId?if_exists}</td>
-          <td>${glAcctBalanceByCostCenter.accountCode?if_exists}</td>
-          <td>${glAcctBalanceByCostCenter.accountName?if_exists}</td>
-          <td>${glAcctBalanceByCostCenter.balance?if_exists}</td>
+          <td>${glAcctBalanceByCostCenter.glAccountId!}</td>
+          <td>${glAcctBalanceByCostCenter.accountCode!}</td>
+          <td>${glAcctBalanceByCostCenter.accountName!}</td>
+          <td>${glAcctBalanceByCostCenter.balance!}</td>
           <#list glAccountCategories as glAccountCategory>
-            <td>${(glAcctBalanceByCostCenter[glAccountCategory.glAccountCategoryId?if_exists]?if_exists)}</td>
+            <td>${(glAcctBalanceByCostCenter[glAccountCategory.glAccountCategoryId!]!)}</td>
           </#list>
           <#assign alt_row = !alt_row>
         </tr>

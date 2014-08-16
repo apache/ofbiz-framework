@@ -16,11 +16,11 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey?if_exists>
+<#assign externalKeyParam = "&amp;externalLoginKey=" + requestAttributes.externalLoginKey!>
 <div class="screenlet">
-  <#if product?exists>
+  <#if product??>
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductInventoryItems} ${uiLabelMap.CommonFor} <#if product?exists>${(product.internalName)?if_exists} </#if> [${uiLabelMap.CommonId}:${productId?if_exists}]</h3>
+        <h3>${uiLabelMap.ProductInventoryItems} ${uiLabelMap.CommonFor} <#if product??>${(product.internalName)!} </#if> [${uiLabelMap.CommonId}:${productId!}]</h3>
     </div>
     <div class="screenlet-body">
         <#if productId?has_content>
@@ -32,7 +32,7 @@ under the License.
             </#if>
         </#if>
         <br />
-        <#if productId?exists>
+        <#if productId??>
             <table cellspacing="0" class="basic-table">
             <tr class="header-row">
                 <td><b>${uiLabelMap.ProductItemId}</b></td>
@@ -52,21 +52,21 @@ under the License.
             <#assign rowClass = "2">
             <#list productInventoryItems as inventoryItem>
                <#-- NOTE: Delivered for serialized inventory means shipped to customer so they should not be displayed here any more -->
-               <#if showEmpty || (inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM" && inventoryItem.statusId?if_exists != "INV_DELIVERED")
-                              || (inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?exists && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?exists && inventoryItem.quantityOnHandTotal != 0)))>
+               <#if showEmpty || (inventoryItem.inventoryItemTypeId! == "SERIALIZED_INV_ITEM" && inventoryItem.statusId! != "INV_DELIVERED")
+                              || (inventoryItem.inventoryItemTypeId! == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?? && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?? && inventoryItem.quantityOnHandTotal != 0)))>
                     <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType", false)>
-                    <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)?if_exists>
-                    <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)?if_exists>
-                    <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))?if_exists>
-                    <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))?if_exists>
-                    <#if curInventoryItemType?exists>
+                    <#assign curStatusItem = inventoryItem.getRelatedOne("StatusItem", true)!>
+                    <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation", false)!>
+                    <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOne("TypeEnumeration", true))!>
+                    <#assign inventoryItemDetailFirst = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(inventoryItem.getRelated("InventoryItemDetail", null, Static["org.ofbiz.base.util.UtilMisc"].toList("effectiveDate"), false))!>
+                    <#if curInventoryItemType??>
                         <tr valign="middle"<#if rowClass == "1"> class="alternate-row"</#if>>
-                            <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${(inventoryItem.inventoryItemId)?if_exists}</a></td>
-                            <td>&nbsp;${(curInventoryItemType.get("description",locale))?if_exists}</td>
+                            <td><a href="/facility/control/EditInventoryItem?inventoryItemId=${(inventoryItem.inventoryItemId)!}${StringUtil.wrapString(externalKeyParam)}" class="buttontext">${(inventoryItem.inventoryItemId)!}</a></td>
+                            <td>&nbsp;${(curInventoryItemType.get("description",locale))!}</td>
                             <td>
                                 <div>
                                     <#if curStatusItem?has_content>
-                                        ${(curStatusItem.get("description",locale))?if_exists}
+                                        ${(curStatusItem.get("description",locale))!}
                                     <#elseif inventoryItem.statusId?has_content>
                                         [${inventoryItem.statusId}]
                                     <#else>
@@ -74,40 +74,40 @@ under the License.
                                     </#if>
                                 </div>
                             </td>
-                            <td>&nbsp;${(inventoryItem.datetimeReceived)?if_exists}</td>
-                            <td>&nbsp;${(inventoryItem.expireDate)?if_exists}</td>
-                            <#if inventoryItem.facilityId?exists && inventoryItem.containerId?exists>
+                            <td>&nbsp;${(inventoryItem.datetimeReceived)!}</td>
+                            <td>&nbsp;${(inventoryItem.expireDate)!}</td>
+                            <#if inventoryItem.facilityId?? && inventoryItem.containerId??>
                                 <td style="color: red;">${uiLabelMap.ProductErrorFacility} (${inventoryItem.facilityId})
                                     ${uiLabelMap.ProductAndContainer} (${inventoryItem.containerId}) ${uiLabelMap.CommonSpecified}</td>
-                            <#elseif inventoryItem.facilityId?exists>
+                            <#elseif inventoryItem.facilityId??>
                                 <td>${uiLabelMap.ProductFacilityLetter}:&nbsp;<a href="/facility/control/EditFacility?facilityId=${inventoryItem.facilityId}${StringUtil.wrapString(externalKeyParam)}" class="linktext">${inventoryItem.facilityId}</a></td>
-                            <#elseif (inventoryItem.containerId)?exists>
+                            <#elseif (inventoryItem.containerId)??>
                                 <td>${uiLabelMap.ProductContainerLetter}:&nbsp;<a href="<@ofbizUrl>EditContainer?containerId=${inventoryItem.containerId }</@ofbizUrl>" class="linktext">${inventoryItem.containerId}</a></td>
                             <#else>
                                 <td>&nbsp;</td>
                             </#if>
-                            <td><a href="/facility/control/EditFacilityLocation?facilityId=${(inventoryItem.facilityId)?if_exists}&amp;locationSeqId=${(inventoryItem.locationSeqId)?if_exists}${StringUtil.wrapString(externalKeyParam)}" class="linktext"><#if facilityLocation?exists>${facilityLocation.areaId?if_exists}:${facilityLocation.aisleId?if_exists}:${facilityLocation.sectionId?if_exists}:${facilityLocation.levelId?if_exists}:${facilityLocation.positionId?if_exists}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)?if_exists}]</a></td>
-                            <td>&nbsp;${(inventoryItem.lotId)?if_exists}</td>
-                            <td>&nbsp;${(inventoryItem.binNumber)?if_exists}</td>
+                            <td><a href="/facility/control/EditFacilityLocation?facilityId=${(inventoryItem.facilityId)!}&amp;locationSeqId=${(inventoryItem.locationSeqId)!}${StringUtil.wrapString(externalKeyParam)}" class="linktext"><#if facilityLocation??>${facilityLocation.areaId!}:${facilityLocation.aisleId!}:${facilityLocation.sectionId!}:${facilityLocation.levelId!}:${facilityLocation.positionId!}</#if><#if facilityLocationTypeEnum?has_content> (${facilityLocationTypeEnum.get("description",locale)})</#if> [${(inventoryItem.locationSeqId)!}]</a></td>
+                            <td>&nbsp;${(inventoryItem.lotId)!}</td>
+                            <td>&nbsp;${(inventoryItem.binNumber)!}</td>
                             <td align="right"><@ofbizCurrency amount=inventoryItem.unitCost isoCode=inventoryItem.currencyUomId/></td>
                             <td>
-                                <#if inventoryItemDetailFirst?exists && inventoryItemDetailFirst.workEffortId?exists>
+                                <#if inventoryItemDetailFirst?? && inventoryItemDetailFirst.workEffortId??>
                                     <b>${uiLabelMap.ProductionRunId}</b> ${inventoryItemDetailFirst.workEffortId}
-                                <#elseif inventoryItemDetailFirst?exists && inventoryItemDetailFirst.orderId?exists>
+                                <#elseif inventoryItemDetailFirst?? && inventoryItemDetailFirst.orderId??>
                                     <b>${uiLabelMap.OrderId}</b> ${inventoryItemDetailFirst.orderId}
                                 </#if>
                             </td>
-                            <td align="right">${inventoryItemDetailFirst?if_exists.quantityOnHandDiff?if_exists}</td>
-                            <#if inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM">
+                            <td align="right">${(inventoryItemDetailFirst.quantityOnHandDiff)!}</td>
+                            <#if inventoryItem.inventoryItemTypeId! == "NON_SERIAL_INV_ITEM">
                                 <td align="right">
                                     <div>${(inventoryItem.availableToPromiseTotal)?default("NA")}
                                     / ${(inventoryItem.quantityOnHandTotal)?default("NA")}</div>
                                 </td>
-                            <#elseif inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM">
-                                <td align="right">&nbsp;${(inventoryItem.serialNumber)?if_exists}</td>
+                            <#elseif inventoryItem.inventoryItemTypeId! == "SERIALIZED_INV_ITEM">
+                                <td align="right">&nbsp;${(inventoryItem.serialNumber)!}</td>
                             <#else>
-                                <td align="right" style="color: red;">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)?if_exists} ${uiLabelMap.ProductUnknownSerialNumber} (${(inventoryItem.serialNumber)?if_exists})
-                                    ${uiLabelMap.ProductAndQuantityOnHand} (${(inventoryItem.quantityOnHandTotal)?if_exists} ${uiLabelMap.CommonSpecified}</td>
+                                <td align="right" style="color: red;">${uiLabelMap.ProductErrorType} ${(inventoryItem.inventoryItemTypeId)!} ${uiLabelMap.ProductUnknownSerialNumber} (${(inventoryItem.serialNumber)!})
+                                    ${uiLabelMap.ProductAndQuantityOnHand} (${(inventoryItem.quantityOnHandTotal)!} ${uiLabelMap.CommonSpecified}</td>
                             </#if>
                         </tr>
                     </#if>
@@ -123,6 +123,6 @@ under the License.
         </#if>
     </div>
   <#else>
-    <h2>${uiLabelMap.ProductProductNotFound} ${productId?if_exists}!</h2>
+    <h2>${uiLabelMap.ProductProductNotFound} ${productId!}!</h2>
   </#if>
 </div>

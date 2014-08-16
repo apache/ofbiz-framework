@@ -21,7 +21,7 @@ under the License.
 
 <#-- Purchase Orders -->
 
-<#if facilityMaps?exists>
+<#if facilityMaps??>
             <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="ship"/>
             <#if (cart.getShipGroupSize() > 1)>
@@ -49,7 +49,7 @@ under the License.
                 <#assign facilityContactMechList = facilityMap.facilityContactMechList>
                 <tr>
                   <td colspan="4">
-                    <div>${uiLabelMap.FacilityFacility}: ${facility.facilityName?if_exists} [${facility.facilityId}]</div>
+                    <div>${uiLabelMap.FacilityFacility}: ${facility.facilityName!} [${facility.facilityId}]</div>
                   </td>
                 </tr>
                 <tr><td colspan="4"><hr /></td></tr>
@@ -58,7 +58,7 @@ under the License.
 
                 <#if facilityContactMechList?has_content>
                 <#list facilityContactMechList as shippingContactMech>
-                  <#if shippingContactMech.postalAddress?exists>
+                  <#if shippingContactMech.postalAddress??>
                   <#assign shippingAddress = shippingContactMech.postalAddress>
                   <tr>
                     <td valign="top" nowrap="nowrap">
@@ -127,9 +127,9 @@ under the License.
 <#list 1..cart.getShipGroupSize() as currIndex>
 <#assign shipGroupIndex = currIndex - 1>
 
-<#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)?if_exists>
-<#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
-<#assign facilityId = cart.getShipGroupFacilityId(shipGroupIndex)?if_exists>
+<#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)!>
+<#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)!>
+<#assign facilityId = cart.getShipGroupFacilityId(shipGroupIndex)!>
             <hr />
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
@@ -144,7 +144,7 @@ under the License.
                       <select name="${shipGroupIndex?default("0")}_supplierPartyId">
                         <option value=""></option>
                         <#list suppliers as supplier>
-                          <option value="${supplier.partyId}"<#if supplierPartyId?exists><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
+                          <option value="${supplier.partyId}"<#if supplierPartyId??><#if supplier.partyId == supplierPartyId> selected="selected"</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                         </#list>
                       </select>
                       ${uiLabelMap.ProductReserveInventoryFromFacility}:
@@ -152,7 +152,7 @@ under the License.
                         <option value=""></option>
                         <#list productStoreFacilities as productStoreFacility>
                           <#assign facility = productStoreFacility.getRelatedOne("Facility", false)>
-                          <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected="selected"</#if></#if>>${facility.facilityName?if_exists} </option>
+                          <option value="${productStoreFacility.facilityId}"<#if facilityId??><#if productStoreFacility.facilityId == facilityId> selected="selected"</#if></#if>>${facility.facilityName!} </option>
                         </#list>
                       </select>
                     </div>
@@ -163,7 +163,7 @@ under the License.
                 <#assign i = 0>
                 <#list shippingContactMechList as shippingContactMech>
                   <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
-                  <#if currShipContactMechId?exists && currShipContactMechId?has_content>
+                  <#if currShipContactMechId?? && currShipContactMechId?has_content>
                       <#if currShipContactMechId == shippingContactMech.contactMechId>
                         <#assign checkedValue = "checked='checked'">
                       <#else>
@@ -262,7 +262,7 @@ under the License.
               <td>&nbsp;</td>
               <td valign='middle'>
                 <div class='tabletext'>
-                  <@htmlTemplate.lookupField value='${thisPartyId?if_exists}' formName="partyshipform" name="shipToPartyId" id="shipToPartyId" fieldFormName="LookupPartyName"/>
+                  <@htmlTemplate.lookupField value='${thisPartyId!}' formName="partyshipform" name="shipToPartyId" id="shipToPartyId" fieldFormName="LookupPartyName"/>
                   <input type="submit" class="smallSubmit" value="Continue" />
                 </div>
               </td>

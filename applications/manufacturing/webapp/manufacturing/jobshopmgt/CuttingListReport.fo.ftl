@@ -35,7 +35,7 @@ under the License.
         <fo:page-sequence master-reference="main">
         <fo:flow flow-name="xsl-region-body" font-family="Helvetica">
             <fo:block font-size="16pt">${uiLabelMap.ManufacturingCuttingList}</fo:block>
-            <fo:block font-size="12pt">${uiLabelMap.ProductShipmentPlan}: ${shipmentId} ${uiLabelMap.ManufacturingDeliveryDate}: ${shipment.estimatedShipDate?if_exists}</fo:block>
+            <fo:block font-size="12pt">${uiLabelMap.ProductShipmentPlan}: ${shipmentId} ${uiLabelMap.ManufacturingDeliveryDate}: ${shipment.estimatedShipDate!}</fo:block>
             <fo:block space-after.optimum="10pt" font-size="10pt">
             <fo:table>
                 <fo:table-column column-width="60pt"/>
@@ -59,13 +59,13 @@ under the License.
                     <#list cuttingList as dimension>
                         <fo:table-row>
                             <fo:table-cell padding="2pt" background-color="${dimColor}">
-                                <fo:block>${dimension.width?if_exists}</fo:block>
+                                <fo:block>${dimension.width!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${dimColor}">
-                                <fo:block>${dimension.height?if_exists}</fo:block>
+                                <fo:block>${dimension.height!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${dimColor}">
-                                <fo:block>${dimension.quantity?if_exists}</fo:block>
+                                <fo:block>${dimension.quantity!}</fo:block>
                             </fo:table-cell>
                             <fo:table-cell padding="2pt" background-color="${dimColor}">
                                 <fo:block></fo:block>
@@ -84,13 +84,13 @@ under the License.
                                     <fo:block></fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${product.quantity?if_exists}</fo:block>
+                                    <fo:block>${product.quantity!}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${product.product.productId?if_exists}</fo:block>
+                                    <fo:block>${product.product.productId!}</fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt" background-color="${rowColor}">
-                                    <fo:block>${product.product.internalName?if_exists}</fo:block>
+                                    <fo:block>${product.product.internalName!}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                             </#list>

@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if shipment?exists>
+<#if shipment??>
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
@@ -38,18 +38,18 @@ under the License.
         <#assign alt_row = false>
         <#list shipmentPackageDatas as shipmentPackageData>
             <#assign shipmentPackage = shipmentPackageData.shipmentPackage>
-            <#assign shipmentPackageContents = shipmentPackageData.shipmentPackageContents?if_exists>
-            <#assign shipmentPackageRouteSegs = shipmentPackageData.shipmentPackageRouteSegs?if_exists>
-            <#assign weightUom = shipmentPackageData.weightUom?if_exists>
+            <#assign shipmentPackageContents = shipmentPackageData.shipmentPackageContents!>
+            <#assign shipmentPackageRouteSegs = shipmentPackageData.shipmentPackageRouteSegs!>
+            <#assign weightUom = shipmentPackageData.weightUom!>
             <form method="post" action="<@ofbizUrl>updateShipmentPackage</@ofbizUrl>" name="updateShipmentPackageForm${shipmentPackageData_index}">
             <input type="hidden" name="shipmentId" value="${shipmentId}"/>
             <input type="hidden" name="shipmentPackageSeqId" value="${shipmentPackage.shipmentPackageSeqId}"/>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>${shipmentPackage.shipmentPackageSeqId}</td>
-                <td>${(shipmentPackage.dateCreated.toString())?if_exists}</td>
+                <td>${(shipmentPackage.dateCreated.toString())!}</td>
                 <td>
                     <span class="label">${uiLabelMap.ProductWeight}</span>
-                    <input type="text" size="5" name="weight" value="${shipmentPackage.weight?if_exists}"/>
+                    <input type="text" size="5" name="weight" value="${shipmentPackage.weight!}"/>
                     <span class="label">${uiLabelMap.ProductWeightUnit}</span>
                     <select name="weightUomId">
                         <#if weightUom?has_content>
@@ -68,11 +68,11 @@ under the License.
                     <select name="shipmentBoxTypeId">
                         <option value="">&nbsp;</option>
                         <#list boxTypes as boxType>
-                            <option value="${boxType.shipmentBoxTypeId}" <#if shipmentPackage.shipmentBoxTypeId?exists && shipmentPackage.shipmentBoxTypeId == boxType.shipmentBoxTypeId>selected="selected"</#if>>${boxType.get("description",locale)}</option>
+                            <option value="${boxType.shipmentBoxTypeId}" <#if shipmentPackage.shipmentBoxTypeId?? && shipmentPackage.shipmentBoxTypeId == boxType.shipmentBoxTypeId>selected="selected"</#if>>${boxType.get("description",locale)}</option>
                         </#list>
                     </select>
                     <span class="label">${uiLabelMap.ProductShipmentInsuredValuePackage}</span>
-                    <input type="text" size="5" name="insuredValue" value="${shipmentPackage.insuredValue?if_exists}"/>
+                    <input type="text" size="5" name="insuredValue" value="${shipmentPackage.insuredValue!}"/>
                 </td>
                 <td><a href="javascript:document.updateShipmentPackageForm${shipmentPackageData_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a></td>
                 <td><a href="javascript:document.deleteShipmentPackage_${shipmentPackageData_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a></td>
@@ -89,7 +89,7 @@ under the License.
                 <td colspan="2">
                     <div>
                         <span class="label">${uiLabelMap.ProductQuantity}</span>
-                        ${shipmentPackageContent.quantity?if_exists}
+                        ${shipmentPackageContent.quantity!}
                         <a href="javascript:document.deleteShipmentPackageContent${shipmentPackageData_index}${shipmentPackageContent_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </div>
                 </td>
@@ -136,11 +136,11 @@ under the License.
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
                 <td>&nbsp;</td>
                 <td><span class="label">${uiLabelMap.ProductRouteSegment}</span> ${shipmentPackageRouteSeg.shipmentRouteSegmentId}</td>
-                <td><span class="label">${uiLabelMap.ProductTrack}</span> <input type="text" size="22" name="trackingCode" value="${shipmentPackageRouteSeg.trackingCode?if_exists}"/></td>
+                <td><span class="label">${uiLabelMap.ProductTrack}</span> <input type="text" size="22" name="trackingCode" value="${shipmentPackageRouteSeg.trackingCode!}"/></td>
                 <td colspan="2">
                     <div>
                         <span class="label">${uiLabelMap.ProductBox}</span>
-                        <input type="text" size="5" name="boxNumber" value="${shipmentPackageRouteSeg.boxNumber?if_exists}"/>
+                        <input type="text" size="5" name="boxNumber" value="${shipmentPackageRouteSeg.boxNumber!}"/>
                         <a href="javascript:document.updateShipmentPackageRouteSegForm${shipmentPackageData_index}${shipmentPackageRouteSeg_index}.submit();" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                         <a href="javascript:document.deleteShipmentPackageRouteSeg${shipmentPackageData_index}${shipmentPackageRouteSeg_index}.submit();" class="buttontext">${uiLabelMap.CommonDelete}</a>
                     </div>
@@ -205,7 +205,7 @@ under the License.
 <div class="screenlet">
     <div class="screenlet-title-bar">
         <ul>
-            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId?if_exists}]</li>
+            <li class="h3">${uiLabelMap.ProductShipmentNotFoundId} : [${shipmentId!}]</li>
         </ul>
         <br class="clear"/>
     </div>

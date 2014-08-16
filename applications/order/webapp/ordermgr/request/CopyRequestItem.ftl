@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if custRequestItem?exists>
+<#if custRequestItem??>
 <form action="<@ofbizUrl>copyCustRequestItem</@ofbizUrl>" method="post">
     <input type="hidden" name="custRequestId" value="${custRequestItem.custRequestId}"/>
     <input type="hidden" name="custRequestItemSeqId" value="${custRequestItem.custRequestItemSeqId}"/>

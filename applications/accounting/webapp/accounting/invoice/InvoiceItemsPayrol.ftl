@@ -41,7 +41,7 @@ under the License.
 </tr>
     <#if PayrolList?has_content>
         <#list PayrolList as payrolList>
-            <#if payrolList.parentTypeId?if_exists == payrolGroup.invoiceItemTypeId?if_exists>
+            <#if payrolList.parentTypeId! == payrolGroup.invoiceItemTypeId!>
 <tr>
     <td align="right">
             ${payrolList.description} :

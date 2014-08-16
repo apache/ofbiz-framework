@@ -19,7 +19,7 @@ under the License.
 
 <!-- Screenlet to add cart to shopping list. The shopping lists are presented in a dropdown box. -->
 
-<#if (shoppingLists?exists) && (shoppingCartSize > 0)>
+<#if (shoppingLists??) && (shoppingCartSize > 0)>
   <div class="screenlet">
     <div class="screenlet-title-bar">
         <div class="h3">${uiLabelMap.OrderAddOrderToShoppingList}</div>
@@ -31,7 +31,7 @@ under the License.
             <form method="post" name="addBulkToShoppingList" action="<@ofbizUrl>addBulkToShoppingList</@ofbizUrl>" style='margin: 0;'>
               <#assign index = 0/>
               <#list shoppingCart.items() as cartLine>
-                <#if (cartLine.getProductId()?exists) && !cartLine.getIsPromo()>
+                <#if (cartLine.getProductId()??) && !cartLine.getIsPromo()>
                   <input type="hidden" name="selectedItem" value="${index}"/>
                 </#if>
                 <#assign index = index + 1/>

@@ -30,11 +30,11 @@ under the License.
       <a href="javascript:document.sendConfirmationForm.submit()" class="buttontext">${uiLabelMap.CommonSend}</a>      
       <br />
       <form method="post" action="<@ofbizUrl>sendconfirmationmail/${donePage}</@ofbizUrl>" name="sendConfirmationForm">
-        <input type="hidden" name="orderId" value="${orderId?if_exists}" />
-        <#if ! productStoreEmailSetting?exists>
+        <input type="hidden" name="orderId" value="${orderId!}" />
+        <#if ! productStoreEmailSetting??>
             <#assign productStoreEmailSetting = {} />
         </#if>
-        <input type="hidden" name="partyId" value="${partyId?if_exists}" />
+        <input type="hidden" name="partyId" value="${partyId!}" />
         <input type="hidden" name="contentType" value="${productStoreEmailSetting.contentType?default("")}" />
         <table class="basic-table" cellspacing='0'>
             <tr>
@@ -65,7 +65,7 @@ under the License.
             <tr>
                 <td width="26%" align="right" class="label">${uiLabelMap.CommonFrom}&nbsp;</td>
                 <td width="54%">
-                    <#if productStoreEmailSetting.fromAddress?exists>
+                    <#if productStoreEmailSetting.fromAddress??>
                         <input type="hidden" name="sendFrom" value="${productStoreEmailSetting.fromAddress}" />
                     <#else>
                         <input type="text" size="40" name="sendFrom" value="" />

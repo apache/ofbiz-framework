@@ -56,12 +56,12 @@ under the License.
         </#if>
 
         <#-- PicklistRole -->
-        <#list picklistInfo.picklistRoleInfoList?if_exists as picklistRoleInfo>
+        <#list picklistInfo.picklistRoleInfoList! as picklistRoleInfo>
           <div style="margin-left: 15px;">
-            <span class="label">${uiLabelMap.PartyParty}</span> ${picklistRoleInfo.partyNameView.firstName?if_exists} ${picklistRoleInfo.partyNameView.middleName?if_exists} ${picklistRoleInfo.partyNameView.lastName?if_exists} ${picklistRoleInfo.partyNameView.groupName?if_exists}
+            <span class="label">${uiLabelMap.PartyParty}</span> ${picklistRoleInfo.partyNameView.firstName!} ${picklistRoleInfo.partyNameView.middleName!} ${picklistRoleInfo.partyNameView.lastName!} ${picklistRoleInfo.partyNameView.groupName!}
             <span class="label">${uiLabelMap.PartyRole}</span> ${picklistRoleInfo.roleType.description}
             <span class="label">${uiLabelMap.CommonFrom}</span> ${picklistRoleInfo.picklistRole.fromDate}
-            <#if picklistRoleInfo.picklistRole.thruDate?exists><span class="label">${uiLabelMap.CommonThru}</span> ${picklistRoleInfo.picklistRole.thruDate}</#if>
+            <#if picklistRoleInfo.picklistRole.thruDate??><span class="label">${uiLabelMap.CommonThru}</span> ${picklistRoleInfo.picklistRole.thruDate}</#if>
           </div>
         </#list>
         <div style="margin-left: 15px;">
@@ -72,7 +72,7 @@ under the License.
             <input type="hidden" name="roleTypeId" value="PICKER"/>
             <select name="partyId">
               <#list partyRoleAndPartyDetailList as partyRoleAndPartyDetail>
-                <option value="${partyRoleAndPartyDetail.partyId}">${partyRoleAndPartyDetail.firstName?if_exists} ${partyRoleAndPartyDetail.middleName?if_exists} ${partyRoleAndPartyDetail.lastName?if_exists} ${partyRoleAndPartyDetail.groupName?if_exists} [${partyRoleAndPartyDetail.partyId}]</option>
+                <option value="${partyRoleAndPartyDetail.partyId}">${partyRoleAndPartyDetail.firstName!} ${partyRoleAndPartyDetail.middleName!} ${partyRoleAndPartyDetail.lastName!} ${partyRoleAndPartyDetail.groupName!} [${partyRoleAndPartyDetail.partyId}]</option>
               </#list>
             </select>
             <input type="submit" value="${uiLabelMap.CommonAdd}" class="smallSubmit"/>
@@ -80,7 +80,7 @@ under the License.
         </div>
 
         <#-- PicklistStatusHistory -->
-        <#list picklistInfo.picklistStatusHistoryInfoList?if_exists as picklistStatusHistoryInfo>
+        <#list picklistInfo.picklistStatusHistoryInfoList! as picklistStatusHistoryInfo>
           <div style="margin-left: 15px;">
             <span class="label">${uiLabelMap.CommonStatus}</span> ${uiLabelMap.CommonChange} ${uiLabelMap.CommonFrom} ${picklistStatusHistoryInfo.statusItem.get("description",locale)}
             ${uiLabelMap.CommonTo} ${picklistStatusHistoryInfo.statusItemTo.description}
@@ -90,17 +90,17 @@ under the License.
         </#list>
         <hr />
         <#-- PicklistBin -->
-        <#list picklistInfo.picklistBinInfoList?if_exists as picklistBinInfo>
+        <#list picklistInfo.picklistBinInfoList! as picklistBinInfo>
           <#assign isBinComplete = Static["org.ofbiz.shipment.picklist.PickListServices"].isBinComplete(delegator, picklistBinInfo.picklistBin.picklistBinId)/>
           <#if (!isBinComplete)>
             <div style="margin-left: 15px;">
               <span class="label">${uiLabelMap.ProductBinNum}</span> ${picklistBinInfo.picklistBin.binLocationNumber}&nbsp;(${picklistBinInfo.picklistBin.picklistBinId})
-              <#if picklistBinInfo.primaryOrderHeader?exists><span class="label">${uiLabelMap.ProductPrimaryOrderId}</span> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
-              <#if picklistBinInfo.primaryOrderItemShipGroup?exists><span class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</span> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
+              <#if picklistBinInfo.primaryOrderHeader??><span class="label">${uiLabelMap.ProductPrimaryOrderId}</span> ${picklistBinInfo.primaryOrderHeader.orderId}</#if>
+              <#if picklistBinInfo.primaryOrderItemShipGroup??><span class="label">${uiLabelMap.ProductPrimaryShipGroupSeqId}</span> ${picklistBinInfo.primaryOrderItemShipGroup.shipGroupSeqId}</#if>
               <#if !picklistBinInfo.picklistItemInfoList?has_content><a href="javascript:document.DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}.submit()" class="buttontext">${uiLabelMap.CommonDelete}</a></#if>
               <form name="DeletePicklistBin_${picklistInfo_index}_${picklistBinInfo_index}" method="post" action="<@ofbizUrl>deletePicklistBin</@ofbizUrl>">
                 <input type="hidden" name="picklistBinId" value="${picklistBinInfo.picklistBin.picklistBinId}"/>
-                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                <input type="hidden" name="facilityId" value="${facilityId!}"/>
               </form>
             </div>
             <div style="margin-left: 30px;">
@@ -134,7 +134,7 @@ under the License.
                     <td>&nbsp;</td>
                   </tr>
                   <#assign alt_row = false>
-                  <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
+                  <#list picklistBinInfo.picklistItemInfoList! as picklistItemInfo>
                     <#assign picklistItem = picklistItemInfo.picklistItem>
                     <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
                     <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
@@ -143,7 +143,7 @@ under the License.
                       <td>${picklistItem.orderItemSeqId}</td>
                       <td>${picklistItemInfo.orderItem.productId}<#if picklistItemInfo.orderItem.productId != inventoryItemAndLocation.productId>&nbsp;[${inventoryItemAndLocation.productId}]</#if></td>
                       <td>${inventoryItemAndLocation.inventoryItemId}</td>
-                      <td>${inventoryItemAndLocation.areaId?if_exists}-${inventoryItemAndLocation.aisleId?if_exists}-${inventoryItemAndLocation.sectionId?if_exists}-${inventoryItemAndLocation.levelId?if_exists}-${inventoryItemAndLocation.positionId?if_exists}</td>
+                      <td>${inventoryItemAndLocation.areaId!}-${inventoryItemAndLocation.aisleId!}-${inventoryItemAndLocation.sectionId!}-${inventoryItemAndLocation.levelId!}-${inventoryItemAndLocation.positionId!}</td>
                       <td>${picklistItem.quantity}</td>
                       <#if !picklistItemInfo.itemIssuanceList?has_content>
                         <td>
@@ -153,7 +153,7 @@ under the License.
                             <input type="hidden" name="orderItemSeqId" value="${picklistItemInfo.picklistItem.orderItemSeqId}"/>
                             <input type="hidden" name="shipGroupSeqId" value="${picklistItemInfo.picklistItem.shipGroupSeqId}"/>
                             <input type="hidden" name="inventoryItemId" value="${picklistItemInfo.picklistItem.inventoryItemId}"/>
-                            <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                            <input type="hidden" name="facilityId" value="${facilityId!}"/>
                             <a href='javascript:document.deletePicklistItem_${picklist.picklistId}_${picklistItem.orderId}_${picklistItemInfo_index}.submit()' class='buttontext'>&nbsp;${uiLabelMap.CommonDelete}&nbsp;</a>
                           </form>
                         </td>
@@ -161,7 +161,7 @@ under the License.
                       <td>
                         <#-- picklistItem.orderItemShipGrpInvRes (do we want to display any of this info?) -->
                         <#-- picklistItemInfo.itemIssuanceList -->
-                        <#list picklistItemInfo.itemIssuanceList?if_exists as itemIssuance>
+                        <#list picklistItemInfo.itemIssuanceList! as itemIssuance>
                           <b>${uiLabelMap.ProductIssue} ${uiLabelMap.CommonTo} ${uiLabelMap.ProductShipmentItemSeqId}:</b> ${itemIssuance.shipmentId}:${itemIssuance.shipmentItemSeqId}
                           <b>${uiLabelMap.ProductQuantity}:</b> ${itemIssuance.quantity}
                           <b>${uiLabelMap.CommonDate}: </b> ${itemIssuance.issuedDateTime}
@@ -173,7 +173,7 @@ under the License.
                   </#list>
                 </table>
               </div>
-              <#if picklistBinInfo.productStore.managedByLot?exists && picklistBinInfo.productStore.managedByLot = "Y">
+              <#if picklistBinInfo.productStore.managedByLot?? && picklistBinInfo.productStore.managedByLot = "Y">
                 <div style="margin-left: 30px;">
                   <table class="basic-table" cellspacing="0">
                     <tr class="header-row"
@@ -187,7 +187,7 @@ under the License.
                       <td>&nbsp;</td>
                       </tr>
                       <#assign alt_row = false>
-                      <#list picklistBinInfo.picklistItemInfoList?if_exists as picklistItemInfo>
+                      <#list picklistBinInfo.picklistItemInfoList! as picklistItemInfo>
                         <#assign picklistItem = picklistItemInfo.picklistItem>
                         <#assign inventoryItemAndLocation = picklistItemInfo.inventoryItemAndLocation>
                         <#if !picklistItemInfo.product.lotIdFilledIn?has_content || picklistItemInfo.product.lotIdFilledIn != "Forbidden">
@@ -206,7 +206,7 @@ under the License.
                                 <input type="hidden" name="orderItemSeqId" value="${picklistItemInfo.picklistItem.orderItemSeqId}"/>
                                 <input type="hidden" name="shipGroupSeqId" value="${picklistItemInfo.picklistItem.shipGroupSeqId}"/>
                                 <input type="hidden" name="inventoryItemId" value="${picklistItemInfo.picklistItem.inventoryItemId}"/>
-                                <input type="hidden" name="facilityId" value="${facilityId?if_exists}"/>
+                                <input type="hidden" name="facilityId" value="${facilityId!}"/>
                                 <input type="hidden" name="productId" value="${picklistItemInfo.orderItem.productId}" />
                                 <#if inventoryItemAndLocation.lotId?has_content>
                                   <input type="hidden" name="oldLotId" value="${inventoryItemAndLocation.lotId}" />
