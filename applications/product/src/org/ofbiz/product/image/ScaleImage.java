@@ -38,6 +38,8 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.common.image.ImageTransform;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.ServiceUtil;
 
 /**
@@ -104,8 +106,8 @@ public class ScaleImage {
         index = filenameToUse.lastIndexOf(".");
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-        String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), context);
+        String imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix", (Delegator)context.get("delegator"));
         
         FlexibleStringExpander filenameExpander;
         String fileLocation = null;
@@ -281,8 +283,8 @@ public class ScaleImage {
         String imgExtension = filenameToUse.substring(index + 1);
         // paths
         String mainFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-        String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", (Delegator)context.get("delegator")), context);
+        String imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",(Delegator)context.get("delegator"));
 
         String id = null;
         String type = null;
