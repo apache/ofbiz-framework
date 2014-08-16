@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text><#if text?exists>${text?xml}</#if></#macro>
+<#macro renderField text><#if text??>${text?xml}</#if></#macro>
 
 <#macro renderFormatListWrapperOpen formName style columnStyles><${formName}Export></#macro>
 

@@ -55,7 +55,7 @@ under the License.
                     <fo:table-row>
                         <fo:table-cell>
                             <fo:block>
-                            <#if logoImageUrl?exists>
+                            <#if logoImageUrl??>
                                 <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px" content-height="scale-to-fit"/>
                             </#if>
                             </fo:block>
@@ -63,7 +63,7 @@ under the License.
                         <fo:table-cell>
                             <#-- The title of the report -->
                             <fo:block font-weight="bold" text-decoration="underline" space-after="0.03in">
-                                <#if titleProperty?exists>${uiLabelMap.get(titleProperty)}<#else>${title?if_exists}</#if>
+                                <#if titleProperty??>${uiLabelMap.get(titleProperty)}<#else>${title!}</#if>
                             </fo:block>
                             <#-- Username and date -->
                             <fo:list-block provisional-distance-between-starts="1in">
@@ -72,7 +72,7 @@ under the License.
                                         <fo:block font-weight="bold">${uiLabelMap.CommonUsername}</fo:block>
                                     </fo:list-item-label>
                                     <fo:list-item-body start-indent="body-start()">
-                                        <fo:block><#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
+                                        <fo:block><#if userLogin??>${userLogin.userLoginId!}</#if></fo:block>
                                     </fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
@@ -80,7 +80,7 @@ under the License.
                                         <fo:block font-weight="bold">${uiLabelMap.CommonDate}</fo:block>
                                     </fo:list-item-label>
                                     <fo:list-item-body start-indent="body-start()">
-                                        <fo:block>${nowTimestamp?if_exists}</fo:block>
+                                        <fo:block>${nowTimestamp!}</fo:block>
                                     </fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>

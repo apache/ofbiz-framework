@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#macro renderField text><#if text?exists>"${text?replace("\"", "\"\"")}"</#if></#macro>
+<#macro renderField text><#if text??>"${text?replace("\"", "\"\"")}"</#if></#macro>
 
 <#macro renderDisplayField type imageLocation idName description title class alert inPlaceEditorId="" inPlaceEditorUrl="" inPlaceEditorParams="">
 <@renderField description />,<#rt/>

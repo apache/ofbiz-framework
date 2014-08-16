@@ -17,17 +17,17 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if requestParameters?exists && genericLinkName?exists && genericLinkTarget?exists && genericLinkText?exists>
-<form name="${genericLinkName}" <#if genericLinkWindow?exists>target="${genericLinkWindow}"</#if> action="<@ofbizUrl>${genericLinkTarget}</@ofbizUrl>" method="post">
-<#if (!excludeParameters?exists || excludeParameters != "N") && requestParameters?exists>
+<#if requestParameters?? && genericLinkName?? && genericLinkTarget?? && genericLinkText??>
+<form name="${genericLinkName}" <#if genericLinkWindow??>target="${genericLinkWindow}"</#if> action="<@ofbizUrl>${genericLinkTarget}</@ofbizUrl>" method="post">
+<#if (!excludeParameters?? || excludeParameters != "N") && requestParameters??>
 <#assign requestParameterKeys = requestParameters.keySet().iterator()>
 <#list requestParameterKeys as requestParameterKey>
 <#assign requestParameterValue = requestParameters.get(requestParameterKey)>
-<#if requestParameterValue?exists && requestParameterValue?has_content>
+<#if requestParameterValue?? && requestParameterValue?has_content>
 <input type="hidden" name="${requestParameterKey}" value="${requestParameterValue}"/>
 </#if>
 </#list>
 </#if>
-<a href="javascript:document.${genericLinkName}.submit();" <#if genericLinkStyle?exists>class="${genericLinkStyle}"</#if>>${genericLinkText}</a>
+<a href="javascript:document.${genericLinkName}.submit();" <#if genericLinkStyle??>class="${genericLinkStyle}"</#if>>${genericLinkText}</a>
 </form>
 </#if>

@@ -40,7 +40,7 @@ under the License.
               <form method="post" action="<@ofbizUrl>createPortalPagePortlet</@ofbizUrl>" onsubmit="javascript:submitFormDisableSubmits(this)" name="createPortalPortlet_${portalPortlet.portalPortletId}"><input name="portalPortletId" value="${portalPortlet.portalPortletId}" type="hidden"/><input name="portalPageId" value="${parameters.portalPageId}" type="hidden"/><input name="columnSeqId" value="${parameters.columnSeqId}" type="hidden"/></form><a class="buttontext" href="javascript:document.createPortalPortlet_${portalPortlet.portalPortletId}.submit()">${uiLabelMap.CommonAdd}: ${portalPortlet.portletName}</a>
             </div>
             <div>
-              ${portalPortlet.description?if_exists}
+              ${portalPortlet.description!}
             </div>
             <div>
               ${parameters.portletCategoryId}

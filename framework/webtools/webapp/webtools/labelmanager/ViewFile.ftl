@@ -20,11 +20,11 @@ under the License.
     <table class="basic-table" cellspacing="3">
         <tr>
             <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
-            <td>${parameters.sourceKey?if_exists}</td>
+            <td>${parameters.sourceKey!}</td>
         </tr>
         <tr>
             <td class="label">${uiLabelMap.WebtoolsLabelManagerFileName}</td>
-            <td>${parameters.fileName?if_exists}</td>
+            <td>${parameters.fileName!}</td>
         </tr>
         <tr>
             <td colspan="2">&nbsp;</td>

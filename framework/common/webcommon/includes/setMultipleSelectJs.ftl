@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if asm_multipleSelect?exists> <#-- we check only this var and suppose the others are also present -->
+<#if asm_multipleSelect??> <#-- we check only this var and suppose the others are also present -->
 <script type="text/javascript">
 jQuery(document).ready(function() {
-    multiple = jQuery("#${asm_multipleSelect?if_exists}");
+    multiple = jQuery("#${asm_multipleSelect!}");
 
-  <#if asm_title?exists>
-    // set the dropdown "title" if exists
+  <#if asm_title??>
+    // set the dropdown "title" if??
     multiple.attr('title', '${asm_title}');
   </#if>
   
@@ -34,7 +34,7 @@ jQuery(document).ready(function() {
       //, debugMode: true
     });
       
-  <#if asm_relatedField?exists> <#-- can be used without related field -->
+  <#if asm_relatedField??> <#-- can be used without related field -->
     // track possible relatedField changes
     // on initial focus (focus-field-name must be asm_relatedField) or if the field value changes, select related multi values. 
     typeValue = jQuery('#${asm_typeField}').val();

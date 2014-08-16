@@ -25,7 +25,7 @@ under the License.
             <td>
                 <select name="group">
                     <#list groups as group>
-                        <option value="${group}" <#if selGroup?exists><#if group = selGroup>selected="selected"</#if></#if>>${group}</option>
+                        <option value="${group}" <#if selGroup??><#if group = selGroup>selected="selected"</#if></#if>>${group}</option>
                     </#list>
                 </select>
             </td>
@@ -35,7 +35,7 @@ under the License.
                 ${uiLabelMap.WebtoolsSqlCommand}
             </td>
             <td>
-                <textarea name="sqlCommand" cols="100" rows="5">${sqlCommand?if_exists}</textarea>
+                <textarea name="sqlCommand" cols="100" rows="5">${sqlCommand!}</textarea>
             </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@ under the License.
             <#list records as record>
                 <tr <#if alt_row> class="alternate-row"</#if> >
                 <#list record as field>
-                    <td>${field?if_exists}</td>
+                    <td>${field!}</td>
                 </#list>
                 </tr>
                 <#assign alt_row = !alt_row>

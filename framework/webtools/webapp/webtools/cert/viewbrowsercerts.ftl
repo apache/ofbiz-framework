@@ -18,9 +18,9 @@ under the License.
 -->
 
 <#assign isSecure = request.isSecure()/>
-<#assign clientCerts = request.getAttribute("javax.servlet.request.X509Certificate")?if_exists/>
+<#assign clientCerts = request.getAttribute("javax.servlet.request.X509Certificate")!/>
 <#if (!clientCerts?has_content)>
-    <#assign clientCerts = request.getAttribute("javax.net.ssl.peer_certificates")?if_exists/>
+    <#assign clientCerts = request.getAttribute("javax.net.ssl.peer_certificates")!/>
 </#if>
 
 <div class="screenlet">
@@ -31,7 +31,7 @@ under the License.
     <#if (clientCerts?has_content)>
       <table class="basic-table">
         <#list clientCerts as cert>
-          <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)?if_exists>
+          <#assign certString = Static["org.ofbiz.base.util.KeyStoreUtil"].certToString(cert)!>
           <#if (certString?has_content)>
             <tr>
               <td class="label">${uiLabelMap.WebtoolsCertsCert}</td>

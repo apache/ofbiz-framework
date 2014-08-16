@@ -31,7 +31,7 @@ under the License.
             <tr>
                 <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
                 <td>
-                    <#if parameters.sourceKey?exists>
+                    <#if parameters.sourceKey??>
                         ${parameters.sourceKey}
                         <input type="hidden" name="key" value="${parameters.sourceKey}" />
                         <input type="hidden" name="update_label" value="Y" />
@@ -44,20 +44,20 @@ under the License.
             <tr>
                 <td class="label">${uiLabelMap.WebtoolsLabelManagerKeyComment}</td>
                 <td>
-                    <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment?if_exists}" />
+                    <input type="text" name="keyComment" size="70" value="${parameters.sourceKeyComment!}" />
                 </td>
             </tr>
             <tr>
                 <td class="label">${uiLabelMap.WebtoolsLabelManagerFileName}</td>
                 <td>
-                    <#if parameters.sourceFileName?exists>
+                    <#if parameters.sourceFileName??>
                         ${parameters.sourceFileName}
                         <input type="hidden" name="fileName" value="${parameters.sourceFileName}" />
                     <#else>
                         <select name="fileName">
                             <#list filesFound as fileInfo>
                               <#assign fileName = fileInfo.file.getName()/>
-                              <option <#if parameters.fileName?exists && parameters.fileName == fileName>selected="selected"</#if> value="${fileName}">${fileName}</option>
+                              <option <#if parameters.fileName?? && parameters.fileName == fileName>selected="selected"</#if> value="${fileName}">${fileName}</option>
                             </#list>
                         </select>
                     </#if>
@@ -66,7 +66,7 @@ under the License.
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="${uiLabelMap.CommonBack}"/>
-                    <#if parameters.sourceKey?exists>
+                    <#if parameters.sourceKey??>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>
@@ -78,21 +78,21 @@ under the License.
             <#list localesFound as localeFound>
                 <#assign labelValue = "">
                 <#assign labelComment = "">
-                <#if parameters.sourceKey?exists>
-                    <#assign value = (label.getLabelValue(localeFound))?if_exists>
+                <#if parameters.sourceKey??>
+                    <#assign value = (label.getLabelValue(localeFound))!>
                     <#if value?has_content>
                         <#assign labelValue = value.getLabelValue()>
                         <#assign labelComment = value.getLabelComment()>
                     </#if>
                 </#if>
                 <#assign showLocale = true>
-                <#if parameters.labelLocaleName?exists && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
+                <#if parameters.labelLocaleName?? && parameters.labelLocaleName != "" && parameters.labelLocaleName != localeFound>
                     <#assign showLocale = false>
                 </#if>
                 <#if showLocale == true>
                     <tr>
-                        <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)?if_exists/>
-                        <#if locale?exists && locale?has_content>
+                        <#assign locale = Static["org.ofbiz.base.util.UtilMisc"].parseLocale(localeFound)!/>
+                        <#if locale?? && locale?has_content>
                             <#assign langAttr = localeFound.toString()?replace("_", "-")>
                             <#assign langDir = "ltr">
                             <#if "ar.iw"?contains(langAttr?substring(0, 2))>
@@ -106,8 +106,8 @@ under the License.
                         </#if>
                         <td>
                             <input type="hidden" name="localeNames" value="${localeFound}" />
-                            <input type="text" name="localeValues" size="70" value="${labelValue?if_exists}" />
-                            <input type="text" name="localeComments" size="70" value="${labelComment?if_exists}" />
+                            <input type="text" name="localeValues" size="70" value="${labelValue!}" />
+                            <input type="text" name="localeComments" size="70" value="${labelComment!}" />
                         </td>
                     </tr>
                 </#if>
@@ -115,7 +115,7 @@ under the License.
             <tr>
                 <td colspan="2" align="center">
                     <input type="submit" value="${uiLabelMap.CommonBack}"/>
-                    <#if parameters.sourceKey?exists>
+                    <#if parameters.sourceKey??>
                         <input type="submit" value="${uiLabelMap.WebtoolsLabelManagerRemove}" name="removeLabel"/>
                         <input type="submit" value="${uiLabelMap.CommonUpdate}" name="confirm" onclick="javascript:updateAndSaveLabel()"/>
                     <#else>

@@ -23,14 +23,14 @@ under the License.
 
   <form method="post" action="<@ofbizUrl>entityImport</@ofbizUrl>">
     ${uiLabelMap.WebtoolsAbsoluteFileNameOrUrl}:<br />
-    <input type="text" size="60" name="filename" value="${filename?if_exists}"/><br />
+    <input type="text" size="60" name="filename" value="${filename!}"/><br />
     ${uiLabelMap.WebtoolsAbsoluteFTLFilename}:<br />
-    <input type="text" size="40" name="fmfilename" value="${fmfilename?if_exists}"/><br />
-    <input type="checkbox" name="isUrl" <#if isUrl?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
-    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
-    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
-    <input type="checkbox" name="createDummyFks" <#if createDummyFks?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
-    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly?exists>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
+    <input type="text" size="40" name="fmfilename" value="${fmfilename!}"/><br />
+    <input type="checkbox" name="isUrl" <#if isUrl??>checked="checked"</#if>/>${uiLabelMap.WebtoolsIsURL}<br />
+    <input type="checkbox" name="mostlyInserts" <#if mostlyInserts??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMostlyInserts}<br />
+    <input type="checkbox" name="maintainTimeStamps" <#if keepStamps??>checked="checked"</#if>/>${uiLabelMap.WebtoolsMaintainTimestamps}<br />
+    <input type="checkbox" name="createDummyFks" <#if createDummyFks??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCreateDummyFks}<br />
+    <input type="checkbox" name="checkDataOnly" <#if checkDataOnly??>checked="checked"</#if>/>${uiLabelMap.WebtoolsCheckDataOnly}<br />
     ${uiLabelMap.WebtoolsTimeoutSeconds}:<input type="text" size="6" value="${txTimeoutStr?default("7200")}" name="txTimeout"/><br />
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportFile}"/></div>
   </form>
@@ -39,7 +39,7 @@ under the License.
     <textarea rows="20" cols="85" name="fulltext">${fulltext?default("<entity-engine-xml>\n</entity-engine-xml>")}</textarea>
     <div class="button-bar"><input type="submit" value="${uiLabelMap.WebtoolsImportText}"/></div>
   </form>
-  <#if messages?exists>
+  <#if messages??>
       <hr />
       <h3>${uiLabelMap.WebtoolsResults}:</h3>
       <#list messages as message>

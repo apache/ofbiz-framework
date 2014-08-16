@@ -20,7 +20,7 @@ under the License.
         <table class="basic-table" cellspacing="0">
             <tr>
                 <td class="label">${uiLabelMap.WebtoolsLabelManagerKey}</td>
-                <td colspan="2">${parameters.sourceKey?if_exists}</td>
+                <td colspan="2">${parameters.sourceKey!}</td>
             </tr>
             <tr>
                 <td colspan="3">&nbsp;</td>
@@ -30,17 +30,17 @@ under the License.
                 <td>${uiLabelMap.WebtoolsLabelManagerFileName}</td>
                 <td>${uiLabelMap.WebtoolsLabelManagerReferences}</td>
             </tr>
-            <#if parameters.sourceKey?exists && parameters.sourceKey?has_content>
+            <#if parameters.sourceKey?? && parameters.sourceKey?has_content>
               <#assign rowNum = "2">
               <#assign rowNumber = 1>
               <#assign totalRefs = 0/>
-              <#assign reference = references.get(parameters.sourceKey)?if_exists>
-              <#if reference?exists &&  reference?has_content>
+              <#assign reference = references.get(parameters.sourceKey)!>
+              <#if reference?? &&  reference?has_content>
                 <#assign entries = reference.entrySet()>
                 <#list entries as entry>
                   <tr <#if rowNum == "1">class="alternate-row"</#if>>
                     <td>${rowNumber}</td>
-                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&amp;sourceKey=${parameters.sourceKey?if_exists}</@ofbizUrl>">${entry.getKey()}</a></td>
+                    <td><a href="<@ofbizUrl>ViewFile?fileName=${entry.getKey()}&amp;sourceKey=${parameters.sourceKey!}</@ofbizUrl>">${entry.getKey()}</a></td>
                     <td>${entry.getValue()}</td>
                   </tr>
                   <#assign totalRefs = totalRefs + entry.getValue()/>

@@ -23,8 +23,8 @@ under the License.
 <#assign popupUrl='serviceEcaDetail'>
 
 <#-- Selected Service is available -->
-<#if selectedServiceMap?exists>
-  <#if showWsdl?exists && showWsdl = true>
+<#if selectedServiceMap??>
+  <#if showWsdl?? && showWsdl = true>
     <div class="screenlet">
       <div class="screenlet-title-bar">
         <h3>${uiLabelMap.WebtoolsServiceWSDL} - ${uiLabelMap.WebtoolsService} ${selectedServiceMap.serviceName}</h3>
@@ -134,7 +134,7 @@ under the License.
     </div>
 
     <#-- If service has ECA's -->
-    <#if ecaMapList?exists && ecaMapList?has_content>
+    <#if ecaMapList?? && ecaMapList?has_content>
       <#-- add the javascript for modalpopup's -->
       <script language='javascript' type='text/javascript'>
           function detailsPopup(viewName){
@@ -152,10 +152,10 @@ under the License.
         <table class="basic-table" cellspacing='0'>
           <tr class="header-row">
             <td>${uiLabelMap.WebtoolsEventName}</td>
-            <#if ecaMapList.runOnError?exists>
+            <#if ecaMapList.runOnError??>
               <td>${uiLabelMap.WebtoolsRunOnError}</td>
             </#if>
-            <#if ecaMapList.runOnFailure?exists>
+            <#if ecaMapList.runOnFailure??>
               <td>${uiLabelMap.WebtoolsRunOnFailure}</td>
             </#if>
             <td>${uiLabelMap.WebtoolsActions}</td>
@@ -164,11 +164,11 @@ under the License.
           </tr>
           <#list ecaMapList as ecaMap>
             <tr>
-              <td>${ecaMap.eventName?if_exists}</td>
-              <#if ecaMap.runOnError?exists>
+              <td>${ecaMap.eventName!}</td>
+              <#if ecaMap.runOnError??>
                 <td>${ecaMap.runOnError}</div></td>
               </#if>
-              <#if ecaMap.runOnFailure?exists>
+              <#if ecaMap.runOnFailure??>
                 <td>${ecaMap.runOnFailure}</div></td>
               </#if>
               <#if ecaMap.actions?has_content>
@@ -271,7 +271,7 @@ under the License.
     </#if>
     <#-- End if service has ECA's -->
 
-    <#list selectedServiceMap.allParamsList?if_exists as paramList>
+    <#list selectedServiceMap.allParamsList! as paramList>
       <style type="text/css">
         .param-table tr td {
           width: 12.5%;
@@ -282,7 +282,7 @@ under the License.
         <div class="screenlet-title-bar">
           <h3>${paramList.title}</h3>
         </div>
-        <#if paramList.paramList?exists && paramList.paramList?has_content>
+        <#if paramList.paramList?? && paramList.paramList?has_content>
           <table class="basic-table param-table" cellspacing='0'>
               <tr class="header-row">
                 <td>${uiLabelMap.WebtoolsParameterName}</td>
@@ -297,19 +297,19 @@ under the License.
               </tr>
               <#list paramList.paramList as modelParam>
                 <tr>
-                  <td>${modelParam.name?if_exists}</td>
-                  <td>${modelParam.description?if_exists}</td>
-                  <td>${modelParam.optional?if_exists}</td>
-                  <td>${modelParam.type?if_exists}</td>
-                  <#-- <td>[${modelParam.defaultValue?if_exists}]</td> -->
-                  <td>${modelParam.mode?if_exists}</td>
-                  <td>${modelParam.internal?if_exists}</td>
+                  <td>${modelParam.name!}</td>
+                  <td>${modelParam.description!}</td>
+                  <td>${modelParam.optional!}</td>
+                  <td>${modelParam.type!}</td>
+                  <#-- <td>[${modelParam.defaultValue!}]</td> -->
+                  <td>${modelParam.mode!}</td>
+                  <td>${modelParam.internal!}</td>
                   <td>
-                    <#if modelParam.entityName?exists>
-                      <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${modelParam.entityName}</@ofbizUrl>'>${modelParam.entityName?if_exists}</a>
+                    <#if modelParam.entityName??>
+                      <a href='<@ofbizUrl>${url}?constraint=default_entity_name@${modelParam.entityName}</@ofbizUrl>'>${modelParam.entityName!}</a>
                     </#if>
                   </td>
-                  <td>${modelParam.fieldName?if_exists}</td>
+                  <td>${modelParam.fieldName!}</td>
                 </tr>
               </#list>
           </table>
@@ -326,16 +326,16 @@ under the License.
       <form name="exportServiceEoModelBundle" method="post" action="<@ofbizUrl>exportServiceEoModelBundle</@ofbizUrl>" class="basic-form">
         <input type="hidden" name="sel_service_name" value="${selectedServiceMap.serviceName}"/>
         <input type="hidden" name="serviceName" value="${selectedServiceMap.serviceName}"/>
-        Save eomodeld to Local Path: <input type="text" name="eomodeldFullPath" value="${parameters.eomodeldFullPath?if_exists}" size="60"/>
+        Save eomodeld to Local Path: <input type="text" name="eomodeldFullPath" value="${parameters.eomodeldFullPath!}" size="60"/>
         <input type="submit" name="submitButton" value="Export"/>
       </form>
     </div>
   </#if>
 <#-- No Service selected , we list all-->
-<#elseif servicesList?exists && servicesList?has_content>
+<#elseif servicesList?? && servicesList?has_content>
 
   <#-- Show alphabetical index -->
-  <#if serviceNamesAlphaList?exists && serviceNamesAlphaList?has_content>
+  <#if serviceNamesAlphaList?? && serviceNamesAlphaList?has_content>
       <div class="button-bar">
         <#assign isfirst=true>
         <#list serviceNamesAlphaList as alpha>

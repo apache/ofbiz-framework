@@ -54,7 +54,7 @@ under the License.
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell>
-                        <#if logoImageUrl?exists>
+                        <#if logoImageUrl??>
                             <fo:block>
                                 <fo:external-graphic src="${logoImageUrl}" overflow="hidden" height="40px" content-height="scale-to-fit"/>
                             </fo:block>
@@ -71,7 +71,7 @@ under the License.
                                         <fo:block font-weight="bold">${uiLabelMap.CommonUsername}</fo:block>
                                     </fo:list-item-label>
                                     <fo:list-item-body start-indent="body-start()">
-                                        <fo:block><#if userLogin?exists>${userLogin.userLoginId?if_exists}</#if></fo:block>
+                                        <fo:block><#if userLogin??>${userLogin.userLoginId!}</#if></fo:block>
                                     </fo:list-item-body>
                                 </fo:list-item>
                                 <fo:list-item>
@@ -79,7 +79,7 @@ under the License.
                                         <fo:block font-weight="bold">${uiLabelMap.CommonDate}</fo:block>
                                     </fo:list-item-label>
                                     <fo:list-item-body start-indent="body-start()">
-                                        <fo:block>${nowTimestamp?if_exists}</fo:block>
+                                        <fo:block>${nowTimestamp!}</fo:block>
                                     </fo:list-item-body>
                                 </fo:list-item>
                             </fo:list-block>
@@ -100,7 +100,7 @@ under the License.
                 ${uiLabelMap.CommonFollowingErrorsOccurred}:
             </fo:block>
             <fo:block space-after="0.2in" color="red">
-                ${errorMessage?if_exists}
+                ${errorMessage!}
             </fo:block>
             <fo:block id="theEnd"/>
         </fo:flow>

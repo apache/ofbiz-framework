@@ -18,6 +18,6 @@ under the License.
 -->
 
 <#-- uncomment this to show the current screen help topic key (this is useful to cut and paste in the help link resources files
-${helpTopic?if_exists}
+${helpTopic!}
 -->
  

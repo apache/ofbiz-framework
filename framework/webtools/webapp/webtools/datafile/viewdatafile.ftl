@@ -23,7 +23,7 @@ under the License.
         <table class="basic-table" cellspacing="0">
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataDefinitionFileName}</td>
-            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION?if_exists}" /></td>
+            <td><input name="DEFINITION_LOCATION" type="text" size="60" value="${parameters.DEFINITION_LOCATION!}" /></td>
             <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DEFINITION_IS_URL"<#if parameters.DEFINITION_IS_URL?has_content> checked="checked"</#if> /></td>
           </tr>
           <tr>
@@ -34,28 +34,28 @@ under the License.
                   <option value=""></option>
                   <#list definitionNames as oneDefinitionName>
                     boolean isSelected = definitionName?? && definitionName.equals(oneDefinitionName);
-                    <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?exists && parameters.DEFINITION_NAME == oneDefinitionName> selected="selected" </#if>>${oneDefinitionName}</option>
+                    <option value="${oneDefinitionName}" <#if parameters.DEFINITION_NAME?? && parameters.DEFINITION_NAME == oneDefinitionName> selected="selected" </#if>>${oneDefinitionName}</option>
                   </#list>
                 </select>
               <#else>
-                <input name="DEFINITION_NAME" type="text" size="30" value="${definitionName?if_exists}" />
+                <input name="DEFINITION_NAME" type="text" size="30" value="${definitionName!}" />
               </#if>
             </td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataFileName}</td>
-            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION?if_exists}" /></td>
+            <td><input name="DATAFILE_LOCATION" type="text" size="60" value="${parameters.DATAFILE_LOCATION!}" /></td>
             <td><span class="label">${uiLabelMap.WebtoolsDataIsUrl}</span><input type="checkbox" name="DATAFILE_IS_URL"<#if parameters.DATAFILE_IS_URL?has_content> checked="checked"</#if> /></td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToFile}</td>
-            <td><input name="DATAFILE_SAVE" type="text" size="60" value="${parameters.DATAFILE_SAVE?if_exists}"/></td>
+            <td><input name="DATAFILE_SAVE" type="text" size="60" value="${parameters.DATAFILE_SAVE!}"/></td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td class="label">${uiLabelMap.WebtoolsDataSaveToXml}</td>
-            <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE?if_exists}" /></td>
+            <td><input name="ENTITYXML_FILE_SAVE" type="text" size="60" value="${parameters.ENTITYXML_FILE_SAVE!}" /></td>
             <td>&nbsp;</td>
           </tr>
           <tr>

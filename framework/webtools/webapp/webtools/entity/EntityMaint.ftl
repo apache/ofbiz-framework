@@ -22,11 +22,11 @@ under the License.
           <select name="filterByGroupName">
              <option value="">${uiLabelMap.CommonAll}</option>
              <#list entityGroups as group>
-                <option value="${group}" <#if filterByGroupName?exists><#if group = filterByGroupName>selected="selected"</#if></#if>>${group}</option>
+                <option value="${group}" <#if filterByGroupName??><#if group = filterByGroupName>selected="selected"</#if></#if>>${group}</option>
              </#list>
           </select>
           <b>${uiLabelMap.WebtoolsEntityName}:</b>
-          <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName?if_exists}"/>
+          <input type= "text" name= "filterByEntityName" value="${parameters.filterByEntityName!}"/>
           <input type="submit" value="${uiLabelMap.CommonApply}"/>
        </form>
     </div>
