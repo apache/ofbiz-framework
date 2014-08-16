@@ -724,8 +724,11 @@ under the License.
             </then>
         </if>
         <check-errors/>
-
-        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath"/>
+        <set field="absolute" value="true" type="Boolean"/>
+        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            <field field="absolute" type="boolean"/>
+        </call-class-method>
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
@@ -792,7 +795,8 @@ under the License.
         <check-errors/>
 
         <set field="absolute" value="false" type="Boolean"/>
-        <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath">
+        <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             <field field="absolute" type="boolean"/>
         </call-class-method>
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
