@@ -3288,7 +3288,6 @@ public class OrderServices {
         List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
-
         if (UtilValidate.isNotEmpty(orderItems)) {
             // loop through the digital items to fulfill
             for (GenericValue orderItem : orderItems) {
@@ -3307,10 +3306,13 @@ public class OrderServices {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                                 "OrderErrorCannotCheckForFulfillmentProductNotFound", locale));
                     }
+                    List<EntityExpr> exprs = new ArrayList<EntityExpr>();
 
-                    List<GenericValue> allProductContent = product.getRelated("ProductContent", null, null, false);
+                    exprs.add(EntityCondition.makeCondition("productContentTypeId", EntityOperator.IN, UtilMisc.toList("FULFILLMENT_EXTASYNC", "FULFILLMENT_EXTSYNC", "FULFILLMENT_EMAIL", "DIGITAL_DOWNLOAD")));
+                    exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId")));
 
                     // try looking up the parent product if the product has no content and is a variant
+                    List<GenericValue> allProductContent = delegator.findList("ProductContent", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
                     if (UtilValidate.isEmpty(allProductContent) && ("Y".equals(product.getString("isVariant")))) {
                         GenericValue parentProduct = ProductWorker.getParentProduct(product.getString("productId"), delegator);
                         if (allProductContent == null) {
@@ -3331,7 +3333,6 @@ public class OrderServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                             "OrderErrorCannotGetProductEntity", locale) + e.getMessage());
                 }
-
                 // now use the ProductContent to fulfill the item
                 if (UtilValidate.isNotEmpty(productContent)) {
                     for (GenericValue productContentItem : productContent) {
