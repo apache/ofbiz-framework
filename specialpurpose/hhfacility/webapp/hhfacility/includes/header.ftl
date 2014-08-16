@@ -25,7 +25,7 @@ under the License.
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>${applicationTitle?if_exists}</title>
+    <title>${applicationTitle!}</title>
     <#if layoutSettings.javaScripts?has_content>
         <#assign javaScriptsSet = Static["org.ofbiz.base.util.UtilMisc"].toSet(layoutSettings.javaScripts)/>
         <#list layoutSettings.javaScripts as javaScript>
@@ -43,6 +43,6 @@ under the License.
   </head>
   <body>
     <div data-role="header">
-      <a href="<@ofbizUrl>/menu?facilityId=${parameters.facilityId?if_exists}</@ofbizUrl>">Main</a>
-      <h1>${title?if_exists}</h1>
+      <a href="<@ofbizUrl>/menu?facilityId=${parameters.facilityId!}</@ofbizUrl>">Main</a>
+      <h1>${title!}</h1>
     </div>

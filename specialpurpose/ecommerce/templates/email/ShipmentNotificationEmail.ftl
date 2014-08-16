@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if baseEcommerceSecureUrl?exists><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
+<#if baseEcommerceSecureUrl??><#assign urlPrefix = baseEcommerceSecureUrl/></#if>
 <#if shipment?has_content>
   <div class="screenlet">
     <div class="screenlet-title-bar">
-      <div class="h3">${title?if_exists}<br /><br /></div>
+      <div class="h3">${title!}<br /><br /></div>
     </div>
     <table border="0" cellpadding="0" cellspacing="0">
       <tbody>
@@ -53,8 +53,8 @@ under the License.
         <#assign productId = shipmentItem.productId>
         <#assign product = shipmentItem.getRelatedOne("Product", false)>
         <tr>
-          <td colspan="1" valign="top"> ${productId?if_exists} - ${product.internalName?if_exists}</td>
-          <td align="right" valign="top"> ${shipmentItem.quantity?if_exists}</td>
+          <td colspan="1" valign="top"> ${productId!} - ${product.internalName!}</td>
+          <td align="right" valign="top"> ${shipmentItem.quantity!}</td>
         </tr>
       </#list>
       <tr><td colspan="10"><hr /></td></tr>

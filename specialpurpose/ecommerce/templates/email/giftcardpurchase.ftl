@@ -22,11 +22,11 @@ under the License.
      from surveyId 1000 - The gift card purchase survey.
  -->
 
-<#if recipientName?exists>${recipientName},</#if>
+<#if recipientName??>${recipientName},</#if>
 <br />
 
 <#-- MyCompany.com (not a variable why?) must be adapted - JLR 1/6/5 -->
-${uiLabelMap.EcommerceYouHaveBeenSent} MyCompany.com <#if senderName?exists> ${uiLabelMap.EcommerceGiftCardFrom} ${senderName}</#if>!
+${uiLabelMap.EcommerceYouHaveBeenSent} MyCompany.com <#if senderName??> ${uiLabelMap.EcommerceGiftCardFrom} ${senderName}</#if>!
 <br /><br />
 <#if giftMessage?has_content>
   ${uiLabelMap.OrderGiftMessage}
@@ -36,7 +36,7 @@ ${uiLabelMap.EcommerceYouHaveBeenSent} MyCompany.com <#if senderName?exists> ${u
 </#if>
 
 <pre>
-  ${uiLabelMap.EcommerceYourCardNumber} ${cardNumber?if_exists}
-  ${uiLabelMap.EcommerceYourPinNumber} ${pinNumber?if_exists}
-  ${uiLabelMap.EcommerceGiftAmount} ${amount?if_exists}
+  ${uiLabelMap.EcommerceYourCardNumber} ${cardNumber!}
+  ${uiLabelMap.EcommerceYourPinNumber} ${pinNumber!}
+  ${uiLabelMap.EcommerceGiftAmount} ${amount!}
 </pre>

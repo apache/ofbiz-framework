@@ -18,12 +18,12 @@ under the License.
 -->
 <div>
   <div id="SearchSalesRepsList">
-    <#if salesReps?exists && salesReps?has_content>
+    <#if salesReps?? && salesReps?has_content>
       <table id="salesRepsResults" name="salesRepsResults" cellspacing="0" cellpadding="2" class="basic-table">
       <#assign alt_row = false>
         <#list salesReps as salesRep>
           <#assign salesRepInCart = false>
-          <#if cartSalesReps?exists && cartSalesReps?has_content>
+          <#if cartSalesReps?? && cartSalesReps?has_content>
           <#list cartSalesReps as cartSalesRep>
             <#if cartSalesRep == salesRep.partyId>
               <#assign salesRepInCart = true>

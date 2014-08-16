@@ -29,7 +29,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId?if_exists)}
+                    ${(custRequestType.get("description",locale))?default(custRequest.custRequestTypeId!)}
                 </td>
             </tr>
             <tr><td colspan="7"><hr /></td></tr>
@@ -40,7 +40,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${(statusItem.get("description", locale))?default(custRequest.statusId?if_exists)}
+                    ${(statusItem.get("description", locale))?default(custRequest.statusId!)}
                 </td>
             </tr>
             <#-- party -->
@@ -51,7 +51,7 @@ under the License.
                  </td>
                  <td width="5%">&nbsp;</td>
                  <td valign="top" width="80%">
-                    ${custRequest.fromPartyId?if_exists}
+                    ${custRequest.fromPartyId!}
                  </td>
             </tr>
             <#-- request name -->
@@ -62,7 +62,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${custRequest.custRequestName?if_exists}
+                    ${custRequest.custRequestName!}
                 </td>
             </tr>
             <#-- request description -->
@@ -73,7 +73,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${custRequest.description?if_exists}
+                    ${custRequest.description!}
                 </td>
             </tr>
             <#-- request currency -->
@@ -84,7 +84,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    <#if currency?exists>${currency.get("description", locale)?default(custRequest.maximumAmountUomId?if_exists)}</#if>
+                    <#if currency??>${currency.get("description", locale)?default(custRequest.maximumAmountUomId!)}</#if>
                 </td>
             </tr>
             <#-- request currency -->
@@ -95,7 +95,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    <#if store?exists>${store.storeName?default(custRequest.productStoreId?if_exists)}</#if>
+                    <#if store??>${store.storeName?default(custRequest.productStoreId!)}</#if>
                 </td>
             </tr>
             <#-- request comment -->
@@ -106,7 +106,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${custRequest.internalComment?if_exists}
+                    ${custRequest.internalComment!}
                 </td>
             </tr>
             <#-- request reason -->
@@ -117,7 +117,7 @@ under the License.
                 </td>
                 <td width="5%">&nbsp;</td>
                 <td valign="top" width="80%">
-                    ${custRequest.reason?if_exists}
+                    ${custRequest.reason!}
                 </td>
             </tr>
         </table>

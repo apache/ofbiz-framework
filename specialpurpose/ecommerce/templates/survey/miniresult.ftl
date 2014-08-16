@@ -22,12 +22,12 @@ under the License.
 
     <#-- get an answer from the answerMap -->
     <#if surveyAnswers?has_content>
-      <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists>
+      <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)!>
     </#if>
 
     <#-- get the question results -->
     <#if surveyResults?has_content>
-      <#assign results = surveyResults.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists>
+      <#assign results = surveyResults.get(surveyQuestionAndAppl.surveyQuestionId)!>
     </#if>
 
     <tr>
@@ -37,7 +37,7 @@ under the License.
         <#if (results._total?default(0) == 1)>
            <#assign answerString = "answer">
         </#if>
-        <div>${surveyQuestionAndAppl.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
+        <div>${surveyQuestionAndAppl.question!} (${results._total?default(0)?string.number} ${answerString})</div>
       </td>
     </tr>
 
@@ -57,14 +57,14 @@ under the License.
           </span></div>
 
         <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
-          <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
+          <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)!>
           <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")>
           <#if options?has_content>
             <#list options as option>
-              <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
+              <#assign optionResults = results.get(option.surveyOptionSeqId)!>
                 <div><span style="white-space: nowrap;">
                   <#if option.surveyOptionSeqId == selectedOption><b>==>&nbsp;<font color="red"></#if>
-                  ${option.description?if_exists}
+                  ${option.description!}
                   <#if option.surveyOptionSeqId == selectedOption></font></b></#if>
                   &nbsp;[${optionResults._total?default(0)?string("#")} / ${optionResults._percent?default(0?string("#"))}%]
                 </span></div>

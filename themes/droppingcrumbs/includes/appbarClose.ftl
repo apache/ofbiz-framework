@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
-<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+<#if appModelMenu.getModelMenuItemByName(headerItem)??>
   <#if headerItem!="main">
     <div class="breadcrumbs-sep">
       ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
@@ -29,7 +29,7 @@ under the License.
 <div class="clear">
 </div>
 
-<#if userLogin?exists>
+<#if userLogin??>
 <script type="text/javascript">
   var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
   var appmenu = new DropDownMenu(jQuery('#app-navigation'));

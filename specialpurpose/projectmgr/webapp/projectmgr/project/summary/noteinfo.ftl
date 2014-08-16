@@ -23,9 +23,9 @@ under the License.
       <ul>
         <li class="h3">&nbsp;${uiLabelMap.WorkEffortNotes}</li>
           <#--if project?has_content>
-            <li><a href="<@ofbizUrl>newNotesForProject?workEffortId=${project.workEffortId?if_exists}&amp;showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
+            <li><a href="<@ofbizUrl>newNotesForProject?workEffortId=${project.workEffortId!}&amp;showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
           <#else>
-            <li><a href="<@ofbizUrl>newNotesForTask?workEffortId=${task.workEffortId?if_exists}&amp;showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
+            <li><a href="<@ofbizUrl>newNotesForTask?workEffortId=${task.workEffortId!}&amp;showForm=Y</@ofbizUrl>">${uiLabelMap.ProjectMgrNotesCreateNew}</a></li>
           </#if-->
       </ul>
       <br class="clear" />
@@ -40,26 +40,26 @@ under the License.
                 <tr>
                   <td valign="top" width="35%">
                     <div>&nbsp;<b>${uiLabelMap.CommonBy}: </b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(delegator, note.noteParty, true)}</div>
-                    <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime?if_exists,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
+                    <div>&nbsp;<b>${uiLabelMap.CommonAt}: </b>${Static["org.ofbiz.base.util.UtilDateTime"].timeStampToString(note.noteDateTime!,"dd-MM-yyyy HH:mm",Static["java.util.TimeZone"].getDefault(),context.get("locale"))}</div>
                   </td>
                   <td valign="top" width="50%">
-                    <div>${note.noteInfo?if_exists}</div>
+                    <div>${note.noteInfo!}</div>
                   </td>
                   <td align="right" valign="top" width="15%">
-                    <#if note.internalNote?if_exists == "N">
+                    <#if note.internalNote! == "N">
                         <div>${uiLabelMap.ProjectMgrPrintableNote}</div>
                           <#if project?has_content>
-                            <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                            <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
+                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPrivate}</a>
                           </#if>
                     </#if>
-                    <#if note.internalNote?if_exists == "Y">
+                    <#if note.internalNote! == "Y">
                         <div>${uiLabelMap.OrderNotPrintableNote}</div>
                            <#if project?has_content>
-                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                             <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           <#else>
-                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId?if_exists}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
+                            <a href="<@ofbizUrl>updateTaskNoteSummary?workEffortId=${task.workEffortId!}&amp;noteId=${note.noteId}&amp;internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           </#if>
                     </#if>
                   </td>
@@ -80,7 +80,7 @@ under the License.
           </td>
         </tr>
       </table>
-      <#if parameters.showForm?exists>
+      <#if parameters.showForm??>
         <div class="screenlet-title-bar">
           <ul>
           <li class="h3">&nbsp;${uiLabelMap.OrderAddNote}</li>

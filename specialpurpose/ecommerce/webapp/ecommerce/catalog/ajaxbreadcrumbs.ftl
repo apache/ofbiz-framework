@@ -28,12 +28,12 @@ under the License.
     </li>
 </#if>    
     <#-- Show the category branch -->
-    <#if productCategoryTrail?exists>
+    <#if productCategoryTrail??>
         <#list productCategoryTrail as trail>
           <#if !isDefaultTheme>                 
             <li>
               <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
-                <#if trail.title?exists>
+                <#if trail.title??>
                   ${trail.title}
                 <#else>
                   ${trail.productCategoryId}
@@ -42,7 +42,7 @@ under the License.
             </li>
           <#else>
             <a href="<@ofbizCatalogAltUrl productCategoryId=trail.productCategoryId previousCategoryId=trail.parentCategory!""/>" class="linktext">
-              <#if trail.title?exists>
+              <#if trail.title??>
                 ${trail.title} >
               <#else>
                 ${trail.productCategoryId} >
@@ -54,9 +54,9 @@ under the License.
     <#if !isDefaultTheme>                 
       <li>
         <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
-          <#if currentCategoryName?exists>
+          <#if currentCategoryName??>
             ${currentCategoryName}
-          <#elseif currentCategoryDescription?exists>
+          <#elseif currentCategoryDescription??>
             ${currentCategoryDescription}
           <#else>
             ${currentCategoryId}
@@ -65,9 +65,9 @@ under the License.
       </li>
     <#else>
       <a href="<@ofbizCatalogAltUrl productCategoryId=currentCategoryId previousCategoryId=parameters.parentCategoryStr/>" class="linktext">
-        <#if currentCategoryName?exists>
+        <#if currentCategoryName??>
           ${currentCategoryName}
-        <#elseif currentCategoryDescription?exists>
+        <#elseif currentCategoryDescription??>
           ${currentCategoryDescription}
         <#else>
           ${currentCategoryId}

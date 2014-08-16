@@ -45,11 +45,11 @@ under the License.
   </div>
   <div class="screenlet-body">
   <form name="${parameters.formNameValue}" id="quickAnonProcessCustomer" method="post" action="<@ofbizUrl>quickAnonProcessCustomerSettings</@ofbizUrl>">
-  <input type="hidden" name="partyId" value="${parameters.partyId?if_exists}"/>
-  <input type="hidden" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
-  <input type="hidden" name="billingContactMechId" value="${parameters.billingContactMechId?if_exists}"/>
-  <input type="hidden" name="shippingContactMechPurposeTypeId" value="${parameters.shippingContactMechPurposeTypeId?if_exists}"/>
-  <input type="hidden" name="billingContactMechPurposeTypeId" value="${parameters.billingContactMechPurposeTypeId?if_exists}"/>
+  <input type="hidden" name="partyId" value="${parameters.partyId!}"/>
+  <input type="hidden" name="shippingContactMechId" value="${parameters.shippingContactMechId!}"/>
+  <input type="hidden" name="billingContactMechId" value="${parameters.billingContactMechId!}"/>
+  <input type="hidden" name="shippingContactMechPurposeTypeId" value="${parameters.shippingContactMechPurposeTypeId!}"/>
+  <input type="hidden" name="billingContactMechPurposeTypeId" value="${parameters.billingContactMechPurposeTypeId!}"/>
 
   <table width="100%" border="0" cellpadding="1" cellspacing="0">
      <tr>
@@ -70,14 +70,14 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="firstName"/>
-                    <input type="text" class="inputBox required" name="firstName" id="firstName" value="${parameters.firstName?if_exists}" size="30" maxlength="30"/>*<span id="advice-required-firstName" class="required" style="display:none">(${uiLabelMap.CommonRequired})</span>
+                    <input type="text" class="inputBox required" name="firstName" id="firstName" value="${parameters.firstName!}" size="30" maxlength="30"/>*<span id="advice-required-firstName" class="required" style="display:none">(${uiLabelMap.CommonRequired})</span>
                 </td>
               </tr>
               <tr>
                 <td width="26%" align="right"><div>${uiLabelMap.PartyMiddleInitial}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <input type="text" class="inputBox"  name="middleName" value="${parameters.middleName?if_exists}" size="4" maxlength="4"/>
+                  <input type="text" class="inputBox"  name="middleName" value="${parameters.middleName!}" size="4" maxlength="4"/>
                 </td>
               </tr>
               <tr>
@@ -85,7 +85,7 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="lastName"/>
-                  <input type="text" class="inputBox required" name="lastName" value="${parameters.lastName?if_exists}" size="30" maxlength="30"/>*<span id="advice-required-lastName" class="required" style="display:none">(${uiLabelMap.CommonRequired})</span>
+                  <input type="text" class="inputBox required" name="lastName" value="${parameters.lastName!}" size="30" maxlength="30"/>*<span id="advice-required-lastName" class="required" style="display:none">(${uiLabelMap.CommonRequired})</span>
                 </td>
               </tr>
               <tr>
@@ -99,11 +99,11 @@ under the License.
                 <td width="88%">
                   <@fieldErrorsMulti fieldName1="homeCountryCode" fieldName2="homeAreaCode" fieldName3="homeContactNumber" fieldName4="homeExt"/>
                   <div>
-                    <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId?if_exists}"/>
-                    <input type="text" class="inputBox required" name="homeCountryCode" value="${parameters.homeCountryCode?if_exists}" size="4" maxlength="10"/>
-                    -&nbsp;<input type="text" class="inputBox required" name="homeAreaCode" value="${parameters.homeAreaCode?if_exists}" size="4" maxlength="10"/>
-                    -&nbsp;<input type="text" class="inputBox required" name="homeContactNumber" value="${parameters.homeContactNumber?if_exists}" size="15" maxlength="15"/>
-                    -&nbsp;<input type="text" class="inputBox" name="homeExt" value="${parameters.homeExt?if_exists}" size="6" maxlength="10"/> *
+                    <input type="hidden" name="homePhoneContactMechId" value="${parameters.homePhoneContactMechId!}"/>
+                    <input type="text" class="inputBox required" name="homeCountryCode" value="${parameters.homeCountryCode!}" size="4" maxlength="10"/>
+                    -&nbsp;<input type="text" class="inputBox required" name="homeAreaCode" value="${parameters.homeAreaCode!}" size="4" maxlength="10"/>
+                    -&nbsp;<input type="text" class="inputBox required" name="homeContactNumber" value="${parameters.homeContactNumber!}" size="15" maxlength="15"/>
+                    -&nbsp;<input type="text" class="inputBox" name="homeExt" value="${parameters.homeExt!}" size="6" maxlength="10"/> *
                   </div>
                 </td>
               </tr>
@@ -111,11 +111,11 @@ under the License.
                 <td width="26%" align="right"><div>${uiLabelMap.PartyBusinessPhone}</div></td>
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
-                  <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId?if_exists}"/>
-                  <input type="text" class="inputBox" name="workCountryCode" value="${parameters.workCountryCode?if_exists}" size="4" maxlength="10"/>
-                  -&nbsp;<input type="text" class="inputBox" name="workAreaCode" value="${parameters.workAreaCode?if_exists}" size="4" maxlength="10"/>
-                  -&nbsp;<input type="text" class="inputBox" name="workContactNumber" value="${parameters.workContactNumber?if_exists}" size="15" maxlength="15"/>
-                  -&nbsp;<input type="text" class='inputBox' name="workExt" value="${parameters.workExt?if_exists}" size="6" maxlength="10"/>
+                  <input type="hidden" name="workPhoneContactMechId" value="${parameters.workPhoneContactMechId!}"/>
+                  <input type="text" class="inputBox" name="workCountryCode" value="${parameters.workCountryCode!}" size="4" maxlength="10"/>
+                  -&nbsp;<input type="text" class="inputBox" name="workAreaCode" value="${parameters.workAreaCode!}" size="4" maxlength="10"/>
+                  -&nbsp;<input type="text" class="inputBox" name="workContactNumber" value="${parameters.workContactNumber!}" size="15" maxlength="15"/>
+                  -&nbsp;<input type="text" class='inputBox' name="workExt" value="${parameters.workExt!}" size="6" maxlength="10"/>
                 </td>
               </tr>
               <tr>
@@ -123,8 +123,8 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="emailAddress"/>
-                  <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
-                  <input type="text" class="inputBox required validate-email" name="emailAddress" value="${parameters.emailAddress?if_exists}" size="40" maxlength="255"/> *
+                  <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId!}"/>
+                  <input type="text" class="inputBox required validate-email" name="emailAddress" value="${parameters.emailAddress!}" size="40" maxlength="255"/> *
                 </td>
               </tr>
             </table>
@@ -151,7 +151,7 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="shipToName"/>
-                  <input type="text" class="inputBox" name="shipToName" id="shipToName" value="${parameters.shipToName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" name="shipToName" id="shipToName" value="${parameters.shipToName!}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -159,7 +159,7 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="shipToAttnName"/>
-                  <input type="text" class="inputBox" id="shipToAttnName" name="shipToAttnName" value="${parameters.shipToAttnName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="shipToAttnName" name="shipToAttnName" value="${parameters.shipToAttnName!}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -167,14 +167,14 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToAddress1"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToAddress1" name="shipToAddress1" value="${parameters.shipToAddress1?if_exists}" />
+                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToAddress1" name="shipToAddress1" value="${parameters.shipToAddress1!}" />
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" size="30" maxlength="30" id="shipToAddress2" name="shipToAddress2" value="${parameters.shipToAddress2?if_exists}" />
+                    <input type="text" class="inputBox" size="30" maxlength="30" id="shipToAddress2" name="shipToAddress2" value="${parameters.shipToAddress2!}" />
                  </td>
               </tr>
               <tr>
@@ -182,7 +182,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCity"/>
-                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToCity" name="shipToCity" value="${parameters.shipToCity?if_exists}" />
+                    <input type="text" class="inputBox required" size="30" maxlength="30" id="shipToCity" name="shipToCity" value="${parameters.shipToCity!}" />
                  *</td>
               </tr>
               <tr>
@@ -191,7 +191,7 @@ under the License.
                  <td width="72%">
                     <@fieldErrors fieldName="shipToStateProvinceGeoId"/>
                     <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class="selectBox">
-                    <#if (parameters.shipToStateProvinceGeoId)?exists>
+                    <#if (parameters.shipToStateProvinceGeoId)??>
                        <option>${parameters.shipToStateProvinceGeoId}</option>
                        <option value="${parameters.shipToStateProvinceGeoId}">---</option>
                     <#else>
@@ -206,7 +206,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="shipToPostalCode"/>
-                    <input type="text" class="inputBox required" size="12" maxlength="10" id="shipToPostalCode" name="shipToPostalCode" value="${parameters.shipToPostalCode?if_exists}" />
+                    <input type="text" class="inputBox required" size="12" maxlength="10" id="shipToPostalCode" name="shipToPostalCode" value="${parameters.shipToPostalCode!}" />
                  *</td>
               </tr>
               <tr>
@@ -215,7 +215,7 @@ under the License.
                  <td width="72%">
                     <@fieldErrors fieldName="shipToCountryGeoId"/>
                     <select name="shipToCountryGeoId" id="shipToCountryGeoId" class="selectBox">
-                    <#if (parameters.shipToCountryGeoId)?exists>
+                    <#if (parameters.shipToCountryGeoId)??>
                        <option>${parameters.shipToCountryGeoId}</option>
                        <option value="${parameters.shipToCountryGeoId}">---</option>
                     </#if>
@@ -246,7 +246,7 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="billToName"/>
-                  <input type="text" class="inputBox" id="billToName" name="billToName" value="${parameters.billToName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="billToName" name="billToName" value="${parameters.billToName!}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -254,7 +254,7 @@ under the License.
                 <td width="2%">&nbsp;</td>
                 <td width="72%">
                   <@fieldErrors fieldName="billToAttnName"/>
-                  <input type="text" class="inputBox" id="billToAttnName" name="billToAttnName" value="${parameters.billToAttnName?if_exists}" size="30" maxlength="30"/>
+                  <input type="text" class="inputBox" id="billToAttnName" name="billToAttnName" value="${parameters.billToAttnName!}" size="30" maxlength="30"/>
                 </td>
               </tr>
               <tr>
@@ -262,14 +262,14 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToAddress1"/>
-                    <input type="text" class="inputBox required" id="billToAddress1" size="30" maxlength="30" name="billToAddress1" value="${parameters.billToAddress1?if_exists}" />
+                    <input type="text" class="inputBox required" id="billToAddress1" size="30" maxlength="30" name="billToAddress1" value="${parameters.billToAddress1!}" />
                  *</td>
               </tr>
               <tr>
                  <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAddressLine2}</div></td>
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
-                    <input type="text" class="inputBox" id="billToAddress2" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2?if_exists}" />
+                    <input type="text" class="inputBox" id="billToAddress2" size="30" maxlength="30" name="billToAddress2" value="${parameters.billToAddress2!}" />
                  </td>
               </tr>
               <tr>
@@ -277,7 +277,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToCity"/>
-                    <input type="text" class="inputBox required" id="billToCity" size="30" maxlength="30" name="billToCity" value="${parameters.billToCity?if_exists}" />
+                    <input type="text" class="inputBox required" id="billToCity" size="30" maxlength="30" name="billToCity" value="${parameters.billToCity!}" />
                  *</td>
               </tr>
               <tr>
@@ -286,7 +286,7 @@ under the License.
                  <td width="72%">
                     <@fieldErrors fieldName="billToStateProvinceGeoId"/>
                     <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox">
-                    <#if (parameters.billToStateProvinceGeoId)?exists>
+                    <#if (parameters.billToStateProvinceGeoId)??>
                        <option>${parameters.billToStateProvinceGeoId}</option>
                        <option value="${parameters.billToStateProvinceGeoId}">---</option>
                     <#else>
@@ -301,7 +301,7 @@ under the License.
                  <td width="2%">&nbsp;</td>
                  <td width="72%">
                     <@fieldErrors fieldName="billToPostalCode"/>
-                    <input type="text" class="inputBox required" size="12" maxlength="10" id="billToPostalCode" name="billToPostalCode" value="${parameters.billToPostalCode?if_exists}" />
+                    <input type="text" class="inputBox required" size="12" maxlength="10" id="billToPostalCode" name="billToPostalCode" value="${parameters.billToPostalCode!}" />
                  *</td>
               </tr>
               <tr>
@@ -310,7 +310,7 @@ under the License.
                  <td width="72%">
                     <@fieldErrors fieldName="billToCountryGeoId"/>
                     <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox">
-                    <#if (parameters.billToCountryGeoId)?exists>
+                    <#if (parameters.billToCountryGeoId)??>
                        <option>${parameters.billToCountryGeoId}</option>
                        <option value="${parameters.billToCountryGeoId}">---</option>
                     </#if>

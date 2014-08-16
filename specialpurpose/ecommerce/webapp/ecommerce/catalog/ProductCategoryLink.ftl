@@ -17,26 +17,26 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign productCategoryLink = requestAttributes.productCategoryLink?if_exists/>
+<#assign productCategoryLink = requestAttributes.productCategoryLink!/>
 <#if productCategoryLink?has_content>
 <#if productCategoryLink.detailSubScreen?has_content>
     ${screens.render(productCategoryLink.detailSubScreen)}
 <#else>
-    <#assign titleText = productCategoryLink.titleText?if_exists/>
-    <#assign imageUrl = productCategoryLink.imageUrl?if_exists/>
-    <#assign detailText = productCategoryLink.detailText?if_exists/>
+    <#assign titleText = productCategoryLink.titleText!/>
+    <#assign imageUrl = productCategoryLink.imageUrl!/>
+    <#assign detailText = productCategoryLink.detailText!/>
 
     <#if productCategoryLink.linkTypeEnumId == "PCLT_SEARCH_PARAM">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "keywordsearch?" + productCategoryLink.linkInfo)/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_ABS_URL">
-      <#assign linkUrl = productCategoryLink.linkInfo?if_exists/>
+      <#assign linkUrl = productCategoryLink.linkInfo!/>
     <#elseif productCategoryLink.linkTypeEnumId == "PCLT_CAT_ID">
       <#assign linkUrl = requestAttributes._REQUEST_HANDLER_.makeLink(request, response, "category/~category_id=" + productCategoryLink.linkInfo) + "/~pcategory=" + productCategoryId/>
       <#assign linkProductCategory = delegator.findOne("ProductCategory", Static["org.ofbiz.base.util.UtilMisc"].toMap("productCategoryId", productCategoryLink.linkInfo), true)/>
       <#assign linkCategoryContentWrapper = Static["org.ofbiz.product.category.CategoryContentWrapper"].makeCategoryContentWrapper(linkProductCategory, request)/>
-      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))?if_exists/>
-      <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL"))?if_exists/>
-      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION"))?if_exists/>
+      <#assign titleText = productCategoryLink.titleText?default(linkCategoryContentWrapper.get("CATEGORY_NAME"))!/>
+      <#assign imageUrl = productCategoryLink.imageUrl?default(linkCategoryContentWrapper.get("CATEGORY_IMAGE_URL"))!/>
+      <#assign detailText = productCategoryLink.detailText?default(linkCategoryContentWrapper.get("DESCRIPTION"))!/>
     </#if>
 
     <div class="productcategorylink">

@@ -17,18 +17,18 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if party?exists>
+<#if party??>
 <#-- Main Heading -->
 <table width="100%" cellpadding="0" cellspacing="0" border="0">
   <tr>
     <td>
       <h2>${uiLabelMap.PartyTheProfileOf}
-        <#if person?exists>
-          ${person.personalTitle?if_exists}
-          ${person.firstName?if_exists}
-          ${person.middleName?if_exists}
-          ${person.lastName?if_exists}
-          ${person.suffix?if_exists}
+        <#if person??>
+          ${person.personalTitle!}
+          ${person.firstName!}
+          ${person.middleName!}
+          ${person.lastName!}
+          ${person.suffix!}
         <#else>
           "${uiLabelMap.PartyNewUser}"
         </#if>
@@ -40,7 +40,7 @@ under the License.
       <#else>
         <a href="<@ofbizUrl>viewprofile?SHOW_OLD=true</@ofbizUrl>" class="button">${uiLabelMap.PartyShowOld}</a>
       </#if>
-      <#if (productStore.enableDigProdUpload)?if_exists == "Y">
+      <#if (productStore.enableDigProdUpload)! == "Y">
         <a href="<@ofbizUrl>digitalproductlist</@ofbizUrl>" class="button">${uiLabelMap.EcommerceDigitalProductUpload}</a>
       </#if>
     </td>
@@ -50,34 +50,34 @@ under the License.
 <div class="screenlet">
   <div class="boxlink">
     <a href="<@ofbizUrl>editperson</@ofbizUrl>" class="submenutextright">
-    <#if person?exists>${uiLabelMap.CommonUpdate}<#else>${uiLabelMap.CommonCreate}</#if></a>
+    <#if person??>${uiLabelMap.CommonUpdate}<#else>${uiLabelMap.CommonCreate}</#if></a>
   </div>
   <h3>${uiLabelMap.PartyPersonalInformation}</h3>
   <div class="screenlet-body">
-    <#if person?exists>
+    <#if person??>
     <div>
       <table width="100%" border="0" cellpadding="0" cellspacing="0">
         <tr>
           <td align="right">${uiLabelMap.PartyName}</td>
           <td>
-              ${person.personalTitle?if_exists}
-              ${person.firstName?if_exists}
-              ${person.middleName?if_exists}
-              ${person.lastName?if_exists}
-              ${person.suffix?if_exists}
+              ${person.personalTitle!}
+              ${person.firstName!}
+              ${person.middleName!}
+              ${person.lastName!}
+              ${person.suffix!}
           </td>
         </tr>
       <#if person.nickname?has_content><tr><td align="right">${uiLabelMap.PartyNickName}</td><td>${person.nickname}</td></tr></#if>
       <#if person.gender?has_content><tr><td align="right">${uiLabelMap.PartyGender}</td><td>${person.gender}</td></tr></#if>
-      <#if person.birthDate?exists><tr><td align="right">${uiLabelMap.PartyBirthDate}</td><td>${person.birthDate.toString()}</td></tr></#if>
-      <#if person.height?exists><tr><td align="right">${uiLabelMap.PartyHeight}</td><td>${person.height}</td></tr></#if>
-      <#if person.weight?exists><tr><td align="right">${uiLabelMap.PartyWeight}</td><td>${person.weight}</td></tr></#if>
+      <#if person.birthDate??><tr><td align="right">${uiLabelMap.PartyBirthDate}</td><td>${person.birthDate.toString()}</td></tr></#if>
+      <#if person.height??><tr><td align="right">${uiLabelMap.PartyHeight}</td><td>${person.height}</td></tr></#if>
+      <#if person.weight??><tr><td align="right">${uiLabelMap.PartyWeight}</td><td>${person.weight}</td></tr></#if>
       <#if person.mothersMaidenName?has_content><tr><td align="right">${uiLabelMap.PartyMaidenName}</td><td>${person.mothersMaidenName}</td></tr></#if>
       <#if person.maritalStatus?has_content><tr><td align="right">${uiLabelMap.PartyMaritalStatus}</td><td>${person.maritalStatus}</td></tr></#if>
       <#if person.socialSecurityNumber?has_content><tr><td align="right">${uiLabelMap.PartySocialSecurityNumber}</td><td>${person.socialSecurityNumber}</td></tr></#if>
       <#if person.passportNumber?has_content><tr><td align="right">${uiLabelMap.PartyPassportNumber}</td><td>${person.passportNumber}</td></tr></#if>
-      <#if person.passportExpireDate?exists><tr><td align="right">${uiLabelMap.PartyPassportExpireDate}</td><td>${person.passportExpireDate.toString()}</td></tr></#if>
-      <#if person.totalYearsWorkExperience?exists><tr><td align="right">${uiLabelMap.PartyYearsWork}</td><td>${person.totalYearsWorkExperience}</td></tr></#if>
+      <#if person.passportExpireDate??><tr><td align="right">${uiLabelMap.PartyPassportExpireDate}</td><td>${person.passportExpireDate.toString()}</td></tr></#if>
+      <#if person.totalYearsWorkExperience??><tr><td align="right">${uiLabelMap.PartyYearsWork}</td><td>${person.totalYearsWorkExperience}</td></tr></#if>
       <#if person.comments?has_content><tr><td align="right">${uiLabelMap.CommonComments}</td><td>${person.comments}</td></tr></#if>
       </table>
     </div>
@@ -88,7 +88,7 @@ under the License.
 </div>
 
 <#-- ============================================================= -->
-<#if monthsToInclude?exists && totalSubRemainingAmount?exists && totalOrders?exists>
+<#if monthsToInclude?? && totalSubRemainingAmount?? && totalOrders??>
 <div class="screenlet">
   <h3>${uiLabelMap.EcommerceLoyaltyPoints}</h3>
   <div class="screenlet-body">
@@ -115,9 +115,9 @@ under the License.
         <th></th>
       </tr>
       <#list partyContactMechValueMaps as partyContactMechValueMap>
-        <#assign contactMech = partyContactMechValueMap.contactMech?if_exists />
-        <#assign contactMechType = partyContactMechValueMap.contactMechType?if_exists />
-        <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists />
+        <#assign contactMech = partyContactMechValueMap.contactMech! />
+        <#assign contactMechType = partyContactMechValueMap.contactMechType! />
+        <#assign partyContactMech = partyContactMechValueMap.partyContactMech! />
           <tr><td colspan="7"></td></tr>
           <tr>
             <td align="right" valign="top">
@@ -125,10 +125,10 @@ under the License.
             </td>
             <td>&nbsp;</td>
             <td valign="top">
-              <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose>
+              <#list partyContactMechValueMap.partyContactMechPurposes! as partyContactMechPurpose>
                 <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOne("ContactMechPurposeType", true) />
                 <div>
-                  <#if contactMechPurposeType?exists>
+                  <#if contactMechPurposeType??>
                     ${contactMechPurposeType.get("description",locale)}
                     <#if contactMechPurposeType.contactMechPurposeTypeId == "SHIPPING_LOCATION" && (profiledefs.defaultShipAddr)?default("") == contactMech.contactMechId>
                       <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
@@ -143,21 +143,21 @@ under the License.
                   <#else>
                     ${uiLabelMap.PartyPurposeTypeNotFound}: "${partyContactMechPurpose.contactMechPurposeTypeId}"
                   </#if>
-                  <#if partyContactMechPurpose.thruDate?exists>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate.toString()})</#if>
+                  <#if partyContactMechPurpose.thruDate??>(${uiLabelMap.CommonExpire}:${partyContactMechPurpose.thruDate.toString()})</#if>
                 </div>
               </#list>
-              <#if contactMech.contactMechTypeId?if_exists = "POSTAL_ADDRESS">
-                <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists />
+              <#if contactMech.contactMechTypeId! = "POSTAL_ADDRESS">
+                <#assign postalAddress = partyContactMechValueMap.postalAddress! />
                 <div>
-                  <#if postalAddress?exists>
+                  <#if postalAddress??>
                     <#if postalAddress.toName?has_content>${uiLabelMap.CommonTo}: ${postalAddress.toName}<br /></#if>
                     <#if postalAddress.attnName?has_content>${uiLabelMap.PartyAddrAttnName}: ${postalAddress.attnName}<br /></#if>
                     ${postalAddress.address1}<br />
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br /></#if>
-                    ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode?if_exists}
+                    ${postalAddress.city}<#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>&nbsp;${postalAddress.postalCode!}
                     <#if postalAddress.countryGeoId?has_content><br />${postalAddress.countryGeoId}</#if>
-                    <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId?if_exists = "USA")>
-                      <#assign addr1 = postalAddress.address1?if_exists />
+                    <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId! = "USA")>
+                      <#assign addr1 = postalAddress.address1! />
                       <#if (addr1.indexOf(" ") > 0)>
                         <#assign addressNum = addr1.substring(0, addr1.indexOf(" ")) />
                         <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1) />
@@ -168,12 +168,12 @@ under the License.
                     ${uiLabelMap.PartyPostalInformationNotFound}.
                   </#if>
                   </div>
-              <#elseif contactMech.contactMechTypeId?if_exists = "TELECOM_NUMBER">
-                <#assign telecomNumber = partyContactMechValueMap.telecomNumber?if_exists>
+              <#elseif contactMech.contactMechTypeId! = "TELECOM_NUMBER">
+                <#assign telecomNumber = partyContactMechValueMap.telecomNumber!>
                 <div>
-                <#if telecomNumber?exists>
-                  ${telecomNumber.countryCode?if_exists}
-                  <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber?if_exists}
+                <#if telecomNumber??>
+                  ${telecomNumber.countryCode!}
+                  <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber!}
                   <#if partyContactMech.extension?has_content>ext&nbsp;${partyContactMech.extension}</#if>
                   <#if (!telecomNumber.countryCode?has_content || telecomNumber.countryCode = "011")>
                     <a target="_blank" href="${uiLabelMap.CommonLookupAnywhoLink}" class="linktext">${uiLabelMap.CommonLookupAnywho}</a>
@@ -183,23 +183,23 @@ under the License.
                   ${uiLabelMap.PartyPhoneNumberInfoNotFound}.
                 </#if>
                 </div>
-              <#elseif contactMech.contactMechTypeId?if_exists = "EMAIL_ADDRESS">
+              <#elseif contactMech.contactMechTypeId! = "EMAIL_ADDRESS">
                   ${contactMech.infoString}
                   <a href="mailto:${contactMech.infoString}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
-              <#elseif contactMech.contactMechTypeId?if_exists = "WEB_ADDRESS">
+              <#elseif contactMech.contactMechTypeId! = "WEB_ADDRESS">
                 <div>
                   ${contactMech.infoString}
-                  <#assign openAddress = contactMech.infoString?if_exists />
+                  <#assign openAddress = contactMech.infoString! />
                   <#if !openAddress.startsWith("http") && !openAddress.startsWith("HTTP")><#assign openAddress = "http://" + openAddress /></#if>
                   <a target="_blank" href="${openAddress}" class="linktext">(${uiLabelMap.CommonOpenNewWindow})</a>
                 </div>
               <#else>
-                ${contactMech.infoString?if_exists}
+                ${contactMech.infoString!}
               </#if>
               <div>(${uiLabelMap.CommonUpdated}:&nbsp;${partyContactMech.fromDate.toString()})</div>
-              <#if partyContactMech.thruDate?exists><div>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
+              <#if partyContactMech.thruDate??><div>${uiLabelMap.CommonDelete}:&nbsp;${partyContactMech.thruDate.toString()}</div></#if>
             </td>
-            <td align="center" valign="top"><div>(${partyContactMech.allowSolicitation?if_exists})</div></td>
+            <td align="center" valign="top"><div>(${partyContactMech.allowSolicitation!})</div></td>
             <td>&nbsp;</td>
             <td align="right" valign="top">
               <a href="<@ofbizUrl>editcontactmech?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="button">${uiLabelMap.CommonUpdate}</a>
@@ -235,12 +235,12 @@ under the License.
           <#if paymentMethodValueMaps?has_content>
           <table width="100%" cellpadding="2" cellspacing="0" border="0">
             <#list paymentMethodValueMaps as paymentMethodValueMap>
-              <#assign paymentMethod = paymentMethodValueMap.paymentMethod?if_exists />
-              <#assign creditCard = paymentMethodValueMap.creditCard?if_exists />
-              <#assign giftCard = paymentMethodValueMap.giftCard?if_exists />
-              <#assign eftAccount = paymentMethodValueMap.eftAccount?if_exists />
+              <#assign paymentMethod = paymentMethodValueMap.paymentMethod! />
+              <#assign creditCard = paymentMethodValueMap.creditCard! />
+              <#assign giftCard = paymentMethodValueMap.giftCard! />
+              <#assign eftAccount = paymentMethodValueMap.eftAccount! />
               <tr>
-                <#if paymentMethod.paymentMethodTypeId?if_exists == "CREDIT_CARD">
+                <#if paymentMethod.paymentMethodTypeId! == "CREDIT_CARD">
                 <td valign="top">
                   <div>
                     ${uiLabelMap.AccountingCreditCard}:
@@ -253,7 +253,7 @@ under the License.
                     &nbsp;${Static["org.ofbiz.party.contact.ContactHelper"].formatCreditCard(creditCard)}
                     <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                     <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
-                    <#if paymentMethod.thruDate?exists>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
+                    <#if paymentMethod.thruDate??>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
                   </div>
                 </td>
                 <td>&nbsp;</td>
@@ -261,7 +261,7 @@ under the License.
                   <a href="<@ofbizUrl>editcreditcard?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="button">
                             ${uiLabelMap.CommonUpdate}</a>
                 </td>
-                <#elseif paymentMethod.paymentMethodTypeId?if_exists == "GIFT_CARD">
+                <#elseif paymentMethod.paymentMethodTypeId! == "GIFT_CARD">
                   <#if giftCard?has_content && giftCard.cardNumber?has_content>
                     <#assign giftCardNumber = "" />
                     <#assign pcardNumber = giftCard.cardNumber />
@@ -283,7 +283,7 @@ under the License.
                       ${uiLabelMap.AccountingGiftCard}: ${giftCardNumber}
                       <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                       <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
-                      <#if paymentMethod.thruDate?exists>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
+                      <#if paymentMethod.thruDate??>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
                     </div>
                   </td>
                   <td >&nbsp;</td>
@@ -291,13 +291,13 @@ under the License.
                     <a href="<@ofbizUrl>editgiftcard?paymentMethodId=${paymentMethod.paymentMethodId}</@ofbizUrl>" class="button">
                             ${uiLabelMap.CommonUpdate}</a>
                   </td>
-                  <#elseif paymentMethod.paymentMethodTypeId?if_exists == "EFT_ACCOUNT">
+                  <#elseif paymentMethod.paymentMethodTypeId! == "EFT_ACCOUNT">
                   <td valign="top">
                     <div>
-                      ${uiLabelMap.AccountingEFTAccount}: ${eftAccount.nameOnAccount?if_exists} - <#if eftAccount.bankName?has_content>${uiLabelMap.AccountingBank}: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}</#if>
+                      ${uiLabelMap.AccountingEFTAccount}: ${eftAccount.nameOnAccount!} - <#if eftAccount.bankName?has_content>${uiLabelMap.AccountingBank}: ${eftAccount.bankName}</#if> <#if eftAccount.accountNumber?has_content>${uiLabelMap.AccountingAccount} #: ${eftAccount.accountNumber}</#if>
                       <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                       <#if paymentMethod.fromDate?has_content>(${uiLabelMap.CommonUpdated}:&nbsp;${paymentMethod.fromDate.toString()})</#if>
-                      <#if paymentMethod.thruDate?exists>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
+                      <#if paymentMethod.thruDate??>(${uiLabelMap.CommonDelete}:&nbsp;${paymentMethod.thruDate.toString()})</#if>
                     </div>
                   </td>
                   <td>&nbsp;</td>
@@ -382,7 +382,7 @@ under the License.
             <tr>
               <td>&nbsp;</td>
               <td>
-                <div><span style="white-space:;"><#if shipMeth.partyId != "_NA_">${shipMeth.partyId?if_exists}&nbsp;</#if>${shipMeth.get("description",locale)?if_exists}</span></div>
+                <div><span style="white-space:;"><#if shipMeth.partyId != "_NA_">${shipMeth.partyId!}&nbsp;</#if>${shipMeth.get("description",locale)!}</span></div>
               </td>
               <td><input type="radio" name="defaultShipMeth" value="${shippingMethod}" <#if profiledefs.defaultShipMeth?default("") == shippingMethod>checked="checked"</#if> /></td>
             </tr>
@@ -405,22 +405,22 @@ under the License.
         <#list partyContent as contentRole>
         <#assign content = contentRole.getRelatedOne("Content", false) />
         <#assign contentType = content.getRelatedOne("ContentType", true) />
-        <#assign mimeType = content.getRelatedOne("MimeType", true)?if_exists />
+        <#assign mimeType = content.getRelatedOne("MimeType", true)! />
         <#assign status = content.getRelatedOne("StatusItem", true) />
           <tr>
-            <td><a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="button">${content.contentId}</a></td>
-            <td>${content.contentName?if_exists}</td>
-            <td>${(contentType.get("description",locale))?if_exists}</td>
-            <td>${mimeType?if_exists.description?if_exists}</td>
-            <td>${(status.get("description",locale))?if_exists}</td>
-            <td>${contentRole.fromDate?if_exists}</td>
+            <td><a href="<@ofbizUrl>img/${content.contentName!}?imgId=${content.dataResourceId!}</@ofbizUrl>" class="button">${content.contentId}</a></td>
+            <td>${content.contentName!}</td>
+            <td>${(contentType.get("description",locale))!}</td>
+            <td>${(mimeType.description)!}</td>
+            <td>${(status.get("description",locale))!}</td>
+            <td>${contentRole.fromDate!}</td>
             <td align="right">
               <form name="removeContent_${contentRole.contentId}" method="post" action="removePartyAsset">
                 <input name="partyId" type="hidden" value="${userLogin.partyId}"/>
                 <input name="contentId" type="hidden" value="${contentRole.contentId}"/>
                 <input name="roleTypeId" type="hidden" value="${contentRole.roleTypeId}"/>
               </form>
-              <a href="<@ofbizUrl>img/${content.contentName?if_exists}?imgId=${content.dataResourceId?if_exists}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a>
+              <a href="<@ofbizUrl>img/${content.contentName!}?imgId=${content.dataResourceId!}</@ofbizUrl>" class="button">${uiLabelMap.CommonView}</a>
               <a href="javascript:document.removeContent_${contentRole.contentId}.submit();" class="button">${uiLabelMap.CommonRemove}</a>
             </td>
           </tr>
@@ -475,25 +475,25 @@ under the License.
         <th>&nbsp;</th>
       </tr>
       <#list contactListPartyList as contactListParty>
-      <#assign contactList = contactListParty.getRelatedOne("ContactList", false)?if_exists />
-      <#assign statusItem = contactListParty.getRelatedOne("StatusItem", true)?if_exists />
-      <#assign emailAddress = contactListParty.getRelatedOne("PreferredContactMech", true)?if_exists />
+      <#assign contactList = contactListParty.getRelatedOne("ContactList", false)! />
+      <#assign statusItem = contactListParty.getRelatedOne("StatusItem", true)! />
+      <#assign emailAddress = contactListParty.getRelatedOne("PreferredContactMech", true)! />
       <#-- <#assign contactListType = contactList.getRelatedOne("ContactListType", true)/> -->
       <tr><td colspan="7"></td></tr>
       <tr>
-        <td>${contactList.contactListName?if_exists}<#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></td>
-        <#-- <td><div>${contactListType.get("description",locale)?if_exists}</div></td> -->
-        <td>${contactListParty.fromDate?if_exists}</td>
-        <td>${contactListParty.thruDate?if_exists}</td>
-        <td>${(statusItem.get("description",locale))?if_exists}</td>
-        <td>${emailAddress.infoString?if_exists}</td>
+        <td>${contactList.contactListName!}<#if contactList.description?has_content>&nbsp;-&nbsp;${contactList.description}</#if></td>
+        <#-- <td><div>${contactListType.get("description",locale)!}</div></td> -->
+        <td>${contactListParty.fromDate!}</td>
+        <td>${contactListParty.thruDate!}</td>
+        <td>${(statusItem.get("description",locale))!}</td>
+        <td>${emailAddress.infoString!}</td>
         <td>&nbsp;</td>
         <td>
-          <#if (contactListParty.statusId?if_exists == "CLPT_ACCEPTED")>            
+          <#if (contactListParty.statusId! == "CLPT_ACCEPTED")>            
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistRejectForm${contactListParty_index}">
             <div>
               <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
-              <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
+              <input type="hidden" name="productStoreId" value="${productStoreId!}" />
               <input type="hidden" name="partyId" value="${party.partyId}"/>
               <input type="hidden" name="contactListId" value="${contactListParty.contactListId}"/>
               <input type="hidden" name="preferredContactMechId" value="${contactListParty.preferredContactMechId}"/>
@@ -502,7 +502,7 @@ under the License.
               <input type="submit" value="${uiLabelMap.EcommerceUnsubscribe}" class="smallSubmit"/>
               </div>
             </form>
-          <#elseif (contactListParty.statusId?if_exists == "CLPT_PENDING")>
+          <#elseif (contactListParty.statusId! == "CLPT_PENDING")>
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistAcceptForm${contactListParty_index}">
             <div>
               <input type="hidden" name="partyId" value="${party.partyId}"/>
@@ -514,7 +514,7 @@ under the License.
               <input type="submit" value="${uiLabelMap.EcommerceVerifySubscription}" class="smallSubmit"/>
               </div>
             </form>
-          <#elseif (contactListParty.statusId?if_exists == "CLPT_REJECTED")>
+          <#elseif (contactListParty.statusId! == "CLPT_REJECTED")>
             <form method="post" action="<@ofbizUrl>updateContactListParty</@ofbizUrl>" name="clistPendForm${contactListParty_index}">
             <div>
               <input type="hidden" name="partyId" value="${party.partyId}"/>
@@ -539,14 +539,14 @@ under the License.
         <select name="contactListId" class="selectBox">
           <#list publicContactLists as publicContactList>
             <#-- <#assign publicContactListType = publicContactList.getRelatedOne("ContactListType", true)> -->
-            <#assign publicContactMechType = publicContactList.getRelatedOne("ContactMechType", true)?if_exists />
-            <option value="${publicContactList.contactListId}">${publicContactList.contactListName?if_exists} <#-- ${publicContactListType.get("description",locale)} --> <#if publicContactMechType?has_content>[${publicContactMechType.get("description",locale)}]</#if></option>
+            <#assign publicContactMechType = publicContactList.getRelatedOne("ContactMechType", true)! />
+            <option value="${publicContactList.contactListId}">${publicContactList.contactListName!} <#-- ${publicContactListType.get("description",locale)} --> <#if publicContactMechType?has_content>[${publicContactMechType.get("description",locale)}]</#if></option>
           </#list>
         </select>
         <select name="preferredContactMechId" class="selectBox">
         <#-- <option></option> -->
           <#list partyAndContactMechList as partyAndContactMech>
-            <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode?if_exists}-${partyAndContactMech.tnAreaCode?if_exists}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2?if_exists}, ${partyAndContactMech.paCity?if_exists}, ${partyAndContactMech.paStateProvinceGeoId?if_exists}, ${partyAndContactMech.paPostalCode?if_exists}, ${partyAndContactMech.paPostalCodeExt?if_exists} ${partyAndContactMech.paCountryGeoId?if_exists}</#if></option>
+            <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode!}-${partyAndContactMech.tnAreaCode!}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2!}, ${partyAndContactMech.paCity!}, ${partyAndContactMech.paStateProvinceGeoId!}, ${partyAndContactMech.paPostalCode!}, ${partyAndContactMech.paPostalCodeExt!} ${partyAndContactMech.paCountryGeoId!}</#if></option>
           </#list>
         </select>
         <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
@@ -567,7 +567,7 @@ under the License.
         <#assign survey = surveyAppl.getRelatedOne("Survey", false) />
         <tr>
           <td>&nbsp;</td>
-          <td valign="top"><div>${survey.surveyName?if_exists}&nbsp;-&nbsp;${survey.description?if_exists}</div></td>
+          <td valign="top"><div>${survey.surveyName!}&nbsp;-&nbsp;${survey.description!}</div></td>
           <td>&nbsp;</td>
           <td valign="top">
             <#assign responses = Static["org.ofbiz.product.store.ProductStoreWorker"].checkSurveyResponse(request, survey.surveyId)?default(0)>

@@ -19,7 +19,7 @@ under the License.
 
 <#assign uiLabelMap = Static["org.ofbiz.base.util.UtilProperties"].getResourceBundleMap("CommonUiLabels", locale)>
 
-<h1>${survey.description?if_exists}</h1>
+<h1>${survey.description!}</h1>
 <br />
 
 <table width="100%" border="0" cellpadding="2" cellspacing="0">
@@ -33,19 +33,19 @@ under the License.
 
     <#-- get an answer from the answerMap -->
     <#if surveyAnswers?has_content>
-      <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists>
+      <#assign answer = surveyAnswers.get(surveyQuestionAndAppl.surveyQuestionId)!>
     </#if>
 
     <#-- get the question results -->
     <#if surveyResults?has_content>
-      <#assign results = surveyResults.get(surveyQuestionAndAppl.surveyQuestionId)?if_exists>
+      <#assign results = surveyResults.get(surveyQuestionAndAppl.surveyQuestionId)!>
     </#if>
 
     <tr>
 
       <#-- seperator options -->
       <#if surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_TEXT">
-        <td colspan="5"><div>${surveyQuestionAndAppl.question?if_exists}</div></td>
+        <td colspan="5"><div>${surveyQuestionAndAppl.question!}</div></td>
       <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "SEPERATOR_LINE">
         <td colspan="5"><hr /></td>
       <#else>
@@ -56,7 +56,7 @@ under the License.
           <#if (results._total?default(0) == 1)>
              <#assign answerString = "answer">
           </#if>
-          <div>${surveyQuestionAndAppl.question?if_exists} (${results._total?default(0)?string.number} ${answerString})</div>
+          <div>${surveyQuestionAndAppl.question!} (${results._total?default(0)?string.number} ${answerString})</div>
           <#if surveyQuestionAndAppl.hint?has_content>
             <div>${surveyQuestionAndAppl.hint}</div>
           </#if>
@@ -73,21 +73,21 @@ under the License.
               <#if "N" == selectedOption><b>==>&nbsp;<font color="red"></#if>N<#if "N" == selectedOption></font></b></#if>&nbsp;[${results._no_total?default(0)?string("#")} / ${results._no_percent?default(0)?string("#")}%]
             </span></div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXTAREA">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_SHORT">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXT_LONG">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "EMAIL">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "URL">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "DATE">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CREDIT_CARD">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "GIFT_CARD">
-            <div>${(answer.textResponse)?if_exists}</div>
+            <div>${(answer.textResponse)!}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_CURRENCY">
             <div>${answer.currencyResponse?number?default(0)}</div>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "NUMBER_FLOAT">
@@ -99,17 +99,17 @@ under the License.
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "CONTENT">
             <#if answer.contentId?has_content>
               <#assign content = answer.getRelatedOne("Content", false)>
-              <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName?if_exists}
+              <a href="/content/control/img?imgId=${content.dataResourceId}" class="buttontext">${answer.contentId}</a>&nbsp;-&nbsp;${content.contentName!}
             </#if>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "OPTION">
-            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)?if_exists>
+            <#assign options = surveyQuestionAndAppl.getRelated("SurveyQuestionOption", null, sequenceSort, false)!>
             <#assign selectedOption = (answer.surveyOptionSeqId)?default("_NA_")>
             <#if options?has_content>
               <#list options as option>
-                <#assign optionResults = results.get(option.surveyOptionSeqId)?if_exists>
+                <#assign optionResults = results.get(option.surveyOptionSeqId)!>
                   <div><span style="white-space: nowrap;">
                     <#if option.surveyOptionSeqId == selectedOption><b>==>&nbsp;<font color="red"></#if>
-                    ${option.description?if_exists}
+                    ${option.description!}
                     <#if option.surveyOptionSeqId == selectedOption></font></b></#if>
                     &nbsp;[${optionResults._total?default(0)?string("#")} / ${optionResults._percent?default(0?string("#"))}%]
                   </span></div>

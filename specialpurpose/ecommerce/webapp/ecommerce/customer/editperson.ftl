@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if person?exists>
+<#if person??>
   <h2>${uiLabelMap.PartyEditPersonalInformation}</h2>
     &nbsp;<form id="editpersonform1" method="post" action="<@ofbizUrl>updatePerson</@ofbizUrl>" name="editpersonform">    
 <#else>
@@ -27,7 +27,7 @@ under the License.
   &nbsp;<a href='<@ofbizUrl>${donePage}</@ofbizUrl>' class="button">${uiLabelMap.CommonGoBack}</a>
   &nbsp;<a href="javascript:document.editpersonform.submit()" class="button">${uiLabelMap.CommonSave}</a>
   <p/>    
-  <input type="hidden" name="partyId" value="${person.partyId?if_exists}" />
+  <input type="hidden" name="partyId" value="${person.partyId!}" />
   <table width="90%" border="0" cellpadding="2" cellspacing="0">
   <tr>
     <td align="right">${uiLabelMap.CommonTitle}</td>
@@ -49,31 +49,31 @@ under the License.
   <tr>
     <td align="right">${uiLabelMap.PartyFirstName}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="30" name="firstName" value="${personData.firstName?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="30" name="firstName" value="${personData.firstName!}"/>
       *</td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyMiddleInitial}</td>
       <td>
-        <input type="text" class='inputBox' size="4" maxlength="4" name="middleName" value="${personData.middleName?if_exists}"/>
+        <input type="text" class='inputBox' size="4" maxlength="4" name="middleName" value="${personData.middleName!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyLastName}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="30" name="lastName" value="${personData.lastName?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="30" name="lastName" value="${personData.lastName!}"/>
       *</td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartySuffix}</td>
       <td>
-        <input type="text" class='inputBox' size="10" maxlength="30" name="suffix" value="${personData.suffix?if_exists}"/>
+        <input type="text" class='inputBox' size="10" maxlength="30" name="suffix" value="${personData.suffix!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyNickName}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="nickname" value="${personData.nickname?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="nickname" value="${personData.nickname!}"/>
       </td>
     </tr>
     <tr>
@@ -97,27 +97,27 @@ under the License.
     <tr>
       <td align="right">${uiLabelMap.PartyBirthDate}</td>
       <td>
-        <input type="text" class='inputBox' size="11" maxlength="20" name="birthDate" value="${(personData.birthDate.toString())?if_exists}"/>
+        <input type="text" class='inputBox' size="11" maxlength="20" name="birthDate" value="${(personData.birthDate.toString())!}"/>
         <div>${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyHeight}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="height" value="${personData.height?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="height" value="${personData.height!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyWeight}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="weight" value="${personData.weight?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="weight" value="${personData.weight!}"/>
       </td>
     </tr>
 
     <tr>
       <td align="right">${uiLabelMap.PartyMaidenName}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="mothersMaidenName" value="${personData.mothersMaidenName?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="mothersMaidenName" value="${personData.mothersMaidenName!}"/>
       </td>
     </tr>
     <tr>
@@ -143,32 +143,32 @@ under the License.
     <tr>
       <td align="right">${uiLabelMap.PartySocialSecurityNumber}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="socialSecurityNumber" value="${personData.socialSecurityNumber?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="socialSecurityNumber" value="${personData.socialSecurityNumber!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyPassportNumber}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="passportNumber" value="${personData.passportNumber?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="passportNumber" value="${personData.passportNumber!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyPassportExpireDate}</td>
       <td>
-        <input type="text" class='inputBox' size="11" maxlength="20" name="passportExpireDate" value="${personData.passportExpireDate?if_exists}"/>
+        <input type="text" class='inputBox' size="11" maxlength="20" name="passportExpireDate" value="${personData.passportExpireDate!}"/>
         <div>${uiLabelMap.CommonFormatDate}</div>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.PartyTotalYearsWorkExperience}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="totalYearsWorkExperience" value="${personData.totalYearsWorkExperience?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="totalYearsWorkExperience" value="${personData.totalYearsWorkExperience!}"/>
       </td>
     </tr>
     <tr>
       <td align="right">${uiLabelMap.CommonComment}</td>
       <td>
-        <input type="text" class='inputBox' size="30" maxlength="60" name="comments" value="${personData.comments?if_exists}"/>
+        <input type="text" class='inputBox' size="30" maxlength="60" name="comments" value="${personData.comments!}"/>
       </td>
     </tr>
 </table>

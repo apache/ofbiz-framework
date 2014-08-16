@@ -40,11 +40,11 @@ under the License.
             <tr><td colspan="5"><hr /></td></tr>
             <tr>
               <td>
-                <div>${(product.productName)?if_exists}</div>
+                <div>${(product.productName)!}</div>
               </td>
               <td width="5">&nbsp;</td>
               <td>
-                <div>${(product.description)?if_exists}</div>
+                <div>${(product.description)!}</div>
               </td>
               <td width="5">&nbsp;</td>
               <td align="right">

@@ -43,17 +43,17 @@ under the License.
 </#macro>
 
 
-<#if productCategory?exists>
-    <#assign categoryName = categoryContentWrapper.get("CATEGORY_NAME")?if_exists/>
-    <#assign categoryDescription = categoryContentWrapper.get("DESCRIPTION")?if_exists/>
+<#if productCategory??>
+    <#assign categoryName = categoryContentWrapper.get("CATEGORY_NAME")!/>
+    <#assign categoryDescription = categoryContentWrapper.get("DESCRIPTION")!/>
     <#if categoryName?has_content>
         <h1>${categoryName}</h1>
     </#if>
     <#if categoryDescription?has_content>
         <h1>${categoryDescription}</h1>
     </#if>
-    <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
-    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>
+    <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")!/>
+    <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")!/>
     <#if categoryImageUrl?string?has_content || longDescription?has_content>
       <div>
         <#if categoryImageUrl?string?has_content>

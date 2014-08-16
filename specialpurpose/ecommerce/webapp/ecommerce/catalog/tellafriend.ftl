@@ -23,13 +23,13 @@ under the License.
 </head>
 <body class="ecbody">
     <form name="tellafriend" action="<@ofbizUrl>emailFriend</@ofbizUrl>" method="post">
-        <#if (requestParameters.productId)?exists || (requestParameters.productId)?exists>
+        <#if (requestParameters.productId)?? || (requestParameters.productId)??>
             <input type="hidden" name="pageUrl" value="<@ofbizCatalogAltUrl fullPath="true" secure="false" productCategoryId=requestParameters.categoryId!"" productId=requestParameters.productId!""/>" />
         <#else>
             <#assign cancel = "Y">
         </#if>
-        <input type="hidden" name="webSiteId" value="${context.webSiteId?if_exists}">
-      <#if !cancel?exists>
+        <input type="hidden" name="webSiteId" value="${context.webSiteId!}">
+      <#if !cancel??>
         <table>
           <tr>
             <td>${uiLabelMap.CommonYouremail}:</td>

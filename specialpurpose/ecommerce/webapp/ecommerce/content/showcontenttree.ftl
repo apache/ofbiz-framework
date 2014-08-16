@@ -18,26 +18,26 @@ under the License.
 -->
 
 <#include "bloglib.ftl" />
-<#assign siteId = requestParameters.contentId?if_exists />
+<#assign siteId = requestParameters.contentId! />
 
 <@renderAncestryPath trail=ancestorList?default([]) endIndexOffset=1 siteId=siteId searchOn="true"/>
 
 <#if ancestorList?has_content && (0 < ancestorList?size) >
     <#assign lastContent=ancestorList?last />
     <h1>[${lastContent.contentId}] ${lastContent.description}
-              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${lastContent.contentId?if_exists}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
+              <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${lastContent.contentId!}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a>
     </h1>
 </#if>
 
 <#assign viewIdx = "" />
 <#if requestParameters.viewIndex?has_content>
-<#assign viewIdx = requestParameters.viewIndex?if_exists />
+<#assign viewIdx = requestParameters.viewIndex! />
 </#if>
 <#assign viewSz = "" />
 <#if requestParameters.viewSize?has_content>
-<#assign viewSz = requestParameters.viewSize?if_exists />
+<#assign viewSz = requestParameters.viewSize! />
 </#if>
-<#assign nodeTrailCsv=requestParameters.nodeTrailCsv?if_exists/>
+<#assign nodeTrailCsv=requestParameters.nodeTrailCsv!/>
 <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(0):" + nodeTrailCsv, "")/>
 <#assign nodeTrail=[]/>
 <#assign firstContentId=""/>
@@ -60,14 +60,14 @@ under the License.
 <#macro renderCategoryBrowse contentId="" indentIndex=0 nodeTrail=[] viewSz=9999 viewIdx=0>
     <!-- start of renderCategoryBrowse for contentId=${contentId} -->
 
-        <#local contentIdx = contentId?if_exists />
-        <#if (!contentIdx?exists || contentIdx?length == 0)>
-            <#local contentIdx = page.contentIdx?if_exists />
-            <#if (!contentIdx?exists || contentIdx?length == 0)>
+        <#local contentIdx = contentId! />
+        <#if (!contentIdx?? || contentIdx?length == 0)>
+            <#local contentIdx = page.contentIdx! />
+            <#if (!contentIdx?? || contentIdx?length == 0)>
             </#if>
         </#if>
 
-        <#local thisContentId=nodeTrail[indentIndex]?if_exists/>
+        <#local thisContentId=nodeTrail[indentIndex]!/>
 
         <#local thisNodeTrailCsv = "" />
         <#local listUpper = (indentIndex - 1) />
@@ -78,7 +78,7 @@ under the License.
             <#if thisNodeTrailCsv?has_content>
                 <#local thisNodeTrailCsv = thisNodeTrailCsv + ","/>
             </#if>
-            <#if nodeTrail[idx]?exists>
+            <#if nodeTrail[idx]??>
               <#local thisNodeTrailCsv = thisNodeTrailCsv + nodeTrail[idx]>
             </#if>
         </#list>
@@ -89,7 +89,7 @@ under the License.
         <@loopSubContent contentId=contentIdx viewIndex=viewIdx viewSize=viewSz contentAssocTypeId="PUBLISH_LINK" returnAfterPickWhen="1==1">
             <#assign dummy=Static["org.ofbiz.base.util.Debug"].logInfo("in showcontenttree, nodeTrailCsv(1):" + nodeTrailCsv, "")/>
             <#local thisCsv=thisNodeTrailCsv + "," + subContentId />
-            <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId?if_exists}&nodeTrailCsv=${thisCsv}</@ofbizUrl>">${uiLabelMap.CommonView}</a>  ${content.description?if_exists}<br />
+            <a class="tabButton" href="<@ofbizUrl>viewcontent?contentId=${subContentId!}&nodeTrailCsv=${thisCsv}</@ofbizUrl>">${uiLabelMap.CommonView}</a>  ${content.description!}<br />
         </@loopSubContent>
 
 
@@ -101,8 +101,8 @@ under the License.
             </#if>
             <#local thisCsv=thisNodeTrailCsv />
             <#local thisCsv=thisNodeTrailCsv + "," + subContentId />
-            <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${siteId?if_exists}&nodeTrailCsv=${thisCsv}</@ofbizUrl>" >${plusMinus}</a> &nbsp;${content.description?if_exists}
-            <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${subContentId?if_exists}&nodeTrailCsv=${thisCsv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> <br />
+            <a class="tabButton" href="<@ofbizUrl>showcontenttree?contentId=${siteId!}&nodeTrailCsv=${thisCsv}</@ofbizUrl>" >${plusMinus}</a> &nbsp;${content.description!}
+            <a class="tabButton" href="<@ofbizUrl>searchContent?siteId=${subContentId!}&nodeTrailCsv=${thisCsv}</@ofbizUrl>" >${uiLabelMap.CommonSearch}</a> <br />
             <#if thisContentId == subContentId>
                 <#assign catTrail = nodeTrail + [subContentId]/>
                 <div><@renderCategoryBrowse contentId=subContentId indentIndex=(indentIndex + 1) nodeTrail=catTrail viewSz=viewSz viewIdx=viewIdx /></div>

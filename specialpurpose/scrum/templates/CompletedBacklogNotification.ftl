@@ -22,13 +22,13 @@ under the License.
         <title>${title}</title>
     </head>
     <body>
-        <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your backlog <b>${custRequest.description?if_exists} [${custRequest.custRequestId}]</b> <#if informationMap.workEffortId?has_content>in sprint <b>${informationMap.workEffortName?if_exists} [${informationMap.workEffortId?if_exists}]</b></#if> 
-            <#if informationMap.productId?has_content>of the product <b>${informationMap.internalName?if_exists} [${informationMap.productId?if_exists}]</#if></b> has been completed.
+        <p>Hello ${person.firstName!} ${person.lastName!},</p>
+        <p>Your backlog <b>${custRequest.description!} [${custRequest.custRequestId}]</b> <#if informationMap.workEffortId?has_content>in sprint <b>${informationMap.workEffortName!} [${informationMap.workEffortId!}]</b></#if> 
+            <#if informationMap.productId?has_content>of the product <b>${informationMap.internalName!} [${informationMap.productId!}]</#if></b> has been completed.
         <br />
         <br />
         <#if custRequest.fromPartyId == partyIdTo>
-        The complete information about this sprint can be found <a href="${StringUtil.wrapString(baseSecureUrl?if_exists)}/scrum/control/ViewProdBacklogItem?custRequestId=${custRequest.custRequestId?if_exists}">here.....</a>
+        The complete information about this sprint can be found <a href="${StringUtil.wrapString(baseSecureUrl!)}/scrum/control/ViewProdBacklogItem?custRequestId=${custRequest.custRequestId!}">here.....</a>
         <br /><br />
         </#if>
         Regards.<br /><br />

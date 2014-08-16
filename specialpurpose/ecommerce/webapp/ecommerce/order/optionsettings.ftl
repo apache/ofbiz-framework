@@ -27,16 +27,16 @@ under the License.
           <#assign shippingMethod = carrierShipmentMethod.shipmentMethodTypeId + "@" + carrierShipmentMethod.partyId>
           <input type="radio" id="shipping_method_${shippingMethod}" name="shipping_method" value="${shippingMethod}" <#if shippingMethod == chosenShippingMethod?default("N@A")>checked="checked"</#if>/>
           <label for="shipping_method_${shippingMethod}">
-            <#if shoppingCart.getShippingContactMechId()?exists>
+            <#if shoppingCart.getShippingContactMechId()??>
               <#assign shippingEst = shippingEstWpr.getShippingEstimate(carrierShipmentMethod)?default(-1)>
             </#if>
-            <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId?if_exists}&nbsp;</#if>${carrierShipmentMethod.description?if_exists}
+            <#if carrierShipmentMethod.partyId != "_NA_">${carrierShipmentMethod.partyId!}&nbsp;</#if>${carrierShipmentMethod.description!}
               <#if shippingEst?has_content> - <#if (shippingEst > -1)><@ofbizCurrency amount=shippingEst isoCode=shoppingCart.getCurrency()/><#else>${uiLabelMap.OrderCalculatedOffline}</#if>
              </#if>
           </label>
         </li>
       </#list>
-      <#if !carrierShipmentMethodList?exists || carrierShipmentMethodList?size == 0>
+      <#if !carrierShipmentMethodList?? || carrierShipmentMethodList?size == 0>
         <div>
           <input type="radio" name="shipping_method" value="Default" checked="checked"/>
           <label for="shipping_method">${uiLabelMap.OrderUseDefault}.</label>
@@ -56,14 +56,14 @@ under the License.
     <fieldset>
         <div>
           <label for="shipping_instructions">${uiLabelMap.OrderSpecialInstructions}</label>
-          <textarea cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()?if_exists}</textarea>
+          <textarea cols="30" rows="3" name="shipping_instructions">${shoppingCart.getShippingInstructions()!}</textarea>
         </div>
         <div>
           <label for="correspondingPoId">${uiLabelMap.OrderPoNumber}</label>
-          <input type="text" name="correspondingPoId" value="${shoppingCart.getPoNumber()?if_exists}"/>
+          <input type="text" name="correspondingPoId" value="${shoppingCart.getPoNumber()!}"/>
         </div>
     </fieldset>
-    <#if productStore.showCheckoutGiftOptions?if_exists != "N">
+    <#if productStore.showCheckoutGiftOptions! != "N">
         <fieldset><legend>${uiLabelMap.OrderIsThisGift}</legend>
           <div>
             <input type="radio" id="is_gift_Y" <#if shoppingCart.getIsGift()?default("Y") == "Y">checked="checked"</#if> name="is_gift" value="true"/>
@@ -75,7 +75,7 @@ under the License.
           </div>
           <div>
             <label for="gift_message">${uiLabelMap.OrderGiftMessage}</label>
-            <textarea class="textAreaBox" name="gift_message">${shoppingCart.getGiftMessage()?if_exists}</textarea>
+            <textarea class="textAreaBox" name="gift_message">${shoppingCart.getGiftMessage()!}</textarea>
           </div>
         </fieldset>
     </#if>

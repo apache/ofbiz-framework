@@ -22,22 +22,22 @@ under the License.
   <form id="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
     <fieldset class="left center">
       <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL" />
-      <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
+      <input type="hidden" name="emailContactMechId" value="${emailContactMechId!}" />
         <h3>${uiLabelMap.PartyContactInformation}</h3>
         <div>
           <label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-          <input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" maxlength="30" />
+          <input type="text" name="firstName" id="firstName" class="required" value="${firstName!}" maxlength="30" />
         </div>
         <div>
           <label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span></label>
-          <input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" maxlength="30" />
+          <input type="text" name="lastName" id="lastName" class="required" value="${lastName!}" maxlength="30" />
         </div>
         <div>
           <label for="emailAddress">${uiLabelMap.CommonEmail}*
             <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
             <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
           </label>
-          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" maxlength="255" />
+          <input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress!}" maxlength="255" />
         </div>
     </fieldset>
 
@@ -45,7 +45,7 @@ under the License.
         <h3>${uiLabelMap.EcommerceAccountInformation}</h3>
         <div>
           <label for="userLoginId">${uiLabelMap.CommonUsername}*</label>
-          <input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" maxlength="255" <#if userLogin.userLoginId?exists>disabled="disabled"</#if> />
+          <input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId!}" maxlength="255" <#if userLogin.userLoginId??>disabled="disabled"</#if> />
         </div>
         <div>
           <label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label>

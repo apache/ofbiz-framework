@@ -48,7 +48,7 @@ under the License.
   </div>
   <div class="screenlet-body">
     <form id="productSearchform" method="post" action="<@ofbizUrl>productsearch</@ofbizUrl>" style="margin: 0;" name="productSearchform">
-    <input type="hidden" name="productStoreId" value="${parameters.productStoreId?if_exists}" />
+    <input type="hidden" name="productStoreId" value="${parameters.productStoreId!}" />
       <fieldset>
         <input type="hidden" name="VIEW_SIZE" value="25"/>
         <input type="hidden" name="PAGING" value="Y"/>
@@ -66,7 +66,7 @@ under the License.
                       <#if (18 < displayDesc?length)>
                         <#assign displayDesc = displayDesc[0..15] + "...">
                       </#if>
-                      <option value="${prodCatalog.prodCatalogId}" <#if searchCatalogId?if_exists == prodCatalog.prodCatalogId> selected="selected"</#if>>${displayDesc} [${prodCatalog.prodCatalogId}]</option>
+                      <option value="${prodCatalog.prodCatalogId}" <#if searchCatalogId! == prodCatalog.prodCatalogId> selected="selected"</#if>>${displayDesc} [${prodCatalog.prodCatalogId}]</option>
                     </#list>
                   </select>
                   <span id="catalogErrorMessage" style="display:none;" class="errorMessage">${uiLabelMap.CommonRequired}</span>
@@ -92,7 +92,7 @@ under the License.
                       </#list>
                     </select>
                   <#else>
-                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID?if_exists}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
+                    <@htmlTemplate.lookupField value="${requestParameters.SEARCH_CATEGORY_ID!}" formName="productSearchform" name="SEARCH_CATEGORY_ID" id="searchCategoryId" fieldFormName="LookupProductCategory"/>
                   </#if>
                 </div>
               </td>
@@ -103,7 +103,7 @@ under the License.
             </td>
             <td valign="middle">
               <div>
-                <input type="text" name="SEARCH_PRODUCT_NAME" size="20" value="${requestParameters.SEARCH_PRODUCT_NAME?if_exists}" />
+                <input type="text" name="SEARCH_PRODUCT_NAME" size="20" value="${requestParameters.SEARCH_PRODUCT_NAME!}" />
               </div>
             </td>
           </tr>
@@ -113,7 +113,7 @@ under the License.
             </td>
             <td valign="middle">
               <div>
-                <input type="text" name="SEARCH_INTERNAL_PROD_NAME" size="20" value="${requestParameters.SEARCH_INTERNAL_PROD_NAME?if_exists}" />
+                <input type="text" name="SEARCH_INTERNAL_PROD_NAME" size="20" value="${requestParameters.SEARCH_INTERNAL_PROD_NAME!}" />
               </div>
             </td>
           </tr>
@@ -123,7 +123,7 @@ under the License.
             </td>
             <td valign="middle">
               <div>
-                <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING?if_exists}" />&nbsp;
+                <input type="text" name="SEARCH_STRING" size="40" value="${requestParameters.SEARCH_STRING!}" />&nbsp;
                 ${uiLabelMap.CommonAny}<input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> />
                 ${uiLabelMap.CommonAll}<input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />
               </div>

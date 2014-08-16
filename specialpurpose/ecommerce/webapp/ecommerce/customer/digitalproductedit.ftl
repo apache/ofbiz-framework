@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign productPrice = productPriceList[0]?if_exists/>
+<#assign productPrice = productPriceList[0]!/>
 
 <div class="screenlet">
     <div class="screenlet-title-bar">
@@ -28,7 +28,7 @@ under the License.
   <div><h3>${uiLabelMap.EcommerceMessage1} [${parameters.productId}] ${uiLabelMap.EcommerceMessage2}</h3></div>
 <#else>
 
-    <#if !supplierProduct?exists>
+    <#if !supplierProduct??>
       <h1>${uiLabelMap.EcommerceAddNewDigitalProduct}</h1>
       <form method="post" action="<@ofbizUrl>createCustomerDigitalDownloadProduct</@ofbizUrl>" name="editdigitaluploadform" style="margin: 0;">
         <input type="hidden" name="productStoreId" value="${productStore.productStoreId}" />
@@ -46,17 +46,17 @@ under the License.
     <tr>
       <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductProductName}</div></td>
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="productName" value="${(product.productName)?if_exists}"/>*</td>
+      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="productName" value="${(product.productName)!}"/>*</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductProductDescription}</div></td>
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${(product.description)?if_exists}"/></td>
+      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="description" value="${(product.description)!}"/></td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div>${uiLabelMap.ProductPrice}</div></td>
       <td width="5">&nbsp;</td>
-      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="price" value="${(productPrice.price)?if_exists}"/>*</td>
+      <td width="74%"><input type="text" class="inputBox" size="30" maxlength="60" name="price" value="${(productPrice.price)!}"/>*</td>
     </tr>
     <tr>
       <td width="26%" align="right" valign="top"><div>&nbsp;</div></td>

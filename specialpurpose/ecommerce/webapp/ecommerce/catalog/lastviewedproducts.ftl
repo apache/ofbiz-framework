@@ -26,7 +26,7 @@ under the License.
   </tr>
 </table>
 
-<#if sessionAttributes.lastViewedProducts?exists && sessionAttributes.lastViewedProducts?has_content>
+<#if sessionAttributes.lastViewedProducts?? && sessionAttributes.lastViewedProducts?has_content>
 
   <table>
     <#list sessionAttributes.lastViewedProducts as productId>

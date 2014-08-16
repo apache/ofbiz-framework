@@ -39,19 +39,19 @@ under the License.
                     <tr>
                         <td>${subscription.subscriptionId}</td>
                         <td>
-                            <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType', false)?if_exists>
+                            <#assign subscriptionType = subscription.getRelatedOne('SubscriptionType', false)!>
                             ${(subscriptionType.description)?default(subscription.subscriptionTypeId?default('N/A'))}
                         </td>
-                        <td>${subscription.description?if_exists}</td>
+                        <td>${subscription.description!}</td>
                         <td>
-                            <#assign product = subscription.getRelatedOne('Product', false)?if_exists>
+                            <#assign product = subscription.getRelatedOne('Product', false)!>
                             <#if product?has_content>
-                                <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)?if_exists>
+                                <#assign productName = Static['org.ofbiz.product.product.ProductContentWrapper'].getProductContentAsText(product, 'PRODUCT_NAME', request)!>
                                 <a href="<@ofbizUrl>product?product_id=${product.productId}</@ofbizUrl>" class="linktext">${productName?default(product.productId)}</a>
                             </#if>
                         </td>
-                        <td>${subscription.fromDate?if_exists}</td>
-                        <td>${subscription.thruDate?if_exists}</td>
+                        <td>${subscription.fromDate!}</td>
+                        <td>${subscription.thruDate!}</td>
                     </tr>
                 </#list>
             </tbody>

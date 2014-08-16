@@ -17,9 +17,9 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if flowSupport.editCartUrl?exists>
+<#if flowSupport.editCartUrl??>
 <edit-cart-url>${flowSupport.editCartUrl}</edit-cart-url>
 </#if>
-<#if flowSupport.continueShoppingUrl?exists>
+<#if flowSupport.continueShoppingUrl??>
 <continue-shopping-url>${flowSupport.continueShoppingUrl}</continue-shopping-url>
 </#if>

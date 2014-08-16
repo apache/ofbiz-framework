@@ -16,13 +16,13 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if miniProduct?exists>
+<#if miniProduct??>
     <a href="<@ofbizCatalogAltUrl productId=miniProduct.productId/>" class="linktext">${miniProductContentWrapper.get("PRODUCT_NAME")?default("No Name Available")}</a>
     <ul>
         <li>${miniProduct.productId}
           <#if (priceResult.price?default(0) > 0 && miniProduct.requireAmount?default("N") == "N")>
-            <#if "Y" = miniProduct.isVirtual?if_exists> ${uiLabelMap.CommonFrom} </#if>
-            <#if totalPrice?exists>
+            <#if "Y" = miniProduct.isVirtual!> ${uiLabelMap.CommonFrom} </#if>
+            <#if totalPrice??>
               <li>${uiLabelMap.ProductAggregatedPrice}: <span class='basePrice'><@ofbizCurrency amount=totalPrice isoCode=priceResult.currencyUsed/></span></li>
             <#else>
               <span class="<#if priceResult.isSale>salePrice<#else>normalPrice</#if>">
@@ -30,16 +30,16 @@ under the License.
             </#if>
           </#if>
         </li>
-    <#if (miniProduct.introductionDate?exists) && (nowTimeLong < miniProduct.introductionDate.getTime())>
+    <#if (miniProduct.introductionDate??) && (nowTimeLong < miniProduct.introductionDate.getTime())>
         <#-- check to see if introductionDate hasn't passed yet -->
         <li>${uiLabelMap.ProductNotYetAvailable}</li>
-    <#elseif (miniProduct.salesDiscontinuationDate?exists) && (nowTimeLong > miniProduct.salesDiscontinuationDate.getTime())>
+    <#elseif (miniProduct.salesDiscontinuationDate??) && (nowTimeLong > miniProduct.salesDiscontinuationDate.getTime())>
         <#-- check to see if salesDiscontinuationDate has passed -->
         <li>${uiLabelMap.ProductNoLongerAvailable}</li>
     <#elseif miniProduct.isVirtual?default("N") == "Y">
-        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?exists productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a></li>
+        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?? productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseVariations}...</span></a></li>
     <#elseif miniProduct.requireAmount?default("N") == "Y">
-        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?exists productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a></li>
+        <li><a href="<@ofbizCatalogAltUrl productCategoryId=requestParameters.category_id?? productId=miniProduct.productId/>" class="buttons"><span style="white-space: nowrap;">${uiLabelMap.OrderChooseAmount}...</span></a></li>
     <#else>
       <li>
         <form method="post" action="<@ofbizUrl>additem<#if requestAttributes._CURRENT_VIEW_?has_content>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" name="${miniProdFormName}" style="margin: 0;">

@@ -87,9 +87,9 @@ under the License.
           <option value="12" <#if expMonth?default('') == '12'> selected="selected"</#if>>${uiLabelMap.CommonDecember}</option>
         </select>
         <select id="expYear" name="expYear">
-        <#assign ccExprYear = requestParameters.expYear?if_exists>
+        <#assign ccExprYear = requestParameters.expYear!>
         <#if ccExprYear?has_content>
-          <option value="${ccExprYear?if_exists}">${ccExprYear?if_exists}</option>
+          <option value="${ccExprYear!}">${ccExprYear!}</option>
         </#if>
         ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
         </select>

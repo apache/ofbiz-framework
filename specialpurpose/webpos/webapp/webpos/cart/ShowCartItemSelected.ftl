@@ -16,22 +16,22 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign focusOnQuantity = requestParameters.focusOnQuantity?if_exists/>
-<#assign cartLineIndex = requestParameters.cartLineIndex?if_exists/>
-<#if cartLineIndex?exists && cartLineIndex?has_content>
+<#assign focusOnQuantity = requestParameters.focusOnQuantity!/>
+<#assign cartLineIndex = requestParameters.cartLineIndex!/>
+<#if cartLineIndex?? && cartLineIndex?has_content>
   <#assign isInteger = Static["org.ofbiz.base.util.UtilValidate"].isInteger(cartLineIndex)>
   <#if isInteger>
     <#assign idx = cartLineIndex?number>
-    <#assign cartLine = shoppingCart.findCartItem(idx)?if_exists>
-    <#if cartLine?exists && cartLine?has_content>
-      <#if cartLine.getProductId()?exists>
-        <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)?if_exists>
+    <#assign cartLine = shoppingCart.findCartItem(idx)!>
+    <#if cartLine?? && cartLine?has_content>
+      <#if cartLine.getProductId()??>
+        <#assign smallImageUrl = Static["org.ofbiz.product.product.ProductContentWrapper"].getProductContentAsText(cartLine.getProduct(), "SMALL_IMAGE_URL", locale, dispatcher)!>
         <#if !smallImageUrl?string?has_content>
           <#assign smallImageUrl = "/images/defaultImage.jpg">
         </#if>
         <#if smallImageUrl?string?has_content>
         <div id="CartItemSelectedLeft">
-          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix?if_exists}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
+          <img src="<@ofbizContentUrl>${requestAttributes.contentPathPrefix!}${smallImageUrl}</@ofbizContentUrl>" align="left" class="cssImgSmall" />
         </div>
         </#if>
         <div id="CartItemSelectedRight">
@@ -49,7 +49,7 @@ under the License.
       <#else>
         <div id="CartItemSelectedRight">
           <#-- this is a non-product item -->
-          <b>${cartLine.getItemTypeDescription()?if_exists}</b> : ${cartLine.getName()?if_exists}
+          <b>${cartLine.getItemTypeDescription()!}</b> : ${cartLine.getName()!}
       </#if>
       <br/>
       <b>${uiLabelMap.CommonQuantity}</b>&nbsp;

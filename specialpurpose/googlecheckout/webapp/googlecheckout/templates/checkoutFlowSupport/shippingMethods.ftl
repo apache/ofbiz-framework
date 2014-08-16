@@ -19,16 +19,16 @@ under the License.
 
 <#--TODO: merchant-calculated-shipping cannot be mixed with flat-shipping or pickup, change accordingly -->
 
-<#if flowSupport.shippingMethods?exists>
+<#if flowSupport.shippingMethods??>
 <shipping-methods>
 <#list flowSupport.shippingMethods as shippingMethod>
     <#if shippingMethod.type="flatRate">
     <flat-rate-shipping name="${shippingMethod.name}">
         <price currency="USD">${shippingMethod.price}</price>
-        <#if shippingMethod.restrictions?exists>
+        <#if shippingMethod.restrictions??>
         <#list shippingMethod.restrictions as restriction>
         <shipping-restrictions>
-            <#if restriction.allowed?exists>
+            <#if restriction.allowed??>
             <allowed-areas>
                 <#list resitriction.allowed as allow>
                 <#if allow.type="state">
@@ -49,7 +49,7 @@ under the License.
                 </#list>
             </allowed-areas>
             </#if>
-            <#if restriction.excluded?exists>
+            <#if restriction.excluded??>
             <excluded-areas>
                 <#list resitriction.excluded as exclude>
                 <#if exclude.type="state">
@@ -77,10 +77,10 @@ under the License.
     <#elseif shippingMethod.type="merchantCalculated">
     <merchant-calculated-shipping name="${shippingMethod.name}">
         <price currency="USD">${shippingMethod.price}</price>
-        <#if shippingMethod.restrictions?exists>
+        <#if shippingMethod.restrictions??>
         <#list shippingMethod.restrictions as restriction>
         <shipping-restrictions>
-            <#if restriction.allowed?exists>
+            <#if restriction.allowed??>
             <allowed-areas>
                 <#list resitriction.allowed as allow>
                 <#if allow.type="state">
@@ -101,7 +101,7 @@ under the License.
                 </#list>
             </allowed-areas>
             </#if>
-            <#if restriction.excluded?exists>
+            <#if restriction.excluded??>
             <excluded-areas>
                 <#list resitriction.excluded as exclude>
                 <#if exclude.type="state">

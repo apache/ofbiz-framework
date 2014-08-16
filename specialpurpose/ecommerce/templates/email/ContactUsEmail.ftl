@@ -21,8 +21,8 @@ under the License.
   <head></head>
   <body>
     <p>The information filled by the person on contact us page is as follows:</p>
-    <p>${uiLabelMap.CommonName}: ${parameters.firstName?if_exists} ${parameters.lastName?if_exists}</p>
-    <p>${uiLabelMap.CommonEmail}: ${parameters.email?if_exists}</p>
-    <p>${uiLabelMap.CommonMessage}: ${parameters.message?if_exists}</p>
+    <p>${uiLabelMap.CommonName}: ${parameters.firstName!} ${parameters.lastName!}</p>
+    <p>${uiLabelMap.CommonEmail}: ${parameters.email!}</p>
+    <p>${uiLabelMap.CommonMessage}: ${parameters.message!}</p>
   </body>
 </html>

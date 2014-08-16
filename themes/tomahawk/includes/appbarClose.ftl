@@ -18,21 +18,21 @@ under the License.
 -->
 <#assign appModelMenu = Static["org.ofbiz.widget.menu.MenuFactory"].getMenuFromLocation(applicationMenuLocation,applicationMenuName,delegator,dispatcher)>
 <#if person?has_content>
-  <#assign userName = person.firstName?if_exists + " " + person.middleName?if_exists + " " + person.lastName?if_exists>
+  <#assign userName = person.firstName! + " " + person.middleName! + " " + person.lastName!>
 <#elseif partyGroup?has_content>
-  <#assign userName = partyGroup.groupName?if_exists>
-<#elseif userLogin?exists>
+  <#assign userName = partyGroup.groupName!>
+<#elseif userLogin??>
   <#assign userName = userLogin.userLoginId>
 <#else>
   <#assign userName = "">
 </#if>
 <#if defaultOrganizationPartyGroupName?has_content>
-  <#assign orgName = " - " + defaultOrganizationPartyGroupName?if_exists>
+  <#assign orgName = " - " + defaultOrganizationPartyGroupName!>
 <#else>
   <#assign orgName = "">
 </#if>
 
-<#if appModelMenu.getModelMenuItemByName(headerItem)?exists>
+<#if appModelMenu.getModelMenuItemByName(headerItem)??>
   <#if headerItem!="main">
     <div id="app-nav-selected-item">
       ${appModelMenu.getModelMenuItemByName(headerItem).getTitle(context)}
@@ -40,19 +40,19 @@ under the License.
   </#if>
 </#if>
 
-<#if parameters.portalPageId?has_content && !appModelMenu.getModelMenuItemByName(headerItem)?exists && userLogin?exists>
+<#if parameters.portalPageId?has_content && !appModelMenu.getModelMenuItemByName(headerItem)?? && userLogin??>
     <#assign findMap = Static["org.ofbiz.base.util.UtilMisc"].toMap("portalPageId", parameters.portalPageId)>
-    <#assign portalPage = delegator.findOne("PortalPage", findMap, true)?if_exists>
+    <#assign portalPage = delegator.findOne("PortalPage", findMap, true)!>
     <#if portalPage?has_content>
       <div id="app-nav-selected-item">
-        ${portalPage.get("portalPageName", locale)?if_exists}
+        ${portalPage.get("portalPageName", locale)!}
       </div>
     </#if>
 </#if>
 
 <div id="control-area">
   <ul id="preferences-menu">
-    <#if userLogin?exists>
+    <#if userLogin??>
       <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
         <li class="collapsed"><a href="javascript:document.setUserPreferenceCompactHeaderN.submit()">&nbsp;</a>
           <form name="setUserPreferenceCompactHeaderN" method="post" action="<@ofbizUrl>setUserPreference</@ofbizUrl>">
@@ -71,11 +71,11 @@ under the License.
         </li>
       </#if>
     </#if>
-    <#if userLogin?exists>
-      <#--if webSiteId?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists-->
-      <#if parameters.componentName?exists && requestAttributes._CURRENT_VIEW_?exists && helpTopic?exists>
+    <#if userLogin??>
+      <#--if webSiteId?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??-->
+      <#if parameters.componentName?? && requestAttributes._CURRENT_VIEW_?? && helpTopic??>
         <#include "component://common/webcommon/includes/helplink.ftl" />
-        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId?if_exists}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
+        <li><a class="help-link <#if pageAvail?has_content> alert</#if>" href="javascript:lookup_popup1('showHelp?helpTopic=${helpTopic}&amp;portalPageId=${parameters.portalPageId!}','help' ,500,500);" title="${uiLabelMap.CommonHelp}"></a></li>
       </#if>
       <li><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
       <li><a href="<@ofbizUrl>ListVisualThemes</@ofbizUrl>">${uiLabelMap.CommonVisualThemes}</a></li>
@@ -83,11 +83,11 @@ under the License.
       <li><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>
     <li class="first"><a href="<@ofbizUrl>ListLocales</@ofbizUrl>">${uiLabelMap.CommonLanguageTitle}</a></li>
-    <#if userLogin?exists>
+    <#if userLogin??>
       <#if orgName?has_content>
         <li class="org">${orgName}</li>
       </#if>
-      <#if userLogin.partyId?exists>
+      <#if userLogin.partyId??>
         <li class="user"><a href="<@ofbizUrl>passwordChange</@ofbizUrl>">${userName}</a></li>
       <#else>
         <li class="user">${userName}</li>
@@ -99,7 +99,7 @@ under the License.
 <div class="clear">
 </div>
 
-<#if userLogin?exists>
+<#if userLogin??>
 <script type="text/javascript">
   var mainmenu = new DropDownMenu(jQuery('#main-navigation'));
   var appmenu = new DropDownMenu(jQuery('#app-navigation'));

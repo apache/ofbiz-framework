@@ -33,7 +33,7 @@ under the License.
         <li>
           <p>
             <a href="<@ofbizUrl>showPromotionDetails?productPromoId=${productPromo.productPromoId}</@ofbizUrl>" class="linktext">${uiLabelMap.CommonDetails}</a>
-            ${StringUtil.wrapString(productPromo.promoText?if_exists)}
+            ${StringUtil.wrapString(productPromo.promoText!)}
           </p>
         </li>
       </#list>

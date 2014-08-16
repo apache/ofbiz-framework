@@ -33,8 +33,8 @@ under the License.
     </script>
     <div class="screenlet-body">
         <form id="contactForm" method="post" action="<@ofbizUrl>submitAnonContact</@ofbizUrl>">
-            <input type="hidden" name="partyIdFrom" value="${(userLogin.partyId)?if_exists}" />
-            <input type="hidden" name="partyIdTo" value="${productStore.payToPartyId?if_exists}"/>
+            <input type="hidden" name="partyIdFrom" value="${(userLogin.partyId)!}" />
+            <input type="hidden" name="partyIdTo" value="${productStore.payToPartyId!}"/>
             <input type="hidden" name="contactMechTypeId" value="WEB_ADDRESS" />
             <input type="hidden" name="communicationEventTypeId" value="WEB_SITE_COMMUNICATI" />
             <input type="hidden" name="productStoreId" value="${productStore.productStoreId}" />
@@ -43,23 +43,23 @@ under the License.
                 <tbody>
                     <tr>
                        <td class="label">${uiLabelMap.EcommerceSubject}</td>
-                       <td><input type="text" name="subject" id="subject" class="required" value="${requestParameters.subject?if_exists}"/>*</td>
+                       <td><input type="text" name="subject" id="subject" class="required" value="${requestParameters.subject!}"/>*</td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.CommonMessage}</td>
-                       <td><textarea name="content" id="message" class="required" cols="50" rows="5">${requestParameters.content?if_exists}</textarea>*</td>
+                       <td><textarea name="content" id="message" class="required" cols="50" rows="5">${requestParameters.content!}</textarea>*</td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.FormFieldTitle_emailAddress}</td>
-                       <td><input type="text" name="emailAddress" id="emailAddress" class="required" value="${requestParameters.emailAddress?if_exists}"/>*</td>
+                       <td><input type="text" name="emailAddress" id="emailAddress" class="required" value="${requestParameters.emailAddress!}"/>*</td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.PartyFirstName}</td>
-                       <td><input type="text" name="firstName" id="firstName" class="required" value="${requestParameters.firstName?if_exists}"/></td>
+                       <td><input type="text" name="firstName" id="firstName" class="required" value="${requestParameters.firstName!}"/></td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.PartyLastName}</td>
-                       <td><input type="text" name="lastName" id="lastName" class="required" value="${requestParameters.lastName?if_exists}"/></td>
+                       <td><input type="text" name="lastName" id="lastName" class="required" value="${requestParameters.lastName!}"/></td>
                     </tr>
                     <tr>
                        <td class="label">${uiLabelMap.CommonCaptchaCode}</td>

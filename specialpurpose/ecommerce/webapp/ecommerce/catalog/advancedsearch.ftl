@@ -25,10 +25,10 @@ under the License.
   <table>
     <input type="hidden" name="SEARCH_CATALOG_ID" value="${currentCatalogId}" />
     <#if searchCategory?has_content>
-        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId?if_exists}"/>
+        <input type="hidden" name="SEARCH_CATEGORY_ID" value="${searchCategoryId!}"/>
         <tr valign="middle">
           <td>${uiLabelMap.ProductCategory}</td>
-          <td>${(searchCategory.description)?if_exists}</td>
+          <td>${(searchCategory.description)!}</td>
         </tr>
         <tr valign="middle">
           <td>${uiLabelMap.ProductIncludeSubCategories}</td>
@@ -41,7 +41,7 @@ under the License.
     <tr valign="middle">
       <td>${uiLabelMap.ProductKeywords}</td>
       <td>
-          <input type="text" name="SEARCH_STRING" size="32" value="${requestParameters.SEARCH_STRING?if_exists}" />
+          <input type="text" name="SEARCH_STRING" size="32" value="${requestParameters.SEARCH_STRING!}" />
           <br />
           ${uiLabelMap.CommonAny} <input type="radio" name="SEARCH_OPERATOR" value="OR" <#if searchOperator == "OR">checked="checked"</#if> />
           ${uiLabelMap.CommonAll} <input type="radio" name="SEARCH_OPERATOR" value="AND" <#if searchOperator == "AND">checked="checked"</#if> />
@@ -52,7 +52,7 @@ under the License.
       <#assign productFeatureType = delegator.findOne("ProductFeatureType", findPftMap, true)>
       <#assign productFeatures = productFeaturesByTypeMap[productFeatureTypeId]>
       <tr valign="middle">
-        <td>${(productFeatureType.get("description",locale))?if_exists}</td>
+        <td>${(productFeatureType.get("description",locale))!}</td>
         <td>
             <select name="pft_${productFeatureTypeId}">
               <option value="">- ${uiLabelMap.CommonSelectAny} -</option>
@@ -74,7 +74,7 @@ under the License.
             <option value="SortProductField:averageCustomerRating">${uiLabelMap.ProductCustomerRating}</option>
             <option value="SortProductPrice:LIST_PRICE">${uiLabelMap.ProductListPrice}</option>
             <option value="SortProductPrice:DEFAULT_PRICE">${uiLabelMap.ProductDefaultPrice}</option>
-            <#if productFeatureTypes?exists && productFeatureTypes?has_content>
+            <#if productFeatureTypes?? && productFeatureTypes?has_content>
               <#list productFeatureTypes as productFeatureType>
                 <option value="SortProductFeature:${productFeatureType.productFeatureTypeId}">${productFeatureType.description?default(productFeatureType.productFeatureTypeId)}</option>
               </#list>

@@ -22,15 +22,15 @@ under the License.
         <title>${title}</title>
     </head>
     <body>
-        <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your backlog: <b>${custRequest.description?if_exists} [${custRequest.custRequestId}] 
-        <#if informationMap.workEffortId?has_content><br />in sprint: <b>${informationMap.workEffortName?if_exists} [${informationMap.workEffortId?if_exists}]</b></#if> 
-        <#if informationMap.productId?has_content><br />of the product: <b>${informationMap.internalName?if_exists} [${informationMap.productId?if_exists}]</b></#if>
+        <p>Hello ${person.firstName!} ${person.lastName!},</p>
+        <p>Your backlog: <b>${custRequest.description!} [${custRequest.custRequestId}] 
+        <#if informationMap.workEffortId?has_content><br />in sprint: <b>${informationMap.workEffortName!} [${informationMap.workEffortId!}]</b></#if> 
+        <#if informationMap.productId?has_content><br />of the product: <b>${informationMap.internalName!} [${informationMap.productId!}]</b></#if>
         <#if removedFromSprint = true> has been removed from sprint. <#else> has been received.</#if>
         <br />
         <br />
         <#if custRequest.fromPartyId == partyIdTo>
-        The complete information of this backlog/request can be found <a href="${StringUtil.wrapString(baseSecureUrl?if_exists)}/scrum/control/ViewProdBacklogItem?custRequestId=${custRequest.custRequestId?if_exists}">here.....</a>
+        The complete information of this backlog/request can be found <a href="${StringUtil.wrapString(baseSecureUrl!)}/scrum/control/ViewProdBacklogItem?custRequestId=${custRequest.custRequestId!}">here.....</a>
         <br /><br />
         </#if>
         Regards.<br /><br />

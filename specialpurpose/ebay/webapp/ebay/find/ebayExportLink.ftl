@@ -19,7 +19,7 @@ under the License.
 
 <script language="JavaScript" type="text/javascript">
     function exportToEbay() {
-        <#if toEbayStore?exists>
+        <#if toEbayStore??>
             document.products.action="<@ofbizUrl>prepareProductListing</@ofbizUrl>";
         <#else>
             document.products.action="<@ofbizUrl>ProductsExportToEbay</@ofbizUrl>";

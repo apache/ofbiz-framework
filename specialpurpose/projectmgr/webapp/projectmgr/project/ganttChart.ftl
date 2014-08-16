@@ -30,13 +30,13 @@ g.setShowComp(1); // Show/Hide % Complete(0/1)
 
 <#list phaseTaskList as t>
     <#if t.workEffortTypeId == "PHASE">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseSeqNum?if_exists}. ${t.phaseName}", "", "", "00ff00", "", 0, "", 0, 1, 0, 1));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseSeqNum!}. ${t.phaseName}", "", "", "00ff00", "", 0, "", 0, 1, 0, 1));
     </#if>
     <#if t.workEffortTypeId == "TASK">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskSeqNum?if_exists}. ${t.taskName}","${StringUtil.wrapString(t.estimatedStartDate)}", "${StringUtil.wrapString(t.estimatedCompletionDate)}","009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, "${t.preDecessor}"</#if>));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskSeqNum!}. ${t.taskName}","${StringUtil.wrapString(t.estimatedStartDate)}", "${StringUtil.wrapString(t.estimatedCompletionDate)}","009900", "${t.url}", 0 , "${t.resource!}", ${t.completion!} , 0, ${t.phaseNr}, 1<#if t.preDecessor??>, "${t.preDecessor}"</#if>));
     </#if>
     <#if t.workEffortTypeId == "MILESTONE">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${StringUtil.wrapString(t.estimatedStartDate)}", "${StringUtil.wrapString(t.estimatedCompletionDate)}","00ff00", "", 1 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0,${t.phaseNr}, "", "" ));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${StringUtil.wrapString(t.estimatedStartDate)}", "${StringUtil.wrapString(t.estimatedCompletionDate)}","00ff00", "", 1 , "${t.resource!}", ${t.completion!} , 0,${t.phaseNr}, "", "" ));
     </#if>
 </#list>
 

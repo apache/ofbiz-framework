@@ -17,21 +17,21 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#assign groupName = page.randomSurveyGroup?if_exists>
+<#assign groupName = page.randomSurveyGroup!>
 <#if groupName?has_content>
-  <#assign randomSurvey = Static["org.ofbiz.product.store.ProductStoreWorker"].getRandomSurveyWrapper(request, "testSurveyGroup")?if_exists>
+  <#assign randomSurvey = Static["org.ofbiz.product.store.ProductStoreWorker"].getRandomSurveyWrapper(request, "testSurveyGroup")!>
 </#if>
 
 <#if randomSurvey?has_content>
   <div id="minipoll" class="screenlet">
     <div class="screenlet-title-bar">
       <ul>
-        <li class="h3">${randomSurvey.getSurveyName()?if_exists}</li>
+        <li class="h3">${randomSurvey.getSurveyName()!}</li>
       </ul>
       <br class="clear"/>
     </div>
     <div class="screenlet-body">
-      <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_?exists>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
+      <form method="post" action="<@ofbizUrl>minipoll<#if requestAttributes._CURRENT_VIEW_??>/${requestAttributes._CURRENT_VIEW_}</#if></@ofbizUrl>" style="margin: 0;">
         ${randomSurvey.render()}
       </form>
     </div>

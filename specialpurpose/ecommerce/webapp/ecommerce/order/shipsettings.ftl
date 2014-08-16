@@ -16,30 +16,30 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#assign cart = sessionAttributes.shoppingCart?if_exists>
+<#assign cart = sessionAttributes.shoppingCart!>
   <h3>${uiLabelMap.OrderShippingInformation}</h3>
   <div id="shippingFormServerError" class="errorMessage"></div>
   <form id="editShippingContact" method="post" action="<@ofbizUrl>processShipSettings</@ofbizUrl>" name="${parameters.formNameValue}">
     <fieldset><legend>${uiLabelMap.OrderShippingInformation}</legend>
-      <input type="hidden" name="shippingContactMechId" value="${parameters.shippingContactMechId?if_exists}"/>
+      <input type="hidden" name="shippingContactMechId" value="${parameters.shippingContactMechId!}"/>
       <input type="hidden" name="partyId" value="${cart.getPartyId()?default("_NA_")}"/>
       <div>
         <label for="address1">${uiLabelMap.PartyAddressLine1}*</label>
-        <input id="address1" name="address1" class="required" type="text" value="${address1?if_exists}"/>
+        <input id="address1" name="address1" class="required" type="text" value="${address1!}"/>
         <span id="advice-required-address1" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="address2">${uiLabelMap.PartyAddressLine2}</label>
-        <input id="address2" name="address2" type="text" value="${address2?if_exists}"/>
+        <input id="address2" name="address2" type="text" value="${address2!}"/>
       </div>
       <div>
         <label for="city">${uiLabelMap.CommonCity}*</label>
-        <input id="city" name="city" class="required" type="text" value="${city?if_exists}"/>
+        <input id="city" name="city" class="required" type="text" value="${city!}"/>
         <span id="advice-required-city" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="postalCode">${uiLabelMap.PartyZipCode}*</label>
-        <input id="postalCode" name="postalCode" class="required" type="text" value="${postalCode?if_exists}" size="12" maxlength="10"/>
+        <input id="postalCode" name="postalCode" class="required" type="text" value="${postalCode!}" size="12" maxlength="10"/>
         <span id="advice-required-postalCode" class="custom-advice errorMessage" style="display:none"> (${uiLabelMap.CommonRequired})</span>
       </div>
       <div>

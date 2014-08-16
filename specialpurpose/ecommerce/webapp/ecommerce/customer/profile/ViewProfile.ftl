@@ -23,14 +23,14 @@ under the License.
     <div>
       <a class="button" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>
       <h3>${uiLabelMap.PartyContactInformation}</h3>
-      <label>${firstName?if_exists} ${lastName?if_exists}</label>
-      <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}" />
-      <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress?if_exists}" />
-      <#if emailAddress?exists>
-        <label>${emailAddress?if_exists}</label>
-        <a href="mailto:${emailAddress?if_exists}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
+      <label>${firstName!} ${lastName!}</label>
+      <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId!}" />
+      <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress!}" />
+      <#if emailAddress??>
+        <label>${emailAddress!}</label>
+        <a href="mailto:${emailAddress!}" class="linktext">(${uiLabelMap.PartySendEmail})</a>
       </#if>
-      <div id="serverError_${emailContactMechId?if_exists}" class="errorMessage"></div>
+      <div id="serverError_${emailContactMechId!}" class="errorMessage"></div>
     </div>
     <#-- Manage Addresses -->
     <div>
@@ -39,27 +39,27 @@ under the License.
       <div class="left center">
         <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
           <ul>
-          <#if shipToContactMechId?exists>
-            <li>${shipToAddress1?if_exists}</li>
-            <#if shipToAddress2?has_content><li>${shipToAddress2?if_exists}</li></#if>
+          <#if shipToContactMechId??>
+            <li>${shipToAddress1!}</li>
+            <#if shipToAddress2?has_content><li>${shipToAddress2!}</li></#if>
             <li>
               <ul>
                 <li>
                   <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
                     ${shipToStateProvinceGeoId}
                   </#if>
-                  ${shipToCity?if_exists},
-                  ${shipToPostalCode?if_exists}
+                  ${shipToCity!},
+                  ${shipToPostalCode!}
                 </li>
-                <li>${shipToCountryGeoId?if_exists}</li>
+                <li>${shipToCountryGeoId!}</li>
               </ul>
             </li>
             <#if shipToTelecomNumber?has_content>
             <li>
-              ${shipToTelecomNumber.countryCode?if_exists}-
-              ${shipToTelecomNumber.areaCode?if_exists}-
-              ${shipToTelecomNumber.contactNumber?if_exists}
-              <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if>
+              ${shipToTelecomNumber.countryCode!}-
+              ${shipToTelecomNumber.areaCode!}-
+              ${shipToTelecomNumber.contactNumber!}
+              <#if shipToExtension??>-${shipToExtension!}</#if>
             </li>
             </#if>
           <#else>
@@ -70,27 +70,27 @@ under the License.
       <div class="right center">
         <h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3>
           <ul>
-          <#if billToContactMechId?exists>
-            <li>${billToAddress1?if_exists}</li>
-            <#if billToAddress2?has_content><li>${billToAddress2?if_exists}</li></#if>
+          <#if billToContactMechId??>
+            <li>${billToAddress1!}</li>
+            <#if billToAddress2?has_content><li>${billToAddress2!}</li></#if>
             <li>
               <ul>
                 <li>
                   <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
                     ${billToStateProvinceGeoId}
                   </#if>
-                  ${billToCity?if_exists},
-                  ${billToPostalCode?if_exists}
+                  ${billToCity!},
+                  ${billToPostalCode!}
                 </li>
-                <li>${billToCountryGeoId?if_exists}</li>
+                <li>${billToCountryGeoId!}</li>
               </ul>
             </li>
             <#if billToTelecomNumber?has_content>
             <li>
-              ${billToTelecomNumber.countryCode?if_exists}-
-              ${billToTelecomNumber.areaCode?if_exists}-
-              ${billToTelecomNumber.contactNumber?if_exists}
-              <#if billToExtension?exists>-${billToExtension?if_exists}</#if>
+              ${billToTelecomNumber.countryCode!}-
+              ${billToTelecomNumber.areaCode!}-
+              ${billToTelecomNumber.contactNumber!}
+              <#if billToExtension??>-${billToExtension!}</#if>
             </li>
             </#if>
           <#else>

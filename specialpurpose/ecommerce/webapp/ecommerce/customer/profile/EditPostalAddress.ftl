@@ -22,26 +22,26 @@ under the License.
 
 <form id="editPostalAddress_${contactMech.contactMechId}" method="post" action="">
   <fieldset>
-    <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}" />
+    <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId!}" />
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request) />
-    <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}" />
+    <input type="hidden" name="productStoreId" value="${productStoreId!}" />
       <div>
         <label for="address1_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine1}*</label>
-        <input type="text" class="required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" maxlength="30" />
+        <input type="text" class="required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1!}" maxlength="30" />
         <span id="advice-required-address1_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="additionalAddress2_${contactMech.contactMechId}">${uiLabelMap.PartyAddressLine2}</label>
-        <input type="text" name="address2" id="additionalAddress2_${contactMech.contactMechId}" value="${postalAddress.address2?if_exists}" maxlength="30" />
+        <input type="text" name="address2" id="additionalAddress2_${contactMech.contactMechId}" value="${postalAddress.address2!}" maxlength="30" />
       </div>
       <div>
         <label for="city_${contactMech.contactMechId}">${uiLabelMap.PartyCity}*</label>
-        <input type="text" class="required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" maxlength="30" />
+        <input type="text" class="required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city!}" maxlength="30" />
         <span id="advice-required-city_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
         <label for="postalCode_${contactMech.contactMechId}">${uiLabelMap.PartyZipCode}*</label>
-        <input type="text" class="required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" maxlength="10" />
+        <input type="text" class="required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode!}" maxlength="10" />
         <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(${uiLabelMap.CommonRequired})</span>
       </div>
       <div>
@@ -69,11 +69,11 @@ under the License.
       </div>
       <div class="inline">
         <label for="setBillingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultBillingAddress}</label>
-        <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForPostalAddress" value="Y" <#if setBillingPurpose?exists>checked="checked"</#if> />
+        <input type="checkbox" name="setBillingPurpose" id="setBillingPurposeForPostalAddress" value="Y" <#if setBillingPurpose??>checked="checked"</#if> />
       </div>
       <div class="inline">
         <label for="setShippingPurposeForPostalAddress">${uiLabelMap.EcommerceMyDefaultShippingAddress}</label>
-        <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForPostalAddress" value="Y" <#if setShippingPurpose?exists>checked="checked"</#if> />
+        <input type="checkbox" name="setShippingPurpose" id="setShippingPurposeForPostalAddress" value="Y" <#if setShippingPurpose??>checked="checked"</#if> />
       </div>
         <#--
       <div>

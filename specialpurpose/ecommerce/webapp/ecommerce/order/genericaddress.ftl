@@ -18,8 +18,8 @@ under the License.
 -->
 
 <#-- generic address information -->
-<#assign toName = (parameters.toName)?if_exists>
-<#if !toName?has_content && person?exists && person?has_content>
+<#assign toName = (parameters.toName)!>
+<#if !toName?has_content && person?? && person?has_content>
   <#assign toName = "">
   <#if person.personalTitle?has_content><#assign toName = person.personalTitle + " "></#if>
   <#assign toName = toName + person.firstName + " ">
@@ -32,43 +32,43 @@ under the License.
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyToName}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="60" name="toName" value="${toName}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="30" maxlength="60" name="toName" value="${toName}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   </td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAttentionName}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${(parameters.attnName)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="30" maxlength="60" name="attnName" value="${(parameters.attnName)!}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   </td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAddressLine1}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${(parameters.address1)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="address1" value="${(parameters.address1)!}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   *</td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAddressLine2}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${(parameters.address2)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="address2" value="${(parameters.address2)!}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   </td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyCity}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${(parameters.city)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="30" maxlength="30" name="city" value="${(parameters.city)!}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   *</td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyState}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <select name="stateProvinceGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if (parameters.stateProvinceGeoId)?exists>
+    <select name="stateProvinceGeoId" class="selectBox" <#if requestParameters.useShipAddr??>disabled</#if>>
+      <#if (parameters.stateProvinceGeoId)??>
         <option>${parameters.stateProvinceGeoId}</option>
         <option value="${parameters.stateProvinceGeoId}">---</option>
       <#else>
@@ -82,15 +82,15 @@ under the License.
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyZipCode}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${(parameters.postalCode)?if_exists}" <#if requestParameters.useShipAddr?exists>disabled</#if>/>
+    <input type="text" class="inputBox" size="12" maxlength="10" name="postalCode" value="${(parameters.postalCode)!}" <#if requestParameters.useShipAddr??>disabled</#if>/>
   *</td>
 </tr>
 <tr>
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.CommonCountry}</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <select name="countryGeoId" class="selectBox" <#if requestParameters.useShipAddr?exists>disabled</#if>>
-      <#if (parameters.countryGeoId)?exists>
+    <select name="countryGeoId" class="selectBox" <#if requestParameters.useShipAddr??>disabled</#if>>
+      <#if (parameters.countryGeoId)??>
         <option>${parameters.countryGeoId}</option>
         <option value="${parameters.countryGeoId}">---</option>
       </#if>
@@ -102,7 +102,7 @@ under the License.
   <td width="26%" align="right" valign="middle"><div>${uiLabelMap.PartyAllowSolicitation}?</div></td>
   <td width="5">&nbsp;</td>
   <td width="74%">
-    <select name="allowSolicitation" class='selectBox' <#if requestParameters.useShipAddr?exists>disabled</#if>>
+    <select name="allowSolicitation" class='selectBox' <#if requestParameters.useShipAddr??>disabled</#if>>
       <#if (((parameters.allowSolicitation)!"") == "Y")><option value="Y">${uiLabelMap.CommonY}</option></#if>
       <#if (((parameters.allowSolicitation)!"") == "N")><option value="N">${uiLabelMap.CommonN}</option></#if>
       <option></option>

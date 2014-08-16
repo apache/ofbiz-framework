@@ -19,8 +19,8 @@ under the License.
 <#assign factoidRootId = "WebStoreFACTOID"/>
 
 <#-- variable setup and worker calls -->
-<#assign curCategoryId = requestAttributes.curCategoryId?if_exists>
-<#assign factoidTrailCsv = requestParameters.factoidTrailCsv?if_exists/>
+<#assign curCategoryId = requestAttributes.curCategoryId!>
+<#assign factoidTrailCsv = requestParameters.factoidTrailCsv!/>
 <#assign factoidTrail=[]/>
 <#assign firstContentId=""/>
 <#if factoidTrailCsv?has_content>

@@ -60,15 +60,15 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div>${type.get("description",locale)?if_exists}</div>
+                        <div>${type.get("description",locale)!}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div>${custRequest.custRequestName?if_exists}</div>
+                        <div>${custRequest.custRequestName!}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div>${custRequest.description?if_exists}</div>
+                        <div>${custRequest.description!}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
@@ -76,9 +76,9 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div><span style="white-space: nowrap;">${custRequest.custRequestDate?if_exists}</span></div>
-                        <div><span style="white-space: nowrap;">${custRequest.createdDate?if_exists}</span></div>
-                        <div><span style="white-space: nowrap;">${custRequest.lastModifiedDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.custRequestDate!}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.createdDate!}</span></div>
+                        <div><span style="white-space: nowrap;">${custRequest.lastModifiedDate!}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">

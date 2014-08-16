@@ -32,7 +32,7 @@ under the License.
           <input type="hidden" name="_useRowSubmit" value="Y"/>
           <input type="hidden" name="returnHeaderTypeId" value="CUSTOMER_RETURN"/>
           <input type="hidden" name="fromPartyId" value="${party.partyId}"/>
-          <input type="hidden" name="toPartyId" value="${toPartyId?if_exists}"/>
+          <input type="hidden" name="toPartyId" value="${toPartyId!}"/>
           <input type="hidden" name="orderId" value="${orderId}"/>
           <#if (orderHeader.currencyUom)?has_content>
           <input type="hidden" name="currencyUomId" value="${orderHeader.currencyUom}"/>
@@ -60,7 +60,7 @@ under the License.
               <#if !orderItem.orderAdjustmentId?has_content>    <#-- filter orderAdjustments -->
                 <input type="hidden" name="orderId_o_${rowCount}" value="${orderItem.orderId}"/>
                 <input type="hidden" name="orderItemSeqId_o_${rowCount}" value="${orderItem.orderItemSeqId}"/>
-                <input type="hidden" name="description_o_${rowCount}" value="${orderItem.itemDescription?if_exists}"/>
+                <input type="hidden" name="description_o_${rowCount}" value="${orderItem.itemDescription!}"/>
                 <#-- <input type="hidden" name="returnItemType_o_${rowCount}" value="ITEM"/> -->
                 <#assign returnItemType = returnItemTypeMap.get(returnableItems.get(orderItem).get("itemTypeKey"))/>
                 <input type="hidden" name="returnItemTypeId_o_${rowCount}" value="${returnItemType}"/>
@@ -75,7 +75,7 @@ under the License.
                 <tr>
                   <td>
                     <div>
-                      <#if orderItem.productId?exists>
+                      <#if orderItem.productId??>
                         &nbsp;<a href="<@ofbizUrl>product?product_id=${orderItem.productId}</@ofbizUrl>" class="buttontext">${orderItem.productId}</a>
                         <input type="hidden" name="productId_o_${rowCount}" value="${orderItem.productId}"/>
                       </#if>

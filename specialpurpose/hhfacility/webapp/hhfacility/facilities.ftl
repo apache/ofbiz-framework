@@ -25,7 +25,7 @@ under the License.
        <#-- Each entry will have a html form. Set action to null so previous link be used -->
         <form>
           <input type="hidden" name="facilityId" value="${facility.facilityId}"/>
-          <input type="submit" value="${facility.facilityName?if_exists}"/>
+          <input type="submit" value="${facility.facilityName!}"/>
         </form>       
       </li>
     </#list>

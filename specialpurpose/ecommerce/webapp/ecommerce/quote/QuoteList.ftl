@@ -55,11 +55,11 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div>${quote.quoteName?if_exists}</div>
+                        <div>${quote.quoteName!}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div>${quote.description?if_exists}</div>
+                        <div>${quote.description!}</div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
@@ -67,9 +67,9 @@ under the License.
                     </td>
                     <td width="10">&nbsp;</td>
                     <td>
-                        <div><span style="white-space: nowrap;">${quote.issueDate?if_exists}</span></div>
-                        <div><span style="white-space: nowrap;">${quote.validFromDate?if_exists}</span></div>
-                        <div><span style="white-space: nowrap;">${quote.validThruDate?if_exists}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.issueDate!}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.validFromDate!}</span></div>
+                        <div><span style="white-space: nowrap;">${quote.validThruDate!}</span></div>
                     </td>
                     <td width="10">&nbsp;</td>
                     <td align="right">
