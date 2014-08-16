@@ -430,18 +430,6 @@ under the License.
         <key-map field-name="uomId"/>
       </relation>
     </entity>
-    <entity entity-name="StandardTimePeriod"
-            package-name="org.ofbiz.common.period"
-            title="Standard Time Period Entity">
-      <field name="standardTimePeriodId" type="id-ne"></field>
-      <field name="periodTypeId" type="id"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="standardTimePeriodId"/>
-      <relation type="one" fk-name="STD_TM_PER_TYPE" rel-entity-name="PeriodType">
-        <key-map field-name="periodTypeId"/>
-      </relation>
-    </entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.common.status -->
