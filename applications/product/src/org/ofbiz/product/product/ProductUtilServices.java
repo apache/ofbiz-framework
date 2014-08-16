@@ -45,6 +45,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -494,7 +495,7 @@ public class ProductUtilServices {
 
         if (UtilValidate.isEmpty(pattern)) {
             String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-            String imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+            String imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator);
             pattern = imageUrlPrefix + "/" + imageFilenameFormat;
         }
 

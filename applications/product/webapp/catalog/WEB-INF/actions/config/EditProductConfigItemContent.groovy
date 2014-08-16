@@ -20,12 +20,13 @@
 import org.ofbiz.base.util.*
 import org.ofbiz.base.util.string.*
 import org.ofbiz.entity.*
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.widget.html.*
 
 // make the image file formats
 imageFilenameFormat = "configitems/${configItemId}";
-imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context);
+imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator);
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;

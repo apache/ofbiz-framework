@@ -20,14 +20,15 @@
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.string.*;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.image.ScaleImage;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
 // make the image file formats
 imageFilenameFormat = UtilProperties.getPropertyValue('catalog', 'image.filename.format');
-imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
-imageUrlPrefix = UtilProperties.getPropertyValue('catalog', 'image.url.prefix');
+imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context);
+imageUrlPrefix = EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator);
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
@@ -143,6 +144,7 @@ if (fileType) {
 
             // call scaleImageInAllSize
             if (fileType.equals("original")) {
+                context.delegator = delegator;
                 result = ScaleImage.scaleImageInAllSize(context, filenameToUse, "main", "0");
 
                 if (result.containsKey("responseMessage") && result.get("responseMessage").equals("success")) {
