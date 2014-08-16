@@ -1183,11 +1183,8 @@ public class ShipmentServices {
         if (locale == null) {
             locale = Locale.getDefault();
         }
-        ResourceBundleMapWrapper uiLabelMap = UtilProperties.getResourceBundleMap("EcommerceUiLabels", locale);
-        uiLabelMap.addBottomResourceBundle("OrderUiLabels");
-        uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-        Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "uiLabelMap", uiLabelMap, "locale", locale);
+        Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "locale", locale);
         sendMap.put("bodyParameters", bodyParameters);
         sendMap.put("userLogin",userLogin);
 
@@ -1196,7 +1193,7 @@ public class ShipmentServices {
         sendMap.put("sendFrom", productStoreEmail.get("fromAddress"));
         sendMap.put("sendCc", productStoreEmail.get("ccAddress"));
         sendMap.put("sendBcc", productStoreEmail.get("bccAddress"));
-
+        
         if ((sendTo != null) && UtilValidate.isEmail(sendTo)) {
             sendMap.put("sendTo", sendTo);
         } else {

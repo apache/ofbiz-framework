@@ -25,6 +25,8 @@ under the License.
         <section>
             <actions>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/giftcardpurchase.ftl"/></html></platform-specific>
@@ -35,6 +37,7 @@ under the License.
         <section>
             <actions>
                 <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/templates/email/giftcardreload.ftl"/></html></platform-specific>
