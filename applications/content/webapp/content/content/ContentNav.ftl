@@ -24,7 +24,6 @@ function unescapeHtmlText(text) {
     return jQuery('<div />').html(text).text()
 }
 
-jQuery(document).ready(createTree());
 
 <#-- creating the JSON Data -->
 var rawdata = [
@@ -54,6 +53,8 @@ var rawdata = [
           </#if>
         </#macro>
      ];
+
+jQuery(document).ready(createTree());
 
  <#-------------------------------------------------------------------------------------define Requests-->
   var editDocumentTreeUrl = '<@ofbizUrl>/views/EditDocumentTree</@ofbizUrl>';
