@@ -330,7 +330,11 @@ under the License.
             </if-not-empty>
         </if-empty>
        <if-not-empty field="parameters._uploadedFile_fileName">
-           <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath"/>
+           <set field="absolute" value="true" type="Boolean"/>
+           <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+               <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+               <field field="absolute" type="boolean"/>
+           </call-class-method>
            <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
@@ -420,7 +424,11 @@ under the License.
                <set from-field="content.dataResourceId" field="lookup.dataResourceId"/>
                <find-by-primary-key use-cache="true" entity-name="DataResource" value-field="dataResourceMap" map="lookup"/>
             <else>
-               <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath"/>
+               <set field="absolute" value="true" type="Boolean"/>
+               <call-class-method method-name="getDataResourceContentUploadPath" class-name="org.ofbiz.content.data.DataResourceWorker" ret-field="uploadPath">
+                   <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+                   <field field="absolute" type="boolean"/>
+               </call-class-method>
                <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>

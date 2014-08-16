@@ -483,6 +483,16 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         return getDataResourceContentUploadPath(initialPath, maxFiles, absolute);
     }
 
+    public static String getDataResourceContentUploadPath(Delegator delegator, boolean absolute) {
+        String initialPath = EntityUtilProperties.getPropertyValue("content.properties", "content.upload.path.prefix", delegator);
+        double maxFiles = UtilProperties.getPropertyNumber("content.properties", "content.upload.max.files");
+        if (maxFiles < 1) {
+            maxFiles = 250;
+        }
+
+        return getDataResourceContentUploadPath(initialPath, maxFiles, absolute);
+    }
+
     public static String getDataResourceContentUploadPath(String initialPath, double maxFiles) {
         return getDataResourceContentUploadPath(initialPath, maxFiles, true);
     }
