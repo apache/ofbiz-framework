@@ -160,9 +160,7 @@ under the License.
           <#assign periodType = customTimePeriod.getRelatedOne("PeriodType", true)>
           <tr>
             <form method="post" action='<@ofbizUrl>updateCustomTimePeriod</@ofbizUrl>' name='lineForm${line}'>
-              <input type="hidden" name="findOrganizationPartyId" value="${findOrganizationPartyId!}" />
-              <input type="hidden" name="currentCustomTimePeriodId" value="${currentCustomTimePeriodId!}" />
-              <input type="hidden" name="customTimePeriodId" value="${customTimePeriodId!}" />
+              <input type="hidden" name="customTimePeriodId" value="${customTimePeriod.customTimePeriodId!}" />
             <td>${customTimePeriod.customTimePeriodId}</td>
             <td>
               <select name="parentPeriodId">
@@ -206,7 +204,7 @@ under the License.
               <#if compareDate?has_content>
                 <#if nowTimestamp.before(compareDate)><#assign hasntStarted = true></#if>
               </#if>
-              <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate!}"<#if hasntStarted> class="alert"</#if> />
+              <input type="text" size='13' name="fromDate" value="${customTimePeriod.fromDate?string("yyyy-MM-dd")}"<#if hasntStarted> class="alert"</#if> />
             </td>
             <td>
               <#assign hasExpired = false>
@@ -214,7 +212,7 @@ under the License.
               <#if compareDate?has_content>
                 <#if nowTimestamp.after(compareDate)><#assign hasExpired = true></#if>
               </#if>
-              <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate!}"<#if hasExpired> class="alert"</#if> />
+              <input type="text" size='13' name="thruDate" value="${customTimePeriod.thruDate?string("yyyy-MM-dd")}"<#if hasExpired> class="alert"</#if> />
              </td>
              <td class="button-col">
               <input type="submit" value='${uiLabelMap.CommonUpdate}'/>
