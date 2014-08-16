@@ -21,8 +21,8 @@ under the License.
 <div class="label">[${product.productId}] ${product.internalName}</div>
 <br />
 <#if searchFeatures?has_content>
+  <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="selectAllForm">
     <table cellspacing="0" class="basic-table">
-        <form method="post" action="<@ofbizUrl>LookupVariantProduct</@ofbizUrl>" name="selectAllForm">
         <input type="hidden" name="productId" value="${product.productId}" />
         <#list searchFeatures as searchFeature>
             <tr>
@@ -43,12 +43,9 @@ under the License.
         </#list>
         <tr>
             <td><input type="submit" value="${uiLabelMap.CommonSearch}" class="smallSubmit" /></td>
-        </form>
-        <form method="post" action="<@ofbizUrl>LookupProduct</@ofbizUrl>" name="">
-            <td><input type="submit" value="${uiLabelMap.CommonBack}" class="smallSubmit" /></td>
-        </form>
     </tr>
     </table>
+  </form>
 </#if>
 <br />
 <#if variantProducts??>
