@@ -34,7 +34,6 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVFormat.CSVFormatBuilder;
 import org.apache.commons.csv.CSVRecord;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -1864,8 +1863,7 @@ public class PartyServices {
         String encoding = System.getProperty("file.encoding");
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
         final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
-        final CSVFormatBuilder builder = CSVFormat.newBuilder(',').withQuoteChar('"').withHeader();
-        CSVFormat fmt = builder.build();
+        CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
         List<String> errMsgs = FastList.newInstance();
         List<String> newErrMsgs = FastList.newInstance();
         String lastPartyId = null;        // last partyId read from the csv file
