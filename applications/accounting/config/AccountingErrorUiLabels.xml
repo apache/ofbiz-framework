@@ -436,13 +436,6 @@
         <value xml:lang="pt">Ocorreu um erro ao recuperar os detalhes carrinho</value>
         <value xml:lang="zh">获取购物车详细信息时出错</value>
     </property>
-    <property key="AccountingPartyAcctgPreferenceNotDefine">
-        <value xml:lang="en">Acctg preference not define</value>
-        <value xml:lang="fr">Aucune configuration sur les préférences de gestion encore définie pour votre société</value>
-        <value xml:lang="ja">アカウント設定が定義されていません</value>
-        <value xml:lang="pt">Acctg não definir preferência</value>
-        <value xml:lang="zh">没有定义账户设置</value>
-    </property>
     <property key="AccountingPayPalCommunicationError">
         <value xml:lang="de">Während der Kommunikation mit PayPal ist ein Problem aufgetreten, bitte versuchen Sie es noch einmal oder wählen Sie eine andere Zahlungsmethode</value>
         <value xml:lang="en">A problem occurred while communicating with PayPal, please try again or select a different checkout method</value>

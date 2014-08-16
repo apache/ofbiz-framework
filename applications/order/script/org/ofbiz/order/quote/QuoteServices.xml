@@ -33,8 +33,7 @@ under the License.
         <if-not-empty field="partyAcctgPreference">
            <get-related-one relation-name="QuoteCustomMethod" value-field="partyAcctgPreference" to-value-field="customMethod"/>
            <else>
-               <property-to-field field="errorPartyPerf" resource="AccountingErrorUiLabels" property="AccountingPartyAcctgPreferenceNotDefine"/>
-               <log level="warning" message="errorPartyPerf" />
+               <log level="warning" message="Acctg preference not defined for partyId [${parameters.partyId}]"/>
            </else>
            
         </if-not-empty>
