@@ -207,9 +207,9 @@
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="partyId" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
                 <entity-one entity-name="Party" value-field="party"/>
-                <entity-and entity-name="PartyIcsAvsOverride" list="avsOverride">
-                    <field-map field-name="partyId" from-field="partyId"/>
-                </entity-and>
+                <entity-one entity-name="PartyIcsAvsOverride" value-field="avsOverride">
+                    <field-map field-name="partyId"/>
+                </entity-one>
             </actions>
             <widgets>
                 <platform-specific>
