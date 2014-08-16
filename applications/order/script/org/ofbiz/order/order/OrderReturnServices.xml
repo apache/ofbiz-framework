@@ -532,29 +532,33 @@ under the License.
         <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map="lookupPKMap" list="shipmentReceipts"/>
         <iterate list="shipmentReceipts" entry="receipt">
-            <if-empty field="totalsMap.receipt.returnItemSeqId">
-                <set field="totalsMap.receipt.returnItemSeqId" value="0"  type="BigDecimal"/>
+            <if-empty field="totalsMap[receipt.returnItemSeqId]">
+                <set field="totalsMap[receipt.returnItemSeqId]" value="0" type="BigDecimal"/>
             </if-empty>
-            <set field="totalsMap.receipt.returnItemSeqId" value="${receipt.quantityAccepted + receipt.quantityRejected}" default-value="0" type="BigDecimal"/>
-
-            <entity-one entity-name="ReturnItem" value-field="returnItem">
-                <field-map field-name="returnId" from-field="receipt.returnId"/>
-                <field-map field-name="returnItemSeqId" from-field="receipt.returnItemSeqId"/>
-            </entity-one>
-            <set field="returnItem.receivedQuantity" from-field="${totalsMap.receipt.returnItemSeqId}" type="BigDecimal"/>
-            <set-service-fields service-name="updateReturnItem" map="returnItem" to-map="serviceInMap"/>
-
-            <if-compare-field field="totalsMap.receipt.returnItemSeqId" to-field="returnItem.returnQuantity" operator="greater-equals" type="BigDecimal">
+            <calculate field="totalsMap[receipt.returnItemSeqId]">
+                <calcop field="totalsMap[receipt.returnItemSeqId]" operator="add">
+                    <calcop field="receipt.quantityAccepted" operator="get"/>
+                    <calcop field="receipt.quantityRejected" operator="get"/>
+                </calcop>
+            </calculate>
+        </iterate>
+        <get-related relation-name="ReturnItem" list="returnItems" value-field="returnHeader"/>
+        <iterate-map key="returnItemSeqId" value="value" map="totalsMap">
+            <set field="filterMap.returnItemSeqId" from-field="returnItemSeqId"/>
+            <filter-list-by-and list="returnItems" map="filterMap" to-list="items"/>
+            <first-from-list entry="item" list="items"/>
+            <set field="item.receivedQuantity" from-field="value" type="BigDecimal"/>
+            <set-service-fields service-name="updateReturnItem" map="item" to-map="serviceInMap"/>
+            <if-compare-field field="value" to-field="item.returnQuantity" operator="greater-equals" type="BigDecimal">
                 <!-- update the status for the item -->
                 <set field="serviceInMap.statusId" value="RETURN_RECEIVED"/>
-                <call-service service-name="updateReturnItem" in-map-name="serviceInMap"/>
             </if-compare-field>
 
             <!-- update the returnItem with at least receivedQuantity, and also statusId if applicable -->
             <call-service service-name="updateReturnItem" in-map-name="serviceInMap"/>
             <clear-field field="serviceInMap"/>
-        </iterate>
-
+            <clear-field field="filterMap"/>
+        </iterate-map>
         <!-- check to see if all items have been received -->
         <set field="allReceived" value="true"/>
         <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="allReturnItems"/>
