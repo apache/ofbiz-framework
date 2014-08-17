@@ -67,7 +67,7 @@ public final class StoreList extends EntityOperation {
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             Delegator delegator = getDelegator(methodContext);
-            delegator.storeAll(values, doCacheClear);
+            delegator.storeAll(values);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

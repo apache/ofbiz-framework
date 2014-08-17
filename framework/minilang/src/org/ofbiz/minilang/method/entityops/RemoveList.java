@@ -67,7 +67,7 @@ public final class RemoveList extends EntityOperation {
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             Delegator delegator = getDelegator(methodContext);
-            delegator.removeAll(values, doCacheClear);
+            delegator.removeAll(values);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

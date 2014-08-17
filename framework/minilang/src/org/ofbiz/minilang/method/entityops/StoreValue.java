@@ -64,7 +64,7 @@ public final class StoreValue extends MethodOperation {
         @Deprecated
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
-            value.getDelegator().store(value, doCacheClear);
+            value.getDelegator().store(value);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while storing entity value: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);
