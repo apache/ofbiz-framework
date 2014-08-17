@@ -36,7 +36,7 @@
         <value xml:lang="zh_TW">必須為銷售訂單選擇一個產品店鋪。 </value>
     </property>
     <property key="OrderApproveOrderBeforeQuickDropShip">
-        <value xml:lang="en">Order must be approved before complete drop shipment.</value>
+        <value xml:lang="en">Order must be approved before completing drop shipment.</value>
     </property>
     <property key="OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId">
         <value xml:lang="de">Ein alternative Gratisbeigabe ist vorhanden, aber entweder nicht mehr gültig oder nicht mehr auf Lager : ${alternateGwpProductId}</value>
