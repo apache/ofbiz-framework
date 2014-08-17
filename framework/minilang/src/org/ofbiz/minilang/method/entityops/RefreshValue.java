@@ -64,7 +64,7 @@ public final class RefreshValue extends MethodOperation {
         }
         boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
-            value.getDelegator().refresh(value, doCacheClear);
+            value.getDelegator().refresh(value);
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while refreshing value: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);

@@ -68,9 +68,9 @@ public final class CreateValue extends MethodOperation {
         }
         try {
             if (createOrStore) {
-                value.getDelegator().createOrStore(value, doCacheClear);
+                value.getDelegator().createOrStore(value);
             } else {
-                value.getDelegator().create(value, doCacheClear);
+                value.getDelegator().create(value);
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while creating the \"" + valueFma +"\" GenericValue: " + e.getMessage();
