@@ -24,7 +24,7 @@ var uiLabelJsonObject = null;
 jQuery(document).ready(function() {
 
     var labelObject = {
-            "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"],
+            "CommonUiLabels" : ["CommonUpload", "CommonSave", "CommonCompleted"]
           };
 
     uiLabelJsonObjects = getJSONuiLabels(labelObject);
