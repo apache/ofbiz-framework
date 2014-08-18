@@ -535,19 +535,14 @@ under the License.
             <if-empty field="totalsMap[receipt.returnItemSeqId]">
                 <set field="totalsMap[receipt.returnItemSeqId]" value="0" type="BigDecimal"/>
             </if-empty>
-            <calculate field="totalsMap[receipt.returnItemSeqId]">
-                <calcop field="totalsMap[receipt.returnItemSeqId]" operator="add">
-                    <calcop field="receipt.quantityAccepted" operator="get"/>
-                    <calcop field="receipt.quantityRejected" operator="get"/>
-                </calcop>
-            </calculate>
+            <set field="totalsMap[receipt.returnItemSeqId]" from="totalsMap[receipt.returnItemSeqId] + (receipt.quantityAccepted + receipt.quantityRejected)"/>
         </iterate>
         <get-related relation-name="ReturnItem" list="returnItems" value-field="returnHeader"/>
         <iterate-map key="returnItemSeqId" value="value" map="totalsMap">
-            <set field="filterMap.returnItemSeqId" from-field="returnItemSeqId"/>
+            <set field="filterMap.returnItemSeqId" from="returnItemSeqId"/>
             <filter-list-by-and list="returnItems" map="filterMap" to-list="items"/>
             <first-from-list entry="item" list="items"/>
-            <set field="item.receivedQuantity" from-field="value" type="BigDecimal"/>
+            <set field="item.receivedQuantity" from="value" type="BigDecimal"/>
             <set-service-fields service-name="updateReturnItem" map="item" to-map="serviceInMap"/>
             <if-compare-field field="value" to-field="item.returnQuantity" operator="greater-equals" type="BigDecimal">
                 <!-- update the status for the item -->
