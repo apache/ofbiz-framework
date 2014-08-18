@@ -50,7 +50,8 @@ under the License.
         </init-param>
         <init-param>
             <param-name>allowedPaths</param-name>
-            <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/default.html:/default.jsp:/images:/includes/maincss.css</param-value>
+            <!-- Beware, if you use the Birt component, allowedPaths are not defined here anymore but in Birt web.xml-->
+            <param-value>/error:/control:/products:/select:/index.html:/index.jsp:/default.html:/default.jsp:/js:/includes/maincss.css</param-value>
         </init-param>
         <init-param>
             <param-name>errorCode</param-name>
