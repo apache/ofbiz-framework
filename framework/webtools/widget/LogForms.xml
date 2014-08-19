@@ -32,43 +32,4 @@ under the License.
     <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
   </form>
 
-  <form name="AddLogger" type="single" default-map-name="defaultLogger" target="AddLogger"
-    header-row-style="header-row" default-table-style="basic-table">
-    <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><text size="50"/></field>
-    <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}">
-        <drop-down>
-          <option key="OFF"/>
-          <option key="FATAL"/>
-          <option key="ERROR"/>
-          <option key="WARN"/>
-          <option key="INFO"/>
-          <option key="TRACE"/>
-          <option key="DEBUG"/>
-          <option key="ALL"/>
-        </drop-down>
-    </field>
-    <field name="additivity" title="${uiLabelMap.WebtoolsLoggerAdditivity}"><check/></field>
-    <field name="submit" title="${uiLabelMap.CommonAdd}"><submit/></field>
-  </form>
-
-  <form name="LoggerList" type="multi" target="UpdateLogger" list-name="loggerList" separate-columns="true"
-    paginate="false" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-    <field name="name" title="${uiLabelMap.WebtoolsLoggerName}"><display/></field>
-    <field name="level" title="${uiLabelMap.WebtoolsLoggerLevel}">
-        <drop-down>
-          <option key="OFF"/>
-          <option key="FATAL"/>
-          <option key="ERROR"/>
-          <option key="WARN"/>
-          <option key="INFO"/>
-          <option key="TRACE"/>
-          <option key="DEBUG"/>
-          <option key="ALL"/>
-        </drop-down>
-    </field>
-    <field name="additivity" title="${uiLabelMap.WebtoolsLoggerAdditivity}">
-      <check/>
-    </field>
-    <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
-  </form>
 </forms>

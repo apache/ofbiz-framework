@@ -18,23 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
-import org.apache.avalon.util.exception.ExceptionHelper;
-import org.apache.log4j.Appender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.RollingFileAppender;
-import org.apache.log4j.spi.LoggerRepository;
+import org.apache.logging.log4j.*;
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.DateTimeConverters.DateToString;
 
@@ -57,22 +49,20 @@ public final class Debug {
     public static final int WARNING = 5;
     public static final int ERROR = 6;
     public static final int FATAL = 7;
-    public static final int NOTIFY = 8;
 
-    public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal", "Notify"};
-    public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal", "print.notify"};
-    public static final Level[] levelObjs = {Level.INFO, Level.DEBUG, Level.INFO, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL, NotifyLevel.NOTIFY};
+    public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal"};
+    public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
+    public static final Level[] levelObjs = {Level.FATAL, Level.DEBUG, Level.TRACE, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
 
     protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
 
     protected static PrintStream printStream = System.out;
     protected static PrintWriter printWriter = new PrintWriter(printStream);
 
-    protected static boolean levelOnCache[] = new boolean[9];
-    protected static boolean packException = true;
+    protected static boolean levelOnCache[] = new boolean[8];
     protected static final boolean useLevelOnCache = true;
 
-    protected static Logger root = Logger.getRootLogger();
+    protected static Logger root = LogManager.getRootLogger();
 
     static {
         levelStringMap.put("verbose", Debug.VERBOSE);
@@ -83,32 +73,11 @@ public final class Debug {
         levelStringMap.put("error", Debug.ERROR);
         levelStringMap.put("fatal", Debug.FATAL);
         levelStringMap.put("always", Debug.ALWAYS);
-        levelStringMap.put("notify", Debug.NOTIFY);
-
-        // initialize Log4J
-        if (!UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", "disable.log4j.config", "true")) {
-            org.apache.log4j.xml.DOMConfigurator.configure(UtilURL.fromResource("log4j.xml"));
-        }
 
         // initialize levelOnCache
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < levelOnCache.length; i++) {
             levelOnCache[i] = (i == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[i], "true"));
         }
-
-        if (SYS_DEBUG != null) {
-            for (int x = 0; x < 8; x++) {
-                levelOnCache[x] = true;
-            }
-            LoggerRepository repo = root.getLoggerRepository();
-            Enumeration<Logger> en = UtilGenerics.cast(repo.getCurrentLoggers());
-            while (en.hasMoreElements()) {
-                Logger thisLogger = en.nextElement();
-                thisLogger.setLevel(Level.DEBUG);
-            }
-        }
-
-        // configure exception packing
-        packException = UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", "pack.exception", "true");
     }
 
     public static PrintStream getPrintStream() {
@@ -126,7 +95,7 @@ public final class Debug {
 
     public static Logger getLogger(String module) {
         if (UtilValidate.isNotEmpty(module)) {
-            return Logger.getLogger(module);
+            return LogManager.getLogger(module);
         } else {
             return root;
         }
@@ -136,16 +105,6 @@ public final class Debug {
     public static Integer getLevelFromString(String levelName) {
         if (levelName == null) return null;
         return levelStringMap.get(levelName.toLowerCase());
-    }
-
-    /** Gets an int representing the level number from a String representing the level name; if level not found defaults to Debug.INFO */
-    public static int getLevelFromStringWithDefault(String levelName) {
-        Integer levelInt = getLevelFromString(levelName);
-        if (levelInt == null) {
-            return Debug.INFO;
-        } else {
-            return levelInt;
-        }
     }
 
     public static void log(int level, Throwable t, String msg, String module) {
@@ -161,86 +120,19 @@ public final class Debug {
     }
 
     public static void log(int level, Throwable t, String msg, String module, String callingClass, Object... params) {
-        Logger logger = null;
-        boolean offSetInLogConfig = false; 
-        boolean fatalSetInLogConfig = false; 
-        boolean errorSetInLogConfig = false; 
-        boolean warnSetInLogConfig = false; 
-        boolean infoSetInLogConfig = false; 
-        boolean traceSetInLogConfig = false; 
-        boolean debugSetInLogConfig = false; 
-        boolean allSetInLogConfig = false;
-        boolean setInLogConfig = false;
-
-        if (useLog4J) {
-            logger = getLogger(module);
-                        
-            // Class
-            if (logger != null) {
-                Level loggerLevel = logger.getLevel();
-                offSetInLogConfig = Level.OFF.equals(loggerLevel);
-                fatalSetInLogConfig = Level.FATAL.equals(loggerLevel);
-                errorSetInLogConfig = Level.ERROR.equals(loggerLevel);
-                warnSetInLogConfig = Level.WARN.equals(loggerLevel);
-                infoSetInLogConfig = Level.INFO.equals(loggerLevel);
-                traceSetInLogConfig = Level.TRACE.equals(loggerLevel);
-                debugSetInLogConfig = Level.DEBUG.equals(loggerLevel);
-                allSetInLogConfig = Level.ALL.equals(loggerLevel);
-            }                
-            setInLogConfig = offSetInLogConfig || fatalSetInLogConfig || errorSetInLogConfig || warnSetInLogConfig || infoSetInLogConfig 
-                            ||  traceSetInLogConfig || debugSetInLogConfig || allSetInLogConfig;
-            // Package
-            // !setInLogConfig : for a Class logger, Class setting takes precedence on Package if both are used
-            if (!noModuleModule.equals(module) && module != null && !module.isEmpty() && !setInLogConfig) { 
-                Logger packageLogger = getLogger(module.substring(0, module.lastIndexOf(".")));
-                if (packageLogger != null) {
-                    Level packageLoggerLevel = packageLogger.getLevel();
-                    offSetInLogConfig |= Level.OFF.equals(packageLoggerLevel);
-                    fatalSetInLogConfig |= Level.FATAL.equals(packageLoggerLevel);
-                    errorSetInLogConfig |= Level.ERROR.equals(packageLoggerLevel);
-                    warnSetInLogConfig |= Level.WARN.equals(packageLoggerLevel);
-                    infoSetInLogConfig |= Level.INFO.equals(packageLoggerLevel);
-                    traceSetInLogConfig |= Level.TRACE.equals(packageLoggerLevel);
-                    debugSetInLogConfig |= Level.DEBUG.equals(packageLoggerLevel);
-                    allSetInLogConfig |= Level.ALL.equals(packageLoggerLevel);
-                }
-            }
-            setInLogConfig = offSetInLogConfig || fatalSetInLogConfig || errorSetInLogConfig || warnSetInLogConfig || infoSetInLogConfig 
-                            ||  traceSetInLogConfig || debugSetInLogConfig || allSetInLogConfig;
-        }
-
-        if (isOn(level) || setInLogConfig) {
+        if (isOn(level)) {
             if (msg != null && params.length > 0) {
                 StringBuilder sb = new StringBuilder();
                 Formatter formatter = new Formatter(sb);
                 formatter.format(msg, params);
                 msg = sb.toString();
             }
-            // pack the exception
-            if (packException && t != null) {
-                msg = System.getProperty("line.separator") + ExceptionHelper.packException(msg, t, true);
-                t = null;
-            }
 
             // log
             if (useLog4J) {
-                if (SYS_DEBUG != null) {
-                    logger.setLevel(Level.DEBUG);
-                }
-                if (offSetInLogConfig) {
-                    // Not printing anything
-                } else if (fatalSetInLogConfig && Level.FATAL.equals(levelObjs[level])
-                        || errorSetInLogConfig && Level.ERROR.equals(levelObjs[level])
-                        || warnSetInLogConfig && Level.WARN.equals(levelObjs[level])
-                        || infoSetInLogConfig && Level.INFO.equals(levelObjs[level])
-                        || debugSetInLogConfig && Level.DEBUG.equals(levelObjs[level])
-                        || traceSetInLogConfig && Level.DEBUG.equals(levelObjs[level])) {
-                    logger.log(callingClass, levelObjs[level], msg, t);
-                } else if (allSetInLogConfig) {
-                    logger.log(callingClass, Level.INFO, msg, t);
-                } else {
-                    logger.log(callingClass, levelObjs[level], msg, t);
-                }
+                Logger logger = getLogger(module);
+                //callingClass
+                logger.log(levelObjs[level], msg, t);
             } else {
                 StringBuilder prefixBuf = new StringBuilder();
 
@@ -276,7 +168,7 @@ public final class Debug {
         if (useLevelOnCache) {
             return levelOnCache[level];
         } else {
-            return (level == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug", levelProps[level], "true"));
+            return (level == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[level], "true"));
         }
     }
 
@@ -481,26 +373,6 @@ public final class Debug {
         log(Debug.FATAL, t, msg, module, params);
     }
 
-    public static void logNotify(String msg, String module) {
-        log(Debug.NOTIFY, null, msg, module, emptyParams);
-    }
-
-    public static void logNotify(String msg, String module, Object... params) {
-        log(Debug.NOTIFY, null, msg, module, params);
-    }
-
-    public static void logNotify(Throwable t, String module) {
-        log(Debug.NOTIFY, t, null, module, emptyParams);
-    }
-
-    public static void logNotify(Throwable t, String msg, String module) {
-        log(Debug.NOTIFY, t, msg, module, emptyParams);
-    }
-
-    public static void logNotify(Throwable t, String msg, String module, Object... params) {
-        log(Debug.NOTIFY, t, msg, module, params);
-    }
-
     public static void set(int level, boolean on) {
         if (!useLevelOnCache)
             return;
@@ -511,73 +383,5 @@ public final class Debug {
         if (!useLevelOnCache)
             return true;
         return levelOnCache[level];
-    }
-
-    public static synchronized Appender getNewFileAppender(String name, String logFile, long maxSize, int backupIdx, String pattern) {
-        if (pattern == null) {
-            pattern = "%-5r[%24F:%-3L:%-5p]%x %m%n";
-        }
-
-        PatternLayout layout = new PatternLayout(pattern);
-        layout.activateOptions();
-
-        RollingFileAppender newAppender = null;
-        try {
-            newAppender = new RollingFileAppender(layout, logFile, true);
-        } catch (IOException e) {
-            logFatal(e, Debug.class.getName());
-        }
-
-        if (newAppender != null) {
-            if (backupIdx > 0) {
-                newAppender.setMaxBackupIndex(backupIdx);
-            }
-            if (maxSize > 0) {
-                newAppender.setMaximumFileSize(maxSize);
-            }
-            newAppender.setThreshold(Level.DEBUG);
-            newAppender.activateOptions();
-            newAppender.setName(name);
-        }
-
-        return newAppender;
-    }
-
-    public static boolean registerFileAppender(String module, String name, String logFile, long maxSize, int backupIdx, String pattern) {
-        Logger logger = Logger.getLogger(module);
-        boolean found = false;
-
-        Appender foundAppender = logger.getAppender(name);
-        if (foundAppender == null) {
-            Enumeration<Logger> currentLoggerEnum = UtilGenerics.cast(Logger.getRootLogger().getLoggerRepository().getCurrentLoggers());
-            while (currentLoggerEnum.hasMoreElements() && foundAppender == null) {
-                Logger log = currentLoggerEnum.nextElement();
-                foundAppender = log.getAppender(name);
-            }
-        } else {
-            return true;
-        }
-
-        if (foundAppender == null) {
-            if (logFile != null) {
-                foundAppender = getNewFileAppender(name, logFile, maxSize, backupIdx, pattern);
-                if (foundAppender != null) {
-                    found = true;
-                }
-            }
-        } else {
-            found = true;
-        }
-
-        logger.addAppender(foundAppender);
-        return found;
-    }
-
-    public static boolean registerFileAppender(String module, String name, String logFile) {
-        return registerFileAppender(module, name, logFile, 0, 10, null);
-    }
-
-    public static boolean registerFileAppender(String module, String name) {
-        return registerFileAppender(module, name, null, -1, -1, null);
     }
 }

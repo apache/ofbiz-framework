@@ -28,7 +28,11 @@ framework/base/lib/jakarta-regexp-1.5.jar
 framework/base/lib/jpim-0.1.jar
 framework/base/lib/juel-impl-2.2.7.jar
 framework/base/lib/juel-spi-2.2.7.jar
-framework/base/lib/log4j-1.2.17.jar
+framework/base/lib/log4j-1.2-api-2.0.1.jar
+framework/base/lib/log4j-api-2.0.1.jar
+framework/base/lib/log4j-core-2.0.1.jar
+framework/base/lib/log4j-jcl-2.0.1.jar
+framework/base/lib/log4j-slf4j-impl-2.0.1.jar
 framework/base/lib/mx4j-3.0.1.jar
 framework/base/lib/mx4j-remote-3.0.1.jar
 framework/base/lib/nekohtml-1.9.16.jar
@@ -1214,7 +1218,6 @@ MIT/X License:
 framework/base/lib/icu4j-52_1.jar
 framework/base/lib/jcl-over-slf4j-1.6.4.jar
 framework/base/lib/slf4j-api-1.6.4.jar
-framework/base/lib/slf4j-log4j12-1.6.4.jar
 framework/images/webapp/images/jquery/*
 framework/images/webapp/images/date/date.format-1.2.3*.js
 =========================================================================

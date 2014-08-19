@@ -244,16 +244,6 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="LogConfiguration"/>
     </request-map>
-    <request-map uri="AddLogger">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="addOrUpdateLogger"/>
-        <response name="success" type="view" value="LogConfiguration"/>
-    </request-map>
-    <request-map uri="UpdateLogger">
-        <security https="true" auth="true"/>
-        <event type="service-multi" invoke="addOrUpdateLogger"/>
-        <response name="success" type="view" value="LogConfiguration"/>
-    </request-map>
     <request-map uri="AdjustDebugLevels">
         <security https="true" auth="true"/>
         <event type="service" invoke="adjustDebugLevels"/>

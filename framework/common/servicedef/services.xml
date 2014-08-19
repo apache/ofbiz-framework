@@ -86,13 +86,6 @@ under the License.
         <attribute name="timing" type="String" mode="IN" optional="true"/>
         <attribute name="verbose" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="addOrUpdateLogger" engine="java"
-             location="org.ofbiz.common.CommonServices" invoke="addOrUpdateLogger" auth="true">
-        <description>Add/Update logger in logging system</description>
-        <attribute name="name" type="String" mode="IN" optional="false"/>
-        <attribute name="level" type="String" mode="IN" optional="false"/>
-        <attribute name="additivity" type="String" mode="IN" optional="true"/>
-    </service>
 
     <service name="displayXaDebugInfo" engine="java"
             location="org.ofbiz.common.CommonServices" invoke="displayXaDebugInfo" auth="true">

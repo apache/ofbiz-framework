@@ -87,12 +87,6 @@ under the License.
                          <screenlet title="${uiLabelMap.WebtoolsDebuggingLevelFormDescription}">
                              <include-form name="LevelSwitch" location="component://webtools/widget/LogForms.xml"/>
                          </screenlet>
-                         <screenlet title="${uiLabelMap.WebtoolsAddLoggerFormDescription}">
-                             <include-form name="AddLogger" location="component://webtools/widget/LogForms.xml"/>
-                         </screenlet>
-                         <screenlet title="${uiLabelMap.WebtoolsLoggerListFormDescription}">
-                             <include-form name="LoggerList" location="component://webtools/widget/LogForms.xml"/>
-                         </screenlet>
                      </decorator-section>
                  </decorator-screen>
                </widgets>

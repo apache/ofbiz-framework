@@ -36,7 +36,6 @@ import net.xoetrope.xui.helper.SwingWorker;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.Log4jLoggerWriter;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
@@ -96,7 +95,6 @@ public class PosTransaction implements Serializable {
     public static final int INTERNAL_PAYMENT = 1;
     public static final int EXTERNAL_PAYMENT = 2;
 
-    private static PrintWriter defaultPrintWriter = new Log4jLoggerWriter(Debug.getLogger(module));
     private static PosTransaction currentTx = null;
     private static LifoSet<PosTransaction> savedTx = new LifoSet<PosTransaction>();
 
@@ -125,7 +123,7 @@ public class PosTransaction implements Serializable {
         this.session = session;
         this.terminalId = session.getId();
         this.partyId = "_NA_";
-        this.trace = defaultPrintWriter;
+        //this.trace = defaultPrintWriter;
 
         this.productStoreId = (String) session.getAttribute("productStoreId");
         this.facilityId = (String) session.getAttribute("facilityId");
@@ -1195,6 +1193,7 @@ public class PosTransaction implements Serializable {
     }
 
     private void trace(String s1, String s2, Throwable t) {
+        /*
         if (trace != null) {
             String msg = s1;
             if (UtilValidate.isNotEmpty(s2)) {
@@ -1208,6 +1207,7 @@ public class PosTransaction implements Serializable {
             trace.println("[POS @ " + terminalId + " TX:" + transactionId + "] - " + msg);
             trace.flush();
         }
+        */
     }
 
     public static synchronized PosTransaction getCurrentTx(XuiSession session) {
