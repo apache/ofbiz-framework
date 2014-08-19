@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+    <Appenders>
+        <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+        </Console>
+        <RollingFile name="ofbiz" fileName="runtime/logs/ofbiz.log"
+                     filePattern="runtime/logs/ofbiz-%d{yyyy-MM-dd}-%i.log.zip">
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="4"/>
+        </RollingFile>
+        <RollingFile name="external" fileName="runtime/logs/external.log"
+                     filePattern="runtime/logs/external-%d{yyyy-MM-dd}-%i.log.zip">
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="1 MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="4"/>
+        </RollingFile>
+        <Async name="async">
+            <AppenderRef ref="ofbiz"/>
+            <AppenderRef ref="stdout"/>
+        </Async>
+    </Appenders>
+    <Loggers>
+        <logger name="org.ofbiz.base.converter.Converters" level="warn"/>
+        <logger name="org.apache" level="warn" additivity="false">
+            <appender-ref ref="external"/>
+        </logger>
+        <logger name="org.apache.tomcat" level="info" additivity="true">
+            <appender-ref ref="external"/>
+        </logger>
+        <logger name="org.apache.catalina" level="info" additivity="true">
+            <appender-ref ref="external"/>
+        </logger>
+        <logger name="freemarker" level="warn" additivity="false">
+            <appender-ref ref="external"/>
+        </logger>
+
+        <Root level="all">
+            <AppenderRef ref="async"/>
+        </Root>
+    </Loggers>
+</Configuration>

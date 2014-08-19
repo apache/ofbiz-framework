@@ -27,8 +27,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Appender;
-import org.apache.log4j.Logger;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.start.Config;
 import org.ofbiz.base.start.StartupException;
@@ -269,12 +267,6 @@ public class ContainerLoader implements StartupLoader {
                     }
                     Debug.logInfo("Stopped container " + container.getName(), module);
                 }
-            }
-            @SuppressWarnings("unchecked")
-            Enumeration<Appender> en = Logger.getRootLogger().getAllAppenders();
-            while (en.hasMoreElements()) {
-                Appender appender = en.nextElement();
-                appender.close();
             }
         }
     }
