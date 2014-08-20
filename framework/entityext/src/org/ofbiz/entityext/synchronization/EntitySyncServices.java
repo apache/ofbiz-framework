@@ -609,7 +609,7 @@ public class EntitySyncServices {
             }
 
 
-            int keepSeconds = (int) Math.floor(keepRemoveInfoHours * 60);
+            int keepSeconds = (int) Math.floor(keepRemoveInfoHours * 3600);
 
             Calendar nowCal = Calendar.getInstance();
             nowCal.setTimeInMillis(System.currentTimeMillis());
