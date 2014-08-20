@@ -15,7 +15,6 @@ framework/base/lib/ant-1.9.0-ant.jar
 framework/base/lib/ant-1.9.0-ant-junit.jar
 framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar
 framework/base/lib/avalon-framework-4.2.0.jar
-framework/base/lib/avalon-util-exception-1.0.0.jar
 framework/base/lib/batik-all-1.7.jar
 framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
