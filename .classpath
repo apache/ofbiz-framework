@@ -78,10 +78,10 @@
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.4.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-csv-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-activation_1.0.2_spec-1.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-1.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-j2ee-connector_1.5_spec-2.0.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jaxr_1.0_spec-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jaxrpc_1.1_spec-1.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jms_1.1_spec-1.1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-jta_1.1_spec-1.1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.3_spec-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/annotations-api-3.0.jar"/>
