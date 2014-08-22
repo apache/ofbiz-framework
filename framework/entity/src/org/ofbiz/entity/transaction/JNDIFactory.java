@@ -203,7 +203,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
                 Debug.logError("Datasource returned was NULL.", module);
             }
         } catch (NamingException ne) {
-            Debug.logWarning(ne, "[ConnectionFactory.getConnection] Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", module);
+            Debug.logWarning(ne, "Failed to find DataSource named " + jndiName + " in JNDI server with name " + jndiServerName + ". Trying normal database.", module);
         } catch (GenericConfigException gce) {
             throw new GenericEntityException("Problems with the JNDI configuration.", gce.getNested());
         }
