@@ -35,6 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
@@ -538,5 +539,14 @@ public class EntityUtil {
         }
 
         return fieldList;
+    }
+
+    /**
+     * Returns <code>true</code> if multi-tenant has been enabled.
+     * <p>Multi-tenant features are enabled by setting the <code>multitenant</code>
+     * property in <code>general.properties</code> to "Y".</p>
+     */
+    public static boolean isMultiTenantEnabled() {
+        return "Y".equalsIgnoreCase(UtilProperties.getPropertyValue("general.properties", "multitenant"));
     }
 }

@@ -32,7 +32,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -50,8 +49,8 @@ public class UrlServletHelper extends ContextFilter {
     public static void setRequestAttributes(ServletRequest request, Delegator delegator, ServletContext servletContext) {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         // check if multi tenant is enabled
-        String useMultitenant = UtilProperties.getPropertyValue("general.properties", "multitenant");
-        if ("Y".equals(useMultitenant)) {
+        boolean useMultitenant = EntityUtil.isMultiTenantEnabled();
+        if (useMultitenant) {
             // get tenant delegator by domain name
             String serverName = request.getServerName();
             try {
