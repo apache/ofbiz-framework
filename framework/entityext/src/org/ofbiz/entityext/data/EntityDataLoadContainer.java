@@ -37,7 +37,6 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -51,6 +50,7 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityDataLoader;
+import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.ServiceDispatcher;
 
 
@@ -206,8 +206,8 @@ public class EntityDataLoadContainer implements Container {
      */
     public boolean start() throws ContainerException {
         if("all-tenants".equals(this.overrideDelegator)) {
-            if ("N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
-                Debug.logWarning("Please enable multitenant. (e.g. general.properties --> multitenant=Y)", module);
+            if (!EntityUtil.isMultiTenantEnabled()) {
+                Debug.logWarning("Multitenant is disabled. Please enable multitenant. (e.g. general.properties --> multitenant=Y)", module);
                 return true;
             }
             ContainerConfig.Container cfg = ContainerConfig.getContainer(name, configFile);
@@ -317,7 +317,7 @@ public class EntityDataLoadContainer implements Container {
         }
         // load specify components
         List<String> loadComponents = FastList.newInstance();
-        if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && "Y".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
+        if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && EntityUtil.isMultiTenantEnabled()) {
             try {
                 List<EntityExpr> exprs = new ArrayList<EntityExpr>();
                 exprs.add(EntityCondition.makeCondition("rootLocation", EntityOperator.NOT_LIKE, "%hot-deploy%"));

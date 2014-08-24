@@ -105,8 +105,8 @@ public class EntityDataLoader {
                 }
                 readerName = readerName.trim();
                 
-                // ignore the "tenant" reader if the multitenant property is "N"
-                if ("tenant".equals(readerName) && "N".equals(UtilProperties.getPropertyValue("general.properties", "multitenant"))) {
+                // ignore the "tenant" reader if multitenant is disabled
+                if ("tenant".equals(readerName) && !EntityUtil.isMultiTenantEnabled()) {
                     continue;
                 }
 
