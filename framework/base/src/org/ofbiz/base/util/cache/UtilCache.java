@@ -202,7 +202,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
             //    throw new MissingResourceException("Can't find resource for bundle", res.getClass().getName(), Arrays.asList(propNames) + "." + parameter);
             //}
         } catch (Exception e) {
-            Debug.logWarning(e, "Error getting " + parameter + " value from cache.properties file for propNames: " + propNames, module);
+            Debug.logWarning(e, "Error getting " + parameter + " value from ResourceBundle for propNames: " + propNames, module);
         }
         return null;
     }
@@ -212,7 +212,11 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     public void setPropertiesParams(String[] propNames) {
-        ResourceBundle res = ResourceBundle.getBundle("cache");
+        setPropertiesParams("cache", propNames);
+    }
+
+    public void setPropertiesParams(String settingsResourceName, String[] propNames) {
+        ResourceBundle res = ResourceBundle.getBundle(settingsResourceName);
 
         if (res != null) {
             String value = getPropertyParam(res, propNames, "maxSize");
