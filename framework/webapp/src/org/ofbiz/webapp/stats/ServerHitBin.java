@@ -679,17 +679,9 @@ public class ServerHitBin {
             serverHit.set("referrerUrl", referrerUrl.length() > 250 ? referrerUrl.substring(0, 250) : referrerUrl);
 
             // get localhost ip address and hostname to store
-            try {
-                InetAddress address = InetAddress.getLocalHost();
-
-                if (address != null) {
-                    serverHit.set("serverIpAddress", address.getHostAddress());
-                    serverHit.set("serverHostName", address.getHostName());
-                } else {
-                    Debug.logError("Unable to get localhost internet address, was null", module);
-                }
-            } catch (java.net.UnknownHostException e) {
-                Debug.logError("Unable to get localhost internet address: " + e.toString(), module);
+            if (VisitHandler.address != null) {
+                serverHit.set("serverIpAddress", VisitHandler.address.getHostAddress());
+                serverHit.set("serverHostName", VisitHandler.address.getHostName());
             }
 
             // The problem with

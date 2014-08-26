@@ -45,7 +45,7 @@ public class VisitHandler {
 
     public static final String visitorCookieName = "OFBiz.Visitor";
 
-    private static final InetAddress address;
+    protected static final InetAddress address;
     static {
         InetAddress tmpAddress = null;
         try {
