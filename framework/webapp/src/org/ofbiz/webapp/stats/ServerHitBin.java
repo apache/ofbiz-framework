@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.webapp.stats;
 
-import java.net.InetAddress;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -234,11 +233,7 @@ public class ServerHitBin {
             countHit("GLOBAL", type, request, startTime, runningTime, userLogin, true);
     }
 
-    private static void countHitSinceStart(String baseId, int type, long startTime, long runningTime, boolean isOriginal,
-        Delegator delegator) {
-        if (delegator == null) {
-            throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
-        }
+    private static void countHitSinceStart(String baseId, int type, long startTime, long runningTime, boolean isOriginal, Delegator delegator) {
 
         String id = makeIdTenantAware(baseId, delegator);
 
@@ -337,11 +332,6 @@ public class ServerHitBin {
     private long maxTime;
 
     private ServerHitBin(String id, int type, boolean limitLength, Delegator delegator) {
-        super();
-        if (delegator == null) {
-            throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
-        }
-
         this.id = id;
         this.type = type;
         this.limitLength = limitLength;
@@ -351,8 +341,6 @@ public class ServerHitBin {
     }
 
     private ServerHitBin(ServerHitBin oldBin) {
-        super();
-
         this.id = oldBin.id;
         this.type = oldBin.type;
         this.limitLength = oldBin.limitLength;
