@@ -45,6 +45,17 @@ public class VisitHandler {
 
     public static final String visitorCookieName = "OFBiz.Visitor";
 
+    private static final InetAddress address;
+    static {
+        InetAddress tmpAddress = null;
+        try {
+            tmpAddress = InetAddress.getLocalHost();
+        } catch (java.net.UnknownHostException e) {
+            Debug.logError("Unable to get server's internet address: " + e.toString(), module);
+        }
+        address = tmpAddress;
+    }
+
     public static void setUserLogin(HttpSession session, GenericValue userLogin, boolean userCreated) {
         if (userLogin == null) return;
         ModelEntity modelUserLogin = userLogin.getModelEntity();
@@ -165,17 +176,11 @@ public class VisitHandler {
                             }
 
                             // get localhost ip address and hostname to store
-                            try {
-                                InetAddress address = InetAddress.getLocalHost();
-                                if (address != null) {
-                                    visit.set("serverIpAddress", address.getHostAddress());
-                                    visit.set("serverHostName", address.getHostName());
-                                } else {
-                                    Debug.logError("Unable to get localhost internet address, was null", module);
-                                }
-                            } catch (java.net.UnknownHostException e) {
-                                Debug.logError("Unable to get localhost internet address: " + e.toString(), module);
+                            if (address != null) {
+                                visit.set("serverIpAddress", address.getHostAddress());
+                                visit.set("serverHostName", address.getHostName());
                             }
+
                             try {
                                 visit = delegator.createSetNextSeqId(visit);
                                 session.setAttribute("visit", visit);
