@@ -319,11 +319,10 @@ public class ServerHitBin {
             countHitSinceStart("GLOBAL", type, startTime, runningTime, false, delegator);
     }
 
-    private Delegator delegator;
-    private String delegatorName;
-    private String id;
-    private int type;
-    private boolean limitLength;
+    private final Delegator delegator;
+    private final String id;
+    private final int type;
+    private final boolean limitLength;
     private long startTime;
     private long endTime;
     private long numberHits;
@@ -336,7 +335,6 @@ public class ServerHitBin {
         this.type = type;
         this.limitLength = limitLength;
         this.delegator = delegator;
-        this.delegatorName = delegator.getDelegatorName();
         reset(getEvenStartingTime());
     }
 
@@ -345,7 +343,6 @@ public class ServerHitBin {
         this.type = oldBin.type;
         this.limitLength = oldBin.limitLength;
         this.delegator = oldBin.delegator;
-        this.delegatorName = oldBin.delegatorName;
         this.startTime = oldBin.startTime;
         this.endTime = oldBin.endTime;
         this.numberHits = oldBin.numberHits;
@@ -355,13 +352,6 @@ public class ServerHitBin {
     }
 
     public Delegator getDelegator() {
-        if (this.delegator == null) {
-            this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
-        }
-        // if still null, then we have a problem
-        if (this.delegator == null) {
-            throw new IllegalArgumentException("Could not perform stats operation: could not find delegator with name: " + this.delegatorName);
-        }
         return this.delegator;
     }
 
