@@ -61,7 +61,7 @@ eventList = FastList.newInstance();
 while (iterator.hasNext()) {
     requestIdMap = FastMap.newInstance();
     statsId = iterator.next();
-    bin = ServerHitBin.requestSinceStarted.get(statsId);
+    bin = ServerHitBin.eventSinceStarted.get(statsId);
     if (bin) {
         requestIdMap.requestId = bin.getId();
         requestIdMap.requestType = bin.getType();
@@ -85,7 +85,7 @@ viewList = FastList.newInstance();
 while (iterator.hasNext()) {
     requestIdMap = FastMap.newInstance();
     statsId = iterator.next();
-    bin = ServerHitBin.requestSinceStarted.get(statsId);
+    bin = ServerHitBin.viewSinceStarted.get(statsId);
     if (bin) {
         requestIdMap.requestId = bin.getId();
         requestIdMap.requestType = bin.getType();
