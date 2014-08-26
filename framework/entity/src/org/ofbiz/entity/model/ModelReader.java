@@ -42,8 +42,8 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.EntityModelReader;
 import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
@@ -80,7 +80,7 @@ public class ModelReader implements Serializable {
     protected Map<String, ResourceHandler> entityResourceHandlerMap;
 
     public static ModelReader getModelReader(String delegatorName) throws GenericEntityException {
-        DelegatorElement delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
+        DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
 
         if (delegatorInfo == null) {
             throw new GenericEntityConfException("Could not find a delegator with the name " + delegatorName);
@@ -104,7 +104,7 @@ public class ModelReader implements Serializable {
         resourceHandlerEntities = new HashMap<ResourceHandler, Collection<String>>();
         entityResourceHandlerMap = new HashMap<String, ResourceHandler>();
 
-        EntityModelReader entityModelReaderInfo = EntityConfigUtil.getEntityModelReader(modelName);
+        EntityModelReader entityModelReaderInfo = EntityConfig.getInstance().getEntityModelReader(modelName);
 
         if (entityModelReaderInfo == null) {
             throw new GenericEntityConfException("Cound not find an entity-model-reader with the name " + modelName);
@@ -112,7 +112,7 @@ public class ModelReader implements Serializable {
 
         // get all of the main resource model stuff, ie specified in the entityengine.xml file
         for (Resource resourceElement : entityModelReaderInfo.getResourceList()) {
-            ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
+            ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
             entityResourceHandlers.add(handler);
         }
 
@@ -463,7 +463,7 @@ TEMP_VIEW_LOOP:
     }
 
     public void addEntityToResourceHandler(String entityName, String loaderName, String location) {
-        entityResourceHandlerMap.put(entityName, new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, loaderName, location));
+        entityResourceHandlerMap.put(entityName, new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, loaderName, location));
     }
 
     public ResourceHandler getEntityResourceHandler(String entityName) {

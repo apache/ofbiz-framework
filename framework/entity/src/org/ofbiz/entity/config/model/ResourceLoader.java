@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -37,7 +36,7 @@ public final class ResourceLoader {
     private final String prefix; // type = xs:string
 
     ResourceLoader(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<resource-loader> element name attribute is empty" + lineNumberText);

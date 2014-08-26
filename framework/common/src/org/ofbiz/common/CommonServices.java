@@ -344,18 +344,14 @@ public class CommonServices {
     }
 
     public static Map<String, Object> displayXaDebugInfo(DispatchContext dctx, Map<String, ?> context) {
-        try {
-            if (TransactionUtil.debugResources()) {
-                if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
-                    TransactionUtil.logRunningTx();
-                } else {
-                    Debug.logInfo("No running transaction to display.", module);
-                }
+        if (TransactionUtil.debugResources()) {
+            if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
+                TransactionUtil.logRunningTx();
             } else {
-                Debug.logInfo("Debug resources is disabled.", module);
+                Debug.logInfo("No running transaction to display.", module);
             }
-        } catch (GenericEntityConfException e) {
-            return ServiceUtil.returnError(e.getMessage());
+        } else {
+            Debug.logInfo("Debug resources is disabled.", module);
         }
 
         return ServiceUtil.returnSuccess();

@@ -14,7 +14,7 @@ import javax.transaction.Transaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.transaction.TransactionFactory;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
@@ -49,7 +49,7 @@ public class ServiceSynchronization implements Synchronization {
     protected static ServiceSynchronization getInstance() throws GenericServiceException {
         ServiceSynchronization sync = null;
         try {
-            Transaction transaction = TransactionFactory.getTransactionManager().getTransaction();
+            Transaction transaction = TransactionFactoryLoader.getInstance().getTransactionManager().getTransaction();
             synchronized (transaction) {
                 sync = syncingleton.get(transaction);
                 if (sync == null) {

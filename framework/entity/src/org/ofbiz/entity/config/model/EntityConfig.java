@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.entity.config.model;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,18 +26,25 @@ import java.util.Map;
 import java.util.HashMap;
 
 import org.ofbiz.base.lang.ThreadSafe;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.w3c.dom.Element;
 
 /**
- * An object that models the <code>&lt;entity-config&gt;</code> element.
+ * A singleton class that models the <code>&lt;entity-config&gt;</code> element.
  *
  * @see <code>entity-config.xsd</code>
  */
 @ThreadSafe
 public final class EntityConfig {
+    public static final String ENTITY_ENGINE_XML_FILENAME = "entityengine.xml";
 
+    private static final String module = EntityConfig.class.getName();
+
+    private static final EntityConfig instance = createNewInstance();
     private final List<ResourceLoader> resourceLoaderList; // <resource-loader>
     private final Map<String, ResourceLoader> resourceLoaderMap; // <resource-loader>
     private final TransactionFactory transactionFactory; // <transaction-factory>
@@ -57,7 +65,18 @@ public final class EntityConfig {
     private final List<Datasource> datasourceList; // <datasource>
     private final Map<String, Datasource> datasourceMap;
 
-    public EntityConfig(Element element) throws GenericEntityConfException {
+    private EntityConfig() throws GenericEntityConfException {
+        Element element;
+        URL confUrl = UtilURL.fromResource(ENTITY_ENGINE_XML_FILENAME);
+        if (confUrl == null) {
+            throw new GenericEntityConfException("Could not find the " + ENTITY_ENGINE_XML_FILENAME + " file");
+        }
+        try {
+            element = UtilXml.readXmlDocument(confUrl, true, true).getDocumentElement();
+        } catch (Exception e) {
+            throw new GenericEntityConfException("Exception thrown while reading " + ENTITY_ENGINE_XML_FILENAME + ": ", e);
+        }
+
         List<? extends Element> resourceLoaderElementList = UtilXml.childElementList(element, "resource-loader");
         if (resourceLoaderElementList.isEmpty()) {
             throw new GenericEntityConfException("<entity-config> element child elements <resource-loader> are missing");
@@ -79,10 +98,10 @@ public final class EntityConfig {
             this.transactionFactory = new TransactionFactory(transactionFactoryElement);
         }
         Element connectionFactoryElement = UtilXml.firstChildElement(element, "connection-factory");
-        if (connectionFactoryElement == null) {
-            throw new GenericEntityConfException("<entity-config> element child element <connection-factory> is missing");
-        } else {
+        if (connectionFactoryElement != null) {
             this.connectionFactory = new ConnectionFactory(connectionFactoryElement);
+        } else {
+            this.connectionFactory = null;
         }
         Element debugXaResourcesElement = UtilXml.firstChildElement(element, "debug-xa-resources");
         if (debugXaResourcesElement == null) {
@@ -192,6 +211,30 @@ public final class EntityConfig {
         }
     }
 
+    private static EntityConfig createNewInstance() {
+        EntityConfig entityConfig = null;
+        try {
+            entityConfig = new EntityConfig();
+        } catch (GenericEntityConfException gece) {
+            Debug.logError(gece, module);
+        }
+        return entityConfig;
+    }
+
+    public static EntityConfig getInstance() throws GenericEntityConfException {
+        if (instance == null) {
+            throw new GenericEntityConfException("EntityConfig is not initialized.");
+        }
+        return instance;
+    }
+
+    public static String createConfigFileLineNumberText(Element element) {
+        if (element.getUserData("startLine") != null) {
+            return " [" + ENTITY_ENGINE_XML_FILENAME + " line " + element.getUserData("startLine") + "]";
+        }
+        return "";
+    }
+
     /** Returns the specified <code>&lt;resource-loader&gt;</code> child element, or <code>null</code> if no child element was found. */
     public ResourceLoader getResourceLoader(String name) {
         return this.resourceLoaderMap.get(name);
@@ -283,8 +326,44 @@ public final class EntityConfig {
     }
 
     /** Returns the specified <code>&lt;datasource&gt;</code> child element or <code>null</code> if it does not exist. */
+    /*
     public Datasource getDatasource(String name) {
         return this.datasourceMap.get(name);
+    }
+    */
+    public static Datasource getDatasource(String name) {
+        try {
+            return getInstance().datasourceMap.get(name);
+        } catch (GenericEntityConfException e) {
+            // FIXME: Doing this so we don't have to rewrite the entire API.
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Returns the configured JDBC password.
+     *
+     * @param inlineJdbcElement
+     * @return The configured JDBC password.
+     * @throws GenericEntityConfException If the password was not found.
+     *
+     * @see <code>entity-config.xsd</code>
+     */
+    public static String getJdbcPassword(InlineJdbc inlineJdbcElement) throws GenericEntityConfException {
+        String jdbcPassword = inlineJdbcElement.getJdbcPassword();
+        if (!jdbcPassword.isEmpty()) {
+            return jdbcPassword;
+        }
+        String jdbcPasswordLookup = inlineJdbcElement.getJdbcPasswordLookup();
+        if (jdbcPasswordLookup.isEmpty()) {
+            throw new GenericEntityConfException("No jdbc-password or jdbc-password-lookup specified for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
+        }
+        String key = "jdbc-password.".concat(jdbcPasswordLookup);
+        jdbcPassword = UtilProperties.getPropertyValue("passwords.properties", key);
+        if (jdbcPassword.isEmpty()) {
+            throw new GenericEntityConfException("'" + key + "' property not found in passwords.properties file for inline-jdbc element, line: " + inlineJdbcElement.getLineNumber());
+        }
+        return jdbcPassword;
     }
 
     /** Returns the <code>&lt;datasource&gt;</code> child elements as a <code>Map</code>. */

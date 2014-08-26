@@ -34,11 +34,9 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.DebugXaResource;
@@ -58,7 +56,6 @@ import org.ofbiz.service.jms.JmsListenerFactory;
 import org.ofbiz.service.job.JobManager;
 import org.ofbiz.service.job.JobManagerException;
 import org.ofbiz.service.semaphore.ServiceSemaphore;
-import org.w3c.dom.Element;
 
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 
@@ -563,9 +560,6 @@ public class ServiceDispatcher {
         } catch (GenericTransactionException te) {
             Debug.logError(te, "Problems with the transaction", module);
             throw new GenericServiceException("Problems with the transaction.", te.getNested());
-        } catch (GenericEntityConfException e) {
-            Debug.logError(e, "Problems with the transaction", module);
-            throw new GenericServiceException("Problems with the transaction.", e);
         } finally {
             if (lock != null) {
                 // release the semaphore lock
@@ -759,9 +753,6 @@ public class ServiceDispatcher {
         } catch (GenericTransactionException se) {
             Debug.logError(se, "Problems with the transaction", module);
             throw new GenericServiceException("Problems with the transaction: " + se.getMessage() + "; See logs for more detail");
-        } catch (GenericEntityConfException e) {
-            Debug.logError(e, "Problems with the transaction", module);
-            throw new GenericServiceException("Problems with the transaction: " + e.getMessage() + "; See logs for more detail");
         } finally {
             // resume the parent transaction
             if (parentTransaction != null) {

@@ -47,7 +47,7 @@ import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.EntityConditionSubSelect;
 import org.ofbiz.entity.condition.EntityConditionValue;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
@@ -647,7 +647,7 @@ public class ProductSearch {
 
             this.entityConditionList.add(topCond);
 
-            Debug.logInfo("topCond=" + topCond.makeWhereString(null, FastList.<EntityConditionParam>newInstance(), EntityConfigUtil.getDatasource(delegator.getEntityHelperName("Product"))), module);
+            Debug.logInfo("topCond=" + topCond.makeWhereString(null, FastList.<EntityConditionParam>newInstance(), EntityConfig.getDatasource(delegator.getEntityHelperName("Product"))), module);
         }
 
         public EntityListIterator doQuery(Delegator delegator) {

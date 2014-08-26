@@ -52,9 +52,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.cache.Cache;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.datasource.GenericHelper;
 import org.ofbiz.entity.datasource.GenericHelperFactory;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
@@ -210,7 +210,7 @@ public class GenericDelegator implements Delegator {
     protected GenericDelegator(String delegatorFullName) throws GenericEntityException {
         //if (Debug.infoOn()) Debug.logInfo("Creating new Delegator with name \"" + delegatorFullName + "\".", module);
         this.setDelegatorNames(delegatorFullName);
-        this.delegatorInfo = EntityConfigUtil.getDelegator(delegatorBaseName);
+        this.delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
 
         String kekText;
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
@@ -282,7 +282,7 @@ public class GenericDelegator implements Delegator {
             GenericHelper helper = GenericHelperFactory.getHelper(helperInfo);
 
             try {
-                Datasource datasource = EntityConfigUtil.getDatasource(helperBaseName);
+                Datasource datasource = EntityConfig.getDatasource(helperBaseName);
                 if (datasource.getCheckOnStart()) {
                     if (Debug.infoOn()) {
                         Debug.logInfo("Doing database check as requested in entityengine.xml with addMissing=" + datasource.getAddMissingOnStart(), module);

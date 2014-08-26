@@ -37,8 +37,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.EntityGroupReader;
 import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Document;
@@ -62,7 +62,7 @@ public class ModelGroupReader implements Serializable {
     public List<ResourceHandler> entityGroupResourceHandlers = new LinkedList<ResourceHandler>();
 
     public static ModelGroupReader getModelGroupReader(String delegatorName) throws GenericEntityConfException {
-        DelegatorElement delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
+        DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
 
         if (delegatorInfo == null) {
             throw new GenericEntityConfException("Could not find a delegator with the name " + delegatorName);
@@ -79,13 +79,13 @@ public class ModelGroupReader implements Serializable {
 
     public ModelGroupReader(String modelName) throws GenericEntityConfException {
         this.modelName = modelName;
-        EntityGroupReader entityGroupReaderInfo = EntityConfigUtil.getEntityGroupReader(modelName);
+        EntityGroupReader entityGroupReaderInfo = EntityConfig.getInstance().getEntityGroupReader(modelName);
 
         if (entityGroupReaderInfo == null) {
             throw new GenericEntityConfException("Cound not find an entity-group-reader with the name " + modelName);
         }
         for (Resource resourceElement: entityGroupReaderInfo.getResourceList()) {
-            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation()));
+            this.entityGroupResourceHandlers.add(new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation()));
         }
 
         // get all of the component resource group stuff, ie specified in each ofbiz-component.xml file
@@ -171,7 +171,7 @@ public class ModelGroupReader implements Serializable {
             if (groupName == null) {
                 DelegatorElement delegatorInfo = null;
                 try {
-                    delegatorInfo = EntityConfigUtil.getDelegator(delegatorBaseName);
+                    delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorBaseName);
                 } catch (GenericEntityConfException e) {
                     Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
                 }
@@ -197,7 +197,7 @@ public class ModelGroupReader implements Serializable {
         if (this.groupNames == null) return null;
         Set<String> newSet = new HashSet<String>();
         try {
-            newSet.add(EntityConfigUtil.getDelegator(delegatorBaseName).getDefaultGroupName());
+            newSet.add(EntityConfig.getInstance().getDelegator(delegatorBaseName).getDefaultGroupName());
         } catch (GenericEntityConfException e) {
             Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
         }

@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -35,7 +34,7 @@ public final class GroupMap {
     private final String datasourceName; // type = xs:string
 
     GroupMap(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String groupName = element.getAttribute("group-name").intern();
         if (groupName.isEmpty()) {
             throw new GenericEntityConfException("<group-map> element group-name attribute is empty" + lineNumberText);

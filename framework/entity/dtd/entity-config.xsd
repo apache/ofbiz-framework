@@ -24,7 +24,7 @@ under the License.
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" ref="resource-loader"/>
                 <xs:element ref="transaction-factory"/>
-                <xs:element ref="connection-factory"/>
+                <xs:element minOccurs="0" ref="connection-factory"/>
                 <xs:element ref="debug-xa-resources"/>
                 <xs:element maxOccurs="unbounded" ref="delegator"/>
                 <xs:element maxOccurs="unbounded" ref="entity-model-reader"/>

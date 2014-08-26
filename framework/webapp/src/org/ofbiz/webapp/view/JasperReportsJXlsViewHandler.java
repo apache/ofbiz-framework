@@ -38,10 +38,10 @@ import net.sf.jasperreports.engine.export.JExcelApiExporterParameter;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.webapp.control.ContextFilter;
-import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 
 /**
@@ -105,7 +105,7 @@ public class JasperReportsJXlsViewHandler extends AbstractViewHandler {
                 String datasourceName = delegator.getEntityHelperName(info);
                 if (UtilValidate.isNotEmpty(datasourceName)) {
                     Debug.logInfo("Filling report with connection from datasource: " + datasourceName, module);
-                    jp = JasperFillManager.fillReport(report, parameters, ConnectionFactory.getConnection(datasourceName));
+                    jp = JasperFillManager.fillReport(report, parameters, TransactionFactoryLoader.getInstance().getConnection(new GenericHelperInfo(null, datasourceName)));
                 } else {
                     Debug.logInfo("Filling report with an empty JR datasource", module);
                     jp = JasperFillManager.fillReport(report, parameters, new JREmptyDataSource());

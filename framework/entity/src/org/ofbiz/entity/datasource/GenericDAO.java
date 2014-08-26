@@ -43,7 +43,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.EntityLockedException;
 import org.ofbiz.entity.GenericDataSourceException;
 import org.ofbiz.entity.GenericEntity;
-import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericEntityNotFoundException;
 import org.ofbiz.entity.GenericModelException;
@@ -53,7 +52,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionParam;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.model.*;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.jdbc.SQLProcessor;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
@@ -95,7 +93,7 @@ public class GenericDAO {
     public GenericDAO(GenericHelperInfo helperInfo) {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
-        this.datasource = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
+        this.datasource = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
         this.executor = ExecutionPool.getScheduledExecutor(GENERIC_DAO_THREAD_GROUP, "OFBiz-entity-datasource(" + helperInfo.getHelperFullName() + ")", datasource.getMaxWorkerPoolSize(), false);
     }
 

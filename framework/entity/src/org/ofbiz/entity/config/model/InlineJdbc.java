@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -54,7 +53,7 @@ public final class InlineJdbc extends JdbcElement {
 
     InlineJdbc(Element element) throws GenericEntityConfException {
         super(element);
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String jdbcDriver = element.getAttribute("jdbc-driver").intern();
         if (jdbcDriver.isEmpty()) {
             throw new GenericEntityConfException("<inline-jdbc> element jdbc-driver attribute is empty" + lineNumberText);

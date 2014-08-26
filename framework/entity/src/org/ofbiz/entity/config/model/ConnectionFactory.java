@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -34,7 +33,7 @@ public final class ConnectionFactory {
     private final String className; // type = xs:string
 
     ConnectionFactory(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String className = element.getAttribute("class").intern();
         if (className.isEmpty()) {
             throw new GenericEntityConfException("<connection-factory> element class attribute is empty" + lineNumberText);

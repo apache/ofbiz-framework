@@ -40,8 +40,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.GlobalServices;
@@ -84,7 +84,7 @@ public class DispatchContext implements Serializable {
             if (delegator != null) {
                 DelegatorElement delegatorInfo = null;
                 try {
-                    delegatorInfo = EntityConfigUtil.getDelegator(delegator.getDelegatorBaseName());
+                    delegatorInfo = EntityConfig.getInstance().getDelegator(delegator.getDelegatorBaseName());
                 } catch (GenericEntityConfException e) {
                     Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
                 }

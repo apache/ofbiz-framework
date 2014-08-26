@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -35,7 +34,7 @@ public final class Resource {
     private final String location; // type = xs:string
 
     Resource(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String loader = element.getAttribute("loader").intern();
         if (loader.isEmpty()) {
             throw new GenericEntityConfException("<resource> element loader attribute is empty" + lineNumberText);
