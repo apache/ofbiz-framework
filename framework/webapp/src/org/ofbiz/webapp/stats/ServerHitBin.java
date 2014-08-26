@@ -323,6 +323,7 @@ public class ServerHitBin {
     private final String id;
     private final int type;
     private final boolean limitLength;
+    private final long binLength;
     private long startTime;
     private long endTime;
     private long numberHits;
@@ -335,6 +336,7 @@ public class ServerHitBin {
         this.type = type;
         this.limitLength = limitLength;
         this.delegator = delegator;
+        this.binLength = getNewBinLength();
         reset(getEvenStartingTime());
     }
 
@@ -343,6 +345,7 @@ public class ServerHitBin {
         this.type = oldBin.type;
         this.limitLength = oldBin.limitLength;
         this.delegator = oldBin.delegator;
+        this.binLength = oldBin.binLength;
         this.startTime = oldBin.startTime;
         this.endTime = oldBin.endTime;
         this.numberHits = oldBin.numberHits;
@@ -432,7 +435,6 @@ public class ServerHitBin {
     private long getEvenStartingTime() {
         // binLengths should be a divisable evenly into 1 hour
         long curTime = System.currentTimeMillis();
-        long binLength = getNewBinLength();
 
         // find the first previous millis that are even on the hour
         Calendar cal = Calendar.getInstance();
@@ -442,8 +444,8 @@ public class ServerHitBin {
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
 
-        while (cal.getTime().getTime() < (curTime - binLength)) {
-            cal.add(Calendar.MILLISECOND, (int) binLength);
+        while (cal.getTime().getTime() < (curTime - this.binLength)) {
+            cal.add(Calendar.MILLISECOND, (int) this.binLength);
         }
 
         return cal.getTime().getTime();
@@ -452,10 +454,8 @@ public class ServerHitBin {
     private void reset(long startTime) {
         this.startTime = startTime;
         if (limitLength) {
-            long binLength = getNewBinLength();
-
             // subtract 1 millisecond to keep bin starting times even
-            this.endTime = startTime + binLength - 1;
+            this.endTime = startTime + this.binLength - 1;
         } else {
             this.endTime = 0;
         }
