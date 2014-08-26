@@ -350,63 +350,6 @@ public class ServerHitBin {
         reset(getEvenStartingTime());
     }
 
-    public Delegator getDelegator() {
-        if (this.delegator == null) {
-            this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
-        }
-        // if still null, then we have a problem
-        if (this.delegator == null) {
-            throw new IllegalArgumentException("Could not perform stats operation: could not find delegator with name: " + this.delegatorName);
-        }
-        return this.delegator;
-    }
-
-    long getEvenStartingTime() {
-        // binLengths should be a divisable evenly into 1 hour
-        long curTime = System.currentTimeMillis();
-        long binLength = getNewBinLength();
-
-        // find the first previous millis that are even on the hour
-        Calendar cal = Calendar.getInstance();
-
-        cal.setTime(new Date(curTime));
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        while (cal.getTime().getTime() < (curTime - binLength)) {
-            cal.add(Calendar.MILLISECOND, (int) binLength);
-        }
-
-        return cal.getTime().getTime();
-    }
-
-    static long getNewBinLength() {
-        long binLength = (long) UtilProperties.getPropertyNumber("serverstats", "stats.bin.length.millis");
-
-        // if no or 0 binLength specified, set to 30 minutes
-        if (binLength <= 0) binLength = 1800000;
-        // if binLength is more than an hour, set it to one hour
-        if (binLength > 3600000) binLength = 3600000;
-        return binLength;
-    }
-
-    private void reset(long startTime) {
-        this.startTime = startTime;
-        if (limitLength) {
-            long binLength = getNewBinLength();
-
-            // subtract 1 millisecond to keep bin starting times even
-            this.endTime = startTime + binLength - 1;
-        } else {
-            this.endTime = 0;
-        }
-        this.numberHits = 0;
-        this.totalRunningTime = 0;
-        this.minTime = Long.MAX_VALUE;
-        this.maxTime = 0;
-    }
-
     private ServerHitBin(ServerHitBin oldBin) {
         super();
 
@@ -421,6 +364,17 @@ public class ServerHitBin {
         this.totalRunningTime = oldBin.totalRunningTime;
         this.minTime = oldBin.minTime;
         this.maxTime = oldBin.maxTime;
+    }
+
+    public Delegator getDelegator() {
+        if (this.delegator == null) {
+            this.delegator = DelegatorFactory.getDelegator(this.delegatorName);
+        }
+        // if still null, then we have a problem
+        if (this.delegator == null) {
+            throw new IllegalArgumentException("Could not perform stats operation: could not find delegator with name: " + this.delegatorName);
+        }
+        return this.delegator;
     }
 
     public String getId() {
@@ -485,6 +439,52 @@ public class ServerHitBin {
     /** return the hits per minute using the entire length of the bin as returned by getBinLengthMinutes() */
     public double getHitsPerMinute() {
         return (this.numberHits) / this.getBinLengthMinutes();
+    }
+
+    private long getNewBinLength() {
+        long binLength = (long) UtilProperties.getPropertyNumber("serverstats", "stats.bin.length.millis");
+
+        // if no or 0 binLength specified, set to 30 minutes
+        if (binLength <= 0) binLength = 1800000;
+        // if binLength is more than an hour, set it to one hour
+        if (binLength > 3600000) binLength = 3600000;
+        return binLength;
+    }
+
+    private long getEvenStartingTime() {
+        // binLengths should be a divisable evenly into 1 hour
+        long curTime = System.currentTimeMillis();
+        long binLength = getNewBinLength();
+
+        // find the first previous millis that are even on the hour
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTime(new Date(curTime));
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        while (cal.getTime().getTime() < (curTime - binLength)) {
+            cal.add(Calendar.MILLISECOND, (int) binLength);
+        }
+
+        return cal.getTime().getTime();
+    }
+
+    private void reset(long startTime) {
+        this.startTime = startTime;
+        if (limitLength) {
+            long binLength = getNewBinLength();
+
+            // subtract 1 millisecond to keep bin starting times even
+            this.endTime = startTime + binLength - 1;
+        } else {
+            this.endTime = 0;
+        }
+        this.numberHits = 0;
+        this.totalRunningTime = 0;
+        this.minTime = Long.MAX_VALUE;
+        this.maxTime = 0;
     }
 
     private synchronized void addHit(long startTime, long runningTime) {
