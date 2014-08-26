@@ -55,8 +55,8 @@ public class ServerHitBin {
     public static final int VIEW = 3;
     public static final int ENTITY = 4;
     public static final int SERVICE = 5;
-    public static final String[] typeNames = {"", "Request", "Event", "View", "Entity", "Service"};
-    public static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
+
+    private static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
 
     public static void countRequest(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         countHit(id, REQUEST, request, startTime, runningTime, userLogin);
@@ -78,30 +78,12 @@ public class ServerHitBin {
         countHit(id, SERVICE, request, startTime, runningTime, userLogin);
     }
 
-    public static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
+    private static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         // only count hits if enabled, if not specified defaults to false
         if (!"true".equals(UtilProperties.getPropertyValue("serverstats", "stats.enable." + typeIds[type]))) return;
         countHit(id, type, request, startTime, runningTime, userLogin, true);
     }
 
-    public static void advanceAllBins(long toTime) {
-        advanceAllBins(toTime, requestHistory);
-        advanceAllBins(toTime, eventHistory);
-        advanceAllBins(toTime, viewHistory);
-        advanceAllBins(toTime, entityHistory);
-        advanceAllBins(toTime, serviceHistory);
-    }
-
-    static void advanceAllBins(long toTime, Map<String, List<ServerHitBin>> binMap) {
-        for (Map.Entry<String, List<ServerHitBin>> entry  :binMap.entrySet()) {
-            if (entry.getValue() != null) {
-                for (ServerHitBin bin: entry.getValue()) {
-                    bin.advanceBin(toTime);
-                }
-            }
-        }
-    }
-    
     private static String makeIdTenantAware(String id, Delegator delegator) {
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId())) {
             return id + "#" + delegator.getDelegatorTenantId();
@@ -110,7 +92,7 @@ public class ServerHitBin {
         }
     }
 
-    protected static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin, boolean isOriginal) {
+    private static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin, boolean isOriginal) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (delegator == null) {
             String delegatorName = (String) request.getSession().getAttribute("delegatorName");
@@ -238,7 +220,7 @@ public class ServerHitBin {
             countHit("GLOBAL", type, request, startTime, runningTime, userLogin, true);
     }
 
-    static void countHitSinceStart(String baseId, int type, long startTime, long runningTime, boolean isOriginal,
+    private static void countHitSinceStart(String baseId, int type, long startTime, long runningTime, boolean isOriginal,
         Delegator delegator) {
         if (delegator == null) {
             throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
@@ -342,19 +324,19 @@ public class ServerHitBin {
     public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
     public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
 
-    Delegator delegator;
-    String delegatorName;
-    String id;
-    int type;
-    boolean limitLength;
-    long startTime;
-    long endTime;
-    long numberHits;
-    long totalRunningTime;
-    long minTime;
-    long maxTime;
+    private Delegator delegator;
+    private String delegatorName;
+    private String id;
+    private int type;
+    private boolean limitLength;
+    private long startTime;
+    private long endTime;
+    private long numberHits;
+    private long totalRunningTime;
+    private long minTime;
+    private long maxTime;
 
-    public ServerHitBin(String id, int type, boolean limitLength, Delegator delegator) {
+    private ServerHitBin(String id, int type, boolean limitLength, Delegator delegator) {
         super();
         if (delegator == null) {
             throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
@@ -409,7 +391,7 @@ public class ServerHitBin {
         return binLength;
     }
 
-    void reset(long startTime) {
+    private void reset(long startTime) {
         this.startTime = startTime;
         if (limitLength) {
             long binLength = getNewBinLength();
@@ -425,7 +407,7 @@ public class ServerHitBin {
         this.maxTime = 0;
     }
 
-    ServerHitBin(ServerHitBin oldBin) {
+    private ServerHitBin(ServerHitBin oldBin) {
         super();
 
         this.id = oldBin.id;
@@ -447,10 +429,6 @@ public class ServerHitBin {
 
     public int getType() {
         return this.type;
-    }
-
-    public String getTypeString() {
-        return typeNames[this.type];
     }
 
     /** returns the startTime of the bin */
@@ -488,20 +466,8 @@ public class ServerHitBin {
         return this.numberHits;
     }
 
-    public long getTotalRunningTime() {
-        return this.totalRunningTime;
-    }
-
-    public long getMinTime() {
-        return this.minTime;
-    }
-
     public double getMinTimeSeconds() {
         return (this.minTime) / 1000.0;
-    }
-
-    public long getMaxTime() {
-        return this.maxTime;
     }
 
     public double getMaxTimeSeconds() {
@@ -521,7 +487,7 @@ public class ServerHitBin {
         return (this.numberHits) / this.getBinLengthMinutes();
     }
 
-    synchronized void addHit(long startTime, long runningTime) {
+    private synchronized void addHit(long startTime, long runningTime) {
         advanceBin(startTime + runningTime);
 
         this.numberHits++;
@@ -532,7 +498,7 @@ public class ServerHitBin {
             this.maxTime = runningTime;
     }
 
-    synchronized void advanceBin(long toTime) {
+    private synchronized void advanceBin(long toTime) {
         // first check to see if this bin has expired, if so save and recycle it
         while (limitLength && toTime > this.endTime) {
             List<ServerHitBin> binList = null;
@@ -593,7 +559,7 @@ public class ServerHitBin {
         }
     }
 
-    void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) throws GenericEntityException {
+    private void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) throws GenericEntityException {
         // persist record of hit in ServerHit entity if option turned on
         if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".hit", "true")) {
             // if the hit type is ENTITY and the name contains "ServerHit" don't
