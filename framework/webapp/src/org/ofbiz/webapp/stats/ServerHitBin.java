@@ -58,6 +58,20 @@ public class ServerHitBin {
 
     private static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
 
+    // these Maps contain Lists of ServerHitBin objects by id, the most recent is first in the list
+    public static Map<String, List<ServerHitBin>> requestHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> eventHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> viewHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> entityHistory = FastMap.newInstance();
+    public static Map<String, List<ServerHitBin>> serviceHistory = FastMap.newInstance();
+
+    // these Maps contain ServerHitBin objects by id
+    public static Map<String, ServerHitBin> requestSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> eventSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> viewSinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
+    public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
+
     public static void countRequest(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         countHit(id, REQUEST, request, startTime, runningTime, userLogin);
     }
@@ -309,20 +323,6 @@ public class ServerHitBin {
         if (isOriginal)
             countHitSinceStart("GLOBAL", type, startTime, runningTime, false, delegator);
     }
-
-    // these Maps contain Lists of ServerHitBin objects by id, the most recent is first in the list
-    public static Map<String, List<ServerHitBin>> requestHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> eventHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> viewHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> entityHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> serviceHistory = FastMap.newInstance();
-
-    // these Maps contain ServerHitBin objects by id
-    public static Map<String, ServerHitBin> requestSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> eventSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> viewSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
 
     private Delegator delegator;
     private String delegatorName;
