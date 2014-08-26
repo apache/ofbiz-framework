@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,6 +35,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
@@ -47,7 +50,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -57,6 +60,7 @@ import org.ofbiz.entity.model.ModelIndex;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -91,7 +95,7 @@ public class DatabaseUtil {
     public DatabaseUtil(GenericHelperInfo helperInfo, ExecutorService executor) {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
-        this.datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
+        this.datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
         this.executor = executor;
     }
 
@@ -132,9 +136,9 @@ public class DatabaseUtil {
     protected Connection getConnection() throws SQLException, GenericEntityException {
         Connection connection = null;
         if (!isLegacy) {
-            connection = ConnectionFactory.getConnection(helperInfo);
+            connection = TransactionFactoryLoader.getInstance().getConnection(helperInfo);
         } else {
-            connection = ConnectionFactory.getConnection(driverName, connectionUrl, null, userName, password);
+            connection = getConnection(driverName, connectionUrl, null, userName, password);
         }
 
         if (connection == null) {
@@ -148,6 +152,36 @@ public class DatabaseUtil {
             connection.setAutoCommit(true);
         }
         return connection;
+    }
+
+    private Connection getConnection(String driverName, String connectionUrl, Properties props, String userName, String password) throws SQLException {
+        // first register the JDBC driver with the DriverManager
+        if (driverName != null) {
+            if (DriverManager.getDriver(driverName) == null) {
+                try {
+                    Driver driver = (Driver) Class.forName(driverName, true, Thread.currentThread().getContextClassLoader()).newInstance();
+                    DriverManager.registerDriver(driver);
+                } catch (ClassNotFoundException e) {
+                    Debug.logWarning(e, "Unable to load driver [" + driverName + "]", module);
+                } catch (InstantiationException e) {
+                    Debug.logWarning(e, "Unable to instantiate driver [" + driverName + "]", module);
+                } catch (IllegalAccessException e) {
+                    Debug.logWarning(e, "Illegal access exception [" + driverName + "]", module);
+                }
+            }
+        }
+
+        try {
+            if (UtilValidate.isNotEmpty(userName))
+                return DriverManager.getConnection(connectionUrl, userName, password);
+            else if (props != null)
+                return DriverManager.getConnection(connectionUrl, props);
+            else
+                return DriverManager.getConnection(connectionUrl);
+        } catch (SQLException e) {
+            Debug.logError(e, "SQL Error obtaining JDBC connection", module);
+            throw e;
+        }
     }
 
     protected Connection getConnectionLogged(Collection<String> messages) {

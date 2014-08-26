@@ -38,7 +38,6 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.*;
 import org.w3c.dom.Element;
 
@@ -64,7 +63,7 @@ public class EntityEcaUtil {
     public static String getEntityEcaReaderName(String delegatorName) {
         DelegatorElement delegatorInfo = null;
         try {
-            delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
+            delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
         } catch (GenericEntityConfException e) {
             Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
         }
@@ -78,7 +77,7 @@ public class EntityEcaUtil {
     protected static void readConfig(String entityEcaReaderName, Map<String, Map<String, List<EntityEcaRule>>> ecaCache) {
         EntityEcaReader entityEcaReaderInfo = null;
         try {
-            entityEcaReaderInfo = EntityConfigUtil.getEntityEcaReader(entityEcaReaderName);
+            entityEcaReaderInfo = EntityConfig.getInstance().getEntityEcaReader(entityEcaReaderName);
         } catch (GenericEntityConfException e) {
             Debug.logError(e, "Exception thrown while getting entity-eca-reader config with name: " + entityEcaReaderName, module);
         }
@@ -89,7 +88,7 @@ public class EntityEcaUtil {
 
         List<Future<List<EntityEcaRule>>> futures = FastList.newInstance();
         for (Resource eecaResourceElement : entityEcaReaderInfo.getResourceList()) {
-            ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement.getLoader(), eecaResourceElement.getLocation());
+            ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement.getLoader(), eecaResourceElement.getLocation());
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(handler)));
         }
 

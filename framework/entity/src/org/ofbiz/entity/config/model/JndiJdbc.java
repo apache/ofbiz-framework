@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -36,7 +35,7 @@ public final class JndiJdbc extends JdbcElement {
 
     JndiJdbc(Element element) throws GenericEntityConfException {
         super(element);
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String jndiServerName = element.getAttribute("jndi-server-name").intern();
         if (jndiServerName.isEmpty()) {
             throw new GenericEntityConfException("<jndi-jdbc> element jndi-server-name attribute is empty" + lineNumberText);

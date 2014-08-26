@@ -28,7 +28,6 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.transaction.TransactionManager;
 
-import org.apache.commons.dbcp2.ConnectionFactory;
 import org.apache.commons.dbcp2.DriverConnectionFactory;
 import org.apache.commons.dbcp2.PoolableConnectionFactory;
 import org.apache.commons.dbcp2.managed.LocalXAConnectionFactory;
@@ -40,18 +39,19 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.InlineJdbc;
 import org.ofbiz.entity.config.model.JdbcElement;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.transaction.TransactionFactory;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
  * Apache Commons DBCP connection factory.
  * 
  * @see <a href="http://commons.apache.org/proper/commons-dbcp/">Apache Commons DBCP</a>
  */
-public class DBCPConnectionFactory implements ConnectionFactoryInterface {
+public class DBCPConnectionFactory implements ConnectionFactory {
 
     public static final String module = DBCPConnectionFactory.class.getName();
     protected static final ConcurrentHashMap<String, ManagedDataSource> dsCache = new ConcurrentHashMap<String, ManagedDataSource>();
@@ -60,19 +60,19 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         String cacheKey = helperInfo.getHelperFullName();
         ManagedDataSource mds = dsCache.get(cacheKey);
         if (mds != null) {
-            return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
+            return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
         }
         if (!(abstractJdbc instanceof InlineJdbc)) {
             throw new GenericEntityConfException("DBCP requires an <inline-jdbc> child element in the <datasource> element");
         }
         InlineJdbc jdbcElement = (InlineJdbc) abstractJdbc;
         // connection properties
-        TransactionManager txMgr = TransactionFactory.getTransactionManager();
+        TransactionManager txMgr = TransactionFactoryLoader.getInstance().getTransactionManager();
         String driverName = jdbcElement.getJdbcDriver();
 
         String jdbcUri = helperInfo.getOverrideJdbcUri(jdbcElement.getJdbcUri());
         String jdbcUsername = helperInfo.getOverrideUsername(jdbcElement.getJdbcUsername());
-        String jdbcPassword = helperInfo.getOverridePassword(EntityConfigUtil.getJdbcPassword(jdbcElement));
+        String jdbcPassword = helperInfo.getOverridePassword(EntityConfig.getJdbcPassword(jdbcElement));
 
         // pool settings
         int maxSize = jdbcElement.getPoolMaxsize();
@@ -98,7 +98,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         cfProps.put("password", jdbcPassword);
 
         // create the connection factory
-        ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
+        org.apache.commons.dbcp2.ConnectionFactory cf = new DriverConnectionFactory(jdbcDriver, jdbcUri, cfProps);
 
         // wrap it with a LocalXAConnectionFactory
         XAConnectionFactory xacf = new LocalXAConnectionFactory(txMgr, cf);
@@ -152,7 +152,7 @@ public class DBCPConnectionFactory implements ConnectionFactoryInterface {
         dsCache.putIfAbsent(cacheKey, mds);
         mds = dsCache.get(cacheKey);
 
-        return TransactionFactory.getCursorConnection(helperInfo, mds.getConnection());
+        return TransactionUtil.getCursorConnection(helperInfo, mds.getConnection());
     }
 
     public void closeAll() {

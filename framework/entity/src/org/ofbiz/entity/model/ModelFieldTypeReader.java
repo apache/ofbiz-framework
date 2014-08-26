@@ -33,8 +33,8 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.FieldType;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -66,7 +66,7 @@ public class ModelFieldTypeReader implements Serializable {
     }
 
     public static ModelFieldTypeReader getModelFieldTypeReader(String helperName) {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
         if (datasourceInfo == null) {
             throw new IllegalArgumentException("Could not find a datasource/helper with the name " + helperName);
         }
@@ -75,14 +75,14 @@ public class ModelFieldTypeReader implements Serializable {
         while (reader == null) {
             FieldType fieldTypeInfo = null;
             try {
-                fieldTypeInfo = EntityConfigUtil.getFieldType(tempModelName);
+                fieldTypeInfo = EntityConfig.getInstance().getFieldType(tempModelName);
             } catch (GenericEntityConfException e) {
                 Debug.logWarning(e, "Exception thrown while getting field type config: ", module);
             }
             if (fieldTypeInfo == null) {
                 throw new IllegalArgumentException("Could not find a field-type definition with name \"" + tempModelName + "\"");
             }
-            ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.getLoader(), fieldTypeInfo.getLocation());
+            ResourceHandler fieldTypeResourceHandler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, fieldTypeInfo.getLoader(), fieldTypeInfo.getLocation());
             UtilTimer utilTimer = new UtilTimer();
             utilTimer.timerString("[ModelFieldTypeReader.getModelFieldTypeReader] Reading field types from " + fieldTypeResourceHandler.getLocation());
             Document document = null;

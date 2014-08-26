@@ -43,8 +43,8 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.service.DispatchContext;
@@ -128,7 +128,7 @@ public class ArtifactInfoFactory {
     protected ArtifactInfoFactory(String delegatorName) throws GeneralException {
         this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
-        DelegatorElement delegatorInfo = EntityConfigUtil.getDelegator(delegatorName);
+        DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
         String modelName;
         if (delegatorInfo != null) {
             modelName = delegatorInfo.getEntityModelReader();

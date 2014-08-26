@@ -32,15 +32,15 @@ import org.apache.geronimo.transaction.manager.XidFactoryImpl;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
-import org.ofbiz.entity.transaction.TransactionFactoryInterface;
+import org.ofbiz.entity.jdbc.ConnectionFactoryLoader;
+import org.ofbiz.entity.transaction.TransactionFactory;
 
 /**
  * GeronimoTransactionFactory
  */
-public class GeronimoTransactionFactory implements TransactionFactoryInterface {
+public class GeronimoTransactionFactory implements TransactionFactory {
 
     public static final String module = GeronimoTransactionFactory.class.getName();
 
@@ -59,14 +59,14 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     }
 
     /*
-     * @see org.ofbiz.entity.transaction.TransactionFactoryInterface#getTransactionManager()
+     * @see org.ofbiz.entity.transaction.TransactionFactory#getTransactionManager()
      */
     public TransactionManager getTransactionManager() {
         return geronimoTransactionManager;
     }
 
     /*
-     * @see org.ofbiz.entity.transaction.TransactionFactoryInterface#getUserTransaction()
+     * @see org.ofbiz.entity.transaction.TransactionFactory#getUserTransaction()
      */
     public UserTransaction getUserTransaction() {
         return geronimoTransactionManager;
@@ -77,10 +77,10 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     }
 
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
 
         if (datasourceInfo != null && datasourceInfo.getInlineJdbc() != null) {
-            return ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.getInlineJdbc());
+            return ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
         } else {
             Debug.logError("Geronimo is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", module);
             return null;
@@ -88,7 +88,7 @@ public class GeronimoTransactionFactory implements TransactionFactoryInterface {
     }
 
     public void shutdown() {
-        ConnectionFactory.closeAllManagedConnections();
+        ConnectionFactoryLoader.getInstance().closeAll();
         /*
         if (transactionContextManager != null) {
             // TODO: need to do anything for this?

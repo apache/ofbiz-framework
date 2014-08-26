@@ -39,8 +39,8 @@ import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.model.Datasource;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.jdbc.SqlJdbcUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
@@ -281,7 +281,7 @@ public class MemoryHelper implements GenericHelper {
     public MemoryHelper(String helperName) {
         this.helperName = helperName;
         modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperName);
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
         this.executor = ExecutionPool.getScheduledExecutor(MEMORY_HELPER_THREAD_GROUP, "OFBiz-entity-datasource(" + helperName + ")", datasourceInfo.getMaxWorkerPoolSize(), false);
     }
 

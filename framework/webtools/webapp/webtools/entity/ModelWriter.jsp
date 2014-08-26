@@ -99,7 +99,7 @@ under the License.
   String originalLoaderName = request.getParameter("originalLoaderName");
   String originalLocation = request.getParameter("originalLocation");
   if (originalLoaderName != null && originalLocation != null) {
-    ec = reader.getResourceHandlerEntities(new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, originalLoaderName, originalLocation));
+    ec = reader.getResourceHandlerEntities(new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, originalLoaderName, originalLocation));
   } else {
     ec = reader.getEntityNames();
   }

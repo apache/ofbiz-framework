@@ -36,8 +36,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.config.model.EntityDataReader;
 import org.ofbiz.entity.config.model.ReadData;
 import org.ofbiz.entity.config.model.Resource;
@@ -58,7 +58,7 @@ public class EntityDataLoader {
     public static String getPathsString(String helperName) {
         StringBuilder pathBuffer = new StringBuilder();
         if (UtilValidate.isNotEmpty(helperName)) {
-            Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+            Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
             for (SqlLoadPath sqlLoadPath : datasourceInfo.getSqlLoadPathList()) {
                 String prependEnv = sqlLoadPath.getPrependEnv();
                 pathBuffer.append(pathBuffer.length() == 0 ? "" : ";");
@@ -73,12 +73,12 @@ public class EntityDataLoader {
     }
 
     public static List<URL> getUrlList(String helperName) {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
         return getUrlList(helperName, null, datasourceInfo.getReadDataList());
     }
 
     public static List<URL> getUrlList(String helperName, String componentName) {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
         return getUrlList(helperName, componentName, datasourceInfo.getReadDataList());
     }
 
@@ -113,7 +113,7 @@ public class EntityDataLoader {
                 // get all of the main resource model stuff, ie specified in the entityengine.xml file
                 EntityDataReader entityDataReaderInfo = null;
                 try {
-                    entityDataReaderInfo = EntityConfigUtil.getEntityDataReader(readerName);
+                    entityDataReaderInfo = EntityConfig.getInstance().getEntityDataReader(readerName);
                     if (entityDataReaderInfo == null) {
                         // create a reader name defined at runtime
                         Debug.logInfo("Could not find entity-data-reader named: " + readerName + ". Creating a new reader with this name. ", module);
@@ -124,7 +124,7 @@ public class EntityDataLoader {
                 }
                 if (entityDataReaderInfo != null) {
                     for (Resource resourceElement: entityDataReaderInfo.getResourceList()) {
-                        ResourceHandler handler = new MainResourceHandler(EntityConfigUtil.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
+                        ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, resourceElement.getLoader(), resourceElement.getLocation());
                         try {
                             urlList.add(handler.getURL());
                         } catch (GenericConfigException e) {
@@ -205,7 +205,7 @@ public class EntityDataLoader {
     }
 
     public static List<URL> getUrlByComponentList(String helperName, List<String> components) {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
         List<String> readerNames = new LinkedList<String>();
         for (ReadData readerInfo :  datasourceInfo.getReadDataList()) {
             String readerName = readerInfo.getReaderName();

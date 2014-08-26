@@ -32,10 +32,10 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.transaction.GenericTransactionException;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.entity.transaction.TransactionUtil;
 
 /**
@@ -204,7 +204,7 @@ public class SequenceUtil {
                             ResultSet rs = null;
 
                             try {
-                                connection = ConnectionFactory.getConnection(SequenceUtil.this.helperInfo);
+                                connection = TransactionFactoryLoader.getInstance().getConnection(SequenceUtil.this.helperInfo);
                             } catch (SQLException sqle) {
                                 Debug.logWarning("[SequenceUtil.SequenceBank.fillBank]: Unable to esablish a connection with the database... Error was:" + sqle.toString(), module);
                                 throw sqle;

@@ -42,7 +42,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
 import org.ofbiz.entity.config.model.DelegatorElement;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.service.DispatchContext;
@@ -73,7 +73,7 @@ public class LabelReferences {
         this.labels = factory.getLabels();
         DelegatorElement delegatorInfo = null;
         try {
-            delegatorInfo = EntityConfigUtil.getDelegator(delegator.getDelegatorBaseName());
+            delegatorInfo = EntityConfig.getInstance().getDelegator(delegator.getDelegatorBaseName());
         } catch (GenericEntityConfException e) {
             Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
         }

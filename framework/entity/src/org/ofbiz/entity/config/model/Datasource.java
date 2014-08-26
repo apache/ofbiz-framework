@@ -25,7 +25,6 @@ import java.util.List;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -83,7 +82,7 @@ public final class Datasource {
     private final TyrexDataSource tyrexDataSource; // <tyrex-dataSource>
 
     Datasource(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String name = element.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new GenericEntityConfException("<datasource> element name attribute is empty" + lineNumberText);

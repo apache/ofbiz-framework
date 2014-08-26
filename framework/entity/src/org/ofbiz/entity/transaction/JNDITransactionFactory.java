@@ -38,18 +38,16 @@ import org.ofbiz.base.util.JNDIContextFactory;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.*;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
-import org.w3c.dom.Element;
+import org.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 
 /**
  * Central source for Tyrex JTA objects from JNDI
  */
-public class JNDIFactory implements TransactionFactoryInterface {
+public class JNDITransactionFactory implements TransactionFactory {
 
     // Debug module name
-    public static final String module = JNDIFactory.class.getName();
+    public static final String module = JNDITransactionFactory.class.getName();
 
     static TransactionManager transactionManager = null;
     static UserTransaction userTransaction = null;
@@ -59,15 +57,15 @@ public class JNDIFactory implements TransactionFactoryInterface {
 
     public TransactionManager getTransactionManager() {
         if (transactionManager == null) {
-            synchronized (JNDIFactory.class) {
+            synchronized (JNDITransactionFactory.class) {
                 // try again inside the synch just in case someone when through while we were waiting
                 if (transactionManager == null) {
                     try {
-                        String jndiName = EntityConfigUtil.getTxFactoryTxMgrJndiName();
-                        String jndiServerName = EntityConfigUtil.getTxFactoryTxMgrJndiServerName();
+                        String jndiName = EntityConfig.getInstance().getTransactionFactory().getTransactionManagerJndi().getJndiName();
+                        String jndiServerName = EntityConfig.getInstance().getTransactionFactory().getTransactionManagerJndi().getJndiServerName();
 
                         if (UtilValidate.isNotEmpty(jndiName)) {
-                            // if (Debug.verboseOn()) Debug.logVerbose("[JNDIFactory.getTransactionManager] Trying JNDI name " + jndiName, module);
+                            // if (Debug.verboseOn()) Debug.logVerbose("[JNDITransactionFactory.getTransactionManager] Trying JNDI name " + jndiName, module);
 
                             try {
                                 InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
@@ -80,7 +78,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
                                 transactionManager = null;
                             }
                             if (transactionManager == null) {
-                                Debug.logWarning("[JNDIFactory.getTransactionManager] Failed to find TransactionManager named " + jndiName + " in JNDI.", module);
+                                Debug.logWarning("Failed to find TransactionManager named " + jndiName + " in JNDI.", module);
                             }
                         }
                     } catch (GeneralException e) {
@@ -95,15 +93,14 @@ public class JNDIFactory implements TransactionFactoryInterface {
 
     public UserTransaction getUserTransaction() {
         if (userTransaction == null) {
-            synchronized (JNDIFactory.class) {
+            synchronized (JNDITransactionFactory.class) {
                 // try again inside the synch just in case someone when through while we were waiting
                 if (userTransaction == null) {
                     try {
-                        String jndiName = EntityConfigUtil.getTxFactoryUserTxJndiName();
-                        String jndiServerName = EntityConfigUtil.getTxFactoryUserTxJndiServerName();
+                        String jndiName = EntityConfig.getInstance().getTransactionFactory().getUserTransactionJndi().getJndiName();
+                        String jndiServerName = EntityConfig.getInstance().getTransactionFactory().getUserTransactionJndi().getJndiServerName();
 
                         if (UtilValidate.isNotEmpty(jndiName)) {
-                            // if (Debug.verboseOn()) Debug.logVerbose("[JNDIFactory.getTransactionManager] Trying JNDI name " + jndiName, module);
 
                             try {
                                 InitialContext ic = JNDIContextFactory.getInitialContext(jndiServerName);
@@ -116,7 +113,7 @@ public class JNDIFactory implements TransactionFactoryInterface {
                                 userTransaction = null;
                             }
                             if (userTransaction == null) {
-                                Debug.logWarning("[JNDIFactory.getUserTransaction] Failed to find UserTransaction named " + jndiName + " in JNDI.", module);
+                                Debug.logWarning("Failed to find UserTransaction named " + jndiName + " in JNDI.", module);
                             }
                         }
                     } catch (GeneralException e) {
@@ -134,21 +131,21 @@ public class JNDIFactory implements TransactionFactoryInterface {
     }
 
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
 
         if (datasourceInfo.getJndiJdbc() != null) {
             JndiJdbc jndiJdbcElement = datasourceInfo.getJndiJdbc();
             String jndiName = jndiJdbcElement.getJndiName();
             String jndiServerName = jndiJdbcElement.getJndiServerName();
             Connection con = getJndiConnection(jndiName, jndiServerName);
-            if (con != null) return TransactionFactory.getCursorConnection(helperInfo, con);
+            if (con != null) return TransactionUtil.getCursorConnection(helperInfo, con);
         } else {
            // Debug.logError("JNDI loaded is the configured transaction manager but no jndi-jdbc element was specified in the " + helperName + " datasource. Please check your configuration.", module);
         }
 
         if (datasourceInfo.getInlineJdbc() != null) {
-            Connection otherCon = ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.getInlineJdbc());
-            return TransactionFactory.getCursorConnection(helperInfo, otherCon);
+            Connection otherCon = ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
+            return TransactionUtil.getCursorConnection(helperInfo, otherCon);
         } else {
             //no real need to print an error here
             return null;

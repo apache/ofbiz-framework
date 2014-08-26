@@ -20,7 +20,6 @@ package org.ofbiz.entity.config.model;
 
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.w3c.dom.Element;
 
 /**
@@ -34,7 +33,7 @@ public final class ReadData {
     private final String readerName; // type = xs:string
 
     ReadData(Element element) throws GenericEntityConfException {
-        String lineNumberText = EntityConfigUtil.createConfigFileLineNumberText(element);
+        String lineNumberText = EntityConfig.createConfigFileLineNumberText(element);
         String readerName = element.getAttribute("reader-name").intern();
         if (readerName.isEmpty()) {
             throw new GenericEntityConfException("<read-data> element reader-name attribute is empty" + lineNumberText);

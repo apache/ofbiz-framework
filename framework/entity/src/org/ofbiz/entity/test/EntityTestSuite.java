@@ -46,8 +46,8 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.config.EntityConfigUtil;
 import org.ofbiz.entity.config.model.Datasource;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.testtools.EntityTestCase;
@@ -461,7 +461,7 @@ public class EntityTestSuite extends EntityTestCase {
     public void testForeignKeyCreate() {
         try {
             String helperName = delegator.getEntityHelper("Testing").getHelperName();
-            Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+            Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
             if (!datasourceInfo.getUseForeignKeys()) {
                 Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyCreate", module);
                 return;
@@ -485,7 +485,7 @@ public class EntityTestSuite extends EntityTestCase {
     public void testForeignKeyRemove() throws Exception {
         try {
             String helperName = delegator.getEntityHelper("TestingNode").getHelperName();
-            Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperName);
+            Datasource datasourceInfo = EntityConfig.getDatasource(helperName);
             if (!datasourceInfo.getUseForeignKeys()) {
                 Debug.logInfo("Datasource " + datasourceInfo.getName() + " use-foreign-keys set to false, skipping testForeignKeyRemove", module);
                 return;
@@ -857,7 +857,7 @@ public class EntityTestSuite extends EntityTestCase {
      */
     /*public void testLimitOffsetOptions() throws Exception {
         String entityName = "Content";
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(delegator.getEntityHelper(entityName).getHelperName());
+        Datasource datasourceInfo = EntityConfig.getDatasource(delegator.getEntityHelper(entityName).getHelperName());
         if (UtilValidate.isEmpty(datasourceInfo.offsetStyle) || datasourceInfo.offsetStyle.equals("none")) {
             Debug.logInfo("The offset-stype configured in datasource is " + datasourceInfo.offsetStyle +  ", this test is skipped.", module);
             return;

@@ -20,85 +20,24 @@ package org.ofbiz.entity.transaction;
 
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.concurrent.atomic.AtomicReference;
-
 import javax.transaction.TransactionManager;
 import javax.transaction.UserTransaction;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.config.EntityConfigUtil;
-import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.jdbc.CursorConnection;
 
 /**
  * TransactionFactory - central source for JTA objects
  */
-public class TransactionFactory {
+public interface TransactionFactory {
 
-    public static final String module = TransactionFactory.class.getName();
-    private static final AtomicReference<TransactionFactoryInterface> txFactoryRef = new AtomicReference<TransactionFactoryInterface>(null);
+    public TransactionManager getTransactionManager();
 
-    private static TransactionFactoryInterface createTransactionFactoryInterface() throws Exception {
-        String className = EntityConfigUtil.getTxFactoryClass();
-        if (className == null) {
-            throw new IllegalStateException("Could not find transaction factory class name definition");
-        }
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        Class<?> tfClass = loader.loadClass(className);
-        return (TransactionFactoryInterface) tfClass.newInstance();
-    }
+    public UserTransaction getUserTransaction();
 
-    private static TransactionFactoryInterface getTransactionFactory() {
-        TransactionFactoryInterface instance = txFactoryRef.get();
-        if (instance == null) {
-            try {
-                instance = createTransactionFactoryInterface();
-                if (!txFactoryRef.compareAndSet(null, instance)) {
-                    instance = txFactoryRef.get();
-                }
-            } catch (Exception e) {
-                Debug.logError(e, "Exception thrown while creating TransactionFactoryInterface instance: ", module);
-                throw new IllegalStateException("Error loading TransactionFactory class: " + e);
-            }
-        }
-        return instance;
-    }
+    public String getTxMgrName();
 
-    public static TransactionManager getTransactionManager() {
-        return getTransactionFactory().getTransactionManager();
-    }
+    public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException;
 
-    public static UserTransaction getUserTransaction() {
-        return getTransactionFactory().getUserTransaction();
-    }
-
-    public static String getTxMgrName() {
-        return getTransactionFactory().getTxMgrName();
-    }
-
-    public static Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
-        return getTransactionFactory().getConnection(helperInfo);
-    }
-
-    public static void shutdown() {
-        getTransactionFactory().shutdown();
-    }
-
-    public static Connection getCursorConnection(GenericHelperInfo helperInfo, Connection con) {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
-        if (datasourceInfo == null) {
-            Debug.logWarning("Could not find configuration for " + helperInfo.getHelperBaseName() + " datasource.", module);
-            return con;
-        } else if (datasourceInfo.getUseProxyCursor()) {
-            try {
-                if (datasourceInfo.getResultFetchSize() > 1)
-                    con = CursorConnection.newCursorConnection(con, datasourceInfo.getProxyCursorName(), datasourceInfo.getResultFetchSize());
-            } catch (Exception ex) {
-                Debug.logWarning(ex, "Error creating the cursor connection proxy " + helperInfo.getHelperBaseName() + " datasource.", module);
-            }
-        }
-        return con;
-    }
+    public void shutdown();
 }

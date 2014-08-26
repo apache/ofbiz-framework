@@ -26,9 +26,9 @@ import org.ofbiz.entity.config.model.JdbcElement;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 
 /**
- * ConnectionFactoryInterface
+ * ConnectionFactory
  */
-public interface ConnectionFactoryInterface {
+public interface ConnectionFactory {
 
     public Connection getConnection(GenericHelperInfo helperInfo, JdbcElement jdbcElement) throws SQLException, GenericEntityException;
     public void closeAll();

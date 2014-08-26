@@ -47,7 +47,7 @@ public abstract class GenericXaResource extends Thread implements XAResource {
      * @throws XAException
      */
     public void enlist() throws XAException {
-        TransactionManager tm = TransactionFactory.getTransactionManager();
+        TransactionManager tm = TransactionFactoryLoader.getInstance().getTransactionManager();
         try {
             if (tm != null && tm.getStatus() == Status.STATUS_ACTIVE) {
                 Transaction tx = tm.getTransaction();

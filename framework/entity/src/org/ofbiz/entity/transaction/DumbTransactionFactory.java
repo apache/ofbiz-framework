@@ -35,16 +35,16 @@ import javax.transaction.UserTransaction;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
-import org.ofbiz.entity.config.EntityConfigUtil;
+import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
+import org.ofbiz.entity.jdbc.ConnectionFactoryLoader;
 
 /**
  * A dumb, non-working transaction manager.
  */
-public class DumbFactory implements TransactionFactoryInterface {
+public class DumbTransactionFactory implements TransactionFactory {
 
-    public static final String module = DumbFactory.class.getName();
+    public static final String module = DumbTransactionFactory.class.getName();
 
     public TransactionManager getTransactionManager() {
         return new TransactionManager() {
@@ -108,11 +108,11 @@ public class DumbFactory implements TransactionFactoryInterface {
     }
 
     public Connection getConnection(GenericHelperInfo helperInfo) throws SQLException, GenericEntityException {
-        Datasource datasourceInfo = EntityConfigUtil.getDatasource(helperInfo.getHelperBaseName());
+        Datasource datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
 
         if (datasourceInfo.getInlineJdbc() != null) {
-            Connection otherCon = ConnectionFactory.getManagedConnection(helperInfo, datasourceInfo.getInlineJdbc());
-            return TransactionFactory.getCursorConnection(helperInfo, otherCon);
+            Connection otherCon = ConnectionFactoryLoader.getInstance().getConnection(helperInfo, datasourceInfo.getInlineJdbc());
+            return TransactionUtil.getCursorConnection(helperInfo, otherCon);
         } else {
             Debug.logError("Dumb/Empty is the configured transaction manager but no inline-jdbc element was specified in the " + helperInfo.getHelperBaseName() + " datasource. Please check your configuration", module);
             return null;

@@ -36,10 +36,10 @@ import net.sf.jasperreports.engine.JasperReport;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.entity.datasource.GenericHelperInfo;
+import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.webapp.control.ContextFilter;
-import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.jdbc.ConnectionFactory;
 
 /**
  * Handles JasperReports PDF view rendering
@@ -90,7 +90,7 @@ public class JasperReportsXmlViewHandler extends AbstractViewHandler {
             PipedInputStream fillToPrintInputStream = new PipedInputStream(fillToPrintOutputStream);
 
             if (UtilValidate.isNotEmpty(datasourceName)) {
-                JasperFillManager.fillReportToStream(report, fillToPrintOutputStream, parameters, ConnectionFactory.getConnection(datasourceName));
+                JasperFillManager.fillReportToStream(report, fillToPrintOutputStream, parameters, TransactionFactoryLoader.getInstance().getConnection(new GenericHelperInfo(null, datasourceName)));
             } else {
                 JasperFillManager.fillReportToStream(report, fillToPrintOutputStream, parameters, new JREmptyDataSource());
             }
