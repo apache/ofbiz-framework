@@ -70,8 +70,7 @@ public class CartEventListener implements HttpSessionListener {
 
             GenericValue visit = VisitHandler.getVisit(session);
             if (visit == null) {
-            if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visit", "false")) return;
-                Debug.logError("Could not get the current visit, not saving abandoned cart info.", module);
+                Debug.logInfo("Could not get the current visit, not saving abandoned cart info.", module);
                 return;
             }
 
