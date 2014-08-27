@@ -105,6 +105,35 @@ public class ServerHitBin {
         }
     }
 
+    private static long getNewBinLength() {
+        long binLength = (long) UtilProperties.getPropertyNumber("serverstats", "stats.bin.length.millis");
+
+        // if no or 0 binLength specified, set to 30 minutes
+        if (binLength <= 0) binLength = 1800000;
+        // if binLength is more than an hour, set it to one hour
+        if (binLength > 3600000) binLength = 3600000;
+        return binLength;
+    }
+
+    private static long getEvenStartingTime(long binLength) {
+        // binLengths should be a divisable evenly into 1 hour
+        long curTime = System.currentTimeMillis();
+
+        // find the first previous millis that are even on the hour
+        Calendar cal = Calendar.getInstance();
+
+        cal.setTime(new Date(curTime));
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+
+        while (cal.getTime().getTime() < (curTime - binLength)) {
+            cal.add(Calendar.MILLISECOND, (int) binLength);
+        }
+
+        return cal.getTime().getTime();
+    }
+
     private static void countHit(String baseId, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin, boolean isOriginal) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         if (delegator == null) {
@@ -202,16 +231,48 @@ public class ServerHitBin {
                 }
                 if (bin == null) {
                     bin = new ServerHitBin(id, type, true, delegator);
-                    if (binList.size() > 0) {
-                        binList.add(0, bin);
-                    } else {
-                        binList.add(bin);
-                    }
+                    binList.add(0, bin);
                 }
             }
         }
 
-        bin.addHit(startTime, runningTime);
+        long toTime = startTime + runningTime;
+        // advance the bin
+        // first check to see if the bin has expired, if so save and recycle it
+        while (bin.limitLength && toTime > bin.endTime) {
+            // the first in the list will be this object, remove and copy it,
+            // put the copy at the first of the list, then put this object back on
+            if (bin.getNumberHits() > 0) {
+                // persist each bin when time ends if option turned on
+                if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
+                    GenericValue serverHitBin = delegator.makeValue("ServerHitBin");
+                    serverHitBin.set("contentId", bin.id);
+                    serverHitBin.set("hitTypeId", ServerHitBin.typeIds[bin.type]);
+                    serverHitBin.set("binStartDateTime", new java.sql.Timestamp(bin.startTime));
+                    serverHitBin.set("binEndDateTime", new java.sql.Timestamp(bin.endTime));
+                    serverHitBin.set("numberHits", Long.valueOf(bin.getNumberHits()));
+                    serverHitBin.set("totalTimeMillis", Long.valueOf(bin.getTotalRunningTime()));
+                    serverHitBin.set("minTimeMillis", Long.valueOf(bin.getMinTime()));
+                    serverHitBin.set("maxTimeMillis", Long.valueOf(bin.getMaxTime()));
+                    // get localhost ip address and hostname to store
+                    if (VisitHandler.address != null) {
+                        serverHitBin.set("serverIpAddress", VisitHandler.address.getHostAddress());
+                        serverHitBin.set("serverHostName", VisitHandler.address.getHostName());
+                    }
+                    try {
+                        delegator.createSetNextSeqId(serverHitBin);
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, "Could not save ServerHitBin:", module);
+                    }
+                }
+            } else {
+                binList.remove(0);
+            }
+            bin = new ServerHitBin(bin, bin.endTime + 1);
+            binList.add(0, bin);
+        }
+
+        bin.addHit(runningTime);
         if (isOriginal) {
             try {
                 bin.saveHit(request, startTime, runningTime, userLogin);
@@ -222,9 +283,9 @@ public class ServerHitBin {
 
         // count since start global and per id hits
         if (!id.startsWith("GLOBAL")) {
-            countHitSinceStart(id, type, startTime, runningTime, delegator);
+            countHitSinceStart(id, type, runningTime, delegator);
             if (isOriginal) {
-                countHitSinceStart(makeIdTenantAware("GLOBAL", delegator), type, startTime, runningTime, delegator);
+                countHitSinceStart(makeIdTenantAware("GLOBAL", delegator), type, runningTime, delegator);
             }
         }
 
@@ -238,7 +299,7 @@ public class ServerHitBin {
         }
     }
 
-    private static void countHitSinceStart(String id, int type, long startTime, long runningTime, Delegator delegator) {
+    private static void countHitSinceStart(String id, int type, long runningTime, Delegator delegator) {
         ServerHitBin bin = null;
 
         // save in global, and try to get bin by id
@@ -315,7 +376,7 @@ public class ServerHitBin {
             }
         }
 
-        bin.addHit(startTime, runningTime);
+        bin.addHit(runningTime);
     }
 
     private final Delegator delegator;
@@ -323,8 +384,9 @@ public class ServerHitBin {
     private final int type;
     private final boolean limitLength;
     private final long binLength;
-    private long startTime;
-    private long endTime;
+    private final long startTime;
+    private final long endTime;
+
     private long numberHits;
     private long totalRunningTime;
     private long minTime;
@@ -336,21 +398,37 @@ public class ServerHitBin {
         this.limitLength = limitLength;
         this.delegator = delegator;
         this.binLength = getNewBinLength();
-        reset(getEvenStartingTime());
+        this.startTime = getEvenStartingTime(this.binLength);
+        if (this.limitLength) {
+            // subtract 1 millisecond to keep bin starting times even
+            this.endTime = this.startTime + this.binLength - 1;
+        } else {
+            this.endTime = 0;
+        }
+        this.numberHits = 0;
+        this.totalRunningTime = 0;
+        this.minTime = Long.MAX_VALUE;
+        this.maxTime = 0;
     }
 
-    private ServerHitBin(ServerHitBin oldBin) {
+    private ServerHitBin(ServerHitBin oldBin, long startTime) {
         this.id = oldBin.id;
         this.type = oldBin.type;
         this.limitLength = oldBin.limitLength;
         this.delegator = oldBin.delegator;
         this.binLength = oldBin.binLength;
-        this.startTime = oldBin.startTime;
-        this.endTime = oldBin.endTime;
-        this.numberHits = oldBin.numberHits;
-        this.totalRunningTime = oldBin.totalRunningTime;
-        this.minTime = oldBin.minTime;
-        this.maxTime = oldBin.maxTime;
+
+        this.startTime = startTime;
+        if (limitLength) {
+            // subtract 1 millisecond to keep bin starting times even
+            this.endTime = this.startTime + this.binLength - 1;
+        } else {
+            this.endTime = 0;
+        }
+        this.numberHits = 0;
+        this.totalRunningTime = 0;
+        this.minTime = Long.MAX_VALUE;
+        this.maxTime = 0;
     }
 
     public Delegator getDelegator() {
@@ -396,20 +474,32 @@ public class ServerHitBin {
         return (this.getBinLength()) / 60000.0;
     }
 
-    public long getNumberHits() {
+    public synchronized long getNumberHits() {
         return this.numberHits;
     }
 
+    public synchronized long getMinTime() {
+        return this.minTime;
+    }
+
+    public synchronized long getMaxTime() {
+        return this.maxTime;
+    }
+
+    public synchronized long getTotalRunningTime() {
+        return this.totalRunningTime;
+    }
+
     public double getMinTimeSeconds() {
-        return (this.minTime) / 1000.0;
+        return (this.getMinTime()) / 1000.0;
     }
 
     public double getMaxTimeSeconds() {
-        return (this.maxTime) / 1000.0;
+        return (this.getMaxTime()) / 1000.0;
     }
 
-    public double getAvgTime() {
-        return ((double) this.totalRunningTime) / ((double) this.numberHits);
+    public synchronized double getAvgTime() {
+        return ((double) this.getTotalRunningTime()) / ((double) this.getNumberHits());
     }
 
     public double getAvgTimeSeconds() {
@@ -418,114 +508,10 @@ public class ServerHitBin {
 
     /** return the hits per minute using the entire length of the bin as returned by getBinLengthMinutes() */
     public double getHitsPerMinute() {
-        return (this.numberHits) / this.getBinLengthMinutes();
+        return this.getNumberHits() / this.getBinLengthMinutes();
     }
 
-    private long getNewBinLength() {
-        long binLength = (long) UtilProperties.getPropertyNumber("serverstats", "stats.bin.length.millis");
-
-        // if no or 0 binLength specified, set to 30 minutes
-        if (binLength <= 0) binLength = 1800000;
-        // if binLength is more than an hour, set it to one hour
-        if (binLength > 3600000) binLength = 3600000;
-        return binLength;
-    }
-
-    private long getEvenStartingTime() {
-        // binLengths should be a divisable evenly into 1 hour
-        long curTime = System.currentTimeMillis();
-
-        // find the first previous millis that are even on the hour
-        Calendar cal = Calendar.getInstance();
-
-        cal.setTime(new Date(curTime));
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-
-        while (cal.getTime().getTime() < (curTime - this.binLength)) {
-            cal.add(Calendar.MILLISECOND, (int) this.binLength);
-        }
-
-        return cal.getTime().getTime();
-    }
-
-    private void reset(long startTime) {
-        this.startTime = startTime;
-        if (limitLength) {
-            // subtract 1 millisecond to keep bin starting times even
-            this.endTime = startTime + this.binLength - 1;
-        } else {
-            this.endTime = 0;
-        }
-        this.numberHits = 0;
-        this.totalRunningTime = 0;
-        this.minTime = Long.MAX_VALUE;
-        this.maxTime = 0;
-    }
-
-    private synchronized void addHit(long startTime, long runningTime) {
-        long toTime = startTime + runningTime;
-        // advance the bin
-        // first check to see if this bin has expired, if so save and recycle it
-        while (limitLength && toTime > this.endTime) {
-            List<ServerHitBin> binList = null;
-
-            switch (type) {
-            case REQUEST:
-                binList = requestHistory.get(id);
-                break;
-
-            case EVENT:
-                binList = eventHistory.get(id);
-                break;
-
-            case VIEW:
-                binList = viewHistory.get(id);
-                break;
-
-            case ENTITY:
-                binList = entityHistory.get(id);
-                break;
-
-            case SERVICE:
-                binList = serviceHistory.get(id);
-                break;
-            }
-
-            // the first in the list will be this object, remove and copy it,
-            // put the copy at the first of the list, then put this object back on
-            binList.remove(0);
-            if (this.numberHits > 0) {
-                binList.add(0, new ServerHitBin(this));
-
-                // persist each bin when time ends if option turned on
-                if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
-                    GenericValue serverHitBin = delegator.makeValue("ServerHitBin");
-                    serverHitBin.set("contentId", this.id);
-                    serverHitBin.set("hitTypeId", ServerHitBin.typeIds[this.type]);
-                    serverHitBin.set("binStartDateTime", new java.sql.Timestamp(this.startTime));
-                    serverHitBin.set("binEndDateTime", new java.sql.Timestamp(this.endTime));
-                    serverHitBin.set("numberHits", Long.valueOf(this.numberHits));
-                    serverHitBin.set("totalTimeMillis", Long.valueOf(this.totalRunningTime));
-                    serverHitBin.set("minTimeMillis", Long.valueOf(this.minTime));
-                    serverHitBin.set("maxTimeMillis", Long.valueOf(this.maxTime));
-                    // get localhost ip address and hostname to store
-                    if (VisitHandler.address != null) {
-                        serverHitBin.set("serverIpAddress", VisitHandler.address.getHostAddress());
-                        serverHitBin.set("serverHostName", VisitHandler.address.getHostName());
-                    }
-                    try {
-                        delegator.createSetNextSeqId(serverHitBin);
-                    } catch (GenericEntityException e) {
-                        Debug.logError(e, "Could not save ServerHitBin:", module);
-                    }
-                }
-            }
-            this.reset(this.endTime + 1);
-            binList.add(0, this);
-        }
-
+    private synchronized void addHit(long runningTime) {
         this.numberHits++;
         this.totalRunningTime += runningTime;
         if (runningTime < this.minTime)
@@ -569,26 +555,6 @@ public class ServerHitBin {
             
             Debug.logInfo("Visit delegatorName=" + visit.getDelegator().getDelegatorName() + ", ServerHitBin delegatorName=" + this.delegator.getDelegatorName(), module);
             
-            /* this isn't needed, the problem was better solved elsewhere, and without adding another query; leaving it here because it might be useful for something in the future
-             * else {
-                try {
-                    // see if the error was caused by a bad visitId, and if so create a new visit and try again
-                    GenericValue freshVisit = delegator.findOne("Visit", false, "visitId", visitId);
-                    if (freshVisit == null) {
-                        Debug.logInfo("Visit with ID [" + visitId + "] does not exist in the database, removing from session and making a new one", module);
-                        // something happened, have a bad visit in the session so remove it and try again
-                        request.getSession().removeAttribute("visit");
-                        visitId = VisitHandler.getVisitId(request.getSession());
-                        Debug.logInfo("After making new Visit the ID is [" + visitId + "]", module);
-                    }
-                } catch (GenericEntityException e) {
-                    // this is an error on the retry and not part of the main flow, so log it and let it go
-                    Debug.logWarning(e, "Error retrying ServerHit: " + e.toString(), module);
-                }                
-                
-            }
-            */
-
             GenericValue serverHit = delegator.makeValue("ServerHit");
 
             serverHit.set("visitId", visitId);
