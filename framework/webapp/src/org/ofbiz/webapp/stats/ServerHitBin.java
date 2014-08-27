@@ -212,7 +212,7 @@ public class ServerHitBin {
         }
 
         bin.addHit(startTime, runningTime);
-        if (isOriginal && !id.startsWith("GLOBAL")) {
+        if (isOriginal) {
             try {
                 bin.saveHit(request, startTime, runningTime, userLogin);
             } catch (GenericEntityException e) {
@@ -221,22 +221,24 @@ public class ServerHitBin {
         }
 
         // count since start global and per id hits
-        if (!id.startsWith("GLOBAL"))
-            countHitSinceStart(id, type, startTime, runningTime, isOriginal, delegator);
+        if (!id.startsWith("GLOBAL")) {
+            countHitSinceStart(id, type, startTime, runningTime, delegator);
+            if (isOriginal) {
+                countHitSinceStart(makeIdTenantAware("GLOBAL", delegator), type, startTime, runningTime, delegator);
+            }
+        }
 
         // also count hits up the hierarchy if the id contains a '.'
         if (id.indexOf('.') > 0) {
             countHit(id.substring(0, id.lastIndexOf('.')), type, request, startTime, runningTime, userLogin, false);
         }
 
-        if (isOriginal && !id.startsWith("GLOBAL"))
-            countHit("GLOBAL", type, request, startTime, runningTime, userLogin, true);
+        if (isOriginal) {
+            countHit("GLOBAL", type, request, startTime, runningTime, userLogin, false);
+        }
     }
 
-    private static void countHitSinceStart(String baseId, int type, long startTime, long runningTime, boolean isOriginal, Delegator delegator) {
-
-        String id = makeIdTenantAware(baseId, delegator);
-
+    private static void countHitSinceStart(String id, int type, long startTime, long runningTime, Delegator delegator) {
         ServerHitBin bin = null;
 
         // save in global, and try to get bin by id
@@ -314,9 +316,6 @@ public class ServerHitBin {
         }
 
         bin.addHit(startTime, runningTime);
-
-        if (isOriginal)
-            countHitSinceStart("GLOBAL", type, startTime, runningTime, false, delegator);
     }
 
     private final Delegator delegator;
@@ -466,17 +465,8 @@ public class ServerHitBin {
     }
 
     private synchronized void addHit(long startTime, long runningTime) {
-        advanceBin(startTime + runningTime);
-
-        this.numberHits++;
-        this.totalRunningTime += runningTime;
-        if (runningTime < this.minTime)
-            this.minTime = runningTime;
-        if (runningTime > this.maxTime)
-            this.maxTime = runningTime;
-    }
-
-    private synchronized void advanceBin(long toTime) {
+        long toTime = startTime + runningTime;
+        // advance the bin
         // first check to see if this bin has expired, if so save and recycle it
         while (limitLength && toTime > this.endTime) {
             List<ServerHitBin> binList = null;
@@ -535,6 +525,13 @@ public class ServerHitBin {
             this.reset(this.endTime + 1);
             binList.add(0, this);
         }
+
+        this.numberHits++;
+        this.totalRunningTime += runningTime;
+        if (runningTime < this.minTime)
+            this.minTime = runningTime;
+        if (runningTime > this.maxTime)
+            this.maxTime = runningTime;
     }
 
     private void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) throws GenericEntityException {
