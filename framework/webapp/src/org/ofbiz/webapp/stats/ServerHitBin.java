@@ -19,13 +19,12 @@
 package org.ofbiz.webapp.stats;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.Deque;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentMap;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -58,18 +57,18 @@ public class ServerHitBin {
     private static final String[] typeIds = {"", "REQUEST", "EVENT", "VIEW", "ENTITY", "SERVICE"};
 
     // these Maps contain Lists of ServerHitBin objects by id, the most recent is first in the list
-    public static Map<String, List<ServerHitBin>> requestHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> eventHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> viewHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> entityHistory = FastMap.newInstance();
-    public static Map<String, List<ServerHitBin>> serviceHistory = FastMap.newInstance();
+    public static final ConcurrentMap<String, Deque<ServerHitBin>> requestHistory = new ConcurrentHashMap<String, Deque<ServerHitBin>>();
+    public static final ConcurrentMap<String, Deque<ServerHitBin>> eventHistory = new ConcurrentHashMap<String, Deque<ServerHitBin>>();
+    public static final ConcurrentMap<String, Deque<ServerHitBin>> viewHistory = new ConcurrentHashMap<String, Deque<ServerHitBin>>();
+    public static final ConcurrentMap<String, Deque<ServerHitBin>> entityHistory = new ConcurrentHashMap<String, Deque<ServerHitBin>>();
+    public static final ConcurrentMap<String, Deque<ServerHitBin>> serviceHistory = new ConcurrentHashMap<String, Deque<ServerHitBin>>();
 
     // these Maps contain ServerHitBin objects by id
-    public static Map<String, ServerHitBin> requestSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> eventSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> viewSinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> entitySinceStarted = FastMap.newInstance();
-    public static Map<String, ServerHitBin> serviceSinceStarted = FastMap.newInstance();
+    public static final ConcurrentMap<String, ServerHitBin> requestSinceStarted = new ConcurrentHashMap<String, ServerHitBin>();
+    public static final ConcurrentMap<String, ServerHitBin> eventSinceStarted = new ConcurrentHashMap<String, ServerHitBin>();
+    public static final ConcurrentMap<String, ServerHitBin> viewSinceStarted = new ConcurrentHashMap<String, ServerHitBin>();
+    public static final ConcurrentMap<String, ServerHitBin> entitySinceStarted = new ConcurrentHashMap<String, ServerHitBin>();
+    public static final ConcurrentMap<String, ServerHitBin> serviceSinceStarted = new ConcurrentHashMap<String, ServerHitBin>();
 
     public static void countRequest(String id, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) {
         countHit(id, REQUEST, request, startTime, runningTime, userLogin);
@@ -147,7 +146,7 @@ public class ServerHitBin {
         String id = makeIdTenantAware(baseId, delegator);
 
         ServerHitBin bin = null;
-        List<ServerHitBin> binList = null;
+        Deque<ServerHitBin> binList = null;
 
         switch (type) {
         case REQUEST:
@@ -172,69 +171,38 @@ public class ServerHitBin {
         }
 
         if (binList == null) {
-            synchronized (ServerHitBin.class) {
-                switch (type) {
-                case REQUEST:
-                    binList = requestHistory.get(id);
-                    break;
+            binList = new ConcurrentLinkedDeque<ServerHitBin>();
+            Deque<ServerHitBin> listFromMap = null;
+            switch (type) {
+            case REQUEST:
+                listFromMap = requestHistory.putIfAbsent(id, binList);
+                break;
 
-                case EVENT:
-                    binList = eventHistory.get(id);
-                    break;
+            case EVENT:
+                listFromMap = eventHistory.putIfAbsent(id, binList);
+                break;
 
-                case VIEW:
-                    binList = viewHistory.get(id);
-                    break;
+            case VIEW:
+                listFromMap = viewHistory.putIfAbsent(id, binList);
+                break;
 
-                case ENTITY:
-                    binList = entityHistory.get(id);
-                    break;
+            case ENTITY:
+                listFromMap = entityHistory.putIfAbsent(id, binList);
+                break;
 
-                case SERVICE:
-                    binList = serviceHistory.get(id);
-                    break;
-                }
-                if (binList == null) {
-                    binList = FastList.newInstance();
-                    switch (type) {
-                    case REQUEST:
-                        requestHistory.put(id, binList);
-                        break;
-
-                    case EVENT:
-                        eventHistory.put(id, binList);
-                        break;
-
-                    case VIEW:
-                        viewHistory.put(id, binList);
-                        break;
-
-                    case ENTITY:
-                        entityHistory.put(id, binList);
-                        break;
-
-                    case SERVICE:
-                        serviceHistory.put(id, binList);
-                        break;
-                    }
-                }
+            case SERVICE:
+                listFromMap = serviceHistory.putIfAbsent(id, binList);
+                break;
             }
+            binList = listFromMap != null ? listFromMap : binList;
         }
 
-        if (binList.size() > 0) {
-            bin = binList.get(0);
-        }
-        if (bin == null) {
-            synchronized (ServerHitBin.class) {
-                if (binList.size() > 0) {
-                    bin = binList.get(0);
-                }
-                if (bin == null) {
-                    bin = new ServerHitBin(id, type, true, delegator);
-                    binList.add(0, bin);
-                }
+        do {
+            bin = binList.peek();
+            if (bin == null) {
+                binList.addFirst(new ServerHitBin(id, type, true, delegator));
             }
-        }
+        } while (bin == null);
 
         long toTime = startTime + runningTime;
         // advance the bin
@@ -266,10 +234,10 @@ public class ServerHitBin {
                     }
                 }
             } else {
-                binList.remove(0);
+                binList.pollFirst();
             }
             bin = new ServerHitBin(bin, bin.endTime + 1);
-            binList.add(0, bin);
+            binList.addFirst(bin);
         }
 
         bin.addHit(runningTime);
@@ -302,7 +270,6 @@ public class ServerHitBin {
     private static void countHitSinceStart(String id, int type, long runningTime, Delegator delegator) {
         ServerHitBin bin = null;
 
-        // save in global, and try to get bin by id
         switch (type) {
         case REQUEST:
             bin = requestSinceStarted.get(id);
@@ -326,56 +293,31 @@ public class ServerHitBin {
         }
 
         if (bin == null) {
-            synchronized (ServerHitBin.class) {
-                switch (type) {
-                case REQUEST:
-                    bin = requestSinceStarted.get(id);
-                    break;
+            bin = new ServerHitBin(id, type, false, delegator);
+            ServerHitBin binFromMap = null;
+            switch (type) {
+            case REQUEST:
+                binFromMap = requestSinceStarted.putIfAbsent(id, bin);
+                break;
 
-                case EVENT:
-                    bin = eventSinceStarted.get(id);
-                    break;
+            case EVENT:
+                binFromMap = eventSinceStarted.putIfAbsent(id, bin);
+                break;
 
-                case VIEW:
-                    bin = viewSinceStarted.get(id);
-                    break;
+            case VIEW:
+                binFromMap = viewSinceStarted.putIfAbsent(id, bin);
+                break;
 
-                case ENTITY:
-                    bin = entitySinceStarted.get(id);
-                    break;
+            case ENTITY:
+                binFromMap = entitySinceStarted.putIfAbsent(id, bin);
+                break;
 
-                case SERVICE:
-                    bin = serviceSinceStarted.get(id);
-                    break;
-                }
-
-                if (bin == null) {
-                    bin = new ServerHitBin(id, type, false, delegator);
-                    switch (type) {
-                    case REQUEST:
-                        requestSinceStarted.put(id, bin);
-                        break;
-
-                    case EVENT:
-                        eventSinceStarted.put(id, bin);
-                        break;
-
-                    case VIEW:
-                        viewSinceStarted.put(id, bin);
-                        break;
-
-                    case ENTITY:
-                        entitySinceStarted.put(id, bin);
-                        break;
-
-                    case SERVICE:
-                        serviceSinceStarted.put(id, bin);
-                        break;
-                    }
-                }
+            case SERVICE:
+                binFromMap = serviceSinceStarted.putIfAbsent(id, bin);
+                break;
             }
+            bin = binFromMap != null ? binFromMap : bin;
         }
-
         bin.addHit(runningTime);
     }
 
