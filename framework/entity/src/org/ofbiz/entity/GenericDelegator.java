@@ -1317,6 +1317,11 @@ public class GenericDelegator implements Delegator {
 
             if (doCacheClear) {
                 // always clear cache before the operation
+                /*
+                 *  FIXME: This does not work - we still have a stale cache
+                 *  because the "store by" condition might be different than
+                 *  the "find by" condition.
+                 */
                 this.clearCacheLineByCondition(entityName, condition);
             }
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
