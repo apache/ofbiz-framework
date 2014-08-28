@@ -47,21 +47,6 @@ if (returnId) {
 
         context.currentStatus = returnHeader.getRelatedOne("StatusItem", true);
     }
-} else {
-    partyId = parameters.partyId;
-    returnHeaders = delegator.findList("ReturnHeader", EntityCondition.makeCondition("fromPartyId", EntityOperator.EQUALS, partyId), null, null, null, false);
-    returnList = [];
-    returnHeaders.each { returnHeader ->
-        returnMap = [:];
-        returnMap.returnId = returnHeader.returnId;
-        statusItem = returnHeader.getRelatedOne("StatusItem", false);
-        returnMap.statusId = statusItem.description;
-        returnMap.fromPartyId = returnHeader.fromPartyId;
-        returnMap.toPartyId = returnHeader.toPartyId;
-        
-        returnList.add(returnMap);
-    }
-    context.returnList = returnList;
 }
 context.returnHeader = returnHeader;
 context.returnId = returnId;

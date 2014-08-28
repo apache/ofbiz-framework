@@ -1086,7 +1086,7 @@ under the License.
     </form>
     <form name="PartyReturns" type="list" list-name="returnList" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
-        <field name="statusId"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="fromPartyId"><display/></field>
         <field name="toPartyId"><display/></field>
     </form>
