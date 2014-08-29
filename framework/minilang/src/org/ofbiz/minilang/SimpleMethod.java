@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -84,7 +85,7 @@ public final class SimpleMethod extends MiniLangElement {
     private static final String[] DEPRECATED_ATTRIBUTES = {"parameter-map-name", "locale-name", "delegator-name", "security-name", "dispatcher-name", "user-login-name"};
     private static final Map<String, MethodOperation.Factory<MethodOperation>> methodOperationFactories;
     private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsDirectCache = UtilCache.createUtilCache("minilang.SimpleMethodsDirect", 0, 0);
-    private static final UtilCache<String, Map<String, SimpleMethod>> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
+    private static final UtilCache<String, SimpleMethod> simpleMethodsResourceCache = UtilCache.createUtilCache("minilang.SimpleMethodsResource", 0, 0);
 
     static {
         Map<String, MethodOperation.Factory<MethodOperation>> mapFactories = new HashMap<String, MethodOperation.Factory<MethodOperation>>();
@@ -134,7 +135,7 @@ public final class SimpleMethod extends MiniLangElement {
     }
 
     private static Map<String, SimpleMethod> getAllSimpleMethods(URL xmlURL) throws MiniLangException {
-        Map<String, SimpleMethod> simpleMethods = new HashMap<String, SimpleMethod>();
+        Map<String, SimpleMethod> simpleMethods = new LinkedHashMap<String, SimpleMethod>();
         Document document = null;
         try {
             document = UtilXml.readXmlDocument(xmlURL, true, true);
@@ -160,14 +161,31 @@ public final class SimpleMethod extends MiniLangElement {
 
     public static SimpleMethod getSimpleMethod(String xmlResource, String methodName, ClassLoader loader) throws MiniLangException {
         Assert.notNull("methodName", methodName);
-        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, loader);
-        return simpleMethods.get(methodName);
+        String key = xmlResource.concat("#").concat(methodName);
+        SimpleMethod method = simpleMethodsResourceCache.get(key);
+        if (method == null) {
+            Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlResource, loader);
+            for (Map.Entry<String, SimpleMethod> entry : simpleMethods.entrySet()) {
+                String putKey = xmlResource.concat("#").concat(entry.getKey());
+                simpleMethodsResourceCache.putIfAbsent(putKey, entry.getValue());
+            }
+        }
+        return simpleMethodsResourceCache.get(key);
     }
 
     public static SimpleMethod getSimpleMethod(URL xmlUrl, String methodName) throws MiniLangException {
         Assert.notNull("methodName", methodName);
-        Map<String, SimpleMethod> simpleMethods = getSimpleMethods(xmlUrl);
-        return simpleMethods.get(methodName);
+        String xmlResource = xmlUrl.toString();
+        String key = xmlResource.concat("#").concat(methodName);
+        SimpleMethod method = simpleMethodsResourceCache.get(key);
+        if (method == null) {
+            Map<String, SimpleMethod> simpleMethods = getAllSimpleMethods(xmlUrl);
+            for (Map.Entry<String, SimpleMethod> entry : simpleMethods.entrySet()) {
+                String putKey = xmlResource.concat("#").concat(entry.getKey());
+                simpleMethodsResourceCache.putIfAbsent(putKey, entry.getValue());
+            }
+        }
+        return simpleMethodsResourceCache.get(key);
     }
 
     private static Map<String, SimpleMethod> getSimpleMethods(String xmlResource, ClassLoader loader) throws MiniLangException {
@@ -181,43 +199,23 @@ public final class SimpleMethod extends MiniLangElement {
         if (xmlURL == null) {
             throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource);
         }
-        return getSimpleMethods(xmlURL);
+        return getAllSimpleMethods(xmlURL);
     }
 
-    private static Map<String, SimpleMethod> getSimpleMethods(URL xmlURL) throws MiniLangException {
-        Assert.notNull("xmlURL", xmlURL);
-        String cacheKey = xmlURL.toString();
-        Map<String, SimpleMethod> simpleMethods = simpleMethodsResourceCache.get(cacheKey);
-        if (simpleMethods == null) {
-            simpleMethods = getAllSimpleMethods(xmlURL);
-            simpleMethods = simpleMethodsResourceCache.putIfAbsentAndGet(cacheKey, simpleMethods);
-        }
-        return simpleMethods;
-    }
-
+    /**
+     * Returns a List of <code>SimpleMethod</code> objects compiled from <code>xmlResource</code>.
+     * The ordering in the List is the same as the XML file.
+     * <p>This method is used by unit test framework to run tests in the order they appear in the XML file.
+     * Method caching is bypassed since the methods are executed only once.</p>
+     * 
+     * @param xmlResource
+     * @param loader
+     * @return
+     * @throws MiniLangException
+     */
     public static List<SimpleMethod> getSimpleMethodsList(String xmlResource, ClassLoader loader) throws MiniLangException {
-        Assert.notNull("xmlResource", xmlResource);
-        List<SimpleMethod> simpleMethods = new ArrayList<SimpleMethod>();
-        // Let the standard Map returning method take care of caching and compilation
         Map<String, SimpleMethod> simpleMethodMap = getSimpleMethods(xmlResource, loader);
-        // Load and traverse the document again to get a correctly ordered list of methods
-        URL xmlURL = null;
-        try {
-            xmlURL = FlexibleLocation.resolveLocation(xmlResource, loader);
-        } catch (MalformedURLException e) {
-            throw new MiniLangException("Could not find SimpleMethod XML document in resource: " + xmlResource + ": ", e);
-        }
-        Document document = null;
-        try {
-            document = UtilXml.readXmlDocument(xmlURL, MiniLangValidate.validationOn(), true);
-        } catch (Exception e) {
-            throw new MiniLangException("Could not read SimpleMethod XML document [" + xmlURL + "]: ", e);
-        }
-        Element rootElement = document.getDocumentElement();
-        for (Element simpleMethodElement : UtilXml.childElementList(rootElement, "simple-method")) {
-            simpleMethods.add(simpleMethodMap.get(simpleMethodElement.getAttribute("method-name")));
-        }
-        return simpleMethods;
+        return new ArrayList<SimpleMethod>(simpleMethodMap.values());
     }
 
     public static List<MethodOperation> readOperations(Element simpleMethodElement, SimpleMethod simpleMethod) throws MiniLangException {

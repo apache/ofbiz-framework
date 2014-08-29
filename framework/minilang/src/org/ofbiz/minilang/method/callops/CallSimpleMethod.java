@@ -169,10 +169,6 @@ public final class CallSimpleMethod extends MethodOperation {
         return this.methodName;
     }
 
-    public SimpleMethod getSimpleMethodToCall(ClassLoader loader) throws MiniLangException {
-        return SimpleMethod.getSimpleMethod(xmlResource, methodName, loader);
-    }
-
     public String getXmlResource() {
         return this.xmlResource;
     }
