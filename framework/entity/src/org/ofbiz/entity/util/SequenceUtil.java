@@ -157,7 +157,7 @@ public class SequenceUtil {
             }
         }
 
-        private void refresh(long staggerMax) {
+        private synchronized void refresh(long staggerMax) {
             this.curSeqId = this.maxSeqId;
             this.fillBank(staggerMax);
         }
