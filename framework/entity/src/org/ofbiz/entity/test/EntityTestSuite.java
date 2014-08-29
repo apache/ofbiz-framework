@@ -64,7 +64,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
-import org.ofbiz.entity.util.SequenceUtil;
+import org.ofbiz.entity.util.*;
 
 public class EntityTestSuite extends EntityTestCase {
 
@@ -207,6 +207,16 @@ public class EntityTestSuite extends EntityTestCase {
         testValue.store();
         testValue = delegator.findOne("TestingType", true, "testingTypeId", "TEST-CACHE-1");
         assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-1", testValue.getString("description"));
+        // Test storeByCondition updates the cache
+        /*
+        testValue = EntityUtil.getFirst(delegator.findByAnd("TestingType", UtilMisc.toMap("testingTypeId", "TEST-CACHE-1"), null, true));
+        EntityCondition storeByCondition = EntityCondition.makeCondition(UtilMisc.toMap("testingTypeId", "TEST-CACHE-1",
+                "lastUpdatedStamp", testValue.get("lastUpdatedStamp")));
+        int qtyChanged = delegator.storeByCondition("TestingType", UtilMisc.toMap("description", "New Testing Type #Cache-0"), storeByCondition);
+        assertTrue("Delegator.storeByCondition updated one value", qtyChanged == 1);
+        testValue = EntityUtil.getFirst(delegator.findByAnd("TestingType", UtilMisc.toMap("testingTypeId", "TEST-CACHE-1"), null, true));
+        assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-0", testValue.getString("description"));
+        */
         // Test entity value remove operation updates the cache
         testValue = (GenericValue) testValue.clone();
         testValue.remove();
