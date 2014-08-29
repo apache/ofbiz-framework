@@ -24,9 +24,14 @@ under the License.
     ${postalAddress.city!},
     <#if postalAddress.stateProvinceGeoId?has_content>
       <#assign stateProvince = postalAddress.getRelatedOne("StateProvinceGeo", true)>
-      ${stateProvince.abbreviation?default(stateProvince.geoId)}
+      ${stateProvince.abbreviation?default(stateProvince.geoName)}
     </#if>
-    ${postalAddress.postalCode!}
+    <#if postalAddress.postalCodeGeoId?has_content>
+      <#assign postalCodeGeo = postalAddress.getRelatedOne("PostalCodeGeo", true)>
+      ${postalCodeGeo.geoName}
+    <#else>
+      ${postalAddress.postalCode!}
+    </#if>
     <#if postalAddress.countryGeoId?has_content><br />
       <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
       ${country.get("geoName", locale)?default(country.geoId)}
