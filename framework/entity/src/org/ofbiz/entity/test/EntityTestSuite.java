@@ -64,7 +64,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntitySaxReader;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.SequenceUtil;
 
 public class EntityTestSuite extends EntityTestCase {
 
