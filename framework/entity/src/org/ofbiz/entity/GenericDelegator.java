@@ -2791,7 +2791,7 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#cloneDelegator(java.lang.String)
      */
     @Override
-    public GenericDelegator cloneDelegator(String delegatorFullName) {
+    public Delegator cloneDelegator(String delegatorFullName) {
         // creates an exact clone of the delegator; except for the sequencer
         // note that this will not be cached and should be used only when
         // needed to change something for single instance (use).
@@ -2821,7 +2821,7 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#cloneDelegator()
      */
     @Override
-    public GenericDelegator cloneDelegator() {
+    public Delegator cloneDelegator() {
         return this.cloneDelegator(this.delegatorFullName);
     }
 
@@ -2829,8 +2829,8 @@ public class GenericDelegator implements Delegator {
      * @see org.ofbiz.entity.Delegator#makeTestDelegator(java.lang.String)
      */
     @Override
-    public GenericDelegator makeTestDelegator(String delegatorName) {
-        GenericDelegator testDelegator = this.cloneDelegator(delegatorName);
+    public Delegator makeTestDelegator(String delegatorName) {
+        GenericDelegator testDelegator = (GenericDelegator) this.cloneDelegator(delegatorName);
         testDelegator.entityEcaHandler.set(null);
         testDelegator.initEntityEcaHandler();
         testDelegator.setTestMode(true);
