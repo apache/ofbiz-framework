@@ -122,15 +122,6 @@ public class GenericDelegator implements Delegator {
     private static final AtomicReferenceFieldUpdater<GenericDelegator, LinkedBlockingDeque<?>> testOperationsUpdater = UtilGenerics.cast(AtomicReferenceFieldUpdater.newUpdater(GenericDelegator.class, LinkedBlockingDeque.class, "testOperations"));
     private volatile LinkedBlockingDeque<TestOperation> testOperations = null;
 
-    /** @deprecated Use Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
-     * @param delegatorName
-     * @return the configured delegator
-     */
-    @Deprecated
-    public static GenericDelegator getGenericDelegator(String delegatorName) {
-        return (GenericDelegator) DelegatorFactory.getDelegator(delegatorName);
-    }
-
     protected static List<String> getUserIdentifierStack() {
         List<String> curValList = userIdentifierStack.get();
         if (curValList == null) {
