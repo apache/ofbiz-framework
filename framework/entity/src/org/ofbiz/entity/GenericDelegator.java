@@ -48,7 +48,6 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.cache.Cache;
@@ -85,7 +84,7 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 /**
- * Generic Data Source Delegator Class
+ * The default implementation of the <code>Delegator</code> interface.
  *
  */
 public class GenericDelegator implements Delegator {
@@ -131,11 +130,6 @@ public class GenericDelegator implements Delegator {
         return curValList;
     }
 
-    public static String getCurrentUserIdentifier() {
-        List<String> curValList = getUserIdentifierStack();
-        return curValList.size() > 0 ? curValList.get(0) : null;
-    }
-
     public static void pushUserIdentifier(String userIdentifier) {
         if (userIdentifier == null) {
             return;
@@ -165,11 +159,6 @@ public class GenericDelegator implements Delegator {
             sessionIdentifierStack.set(curValList);
         }
         return curValList;
-    }
-
-    public static String getCurrentSessionIdentifier() {
-        List<String> curValList = getSessionIdentifierStack();
-        return curValList.size() > 0 ? curValList.get(0) : null;
     }
 
     public static void pushSessionIdentifier(String sessionIdentifier) {
@@ -2981,5 +2970,17 @@ public class GenericDelegator implements Delegator {
     @Override
     public boolean useDistributedCacheClear() {
         return this.delegatorInfo.getDistributedCacheClearEnabled();
+    }
+
+    @Override
+    public String getCurrentSessionIdentifier() {
+        List<String> curValList = getSessionIdentifierStack();
+        return curValList.size() > 0 ? curValList.get(0) : null;
+    }
+
+    @Override
+    public String getCurrentUserIdentifier() {
+        List<String> curValList = getUserIdentifierStack();
+        return curValList.size() > 0 ? curValList.get(0) : null;
     }
 }
