@@ -1100,11 +1100,11 @@ public class EntityTestSuite extends EntityTestCase {
         String sequenceName = "BogusSequence" + id.toString();
         for (int i = 10000; i <= 10015; i++) {
             Long seqId = sequencer.getNextSeqId(sequenceName, 1, null);
-            assertEquals(seqId.longValue(), i);
+            assertEquals(i, seqId.longValue());
         }
         sequencer.forceBankRefresh(sequenceName, 1);
         Long seqId = sequencer.getNextSeqId(sequenceName, 1, null);
-        assertEquals(seqId.longValue(), 10020);
+        assertEquals(10020, seqId.longValue());
     }
 
     public void testSequenceValueItemWithConcurrentThreads() {
@@ -1143,7 +1143,11 @@ public class EntityTestSuite extends EntityTestCase {
             Callable randomTask = Math.random() < probabilityOfRefresh ? refreshTask : getSeqIdTask;
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(randomTask));
         }
+        long startTime = System.currentTimeMillis();
         ExecutionPool.getAllFutures(futures);
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        Debug.logInfo("testSequenceValueItemWithConcurrentThreads total time (ms): " + totalTime, module);
         assertFalse("Null sequence id returned", nullSeqIdReturned.get());
         assertFalse("Duplicate sequence id returned", duplicateFound.get());
     }
