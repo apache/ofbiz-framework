@@ -129,13 +129,13 @@ public class SequenceUtil {
             }
             synchronized (this) {
                 if ((curSeqId + stagger) <= maxSeqId) {
-                    Long retSeqId = Long.valueOf(curSeqId);
+                    long retSeqId = curSeqId;
                     curSeqId += stagger;
                     return retSeqId;
                 } else {
                     fillBank(stagger);
                     if ((curSeqId + stagger) <= maxSeqId) {
-                        Long retSeqId = Long.valueOf(curSeqId);
+                        long retSeqId = curSeqId;
                         curSeqId += stagger;
                         return retSeqId;
                     } else {
