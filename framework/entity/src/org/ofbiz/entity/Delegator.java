@@ -571,8 +571,14 @@ public interface Delegator {
 
     Cache getCache();
 
+    String getCurrentSessionIdentifier();
+
+    String getCurrentUserIdentifier();
+
     String getDelegatorName();
+
     String getDelegatorBaseName();
+
     String getDelegatorTenantId();
 
     <T> EntityEcaHandler<T> getEntityEcaHandler();
