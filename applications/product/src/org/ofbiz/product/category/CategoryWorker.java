@@ -39,7 +39,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -441,7 +440,7 @@ public class CategoryWorker {
     public static Map getCategoryTrail(DispatchContext dctx, Map context) {
         String productCategoryId = (String) context.get("productCategoryId");
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
+        Delegator delegator = dctx.getDelegator();
         List<String> trailElements = FastList.newInstance();
         trailElements.add(productCategoryId);
         String parentProductCategoryId = productCategoryId;

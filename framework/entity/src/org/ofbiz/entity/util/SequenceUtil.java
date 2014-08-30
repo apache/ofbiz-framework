@@ -29,7 +29,7 @@ import javax.transaction.Transaction;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.model.ModelEntity;
@@ -53,7 +53,7 @@ public class SequenceUtil {
     private final String idColName;
     private final boolean clustered;
 
-    public SequenceUtil(GenericDelegator delegator, GenericHelperInfo helperInfo, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
+    public SequenceUtil(Delegator delegator, GenericHelperInfo helperInfo, ModelEntity seqEntity, String nameFieldName, String idFieldName) {
         this.helperInfo = helperInfo;
         if (seqEntity == null) {
             throw new IllegalArgumentException("The sequence model entity was null but is required.");
