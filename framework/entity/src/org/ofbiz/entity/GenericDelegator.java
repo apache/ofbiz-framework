@@ -1201,15 +1201,6 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            if (doCacheClear) {
-                // always clear cache before the operation
-                /*
-                 *  FIXME: This does not work - we still have a stale cache
-                 *  because the "remove by" condition might be different than
-                 *  the "find by" condition.
-                 */
-                this.clearCacheLineByCondition(entityName, condition);
-            }
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericHelper helper = getEntityHelper(entityName);
 
@@ -1219,6 +1210,9 @@ public class GenericDelegator implements Delegator {
             }
 
             int rowsAffected = helper.removeByCondition(this, modelEntity, condition);
+            if (rowsAffected > 0 && doCacheClear) {
+                this.clearCacheLine(entityName);
+            }
 
             if (testMode) {
                 for (GenericValue entity : removedEntities) {
@@ -1320,15 +1314,6 @@ public class GenericDelegator implements Delegator {
                 beganTransaction = TransactionUtil.begin();
             }
 
-            if (doCacheClear) {
-                // always clear cache before the operation
-                /*
-                 *  FIXME: This does not work - we still have a stale cache
-                 *  because the "store by" condition might be different than
-                 *  the "find by" condition.
-                 */
-                this.clearCacheLineByCondition(entityName, condition);
-            }
             ModelEntity modelEntity = getModelReader().getModelEntity(entityName);
             GenericHelper helper = getEntityHelper(entityName);
 
@@ -1338,6 +1323,9 @@ public class GenericDelegator implements Delegator {
             }
 
             int rowsAffected =  helper.storeByCondition(this, modelEntity, fieldsToSet, condition);
+            if (rowsAffected > 0 && doCacheClear) {
+                this.clearCacheLine(entityName);
+            }
 
             if (testMode) {
                 for (GenericValue entity : updatedEntities) {
