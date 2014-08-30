@@ -1093,7 +1093,7 @@ public class EntityTestSuite extends EntityTestCase {
     }
 
     public void testSequenceValueItem() {
-        SequenceUtil sequencer = new SequenceUtil((GenericDelegator)delegator, delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
+        SequenceUtil sequencer = new SequenceUtil(delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
                                                   delegator.getModelEntity("SequenceValueItem"),
                                                   "seqName", "seqId");
         UUID id = UUID.randomUUID();
@@ -1108,7 +1108,7 @@ public class EntityTestSuite extends EntityTestCase {
     }
 
     public void testSequenceValueItemWithConcurrentThreads() {
-        final SequenceUtil sequencer = new SequenceUtil((GenericDelegator)delegator, delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
+        final SequenceUtil sequencer = new SequenceUtil(delegator.getGroupHelperInfo(delegator.getEntityGroupName("SequenceValueItem")),
                                                   delegator.getModelEntity("SequenceValueItem"),
                                                   "seqName", "seqId");
         UUID id = UUID.randomUUID();
