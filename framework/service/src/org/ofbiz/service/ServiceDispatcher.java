@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.transaction.Transaction;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.util.Debug;
@@ -46,7 +46,7 @@ import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.service.config.model.*;
+import org.ofbiz.service.config.model.StartupService;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.ofbiz.service.engine.GenericEngine;
@@ -69,7 +69,7 @@ public class ServiceDispatcher {
     public static final int LOCK_RETRIES = 3;
 
     protected static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
-    protected static Map<String, ServiceDispatcher> dispatchers = FastMap.newInstance();
+    protected static ConcurrentHashMap<String, ServiceDispatcher> dispatchers = new ConcurrentHashMap<String, ServiceDispatcher>();
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
     // We need a better design - like have this class query EntityDataLoadContainer if data is being loaded.
     protected static boolean enableJM = true;
@@ -79,8 +79,8 @@ public class ServiceDispatcher {
     protected Delegator delegator = null;
     protected GenericEngineFactory factory = null;
     protected Security security = null;
-    protected Map<String, DispatchContext> localContext = null;
-    protected Map<String, List<GenericServiceCallback>> callbacks = null;
+    protected Map<String, DispatchContext> localContext = new HashMap<String, DispatchContext>();
+    protected Map<String, List<GenericServiceCallback>> callbacks = new HashMap<String, List<GenericServiceCallback>>();
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
 
@@ -90,8 +90,6 @@ public class ServiceDispatcher {
         ServiceEcaUtil.readConfig();
 
         this.delegator = delegator;
-        this.localContext = FastMap.newInstance();
-        this.callbacks = FastMap.newInstance();
 
         if (delegator != null) {
             try {
@@ -165,14 +163,11 @@ public class ServiceDispatcher {
         String dispatcherKey = delegator != null ? delegator.getDelegatorName() : "null";
         sd = dispatchers.get(dispatcherKey);
         if (sd == null) {
-            synchronized (ServiceDispatcher.class) {
-                if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
-                sd = dispatchers.get(dispatcherKey);
-                if (sd == null) {
-                    sd = new ServiceDispatcher(delegator);
-                    dispatchers.put(dispatcherKey, sd);
-                }
-            }
+            if (Debug.verboseOn())
+                Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
+            sd = new ServiceDispatcher(delegator);
+            dispatchers.putIfAbsent(dispatcherKey, sd);
+            sd = dispatchers.get(dispatcherKey);
         }
         return sd;
     }
@@ -204,7 +199,7 @@ public class ServiceDispatcher {
     public synchronized void registerCallback(String serviceName, GenericServiceCallback cb) {
         List<GenericServiceCallback> callBackList = callbacks.get(serviceName);
         if (callBackList == null) {
-            callBackList = FastList.newInstance();
+            callBackList = new LinkedList<GenericServiceCallback>();
         }
         callBackList.add(cb);
         callbacks.put(serviceName, callBackList);
@@ -254,7 +249,7 @@ public class ServiceDispatcher {
      */
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, ? extends Object> params, boolean validateOut) throws ServiceAuthException, ServiceValidationException, GenericServiceException {
         long serviceStartTime = System.currentTimeMillis();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         ServiceSemaphore lock = null;
         Map<String, List<ServiceEcaRule>> eventMap = null;
         Map<String, Object> ecaContext = null;
@@ -277,7 +272,7 @@ public class ServiceDispatcher {
                     "/" + modelService.invoke + "] (" + modelService.engineName + ")", module);
             }
 
-            Map<String, Object> context = FastMap.newInstance();
+            Map<String, Object> context = new HashMap<String, Object>();
             if (params != null) {
                 context.putAll(params);
             }
@@ -451,7 +446,7 @@ public class ServiceDispatcher {
                                 needsLockRetry = true;
 
                                 // reset state variables
-                                result = FastMap.newInstance();
+                                result = new HashMap<String, Object>();
                                 isFailure = false;
                                 isError = false;
 
@@ -470,7 +465,7 @@ public class ServiceDispatcher {
                 } while (needsLockRetry && lockRetriesRemaining > 0);
 
                 // create a new context with the results to pass to ECA services; necessary because caller may reuse this context
-                ecaContext = FastMap.newInstance();
+                ecaContext = new HashMap<String, Object>();
                 ecaContext.putAll(context);
                 // copy all results: don't worry parameters that aren't allowed won't be passed to the ECA services
                 ecaContext.putAll(result);
@@ -629,12 +624,12 @@ public class ServiceDispatcher {
                 "] (" + service.engineName + ")", module);
         }
 
-        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> context = new HashMap<String, Object>();
         if (params != null) {
             context.putAll(params);
         }
         // setup the result map
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         boolean isFailure = false;
         boolean isError = false;
 
@@ -946,8 +941,7 @@ public class ServiceDispatcher {
 
     // gets a value object from name/password pair
     private GenericValue getLoginObject(String service, String localName, String username, String password, Locale locale) throws GenericServiceException {
-        Map<String, Object> context = FastMap.newInstance();
-        context.putAll(UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", true, "locale", locale));
+        Map<String, Object> context = UtilMisc.toMap("login.username", username, "login.password", password, "isServiceAuth", true, "locale", locale);
 
         if (Debug.verboseOn()) Debug.logVerbose("[ServiceDispathcer.authenticate] : Invoking UserLogin Service", module);
 
