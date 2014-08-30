@@ -19,6 +19,8 @@
 package org.ofbiz.service;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,9 +29,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 import javax.wsdl.WSDLException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
@@ -245,9 +244,9 @@ public class DispatchContext implements Serializable {
     private Map<String, ModelService> getGlobalServiceMap() {
         Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
         if (serviceMap == null) {
-            serviceMap = FastMap.newInstance();
+            serviceMap = new HashMap<String, ModelService>();
 
-            List<Future<Map<String, ModelService>>> futures = FastList.newInstance();
+            List<Future<Map<String, ModelService>>> futures = new LinkedList<Future<Map<String, ModelService>>>();
             List<GlobalServices> globalServicesList = null;
             try {
                 globalServicesList = ServiceConfigUtil.getServiceEngine().getGlobalServices();
