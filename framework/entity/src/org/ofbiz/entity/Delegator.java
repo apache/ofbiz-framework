@@ -139,9 +139,9 @@ public interface Delegator {
 
     public void clearCacheLineFlexible(GenericEntity dummyPK, boolean distribute);
 
-    public GenericDelegator cloneDelegator();
+    public Delegator cloneDelegator();
 
-    public GenericDelegator cloneDelegator(String delegatorName);
+    public Delegator cloneDelegator(String delegatorName);
 
     /**
      * Creates a Entity in the form of a GenericValue and write it to the
@@ -927,7 +927,7 @@ public interface Delegator {
     /** Creates a Primary Key in the form of a GenericPK without persisting it */
     public GenericPK makePKSingle(String entityName, Object singlePkValue);
 
-    public GenericDelegator makeTestDelegator(String delegatorName);
+    public Delegator makeTestDelegator(String delegatorName);
 
     /**
      * Creates a Entity in the form of a GenericValue without persisting it;
