@@ -65,28 +65,28 @@ public class ModelServiceReader implements Serializable {
     protected boolean isFromURL;
     protected URL readerURL = null;
     protected ResourceHandler handler = null;
-    protected DispatchContext dctx = null;
+    protected Delegator delegator = null;
 
-    public static Map<String, ModelService> getModelServiceMap(URL readerURL, DispatchContext dctx) {
+    public static Map<String, ModelService> getModelServiceMap(URL readerURL, Delegator delegator) {
         if (readerURL == null) {
             Debug.logError("Cannot add reader with a null reader URL", module);
             return null;
         }
 
-        ModelServiceReader reader = new ModelServiceReader(true, readerURL, null, dctx);
+        ModelServiceReader reader = new ModelServiceReader(true, readerURL, null, delegator);
         return reader.getModelServices();
     }
 
-    public static Map<String, ModelService> getModelServiceMap(ResourceHandler handler, DispatchContext dctx) {
-        ModelServiceReader reader = new ModelServiceReader(false, null, handler, dctx);
+    public static Map<String, ModelService> getModelServiceMap(ResourceHandler handler, Delegator delegator) {
+        ModelServiceReader reader = new ModelServiceReader(false, null, handler, delegator);
         return reader.getModelServices();
     }
 
-    private ModelServiceReader(boolean isFromURL, URL readerURL, ResourceHandler handler, DispatchContext dctx) {
+    private ModelServiceReader(boolean isFromURL, URL readerURL, ResourceHandler handler, Delegator delegator) {
         this.isFromURL = isFromURL;
         this.readerURL = readerURL;
         this.handler = handler;
-        this.dctx = dctx;
+        this.delegator = delegator;
     }
 
     private Map<String, ModelService> getModelServices() {
@@ -437,8 +437,6 @@ public class ModelServiceReader implements Serializable {
         boolean includePk = "pk".equals(includeType) || "all".equals(includeType);
         boolean includeNonPk = "nonpk".equals(includeType) || "all".equals(includeType);
 
-        // need a delegator for this
-        Delegator delegator = dctx.getDelegator();
         if (delegator == null) {
             Debug.logWarning("Cannot use auto-attribute fields with a null delegator", module);
         }
