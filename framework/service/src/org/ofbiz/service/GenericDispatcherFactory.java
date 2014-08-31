@@ -45,6 +45,7 @@ public class GenericDispatcherFactory implements LocalDispatcherFactory {
         return dispatcher;
     }
 
+    // The default LocalDispatcher implementation.
     private class GenericDispatcher extends GenericAbstractDispatcher {
 
         private GenericDispatcher(String name, Delegator delegator) {
