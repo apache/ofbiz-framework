@@ -60,7 +60,8 @@ import org.ofbiz.service.semaphore.ServiceSemaphore;
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 
 /**
- * Global Service Dispatcher
+ * The global service dispatcher. This is the "engine" part of the
+ * Service Engine.
  */
 public class ServiceDispatcher {
 
