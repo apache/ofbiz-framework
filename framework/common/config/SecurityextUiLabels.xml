@@ -249,7 +249,7 @@
         <value xml:lang="pt_BR">Você não pode acessar este inquilino</value>
         <value xml:lang="ru">Ты не можешь зайти под этим логином</value>
         <value xml:lang="zh">你不能登录到这个承租人</value>
-        <value xml:lang="zh_TW">無法登入使用此承租戶</value>
+        <value xml:lang="zh_TW">無法以使用此承租戶登入</value>
     </property>
     <property key="loginevents.unable_to_login_this_application">
         <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
@@ -309,7 +309,7 @@
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ว่าง, กรุณากรอกข้อมูลอีกครั้ง</value>
         <value xml:lang="zh">用户名是空的，请重新输入</value>
-        <value xml:lang="zh_TW">空的使用者名稱, 請重新輸入。</value>
+        <value xml:lang="zh_TW">空的使用者登入代號, 請重新輸入。</value>
     </property>
     <property key="loginmapprocs.new_password_missing">
         <value xml:lang="de">Das neue Passwort fehlt.</value>
@@ -429,7 +429,7 @@
         <value xml:lang="ru">Невозможно изменить пароль, Имя пользователя с кодом "${userLoginId}" не существует.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน, การลอกอินเข้าสู่ระบบของผู้ใช้ด้วยรหัส "${userLoginId}"ไม่มีอยู่</value>
         <value xml:lang="zh">无法修改密码，用户登录标识"${userLoginId}"不存在。</value>
-        <value xml:lang="zh_TW">無法修改密碼, 使用者名稱 ${userLoginId} 不存在。</value>
+        <value xml:lang="zh_TW">無法修改密碼, 使用者登入代號 ${userLoginId} 不存在。</value>
     </property>
     <property key="loginservices.could_not_change_password_write_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Schreibfehler): ${errorMessage}.</value>
@@ -474,7 +474,7 @@
         <value xml:lang="ru">Невозможно создать имя: пользователь с кодом "${userLoginId}" уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้: ผู้ใช้ด้วยรหัส "${userLoginId}" ยังคงมีอยู่แล้ว.</value>
         <value xml:lang="zh">无法创建登录用户：用户标识"${userLoginId}"已存在。</value>
-        <value xml:lang="zh_TW">無法建立使用者, 使用者名稱 ${userLoginId} 已存在。</value>
+        <value xml:lang="zh_TW">無法建立使用者, 使用者登入代號 ${userLoginId} 已存在。</value>
     </property>
     <property key="loginservices.could_not_create_login_user_write_failure">
         <value xml:lang="de">Konnte user-login nicht erstellen (Schreibfehler): ${errorMessage}.</value>
@@ -636,7 +636,7 @@
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
         <value xml:lang="zh">指定的会员标识已存在，你无权用这个会员标识创建用户登录。</value>
-        <value xml:lang="zh_TW">使用的成員ID已存在, 無法以此ID建立新的使用者。</value>
+        <value xml:lang="zh_TW">使用的夥伴代號已存在, 無法以此代號建立新的使用者。</value>
     </property>
     <property key="loginservices.party_with_specified_party_ID_exists_not_have_permission">
         <value xml:lang="de">Party mit angegebener Party ID existiert bereits und sie verfügen nicht über die erforderliche Berechtigung ein user-login mit dieser Party ID anzulegen.</value>
@@ -651,7 +651,7 @@
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
         <value xml:lang="zh">指定的会员标识已存在，你无权使用这个标识创建用户登录。</value>
-        <value xml:lang="zh_TW">使用的成員ID已存在, 無法以此ID建立新的使用者。</value>
+        <value xml:lang="zh_TW">使用的夥伴代號已存在, 無法以此代號建立新的使用者。</value>
     </property>
     <property key="loginservices.password_did_not_match_verify_password">
         <value xml:lang="de">Das Passwort stimmt nicht mit der zweiten Eingabe des Passwortes überein.</value>
@@ -711,7 +711,7 @@
         <value xml:lang="ru">Пароль не может быть таким же, как и имя пользователя.</value>
         <value xml:lang="th">รหัสผ่านอาจจะไม่เม่ากับชื่อผู้เข้าใช้</value>
         <value xml:lang="zh">密码不能与用户名一样。</value>
-        <value xml:lang="zh_TW">密碼不能和使用者名稱相同。</value>
+        <value xml:lang="zh_TW">密碼不能和使用者登入代號相同。</value>
     </property>
     <property key="loginservices.password_missing">
         <value xml:lang="de">Passwort fehlt.</value>
@@ -786,6 +786,7 @@
         <value xml:lang="it">La password non è corrispondente al modello, fare riferimento seguente schema: ${passwordPatternMessage}.</value>
         <value xml:lang="ru">Пароль не соответствует шаблону: ${passwordPatternMessage}</value>
         <value xml:lang="zh">密码不符合样式：${passwordPatternMessage} </value>
+        <value xml:lang="zh_TW">密码不符合格式：${passwordPatternMessage} </value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
@@ -830,7 +831,7 @@
         <value xml:lang="ru">Отсутствует имя пользователя.</value>
         <value xml:lang="th">ไม่พบชื่อผู้เข้าใช้</value>
         <value xml:lang="zh">缺少用户名。</value>
-        <value xml:lang="zh_TW">缺少使用者名稱。</value>
+        <value xml:lang="zh_TW">缺少使用者登入代號。</value>
     </property>
     <property key="loginservices.will_be_reenabled">
         <value xml:lang="de">Es wird am/um ${reEnableTime} wieder freigegeben.</value>

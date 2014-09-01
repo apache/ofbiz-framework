@@ -34,7 +34,7 @@
         <value xml:lang="ru">Добавить права (вручную) в SecurityGroup</value>
         <value xml:lang="th">เพิ่มการอนุมัติ(ด้วยมือ)ในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">(手工)把权限添加到安全组</value>
-        <value xml:lang="zh_TW">(手工)把權限添加到安全組</value>
+        <value xml:lang="zh_TW">(手動)把權限添加到安全群組</value>
     </property>
     <property key="AddPermissionToSecurityGroup">
         <value xml:lang="de">Berechtigung (aus Liste) zur Sicherheitsgruppe hinzufügen</value>
@@ -51,7 +51,7 @@
         <value xml:lang="ru">Добавить права (из списка) в SecurityGroup</value>
         <value xml:lang="th">เพิ่มการอนุมัติ(จากรายการ)ในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">(从列表)把权限添加到安全组</value>
-        <value xml:lang="zh_TW">(從列表)把權限添加到安全組</value>
+        <value xml:lang="zh_TW">(從列表)把權限添加到安全群組</value>
     </property>
     <property key="AddProtectedViewToSecurityGroup">
         <value xml:lang="de">Geschützte Ansicht zu Sicherheitsgruppe hinzufügen</value>
@@ -64,7 +64,7 @@
         <value xml:lang="pt_BR">Adicionar uma visão protegida ao SecurityGroup</value>
         <value xml:lang="ru">Добавить защищенный вид в SecurityGroup</value>
         <value xml:lang="zh">添加一个受保护的视图到安全组</value>
-        <value xml:lang="zh_TW">添加一個受保護的視圖到安全組</value>
+        <value xml:lang="zh_TW">添加一個受保護的檢視到安全群組</value>
     </property>
     <property key="AddUserLoginToSecurityGroup">
         <value xml:lang="de">Benutzeranmeldung zur Sicherheitsgruppe hinzufügen</value>
@@ -81,7 +81,7 @@
         <value xml:lang="ru">Добавить имя пользователя в группу безопасности</value>
         <value xml:lang="th">เพิ่มผู้เข้าใช้ระบบในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">把用户登录添加到安全组</value>
-        <value xml:lang="zh_TW">把用戶登錄添加到安全組</value>
+        <value xml:lang="zh_TW">把使用者登入添加到安全群組</value>
     </property>
     <property key="CertComponent">
         <value xml:lang="de">Komponente</value>
@@ -107,6 +107,7 @@
         <value xml:lang="pt_BR">Detalhes do certificado</value>
         <value xml:lang="ru">Подробнее о сертификатах</value>
         <value xml:lang="zh">证书详细</value>
+        <value xml:lang="zh_TW">憑證明細</value>
     </property>
     <property key="CertImportIssuer">
         <value xml:lang="de">Aussteller importieren</value>
@@ -121,7 +122,7 @@
         <value xml:lang="ru">Проблемы импорта</value>
         <value xml:lang="th">ปัญหา</value>
         <value xml:lang="zh">导入发行人</value>
-        <value xml:lang="zh_TW">導入發行人</value>
+        <value xml:lang="zh_TW">匯入發行人</value>
     </property>
     <property key="CertInvalid">
         <value xml:lang="de">Ungültiges Zertifikat</value>
@@ -136,7 +137,7 @@
         <value xml:lang="ru">Недействительный сертификат</value>
         <value xml:lang="th">หนังสือรับรองไม่ถูกต้อง</value>
         <value xml:lang="zh">无效的证书</value>
-        <value xml:lang="zh_TW">無效的証書</value>
+        <value xml:lang="zh_TW">無效的憑證</value>
     </property>
     <property key="CertIssuers">
         <value xml:lang="de">Zertifikatsersteller</value>
@@ -151,7 +152,7 @@
         <value xml:lang="ru">Эмитенты сертификата</value>
         <value xml:lang="th">ประเด็น</value>
         <value xml:lang="zh">证书发行人</value>
-        <value xml:lang="zh_TW">証書發行人</value>
+        <value xml:lang="zh_TW">憑證發行人</value>
     </property>
     <property key="CertKeyAlias">
         <value xml:lang="de">Schlüssel Alias</value>
@@ -196,7 +197,7 @@
         <value xml:lang="ru">Имя сертификата</value>
         <value xml:lang="th">ชื่อจริง</value>
         <value xml:lang="zh">证书名</value>
-        <value xml:lang="zh_TW">証書名</value>
+        <value xml:lang="zh_TW">憑證名</value>
     </property>
     <property key="CertSaveToKeyStore">
         <value xml:lang="de">Im KeyStore speichern</value>
@@ -226,7 +227,7 @@
         <value xml:lang="ru">Сертификат серийного номера</value>
         <value xml:lang="th">หมายเลขลำดับ</value>
         <value xml:lang="zh">证书序列号</value>
-        <value xml:lang="zh_TW">証書序列號</value>
+        <value xml:lang="zh_TW">憑證序列號</value>
     </property>
     <property key="CertType">
         <value xml:lang="de">Zertifikat Typ</value>
@@ -241,7 +242,7 @@
         <value xml:lang="ru">Тип сертификата</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">证书类型</value>
-        <value xml:lang="zh_TW">証書類型</value>
+        <value xml:lang="zh_TW">憑證類型</value>
     </property>
     <property key="CreateUserLogin">
         <value xml:lang="de">Benutzeranmeldung erstellen</value>
@@ -269,6 +270,7 @@
         <value xml:lang="pt_BR">Encontrar Nome de Usuário</value>
         <value xml:lang="ru">Найти логин пользователя</value>
         <value xml:lang="zh">查找用户登录</value>
+        <value xml:lang="zh_TW">查詢使用者登入</value>
     </property>
     <property key="FormFieldTitle_currentPassword">
         <value xml:lang="de">Aktuelles Passwort</value>
@@ -300,7 +302,7 @@
         <value xml:lang="ru">Действующий пароль повторно</value>
         <value xml:lang="th">ยืนยันรหัสผ่าน</value>
         <value xml:lang="zh">当前密码验证</value>
-        <value xml:lang="zh_TW">目前密碼驗証</value>
+        <value xml:lang="zh_TW">目前密碼驗證</value>
     </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="de">Deaktiviert am</value>
@@ -311,6 +313,7 @@
         <value xml:lang="ja">無効日時</value>
         <value xml:lang="ru">Отключить Дату и время</value>
         <value xml:lang="zh">禁用的日期时间</value>
+        <value xml:lang="zh_TW">停用的日期時間</value>
     </property>
     <property key="FormFieldTitle_enabled">
         <value xml:lang="ar">شغال</value>
@@ -340,6 +343,7 @@
         <value xml:lang="ja">外部認証ID</value>
         <value xml:lang="ru">Внешний Auth Id</value>
         <value xml:lang="zh">外部认证标识</value>
+        <value xml:lang="zh_TW">外部授權代號</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
         <value xml:lang="de">Hat sich abgemeldet</value>
@@ -350,6 +354,7 @@
         <value xml:lang="ja">ログアウトしました</value>
         <value xml:lang="ru">Выполнить выход с системы</value>
         <value xml:lang="zh">已退出</value>
+        <value xml:lang="zh_TW">已登出</value>
     </property>
     <property key="FormFieldTitle_maxHits">
         <value xml:lang="de">Maximale Anzahl der Besuche</value>
@@ -418,6 +423,7 @@
         <value xml:lang="ja">パスワードのヒント</value>
         <value xml:lang="ru">Совет пароля</value>
         <value xml:lang="zh">密码提示</value>
+        <value xml:lang="zh_TW">密碼提示</value>
     </property>
     <property key="FormFieldTitle_requirePasswordChange">
         <value xml:lang="de">Passwortänderung benötigt</value>
@@ -441,6 +447,7 @@
         <value xml:lang="ja">連続ログイン失敗</value>
         <value xml:lang="ru">Неудачные попытки авторизации</value>
         <value xml:lang="zh">连续失败登录次数</value>
+        <value xml:lang="zh_TW">連續失敗登入次數</value>
     </property>
     <property key="FormFieldTitle_tarpitDuration">
         <value xml:lang="de">Zeitspanne für die die Ansicht nicht angezeigt wird (in Sekunden)</value>
@@ -453,7 +460,7 @@
         <value xml:lang="pt_BR">Período durante o qual a vista não poderá ser acessada (em segundos)</value>
         <value xml:lang="ru">Продолжительность в которой вид будет не доступен ( в секундах)</value>
         <value xml:lang="zh">视图不能访问的时长(秒)</value>
-        <value xml:lang="zh_TW">視圖不能訪問的時長(秒)</value>
+        <value xml:lang="zh_TW">檢視不能訪問的時長(秒)</value>
     </property>
     <property key="FormFieldTitle_userLdapDn">
         <value xml:lang="de">LDAP Distinguished Name</value>
@@ -483,7 +490,7 @@
         <value xml:lang="ru">Код имени пользователя</value>
         <value xml:lang="th">รหัสผู้ใช้ที่เข้าสู่ระบบ</value>
         <value xml:lang="zh">用户登录标识</value>
-        <value xml:lang="zh_TW">使用者登入ID</value>
+        <value xml:lang="zh_TW">使用者登入代號</value>
     </property>
     <property key="FormFieldTitle_viewNameId">
         <value xml:lang="de">Ansicht Name</value>
@@ -506,7 +513,7 @@
         <value xml:lang="ja">ユーザログインを検索</value>
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
         <value xml:lang="ru">Поиск логина пользователя</value>
-        <value xml:lang="zh">查找用户登录</value>
+        <value xml:lang="zh">查詢使用者登入代號</value>
     </property>
     <property key="NewSecurityGroup">
         <value xml:lang="de">Neue Sicherheitsgruppe</value>
@@ -523,7 +530,7 @@
         <value xml:lang="ru">Новая группа безопасности</value>
         <value xml:lang="th">กลุ่มความปลอดภัยใหม่</value>
         <value xml:lang="zh">新建安全组</value>
-        <value xml:lang="zh_TW">新建安全組</value>
+        <value xml:lang="zh_TW">新建安全群組</value>
     </property>
     <property key="PageTitleAddIssuerProvisions">
         <value xml:lang="de">Aussteller Bestimmungen hinzufügen</value>
@@ -570,7 +577,7 @@
         <value xml:lang="ru">Изменить группу безопасности</value>
         <value xml:lang="th">แก้ไขกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">编辑安全组</value>
-        <value xml:lang="zh_TW">編輯安全組</value>
+        <value xml:lang="zh_TW">編輯安全群組</value>
     </property>
     <property key="PageTitleEditSecurityGroupPermissions">
         <value xml:lang="de">Sicherheitsgruppe Berechtigungen bearbeiten</value>
@@ -587,7 +594,7 @@
         <value xml:lang="ru">Изменить права группы безопасности</value>
         <value xml:lang="th">แก้ไขการอนุญาตกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">编辑安全组权限</value>
-        <value xml:lang="zh_TW">編輯安全組權限</value>
+        <value xml:lang="zh_TW">編輯安全群組權限</value>
     </property>
     <property key="PageTitleEditUserLoginSecurityGroups">
         <value xml:lang="de">Sicherheitsgruppen zur Benuterzanmeldung bearbeiten</value>
@@ -603,7 +610,7 @@
         <value xml:lang="ru">Изменить группу безопасности для имени пользователя</value>
         <value xml:lang="th">แก้ไขกลุ่มความปลอดภัยของผู้เข้าใช้ระบบ</value>
         <value xml:lang="zh">编辑用户登录安全组</value>
-        <value xml:lang="zh_TW">編輯用戶登錄安全組</value>
+        <value xml:lang="zh_TW">編輯使用者登入安全群組</value>
     </property>
     <property key="PageTitleFindSecurityGroup">
         <value xml:lang="de">Sicherheitsgruppe suchen</value>
@@ -619,7 +626,7 @@
         <value xml:lang="ru">Найти группу безопасности</value>
         <value xml:lang="th">ค้นหากลุ่มความปลอดภัย</value>
         <value xml:lang="zh">查找安全组</value>
-        <value xml:lang="zh_TW">查找安全組</value>
+        <value xml:lang="zh_TW">查詢安全群組</value>
     </property>
     <property key="PageTitleImportCertificate">
         <value xml:lang="de">Zertifikat importieren</value>
@@ -634,7 +641,7 @@
         <value xml:lang="ru">Импортировать сертификат</value>
         <value xml:lang="th">มีใบรับรอง</value>
         <value xml:lang="zh">导入证书</value>
-        <value xml:lang="zh_TW">導入証書</value>
+        <value xml:lang="zh_TW">匯入憑證</value>
     </property>
     <property key="PermissionId">
         <value xml:lang="de">Berechtigung ID</value>
@@ -651,7 +658,7 @@
         <value xml:lang="ru">Код прав</value>
         <value xml:lang="th">รหัสใบอนุญาต</value>
         <value xml:lang="zh">权限标识</value>
-        <value xml:lang="zh_TW">權限ID</value>
+        <value xml:lang="zh_TW">權限代號</value>
     </property>
     <property key="Permissions">
         <value xml:lang="de">Berechtigungen</value>
@@ -681,7 +688,7 @@
         <value xml:lang="pt_BR">Vistas protegidas</value>
         <value xml:lang="ru">Защищенные просмотры</value>
         <value xml:lang="zh">受保护的视图</value>
-        <value xml:lang="zh_TW">受保護的視圖</value>
+        <value xml:lang="zh_TW">受保護的檢視</value>
     </property>
     <property key="SecurityGroups">
         <value xml:lang="de">Sicherheitsgruppen</value>
@@ -744,6 +751,7 @@
         <value xml:lang="pt_BR">Nome de Usuário</value>
         <value xml:lang="ru">Права</value>
         <value xml:lang="zh">用户登录</value>
+        <value xml:lang="zh_TW">使用者登入代號</value>
     </property>
     <property key="UserLoginChangePassword">
         <value xml:lang="de">Passwort der Benutzeranmeldung ändern</value>
@@ -759,7 +767,7 @@
         <value xml:lang="ru">Изменение пароля пользователя</value>
         <value xml:lang="th">เปลี่ยนรหัสผ่านผู้เข้าใช้ระบบ</value>
         <value xml:lang="zh">修改用户登录密码</value>
-        <value xml:lang="zh_TW">修改用戶登錄密碼</value>
+        <value xml:lang="zh_TW">修改使用者登入密碼</value>
     </property>
     <property key="UserLoginUpdateSecuritySettings">
         <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
@@ -775,7 +783,7 @@
         <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
         <value xml:lang="th">เปลี่ยนแปลงการตั้งค่าความปลอดภัยของผู้เข้าใช้ระบบ</value>
         <value xml:lang="zh">更新用户登录安全设置</value>
-        <value xml:lang="zh_TW">更新用戶登錄安全設置</value>
+        <value xml:lang="zh_TW">更新使用者登入安全設定</value>
     </property>
     <property key="UserLogins">
         <value xml:lang="de">Benutzeranmeldungen</value>
@@ -792,7 +800,7 @@
         <value xml:lang="ru">Имена пользователей</value>
         <value xml:lang="th">ผู้เข้าใช้ระบบ</value>
         <value xml:lang="zh">用户登录</value>
-        <value xml:lang="zh_TW">用戶登錄</value>
+        <value xml:lang="zh_TW">使用者登入代號</value>
     </property>
     <property key="ViewCert">
         <value xml:lang="de">Zertifikat anzeigen</value>
@@ -807,6 +815,6 @@
         <value xml:lang="ru">Просмотр сертификата</value>
         <value xml:lang="th">แสดงความมั่นใจ</value>
         <value xml:lang="zh">浏览证书</value>
-        <value xml:lang="zh_TW">瀏覽証書</value>
+        <value xml:lang="zh_TW">瀏覽憑證</value>
     </property>
 </resource>

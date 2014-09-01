@@ -24,6 +24,7 @@
         <value xml:lang="ja">接続プールステータス</value>
         <value xml:lang="vi">Trạng thái chia sẻ kết nối cơ sở dữ liệu</value>
         <value xml:lang="zh">连接池状态</value>
+        <value xml:lang="zh_TW">連接池狀態</value>
     </property>
     <property key="EntityImportDeletFile">
         <value xml:lang="en">Deleting ${fileName}</value>
@@ -31,6 +32,7 @@
         <value xml:lang="ja">${fileName} を削除しています</value>
         <value xml:lang="vi">Đang xóa ${fileName}</value>
         <value xml:lang="zh">正在删除 ${fileName}</value>
+        <value xml:lang="zh_TW">正在删除 ${fileName}</value>
     </property>
     <property key="EntityImportErrorRetrievingEntityNames">
         <value xml:lang="en">Error retrieving entity names.</value>
@@ -38,6 +40,7 @@
         <value xml:lang="ja">エンティティ名取得中にエラー</value>
         <value xml:lang="vi">Lỗi khi lấy tên Thực thể.</value>
         <value xml:lang="zh">获取实体名称时出错。</value>
+        <value xml:lang="zh_TW">取得個體名稱時出錯。</value>
     </property>
     <property key="EntityImportFailedFile">
         <value xml:lang="en">Failed ${fileName} adding to retry list for next pass</value>
@@ -45,6 +48,7 @@
         <value xml:lang="ja">${fileName} を次のパスのリトライリストに追加中に失敗</value>
         <value xml:lang="vi">Tập tin ${fileName} không thành công đã được thêm vào Danh sách để Xử lý tiếp sau</value>
         <value xml:lang="zh">把失败的文件 ${fileName} 添加重试列表，以便下轮运行</value>
+        <value xml:lang="zh_TW">把失敗的文件 ${fileName} 添加重試列表，以便下輪執行</value>
     </property>
     <property key="EntityImportFailedFileList">
         <value xml:lang="en">Failed Files:</value>
@@ -52,6 +56,7 @@
         <value xml:lang="ja">失敗したファイル: </value>
         <value xml:lang="vi">Tập tin không thành công:</value>
         <value xml:lang="zh">失败的文件：</value>
+        <value xml:lang="zh_TW">失敗的文件：</value>
     </property>
     <property key="EntityImportFailedNumberFile">
         <value xml:lang="en">Failed: ${failed} of ${total}</value>
@@ -59,6 +64,7 @@
         <value xml:lang="ja">失敗: ${failed} / ${total}</value>
         <value xml:lang="vi">Không thành công: ${failed} của tổng ${total}</value>
         <value xml:lang="zh">失败：${failed}/${total}</value>
+        <value xml:lang="zh_TW">失敗：${failed}/${total}</value>
     </property>
     <property key="EntityImportNoDataSourceSpecified">
         <value xml:lang="en">Unable to locate the datasource helper for the group ${groupNameToUse}</value>
@@ -66,6 +72,7 @@
         <value xml:lang="ja">グループ ${groupNameToUse} に対するデータソースヘルパーの確立ができません</value>
         <value xml:lang="vi">Không thể tìm thấy 'datasource helper' cho nhóm ${groupNameToUse}</value>
         <value xml:lang="zh">不能找到用于组 ${groupNameToUse} 的数据源帮助程序</value>
+        <value xml:lang="zh_TW">不能找到用於群组 ${groupNameToUse} 的資料源幫助程序</value>
     </property>
     <property key="EntityImportNoXmlFileOrTextSpecified">
         <value xml:lang="en">No entity xml file or text specified</value>
@@ -73,6 +80,7 @@
         <value xml:lang="ja">エンティティXMLファイルまたはテキストが指定されていません</value>
         <value xml:lang="vi">Không XML hoặc Văn bản nào của Thực thể được xác định</value>
         <value xml:lang="zh">没有指定的实体XML文件或文本</value>
+        <value xml:lang="zh_TW">没有指定的個體XML文件或文本</value>
     </property>
     <property key="EntityImportNoXmlFileSpecified">
         <value xml:lang="en">No filename/URL or complete XML document specified, doing nothing.</value>
@@ -80,6 +88,7 @@
         <value xml:lang="ja">ファイル名/URLまたは完全なXML文書が指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không Tập tin/URL hoặc tài liệu XML hoàn chỉnh nào được xác định nên hệ thống sẽ không làm gì cả.</value>
         <value xml:lang="zh">没有指定的文件名/网址或完整的XML文档，什么也不做。</value>
+        <value xml:lang="zh_TW">没有指定的文件名/網址或完整的XML文件，什麼也不做。</value>
     </property>
     <property key="EntityImportNumberOfEntityToBeProcessed">
         <value xml:lang="en">Got ${numberRead} entities from ${fileName}</value>
@@ -87,6 +96,7 @@
         <value xml:lang="ja">${fileName} から ${numberRead} エンティティ取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể từ Tập tin ${fileName}</value>
         <value xml:lang="zh">从 ${fileName} 中得到了 ${numberRead} 个实体</value>
+        <value xml:lang="zh_TW">從 ${fileName} 中得到了 ${numberRead} 個個體</value>
     </property>
     <property key="EntityImportParsingError">
         <value xml:lang="en">ERROR parsing Entity Xml file: ${errorString}</value>
@@ -94,6 +104,7 @@
         <value xml:lang="ja">エンティティXMLファイルパース時にエラー: ${errorString}</value>
         <value xml:lang="vi">LỖI khi phân tích tập tin XML Thực thể: ${errorString}</value>
         <value xml:lang="zh">解析实体XML文件时出错：${errorString}</value>
+        <value xml:lang="zh_TW">解析個體XML文件時出錯：${errorString}</value>
     </property>
     <property key="EntityImportPassedFile">
         <value xml:lang="en">Pass ${passes} complete</value>
@@ -101,6 +112,7 @@
         <value xml:lang="ja">パス ${passes} 完了しました</value>
         <value xml:lang="vi">Xử lý ${passes} hoàn thành</value>
         <value xml:lang="zh">通过 ${passes} 个并完成</value>
+        <value xml:lang="zh_TW">通過 ${passes} 個完成</value>
     </property>
     <property key="EntityImportPathNotFound">
         <value xml:lang="en">path not found or can't be read</value>
@@ -108,6 +120,7 @@
         <value xml:lang="ja">パスが見つからないか読み込みできません</value>
         <value xml:lang="vi">đường dẫn không tìm thấy hoặc không thể đọc nội dung</value>
         <value xml:lang="zh">找不到路径或无法读取路径</value>
+        <value xml:lang="zh_TW">找不到路徑或無法讀取路徑</value>
     </property>
     <property key="EntityImportPathNotSpecified">
         <value xml:lang="en">No path specified, doing nothing.</value>
@@ -115,6 +128,7 @@
         <value xml:lang="ja">パスが指定されていません。処理を行いません。</value>
         <value xml:lang="vi">Không xác định Đường dẫn nên hệ thống không làm gì cả.</value>
         <value xml:lang="zh">没有指定路径，什么也不做。</value>
+        <value xml:lang="zh_TW">没有指定路徑，什麼也不做。</value>
     </property>
     <property key="EntityImportRowProcessed">
         <value xml:lang="en">Got ${numberRead} entities to write to the datasource.</value>
@@ -122,6 +136,7 @@
         <value xml:lang="ja">エンティティデータソースに書き込むため ${numberRead} 取得しました</value>
         <value xml:lang="vi">Nhận ${numberRead} Thực thể để ghi đến Kết nối dữ liệu (datasource).</value>
         <value xml:lang="zh">有 ${numberRead} 个实体要写到数据源</value>
+        <value xml:lang="zh_TW">有 ${numberRead} 個個體要寫到資料源</value>
     </property>
     <property key="EntityImportSucceededNumberFile">
         <value xml:lang="en">Succeeded: ${succeeded} of ${total}</value>
@@ -129,6 +144,7 @@
         <value xml:lang="ja">成功: ${succeeded} / ${total}</value>
         <value xml:lang="vi">Thành công: ${succeeded} trên tổng số ${total}</value>
         <value xml:lang="zh">已成功：${succeeded}/${total}</value>
+        <value xml:lang="zh_TW">已成功：${succeeded}/${total}</value>
     </property>
     <property key="FormFieldTitle_date1">
         <value xml:lang="de">Datum1</value>
@@ -158,7 +174,7 @@
         <value xml:lang="pt">ID do Grupo da Entity</value>
         <value xml:lang="vi">Id Nhóm thực thể</value>
         <value xml:lang="zh">实体组标识</value>
-        <value xml:lang="zh_TW">實體組ID</value>
+        <value xml:lang="zh_TW">個體群組代號</value>
     </property>
     <property key="FormFieldTitle_entitySyncId">
         <value xml:lang="de">Entität Synch. ID</value>
@@ -171,7 +187,7 @@
         <value xml:lang="th">รหัสสิ่งที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="vi">Id đồng bộ Thực thể</value>
         <value xml:lang="zh">实体同步标识</value>
-        <value xml:lang="zh_TW">實體同步ID</value>
+        <value xml:lang="zh_TW">個體同步代號</value>
     </property>
     <property key="FormFieldTitle_eomodeldFullPath">
         <value xml:lang="de">EoModell abs. Pfad</value>
@@ -204,7 +220,7 @@
         <value xml:lang="th">สำหรับการดึงเท่านั้น</value>
         <value xml:lang="vi">Chỉ 'Lấy về'</value>
         <value xml:lang="zh">仅用于拉取</value>
-        <value xml:lang="zh_TW">僅用于拉取</value>
+        <value xml:lang="zh_TW">僅用於拉取</value>
     </property>
     <property key="FormFieldTitle_forPushOnly">
         <value xml:lang="de">Nur für Push-Betrieb</value>
@@ -217,7 +233,7 @@
         <value xml:lang="th">สำหรับการผลักเท่านั้น</value>
         <value xml:lang="vi">Chỉ 'Gửi lên'</value>
         <value xml:lang="zh">仅用于推送</value>
-        <value xml:lang="zh_TW">僅用于推送</value>
+        <value xml:lang="zh_TW">僅用於推送</value>
     </property>
     <property key="FormFieldTitle_integer1">
         <value xml:lang="de">Integer1</value>
@@ -325,7 +341,7 @@
         <value xml:lang="th">ดำเนินการรหัสสถานะ</value>
         <value xml:lang="vi">Id trạng thái chạy</value>
         <value xml:lang="zh">运行状态标识</value>
-        <value xml:lang="zh_TW">執行狀態ID</value>
+        <value xml:lang="zh_TW">執行狀態代號</value>
     </property>
     <property key="FormFieldTitle_string1">
         <value xml:lang="de">String1</value>
@@ -435,7 +451,7 @@
         <value xml:lang="th">ซ่อนการแก้ไขข้อมูล</value>
         <value xml:lang="vi">Sửa đổi bộ Đệm tiện ích</value>
         <value xml:lang="zh">编辑缓存</value>
-        <value xml:lang="zh_TW">編輯緩存</value>
+        <value xml:lang="zh_TW">編輯快取</value>
     </property>
     <property key="PageTitleEntityEoModelBundle">
         <value xml:lang="de">Entity Eo Modell-Bundle</value>
@@ -444,7 +460,7 @@
         <value xml:lang="ja">EoModelバンドルエンティティ</value>
         <value xml:lang="vi">Thực thể Eo Model Bundle</value>
         <value xml:lang="zh">实体EoModel绑定</value>
-        <value xml:lang="zh_TW">實體EoModel綁定</value>
+        <value xml:lang="zh_TW">個體EoModel綁定</value>
     </property>
     <property key="PageTitleEntityExport">
         <value xml:lang="de">XML-Daten exportieren</value>
@@ -457,7 +473,7 @@
         <value xml:lang="th">ส่งออกข้อมูล xml</value>
         <value xml:lang="vi">Kết xuất dữ liệu XML</value>
         <value xml:lang="zh">XML数据导出</value>
-        <value xml:lang="zh_TW">XML資料導出</value>
+        <value xml:lang="zh_TW">XML資料匯出</value>
     </property>
     <property key="PageTitleEntityExportAll">
         <value xml:lang="de">Alle XML-Daten exportieren</value>
@@ -470,7 +486,7 @@
         <value xml:lang="th">ส่งออกข้อมูล xml ทั้งหมด</value>
         <value xml:lang="vi">Kết xuất tất cả dữ liệu XML</value>
         <value xml:lang="zh">XML数据导出全部</value>
-        <value xml:lang="zh_TW">XML資料導出全部</value>
+        <value xml:lang="zh_TW">XML資料匯出全部</value>
     </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="de">XML-Daten importieren</value>
@@ -483,7 +499,7 @@
         <value xml:lang="th">นำเข้าข้อมูล xml</value>
         <value xml:lang="vi">Nhập khẩu dữ liệu XML</value>
         <value xml:lang="zh">XML数据导入</value>
-        <value xml:lang="zh_TW">XML資料導入</value>
+        <value xml:lang="zh_TW">XML資料匯入</value>
     </property>
     <property key="PageTitleEntityImportDir">
         <value xml:lang="de">XML Datenimport aus Verzeichnis</value>
@@ -496,7 +512,7 @@
         <value xml:lang="th">นำเข้าข้อมูล xml ใน Directory</value>
         <value xml:lang="vi">Thư mục nhập khẩu XML</value>
         <value xml:lang="zh">XML数据导入目录 </value>
-        <value xml:lang="zh_TW">XML資料導入目錄 </value>
+        <value xml:lang="zh_TW">XML資料匯入目錄 </value>
     </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="de">Leser für XML Datenimport</value>
@@ -508,7 +524,7 @@
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
         <value xml:lang="vi">Bộ đọc nhập khẩu XML</value>
         <value xml:lang="zh">XML数据导入读取程序</value>
-        <value xml:lang="zh_TW">XML資料導入讀取程式</value>
+        <value xml:lang="zh_TW">XML資料匯入讀取程式</value>
     </property>
     <property key="PageTitleEntitySQLProcessor">
         <value xml:lang="de">Entitäten SQL Prozessor</value>
@@ -521,7 +537,7 @@
         <value xml:lang="th">ประมวลผลสิ่งที่มีใน SQL</value>
         <value xml:lang="vi">Xử lý Thực thể SQL</value>
         <value xml:lang="zh">实体SQL处理程序</value>
-        <value xml:lang="zh_TW">實體SQL處理程式</value>
+        <value xml:lang="zh_TW">個體SQL處理程式</value>
     </property>
     <property key="PageTitleEntitySyncStatus">
         <value xml:lang="de">Entitäten Synch Status</value>
@@ -535,7 +551,7 @@
         <value xml:lang="th">สถานะสิ่งที่มีอยู่</value>
         <value xml:lang="vi">Trạng thái đồng bộ</value>
         <value xml:lang="zh">实体同步状态</value>
-        <value xml:lang="zh_TW">實體同步狀態</value>
+        <value xml:lang="zh_TW">個體同步狀態</value>
     </property>
     <property key="PageTitleFindJob">
         <value xml:lang="de">Job suchen</value>
@@ -547,7 +563,7 @@
         <value xml:lang="th">ค้นหางาน</value>
         <value xml:lang="vi">Tìm kiếm công việc</value>
         <value xml:lang="zh">查找任务</value>
-        <value xml:lang="zh_TW">查找任務</value>
+        <value xml:lang="zh_TW">尋找任務</value>
     </property>
     <property key="PageTitleFindPortalPage">
         <value xml:lang="en">Find Portal page</value>
@@ -557,6 +573,7 @@
         <value xml:lang="pt">Encontrar a pÃ¡gina do Portal</value>
         <value xml:lang="vi">Tìm trang Cổng thông tin</value>
         <value xml:lang="zh">查找门户页面</value>
+        <value xml:lang="zh_TW">尋找入口網頁</value>
     </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="de">Cache Wartungsseite</value>
@@ -569,7 +586,7 @@
         <value xml:lang="th">หน้าของการดูแลรักษา</value>
         <value xml:lang="vi">Trang quản trị bộ Đệm</value>
         <value xml:lang="zh">缓存维护页面</value>
-        <value xml:lang="zh_TW">緩存維護頁面</value>
+        <value xml:lang="zh_TW">快取維護頁面</value>
     </property>
     <property key="PageTitleFindUtilCacheElements">
         <value xml:lang="de">Cache Elemente Wartungsseite</value>
@@ -582,7 +599,7 @@
         <value xml:lang="th">หน้าของการดูแลรักษาอย่างละเอียด</value>
         <value xml:lang="vi">Trang quản trị phần tử bộ Đệm</value>
         <value xml:lang="zh">缓存元素维护页面</value>
-        <value xml:lang="zh_TW">緩存元素維護頁面</value>
+        <value xml:lang="zh_TW">快取元素維護頁面</value>
     </property>
     <property key="PageTitleJobList">
         <value xml:lang="de">Job Liste</value>
@@ -600,6 +617,7 @@
     <property key="PageTitleJobDetails">
         <value xml:lang="en">Job Details</value>
         <value xml:lang="zh">任务详情</value>
+        <value xml:lang="zh_TW">任務詳情</value>
     </property>
     <property key="PageTitleLogConfiguration">
         <value xml:lang="de">Log Konfiguration</value>
@@ -612,7 +630,7 @@
         <value xml:lang="th">โครงร่างของบันทึกข้อมูล</value>
         <value xml:lang="vi">Cấu hình Vết</value>
         <value xml:lang="zh">调试级别</value>
-        <value xml:lang="zh_TW">調試級別</value>
+        <value xml:lang="zh_TW">日誌級別</value>
     </property>
     <property key="PageTitleLogView">
         <value xml:lang="de">Log ansehen</value>
@@ -653,7 +671,7 @@
         <value xml:lang="th">ตารางเวลางาน</value>
         <value xml:lang="vi">Đặt lịch Công việc</value>
         <value xml:lang="zh">任务计划</value>
-        <value xml:lang="zh_TW">任務計劃</value>
+        <value xml:lang="zh_TW">工作排程</value>
     </property>
     <property key="PageTitleServiceList">
         <value xml:lang="de">Dienst-Liste</value>
@@ -679,7 +697,7 @@
         <value xml:lang="th">รายงานเหตุการณ์ที่เกิดขึ้นต่อเนื่องกัน</value>
         <value xml:lang="vi">Danh sách luồng công việc</value>
         <value xml:lang="zh">线程列表</value>
-        <value xml:lang="zh_TW">線程列表</value>
+        <value xml:lang="zh_TW">執行緒列表</value>
     </property>
     <property key="WebtoolsAbsoluteFTLFilename">
         <value xml:lang="de">Absoluter Dateiname der FreeMarker Vorlagedatei für den Datenfilter (optional)</value>
@@ -692,7 +710,7 @@
         <value xml:lang="th">ชื่อไฟล์ทั้งหมดของไฟล์ FreeMarker template มีการกรองข้อมูลโดย(ทางเลือก)</value>
         <value xml:lang="vi">Tên Tệp tin tuyệt đối hoặc Tệp tin biểu mẫu FreeMarker để lọc dữ liệu bởi (tùy chọn)</value>
         <value xml:lang="zh">用于过滤数据的FreeMarker模板文件的绝对文件名（可选）</value>
-        <value xml:lang="zh_TW">用于過濾資料的FreeMarker範本文件的絕對文件名（可選）</value>
+        <value xml:lang="zh_TW">用於篩選資料的FreeMarker範本文件的絕對文件名（可選）</value>
     </property>
     <property key="WebtoolsAbsoluteFileNameOrUrl">
         <value xml:lang="de">Absoluter Dateiname oder URL</value>
@@ -757,7 +775,7 @@
         <value xml:lang="th">ฟอร์มนี้อนุญาติให้คุณสามารถเข้าใช้งานเฉพาะในส่วนของแพ็คเกจหรือคลาส</value>
         <value xml:lang="vi">Giao diện này cho phép bạn bật vết hệ thống cho gói hoặc lớp tùy chọn</value>
         <value xml:lang="zh">这个表单允许你为指定的Java包或Java类启用一个日志记录。</value>
-        <value xml:lang="zh_TW">這個表單允許你為指定的Java包或Java類啟用一個日誌記錄。</value>
+        <value xml:lang="zh_TW">這個表單允許你為指定的Java包或Java Class啟用一個日誌記錄。</value>
     </property>
     <property key="WebtoolsAddMissing">
         <value xml:lang="de">Fehlende hinzufügen</value>
@@ -769,7 +787,7 @@
         <value xml:lang="th">การเพิ่มผิดพลาด</value>
         <value xml:lang="vi">Thêm (bị thiếu)</value>
         <value xml:lang="zh">添加错失</value>
-        <value xml:lang="zh_TW">添加錯失</value>
+        <value xml:lang="zh_TW">添加遺漏</value>
     </property>
     <property key="WebtoolsAdjustDebuggingLevels">
         <value xml:lang="de">Debugging-Levels anpassen</value>
@@ -781,7 +799,7 @@
         <value xml:lang="th">ปรับระดับการแก้ไขจุดบกพร่อง</value>
         <value xml:lang="vi">Điều chỉnh mức vết hệ thống</value>
         <value xml:lang="zh">调整调试级别</value>
-        <value xml:lang="zh_TW">調整調試級別</value>
+        <value xml:lang="zh_TW">調整偵錯級別</value>
     </property>
     <property key="WebtoolsAdminPortalPage">
         <value xml:lang="en">Portal page Admin.</value>
@@ -789,6 +807,7 @@
         <value xml:lang="ja">ポータルページの管理</value>
         <value xml:lang="vi">Quản trị Cổng thông tin</value>
         <value xml:lang="zh">门户页面管理</value>
+        <value xml:lang="zh_TW">入口網頁面管理</value>
     </property>
     <property key="WebtoolsAdministration">
         <value xml:lang="de">Administration</value>
@@ -823,7 +842,7 @@
         <value xml:lang="pt">Info do Artefato</value>
         <value xml:lang="vi">Thông tin Nhân tạo</value>
         <value xml:lang="zh">人工程序信息</value>
-        <value xml:lang="zh_TW">人工程式資訊</value>
+        <value xml:lang="zh_TW">人造物品資訊</value>
     </property>
     <property key="WebtoolsArtifactInfoTimeToLoad">
         <value xml:lang="en">(may take some time to load)</value>
@@ -841,7 +860,7 @@
         <value xml:lang="th">ASYNC</value>
         <value xml:lang="vi">KHÔNG ĐỒNG BỘ</value>
         <value xml:lang="zh">异步</value>
-        <value xml:lang="zh_TW">異步</value>
+        <value xml:lang="zh_TW">非同步</value>
     </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="de">Zurück zur Cache-Wartung</value>
@@ -854,7 +873,7 @@
         <value xml:lang="th">ย้อนกลับไปที่ข้อมูลการดูแลรักษา</value>
         <value xml:lang="vi">Quay về Quản trị bộ nhớ Đệm</value>
         <value xml:lang="zh">返回缓存维护</value>
-        <value xml:lang="zh_TW">返回緩存維護</value>
+        <value xml:lang="zh_TW">返回快取維護</value>
     </property>
     <property key="WebtoolsBackToEntityList">
         <value xml:lang="de">Zurück zur Entitätenliste</value>
@@ -867,7 +886,7 @@
         <value xml:lang="th">ย้อนกลับดูรายชื่อเอนติตี้</value>
         <value xml:lang="vi">Quay về Danh sách Thực thể</value>
         <value xml:lang="zh">返回实体列表</value>
-        <value xml:lang="zh_TW">返回實體列表</value>
+        <value xml:lang="zh_TW">返回個體列表</value>
     </property>
     <property key="WebtoolsBackToFindScreen">
         <value xml:lang="de">Zurück zur Bildschirmsuche</value>
@@ -880,7 +899,7 @@
         <value xml:lang="th">ย้อนกลับไปหน้าจอค้นหา</value>
         <value xml:lang="vi">Quay về Giao diện tìm kiếm</value>
         <value xml:lang="zh">返回查找页面</value>
-        <value xml:lang="zh_TW">返回查找頁面</value>
+        <value xml:lang="zh_TW">返回尋找頁面</value>
     </property>
     <property key="WebtoolsBytes">
         <value xml:lang="de">Bytes</value>
@@ -906,7 +925,7 @@
         <value xml:lang="th">Cache &amp; เครื่องมือตรวจสอบจุดบกพร่อง</value>
         <value xml:lang="vi">Bộ đệm &amp; Công cụ tìm LỖI</value>
         <value xml:lang="zh">缓存和调试工具</value>
-        <value xml:lang="zh_TW">緩存和調試工具</value>
+        <value xml:lang="zh_TW">快取和調試工具</value>
     </property>
     <property key="WebtoolsCacheElementKey">
         <value xml:lang="de">Cache-Element Schlüssel</value>
@@ -919,7 +938,7 @@
         <value xml:lang="th">ซ่อนองค์ประกอบสำคัญ</value>
         <value xml:lang="vi">Khóa phần từ bộ đệm</value>
         <value xml:lang="zh">缓存元素键</value>
-        <value xml:lang="zh_TW">緩存元素鍵</value>
+        <value xml:lang="zh_TW">快取元素鍵</value>
     </property>
     <property key="WebtoolsCacheMaintenance">
         <value xml:lang="de">Cache Wartung</value>
@@ -932,7 +951,7 @@
         <value xml:lang="th">การดูแลรักษา Cache</value>
         <value xml:lang="vi">Bảo trì bộ nhớ Đệm</value>
         <value xml:lang="zh">缓存维护</value>
-        <value xml:lang="zh_TW">緩存維護</value>
+        <value xml:lang="zh_TW">快取維護</value>
     </property>
     <property key="WebtoolsCacheMemory">
         <value xml:lang="en">Cache Memory</value>
@@ -949,7 +968,7 @@
         <value xml:lang="th">ชื่อ Cache</value>
         <value xml:lang="vi">Tên bộ nhớ Đệm</value>
         <value xml:lang="zh">缓存名称</value>
-        <value xml:lang="zh_TW">緩存名稱</value>
+        <value xml:lang="zh_TW">快取名稱</value>
     </property>
     <property key="WebtoolsCancelJob">
         <value xml:lang="de">Job abbrechen</value>
@@ -973,7 +992,7 @@
         <value xml:lang="pt">NÃ£o Ã© possÃ­vel visualizar pÃ¡ginas de InformaÃ§Ãµes de Artefato sem autorizaÃ§Ã£o ARTIFACT_INFO_VIEW.</value>
         <value xml:lang="vi">Bạn không thể xem Artifact nếu khống có quyền ARTIFACT_INFO_VIEW</value>
         <value xml:lang="zh">没有ARTIFACT_INFO_VIEW权限，无法浏览人工程序页面。</value>
-        <value xml:lang="zh_TW">沒有ARTIFACT_INFO_VIEW權限，無法瀏覽人工程式頁面。</value>
+        <value xml:lang="zh_TW">沒有人造物品資訊檢視權限，無法瀏覽人造物品頁面。</value>
     </property>
     <property key="WebtoolsCertsCert">
         <value xml:lang="de">Zertifikat</value>
@@ -985,7 +1004,7 @@
         <value xml:lang="th">สิ่งที่เกิดขึ้นอย่างแน่นอน</value>
         <value xml:lang="vi">Chứng nhận</value>
         <value xml:lang="zh">证书</value>
-        <value xml:lang="zh_TW">証書</value>
+        <value xml:lang="zh_TW">憑證</value>
     </property>
     <property key="WebtoolsCertsNotFound">
         <value xml:lang="de">Es wurde kein Client-Zertifikat gefunden</value>
@@ -997,7 +1016,7 @@
         <value xml:lang="th">ไม่พบการรับรองในส่วนของลูกค้า</value>
         <value xml:lang="vi">Không chứng nhận khách hàng nào tìm thấy</value>
         <value xml:lang="zh">没有找到客户端证书</value>
-        <value xml:lang="zh_TW">沒有找到客戶端証書</value>
+        <value xml:lang="zh_TW">沒有找到客戶端憑證</value>
     </property>
     <property key="WebtoolsCertsRequiresSSL">
         <value xml:lang="de">Die Anfrage kann nur Zertifikate erhalten, wenn sie über SSL gestellt wird</value>
@@ -1009,7 +1028,7 @@
         <value xml:lang="th">คำร้องสามารถรับรองความสำเร็จได้เมื่อใช้วิธีการ SSL </value>
         <value xml:lang="vi">Yêu cầu chỉ được chấp nhận xác thực khi gọi qua SSL</value>
         <value xml:lang="zh">当通过SSL访问时，才能从请求中得到证书</value>
-        <value xml:lang="zh_TW">當通過SSL訪問時，才能從請求中得到証書</value>
+        <value xml:lang="zh_TW">當通過SSL訪問時，才能從請求中得到憑證</value>
     </property>
     <property key="WebtoolsCertsSerialNum">
         <value xml:lang="de">Seriennummer</value>
@@ -1033,7 +1052,7 @@
         <value xml:lang="th">ใบรับรอง x.509 </value>
         <value xml:lang="vi">Chứng chỉ x.509</value>
         <value xml:lang="zh">x.509证书</value>
-        <value xml:lang="zh_TW">x.509証書</value>
+        <value xml:lang="zh_TW">x.509憑證</value>
     </property>
     <property key="WebtoolsCheckAll">
         <value xml:lang="de">Alle auswählen</value>
@@ -1083,7 +1102,7 @@
         <value xml:lang="th">ลบค่า Caches ทั้งหมด</value>
         <value xml:lang="vi">Xóa tất cả bộ Đệm</value>
         <value xml:lang="zh">清除全部缓存</value>
-        <value xml:lang="zh_TW">清除全部緩存</value>
+        <value xml:lang="zh_TW">清除全部快取</value>
     </property>
     <property key="WebtoolsClearExpiredFromAll">
         <value xml:lang="de">Abgelaufene aus Allen löschen</value>
@@ -1096,7 +1115,7 @@
         <value xml:lang="th">ล้างข้อมูลที่หมดอายุทั้งหมด</value>
         <value xml:lang="vi">Xóa Hết hạn từ Tất cả</value>
         <value xml:lang="zh">清除全部过期缓存</value>
-        <value xml:lang="zh_TW">清除全部過期緩存</value>
+        <value xml:lang="zh_TW">清除全部過期快取</value>
     </property>
     <property key="WebtoolsClearThisCache">
         <value xml:lang="de">Diesen Cache klären</value>
@@ -1109,7 +1128,7 @@
         <value xml:lang="th">ลบ Cache นี้</value>
         <value xml:lang="vi">Xóa bộ Đệm này</value>
         <value xml:lang="zh">清除这个缓存</value>
-        <value xml:lang="zh_TW">清除這個緩存</value>
+        <value xml:lang="zh_TW">清除這個快取</value>
     </property>
     <property key="WebtoolsCompanyName">
         <value xml:lang="de">OFBiz: Web Tools</value>
@@ -1358,7 +1377,7 @@
         <value xml:lang="th">ล้าง/ลบ Primary Keys</value>
         <value xml:lang="vi">Tạo/Gỡ bỏ Khóa chính</value>
         <value xml:lang="zh">创建/删除主键</value>
-        <value xml:lang="zh_TW">創建/刪除主鍵</value>
+        <value xml:lang="zh_TW">新建/刪除主鍵</value>
     </property>
     <property key="WebtoolsDaemon">
         <value xml:lang="de">Daemon</value>
@@ -1405,7 +1424,7 @@
         <value xml:lang="th">ไฟล์ที่บันทึก:</value>
         <value xml:lang="vi">Tập tin Thực thể lưu đến: </value>
         <value xml:lang="zh">实体文件保存到：</value>
-        <value xml:lang="zh_TW">實體文件保存到：</value>
+        <value xml:lang="zh_TW">個體文件保存到：</value>
     </property>
     <property key="WebtoolsDataFileMainTitle">
         <value xml:lang="de">Arbeiten mit Datendateien</value>
@@ -1429,7 +1448,7 @@
         <value xml:lang="th">หน้านี้ใช้ตรวจสอบและส่งออกข้อมูลจากการวิเคราะห์ไฟล์ข้อมูลโดยวิเคราะห์โครงสร้างประโยคขององค์ประกอบของไฟล์</value>
         <value xml:lang="vi">Trang này được sử dụng để Xem và Kết xuất dữ liệu từ các tập tin dữ liệu được phân tích bởi Bộ tập tin phân tích cấu hình dữ liệu</value>
         <value xml:lang="zh">这个页面是通过配置的数据文件解析程序从数据文件浏览和导出数据</value>
-        <value xml:lang="zh_TW">這個頁面是通過配置的資料文件解析程式從資料文件瀏覽和導出資料</value>
+        <value xml:lang="zh_TW">這個頁面是通過配置的資料文件解析程式從資料文件瀏覽和匯出資料</value>
     </property>
     <property key="WebtoolsDataFileName">
         <value xml:lang="de">Dateiname oder URL</value>
@@ -1502,7 +1521,7 @@
         <value xml:lang="th">บันทึกที่ไฟล์ Entity XML</value>
         <value xml:lang="vi">Lưu tới Tập tin XML thực thể</value>
         <value xml:lang="zh">保存到实体XML文件</value>
-        <value xml:lang="zh_TW">保存到實體XML文件</value>
+        <value xml:lang="zh_TW">保存到個體XML文件</value>
     </property>
     <property key="WebtoolsDbName">
         <value xml:lang="de">DB-Name</value>
@@ -1540,11 +1559,12 @@
         <value xml:lang="th">ชื่อเรื่มต้นของ Entity</value>
         <value xml:lang="vi">Tên thực thể mặc định</value>
         <value xml:lang="zh">缺省实体名称</value>
-        <value xml:lang="zh_TW">缺省實體名稱</value>
+        <value xml:lang="zh_TW">缺省個體名稱</value>
     </property>
     <property key="WebtoolsDefinitionLocation">
         <value xml:lang="en">Definition Location</value>
         <value xml:lang="zh">定义位置</value>
+        <value xml:lang="zh_TW">定义位置</value>
     </property>
     <property key="WebtoolsDeleteFiles">
         <value xml:lang="de">Dateien nachher löschen?</value>
@@ -1644,7 +1664,7 @@
         <value xml:lang="th">entities</value>
         <value xml:lang="vi">Thực thể</value>
         <value xml:lang="zh">实体</value>
-        <value xml:lang="zh_TW">實體</value>
+        <value xml:lang="zh_TW">個體</value>
     </property>
     <property key="WebtoolsEntitiesAlpha">
         <value xml:lang="de">Entitäten - alphabetisch</value>
@@ -1656,7 +1676,7 @@
         <value xml:lang="th">Entities - ที่เรียงตามลำดับอักษร</value>
         <value xml:lang="vi">Thực thể - theo chữ cái</value>
         <value xml:lang="zh">实体 - 按字母顺序</value>
-        <value xml:lang="zh_TW">實體 - 按字母順序</value>
+        <value xml:lang="zh_TW">個體 - 按字母順序</value>
     </property>
     <property key="WebtoolsEntity">
         <value xml:lang="de">ENTITÄT</value>
@@ -1668,7 +1688,7 @@
         <value xml:lang="th">ENTITY</value>
         <value xml:lang="vi">THỰC THỂ</value>
         <value xml:lang="zh">实体</value>
-        <value xml:lang="zh_TW">實體</value>
+        <value xml:lang="zh_TW">個體</value>
     </property>
     <property key="WebtoolsEntityCretePermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung, eine Entität zu erstellen</value>
@@ -1678,7 +1698,7 @@
         <value xml:lang="pt">VocÃª nÃ£o tem permissÃ£o para criar uma entidade</value>
         <value xml:lang="vi">Bạn chưa có đủ quyền tạo mới Thực thể</value>
         <value xml:lang="zh">你没有创建实体的权限</value>
-        <value xml:lang="zh_TW">你沒有創建實體的權限</value>
+        <value xml:lang="zh_TW">你沒有新建個體的權限</value>
     </property>
     <property key="WebtoolsEntityCurrentValue">
         <value xml:lang="de">Aktueller Wert der Entität</value>
@@ -1690,7 +1710,7 @@
         <value xml:lang="th">ค่า Entity ในปัจจุบัน </value>
         <value xml:lang="vi">Giá trị hiện tại của Thực thể</value>
         <value xml:lang="zh">实体当前值</value>
-        <value xml:lang="zh_TW">實體當前值</value>
+        <value xml:lang="zh_TW">個體當前值</value>
     </property>
     <property key="WebtoolsEntityDataMaintenance">
         <value xml:lang="de">Entitäten Datenwartung</value>
@@ -1703,7 +1723,7 @@
         <value xml:lang="th">การดูแลรักษาข้อมูล Entity</value>
         <value xml:lang="vi">Bảo trì dữ liệu Thực thể</value>
         <value xml:lang="zh">实体数据维护</value>
-        <value xml:lang="zh_TW">實體資料維護</value>
+        <value xml:lang="zh_TW">個體資料維護</value>
     </property>
     <property key="WebtoolsEntityDisplayed">
         <value xml:lang="de">Angezeigt</value>
@@ -1740,7 +1760,7 @@
         <value xml:lang="th">Entity Engine</value>
         <value xml:lang="vi">Máy Thực thể (Entity Engine)</value>
         <value xml:lang="zh">实体引擎</value>
-        <value xml:lang="zh_TW">實體引擎</value>
+        <value xml:lang="zh_TW">個體引擎</value>
     </property>
     <property key="WebtoolsEntityEnginePerformanceTests">
         <value xml:lang="de">Performancetests für die "Daten-Maschine"</value>
@@ -1752,7 +1772,7 @@
         <value xml:lang="th">ทดสอบการดำเนินการ Entity Engine </value>
         <value xml:lang="vi">Kiểm thử hiệu năng máy Thực thể</value>
         <value xml:lang="zh">实体引擎性能测试</value>
-        <value xml:lang="zh_TW">實體引擎性能測試</value>
+        <value xml:lang="zh_TW">個體引擎性能測試</value>
     </property>
     <property key="WebtoolsEntityEngineTools">
         <value xml:lang="de">"Daten Maschine"</value>
@@ -1765,7 +1785,7 @@
         <value xml:lang="th">เครื่องมือของ Entity Engine</value>
         <value xml:lang="vi">Công cụ của máy Thực thể</value>
         <value xml:lang="zh">实体引擎工具</value>
-        <value xml:lang="zh_TW">實體引擎工具</value>
+        <value xml:lang="zh_TW">個體引擎工具</value>
     </property>
     <property key="WebtoolsEntityName">
         <value xml:lang="de">Entität</value>
@@ -1778,7 +1798,7 @@
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="vi">Tên Thực thể</value>
         <value xml:lang="zh">实体名称</value>
-        <value xml:lang="zh_TW">實體名稱</value>
+        <value xml:lang="zh_TW">個體名稱</value>
     </property>
     <property key="WebtoolsEntityNames">
         <value xml:lang="de">Entitäten</value>
@@ -1790,7 +1810,7 @@
         <value xml:lang="th">ชื่อ Entity</value>
         <value xml:lang="vi">Tên Thực thể</value>
         <value xml:lang="zh">实体名称</value>
-        <value xml:lang="zh_TW">實體名稱</value>
+        <value xml:lang="zh_TW">個體名稱</value>
     </property>
     <property key="WebtoolsEntityPackages">
         <value xml:lang="de">Entitätenpakete</value>
@@ -1802,7 +1822,7 @@
         <value xml:lang="th">Entity Packages</value>
         <value xml:lang="vi">Gói Thực thể</value>
         <value xml:lang="zh">实体包</value>
-        <value xml:lang="zh_TW">實體包</value>
+        <value xml:lang="zh_TW">個體包</value>
     </property>
     <property key="WebtoolsEntityReference">
         <value xml:lang="de">Entitätenreferenz</value>
@@ -1814,7 +1834,7 @@
         <value xml:lang="th">อ้างอิง Entity </value>
         <value xml:lang="vi">Tham chiếu Thực thể</value>
         <value xml:lang="zh">实体引用</value>
-        <value xml:lang="zh_TW">實體引用</value>
+        <value xml:lang="zh_TW">個體引用</value>
     </property>
     <property key="WebtoolsEntityReferenceChart">
         <value xml:lang="de">Diagramm Entitätenreferenz</value>
@@ -1826,7 +1846,7 @@
         <value xml:lang="th">ตารางอ้างอิง Entity </value>
         <value xml:lang="vi">Biểu đồ tham chiếu Thực thể</value>
         <value xml:lang="zh">实体引用图表</value>
-        <value xml:lang="zh_TW">實體引用圖表</value>
+        <value xml:lang="zh_TW">個體引用圖表</value>
     </property>
     <property key="WebtoolsEntityReferenceInteractiveVersion">
         <value xml:lang="de">Interaktive Version</value>
@@ -1849,7 +1869,7 @@
         <value xml:lang="th">หน้าหลัก Entity Reference</value>
         <value xml:lang="vi">Trang chủ tham chiếu Thực thể</value>
         <value xml:lang="zh">实体引用首页</value>
-        <value xml:lang="zh_TW">實體引用首頁</value>
+        <value xml:lang="zh_TW">個體引用首頁</value>
     </property>
     <property key="WebtoolsEntityReferencePdf">
         <value xml:lang="de">Entitätenreferenz - PDF</value>
@@ -1861,7 +1881,7 @@
         <value xml:lang="th">Entity อ้างอิง - PDF</value>
         <value xml:lang="vi">Tham chiếu Thực thể- dạng PDF</value>
         <value xml:lang="zh">实体引用 - PDF</value>
-        <value xml:lang="zh_TW">實體引用 - PDF</value>
+        <value xml:lang="zh_TW">個體引用 - PDF</value>
     </property>
     <property key="WebtoolsEntityReferenceStaticVersion">
         <value xml:lang="de">Statische Version</value>
@@ -1885,7 +1905,7 @@
         <value xml:lang="th">Entity Sync Dump</value>
         <value xml:lang="vi">Kết xuất đồng bộ thực thể</value>
         <value xml:lang="zh">实体同步堆栈</value>
-        <value xml:lang="zh_TW">實體同步堆疊</value>
+        <value xml:lang="zh_TW">個體同步堆疊</value>
     </property>
     <property key="WebtoolsEntitySyncStatus">
         <value xml:lang="de">Status der Entitätensynchronisierung</value>
@@ -1898,7 +1918,7 @@
         <value xml:lang="th">สถานะของ Entity Sync </value>
         <value xml:lang="vi">Trạng thái đồng bộ</value>
         <value xml:lang="zh">实体同步状态</value>
-        <value xml:lang="zh_TW">實體同步狀態</value>
+        <value xml:lang="zh_TW">個體同步狀態</value>
     </property>
     <property key="WebtoolsEntityView">
         <value xml:lang="de">View Entity</value>
@@ -1911,7 +1931,7 @@
         <value xml:lang="th">แสดง Entity </value>
         <value xml:lang="vi">Xem Thực thể</value>
         <value xml:lang="zh">浏览实体 </value>
-        <value xml:lang="zh_TW">瀏覽實體 </value>
+        <value xml:lang="zh_TW">瀏覽個體 </value>
     </property>
     <property key="WebtoolsEntityXMLRepresentation">
         <value xml:lang="de">XML Repräsentation der Entität</value>
@@ -1930,7 +1950,7 @@
         <value xml:lang="th">เครื่องมือ Entity XML </value>
         <value xml:lang="vi">Công cụ XML Thực thể</value>
         <value xml:lang="zh">实体XML工具</value>
-        <value xml:lang="zh_TW">實體XML工具</value>
+        <value xml:lang="zh_TW">個體XML工具</value>
     </property>
     <property key="WebtoolsEnvName">
         <value xml:lang="de">Umgebungsname</value>
@@ -2073,7 +2093,7 @@
         <value xml:lang="th">ส่งออก</value>
         <value xml:lang="vi">Kết xuất</value>
         <value xml:lang="zh">导出</value>
-        <value xml:lang="zh_TW">導出</value>
+        <value xml:lang="zh_TW">匯出</value>
     </property>
     <property key="WebtoolsExportEntityEoModelBundle">
         <value xml:lang="de">Entitäten EOModellBundle Export</value>
@@ -2085,7 +2105,7 @@
         <value xml:lang="th">ส่งออก Entity EOModelBundle</value>
         <value xml:lang="vi">Kết xuất Thực thể EOModelBundle</value>
         <value xml:lang="zh">导出实体EOModelBundle</value>
-        <value xml:lang="zh_TW">導出實體EOModelBundle</value>
+        <value xml:lang="zh_TW">匯出個體EOModelBundle</value>
     </property>
     <property key="WebtoolsExportFromDataSource">
         <value xml:lang="de">XML Export aus der Datenquelle</value>
@@ -2098,7 +2118,7 @@
         <value xml:lang="th">XML ที่มาจากแหล่งข้อมูล</value>
         <value xml:lang="vi">Kết xuất XML từ nguồn dữ liệu</value>
         <value xml:lang="zh">从数据源导出XML</value>
-        <value xml:lang="zh_TW">從資料源導出XML</value>
+        <value xml:lang="zh_TW">從資料源匯出XML</value>
     </property>
     <property key="WebtoolsExportable">
         <value xml:lang="de">Exportierbar</value>
@@ -2110,7 +2130,7 @@
         <value xml:lang="th">การส่งออก</value>
         <value xml:lang="vi">Có thể kết xuất</value>
         <value xml:lang="zh">可导出</value>
-        <value xml:lang="zh_TW">可導出</value>
+        <value xml:lang="zh_TW">可匯出</value>
     </property>
     <property key="WebtoolsFKName">
         <value xml:lang="de">FK Name</value>
@@ -2214,7 +2234,7 @@
         <value xml:lang="th">ค้นหาข้อความที่บันทึกไว้ทั้งหมด</value>
         <value xml:lang="vi">Tìm tất cả bản ghi</value>
         <value xml:lang="zh">查找全部记录</value>
-        <value xml:lang="zh_TW">查找全部記錄</value>
+        <value xml:lang="zh_TW">尋找全部記錄</value>
     </property>
     <property key="WebtoolsFindRecord">
         <value xml:lang="de">Datensatz suchen</value>
@@ -2227,7 +2247,7 @@
         <value xml:lang="th">ค้นหาข้อมูลที่บันทึก</value>
         <value xml:lang="vi">Tìm bản ghi</value>
         <value xml:lang="zh">查找记录</value>
-        <value xml:lang="zh_TW">查找記錄</value>
+        <value xml:lang="zh_TW">尋找記錄</value>
     </property>
     <property key="WebtoolsFindValues">
         <value xml:lang="de">Werte suchen</value>
@@ -2240,7 +2260,7 @@
         <value xml:lang="th">ค้นหาค่า</value>
         <value xml:lang="vi">Tìm giá trị</value>
         <value xml:lang="zh">查找值</value>
-        <value xml:lang="zh_TW">查找值</value>
+        <value xml:lang="zh_TW">尋找值</value>
     </property>
     <property key="WebtoolsFindValuesResults">
         <value xml:lang="de">Suchergebnisse aus Werten</value>
@@ -2288,7 +2308,7 @@
         <value xml:lang="th">สำหรับ Entity</value>
         <value xml:lang="vi">Cho Thực thể</value>
         <value xml:lang="zh">实体</value>
-        <value xml:lang="zh_TW">實體</value>
+        <value xml:lang="zh_TW">個體</value>
     </property>
     <property key="WebtoolsForSomethingInteresting">
         <value xml:lang="de">Um etwas Interessantes zu sehen sollten Sie sich anmelden; versuchen Sie: admin, Passwort: ofbiz</value>
@@ -2383,6 +2403,7 @@
         <value xml:lang="ja">位置の作成/編集</value>
         <value xml:lang="vi">Thêm/Sửa Địa lý</value>
         <value xml:lang="zh">创建/编辑地理</value>
+        <value xml:lang="zh_TW">创建/编辑地理</value>
     </property>
     <property key="WebtoolsGeoEdit">
         <value xml:lang="en">Create/Edit Geo</value>
@@ -2390,6 +2411,7 @@
         <value xml:lang="ja">位置の作成/編集</value>
         <value xml:lang="vi">Thêm/Sửa Địa lý</value>
         <value xml:lang="zh">创建/编辑地理</value>
+        <value xml:lang="zh_TW">创建/编辑地理</value>
     </property>
     <property key="WebtoolsGeoManagement">
         <value xml:lang="en">Geo Management</value>
@@ -2397,6 +2419,7 @@
         <value xml:lang="ja">位置管理</value>
         <value xml:lang="vi">Quản trị Địa lý</value>
         <value xml:lang="zh">地理管理</value>
+        <value xml:lang="zh_TW">地理管理</value>
     </property>
     <property key="WebtoolsGeosFind">
         <value xml:lang="en">Find Geos</value>
@@ -2404,6 +2427,7 @@
         <value xml:lang="ja">位置の検索</value>
         <value xml:lang="vi">Tìm kiếm Địa lý</value>
         <value xml:lang="zh">查找地理</value>
+        <value xml:lang="zh_TW">尋找地理</value>
     </property>
     <property key="WebtoolsGeosLink">
         <value xml:lang="en">Link Geos</value>
@@ -2411,6 +2435,7 @@
         <value xml:lang="ja">位置のリンク</value>
         <value xml:lang="vi">Liên kết của Địa lý</value>
         <value xml:lang="zh">链接地理</value>
+        <value xml:lang="zh_TW">链接地理</value>
     </property>
     <property key="WebtoolsGeosLinkExplained">
         <value xml:lang="en">Link Geos (associate Geos to a Geo)</value>
@@ -2418,6 +2443,7 @@
         <value xml:lang="ja">位置のリンク (位置から位置へ関連付け)</value>
         <value xml:lang="vi">Tại liên kết giữa các Địa lý</value>
         <value xml:lang="zh">链接地理（把它们关联到一个地理位置）</value>
+        <value xml:lang="zh_TW">链接地理（把它们关联到一个地理位置）</value>
     </property>
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
@@ -2435,7 +2461,7 @@
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="vi">Nhóm</value>
         <value xml:lang="zh">组</value>
-        <value xml:lang="zh_TW">組</value>
+        <value xml:lang="zh_TW">群組</value>
     </property>
     <property key="WebtoolsGroupName">
         <value xml:lang="de">Gruppenname</value>
@@ -2446,7 +2472,7 @@
         <value xml:lang="th">ชื่อกลุ่ม</value>
         <value xml:lang="vi">Tên nhóm</value>
         <value xml:lang="zh">组名称</value>
-        <value xml:lang="zh_TW">組名稱</value>
+        <value xml:lang="zh_TW">群組名稱</value>
     </property>
     <property key="WebtoolsHits">
         <value xml:lang="de">Besuche</value>
@@ -2484,7 +2510,7 @@
         <value xml:lang="th">นำเข้า</value>
         <value xml:lang="vi">Nhập khẩu</value>
         <value xml:lang="zh">导入</value>
-        <value xml:lang="zh_TW">導入</value>
+        <value xml:lang="zh_TW">匯入</value>
     </property>
     <property key="WebtoolsImportExport">
         <value xml:lang="en">Import/Export</value>
@@ -2505,7 +2531,7 @@
         <value xml:lang="th">นำเข้าไฟล์</value>
         <value xml:lang="vi">Nhập khẩu tập tin</value>
         <value xml:lang="zh">导入文件</value>
-        <value xml:lang="zh_TW">導入文件</value>
+        <value xml:lang="zh_TW">匯入文件</value>
     </property>
     <property key="WebtoolsImportText">
         <value xml:lang="de">Text importieren</value>
@@ -2518,7 +2544,7 @@
         <value xml:lang="th">นำเข้าข้อความ</value>
         <value xml:lang="vi">Nhập khẩu Văn bản</value>
         <value xml:lang="zh">导入文本</value>
-        <value xml:lang="zh_TW">導入文本</value>
+        <value xml:lang="zh_TW">匯入文本</value>
     </property>
     <property key="WebtoolsImportToDataSource">
         <value xml:lang="de">XML-Import in DataSource(n)</value>
@@ -2531,7 +2557,7 @@
         <value xml:lang="th">นำเข้า XML ไปยังแหล่งข้อมูล</value>
         <value xml:lang="vi">Nhập khẩu XML từ nguồn dữ liệu</value>
         <value xml:lang="zh">把XML导入到数据源</value>
-        <value xml:lang="zh_TW">把XML導入到資料源</value>
+        <value xml:lang="zh_TW">把XML匯入到資料源</value>
     </property>
     <property key="WebtoolsImportantLogLevel">
         <value xml:lang="de">Wichtig</value>
@@ -2654,6 +2680,7 @@
         <value xml:lang="ja">エラー: ファイル名 ${filename} が正しくありません: ${errorString}</value>
         <value xml:lang="vi">Lỗi: tên tập tin ${filename} không đúng định dạng: ${errorString}</value>
         <value xml:lang="zh">错误：无效文件名 ${filename}：${errorString}</value>
+        <value xml:lang="zh_TW">错误：无效文件名 ${filename}：${errorString}</value>
     </property>
     <property key="WebtoolsInvoke">
         <value xml:lang="de">Aufrufen</value>
@@ -2883,7 +2910,7 @@
         <value xml:lang="pt">Limpar o cache ApÃ³s a manutenÃ§Ã£o de labels duplicados</value>
         <value xml:lang="vi">Xóa bộ Đệm sau khi sửa các Nhãn bị trùng</value>
         <value xml:lang="zh">解决重复标签后清除缓存</value>
-        <value xml:lang="zh_TW">解決重複標簽後清除緩存</value>
+        <value xml:lang="zh_TW">解決重複標簽後清除快取</value>
     </property>
     <property key="WebtoolsLabelManagerComponentName">
         <value xml:lang="de">OFBiz Komponente</value>
@@ -3545,7 +3572,7 @@
         <value xml:lang="th">หนังสือรับรอง</value>
         <value xml:lang="vi">Chứng nhận của tôi</value>
         <value xml:lang="zh">我的证书</value>
-        <value xml:lang="zh_TW">我的証書</value>
+        <value xml:lang="zh_TW">我的憑證</value>
     </property>
     <property key="WebtoolsNameOrRole">
         <value xml:lang="de">Name oder Rolle</value>
@@ -3569,7 +3596,7 @@
         <value xml:lang="th">ไม่มี entities</value>
         <value xml:lang="vi">Không Thực thể nào được đọc</value>
         <value xml:lang="zh">没有实体读</value>
-        <value xml:lang="zh_TW">沒有實體讀</value>
+        <value xml:lang="zh_TW">沒有個體讀</value>
     </property>
     <property key="WebtoolsNoEntityRecordsFound">
         <value xml:lang="de">Für die Entität wurden keine Datensätze gefunden</value>
@@ -3581,7 +3608,7 @@
         <value xml:lang="th">ไม่พบข้อมูลที่บันทึกสำหรับเอนติตี้</value>
         <value xml:lang="vi">Không bản ghi nào tìm thấy cho Thực thể</value>
         <value xml:lang="zh">没有找到实体记录</value>
-        <value xml:lang="zh_TW">沒有找到實體記錄</value>
+        <value xml:lang="zh_TW">沒有找到個體記錄</value>
     </property>
     <property key="WebtoolsNoFilenameSpecified">
         <value xml:lang="de">Kein Dateiname oder keine Entitätennamen angegeben</value>
@@ -3592,7 +3619,7 @@
         <value xml:lang="th">ไม่มีชื่อไฟล์ที่ระบุหรือไม่มีชื่อเอนติตี้ที่ระบุหรือไม่มีอะไร</value>
         <value xml:lang="vi">Không tên tập tin hoặc không tên Thực thể nào được xác định nên hệ thống sẽ KHÔNG làm gì.</value>
         <value xml:lang="zh">没有指定文件名或实体名，什么也不做。</value>
-        <value xml:lang="zh_TW">沒有指定文件名或實體名，什麼也不做。</value>
+        <value xml:lang="zh_TW">沒有指定文件名或個體名，什麼也不做。</value>
     </property>
     <property key="WebtoolsNoParametersDefined">
         <value xml:lang="de">Es wurden keine Parameter angegeben</value>
@@ -3641,7 +3668,7 @@
         <value xml:lang="th">No UtilCache elements found</value>
         <value xml:lang="vi">Không phần tử Tiện ích bộ Đệm nào được tìm thấy</value>
         <value xml:lang="zh">没有找到缓存元素</value>
-        <value xml:lang="zh_TW">沒有找到緩存元素</value>
+        <value xml:lang="zh_TW">沒有找到快取元素</value>
     </property>
     <property key="WebtoolsNoUtilCacheFound">
         <value xml:lang="de">Es konnte keine UtilCache-Instanz gefunden</value>
@@ -3653,7 +3680,7 @@
         <value xml:lang="th">No UtilCache instances found</value>
         <value xml:lang="vi">Không khởi tạo tiện ích bộ nhớ Đệm nào được tìm thấy</value>
         <value xml:lang="zh">没有找到缓存实例</value>
-        <value xml:lang="zh_TW">沒有找到緩存實例</value>
+        <value xml:lang="zh_TW">沒有找到快取實例</value>
     </property>
     <property key="WebtoolsNoUtilCacheSpecified">
         <value xml:lang="de">Es wurde keine UtilCache-Name angegeben</value>
@@ -3666,7 +3693,7 @@
         <value xml:lang="th">No Cache Name Specified</value>
         <value xml:lang="vi">Không tên bộ nhớ Đệm nào được chọn</value>
         <value xml:lang="zh">没有指定缓存名称</value>
-        <value xml:lang="zh_TW">沒有指定緩存名稱</value>
+        <value xml:lang="zh_TW">沒有指定快取名稱</value>
     </property>
     <property key="WebtoolsNoValueFoundFor">
         <value xml:lang="de">Kein Wert gefunden für</value>
@@ -3728,7 +3755,7 @@
         <value xml:lang="th">หมายเหตุ: Foreign keys อาจจะสร้างเฉพาะในการ ตรวจสอบ/อัพเดท ฐานข้อมูล การดำเนินการถ้า check-fks-on-start และทางเลือกอื่นๆในแหล่งข้อมูลที่ติดตั้งในการทำ</value>
         <value xml:lang="vi">Ghi chú: Khóa ngoài có thể được Tạo khi thực hiện Kiểm tra/Cập nhật cơ sở dữ liệu nếu check-fks-on-start hoặc các thiết lập cơ sở dữ liệu cho phép như vậy.</value>
         <value xml:lang="zh">注意：如果设置了数据源元素的check-fks-on-start（启动时检查外键）和其它选项，可能会创建外键。</value>
-        <value xml:lang="zh_TW">注意：如果設置了資料源元素的check-fks-on-start（啟動時檢查外鍵）和其他選項，可能會創建外鍵。</value>
+        <value xml:lang="zh_TW">注意：如果設置了資料源元素的check-fks-on-start（啟動時檢查外鍵）和其他選項，可能會新建外鍵。</value>
     </property>
     <property key="WebtoolsNotePerformanceResultsMayVary">
         <value xml:lang="de">HINWEIS: Diese Performance-Ergebnisse können für verschiedene Datenbankmanagementsysteme, JDBC-Treiber, JTA-Implementierungen (Transaktionsmanager), Connection-Pools, Deployment-Ansätze (local, remote) sowie Hardware (Anwendungs- und Datenbankserver, Netzwerk-Verbindugen) stark variieren.</value>
@@ -3890,7 +3917,7 @@
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Id cấp quản lý trên</value>
         <value xml:lang="zh">上级标识</value>
-        <value xml:lang="zh_TW">上級ID</value>
+        <value xml:lang="zh_TW">上級代號</value>
     </property>
     <property key="WebtoolsPause">
         <value xml:lang="de">Pause (sec) zwischen Dateien</value>
@@ -3915,7 +3942,7 @@
         <value xml:lang="th">Calls</value>
         <value xml:lang="vi">Gọi</value>
         <value xml:lang="zh">调用次数</value>
-        <value xml:lang="zh_TW">調用次數</value>
+        <value xml:lang="zh_TW">呼叫次數</value>
     </property>
     <property key="WebtoolsPerformanceCallsSecond">
         <value xml:lang="de">Aufrufe/Sekunde</value>
@@ -3927,7 +3954,7 @@
         <value xml:lang="th">เรียก/วินาที</value>
         <value xml:lang="vi">Gọi/Giây</value>
         <value xml:lang="zh">次调用/秒</value>
-        <value xml:lang="zh_TW">次調用/秒</value>
+        <value xml:lang="zh_TW">次呼叫/秒</value>
     </property>
     <property key="WebtoolsPerformanceNotFound">
         <value xml:lang="de">Es wurden keine Performance-Tests gefunden</value>
@@ -3975,7 +4002,7 @@
         <value xml:lang="th">วินาที/เรียก</value>
         <value xml:lang="vi">Giây/Gọi</value>
         <value xml:lang="zh">秒/调用</value>
-        <value xml:lang="zh_TW">秒/調用</value>
+        <value xml:lang="zh_TW">秒/呼叫</value>
     </property>
     <property key="WebtoolsPerformanceTests">
         <value xml:lang="de">Performance-Tests</value>
@@ -4100,7 +4127,7 @@
         <value xml:lang="th">รายชื่อการส่งออก</value>
         <value xml:lang="vi">Kết xuất Phân loại Trình diễn</value>
         <value xml:lang="zh">目录导出</value>
-        <value xml:lang="zh_TW">目錄導出</value>
+        <value xml:lang="zh_TW">目錄匯出</value>
     </property>
     <property key="WebtoolsPreConfiguredSet2">
         <value xml:lang="de">Produkt, Teil 1</value>
@@ -4198,7 +4225,7 @@
         <value xml:lang="th">อ่านและพิมพ์ ${toBeStored.size()} entities.</value>
         <value xml:lang="vi">Đọc và đã in ${toBeStored.size()} Thực thể.</value>
         <value xml:lang="zh">已读取和打印的${toBeStored.size()}个实体。</value>
-        <value xml:lang="zh_TW">已讀取和列印的${toBeStored.size()}個實體。</value>
+        <value xml:lang="zh_TW">已讀取和列印的${toBeStored.size()}個個體。</value>
     </property>
     <property key="WebtoolsRecordsUpdatedBefore">
         <value xml:lang="de">Datensätze aktualisiert vor</value>
@@ -4235,7 +4262,7 @@
         <value xml:lang="th">ความสัมพันธ์ของ Entity</value>
         <value xml:lang="vi">Thực thể liên quan</value>
         <value xml:lang="zh">相关的实体</value>
-        <value xml:lang="zh_TW">相關的實體</value>
+        <value xml:lang="zh_TW">相關的個體</value>
     </property>
     <property key="WebtoolsRelation">
         <value xml:lang="de">Verknüpfung</value>
@@ -4247,7 +4274,7 @@
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="vi">Quan hệ</value>
         <value xml:lang="zh">关系</value>
-        <value xml:lang="zh_TW">關系</value>
+        <value xml:lang="zh_TW">關連</value>
     </property>
     <property key="WebtoolsRelationType">
         <value xml:lang="de">Verknüpfungstyp</value>
@@ -4260,7 +4287,7 @@
         <value xml:lang="th">ประเภทของความสัมพันธ์</value>
         <value xml:lang="vi">Kiểu quan hệ</value>
         <value xml:lang="zh">关系类型</value>
-        <value xml:lang="zh_TW">關系類型</value>
+        <value xml:lang="zh_TW">關連類型</value>
     </property>
     <property key="WebtoolsRelations">
         <value xml:lang="de">Verknüpfungen</value>
@@ -4273,7 +4300,7 @@
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="vi">Quan hệ</value>
         <value xml:lang="zh">关系</value>
-        <value xml:lang="zh_TW">關系</value>
+        <value xml:lang="zh_TW">關連</value>
     </property>
     <property key="WebtoolsReln">
         <value xml:lang="de">Verkn.</value>
@@ -4286,7 +4313,7 @@
         <value xml:lang="th">Reln</value>
         <value xml:lang="vi">Q.hệ</value>
         <value xml:lang="zh">关系</value>
-        <value xml:lang="zh_TW">關系</value>
+        <value xml:lang="zh_TW">關連</value>
     </property>
     <property key="WebtoolsReloadCacheList">
         <value xml:lang="de">Cacheliste neu laden</value>
@@ -4299,7 +4326,7 @@
         <value xml:lang="th">โหลด Cache อีกครั้ง</value>
         <value xml:lang="vi">Danh sách bộ Đệm tải lại</value>
         <value xml:lang="zh">重载缓存列表</value>
-        <value xml:lang="zh_TW">重載緩存列表</value>
+        <value xml:lang="zh_TW">重載快取列表</value>
     </property>
     <property key="WebtoolsRemoveAllTables">
         <value xml:lang="de">Alle Tabellen entfernen</value>
@@ -4362,7 +4389,7 @@
         <value xml:lang="th">แก้ไขขนาดของแถว</value>
         <value xml:lang="vi">Chỉnh sửa kích cỡ cột</value>
         <value xml:lang="zh">修复列大小</value>
-        <value xml:lang="zh_TW">修複列大小</value>
+        <value xml:lang="zh_TW">修欄位大小</value>
     </property>
     <property key="WebtoolsRequireNewTransaction">
         <value xml:lang="de">Neue Transaktion anfragen</value>
@@ -4468,8 +4495,8 @@
         <value xml:lang="ro">Planificare</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="vi">Lịch</value>
-        <value xml:lang="zh">日程安排</value>
-        <value xml:lang="zh_TW">日程安排</value>
+        <value xml:lang="zh">時程安排</value>
+        <value xml:lang="zh_TW">時程安排</value>
     </property>
     <property key="WebtoolsScheduleJob">
         <value xml:lang="de">Job aufsetzen</value>
@@ -4592,7 +4619,7 @@
         <value xml:lang="th">เครื่องมือการให้บริการทางสถิติ</value>
         <value xml:lang="vi">Công cụ thống kê Truy nhập máy chủ</value>
         <value xml:lang="zh">服务器击中统计工具</value>
-        <value xml:lang="zh_TW">伺服器擊中統計工具</value>
+        <value xml:lang="zh_TW">伺服器拜訪統計工具</value>
     </property>
     <property key="WebtoolsService">
         <value xml:lang="de">Dienst</value>
@@ -4629,7 +4656,7 @@
         <value xml:lang="th">ค่าที่เลือก</value>
         <value xml:lang="vi">Mặc định</value>
         <value xml:lang="zh">缺省</value>
-        <value xml:lang="zh_TW">缺省</value>
+        <value xml:lang="zh_TW">預設</value>
     </property>
     <property key="WebtoolsServiceECA">
         <value xml:lang="de">ECA-Dienste</value>
@@ -4654,7 +4681,7 @@
         <value xml:lang="th">Service Engine Threads</value>
         <value xml:lang="vi">Máy của Luồng Dịch vụ</value>
         <value xml:lang="zh">服务引擎线程</value>
-        <value xml:lang="zh_TW">服務引擎線程</value>
+        <value xml:lang="zh_TW">服務引擎執行緒</value>
     </property>
     <property key="WebtoolsServiceEngineTools">
         <value xml:lang="de">"Dienste-Engine"</value>
@@ -4843,7 +4870,7 @@
         <value xml:lang="th">Entity 1</value>
         <value xml:lang="vi">Thực thể 1</value>
         <value xml:lang="zh">指定的实体</value>
-        <value xml:lang="zh_TW">指定的實體</value>
+        <value xml:lang="zh_TW">指定的個體</value>
     </property>
     <property key="WebtoolsSpecifiedEntity2">
         <value xml:lang="de">Entität 2</value>
@@ -5120,7 +5147,7 @@
         <value xml:lang="th">รหัสคำร้อง</value>
         <value xml:lang="vi">Id Yêu cầu</value>
         <value xml:lang="zh">请求标识</value>
-        <value xml:lang="zh_TW">要求ID</value>
+        <value xml:lang="zh_TW">要求代號</value>
     </property>
     <property key="WebtoolsStatsRequestStats">
         <value xml:lang="de">Anfragestatistik</value>
@@ -5389,7 +5416,7 @@
         <value xml:lang="th">Thread</value>
         <value xml:lang="vi">Luồng tiến trình này</value>
         <value xml:lang="zh">线程</value>
-        <value xml:lang="zh_TW">線程</value>
+        <value xml:lang="zh_TW">執行緒</value>
     </property>
     <property key="WebtoolsThread">
         <value xml:lang="de">Thread</value>
@@ -5402,7 +5429,7 @@
         <value xml:lang="th">Thread</value>
         <value xml:lang="vi">Luồng tiến trình (thread)</value>
         <value xml:lang="zh">线程</value>
-        <value xml:lang="zh_TW">線程</value>
+        <value xml:lang="zh_TW">執行緒</value>
     </property>
     <property key="WebtoolsThreadId">
         <value xml:lang="de">ThreadID</value>
@@ -5422,7 +5449,7 @@
         <value xml:lang="th">รายชื่อ thread</value>
         <value xml:lang="vi">Danh sách</value>
         <value xml:lang="zh">线程列表</value>
-        <value xml:lang="zh_TW">線程列表</value>
+        <value xml:lang="zh_TW">執行緒列表</value>
     </property>
     <property key="WebtoolsTimeoutSeconds">
         <value xml:lang="de">TX Timeout in Sekunden (je Entität / Datei)</value>
@@ -5435,7 +5462,7 @@
         <value xml:lang="th">TX Timeout Seconds (สำหรับตัวอย่าง entity หรือ file)</value>
         <value xml:lang="vi">TX số giây quá hạn thời gian (cho mỗi Thực thể hoặc Tập tin)</value>
         <value xml:lang="zh">TX超时秒数(对每个实体)</value>
-        <value xml:lang="zh_TW">TX超時秒數(對每個實體)</value>
+        <value xml:lang="zh_TW">TX超時秒數(對每個個體)</value>
     </property>
     <property key="WebtoolsTimingLogLevel">
         <value xml:lang="de">Steuerung</value>
@@ -5461,7 +5488,7 @@
         <value xml:lang="th">การเลือกระดับในการกำหนดเวลาที่เหมาะสมที่สุดโดยข้อมูลจำนวนมากผลลัพธ์ที่ได้จะใช้แก้ไขข้อผิดพลาดของแอพพลิเคชั่น</value>
         <value xml:lang="vi">Cấp độ thời gian (timing level) quy định tần suất thông tin sự kiện rất có ích để phân tích sự cố ứng dụng.</value>
         <value xml:lang="zh">定时级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
-        <value xml:lang="zh_TW">定時級別會細顆粒地指出應用程式進行情況的資訊，適于調試程式。</value>
+        <value xml:lang="zh_TW">定時級別會細顆粒地指出應用程式進行情況的資訊，適於偵錯程式。</value>
     </property>
     <property key="WebtoolsTitle">
         <value xml:lang="de">Titel</value>
@@ -5488,7 +5515,7 @@
         <value xml:lang="th">ทำการค้นหาเอนติตี้ทั้งหมด</value>
         <value xml:lang="vi">Tìm TẤT CẢ Thực thể</value>
         <value xml:lang="zh">查找所有实体</value>
-        <value xml:lang="zh_TW">查找所有實體</value>
+        <value xml:lang="zh_TW">尋找所有個體</value>
     </property>
     <property key="WebtoolsTotalEntities">
         <value xml:lang="de">Gesamtzahl Entitäten</value>
@@ -5500,7 +5527,7 @@
         <value xml:lang="th">ผลรวมของเอนติตี้</value>
         <value xml:lang="vi">Tổng Thực thể</value>
         <value xml:lang="zh">全部实体</value>
-        <value xml:lang="zh_TW">全部實體</value>
+        <value xml:lang="zh_TW">全部個體</value>
     </property>
     <property key="WebtoolsTotalMemory">
         <value xml:lang="de">GESAMT</value>
@@ -5537,7 +5564,7 @@
         <value xml:lang="th">เปลี่ยนแปลงการเซ็ตตัวอักษรและเปรียบเทียบ (พื้นฐานบนการติดตั้ง บนแหล่งข้อมูลใน entityengine.xml)</value>
         <value xml:lang="vi">Cập nhật Kiểu ký tự trên Cơ sở dữ liệu ( thường được thiết lập trước tại kết nối Cơ sở dữ liệu tại tập tin entityengine.xml)</value>
         <value xml:lang="zh">更新character-set（字符集）和 collate（校对） (基于entityengine.xml中关于数据源的设置)</value>
-        <value xml:lang="zh_TW">更新character-set（字符集）和 collate（校對） (基于entityengine.xml中關于資料源的設置)</value>
+        <value xml:lang="zh_TW">更新character-set（字符集）和 collate（校對） (基於entityengine.xml中關於資料源的設置)</value>
     </property>
     <property key="WebtoolsUsage">
         <value xml:lang="de">Nutzung</value>
@@ -5562,7 +5589,7 @@
         <value xml:lang="th">ใช้ไฟล์เก็บข้อมูล?</value>
         <value xml:lang="vi">Có sử dụng Lưu trữ tập tin (File Store) ?</value>
         <value xml:lang="zh">使用文件存储吗？</value>
-        <value xml:lang="zh_TW">使用文件存儲嗎？</value>
+        <value xml:lang="zh_TW">使用文件儲存嗎？</value>
     </property>
     <property key="WebtoolsUseSoftRef">
         <value xml:lang="de">Referenzen benutzen ?</value>
@@ -5575,7 +5602,7 @@
         <value xml:lang="th">ใช้ในการอ้างอิง ?</value>
         <value xml:lang="vi">Sử dụng tham chiếu Mềm ?</value>
         <value xml:lang="zh">使用软引用吗？</value>
-        <value xml:lang="zh_TW">使用軟引用嗎？</value>
+        <value xml:lang="zh_TW">使用軟式參照嗎？</value>
     </property>
     <property key="WebtoolsUseTransaction">
         <value xml:lang="de">Transaktion benutzen</value>
@@ -5627,7 +5654,7 @@
         <value xml:lang="th">มีการใช้ถ้อยคำละเอียดมากเกินไปในแอพลิเคชันนี้</value>
         <value xml:lang="vi">Cấp độ Verbose quy định thông tin sự kiện rất hữu ích để khắc phục sự cố của ứng dụng.</value>
         <value xml:lang="zh">冗长级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
-        <value xml:lang="zh_TW">冗長級別會細顆粒地指出應用程式進行情況的資訊，適于調試程式。</value>
+        <value xml:lang="zh_TW">冗長級別會細顆粒地指出應用程式進行情況的資訊，適于偵錯程式。</value>
     </property>
     <property key="WebtoolsViewComponents">
         <value xml:lang="de">Komponenten ansehen</value>
@@ -5669,6 +5696,7 @@
     <property key="WebtoolsViewMetrics">
         <value xml:lang="en">View Metrics</value>
         <value xml:lang="zh">浏览度量</value>
+        <value xml:lang="zh_TW">瀏覽度量</value>
     </property>
     <property key="WebtoolsViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diesen Bereich anzusehen (Sie benötigen OFBTOOLS_VIEW oder OFBIZTOOLS_ADMIN Berechtigung)</value>
@@ -5695,7 +5723,7 @@
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="vi">Hiển thị Quan hệ</value>
         <value xml:lang="zh">浏览关系</value>
-        <value xml:lang="zh_TW">瀏覽關系</value>
+        <value xml:lang="zh_TW">瀏覽關連</value>
     </property>
     <property key="WebtoolsViewValue">
         <value xml:lang="de">Wert ansehen</value>
@@ -5784,7 +5812,7 @@
         <value xml:lang="th">เขียน XML สำหรับข้อมูลทั้งหมดใน ${numberOfEntities} entities.</value>
         <value xml:lang="vi">Đã ghi XML cho tất cả dữ liệu trong ${numberOfEntities} Thực thể.</value>
         <value xml:lang="zh">为${numberOfEntities}个实体中的全部数据写到XML。</value>
-        <value xml:lang="zh_TW">為${numberOfEntities}個實體中的全部資料寫到XML。</value>
+        <value xml:lang="zh_TW">為${numberOfEntities}個個體中的全部資料寫到XML。</value>
     </property>
     <property key="WebtoolsXMLExportInfo">
         <value xml:lang="de">Hier Seite können Daten aus der Datenbank exportiert werden. Die exportierten Dokumente werden in einem XML-root-tag "&lt;entity-engine-xml&gt;" enthalten sein. Es wird für jede Entität in dem für diese webapp konfigurierten Delegator eine eigene Datei erstellt.</value>
@@ -5797,7 +5825,7 @@
         <value xml:lang="th">หน้านี้ใช้การส่งออกข้อมูลจากฐานข้อมูลการส่งเอกสารจะต้องใช้รูทแท็กของ "&lt;entity-engine-xml&gt;"มี 1 ไฟล์สำหรับตัวอย่าง Entity ในการสร้างตัวแทนสำหรับโปรแกรมประยุกต์นี้</value>
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Kết xuất dữ liệu từ Cơ sở dữ liệu. Các tài liệu kết xuất sẽ có thẻ gốc "&lt;entity-engine-xml&gt;"( có 01 Tập tin với mỗi Thực thể của Ứng dụng này)</value>
         <value xml:lang="zh">本页面用于从数据库导出数据 导出的文档会有一个"&lt;entity-engine-xml&gt;"的根标签在为这个应用配置的代表中，会对每个实体有一个文件。</value>
-        <value xml:lang="zh_TW">本頁面用于從資料庫導出資料 導出的文檔會有一個"&lt;entity-engine-xml&gt;"的根標簽在為這個應用配置的代表中，會對每個實體有一個文件。</value>
+        <value xml:lang="zh_TW">本頁面用於從資料庫匯出資料 匯出的文檔會有一個"&lt;entity-engine-xml&gt;"的根標簽在為這個應用配置的代表中，會對每個個體有一個文件。</value>
     </property>
     <property key="WebtoolsXMLImportInfo">
         <value xml:lang="de">Hier können zuvor exportierte Entitäten XML Dateien wieder in die Datenbank importiert werden. Diese Dokumente haben eine XML-root-tag "&lt;entity-engine-xml&gt;".</value>
@@ -5810,7 +5838,7 @@
         <value xml:lang="th">หน้านี้ใช้การนำเข้าข้อมูลที่มีการส่งออกเอนติตี้เอนจินเอกสาร XML โดยใช้คำสั่ง "&lt;entity-engine-xml&gt;".</value>
         <value xml:lang="vi">Giao diện bạn đang sử dụng cung cấp chức năng Nhập khẩu dữ liệu từ các Tài liệu Thực thể XML. Các tài liệu này có thẻ gốc "&lt;entity-engine-xml&gt;"</value>
         <value xml:lang="zh">本页面用于导入导出的实体引擎XML文档。这些文档都有一个根标签 "&lt;entity-engine-xml&gt;".</value>
-        <value xml:lang="zh_TW">本頁面用于導入導出的實體引擎XML文檔。這些文檔都有一個根標簽 "&lt;entity-engine-xml&gt;".</value>
+        <value xml:lang="zh_TW">本頁面用於匯入匯出的個體引擎XML文檔。這些文檔都有一個根標簽 "&lt;entity-engine-xml&gt;".</value>
     </property>
     <property key="WebtoolsYouMayCreateAnEntity">
         <value xml:lang="de">You may create an Entity ${entityName} by entering the values you want, and clicking Create.</value>
@@ -5822,6 +5850,6 @@
         <value xml:lang="th">คุณสามารถที่จะสร้าง Entity ได้ ${entityName} โดยการเข้าสู่ค่าที่คุณต้องการและคลิก Create.</value>
         <value xml:lang="vi">Bạn có thể tạo Thực thể ${entityName} sau khi nhập các giá trị mong muốn và bấm vào Tạo mới.</value>
         <value xml:lang="zh">创建一个实体 ${entityName} ：输入值，然后点击新建.</value>
-        <value xml:lang="zh_TW">創建一個實體 ${entityName} ：輸入值，然後點擊新建.</value>
+        <value xml:lang="zh_TW">新建一個個體 ${entityName} ：輸入值，然後點擊新建.</value>
     </property>
 </resource>

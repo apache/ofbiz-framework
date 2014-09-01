@@ -28,6 +28,7 @@
         <value xml:lang="ru">Главный</value>
         <value xml:lang="vi">Trang chủ</value>
         <value xml:lang="zh">首页</value>
+        <value xml:lang="zh_TW">首頁</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE0">
         <value xml:lang="en">My Comms</value>
@@ -36,6 +37,7 @@
         <value xml:lang="ru">Мои связи</value>
         <value xml:lang="vi">Truyền thông Riêng</value>
         <value xml:lang="zh">我的沟通</value>
+        <value xml:lang="zh_TW">我的通訊</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE1">
         <value xml:lang="en">My Profile</value>
@@ -46,6 +48,7 @@
         <value xml:lang="ru">Мой профиль</value>
         <value xml:lang="vi">Hồ sơ Riêng</value>
         <value xml:lang="zh">我的简介</value>
+        <value xml:lang="zh_TW">我的簡介</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE2">
         <value xml:lang="en">Other Party Comms</value>
@@ -54,6 +57,7 @@
         <value xml:lang="ru">Другие средства связи</value>
         <value xml:lang="vi">Truyền thông của Tác nhân liên quan</value>
         <value xml:lang="zh">其他会员的沟通</value>
+        <value xml:lang="zh_TW">其他夥伴的通訊</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE4">
         <value xml:lang="en">My Time Sheet</value>
@@ -64,6 +68,7 @@
         <value xml:lang="ru">Мои временные рамки</value>
         <value xml:lang="vi">Khai báo công việc Riêng</value>
         <value xml:lang="zh">我的工单</value>
+        <value xml:lang="zh_TW">我的工作報告</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE5">
         <value xml:lang="en">My Tasks</value>
@@ -72,6 +77,7 @@
         <value xml:lang="ru">Мои задачи</value>
         <value xml:lang="vi">Tác vụ - Đầu việc Riêng</value>
         <value xml:lang="zh">我的任务</value>
+        <value xml:lang="zh_TW">我的任務</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE6">
         <value xml:lang="en">My Leave</value>
@@ -80,6 +86,7 @@
         <value xml:lang="ru">Мой отпуск</value>
         <value xml:lang="vi">Nghỉ phép Riêng</value>
         <value xml:lang="zh">我的休假</value>
+        <value xml:lang="zh_TW">我的休假</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE7">
         <value xml:lang="en">My trainings</value>
@@ -88,6 +95,7 @@
         <value xml:lang="ru">Мои тренировки</value>
         <value xml:lang="vi">Đào tạo Riêng</value>
         <value xml:lang="zh">我的培训</value>
+        <value xml:lang="zh_TW">我的培訓</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE8">
         <value xml:lang="en">My Payments</value>
@@ -96,6 +104,7 @@
         <value xml:lang="ru">Мои платежи</value>
         <value xml:lang="vi">Thanh toán Riêng</value>
         <value xml:lang="zh">我的支付</value>
+        <value xml:lang="zh_TW">我的付款</value>
     </property>
     <property key="PortalPage.portalPageName.ProductStoreFacility">
         <value xml:lang="de">Lager</value>
