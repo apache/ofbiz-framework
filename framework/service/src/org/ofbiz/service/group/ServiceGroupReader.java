@@ -33,8 +33,6 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.ServiceGroups;
 import org.w3c.dom.Element;
 
-import freemarker.template.utility.StringUtil;
-
 /**
  * ServiceGroupReader.java
  */
@@ -88,7 +86,7 @@ public class ServiceGroupReader {
             } catch (GenericConfigException e) {
                 Debug.logError(e, "Could not get resource URL", module);
             }
-            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(numDefs), 3) + "] Group definitions from " + resourceLocation, module);
+            Debug.logInfo("Loaded [" + numDefs + "] Group definitions from " + resourceLocation, module);
         }
     }
 
