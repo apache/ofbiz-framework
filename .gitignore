@@ -22,11 +22,13 @@ runtime/logs/cobertura-report
 runtime/logs/*.log*
 runtime/logs/*.html*
 runtime/logs/test-results/*
+/runtime/logs/birt
 runtime/data/derby/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
 runtime/jetty
 runtime/tempfiles/*
+!runtime/tempfiles/README
 runtime/indexes/products/
 themes/flatgrey/webapp/flatgrey/javascript-min.css
 themes/flatgrey/webapp/flatgrey/js/application-min.js
