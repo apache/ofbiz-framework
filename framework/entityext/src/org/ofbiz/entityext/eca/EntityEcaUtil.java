@@ -24,7 +24,6 @@ import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
-import freemarker.template.utility.StringUtil;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
@@ -135,7 +134,7 @@ public class EntityEcaUtil {
             rules.add(new EntityEcaRule(e));
         }
         try {
-            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(rules.size()), 3) + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
+            Debug.logInfo("Loaded [" + rules.size() + "] Entity ECA definitions from " + handler.getFullLocation() + " in loader " + handler.getLoaderName(), module);
         } catch (GenericConfigException e) {
             Debug.logError(e, module);
         }

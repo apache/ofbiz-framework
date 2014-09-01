@@ -51,8 +51,6 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import freemarker.template.utility.StringUtil;
-
 /**
  * Generic Service - Service Definition Reader
  */
@@ -182,11 +180,11 @@ public class ModelServiceReader implements Serializable {
         }
         if (this.isFromURL) {
             utilTimer.timerString("Finished file " + readerURL + " - Total Services: " + i + " FINISHED");
-            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + readerURL, module);
+            Debug.logInfo("Loaded [" + i + "] Services from " + readerURL, module);
         } else {
             utilTimer.timerString("Finished document in " + handler + " - Total Services: " + i + " FINISHED");
             if (Debug.infoOn()) {
-                Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(i), 3) + "] Services from " + resourceLocation, module);
+                Debug.logInfo("Loaded [" + i + "] Services from " + resourceLocation, module);
             }
         }
         return modelServices;

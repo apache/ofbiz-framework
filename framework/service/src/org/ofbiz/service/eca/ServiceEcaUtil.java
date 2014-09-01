@@ -43,8 +43,6 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.ServiceEcas;
 import org.w3c.dom.Element;
 
-import freemarker.template.utility.StringUtil;
-
 /**
  * ServiceEcaUtil
  */
@@ -123,7 +121,7 @@ public class ServiceEcaUtil {
             handlerRules.add(new ServiceEcaRule(e, resourceLocation));
         }
         if (Debug.infoOn()) {
-            Debug.logInfo("Loaded [" + StringUtil.leftPad(Integer.toString(handlerRules.size()), 3) + "] Service ECA Rules from " + resourceLocation, module);
+            Debug.logInfo("Loaded [" + handlerRules.size() + "] Service ECA Rules from " + resourceLocation, module);
         }
         return handlerRules;
     }
