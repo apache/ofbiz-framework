@@ -74,7 +74,7 @@
         <value xml:lang="ro">Creatie ${entityName} falita pentru entitatea</value>
         <value xml:lang="th">การสร้างของ${entityName} ล้มเหลวสำหรับเอนทิตี</value>
         <value xml:lang="zh">无法为实体创建${entityName}</value>
-        <value xml:lang="zh_TW">無法為實體創建${entityName}</value>
+        <value xml:lang="zh_TW">無法為實體新建${entityName}</value>
     </property>
     <property key="genericWebEvent.delegator_object_not_found">
         <value xml:lang="en">The delegator object was not found in the request, please check the control servlet init</value>
@@ -258,7 +258,7 @@
         <value xml:lang="ro">Toate cache-urile au fost curatate</value>
         <value xml:lang="th">เคลียร์หน่วยความจำทั้งหมด</value>
         <value xml:lang="zh">已清除全部缓存</value>
-        <value xml:lang="zh_TW">已清除全部緩存</value>
+        <value xml:lang="zh_TW">已清除全部快取</value>
     </property>
     <property key="utilCache.clearAllExpiredElements">
         <value xml:lang="en">Cleared all expired elements from all caches</value>
@@ -269,7 +269,7 @@
         <value xml:lang="ro">Au fost Curatate toate elementele expirate din toate cach-urile</value>
         <value xml:lang="th">เคลียร์สิ่งเล็กน้อยหมดอายุทั้งหมดจากหน่วยความจำทั้งหมด</value>
         <value xml:lang="zh">从全部缓存中清除了全部过期元素</value>
-        <value xml:lang="zh_TW">從全部緩存中清除了全部過期元素</value>
+        <value xml:lang="zh_TW">從全部快取中清除了全部過期元素</value>
     </property>
     <property key="utilCache.clearCache">
         <value xml:lang="en">Cleared cache with name: ${name}</value>
@@ -280,7 +280,7 @@
         <value xml:lang="ro">Curatire cache cu nume: ${name}</value>
         <value xml:lang="th">เคลียร์หน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">已清除缓存：${name}</value>
-        <value xml:lang="zh_TW">已清除緩存：${name}</value>
+        <value xml:lang="zh_TW">已清除快取：${name}</value>
     </property>
     <property key="utilCache.couldNotClearCache">
         <value xml:lang="en">Could not clear cache, no name specified</value>
@@ -291,7 +291,7 @@
         <value xml:lang="ro">Nu este posibila curatarea cach-ului, nici-un nume  specificat</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่ระบุชื่อ</value>
         <value xml:lang="zh">无法清除缓存，没有指定名称</value>
-        <value xml:lang="zh_TW">無法清除緩存，沒有指定名稱</value>
+        <value xml:lang="zh_TW">無法清除快取，沒有指定名稱</value>
     </property>
     <property key="utilCache.couldNotClearCacheNotFoundName">
         <value xml:lang="en">Could not clear cache, cache not found with name: ${name}</value>
@@ -302,7 +302,7 @@
         <value xml:lang="ro">Nu este posibila curatirea cache,nu gaseste nume cache: ${name}</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">无法清除缓存，没有找到缓存：${name}</value>
-        <value xml:lang="zh_TW">無法清除緩存，沒有找到緩存：${name}</value>
+        <value xml:lang="zh_TW">無法清除快取，沒有找到快取：${name}</value>
     </property>
     <property key="utilCache.couldNotRemoveElement">
         <value xml:lang="en">Could not remove cache element, cache not found with name: ${name}</value>
@@ -313,7 +313,7 @@
         <value xml:lang="ro">Nu este posibila stergerea elementului din chash, nu gaseste chash cu nume: ${name}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">无法删除缓存元素，没有找到名称为 ${name} 的缓存</value>
-        <value xml:lang="zh_TW">無法刪除緩存元素，沒有找到名稱為 ${name} 的緩存</value>
+        <value xml:lang="zh_TW">無法刪除快取元素，沒有找到名稱為 ${name} 的快取</value>
     </property>
     <property key="utilCache.couldNotRemoveElementNumber">
         <value xml:lang="en">Could not remove cache element, element not found with cache name: ${name} , element number: ${numString}</value>
@@ -324,7 +324,7 @@
         <value xml:lang="ro">Nu este possibila stergerea elementului din chesh-ul, nu gaseste elementul cu numele cache: ${name} , element numar: ${numString}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบองค์ประกอบด้วยชื่อหน่วยความจำ: ${name} , หมายเลของค์ประกอบ: ${numString}</value>
         <value xml:lang="zh">无法删除缓存元素，符合条件的元素没有找到，缓存名称：${name}，元素编号：${numString}</value>
-        <value xml:lang="zh_TW">無法刪除緩存元素，符合條件的元素沒有找到，緩存名稱：${name}，元素編號：${numString}</value>
+        <value xml:lang="zh_TW">無法刪除快取元素，符合條件的元素沒有找到，快取名稱：${name}，元素編號：${numString}</value>
     </property>
     <property key="utilCache.couldNotUpdateCacheSetting">
         <value xml:lang="en">Could not update cache settings, no name specified</value>
@@ -335,7 +335,7 @@
         <value xml:lang="ro">Nu e posibila actualizarea setarilor cache, nici un nume specificat</value>
         <value xml:lang="th">ไม่สามารถอัพเดทการตั้งค่าหน่วยความจำ, ไม่ระบุชื่อ</value>
         <value xml:lang="zh">无法更新缓存设置，没有指定名称</value>
-        <value xml:lang="zh_TW">無法更新緩存設置，沒有指定名稱</value>
+        <value xml:lang="zh_TW">無法更新快取設置，沒有指定名稱</value>
     </property>
     <property key="utilCache.removeElementWithKey">
         <value xml:lang="en">Removed element from cache with key: ${key}</value>
@@ -346,7 +346,7 @@
         <value xml:lang="ro">A fost sters elementul din chash-ul cu cheia: ${key}</value>
         <value xml:lang="th">ย้ายองค์ประกอบจากหน่วยความจำด้วยคีย์: ${key}</value>
         <value xml:lang="zh">从缓存中删除了元素，键：${key}</value>
-        <value xml:lang="zh_TW">從緩存中刪除了元素，鍵：${key}</value>
+        <value xml:lang="zh_TW">從快取中刪除了元素，鍵：${key}</value>
     </property>
     <property key="utilCacheEvents.noCacheNameSpecified">
         <value xml:lang="en">Could not remove cache line/element, no cache name specified</value>
@@ -357,7 +357,7 @@
         <value xml:lang="ro">Nu este posibila stergerea linieri/element, nici-un nume de chash specificata</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุชื่อหน่วยความจำ</value>
         <value xml:lang="zh">无法删除缓存行/元素，没有指定缓存名称</value>
-        <value xml:lang="zh_TW">無法刪除緩存行/元素，沒有指定緩存名稱</value>
+        <value xml:lang="zh_TW">無法刪除快取行/元素，沒有指定快取名稱</value>
     </property>
     <property key="utilCacheEvents.noElementNumberSpecified">
         <value xml:lang="en">Could not remove cache line/element, no element number specified</value>
@@ -368,7 +368,7 @@
         <value xml:lang="ro">Nu este posibila stergerea liniei/element, nici-un numar de elemente specificate</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุหมายเลขหน่วยความจำ</value>
         <value xml:lang="zh">无法删除缓存行/元素，没有指定元素编号</value>
-        <value xml:lang="zh_TW">無法刪除緩存行/元素，沒有指定元素編號</value>
+        <value xml:lang="zh_TW">無法刪除快取行/元素，沒有指定元素編號</value>
     </property>
     <property key="utilCacheEvents.permissionEdit">
         <value xml:lang="en">You do not have permission to perform this operation, UTIL_CACHE_EDIT required</value>

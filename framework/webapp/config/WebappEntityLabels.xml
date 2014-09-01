@@ -30,7 +30,7 @@
         <value xml:lang="ru">Сущность</value>
         <value xml:lang="th">เอกลักษณ์</value>
         <value xml:lang="zh">实体</value>
-        <value xml:lang="zh_TW">實體</value>
+        <value xml:lang="zh_TW">個體</value>
     </property>
     <property key="ServerHitType.description.EVENT">
         <value xml:lang="de">Event</value>

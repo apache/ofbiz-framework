@@ -61,7 +61,7 @@
         <value xml:lang="ja">時間表現を検索</value>
         <value xml:lang="pt_BR">Encontrar uma expressão temporal</value>
         <value xml:lang="zh">查找时间表达式</value>
-        <value xml:lang="zh_TW">查找時間運算式</value>
+        <value xml:lang="zh_TW">查詢時間運算式</value>
     </property>
     <property key="TemporalExpressionFreqCount">
         <value xml:lang="de">Anzahl der Häufigkeit</value>
@@ -94,7 +94,7 @@
         <value xml:lang="ja">表現ID</value>
         <value xml:lang="pt_BR">Id de Expressão</value>
         <value xml:lang="zh">表达式标识</value>
-        <value xml:lang="zh_TW">算式ID</value>
+        <value xml:lang="zh_TW">算式代號</value>
     </property>
     <property key="TemporalExpressionInclude">
         <value xml:lang="de">Einschließen</value>
@@ -223,6 +223,7 @@
         <value xml:lang="ja">時の範囲</value>
         <value xml:lang="pt_BR">Intervalo de Hora</value>
         <value xml:lang="zh">小时范围</value>
+        <value xml:lang="zh_TW">小時範圍</value>
     </property>
     <property key="TemporalExpression_INTERSECTION">
         <value xml:lang="de">Durchschnitt</value>    
@@ -242,6 +243,7 @@
         <value xml:lang="ja">分の範囲</value>
         <value xml:lang="pt_BR">Intervalo de Minutos</value>
         <value xml:lang="zh">分钟范围</value>
+        <value xml:lang="zh_TW">分鐘範圍</value>
     </property>
     <property key="TemporalExpression_MONTH_RANGE">
         <value xml:lang="de">Monatsauswahl</value>    

@@ -26,6 +26,7 @@
         <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>     
         <value xml:lang="zh">错误：</value>
+        <value xml:lang="zh_TW">錯誤：</value>
     </property>
     <property key="check.error.suffix">
         <value xml:lang="en">&#160;</value>
@@ -58,6 +59,7 @@
         <value xml:lang="ja">エラー:</value>
         <value xml:lang="nl">Fout: </value>     
         <value xml:lang="zh">错误：</value>
+        <value xml:lang="zh_TW">錯誤：</value>
     </property>
     <property key="service.error.suffix">
         <value xml:lang="en">&#160;</value>

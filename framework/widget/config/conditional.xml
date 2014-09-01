@@ -64,7 +64,7 @@
         <value xml:lang="ru">Равняется</value>
         <value xml:lang="th">เท่ากับ</value>
         <value xml:lang="zh">等于</value>
-        <value xml:lang="zh_TW">等于</value>
+        <value xml:lang="zh_TW">等於</value>
     </property>
     <property key="greater_than">
         <value xml:lang="ar">أكبر من</value>
@@ -80,7 +80,7 @@
         <value xml:lang="ru">Больше чем</value>
         <value xml:lang="th">มากกว่า</value>
         <value xml:lang="zh">大于</value>
-        <value xml:lang="zh_TW">大于</value>
+        <value xml:lang="zh_TW">大於</value>
     </property>
     <property key="greater_than_equals">
         <value xml:lang="ar">أكبر من أو يساوي</value>
@@ -96,7 +96,7 @@
         <value xml:lang="ru">Больше чем равно</value>
         <value xml:lang="th">มากกว่าเท่ากับ</value>
         <value xml:lang="zh">大于等于</value>
-        <value xml:lang="zh_TW">大于等于</value>
+        <value xml:lang="zh_TW">大於等於</value>
     </property>
     <property key="greater_than_from_day_start">
         <value xml:lang="ar">أكبر من يوم</value>
@@ -112,7 +112,7 @@
         <value xml:lang="ru">Больше чем на дату начала</value>
         <value xml:lang="th">มากกว่าจากวันที่เริ่มต้น</value>
         <value xml:lang="zh">大于开始日期</value>
-        <value xml:lang="zh_TW">大于開始日期</value>
+        <value xml:lang="zh_TW">大於開始日期</value>
     </property>
     <property key="ignore_case">
         <value xml:lang="ar">حساس لحجم الحرف</value>
@@ -160,7 +160,7 @@
         <value xml:lang="ru">Меньше чем</value>
         <value xml:lang="th">น้อยกว่า</value>
         <value xml:lang="zh">小于</value>
-        <value xml:lang="zh_TW">小于</value>
+        <value xml:lang="zh_TW">小於</value>
     </property>
     <property key="less_than_equals">
         <value xml:lang="ar">أقل من أو يساوي</value>
@@ -176,7 +176,7 @@
         <value xml:lang="ru">Меньше чем равно</value>
         <value xml:lang="th">น้อยกว่าเท่ากับ</value>
         <value xml:lang="zh">小于等于</value>
-        <value xml:lang="zh_TW">小于等于</value>
+        <value xml:lang="zh_TW">小於等於</value>
     </property>
     <property key="not_equal">
         <value xml:lang="de">ungleich</value>
@@ -187,7 +187,7 @@
         <value xml:lang="ja">異なる</value>
         <value xml:lang="th">ไม่เท่ากับ</value>
         <value xml:lang="zh">不等于</value>
-        <value xml:lang="zh_TW">不等于</value>
+        <value xml:lang="zh_TW">不等於</value>
     </property>
     <property key="same_day">
         <value xml:lang="ar">نفس اليوم</value>
