@@ -30,8 +30,7 @@ under the License.
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSubscription" default-entity-name="Subscription" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscription">
+    <service name="updateSubscription" default-entity-name="Subscription" auth="true" engine="entity-auto" invoke="update">
         <description>Update a Subscription Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -57,38 +56,33 @@ under the License.
         <attribute name="subscription" type="org.ofbiz.entity.GenericValue" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionResource">
+    <service name="createSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="entity-auto" invoke="create">
         <description>Create a SubscriptionResource Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateSubscriptionResource">
+    <service name="updateSubscriptionResource" default-entity-name="SubscriptionResource" auth="true" engine="entity-auto" invoke="update">
         <description>Update a SubscriptionResource Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
-    <service name="createProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createProductSubscriptionResource">
+    <service name="createProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="entity-auto" invoke="create">
         <description>Create a ProductSubscriptionResource Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="updateProductSubscriptionResource">
+    <service name="updateProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="entity-auto" invoke="update">
         <description>Update a ProductSubscriptionResource Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="deleteProductSubscriptionResource">
+    <service name="deleteProductSubscriptionResource" default-entity-name="ProductSubscriptionResource" auth="true" engine="entity-auto" invoke="delete">
         <description>Delete a ProductSubscriptionResource Record</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -139,17 +133,15 @@ under the License.
         <attribute name="attrValue" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createSubscriptionCommEvent" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="createSubscriptionCommEvent" auth="true">
+    <service name="createSubscriptionCommEvent" default-entity-name="SubscriptionCommEvent" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Subscription Communication Event</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="CREATE"/>
-        <auto-attributes entity-name="SubscriptionCommEvent" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="removeSubscriptionCommEvent" engine="simple"
-        location="component://product/script/org/ofbiz/product/subscription/SubscriptionServices.xml" invoke="removeSubscriptionCommEvent" auth="true">
+    <service name="removeSubscriptionCommEvent" default-entity-name="SubscriptionCommEvent" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Subscription Communication Event</description>
         <permission-service service-name="subscriptionPermissionCheck" main-action="DELETE"/>
-        <auto-attributes entity-name="SubscriptionCommEvent" include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <service name="subscriptionPermissionCheck" engine="simple"
