@@ -2,11 +2,11 @@
 <Configuration monitorInterval="60">
     <Appenders>
         <Console name="stdout" target="SYSTEM_OUT">
-            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
         </Console>
         <RollingFile name="ofbiz" fileName="runtime/logs/ofbiz.log"
                      filePattern="runtime/logs/ofbiz-%d{yyyy-MM-dd}-%i.log.zip">
-            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="1 MB"/>
@@ -15,7 +15,7 @@
         </RollingFile>
         <RollingFile name="external" fileName="runtime/logs/external.log"
                      filePattern="runtime/logs/external-%d{yyyy-MM-dd}-%i.log.zip">
-            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-20.20logger{1}|%level{length=1}| %message%n"/>
+            <PatternLayout pattern="%date{COMPACT} |%-20.20thread |%-30.30logger{1}|%level{length=1}| %message%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy/>
                 <SizeBasedTriggeringPolicy size="1 MB"/>
