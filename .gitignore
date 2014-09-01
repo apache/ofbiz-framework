@@ -3,7 +3,8 @@ framework/*/build
 framework/base/lib/cobertura-*.jar
 framework/base/lib/asm*.jar
 framework/base/lib/oro*.jar
-framework/entity/lib/jdbc/postgresql-*.jar
+framework/entity/lib/jdbc/*.jar
+!framework/entity/lib/jdbc/derby*.jar
 hot-deploy/*/build
 specialpurpose/*/build
 applications/content/index/
@@ -39,4 +40,3 @@ themes/flatgrey/webapp/flatgrey/mainrtl-min.css
 *#
 .*.swp
 .*.swo
-framework/entity/lib/jdbc
