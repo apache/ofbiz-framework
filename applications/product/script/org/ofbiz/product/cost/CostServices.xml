@@ -21,25 +21,6 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
     <!-- CostComponent services -->
-    <simple-method method-name="createCostComponent" short-description="Create a CostComponent">
-        <make-value value-field="newEntity" entity-name="CostComponent"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
-        <field-to-result field="newEntity.costComponentId" result-name="costComponentId"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateCostComponent" short-description="Update a CostComponent">
-        <entity-one entity-name="CostComponent" value-field="costComponent"/>
-        <set-nonpk-fields map="parameters" value-field="costComponent"/>
-        <store-value value-field="costComponent"/>
-    </simple-method>
-    <simple-method method-name="deleteCostComponent" short-description="Delete a CostComponent">
-        <entity-one entity-name="CostComponent" value-field="costComponent"/>
-        <remove-value value-field="costComponent"/>
-    </simple-method>
     <simple-method method-name="cancelCostComponents" short-description="Cancels CostComponents">
         <set from-field="parameters.costComponentId" field="costsAndMap.costComponentId"/>
         <set from-field="parameters.productId" field="costsAndMap.productId"/>

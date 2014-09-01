@@ -24,21 +24,18 @@ under the License.
     <vendor>OFBiz</vendor>
     <version>1.0</version>
 
-    <service name="createCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="createCostComponent" auth="true">
+    <service name="createCostComponent" default-entity-name="CostComponent" engine="entity-auto" invoke="create" auth="true">
         <description>Create a CostComponent</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <!--<override name="costComponentTypeId" optional="false"/>-->
     </service>
-    <service name="updateCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="updateCostComponent" auth="true">
+    <service name="updateCostComponent" default-entity-name="CostComponent" engine="entity-auto" invoke="update" auth="true">
         <description>Update a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteCostComponent" default-entity-name="CostComponent" engine="simple"
-                location="component://product/script/org/ofbiz/product/cost/CostServices.xml" invoke="deleteCostComponent" auth="true">
+    <service name="deleteCostComponent" default-entity-name="CostComponent" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a CostComponent</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
