@@ -190,9 +190,6 @@ public class ControlServlet extends HttpServlet {
 
         request.setAttribute("_REQUEST_HANDLER_", requestHandler);
         
-        ServletContextHashModel ftlServletContext = new ServletContextHashModel(this, FreeMarkerWorker.getDefaultOfbizWrapper());
-        request.setAttribute("ftlServletContext", ftlServletContext);
-
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
         VisitHandler.getVisitor(request, response);
