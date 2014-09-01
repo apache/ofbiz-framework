@@ -43,18 +43,10 @@ public class RomeEventHandler implements EventHandler {
     public static final String mime = "application/xml; charset=UTF-8";
     public static final String defaultFeedType = "rss_2.0";
 
-    protected RequestHandler handler;
-    protected ServletContext context;
     protected EventHandler service;
     protected WireFeedOutput out;
 
     public void init(ServletContext context) throws EventHandlerException {
-        this.context = context;
-        this.handler = (RequestHandler) context.getAttribute("_REQUEST_HANDLER_");
-        if (this.handler == null) {
-            throw new EventHandlerException("No request handler found in servlet context!");
-        }
-
         // get the service event handler
         this.service = new ServiceEventHandler();
         this.service.init(context);
@@ -65,6 +57,10 @@ public class RomeEventHandler implements EventHandler {
      * @see org.ofbiz.webapp.event.EventHandler#invoke(ConfigXMLReader.Event, ConfigXMLReader.RequestMap, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
     public String invoke(Event event, RequestMap requestMap, HttpServletRequest request, HttpServletResponse response) throws EventHandlerException {
+        RequestHandler handler = (RequestHandler) request.getSession().getServletContext().getAttribute("_REQUEST_HANDLER_");
+        if (handler == null) {
+            throw new EventHandlerException("No request handler found in servlet context!");
+        }
         // generate the main and entry links
         String entryLinkReq = request.getParameter("entryLinkReq");
         String mainLinkReq = request.getParameter("mainLinkReq");

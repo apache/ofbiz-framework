@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webapp.view;
 
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
@@ -29,8 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.webapp.control.RequestHandler;
-import org.ofbiz.webapp.control.RequestHandlerException;
+import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
@@ -40,14 +40,14 @@ public class ViewFactory {
 
     public static final String module = ViewFactory.class.getName();
 
-    protected RequestHandler requestHandler = null;
-    protected ServletContext context = null;
+    private final URL controllerConfigURL;
+    private final ServletContext context;
     protected Map<String, ViewHandler> handlers = null;
 
-    public ViewFactory(RequestHandler requestHandler) {
+    public ViewFactory(ServletContext context, URL controllerConfigURL) {
         this.handlers = FastMap.newInstance();
-        this.requestHandler = requestHandler;
-        this.context = requestHandler.getServletContext();
+        this.controllerConfigURL = controllerConfigURL;
+        this.context = context;
 
         // pre-load all the view handlers
         try {
@@ -61,7 +61,7 @@ public class ViewFactory {
     private void preLoadAll() throws ViewHandlerException {
         Set<String> handlers = null;
         try {
-            handlers = this.requestHandler.getControllerConfig().getViewHandlerMap().keySet();
+            handlers = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getViewHandlerMap().keySet();
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
@@ -120,7 +120,7 @@ public class ViewFactory {
         ViewHandler handler = null;
         String handlerClass = null;
         try {
-            handlerClass = this.requestHandler.getControllerConfig().getViewHandlerMap().get(type);
+            handlerClass = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getViewHandlerMap().get(type);
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }

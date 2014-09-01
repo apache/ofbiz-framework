@@ -69,29 +69,29 @@ import org.owasp.esapi.errors.EncodingException;
 public class RequestHandler {
 
     public static final String module = RequestHandler.class.getName();
-    private boolean throwRequestHandlerExceptionOnMissingLocalRequest = UtilProperties.propertyValueEqualsIgnoreCase(
+    private static final boolean throwRequestHandlerExceptionOnMissingLocalRequest = UtilProperties.propertyValueEqualsIgnoreCase(
             "requestHandler.properties", "throwRequestHandlerExceptionOnMissingLocalRequest", "Y");
-    private String statusCodeString = UtilProperties.getPropertyValue("requestHandler.properties", "status-code", "302");
+    private final String defaultStatusCodeString = UtilProperties.getPropertyValue("requestHandler.properties", "status-code", "302");
+    private final ViewFactory viewFactory;
+    private final EventFactory eventFactory;
+    private final URL controllerConfigURL;
+    private final boolean forceHttpSession;
+    private final boolean trackServerHit;
+    private final boolean trackVisit;
+    private final boolean cookies;
+    private final String charset;
+
     public static RequestHandler getRequestHandler(ServletContext servletContext) {
         RequestHandler rh = (RequestHandler) servletContext.getAttribute("_REQUEST_HANDLER_");
         if (rh == null) {
-            rh = new RequestHandler();
+            rh = new RequestHandler(servletContext);
             servletContext.setAttribute("_REQUEST_HANDLER_", rh);
-            rh.init(servletContext);
         }
         return rh;
     }
 
-    protected ServletContext context = null;
-    protected ViewFactory viewFactory = null;
-    protected EventFactory eventFactory = null;
-    protected URL controllerConfigURL = null;
-
-    public void init(ServletContext context) {
-        if (Debug.verboseOn()) Debug.logVerbose("[RequestHandler Loading...]", module);
-        this.context = context;
-
-        // init the ControllerConfig, but don't save it anywhere
+    private RequestHandler(ServletContext context) {
+        // init the ControllerConfig, but don't save it anywhere, just load it into the cache
         this.controllerConfigURL = ConfigXMLReader.getControllerConfigURL(context);
         try {
             ConfigXMLReader.getControllerConfig(this.controllerConfigURL);
@@ -99,8 +99,14 @@ public class RequestHandler {
             // FIXME: controller.xml errors should throw an exception.
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
-        this.viewFactory = new ViewFactory(this);
-        this.eventFactory = new EventFactory(this);
+        this.viewFactory = new ViewFactory(context, this.controllerConfigURL);
+        this.eventFactory = new EventFactory(context, this.controllerConfigURL);
+
+        this.forceHttpSession = "true".equalsIgnoreCase(context.getInitParameter("forceHttpSession"));
+        this.trackServerHit = !"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"));
+        this.trackVisit = !"false".equalsIgnoreCase(context.getInitParameter("track-visit"));
+        this.cookies = !"false".equalsIgnoreCase(context.getInitParameter("cookies"));
+        this.charset = context.getInitParameter("charset");
     }
 
     public ConfigXMLReader.ControllerConfig getControllerConfig() {
@@ -129,16 +135,17 @@ public class RequestHandler {
         // get the controllerConfig once for this method so we don't have to get it over and over inside the method
         ConfigXMLReader.ControllerConfig controllerConfig = this.getControllerConfig();
         Map<String, ConfigXMLReader.RequestMap> requestMapMap = null;
-        String controllerStatusCodeString = null;
+        String statusCodeString = null;
         try {
             requestMapMap = controllerConfig.getRequestMapMap();
-            controllerStatusCodeString = controllerConfig.getStatusCode();
+            statusCodeString = controllerConfig.getStatusCode();
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
             throw new RequestHandlerException(e);
         }
-        if(UtilValidate.isNotEmpty(controllerStatusCodeString != null)) 
-            statusCodeString = controllerStatusCodeString;
+        if (UtilValidate.isEmpty(statusCodeString)) {
+            statusCodeString = defaultStatusCodeString;
+        }
 
         // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(request);
@@ -248,7 +255,6 @@ public class RequestHandler {
                     requestMap = requestMapMap.get(defaultRequest);
                 }
             }
-            boolean forceHttpSession = "true".equals(context.getInitParameter("forceHttpSession"));
             // Check if we SHOULD be secure and are not.
             String forwardedProto = request.getHeader("X-Forwarded-Proto");
             boolean isForwardedSecure = UtilValidate.isNotEmpty(forwardedProto) && "HTTPS".equals(forwardedProto.toUpperCase());
@@ -775,11 +781,6 @@ public class RequestHandler {
         return null;
     }
 
-    /** Returns the ServletContext Object. */
-    public ServletContext getServletContext() {
-        return context;
-    }
-
     /** Returns the ViewFactory Object. */
     public ViewFactory getViewFactory() {
         return viewFactory;
@@ -942,7 +943,7 @@ public class RequestHandler {
         long viewStartTime = System.currentTimeMillis();
 
         // setup character encoding and content type
-        String charset = UtilFormatOut.checkEmpty(getServletContext().getInitParameter("charset"), req.getCharacterEncoding(), "UTF-8");
+        String charset = UtilFormatOut.checkEmpty(this.charset, req.getCharacterEncoding(), "UTF-8");
 
         String viewCharset = viewMap.encoding;
         //NOTE: if the viewCharset is "none" then no charset will be used
@@ -1198,7 +1199,7 @@ public class RequestHandler {
 
         String encodedUrl;
         if (encode) {
-            boolean forceManualJsessionid = "false".equals(getServletContext().getInitParameter("cookies")) ? true : false;
+            boolean forceManualJsessionid = !cookies;
             boolean isSpider = false;
 
             // if the current request comes from a spider, we will not add the jsessionid to the link
@@ -1293,7 +1294,7 @@ public class RequestHandler {
     }
 
     public boolean trackStats(HttpServletRequest request) {
-        if (!"false".equalsIgnoreCase(context.getInitParameter("track-serverhit"))) {
+        if (trackServerHit) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
             if (uriString == null) {
                 uriString="";
@@ -1312,7 +1313,7 @@ public class RequestHandler {
     }
 
     public boolean trackVisit(HttpServletRequest request) {
-        if (!"false".equalsIgnoreCase(context.getInitParameter("track-visit"))) {
+        if (trackVisit) {
             String uriString = RequestHandler.getRequestUri(request.getPathInfo());
             if (uriString == null) {
                 uriString="";
