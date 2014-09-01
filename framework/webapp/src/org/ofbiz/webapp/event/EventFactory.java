@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
+import java.net.URL;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastMap;
 
@@ -31,7 +30,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.webapp.control.ConfigXMLReader;
-import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
@@ -41,14 +39,14 @@ public class EventFactory {
 
     public static final String module = EventFactory.class.getName();
 
-    protected RequestHandler requestHandler = null;
-    protected ServletContext context = null;
+    private final URL controllerConfigURL;
+    private final ServletContext context;
     protected Map<String, EventHandler> handlers = null;
 
-    public EventFactory(RequestHandler requestHandler) {
+    public EventFactory(ServletContext context, URL controllerConfigURL) {
         handlers = FastMap.newInstance();
-        this.requestHandler = requestHandler;
-        this.context = requestHandler.getServletContext();
+        this.controllerConfigURL = controllerConfigURL;
+        this.context = context;
 
         // pre-load all event handlers
         try {
@@ -62,7 +60,7 @@ public class EventFactory {
     private void preLoadAll() throws EventHandlerException {
         Set<String> handlers = null;
         try {
-            handlers = this.requestHandler.getControllerConfig().getEventHandlerMap().keySet();
+            handlers = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getEventHandlerMap().keySet();
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
@@ -104,7 +102,7 @@ public class EventFactory {
         EventHandler handler = null;
         String handlerClass = null;
         try {
-            handlerClass = this.requestHandler.getControllerConfig().getEventHandlerMap().get(type);
+            handlerClass = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getEventHandlerMap().get(type);
         } catch (WebAppConfigurationException e) {
             Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
         }
@@ -125,20 +123,5 @@ public class EventFactory {
             throw new EventHandlerException(iae.getMessage(), iae);
         }
         return handler;
-    }
-
-    public static String runRequestEvent(HttpServletRequest request, HttpServletResponse response, String requestUri)
-            throws EventHandlerException {
-        ServletContext application = ((ServletContext) request.getAttribute("servletContext"));
-        RequestHandler handler = (RequestHandler) application.getAttribute("_REQUEST_HANDLER_");
-        ConfigXMLReader.ControllerConfig controllerConfig = handler.getControllerConfig();
-        ConfigXMLReader.RequestMap requestMap;
-        try {
-            requestMap = controllerConfig.getRequestMapMap().get(requestUri);
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-            throw new EventHandlerException(e);
-        }
-        return handler.runEvent(request, response, requestMap.event, requestMap, "unknown");
     }
 }
