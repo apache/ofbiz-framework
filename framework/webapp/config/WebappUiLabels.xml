@@ -243,7 +243,7 @@
         <value xml:lang="ru">Диспетчер служб вызвал исключение: </value>
         <value xml:lang="th">Service dispatcher threw an exception: </value>
         <value xml:lang="zh">服务执行程序抛出一个意外错误: </value>
-        <value xml:lang="zh_TW">服務執行程式拋出一個意外錯誤: </value>
+        <value xml:lang="zh_TW">服務執行程式拋出一個異常</value>
     </property>
     <property key="coreEvents.service_eventhandler_exception">
         <value xml:lang="de">Der ServiceEventHandler hat eine Exception geworfen</value>
