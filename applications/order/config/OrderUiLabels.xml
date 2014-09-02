@@ -196,7 +196,7 @@
         <value xml:lang="th">หน่วยวัดสกุลเงิน</value>
         <value xml:lang="vi">Đơn vị tiền tệ</value>
         <value xml:lang="zh">货币币种</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="FormFieldTitle_custRequestId">
         <value xml:lang="de">Kundenanfrage-ID</value>
