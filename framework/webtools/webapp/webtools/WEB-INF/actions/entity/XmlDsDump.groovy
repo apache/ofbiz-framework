@@ -19,12 +19,7 @@
 
 import java.util.*;
 import java.io.*;
-import java.net.*;
-import org.w3c.dom.*;
-import org.ofbiz.security.*;
-import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.webapp.pseudotag.*;
 import org.ofbiz.entity.model.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.transaction.*;
