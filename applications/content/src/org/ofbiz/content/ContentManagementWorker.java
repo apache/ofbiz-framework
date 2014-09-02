@@ -177,28 +177,6 @@ public class ContentManagementWorker {
         return ret;
     }
 
-    //public static String getFromSomewhere(String name, LinkedHashMap paramMap, HttpServletRequest request, org.jpublish.JPublishContext context) {
-    /* This method should no longer be in use; the JPublish library was removed by default from OFBiz
-    public static String getFromSomewhere(String name, Map paramMap, HttpServletRequest request, org.jpublish.JPublishContext context) {
-
-        String ret = null;
-        if (paramMap != null)
-            ret = (String)paramMap.get(name);
-
-        if (UtilValidate.isEmpty(ret)) {
-            Object obj = request.getAttribute(name);
-            if (obj != null) {
-                ret = obj.toString();
-            } else {
-                obj = context.get(name);
-                if (obj != null) {
-                    ret = obj.toString();
-                }
-            }
-        }
-        return ret;
-    } */
-
     public static void getCurrentValue(HttpServletRequest request, Delegator delegator) {
         HttpSession session = request.getSession();
         Map<String, GenericPK> currentEntityMap = UtilGenerics.checkMap(session.getAttribute("currentEntityMap"));

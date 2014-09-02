@@ -110,12 +110,6 @@ under the License.
         <exclude name="**/JasperReportsXmlViewHandler.java"/>
         <exclude name="**/JasperReportsJXlsViewHandler.java"/>
         <exclude name="**/JasperReportsPoiXlsViewHandler.java"/>
-        <exclude name="**/GenericViewRenderer.java"/>
-        <exclude name="**/JPublishViewHandler.java"/>
-        <exclude name="**/JPublishWrapper.java"/>
-        <exclude name="**/FopPdfViewHandler.java"/>
-        <exclude name="**/FreeMarkerViewRenderer.java"/>
-        <exclude name="**/JpCacheIncludeTransform.java"/>             
       </fileset>
       <link href="http://java.sun.com/javase/7/docs/api/" offline="true" packagelistLoc="${ofbiz.home.dir}/tools/api-java17"/>
     </javadoc>
