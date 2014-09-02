@@ -21,14 +21,10 @@
  import org.ofbiz.entity.util.*;
  import org.ofbiz.entity.*;
  import org.ofbiz.base.util.*;
- import javolution.util.FastList;
- import javolution.util.FastSet;
- import javolution.util.FastMap;
  import org.ofbiz.entity.transaction.TransactionUtil;
  import org.ofbiz.entity.util.EntityListIterator;
  import org.ofbiz.entity.GenericEntity;
  import org.ofbiz.entity.model.ModelField;
- import org.ofbiz.base.util.UtilValidate;
  import org.ofbiz.entity.model.ModelEntity;
  import org.ofbiz.entity.model.ModelReader;
 
@@ -47,7 +43,7 @@ String curFindString="";
 ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity("ContentAssocViewTo");
 GenericEntity findByEntity = delegator.makeValue("ContentAssocViewTo");
-List errMsgList = FastList.newInstance();
+List errMsgList = new ArrayList();
 Iterator fieldIterator = modelEntity.getFieldsIterator();
 while (fieldIterator.hasNext()) {
     ModelField field = fieldIterator.next();
@@ -93,11 +89,8 @@ if ((highIndex - lowIndex + 1) > 0) {
     try {
         beganTransaction = TransactionUtil.begin();
         allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
-        fieldsToSelect = FastSet.newInstance();
-        //fieldsToSelect=["contentId", "contentName", "mimeTypeId"] as Set;
         findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        EntityListIterator listIt=null;
-        listIt = delegator.find("ContentAssocViewTo", allConditions, null, null, ["contentId ASC"], findOptions);
+        EntityListIterator listIt = delegator.find("ContentAssocViewTo", allConditions, null, null, ["contentId ASC"], findOptions);
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1);
         
         arraySize = listIt.getResultsSizeAfterPartialList();
@@ -127,5 +120,4 @@ context.resultPartialList = resultPartialList;
 
 viewIndexLast = UtilMisc.getViewLastIndex(arraySize, viewSize);
 context.viewIndexLast = viewIndexLast;
-contentAssoc = FastList.newInstance();
 context.contentAssoc=resultPartialList;

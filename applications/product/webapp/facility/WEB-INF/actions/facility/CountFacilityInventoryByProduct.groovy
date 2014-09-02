@@ -31,7 +31,6 @@
 // need it (but it is slower than this one).
 
 import org.ofbiz.base.util.Debug
-import org.ofbiz.base.util.ObjectType
 import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.transaction.*
@@ -40,12 +39,10 @@ import org.ofbiz.entity.model.DynamicViewEntity
 import org.ofbiz.entity.model.ModelKeyMap
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField
-import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember
 import org.ofbiz.product.inventory.*
 
 action = request.getParameter("action");
 
-searchParameterString = "";
 searchParameterString = "action=Y&facilityId=" + facilityId;
 
 offsetQOH = -1;
