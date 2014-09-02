@@ -337,12 +337,6 @@ ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
 <br/>
 </@checkPermission>
 </td></tr>
-<#-- can't include this file because this template is not run thru JPublish and it, therefore,
-     does not know where to find nextprev.ftl.
-     Looks like Configuration.setDirectoryForTemplateLoading could be used, but I don't want to
-     worry about passing a request object down to this level, at this time.
-<#include "nextprev.ftl"/>
--->
 
 <#assign outputIndex = 0/>
 <#if outputIndex?exists >
