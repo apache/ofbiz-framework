@@ -18,11 +18,7 @@
  */
 
 import java.util.*;
-import org.ofbiz.security.*;
-import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import org.ofbiz.webapp.pseudotag.*;
-import org.ofbiz.workeffort.workeffort.*;
 
 facilityId = parameters.get("facilityId");
 fixedAssetId = parameters.get("fixedAssetId");
