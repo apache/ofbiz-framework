@@ -83,151 +83,151 @@ under the License.
     </service>
 
     <!-- Product Store Role Services -->
-    <service name="createProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreRole" auth="true">
+    <service name="createProductStoreRole" default-entity-name="ProductStoreRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create ProductStoreRole</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreRole" auth="true">
+    <service name="updateProductStoreRole" default-entity-name="ProductStoreRole" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Product Store Role</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductStoreRole" default-entity-name="ProductStoreRole" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreRole" auth="true">
+    <service name="removeProductStoreRole" default-entity-name="ProductStoreRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProductStoreRole</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- Product Store Catalog Services -->
-    <service name="createProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreCatalog" auth="true">
+    <service name="createProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="entity-auto" invoke="create" auth="true">
         <description>Create ProductStoreCatalog</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreCatalog" auth="true">
+    <service name="updateProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="entity-auto" invoke="update" auth="true">
         <description>Update ProductStoreCatalog</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreCatalog" auth="true">
+    <service name="deleteProductStoreCatalog" default-entity-name="ProductStoreCatalog" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ProductStoreCatalog</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Store Payment Services -->
-    <service name="createProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStorePaymentSetting" auth="true">
+    <service name="createProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="entity-auto" invoke="create" auth="true">
         <description>Create ProductStorePaymentSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="all" mode="IN" optional="false"/>
         <override name="paymentCustomMethodId" optional="true"/>
         <override name="paymentGatewayConfigId" optional="true"/>
         <override name="paymentPropertiesPath" optional="true"/>
         <override name="paymentService" optional="true"/>
     </service>
-    <service name="updateProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStorePaymentSetting" auth="true">
+    <service name="updateProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="entity-auto" invoke="update" auth="true">
         <description>Update ProductStorePaymentSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="all" mode="IN" optional="false"/>
         <override name="paymentCustomMethodId" optional="true"/>
         <override name="paymentGatewayConfigId" optional="true"/>
         <override name="paymentPropertiesPath" optional="true"/>
         <override name="paymentService" optional="true"/>
     </service>
-    <service name="deleteProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStorePaymentSetting" auth="true">
+    <service name="deleteProductStorePaymentSetting" default-entity-name="ProductStorePaymentSetting" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete ProductStorePaymentSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Store Email Services -->
-    <service name="createProductStoreEmailSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreEmail" auth="true">
+    <service name="createProductStoreEmailSetting" default-entity-name="ProductStoreEmailSetting" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Product Store Email Setting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes entity-name="ProductStoreEmailSetting" include="all" mode="IN" optional="false"/>
         <override name="xslfoAttachScreenLocation" optional="true"/>
         <override name="ccAddress" optional="true"/>
         <override name="bccAddress" optional="true"/>
         <override name="contentType" optional="true"/>
     </service>
-    <service name="updateProductStoreEmailSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreEmail" auth="true">
+    <service name="updateProductStoreEmailSetting" default-entity-name="ProductStoreEmailSetting" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Product Store Email Setting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes entity-name="ProductStoreEmailSetting" include="all" mode="IN" optional="false"/>
         <override name="xslfoAttachScreenLocation" optional="true"/>
         <override name="ccAddress" optional="true"/>
         <override name="bccAddress" optional="true"/>
         <override name="contentType" optional="true"/>
     </service>
-    <service name="removeProductStoreEmailSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreEmail" auth="true">
+    <service name="removeProductStoreEmailSetting" default-entity-name="ProductStoreEmailSetting" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Product Store Email Setting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes entity-name="ProductStoreEmailSetting" include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Store Shipping Method Services -->
-    <service name="createProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreShipMeth" auth="true">
+    <service name="createProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Product Store Shipment Method</description>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
         <override name="productStoreId" optional="false"/>
         <override name="shipmentMethodTypeId" optional="false"/>
         <override name="partyId" optional="false"/>
         <override name="roleTypeId" optional="false"/>
     </service>
-    <service name="updateProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreShipMeth" auth="true">
+    <service name="updateProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Product Store Shipment Method</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreShipMeth" auth="true">
+    <service name="removeProductStoreShipMeth" default-entity-name="ProductStoreShipmentMeth" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a Product Store Shipment Method</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- Product Store Keyword Override services -->
-    <service name="createProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreKeywordOvrd" auth="true">
+    <service name="createProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Product Store Keyword Override</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="target" optional="false"/>
         <override name="fromDate" optional="true"/>
         <override name="targetTypeEnumId" optional="false"/>
     </service>
-    <service name="updateProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreKeywordOvrd" auth="true">
+    <service name="updateProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Product Store Keyword Override</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreKeywordOvrd" auth="true">
+    <service name="deleteProductStoreKeywordOvrd" default-entity-name="ProductStoreKeywordOvrd" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Product Store Keyword Override</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
 
     <!-- ProductStoreSurveyAppl Services -->
-    <service name="createProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreSurveyAppl" auth="true">
+    <service name="createProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Product Store Survey Appl</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
     </service>
-    <service name="deleteProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreSurveyAppl" auth="true">
+    <service name="deleteProductStoreSurveyAppl" default-entity-name="ProductStoreSurveyAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Product Store Survey Appl</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -252,57 +252,60 @@ under the License.
     </service>
 
     <!-- ProductStoreFinActSetting Services -->
-    <service name="createProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreFinActSetting" auth="true">
+    <service name="createProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="entity-auto" invoke="create" auth="true">
         <description>Create ProductStoreFinActSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="updateProductStoreFinActSetting" auth="true">
+    <service name="updateProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="entity-auto" invoke="update" auth="true">
         <description>Update ProductStoreFinActSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="simple"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="removeProductStoreFinActSetting" auth="true">
+    <service name="removeProductStoreFinActSetting" default-entity-name="ProductStoreFinActSetting" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProductStoreFinActSetting</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!--ProductStoreVendorPayment Services -->
-    <service name="createProductStoreVendorPayment" engine="simple" default-entity-name="ProductStoreVendorPayment"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreVendorPayment" auth="true">
+    <service name="createProductStoreVendorPayment" engine="entity-auto" default-entity-name="ProductStoreVendorPayment" invoke="create" auth="true">
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteProductStoreVendorPayment" engine="simple" default-entity-name="ProductStoreVendorPayment"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreVendorPayment" auth="true">
+    <service name="deleteProductStoreVendorPayment" engine="entity-auto" default-entity-name="ProductStoreVendorPayment" invoke="delete" auth="true">
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!--ProductStoreVendorShipment Services -->
-    <service name="createProductStoreVendorShipment" engine="simple" default-entity-name="ProductStoreVendorShipment"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="createProductStoreVendorShipment" auth="true">
+    <service name="createProductStoreVendorShipment" default-entity-name="ProductStoreVendorShipment" engine="entity-auto" invoke="create" auth="true">
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deleteProductStoreVendorShipment" engine="simple" default-entity-name="ProductStoreVendorShipment"
-            location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="deleteProductStoreVendorShipment" auth="true">
+    <service name="deleteProductStoreVendorShipment" default-entity-name="ProductStoreVendorShipment" engine="entity-auto" invoke="delete" auth="true">
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!--ProductStoreFacility Services -->
     <service name="createProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductStoreFacility</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="updateProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductStoreFacility</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <service name="deleteProductStoreFacility" default-entity-name="ProductStoreFacility" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a ProductStoreFacility</description>
+        <permission-service service-name="productStoreGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
@@ -348,5 +351,11 @@ under the License.
         <attribute name="primaryParentGroupId" mode="IN" type="String" optional="true"/>
         <attribute name="parentGroupId" mode="IN" type="String" optional="true"/>
         <attribute name="fromDate" mode="IN" type="String" optional="true"/>
+    </service>
+
+    <!-- Permission Services -->
+    <service name="productStoreGenericPermission" engine="simple"
+        location="component://product/script/org/ofbiz/product/store/ProductStoreServices.xml" invoke="productStoreGenericPermission">
+        <implements service="permissionInterface"/>
     </service>
 </services>
