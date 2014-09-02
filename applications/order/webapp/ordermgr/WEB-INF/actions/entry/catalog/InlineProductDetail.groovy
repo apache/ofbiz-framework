@@ -25,7 +25,7 @@ import org.ofbiz.service.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
-import org.ofbiz.webapp.taglib.*;
+import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.webapp.website.WebSiteWorker
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
