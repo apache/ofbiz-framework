@@ -45,11 +45,9 @@ import freemarker.template.TemplateException;
 public class FreeMarkerViewHandler extends AbstractViewHandler {
 
     public static final String module = FreeMarkerViewHandler.class.getName();
-    protected ServletContext servletContext = null;
     protected Configuration config = (Configuration) FreeMarkerWorker.getDefaultOfbizConfig().clone();
 
     public void init(ServletContext context) throws ViewHandlerException {
-        this.servletContext = context;
         config.setCacheStorage(new OfbizCacheStorage("unknown"));
         config.setServletContextForTemplateLoading(context, "/");
     }
