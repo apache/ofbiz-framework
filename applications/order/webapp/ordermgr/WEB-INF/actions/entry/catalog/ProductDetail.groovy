@@ -29,7 +29,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.service.*;
-import org.ofbiz.webapp.taglib.*;
+import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.product.ProductSearch;
 import org.ofbiz.product.product.ProductSearchSession;
