@@ -3885,7 +3885,7 @@
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="AccountingCurrentAsset">
         <value xml:lang="de">Umlaufvermögen</value>

@@ -118,7 +118,7 @@
         <value xml:lang="th">CMS Site</value>
         <value xml:lang="vi">Trang thông tin CMS</value>
         <value xml:lang="zh">内容管理系统站点</value>
-        <value xml:lang="zh_TW">內容管理系統</value>
+        <value xml:lang="zh_TW">內容管理系統站台</value>
     </property>
     <property key="Catalog">
         <value xml:lang="ar">كاتالوج</value>
@@ -2421,7 +2421,7 @@
         <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
         <value xml:lang="zh-CN">货币</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="CommonCurrent">
         <value xml:lang="ar">جاري</value>
@@ -10962,7 +10962,7 @@
         <value xml:lang="th">ที่</value>
         <value xml:lang="vi">Cái</value>
         <value xml:lang="zh"> </value>
-        <value xml:lang="zh">此</value>
+        <value xml:lang="zh_TW">此</value>
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
         <value xml:lang="cs">Následující povinná pole byla prázdná</value>
@@ -13143,7 +13143,7 @@
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="FormFieldTitle_currentRecurrenceCount">
         <value xml:lang="cs">Současná hloubka zanoření</value>
@@ -13834,7 +13834,7 @@
         <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="vi">Đơn vị tính</value>
         <value xml:lang="zh">币值</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="FormFieldTitle_updateButton">
         <value xml:lang="ar">تحديث</value>

@@ -16266,7 +16266,7 @@
         <value xml:lang="ru">Афгани</value>
         <value xml:lang="th">อัฟกานิ </value>
         <value xml:lang="zh">阿富汗尼</value>
-        <value xml:lang="zh_TW">阿富汗</value>
+        <value xml:lang="zh_TW">阿富汗尼</value>
     </property>
     <property key="Uom.description.ALL">
         <value xml:lang="de">Lek Albanien</value>
@@ -20653,7 +20653,7 @@
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
-        <value xml:lang="zh_TW">幣別</value>
+        <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="UomType.description.DATASPD_MEASURE">
         <value xml:lang="de">Daten Geschwindigkeit</value>
