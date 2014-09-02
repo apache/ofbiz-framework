@@ -105,11 +105,6 @@ under the License.
     <welcome-file>index.jsp</welcome-file>
   </welcome-file-list>
 
-  <taglib>
-     <taglib-uri>ofbizTags</taglib-uri>
-     <taglib-location>/WEB-INF/ofbiz.tld</taglib-location>
-  </taglib>
-
 <!-- HTTP Response Code definitions:
 | "400"   ; Bad Request
 | "401"   ; Unauthorized

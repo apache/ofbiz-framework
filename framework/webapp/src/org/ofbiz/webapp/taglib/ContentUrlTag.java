@@ -20,12 +20,8 @@ package org.ofbiz.webapp.taglib;
 
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.BodyContent;
-import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -35,19 +31,9 @@ import org.ofbiz.entity.GenericValue;
 /**
  * ContentUrlTag - Creates a URL string prepending the content prefix from url.properties
  */
-@SuppressWarnings("serial")
-public class ContentUrlTag extends BodyTagSupport {
+public class ContentUrlTag {
 
-    public static final String module = UrlTag.class.getName();
-
-    @Deprecated
-    public static void appendContentPrefix(HttpServletRequest request, StringBuffer urlBuffer) {
-        try {
-            appendContentPrefix(request, (Appendable) urlBuffer);
-        } catch (IOException e) {
-            throw UtilMisc.initCause(new InternalError(e.getMessage()), e);
-        }
-    }
+    public static final String module = ContentUrlTag.class.getName();
 
     public static void appendContentPrefix(HttpServletRequest request, StringBuilder urlBuffer) {
         try {
@@ -99,31 +85,5 @@ public class ContentUrlTag extends BodyTagSupport {
         StringBuilder buf = new StringBuilder();
         ContentUrlTag.appendContentPrefix(request, buf);
         return buf.toString();
-    }
-
-    @Override
-    public int doEndTag() throws JspException {
-        HttpServletRequest request = (HttpServletRequest) pageContext.getRequest();
-
-        BodyContent body = getBodyContent();
-        String bodyString = body.getString();
-
-        StringBuilder newURL = new StringBuilder();
-
-        appendContentPrefix(request, newURL);
-        newURL.append(bodyString);
-        body.clearBody();
-
-        try {
-            getPreviousOut().print(newURL.toString());
-        } catch (IOException e) {
-            if (UtilJ2eeCompat.useNestedJspException(pageContext.getServletContext())) {
-                throw new JspException(e.getMessage(), e);
-            } else {
-                Debug.logError(e, "Server does not support nested exceptions, here is the exception", module);
-                throw new JspException(e.toString());
-            }
-        }
-        return SKIP_BODY;
     }
 }
