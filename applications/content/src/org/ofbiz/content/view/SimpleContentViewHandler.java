@@ -45,17 +45,20 @@ import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
 
-/**
- * Uses XSL-FO formatted templates to generate PDF views
- * This handler will use JPublish to generate the XSL-FO
- */
 public class SimpleContentViewHandler extends AbstractViewHandler {
 
     public static final String module = SimpleContentViewHandler.class.getName();
-    protected ServletContext servletContext = null;
+    private String rootDir = null;
+    private String https = null;
+    private String defaultCharset = null;
 
     public void init(ServletContext context) throws ViewHandlerException {
-        this.servletContext = context;
+        rootDir = context.getRealPath("/");
+        https = (String) context.getAttribute("https");
+        defaultCharset = context.getInitParameter("charset");
+        if (UtilValidate.isEmpty(defaultCharset)) {
+            defaultCharset = "UTF-8";
+        }
     }
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
@@ -71,18 +74,10 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
         String contentRevisionSeqId = request.getParameter("contentRevisionSeqId");
         String mimeTypeId = request.getParameter("mimeTypeId");
         Locale locale = UtilHttp.getLocale(request);
-        String rootDir = null;
         String webSiteId = WebSiteWorker.getWebSiteId(request);
-        String https = null;
 
-        if (UtilValidate.isEmpty(rootDir)) {
-            rootDir = servletContext.getRealPath("/");
-        }
-        if (UtilValidate.isEmpty(https)) {
-            https = (String) servletContext.getAttribute("https");
-        }
         try {
-            if (Debug.verboseOn()) Debug.logVerbose("SCVH(0a)- dataResourceId:" + dataResourceId, module);
+            if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
             Delegator delegator = (Delegator)request.getAttribute("delegator");
             if (UtilValidate.isEmpty(dataResourceId)) {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
@@ -91,7 +86,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                             GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
                             dataResourceId = content.getString("dataResourceId");
                         }
-                        if (Debug.verboseOn()) Debug.logVerbose("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
                     } else {
                         Timestamp fromDate = null;
                         if (UtilValidate.isNotEmpty(fromDateStr)) {
@@ -107,7 +102,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         }
                         GenericValue content = ContentWorker.getSubContent(delegator, contentId, mapKey, null, null, assocList, fromDate);
                         dataResourceId = content.getString("dataResourceId");
-                        if (Debug.verboseOn()) Debug.logVerbose("SCVH(0b)- dataResourceId:" + dataResourceId, module);
+                        if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
                     }
                 } else {
                     GenericValue contentRevisionItem = delegator.findOne("ContentRevisionItem", UtilMisc.toMap("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId), true);
@@ -116,9 +111,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                                                        + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
                     }
                     dataResourceId = contentRevisionItem.getString("newDataResourceId");
-                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(1)- contentRevisionItem:" + contentRevisionItem, module);
-                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(2)-contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
-                    if (Debug.verboseOn()) Debug.logVerbose("SCVH(3)- dataResourceId:" + dataResourceId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("contentRevisionItem:" + contentRevisionItem, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("contentId=" + rootContentId + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId, module);
+                    if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
                 }
             }
             if (UtilValidate.isNotEmpty(dataResourceId)) {
@@ -126,22 +121,14 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 // DEJ20080717: why are we rendering the DataResource directly instead of rendering the content?
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
-                // hack for IE and mime types
-                //String userAgent = request.getHeader("User-Agent");
-                //if (userAgent.indexOf("MSIE") > -1) {
-                //    Debug.logInfo("Found MSIE changing mime type from - " + mimeTypeId, module);
-                //    mimeTypeId = "application/octet-stream";
-                //}
                 // setup chararcter encoding and content type
                 String charset = dataResource.getString("characterSetId");
-                mimeTypeId = dataResource.getString("mimeTypeId");
                 if (UtilValidate.isEmpty(charset)) {
-                    charset = servletContext.getInitParameter("charset");
+                    charset = defaultCharset;
                 }
-                if (UtilValidate.isEmpty(charset)) {
-                    charset = "UTF-8";
+                if (UtilValidate.isEmpty(mimeTypeId)) {
+                    mimeTypeId = dataResource.getString("mimeTypeId");
                 }
-    
                 // setup content type
                 String contentType2 = UtilValidate.isNotEmpty(mimeTypeId) ? mimeTypeId + "; charset=" +charset : contentType;
                 String fileName = null;
