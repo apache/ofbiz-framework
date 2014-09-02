@@ -19,19 +19,17 @@
 package org.ofbiz.webapp.view;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.ConfigXMLReader;
-import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
  * ViewFactory - View Handler Factory
@@ -40,46 +38,29 @@ public class ViewFactory {
 
     public static final String module = ViewFactory.class.getName();
 
-    private final URL controllerConfigURL;
-    private final ServletContext context;
-    protected Map<String, ViewHandler> handlers = null;
+    private final Map<String, ViewHandler> handlers = new HashMap<String, ViewHandler>();
 
     public ViewFactory(ServletContext context, URL controllerConfigURL) {
-        this.handlers = FastMap.newInstance();
-        this.controllerConfigURL = controllerConfigURL;
-        this.context = context;
-
-        // pre-load all the view handlers
+        // load all the view handlers
         try {
-            this.preLoadAll();
-        } catch (ViewHandlerException e) {
+            Set<Map.Entry<String,String>> handlerEntries = ConfigXMLReader.getControllerConfig(controllerConfigURL).getViewHandlerMap().entrySet();
+            if (handlerEntries != null) {
+                for (Map.Entry<String,String> handlerEntry: handlerEntries) {
+                    ViewHandler handler = (ViewHandler) ObjectType.getInstance(handlerEntry.getValue());
+                    handler.setName(handlerEntry.getKey());
+                    handler.init(context);
+                    this.handlers.put(handlerEntry.getKey(), handler);
+                }
+            }
+            // load the "default" type
+            if (!this.handlers.containsKey("default")) {
+                ViewHandler defaultHandler = (ViewHandler) ObjectType.getInstance("org.ofbiz.webapp.view.JspViewHandler");
+                defaultHandler.init(context);
+                this. handlers.put("default", defaultHandler);
+            }
+        } catch (Exception e) {
             Debug.logError(e, module);
             throw new GeneralRuntimeException(e);
-        }
-    }
-
-    private void preLoadAll() throws ViewHandlerException {
-        Set<String> handlers = null;
-        try {
-            handlers = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getViewHandlerMap().keySet();
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-        }
-        if (handlers != null) {
-            for (String type: handlers) {
-                this.handlers.put(type, this.loadViewHandler(type));
-            }
-        }
-
-        // load the "default" type
-        if (!this.handlers.containsKey("default")) {
-            try {
-                ViewHandler h = (ViewHandler) ObjectType.getInstance("org.ofbiz.webapp.view.JspViewHandler");
-                h.init(context);
-                this. handlers.put("default", h);
-            } catch (Exception e) {
-                throw new ViewHandlerException(e);
-            }
         }
     }
 
@@ -87,60 +68,11 @@ public class ViewFactory {
         if (UtilValidate.isEmpty(type)) {
             type = "default";
         }
-
-        // check if we are new / empty and add the default handler in
-        if (handlers.size() == 0) {
-            this.preLoadAll();
-        }
-
         // get the view handler by type from the contextHandlers
         ViewHandler handler = handlers.get(type);
-
-        // if none found lets create it and add it in
         if (handler == null) {
-            synchronized (ViewFactory.class) {
-                handler = handlers.get(type);
-                if (handler == null) {
-                    handler = this.loadViewHandler(type);
-                    handlers.put(type, handler);
-                }
-            }
-            if (handler == null) {
-                throw new ViewHandlerException("No handler found for type: " + type);
-            }
+            throw new ViewHandlerException("No handler found for type: " + type);
         }
-        return handler;
-    }
-
-    public void clear() {
-        handlers.clear();
-    }
-
-    private ViewHandler loadViewHandler(String type) throws ViewHandlerException {
-        ViewHandler handler = null;
-        String handlerClass = null;
-        try {
-            handlerClass = ConfigXMLReader.getControllerConfig(this.controllerConfigURL).getViewHandlerMap().get(type);
-        } catch (WebAppConfigurationException e) {
-            Debug.logError(e, "Exception thrown while parsing controller.xml file: ", module);
-        }
-        if (handlerClass == null) {
-            throw new ViewHandlerException("Unknown handler type: " + type);
-        }
-
-        try {
-            handler = (ViewHandler) ObjectType.getInstance(handlerClass);
-            handler.setName(type);
-            handler.init(context);
-        } catch (ClassNotFoundException cnf) {
-            //throw new ViewHandlerException("Cannot load handler class", cnf);
-            Debug.logWarning("Warning: could not load view handler class because it was not found; note that some views may not work: " + cnf.toString(), module);
-        } catch (InstantiationException ie) {
-            throw new ViewHandlerException("Cannot get instance of the handler", ie);
-        } catch (IllegalAccessException iae) {
-            throw new ViewHandlerException(iae.getMessage(), iae);
-        }
-
         return handler;
     }
 }
