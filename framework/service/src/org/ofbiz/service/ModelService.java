@@ -1092,9 +1092,9 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
 
     /**
      * Run the interface update and inherit all interface parameters
-     * @param dctx The DispatchContext to use for service lookups
+     * @param serviceMap The Map to use for service lookups
      */
-    public synchronized void interfaceUpdate(DispatchContext dctx) throws GenericServiceException {
+    public synchronized void interfaceUpdate(Map<String, ModelService> serviceMap) throws GenericServiceException {
         if (!inheritedParameters) {
             // services w/ engine 'group' auto-implement the grouped services
             if (this.engineName.equals("group") && implServices.size() == 0) {
@@ -1111,13 +1111,15 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
             }
 
             // handle interfaces
-            if (UtilValidate.isNotEmpty(implServices) && dctx != null) {
+            if (UtilValidate.isNotEmpty(implServices) && serviceMap != null) {
                 for (ModelServiceIface iface: implServices) {
                     String serviceName = iface.getService();
                     boolean optional = iface.isOptional();
-
-                    ModelService model = dctx.getModelService(serviceName);
+                    ModelService model = serviceMap.get(serviceName);
                     if (model != null) {
+                        if (!model.inheritedParameters()) {
+                            model.interfaceUpdate(serviceMap);
+                        }
                         for (ModelParam newParam: model.contextParamList) {
                             ModelParam existingParam = this.contextInfo.get(newParam.name);
                             if (existingParam != null) {

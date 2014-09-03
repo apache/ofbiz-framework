@@ -19,6 +19,7 @@
 package org.ofbiz.service;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.security.Security;
@@ -26,11 +27,11 @@ import org.ofbiz.service.jms.JmsListenerFactory;
 import org.ofbiz.service.job.JobManager;
 
 /**
- * A local service dispatcher. This is the main API for the service engine.
- * <p>Instances of <code>LocalDispatcher</code> are based on a {@link org.ofbiz.entity.Delegator}
- * instance and an entity model reader name. You can get a <code>LocalDispatcher</code> instance
- * by calling the {@link org.ofbiz.service.ServiceDispatcher#getLocalDispatcher(String, Delegator)}
- * factory method.</p>
+ * A local service dispatcher.
+ * <p> A LocalDispatcher is associated with an application. Applications never talk directly to the ServiceDispatcher.
+ * The LocalDispatcher contains an API for invoking services, which are routed through the ServiceDispatcher.
+ * However, applications may be running in different threads than the actual ServiceDispatcher, so it is left to the
+ * LocalDispatcher to keep a reference to the application's classloader.</p>
  */
 public interface LocalDispatcher {
 
@@ -345,5 +346,11 @@ public interface LocalDispatcher {
      * De-Registers this LocalDispatcher
      */
     void deregister();
+
+    ModelService getModelService(String serviceName) throws GenericServiceException;
+
+    Set<String> getAllServiceNames();
+
+    ClassLoader getClassLoader();
 }
 
