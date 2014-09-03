@@ -214,22 +214,19 @@ under the License.
         <override name="productStoreId" optional="false"/>
     </service>
 
-    <service name="createPartyAttribute" engine="simple" default-entity-name="PartyAttribute"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyAttribute" auth="true">
+    <service name="createPartyAttribute" default-entity-name="PartyAttribute" engine="entity-auto" invoke="create" auth="true">
         <description>create a party attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updatePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyAttribute" auth="true">
+    <service name="updatePartyAttribute" default-entity-name="PartyAttribute" engine="entity-auto" invoke="update" auth="true">
         <description>updates a party attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removePartyAttribute" engine="simple" default-entity-name="PartyAttribute"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="removePartyAttribute" auth="true">
+    <service name="removePartyAttribute" default-entity-name="PartyAttribute" engine="entity-auto" invoke="delete" auth="true">
         <description>removes a party attribute record</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -262,21 +259,17 @@ under the License.
     </service>
 
     <!-- Party Role services -->
-    <service name="createPartyRole" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRole" auth="true">
+    <service name="createPartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Party Role (add a Role to a Party). The logged in user must have PARTYMGR_CREATE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="CREATE"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="deletePartyRole" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyRole" auth="true">
+    <service name="deletePartyRole" default-entity-name="PartyRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Party Role (remove a Role from a Party). The logged in user must have PARTYMGR_DELETE or have
             permission to change the role of this partyId</description>
         <permission-service service-name="partyRolePermissionCheck" main-action="DELETE"/>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="ensurePartyRole" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
@@ -625,57 +618,49 @@ under the License.
     </service>
 
     <!-- PostalAddressBoundary -->
-    <service name="createPostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPostalAddressBoundary">
+    <service name="createPostalAddressBoundary" default-entity-name="PostalAddressBoundary" engine="entity-auto" invoke="create">
         <description>Create a Postal Address Boundary</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="deletePostalAddressBoundary" engine="simple" default-entity-name="PostalAddressBoundary"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePostalAddressBoundary">
+    <service name="deletePostalAddressBoundary" default-entity-name="PostalAddressBoundary" engine="entity-auto" invoke="delete">
         <description>Delete a Postal Address Boundary</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
     <!-- PartyClassification -->
-    <service name="createPartyClassification" engine="simple" default-entity-name="PartyClassification"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassification">
+    <service name="createPartyClassification" default-entity-name="PartyClassification" engine="entity-auto" invoke="create">
         <description>create PartyClassification</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updatePartyClassification" engine="simple" default-entity-name="PartyClassification"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassification">
+    <service name="updatePartyClassification" default-entity-name="PartyClassification" engine="entity-auto" invoke="update">
         <description>update PartyClassification</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deletePartyClassification" engine="simple" default-entity-name="PartyClassification"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassification">
+    <service name="deletePartyClassification" default-entity-name="PartyClassification" engine="entity-auto" invoke="delete">
         <description>delete PartyClassification</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
-    <service name="createPartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyClassificationGroup">
+    <service name="createPartyClassificationGroup" default-entity-name="PartyClassificationGroup" engine="entity-auto" invoke="create">
         <description>create PartyClassificationGroup</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="OUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="updatePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyClassificationGroup">
+    <service name="updatePartyClassificationGroup" default-entity-name="PartyClassificationGroup" engine="entity-auto" invoke="update">
         <description>update PartyClassificationGroup</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="deletePartyClassificationGroup" engine="simple" default-entity-name="PartyClassificationGroup"
-        location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deletePartyClassificationGroup">
+    <service name="deletePartyClassificationGroup" default-entity-name="PartyClassificationGroup" engine="entity-auto" invoke="delete">
         <description>delete PartyClassificationGroup</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
@@ -709,22 +694,19 @@ under the License.
 
 
     <!-- Vendor -->
-    <service name="createVendor" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createVendor" auth="true">
+    <service name="createVendor" default-entity-name="Vendor" engine="entity-auto" invoke="create" auth="true">
         <description>Create Vendor Information</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updateVendor" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updateVendor" auth="true">
+    <service name="updateVendor" default-entity-name="Vendor" engine="entity-auto" invoke="update" auth="true">
         <description>Update Vendor Information</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="UPDATE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="Vendor" include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deleteVendor" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="deleteVendor" auth="true">
+    <service name="deleteVendor" default-entity-name="Vendor" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove Vendor Information</description>
         <permission-service service-name="partyBasePermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="Vendor" include="pk" mode="IN" optional="false"/>
@@ -1046,8 +1028,7 @@ under the License.
         <attribute name="countryGeoId" type="String" mode="OUT" optional="true"/>
     </service>
 
-    <service name="createPartyCarrierAccount" engine="simple" default-entity-name="PartyCarrierAccount"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyCarrierAccount" auth="true">
+    <service name="createPartyCarrierAccount" default-entity-name="PartyCarrierAccount" engine="entity-auto" invoke="create" auth="true">
         <description>Create a PartyCarrierAccount record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -1055,8 +1036,7 @@ under the License.
         <override type="String" mode="IN" name="accountNumber" optional="false"/>
     </service>
 
-    <service name="updatePartyCarrierAccount" engine="simple" default-entity-name="PartyCarrierAccount"
-            location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="updatePartyCarrierAccount" auth="true">
+    <service name="updatePartyCarrierAccount" default-entity-name="PartyCarrierAccount" engine="entity-auto" invoke="update" auth="true">
         <description>Update a PartyCarrierAccount record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
