@@ -1566,12 +1566,20 @@ under the License.
         title="PartyAcctgPreference and PartyGroup Entity">
         <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
         <member-entity entity-alias="PTYGROUP" entity-name="PartyGroup"/>
+        <member-entity entity-alias="PTYROLE" entity-name="PartyRole"/>
         <alias entity-alias="PTYACCPREF"  name="partyId"/>
         <alias entity-alias="PTYACCPREF"  name="baseCurrencyUomId"/>
         <alias entity-alias="PTYGROUP"  name="groupName"/>
+        <alias entity-alias="PTYROLE"  name="roleTypeId"/>
         <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYGROUP">
             <key-map field-name="partyId"/>
         </view-link>
+        <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYROLE">
+            <key-map field-name="partyId"/>
+        </view-link>
+        <entity-condition>
+            <condition-expr entity-alias="PTYROLE" field-name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
+        </entity-condition>
     </view-entity>
     <view-entity entity-name="PartyAndGroup"
         package-name="org.ofbiz.party.party"
