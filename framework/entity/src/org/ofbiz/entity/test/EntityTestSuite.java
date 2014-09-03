@@ -45,7 +45,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
@@ -1150,6 +1149,64 @@ public class EntityTestSuite extends EntityTestCase {
         Debug.logInfo("testSequenceValueItemWithConcurrentThreads total time (ms): " + totalTime, module);
         assertFalse("Null sequence id returned", nullSeqIdReturned.get());
         assertFalse("Duplicate sequence id returned", duplicateFound.get());
+    }
+
+    /*
+        This test is useful to confirm that the default setting of use-transaction="true" for screen definitions is
+        the best one for performance.
+        With this setting one database transaction is started by the framework before rendering the screen.
+        Most screens usually have multiple Delegator calls to find records.
+        In most of the GenericDelegator's find methods, a transaction is created if one does not already exist,
+        the statement is performed, and the transaction is committed.
+        So, by making that attribute "false" - a screen will have many individual transactions instead of just one.
+
+        This test assess that running the same number of sql statements withing one transaction is faster than running
+        them with individual transactions.
+     */
+    public void testOneBigTransactionIsFasterThanSeveralSmallOnes() {
+        boolean transactionStarted = false;
+        long startTime = System.currentTimeMillis();
+        int totalNumberOfRows = 0;
+        int numberOfQueries = 500;
+        boolean noErrors = true;
+        try {
+            transactionStarted = TransactionUtil.begin();
+            for (int i = 1; i <= numberOfQueries; i++) {
+                List rows = delegator.findAll("SequenceValueItem", false);
+                totalNumberOfRows = totalNumberOfRows + rows.size();
+            }
+            TransactionUtil.commit(transactionStarted);
+        } catch (Exception e) {
+            try {
+                TransactionUtil.rollback(transactionStarted, "", e);
+            } catch (Exception e2) {}
+            noErrors = false;
+        }
+        long endTime = System.currentTimeMillis();
+        long totalTimeOneTransaction = endTime - startTime;
+        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (all contained in one big transaction) in " + totalTimeOneTransaction + " ms", module);
+        assertTrue("Errors detected executing the big transaction", noErrors);
+
+        totalNumberOfRows = 0;
+        noErrors = true;
+        try {
+            for (int i = 1; i <= numberOfQueries; i++) {
+                transactionStarted = TransactionUtil.begin();
+                List rows = delegator.findAll("SequenceValueItem", false);
+                totalNumberOfRows = totalNumberOfRows + rows.size();
+                TransactionUtil.commit(transactionStarted);
+            }
+        } catch (Exception e) {
+            try {
+                TransactionUtil.rollback(transactionStarted, "", e);
+            } catch (Exception e2) {}
+            noErrors = false;
+        }
+        endTime = System.currentTimeMillis();
+        long totalTimeSeveralSmallTransactions = endTime - startTime;
+        Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (each in its own transaction) in " + totalTimeSeveralSmallTransactions + " ms", module);
+        assertTrue("Errors detected executing the small transactions", noErrors);
+        assertTrue("One big transaction was not faster than several small ones", totalTimeOneTransaction < totalTimeSeveralSmallTransactions);
     }
 
     private final class TestObserver implements Observer {
