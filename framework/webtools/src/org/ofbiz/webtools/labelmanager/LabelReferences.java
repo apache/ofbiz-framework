@@ -47,8 +47,10 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceContainer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -77,15 +79,12 @@ public class LabelReferences {
         } catch (GenericEntityConfException e) {
             Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
         }
-        String modelName;
+        String modelName = "main";
         if (delegatorInfo != null) {
             modelName = delegatorInfo.getEntityModelReader();
-        } else {
-            modelName = "main";
         }
-        // since we do not associate a dispatcher to this DispatchContext, it is important to set a name of an existing entity model reader:
-        // in this way it will be possible to retrieve the service models from the cache
-        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader(), null);
+        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(modelName, delegator);
+        this.dispatchContext = dispatcher.getDispatchContext();
         Collection<LabelInfo> infoList = this.labels.values();
         for (LabelInfo labelInfo : infoList) {
             this.labelSet.add(labelInfo.getLabelKey());

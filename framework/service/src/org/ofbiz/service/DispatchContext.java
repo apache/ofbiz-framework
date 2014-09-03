@@ -19,86 +19,28 @@
 package org.ofbiz.service;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.Callable;
-import java.util.concurrent.Future;
 
 import javax.wsdl.WSDLException;
 
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.concurrent.ExecutionPool;
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.MainResourceHandler;
-import org.ofbiz.base.config.ResourceHandler;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.model.DelegatorElement;
-import org.ofbiz.entity.config.model.EntityConfig;
 import org.ofbiz.security.Security;
-import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.service.config.model.GlobalServices;
-import org.ofbiz.service.eca.ServiceEcaUtil;
 import org.w3c.dom.Document;
 
 /**
- * Dispatcher Context
+ * Service dispatch context. A collection of objects and convenience methods
+ * to be used by service implementations.
  */
 @SuppressWarnings("serial")
-public class DispatchContext implements Serializable {
+public final class DispatchContext implements Serializable {
 
     public static final String module = DispatchContext.class.getName();
 
-    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
+    private final LocalDispatcher dispatcher;
 
-    // these four fields represent the immutable state of a DispatchContext object
-    private final String name;
-    private final transient ClassLoader loader;
-    private final transient LocalDispatcher dispatcher;
-    private final String model;
-
-    /**
-     * Creates new DispatchContext as an immutable object.
-     * The "dispatcher" argument can be null if the "name" argument matches the name of a valid entity model reader.
-     * The thread safety of a DispatchContext object is a consequence of its immutability.
-     *
-     * @param name The immutable name of the DispatchContext
-     * @param loader The immutable class loader
-     * @param dispatcher The immutable dispatcher associated to the DispatchContext
-     *
-     */
-    public DispatchContext(String name, ClassLoader loader, LocalDispatcher dispatcher) {
-        this.name = name;
-        this.loader = loader;
+    DispatchContext(LocalDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-        String modelName = null;
-        if (this.dispatcher != null) {
-            Delegator delegator = dispatcher.getDelegator();
-            if (delegator != null) {
-                DelegatorElement delegatorInfo = null;
-                try {
-                    delegatorInfo = EntityConfig.getInstance().getDelegator(delegator.getDelegatorBaseName());
-                } catch (GenericEntityConfException e) {
-                    Debug.logWarning(e, "Exception thrown while getting delegator config: ", module);
-                }
-                if (delegatorInfo != null) {
-                    modelName = delegatorInfo.getEntityModelReader();
-                }
-            }
-        }
-        if (modelName == null) {
-            // if a modelName is not associated to the dispatcher (e.g. dispatcher is null) then use the name
-            // of the DispatchContext as the model reader name
-            modelName = name;
-        }
-        this.model = modelName;
-        getGlobalServiceMap();
     }
 
     /**
@@ -106,7 +48,7 @@ public class DispatchContext implements Serializable {
      * @return ClassLoader of the context
      */
     public ClassLoader getClassLoader() {
-        return this.loader;
+        return dispatcher.getClassLoader();
     }
 
     /**
@@ -114,7 +56,7 @@ public class DispatchContext implements Serializable {
      * @return String name of the LocalDispatcher object
      */
     public String getName() {
-        return name;
+        return dispatcher.getName();
     }
 
     /**
@@ -122,7 +64,7 @@ public class DispatchContext implements Serializable {
      * @return LocalDispatcher that was used to create this context
      */
     public LocalDispatcher getDispatcher() {
-        return this.dispatcher;
+        return dispatcher;
     }
 
     /**
@@ -199,84 +141,20 @@ public class DispatchContext implements Serializable {
     }
 
     /**
-     * Gets the ModelService instance that corresponds to given the name
+     * Gets the ModelService instance that corresponds to the given name
      * @param serviceName Name of the service
      * @return GenericServiceModel that corresponds to the serviceName
      */
     public ModelService getModelService(String serviceName) throws GenericServiceException {
-        Map<String, ModelService> serviceMap = getGlobalServiceMap();
-        ModelService retVal = null;
-        if (serviceMap != null) {
-            retVal = serviceMap.get(serviceName);
-            if (retVal != null && !retVal.inheritedParameters()) {
-                retVal.interfaceUpdate(this);
-            }
-        }
-        if (retVal == null) {
-            throw new GenericServiceException("Cannot locate service by name (" + serviceName + ")");
-        }
-        return retVal;
+        return dispatcher.getModelService(serviceName);
     }
 
     public Set<String> getAllServiceNames() {
-        Set<String> serviceNames = new TreeSet<String>();
-
-        Map<String, ModelService> globalServices = modelServiceMapByModel.get(this.model);
-        if (globalServices != null) {
-            serviceNames.addAll(globalServices.keySet());
-        }
-        return serviceNames;
+        return dispatcher.getAllServiceNames();
     }
 
     public Document getWSDL(String serviceName, String locationURI) throws GenericServiceException, WSDLException {
         ModelService model = this.getModelService(serviceName);
         return model.toWSDL(locationURI);
-    }
-
-    private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
-        return new Callable<Map<String, ModelService>>() {
-            public Map<String, ModelService> call() throws Exception {
-                return ModelServiceReader.getModelServiceMap(handler, DispatchContext.this.getDelegator());
-            }
-        };
-    }
-
-    private Map<String, ModelService> getGlobalServiceMap() {
-        Map<String, ModelService> serviceMap = modelServiceMapByModel.get(this.model);
-        if (serviceMap == null) {
-            serviceMap = new HashMap<String, ModelService>();
-
-            List<Future<Map<String, ModelService>>> futures = new LinkedList<Future<Map<String, ModelService>>>();
-            List<GlobalServices> globalServicesList = null;
-            try {
-                globalServicesList = ServiceConfigUtil.getServiceEngine().getGlobalServices();
-            } catch (GenericConfigException e) {
-                // FIXME: Refactor API so exceptions can be thrown and caught.
-                Debug.logError(e, module);
-                throw new RuntimeException(e.getMessage());
-            }
-            for (GlobalServices globalServices : globalServicesList) {
-                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServices.getLoader(), globalServices.getLocation());
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
-            }
-
-            // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-            for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
-            }
-            for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
-                if (servicesMap != null) {
-                    serviceMap.putAll(servicesMap);
-                }
-            }
-
-            if (serviceMap != null) {
-                Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(this.model, serviceMap);
-                if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
-                    ServiceEcaUtil.reloadConfig();
-                }
-            }
-        }
-        return serviceMap;
     }
 }
