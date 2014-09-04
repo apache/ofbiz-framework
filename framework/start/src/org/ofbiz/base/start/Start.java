@@ -197,7 +197,7 @@ public final class Start {
             }
         }
         try {
-            this.config = Config.getInstance(args);
+            this.config = new Config(args);
         } catch (IOException e) {
             throw (StartupException) new StartupException("Couldn't not fetch config instance").initCause(e);
         }
