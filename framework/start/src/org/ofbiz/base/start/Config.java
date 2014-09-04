@@ -151,13 +151,6 @@ public class Config {
         String derbyPath = getProp(props, "derby.system.home", "runtime/data/derby");
         System.setProperty("derby.system.home", derbyPath);
 
-        // set the property to tell Log4J to use log4j.xml
-        String log4jConfig = getProp(props, "log4j.configuration", "log4j.xml");
-
-        // set the log4j configuration property so we don't pick up one inside jars by
-        // mistake
-        System.setProperty("log4j.configuration", log4jConfig);
-
         // check for shutdown hook
         if (System.getProperty("ofbiz.enable.hook") != null && System.getProperty("ofbiz.enable.hook").length() > 0) {
             useShutdownHook = "true".equalsIgnoreCase(System.getProperty("ofbiz.enable.hook"));
@@ -184,9 +177,6 @@ public class Config {
 
         // get the splash logo
         splashLogo = props.getProperty("ofbiz.start.splash.logo", null);
-
-        // set the property to tell Jetty to use 2.4 SessionListeners
-        System.setProperty("org.mortbay.jetty.servlet.AbstractSessionManager.24SessionDestroyed", "true");
 
         // set the default locale
         String localeString = props.getProperty("ofbiz.locale.default");
