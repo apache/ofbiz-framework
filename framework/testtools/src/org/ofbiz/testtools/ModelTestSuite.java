@@ -18,10 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.testtools;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
-import javolution.util.FastList;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -57,7 +57,7 @@ public class ModelTestSuite {
     protected Delegator delegator;
     protected LocalDispatcher dispatcher;
 
-    protected List<Test> testList = FastList.newInstance();
+    protected List<Test> testList = new ArrayList<Test>();
 
     public ModelTestSuite(Element mainElement, String testCase) {
         this.suiteName = mainElement.getAttribute("suite-name");
