@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.InetAddress;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -53,38 +54,35 @@ public class Config {
             firstArg = "start";
         }
         String configFileName = getConfigFileName(firstArg);
-        Config result = new Config();
-        result.readConfig(configFileName, args);
-        return result;
+        return new Config(configFileName, args);
     }
 
-    public InetAddress adminAddress;
-    public String adminKey;
-    public int adminPort;
-    public String awtHeadless;
-    public String baseConfig;
-    public String baseDtd;
-    public String baseJar;
-    public String baseLib;
-    public String commJar;
-    public String containerConfig;
-    public String instrumenterClassName;
-    public String instrumenterFile;
-    public List<Map<String, String>> loaders;
-    public String logDir;
-    public String ofbizHome;
-    public boolean requireCommJar = false;
-    public boolean requireToolsJar = false;
-    public boolean shutdownAfterLoad = false;
-    public String splashLogo;
-    public String toolsJar;
-    public boolean useShutdownHook = true;
+    public final InetAddress adminAddress;
+    public final String adminKey;
+    public final int adminPort;
+    public final String awtHeadless;
+    public final String baseConfig;
+    public final String baseDtd;
+    public final String baseJar;
+    public final String baseLib;
+    public final String commJar;
+    public final String containerConfig;
+    public final String instrumenterClassName;
+    public final String instrumenterFile;
+    public final List<Map<String, String>> loaders;
+    public final String logDir;
+    public final String ofbizHome;
+    public final boolean requireCommJar;
+    public final boolean requireToolsJar;
+    public final boolean shutdownAfterLoad;
+    public final String splashLogo;
+    public final String toolsJar;
+    public final boolean useShutdownHook;
 
     private String findSystemJar(Properties props, String javaVendor, String javaVersion, String jarName, boolean required) {
         String fileSep = System.getProperty("file.separator");
         String javaHome = System.getProperty("java.home");
         String errorMsg = "Unable to locate " + jarName + " - ";
-        // String foundMsg = "Found " + jarName + " - ";
         String jarLoc = "lib" + fileSep + jarName;
         File tj = null;
 
@@ -278,7 +276,7 @@ public class Config {
         }
     }
 
-    public void readConfig(String config, String[] args) throws IOException {
+    private Config(String config, String[] args) throws IOException {
         // check the java_version
         String javaVersion = System.getProperty("java.version");
         String javaVendor = System.getProperty("java.vendor");
@@ -287,16 +285,15 @@ public class Config {
         System.out.println("Start.java using configuration file " + config);
 
         // set the ofbiz.home
-        if (ofbizHome == null) {
-            ofbizHome = props.getProperty("ofbiz.home", ".");
-            // get a full path
-            if (ofbizHome.equals(".")) {
-                ofbizHome = System.getProperty("user.dir");
-                ofbizHome = ofbizHome.replace('\\', '/');
-                System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
-            }
+        String ofbizHomeTmp = props.getProperty("ofbiz.home", ".");
+        // get a full path
+        if (ofbizHomeTmp.equals(".")) {
+            ofbizHomeTmp = System.getProperty("user.dir");
+            ofbizHomeTmp = ofbizHomeTmp.replace('\\', '/');
         }
+        ofbizHome = ofbizHomeTmp;
         System.setProperty("ofbiz.home", ofbizHome);
+        System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
 
         // base config directory
         baseConfig = getOfbizHomeProp(props, "ofbiz.base.config", "framework/base/config");
@@ -337,20 +334,22 @@ public class Config {
         adminAddress = InetAddress.getByName(serverHost);
 
         // parse the port number
+        int adminPortTmp;
         try {
-            adminPort = Integer.parseInt(adminPortStr);
+            adminPortTmp = Integer.parseInt(adminPortStr);
             if (args.length > 0) {
                 for (String arg : args) {
                     if (arg.toLowerCase().contains("portoffset=") && !arg.toLowerCase().contains("${portoffset}")) {
-                        adminPort = adminPort != 0 ? adminPort : 10523; // This is necessary because the ASF machines don't allow ports 1 to 3, see  INFRA-6790
-                        adminPort += Integer.parseInt(arg.split("=")[1]);
+                        adminPortTmp = adminPortTmp != 0 ? adminPortTmp : 10523; // This is necessary because the ASF machines don't allow ports 1 to 3, see  INFRA-6790
+                        adminPortTmp += Integer.parseInt(arg.split("=")[1]);
                     }
                 }
             }
         } catch (Exception e) {
             System.out.println("Error while parsing admin port number (so default to 10523) = " + e);
-            adminPort = 10523;
+            adminPortTmp = 10523;
         }
+        adminPort = adminPortTmp;
 
         // set the Derby system home
         String derbyPath = getProp(props, "derby.system.home", "runtime/data/derby");
@@ -368,6 +367,8 @@ public class Config {
             useShutdownHook = "true".equalsIgnoreCase(System.getProperty("ofbiz.enable.hook"));
         } else if (props.getProperty("ofbiz.enable.hook") != null && props.getProperty("ofbiz.enable.hook").length() > 0) {
             useShutdownHook = "true".equalsIgnoreCase(props.getProperty("ofbiz.enable.hook"));
+        } else {
+            useShutdownHook = true;
         }
 
         // check for auto-shutdown
@@ -375,6 +376,8 @@ public class Config {
             shutdownAfterLoad = "true".equalsIgnoreCase(System.getProperty("ofbiz.auto.shutdown"));
         } else if (props.getProperty("ofbiz.auto.shutdown") != null && props.getProperty("ofbiz.auto.shutdown").length() > 0) {
             shutdownAfterLoad = "true".equalsIgnoreCase(props.getProperty("ofbiz.auto.shutdown"));
+        } else {
+            shutdownAfterLoad = false;
         }
 
         // set AWT headless mode
@@ -416,7 +419,7 @@ public class Config {
         instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
         // loader classes
-        loaders = new ArrayList<Map<String, String>>();
+        List loadersTmp = new ArrayList<Map<String, String>>();
         int currentPosition = 1;
         Map<String, String> loader = null;
         while (true) {
@@ -427,10 +430,10 @@ public class Config {
             } else {
                 loader.put("class", loaderClass);
                 loader.put("profiles", props.getProperty("ofbiz.start.loader" + currentPosition + ".loaders"));
-                loaders.add(loader);
+                loadersTmp.add(Collections.unmodifiableMap(loader));
                 currentPosition++;
             }
         }
+        loaders = Collections.unmodifiableList(loadersTmp);
     }
-
 }
