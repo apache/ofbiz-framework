@@ -77,7 +77,6 @@ public class Config {
     public boolean requireToolsJar = false;
     public boolean shutdownAfterLoad = false;
     public String splashLogo;
-    public String testConfig;
     public String toolsJar;
     public boolean useShutdownHook = true;
 
