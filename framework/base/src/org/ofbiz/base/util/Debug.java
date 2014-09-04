@@ -18,17 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.util.Formatter;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 
 import org.apache.logging.log4j.*;
-import org.ofbiz.base.conversion.ConversionException;
-import org.ofbiz.base.conversion.DateTimeConverters.DateToString;
 
 /**
  * Configurable Debug logging wrapper class
@@ -36,11 +30,9 @@ import org.ofbiz.base.conversion.DateTimeConverters.DateToString;
  */
 public final class Debug {
 
-    public static final boolean useLog4J = true;
-    public static final String noModuleModule = "NoModule";  // set to null for previous behavior
-    public static final Object[] emptyParams = new Object[0];
+    private static final String noModuleModule = "NoModule";  // set to null for previous behavior
+    private static final Object[] emptyParams = new Object[0];
 
-    public static final String SYS_DEBUG = System.getProperty("DEBUG");
     public static final int ALWAYS = 0;
     public static final int VERBOSE = 1;
     public static final int TIMING = 2;
@@ -50,19 +42,14 @@ public final class Debug {
     public static final int ERROR = 6;
     public static final int FATAL = 7;
 
-    public static final String[] levels = {"Always", "Verbose", "Timing", "Info", "Important", "Warning", "Error", "Fatal"};
-    public static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
-    public static final Level[] levelObjs = {Level.FATAL, Level.DEBUG, Level.TRACE, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
+    private static final String[] levelProps = {"", "print.verbose", "print.timing", "print.info", "print.important", "print.warning", "print.error", "print.fatal"};
+    private static final Level[] levelObjs = {Level.FATAL, Level.DEBUG, Level.TRACE, Level.INFO, Level.INFO, Level.WARN, Level.ERROR, Level.FATAL};
 
-    protected static Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
+    private static final Map<String, Integer> levelStringMap = new HashMap<String, Integer>();
 
-    protected static PrintStream printStream = System.out;
-    protected static PrintWriter printWriter = new PrintWriter(printStream);
+    private static final boolean levelOnCache[] = new boolean[8]; // this field is not thread safe
 
-    protected static boolean levelOnCache[] = new boolean[8];
-    protected static final boolean useLevelOnCache = true;
-
-    protected static Logger root = LogManager.getRootLogger();
+    private static final Logger root = LogManager.getRootLogger();
 
     static {
         levelStringMap.put("verbose", Debug.VERBOSE);
@@ -78,19 +65,6 @@ public final class Debug {
         for (int i = 0; i < levelOnCache.length; i++) {
             levelOnCache[i] = (i == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[i], "true"));
         }
-    }
-
-    public static PrintStream getPrintStream() {
-        return printStream;
-    }
-
-    public static void setPrintStream(PrintStream printStream) {
-        Debug.printStream = printStream;
-        Debug.printWriter = new PrintWriter(printStream);
-    }
-
-    public static PrintWriter getPrintWriter() {
-        return printWriter;
     }
 
     public static Logger getLogger(String module) {
@@ -129,47 +103,13 @@ public final class Debug {
             }
 
             // log
-            if (useLog4J) {
-                Logger logger = getLogger(module);
-                //callingClass
-                logger.log(levelObjs[level], msg, t);
-            } else {
-                StringBuilder prefixBuf = new StringBuilder();
-
-                DateToString dateToString = new DateToString(); 
-                try {
-                    prefixBuf.append(dateToString.convert(new java.util.Date(), Locale.getDefault(), 
-                            TimeZone.getDefault(), UtilDateTime.DATE_TIME_FORMAT));
-                } catch (ConversionException e) {
-                    logFatal(e, Debug.class.getName());
-                }
-                prefixBuf.append(" [OFBiz");
-                if (module != null) {
-                    prefixBuf.append(":");
-                    prefixBuf.append(module);
-                }
-                prefixBuf.append(":");
-                prefixBuf.append(levels[level]);
-                prefixBuf.append("] ");
-                if (msg != null) {
-                    getPrintWriter().print(prefixBuf.toString());
-                    getPrintWriter().println(msg);
-                }
-                if (t != null) {
-                    getPrintWriter().print(prefixBuf.toString());
-                    getPrintWriter().println("Received throwable:");
-                    t.printStackTrace(getPrintWriter());
-                }
-            }
+            Logger logger = getLogger(module);
+            logger.log(levelObjs[level], msg, t);
         }
     }
 
     public static boolean isOn(int level) {
-        if (useLevelOnCache) {
-            return levelOnCache[level];
-        } else {
-            return (level == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[level], "true"));
-        }
+        return levelOnCache[level];
     }
 
     // leaving these here
@@ -374,14 +314,10 @@ public final class Debug {
     }
 
     public static void set(int level, boolean on) {
-        if (!useLevelOnCache)
-            return;
         levelOnCache[level] = on;
     }
 
     public static boolean get(int level) {
-        if (!useLevelOnCache)
-            return true;
         return levelOnCache[level];
     }
 }
