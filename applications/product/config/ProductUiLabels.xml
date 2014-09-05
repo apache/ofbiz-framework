@@ -26,6 +26,14 @@
         <value xml:lang="vi">Thêm Đặc tính SP gia tăng này</value>
         <value xml:lang="zh">为当前产品添加新的产品特征</value>
     </property>
+    <property key="AddProductComponent">
+        <value xml:lang="en">Add Product Component</value>
+        <value xml:lang="es">Añadir componente</value>
+        <value xml:lang="fr">Ajouter un composant</value>
+        <value xml:lang="it">Aggiungi componente</value>
+        <value xml:lang="pt_BR">Adicionar componente de produto</value>
+        <value xml:lang="ro">Adauga Componente Produs</value>
+    </property>
     <property key="CatalogWebAnalytics">
         <value xml:lang="de">Web Analytik</value>
         <value xml:lang="en">Web Analytics</value>

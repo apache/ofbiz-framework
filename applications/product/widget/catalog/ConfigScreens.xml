@@ -185,8 +185,8 @@ under the License.
                         <not><if-empty field="productId"/></not>
                     </condition>
                     <widgets>
-                        <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.ProductConfigs}">
-                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
+                        <screenlet title="${uiLabelMap.AddProductComponent}">
+                            <link style="buttontext" text="${uiLabelMap.AddProductComponent}" target="EditProductConfigOptions">
                                 <parameter param-name="configItemId"/>
                                 <parameter param-name="configOptionId"/>
                             </link>
@@ -194,8 +194,8 @@ under the License.
                         </screenlet>
                     </widgets>
                     <fail-widgets>
-                        <screenlet title="${uiLabelMap.CommonAddA} ${uiLabelMap.ProductConfigs}">
-                            <link style="buttontext" text="${uiLabelMap.CommonNew} ${uiLabelMap.ProductConfigs}" target="EditProductConfigOptions">
+                        <screenlet title="${uiLabelMap.AddProductComponent}">
+                            <link style="buttontext" text="${uiLabelMap.AddProductComponent}" target="EditProductConfigOptions">
                                 <parameter param-name="configItemId"/>
                                 <parameter param-name="configOptionId"/>
                             </link>
