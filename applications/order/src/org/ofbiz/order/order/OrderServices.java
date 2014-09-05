@@ -2987,7 +2987,6 @@ public class OrderServices {
         return ServiceUtil.returnSuccess();
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> cancelFlaggedSalesOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -2997,13 +2996,13 @@ public class OrderServices {
         List<GenericValue> ordersToCheck = null;
 
         // create the query expressions
-        List<EntityExpr> exprs = UtilMisc.toList(
+        List<EntityCondition> exprs = UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED")
        );
-        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
+        EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
 
         // get the orders
         try {
@@ -3064,7 +3063,7 @@ public class OrderServices {
                 }
             } else {
                 // check for auto-cancel items
-                List itemsExprs = new ArrayList();
+                ArrayList<EntityCondition> itemsExprs = new ArrayList<EntityCondition>();
 
                 // create the query expressions
                 itemsExprs.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
@@ -3781,7 +3780,6 @@ public class OrderServices {
             }
 
             String[] itemInfo = key.split(":");
-            @SuppressWarnings("unused")
             int groupIdx = -1;
             try {
                 groupIdx = Integer.parseInt(itemInfo[1]);
