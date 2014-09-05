@@ -16,7 +16,6 @@
     <classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
