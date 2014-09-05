@@ -319,8 +319,11 @@ public class ShoppingListServices {
             }
             shoppingListTypeId = shoppingList.getString("shoppingListTypeId");
 
-            OrderReadHelper orh = new OrderReadHelper(orderHeader);
-            if (orh == null) {
+            OrderReadHelper orh;
+            try {
+                orh = new OrderReadHelper(orderHeader);
+            } catch (IllegalArgumentException e) {
+                Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToLoadOrderReadHelper", UtilMisc.toMap("orderId",orderId), locale));
             }
 
