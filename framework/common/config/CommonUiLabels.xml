@@ -8118,7 +8118,6 @@
         <value xml:lang="es">Ejecutar</value>
         <value xml:lang="fr">Exécuter</value>
         <value xml:lang="hi-IN">प्रर्दशित करे</value>
-        <value xml:lang="zh_TW">PDF</value>
         <value xml:lang="it">Esegui</value>
         <value xml:lang="ja">実行</value>
         <value xml:lang="nl">Uitvoeren</value>
@@ -13870,7 +13869,6 @@
         <value xml:lang="en">HR</value>
         <value xml:lang="es">RR.HH.</value>
         <value xml:lang="fr">Ress. hum.</value>
-        <value xml:lang="zh_TW">Google Base</value>
         <value xml:lang="hi-IN">मानव संसाधन(HR)</value>
         <value xml:lang="it">Risorse umane</value>
         <value xml:lang="ja">人事(HR)</value>
@@ -14011,7 +14009,6 @@
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="hi-IN">आदेश</value>
         <value xml:lang="it">Ordini</value>
-        <value xml:lang="zh_TW">Oagis</value>
         <value xml:lang="ja">注文</value>
         <value xml:lang="nl">Bestelling</value>
         <value xml:lang="pt">Encomenda</value>
