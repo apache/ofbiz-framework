@@ -35,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -254,11 +253,7 @@ public class ControlServlet extends HttpServlet {
 
                     String errorMessage = "ERROR rendering error page [" + errorPage + "], but here is the error text: " + request.getAttribute("_ERROR_MESSAGE_");
                     try {
-                        if (UtilJ2eeCompat.useOutputStreamNotWriter(getServletContext())) {
-                            response.getOutputStream().print(errorMessage);
-                        } else {
-                            response.getWriter().print(errorMessage);
-                        }
+                        response.getWriter().print(errorMessage);
                     } catch (Throwable t2) {
                         try {
                             int errorToSend = HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
@@ -277,11 +272,7 @@ public class ControlServlet extends HttpServlet {
                 }
 
                 String errorMessage = "<html><body>ERROR in error page, (infinite loop or error page not found with name [" + errorPage + "]), but here is the text just in case it helps you: " + request.getAttribute("_ERROR_MESSAGE_") + "</body></html>";
-                if (UtilJ2eeCompat.useOutputStreamNotWriter(getServletContext())) {
-                    response.getOutputStream().print(errorMessage);
-                } else {
-                    response.getWriter().print(errorMessage);
-                }
+                response.getWriter().print(errorMessage);
             }
         }
 

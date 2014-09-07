@@ -38,11 +38,7 @@ under the License.
 
             PrintWriter writer = null;
             ServletContext context = pageContext.getServletContext();
-            if (UtilJ2eeCompat.useOutputStreamNotWriter(context)) {
-                writer = new PrintWriter(response.getOutputStream(), true);
-            } else {
-                writer = response.getWriter();
-            }
+            writer = response.getWriter();
 
             writer.println("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             writer.println("<entity-engine-xml>");

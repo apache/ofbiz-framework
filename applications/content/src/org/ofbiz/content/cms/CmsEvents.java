@@ -20,7 +20,6 @@
 package org.ofbiz.content.cms;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +27,6 @@ import java.util.Locale;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -37,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilJ2eeCompat;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -266,19 +263,8 @@ public class CmsEvents {
                 //String contextLinkPrefix = rh.makeLink(request, response, "", true, false, true);
                 //templateMap.put("_CONTEXT_LINK_PREFIX_", contextLinkPrefix);
 
-                Writer writer;
                 try {
-                    // use UtilJ2eeCompat to get this setup properly
-                    boolean useOutputStreamNotWriter = false;
-                    if (servletContext != null) {
-                        useOutputStreamNotWriter = UtilJ2eeCompat.useOutputStreamNotWriter(servletContext);
-                    }
-                    if (useOutputStreamNotWriter) {
-                        ServletOutputStream ros = response.getOutputStream();
-                        writer = new OutputStreamWriter(ros, "UTF-8");
-                    } else {
-                        writer = response.getWriter();
-                    }
+                    Writer writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output
                     FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
