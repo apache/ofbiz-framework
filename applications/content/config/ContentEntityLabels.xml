@@ -1901,11 +1901,6 @@
         <value xml:lang="zh">屏幕挂件</value>
         <value xml:lang="zh_TW">螢幕挂件</value>
     </property>
-    <property key="DataTemplateType.description.VTL">
-        <value xml:lang="en">Velocity</value>
-        <value xml:lang="ro">Viteza</value>
-        <value xml:lang="th">ความเร็ว</value>
-    </property>
     <property key="DataTemplateType.description.WM">
         <value xml:lang="en">WebMacro</value>
         <value xml:lang="th">เว็บ Macro</value>
