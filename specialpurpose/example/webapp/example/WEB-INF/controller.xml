@@ -28,13 +28,6 @@ under the License.
 
     <description>Example Component Site Configuration File</description>
 
-    <!--
-      These can be used to return the reports as views; make sure the classes are compiled and available
-        <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
-        <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
-        <handler name="jasperreportsxml" type="view" class="org.ofbiz.webapp.view.JasperReportsXmlViewHandler"/>
-    -->
-
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
     <preprocessor>

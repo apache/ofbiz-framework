@@ -329,7 +329,6 @@ framework/images/webapp/images/date/timezones*
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the
 Apache Software License:
-framework/webapp/lib/DataVision-1.0.0.jar
 framework/base/lib/ant/ant-contrib-1.0b3.jar
 =========================================================================
 Apache Software License
