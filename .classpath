@@ -25,13 +25,11 @@
     <classpathentry kind="lib" path="framework/base/lib/httpclient-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpcore-4.2.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/httpmime-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ivy-2.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/javolution-5.4.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/jcip-annotations-1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdbm-1.0-SNAPSHOT.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
@@ -40,8 +38,6 @@
     <classpathentry kind="lib" path="framework/base/lib/junit-dep-4.10.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/log4j-api-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mail-1.5.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/mx4j-remote-3.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/nekohtml-1.9.16.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4-patched-by-OFBIZ-3135.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/resolver-2.9.1.jar"/>

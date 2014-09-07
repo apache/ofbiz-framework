@@ -21,7 +21,6 @@ framework/base/lib/clhm-release-1.0-lru.jar
 framework/base/lib/httpclient-4.2.1.jar
 framework/base/lib/httpclient-cache-4.2.1.jar
 framework/base/lib/httpcore-4.2.1.jar
-framework/base/lib/httpmime-4.2.1.jar
 framework/base/lib/ivy-2.2.0.jar
 framework/base/lib/jakarta-regexp-1.5.jar
 framework/base/lib/jpim-0.1.jar
@@ -30,10 +29,7 @@ framework/base/lib/juel-spi-2.2.7.jar
 framework/base/lib/log4j-1.2-api-2.0.1.jar
 framework/base/lib/log4j-api-2.0.1.jar
 framework/base/lib/log4j-core-2.0.1.jar
-framework/base/lib/log4j-jcl-2.0.1.jar
 framework/base/lib/log4j-slf4j-impl-2.0.1.jar
-framework/base/lib/mx4j-3.0.1.jar
-framework/base/lib/mx4j-remote-3.0.1.jar
 framework/base/lib/nekohtml-1.9.16.jar
 framework/base/lib/resolver-2.9.1.jar
 framework/base/lib/serializer-2.9.1.jar
@@ -455,7 +451,6 @@ framework/base/lib/xstream-1.4.6.jar
 framework/base/lib/owasp-esapi-full-java-1.4.jar
 framework/base/lib/scripting/antlr-2.7.6.jar
 framework/base/lib/scripting/asm-3.2.jar
-framework/base/lib/scripting/janino-2.5.15.jar
 framework/base/lib/scripting/jline-0.9.94.jar
 
 =========================================================================
@@ -2408,10 +2403,6 @@ It was allowed by the author to use the docbook files within the
 Apache OFBiz system in an email to H.Bakker from N.Walsh dd
 Tue, 25 Aug 2009 07:27:51 -0400 (18:27 ICT)
 =========================================================================
-The following libraries are licensed under the Creative Commons Attribution 
-2.5 License:
-jcip-annotations-1.0.jar
-
 Apache Ofbiz includes images in the ofbiz/framework/images/webapp/images/icons
 directory with the following licence: Creative Commons Attribution 2.5 License
 and condition :
