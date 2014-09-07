@@ -140,7 +140,6 @@
     <classpathentry kind="lib" path="framework/service/lib/XmlSchema-1.4.3.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.test-3.1.0.M2.jar"/>
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.core-3.1.0.M2.jar"/>
-    <classpathentry kind="lib" path="framework/webapp/lib/DataVision-1.0.0.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/iText-2.1.7.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>

@@ -27,7 +27,6 @@ under the License.
     <description>WebTools Site Configuration File</description>
 
     <handler name="ftl" type="view" class="org.ofbiz.webapp.ftl.FreeMarkerViewHandler"/>
-    <handler name="datavision" type="view" class="org.ofbiz.webapp.view.DataVisionViewHandler"/>
 
     <!-- Events to run on every request before security (chains exempt) -->
     <!--
@@ -674,8 +673,6 @@ under the License.
 
     <view-map name="printStart" type="screen" page="component://webtools/widget/CommonScreens.xml#printStart"/>
     <view-map name="printDone" type="screen" page="component://webtools/widget/CommonScreens.xml#printDone"/>
-
-    <view-map name="UomReport" page="/UomReport.xml" type="datavision" info="Uom"/>
 
     <view-map name="EntitySyncStatus" page="component://webtools/widget/EntitySyncScreens.xml#EntitySyncStatus" type="screen"/>
     <view-map name="EntitySQLProcessor" page="component://webtools/widget/EntityScreens.xml#EntitySQLProcessor" type="screen"/>
