@@ -138,7 +138,6 @@ under the License.
 
     <DataTemplateType dataTemplateTypeId="NONE" description="No Template" extension=""/>
     <DataTemplateType dataTemplateTypeId="FTL" description="FreeMarker" extension="ftl"/>
-    <DataTemplateType dataTemplateTypeId="VTL" description="Velocity" extension="vtl"/>
     <DataTemplateType dataTemplateTypeId="WM" description="WebMacro" extension="wm"/>
     <DataTemplateType dataTemplateTypeId="XSLT" description="XSLT" extension="xsl"/>
     <DataTemplateType dataTemplateTypeId="SCREEN_COMBINED" description="Screen widget" extension="xml"/>
