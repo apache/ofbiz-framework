@@ -89,9 +89,6 @@
     <classpathentry kind="lib" path="framework/base/lib/j2eespecs/servlet-api-3.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/antlr-2.7.6.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/asm-3.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/scripting/asm-analysis-3.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/scripting/asm-tree-3.2.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-3.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/bsf-2.4.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/bsh-2.0b4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/groovy-all-2.2.1.jar"/>
