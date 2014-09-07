@@ -43,7 +43,6 @@
         <exclude module="log4j" conf="cobertura"/>
         <exclude module="ant" conf="cobertura"/>
         <exclude module="asm" conf="cobertura"/>
-        <exclude module="asm-tree" conf="cobertura"/>
         <exclude module="oro" conf="cobertura"/>
     </dependencies>
 
