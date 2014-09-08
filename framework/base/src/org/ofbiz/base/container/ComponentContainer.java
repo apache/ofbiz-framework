@@ -47,7 +47,7 @@ public class ComponentContainer implements Container {
     public static final String module = ComponentContainer.class.getName();
 
     //protected static List loadedComponents2 = null;
-    protected Classpath classPath = new Classpath(System.getProperty("java.class.path"));
+    protected Classpath classPath = new Classpath();
     protected Classpath libraryPath = new Classpath(System.getProperty("java.library.path"));
     protected String configFileLocation = null;
     private String name;
@@ -136,7 +136,6 @@ public class ComponentContainer implements Container {
                 classPath.instrument(instrumenterFile, instrumenterClassName);
             }
 
-            System.setProperty("java.class.path", classPath.toString());
             System.setProperty("java.library.path", libraryPath.toString());
             ClassLoader cl = classPath.getClassLoader();
             Thread.currentThread().setContextClassLoader(cl);
@@ -235,6 +234,7 @@ public class ComponentContainer implements Container {
         }
 
         Debug.logInfo("Loading component : [" + config.getComponentName() + "]", module);
+        boolean isBaseComponent = "base".equals(config.getComponentName());
         List<ComponentConfig.ClasspathInfo> classpathInfos = config.getClasspathInfos();
         String configRoot = config.getRootLocation();
         configRoot = configRoot.replace('\\', '/');
@@ -263,6 +263,7 @@ public class ComponentContainer implements Container {
                 if (path.exists()) {
                     if (path.isDirectory()) {
                         if ("dir".equals(cp.type)) {
+                            if (!isBaseComponent)
                             classPath.addComponent(configRoot + location);
                         }
                         // load all .jar, .zip files and native libs in this directory
@@ -270,6 +271,7 @@ public class ComponentContainer implements Container {
                         for (File file: path.listFiles()) {
                             String fileName = file.getName().toLowerCase();
                             if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
+                                if (!isBaseComponent)
                                 classPath.addComponent(file);
                             } else if (fileName.endsWith(nativeLibExt)) {
                                 containsNativeLibs = true;
@@ -280,6 +282,7 @@ public class ComponentContainer implements Container {
                         }
                     } else {
                         // add a single file
+                        if (!isBaseComponent)
                         classPath.addComponent(configRoot + location);
                     }
                 } else {
