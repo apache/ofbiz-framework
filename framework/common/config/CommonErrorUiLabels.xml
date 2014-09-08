@@ -146,7 +146,7 @@
         <value xml:lang="pt_BR">Elemento raiz não foi definido</value>
         <value xml:lang="ru">Корневой элемент не имеет значения</value>
         <value xml:lang="vi">Gốc tài liệu chưa được thiết lập</value>
-        <value xml:lang="zh">已经设置了根元素</value>
+        <value xml:lang="zh">未设置根元素</value>
         <value xml:lang="zh_TW">未設定根元素</value>
     </property>
     <property key="ImageTransform.unknown_buffered_image_type">

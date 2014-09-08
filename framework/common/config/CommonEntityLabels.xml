@@ -929,7 +929,7 @@
         <value xml:lang="ru">Собственность</value>
         <value xml:lang="th">บ้านและที่ดิน</value>
         <value xml:lang="vi">IND_REAL_ESTATE</value>
-        <value xml:lang="zh">房子产</value>
+        <value xml:lang="zh">房地产</value>
         <value xml:lang="zh_TW">房地產</value>
     </property>
     <property key="Enumeration.description.IND_RETAIL">
@@ -2533,7 +2533,7 @@
         <value xml:lang="ru">Подтверждение возврата</value>
         <value xml:lang="th">คืนค่าการยอมรับ</value>
         <value xml:lang="vi">Đồng ý hoàn trả</value>
-        <value xml:lang="zh">己接受的退货</value>
+        <value xml:lang="zh">已接受的退货</value>
         <value xml:lang="zh_TW">已接受的退貨</value>
     </property>
     <property key="Enumeration.description.PRDS_RTN_CANCEL">
@@ -2791,7 +2791,7 @@
         <value xml:lang="ru">Автоматически для каждого заказа на продажу</value>
         <value xml:lang="th">อัตโนมัติสำหรับทุก ๆ รายการขาย</value>
         <value xml:lang="vi">Tự động cho tất cả hóa đơn bán hàng</value>
-        <value xml:lang="zh">对每个销售定单自动</value>
+        <value xml:lang="zh">对每个销售订单自动</value>
         <value xml:lang="zh_TW">對每個銷售訂單自動</value>
     </property>
     <property key="Enumeration.description.PRODRQM_DS">
@@ -3982,7 +3982,7 @@
         <value xml:lang="ru">Каналы продаж</value>
         <value xml:lang="th">ช่องทางรายการขาย</value>
         <value xml:lang="vi">Thứ tự theo Kênh bán hàng</value>
-        <value xml:lang="zh">定单销售渠道</value>
+        <value xml:lang="zh">订单销售渠道</value>
         <value xml:lang="zh_TW">訂單銷售通路</value>
     </property>
     <property key="EnumerationType.description.ORDER_SEQMD">
@@ -8667,7 +8667,7 @@
         <value xml:lang="ru">Ожидание принятия</value>
         <value xml:lang="th">ในระหว่างการตอบรับ</value>
         <value xml:lang="vi">Đang nghiệm thu</value>
-        <value xml:lang="zh">待定的接受</value>
+        <value xml:lang="zh">等待接受中</value>
         <value xml:lang="zh_TW">等待接受中</value>
     </property>
     <property key="StatusItem.description.CLPT_REJECTED">
@@ -9876,7 +9876,7 @@
         <value xml:lang="ru">Заказана</value>
         <value xml:lang="th">มีตามสั่ง แต่ยังไม่ส่งมา</value>
         <value xml:lang="vi">Đang đặt hàng</value>
-        <value xml:lang="zh">按定单</value>
+        <value xml:lang="zh">按订单</value>
         <value xml:lang="zh_TW">按訂單</value>
     </property>
     <property key="StatusItem.description.INV_PROMISED">
@@ -11527,7 +11527,7 @@
         <value xml:lang="ru">Заказано</value>
         <value xml:lang="th">คูลำดับ</value>
         <value xml:lang="vi">Đã đặt hàng</value>
-        <value xml:lang="zh">已下定单</value>
+        <value xml:lang="zh">已下订单</value>
         <value xml:lang="zh_TW">已下訂單</value>
     </property>
     <property key="StatusItem.description.QUO_REJECTED">
@@ -11588,7 +11588,7 @@
         <value xml:lang="ru">Заказано</value>
         <value xml:lang="th">คู่ลำดับ</value>
         <value xml:lang="vi">Đã đặt hàng</value>
-        <value xml:lang="zh">已下定单</value>
+        <value xml:lang="zh">已下订单</value>
         <value xml:lang="zh_TW">已下訂單</value>
     </property>
     <property key="StatusItem.description.REQ_PROPOSED">
@@ -12827,7 +12827,7 @@
         <value xml:lang="ru">Позиция заказа</value>
         <value xml:lang="th">รายการสั่งซื้อ</value>
         <value xml:lang="vi">Hạng mục đơn hàng</value>
-        <value xml:lang="zh">定单明细</value>
+        <value xml:lang="zh">订单明细</value>
         <value xml:lang="zh_TW">訂單明細</value>
     </property>
     <property key="StatusType.description.ORDER_RETURN_STTS">
@@ -12843,7 +12843,7 @@
         <value xml:lang="ru">Статус заказа возврата</value>
         <value xml:lang="th">คืนค่าสถานะรายการสั่งซื้อ</value>
         <value xml:lang="vi">Trạng thái đơn hàng trả về</value>
-        <value xml:lang="zh">定单退货状态</value>
+        <value xml:lang="zh">订单退货状态</value>
         <value xml:lang="zh_TW">訂單退貨狀態</value>
     </property>
     <property key="StatusType.description.ORDER_STATUS">
@@ -12860,7 +12860,7 @@
         <value xml:lang="ru">Заказ</value>
         <value xml:lang="th">รายการสั่งซื้อ</value>
         <value xml:lang="vi">Đặt hàng</value>
-        <value xml:lang="zh">定单</value>
+        <value xml:lang="zh">订单</value>
         <value xml:lang="zh_TW">訂單</value>
     </property>
     <property key="StatusType.description.PAYMENT_PREF_STATUS">
@@ -14660,7 +14660,7 @@
         <value xml:lang="ru">Запрос ТМЦ отменен</value>
         <value xml:lang="th">ยกเลิกคำร้องสินค้าคงเหลือ</value>
         <value xml:lang="vi">Đã hủy bỏ</value>
-        <value xml:lang="zh">存货强求已取消</value>
+        <value xml:lang="zh">存货请求已取消</value>
         <value xml:lang="zh_TW">存貨請求已取消</value>
     </property>
     <property key="StatusValidChange.transitionName.IXF_REQUESTED.IXF_COMPLETE">
@@ -14675,7 +14675,7 @@
         <value xml:lang="ru">Запрос ТМЦ завершен</value>
         <value xml:lang="th">คำร้องสินค้าคงเหลือเสร็จสมบูรณ์</value>
         <value xml:lang="vi">Hoàn thành</value>
-        <value xml:lang="zh">存货强求已完成</value>
+        <value xml:lang="zh">存货请求已完成</value>
         <value xml:lang="zh_TW">存貨請求已完成</value>
     </property>
     <property key="StatusValidChange.transitionName.IXF_REQUESTED.IXF_EN_ROUTE">

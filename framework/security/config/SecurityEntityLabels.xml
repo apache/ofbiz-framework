@@ -285,7 +285,7 @@
         <value xml:lang="ja">サンプル管理画面でのすべての操作。</value>
         <value xml:lang="ru">Все операции в приложении Управление примерами.</value>
         <value xml:lang="th">การทำงานทั้งหมดในหน้าจอการจัดการตัวอย่าง</value>
-        <value xml:lang="zh">在样例管理屏中的全部操作。</value>
+        <value xml:lang="zh">在样例管理页面中的全部操作。</value>
         <value xml:lang="zh_TW">在範例管理畫面中的全部操作。</value>
     </property>
     <property key="SecurityPermission description.EXAMPLE_CREATE">
@@ -296,7 +296,7 @@
         <value xml:lang="ja">サンプル管理画面での作成操作。</value>
         <value xml:lang="ru">Операции создания в приложении Управление примерами.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการตัวอย่าง</value>
-        <value xml:lang="zh">在样例管理屏中创建操作。</value>
+        <value xml:lang="zh">在样例管理页面中创建操作。</value>
         <value xml:lang="zh_TW">在範例管理畫面中新建操作。</value>
     </property>
     <property key="SecurityPermission description.EXAMPLE_DELETE">
@@ -307,7 +307,7 @@
         <value xml:lang="ja">サンプル管理画面での削除操作。</value>
         <value xml:lang="ru">Операции удаления в приложении Управление примерами.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการตัวอย่าง</value>
-        <value xml:lang="zh">在样例管理屏中删除操作。</value>
+        <value xml:lang="zh">在样例管理页面中删除操作。</value>
         <value xml:lang="zh_TW">在範例管理畫面中刪除操作。</value>
     </property>
     <property key="SecurityPermission description.EXAMPLE_UPDATE">
@@ -318,7 +318,7 @@
         <value xml:lang="ja">サンプル管理画面での更新操作。</value>
         <value xml:lang="ru">Операции обновления в приложении Управление примерами.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการตัวอย่าง</value>
-        <value xml:lang="zh">在样例管理屏中更新操作。</value>
+        <value xml:lang="zh">在样例管理页面中更新操作。</value>
         <value xml:lang="zh_TW">在範例管理畫面中更新操作。</value>
     </property>
     <property key="SecurityPermission description.EXAMPLE_VIEW">
@@ -329,7 +329,7 @@
         <value xml:lang="ja">サンプル管理画面での表示操作。</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление примерами.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการตัวอย่าง</value>
-        <value xml:lang="zh">在样例管理屏中浏览操作。</value>
+        <value xml:lang="zh">在样例管理页面中浏览操作。</value>
         <value xml:lang="zh_TW">在範例管理畫面中瀏覽操作。</value>
     </property>
     <property key="SecurityPermission.description.ACCOUNTING_ADMIN">
@@ -1186,21 +1186,21 @@
         <value xml:lang="en">Use the customer screens in myportal.</value>
         <value xml:lang="it">Usare la visualizzazione clienti in myportal.</value>
         <value xml:lang="ja">私のポータルで顧客画面の使用。</value>
-        <value xml:lang="zh">我的门户中使用客户屏幕。</value>
+        <value xml:lang="zh">我的门户中使用客户页面。</value>
         <value xml:lang="zh_TW">我的入口網站中客戶使用者畫面。</value>
     </property>
     <property key="SecurityPermission.description.MYPORTAL_EMPL-NOEML">
         <value xml:lang="en">Usage of the employee screens in myportal: projectmanager and internal notes.</value>
         <value xml:lang="it">Usare la visualizzazione clienti in myportal: gestione progetti e note interne.</value>
         <value xml:lang="ja">私のポータルで従業員画面の使用。プロジェクト管理および内部連絡。</value>
-        <value xml:lang="zh">我的门户中使用雇员屏幕：项目管理和内部便笺。</value>
+        <value xml:lang="zh">我的门户中使用雇员页面：项目管理和内部便笺。</value>
         <value xml:lang="zh_TW">我的入口網站中員工使用者畫面：專案管理和內部便箋。</value>
     </property>
     <property key="SecurityPermission.description.MYPORTAL_EMPLOYEE">
         <value xml:lang="en">Use the employee screens in myportal.</value>
         <value xml:lang="it">Usare la visualizzazione impiegati in myportal.</value>
         <value xml:lang="ja">私のポータルで従業員画面の使用。</value>
-        <value xml:lang="zh">我的门户中使用雇员屏幕。</value>
+        <value xml:lang="zh">我的门户中使用雇员页面。</value>
         <value xml:lang="zh_TW">我我的入口網站中員工使用者畫面。</value>
     </property>
     <property key="SecurityPermission.description.OAGIS_VIEW">
@@ -1939,7 +1939,7 @@
         <value xml:lang="ja">セキュリティ管理画面でのすべての操作。</value>
         <value xml:lang="ru">Все операции в приложении Управление безопасностью.</value>
         <value xml:lang="th">การทำงานทั้งหมดในหน้าจอการจัดการความปลอดภัย</value>
-        <value xml:lang="zh">在安全管理屏幕中的全部操作。</value>
+        <value xml:lang="zh">在安全管理页面中的全部操作。</value>
         <value xml:lang="zh_TW">在安全管理畫面中的全部操作。</value>
     </property>
     <property key="SecurityPermission.description.SECURITY_CREATE">
@@ -1950,7 +1950,7 @@
         <value xml:lang="ja">セキュリティ管理画面での作成操作。</value>
         <value xml:lang="ru">Операции создания в приложении Управление безопасностью.</value>
         <value xml:lang="th">สร้างการทำงานในหน้าจอการจัดการความปลอดภัย</value>
-        <value xml:lang="zh">在安全管理屏幕中的创建操作。</value>
+        <value xml:lang="zh">在安全管理页面中的创建操作。</value>
         <value xml:lang="zh_TW">在安全管理畫面中的新建操作。</value>
     </property>
     <property key="SecurityPermission.description.SECURITY_DELETE">
@@ -1961,7 +1961,7 @@
         <value xml:lang="ja">セキュリティ管理画面での削除操作。</value>
         <value xml:lang="ru">Операции удаления в приложении Управление безопасностью.</value>
         <value xml:lang="th">ลบการทำงานในหน้าจอการจัดการความปลอดภัย</value>
-        <value xml:lang="zh">在安全管理屏幕中的删除操作。</value>
+        <value xml:lang="zh">在安全管理页面中的删除操作。</value>
         <value xml:lang="zh_TW">在安全管理畫面中的刪除操作。</value>
     </property>
     <property key="SecurityPermission.description.SECURITY_UPDATE">
@@ -1972,7 +1972,7 @@
         <value xml:lang="ja">セキュリティ管理画面での更新操作。</value>
         <value xml:lang="ru">Операции обновления в приложении Управление безопасностью.</value>
         <value xml:lang="th">อัพเดทการทำงานในหน้าจอการจัดการความปลอดภัย</value>
-        <value xml:lang="zh">在安全管理屏幕中的更新操作。</value>
+        <value xml:lang="zh">在安全管理页面中的更新操作。</value>
         <value xml:lang="zh_TW">在安全管理畫面中的更新操作。</value>
     </property>
     <property key="SecurityPermission.description.SECURITY_VIEW">
@@ -1983,7 +1983,7 @@
         <value xml:lang="ja">セキュリティ管理画面での表示操作。</value>
         <value xml:lang="ru">Операции просмотра в приложении Управление безопасностью.</value>
         <value xml:lang="th">แสดงการทำงานในหน้าจอการจัดการความปลอดภัย</value>
-        <value xml:lang="zh">在安全管理屏幕中的浏览操作。</value>
+        <value xml:lang="zh">在安全管理页面中的浏览操作。</value>
         <value xml:lang="zh_TW">在安全管理畫面中的瀏覽操作。</value>
     </property>
     <property key="SecurityPermission.description.SEND_CONTROL_APPLET">

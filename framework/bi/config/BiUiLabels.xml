@@ -122,7 +122,7 @@
         <value xml:lang="it">I dati per dimensioni e fatti sono gestiti e mantenuti aggiornati usando servizi standard di OFBiz</value>
         <value xml:lang="ja">ディメンジョンとファクトのデータを最新に保つために、標準OFBizサービス</value>
         <value xml:lang="th">ข้อมูลสำหรับขอบเขตและข้อเท็จจริงคือการดูแลและรักษาวันที่ใช้บริการ OFBiz</value>
-        <value xml:lang="zh">数据纬度和事实的维护和更新由标准的OFBiz服务</value>
+        <value xml:lang="zh">数据维度和事实的维护和更新由标准的OFBiz服务负责</value>
         <value xml:lang="zh_TW">資料維度和事實的維護和更新由標準的OFBiz服務負責</value>
     </property>
     <property key="BusinessIntelligenceNote12">
@@ -167,7 +167,7 @@
         <value xml:lang="it">Le seguenti dimensioni (e servizi dei dati) sono definiti: CurrencyDimension, DateDimension, ProductDimension;</value>
         <value xml:lang="ja">次のディメンジョン (およびデータサービス) が定義されています: 通貨ディメンジョン、日付ディメンジョン、製品ディメンジョン、</value>
         <value xml:lang="th">การวัดขนาดตามที่กำหนด (และข้อมูลการบริการ) ระบุ : CurrencyDimension, DateDimension, ProductDimension;</value>
-        <value xml:lang="zh">已经定义了下列纬度（以及数据服务）：货币纬度、日期纬度、产品纬度；</value>
+        <value xml:lang="zh">已经定义了下列维度（以及数据服务）：货币维度、日期维度、产品维度；</value>
         <value xml:lang="zh_TW">已經定義了下列維度（以及資料服務）：貨幣維度、日期維度、產品維度；</value>
     </property>
     <property key="BusinessIntelligenceNote17">
@@ -176,7 +176,7 @@
         <value xml:lang="it">verranno usati per completare questi e disegnare gli altri (il numero totale di dimensioni saranno probabilmente circa 20).</value>
         <value xml:lang="ja">私たちはそれを完了させ、別のものを設計する必要があります (ディメンジョンの合計は約20になります)。</value>
         <value xml:lang="th">เรากำลังทำสิ่งเหล่านั้นสำเร็จแล้วและวางแผนสิ่งต่อไป (จำนวนทั้งหมดประมาณ 20)</value>
-        <value xml:lang="zh">我们将完成它们，并设计其它的（全部纬度数量大约将在20个左右）。</value>
+        <value xml:lang="zh">我们将完成它们，并设计其它的（全部维度数量大约将在20个左右）。</value>
         <value xml:lang="zh_TW">我們將完成它們，並設計其它的（全部維度數量大约將在20個左右）。</value>
     </property>
     <property key="BusinessIntelligenceNote18">
@@ -347,7 +347,7 @@
         <value xml:lang="it">dimensioni, fatti e star schemas (view-entities).</value>
         <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマ (ビュー) です。</value>
         <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผัง (เป็นการแสดงสิ่งที่มีอยู่)</value>
-        <value xml:lang="zh">纬度、事实和星型模型(浏览实体)。</value>
+        <value xml:lang="zh">维度、事实和星型模型(浏览实体)。</value>
         <value xml:lang="zh_TW">維度、事實和星型模型(檢視個體)。</value>
     </property>
     <property key="BusinessIntelligenceNote6">
@@ -356,7 +356,7 @@
         <value xml:lang="it">Le dimensioni, fatti e star schemas sono definiti in accordo alle migliori pratiche per i datawarehouses</value>
         <value xml:lang="ja">ディメンジョン、ファクト、そしてスタースキーマはデータウェアハウスのベストプラックティス、</value>
         <value xml:lang="th">ขอบเขต,ข้อเท็จจริงและแผนผังตามที่ระบุเป็นวิธีปฏิบัติที่ดีที่สุดสำหรับข้อมูลคลังสินค้า</value>
-        <value xml:lang="zh">纬度、事实和星型模型定义参考了数据仓库最佳实践</value>
+        <value xml:lang="zh">维度、事实和星型模型定义参考了数据仓库最佳实践</value>
         <value xml:lang="zh_TW">維度、事實和星型模型定義参考了資料倉儲最佳實務</value>
     </property>
     <property key="BusinessIntelligenceNote7">
