@@ -43,18 +43,14 @@ public class Config {
     public final String baseDtd;
     public final String baseJar;
     public final String baseLib;
-    public final String commJar;
     public final String containerConfig;
     public final String instrumenterClassName;
     public final String instrumenterFile;
     public final List<Map<String, String>> loaders;
     public final String logDir;
     public final String ofbizHome;
-    public final boolean requireCommJar;
-    public final boolean requireToolsJar;
     public final boolean shutdownAfterLoad;
     public final String splashLogo;
-    public final String toolsJar;
     public final boolean useShutdownHook;
 
     Config(String[] args) throws IOException {
@@ -72,10 +68,6 @@ public class Config {
             firstArg = "start";
         }
         String config =  "org/ofbiz/base/start/" + firstArg + ".properties";
-
-        // check the java_version
-        String javaVersion = System.getProperty("java.version");
-        String javaVendor = System.getProperty("java.vendor");
 
         Properties props = this.getPropertiesFile(config);
         System.out.println("Start.java using configuration file " + config);
@@ -102,16 +94,6 @@ public class Config {
 
         // base jar file
         baseJar = getOfbizHomeProp(props, "ofbiz.base.jar", "framework/base/build/lib/ofbiz-base.jar");
-
-        // tools jar
-        String reqTJ = getProp(props, "java.tools.jar.required", "false");
-        requireToolsJar = "true".equalsIgnoreCase(reqTJ);
-        toolsJar = this.findSystemJar(props, javaVendor, javaVersion, "tools.jar", requireToolsJar);
-
-        // comm jar
-        String reqCJ = getProp(props, "java.comm.jar.required", "false");
-        requireCommJar = "true".equalsIgnoreCase(reqCJ);
-        commJar = this.findSystemJar(props, javaVendor, javaVersion, "comm.jar", requireCommJar);
 
         // log directory
         logDir = getOfbizHomeProp(props, "ofbiz.log.dir", "runtime/logs");
@@ -223,97 +205,6 @@ public class Config {
         loaders = Collections.unmodifiableList(loadersTmp);
     }
 
-    private String findSystemJar(Properties props, String javaVendor, String javaVersion, String jarName, boolean required) {
-        String fileSep = System.getProperty("file.separator");
-        String javaHome = System.getProperty("java.home");
-        String errorMsg = "Unable to locate " + jarName + " - ";
-        String jarLoc = "lib" + fileSep + jarName;
-        File tj = null;
-
-        if ("tools.jar".equals(jarName) && javaVendor.startsWith("Apple")) {
-            // tools.jar is always available in Apple's JDK implementation
-            return null;
-        }
-
-        // check to see if it is in the OFBIZ_HOME directory
-        tj = new File(ofbizHome + fileSep + jarName);
-        if (tj.exists()) {
-            return null;
-        }
-
-        // check to see if it is in the base/lib directory
-        tj = new File(baseLib + fileSep + jarName);
-        if (tj.exists()) {
-            return null;
-        }
-
-        // try to locate tools.jar from the properties file
-        String jarProps = props.getProperty("java." + jarName, null);
-        if (jarProps != null) {
-            tj = new File(jarProps);
-            if (!tj.exists()) {
-                if (required) {
-                    System.err.println(errorMsg + tj.getAbsolutePath());
-                }
-            } else {
-                // System.out.println(foundMsg + tj.getAbsolutePath());
-                return jarProps;
-            }
-        }
-
-        // next check the JAVA_HOME lib dir
-        tj = new File(javaHome + fileSep + jarLoc);
-        if (!tj.exists()) {
-            if (required) {
-                System.err.println(errorMsg + tj.getAbsolutePath());
-            }
-        } else {
-            // System.out.println(foundMsg + tj.getAbsolutePath());
-            return tj.getAbsolutePath();
-        }
-
-        // next if we are a JRE dir check the parent dir
-        String jreExt = fileSep + "jre";
-        if (javaHome.toLowerCase().endsWith(jreExt)) {
-            javaHome = javaHome.substring(0, javaHome.lastIndexOf(fileSep));
-            tj = new File(javaHome + fileSep + jarLoc);
-            if (!tj.exists()) {
-                if (required) {
-                    System.err.println(errorMsg + tj.getAbsolutePath());
-                }
-            } else {
-                // System.out.println(foundMsg + tj.getAbsolutePath());
-                return tj.getAbsolutePath();
-            }
-        }
-
-        // special windows checking
-        if (javaHome.toLowerCase().charAt(1) == ':') {
-            String driveLetter = javaHome.substring(0, 2);
-            String windowsPath = driveLetter + fileSep + "j2sdk" + javaVersion;
-            tj = new File(windowsPath + fileSep + jarLoc);
-            if (!tj.exists()) {
-                if (required) {
-                    System.err.println(errorMsg + tj.getAbsolutePath());
-                }
-            } else {
-                // System.out.println(foundMsg + tj.getAbsolutePath());
-                return tj.getAbsolutePath();
-            }
-        }
-
-        if (required) {
-            System.err.println("");
-            System.err.println("Required library " + jarName + " could not be located.");
-            System.err.println("You may need to copy " + jarName + " into a loadable lib directory");
-            System.err.println("(i.e. OFBIZ_HOME or OFBIZ_HOME/base/lib)");
-            System.err.println("");
-            System.exit(-1);
-        }
-
-        return null;
-    }
-
     private String getOfbizHomeProp(Properties props, String key, String def) {
         String value = System.getProperty(key);
         if (value != null)
@@ -371,18 +262,11 @@ public class Config {
     }
 
     public void initClasspath(Classpath classPath) throws IOException {
-        // load tools.jar
-        if (this.toolsJar != null) {
-            classPath.addComponent(this.toolsJar);
-        }
-        // load comm.jar
-        if (this.commJar != null) {
-            classPath.addComponent(this.commJar);
-        }
-        // add OFBIZ_HOME to class path & load libs
+        // add OFBIZ_HOME to class path
         classPath.addClasspath(this.ofbizHome);
-        loadLibs(classPath, this.ofbizHome, false);
-        // load the lib directory
+
+        // load all the resources from the framework base component
+        // load all the jars from the base lib directory
         if (this.baseLib != null) {
             loadLibs(classPath, this.baseLib, true);
         }

@@ -219,8 +219,6 @@ public final class Start {
         if (!fullInit) {
             return;
         }
-        // initialize the classpath
-        initClasspath();
         // create the log directory
         createLogDirectory();
         // create the listener thread
@@ -241,25 +239,15 @@ public final class Start {
         initStartLoaders();
     }
 
-    private void initClasspath() throws StartupException {
-        Classpath classPath = new Classpath(System.getProperty("java.class.path"));
+    private void initStartLoaders() throws StartupException {
+        Classpath classPath = new Classpath();
         try {
             this.config.initClasspath(classPath);
         } catch (IOException e) {
             throw (StartupException) new StartupException("Couldn't initialized classpath").initCause(e);
         }
-        // Set the classpath/classloader
-        System.setProperty("java.class.path", classPath.toString());
         ClassLoader classloader = classPath.getClassLoader();
         Thread.currentThread().setContextClassLoader(classloader);
-        if (System.getProperty("DEBUG") != null) {
-            System.out.println("Startup Classloader: " + classloader.toString());
-            System.out.println("Startup Classpath: " + classPath.toString());
-        }
-    }
-
-    private void initStartLoaders() throws StartupException {
-        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
         synchronized (this.loaders) {
             // initialize the loaders
             for (Map<String, String> loaderMap : config.loaders) {
