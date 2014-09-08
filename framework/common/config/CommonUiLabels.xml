@@ -478,7 +478,7 @@
         <value xml:lang="ru">Строка адреса</value>
         <value xml:lang="th">ที่อยู่</value>
         <value xml:lang="vi">Dòng địa chỉ</value>
-        <value xml:lang="zh">地址线</value>
+        <value xml:lang="zh">地址行</value>
         <value xml:lang="zh-CN">地址栏</value>
         <value xml:lang="zh_TW">地址行</value>
     </property>
@@ -625,7 +625,7 @@
         <value xml:lang="ru">Вся неделя</value>
         <value xml:lang="th">สัปดาห์ทั้งหมด</value>
         <value xml:lang="vi">Toàn bộ tuần</value>
-        <value xml:lang="zh">全部周</value>
+        <value xml:lang="zh">整个星期</value>
         <value xml:lang="zh-CN">所有星期</value>
         <value xml:lang="zh_TW">整個星期</value>
     </property>
@@ -1813,7 +1813,7 @@
         <value xml:lang="ru">Свернуть</value>
         <value xml:lang="th">ล้มเหลว</value>
         <value xml:lang="vi">Mở rộng</value>
-        <value xml:lang="zh">合拢</value>
+        <value xml:lang="zh">收起</value>
         <value xml:lang="zh_TW">收合</value>
     </property>
     <property key="CommonCollapseAll">
@@ -1830,7 +1830,7 @@
         <value xml:lang="ru">Свернуть все</value>
         <value xml:lang="th">ล้มเหลว</value>
         <value xml:lang="vi">Mở rộng toàn bộ</value>
-        <value xml:lang="zh">全部合拢</value>
+        <value xml:lang="zh">全部收起</value>
         <value xml:lang="zh_TW">全部收合</value>
     </property>
     <property key="CommonComingSoon">
@@ -1979,7 +1979,7 @@
         <value xml:lang="ru">ÐŸÐ¾Ð´Ñ‚Ð²ÐµÑ€Ð´Ð¸Ñ‚ÑŒ</value>
         <value xml:lang="th">à¸¢à¸·à¸™à¸¢à¸±à¸™</value>
         <value xml:lang="vi">Bạn có xác nhận phần lựa chọn thêm không?</value>
-        <value xml:lang="zh">ç¡®è®¤</value>
+        <value xml:lang="zh">确定要增加吗？</value>
         <value xml:lang="zh_TW">確定要增加嗎？</value>
     </property>
     <property key="CommonConfirmDelete">
@@ -2399,7 +2399,7 @@
         <value xml:lang="ru">Кредит</value>
         <value xml:lang="th">เครดิต</value>
         <value xml:lang="vi">Tín dụng</value>
-        <value xml:lang="zh">信用</value>
+        <value xml:lang="zh">贷方</value>
         <value xml:lang="zh-CN">贷方</value>
         <value xml:lang="zh_TW">貸方</value>
     </property>
@@ -3421,7 +3421,7 @@
         <value xml:lang="ru">Подчиненные</value>
         <value xml:lang="th">เด็ก</value>
         <value xml:lang="vi">Thành phần con</value>
-        <value xml:lang="zh">下级固定资产</value>
+        <value xml:lang="zh">子</value>
         <value xml:lang="zh_TW">子</value>
     </property>
     <property key="CommonEntityTestFailure">
@@ -5616,7 +5616,7 @@
         <value xml:lang="ru">Последний</value>
         <value xml:lang="th">สุดท้าย</value>
         <value xml:lang="vi">Mới nhất</value>
-        <value xml:lang="zh">最近的</value>
+        <value xml:lang="zh">最后</value>
         <value xml:lang="zh_TW">最後</value>
     </property>
     <property key="CommonLastSytemNotes">
@@ -9093,7 +9093,7 @@
         <value xml:lang="ru">Зарегистрированный пользователь</value>
         <value xml:lang="th">ลงทะเบียนผู้ใช้</value>
         <value xml:lang="vi">Người dùng đã đăng ký</value>
-        <value xml:lang="zh">已登记用户</value>
+        <value xml:lang="zh">已注册用户</value>
         <value xml:lang="zh-CN">注册用户</value>
         <value xml:lang="zh_TW">使用者已註冊</value>
     </property>
@@ -9561,7 +9561,7 @@
         <value xml:lang="ru">Сбережения</value>
         <value xml:lang="th">กำลังบันทึก</value>
         <value xml:lang="vi">Lưu trữ</value>
-        <value xml:lang="zh">节省</value>
+        <value xml:lang="zh">储蓄</value>
         <value xml:lang="zh-CN">储蓄</value>
         <value xml:lang="zh_TW">儲蓄</value>
     </property>
@@ -9656,7 +9656,7 @@
         <value xml:lang="ru">Во-вторых</value>
         <value xml:lang="th">ในลำดับที่สอง</value>
         <value xml:lang="vi">Cấp hai</value>
-        <value xml:lang="zh">每秒</value>
+        <value xml:lang="zh">秒</value>
         <value xml:lang="zh_TW">秒</value>
     </property>
     <property key="CommonSecondaryApps">
@@ -10786,7 +10786,7 @@
         <value xml:lang="ru">Постоые</value>
         <value xml:lang="th">แสดงปกติ</value>
         <value xml:lang="vi">Hiển thị đơn giản</value>
-        <value xml:lang="zh">简单值</value>
+        <value xml:lang="zh">简单视图</value>
         <value xml:lang="zh-CN">关所有表</value>
         <value xml:lang="zh_TW">簡單檢視</value>
     </property>
@@ -10807,7 +10807,7 @@
         <value xml:lang="ru">Большие</value>
         <value xml:lang="th">แสดงขนาดใหญ่</value>
         <value xml:lang="vi">Xem cỡ lớn</value>
-        <value xml:lang="zh">大数值</value>
+        <value xml:lang="zh">大视图</value>
         <value xml:lang="zh-CN">开所有表</value>
         <value xml:lang="zh_TW">大型檢視</value>
     </property>
@@ -11660,7 +11660,7 @@
         <value xml:lang="ru">UOM ID</value>
         <value xml:lang="th">รหัสหน่วยวัด</value>
         <value xml:lang="vi">Đơn vị tính</value>
-        <value xml:lang="zh">货币单位标识</value>
+        <value xml:lang="zh">度量单位标识</value>
         <value xml:lang="zh-CN">单位标识</value>
         <value xml:lang="zh_TW">計量單位代號</value>
     </property>
@@ -11916,7 +11916,7 @@
         <value xml:lang="ru">Действительно с даты</value>
         <value xml:lang="th">มีผลจากวันที่</value>
         <value xml:lang="vi">Hiệu lực Từ ngày</value>
-        <value xml:lang="zh">验证开始日期</value>
+        <value xml:lang="zh">有效的开始日期</value>
         <value xml:lang="zh-CN">有效的起始日期</value>
         <value xml:lang="zh_TW">有效開始日</value>
     </property>
@@ -11937,7 +11937,7 @@
         <value xml:lang="ru">Действительно по дату</value>
         <value xml:lang="th">มีผลถึงวันที่</value>
         <value xml:lang="vi">Hiệu lực Đến ngày</value>
-        <value xml:lang="zh">验证截止日期</value>
+        <value xml:lang="zh">有效的截止日期</value>
         <value xml:lang="zh-CN">有效的终止日期</value>
         <value xml:lang="zh_TW">有效截止日</value>
     </property>
@@ -12049,7 +12049,7 @@
         <value xml:lang="pt-BR">O acesso a esta visualização foi bloqueada.</value>
         <value xml:lang="ru">Доступ к этому виду - запрещен</value>
         <value xml:lang="vi">Quyền truy cập tới giao diện này hiện đã bị khoá</value>
-        <value xml:lang="zh">已经禁止访问这个浏览了。</value>
+        <value xml:lang="zh">已经禁止访问这个界面了。</value>
         <value xml:lang="zh_TW">已經禁止訪問這個瀏覽了。</value>
     </property>
     <property key="CommonViewCalendar">
@@ -12211,7 +12211,7 @@
         <value xml:lang="ja">プレビューするには画像を、テーマを選択するにはリンクを、選択を有効にするには完了をクリックしてください。</value>
         <value xml:lang="ru">Нажмите на картинку для предварительного просмотра, на ссылке выбранной темы, и затем сделайте потверждение вашего выбора</value>
         <value xml:lang="vi">Bạn có thể xem trước Giao diện bằng cách bấm vào hình, sau đó vào liên kết chọn giao diện, và bấm vào nút 'Hoàn tất' để thực hiện thiết lập Giao diện</value>
-        <value xml:lang="zh">点击图片来预览，点击连接来选择风格，然后点击“完成”来让你的选择生效</value>
+        <value xml:lang="zh">点击图片来预览，点击链接来选择风格，然后点击“完成”来让你的选择生效</value>
         <value xml:lang="zh_TW">點擊圖片來預覽，點擊連結來選擇風格，然後點擊“完成”來讓您的選擇生效</value>
     </property>
     <property key="CommonVisualThemes">
@@ -12827,7 +12827,7 @@
         <value xml:lang="ja">在庫管理、拠点、位置、発送、受領、物理在庫</value>
         <value xml:lang="ru">Управление инвентарем, объект, местность, отправление, получение, переучет</value>
         <value xml:lang="vi">Quản lý Kho bãi, Chi nhánh / Cơ sở, Địa điểm, Vận chuyển, Nhận hàng và Kho vật lý</value>
-        <value xml:lang="zh">库存管理，包括场、地点、送货、收货、物理库存</value>
+        <value xml:lang="zh">库存管理，包括场所、地点、送货、收货、实物库存</value>
         <value xml:lang="zh_TW">庫存管理，包括場所、地點、送貨、收貨、實體庫存</value>
     </property>
     <property key="Financials">
@@ -13156,7 +13156,7 @@
         <value xml:lang="pt-BR">Contagem de recorrências atual</value>
         <value xml:lang="ru">Текущий счетчик возврата</value>
         <value xml:lang="vi">Số lần lặp lại</value>
-        <value xml:lang="zh">当前并发计数</value>
+        <value xml:lang="zh">当前重复次数计数</value>
         <value xml:lang="zh_TW">當前重現次數</value>
     </property>
     <property key="FormFieldTitle_currentStatusId">
@@ -13461,7 +13461,7 @@
         <value xml:lang="pt-BR">Contagem de Recorrências Máxima</value>
         <value xml:lang="ru">Максимальный возврат счетчика</value>
         <value xml:lang="vi">Số lần lặp tối đa</value>
-        <value xml:lang="zh">最大并发数量</value>
+        <value xml:lang="zh">最大重复次数</value>
         <value xml:lang="zh_TW">最大重現次數</value>
     </property>
     <property key="FormFieldTitle_modifiedByUserLoginId">
@@ -13832,7 +13832,7 @@
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">หน่วยวัด</value>
         <value xml:lang="vi">Đơn vị tính</value>
-        <value xml:lang="zh">币值</value>
+        <value xml:lang="zh">单位</value>
         <value xml:lang="zh_TW">度量單位</value>
     </property>
     <property key="FormFieldTitle_updateButton">
@@ -14091,7 +14091,7 @@
         <value xml:lang="th">หน้าหมวดหมู่สินค้า</value>
         <value xml:lang="vi">Trang Phân loại Quản lý</value>
         <value xml:lang="zh">分类页面</value>
-        <value xml:lang="zh">分類頁面</value>
+        <value xml:lang="zh_TW">分類頁面</value>
     </property>
     <property key="PageTitleCheckoutOptions">
         <value xml:lang="cs">Možnosti objednání</value>
@@ -14242,7 +14242,7 @@
         <value xml:lang="ru">Поиск Гео</value>
         <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
         <value xml:lang="vi">Tìm kiếm Địa lý</value>
-        <value xml:lang="zh">查詢地理</value>
+        <value xml:lang="zh">查询地理位置</value>
         <value xml:lang="zh_TW">查詢地理位置</value>
     </property>
     <property key="PageTitleMain">
