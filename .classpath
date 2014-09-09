@@ -99,7 +99,6 @@
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.55-tomcat-juli.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.55-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.0.1.jar"/>
-    <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-3.1.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
