@@ -52,4 +52,8 @@ under the License.
         <fileset dir="../../applications/content/build/lib" includes="*.jar"/>
     </path>
 
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>

@@ -39,6 +39,7 @@ import org.apache.lucene.store.FSDirectory;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.content.search.SearchWorker;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
 public class LuceneTests extends OFBizTestCase {
@@ -58,20 +59,21 @@ public class LuceneTests extends OFBizTestCase {
     protected void tearDown() throws Exception {
     }
 
-    public void testCreateIndex() throws Exception {
+    public void testSearchTermHand() throws Exception {
         Map<String, Object> ctx = new HashMap<String, Object>();
         ctx.put("contentId", "WebStoreCONTENT");
         ctx.put("userLogin", userLogin);
         Map<String, Object> resp = dispatcher.runSync("indexContentTree", ctx);
-    }
-
-    public void testSearchTermHand() throws Exception {
+        assertTrue("Could not init search index", ServiceUtil.isSuccess(resp));
+        try {
+            Thread.sleep(3000); // sleep 3 seconds to give enough time to the indexer to process the entries
+        } catch(Exception e) {}
         Directory directory = FSDirectory.open(new File(SearchWorker.getIndexPath("content")));
         DirectoryReader r = null;
         try {
             r = DirectoryReader.open(directory);
         } catch (Exception e) {
-            // ignore
+            fail("Could not open search index: " + directory);
         }
 
         BooleanQuery combQuery = new BooleanQuery();
