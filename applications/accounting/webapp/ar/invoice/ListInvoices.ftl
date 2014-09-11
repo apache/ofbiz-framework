@@ -41,9 +41,9 @@ under the License.
         });
 
         if(allChecked) {
-            jQuery('#checkAllInvoices').attr('checked', true);
+            jQuery('#checkAllInvoices').prop('checked', true);
         } else {
-            jQuery('#checkAllInvoices').attr('checked', false);
+            jQuery('#checkAllInvoices').prop('checked', false);
         }
 
         // check if any checkbox is checked
@@ -64,11 +64,11 @@ under the License.
             });
 
             if(jQuery('#serviceName').val() != "") {
-                jQuery('#submitButton').removeAttr('disabled');
+                jQuery('#submitButton').prop('disabled', false);
             }
 
         } else {
-            jQuery('#submitButton').attr('disabled', true);
+            jQuery('#submitButton').prop('disabled', true);
             jQuery('#showInvoiceRunningTotal').html("");
         }
     }
@@ -104,9 +104,9 @@ under the License.
         });
 
         if(anyChecked && (jQuery('#serviceName').val() != "")) {
-            jQuery('#submitButton').removeAttr('disabled');
+            jQuery('#submitButton').prop('disabled', false);
         } else {
-            jQuery('#submitButton').attr('disabled', true);
+            jQuery('#submitButton').prop('disabled', true);
         }
     }
 //]]>
