@@ -26,7 +26,7 @@ under the License.
     </fo:simple-page-master>
 
     <fo:simple-page-master master-name="iso216-landscape"
-        page-width="210mm" page-height="297mm"
+        page-width="297mm" page-height="210mm"
         margin-top="15mm" margin-bottom="15mm"
         margin-left="20mm" margin-right="20mm">
       <fo:region-body margin-top="25mm" margin-bottom="12mm"/>
