@@ -270,9 +270,10 @@ public class Config {
         if (this.baseLib != null) {
             loadLibs(classPath, this.baseLib, true);
         }
-        // load the ofbiz-base.jar
+        // load the ofbiz-base.jar and the ofbiz-base-test.jar
         if (this.baseJar != null) {
             classPath.addComponent(this.baseJar);
+            classPath.addComponent(this.baseJar.substring(0, this.baseJar.indexOf(".jar")) + "-test.jar");
         }
         // load the base schema directory
         if (this.baseDtd != null) {

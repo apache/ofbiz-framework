@@ -194,6 +194,58 @@ public class ObjectTypeTests extends GenericTestCaseBase {
         assertSame(label + ":to-java.lang.Object", toConvert, simpleTypeConvert(toConvert, "java.lang.Object", null, null, null, true));
     }
 
+    public void testLoadClassWithNonExistentClass() {
+        Exception exception = null;
+        try {
+            ObjectType.loadClass("foobarbaz");
+        } catch (Exception e) {
+            exception = e;
+        }
+        assertTrue("Exception thrown by loadClass(\"foobarbaz\") is not ClassNotFoundException", exception instanceof ClassNotFoundException);
+    }
+
+    public void testLoadClassWithPrimitives() {
+        try {
+            Class<?> theClass;
+            theClass = ObjectType.loadClass("boolean");
+            assertEquals("Wrong class returned by loadClass(\"boolean\")", (Boolean.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("short");
+            assertEquals("Wrong class returned by loadClass(\"short\")", (Short.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("int");
+            assertEquals("Wrong class returned by loadClass(\"int\")", (Integer.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("long");
+            assertEquals("Wrong class returned by loadClass(\"long\")", (Long.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("float");
+            assertEquals("Wrong class returned by loadClass(\"float\")", (Float.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("double");
+            assertEquals("Wrong class returned by loadClass(\"double\")", (Double.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("byte");
+            assertEquals("Wrong class returned by loadClass(\"byte\")", (Byte.TYPE).getName(), theClass.getName());
+            theClass = ObjectType.loadClass("char");
+            assertEquals("Wrong class returned by loadClass(\"char\")", (Character.TYPE).getName(), theClass.getName());
+        } catch (Exception e) {
+            fail("Exception thrown by loadClass: " + e.getMessage());
+        }
+    }
+
+    public void testLoadClassWithAlias() {
+        try {
+            Class<?> theClass;
+            // first try with a class full name
+            theClass = ObjectType.loadClass("java.lang.String");
+            assertEquals("Wrong class returned by loadClass(\"java.lang.String\")", "java.lang.String", theClass.getName());
+            // now try with some aliases
+            theClass = ObjectType.loadClass("String");
+            assertEquals("Wrong class returned by loadClass(\"String\")", "java.lang.String", theClass.getName());
+            theClass = ObjectType.loadClass("Object");
+            assertEquals("Wrong class returned by loadClass(\"Object\")", "java.lang.Object", theClass.getName());
+            theClass = ObjectType.loadClass("Date");
+            assertEquals("Wrong class returned by loadClass(\"Date\")", "java.sql.Date", theClass.getName());
+        } catch (Exception e) {
+            fail("Exception thrown by loadClass: " + e.getMessage());
+        }
+    }
+
     public void testClassNotFound() {
         GeneralException caught = null;
         try {

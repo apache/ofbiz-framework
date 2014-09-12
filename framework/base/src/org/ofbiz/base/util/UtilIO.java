@@ -43,7 +43,6 @@ import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.json.JSON;
@@ -378,7 +377,7 @@ public final class UtilIO {
             for (i = offset; i < length && buffer[i] != ':'; i++);
             if (i > offset && i < length) {
                 String className = new String(buffer, offset, i);
-                Class<?> type = Class.forName(className, true, ClassLoaderContainer.getClassLoader());
+                Class<?> type = Class.forName(className);
                 if (buffer[length - 1] == '\n') {
                     length--;
                 }

@@ -28,7 +28,7 @@ under the License.
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 
-    <!-- load the cached classloader container (always second) -->
+    <!-- load the classloader container -->
     <container name="classloader-container" loaders="main,rmi,pos,install,test" class="org.ofbiz.base.container.ClassLoaderContainer"/>
 
     <!-- load the naming (JNDI) server -->
