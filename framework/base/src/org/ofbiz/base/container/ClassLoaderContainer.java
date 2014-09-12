@@ -18,36 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.base.container;
 
-import java.net.URL;
-
-import org.ofbiz.base.start.Classpath;
-import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 
 /**
- * ClassLoader Container; Created a CachedClassLoader for use by all following containers
+ * ClassLoader Container
  *
  */
 public class ClassLoaderContainer implements Container {
 
     public static final String module = ClassLoaderContainer.class.getName();
-    protected static CachedClassLoader cl = null;
     public static Integer portOffset = 0;
     private String name;
 
     @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
         this.name = name;
-        ClassLoader parent = Thread.currentThread().getContextClassLoader();
-        if (parent == null) {
-            parent = Classpath.class.getClassLoader();
-        }
-        if (parent == null) {
-            parent = ClassLoader.getSystemClassLoader();
-        }
 
-        cl = new CachedClassLoader(new URL[0], parent);
-        
         if (args != null) {
             for (String argument : args) {
                 // arguments can prefix w/ a '-'. Just strip them off
@@ -75,8 +61,6 @@ public class ClassLoaderContainer implements Container {
             }
         }
         
-        Thread.currentThread().setContextClassLoader(cl);
-        Debug.logInfo("CachedClassLoader created", module);
     }
 
     /**
@@ -99,11 +83,4 @@ public class ClassLoaderContainer implements Container {
         return name;
     }
 
-    public static ClassLoader getClassLoader() {
-        if (cl != null) {
-            return cl;
-        } else {
-            return ClassLoader.getSystemClassLoader();
-        }
-    }
 }

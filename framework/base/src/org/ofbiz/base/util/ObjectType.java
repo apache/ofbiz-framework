@@ -22,12 +22,11 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.Converter;
@@ -47,10 +46,47 @@ public class ObjectType {
 
     public static final Object NULL = new NullObject();
 
-    protected static FastMap<String, Class<?>> classCache = FastMap.newInstance();
-
     public static final String LANG_PACKAGE = "java.lang."; // We will test both the raw value and this + raw value
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
+
+    private static final Map<String, String> classAlias = new HashMap<String, String>();
+    private static final Map<String, Class> primitives = new HashMap<String, Class>();
+
+    static {
+        classAlias.put("Object", "java.lang.Object");
+        classAlias.put("String", "java.lang.String");
+        classAlias.put("Boolean", "java.lang.Boolean");
+        classAlias.put("BigDecimal", "java.math.BigDecimal");
+        classAlias.put("Double", "java.lang.Double");
+        classAlias.put("Float", "java.lang.Float");
+        classAlias.put("Long", "java.lang.Long");
+        classAlias.put("Integer", "java.lang.Integer");
+        classAlias.put("Short", "java.lang.Short");
+        classAlias.put("Byte", "java.lang.Byte");
+        classAlias.put("Character", "java.lang.Character");
+        classAlias.put("Timestamp", "java.sql.Timestamp");
+        classAlias.put("Time", "java.sql.Time");
+        classAlias.put("Date", "java.sql.Date");
+        classAlias.put("Locale", "java.util.Locale");
+        classAlias.put("Collection", "java.util.Collection");
+        classAlias.put("List", "java.util.List");
+        classAlias.put("Set", "java.util.Set");
+        classAlias.put("Map", "java.util.Map");
+        classAlias.put("HashMap", "java.util.HashMap");
+        classAlias.put("TimeZone", "java.util.TimeZone");
+        classAlias.put("TimeDuration", "org.ofbiz.base.util.TimeDuration");
+        classAlias.put("GenericValue", "org.ofbiz.entity.GenericValue");
+        classAlias.put("GenericPK", "org.ofbiz.entity.GenericPK");
+        classAlias.put("GenericEntity", "org.ofbiz.entity.GenericEntity");
+        primitives.put("boolean", Boolean.TYPE);
+        primitives.put("short", Short.TYPE);
+        primitives.put("int", Integer.TYPE);
+        primitives.put("long", Long.TYPE);
+        primitives.put("float", Float.TYPE);
+        primitives.put("double", Double.TYPE);
+        primitives.put("byte", Byte.TYPE);
+        primitives.put("char", Character.TYPE);
+    }
 
     /**
      * Loads a class with the current thread's context classloader.
@@ -59,25 +95,23 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static Class<?> loadClass(String className) throws ClassNotFoundException {
-        int genericsStart = className.indexOf("<");
-        if (genericsStart != -1) className = className.substring(0, genericsStart);
-
-        // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
-        Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
-
-        if (theClass != null) return theClass;
-
         return loadClass(className, null);
     }
 
     /**
-     * Loads a class with the current thread's context classloader.
+     * Loads a class with the specified classloader.
      * @param className The name of the class to load
      * @param loader The ClassLoader to use
      * @return The requested class
      * @throws ClassNotFoundException
      */
     public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
+        Class<?> theClass = null;
+        // if it is a primitive type, return the object from the "primitives" map
+        if (primitives.containsKey(className)) {
+            return primitives.get(className);
+        }
+
         int genericsStart = className.indexOf("<");
         if (genericsStart != -1) className = className.substring(0, genericsStart);
 
@@ -98,26 +132,14 @@ public class ObjectType {
             }
         }
 
-        // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
-        Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
-
-        if (theClass != null) return theClass;
+        // if className is an alias (e.g. "String") then replace it with the proper class name (e.g. "java.lang.String")
+        if (classAlias.containsKey(className)) {
+            className = classAlias.get(className);
+        }
 
         if (loader == null) loader = Thread.currentThread().getContextClassLoader();
 
-        try {
-            theClass = Class.forName(className, true, loader);
-        } catch (Exception e) {
-            theClass = classCache.get(className);
-            if (theClass == null) {
-                theClass = Class.forName(className);
-                if (theClass != null) {
-                    if (classCache.putIfAbsent(className, theClass) == null) {
-                        if (Debug.verboseOn()) Debug.logVerbose("Loaded Class: " + theClass.getName(), module);
-                    }
-                }
-            }
-        }
+        theClass = Class.forName(className, true, loader);
 
         return theClass;
     }

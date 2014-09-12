@@ -35,14 +35,12 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.ofbiz.base.util.CachedClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilObject;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
@@ -65,7 +63,6 @@ public class ContextFilter implements Filter {
     public static final String module = ContextFilter.class.getName();
     public static final String FORWARDED_FROM_SERVLET = "_FORWARDED_FROM_SERVLET_";
 
-    protected ClassLoader localCachedClassLoader = null;
     protected FilterConfig config = null;
     protected boolean debug = false;
 
@@ -77,10 +74,6 @@ public class ContextFilter implements Filter {
 
         // puts all init-parameters in ServletContext attributes for easier parameterization without code changes
         this.putAllInitParametersInAttributes();
-
-        // initialize the cached class loader for this application
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        localCachedClassLoader = new CachedClassLoader(loader, (String) config.getServletContext().getAttribute("webSiteId"));
 
         // set debug
         this.debug = "true".equalsIgnoreCase(config.getInitParameter("debug"));
@@ -111,11 +104,6 @@ public class ContextFilter implements Filter {
         // Debug.logInfo("Running ContextFilter.doFilter", module);
 
         // ----- Servlet Object Setup -----
-        // set the cached class loader for more speedy running in this thread
-        String disableCachedClassloader = config.getInitParameter("disableCachedClassloader");
-        if (disableCachedClassloader == null || !"Y".equalsIgnoreCase(disableCachedClassloader)) {
-            Thread.currentThread().setContextClassLoader(localCachedClassLoader);
-        }
 
         // set the ServletContext in the request for future use
         httpRequest.setAttribute("servletContext", config.getServletContext());
