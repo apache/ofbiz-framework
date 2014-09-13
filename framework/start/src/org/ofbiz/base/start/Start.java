@@ -376,6 +376,10 @@ public final class Start {
         }
     }
 
+    public Config getConfig() {
+        return this.config;
+    }
+
     // ----------------------------------------------- //
 
     private class AdminPortThread extends Thread {

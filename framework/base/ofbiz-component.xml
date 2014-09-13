@@ -28,9 +28,6 @@ under the License.
 
     <test-suite loader="main" location="testdef/basetests.xml"/>
 
-    <!-- load the classloader container -->
-    <container name="classloader-container" loaders="main,rmi,pos,install,test" class="org.ofbiz.base.container.ClassLoaderContainer"/>
-
     <!-- load the naming (JNDI) server -->
     <container name="naming-container" loaders="rmi" class="org.ofbiz.base.container.NamingServiceContainer">
         <property name="host" value="0.0.0.0"/>

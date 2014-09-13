@@ -52,6 +52,7 @@ public class Config {
     public final boolean shutdownAfterLoad;
     public final String splashLogo;
     public final boolean useShutdownHook;
+    public final Integer portOffset;
 
     Config(String[] args) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
@@ -203,6 +204,35 @@ public class Config {
             }
         }
         loaders = Collections.unmodifiableList(loadersTmp);
+
+        // set the port offset
+        Integer portOffset = 0;
+        if (args != null) {
+            for (String argument : args) {
+                // arguments can prefix w/ a '-'. Just strip them off
+                if (argument.startsWith("-")) {
+                    int subIdx = 1;
+                    if (argument.startsWith("--")) {
+                        subIdx = 2;
+                    }
+                    argument = argument.substring(subIdx);
+                }
+                // parse the arguments
+                if (argument.indexOf("=") != -1) {
+                    String argumentName = argument.substring(0, argument.indexOf("="));
+                    String argumentVal = argument.substring(argument.indexOf("=") + 1);
+                    if ("portoffset".equalsIgnoreCase(argumentName) && !"${portoffset}".equals(argumentVal)) {
+                        try {
+                            portOffset = Integer.valueOf(argumentVal);
+                        } catch (NumberFormatException e) {
+                            System.out.println("Error while parsing portoffset (the default value 0 will be used) = " + e);
+                        }
+                    }
+                }
+            }
+        }
+        this.portOffset = portOffset;
+
     }
 
     private String getOfbizHomeProp(Properties props, String key, String def) {
@@ -261,7 +291,7 @@ public class Config {
         return props;
     }
 
-    public void initClasspath(Classpath classPath) throws IOException {
+    void initClasspath(Classpath classPath) throws IOException {
         // add OFBIZ_HOME to class path
         classPath.addClasspath(this.ofbizHome);
 

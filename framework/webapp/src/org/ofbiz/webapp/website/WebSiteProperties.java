@@ -20,8 +20,8 @@ package org.ofbiz.webapp.website;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.lang.ThreadSafe;
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -100,12 +100,12 @@ public final class WebSiteProperties {
                 httpsHost = request.getServerName();
             }
             
-            if (ClassLoaderContainer.portOffset != 0) {
+            if (Start.getInstance().getConfig().portOffset != 0) {
                 Integer httpPortValue = Integer.valueOf(httpPort);
-                httpPortValue += ClassLoaderContainer.portOffset;
+                httpPortValue += Start.getInstance().getConfig().portOffset;
                 httpPort = httpPortValue.toString();
                 Integer httpsPortValue = Integer.valueOf(httpsPort);
-                httpsPortValue += ClassLoaderContainer.portOffset;
+                httpsPortValue += Start.getInstance().getConfig().portOffset;
                 httpsPort = httpsPortValue.toString();
             }                
             
@@ -133,12 +133,12 @@ public final class WebSiteProperties {
         String httpsHost = (webSiteValue.get("httpsHost") != null) ? webSiteValue.getString("httpsHost") : defaults.getHttpsHost();
         boolean enableHttps = (webSiteValue.get("enableHttps") != null) ? webSiteValue.getBoolean("enableHttps") : defaults.getEnableHttps();
 
-        if (ClassLoaderContainer.portOffset != 0) {
+        if (Start.getInstance().getConfig().portOffset != 0) {
             Integer httpPortValue = Integer.valueOf(httpPort);
-            httpPortValue += ClassLoaderContainer.portOffset;
+            httpPortValue += Start.getInstance().getConfig().portOffset;
             httpPort = httpPortValue.toString();
             Integer httpsPortValue = Integer.valueOf(httpsPort);
-            httpsPortValue += ClassLoaderContainer.portOffset;
+            httpsPortValue += Start.getInstance().getConfig().portOffset;
             httpsPort = httpsPortValue.toString();
         }                
         
