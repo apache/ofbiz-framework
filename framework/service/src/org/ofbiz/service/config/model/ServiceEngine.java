@@ -87,17 +87,14 @@ public final class ServiceEngine {
         } else {
             List<ServiceLocation> serviceLocations = new ArrayList<ServiceLocation>(serviceLocationElementList.size());
             for (Element serviceLocationElement : serviceLocationElementList) {
-                serviceLocations.add(new ServiceLocation(serviceLocationElement));
-            }
-            for (ServiceLocation serviceLocation : serviceLocations) {
-                String location = serviceLocation.getLocation();
-                if (location.contains("localhost") &&  Start.getInstance().getConfig().portOffset != 0) {
+                String location = serviceLocationElement.getAttribute("location").intern();
+                if (location.contains("localhost") && Start.getInstance().getConfig().portOffset != 0) {
                     Integer port = 1099 + Start.getInstance().getConfig().portOffset;
                     location = location.replace("1099", port.toString());
                     port = 8080 + Start.getInstance().getConfig().portOffset;
                     location = location.replace("8080", port.toString());
-                    serviceLocation.setLocation(location);
-                }                    
+                }
+                serviceLocations.add(new ServiceLocation(serviceLocationElement, location));
             }
             this.serviceLocations = Collections.unmodifiableList(serviceLocations);
         }

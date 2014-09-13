@@ -28,16 +28,15 @@ import org.w3c.dom.Element;
 @ThreadSafe
 public final class ServiceLocation {
 
-    private String location;
+    private final String location;
     private final String name;
 
-    ServiceLocation(Element serviceLocationElement) throws ServiceConfigException {
+    ServiceLocation(Element serviceLocationElement, String location) throws ServiceConfigException {
         String name = serviceLocationElement.getAttribute("name").intern();
         if (name.isEmpty()) {
             throw new ServiceConfigException("<service-location> element name attribute is empty");
         }
         this.name = name;
-        String location = serviceLocationElement.getAttribute("location").intern();
         if (location.isEmpty()) {
             throw new ServiceConfigException("<service-location> element location attribute is empty");
         }
@@ -46,10 +45,6 @@ public final class ServiceLocation {
 
     public String getLocation() {
         return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 
     public String getName() {
