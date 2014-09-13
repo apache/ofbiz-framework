@@ -37,7 +37,7 @@ import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.container.ClassLoaderContainer;
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.StringUtil;
@@ -1030,12 +1030,12 @@ public class RequestHandler {
         String httpServer = UtilProperties.getPropertyValue("url.properties", "force.http.host");
         boolean useHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
 
-        if (ClassLoaderContainer.portOffset != 0) {
+        if (Start.getInstance().getConfig().portOffset != 0) {
             Integer httpPortValue = Integer.valueOf(httpPort);
-            httpPortValue += ClassLoaderContainer.portOffset;
+            httpPortValue += Start.getInstance().getConfig().portOffset;
             httpPort = httpPortValue.toString();
             Integer httpsPortValue = Integer.valueOf(httpsPort);
-            httpsPortValue += ClassLoaderContainer.portOffset;
+            httpsPortValue += Start.getInstance().getConfig().portOffset;
             httpsPort = httpsPortValue.toString();
         }
         

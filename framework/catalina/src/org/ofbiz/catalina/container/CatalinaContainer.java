@@ -71,12 +71,12 @@ import org.apache.tomcat.util.scan.StandardJarScanner;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
-import org.ofbiz.base.container.ClassLoaderContainer;
 import org.ofbiz.base.container.Container;
 import org.ofbiz.base.container.ContainerConfig;
 import org.ofbiz.base.container.ContainerConfig.Container.Property;
 import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.UtilValidate;
@@ -477,7 +477,7 @@ public class CatalinaContainer implements Container {
         // need some standard properties
         String protocol = ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1");
         String address = ContainerConfig.getPropertyValue(connectorProp, "address", "0.0.0.0");
-        int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + ClassLoaderContainer.portOffset;
+        int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset;
 
         boolean secure = ContainerConfig.getPropertyValue(connectorProp, "secure", false);
         if (protocol.toLowerCase().startsWith("ajp")) {

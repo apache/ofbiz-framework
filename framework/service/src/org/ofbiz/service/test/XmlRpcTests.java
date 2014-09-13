@@ -23,7 +23,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.xmlrpc.client.XmlRpcClient;
-import org.ofbiz.base.container.ClassLoaderContainer;
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -42,8 +42,8 @@ public class XmlRpcTests extends AbstractXmlRpcTestCase {
 
     public XmlRpcTests(String name) {
         super(name);
-        if (ClassLoaderContainer.portOffset != 0) {
-            Integer port = 8080 + ClassLoaderContainer.portOffset; 
+        if (Start.getInstance().getConfig().portOffset != 0) {
+            Integer port = 8080 + Start.getInstance().getConfig().portOffset;
             url = url.replace("8080", port.toString());
         }
     }

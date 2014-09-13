@@ -35,6 +35,7 @@ under the License.
         <fileset dir="../base/lib/commons" includes="*.jar"/>
         <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
+        <fileset dir="../start/build/lib" includes="*.jar"/>
         <fileset dir="../entity/lib" includes="*.jar"/>
         <fileset dir="../entity/build/lib" includes="*.jar"/>
     </path>

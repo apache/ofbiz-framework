@@ -25,6 +25,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
+import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.RMIExtendedSocketFactory;
 
 /**
@@ -57,7 +58,7 @@ public class NamingServiceContainer implements Container {
         ContainerConfig.Container.Property port = cfg.getProperty("port");
         if (port.value != null) {
             try {
-                this.namingPort = Integer.parseInt(port.value) + ClassLoaderContainer.portOffset;
+                this.namingPort = Integer.parseInt(port.value) + Start.getInstance().getConfig().portOffset;
             } catch (Exception e) {
                 throw new ContainerException("Invalid port defined in container [naming-container] configuration or as portOffset; not a valid int");
             }
