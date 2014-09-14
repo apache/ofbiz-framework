@@ -178,7 +178,7 @@ under the License.
     <#if shoppingListItemDatas?has_content>
         <#-- Pagination -->
         <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
-        <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&shoppingListId="+shoppingListId!+"&"/>
+        <#assign commonUrl = "editShoppingList?partyId=" + partyId + "&shoppingListId="+(shoppingListId!)+"&"/>
         <#assign viewIndexFirst = 0/>
         <#assign viewIndexPrevious = viewIndex - 1/>
         <#assign viewIndexNext = viewIndex + 1/>

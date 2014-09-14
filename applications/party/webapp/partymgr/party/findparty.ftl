@@ -209,7 +209,7 @@ under the License.
   <#if partyList?has_content>
     <#-- Pagination -->
     <#include "component://common/webcommon/includes/htmlTemplate.ftl"/>
-    <#assign commonUrl = "findparty?hideFields=" + hideFields + paramList + "&sortField=" + sortField! + "&"/>
+    <#assign commonUrl = "findparty?hideFields=" + hideFields + paramList + "&sortField=" + (sortField!) + "&"/>
     <#assign viewIndexFirst = 0/>
     <#assign viewIndexPrevious = viewIndex - 1/>
     <#assign viewIndexNext = viewIndex + 1/>
