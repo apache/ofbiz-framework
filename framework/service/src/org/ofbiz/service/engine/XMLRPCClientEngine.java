@@ -92,8 +92,10 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         try {
             url = ServiceConfigUtil.getEngineParameter(engine, "url");
             if (Start.getInstance().getConfig().portOffset != 0) {
-                Integer port = 8080 + Start.getInstance().getConfig().portOffset;
-                url = url.replace("8080", port.toString());
+                String s = url.substring(url.lastIndexOf(":") + 1);                        
+                Integer rpcPort = Integer.valueOf(s.substring(0, s.indexOf("/")));
+                Integer port = rpcPort + Start.getInstance().getConfig().portOffset;
+                url = url.replace(rpcPort.toString(), port.toString());
             }
             login = ServiceConfigUtil.getEngineParameter(engine, "login");
             password = ServiceConfigUtil.getEngineParameter(engine, "password");
