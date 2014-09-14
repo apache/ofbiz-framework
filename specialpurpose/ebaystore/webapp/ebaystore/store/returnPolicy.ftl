@@ -23,7 +23,7 @@ under the License.
     <#assign returnPolicyDetails = eBayDetails.getReturnPolicyDetails()>
 </#if>
 <#if !returnPolicyEnabled??><#assign not = "not"></#if>
-<#assign  title = "Return policy is "+not!+" enabled for this category.">
+<#assign  title = "Return policy is "+(not!)+" enabled for this category.">
 
 <form name="APIForm" id="APIForm" method="post" action="ReturnPolicyServlet" >
   <table align="center"  border="0">

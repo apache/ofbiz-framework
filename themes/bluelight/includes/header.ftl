@@ -96,7 +96,7 @@ under the License.
 <#assign organizationLogoLinkURL = "${layoutSettings.organizationLogoLinkUrl!}">
 
 <#if person?has_content>
-  <#assign userName = person.firstName! + " " + person.middleName! + " " + person.lastName!>
+  <#assign userName = (person.firstName!) + " " + (person.middleName!) + " " + person.lastName!>
 <#elseif partyGroup?has_content>
   <#assign userName = partyGroup.groupName!>
 <#elseif userLogin??>
