@@ -25,8 +25,12 @@ under the License.
 </div>
 <!-- footer -->
 <div id="footer">
-    <div class="poweredBy"><span>Powered by <a href="http://ofbiz.apache.org" class="noicon">OFBiz</a></span><span>Copyright 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a></span><span><#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" /></span></div>
-
+    <div class="poweredBy">
+      <span>
+        ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" class="noicon">OFBiz</a></span><span>Copyright 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a>
+        <#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" /> <#attempt> - ${uiLabelMap.CommonDeployedThe} <#include "ofbizhome://runtime/deployedThe.ftl" /><#recover></#attempt>
+      </span>
+    </div> 
 </div>
 <!-- footer -->
 </body>
