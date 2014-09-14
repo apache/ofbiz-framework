@@ -89,10 +89,10 @@ public final class ServiceEngine {
             for (Element serviceLocationElement : serviceLocationElementList) {
                 String location = serviceLocationElement.getAttribute("location").intern();
                 if (location.contains("localhost") && Start.getInstance().getConfig().portOffset != 0) {
-                    Integer port = 1099 + Start.getInstance().getConfig().portOffset;
-                    location = location.replace("1099", port.toString());
-                    port = 8080 + Start.getInstance().getConfig().portOffset;
-                    location = location.replace("8080", port.toString());
+                    String s = location.substring(location.lastIndexOf(":") + 1);                        
+                    Integer locationPort = Integer.valueOf(s.substring(0, s.indexOf("/")));                    
+                    Integer port = locationPort + Start.getInstance().getConfig().portOffset;
+                    location = location.replace(locationPort.toString(), port.toString());
                 }
                 serviceLocations.add(new ServiceLocation(serviceLocationElement, location));
             }
