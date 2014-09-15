@@ -38,9 +38,8 @@ import java.util.Set;
 import javolution.util.FastList;
 import javolution.util.FastSet;
 
-import org.ofbiz.base.location.ComponentLocationResolver;
-
 import org.apache.commons.io.FileUtils;
+import org.ofbiz.base.location.ComponentLocationResolver;
 
 /**
  * File Utilities
@@ -294,6 +293,7 @@ public class FileUtil {
             }
         }
 
+        @Override
         public boolean accept(File dir, String name) {
             File file = new File(dir, name);
             if (file.getName().startsWith(".")) {
@@ -395,4 +395,20 @@ public class FileUtil {
            return false;
        }
    }
+   
+   /**
+   *
+   *
+   * Check if the specified <code>fileName</code> exists and is a file (not a directory)
+   * If the specified file doesn't exist, <code>FALSE</code> returns.
+   *
+   * @param fileName A full path to a file in which the String will be searched.
+   * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
+   *         <code>FALSE</code> otherwise.
+   */
+   public static boolean isFile(String fileName) {
+       File f = new File(fileName);
+       return f.isFile();
+   }
+   
 }
