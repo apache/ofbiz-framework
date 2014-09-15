@@ -400,7 +400,7 @@ public class FileUtil {
    *
    *
    * Check if the specified <code>fileName</code> exists and is a file (not a directory)
-   * If the specified file doesn't exist, <code>FALSE</code> returns.
+   * If the specified file doesn't exist or is a directory <code>FALSE</code> returns.
    *
    * @param fileName A full path to a file in which the String will be searched.
    * @return <code>TRUE</code> if the <code>fileName</code> exists and is a file (not a directory)
