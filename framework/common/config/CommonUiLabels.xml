@@ -2766,8 +2766,28 @@
         <value xml:lang="zh">删除该小窗口</value>
         <value xml:lang="zh_TW">删除此Portlet</value>
     </property>
-    <property key="CommonDeployedThe">
-        <value xml:lang="en">Deployed the</value>
+    <property key="CommonDepth">
+        <value xml:lang="ar">عمق</value>
+        <value xml:lang="cs">Hloubka</value>
+        <value xml:lang="de">Tiefe</value>
+        <value xml:lang="en">Depth</value>
+        <value xml:lang="es">Profundidad</value>
+        <value xml:lang="fr">Profondeur</value>
+        <value xml:lang="hi-IN">गहराई</value>
+        <value xml:lang="it">Profondità</value>
+        <value xml:lang="ja">深度</value>
+        <value xml:lang="nl">Diepte</value>
+        <value xml:lang="pt">Profundidade</value>
+        <value xml:lang="ro">Adancime</value>
+        <value xml:lang="ru">Глубина</value>
+        <value xml:lang="th">ความลึก</value>
+        <value xml:lang="vi">Độ dày</value>
+        <value xml:lang="zh">深度</value>
+        <value xml:lang="zh-CN">深度</value>
+        <value xml:lang="zh_TW">深度</value>
+    </property>
+    <property key="CommonDeployedOn">
+        <value xml:lang="en">Deployed on</value>
         <value xml:lang="fr">Déployé le</value>
     </property>
     <property key="CommonDescription">
