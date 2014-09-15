@@ -263,18 +263,18 @@ under the License.
         <echo message="Done!"/>
     </target>
     
-    <target name="deployed-date-time"
+    <target name="deployed-on"
         description="Set the date and time of last deployment info in the footer.">
         <tstamp>
-            <format property="dateTime" pattern="yyyy/MM/dd HH:mm:ss"/>
+            <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
         </tstamp>
-        <echo message="${dateTime}" file="runtime/deployedThe.ftl"/>
+        <echo message="${dateTime}" file="runtime/deployedOn.ftl"/>
         <echo message="Done!"/>
     </target>
 
-    <target name="clean-deployed-date-time">
-        <echo message="Resetting deployed-date-time..."/>
-        <echo message=" " file="runtime/deployedThe.ftl"/>
+    <target name="clean-deployed-on">
+        <echo message="Resetting deployed-on..."/>
+        <delete file="runtime/deployedOn.ftl"/>
         <echo message="Done!"/>
     </target>    
     

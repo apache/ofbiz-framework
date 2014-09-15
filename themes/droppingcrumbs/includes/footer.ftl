@@ -28,7 +28,10 @@ under the License.
   <p>
     ${uiLabelMap.CommonCopyright} (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" target="_blank">www.apache.org</a><br />
     ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a> <#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" />
-    <#attempt> - ${uiLabelMap.CommonDeployedThe} <#include "ofbizhome://runtime/deployedThe.ftl" /><#recover></#attempt>
+    <#assign isDeployed = Static["org.ofbiz.base.util.FileUtil"].isFile("runtime/deployedOn.ftl")?c />
+    <#if isDeployed == "true">
+      - ${uiLabelMap.CommonDeployedOn} <#include "ofbizhome://runtime/deployedOn.ftl" />
+    </#if>
   </p>
 </div>
 <#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
