@@ -30,7 +30,7 @@
         <value xml:lang="ru">Сущность</value>
         <value xml:lang="th">เอกลักษณ์</value>
         <value xml:lang="zh">实体</value>
-        <value xml:lang="zh_TW">個體</value>
+        <value xml:lang="zh_TW">資料實體</value>
     </property>
     <property key="ServerHitType.description.EVENT">
         <value xml:lang="de">Event</value>
@@ -82,6 +82,6 @@
         <value xml:lang="ru">Представление</value>
         <value xml:lang="th">ข้อคิดเห็น</value>
         <value xml:lang="zh">浏览</value>
-        <value xml:lang="zh_TW">瀏覽</value>
+        <value xml:lang="zh_TW">檢視</value>
     </property>
 </resource>

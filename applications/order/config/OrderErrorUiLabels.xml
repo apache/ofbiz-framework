@@ -1257,7 +1257,7 @@
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ค้นหาประเภทใบสั่งซื้อสินค้าผิดพลาด : </value>
         <value xml:lang="vi">Lỗi xảy ra : chọn loại đơn hàng không thành công : </value>
         <value xml:lang="zh">错误：查找订单类型失败： </value>
-        <value xml:lang="zh_TW">錯誤：查找訂單類型失敗： </value>
+        <value xml:lang="zh_TW">錯誤：查詢訂單類型失敗： </value>
     </property>
     <property key="OrderErrorProcessingOfflinePayments">
         <value xml:lang="de">Fehler bei der Verarbeitung der 'offline'-Zahlung. </value>
@@ -2261,7 +2261,7 @@
         <value xml:lang="th">กรุณาติดต่อบริการลูกค้า; ไม่ทราบรหัสการคืนค่าการชำระเงิน. </value>
         <value xml:lang="vi">Bạn hãy liên lạc với dịch vụ chăm sóc khách hàng; quá trình thanh toán trả về lỗi không xác định</value>
         <value xml:lang="zh">请与客户服务联系；未知的支付返回代码。 </value>
-        <value xml:lang="zh_TW">請與客戶服務聯系；未知的支付返回代碼。 </value>
+        <value xml:lang="zh_TW">請與客戶服務聯絡；未知的支付返回代碼。 </value>
     </property>
     <property key="OrderPleaseSelectEitherSaleOrPurchaseOrder">
         <value xml:lang="de">Bitten wählen Sie Verkaus- oder Beschaffungsauftrag. </value>
@@ -2533,7 +2533,7 @@
         <value xml:lang="th">ปัญหาด้วยการค้นหาเอนทิตี</value>
         <value xml:lang="vi">Lỗi xảy ra với thực thể tìm kiếm (entity lookup)</value>
         <value xml:lang="zh">查找实体时出现问题</value>
-        <value xml:lang="zh_TW">查找實體時出現問題</value>
+        <value xml:lang="zh_TW">查詢資料實體時出現問題</value>
     </property>
     <property key="OrderProblemWithEntityLookupSeeErrorLog">
         <value xml:lang="de">Problem beim lesen von der Datenbank, siehe Error-Log</value>
@@ -2548,7 +2548,7 @@
         <value xml:lang="th">ปัญหาด้วยการค้นหาเอนทิตี , ดูข้อผิดพลาดในลอก</value>
         <value xml:lang="vi">Lỗi xảy ra với thực thể tìm kiếm (entity lookup), bạn xem thêm vết lỗi</value>
         <value xml:lang="zh">查找实体事出现问题，参见错误日志</value>
-        <value xml:lang="zh_TW">查找實體事出現問題，參見錯誤日誌</value>
+        <value xml:lang="zh_TW">查詢資料實體事出現問題，參見錯誤日誌</value>
     </property>
     <property key="OrderProblemWithInvoiceCreationDigitalItemsNotFulfilled">
         <value xml:lang="de">Problem bei der Rechnungserstellung; Digitale Artikel konnten nicht ausgeliefert werden. </value>
@@ -2643,7 +2643,7 @@
         <value xml:lang="th">ปัญหาการเรียกวิธีการติดต่อจากรายการวิธีการติดต่อ</value>
         <value xml:lang="vi">Có lỗi xảy ra khi lấy thông tin liên lạc từ thông tin liên lạc của đơn hàng (order contact mech)</value>
         <value xml:lang="zh">从订单联系方式获得联系方式时出现问题</value>
-        <value xml:lang="zh_TW">從訂單聯系方式獲得聯系方式時出現問題</value>
+        <value xml:lang="zh_TW">從訂單聯絡方式獲得聯絡方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderContactMechs">
         <value xml:lang="de">Problem beim ermitteln der Auftrags-Kontaktinformation</value>
@@ -2658,7 +2658,7 @@
         <value xml:lang="th">ปัญหาการเรียกวิธีการติดต่อรายการสั่งซื้อ</value>
         <value xml:lang="vi">Có lỗi xảy ra khi lấy thông tin liên lạc của đơn hàng (order contact mech)</value>
         <value xml:lang="zh">获得订单联系方式时出现问题</value>
-        <value xml:lang="zh_TW">獲得訂單聯系方式時出現問題</value>
+        <value xml:lang="zh_TW">獲得訂單聯絡方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderItemTypeFor">
         <value xml:lang="de">Problem bei der Ermittlung der Auftrags-Positions-Art für : ${orderItemTypeId}</value>
@@ -2772,7 +2772,7 @@
         <value xml:lang="th">ปัญหาการจัดเก็บข้อมูลรายการข้อมูลการติดต่ออีเมล</value>
         <value xml:lang="vi">Lỗi xảy ra khi lưu trữ thông tin liên lạc thư điện tử của đơn hàng</value>
         <value xml:lang="zh">存储订单电子邮件联系信息时出现问题</value>
-        <value xml:lang="zh_TW">存儲訂單電子郵件聯系資訊時出現問題</value>
+        <value xml:lang="zh_TW">存儲訂單電子郵件聯絡資訊時出現問題</value>
     </property>
     <property key="OrderProblemsWithCheckPaymentAmountForRefund">
         <value xml:lang="de">Problem mit dem Betrag der Scheckzahlung für die Rückerstattung </value>
@@ -2824,7 +2824,7 @@
         <value xml:lang="th">ปัญหาด้วยการค้นหาประเภทการชำระเงิน. </value>
         <value xml:lang="vi">Lỗi xảy ra với tìm kiếm kiểu thanh toán.</value>
         <value xml:lang="zh">查找支付类型时出现问题。 </value>
-        <value xml:lang="zh_TW">查找支付類型時出現問題。 </value>
+        <value xml:lang="zh_TW">查詢支付類型時出現問題。 </value>
     </property>
     <property key="OrderProblemsWithTheRefundSeeLogs">
         <value xml:lang="de">Probleme mit Rückerstattung; siehe Logs</value>
@@ -4266,7 +4266,7 @@
         <value xml:lang="th">ไม่สามารถข้อมูลสร้างรายการซื้อสินค้าอีกครั้ง ${shoppingListId}</value>
         <value xml:lang="vi">Không thể tạo mới thông tin danh sách mua sắm lặp lại ${shoppingListId}</value>
         <value xml:lang="zh">无法创建购物列表重复使用信息 ${shoppingListId}</value>
-        <value xml:lang="zh_TW">無法創建購物列表重複使用資訊 ${shoppingListId}</value>
+        <value xml:lang="zh_TW">無法創建購物列表複製使用資訊 ${shoppingListId}</value>
     </property>
     <property key="OrderUnableToFindOrderHeaderCannotGetShippingAmount">
         <value xml:lang="de">Fehler beim Lesen von 'OrderHeader'; Versandmenge kann nicht ermittelt werden</value>
@@ -5410,7 +5410,7 @@
         <value xml:lang="th">Error : ผิดพลาด !</value>
         <value xml:lang="vi">Lỗi xảy ra: dòng đơn hàng tìm kiếm không thành công</value>
         <value xml:lang="zh">错误：查找销售订单行失败</value>
-        <value xml:lang="zh_TW">錯誤：查找銷售訂單行失敗</value>
+        <value xml:lang="zh_TW">錯誤：查詢銷售訂單行失敗</value>
     </property>
     <property key="checkhelper.select_method_of_payment">
         <value xml:lang="de">Bitte wählen Sie eine Zahlungsart.</value>

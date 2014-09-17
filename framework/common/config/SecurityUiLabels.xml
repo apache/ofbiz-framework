@@ -34,7 +34,7 @@
         <value xml:lang="ru">Добавить права (вручную) в SecurityGroup</value>
         <value xml:lang="th">เพิ่มการอนุมัติ(ด้วยมือ)ในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">(手工)把权限添加到安全组</value>
-        <value xml:lang="zh_TW">(手動)把權限添加到安全群組</value>
+        <value xml:lang="zh_TW">(手動)把權限增加到安全群組</value>
     </property>
     <property key="AddPermissionToSecurityGroup">
         <value xml:lang="de">Berechtigung (aus Liste) zur Sicherheitsgruppe hinzufügen</value>
@@ -51,7 +51,7 @@
         <value xml:lang="ru">Добавить права (из списка) в SecurityGroup</value>
         <value xml:lang="th">เพิ่มการอนุมัติ(จากรายการ)ในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">(从列表)把权限添加到安全组</value>
-        <value xml:lang="zh_TW">(從列表)把權限添加到安全群組</value>
+        <value xml:lang="zh_TW">(從清單)把權限增加到安全群組</value>
     </property>
     <property key="AddProtectedViewToSecurityGroup">
         <value xml:lang="de">Geschützte Ansicht zu Sicherheitsgruppe hinzufügen</value>
@@ -64,7 +64,7 @@
         <value xml:lang="pt_BR">Adicionar uma visão protegida ao SecurityGroup</value>
         <value xml:lang="ru">Добавить защищенный вид в SecurityGroup</value>
         <value xml:lang="zh">添加一个受保护的视图到安全组</value>
-        <value xml:lang="zh_TW">添加一個受保護的檢視到安全群組</value>
+        <value xml:lang="zh_TW">增加一個受保護的檢視到安全群組</value>
     </property>
     <property key="AddUserLoginToSecurityGroup">
         <value xml:lang="de">Benutzeranmeldung zur Sicherheitsgruppe hinzufügen</value>
@@ -81,7 +81,7 @@
         <value xml:lang="ru">Добавить имя пользователя в группу безопасности</value>
         <value xml:lang="th">เพิ่มผู้เข้าใช้ระบบในกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">把用户登录添加到安全组</value>
-        <value xml:lang="zh_TW">把使用者登入添加到安全群組</value>
+        <value xml:lang="zh_TW">把使用者登入增加到安全群組</value>
     </property>
     <property key="CertComponent">
         <value xml:lang="de">Komponente</value>
@@ -107,7 +107,7 @@
         <value xml:lang="pt_BR">Detalhes do certificado</value>
         <value xml:lang="ru">Подробнее о сертификатах</value>
         <value xml:lang="zh">证书详细</value>
-        <value xml:lang="zh_TW">憑證明細</value>
+        <value xml:lang="zh_TW">憑證細項</value>
     </property>
     <property key="CertImportIssuer">
         <value xml:lang="de">Aussteller importieren</value>
@@ -343,7 +343,7 @@
         <value xml:lang="ja">外部認証ID</value>
         <value xml:lang="ru">Внешний Auth Id</value>
         <value xml:lang="zh">外部认证标识</value>
-        <value xml:lang="zh_TW">外部授權代號</value>
+        <value xml:lang="zh_TW">外部授權識別</value>
     </property>
     <property key="FormFieldTitle_hasLoggedOut">
         <value xml:lang="de">Hat sich abgemeldet</value>
@@ -412,7 +412,7 @@
         <value xml:lang="ru">Новый пароль повторно</value>
         <value xml:lang="th">ยืนยันรหัสผ่านใหม่</value>
         <value xml:lang="zh">新密码验证</value>
-        <value xml:lang="zh_TW">新密碼驗証</value>
+        <value xml:lang="zh_TW">新密碼驗證</value>
     </property>
     <property key="FormFieldTitle_passwordHint">
         <value xml:lang="de">Passwort Hinweis</value>
@@ -490,7 +490,7 @@
         <value xml:lang="ru">Код имени пользователя</value>
         <value xml:lang="th">รหัสผู้ใช้ที่เข้าสู่ระบบ</value>
         <value xml:lang="zh">用户登录标识</value>
-        <value xml:lang="zh_TW">使用者登入代號</value>
+        <value xml:lang="zh_TW">使用者登入識別</value>
     </property>
     <property key="FormFieldTitle_viewNameId">
         <value xml:lang="de">Ansicht Name</value>
@@ -503,7 +503,7 @@
         <value xml:lang="pt_BR">Ver nome</value>
         <value xml:lang="ru">Просмотр имени</value>
         <value xml:lang="zh">浏览名称</value>
-        <value xml:lang="zh_TW">瀏覽名稱</value>
+        <value xml:lang="zh_TW">檢視名稱</value>
     </property>
     <property key="LookupUserLogin">
         <value xml:lang="de">Benutzer Anmeldung suchen</value>
@@ -514,6 +514,7 @@
         <value xml:lang="pt_BR">Pesquisar Nome de Usuário</value>
         <value xml:lang="ru">Поиск логина пользователя</value>
         <value xml:lang="zh">查詢使用者登入代號</value>
+        <value xml:lang="zh_TW">查詢使用者登入代號</value>
     </property>
     <property key="NewSecurityGroup">
         <value xml:lang="de">Neue Sicherheitsgruppe</value>
@@ -545,7 +546,7 @@
         <value xml:lang="ru">Добавить условный эмитент</value>
         <value xml:lang="th">เพิ่มการจำแนกเงื่อนไข</value>
         <value xml:lang="zh">添加发行人信息</value>
-        <value xml:lang="zh_TW">添加發行人資訊</value>
+        <value xml:lang="zh_TW">增加發行人資訊</value>
     </property>
     <property key="PageTitleEditIssuerProvisions">
         <value xml:lang="de">Aussteller Bestimmungen bearbeiten</value>
@@ -658,7 +659,7 @@
         <value xml:lang="ru">Код прав</value>
         <value xml:lang="th">รหัสใบอนุญาต</value>
         <value xml:lang="zh">权限标识</value>
-        <value xml:lang="zh_TW">權限代號</value>
+        <value xml:lang="zh_TW">權限識別</value>
     </property>
     <property key="Permissions">
         <value xml:lang="de">Berechtigungen</value>
@@ -722,7 +723,7 @@
         <value xml:lang="ru">Список групп безопасности</value>
         <value xml:lang="th">รายการกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">安全组列表</value>
-        <value xml:lang="zh_TW">安全群組列表</value>
+        <value xml:lang="zh_TW">安全群組清單</value>
     </property>
     <property key="SecurityViewPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Sie haben nicht die Berechtigung diese Seite anzusehen. ("SECURITY_VIEW" oder "SECURITY_ADMIN" benötigt) </value>
@@ -739,7 +740,7 @@
         <value xml:lang="ru">SecurityViewPermissionError У вас нет прав на просмотр этой страницы. (необходимы "SECURITY_VIEW" или "SECURITY_ADMIN")</value>
         <value xml:lang="th">ผิดพลาด ! ความปลอดภัยของกลุ่มผู้ใช้ในการได้รับอนุญาตในการดู  คุณยังไม่ได้รับอุญาตให้ดูหน้านี้ ("SECURITY_VIEW" หรือ "SECURITY_ADMIN" ตามที่คุณต้องการ)</value>
         <value xml:lang="zh">SecurityViewPermissionError 你没有权限浏览本页面。 (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
-        <value xml:lang="zh_TW">SecurityViewPermissionError 你沒有權限瀏覽本頁面。 (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
+        <value xml:lang="zh_TW">SecurityViewPermissionError 你沒有權限檢視本頁面. (需要"SECURITY_VIEW" 或 "SECURITY_ADMIN")</value>
     </property>
     <property key="UserLogin">
         <value xml:lang="de">Benutzeranmeldung</value>
@@ -815,6 +816,6 @@
         <value xml:lang="ru">Просмотр сертификата</value>
         <value xml:lang="th">แสดงความมั่นใจ</value>
         <value xml:lang="zh">浏览证书</value>
-        <value xml:lang="zh_TW">瀏覽憑證</value>
+        <value xml:lang="zh_TW">檢視憑證</value>
     </property>
 </resource>

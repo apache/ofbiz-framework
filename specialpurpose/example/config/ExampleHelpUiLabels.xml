@@ -25,5 +25,6 @@
         <value xml:lang="it">Un esempio di schermata di aiuto.</value>
         <value xml:lang="ja">ヘルプ画面のサンプル。</value>
         <value xml:lang="zh">帮助屏幕的样例</value>
+        <value xml:lang="zh_TW">説明螢幕的範例</value>
     </property>
 </resource>

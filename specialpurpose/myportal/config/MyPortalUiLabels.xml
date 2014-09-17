@@ -52,7 +52,7 @@
         <value xml:lang="zh_TW">最終使用客戶</value>
         <value xml:lang="vi">Khách hàng người dùng cuối</value>
         <value xml:lang="zh">最终用户</value>
-    </property>    
+    </property>
     <property key="MyPortalFirstNameMissing">
         <value xml:lang="en">Your firstName is missing</value>
         <value xml:lang="fr">Votre prénom est absent</value>
@@ -124,7 +124,7 @@
         <value xml:lang="th">การลงทะเบียนใหม่สำหรับบุคคลได้ทำการเสร็จสิ้นสมบูรณ์แล้ว...สามารถเข้าสู่ระบบได้ </value>
         <value xml:lang="vi">Người dùng mới đă đăng ký thành công...Làm ơn</value>
         <value xml:lang="zh">完成新人员注册...请</value>
-        <value xml:lang="zh_TW">註冊新的使用者完成...請</value>
+        <value xml:lang="zh_TW">註冊新的消費者完成...請</value>
     </property>
     <property key="MyPortalReloadImage">
         <value xml:lang="en">reload image</value>
@@ -226,7 +226,7 @@
         <value xml:lang="ja">ポータルページの検索</value>
         <value xml:lang="vi">Tìm trang trên Cổng thông tin</value>
         <value xml:lang="zh">查找门户页面</value>
-        <value xml:lang="zh_TW">查找入口網頁</value>
+        <value xml:lang="zh_TW">尋找入口網頁</value>
     </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>

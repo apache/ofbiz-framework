@@ -31,7 +31,7 @@
         <value xml:lang="th">ความต้องการของตัวแปร 'delegator' ไม่ถูกต้อง
         </value>
         <value xml:lang="zh">所需的参数 'delegator' 没有传递过来。</value>
-        <value xml:lang="zh_TW">所需的參數 'delegator' 沒有傳遞過來。</value>
+        <value xml:lang="zh_TW">所需的參數 'delegator' 沒有傳遞過來.</value>
     </property>
     <property key="coreEvents.dispatcher_context_null">
         <value xml:lang="de">Dispatch Kontext ist leer</value>
@@ -45,7 +45,7 @@
         <value xml:lang="th">รายละเอียดของสิ่งที่ส่งไปเป็นค่าว่าง
         </value>
         <value xml:lang="zh">执行context是null</value>
-        <value xml:lang="zh_TW">執行context是null</value>
+        <value xml:lang="zh_TW">執行coNtext是null</value>
     </property>
     <property key="coreEvents.dispatcher_name_null">
         <value xml:lang="de">Dispatcher Name ist leer</value>
@@ -85,7 +85,7 @@
         <value xml:lang="th">ผิดพลาด ! ในการค้นหา ModelService สำหรับ serviceName
         </value>
         <value xml:lang="zh">为服务名称查找ModelService时出错</value>
-        <value xml:lang="zh_TW">為服務名稱尋找ModelService時出錯</value>
+        <value xml:lang="zh_TW">按服務名稱查詢ModelService時出錯</value>
     </property>
     <property key="coreEvents.invalid_format_count">
         <value xml:lang="de">Falsches Format für SERVICE_COUNT</value>
@@ -150,7 +150,7 @@
         <value xml:lang="ru">Вы должны указать 'SERVICE_NAME' (другие параметры: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="th">คุณต้องระบุ 'SERVICE_NAME' (รวมถึงตัวแปรอื่น ๆ: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
         <value xml:lang="zh">你必须指定一个 'SERVICE_NAME' (其它参数包括： SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
-        <value xml:lang="zh_TW">你必須指定一個 'SERVICE_NAME' (其他參數包括： SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
+        <value xml:lang="zh_TW">你必須指定一個 'SERVICE_NAME' (其他參數包括: SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
     </property>
     <property key="coreEvents.must_specify_service_name">
         <value xml:lang="de">Sie müssen einen Servicenamen 'SERVICE_NAME' und optional einen Modus angeben (sync oder async, standardmässig auf sync)</value>
@@ -163,7 +163,7 @@
         <value xml:lang="ru">Вы должны указать 'serviceName', и не объязательно 'mode' (sync или async, обычное значение sync)</value>
         <value xml:lang="th">คุณต้องระบุ 'serviceName', และเลือก 'mode' (sync หรือ async, ค่ามาตรฐานถึง sync)</value>
         <value xml:lang="zh">你必须指定一个'服务名称'，'状态'可选 (同步或异步，缺省是同步)</value>
-        <value xml:lang="zh_TW">你必須指定一個'服務名稱'，'狀態'可選 (同步或非同步，預設是同步)</value>
+        <value xml:lang="zh_TW">你必須指定一個'服務名稱','狀態'可選 (同步或非同步,預設是同步)</value>
     </property>
     <property key="coreEvents.no_delegator_name_defined">
         <value xml:lang="de">Kein Delegator definiert mit diesem Namen</value>
@@ -217,7 +217,7 @@
         <value xml:lang="th">คุณไม่สามารถเรียก service ออกมาได้ คุณต้องเข้าสู่ระบบและได้รับอนุญาตจาก SERVICE_INVOKE_ANY ก่อน
         </value>
         <value xml:lang="zh">你无权调用这个非输出的服务，你必须登录，并具有SERVICE_INVOKE_ANY权限才行</value>
-        <value xml:lang="zh_TW">你無權呼叫這個非輸出的服務，你必須登入，並具有SERVICE_INVOKE_ANY權限才行</value>
+        <value xml:lang="zh_TW">你無權呼叫這個非輸出的服務,你必須登入,並具有SERVICE_INVOKE_ANY權限才行</value>
     </property>
     <property key="coreEvents.not_authorized_use_fct">
         <value xml:lang="de">Sie sind nicht berechtigt, diese Funktion zu verwenden</value>
@@ -269,7 +269,7 @@
         <value xml:lang="ru">Не могу найти службу с serviceName</value>
         <value xml:lang="th">ไม่พบ service ด้วย serviceName นี้</value>
         <value xml:lang="zh">无法找到这个服务：服务名称</value>
-        <value xml:lang="zh_TW">無法找到這個服務：服務名稱</value>
+        <value xml:lang="zh_TW">無法找到這個服務:服務名稱</value>
     </property>
     <property key="coreEvents.service_scheduled">
         <value xml:lang="de">Service wurde eingeplant</value>
@@ -303,7 +303,7 @@
         <value xml:lang="it">Questo è il messaggio bloccante (che deve essere adattato).</value>
         <value xml:lang="ja">これはブロックされたメッセージです(適用してください)。</value>
         <value xml:lang="zh">这是(要被采用的)被阻塞的信息。</value>
-        <value xml:lang="zh_TW">這是(要被採用的)被阻塞的資訊。</value>
+        <value xml:lang="zh_TW">這是(要被採用的)被阻塞的資訊.</value>
     </property>
     <property key="protectedviewevents.tarpitted_message">
         <value xml:lang="en">This is the tarpitted message (to be adapted).</value>
@@ -311,7 +311,7 @@
         <value xml:lang="it">Questo è il messaggio (che deve essere adattato).</value>
         <value xml:lang="ja">これは応答遅延メッセージです(適用してください)。</value>
         <value xml:lang="zh">这是(要被采用的)被延迟的信息。</value>
-        <value xml:lang="zh_TW">這是(要被採用的)被延遲的資訊。</value>
+        <value xml:lang="zh_TW">這是(要被採用的)被延遲的資訊.</value>
     </property>
     <property key="requestHandler.error_call_event">
         <value xml:lang="de">Fehler beim Aufruf eines Events</value>

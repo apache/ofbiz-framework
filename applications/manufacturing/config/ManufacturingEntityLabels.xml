@@ -30,7 +30,7 @@
         <value xml:lang="th">การสร้างใบเสร็จรับเงิน</value>
         <value xml:lang="vi">Biên nhận</value>
         <value xml:lang="zh">制造订单收据</value>
-        <value xml:lang="zh_TW">制造訂單收據</value>
+        <value xml:lang="zh_TW">製造訂單收據</value>
     </property>
     <property key="MrpEventType.description.MANUF_ORDER_REQ">
         <value xml:lang="en">Manufacturing Order requirement</value>
@@ -43,7 +43,7 @@
         <value xml:lang="th">การสร้างรายการสั่งซื้อตามความต้องการ</value>
         <value xml:lang="vi">Yêu cầu đặt hàng</value>
         <value xml:lang="zh">制造订单需求</value>
-        <value xml:lang="zh_TW">制造訂單需求</value>
+        <value xml:lang="zh_TW">製造訂單需求</value>
     </property>
     <property key="MrpEventType.description.MRP_REQUIREMENT">
         <value xml:lang="en">Mrp requirement</value>
@@ -69,7 +69,7 @@
         <value xml:lang="th">การสร้างใบเสร็จรับเงินตามวัตถุประสงค์</value>
         <value xml:lang="vi">Biên nhận đề xuất sản xuất</value>
         <value xml:lang="zh">已提交的制造订单收据</value>
-        <value xml:lang="zh_TW">已提交的制造訂單收據</value>
+        <value xml:lang="zh_TW">已提交的製造訂單收據</value>
     </property>
     <property key="MrpEventType.description.PROP_PUR_O_RECP">
         <value xml:lang="en">Proposed Purchase Order receipt</value>
@@ -82,7 +82,7 @@
         <value xml:lang="th">ใบสั่งซื้อสินค้าตามวัตถุประสงค์</value>
         <value xml:lang="vi">Biên nhận đề xuất bán</value>
         <value xml:lang="zh">已提交的购物订单收据</value>
-        <value xml:lang="zh_TW">已提交的購物訂單收據</value>
+        <value xml:lang="zh_TW">已提交的採購訂單收據</value>
     </property>
     <property key="MrpEventType.description.PUR_ORDER_RECP">
         <value xml:lang="en">Purchase Order receipt</value>
@@ -121,7 +121,7 @@
         <value xml:lang="th">ปฏิทินมาตรฐานใช้เมื่อไม่มีการระบุปฏิทินโดยเฉพาะ</value>
         <value xml:lang="vi">Lịch mặc định áp dụng khi không có Lịch nào được định nghĩa</value>
         <value xml:lang="zh">当没有指定日历时所用的缺省日历</value>
-        <value xml:lang="zh_TW">當沒有指定日歷時所用的缺省日歷</value>
+        <value xml:lang="zh_TW">當沒有指定日曆時所用的預設日曆</value>
     </property>
     <property key="TechDataCalendar.description.DEMO_CALENDAR">
         <value xml:lang="en">Demo Workcenter Calendar</value>
@@ -130,7 +130,7 @@
         <value xml:lang="pt_BR">Calendário de demonstração</value>
         <value xml:lang="vi">Lịch ví dụ</value>
         <value xml:lang="zh">演示作业中心日历</value>
-        <value xml:lang="zh_TW">演示作業中心日歷</value>
+        <value xml:lang="zh_TW">演示作業中心日曆</value>
     </property>
     <property key="TechDataCalendar.description.DRYING">
         <value xml:lang="en">DRYING</value>
@@ -143,7 +143,7 @@
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="vi">SẤY KHÔ</value>
         <value xml:lang="zh">烘干车间日历</value>
-        <value xml:lang="zh_TW">烘幹車間日歷</value>
+        <value xml:lang="zh_TW">烘幹車間日曆</value>
     </property>
     <property key="TechDataCalendar.description.MACHINING">
         <value xml:lang="en">MACHINING</value>
@@ -156,7 +156,7 @@
         <value xml:lang="th">ปฏิทินของระบบการปฎิบัติงาน</value>
         <value xml:lang="vi">GIA CÔNG</value>
         <value xml:lang="zh">加工车间日历</value>
-        <value xml:lang="zh_TW">加工車間日歷</value>
+        <value xml:lang="zh_TW">加工車間日曆</value>
     </property>
     <property key="TechDataCalendar.description.SUPPLIER">
         <value xml:lang="en">Calendar used for Re-Order date calculation for bought product</value>
@@ -169,7 +169,7 @@
         <value xml:lang="th">ปฏิทินใช้สำหรับวันที่มีการคำนวณรายการสั่งสินค้าสำหรับซื้อสินค้า</value>
         <value xml:lang="vi">Lịch sử dụng cho 'tính toàn ngày Đặt hàng lại' để mua sản phẩm</value>
         <value xml:lang="zh">购买产品时计算重新排订单日期所用的日历</value>
-        <value xml:lang="zh_TW">購買產品時計算重新排訂單日期所用的日歷</value>
+        <value xml:lang="zh_TW">購買產品時計算重新排訂單日期所用的日曆</value>
     </property>
     <property key="TechDataCalendarWeek.description.DEFAULT">
         <value xml:lang="en">8hours/days</value>
@@ -191,7 +191,7 @@
         <value xml:lang="pt_BR">Calendário semanal de demonstração de 8 horas/dia 5 dias/semana começando às 8:30h de segunda à sexta-feira</value>
         <value xml:lang="vi">Lịch ví dụ 1 tuần gồm 8 giờ/ngày và 5 ngày/tuần, bắt đầu từ 8 giờ 30 sáng từ thứ Hai đến thứ Sáu</value>
         <value xml:lang="zh">演示每周5天、每天8小时、周一至周五从8:30开始的日历周</value>
-        <value xml:lang="zh_TW">演示每周5天、每天8小時、周一至周五從8:30開始的日歷周</value>
+        <value xml:lang="zh_TW">演示每週5天、每天8小時、週一至週五從8:30開始的日曆週</value>
     </property>
     <property key="TechDataCalendarWeek.description.HOLIDAY">
         <value xml:lang="en">HOLIDAY</value>
@@ -204,7 +204,7 @@
         <value xml:lang="th">ปฏิทินวันหยุด</value>
         <value xml:lang="vi">NGÀY NGHỈ</value>
         <value xml:lang="zh">节假日日历—— 0小时/天、0天/周</value>
-        <value xml:lang="zh_TW">節假日日歷—— 0小時/天、0天/周</value>
+        <value xml:lang="zh_TW">節假日日曆—— 0小時/天、0天/週</value>
     </property>
     <property key="TechDataCalendarWeek.description.STD24H-7D">
         <value xml:lang="en">STD24H-7D</value>
@@ -217,7 +217,7 @@
         <value xml:lang="th">ปฏิทินมาตรฐานกำหนดให้เป็น 24 ชั่วโมงหรือ 7 วัน</value>
         <value xml:lang="vi">24 Giờ / 7 Ngày</value>
         <value xml:lang="zh">标准日历——24小时/天、7天/周</value>
-        <value xml:lang="zh_TW">標准日歷——24小時/天、7天/周</value>
+        <value xml:lang="zh_TW">標準日曆——24小時/天、7天/週</value>
     </property>
     <property key="TechDataCalendarWeek.description.STD8H-5D">
         <value xml:lang="en">STD8H-5D</value>
@@ -230,7 +230,7 @@
         <value xml:lang="th">ปฏิทินมาตรฐาน 8 ชั่วโมง/5 วัน/กำหนดให้เริ่ม 8:30</value>
         <value xml:lang="vi">8 Giờ / 5 Ngày</value>
         <value xml:lang="zh">标准日历——8小时/天、5天/周、周一至周五8:30开始</value>
-        <value xml:lang="zh_TW">標准日歷——8小時/天、5天/周、周一至周五8:30開始</value>
+        <value xml:lang="zh_TW">標準日曆——8小時/天、5天/週、週一至週五8:30開始</value>
     </property>
     <property key="TechDataCalendarWeek.description.SUPPLIER">
         <value xml:lang="en">8hours/days, currently the Re-Order Process convert day to mms with 8h/days</value>
@@ -243,6 +243,6 @@
         <value xml:lang="th">8 ชั่วโมง/วัน, ขณะนี้รายการสั่งซื้อกำลังประมวลผลในการเปลี่ยนวันไปเป็น mms ด้วย 8 ชั่วโมง/วัน</value>
         <value xml:lang="vi">8 Giờ / Ngày, tiến trình Đặt hàng lại (Re-Order Process) chuyển đổi ngày sang mms với 8 giờ / ngày</value>
         <value xml:lang="zh">8小时/天，目前重新排订单过程会把天按8小时/天转换为百万毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
-        <value xml:lang="zh_TW">8小時/天，目前重新排訂單過程會把天按8小時/天轉換為百萬毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
+        <value xml:lang="zh_TW">8小時/天,目前重新排訂單過程會把天按8小時/天轉換為百萬毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
     </property>
 </resource>

@@ -56,7 +56,7 @@
         <value xml:lang="th">อัตรามาตรฐานทุก ๆ ชั่วโมง</value>
         <value xml:lang="vi">Tỷ lệ trong giờ (hành chính)</value>
         <value xml:lang="zh">标准小时价格</value>
-        <value xml:lang="zh_TW">標准小時價格</value>
+        <value xml:lang="zh_TW">標準小時價格</value>
     </property>
     <property key="RateType.description.FLC">
         <value xml:lang="en">Hourly rate - Fully loaded costprice</value>
@@ -72,7 +72,7 @@
         <value xml:lang="th">Routing และ Routing กลุ่มภารกิจ</value>
         <value xml:lang="vi">Quy trình và các Tác vụ - Đầu việc của quy trình</value>
         <value xml:lang="zh">路线与路线任务关联</value>
-        <value xml:lang="zh_TW">路線與路線任務關聯</value>
+        <value xml:lang="zh_TW">路線與路線任務結合</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_BREAKDOWN">
         <value xml:lang="en">Breakdown/Detail</value>
@@ -140,7 +140,7 @@
         <value xml:lang="th">Precedency</value>
         <value xml:lang="vi">Quyền ưu tiên</value>
         <value xml:lang="zh">优先级</value>
-        <value xml:lang="zh_TW">優先級</value>
+        <value xml:lang="zh_TW">居先</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_TASK">
         <value xml:lang="en">Task</value>
@@ -165,7 +165,7 @@
         <value xml:lang="th">ของเทมเพลต</value>
         <value xml:lang="vi">Biểu mẫu dành cho</value>
         <value xml:lang="zh">模板</value>
-        <value xml:lang="zh_TW">範本</value>
+        <value xml:lang="zh_TW">模板</value>
     </property>
     <property key="WorkEffortPurposeType.description.ROU_ASSEMBLING">
         <value xml:lang="en">Assembling</value>
@@ -191,7 +191,7 @@
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="vi">Nhà sản xuất</value>
         <value xml:lang="zh">制造</value>
-        <value xml:lang="zh_TW">制造</value>
+        <value xml:lang="zh_TW">製造</value>
     </property>
     <property key="WorkEffortPurposeType.description.ROU_SUBCONTRACTING">
         <value xml:lang="en">Sub-contracting</value>
@@ -287,7 +287,7 @@
         <value xml:lang="th">ดำเนินการผลิต</value>
         <value xml:lang="vi">Khai thác sản phẩm</value>
         <value xml:lang="zh">实际运行</value>
-        <value xml:lang="zh_TW">實際運行</value>
+        <value xml:lang="zh_TW">生產運行</value>
     </property>
     <property key="WorkEffortPurposeType.description.WEPT_PROJECT">
         <value xml:lang="en">Project</value>
@@ -367,7 +367,7 @@
         <value xml:lang="th">ขั้นตอนกิจกรรม</value>
         <value xml:lang="vi">Tác vụ - Đầu việc theo quy trình</value>
         <value xml:lang="zh">工作流活动</value>
-        <value xml:lang="zh_TW">工作流活動</value>
+        <value xml:lang="zh_TW">工作流程活動</value>
     </property>
     <property key="WorkEffortType.description.ASSET_USAGE">
         <value xml:lang="en">Fixed Asset Usage (rental)</value>
@@ -447,6 +447,7 @@
         <value xml:lang="nl">Mijlpaal</value>
         <value xml:lang="vi">Mốc thời gian</value>
         <value xml:lang="zh">里程碑</value>
+        <value xml:lang="zh_TW">里程碑</value>
     </property>
     <property key="WorkEffortType.description.PERSONAL_TIMEOFF">
         <value xml:lang="en">Personal Time Off</value>
@@ -479,7 +480,7 @@
         <value xml:lang="nl">Fase template</value>
         <value xml:lang="vi">Mẫu pha dự án</value>
         <value xml:lang="zh">项目阶段模板</value>
-        <value xml:lang="zh_TW">專案階段範本</value>
+        <value xml:lang="zh_TW">專案階段模板</value>
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_HEADER">
         <value xml:lang="en">Production Run Header</value>
@@ -492,7 +493,7 @@
         <value xml:lang="th">หัวข้อดำเนินการการผลิต</value>
         <value xml:lang="vi">Phần đầu khai thác sản phẩm</value>
         <value xml:lang="zh">实际运行头</value>
-        <value xml:lang="zh_TW">實際運行頭</value>
+        <value xml:lang="zh_TW">生產運行頭</value>
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_TASK">
         <value xml:lang="en">Production Run Task</value>
@@ -505,7 +506,7 @@
         <value xml:lang="th">งานดำเนินการการผลิต</value>
         <value xml:lang="vi">Tác vụ - Đầu việc khai thác sản phẩm</value>
         <value xml:lang="zh">实际运行任务</value>
-        <value xml:lang="zh_TW">實際運行任務</value>
+        <value xml:lang="zh_TW">生產運行任務</value>
     </property>
     <property key="WorkEffortType.description.PROGRAM">
         <value xml:lang="en">Program</value>
@@ -541,7 +542,7 @@
         <value xml:lang="ja">プロジェクトテンプレート</value>
         <value xml:lang="vi">Biểu mẫu dự án</value>
         <value xml:lang="zh">项目模板</value>
-        <value xml:lang="zh_TW">專案範本</value>
+        <value xml:lang="zh_TW">專案模板</value>
     </property>
     <property key="WorkEffortType.description.PUBLISH_PROPS">
         <value xml:lang="en">Publish Properties</value>
@@ -550,7 +551,7 @@
         <value xml:lang="ja">公開プロパティ</value>
         <value xml:lang="vi">Thuộc tính xuất bản</value>
         <value xml:lang="zh">发布属性</value>
-        <value xml:lang="zh_TW">發布屬性</value>
+        <value xml:lang="zh_TW">發行屬性</value>
     </property>
     <property key="WorkEffortType.description.ROUTING">
         <value xml:lang="en">Routing</value>
@@ -600,7 +601,7 @@
         <value xml:lang="nl">Taak template</value>
         <value xml:lang="vi">Biểu mẫu công việc dự án</value>
         <value xml:lang="zh">项目任务模板</value>
-        <value xml:lang="zh_TW">專案任務範本</value>
+        <value xml:lang="zh_TW">專案任務模板</value>
     </property>
     <property key="WorkEffortType.description.TEMPLATE">
         <value xml:lang="en">Template</value>
@@ -609,7 +610,7 @@
         <value xml:lang="ja">テンプレート</value>
         <value xml:lang="vi">Biểu mẫu</value>
         <value xml:lang="zh">模板</value>
-        <value xml:lang="zh_TW">範本</value>
+        <value xml:lang="zh_TW">模板</value>
     </property>
     <property key="WorkEffortType.description.TRAINING">
         <value xml:lang="en">Training</value>
@@ -618,6 +619,7 @@
         <value xml:lang="ja">教育訓練</value>
         <value xml:lang="vi">Đào tạo</value>
         <value xml:lang="zh">培训</value>
+        <value xml:lang="zh_TW">教育訓練</value>
     </property>
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
@@ -630,7 +632,7 @@
         <value xml:lang="th">วิธีการขั้นตอนการทำงาน</value>
         <value xml:lang="vi">Tiến trình của quy trình</value>
         <value xml:lang="zh">工作流流程</value>
-        <value xml:lang="zh_TW">工作流流程</value>
+        <value xml:lang="zh_TW">工作流程程序</value>
     </property>
     <property key="WorkflowParticipantType.description.HUMAN">
         <value xml:lang="en">HUMAN</value>

@@ -27,7 +27,7 @@
         <value xml:lang="ru">Ключ дубликат. Ключ уже существует.</value>
         <value xml:lang="vi">Khóa đã tồn tại và bị trùng.</value>
         <value xml:lang="zh">键重复了。该键已存在。</value>
-        <value xml:lang="zh_TW">鍵值重複。該鍵值已存在。</value>
+        <value xml:lang="zh_TW">鍵值重複.該鍵值已存在.</value>
     </property>
     <property key="ImageTransform.error_occurs_during_reading">
         <value xml:lang="da">Der opstår en fejl under læsning</value>
@@ -57,7 +57,7 @@
         <value xml:lang="ru">Предыдущая ошибка документа была полностью проанализированна</value>
         <value xml:lang="vi">Có sự cố xảy ra nên hệ thống không thể phân tích được tài liệu</value>
         <value xml:lang="zh">发生错误阻止了文档完全解析</value>
-        <value xml:lang="zh_TW">發生錯誤使文檔無法被完整解析</value>
+        <value xml:lang="zh_TW">發生錯誤使檔無法被完整解析</value>
     </property>
     <property key="ImageTransform.errors_occurred_during_parsing">
         <value xml:lang="da">Der opstod fejl under oversættelse</value>
@@ -87,7 +87,7 @@
         <value xml:lang="ru">Финальный масштабный фактор - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa ảnh</value>
         <value xml:lang="zh">最终的缩放因子是null</value>
-        <value xml:lang="zh_TW">最終的縮放因子是null</value>
+        <value xml:lang="zh_TW">最終的縮放因數是null</value>
     </property>
     <property key="ImageTransform.height_scale_factor_is_null">
         <value xml:lang="da">Høj skala faktor er null</value>
@@ -102,7 +102,7 @@
         <value xml:lang="ru">Высота масшнатобного фактора - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều cao ảnh</value>
         <value xml:lang="zh">高度缩放因子是null</value>
-        <value xml:lang="zh_TW">高度縮放因子是null</value>
+        <value xml:lang="zh_TW">高度縮放因數是null</value>
     </property>
     <property key="ImageTransform.input_is_null">
         <value xml:lang="da">Input er null</value>
@@ -177,6 +177,6 @@
         <value xml:lang="ru">Ширина масштабного фактора - ноль</value>
         <value xml:lang="vi">Thiếu Bộ xử lý chỉnh sửa chiều rộng ảnh</value>
         <value xml:lang="zh">宽度缩放因子是null</value>
-        <value xml:lang="zh_TW">寬度縮放因子是null</value>
+        <value xml:lang="zh_TW">寬度縮放因數是null</value>
     </property>
 </resource>
