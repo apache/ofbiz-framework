@@ -33,7 +33,7 @@
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие должно иметь способ связи от как эл. почта для кода коммуникационного события</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ผลการติดต่อจะต้องมาจากผลการติดต่อของอีเมล์สำหรับการติดต่อรหัสนี้</value>
         <value xml:lang="zh">错误：沟通事件必须来自一个电子邮件联系方式，沟通事件标识</value>
-        <value xml:lang="zh_TW">錯誤：溝通事件必須來自一個電子郵件聯系方式，通訊事件ID</value>
+        <value xml:lang="zh_TW">錯誤:通訊事件必須來自一個電子郵件聯絡方式,通訊事件識別</value>
     </property>
     <property key="commeventservices.communication_event_must_be_email_for_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis ist keine E-Mail Kommunikation und kann nicht als E-Mail versendet werden für Kommunikationsereignis ID</value>
@@ -49,7 +49,7 @@
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не является электронной почтой и не может быть отправлено для кода события </value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ผลการติดต่อไม่ใช่การติดต่อกับอีเมล์และไม่สามารถส่งอีเมล์เพื่อรหัสการตดต่อนี้ได้</value>
         <value xml:lang="zh">错误：沟通事件不是电子邮件沟通，所以不能发邮件，沟通事件标识 </value>
-        <value xml:lang="zh_TW">錯誤：溝通事件不是電子郵件溝通，所以不能發郵件，通訊事件ID </value>
+        <value xml:lang="zh_TW">錯誤:通訊事件不是電子郵件通訊,所以不能發郵件,通訊事件識別 </value>
     </property>
     <property key="commeventservices.communication_event_not_found_failure">
         <value xml:lang="de">FEHLER: Kommunikationsereignis nicht gefunden mit der Kommunikationsereignis ID</value>
@@ -65,19 +65,21 @@
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие не найдено для кода события</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบผลการติดต่อสำหรับรหัสผลการติดต่อ</value>
         <value xml:lang="zh">错误：没有找到沟通事件，沟通实践标识</value>
-        <value xml:lang="zh_TW">錯誤：沒有找到通訊事件ID</value>
+        <value xml:lang="zh_TW">錯誤:沒有找到通訊事件識別</value>
     </property>
     <property key="commeventservices.communication_event_role_status">
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEventRole.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="it">ERRORE: Cambio di stato non valido; vecchio stato: ${communicationEventRole.statusId}, nuovo stato: ${parameters.statusId}</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEventRole.statusId}, 新ステータス: ${parameters.statusId}</value>
         <value xml:lang="zh">错误：状态变化无效；旧的状态：${communicationEventRole.statusId}，新的状态：${parameters.statusId}</value>
+        <value xml:lang="zh_TW">錯誤:狀態變化無效;舊的狀態:${communicationEventRole.statusId},新的狀態:${parameters.statusId}</value>
     </property>
     <property key="commeventservices.communication_event_status">
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="fr">ERREUR : Le changement de ${communicationEvent.statusId} à ${parameters.statusId} n'est pas valide</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEvent.statusId}, 新ステータス: ${parameters.statusId}</value>
         <value xml:lang="zh">错误：状态变化无效；旧的状态：${communicationEvent.statusId}，新的状态：${parameters.statusId}</value>
+        <value xml:lang="zh_TW">錯誤:狀態變化無效;舊的狀態:${communicationEvent.statusId},新的狀態:${parameters.statusId}</value>
     </property>
     <property key="commeventservices.communication_event_to_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus an" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
@@ -93,7 +95,7 @@
         <value xml:lang="ru">ОШИБКА: Коммуникационное событие должно иметь способ связи эл. почту для кода коммуникационного события</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ผลการติดต่อจะต้องมีวิธีการติดต่อทางอีเมล์สำหรับรหัสผลการติดต่อ </value>
         <value xml:lang="zh">错误：沟通事件必须到一个电子邮件联系方式，沟通事件标识</value>
-        <value xml:lang="zh_TW">錯誤：通訊事件必須到一個電子郵件聯系方式，通訊事件ID</value>
+        <value xml:lang="zh_TW">錯誤:通訊事件必須有到一個電子郵件聯絡方式,通訊事件識別</value>
     </property>
     <property key="commeventservices.errorCallingSendEmailToContactListService">
         <value xml:lang="de">Fehler beim Aufruf des Service sendEmailToContactList</value>
@@ -108,7 +110,7 @@
         <value xml:lang="ru">Ошибка вызова службы sendEmailToContactList</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในการเรียกใช้บริการการส่งอีเมล์ถึงรายการติดต่อ</value>
         <value xml:lang="zh">调用发送电子邮件到联系列表服务时出错</value>
-        <value xml:lang="zh_TW">調用發送電子郵件到聯系列表服務時出錯</value>
+        <value xml:lang="zh_TW">呼叫發送電子郵件到聯絡清單服務時出錯</value>
     </property>
     <property key="commeventservices.errorCallingSendMailService">
         <value xml:lang="de">Fehler beim Aufruf des Service sendMail</value>
@@ -123,7 +125,7 @@
         <value xml:lang="ru">Ошибка вызова службы sendMail</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในการเรียกใช้บริการการส่งอีเมล์</value>
         <value xml:lang="zh">调用发送邮件服务时出错</value>
-        <value xml:lang="zh_TW">調用發送郵件服務時出錯</value>
+        <value xml:lang="zh_TW">呼叫發送郵件服務時出錯</value>
     </property>
     <property key="commeventservices.errorCallingUpdateContactListPartyService">
         <value xml:lang="de">Fehler beim Aufruf des Service updateContactListParty</value>
@@ -138,7 +140,7 @@
         <value xml:lang="ru">Ошибка вызова службы updateContactListParty</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในการเรียกใช้บริการการเปลี่ยนแปลงรายการการติดต่อกลุ่มผู้ใช้</value>
         <value xml:lang="zh">调用更新联系列表会员服务时出错</value>
-        <value xml:lang="zh_TW">調用更新聯系列表會員服務時出錯</value>
+        <value xml:lang="zh_TW">呼叫更新聯絡清單團體服務時出錯</value>
     </property>
     <property key="commeventservices.errorInSendEmailToContactListService">
         <value xml:lang="de">Fehler beim Aufruf des Service sendEmailToContactList</value>
@@ -148,12 +150,12 @@
         <value xml:lang="hi_IN">sendEmailToContactList सेवा(service) बुलाने में त्रुटि</value>
         <value xml:lang="it">Errore nell'esecuzione del servizio sendEmailToContactList</value>
         <value xml:lang="ja">sendEmailToContactListサービスでエラー</value>
-        <value xml:lang="nl">Fout bij uitvoeren service sendEmailToContactList</value>      
+        <value xml:lang="nl">Fout bij uitvoeren service sendEmailToContactList</value>
         <value xml:lang="pt_BR">Erro no serviço sendEmailToContactList</value>
         <value xml:lang="ru">Ошибка в службе sendEmailToContactList</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ในบริการส่งอีเมล์ถึงรายการติดต่อ</value>
         <value xml:lang="zh">在发送电子邮件到联系列表服务中有错误</value>
-        <value xml:lang="zh_TW">在發送電子郵件到聯系列表服務中有錯誤</value>
+        <value xml:lang="zh_TW">在發送電子郵件到聯絡清單服務中有錯誤</value>
     </property>
     <property key="commeventservices.skippingInvalidEmailAddress">
         <value xml:lang="de">Ungültige E-Mail Adresse ausgelassen</value>
@@ -184,7 +186,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно обновить информацию о указанном контакте поскольку она не относится к указанному участнику.</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนแปลงข้อมูลการติดต่อเพราะมันไม่สอดคล้องกับกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有与指定的会员关联。</value>
-        <value xml:lang="zh_TW">錯誤：不能更新指定的聯系資訊，因為它沒有與指定的會員關聯。</value>
+        <value xml:lang="zh_TW">錯誤:不能更新指定的聯絡資訊,因為它沒有關連到指定的團體.</value>
     </property>
     <property key="contactmechservices.could_not_add_purpose_write">
         <value xml:lang="de">FEHLER: Zweck konnte nicht zum Kontaktmechanismus hinzugefügt werden (Schreibfehler): ${errMessage}</value>
@@ -200,7 +202,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно добавить назначение к контактному механизму (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเพิ่มวัตถุประสงค์ในวิธีการติดต่อ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">错误：无法为联系方式添加目的 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">錯誤：無法為聯系方式添加目的 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">錯誤:無法為聯絡方式增加目的 (寫失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_change_contact_info_id_generation_failure">
         <value xml:lang="de">FEHLER: Kontaktinformationen konnten nicht geändert werden (id generation failure)</value>
@@ -216,7 +218,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно изменить информацию о контакте (невозможно сгенерировать код).</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนข้อมูลการติดต่อ (เกิดความผิดพลาดในการสร้างรหัส)</value>
         <value xml:lang="zh">错误：无法修改联系信息 (生成标识时失败)。</value>
-        <value xml:lang="zh_TW">錯誤：無法修改聯絡資訊 (生成ID時失敗)。</value>
+        <value xml:lang="zh_TW">錯誤:無法修改聯絡資訊 (產生識別時失敗).</value>
     </property>
     <property key="contactmechservices.could_not_change_contact_info_read">
         <value xml:lang="de">FEHLER: Kontaktinformationen konnten nicht geändert werden (Lesen Zweck Problem): ${errMessage}.</value>
@@ -232,7 +234,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно изменить информацию о контакте (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนข้อมูลการติดต่อ (เกิดความผิดพลาดในการอ่านวัตถุประสงค์): ${errMessage}</value>
         <value xml:lang="zh">错误：无法修改联系信息 (读目的时失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">錯誤：無法修改聯系資訊 (讀目的時失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">錯誤:無法修改聯絡資訊 (讀目的時失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_change_contact_info_write">
         <value xml:lang="de">FEHLER: Konnte Kontaktinformationen nicht ändern (Schreibfehler): ${errMessage}</value>
@@ -248,7 +250,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно изменить информацию о контакте (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนข้อมูลการติดต่อ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">错误：无法修改联系信息 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">錯誤：無法修改聯系資訊 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">錯誤:無法修改聯絡資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_create_contact_info_id_generation_failure">
         <value xml:lang="de">FEHLER: Kontaktinformation konnte nicht erstellt werden (id generation failure).</value>
@@ -264,7 +266,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно создать информацию о контакте (невозможно сгенерировать код).</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างข้อมูลการติดต่อ (เกิดความผิดพลาดในการสร้างรหัส)</value>
         <value xml:lang="zh">错误：无法创建联系信息(生成标识时失败)。</value>
-        <value xml:lang="zh_TW">錯誤：無法創建聯絡資訊(生成ID時失敗)。</value>
+        <value xml:lang="zh_TW">錯誤:無法新建聯絡資訊(產生識別時失敗).</value>
     </property>
     <property key="contactmechservices.could_not_create_contact_info_write">
         <value xml:lang="de">Kontaktinformation konnte nicht erstellt werden (Schreibfehler): ${errMessage}</value>
@@ -280,7 +282,7 @@
         <value xml:lang="ru">Невозможно создать информацию о контакте (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบวัตถุประสงค์จากวิธีการติดต่อนี้ได้ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法创建联系信息 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法創建聯系資訊 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法新建聯絡資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_create_new_purpose_already_exists">
         <value xml:lang="de">Konnte Zweck nicht erstellen. Ein Zweck mit diesem Typ existiert bereits.</value>
@@ -296,7 +298,7 @@
         <value xml:lang="ru">Невозможно создать новое назначение, назначение такого типа уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างวัตถุประสงค์ใหม่ได้, วัตถุประสงค์นี้มีอยู่แล้ว</value>
         <value xml:lang="zh">无法新建目的，那个类型的目的已存在。</value>
-        <value xml:lang="zh_TW">無法新建目的，那個類型的目的已存在。</value>
+        <value xml:lang="zh_TW">無法新建目的,那個類型的目的已存在.</value>
     </property>
     <property key="contactmechservices.could_not_delete_contact_info_no_contact_found">
         <value xml:lang="de">Kontaktinformation konnte nicht gelöscht werden (Akteur Kontaktmechanismus nicht gefunden)</value>
@@ -312,7 +314,7 @@
         <value xml:lang="ru">Невозможно удалить информацию о контакте (способ контакта участника не найден).</value>
         <value xml:lang="th">ไม่สามารถลบข้อมูลการติดต่อ (ไม่พบข้อมูลการติดต่อกลุ่มผู้ใช้)</value>
         <value xml:lang="zh">无法删除联系信息 (没有找到会员联系方式)。</value>
-        <value xml:lang="zh_TW">無法刪除聯系資訊 (沒有找到會員聯系方式)。</value>
+        <value xml:lang="zh_TW">無法刪除聯絡資訊 (沒有找到團體聯絡方式).</value>
     </property>
     <property key="contactmechservices.could_not_delete_contact_info_read">
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Lesefehler): ${errMessage}</value>
@@ -328,7 +330,7 @@
         <value xml:lang="ru">Невозможно удалить информацию о контакте (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบข้อมูลการติดต่อ (เกิดความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法删除联系信息 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法刪除聯系資訊 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法刪除聯絡資訊 (讀失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_delete_contact_info_write">
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Schreibfehler).</value>
@@ -343,7 +345,7 @@
         <value xml:lang="ru">Невозможно удалить информацию о контакте (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถลบข้อมูลการติดต่อ (เกิดความผิดพลาดในการเขียน)</value>
         <value xml:lang="zh">无法删除联系信息 (写失败)。</value>
-        <value xml:lang="zh_TW">無法刪除聯系資訊 (寫失敗)。</value>
+        <value xml:lang="zh_TW">無法刪除聯絡資訊 (寫失敗).</value>
     </property>
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_not_found">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Eintrag nicht gefunden).</value>
@@ -358,7 +360,7 @@
         <value xml:lang="ru">Невозможно удалить назначение из контактного механизма (запись не найдена).</value>
         <value xml:lang="th">ไม่สามารถลบวัตถุประสงค์จากวิธีการติดต่อนี้ได้ (ไม่พบการบันทึก)</value>
         <value xml:lang="zh">无法从联系方式删除目的 (没有找到记录)。</value>
-        <value xml:lang="zh_TW">無法從聯系方式刪除目的 (沒有找到記錄)。</value>
+        <value xml:lang="zh_TW">無法從聯絡方式刪除目的 (沒有找到記錄).</value>
     </property>
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_read">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Lesefehler): ${errMessage}</value>
@@ -373,7 +375,7 @@
         <value xml:lang="ru">Невозможно удалить назначение из контактного механизма (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบวัตถุประสงค์จากวิธีการติดต่อนี้ได้ (เกิดความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法从联系方式删除目的 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法從聯系方式刪除目的 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法從聯絡方式刪除目的 (讀失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_delete_purpose_from_contact_mechanism_write">
         <value xml:lang="de">Zweck kann nicht von einem Kontaktmechanismus entfernt werden (Schreibfehler): ${errMessage}</value>
@@ -388,7 +390,7 @@
         <value xml:lang="ru">Невозможно удалить назначение из контактного механизма (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบวัตถุประสงค์จากวิธีการติดต่อนี้ได้ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法从联系方式删除目的 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法從聯系方式刪除目的 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法從聯絡方式刪除目的 (寫失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_find_specified_contact_info_read">
         <value xml:lang="de">FEHLER: Angegebene Kontaktinformationen konnten nicht gefunden werden (Lesefehler).</value>
@@ -404,7 +406,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно найти информацию об указанном контакте (ошибка чтения).</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบข้อมูลการติดต่อนี้ (เกิดความผิดพลาดในการอ่าน)</value>
         <value xml:lang="zh">错误：无法找到指定的联系信息 (读错误)。</value>
-        <value xml:lang="zh_TW">錯誤：無法找到指定的聯系資訊 (讀錯誤)。</value>
+        <value xml:lang="zh_TW">錯誤:無法找到指定的聯絡資訊 (讀錯誤).</value>
     </property>
     <property key="contactmechservices.could_not_update_contact_as_POSTAL_ADDRESS_specified">
         <value xml:lang="de">Kontaktmechanismus kann nicht als POSTAL_ADDRESS aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>
@@ -419,7 +421,7 @@
         <value xml:lang="ru">Невозможно обновить контактный механизм как POSTAL_ADDRESS, указанный контактный механизм ${contactMechTypeId}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงวิธีการติดต่อ POSTAL_ADDRESS ให้เป็น ${contactMechTypeId}</value>
         <value xml:lang="zh">无法把这个联系方式作为通信地址更新，联系方式是 ${contactMechTypeId}。</value>
-        <value xml:lang="zh_TW">無法把這個聯系方式作為通信位址更新，聯系方式是 ${contactMechTypeId}。</value>
+        <value xml:lang="zh_TW">無法把這個聯絡方式作為通信位址更新,聯絡方式是 ${contactMechTypeId}.</value>
     </property>
     <property key="contactmechservices.could_not_update_contact_as_TELECOM_NUMBER_specified">
         <value xml:lang="de">Kontaktmechanismus kann nicht als TELECOM_NUMBER aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>
@@ -434,7 +436,7 @@
         <value xml:lang="ru">Невозможно обновить контактный механизм как TELECOM_NUMBER, указанный контактный механизм ${contactMechTypeId}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงวิธีการติดต่อ TELECOM_NUMBER ให้เป็น ${contactMechTypeId}</value>
         <value xml:lang="zh">无法把这个联系方式作为电话号码更新，指定的联系方式是 ${contactMechTypeId}。</value>
-        <value xml:lang="zh_TW">無法把這個聯系方式作為電話號碼更新，指定的聯系方式是 ${contactMechTypeId}。</value>
+        <value xml:lang="zh_TW">無法把這個聯絡方式作為電話識別更新,指定的聯絡方式是 ${contactMechTypeId}.</value>
     </property>
     <property key="contactmechservices.no_changes_made_not_updating">
         <value xml:lang="de">Keine Änderungen vorhanden, Kontaktmechanismus wird nicht aktualisiert.</value>
@@ -450,7 +452,7 @@
         <value xml:lang="ru">Никаких изменений не внесено, контактный механизм не обновлен.</value>
         <value xml:lang="th">ไม่ทำการเปลี่ยน, ไม่มีการเปลี่ยนแปลงวิธีการติดต่อ</value>
         <value xml:lang="zh">没有改动，所以没有更新联系方式。</value>
-        <value xml:lang="zh_TW">沒有改動，所以沒有更新聯系方式。</value>
+        <value xml:lang="zh_TW">沒有改動,所以沒有更新聯絡方式.</value>
     </property>
     <property key="contactmechservices.service_createContactMech_not_be_used_for_POSTAL_ADDRESS">
         <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
@@ -466,7 +468,7 @@
         <value xml:lang="ru">Эта служба (createContactMech) не может быть использована для POSTAL_ADDRESS типа ContactMechs, используйте службу createPostalAddress.</value>
         <value xml:lang="th">บริการนี้ (สร้างการติดต่อ)ไม่ควรใช้การติดต่อประเภท POSTAL_ADDRESS ควรใช้บริการการสร้างรหัสไปรษณีย์</value>
         <value xml:lang="zh">本服务 (创建联系方式) 不应用于通信地址类型的联系方式，请使用创建通信地址服务。</value>
-        <value xml:lang="zh_TW">本服務 (創建聯系方式) 不應用于通信位址類型的聯系方式，請使用創建通信位址服務。</value>
+        <value xml:lang="zh_TW">本服務 (新建聯絡方式) 不應用於通信位址類型的聯絡方式,請使用新建通信位址服務.</value>
     </property>
     <property key="contactmechservices.service_createContactMech_not_be_used_for_TELECOM_NUMBER">
         <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
@@ -482,7 +484,7 @@
         <value xml:lang="ru">Эта служба (createContactMech) не может быть использована для TELECOM_NUMBER типа ContactMechs, используйте службу createTelecomNumber.</value>
         <value xml:lang="th">บริการนี้ (สร้างการติดต่อ)ไม่ควรใช้การติดต่อประเภท TELECOM_NUMBER ควรใช้บริการการสร้างหมายเลขโทรศัพท์</value>
         <value xml:lang="zh">本服务 (创建联系方式) 不应用于电话号码类型的联系方式，请使用创建电话号码服务。</value>
-        <value xml:lang="zh_TW">本服務 (創建聯系方式) 不應用于電話號碼類型的聯系方式，請使用創建電話號碼服務。</value>
+        <value xml:lang="zh_TW">本服務 (新建聯絡方式) 不應用於電話號碼類型的聯絡方式,請使用新建電話號碼服務.</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_POSTAL_ADDRESS">
         <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
@@ -498,7 +500,7 @@
         <value xml:lang="ru">Эта служба (updateContactMech) не может использоваться для POSTAL_ADDRESS типа ContactMechs, используйте службу updatePostalAddress.</value>
         <value xml:lang="th">บริการนี้ (เปลี่ยนแปลงการติดต่อ)ไม่ควรใช้การติดต่อประเภท POSTAL_ADDRESS ควรใช้บริการเปลี่ยนแปลงรหัสไปรษณีย์</value>
         <value xml:lang="zh">本服务 (更新联系方式) 不应用做通信地址类型的联系方式，请使用更新通信地址服务。</value>
-        <value xml:lang="zh_TW">本服務 (更新聯系方式) 不應用做通信位址類型的聯系方式，請使用更新通信位址服務。</value>
+        <value xml:lang="zh_TW">本服務 (更新聯絡方式) 不應用做通信位址類型的聯絡方式,請使用更新通信位址服務.</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_TELECOM_NUMBER">
         <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
@@ -514,7 +516,7 @@
         <value xml:lang="ru">Эта служба (updateContactMech) не может использоваться для TELECOM_NUMBER типа ContactMechs, используйте службу updateTelecomNumber.</value>
         <value xml:lang="th">บริการนี้ (เปลี่ยนแปลงการติดต่อ) ไม่ควรใช้การติดต่อประเภท TELECOM_NUMBER ควรใช้บริการเปลี่ยนแปลงหมายเลขโทรศัพท์</value>
         <value xml:lang="zh">本服务 (更新联系方式) 不应用于电话号码类型的联系方式，请使用更新电话号码服务。</value>
-        <value xml:lang="zh_TW">本服務 (更新聯系方式) 不應用于電話號碼類型的聯系方式，請使用更新電話號碼服務。</value>
+        <value xml:lang="zh_TW">本服務 (更新聯絡方式) 不應用於電話號碼類型的聯絡方式,請使用更新電話號碼服務.</value>
     </property>
     <property key="party.id_generation_failure">
         <value xml:lang="de">FEHLER: Neue Akteur ID konnte nicht erstellt werden</value>
@@ -531,7 +533,7 @@
         <value xml:lang="ru">ОШИБКА: Неудачная генерация нового кода участника</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! เกิดความล้มเหลวในการสร้างรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="zh">错误：生成新会员标识时失败</value>
-        <value xml:lang="zh_TW">錯誤：生成新成員ID時失敗</value>
+        <value xml:lang="zh_TW">錯誤:產生新團體識別時失敗</value>
     </property>
     <property key="party.id_is_digit">
         <value xml:lang="de">Die angegebene Akteur ID beginnt mit einer Zahl. Numerische IDs sind für vom System automatisch erstellte IDs reserviert.</value>
@@ -548,22 +550,26 @@
         <value xml:lang="ru">Код участника не может начинаться с цифры, числовые идентификаторы зарезервированы для автоматической генерации</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้นี้ไม่สามารถเริ่มต้นด้วยตัวเลขนี้ได้, ตัวเลขรหัสจะได้จากการสร้างอัตโนมัติ</value>
         <value xml:lang="zh">指定的会员标识不能以数字开始，数字标识为自动生成的标识预留</value>
-        <value xml:lang="zh_TW">指定的成員ID不能以數字開始，數字ID為自動生成的ID預留</value>
+        <value xml:lang="zh_TW">指定的團體識別不能以數字開始,數字識別為自動產生的識別預留</value>
     </property>
     <property key="partytypehelper.NotPersonType">
         <value xml:lang="en">The party ${0} is not a PERSON type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value>
+    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
-        <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>       
+        <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>
         <value xml:lang="zh">会员${0}不是人员（PERSON）类型的会员</value>
+        <value xml:lang="zh_TW">團體${0}不是人員(PERSON)類型的團體</value>
     </property>
     <property key="partytypehelper.NotGroupType">
         <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value>
+    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
-        <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>        
+        <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>
         <value xml:lang="zh">会员${0}不是会员组（PARTYGROUP）类型的会员</value>
-    </property>    
+        <value xml:lang="zh_TW">團體${0}不是團體群組(PARTYGROUP)類型的團體</value>
+    </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdFrom_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID Von besitzt nicht die angebenene Rolle.</value>
         <value xml:lang="en">Cannot create party relationship, partyIdFrom is not in specified role.</value>
@@ -578,7 +584,7 @@
         <value xml:lang="ru">Не могу создать отношения для участника, partyIdFrom нет в указанной роли.</value>
         <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้จาก จะต้องไม่เป็นสถานะ</value>
         <value xml:lang="zh">不能创建会员关系，partyIdFrom 不是指定的角色。</value>
-        <value xml:lang="zh_TW">不能創建會員關系，partyIdFrom 不是指定的角色。</value>
+        <value xml:lang="zh_TW">不能新建團體關連,partyIdFrom 不是指定的角色.</value>
     </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdTo_not_in_role">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur ID zu besitzt nicht die angegebene Rolle.</value>
@@ -594,7 +600,7 @@
         <value xml:lang="ru">Не могу создать отношения для участника, partyIdTo нет в указанной роли.</value>
         <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นสถานะ</value>
         <value xml:lang="zh">不能创建会员关系，partyIdTo 不是指定的角色。</value>
-        <value xml:lang="zh_TW">不能創建會員關系，partyIdTo 不是指定的角色。</value>
+        <value xml:lang="zh_TW">不能新建團體關連,partyIdTo 不是指定的角色.</value>
     </property>
     <property key="partyrelationshipservices.cannot_create_party_relationship_partyIdTo_null">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen, Akteur Id An kann nicht leer sein.</value>
@@ -610,7 +616,7 @@
         <value xml:lang="ru">Не могу создать отношения для участника, partyIdTo не может иметь пустое значение.</value>
         <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้, รหัสกลุ่มผู้ใช้ถึง จะต้องไม่เป็นค่าว่าง</value>
         <value xml:lang="zh">不能创建会员关系，partyIdTo 不能是 null。</value>
-        <value xml:lang="zh_TW">不能創建會員關系，partyIdTo 不能是 null。</value>
+        <value xml:lang="zh_TW">不能新建團體關連,partyIdTo 不能是 null.</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_exists">
         <value xml:lang="de">Kann Akteur Beziehung nicht erstellen: Diese Beziehung ist schon vorhanden.</value>
@@ -626,7 +632,7 @@
         <value xml:lang="ru">Невозможно создать отношения участника: уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้:ยังคงเหมือนเดิม</value>
         <value xml:lang="zh">无法创建会员关系：已经存在了。</value>
-        <value xml:lang="zh_TW">無法創建會員關系：已經存在了。</value>
+        <value xml:lang="zh_TW">無法新建團體關連:已經存在了.</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Lesefehler): ${errMessage}.</value>
@@ -642,7 +648,7 @@
         <value xml:lang="ru">Невозможно создать роль участника (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法创建会员角色 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法創建會員角色 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法新建團體角色 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyrelationshipservices.could_not_create_party_role_write">
         <value xml:lang="de">Akteur Beziehung kann nicht erstellt werden (Schreibfehler): ${errMessage}.</value>
@@ -658,7 +664,7 @@
         <value xml:lang="ru">Невозможно создать отношения участника (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法创建会员关系 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法創建會員關系 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法新建團體關連 (寫失敗):${errMessage}.</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_not_found">
         <value xml:lang="de">Akteur Beziehung kann nicht aktualisiert werden (Beziehung nicht gefunden).</value>
@@ -674,7 +680,7 @@
         <value xml:lang="ru">Невозможно обновить отношения участника (отношение не найдено).</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ไม่พบความสัมพันธ์)</value>
         <value xml:lang="zh">无法更新会员关系 (没有找到关系)。</value>
-        <value xml:lang="zh_TW">無法更新會員關系 (沒有找到關系)。</value>
+        <value xml:lang="zh_TW">無法更新團體 (沒有找到關連).</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_read">
         <value xml:lang="de">Akteur Beziehung kann nicht aktualisiert werden (Lesefehler): ${errMessage}.</value>
@@ -690,7 +696,7 @@
         <value xml:lang="ru">Невозможно обновить отношение участника (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员关系 (读错误)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新會員關系 (讀錯誤)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新團體 (讀錯誤):${errMessage}.</value>
     </property>
     <property key="partyrelationshipservices.could_not_update_party_relation_write">
         <value xml:lang="de">Akteur Beziehung kann nicht aktualisiert werden (Schreibfehler): ${errMessage}.</value>
@@ -706,7 +712,7 @@
         <value xml:lang="ru">Невозможно обновить отношения участника (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงความสัมพันธ์ของกลุ่มผู้ใช้นี้ได้ (ความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员关系 (写错误)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新會員關系 (寫錯誤)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新團體 (寫錯誤):${errMessage}.</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_exists">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden. Rolle ist schon vorhanden.</value>
@@ -720,7 +726,7 @@
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect: deja existent.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้</value>
         <value xml:lang="zh">无法新建已存在的会员角色</value>
-        <value xml:lang="zh_TW">無法新建已存在的會員角色</value>
+        <value xml:lang="zh_TW">無法新建已存在的團體角色</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Lesefehler).</value>
@@ -735,7 +741,7 @@
         <value xml:lang="ro">Nu este posibila crearea rolului Subiect (lectura falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการอ่านได้</value>
         <value xml:lang="zh">无法新建会员读角色</value>
-        <value xml:lang="zh_TW">無法新建會員讀角色</value>
+        <value xml:lang="zh_TW">無法新建團體讀角色</value>
     </property>
     <property key="partyroleservices.could_not_create_party_role_write">
         <value xml:lang="de">Akteur Rolle kann nicht erstellt werden (Schreibfehler).</value>
@@ -748,9 +754,9 @@
         <value xml:lang="nl">De relatierol kan niet worden aangemaakt (schrijffout).</value>
         <value xml:lang="pt_BR">Não foi possível criar o papel de participante (erro de escrita).</value>
         <value xml:lang="ro">Nu este posibila crearea  rolului Subiect (scriere falita): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการเขียนได้    </value>
+        <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการเขียนได้        </value>
         <value xml:lang="zh">无法新建会员写角色</value>
-        <value xml:lang="zh_TW">無法新建會員寫角色</value>
+        <value xml:lang="zh_TW">無法新建團體員寫角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_not_found">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden. Rolle nicht gefunden.</value>
@@ -765,7 +771,7 @@
         <value xml:lang="ro">Nu este posibila stergerea rolului Subiect (nu gaseste rol Subiect).</value>
         <value xml:lang="th">ไม่สามารถลบสถานะกลุ่มผู้ใช้ยังไม่ค้นพบ</value>
         <value xml:lang="zh">无法删除找不到的会员角色</value>
-        <value xml:lang="zh_TW">無法刪除找不到的會員角色</value>
+        <value xml:lang="zh_TW">無法刪除找不到的團體角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_read">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden (Lesefehler).</value>
@@ -779,7 +785,7 @@
         <value xml:lang="ro">Nu este posibila stergerea  rolului Subiect (lectura falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบกลุ่มผู้ใช้ในการอ่านได้</value>
         <value xml:lang="zh">无法删除会员读角色</value>
-        <value xml:lang="zh_TW">無法刪除會員讀角色</value>
+        <value xml:lang="zh_TW">無法刪除團體讀角色</value>
     </property>
     <property key="partyroleservices.could_not_delete_party_role_write">
         <value xml:lang="de">Akteur Rolle kann nicht gelöscht werden (Schreibfehler).</value>
@@ -793,7 +799,7 @@
         <value xml:lang="ro">Nu este posibila stergerea rolului Subiect (scriere falita): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถลบสถานะกลุ่มผู้ใช้ในการเขียนได้</value>
         <value xml:lang="zh">无法删除会员写角色</value>
-        <value xml:lang="zh_TW">無法刪除會員寫角色</value>
+        <value xml:lang="zh_TW">無法刪除團體寫角色</value>
     </property>
     <property key="partyservices.both_names_cannot_be_empty">
         <value xml:lang="de">Vorname und Nachname können nicht leer sein.</value>
@@ -809,7 +815,7 @@
         <value xml:lang="ru">'lastName'(фамилия) и 'firstName'(имя) не могут быть пустыми одновременно.</value>
         <value xml:lang="th">ทั้งนามสกุลและชื่อเป็นค่าว่าง</value>
         <value xml:lang="zh">'姓' 和 '名字' 不能为空。</value>
-        <value xml:lang="zh_TW">'姓' 和 '名字' 不能為空。</value>
+        <value xml:lang="zh_TW">'姓氏' 和 '名字' 不能為空.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_ID_already_exists">
         <value xml:lang="en">Cannot create, an affiliate with the specified party ID already exists.</value>
@@ -824,7 +830,7 @@
         <value xml:lang="ru">Невозможно создать, филиал с указанным кодом уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างรหัสกลุ่มผู้ใช้นี้เข้าด้วยกันได้</value>
         <value xml:lang="zh">不能创建，已经存在指定会员标识的附属。</value>
-        <value xml:lang="zh_TW">不能創建已存在指定成員ID的附屬。</value>
+        <value xml:lang="zh_TW">不能新建已存在指定團體識別的集團.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_digit">
         <value xml:lang="en">Cannot create affiliate, specified party ID cannot be a digit, numeric IDs are reserved for auto-generated IDs.</value>
@@ -839,7 +845,7 @@
         <value xml:lang="ru">Не могу создать филиал, код участника не может начинаться с цифры, числовые идентификаторы зарезервированы для автоматической генерации.</value>
         <value xml:lang="th">ไม่สามารถสร้างรหัสกลุ่มผู้ใช้นี้เข้าด้วยกันได้</value>
         <value xml:lang="zh">无法创建附属，指定的会员标识不能以数字开始，数字标识为自动生成的标识预留。</value>
-        <value xml:lang="zh_TW">無法創建附屬，指定的成員ID不能以數字開始，數字ID為自動生成的ID預留。</value>
+        <value xml:lang="zh_TW">無法新建集團,指定的團體識別不能以數字開始,數字識別為自動產生的識別預留.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_generation_failure">
         <value xml:lang="en">ERROR: Could not create affiliate (id generation failure).</value>
@@ -854,7 +860,7 @@
         <value xml:lang="ru">ОШИБКА: Невозможно создать филиал (генерация уникального идентификатора не удалась).</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถทำการสร้าง (เกิดความผิดพลาดในการสร้างรหัส)</value>
         <value xml:lang="zh">错误：无法创建附属 (生成标识失败)。</value>
-        <value xml:lang="zh_TW">錯誤：無法創建附屬 (生成ID失敗)。</value>
+        <value xml:lang="zh_TW">錯誤:無法新建集團 (產生識別失敗).</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_no_party_entity">
         <value xml:lang="en">Cannot create affiliate; no party entity found.</value>
@@ -869,7 +875,7 @@
         <value xml:lang="ru">Невозможно создать филиал; не найден объект участника.</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้าง; ไม่พบกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">无法创建附属；没有找到会员实体。</value>
-        <value xml:lang="zh_TW">無法創建附屬；沒有找到會員實體。</value>
+        <value xml:lang="zh_TW">無法新建集團;沒有找到團體資料資料實體.</value>
     </property>
     <property key="partyservices.cannot_create_party_group_already_exists">
         <value xml:lang="de">Akteurgruppe kann nicht erstellt werden. Eine Akteurgruppe mit dieser ID existiert bereits.</value>
@@ -885,7 +891,7 @@
         <value xml:lang="ru">Невозможно создать групового участника, групповой участник с указанным кодом уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างกลุ่มผู้ใช้ได้ กลุ่มผู้ใช้รหัสนี้มีอยู่แล้ว</value>
         <value xml:lang="zh">无法创建会员组，已经存在指定会员标识的会员组。</value>
-        <value xml:lang="zh_TW">無法創建會員組，已經存在指定會員ID的會員組。</value>
+        <value xml:lang="zh_TW">無法新建團體群組,已經存在指定團體識別的團體群組.</value>
     </property>
     <property key="partyservices.cannot_create_party_group_already_exists_not_PARTY_GROUP_type">
         <value xml:lang="de">Akteurgruppe kann nicht erstellt werden. Ein Akteur mit der angegebenen ID ist bereits vorhanden und ist kein Akteur vom Typ PARTY_GROUP oder ein untergeordneter Typ.</value>
@@ -901,7 +907,7 @@
         <value xml:lang="ru">Невозможно создать группового участника, участник с указанным кодом уже существует и не является участником типа PARTY_GROUP или подчиненным типом PARTY_GROUP.</value>
         <value xml:lang="th">ไม่สามารถสร้างกลุ่มผู้ใช้ได้ กลุ่มผู้ใช้รหัสนี้มีอยู่แล้วและไม่มีประเภทกลุ่มผู้ใช้ PARTY_GROUP หรือประเภท PARTY_GROUP</value>
         <value xml:lang="zh">无法创建会员组，已经存在指定会员标识的会员，不是 PARTY_GROUP 类型会员，或者不是 PARTY_GROUP 的子类型。</value>
-        <value xml:lang="zh_TW">無法創建會員組，已經存在指定會員ID的會員，不是 PARTY_GROUP 類型會員，或者不是 PARTY_GROUP 的子類型。</value>
+        <value xml:lang="zh_TW">無法新建團體群組,已經存在指定團體識別的團體,不是 PARTY_GROUP 類型團體,或者不是 PARTY_GROUP 的子類型.</value>
     </property>
     <property key="partyservices.cannot_delete_party_not_implemented">
         <value xml:lang="de">Akteur kann nicht gelöscht werden (ist noch nicht implementiert).</value>
@@ -917,7 +923,7 @@
         <value xml:lang="ru">Невозможно удалить участника, операция еще не реализована.</value>
         <value xml:lang="th">ไม่สามารถลบกลุ่มผู้ใช้ได้ การปฎิบัติไม่เป็นผล</value>
         <value xml:lang="zh">无法删除会员，操作还没有完成。</value>
-        <value xml:lang="zh_TW">無法刪除會員，操作還沒有完成。</value>
+        <value xml:lang="zh_TW">無法刪除團體,操作還沒有完成.</value>
     </property>
     <property key="partyservices.cannot_get_party_entities_read">
         <value xml:lang="de">Akteur Entitäten können nicht geholt werden (Lesefehler): ${errMessage}.</value>
@@ -933,7 +939,7 @@
         <value xml:lang="ru">Невозможно получить объекты участников (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถรับข้อมูลกลุ่มผู้ใช้จากตารางได้(เกิดความผิดพลาดในอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法获得会员实体 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法獲得會員實體 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法獲得團體資料資料實體 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_add_affiliate_info_write">
         <value xml:lang="en">Could not add affiliate info (write failure): ${errMessage}.</value>
@@ -948,7 +954,7 @@
         <value xml:lang="ru">Невозможно добавить информацию о филиале (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">เกิดความผิดพลาดในการเพิ่มข้อมูล(เกิดความผิดพลาดในเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法添加附属信息 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法添加附屬資訊 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法增加集團資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_create_party_ID_digit">
         <value xml:lang="de">Akteurgruppe kann nicht erstellt werden, Akteur ID darf nicht mit Zahl beginnen. Numerische Akteur IDs sind für das System reserviert.</value>
@@ -964,7 +970,7 @@
         <value xml:lang="ru">Невозможно создать группового участника, код участника не может начинаться с цифры, числовые идентификаторы зарезервированы для автоматической генерации.</value>
         <value xml:lang="th">ไม่สามารถสร้างกลุ่มผู้ใช้ รหัสกลุ่มผู้ใช้ไม่สามารถเริ่มต้นจากตัวเลขนี้ได้ ตัวเลขรหัสจะสร้างขึ้นอัตโนมัติ</value>
         <value xml:lang="zh">无法创建会员组，指定的会员标识不能以数字开始，数字标识预留为自动生成标识了。</value>
-        <value xml:lang="zh_TW">無法創建成員組，指定的成員ID不能以數字開始，數字ID預留為自動生成ID了。</value>
+        <value xml:lang="zh_TW">無法新建團體群組,指定的團體識別不能以數字開始,數字識別預留為自動產生識別了.</value>
     </property>
     <property key="partyservices.could_not_create_party_group_generation_failure">
         <value xml:lang="de">FEHLER: Kann Akteurgruppe nicht erstellen (id generation failure).</value>
@@ -980,7 +986,7 @@
         <value xml:lang="ru">ОШИБКА: невозможно создать группового участника (неудачная генерация уникального кода).</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถสร้างกลุ่มผู้ใช้ได้ (เกิดความผิดพลาดในการสร้างรหัส)</value>
         <value xml:lang="zh">错误：无法创建会员组 (生成标识失败)。</value>
-        <value xml:lang="zh_TW">錯誤：無法創建成員組 (生成ID失敗)。</value>
+        <value xml:lang="zh_TW">錯誤:無法新建團體群組 (產生識別失敗).</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_not_found">
         <value xml:lang="en">Could not update affiliate information (affiliate not found).</value>
@@ -995,7 +1001,7 @@
         <value xml:lang="ru">Невозможно обновить информацию о филиале (филиал не найден).</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลได้ (เกิดความผิดพลาดในการค้นหา): ${errMessage}</value>
         <value xml:lang="zh">无法更新附属信息 (没有找到附属)。</value>
-        <value xml:lang="zh_TW">無法更新附屬資訊 (沒有找到附屬)。</value>
+        <value xml:lang="zh_TW">無法更新集團資訊 (沒有找到集團).</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_read">
         <value xml:lang="en">Could not update affiliate information (read failure): ${errMessage}.</value>
@@ -1010,7 +1016,7 @@
         <value xml:lang="ru">Невозможно обновить информацию о филиале (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลได้ (เกิดความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法更新附属信息 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新附屬資訊 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新集團資訊 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_write">
         <value xml:lang="en">Could not update affiliate information (write failure): ${errMessage}.</value>
@@ -1025,7 +1031,7 @@
         <value xml:lang="ru">Невозможно обновить информацию о филиале (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลได้ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法更新附属信息 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新附屬資訊 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新集團資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_update_party_information_not_found">
         <value xml:lang="de">Kann Akteur oder Akteurgruppe nicht aktualisieren (Akteur oder Akteurgruppe nicht gefunden).</value>
@@ -1041,7 +1047,7 @@
         <value xml:lang="ru">Невозможно обновить информаци об участнике или групповом участнике (участник не найден).</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงกลุ่มผู้ใช้หรือข้อมูลของกลุ่มผู้ใช้ได้ (ไม่พบกลุ่มผู้ใช้หรือกลุ่มของกลุ่มผู้ใช้)</value>
         <value xml:lang="zh">无法更新会员或会员组信息 (没有找到会员或会员组)。</value>
-        <value xml:lang="zh_TW">無法更新會員或會員組資訊 (沒有找到會員或會員組)。</value>
+        <value xml:lang="zh_TW">無法更新團體或團體群組資訊 (沒有找到團體或團體群組).</value>
     </property>
     <property key="partyservices.could_not_update_party_information_read">
         <value xml:lang="de">Kann Akteur oder Akteurgruppe nicht aktualisieren (Lesefehler): ${errMessage}.</value>
@@ -1057,7 +1063,7 @@
         <value xml:lang="ru">Невозможно обновить информацию об участнике или групповом участнике (ошибка чтения): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงกลุ่มผู้ใช้หรือข้อมูลของกลุ่มผู้ใช้ได้ (เกิดความผิดพลาดในการอ่าน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员或会员组信息 (读失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新會員或會員組資訊 (讀失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新團體或團體群組資訊 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_update_party_information_write">
         <value xml:lang="de">Kann Akteur oder Akteurgruppe nicht aktualisieren (Schreibfehler): ${errMessage}.</value>
@@ -1073,7 +1079,7 @@
         <value xml:lang="ru">Невозможно обновить информаци об участнике или групповом участнике (ошибка записи): ${errMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงกลุ่มผู้ใช้หรือข้อมูลของกลุ่มผู้ใช้ได้ (เกิดความผิดพลาดในการเขียน): ${errMessage}</value>
         <value xml:lang="zh">无法更新会员或会员组信息 (写失败)：${errMessage}。</value>
-        <value xml:lang="zh_TW">無法更新會員或會員組資訊 (寫失敗)：${errMessage}。</value>
+        <value xml:lang="zh_TW">無法更新團體或團體群組資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.data_source_error_adding_party_group">
         <value xml:lang="de">Datenbankfehler beim Hinzufügen der Akteurgruppe: ${errMessage}.</value>
@@ -1089,7 +1095,7 @@
         <value xml:lang="ru">При добавлении группового участника произошла ошибка источника данных: ${errMessage}.</value>
         <value xml:lang="th">เกิดความผิดพลาดในแหล่งที่มาของข้อมูลในขณะที่เพิ่มกลุ่มผู้ใช้: ${errMessage}</value>
         <value xml:lang="zh">添加会员组时发生数据源错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">添加會員組時發生資料源錯誤：${errMessage}。</value>
+        <value xml:lang="zh_TW">增加團體群組時發生資料源錯誤:${errMessage}.</value>
     </property>
     <property key="partyservices.party_type_not_found_in_database_cannot_create_party_group">
         <value xml:lang="de">Der Akteur Typ mit ID PARTY_GROUP ist in der Datenbank nicht vorhanden, Akteurgruppe kann nicht erstellt werden.</value>
@@ -1105,7 +1111,7 @@
         <value xml:lang="ru">Тип участника с кодом PARTY_GROUP в базе данных не найден, невозможно создать нового группового участника.</value>
         <value xml:lang="th">ไม่พบประเภทกลุ่มผู้ใช้กับรหัสกลุ่มผู้ใช้ในฐานข้อมูล ไม่สามารถสร้างกลุ่มผู้ใช้ใหม่ได้</value>
         <value xml:lang="zh">标识为 PARTY_GROUP 的会员类型在数据库里没有找到，无法新建会员组。</value>
-        <value xml:lang="zh_TW">ID為 PARTY_GROUP 的會員類型在資料庫里沒有找到，無法新建會員組。</value>
+        <value xml:lang="zh_TW">識別為 PARTY_GROUP 的團體類型在資料庫裡沒有找到,無法新建團體群組.</value>
     </property>
     <property key="partyservices.problem_associating_note_with_party">
         <value xml:lang="de">Problem beim Zuweisen einer Notiz zu einem Akteur "${errMessage}".</value>
@@ -1121,7 +1127,7 @@
         <value xml:lang="ru">Проблема связывания примечания с участником "${errMessage}".</value>
         <value xml:lang="th">ปัญหาในการเชื่อมโยงบันทึกกับกลุ่มผู้ใช้ "${errMessage}"</value>
         <value xml:lang="zh">把便笺与会员关联时出错 "${errMessage}"。</value>
-        <value xml:lang="zh_TW">把便箋與會員關聯時出錯 "${errMessage}"。</value>
+        <value xml:lang="zh_TW">把便箋與團體結合時出錯 "${errMessage}".</value>
     </property>
     <property key="partyservices.problem_creating_note_no_noteId_returned">
         <value xml:lang="de">Problem beim Erstellen der Notiz, keine Notiz ID erhalten.</value>
@@ -1137,7 +1143,7 @@
         <value xml:lang="ru">Проблема создания примечания, не возвращен код примечания.</value>
         <value xml:lang="th">ปัญหาในการสร้างบันทึก, ไม่มีการแสดงบันทึก</value>
         <value xml:lang="zh">创建便笺时出错，没有返回便笺标识。</value>
-        <value xml:lang="zh_TW">創建便箋時出錯，沒有返回便箋ID。</value>
+        <value xml:lang="zh_TW">新建便箋時出錯,沒有返回便箋識別.</value>
     </property>
     <property key="partyservices.required_parameter_email_cannot_be_empty">
         <value xml:lang="de">Benötigter Parameter E-Mail kann nicht leer sein.</value>
@@ -1153,13 +1159,14 @@
         <value xml:lang="ru">Обязательный параметр 'email' не может быть пустым.</value>
         <value xml:lang="th">ต้องการให้กรอกอีเมล์ ไม่ควรว่าง</value>
         <value xml:lang="zh">必须的参数 'email' 不能为空。</value>
-        <value xml:lang="zh_TW">必須的參數 'email' 不能為空。</value>
+        <value xml:lang="zh_TW">必要的參數 'email' 不能為空.</value>
     </property>
     <property key="person.create.db_error">
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): ${0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): ${0}</value>
-        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value><!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value>
+    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を追加できません (書き込み失敗): ${0}。</value>
@@ -1170,7 +1177,7 @@
         <value xml:lang="ru">Невозможно добавить информацию о персоне (ошибка записи): ${0}</value>
         <value xml:lang="th">ไม่สามารถเพิ่มข้อมูลบุคคลได้ (เกิดความผิดพลาดในการเขียน): ${0}</value>
         <value xml:lang="zh">无法添加人员信息 (写失败): ${0}</value>
-        <value xml:lang="zh_TW">無法添加人員資訊 (寫失敗): ${0}</value>
+        <value xml:lang="zh_TW">無法增加人員資訊 (寫失敗): ${0}</value>
     </property>
     <property key="person.create.party_exists_not_person_type">
         <value xml:lang="de">Person kann nicht erstellt werden. Ein Akteur mit der angegebenen Akteur ID existiert bereits und ist kein Akteur vom Typ PERSON.</value>
@@ -1187,7 +1194,7 @@
         <value xml:lang="ru">Невозможно создать персону, участник с указанным кодом уже существует и не является типом PERSON</value>
         <value xml:lang="th">ไม่สามารถสร้างบุคคลได้ กลุ่มผู้ใช้กับรหัสกลุ่มผู้ใช้นี้ยังเหมือนเดิมไม่ใช่ประเภทกลุ่มผู้ใช้ PERSON</value>
         <value xml:lang="zh">无法创建人员，已经存在指定会员标识的会员，而且这个会员不是人员类型的</value>
-        <value xml:lang="zh_TW">無法創建人員，已經存在指定成員ID的會員，而且這個會員不是人員類型的</value>
+        <value xml:lang="zh_TW">無法新建人員,已經存在指定團體識別的團體,而且這個團體不是人員類型的</value>
     </property>
     <property key="person.create.person_exists">
         <value xml:lang="de">Person kann nicht erstellt werden. Eine Person mit der angegebenen Akteur ID ist bereits vorhanden.</value>
@@ -1204,7 +1211,7 @@
         <value xml:lang="ru">Невозможно создать персону, персона с указанным кодом уже существует</value>
         <value xml:lang="th">ไม่สามารถสร้างบุคคลได้ เมื่อใช้รหัสกลุ่มผู้ใช้เดิมกับบุคคลนี้</value>
         <value xml:lang="zh">无法创建人员，已经存在指定会员标识的人员</value>
-        <value xml:lang="zh_TW">無法創建人員，已經存在指定成員ID的人員</value>
+        <value xml:lang="zh_TW">無法新建人員,已經存在指定團體識別的人員</value>
     </property>
     <property key="person.update.not_found">
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Person nicht gefunden).</value>
@@ -1227,7 +1234,8 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Lesefehler): ${0}</value>
         <value xml:lang="en">Could not update person information (read failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value><!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value>
+    <!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (読み込み失敗): ${0}</value>
@@ -1238,7 +1246,7 @@
         <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка чтения): ${0}</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลบุคคลได้ (ความผิดพลาดในการอ่าน): ${0}</value>
         <value xml:lang="zh">无法更新人员信息 (读失败)：${0}</value>
-        <value xml:lang="zh_TW">無法更新人員資訊 (讀失敗)：${0}</value>
+        <value xml:lang="zh_TW">無法更新人員資訊 (讀失敗):${0}</value>
     </property>
     <property key="person.update.success">
         <value xml:lang="de">Persönliche Daten erfolgreich aktualisiert.</value>
@@ -1255,13 +1263,14 @@
         <value xml:lang="ru">Персона обновлена успешно.</value>
         <value xml:lang="th">เปลี่ยนแปลงข้อมูลบุคคลเรียบร้อยแล้ว</value>
         <value xml:lang="zh">已成功更新人员。</value>
-        <value xml:lang="zh_TW">已成功更新人員。</value>
+        <value xml:lang="zh_TW">已成功更新人員.</value>
     </property>
     <property key="person.update.write_failure">
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not update person information (write failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value><!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->        
+        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value>
+    <!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (書き込み失敗): ${0}</value>
@@ -1272,6 +1281,6 @@
         <value xml:lang="ru">Невозможно обновить информацию о персоне (ошибка записи): ${0}</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลส่วนบุคคลได้ (ความผิดพลาดในการเขียน): ${0}</value>
         <value xml:lang="zh">无法更新人员信息 (写失败)：${0}</value>
-        <value xml:lang="zh_TW">無法更新人員資訊 (寫失敗)：${0}</value>
+        <value xml:lang="zh_TW">無法更新人員資訊 (寫失敗):${0}</value>
     </property>
 </resource>

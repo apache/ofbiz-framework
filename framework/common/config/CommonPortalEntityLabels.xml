@@ -48,7 +48,7 @@
         <value xml:lang="ru">Мой профиль</value>
         <value xml:lang="vi">Hồ sơ Riêng</value>
         <value xml:lang="zh">我的简介</value>
-        <value xml:lang="zh_TW">我的簡介</value>
+        <value xml:lang="zh_TW">我的基本資料</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE2">
         <value xml:lang="en">Other Party Comms</value>
@@ -57,7 +57,7 @@
         <value xml:lang="ru">Другие средства связи</value>
         <value xml:lang="vi">Truyền thông của Tác nhân liên quan</value>
         <value xml:lang="zh">其他会员的沟通</value>
-        <value xml:lang="zh_TW">其他夥伴的通訊</value>
+        <value xml:lang="zh_TW">其他團體的通訊</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE4">
         <value xml:lang="en">My Time Sheet</value>
@@ -95,7 +95,7 @@
         <value xml:lang="ru">Мои тренировки</value>
         <value xml:lang="vi">Đào tạo Riêng</value>
         <value xml:lang="zh">我的培训</value>
-        <value xml:lang="zh_TW">我的培訓</value>
+        <value xml:lang="zh_TW">我的教育訓練</value>
     </property>
     <property key="PortalPage.portalPageName.MYPORTAL_EMPLOYEE8">
         <value xml:lang="en">My Payments</value>

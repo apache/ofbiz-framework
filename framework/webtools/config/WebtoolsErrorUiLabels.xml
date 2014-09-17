@@ -39,7 +39,7 @@
         <value xml:lang="ro">deja exista cu cheia primara: "${primaryKey}; Va rugam schimbati-o</value>
         <value xml:lang="th">ยังคงมีอยู่แล้วด้วยคีย์หลัก: "${primaryKey}; กรุณาเปลี่ยน</value>
         <value xml:lang="zh">主键已存在："${primaryKey}；请换一个</value>
-        <value xml:lang="zh_TW">主鍵已存在："${primaryKey}；請換一個</value>
+        <value xml:lang="zh_TW">主鍵已存在:"${primaryKey};請換一個</value>
     </property>
     <property key="genericWebEvent.conversion_failed">
         <value xml:lang="en">conversion failed</value>
@@ -50,7 +50,7 @@
         <value xml:lang="ro">conversie falita: "${fval}" nu este valida</value>
         <value xml:lang="th">การเปลี่ยนแปลงล้มเหลว</value>
         <value xml:lang="zh">无法转换："${fval}"无效</value>
-        <value xml:lang="zh_TW">無法轉換："${fval}"無效</value>
+        <value xml:lang="zh_TW">無法轉換:"${fval}"無效</value>
     </property>
     <property key="genericWebEvent.create_failed_by_check">
         <value xml:lang="en">Create failed while checking if exists (read error)</value>
@@ -62,7 +62,7 @@
         <value xml:lang="ro">Creare falita in timpul controului de existenta (eroare de citire)</value>
         <value xml:lang="th">การสร้างล้มเหลวขณะกำลังตรวจสอบถ้ายังคงมีอยู่ (การอ่านผิดพลาด)</value>
         <value xml:lang="zh">无法新建，检查是否存在时出错(读错误)</value>
-        <value xml:lang="zh_TW">無法新建，檢查是否存在時出錯(讀錯誤)</value>
+        <value xml:lang="zh_TW">無法新建,檢查是否存在時出錯(讀錯誤)</value>
     </property>
     <property key="genericWebEvent.creation_param_failed">
         <value xml:lang="en">Creation of ${entityName} failed for entity</value>
@@ -74,7 +74,7 @@
         <value xml:lang="ro">Creatie ${entityName} falita pentru entitatea</value>
         <value xml:lang="th">การสร้างของ${entityName} ล้มเหลวสำหรับเอนทิตี</value>
         <value xml:lang="zh">无法为实体创建${entityName}</value>
-        <value xml:lang="zh_TW">無法為實體新建${entityName}</value>
+        <value xml:lang="zh_TW">無法為資料資料實體新建${entityName}</value>
     </property>
     <property key="genericWebEvent.delegator_object_not_found">
         <value xml:lang="en">The delegator object was not found in the request, please check the control servlet init</value>
@@ -86,7 +86,7 @@
         <value xml:lang="ro">Obiectul delegator nu a fost gasit in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">The delegator object was not found in the request, please check the control servlet init</value>
         <value xml:lang="zh">访问请求中没有代表对象，请检查控制servlet的初始化</value>
-        <value xml:lang="zh_TW">訪問請求中沒有代表物件，請檢查控制servlet的初始化</value>
+        <value xml:lang="zh_TW">訪問請求中沒有代表物件,請檢查控制servlet的初始化</value>
     </property>
     <property key="genericWebEvent.delete_failed">
         <value xml:lang="en">Delete failed (write error)</value>
@@ -110,7 +110,7 @@
         <value xml:lang="ro">Nume entitate nu a fost nespecificata, dar este ceruta.</value>
         <value xml:lang="th">ไม่ระบุชื่อเอนทิตี, แต่ต้องการ</value>
         <value xml:lang="zh">没有指定所需的实体名称</value>
-        <value xml:lang="zh_TW">沒有指定所需的實體名稱</value>
+        <value xml:lang="zh_TW">沒有指定所需的資料資料實體名稱</value>
     </property>
     <property key="genericWebEvent.failed">
         <value xml:lang="en">failed</value>
@@ -134,7 +134,7 @@
         <value xml:lang="ro">Eroare Fatala: tip camp "${fieldType}" ne gasit </value>
         <value xml:lang="th">ผิดพลาดซึ่งทำให้ล้มเหลว: ประเภทฟิลด์ "${fieldType}" ไม่พบ    genericWebEvent.conversion_failed=การเปลี่ยนแปลงล้มเหลว: "${fval}" ไม่มีค่า</value>
         <value xml:lang="zh">严重错误：没有找到域类型"${fieldType}"</value>
-        <value xml:lang="zh_TW">嚴重錯誤：沒有找到域類型"${fieldType}"</value>
+        <value xml:lang="zh_TW">嚴重錯誤:沒有找到域類型"${fieldType}"</value>
     </property>
     <property key="genericWebEvent.following_error_occurred">
         <value xml:lang="en">The following error(s) occurred</value>
@@ -178,7 +178,7 @@
         <value xml:lang="ro">${updateMode}   ${entityName} (sunt necesare ${entityPlainTableName}_${updateMode} sau ${entityPlainTableName}_ADMIN)</value>
         <value xml:lang="th">${updateMode}   ${entityName} (${entityPlainTableName}_${updateMode} หรือ ${entityPlainTableName}_ADMIN ต้องการ)</value>
         <value xml:lang="zh">${updateMode}   ${entityName} (需要${entityPlainTableName}_${updateMode}或${entityPlainTableName}_ADMIN)</value>
-        <value xml:lang="zh_TW">${updateMode}   ${entityName} (需要${entityPlainTableName}_${updateMode}或${entityPlainTableName}_ADMIN)</value>
+        <value xml:lang="zh_TW">${updateMode} ${entityName} (需要${entityPlainTableName}_${updateMode}或${entityPlainTableName}_ADMIN)</value>
     </property>
     <property key="genericWebEvent.security_object_not_found">
         <value xml:lang="en">The security object was not found in the request, please check the control servlet init</value>
@@ -190,7 +190,7 @@
         <value xml:lang="ro">Obiectul siguranta nu a fost gasit  in cerere, va rugam controlati controlul servlet init.</value>
         <value xml:lang="th">ไม่พบเป้าหมายความปลอดภัยในการร้องขอ, กรุณาเริ่มตรวจสอบการควบคุมเซิร์ฟเลท</value>
         <value xml:lang="zh">访问请求中没有安全对象，请检查控制servlet的初始化</value>
-        <value xml:lang="zh_TW">訪問請求中沒有安全物件，請檢查控制servlet的初始化</value>
+        <value xml:lang="zh_TW">訪問請求中沒有安全物件,請檢查控制servlet的初始化</value>
     </property>
     <property key="genericWebEvent.update_mode_invalid">
         <value xml:lang="en">Update Mode specified (${updateMode}) was not valid</value>
@@ -214,7 +214,7 @@
         <value xml:lang="ro">Mod Actualizare nu a fost specificat, dar este cerut.</value>
         <value xml:lang="th">ไม่ระบุการอัพเดทโหมด , แต่ต้องการ</value>
         <value xml:lang="zh">没有指定更新方法，而这是必须的</value>
-        <value xml:lang="zh_TW">沒有指定更新方法，而這是必須的</value>
+        <value xml:lang="zh_TW">沒有指定更新方法,而這是必須的</value>
     </property>
     <property key="genericWebEvent.update_of_param_failed">
         <value xml:lang="en">Update of ${entityName} failed for value</value>
@@ -238,7 +238,7 @@
         <value xml:lang="ro">Validare falita</value>
         <value xml:lang="th">การให้เหตุผลผิดพลาด</value>
         <value xml:lang="zh">验证失败</value>
-        <value xml:lang="zh_TW">驗証失敗</value>
+        <value xml:lang="zh_TW">驗證失敗</value>
     </property>
     <property key="saveLabelsToXmlFile.exceptionDuringSaveLabelsToXmlFile">
         <value xml:lang="en">Exception during saving labels to xml file</value>
@@ -247,7 +247,7 @@
         <value xml:lang="ja">ラベルをxmlファイルに保存中、例外が発生しました</value>
         <value xml:lang="pt">ExceÃ§Ã£o durante a gravaÃ§Ã£o das labels para o arquivo xml</value>
         <value xml:lang="zh">把标签保存到xml文件时出错</value>
-        <value xml:lang="zh_TW">把標簽保存到xml文件時出錯</value>
+        <value xml:lang="zh_TW">把標簽保存到xml檔時出錯</value>
     </property>
     <property key="utilCache.clearAllCaches">
         <value xml:lang="en">Cleared all caches</value>
@@ -280,7 +280,7 @@
         <value xml:lang="ro">Curatire cache cu nume: ${name}</value>
         <value xml:lang="th">เคลียร์หน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">已清除缓存：${name}</value>
-        <value xml:lang="zh_TW">已清除快取：${name}</value>
+        <value xml:lang="zh_TW">已清除快取:${name}</value>
     </property>
     <property key="utilCache.couldNotClearCache">
         <value xml:lang="en">Could not clear cache, no name specified</value>
@@ -291,7 +291,7 @@
         <value xml:lang="ro">Nu este posibila curatarea cach-ului, nici-un nume  specificat</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่ระบุชื่อ</value>
         <value xml:lang="zh">无法清除缓存，没有指定名称</value>
-        <value xml:lang="zh_TW">無法清除快取，沒有指定名稱</value>
+        <value xml:lang="zh_TW">無法清除快取,沒有指定名稱</value>
     </property>
     <property key="utilCache.couldNotClearCacheNotFoundName">
         <value xml:lang="en">Could not clear cache, cache not found with name: ${name}</value>
@@ -302,7 +302,7 @@
         <value xml:lang="ro">Nu este posibila curatirea cache,nu gaseste nume cache: ${name}</value>
         <value xml:lang="th">ไม่สามารถเคลียร์หน่วยความจำ , ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">无法清除缓存，没有找到缓存：${name}</value>
-        <value xml:lang="zh_TW">無法清除快取，沒有找到快取：${name}</value>
+        <value xml:lang="zh_TW">無法清除快取,沒有找到快取:${name}</value>
     </property>
     <property key="utilCache.couldNotRemoveElement">
         <value xml:lang="en">Could not remove cache element, cache not found with name: ${name}</value>
@@ -313,7 +313,7 @@
         <value xml:lang="ro">Nu este posibila stergerea elementului din chash, nu gaseste chash cu nume: ${name}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบหน่วยความจำด้วยชื่อ: ${name}</value>
         <value xml:lang="zh">无法删除缓存元素，没有找到名称为 ${name} 的缓存</value>
-        <value xml:lang="zh_TW">無法刪除快取元素，沒有找到名稱為 ${name} 的快取</value>
+        <value xml:lang="zh_TW">無法刪除快取元素,沒有找到名稱為 ${name} 的快取</value>
     </property>
     <property key="utilCache.couldNotRemoveElementNumber">
         <value xml:lang="en">Could not remove cache element, element not found with cache name: ${name} , element number: ${numString}</value>
@@ -324,7 +324,7 @@
         <value xml:lang="ro">Nu este possibila stergerea elementului din chesh-ul, nu gaseste elementul cu numele cache: ${name} , element numar: ${numString}</value>
         <value xml:lang="th">ไม่สามารถย้ายองค์ประกอบจากหน่วยความจำ, ไม่พบองค์ประกอบด้วยชื่อหน่วยความจำ: ${name} , หมายเลของค์ประกอบ: ${numString}</value>
         <value xml:lang="zh">无法删除缓存元素，符合条件的元素没有找到，缓存名称：${name}，元素编号：${numString}</value>
-        <value xml:lang="zh_TW">無法刪除快取元素，符合條件的元素沒有找到，快取名稱：${name}，元素編號：${numString}</value>
+        <value xml:lang="zh_TW">無法刪除快取元素,符合條件的元素沒有找到,快取名稱:${name},元素編號:${numString}</value>
     </property>
     <property key="utilCache.couldNotUpdateCacheSetting">
         <value xml:lang="en">Could not update cache settings, no name specified</value>
@@ -335,7 +335,7 @@
         <value xml:lang="ro">Nu e posibila actualizarea setarilor cache, nici un nume specificat</value>
         <value xml:lang="th">ไม่สามารถอัพเดทการตั้งค่าหน่วยความจำ, ไม่ระบุชื่อ</value>
         <value xml:lang="zh">无法更新缓存设置，没有指定名称</value>
-        <value xml:lang="zh_TW">無法更新快取設置，沒有指定名稱</value>
+        <value xml:lang="zh_TW">無法更新快取設定,沒有指定名稱</value>
     </property>
     <property key="utilCache.removeElementWithKey">
         <value xml:lang="en">Removed element from cache with key: ${key}</value>
@@ -346,7 +346,7 @@
         <value xml:lang="ro">A fost sters elementul din chash-ul cu cheia: ${key}</value>
         <value xml:lang="th">ย้ายองค์ประกอบจากหน่วยความจำด้วยคีย์: ${key}</value>
         <value xml:lang="zh">从缓存中删除了元素，键：${key}</value>
-        <value xml:lang="zh_TW">從快取中刪除了元素，鍵：${key}</value>
+        <value xml:lang="zh_TW">從快取中刪除了元素,鍵:${key}</value>
     </property>
     <property key="utilCacheEvents.noCacheNameSpecified">
         <value xml:lang="en">Could not remove cache line/element, no cache name specified</value>
@@ -357,7 +357,7 @@
         <value xml:lang="ro">Nu este posibila stergerea linieri/element, nici-un nume de chash specificata</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุชื่อหน่วยความจำ</value>
         <value xml:lang="zh">无法删除缓存行/元素，没有指定缓存名称</value>
-        <value xml:lang="zh_TW">無法刪除快取行/元素，沒有指定快取名稱</value>
+        <value xml:lang="zh_TW">無法刪除快取行/元素,沒有指定快取名稱</value>
     </property>
     <property key="utilCacheEvents.noElementNumberSpecified">
         <value xml:lang="en">Could not remove cache line/element, no element number specified</value>
@@ -368,7 +368,7 @@
         <value xml:lang="ro">Nu este posibila stergerea liniei/element, nici-un numar de elemente specificate</value>
         <value xml:lang="th">ไม่สามารถลบหน่วยความจำ/องค์ประกอบ, ไม่ระบุหมายเลขหน่วยความจำ</value>
         <value xml:lang="zh">无法删除缓存行/元素，没有指定元素编号</value>
-        <value xml:lang="zh_TW">無法刪除快取行/元素，沒有指定元素編號</value>
+        <value xml:lang="zh_TW">無法刪除快取行/元素,沒有指定元素編號</value>
     </property>
     <property key="utilCacheEvents.permissionEdit">
         <value xml:lang="en">You do not have permission to perform this operation, UTIL_CACHE_EDIT required</value>
@@ -379,6 +379,6 @@
         <value xml:lang="ro">Nu ai permisul de a executa aceasta operatie, permis UTIL_CACHE_EDIT cerut</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการทำงานการดำเนินการนี้, UTIL_CACHE_EDIT ต้องการ</value>
         <value xml:lang="zh">你没有执行这个操作的权限，需要UTIL_CACHE_EDIT</value>
-        <value xml:lang="zh_TW">你沒有執行這個操作的權限，需要UTIL_CACHE_EDIT</value>
+        <value xml:lang="zh_TW">你沒有執行這個操作的權限,需要UTIL_CACHE_EDIT</value>
     </property>
 </resource>

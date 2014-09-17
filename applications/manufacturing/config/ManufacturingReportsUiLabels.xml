@@ -53,7 +53,7 @@
         <value xml:lang="ro">Lungime comandata</value>
         <value xml:lang="th">ระยะเวลาในการดูแลลูกค้า</value>
         <value xml:lang="zh">定制长度</value>
-        <value xml:lang="zh_TW">定制長度</value>
+        <value xml:lang="zh_TW">客製長度</value>
     </property>
     <property key="ManufacturingDestination">
         <value xml:lang="en">Destination</value>
@@ -161,7 +161,7 @@
         <value xml:lang="ro">Operatii de Productie pentru Expediere</value>
         <value xml:lang="th">การดำเนินการสำหรับการขนส่ง</value>
         <value xml:lang="zh">运输操作运行</value>
-        <value xml:lang="zh_TW">運輸操作運行</value>
+        <value xml:lang="zh_TW">運輸操作執行</value>
     </property>
     <property key="ManufacturingPackage">
         <value xml:lang="en">Package</value>
@@ -185,7 +185,7 @@
         <value xml:lang="ro">Numar placi</value>
         <value xml:lang="th">หมายเลขบัญชีรายชื่อ</value>
         <value xml:lang="zh">屏面号</value>
-        <value xml:lang="zh_TW">屏面號</value>
+        <value xml:lang="zh_TW">面板號</value>
     </property>
     <property key="ManufacturingPickingDate">
         <value xml:lang="en">Picking date</value>
@@ -197,7 +197,7 @@
         <value xml:lang="ro">Data Distributie</value>
         <value xml:lang="th">วันที่เลือก</value>
         <value xml:lang="zh">分拣日期</value>
-        <value xml:lang="zh_TW">分揀日期</value>
+        <value xml:lang="zh_TW">揀貨日期</value>
     </property>
     <property key="ManufacturingPickingListFx">
         <value xml:lang="en">Picking for release</value>
@@ -209,7 +209,7 @@
         <value xml:lang="ro">Cerere  Distribuire</value>
         <value xml:lang="th">การเลือกเพื่อการยกเว้น</value>
         <value xml:lang="zh">分拣用于发布</value>
-        <value xml:lang="zh_TW">分揀用于發布</value>
+        <value xml:lang="zh_TW">揀貨用於發行</value>
     </property>
     <property key="ManufacturingPickingPeriod">
         <value xml:lang="en">Picking period</value>
@@ -221,7 +221,7 @@
         <value xml:lang="ro">Perioda distributie</value>
         <value xml:lang="th">เลือกระยะเวลา</value>
         <value xml:lang="zh">分拣阶段</value>
-        <value xml:lang="zh_TW">分揀階段</value>
+        <value xml:lang="zh_TW">揀貨階段</value>
     </property>
     <property key="ManufacturingPlan">
         <value xml:lang="en">Manufacturing Plan</value>
@@ -233,7 +233,7 @@
         <value xml:lang="ro">Plan de productie</value>
         <value xml:lang="th">แผนการผลิต</value>
         <value xml:lang="zh">制造计划</value>
-        <value xml:lang="zh_TW">制造計劃</value>
+        <value xml:lang="zh_TW">製造計劃</value>
     </property>
     <property key="ManufacturingPrintoutDate">
         <value xml:lang="en">Printout Date</value>
@@ -265,7 +265,7 @@
         <value xml:lang="ja">機能別生産実行コンポーネント</value>
         <value xml:lang="pt_BR">Ritmo de produção por características de produtos</value>
         <value xml:lang="zh">按特征的生产运行组件</value>
-        <value xml:lang="zh_TW">按特征的生產運行元件</value>
+        <value xml:lang="zh_TW">按特色的生產運行元件</value>
     </property>
     <property key="ManufacturingProductionRunInfoAndOrder">
         <value xml:lang="en">Production Runs Info And Order</value>
@@ -305,7 +305,7 @@
         <value xml:lang="ja">製品スタック</value>
         <value xml:lang="pt_BR">Pilha de produtos</value>
         <value xml:lang="zh">产品堆垛</value>
-        <value xml:lang="zh_TW">產品堆垛</value>
+        <value xml:lang="zh_TW">產品堆疊</value>
     </property>
     <property key="ManufacturingQtyM2">
         <value xml:lang="en">Square meters</value>
@@ -329,7 +329,7 @@
         <value xml:lang="ro">Referente</value>
         <value xml:lang="th">อ้างอิง</value>
         <value xml:lang="zh">引用</value>
-        <value xml:lang="zh_TW">引用</value>
+        <value xml:lang="zh_TW">參考</value>
     </property>
     <property key="ManufacturingReleased">
         <value xml:lang="en">Released</value>
@@ -341,7 +341,7 @@
         <value xml:lang="ro">Eliberat</value>
         <value xml:lang="th">การยกเว้น</value>
         <value xml:lang="zh">已发布</value>
-        <value xml:lang="zh_TW">已發布</value>
+        <value xml:lang="zh_TW">已發行</value>
     </property>
     <property key="ManufacturingReleasedNote">
         <value xml:lang="en">Released/Note</value>
@@ -353,7 +353,7 @@
         <value xml:lang="ro">Eliberat/Note</value>
         <value xml:lang="th">การยกเว้น/หมายเหตุ</value>
         <value xml:lang="zh">已发布/注意</value>
-        <value xml:lang="zh_TW">已發布/注意</value>
+        <value xml:lang="zh_TW">已發行/注意</value>
     </property>
     <property key="ManufacturingRequester">
         <value xml:lang="en">Requester</value>
@@ -365,7 +365,7 @@
         <value xml:lang="ro">Petitionar</value>
         <value xml:lang="th">ผู้ยื่นคำร้อง</value>
         <value xml:lang="zh">需求方</value>
-        <value xml:lang="zh_TW">需求方</value>
+        <value xml:lang="zh_TW">請求方</value>
     </property>
     <property key="ManufacturingShipTo">
         <value xml:lang="en">Ship To</value>
@@ -389,7 +389,7 @@
         <value xml:lang="ro">Numar Expediere</value>
         <value xml:lang="th">รหัสการขนส่ง</value>
         <value xml:lang="zh">运输标识</value>
-        <value xml:lang="zh_TW">運輸ID</value>
+        <value xml:lang="zh_TW">運輸識別</value>
     </property>
     <property key="ManufacturingShopOrder">
         <value xml:lang="en">Shop Order</value>
@@ -413,7 +413,7 @@
         <value xml:lang="ro">Timp de Executie Dedicat</value>
         <value xml:lang="th">การทำงานในเวลา</value>
         <value xml:lang="zh">任务运行时间</value>
-        <value xml:lang="zh_TW">任務運行時間</value>
+        <value xml:lang="zh_TW">任務執行時間</value>
     </property>
     <property key="ManufacturingTaskSetupTime">
         <value xml:lang="en">Task Setup Time</value>

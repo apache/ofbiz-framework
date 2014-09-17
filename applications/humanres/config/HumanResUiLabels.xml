@@ -86,7 +86,7 @@
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
         <value xml:lang="vi">Id Hồ sơ</value>
         <value xml:lang="zh">应聘申请编号</value>
-        <value xml:lang="zh_TW">應聘申請編號</value>
+        <value xml:lang="zh_TW">應聘申請識別</value>
     </property>
     <property key="FormFieldTitle_applyingPartyId">
         <value xml:lang="de">Anwendungsteilnehmer ID</value>
@@ -106,6 +106,7 @@
         <value xml:lang="ja">承認ステータス</value>
         <value xml:lang="vi">Trạng thái duyệt</value>
         <value xml:lang="zh">批准人状态</value>
+        <value xml:lang="zh_TW">核准人狀態</value>
     </property>
     <property key="FormFieldTitle_approverId">
         <value xml:lang="en">Approver Party</value>
@@ -114,6 +115,7 @@
         <value xml:lang="pt_BR">Participante responsável</value>
         <value xml:lang="vi">Người duyệt</value>
         <value xml:lang="zh">批准人会员</value>
+        <value xml:lang="zh_TW">核准人團體</value>
     </property>
     <property key="FormFieldTitle_approverPartyId">
         <value xml:lang="en">Approver Party</value>
@@ -122,6 +124,7 @@
         <value xml:lang="pt_BR">Participante responsável</value>
         <value xml:lang="vi">Người duyệt</value>
         <value xml:lang="zh">批准人会员</value>
+        <value xml:lang="zh_TW">核准人團體</value>
     </property>
     <property key="FormFieldTitle_bankName">
         <value xml:lang="en">Bank Name</value>
@@ -143,7 +146,7 @@
         <value xml:lang="th">รหัสประเภทผลประโยชน์</value>
         <value xml:lang="vi">Id loại lợi nhuận</value>
         <value xml:lang="zh">福利类型编号</value>
-        <value xml:lang="zh_TW">福利類型編號</value>
+        <value xml:lang="zh_TW">福利類型識別</value>
     </property>
     <property key="FormFieldTitle_budgetId">
         <value xml:lang="en">Budget Id</value>
@@ -154,7 +157,7 @@
         <value xml:lang="th">รหัสงบประมาณ</value>
         <value xml:lang="vi">Ngân sách</value>
         <value xml:lang="zh">预算编号</value>
-        <value xml:lang="zh_TW">預算編號</value>
+        <value xml:lang="zh_TW">預算識別</value>
     </property>
     <property key="FormFieldTitle_budgetItemSeqId">
         <value xml:lang="en">Budget Item Seq Id</value>
@@ -165,7 +168,7 @@
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
         <value xml:lang="vi">Id thứ tự ngân sách cho hàng hóa</value>
         <value xml:lang="zh">预算项目序号</value>
-        <value xml:lang="zh_TW">預算專案序號</value>
+        <value xml:lang="zh_TW">預算項目序號</value>
     </property>
     <property key="FormFieldTitle_budgetItemTypeId">
         <value xml:lang="en">Budget Item Type Id</value>
@@ -176,7 +179,7 @@
         <value xml:lang="th">รหัสประเภทรายการงบประมาณ</value>
         <value xml:lang="vi">Id kiểu ngân sách cho hàng hóa</value>
         <value xml:lang="zh">预算项目类型编号</value>
-        <value xml:lang="zh_TW">預算專案類型編號</value>
+        <value xml:lang="zh_TW">預算專案類型識別</value>
     </property>
     <property key="FormFieldTitle_budgetTypeId">
         <value xml:lang="en">Budget Type Id</value>
@@ -187,7 +190,7 @@
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
         <value xml:lang="vi">Id loại ngân sách</value>
         <value xml:lang="zh">预算类型编号</value>
-        <value xml:lang="zh_TW">預算類型編號</value>
+        <value xml:lang="zh_TW">預算類型識別</value>
     </property>
     <property key="FormFieldTitle_communicationDate">
         <value xml:lang="en">Communication Date</value>
@@ -196,7 +199,7 @@
         <value xml:lang="pt_BR">Data de comunicação</value>
         <value xml:lang="vi">Ngày giao tiếp</value>
         <value xml:lang="zh">沟通日期</value>
-        <value xml:lang="zh_TW">溝通日期</value>
+        <value xml:lang="zh_TW">通訊日期</value>
     </property>
     <property key="FormFieldTitle_company">
         <value xml:lang="en">Company</value>
@@ -227,7 +230,7 @@
         <value xml:lang="th">รหัสประเภทการหักลบ</value>
         <value xml:lang="vi">Kiểu khấu trừ</value>
         <value xml:lang="zh">扣除类型编号</value>
-        <value xml:lang="zh_TW">扣除類型編號</value>
+        <value xml:lang="zh_TW">扣除類型識別</value>
     </property>
     <property key="FormFieldTitle_emplLeaveReasonTypeId">
         <value xml:lang="en">Leave Reason Type</value>
@@ -236,6 +239,7 @@
         <value xml:lang="pt_BR">Tipo da razão de licença</value>
         <value xml:lang="vi">Kiểu lí do</value>
         <value xml:lang="zh">离职原因类型</value>
+        <value xml:lang="zh_TW">離職原因類型</value>
     </property>
     <property key="FormFieldTitle_emplPositionId">
         <value xml:lang="de">Anstellungspositions-ID</value>
@@ -247,7 +251,7 @@
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Vị trí nhân sự</value>
         <value xml:lang="zh">雇员职位编号</value>
-        <value xml:lang="zh_TW">雇員職位編號</value>
+        <value xml:lang="zh_TW">員工職位識別</value>
     </property>
     <property key="FormFieldTitle_emplPositionIdManagedBy">
         <value xml:lang="en">Empl Position Id Managed By</value>
@@ -278,7 +282,7 @@
         <value xml:lang="th">รหัสกลุ่มพนักงาน</value>
         <value xml:lang="vi">Id nhân sự</value>
         <value xml:lang="zh">雇员编号</value>
-        <value xml:lang="zh_TW">雇員編號</value>
+        <value xml:lang="zh_TW">員工識別</value>
     </property>
     <property key="FormFieldTitle_employeeRoleTypeId">
         <value xml:lang="en">Employee Role Type Id</value>
@@ -289,7 +293,7 @@
         <value xml:lang="th">รหัสประเภทสถานะพนักงาน</value>
         <value xml:lang="vi">Loại vai trò nhân sự</value>
         <value xml:lang="zh">雇员角色类型编号</value>
-        <value xml:lang="zh_TW">雇員角色類型編號</value>
+        <value xml:lang="zh_TW">員工角色類型識別</value>
     </property>
     <property key="FormFieldTitle_employmentAppSourceTypeId">
         <value xml:lang="de">Quelle der Anstellungsanwendungs-ID</value>
@@ -331,6 +335,7 @@
         <value xml:lang="ja">検査種類ID</value>
         <value xml:lang="vi">Các kiểu thi</value>
         <value xml:lang="zh">考试类型枚举标识</value>
+        <value xml:lang="zh_TW">考試類型列舉標識</value>
     </property>
     <property key="FormFieldTitle_exemptFlag">
         <value xml:lang="en">Exempt Flag</value>
@@ -350,6 +355,7 @@
         <value xml:lang="ja">経験月数</value>
         <value xml:lang="vi">Số Tháng kinh nghiệm</value>
         <value xml:lang="zh">按月计算的经验</value>
+        <value xml:lang="zh_TW">按月計算的經驗</value>
     </property>
     <property key="FormFieldTitle_experienceYears">
         <value xml:lang="en">Experience in years</value>
@@ -358,6 +364,7 @@
         <value xml:lang="ja">経験年数</value>
         <value xml:lang="vi">Số Năm kinh nghiệm</value>
         <value xml:lang="zh">按年计算的经验</value>
+        <value xml:lang="zh_TW">按年計算的經驗</value>
     </property>
     <property key="FormFieldTitle_flatAmount">
         <value xml:lang="en">Flat Amount</value>
@@ -388,6 +395,7 @@
         <value xml:lang="ja">職務場所</value>
         <value xml:lang="vi">Nơi làm việc</value>
         <value xml:lang="zh">工作地点</value>
+        <value xml:lang="zh_TW">工作地點</value>
     </property>
     <property key="FormFieldTitle_jobPostingEnumId">
         <value xml:lang="en">Job Posting Enum Id</value>
@@ -396,6 +404,7 @@
         <value xml:lang="ja">職務配置ID</value>
         <value xml:lang="vi">Thông báo tuyển nhân sự</value>
         <value xml:lang="zh">工作公告枚举标识</value>
+        <value xml:lang="zh_TW">工作公告列舉標識</value>
     </property>
     <property key="FormFieldTitle_jobPostingTypeEnumId">
         <value xml:lang="en">Job Posting Type</value>
@@ -404,6 +413,7 @@
         <value xml:lang="ja">職務配置種類</value>
         <value xml:lang="vi">Loại thông báo tuyển nhân sự</value>
         <value xml:lang="zh">工作公告类型</value>
+        <value xml:lang="zh_TW">工作公告類型</value>
     </property>
     <property key="FormFieldTitle_jobRequisitionId">
         <value xml:lang="en">Job Requisition Id</value>
@@ -412,6 +422,7 @@
         <value xml:lang="pt_BR">Id de requisição de emprego</value>
         <value xml:lang="vi">Nghề nghiệp tuyển dụng</value>
         <value xml:lang="zh">工作单标识</value>
+        <value xml:lang="zh_TW">工作單標識</value>
     </property>
     <property key="FormFieldTitle_justification">
         <value xml:lang="en">Justification</value>
@@ -431,6 +442,7 @@
         <value xml:lang="pt_BR">Estado da licença</value>
         <value xml:lang="vi">Trạng thái Nghỉ phép</value>
         <value xml:lang="zh">离职状态</value>
+        <value xml:lang="zh_TW">離職狀態</value>
     </property>
     <property key="FormFieldTitle_leaveTypeId">
         <value xml:lang="en">Leave Type Id</value>
@@ -440,7 +452,7 @@
         <value xml:lang="pt_BR">Id de tipo de licença</value>
         <value xml:lang="vi">Kiểu Nghỉ phép</value>
         <value xml:lang="zh">请假类型编号</value>
-        <value xml:lang="zh_TW">請假類型編號</value>
+        <value xml:lang="zh_TW">請假類型識別</value>
     </property>
     <property key="FormFieldTitle_managerPartyId">
         <value xml:lang="en">Manager Party Id</value>
@@ -451,7 +463,7 @@
         <value xml:lang="th">การจัดการรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhà quản lý</value>
         <value xml:lang="zh">该雇员经理</value>
-        <value xml:lang="zh_TW">該雇員經理</value>
+        <value xml:lang="zh_TW">該員工經理</value>
     </property>
     <property key="FormFieldTitle_managerRoleTypeId">
         <value xml:lang="en">Manager Role Type Id</value>
@@ -462,7 +474,7 @@
         <value xml:lang="th">การจัดการประเภทสถานะ</value>
         <value xml:lang="vi">Kiểu vai trò quản lý</value>
         <value xml:lang="zh">经理角色类型编号</value>
-        <value xml:lang="zh_TW">經理角色類型編號</value>
+        <value xml:lang="zh_TW">經理角色類型識別</value>
     </property>
     <property key="FormFieldTitle_partyQualTypeId">
         <value xml:lang="en">Party Qual Type Id</value>
@@ -472,7 +484,7 @@
         <value xml:lang="pt_BR">Id de tipo qualificação de participante</value>
         <value xml:lang="vi">Mức trình độ chuyên môn</value>
         <value xml:lang="zh">会员资质类型</value>
-        <value xml:lang="zh_TW">會員資質類型</value>
+        <value xml:lang="zh_TW">團體資格類型</value>
     </property>
     <property key="FormFieldTitle_payGradeId">
         <value xml:lang="en">Pay Grade Id</value>
@@ -483,7 +495,7 @@
         <value xml:lang="th">รหัสระดับการจ่าย</value>
         <value xml:lang="vi">Bậc trả lương</value>
         <value xml:lang="zh">薪水等级编号</value>
-        <value xml:lang="zh_TW">薪水等級編號</value>
+        <value xml:lang="zh_TW">薪水等級識別</value>
     </property>
     <property key="FormFieldTitle_payGradeName">
         <value xml:lang="en">Pay Grade Name</value>
@@ -516,7 +528,7 @@
         <value xml:lang="th">จ่ายรหัสกลุ่มข้อมูลจาก</value>
         <value xml:lang="vi">Từ Người</value>
         <value xml:lang="zh">历史薪水来自（会员）</value>
-        <value xml:lang="zh_TW">歷史薪水來自（會員）</value>
+        <value xml:lang="zh_TW">歷史薪水來自(團體)</value>
     </property>
     <property key="FormFieldTitle_payHistoryPartyIdTo">
         <value xml:lang="en">Pay History Party Id To</value>
@@ -527,7 +539,7 @@
         <value xml:lang="th">จ่ายรหัสกลุ่มข้อมูลถึง</value>
         <value xml:lang="vi">Đến Người</value>
         <value xml:lang="zh">历史薪水去向（会员）</value>
-        <value xml:lang="zh_TW">歷史薪水去向（會員）</value>
+        <value xml:lang="zh_TW">歷史薪水去向(團體)</value>
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdFrom">
         <value xml:lang="en">Pay History Role Type Id From</value>
@@ -538,7 +550,7 @@
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลจาก</value>
         <value xml:lang="vi">Từ Vai trò</value>
         <value xml:lang="zh">历史薪水来自（角色）</value>
-        <value xml:lang="zh_TW">歷史薪水來自（角色）</value>
+        <value xml:lang="zh_TW">歷史薪水來自(角色)</value>
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdTo">
         <value xml:lang="en">Pay History Role Type Id To</value>
@@ -549,7 +561,7 @@
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลถึง</value>
         <value xml:lang="vi">Đến Vai trò</value>
         <value xml:lang="zh">历史薪水去向（角色）</value>
-        <value xml:lang="zh_TW">歷史薪水去向（角色）</value>
+        <value xml:lang="zh_TW">歷史薪水去向(角色)</value>
     </property>
     <property key="FormFieldTitle_perfRatingTypeId">
         <value xml:lang="en">Perf Rating Type Id</value>
@@ -558,7 +570,7 @@
         <value xml:lang="pt_BR">Id de tipo de avaliação de desempenho</value>
         <value xml:lang="vi">Kiểu đánh giá</value>
         <value xml:lang="zh">绩效评级类型标识</value>
-        <value xml:lang="zh_TW">績效評級類型ID</value>
+        <value xml:lang="zh_TW">績效評級類型識別</value>
     </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
@@ -569,7 +581,7 @@
         <value xml:lang="th">Perf Review Id</value>
         <value xml:lang="vi">Xem xét</value>
         <value xml:lang="zh">绩效评定标识</value>
-        <value xml:lang="zh_TW">績效評定ID</value>
+        <value xml:lang="zh_TW">績效評定識別</value>
     </property>
     <property key="FormFieldTitle_perfReviewItemSeqId">
         <value xml:lang="en">Perf Review Item Seq Id</value>
@@ -578,7 +590,7 @@
         <value xml:lang="pt_BR">Id de Item de sequência da avaliação de desempenho</value>
         <value xml:lang="vi">Thứ tự hạng mục</value>
         <value xml:lang="zh">绩效评定明细子标识</value>
-        <value xml:lang="zh_TW">績效評定明細序列ID</value>
+        <value xml:lang="zh_TW">績效評定細項序列識別</value>
     </property>
     <property key="FormFieldTitle_perfReviewItemTypeId">
         <value xml:lang="en">Perf Review Item Type Id</value>
@@ -587,7 +599,7 @@
         <value xml:lang="pt_BR">Id de tipo de Item de avaliação de desempenho</value>
         <value xml:lang="vi">Loại hạng mục</value>
         <value xml:lang="zh">绩效评定明细类型标识</value>
-        <value xml:lang="zh_TW">績效評定明細類型ID</value>
+        <value xml:lang="zh_TW">績效評定細項類型識別</value>
     </property>
     <property key="FormFieldTitle_position">
         <value xml:lang="en">Position</value>
@@ -628,7 +640,7 @@
         <value xml:lang="pt_BR">Descrição de qualificação</value>
         <value xml:lang="vi">Miêu tả phẩm chất</value>
         <value xml:lang="zh">资质描述</value>
-        <value xml:lang="zh_TW">資質描述</value>
+        <value xml:lang="zh_TW">資格描述</value>
     </property>
     <property key="FormFieldTitle_referredByPartyId">
         <value xml:lang="en">Referred By Party Id</value>
@@ -650,7 +662,7 @@
         <value xml:lang="th">รหัสประเภทหน้าที่</value>
         <value xml:lang="vi">Kiểu Trách nhiệm</value>
         <value xml:lang="zh">责任类型编号</value>
-        <value xml:lang="zh_TW">責任類型編號</value>
+        <value xml:lang="zh_TW">責任類型識別</value>
     </property>
     <property key="FormFieldTitle_resumeDate">
         <value xml:lang="en">Resume Date</value>
@@ -670,7 +682,7 @@
         <value xml:lang="pt_BR">Id do currículo</value>
         <value xml:lang="vi">Hồ sơ</value>
         <value xml:lang="zh">简历编号</value>
-        <value xml:lang="zh_TW">簡歷編號</value>
+        <value xml:lang="zh_TW">簡歷識別</value>
     </property>
     <property key="FormFieldTitle_resumeText">
         <value xml:lang="en">Resume Text</value>
@@ -734,7 +746,7 @@
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="vi">Loại kỹ năng</value>
         <value xml:lang="zh">技能类型编号</value>
-        <value xml:lang="zh_TW">技能類型編號</value>
+        <value xml:lang="zh_TW">技能類型識別</value>
     </property>
     <property key="FormFieldTitle_startedUsingDate">
         <value xml:lang="de">erste Nutzung</value>
@@ -768,7 +780,7 @@
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
         <value xml:lang="vi">Lý do cho Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止原因编号</value>
-        <value xml:lang="zh_TW">雇佣關系終止原因編號</value>
+        <value xml:lang="zh_TW">雇佣終止原因識別</value>
     </property>
     <property key="FormFieldTitle_terminationTypeId">
         <value xml:lang="en">Termination Type Id</value>
@@ -779,7 +791,7 @@
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
         <value xml:lang="vi">Loại Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止类型编号</value>
-        <value xml:lang="zh_TW">雇佣關系終止類型編號</value>
+        <value xml:lang="zh_TW">雇佣終止類型識別</value>
     </property>
     <property key="FormFieldTitle_title">
         <value xml:lang="en">Title</value>
@@ -787,6 +799,7 @@
         <value xml:lang="ja">タイトル</value>
         <value xml:lang="vi">Tiêu đề</value>
         <value xml:lang="zh">标题</value>
+        <value xml:lang="zh_TW">標題</value>
     </property>
     <property key="FormFieldTitle_trainingClassTypeId">
         <value xml:lang="en">Training Class Type Id</value>
@@ -796,7 +809,7 @@
         <value xml:lang="pt_BR">Id de tipo de classe de treinamento</value>
         <value xml:lang="vi">Kiểu lớp đào tạo</value>
         <value xml:lang="zh">培训课程类型编号</value>
-        <value xml:lang="zh_TW">培訓課程類型編號</value>
+        <value xml:lang="zh_TW">教育訓練課程類型識別</value>
     </property>
     <property key="FormFieldTitle_trainingRequestId">
         <value xml:lang="en">Training Request Id</value>
@@ -804,6 +817,7 @@
         <value xml:lang="ja">トレーニングリクエストID</value>
         <value xml:lang="vi">Yêu cầu đào tạo</value>
         <value xml:lang="zh">培训请求标识</value>
+        <value xml:lang="zh_TW">教育訓練請求標識</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
@@ -814,7 +828,7 @@
         <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้องวันที่</value>
         <value xml:lang="vi">Ngày khiếu nại thất nghiệp</value>
         <value xml:lang="zh">解除雇佣关系声明日期</value>
-        <value xml:lang="zh_TW">解除雇佣關系聲明日期</value>
+        <value xml:lang="zh_TW">解除雇佣聲明日期</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimId">
         <value xml:lang="en">Unemployment Claim Id</value>
@@ -825,7 +839,7 @@
         <value xml:lang="th">รหัสจำนวนผู้ว่างงานเรียกร้อง</value>
         <value xml:lang="vi">Khiếu nại thất nghiệp</value>
         <value xml:lang="zh">解除雇佣关系声明编号</value>
-        <value xml:lang="zh_TW">解除雇佣關系聲明編號</value>
+        <value xml:lang="zh_TW">解除雇佣聲明識別</value>
     </property>
     <property key="FormFieldTitle_verifStatusId">
         <value xml:lang="en">Verif Status Id</value>
@@ -847,13 +861,14 @@
         <value xml:lang="th">ประสบการณ์(ปี)</value>
         <value xml:lang="vi">Số năm kinh nghiệm</value>
         <value xml:lang="zh">工作经验（年）</value>
-        <value xml:lang="zh_TW">工作經驗（年）</value>
+        <value xml:lang="zh_TW">工作經驗(年)</value>
     </property>
     <property key="HumanHolidayName">
         <value xml:lang="en">Holiday Name</value>
         <value xml:lang="ja">休日名</value>
         <value xml:lang="vi">Tên kỳ Xin nghỉ</value>
         <value xml:lang="zh">假日名称</value>
+        <value xml:lang="zh_TW">假日名稱</value>
     </property>
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
@@ -863,7 +878,7 @@
         <value xml:lang="pt_BR">Adicionar licença de empregado</value>
         <value xml:lang="vi">Thêm nhân sự Nghỉ phép</value>
         <value xml:lang="zh">新建雇员请假</value>
-        <value xml:lang="zh_TW">新建雇員請假</value>
+        <value xml:lang="zh_TW">新建員工請假</value>
     </property>
     <property key="HumanResAddEmplLeaveReasonType">
         <value xml:lang="en">Add Employee Leave Reason</value>
@@ -872,6 +887,7 @@
         <value xml:lang="pt_BR">Adicionar razão para licença de empregado</value>
         <value xml:lang="vi">Thêm Lý do nghỉ phép</value>
         <value xml:lang="zh">添加雇员离职原因</value>
+        <value xml:lang="zh_TW">增加員工離職原因</value>
     </property>
     <property key="HumanResAddEmplLeaveType">
         <value xml:lang="en">Add EmplLeave Types</value>
@@ -881,7 +897,7 @@
         <value xml:lang="pt_BR">Adicionar tipos de licença de empregado</value>
         <value xml:lang="vi">Thêm kiểu Nghỉ việc</value>
         <value xml:lang="zh">新建雇员请假类型</value>
-        <value xml:lang="zh_TW">新建雇員請假類型</value>
+        <value xml:lang="zh_TW">新建員工請假類型</value>
     </property>
     <property key="HumanResAddEmplPositionFulfillment">
         <value xml:lang="en">Add Position Fulfillment</value>
@@ -891,7 +907,7 @@
         <value xml:lang="pt_BR">Adicionar desempenho de posição</value>
         <value xml:lang="vi">Thêm hoàn thành tuyển dụng</value>
         <value xml:lang="zh">新建属于该职位雇员</value>
-        <value xml:lang="zh_TW">新建屬于該職位雇員</value>
+        <value xml:lang="zh_TW">新建屬於該職位員工</value>
     </property>
     <property key="HumanResAddEmplPositionResponsibility">
         <value xml:lang="en">Add Position Responsibility</value>
@@ -910,6 +926,7 @@
         <value xml:lang="pt_BR">Adicionar tipo de entrevista de emprego</value>
         <value xml:lang="vi">Thêm Kiểu phỏng vấn</value>
         <value xml:lang="zh">添加工作面试类型</value>
+        <value xml:lang="zh_TW">增加工作面試類型</value>
     </property>
     <property key="HumanResAddPartyBenefit">
         <value xml:lang="en">Add Party Benefit</value>
@@ -919,7 +936,7 @@
         <value xml:lang="pt_BR">Adicionar benefício de participante</value>
         <value xml:lang="vi">Thêm điểm Tốt</value>
         <value xml:lang="zh">新建会员福利</value>
-        <value xml:lang="zh_TW">新建會員福利</value>
+        <value xml:lang="zh_TW">新建團體福利</value>
     </property>
     <property key="HumanResAddPartyQual">
         <value xml:lang="en">Add Party Qualification</value>
@@ -929,7 +946,7 @@
         <value xml:lang="pt_BR">Adicionar qualificação de participante</value>
         <value xml:lang="vi">Thêm Trình độ chuyên môn</value>
         <value xml:lang="zh">添加会员资质</value>
-        <value xml:lang="zh_TW">添加會員資質</value>
+        <value xml:lang="zh_TW">增加團體資格</value>
     </property>
     <property key="HumanResAddPartySkill">
         <value xml:lang="en">Add Party Skill</value>
@@ -939,7 +956,7 @@
         <value xml:lang="pt_BR">Adicionar habilidade de participante</value>
         <value xml:lang="vi">Thêm Kỹ năng</value>
         <value xml:lang="zh">添加会员技能</value>
-        <value xml:lang="zh_TW">添加會員技能</value>
+        <value xml:lang="zh_TW">增加團體技能</value>
     </property>
     <property key="HumanResAddPayrollPreference">
         <value xml:lang="en">Add Payroll Preference</value>
@@ -969,7 +986,7 @@
         <value xml:lang="pt_BR">Adicionar itens de avaliação de desempenho</value>
         <value xml:lang="vi">Thêm hạng mục xem xét hiệu quả</value>
         <value xml:lang="zh">新建绩效评定项</value>
-        <value xml:lang="zh_TW">新建績效評定項</value>
+        <value xml:lang="zh_TW">新建績效評定細項</value>
     </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="de">Personenschulung hinzufügen</value>
@@ -980,7 +997,7 @@
         <value xml:lang="pt_BR">Adicionar treinamento para pessoa</value>
         <value xml:lang="vi">Thêm đào tạo</value>
         <value xml:lang="zh">新建个人培训</value>
-        <value xml:lang="zh_TW">新建個人培訓</value>
+        <value xml:lang="zh_TW">新建個人教育訓練</value>
     </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
@@ -990,7 +1007,7 @@
         <value xml:lang="pt_BR">Adicionar estrutura de relatório de posição de empregado [Relatado para ${parameters.emplPositionId}]</value>
         <value xml:lang="vi">Thêm Cấu trúc báo cáo vị trí nhân sự [Báo cáo đến ${parameters.emplPositionId}]</value>
         <value xml:lang="zh">新建雇员职位级别结构 [上级为 ${parameters.emplPositionId}]</value>
-        <value xml:lang="zh_TW">新建雇員職位級別結構 [上級為 ${parameters.emplPositionId}]</value>
+        <value xml:lang="zh_TW">新建員工職位級別結構 [上級為 ${parameters.emplPositionId}]</value>
     </property>
     <property key="HumanResAddReportsToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [${parameters.emplPositionId} Reports To]</value>
@@ -1000,7 +1017,7 @@
         <value xml:lang="pt_BR">Adicionar estrutura de relatório de posição de empregado [${parameters.emplPositionId} se relata a]</value>
         <value xml:lang="vi">Thêm Cấu trúc báo cáo vị trí nhân sự [${parameters.emplPositionId} Báo cáo đến]</value>
         <value xml:lang="zh">新建雇员职位级别结构 [${parameters.emplPositionId}的上级为]</value>
-        <value xml:lang="zh_TW">新建雇員職位級別結構 [${parameters.emplPositionId}的上級為]</value>
+        <value xml:lang="zh_TW">新建員工職位級別結構 [${parameters.emplPositionId}的上級為]</value>
     </property>
     <property key="HumanResAddSalaryStep">
         <value xml:lang="en">Add Salary Step</value>
@@ -1030,7 +1047,7 @@
         <value xml:lang="pt_BR">Adicionar razão para encerramento</value>
         <value xml:lang="vi">Thêm lý do Ngừng công việc</value>
         <value xml:lang="zh">新建雇佣关系终止原因</value>
-        <value xml:lang="zh_TW">新建雇佣關系終止原因</value>
+        <value xml:lang="zh_TW">新建雇佣終止原因</value>
     </property>
     <property key="HumanResAddTerminationType">
         <value xml:lang="en">Add Termination Type</value>
@@ -1040,7 +1057,7 @@
         <value xml:lang="pt_BR">Adicionar tipo de encerramento</value>
         <value xml:lang="vi">Thêm kiểu Ngừng công việc</value>
         <value xml:lang="zh">新建雇佣关系终止类型</value>
-        <value xml:lang="zh_TW">新建雇佣關系終止類型</value>
+        <value xml:lang="zh_TW">新建雇佣終止類型</value>
     </property>
     <property key="HumanResAddUnemploymentClaim">
         <value xml:lang="en">Add Unemployment Claim</value>
@@ -1050,7 +1067,7 @@
         <value xml:lang="pt_BR">Adicionar reivindicação de desemprego</value>
         <value xml:lang="vi">Thêm khiếu nại thất nghiệp</value>
         <value xml:lang="zh">新建解除雇佣关系声明</value>
-        <value xml:lang="zh_TW">新建解除雇佣關系聲明</value>
+        <value xml:lang="zh_TW">新建解除雇佣聲明</value>
     </property>
     <property key="HumanResAddValidResponsibility">
         <value xml:lang="en">Add Valid Responsibility</value>
@@ -1070,7 +1087,7 @@
         <value xml:lang="pt_BR">Candidatura ao acordo empregatício</value>
         <value xml:lang="vi">Hợp đồng lao động</value>
         <value xml:lang="zh">雇佣合同</value>
-        <value xml:lang="zh_TW">雇佣合同</value>
+        <value xml:lang="zh_TW">雇佣合約</value>
     </property>
     <property key="HumanResApplicationId">
         <value xml:lang="de">Einsatzgebiet ID</value>
@@ -1082,7 +1099,7 @@
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
         <value xml:lang="vi">Hồ sơ xin việc</value>
         <value xml:lang="zh">应聘申请编号</value>
-        <value xml:lang="zh_TW">應聘申請編號</value>
+        <value xml:lang="zh_TW">應聘申請識別</value>
     </property>
     <property key="HumanResApproval">
         <value xml:lang="en">Approval</value>
@@ -1091,6 +1108,7 @@
         <value xml:lang="pt_BR">Aprovação</value>
         <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">批准</value>
+        <value xml:lang="zh_TW">核准</value>
     </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
@@ -1101,7 +1119,7 @@
         <value xml:lang="th">รหัสงบประมาณ</value>
         <value xml:lang="vi">Ngân sách</value>
         <value xml:lang="zh">预算编号</value>
-        <value xml:lang="zh_TW">預算編號</value>
+        <value xml:lang="zh_TW">預算識別</value>
     </property>
     <property key="HumanResBudgetItemSeqId">
         <value xml:lang="en">Budget Item Id</value>
@@ -1112,7 +1130,7 @@
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
         <value xml:lang="vi">Hạng mục ngân sách</value>
         <value xml:lang="zh">预算项目编号</value>
-        <value xml:lang="zh_TW">預算專案編號</value>
+        <value xml:lang="zh_TW">預算專案識別</value>
     </property>
     <property key="HumanResCompanyName">
         <value xml:lang="en">OFBiz: Human Resources Manager</value>
@@ -1134,7 +1152,7 @@
         <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
         <value xml:lang="vi">Thành viên của gia đình mã nguồn mở Ofbiz</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
-        <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
+        <value xml:lang="zh_TW">開源軟體OFBiz家族的一部分</value>
     </property>
     <property key="HumanResCurrentEmploymentData">
         <value xml:lang="en">Current Employment information</value>
@@ -1144,7 +1162,7 @@
         <value xml:lang="pt_BR">Informação atual de empregado</value>
         <value xml:lang="vi">Thông tin Việc làm hiện tại</value>
         <value xml:lang="zh">当前雇佣关系信息</value>
-        <value xml:lang="zh_TW">當前雇佣關系資訊</value>
+        <value xml:lang="zh_TW">當前雇佣資訊</value>
     </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
@@ -1154,7 +1172,7 @@
         <value xml:lang="pt_BR">Alterar acordo de candidatura ao emprego</value>
         <value xml:lang="vi">Sửa đổi Hợp đồng lao động</value>
         <value xml:lang="zh">编辑雇佣合同</value>
-        <value xml:lang="zh_TW">編輯雇佣合同</value>
+        <value xml:lang="zh_TW">編輯雇佣合約</value>
     </property>
     <property key="HumanResEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
@@ -1163,6 +1181,7 @@
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
         <value xml:lang="vi">Sửa đổi Trạng thái duyệt</value>
         <value xml:lang="zh">编辑批准状态</value>
+        <value xml:lang="zh_TW">編輯核准狀態</value>
     </property>
     <property key="HumanResEditEmplLeave">
         <value xml:lang="en">Edit Empl Leave</value>
@@ -1172,7 +1191,7 @@
         <value xml:lang="pt_BR">Alterar licença de empregado</value>
         <value xml:lang="vi">Cập nhật nhân sự Xin nghỉ phép</value>
         <value xml:lang="zh">编辑雇员请假</value>
-        <value xml:lang="zh_TW">編輯雇員請假</value>
+        <value xml:lang="zh_TW">編輯員工請假</value>
     </property>
     <property key="HumanResEditEmplLeaveType">
         <value xml:lang="en">Edit Empl Leave Type</value>
@@ -1182,7 +1201,7 @@
         <value xml:lang="pt_BR">Alterar tipo de licença de empregado</value>
         <value xml:lang="vi">Sửa đổi kiểu Xin nghỉ phép</value>
         <value xml:lang="zh">编辑雇员请假类型</value>
-        <value xml:lang="zh_TW">編輯雇員請假類型</value>
+        <value xml:lang="zh_TW">編輯員工請假類型</value>
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Edit Employee Position</value>
@@ -1192,7 +1211,7 @@
         <value xml:lang="pt_BR">Alterar posição de empregado</value>
         <value xml:lang="vi">Cập nhật Vị trí</value>
         <value xml:lang="zh">编辑雇员职位</value>
-        <value xml:lang="zh_TW">編輯雇員職位</value>
+        <value xml:lang="zh_TW">編輯員工職位</value>
     </property>
     <property key="HumanResEditEmplPositionReportingStruct">
         <value xml:lang="en">Edit EmplPosition Reporting Structure</value>
@@ -1203,7 +1222,7 @@
         <value xml:lang="th">แก้ไขโครงสร้างรายงานตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Cập nhật Cấu trúc báo cáo vị trí nhân sự</value>
         <value xml:lang="zh">编辑雇员职位级别结构</value>
-        <value xml:lang="zh_TW">編輯雇員職位級別結構</value>
+        <value xml:lang="zh_TW">編輯員工職位級別結構</value>
     </property>
     <property key="HumanResEditEmplPositionType">
         <value xml:lang="en">Edit Position Types</value>
@@ -1224,7 +1243,7 @@
         <value xml:lang="th">แก้ไขการจ้างงาน</value>
         <value xml:lang="vi">Cập nhật Việc làm</value>
         <value xml:lang="zh">编辑雇佣关系</value>
-        <value xml:lang="zh_TW">編輯雇佣關系</value>
+        <value xml:lang="zh_TW">編輯雇佣</value>
     </property>
     <property key="HumanResEditEmploymentApp">
         <value xml:lang="en">Edit Employment Application</value>
@@ -1235,15 +1254,16 @@
         <value xml:lang="th">แก้ไขโปรแกรมประยุกต์ใช้การจ้างงาน</value>
         <value xml:lang="vi">Cập nhật Xin việc làm</value>
         <value xml:lang="zh">编辑雇佣关系申请</value>
-        <value xml:lang="zh_TW">編輯雇佣關系申請</value>
+        <value xml:lang="zh_TW">編輯雇佣申請</value>
     </property>
     <property key="HumanResEditJobInterview">
         <value xml:lang="en">Edit Job Interview</value>
-        <value xml:lang="fr">Modifier un entretien</value>        
+        <value xml:lang="fr">Modifier un entretien</value>
         <value xml:lang="ja">職務面談を編集</value>
         <value xml:lang="pt_BR">Editar entrevista de emprego</value>
         <value xml:lang="vi">Cập nhật phỏng vấn công việc</value>
         <value xml:lang="zh">编辑工作面试</value>
+        <value xml:lang="zh_TW">編輯工作面試</value>
     </property>
     <property key="HumanResEditJobRequisition">
         <value xml:lang="en">Edit Job Requisition</value>
@@ -1252,6 +1272,7 @@
         <value xml:lang="pt_BR">Editar requisição de emprego</value>
         <value xml:lang="vi">Cập nhật Yêu cầu tuyển dụng</value>
         <value xml:lang="zh">编辑工作单</value>
+        <value xml:lang="zh_TW">編輯工作單</value>
     </property>
     <property key="HumanResEditLeaveApprovalStatus">
         <value xml:lang="en">Edit Leave Approval Status</value>
@@ -1259,6 +1280,7 @@
         <value xml:lang="pt_BR">Editar Estado de aprovação de licença</value>
         <value xml:lang="vi">Cập nhật trạng thái duyệt cho Nghỉ phép</value>
         <value xml:lang="zh">编辑离职批准状态</value>
+        <value xml:lang="zh_TW">編輯離職核准狀態</value>
     </property>
     <property key="HumanResEditPartyBenefit">
         <value xml:lang="en">Party Benefits</value>
@@ -1268,7 +1290,7 @@
         <value xml:lang="pt_BR">Benefícios do participante</value>
         <value xml:lang="vi">Lợi ích nhân sự</value>
         <value xml:lang="zh">会员福利</value>
-        <value xml:lang="zh_TW">會員福利</value>
+        <value xml:lang="zh_TW">團體福利</value>
     </property>
     <property key="HumanResEditPartyQual">
         <value xml:lang="en">Edit party Qualification</value>
@@ -1279,7 +1301,7 @@
         <value xml:lang="th">แก้ไขกลุ่มคุณสมบัติ</value>
         <value xml:lang="vi">Chỉnh sửa Chuyên môn</value>
         <value xml:lang="zh">编辑会员资质</value>
-        <value xml:lang="zh_TW">編輯會員資質</value>
+        <value xml:lang="zh_TW">編輯團體資格</value>
     </property>
     <property key="HumanResEditPartyResume">
         <value xml:lang="en">Edit Party Resume</value>
@@ -1290,7 +1312,7 @@
         <value xml:lang="th">แก้ไขประวัติย่อ</value>
         <value xml:lang="vi">Chỉnh sửa Sơ yếu lý lịch</value>
         <value xml:lang="zh">编辑会员履历</value>
-        <value xml:lang="zh_TW">編輯會員履歷</value>
+        <value xml:lang="zh_TW">編輯團體履歷</value>
     </property>
     <property key="HumanResEditPartyReview">
         <value xml:lang="en">Party Reviews</value>
@@ -1300,7 +1322,7 @@
         <value xml:lang="pt_BR">Avaliações de participante</value>
         <value xml:lang="vi">Xem xét</value>
         <value xml:lang="zh">会员评定</value>
-        <value xml:lang="zh_TW">會員評定</value>
+        <value xml:lang="zh_TW">團體評定</value>
     </property>
     <property key="HumanResEditPartySkill">
         <value xml:lang="en">Edit party Skill</value>
@@ -1311,7 +1333,7 @@
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
         <value xml:lang="vi">Chỉnh sửa Kỹ năng</value>
         <value xml:lang="zh">编辑会员技能</value>
-        <value xml:lang="zh_TW">編輯會員技能</value>
+        <value xml:lang="zh_TW">編輯團體技能</value>
     </property>
     <property key="HumanResEditPayGrade">
         <value xml:lang="en">Edit Pay Grade</value>
@@ -1351,7 +1373,7 @@
         <value xml:lang="pt_BR">Itens de avaliação de desempenho</value>
         <value xml:lang="vi">Hạng mục xem xét hiệu quả</value>
         <value xml:lang="zh">绩效评定项</value>
-        <value xml:lang="zh_TW">績效評定項</value>
+        <value xml:lang="zh_TW">績效評定細項</value>
     </property>
     <property key="HumanResEditSalaryStep">
         <value xml:lang="en">Salary Steps</value>
@@ -1372,7 +1394,7 @@
         <value xml:lang="pt_BR">Reivindicações de desemprego</value>
         <value xml:lang="vi">Khiếu kiện thất nghiệp</value>
         <value xml:lang="zh">解除雇佣关系声明</value>
-        <value xml:lang="zh_TW">解除雇佣關系聲明</value>
+        <value xml:lang="zh_TW">解除雇佣聲明</value>
     </property>
     <property key="HumanResEmplLeave">
         <value xml:lang="de">Entlassungen</value>
@@ -1394,7 +1416,7 @@
         <value xml:lang="pt_BR">Tipo de licença de empregado</value>
         <value xml:lang="vi">Kiểu Nghỉ phép</value>
         <value xml:lang="zh">雇员请假类型类型</value>
-        <value xml:lang="zh_TW">雇員請假類型類型</value>
+        <value xml:lang="zh_TW">員工請假類型類型</value>
     </property>
     <property key="HumanResEmplPartyIdFromNotSpecified">
         <value xml:lang="en">Not specified</value>
@@ -1414,7 +1436,7 @@
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Vị trí nhân sự</value>
         <value xml:lang="zh">雇员职位编号</value>
-        <value xml:lang="zh_TW">雇員職位編號</value>
+        <value xml:lang="zh_TW">員工職位識別</value>
     </property>
     <property key="HumanResEmplPositionIdManagedBy">
         <value xml:lang="en">EmplPosition Id ManagedBy</value>
@@ -1515,6 +1537,7 @@
         <value xml:lang="pt_BR">Tipo de razão de licença de empregado</value>
         <value xml:lang="vi">Loại lí do</value>
         <value xml:lang="zh">员工离职原因类型</value>
+        <value xml:lang="zh_TW">員工離職原因類型</value>
     </property>
     <property key="HumanResEmployee">
         <value xml:lang="en">an employee</value>
@@ -1525,7 +1548,7 @@
         <value xml:lang="pt_BR">um empregado</value>
         <value xml:lang="vi">Nhân viên</value>
         <value xml:lang="zh">雇员</value>
-        <value xml:lang="zh_TW">雇員</value>
+        <value xml:lang="zh_TW">員工</value>
     </property>
     <property key="HumanResEmployeeLeave">
         <value xml:lang="en">Employee Leave</value>
@@ -1534,6 +1557,7 @@
         <value xml:lang="pt_BR">Licença de empregado</value>
         <value xml:lang="vi">Nhân viên Nghỉ phép</value>
         <value xml:lang="zh">员工离职</value>
+        <value xml:lang="zh_TW">員工離職</value>
     </property>
     <property key="HumanResEmployeeLeaveType">
         <value xml:lang="en">Leave Type</value>
@@ -1541,6 +1565,7 @@
         <value xml:lang="pt_BR">Tipo de Licença</value>
         <value xml:lang="vi">Kiểu Nghỉ phép</value>
         <value xml:lang="zh">离职类型</value>
+        <value xml:lang="zh_TW">離職類型</value>
     </property>
     <property key="HumanResEmployeePartyIdTo">
         <value xml:lang="en">Employee Party Id</value>
@@ -1551,7 +1576,7 @@
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Id Nhân sự</value>
         <value xml:lang="zh">雇员系统编号</value>
-        <value xml:lang="zh_TW">雇員系統編號</value>
+        <value xml:lang="zh_TW">員工團體識別</value>
     </property>
     <property key="HumanResEmployeePosition">
         <value xml:lang="de">Stellen</value>
@@ -1574,7 +1599,7 @@
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">职位编号</value>
-        <value xml:lang="zh_TW">職位編號</value>
+        <value xml:lang="zh_TW">職位識別</value>
     </property>
     <property key="HumanResEmployeePositionTypeId">
         <value xml:lang="en">EmployeePosition Type Id</value>
@@ -1585,7 +1610,7 @@
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">职位类型编号</value>
-        <value xml:lang="zh_TW">職位類型編號</value>
+        <value xml:lang="zh_TW">職位類型識別</value>
     </property>
     <property key="HumanResEmployeeType">
         <value xml:lang="en">Reason Type</value>
@@ -1593,6 +1618,7 @@
         <value xml:lang="pt_BR">Tipo de razão</value>
         <value xml:lang="vi">Kiểu nguyên nhân</value>
         <value xml:lang="zh">原因类型</value>
+        <value xml:lang="zh_TW">原因類型</value>
     </property>
     <property key="HumanResEmployees">
         <value xml:lang="de">Angestellte</value>
@@ -1650,7 +1676,7 @@
         <value xml:lang="pt_BR">Organização interna para a qual o empregado trabalha</value>
         <value xml:lang="vi">Làm việc tại</value>
         <value xml:lang="zh">雇员工作的内部组织</value>
-        <value xml:lang="zh_TW">雇員工作的內部組織</value>
+        <value xml:lang="zh_TW">員工工作的內部組織</value>
     </property>
     <property key="HumanResEstimatedFromDate">
         <value xml:lang="en">Estimated FromDate</value>
@@ -1672,7 +1698,7 @@
         <value xml:lang="pt_BR">Encontrar licença de empregado</value>
         <value xml:lang="vi">Tra cứu nhân sự đã Nghỉ phép</value>
         <value xml:lang="zh">查找雇员请假</value>
-        <value xml:lang="zh_TW">查找雇員請假</value>
+        <value xml:lang="zh_TW">尋找員工請假</value>
     </property>
     <property key="HumanResFindEmplPosition">
         <value xml:lang="de">Stelle suchen</value>
@@ -1683,7 +1709,7 @@
         <value xml:lang="pt_BR">Encontrar posição de empregado</value>
         <value xml:lang="vi">Tra cứu vị trí nhân sự</value>
         <value xml:lang="zh">查找雇员职位</value>
-        <value xml:lang="zh_TW">查找雇員職位</value>
+        <value xml:lang="zh_TW">尋找員工職位</value>
     </property>
     <property key="HumanResFindEmployment">
         <value xml:lang="de">Einstellung finden</value>
@@ -1694,7 +1720,7 @@
         <value xml:lang="pt_BR">Encontrar emprego</value>
         <value xml:lang="vi">Tra cứu Việc làm</value>
         <value xml:lang="zh">查找雇佣关系</value>
-        <value xml:lang="zh_TW">查找雇佣關系</value>
+        <value xml:lang="zh_TW">尋找雇佣</value>
     </property>
     <property key="HumanResFindEmploymentApp">
         <value xml:lang="de">Bewerbungssuche</value>
@@ -1705,7 +1731,7 @@
         <value xml:lang="pt_BR">Encontrar candidatura a emprego</value>
         <value xml:lang="vi">Tìm Xin việc làm</value>
         <value xml:lang="zh">查找求职应聘申请</value>
-        <value xml:lang="zh_TW">查找求職應聘申請</value>
+        <value xml:lang="zh_TW">尋找求職應聘申請</value>
     </property>
     <property key="HumanResFindPartyQual">
         <value xml:lang="de">Qualifikationssuche</value>
@@ -1716,7 +1742,7 @@
         <value xml:lang="pt_BR">Encontrar qualificação do participante</value>
         <value xml:lang="vi">Tra cứu Phẩm chất của nhân sự</value>
         <value xml:lang="zh">查找会员资质</value>
-        <value xml:lang="zh_TW">查找會員資質</value>
+        <value xml:lang="zh_TW">尋找團體資格</value>
     </property>
     <property key="HumanResFindPartyResume">
         <value xml:lang="de">Lebenslaufsuche</value>
@@ -1727,7 +1753,7 @@
         <value xml:lang="pt_BR">Encontrar currículo do participante</value>
         <value xml:lang="vi">Tra cứu Sơ yếu lý lịch</value>
         <value xml:lang="zh">查找会员履历</value>
-        <value xml:lang="zh_TW">查找會員履歷</value>
+        <value xml:lang="zh_TW">尋找團體履歷</value>
     </property>
     <property key="HumanResFindPartySkill">
         <value xml:lang="de">Kompetenzsuche</value>
@@ -1738,7 +1764,7 @@
         <value xml:lang="pt_BR">Encontrar habilidades do participante</value>
         <value xml:lang="vi">Tra cứu Kỹ năng</value>
         <value xml:lang="zh">查找会员技能</value>
-        <value xml:lang="zh_TW">查找會員技能</value>
+        <value xml:lang="zh_TW">尋找團體技能</value>
     </property>
     <property key="HumanResFindPayGrade">
         <value xml:lang="de">Gehaltsklassensuche</value>
@@ -1749,7 +1775,7 @@
         <value xml:lang="pt_BR">Encontrar degrau salarial</value>
         <value xml:lang="vi">Tra cứu Bậc lương</value>
         <value xml:lang="zh">查找薪水等级</value>
-        <value xml:lang="zh_TW">查找薪水等級</value>
+        <value xml:lang="zh_TW">尋找薪水等級</value>
     </property>
     <property key="HumanResFindPerfReview">
         <value xml:lang="de">Leistungbewertungssuche</value>
@@ -1760,7 +1786,7 @@
         <value xml:lang="pt_BR">Encontrar avaliação de desempenho</value>
         <value xml:lang="vi">Tra cứu Xem xét</value>
         <value xml:lang="zh">查找绩效</value>
-        <value xml:lang="zh_TW">查找績效</value>
+        <value xml:lang="zh_TW">尋找績效</value>
     </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="de">Ausbildungssuche</value>
@@ -1771,7 +1797,7 @@
         <value xml:lang="pt_BR">Encontrar treinamento de pessoa</value>
         <value xml:lang="vi">Tra cứu Đào tạo</value>
         <value xml:lang="zh">查找个人培训</value>
-        <value xml:lang="zh_TW">查找個人培訓</value>
+        <value xml:lang="zh_TW">尋找個人教育訓練</value>
     </property>
     <property key="HumanResFindPositionTypes">
         <value xml:lang="en">Find Position Types</value>
@@ -1781,7 +1807,7 @@
         <value xml:lang="pt_BR">Encontrar tipos de posição</value>
         <value xml:lang="vi">Tra cứu Kiểu vị trí</value>
         <value xml:lang="zh">查找职位类型</value>
-        <value xml:lang="zh_TW">查找職位類型</value>
+        <value xml:lang="zh_TW">尋找職位類型</value>
     </property>
     <property key="HumanResGlobalHRSettings">
         <value xml:lang="de">Globale Personaleinstellungen</value>
@@ -1792,7 +1818,7 @@
         <value xml:lang="pt_BR">Configurações globais de recursos humanos</value>
         <value xml:lang="vi">Thiết lập chung ứng dụng Nhân sự</value>
         <value xml:lang="zh">参数设置</value>
-        <value xml:lang="zh_TW">參數設置</value>
+        <value xml:lang="zh_TW">參數設定</value>
     </property>
     <property key="HumanResIJPStatus">
         <value xml:lang="en">IJP Status</value>
@@ -1800,6 +1826,7 @@
         <value xml:lang="pt_BR">Estado de IJP</value>
         <value xml:lang="vi">Trạng thái IJP</value>
         <value xml:lang="zh">内部职位公开招聘状态</value>
+        <value xml:lang="zh_TW">內部職位公開招聘狀態</value>
     </property>
     <property key="HumanResInternalJobPosting">
         <value xml:lang="en">Internal Job Posting</value>
@@ -1808,6 +1835,7 @@
         <value xml:lang="pt_BR">Oferta interna de emprego</value>
         <value xml:lang="vi">Thông báo công việc nội bộ</value>
         <value xml:lang="zh">内部职位公开招聘</value>
+        <value xml:lang="zh_TW">內部職位公開招聘</value>
     </property>
     <property key="HumanResJobInterview">
         <value xml:lang="en">Job Interview</value>
@@ -1816,6 +1844,7 @@
         <value xml:lang="pt_BR">Entrevista de emprego</value>
         <value xml:lang="vi">Phỏng vấn</value>
         <value xml:lang="zh">工作面试</value>
+        <value xml:lang="zh_TW">工作面試</value>
     </property>
     <property key="HumanResJobInterviewType">
         <value xml:lang="en">Job Interview Type</value>
@@ -1824,6 +1853,7 @@
         <value xml:lang="pt_BR">Tipo de entrevista de emprego</value>
         <value xml:lang="vi">Kiểu phỏng vấn</value>
         <value xml:lang="zh">工作面试类型</value>
+        <value xml:lang="zh_TW">工作面試類型</value>
     </property>
     <property key="HumanResJobRequisition">
         <value xml:lang="en">Job Requisition</value>
@@ -1832,6 +1862,7 @@
         <value xml:lang="pt_BR">Petição de emprego</value>
         <value xml:lang="vi">Yêu cầu công việc</value>
         <value xml:lang="zh">工作单</value>
+        <value xml:lang="zh_TW">工作單</value>
     </property>
     <property key="HumanResLeaveApproval">
         <value xml:lang="en">Leave Approval</value>
@@ -1840,6 +1871,7 @@
         <value xml:lang="pt_BR">Aprovação de licença</value>
         <value xml:lang="vi">Duyệt cho Nghỉ phép</value>
         <value xml:lang="zh">批准离职</value>
+        <value xml:lang="zh_TW">核准離職</value>
     </property>
     <property key="HumanResLeaveStatus">
         <value xml:lang="en">Leave</value>
@@ -1847,6 +1879,7 @@
         <value xml:lang="pt_BR">Licença</value>
         <value xml:lang="vi">Nghỉ phép</value>
         <value xml:lang="zh">离职</value>
+        <value xml:lang="zh_TW">離職</value>
     </property>
     <property key="HumanResLeaveCreationSuccess">
         <value xml:lang="en">Leave request created successfully</value>
@@ -1854,6 +1887,7 @@
         <value xml:lang="ja">休暇リクエストが正しく作成されました</value>
         <value xml:lang="vi">Yêu cầu Nghỉ phép đã được gửi đi thành công</value>
         <value xml:lang="zh">离职请求创建成功</value>
+        <value xml:lang="zh_TW">離職請求新建成功</value>
     </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
@@ -1864,7 +1898,7 @@
         <value xml:lang="th">รายการการจ้างงาน</value>
         <value xml:lang="vi">Danh sách Việc làm</value>
         <value xml:lang="zh">雇佣关系列表</value>
-        <value xml:lang="zh_TW">雇佣關系列表</value>
+        <value xml:lang="zh_TW">雇佣列表</value>
     </property>
     <property key="HumanResListPartyBenefits">
         <value xml:lang="en">List Party Benefits</value>
@@ -1875,7 +1909,7 @@
         <value xml:lang="th">รายการกลุ่มผลประโยชน์</value>
         <value xml:lang="vi">Danh sách Lợi ích nhân sự</value>
         <value xml:lang="zh">会员福利列表</value>
-        <value xml:lang="zh_TW">會員福利列表</value>
+        <value xml:lang="zh_TW">團體福利清單</value>
     </property>
     <property key="HumanResListPayHistories">
         <value xml:lang="en">List Pay Histories</value>
@@ -1886,7 +1920,7 @@
         <value xml:lang="th">รายการจ่ายข้อมูล</value>
         <value xml:lang="vi">Danh sách lịch sử trả lương</value>
         <value xml:lang="zh">薪水历史列表</value>
-        <value xml:lang="zh_TW">薪水歷史列表</value>
+        <value xml:lang="zh_TW">薪水歷史清單</value>
     </property>
     <property key="HumanResListPayrollPreferences">
         <value xml:lang="en">List Payroll Preferences</value>
@@ -1897,7 +1931,7 @@
         <value xml:lang="th">รายการอ้างอิงเงินเดือน</value>
         <value xml:lang="vi">Danh sách bảng lương tham chiếu</value>
         <value xml:lang="zh">薪水支付方式列表</value>
-        <value xml:lang="zh_TW">薪水支付方式列表</value>
+        <value xml:lang="zh_TW">薪水支付方式清單</value>
     </property>
     <property key="HumanResListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
@@ -1908,7 +1942,7 @@
         <value xml:lang="th">รายการประเภททักษะ</value>
         <value xml:lang="vi">Danh sách kiểu kỹ năng</value>
         <value xml:lang="zh">技能类型列表</value>
-        <value xml:lang="zh_TW">技能類型列表</value>
+        <value xml:lang="zh_TW">技能類型清單</value>
     </property>
     <property key="HumanResListValidResponsibility">
         <value xml:lang="en">List Valid Responsibility</value>
@@ -1919,7 +1953,7 @@
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
         <value xml:lang="vi">Danh sách Trách nhiệm đã xem xét</value>
         <value xml:lang="zh">有效责任列表</value>
-        <value xml:lang="zh_TW">有效責任列表</value>
+        <value xml:lang="zh_TW">有效責任清單</value>
     </property>
     <property key="HumanResLookupAgreement">
         <value xml:lang="en">Lookup Agreement</value>
@@ -1929,7 +1963,7 @@
         <value xml:lang="pt_BR">Procurar por acordos</value>
         <value xml:lang="vi">Chọn Hợp đồng lao động</value>
         <value xml:lang="zh">合同查询</value>
-        <value xml:lang="zh_TW">合同查詢</value>
+        <value xml:lang="zh_TW">查詢合約</value>
     </property>
     <property key="HumanResLookupAgreementEmploymentAppl">
         <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
@@ -1939,7 +1973,7 @@
         <value xml:lang="pt_BR">Procurar acordo de candidatura ao emprego</value>
         <value xml:lang="vi">Chọn Hợp đồng việc làm</value>
         <value xml:lang="zh">雇佣合同查询</value>
-        <value xml:lang="zh_TW">雇佣合同查詢</value>
+        <value xml:lang="zh_TW">查詢雇佣合約</value>
     </property>
     <property key="HumanResLookupAgreementId">
         <value xml:lang="en">Lookup AgreementId</value>
@@ -1949,7 +1983,7 @@
         <value xml:lang="pt_BR">Procurar de Id de acordo</value>
         <value xml:lang="vi">Chọn Hợp đồng</value>
         <value xml:lang="zh">合同编号查询</value>
-        <value xml:lang="zh_TW">合同編號查詢</value>
+        <value xml:lang="zh_TW">查詢合約識別</value>
     </property>
     <property key="HumanResLookupAgreementItemSeqId">
         <value xml:lang="en">Lookup AgreementItemSeqId</value>
@@ -1959,7 +1993,7 @@
         <value xml:lang="pt_BR">Procurar por Id de sequencia de acordo</value>
         <value xml:lang="vi">Chọn Thứ tự hạng mục hợp đồng</value>
         <value xml:lang="zh">合同项序号查询</value>
-        <value xml:lang="zh_TW">合同項序號查詢</value>
+        <value xml:lang="zh_TW">查詢合約細項序號</value>
     </property>
     <property key="HumanResLookupApplicationId">
         <value xml:lang="en">Lookup ApplicationId</value>
@@ -1969,7 +2003,7 @@
         <value xml:lang="pt_BR">Procurar por Id de candidatura</value>
         <value xml:lang="vi">Chọn Hồ sơ</value>
         <value xml:lang="zh">应聘求职编号查询</value>
-        <value xml:lang="zh_TW">應聘求職編號查詢</value>
+        <value xml:lang="zh_TW">查詢應聘求職識別</value>
     </property>
     <property key="HumanResLookupBudgetByName">
         <value xml:lang="en">Lookup Budget by Name</value>
@@ -1980,7 +2014,7 @@
         <value xml:lang="th">ค้นหางบประมาณโดยชื่อ</value>
         <value xml:lang="vi">Tra cứu Ngân sách theo Tên</value>
         <value xml:lang="zh">按名称的预算查询</value>
-        <value xml:lang="zh_TW">按名稱的預算查詢</value>
+        <value xml:lang="zh_TW">按名稱查詢預算</value>
     </property>
     <property key="HumanResLookupBudgetItemByName">
         <value xml:lang="en">Lookup Budget Item by Name</value>
@@ -1991,7 +2025,7 @@
         <value xml:lang="th">ค้นหารายการงบประมาณโดยชื่อ</value>
         <value xml:lang="vi">Tra cứu Hạng mục ngân sách theo Tên</value>
         <value xml:lang="zh">按名称的预算项查询</value>
-        <value xml:lang="zh_TW">按名稱的預算項查詢</value>
+        <value xml:lang="zh_TW">按名稱查詢預算細項</value>
     </property>
     <property key="HumanResLookupEmplPositionByName">
         <value xml:lang="en">Lookup EmplPosition by Name</value>
@@ -2002,7 +2036,7 @@
         <value xml:lang="th">ค้นหาตำแหน่งพนักงานโดยชื่อ</value>
         <value xml:lang="vi">Chọn Nhân sự theo Tên</value>
         <value xml:lang="zh">按名称的雇员职位查询</value>
-        <value xml:lang="zh_TW">按名稱的雇員職位查詢</value>
+        <value xml:lang="zh_TW">按名稱查詢員工職位</value>
     </property>
     <property key="HumanResLookupEmploymentApp">
         <value xml:lang="en">Lookup EmploymentApp</value>
@@ -2012,7 +2046,7 @@
         <value xml:lang="pt_BR">Procurar candidatura de emprego</value>
         <value xml:lang="vi">Chọn Xin việc làm</value>
         <value xml:lang="zh">雇佣关系申请查询</value>
-        <value xml:lang="zh_TW">雇佣關系申請查詢</value>
+        <value xml:lang="zh_TW">查詢雇佣申請</value>
     </property>
     <property key="HumanResLookupPartyResume">
         <value xml:lang="en">Lookup PartyResume</value>
@@ -2022,7 +2056,7 @@
         <value xml:lang="pt_BR">Procurar currículo de participante</value>
         <value xml:lang="vi">Chọn Sơ yếu lý lịch</value>
         <value xml:lang="zh">会员履历查询</value>
-        <value xml:lang="zh_TW">會員履歷查詢</value>
+        <value xml:lang="zh_TW">查詢團體履歷</value>
     </property>
     <property key="HumanResLookupPayGrade">
         <value xml:lang="en">Lookup PayGrade</value>
@@ -2033,7 +2067,7 @@
         <value xml:lang="th">ค้นหาการจ่ายข้อมูล</value>
         <value xml:lang="vi">Chọn Bậc lương</value>
         <value xml:lang="zh">薪水等级查询</value>
-        <value xml:lang="zh_TW">薪水等級查詢</value>
+        <value xml:lang="zh_TW">查詢薪水等級</value>
     </property>
     <property key="HumanResLookupPayGradeId">
         <value xml:lang="en">Lookup PayGrade Id</value>
@@ -2044,7 +2078,7 @@
         <value xml:lang="th">ค้นหารหัสการจ่ายข้อมูล</value>
         <value xml:lang="vi">Chọn Bậc lương</value>
         <value xml:lang="zh">薪水等级编号查询</value>
-        <value xml:lang="zh_TW">薪水等級編號查詢</value>
+        <value xml:lang="zh_TW">查詢薪水等級識別</value>
     </property>
     <property key="HumanResLookupPayRollPreference">
         <value xml:lang="en">Lookup PayRollPreference</value>
@@ -2054,7 +2088,7 @@
         <value xml:lang="pt_BR">Procurar configuração de folha de pagamento</value>
         <value xml:lang="vi">Chọn Bảng lương tham chiếu</value>
         <value xml:lang="zh">薪水支付方式查询</value>
-        <value xml:lang="zh_TW">薪水支付方式查詢</value>
+        <value xml:lang="zh_TW">查詢薪水支付方式</value>
     </property>
     <property key="HumanResLookupPayrollPreferenceSeqId">
         <value xml:lang="en">Lookup PayrollPreferenceSeqId</value>
@@ -2064,7 +2098,7 @@
         <value xml:lang="pt_BR">Procurar Id de Sequência de configuração de folha de pagamento</value>
         <value xml:lang="vi">Chọn Thứ tự bảng lương tham chiếu</value>
         <value xml:lang="zh">薪水支付方式序号查询</value>
-        <value xml:lang="zh_TW">薪水支付方式序號查詢</value>
+        <value xml:lang="zh_TW">查詢薪水支付方式序號</value>
     </property>
     <property key="HumanResLookupPerfReview">
         <value xml:lang="en">Lookup PerfReview</value>
@@ -2074,7 +2108,7 @@
         <value xml:lang="pt_BR">Procurar avaliação de desempenho</value>
         <value xml:lang="vi">Chọn Xem xét hiệu quả</value>
         <value xml:lang="zh">绩效查询</value>
-        <value xml:lang="zh_TW">績效查詢</value>
+        <value xml:lang="zh_TW">查詢績效</value>
     </property>
     <property key="HumanResLookupPerfReviewId">
         <value xml:lang="en">Lookup PerfReviewId</value>
@@ -2084,7 +2118,7 @@
         <value xml:lang="pt_BR">Procurar Id de avaliação de desempenho</value>
         <value xml:lang="vi">Chọn Xem xét hiệu quả</value>
         <value xml:lang="zh">绩效评定编号查询</value>
-        <value xml:lang="zh_TW">績效評定編號查詢</value>
+        <value xml:lang="zh_TW">查詢績效評定識別</value>
     </property>
     <property key="HumanResLookupResumeId">
         <value xml:lang="en">Lookup ResumeId</value>
@@ -2094,7 +2128,7 @@
         <value xml:lang="pt_BR">Procurar por de currículo</value>
         <value xml:lang="vi">Chọn Sơ yếu lý lịch</value>
         <value xml:lang="zh">履历编号查询</value>
-        <value xml:lang="zh_TW">履歷編號查詢</value>
+        <value xml:lang="zh_TW">查詢履歷識別</value>
     </property>
     <property key="HumanResLookupSalaryStepSeqId">
         <value xml:lang="en">Lookup Salary StepSeq Id</value>
@@ -2105,7 +2139,7 @@
         <value xml:lang="th">ค้นหารหัสรายการขั้นเงินเดือน</value>
         <value xml:lang="vi">Chọn thứ tự bậc lương</value>
         <value xml:lang="zh">薪水浮动编号查询</value>
-        <value xml:lang="zh_TW">薪水浮動編號查詢</value>
+        <value xml:lang="zh_TW">查詢薪水浮動識別</value>
     </property>
     <property key="HumanResLookupTerminationReason">
         <value xml:lang="en">Lookup Termination Reason</value>
@@ -2116,7 +2150,7 @@
         <value xml:lang="th">ค้นหาขอบเขตเหตุผล</value>
         <value xml:lang="vi">Chọn Lý do Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止原因查询</value>
-        <value xml:lang="zh_TW">雇佣關系終止原因查詢</value>
+        <value xml:lang="zh_TW">查詢雇佣終止原因</value>
     </property>
     <property key="HumanResLookupUnemploymentClaim">
         <value xml:lang="en">Lookup UnemploymentClaim</value>
@@ -2126,7 +2160,7 @@
         <value xml:lang="pt_BR">Procurar por reivindicação de desemprego</value>
         <value xml:lang="vi">Chọn Khiếu nại thất nghiệp</value>
         <value xml:lang="zh">解除雇佣关系声明查询</value>
-        <value xml:lang="zh_TW">解除雇佣關系聲明查詢</value>
+        <value xml:lang="zh_TW">查詢解除雇佣聲明</value>
     </property>
     <property key="HumanResLookupUnemploymentClaimId">
         <value xml:lang="en">Lookup UnemploymentClaimId</value>
@@ -2136,7 +2170,7 @@
         <value xml:lang="pt_BR">Procurar por Id de reivindicação de desemprego</value>
         <value xml:lang="vi">Chọn Khiếu nại thất nghiệp</value>
         <value xml:lang="zh">解除雇佣关系声明编号查询</value>
-        <value xml:lang="zh_TW">解除雇佣關系聲明編號查詢</value>
+        <value xml:lang="zh_TW">查詢解除雇佣聲明識別</value>
     </property>
     <property key="HumanResManager">
         <value xml:lang="de">Personalverwaltung</value>
@@ -2168,6 +2202,7 @@
         <value xml:lang="ja">私の休暇</value>
         <value xml:lang="vi">Nghỉ phép của Bạn</value>
         <value xml:lang="zh">我的休假</value>
+        <value xml:lang="zh_TW">我的休假</value>
     </property>
     <property key="HumanResMyTrainings">
         <value xml:lang="en">My Trainings</value>
@@ -2175,6 +2210,7 @@
         <value xml:lang="ja">私のトレーニング</value>
         <value xml:lang="vi">Đào tạo của Bạn</value>
         <value xml:lang="zh">我的培训</value>
+        <value xml:lang="zh_TW">我的教育訓練</value>
     </property>
     <property key="HumanResNewEmplPosition">
         <value xml:lang="de">Stelle anlegen</value>
@@ -2186,7 +2222,7 @@
         <value xml:lang="th">ตำแหน่งพนักงานใหม่</value>
         <value xml:lang="vi">Thêm mới Vị trí nhân sự</value>
         <value xml:lang="zh">新建雇员职位</value>
-        <value xml:lang="zh_TW">新建雇員職位</value>
+        <value xml:lang="zh_TW">新建員工職位</value>
     </property>
     <property key="HumanResNewEmplPositionFulfillment">
         <value xml:lang="en">New Employee Position Fulfillment</value>
@@ -2197,7 +2233,7 @@
         <value xml:lang="th">ตำแหน่งพนักงานที่ปฏิบัติภารกิจใหม่</value>
         <value xml:lang="vi">Thêm mới Hoàn thành vị trí nhân sự</value>
         <value xml:lang="zh">新建该职位雇员</value>
-        <value xml:lang="zh_TW">新建該職位雇員</value>
+        <value xml:lang="zh_TW">新建該職位員工</value>
     </property>
     <property key="HumanResNewEmplPositionReportingStruct">
         <value xml:lang="en">New EmplPositionReportingStruct</value>
@@ -2239,7 +2275,7 @@
         <value xml:lang="pt_BR">Novo empregado</value>
         <value xml:lang="vi">Thêm mới Nhân sự</value>
         <value xml:lang="zh">新建雇员</value>
-        <value xml:lang="zh_TW">新建雇員</value>
+        <value xml:lang="zh_TW">新建員工</value>
     </property>
     <property key="HumanResNewEmployment">
         <value xml:lang="de">Einstellung</value>
@@ -2272,6 +2308,7 @@
         <value xml:lang="pt_BR">Nova oferta interna de emprego</value>
         <value xml:lang="vi">Thêm mới thông báo công việc nội bộ</value>
         <value xml:lang="zh">新建内部职位公开招聘</value>
+        <value xml:lang="zh_TW">新建內部職位公開招聘</value>
     </property>
     <property key="HumanResNewJobInterview">
         <value xml:lang="en">New Job Interview</value>
@@ -2280,6 +2317,7 @@
         <value xml:lang="pt_BR">Nova entrevista de emprego</value>
         <value xml:lang="vi">Thêm mới phỏng vấn</value>
         <value xml:lang="zh">新建工作面试</value>
+        <value xml:lang="zh_TW">新建工作面試</value>
     </property>
     <property key="HumanResNewJobRequisition">
         <value xml:lang="en">New Job Requisition</value>
@@ -2288,6 +2326,7 @@
         <value xml:lang="pt_BR">Nova petição de emprego</value>
         <value xml:lang="vi">Thêm mới Yêu cầu nhân sự</value>
         <value xml:lang="zh">新建工作单</value>
+        <value xml:lang="zh_TW">新建工作單</value>
     </property>
     <property key="HumanResNewLeave">
         <value xml:lang="en">New Leave</value>
@@ -2308,7 +2347,7 @@
         <value xml:lang="th">กลุ่มผลประโยชน์ใหม่</value>
         <value xml:lang="vi">Thêm mới Lợi ích</value>
         <value xml:lang="zh">新建会员福利</value>
-        <value xml:lang="zh_TW">新建會員福利</value>
+        <value xml:lang="zh_TW">新建團體福利</value>
     </property>
     <property key="HumanResNewPartyQual">
         <value xml:lang="de">Neue Qualifikation</value>
@@ -2320,7 +2359,7 @@
         <value xml:lang="th">กลุ่มคุณสมบัติใหม่</value>
         <value xml:lang="vi">Thêm mới Trình độ chuyên môn</value>
         <value xml:lang="zh">新建会员资质</value>
-        <value xml:lang="zh_TW">新建會員資質</value>
+        <value xml:lang="zh_TW">新建團體資格</value>
     </property>
     <property key="HumanResNewPartyResume">
         <value xml:lang="de">Neuer Lebenslauf</value>
@@ -2332,7 +2371,7 @@
         <value xml:lang="th">กลุ่มประวัติย่อใหม่</value>
         <value xml:lang="vi">Thêm mới Sơ yếu lý lịch</value>
         <value xml:lang="zh">新建会员履历</value>
-        <value xml:lang="zh_TW">新建會員履歷</value>
+        <value xml:lang="zh_TW">新建團體履歷</value>
     </property>
     <property key="HumanResNewPartyReview">
         <value xml:lang="de">Neue Leistungsbewertung</value>
@@ -2366,7 +2405,7 @@
         <value xml:lang="th">รายการการตวจสอบสิทธิพิเศษใหม่</value>
         <value xml:lang="vi">Thêm mới Hạng mục xem xét</value>
         <value xml:lang="zh">新建绩效评定项</value>
-        <value xml:lang="zh_TW">新建績效評定項</value>
+        <value xml:lang="zh_TW">新建績效評定細項</value>
     </property>
     <property key="HumanResNewPartyReviewItemEdit">
         <value xml:lang="en">Create/Update PerfReviewItem</value>
@@ -2377,7 +2416,7 @@
         <value xml:lang="th">สร้าง/แก้ไข รายการการตรวจสอบสิทธิพิเศษ</value>
         <value xml:lang="vi">Thêm mới/Sửa đổi Hạng mục xem xét</value>
         <value xml:lang="zh">新建/修改绩效评定项</value>
-        <value xml:lang="zh_TW">新建/修改績效評定項</value>
+        <value xml:lang="zh_TW">新建/修改績效評定細項</value>
     </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
@@ -2388,7 +2427,7 @@
         <value xml:lang="th">กลุ่มทักษะใหม่</value>
         <value xml:lang="vi">Thêm mới Kỹ năng</value>
         <value xml:lang="zh">新建会员技能</value>
-        <value xml:lang="zh_TW">新建會員技能</value>
+        <value xml:lang="zh_TW">新建團體技能</value>
     </property>
     <property key="HumanResNewPayGrade">
         <value xml:lang="de">Interne Organisation</value>
@@ -2433,7 +2472,7 @@
         <value xml:lang="pt_BR">Novo treinamento de pessoal</value>
         <value xml:lang="vi">Thêm đào tạo nhân sự</value>
         <value xml:lang="zh">新建个人培训</value>
-        <value xml:lang="zh_TW">新建個人培訓</value>
+        <value xml:lang="zh_TW">新建個人教育訓練</value>
     </property>
     <property key="HumanResNewSalaryStep">
         <value xml:lang="en">New Salary Step</value>
@@ -2466,7 +2505,7 @@
         <value xml:lang="th">ขอบเขตเหตุผลใหม่</value>
         <value xml:lang="vi">Thêm lý do Ngừng công việc</value>
         <value xml:lang="zh">新建雇佣关系终止原因</value>
-        <value xml:lang="zh_TW">新建雇佣關系終止原因</value>
+        <value xml:lang="zh_TW">新建雇佣終止原因</value>
     </property>
     <property key="HumanResNewUnemploymentClaim">
         <value xml:lang="en">New Unemployment Claim</value>
@@ -2477,7 +2516,7 @@
         <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้องใหม่</value>
         <value xml:lang="vi">Thêm khiếu kiện thất nghiệp</value>
         <value xml:lang="zh">新建解除雇佣关系声明</value>
-        <value xml:lang="zh_TW">新建解除雇佣關系聲明</value>
+        <value xml:lang="zh_TW">新建解除雇佣聲明</value>
     </property>
     <property key="HumanResPartyBenifit">
         <value xml:lang="en">Party Benifit</value>
@@ -2488,7 +2527,7 @@
         <value xml:lang="th">กลุ่มผลประโยชน์</value>
         <value xml:lang="vi">Lợi ích nhân sự</value>
         <value xml:lang="zh">会员福利</value>
-        <value xml:lang="zh_TW">會員福利</value>
+        <value xml:lang="zh_TW">團體福利</value>
     </property>
     <property key="HumanResPartyIdFrom">
         <value xml:lang="en">Party Id From</value>
@@ -2499,7 +2538,7 @@
         <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhân sự Từ</value>
         <value xml:lang="zh">会员编号（来自）</value>
-        <value xml:lang="zh_TW">會員編號（來自）</value>
+        <value xml:lang="zh_TW">來自團體識別</value>
     </property>
     <property key="HumanResPartyIdTo">
         <value xml:lang="en">Party Id To</value>
@@ -2510,7 +2549,7 @@
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhân sự Đến</value>
         <value xml:lang="zh">会员编号（去往）</value>
-        <value xml:lang="zh_TW">會員編號（去往）</value>
+        <value xml:lang="zh_TW">送往團體識別</value>
     </property>
     <property key="HumanResPartyQualification">
         <value xml:lang="de">Qualifikationen</value>
@@ -2521,7 +2560,7 @@
         <value xml:lang="pt_BR">Qualificações</value>
         <value xml:lang="vi">Trình độ chuyên môn</value>
         <value xml:lang="zh">资质管理</value>
-        <value xml:lang="zh_TW">資質管理</value>
+        <value xml:lang="zh_TW">資格管理</value>
     </property>
     <property key="HumanResPartyResume">
         <value xml:lang="de">Lebenslauf</value>
@@ -2544,7 +2583,7 @@
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Xem xét</value>
         <value xml:lang="zh">会员评定</value>
-        <value xml:lang="zh_TW">會員評定</value>
+        <value xml:lang="zh_TW">團體評定</value>
     </property>
     <property key="HumanResPartySkills">
         <value xml:lang="en">Party Skills</value>
@@ -2554,7 +2593,7 @@
         <value xml:lang="pt_BR">Habilidades do participante</value>
         <value xml:lang="vi">Kỹ năng</value>
         <value xml:lang="zh">会员技能</value>
-        <value xml:lang="zh_TW">會員技能</value>
+        <value xml:lang="zh_TW">團體技能</value>
     </property>
     <property key="HumanResPartySkillsAlreadyExists">
         <value xml:lang="en">Record with the selected combination already exists.Please try with Other combination.</value>
@@ -2562,6 +2601,7 @@
         <value xml:lang="ja">選択された組み合わせのレコードはすでに存在します。別の組み合わせを試してください。</value>
         <value xml:lang="vi">Bản ghi được chọn để kết hợp đã tồn tại, mời bạn thử lại với sự kết hợp khác.</value>
         <value xml:lang="zh">带有所选组合的记录已经存在。请尝试其它组合。</value>
+        <value xml:lang="zh_TW">帶有所選組合的記錄已經存在.請嘗試其它組合.</value>
     </property>
     <property key="HumanResPayGrade">
         <value xml:lang="de">Lohnstufen</value>
@@ -2584,7 +2624,7 @@
         <value xml:lang="th">รหัสระดับการจ่าย</value>
         <value xml:lang="vi">Bậc lương</value>
         <value xml:lang="zh">薪水等级编号</value>
-        <value xml:lang="zh_TW">薪水等級編號</value>
+        <value xml:lang="zh_TW">薪水等級識別</value>
     </property>
     <property key="HumanResPayHistories">
         <value xml:lang="en">Pay Histories</value>
@@ -2614,6 +2654,7 @@
         <value xml:lang="ja">ペイロール履歴</value>
         <value xml:lang="vi">Lịch sử lương</value>
         <value xml:lang="zh">薪水支付历史</value>
+        <value xml:lang="zh_TW">薪水支付歷史</value>
     </property>
     <property key="HumanResPayRollPreferences">
         <value xml:lang="en">PayRoll Preferences</value>
@@ -2674,6 +2715,7 @@
         <value xml:lang="pt_BR">Pré-requisitos de habilidade</value>
         <value xml:lang="vi">Các kỹ năng yêu cầu cơ bản</value>
         <value xml:lang="zh">必备技能</value>
+        <value xml:lang="zh_TW">必備技能</value>
     </property>
     <property key="HumanResRecruitment">
         <value xml:lang="en">Recruitment</value>
@@ -2683,6 +2725,7 @@
         <value xml:lang="pt_BR">Recrutamento</value>
         <value xml:lang="vi">Tuyển dụng</value>
         <value xml:lang="zh">招聘</value>
+        <value xml:lang="zh_TW">招聘</value>
     </property>
     <property key="HumanResRelocation">
         <value xml:lang="en">Relocation</value>
@@ -2690,6 +2733,7 @@
         <value xml:lang="pt_BR">Realocação</value>
         <value xml:lang="vi">Chuyển địa điểm</value>
         <value xml:lang="zh">再分配</value>
+        <value xml:lang="zh_TW">再分配</value>
     </property>
     <property key="HumanResReportedTo">
         <value xml:lang="en">ReportedTo</value>
@@ -2731,7 +2775,7 @@
         <value xml:lang="th">รหัสประเภทหน้าที่ที่ต้องรับผิดชอบ</value>
         <value xml:lang="vi">Loại Trách nhiệm</value>
         <value xml:lang="zh">职责类型编号</value>
-        <value xml:lang="zh_TW">職責類型編號</value>
+        <value xml:lang="zh_TW">職責類型識別</value>
     </property>
     <property key="HumanResResumeId">
         <value xml:lang="de">Lebenslauf ID</value>
@@ -2742,7 +2786,7 @@
         <value xml:lang="pt_BR">Id do currículo</value>
         <value xml:lang="vi">Sơ yếu lý lịch</value>
         <value xml:lang="zh">简历编号</value>
-        <value xml:lang="zh_TW">簡歷編號</value>
+        <value xml:lang="zh_TW">簡歷識別</value>
     </property>
     <property key="HumanResSalaryStepSeqId">
         <value xml:lang="en">Salary Step Sequence Id</value>
@@ -2766,7 +2810,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , มันมีอยู่แล้ว</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì dữ liệu đã tồn tại trong hệ thống</value>
         <value xml:lang="zh">无法创建教育记录，它已经存在了</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，它已經存在了</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,它已經存在了</value>
     </property>
     <property key="HumanResServices.PartyQualFailureDataSource">
         <value xml:lang="en">Could not create education entry, data source error</value>
@@ -2779,7 +2823,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , แหล่งข้อมูลผิดพลาด</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì kết nối cơ sở dữ liệu không thành công</value>
         <value xml:lang="zh">无法创建教育记录，数据源出错</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，資料源出錯</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,資料源出錯</value>
     </property>
     <property key="HumanResServices.PartyQualFailureIDCreation">
         <value xml:lang="en">Could not create education entry, ID creation failed</value>
@@ -2792,7 +2836,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , การสร้างรหัสล้มเหลว</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì không thể lấy được Id</value>
         <value xml:lang="zh">无法创建教育记录，创建标识时失败。</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，創建ID時失敗。</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,新建識別時失敗.</value>
     </property>
     <property key="HumanResServices.PartyQualFailureIDStartsDigit">
         <value xml:lang="en">Could not create education entry, ID starts with digit</value>
@@ -2805,7 +2849,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , รหัสเริ่มต้นด้วยตัวเลข</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì Id bắt đầu bằng số</value>
         <value xml:lang="zh">无法创建教育记录，标识以数字开头</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，ID以數字開頭</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,識別以數字開頭</value>
     </property>
     <property key="HumanResServices.PartyQualFailureInputEntities">
         <value xml:lang="en">Could not create education entry, one or more input entity does not exist</value>
@@ -2818,7 +2862,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ไม่มีค่าที่กรอกลงไป</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì một hoặc nhiều Thực thể (entity) không tồn tại</value>
         <value xml:lang="zh">无法创建教育记录，一个或多个输入的实体不存在</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，一個或多個輸入的實體不存在</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,一個或多個輸入的資料實體不存在</value>
     </property>
     <property key="HumanResServices.PartyQualFailureMissingParam">
         <value xml:lang="en">Could not create education entry, required parameters missing</value>
@@ -2831,7 +2875,7 @@
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ต้องการตัวแปรที่หายไป</value>
         <value xml:lang="vi">Không thể tạo điểm nhập đào tạo vì không đủ tham số</value>
         <value xml:lang="zh">无法创建教育记录，缺少所需的参数</value>
-        <value xml:lang="zh_TW">無法創建教育記錄，缺少所需的參數</value>
+        <value xml:lang="zh_TW">無法新建教育記錄,缺少所需的參數</value>
     </property>
     <property key="HumanResSkillType">
         <value xml:lang="de">Fähigkeitenarten</value>
@@ -2855,7 +2899,7 @@
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="vi">Kiểu kỹ năng</value>
         <value xml:lang="zh">技能类型编号</value>
-        <value xml:lang="zh_TW">技能類型編號</value>
+        <value xml:lang="zh_TW">技能類型識別</value>
     </property>
     <property key="HumanResSkills">
         <value xml:lang="en">Skills</value>
@@ -2877,7 +2921,7 @@
         <value xml:lang="th">ขอบเขตเหตุผล</value>
         <value xml:lang="vi">Nguyên nhân Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止原因</value>
-        <value xml:lang="zh_TW">雇佣關系終止原因</value>
+        <value xml:lang="zh_TW">雇佣終止原因</value>
     </property>
     <property key="HumanResTerminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
@@ -2888,7 +2932,7 @@
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
         <value xml:lang="vi">Nguyên nhân Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止原因编号</value>
-        <value xml:lang="zh_TW">雇佣關系終止原因編號</value>
+        <value xml:lang="zh_TW">雇佣終止原因識別</value>
     </property>
     <property key="HumanResTerminationTypeId">
         <value xml:lang="de">Entlassungsart</value>
@@ -2900,7 +2944,7 @@
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
         <value xml:lang="vi">Kiểu Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止类型编号</value>
-        <value xml:lang="zh_TW">雇佣關系終止類型編號</value>
+        <value xml:lang="zh_TW">雇佣終止類型識別</value>
     </property>
     <property key="HumanResTerminationTypes">
         <value xml:lang="de">Entlassungsarten</value>
@@ -2911,7 +2955,7 @@
         <value xml:lang="pt_BR">Tipos de encerramento</value>
         <value xml:lang="vi">Kiểu Ngừng công việc</value>
         <value xml:lang="zh">雇佣关系终止类型</value>
-        <value xml:lang="zh_TW">雇佣關系終止類型</value>
+        <value xml:lang="zh_TW">雇佣終止類型</value>
     </property>
     <property key="HumanResTraining">
         <value xml:lang="de">Schulungen</value>
@@ -2979,7 +3023,7 @@
         <value xml:lang="th">แสดงการอนุญาติผิดพลาด</value>
         <value xml:lang="vi">Quyền xem thông tin chưa có</value>
         <value xml:lang="zh">查看权限错误</value>
-        <value xml:lang="zh_TW">查看權限錯誤</value>
+        <value xml:lang="zh_TW">檢視權限錯誤</value>
     </property>
     <property key="LookupJobInterview">
         <value xml:lang="en">LookUp Job Interview</value>
@@ -2988,6 +3032,7 @@
         <value xml:lang="pt_BR">Procurar por entrevista de emprego</value>
         <value xml:lang="vi">Tra cứu Phỏng vấn</value>
         <value xml:lang="zh">查找工作面试</value>
+        <value xml:lang="zh_TW">尋找工作面試</value>
     </property>
     <property key="LookupJobReq">
         <value xml:lang="en">LookUp Job Requisition</value>
@@ -2996,12 +3041,14 @@
         <value xml:lang="pt_BR">Procurar pro petição de emrpego</value>
         <value xml:lang="vi">Tra cứu Yêu cầu công việc</value>
         <value xml:lang="zh">查找工作单</value>
+        <value xml:lang="zh_TW">尋找工作單</value>
     </property>
     <property key="PageTitleAddPublicHoliday">
         <value xml:lang="en">Add Public Holiday</value>
         <value xml:lang="ja">祝日を追加</value>
         <value xml:lang="vi">Thêm Kỳ nghỉ công cộng</value>
         <value xml:lang="zh">添加公众假日</value>
+        <value xml:lang="zh_TW">增加公眾假日</value>
     </property>
     <property key="PageTitleEditApprovalStatus">
         <value xml:lang="en">Edit Approval Status</value>
@@ -3010,6 +3057,7 @@
         <value xml:lang="pt_BR">Editar estado de aprovação</value>
         <value xml:lang="vi">Thêm trạng thái duyệt</value>
         <value xml:lang="zh">编辑批准状态</value>
+        <value xml:lang="zh_TW">編輯核准狀態</value>
     </property>
     <property key="PageTitleEditEmplPosition">
         <value xml:lang="en">Edit Empl Position</value>
@@ -3078,7 +3126,7 @@
         <value xml:lang="th">=แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
         <value xml:lang="vi">Cập nhật Hạng mục xem xét</value>
         <value xml:lang="zh">编辑绩效评定项</value>
-        <value xml:lang="zh_TW">編輯績效評定項</value>
+        <value xml:lang="zh_TW">編輯績效評定細項</value>
     </property>
     <property key="PageTitleEditResponsibilityType">
         <value xml:lang="en">Edit Responsibility Type</value>
@@ -3107,6 +3155,7 @@
         <value xml:lang="pt_BR">Editar tipos de treinamento</value>
         <value xml:lang="vi">Cập nhật Loại đào tạo</value>
         <value xml:lang="zh">编辑培训类型</value>
+        <value xml:lang="zh_TW">編輯教育訓練類型</value>
     </property>
     <property key="PageTitleEditValidResponsibility">
         <value xml:lang="en">Edit ValidResponsibility</value>
@@ -3126,6 +3175,7 @@
         <value xml:lang="pt_BR">Procurar aprovações</value>
         <value xml:lang="vi">Tra cứu Duyệt</value>
         <value xml:lang="zh">查找批准</value>
+        <value xml:lang="zh_TW">尋找核准</value>
     </property>
     <property key="PageTitleFindInternalJobPosting">
         <value xml:lang="en">Find Internal Job Posting</value>
@@ -3134,6 +3184,7 @@
         <value xml:lang="pt_BR">Procurar oferta interna de emprego</value>
         <value xml:lang="vi">Tra cứu Thông báo công việc nội bộ</value>
         <value xml:lang="zh">查找内部岗位公开招聘</value>
+        <value xml:lang="zh_TW">尋找內部崗位公開招聘</value>
     </property>
     <property key="PageTitleFindJobInterviewDetails">
         <value xml:lang="en">Find Interview Details</value>
@@ -3142,6 +3193,7 @@
         <value xml:lang="pt_BR">Procurar detalhes de entrevista</value>
         <value xml:lang="vi">Tra cứu Phỏng vấn chi tiết</value>
         <value xml:lang="zh">查找面试详细信息</value>
+        <value xml:lang="zh_TW">尋找面試詳細資訊</value>
     </property>
     <property key="PageTitleFindJobRequisition">
         <value xml:lang="en">Find Job Requisition</value>
@@ -3150,6 +3202,7 @@
         <value xml:lang="pt_BR">Procurar petição de emprego</value>
         <value xml:lang="vi">Tra cứu Yêu cầu công việc</value>
         <value xml:lang="zh">查找工作单</value>
+        <value xml:lang="zh_TW">尋找工作單</value>
     </property>
     <property key="PageTitleFindRelocationDetails">
         <value xml:lang="en">Find Relocation Details</value>
@@ -3157,6 +3210,7 @@
         <value xml:lang="pt_BR">Procurar detalhes de realocação</value>
         <value xml:lang="vi">Tra cứu Địa điểm chi tiết</value>
         <value xml:lang="zh">查找再分配详细信息</value>
+        <value xml:lang="zh_TW">尋找再分配詳細資訊</value>
     </property>
     <property key="PageTitleFindResponsibilityType">
         <value xml:lang="en">Find Responsibility Type</value>
@@ -3166,7 +3220,7 @@
         <value xml:lang="pt_BR">Procurar tipo de responsabilidade</value>
         <value xml:lang="vi">Tra cứu Kiểu trách nhiệm</value>
         <value xml:lang="zh">查找职责类型</value>
-        <value xml:lang="zh_TW">查找職責類型</value>
+        <value xml:lang="zh_TW">尋找職責類型</value>
     </property>
     <property key="PageTitleFindTrainingApprovals">
         <value xml:lang="en">Find Training Approvals</value>
@@ -3175,6 +3229,7 @@
         <value xml:lang="pt_BR">Procurar aprovações de treinamento</value>
         <value xml:lang="vi">Tra cứu duyệt đào tạo</value>
         <value xml:lang="zh">查找培训批准</value>
+        <value xml:lang="zh_TW">尋找教育訓練核准</value>
     </property>
     <property key="PageTitleFindTrainingCalendar">
         <value xml:lang="en">Find Training Calendar</value>
@@ -3182,6 +3237,7 @@
         <value xml:lang="ja">トレーニングのカレンダを検索</value>
         <value xml:lang="vi">Tra cứu lịch đào tạo</value>
         <value xml:lang="zh">查找培训日历</value>
+        <value xml:lang="zh_TW">尋找教育訓練日曆</value>
     </property>
     <property key="PageTitleFindTrainingStatus">
         <value xml:lang="en">Find Training Status</value>
@@ -3190,6 +3246,7 @@
         <value xml:lang="pt_BR">Procurar estados de treinamento</value>
         <value xml:lang="vi">Tra cứu trạng thái đào tạo</value>
         <value xml:lang="zh">查找培训状态</value>
+        <value xml:lang="zh_TW">尋找教育訓練狀態</value>
     </property>
     <property key="PageTitleListEmplPosition">
         <value xml:lang="en">List EmplPosition</value>
@@ -3200,7 +3257,7 @@
         <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Danh sách Vị trí nhân sự</value>
         <value xml:lang="zh">职位列表</value>
-        <value xml:lang="zh_TW">職位列表</value>
+        <value xml:lang="zh_TW">職位清單</value>
     </property>
     <property key="PageTitleListEmplPositionFulfillments">
         <value xml:lang="en">List EmplPosition Fulfillments</value>
@@ -3211,7 +3268,7 @@
         <value xml:lang="th">รายการตำแหน่งพนักงานที่ปฏิบัติภารกิจ</value>
         <value xml:lang="vi">Danh sách Hoàn thành vị trí nhân sự</value>
         <value xml:lang="zh">该职位雇员列表</value>
-        <value xml:lang="zh_TW">該職位雇員列表</value>
+        <value xml:lang="zh_TW">該職位員工清單</value>
     </property>
     <property key="PageTitleListEmplPositionReportingStructs">
         <value xml:lang="en">List EmplPosition Reporting Structs</value>
@@ -3222,7 +3279,7 @@
         <value xml:lang="th">แสดงรายงานโครงสร้างตำแหน่งพนักงาน</value>
         <value xml:lang="vi">Danh sách Cấu trúc báo cáo vị trí nhân sự</value>
         <value xml:lang="zh">职位级别结构列表</value>
-        <value xml:lang="zh_TW">職位級別結構列表</value>
+        <value xml:lang="zh_TW">職位級別結構清單</value>
     </property>
     <property key="PageTitleListEmplPositionResponsibilities">
         <value xml:lang="en">List EmplPosition Responsibilities</value>
@@ -3233,7 +3290,7 @@
         <value xml:lang="th">รายการตำแหน่งพนักงานที่มีหน้าที่รับผิดชอบ</value>
         <value xml:lang="vi">Danh sách Trách nhiệm vị trí nhân sự</value>
         <value xml:lang="zh">职位职责列表</value>
-        <value xml:lang="zh_TW">職位職責列表</value>
+        <value xml:lang="zh_TW">職位職責清單</value>
     </property>
     <property key="PageTitleListPartyReview">
         <value xml:lang="en">List PerfReview</value>
@@ -3244,7 +3301,7 @@
         <value xml:lang="th">รายการตรวจสอบสิทธิพิเศษ</value>
         <value xml:lang="vi">Danh sách Xem xét</value>
         <value xml:lang="zh">绩效列表</value>
-        <value xml:lang="zh_TW">績效列表</value>
+        <value xml:lang="zh_TW">績效清單</value>
     </property>
     <property key="PageTitleListPartyReviewItems">
         <value xml:lang="en">List PerfReviewItem</value>
@@ -3255,7 +3312,7 @@
         <value xml:lang="th">รายการรายการตรวจสอบสิทธิพิเศษ</value>
         <value xml:lang="vi">Danh sách Hạng mục xem xét</value>
         <value xml:lang="zh">绩效评定项列表</value>
-        <value xml:lang="zh_TW">績效評定項列表</value>
+        <value xml:lang="zh_TW">績效評定細項清單</value>
     </property>
     <property key="PageTitleListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
@@ -3266,7 +3323,7 @@
         <value xml:lang="th">รายการประเภททักษะ</value>
         <value xml:lang="vi">Danh sách loại kỹ năng</value>
         <value xml:lang="zh">技能类型列表</value>
-        <value xml:lang="zh_TW">技能類型列表</value>
+        <value xml:lang="zh_TW">技能類型清單</value>
     </property>
     <property key="PageTitleListValidResponsibilities">
         <value xml:lang="en">List ValidResponsibilities</value>
@@ -3277,19 +3334,21 @@
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
         <value xml:lang="vi">Danh sách Trách nhiệm đã xem xét</value>
         <value xml:lang="zh">有效职责列表</value>
-        <value xml:lang="zh_TW">有效職責列表</value>
+        <value xml:lang="zh_TW">有效職責清單</value>
     </property>
     <property key="PageTitlePublicHoliday">
         <value xml:lang="en">Public Holiday</value>
         <value xml:lang="ja">祝日</value>
         <value xml:lang="vi">Kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日</value>
+        <value xml:lang="zh_TW">公眾假日</value>
     </property>
     <property key="PageTitlePublicHolidayList">
         <value xml:lang="en">Public Holiday List</value>
         <value xml:lang="ja">祝日一覧</value>
         <value xml:lang="vi">Danh sách kỳ nghỉ công cộng</value>
         <value xml:lang="zh">公众假日列表</value>
+        <value xml:lang="zh_TW">公眾假日清單</value>
     </property>
     <property key="PageTitleViewEmploymentApp">
         <value xml:lang="en">View Employment App</value>
@@ -3299,7 +3358,7 @@
         <value xml:lang="pt_BR">Visualizar candidatura de emprego</value>
         <value xml:lang="vi">Xem Xin việc làm</value>
         <value xml:lang="zh">查看应聘求职申请</value>
-        <value xml:lang="zh_TW">查看應聘求職申請</value>
+        <value xml:lang="zh_TW">檢視應聘求職申請</value>
     </property>
     <property key="PageTitleViewPartySkill">
         <value xml:lang="en">View Party Skill</value>
@@ -3309,7 +3368,7 @@
         <value xml:lang="pt_BR">Visualizar habilidade de participante</value>
         <value xml:lang="vi">Xem kỹ năng nhân sự</value>
         <value xml:lang="zh">查看会员技能</value>
-        <value xml:lang="zh_TW">查看會員技能</value>
+        <value xml:lang="zh_TW">檢視團體技能</value>
     </property>
     <property key="PageTitleViewPersonTraining">
         <value xml:lang="en">View Person Training</value>
@@ -3319,6 +3378,6 @@
         <value xml:lang="pt_BR">Visualizar treinamento de pessoa</value>
         <value xml:lang="vi">Xem Đào tạo nhân sự</value>
         <value xml:lang="zh">查看个人培训</value>
-        <value xml:lang="zh_TW">查看個人培訓</value>
+        <value xml:lang="zh_TW">檢視個人教育訓練</value>
     </property>
 </resource>

@@ -31,7 +31,7 @@
         <value xml:lang="ru">Справочник помощи не найден.</value>
         <value xml:lang="vi">Không tìm thấy nội dung Trợ giúp.</value>
         <value xml:lang="zh">帮助主题没有找到。</value>
-        <value xml:lang="zh_TW">說明主題沒有找到。</value>
+        <value xml:lang="zh_TW">說明主題沒有找到.</value>
     </property>
     <property key="PageTitleHelp">
         <value xml:lang="da">Open for Business hjælp</value>

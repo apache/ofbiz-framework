@@ -33,7 +33,7 @@
         <value xml:lang="th">ตัวอย่าง สูตรงาน (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="vi">Công thức tính ví dụ (Số lượng * số giây ước tính * 10)</value>
         <value xml:lang="zh">任务公式样例 (数量 * 预计毫秒数值 * 10)</value>
-        <value xml:lang="zh_TW">任務公式樣例 (數量 * 預計毫秒數值 * 10)</value>
+        <value xml:lang="zh_TW">任務公式範例 (數量 * 預計毫秒數值 * 10)</value>
     </property>
     <property key="CustomMethod.description.6001">
         <value xml:lang="de">Beispiel Formel für Stückliste (qty * k)</value>
@@ -113,7 +113,7 @@
         <value xml:lang="th">GENERAL_MAILING</value>
         <value xml:lang="vi">Thư điện tử chính</value>
         <value xml:lang="zh">邮件列表登记</value>
-        <value xml:lang="zh_TW">郵件列表登記</value>
+        <value xml:lang="zh_TW">郵件清單登記</value>
     </property>
     <property key="DataSource.description.LEAD_COLDCALL">
         <value xml:lang="en">LEAD_COLDCALL</value>
@@ -204,7 +204,7 @@
         <value xml:lang="th">หุ้นส่วน</value>
         <value xml:lang="vi">Nhóm trưởng quản lý đối tác (partner)</value>
         <value xml:lang="zh">商业伙伴</value>
-        <value xml:lang="zh_TW">商業合作伙伴</value>
+        <value xml:lang="zh_TW">商業合作團體</value>
     </property>
     <property key="DataSource.description.LEAD_PR">
         <value xml:lang="en">LEAD_PR</value>
@@ -308,7 +308,7 @@
         <value xml:lang="ru">Банковские операции</value>
         <value xml:lang="vi">Lý do RÚT từ ngân hàng</value>
         <value xml:lang="zh">日银行交易</value>
-        <value xml:lang="zh_TW">日間支出銀行存款交易</value>
+        <value xml:lang="zh_TW">日間費用銀行存款交易</value>
     </property>
     <property key="Enumeration.description.CASH_IN_REASON">
         <value xml:lang="en">Petty Cash Paid into Till</value>
@@ -344,7 +344,7 @@
         <value xml:lang="ru">Добавленные деньги к наличным</value>
         <value xml:lang="vi">Thiết lập hướng THÊM vào két</value>
         <value xml:lang="zh">添加到备用金的零钱</value>
-        <value xml:lang="zh_TW">添加到帳戶的零錢</value>
+        <value xml:lang="zh_TW">增加到帳戶的零錢</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_BRONZE">
         <value xml:lang="en">CNT_PRV_BRONZE</value>
@@ -383,7 +383,7 @@
         <value xml:lang="ru">Не применяется</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
-        <value xml:lang="zh_TW">不可用</value>
+        <value xml:lang="zh_TW">不適用</value>
     </property>
     <property key="Enumeration.description.CNT_PRV_SILVER">
         <value xml:lang="en">CNT_PRV_SILVER</value>
@@ -1094,7 +1094,7 @@
         <value xml:lang="th">เริ่มใหม่บนปีงบประมาณ (ไม่มีความแตกต่าง, ต่อองค์กร, ตั้งค่า 1 แต่ละปี)</value>
         <value xml:lang="vi">Restart on Fiscal Year (no gaps, per org, reset to 1 each year)</value>
         <value xml:lang="zh">根据财年重新开始 (没有间隔，每年对每个组织重置)</value>
-        <value xml:lang="zh_TW">根據會計年度重新開始 (沒有間隔，每年對每個組織重置)</value>
+        <value xml:lang="zh_TW">根據會計年度重新開始 (沒有間隔,每年對每個組織重置)</value>
     </property>
     <property key="Enumeration.description.INVSQ_STANDARD">
         <value xml:lang="de">Standard (effizienter, kann Lücken haben, pro System)</value>
@@ -1110,7 +1110,7 @@
         <value xml:lang="th">มาตรฐาน (รวดเร็ว, อาจจะมีความแตกต่าง, ต่อระบบ)</value>
         <value xml:lang="vi">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="zh">标准 (较快速，可能在每个系统中有间隔)</value>
-        <value xml:lang="zh_TW">標準 (較快速，可能在每個系統中有間隔)</value>
+        <value xml:lang="zh_TW">標準 (較快速,可能在每個系統中有間隔)</value>
     </property>
     <property key="Enumeration.description.KOTT_AURL">
         <value xml:lang="de">Komplette URL</value>
@@ -1218,7 +1218,7 @@
         <value xml:lang="th">ภาษา : ฝรั่งเศส</value>
         <value xml:lang="vi">Ngôn ngữ: French</value>
         <value xml:lang="zh">语言：法语</value>
-        <value xml:lang="zh_TW">語言：法語</value>
+        <value xml:lang="zh_TW">語言:法語</value>
     </property>
     <property key="Enumeration.description.KWTR_LANG_NL">
         <value xml:lang="de">Sprache: Niederländisch</value>
@@ -1233,7 +1233,7 @@
         <value xml:lang="th">ภาษา : เนเธอร์แลนด์</value>
         <value xml:lang="vi">Ngôn ngữ: NL</value>
         <value xml:lang="zh">语言：荷兰语</value>
-        <value xml:lang="zh_TW">語言：荷蘭語</value>
+        <value xml:lang="zh_TW">語言:荷蘭語</value>
     </property>
     <property key="Enumeration.description.KWTR_LANG_SP">
         <value xml:lang="de">Sprache: Spanisch</value>
@@ -1250,7 +1250,7 @@
         <value xml:lang="th">ภาษา : สเปน</value>
         <value xml:lang="vi">Ngôn ngữ: Spanish</value>
         <value xml:lang="zh">语言：西班牙语</value>
-        <value xml:lang="zh_TW">語言：西班牙語</value>
+        <value xml:lang="zh_TW">語言:西班牙語</value>
     </property>
     <property key="Enumeration.description.KWTR_MT">
         <value xml:lang="de">Begriff für Mikro-Thesaurus</value>
@@ -1362,7 +1362,7 @@
         <value xml:lang="th">ภาษา : ฝรั่งเศส</value>
         <value xml:lang="vi">Ngôn ngữ: FR</value>
         <value xml:lang="zh">语言：法语</value>
-        <value xml:lang="zh_TW">語言：法語</value>
+        <value xml:lang="zh_TW">語言:法語</value>
     </property>
     <property key="Enumeration.description.ODRSQ_ENF_SEQ">
         <value xml:lang="de">Fortlaufende Folgenummer (keine Lücken, pro Organisation)</value>
@@ -1394,7 +1394,7 @@
         <value xml:lang="th">มาตรฐาน (รวดเร็ว,อาจจะมีความแตกต่าง, ต่อระบบ)</value>
         <value xml:lang="vi">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="zh">标准 (较快速，可能在每个系统中有间隔)</value>
-        <value xml:lang="zh_TW">標準 (較快速，可能在每個系統中有間隔)</value>
+        <value xml:lang="zh_TW">標準 (較快速,可能在每個系統中有間隔)</value>
     </property>
     <property key="Enumeration.description.PGT_AUTHORIZE">
         <value xml:lang="de">Autorisieren</value>
@@ -1424,7 +1424,7 @@
         <value xml:lang="th">ยึดครอง</value>
         <value xml:lang="vi">Chụp hình</value>
         <value xml:lang="zh">捕捉</value>
-        <value xml:lang="zh_TW">捕捉</value>
+        <value xml:lang="zh_TW">擷取</value>
     </property>
     <property key="Enumeration.description.PGT_CREDIT">
         <value xml:lang="de">Guthaben</value>
@@ -1709,7 +1709,7 @@
         <value xml:lang="th">ผู้ส่งฟรี</value>
         <value xml:lang="vi">Chuyên chở miễn phí</value>
         <value xml:lang="zh">货交承运人</value>
-        <value xml:lang="zh_TW">貨交承運人</value>
+        <value xml:lang="zh_TW">貨交快遞</value>
     </property>
     <property key="Enumeration.description.POTT_FOB">
         <value xml:lang="de">frei an Bord</value>
@@ -1891,7 +1891,7 @@
         <value xml:lang="th">ผลรวมย่อยรายการ X  ในสุดท้าย Y เดือน</value>
         <value xml:lang="vi">Tổng từng phần đơn hàng là X trong Y tháng gần đây</value>
         <value xml:lang="zh">订单小计 X 在过去 Y 个月里</value>
-        <value xml:lang="zh_TW">訂單小計 X 在過去 Y 個月里</value>
+        <value xml:lang="zh_TW">訂單小計 X 在過去 Y 個月裡</value>
     </property>
     <property key="Enumeration.description.PPIP_ORST_LAST_YEAR">
         <value xml:lang="en">Order sub-total X last year</value>
@@ -1931,7 +1931,7 @@
         <value xml:lang="th">การจัดหมวดหมู่กลุ่มผู้ใช้ทั่วไป</value>
         <value xml:lang="vi">Phân loại tác nhân (party)</value>
         <value xml:lang="zh">会员分类</value>
-        <value xml:lang="zh_TW">夥伴分類</value>
+        <value xml:lang="zh_TW">團體分類</value>
     </property>
     <property key="Enumeration.description.PPIP_PARTY_GRP_MEM">
         <value xml:lang="de">Akteurgruppe Mitglied</value>
@@ -1947,7 +1947,7 @@
         <value xml:lang="th">สมาชิกกลุ่มผู้ใช้ทั่วไป</value>
         <value xml:lang="vi">Thành viên nhóm</value>
         <value xml:lang="zh">会员组成员</value>
-        <value xml:lang="zh_TW">夥伴群組成員</value>
+        <value xml:lang="zh_TW">團體群組團體</value>
     </property>
     <property key="Enumeration.description.PPIP_PARTY_ID">
         <value xml:lang="de">Akteur</value>
@@ -1962,7 +1962,7 @@
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="vi">Tác nhân (party)</value>
         <value xml:lang="zh">会员</value>
-        <value xml:lang="zh_TW">夥伴</value>
+        <value xml:lang="zh_TW">團體</value>
     </property>
     <property key="Enumeration.description.PPIP_PRODUCT_AMOUNT">
         <value xml:lang="de">X Betrag vom Produkt</value>
@@ -2260,7 +2260,7 @@
         <value xml:lang="th">ของขวัญ-ใส่เพิ่มในตระกร้า</value>
         <value xml:lang="vi">Tải lại thẻ tặng quà</value>
         <value xml:lang="zh">礼券卡充值</value>
-        <value xml:lang="zh_TW">禮物卡充值</value>
+        <value xml:lang="zh_TW">禮物卡儲值</value>
     </property>
     <property key="Enumeration.description.PRDS_ODR_BACKORDER">
         <value xml:lang="de">Auftragsrückstand</value>
@@ -2350,6 +2350,7 @@
         <value xml:lang="ru">Отгрузка выполнена</value>
         <value xml:lang="vi">Hoàn thành chuyển hàng</value>
         <value xml:lang="zh">完成送货</value>
+        <value xml:lang="zh_TW">完成出貨</value>
     </property>
     <property key="Enumeration.description.PRDS_PAY_AUTH">
         <value xml:lang="de">Zahlung Autorisierungs Dienst</value>
@@ -2379,7 +2380,7 @@
         <value xml:lang="th">ให้บริการตรวจสอบการชำระเงิน</value>
         <value xml:lang="vi">Dịch vụ xác nhận thanh toán</value>
         <value xml:lang="zh">支付授权验证服务</value>
-        <value xml:lang="zh_TW">付款授權驗証服務</value>
+        <value xml:lang="zh_TW">付款授權驗證服務</value>
     </property>
     <property key="Enumeration.description.PRDS_PAY_CAPTURE">
         <value xml:lang="de">Zahlung Abbuchung Dienst</value>
@@ -2395,7 +2396,7 @@
         <value xml:lang="th">บริการเข้าถือสิทธ์ครอบครองการชำระเงิน</value>
         <value xml:lang="vi">Dịch vụ thanh toán</value>
         <value xml:lang="zh">支付捕获服务</value>
-        <value xml:lang="zh_TW">付款捕獲服務</value>
+        <value xml:lang="zh_TW">付款擷取服務</value>
     </property>
     <property key="Enumeration.description.PRDS_PAY_CREDIT">
         <value xml:lang="de">Zahlung Guthaben Dienst</value>
@@ -2626,7 +2627,7 @@
         <value xml:lang="th">การระบุกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Phân loại người dùng</value>
         <value xml:lang="zh">会员分类</value>
-        <value xml:lang="zh_TW">夥伴分類</value>
+        <value xml:lang="zh_TW">團體分類</value>
     </property>
     <property key="Enumeration.description.PRIP_PARTY_GRP_MEM">
         <value xml:lang="de">Akteurgruppe Mitglied</value>
@@ -2642,7 +2643,7 @@
         <value xml:lang="th">สมาชิกกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhóm người dùng</value>
         <value xml:lang="zh">会员组成员</value>
-        <value xml:lang="zh_TW">夥伴群組成員</value>
+        <value xml:lang="zh_TW">團體群組團體</value>
     </property>
     <property key="Enumeration.description.PRIP_PARTY_ID">
         <value xml:lang="de">Akteur</value>
@@ -2657,7 +2658,7 @@
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="vi">Tác nhân (party)</value>
         <value xml:lang="zh">会员</value>
-        <value xml:lang="zh_TW">夥伴</value>
+        <value xml:lang="zh_TW">團體</value>
     </property>
     <property key="Enumeration.description.PRIP_PRODUCT_ID">
         <value xml:lang="de">Produkte</value>
@@ -2703,7 +2704,7 @@
         <value xml:lang="th">หมวดหมู่สินค้า</value>
         <value xml:lang="vi">Chuyên mục sản phẩm</value>
         <value xml:lang="zh">产品目录</value>
-        <value xml:lang="zh_TW">產品目錄</value>
+        <value xml:lang="zh_TW">產品型錄</value>
     </property>
     <property key="Enumeration.description.PRIP_PROD_SGRP_ID">
         <value xml:lang="de">Lagergruppe</value>
@@ -2773,7 +2774,7 @@
         <value xml:lang="it">Fabbisogno per un'ordine quando ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="ja">製品在庫(納期)が下限到達の場合注文要求</value>
         <value xml:lang="pt_BR">Requisição para pedido quando o estoque alcançar o mínimo de produtos por instalação</value>
-         <value xml:lang="ru">Требование для заказа когда ATP достиг минимального запаса для продукта-устройства</value>
+        <value xml:lang="ru">Требование для заказа когда ATP достиг минимального запаса для продукта-устройства</value>
         <value xml:lang="vi">Yêu cầu cho đơn hàng khi ATP đạt số lượng kho tối thiểu cho Product-Facility</value>
         <value xml:lang="zh">当承诺提供数量达到产品-场所的最小存货时的需求订单</value>
         <value xml:lang="zh_TW">當承諾提供數量達到產品-場所的最小存貨時的需求訂單</value>
@@ -2801,7 +2802,7 @@
         <value xml:lang="it">Solo spedizione conto terzi</value>
         <value xml:lang="ja">直送のみ</value>
         <value xml:lang="pt_BR">Apenas Drop-Ship</value>
-         <value xml:lang="ru">Прямые поставки только</value>
+        <value xml:lang="ru">Прямые поставки только</value>
         <value xml:lang="vi">Chỉ Drop-ship</value>
         <value xml:lang="zh">仅直接送货</value>
         <value xml:lang="zh_TW">僅直接送貨</value>
@@ -3024,7 +3025,7 @@
         <value xml:lang="th">มาตรฐาน (รวดเร็ว, อาจจะมีความแตกต่าง, ต่อระบบ)</value>
         <value xml:lang="vi">Enforced Sequence (no gaps, per organization)</value>
         <value xml:lang="zh">标准 (较快速，可能在每个系统中有间隔)</value>
-        <value xml:lang="zh_TW">標準 (較快速，可能在每個系統中有間隔)</value>
+        <value xml:lang="zh_TW">標準 (較快速,可能在每個系統中有間隔)</value>
     </property>
     <property key="Enumeration.description.SNAIL_SALES_CHANNEL">
         <value xml:lang="de">Verkaufskanal: Briefpost</value>
@@ -3319,7 +3320,7 @@
         <value xml:lang="th">LIST</value>
         <value xml:lang="vi">Danh sách</value>
         <value xml:lang="zh">列表</value>
-        <value xml:lang="zh_TW">列表</value>
+        <value xml:lang="zh_TW">清單</value>
     </property>
     <property key="Enumeration.description.WDT_PERFORMER">
         <value xml:lang="en">PERFORMER</value>
@@ -3358,7 +3359,7 @@
         <value xml:lang="th">REFERENCE</value>
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">引用</value>
-        <value xml:lang="zh_TW">引用</value>
+        <value xml:lang="zh_TW">參考</value>
     </property>
     <property key="Enumeration.description.WDT_STRING">
         <value xml:lang="en">STRING</value>
@@ -3492,7 +3493,7 @@
         <value xml:lang="th">ถูกกำหนดมากๆ สิทธิ์การเข้าเป็นที่น่าเชื่อถือ</value>
         <value xml:lang="vi">Rất riêng tư, hạn chế truy nhập</value>
         <value xml:lang="zh">极度受限，秘密访问</value>
-        <value xml:lang="zh_TW">極度受限，秘密訪問</value>
+        <value xml:lang="zh_TW">極度受限,秘密訪問</value>
     </property>
     <property key="Enumeration.description.WES_PRIVATE">
         <value xml:lang="de">Eingeschränkter, privater Zugriff</value>
@@ -3507,7 +3508,7 @@
         <value xml:lang="th">ถูกกำหนด, การเข้าส่วนบุคคล</value>
         <value xml:lang="vi">Rất riêng tư, truy nhập cá nhân</value>
         <value xml:lang="zh">受限制，私人访问</value>
-        <value xml:lang="zh_TW">受限制，私人訪問</value>
+        <value xml:lang="zh_TW">受限制,私人訪問</value>
     </property>
     <property key="Enumeration.description.WES_PUBLIC">
         <value xml:lang="de">Generell, öffentlicher Zugriff</value>
@@ -3523,7 +3524,7 @@
         <value xml:lang="th">ปกติ, การเข้าสาธารณะ</value>
         <value xml:lang="vi">Chung, truy nhập công khai</value>
         <value xml:lang="zh">通用，公共访问</value>
-        <value xml:lang="zh_TW">通用，公共訪問</value>
+        <value xml:lang="zh_TW">通用,公共訪問</value>
     </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
@@ -4235,7 +4236,7 @@
         <value xml:lang="th">Tracking Code Source</value>
         <value xml:lang="vi">Mã theo dõi hàng được chuyển</value>
         <value xml:lang="zh">跟踪码源</value>
-        <value xml:lang="zh_TW">跟蹤碼源</value>
+        <value xml:lang="zh_TW">追蹤碼源</value>
     </property>
     <property key="EnumerationType.description.WORK_EFF_EXPECT">
         <value xml:lang="de">Arbeitseinsatz Erwartung</value>
@@ -4251,7 +4252,7 @@
         <value xml:lang="th">ความคาดหวังกับงาน</value>
         <value xml:lang="vi">Cần Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务预期</value>
-        <value xml:lang="zh_TW">人工服務期望</value>
+        <value xml:lang="zh_TW">工作投入期望</value>
     </property>
     <property key="EnumerationType.description.WORK_EFF_SCOPE">
         <value xml:lang="de">Arbeitseinsatz Bereich Klassifizierung</value>
@@ -4267,7 +4268,7 @@
         <value xml:lang="th">การจัดแบ่งประเภทขอบเขตงาน</value>
         <value xml:lang="vi">Phân nhóm phạm vi Lượng giá nguồn lực</value>
         <value xml:lang="zh">人工服务范畴分类</value>
-        <value xml:lang="zh_TW">人工服務範疇分類</value>
+        <value xml:lang="zh_TW">工作投入範疇分類</value>
     </property>
     <property key="EnumerationType.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -4562,7 +4563,7 @@
         <value xml:lang="th">อาเซอร์ไบจัน</value>
         <value xml:lang="vi">Azerbaijan</value>
         <value xml:lang="zh">阿塞拜疆</value>
-        <value xml:lang="zh_TW">阿塞拜疆</value>
+        <value xml:lang="zh_TW">亞塞拜然</value>
     </property>
     <property key="Geo.geoName.BC">
         <value xml:lang="de">Britisch-Kolumbien</value>
@@ -4590,7 +4591,7 @@
         <value xml:lang="th">บูรันดิ</value>
         <value xml:lang="vi">Burundi</value>
         <value xml:lang="zh">布隆迪</value>
-        <value xml:lang="zh_TW">布隆迪</value>
+        <value xml:lang="zh_TW">蒲隆地</value>
     </property>
     <property key="Geo.geoName.BEL">
         <value xml:lang="de">Belgien</value>
@@ -4745,7 +4746,7 @@
         <value xml:lang="th">เบไลซ์ </value>
         <value xml:lang="vi">Belize</value>
         <value xml:lang="zh">贝里斯</value>
-        <value xml:lang="zh_TW">貝里斯</value>
+        <value xml:lang="zh_TW">貝裡斯</value>
     </property>
     <property key="Geo.geoName.BMU">
         <value xml:lang="de">Bermuda</value>
@@ -4979,7 +4980,7 @@
         <value xml:lang="th">โค๊ด ไอวอรี่ </value>
         <value xml:lang="vi">Cote D'ivoire</value>
         <value xml:lang="zh">科特迪瓦</value>
-        <value xml:lang="zh_TW">科特迪瓦</value>
+        <value xml:lang="zh_TW">象牙海岸</value>
     </property>
     <property key="Geo.geoName.CMR">
         <value xml:lang="de">Kamerun</value>
@@ -5090,7 +5091,7 @@
         <value xml:lang="th">เคปเวิร์ด</value>
         <value xml:lang="vi">Cape Verde</value>
         <value xml:lang="zh">佛得角</value>
-        <value xml:lang="zh_TW">佛得角</value>
+        <value xml:lang="zh_TW">維德角</value>
     </property>
     <property key="Geo.geoName.CRI">
         <value xml:lang="de">Costa Rica</value>
@@ -5168,7 +5169,7 @@
         <value xml:lang="th">ไซปรัส</value>
         <value xml:lang="vi">Cyprus</value>
         <value xml:lang="zh">塞浦路斯</value>
-        <value xml:lang="zh_TW">塞浦路斯</value>
+        <value xml:lang="zh_TW">賽普勒斯</value>
     </property>
     <property key="Geo.geoName.CZE">
         <value xml:lang="de">Tschechische Republik</value>
@@ -5216,7 +5217,7 @@
         <value xml:lang="th">จิบูตี</value>
         <value xml:lang="vi">Djibouti</value>
         <value xml:lang="zh">吉布提</value>
-        <value xml:lang="zh_TW">吉布提</value>
+        <value xml:lang="zh_TW">吉布地</value>
     </property>
     <property key="Geo.geoName.DMA">
         <value xml:lang="de">Dominica</value>
@@ -5342,7 +5343,7 @@
         <value xml:lang="th">เอริเทรีย</value>
         <value xml:lang="vi">Eritrea</value>
         <value xml:lang="zh">厄立特里亚</value>
-        <value xml:lang="zh_TW">厄立特里亞</value>
+        <value xml:lang="zh_TW">厄立特裡亞</value>
     </property>
     <property key="Geo.geoName.ESH">
         <value xml:lang="de">Westliche Sahara</value>
@@ -6117,7 +6118,7 @@
         <value xml:lang="ru">Кирибати</value>
         <value xml:lang="th">คิริบาตี</value>
         <value xml:lang="zh">基里巴斯</value>
-        <value xml:lang="zh_TW">基里巴斯</value>
+        <value xml:lang="zh_TW">吉里巴斯</value>
     </property>
     <property key="Geo.geoName.KNA">
         <value xml:lang="de">St. Kitts und Nevis</value>
@@ -6252,7 +6253,7 @@
         <value xml:lang="ru">Лихтенштейн</value>
         <value xml:lang="th">ลีเทนเทียน</value>
         <value xml:lang="zh">列支敦士登</value>
-        <value xml:lang="zh_TW">列支敦士登</value>
+        <value xml:lang="zh_TW">列支敦斯登</value>
     </property>
     <property key="Geo.geoName.LKA">
         <value xml:lang="de">Sri Lanka</value>
@@ -6266,7 +6267,7 @@
         <value xml:lang="ru">Шри-Ланка</value>
         <value xml:lang="th">ศรีลังกา</value>
         <value xml:lang="zh">斯里兰卡</value>
-        <value xml:lang="zh_TW">斯里蘭卡</value>
+        <value xml:lang="zh_TW">斯裡蘭卡</value>
     </property>
     <property key="Geo.geoName.LSO">
         <value xml:lang="de">Lesotho</value>
@@ -6364,7 +6365,7 @@
         <value xml:lang="it">MB</value>
         <value xml:lang="ja">マニトバ</value>
         <value xml:lang="pt_BR">Manitoba</value>
-         <value xml:lang="ru">Манитоба</value>
+        <value xml:lang="ru">Манитоба</value>
         <value xml:lang="th">MB</value>
         <value xml:lang="zh">马尼托巴省</value>
         <value xml:lang="zh_TW">馬尼托巴省</value>
@@ -6544,7 +6545,7 @@
         <value xml:lang="ru">Северные Марианские о-ва</value>
         <value xml:lang="th">นอร์สเทิน มาริฟนา ไอร์แลนด์ </value>
         <value xml:lang="zh">北马里亚纳群岛</value>
-        <value xml:lang="zh_TW">北馬里亞納群島</value>
+        <value xml:lang="zh_TW">北馬裡亞納群島</value>
     </property>
     <property key="Geo.geoName.MOZ">
         <value xml:lang="de">Mosambik</value>
@@ -6574,7 +6575,7 @@
         <value xml:lang="ru">Мавритания</value>
         <value xml:lang="th">มาวริตาเนีย</value>
         <value xml:lang="zh">毛里塔尼亚</value>
-        <value xml:lang="zh_TW">毛里塔尼亞</value>
+        <value xml:lang="zh_TW">毛裡塔尼亞</value>
     </property>
     <property key="Geo.geoName.MSR">
         <value xml:lang="de">Montserrat</value>
@@ -6618,7 +6619,7 @@
         <value xml:lang="ru">Маврикий</value>
         <value xml:lang="th">เมอร์ริตุส</value>
         <value xml:lang="zh">毛里求斯</value>
-        <value xml:lang="zh_TW">毛里求斯</value>
+        <value xml:lang="zh_TW">模里西斯</value>
     </property>
     <property key="Geo.geoName.MWI">
         <value xml:lang="de">Malawi</value>
@@ -6704,7 +6705,7 @@
         <value xml:lang="ru">Новая Каледония</value>
         <value xml:lang="th">นิวคาลิโดเนีย</value>
         <value xml:lang="zh">新喀里多尼亚</value>
-        <value xml:lang="zh_TW">新喀里多尼亞</value>
+        <value xml:lang="zh_TW">新喀裡多尼亞</value>
     </property>
     <property key="Geo.geoName.NER">
         <value xml:lang="de">Niger</value>
@@ -7206,7 +7207,7 @@
         <value xml:lang="ru">Реюньон</value>
         <value xml:lang="th">รัวเนียน</value>
         <value xml:lang="zh">留尼汪岛</value>
-        <value xml:lang="zh_TW">留尼汪島</value>
+        <value xml:lang="zh_TW">留尼旺島</value>
     </property>
     <property key="Geo.geoName.ROU">
         <value xml:lang="de">Rumänien</value>
@@ -7422,7 +7423,7 @@
         <value xml:lang="ru">Сьерра-Леоне</value>
         <value xml:lang="th">ซีรา เลโอล</value>
         <value xml:lang="zh">塞拉利昂</value>
-        <value xml:lang="zh_TW">塞拉利昂</value>
+        <value xml:lang="zh_TW">塞拉里昂</value>
     </property>
     <property key="Geo.geoName.SLV">
         <value xml:lang="de">El Salvador</value>
@@ -7510,7 +7511,7 @@
         <value xml:lang="ru">Суринам</value>
         <value xml:lang="th">ซูริเนม</value>
         <value xml:lang="zh">苏里南</value>
-        <value xml:lang="zh_TW">蘇里南</value>
+        <value xml:lang="zh_TW">蘇裡南</value>
     </property>
     <property key="Geo.geoName.SVK">
         <value xml:lang="de">Slovakei</value>
@@ -8422,7 +8423,7 @@
         <value xml:lang="th">ผู้ประกาศ</value>
         <value xml:lang="vi">Nhà xuất bản blog</value>
         <value xml:lang="zh">已发布</value>
-        <value xml:lang="zh_TW">已發布</value>
+        <value xml:lang="zh_TW">已發行</value>
     </property>
     <property key="StatusItem.description.BLOG_REJECTED">
         <value xml:lang="en">BLOG_REJECTED</value>
@@ -8549,7 +8550,7 @@
         <value xml:lang="th">ตัวแทน</value>
         <value xml:lang="vi">Ủy quyền</value>
         <value xml:lang="zh">已委托</value>
-        <value xml:lang="zh_TW">已委托</value>
+        <value xml:lang="zh_TW">已委託</value>
     </property>
     <property key="StatusItem.description.CAL_IN_PLANNING">
         <value xml:lang="en">In Planning</value>
@@ -8696,7 +8697,7 @@
         <value xml:lang="ru">Подтвержден</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.CNTAP_IN_PROCESS">
         <value xml:lang="en">Approval In Process</value>
@@ -8919,7 +8920,7 @@
         <value xml:lang="th">ไม่รู้จักกลุ่มผู้ใช้ทั่วไป</value>
         <value xml:lang="vi">Người gửi chưa quen</value>
         <value xml:lang="zh">未知的会员</value>
-        <value xml:lang="zh_TW">未知的會員</value>
+        <value xml:lang="zh_TW">未知的團體</value>
     </property>
     <property key="StatusItem.description.CRQ_ACCEPTED">
         <value xml:lang="de">Angenommen</value>
@@ -9126,7 +9127,7 @@
         <value xml:lang="th">ประกาศ</value>
         <value xml:lang="vi">Đã xuất bản</value>
         <value xml:lang="zh">已发布</value>
-        <value xml:lang="zh_TW">已發布</value>
+        <value xml:lang="zh_TW">已發行</value>
     </property>
     <property key="StatusItem.description.CTNT_REVISED_DRAFT">
         <value xml:lang="de">Überarbeiteter Entwurf</value>
@@ -9256,7 +9257,7 @@
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="vi">ESR_RUNNING</value>
         <value xml:lang="zh">运行中</value>
-        <value xml:lang="zh_TW">運行中</value>
+        <value xml:lang="zh_TW">執行中</value>
     </property>
     <property key="StatusItem.description.ESR_SERVICE_ERROR">
         <value xml:lang="en">ESR_SERVICE_ERROR</value>
@@ -9281,7 +9282,7 @@
         <value xml:lang="ru">Утвержден</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.EXST_CANCELLED">
         <value xml:lang="en">Cancelled</value>
@@ -9353,6 +9354,7 @@
         <value xml:lang="ru">Тестируется</value>
         <value xml:lang="vi">Đã kiểm thử</value>
         <value xml:lang="zh">已测试</value>
+        <value xml:lang="zh_TW">已測試</value>
     </property>
     <property key="StatusItem.description.FAM_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -9562,7 +9564,7 @@
         <value xml:lang="ru">Предприниматель</value>
         <value xml:lang="vi">Người đấu thầu</value>
         <value xml:lang="zh">合同工</value>
-        <value xml:lang="zh_TW">合同工</value>
+        <value xml:lang="zh_TW">合約工</value>
     </property>
     <property key="StatusItem.description.HR_JS_FULLTIME">
         <value xml:lang="en">Full time</value>
@@ -9603,7 +9605,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.INVOICE_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -9671,7 +9673,7 @@
         <value xml:lang="th">พร้อมสำหรับโพสต์</value>
         <value xml:lang="vi">Sẵn sàng để xuất bản</value>
         <value xml:lang="zh">过账准备就绪</value>
-        <value xml:lang="zh_TW">過賬准備就緒</value>
+        <value xml:lang="zh_TW">過帳準備就緒</value>
     </property>
     <property key="StatusItem.description.INVOICE_RECEIVED">
         <value xml:lang="de">Erhalten</value>
@@ -9923,7 +9925,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.ITEM_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -10123,7 +10125,7 @@
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.LEAVE_REJECTED">
         <value xml:lang="en">Rejected</value>
@@ -10148,7 +10150,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.MKTG_CAMP_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -10253,7 +10255,7 @@
         <value xml:lang="ru">На выходе сгенерирован - Ошибка</value>
         <value xml:lang="vi">Out Generated - gặp lỗi</value>
         <value xml:lang="zh">生成输出 - 错误</value>
-        <value xml:lang="zh_TW">生成輸出 - 錯誤</value>
+        <value xml:lang="zh_TW">產生輸出 - 錯誤</value>
     </property>
     <property key="StatusItem.description.OAGMP_OGEN_SUCCESS">
         <value xml:lang="en">Out Generated - Success</value>
@@ -10265,7 +10267,7 @@
         <value xml:lang="ru">На выходе сгенерирован - Успех</value>
         <value xml:lang="vi">Out Generated - thành công</value>
         <value xml:lang="zh">生成输出 - 成功</value>
-        <value xml:lang="zh_TW">生成輸出 - 成功</value>
+        <value xml:lang="zh_TW">產生輸出 - 成功</value>
     </property>
     <property key="StatusItem.description.OAGMP_PROC_ERROR">
         <value xml:lang="en">In Processed - Error</value>
@@ -10300,7 +10302,7 @@
         <value xml:lang="ru">В полученное сообщение</value>
         <value xml:lang="vi">Trong thông điệp đã được nhận</value>
         <value xml:lang="zh">接收到的输入消息</value>
-        <value xml:lang="zh_TW">接收到的輸入消息</value>
+        <value xml:lang="zh_TW">接收到的輸入訊息</value>
     </property>
     <property key="StatusItem.description.OAGMP_REC_ERR_CON">
         <value xml:lang="en">Received Error Confirm</value>
@@ -10336,7 +10338,7 @@
         <value xml:lang="ru">На выходе сообщение отправило ошибку</value>
         <value xml:lang="vi">Thông điệp gửi đi gặp lỗi</value>
         <value xml:lang="zh">输出消息发送错误</value>
-        <value xml:lang="zh_TW">輸出消息發送錯誤</value>
+        <value xml:lang="zh_TW">輸出訊息發送錯誤</value>
     </property>
     <property key="StatusItem.description.OAGMP_SENT">
         <value xml:lang="en">Out Message Sent</value>
@@ -10348,7 +10350,7 @@
         <value xml:lang="ru">На выходе сообщение отправлено</value>
         <value xml:lang="vi">Thông điệp đã được gửi đi</value>
         <value xml:lang="zh">输出消息已发送</value>
-        <value xml:lang="zh_TW">輸出消息已發送</value>
+        <value xml:lang="zh_TW">輸出訊息已發送</value>
     </property>
     <property key="StatusItem.description.OAGMP_SYS_ERROR">
         <value xml:lang="en">System Error</value>
@@ -10372,7 +10374,7 @@
         <value xml:lang="ru">Из сообщения вызвали</value>
         <value xml:lang="vi">Quá trình gửi thông điệp đã được kích hoạt</value>
         <value xml:lang="zh">输出消息被触发</value>
-        <value xml:lang="zh_TW">輸出消息被觸發</value>
+        <value xml:lang="zh_TW">輸出訊息被觸發</value>
     </property>
     <property key="StatusItem.description.ODS_ACCEPTED">
         <value xml:lang="de">Angenommen</value>
@@ -11015,6 +11017,10 @@
         <value xml:lang="zh">已发送</value>
         <value xml:lang="zh_TW">已送出</value>
     </property>
+    <property key="StatusItem.description.PMNT_VOID">
+        <value xml:lang="en">Voided</value>
+        <value xml:lang="zh_TW">已作廢</value>
+    </property>
     <property key="StatusItem.description.POSTX_ACTIVE">
         <value xml:lang="en">POSTX_ACTIVE</value>
         <value xml:lang="es">Activo</value>
@@ -11114,7 +11120,7 @@
         <value xml:lang="ru">Не верифицированна</value>
         <value xml:lang="vi">Chưa xác nhận</value>
         <value xml:lang="zh">未验证</value>
-        <value xml:lang="zh_TW">尚未驗証</value>
+        <value xml:lang="zh_TW">尚未驗證</value>
     </property>
     <property key="StatusItem.description.PQV_VERIFIED">
         <value xml:lang="en">Verified</value>
@@ -11126,7 +11132,7 @@
         <value xml:lang="ru">Верифицирован</value>
         <value xml:lang="vi">Đã xác nhận</value>
         <value xml:lang="zh">已验证</value>
-        <value xml:lang="zh_TW">已驗証</value>
+        <value xml:lang="zh_TW">已驗證</value>
     </property>
     <property key="StatusItem.description.PRJ_ACTIVE">
         <value xml:lang="en">Active</value>
@@ -11162,7 +11168,7 @@
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.PRR_DELETED">
         <value xml:lang="en">Deleted</value>
@@ -11332,7 +11338,7 @@
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="vi">Đang chạy</value>
         <value xml:lang="zh">正在运行</value>
-        <value xml:lang="zh_TW">正在運行</value>
+        <value xml:lang="zh_TW">正在執行</value>
     </property>
     <property key="StatusItem.description.PRUN_SCHEDULED">
         <value xml:lang="en">Scheduled</value>
@@ -11496,7 +11502,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.QUO_CREATED">
         <value xml:lang="de">Erstellt</value>
@@ -11512,7 +11518,7 @@
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
-        <value xml:lang="zh_TW">已新新建</value>
+        <value xml:lang="zh_TW">已新建</value>
     </property>
     <property key="StatusItem.description.QUO_ORDERED">
         <value xml:lang="de">In Auftrag gegeben</value>
@@ -11559,7 +11565,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.REQ_CREATED">
         <value xml:lang="de">Erstellt</value>
@@ -11734,7 +11740,7 @@
         <value xml:lang="th">เทมเพลต</value>
         <value xml:lang="vi">ROU_PROD_TEMPLATE</value>
         <value xml:lang="zh">产品模板</value>
-        <value xml:lang="zh_TW">產品範本</value>
+        <value xml:lang="zh_TW">產品模板</value>
     </property>
     <property key="StatusItem.description.SERVICE_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -11824,7 +11830,7 @@
         <value xml:lang="ru">Работающий</value>
         <value xml:lang="vi">Đang chạy</value>
         <value xml:lang="zh">正在运行</value>
-        <value xml:lang="zh_TW">正在運行</value>
+        <value xml:lang="zh_TW">正在執行</value>
     </property>
     <property key="StatusItem.description.SHIPMENT_CANCELLED">
         <value xml:lang="de">Annulliert</value>
@@ -11901,7 +11907,7 @@
         <value xml:lang="th">เลือก</value>
         <value xml:lang="vi">Đã lấy ra (picked)</value>
         <value xml:lang="zh">已分拣</value>
-        <value xml:lang="zh_TW">已分揀</value>
+        <value xml:lang="zh_TW">已揀貨</value>
     </property>
     <property key="StatusItem.description.SHIPMENT_SCHEDULED">
         <value xml:lang="de">Geplant</value>
@@ -12072,7 +12078,7 @@
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.TIMESHEET_COMPLETED">
         <value xml:lang="en">Completed</value>
@@ -12104,6 +12110,7 @@
         <value xml:lang="fr">Postulée</value>
         <value xml:lang="ru">Приложенный</value>
         <value xml:lang="zh">已申请</value>
+        <value xml:lang="zh_TW">已申請</value>
     </property>
     <property key="StatusItem.description.TRAINING_APPROVED">
         <value xml:lang="en">Approved</value>
@@ -12116,6 +12123,7 @@
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.TRAINING_ASSIGNED">
         <value xml:lang="en">Assigned</value>
@@ -12124,6 +12132,7 @@
         <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
         <value xml:lang="zh">已指派</value>
+        <value xml:lang="zh_TW">已指派</value>
     </property>
     <property key="StatusItem.description.TRAINING_PROPOSED">
         <value xml:lang="de">Vorgeschlagen</value>
@@ -12152,6 +12161,7 @@
         <value xml:lang="th">ปฏิเสธ</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
+        <value xml:lang="zh_TW">已拒絕</value>
     </property>
     <property key="StatusItem.description.WEFA_AVAILABLE">
         <value xml:lang="en">Available</value>
@@ -12318,7 +12328,7 @@
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="StatusItem.description.WERV_DELETED">
         <value xml:lang="en">Deleted</value>
@@ -12330,7 +12340,7 @@
         <value xml:lang="ru">Удален</value>
         <value xml:lang="vi">Đã xóa</value>
         <value xml:lang="zh">已删除</value>
-        <value xml:lang="zh_TW">已删除</value>
+        <value xml:lang="zh_TW">已刪除</value>
     </property>
     <property key="StatusItem.description.WERV_PENDING">
         <value xml:lang="en">Pending</value>
@@ -12404,7 +12414,7 @@
         <value xml:lang="th">ดำเนินการ</value>
         <value xml:lang="vi">Đang chạy</value>
         <value xml:lang="zh">运行中</value>
-        <value xml:lang="zh_TW">運行中</value>
+        <value xml:lang="zh_TW">執行中</value>
     </property>
     <property key="StatusItem.description.WF_SUSPENDED">
         <value xml:lang="de">Angehalten</value>
@@ -12499,7 +12509,7 @@
         <value xml:lang="th">WIP_OUTGOING_DONE</value>
         <value xml:lang="vi">WIP_OUTGOING_DONE</value>
         <value xml:lang="zh">完成支出</value>
-        <value xml:lang="zh_TW">完成支出</value>
+        <value xml:lang="zh_TW">完成費用</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_FULFIL">
         <value xml:lang="en">WIP_OUTGOING_FULFIL</value>
@@ -12512,7 +12522,7 @@
         <value xml:lang="th">WIP_OUTGOING_FULFIL</value>
         <value xml:lang="vi">WIP_OUTGOING_FULFIL</value>
         <value xml:lang="zh">实现支出</value>
-        <value xml:lang="zh_TW">實現支出</value>
+        <value xml:lang="zh_TW">實現費用</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_PLAN">
         <value xml:lang="en">WIP_OUTGOING_PLAN</value>
@@ -12525,7 +12535,7 @@
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
         <value xml:lang="vi">WIP_OUTGOING_PLAN</value>
         <value xml:lang="zh">计划支出</value>
-        <value xml:lang="zh_TW">計劃支出</value>
+        <value xml:lang="zh_TW">計劃費用</value>
     </property>
     <property key="StatusItem.description.WIP_OUTGOING_RES">
         <value xml:lang="en">WIP_OUTGOING_RES</value>
@@ -12538,7 +12548,7 @@
         <value xml:lang="th">WIP_OUTGOING_RES</value>
         <value xml:lang="vi">WIP_OUTGOING_RES</value>
         <value xml:lang="zh">预留支出</value>
-        <value xml:lang="zh_TW">預留支出</value>
+        <value xml:lang="zh_TW">預留費用</value>
     </property>
     <property key="StatusItem.description.WPS_RELEASED">
         <value xml:lang="en">WPS_RELEASED</value>
@@ -12551,7 +12561,7 @@
         <value xml:lang="th">วางจำหน่าย</value>
         <value xml:lang="vi">WPS_RELEASED</value>
         <value xml:lang="zh">已发布</value>
-        <value xml:lang="zh_TW">已發布</value>
+        <value xml:lang="zh_TW">已發行</value>
     </property>
     <property key="StatusItem.description.WPS_UNDER_REVISION">
         <value xml:lang="en">WPS_UNDER_REVISION</value>
@@ -12593,7 +12603,7 @@
         <value xml:lang="th">ไม่เหมาะสม</value>
         <value xml:lang="vi">Không Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
-        <value xml:lang="zh_TW">不可用</value>
+        <value xml:lang="zh_TW">不適用</value>
     </property>
     <property key="StatusType.description.CALENDAR_STATUS">
         <value xml:lang="de">Kalender</value>
@@ -12640,7 +12650,7 @@
         <value xml:lang="th">รายชื่อการติดต่อของกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Danh sách liên hệ</value>
         <value xml:lang="zh">联系人列表会员</value>
-        <value xml:lang="zh_TW">聯絡人列表夥伴</value>
+        <value xml:lang="zh_TW">聯絡人清單團體</value>
     </property>
     <property key="StatusType.description.CONTENT_STATUS">
         <value xml:lang="de">Inhalt</value>
@@ -12717,7 +12727,7 @@
         <value xml:lang="th">รายการสินค้าคงเหลือ</value>
         <value xml:lang="vi">Hạng mục kho</value>
         <value xml:lang="zh">库存明细</value>
-        <value xml:lang="zh_TW">庫存明細</value>
+        <value xml:lang="zh_TW">庫存細項</value>
     </property>
     <property key="StatusType.description.INVENTORY_XFER_STTS">
         <value xml:lang="de">Lagerbestand Transfer</value>
@@ -12764,7 +12774,7 @@
         <value xml:lang="th">ไม่มีลำดับรายการสินค้าคงเหลือ</value>
         <value xml:lang="vi">Non-Serialized Inventory Item</value>
         <value xml:lang="zh">无序的库存明细</value>
-        <value xml:lang="zh_TW">無序的庫存明細</value>
+        <value xml:lang="zh_TW">無序的庫存細項</value>
     </property>
     <property key="StatusType.description.INV_SERIALIZED_STTS">
         <value xml:lang="en">Serialized Inventory Item</value>
@@ -12779,7 +12789,7 @@
         <value xml:lang="th">ลำดับรายการสินค้าคงเหลือ</value>
         <value xml:lang="vi">Serialized Inventory Item</value>
         <value xml:lang="zh">有序的库存明细</value>
-        <value xml:lang="zh_TW">有序的庫存明細</value>
+        <value xml:lang="zh_TW">有序的庫存細項</value>
     </property>
     <property key="StatusType.description.MKTG_CAMP_STATUS">
         <value xml:lang="de">Marketing Kampagne</value>
@@ -12828,7 +12838,7 @@
         <value xml:lang="th">รายการสั่งซื้อ</value>
         <value xml:lang="vi">Hạng mục đơn hàng</value>
         <value xml:lang="zh">订单明细</value>
-        <value xml:lang="zh_TW">訂單明細</value>
+        <value xml:lang="zh_TW">訂單細項</value>
     </property>
     <property key="StatusType.description.ORDER_RETURN_STTS">
         <value xml:lang="en">Order Return Status</value>
@@ -12877,7 +12887,7 @@
         <value xml:lang="th">การอ้างอิงการชำระเงิน</value>
         <value xml:lang="vi">Tham chiếu thanh toán</value>
         <value xml:lang="zh">支付优先方法</value>
-        <value xml:lang="zh_TW">付款優先方法</value>
+        <value xml:lang="zh_TW">付款偏好方法</value>
     </property>
     <property key="StatusType.description.PICKLIST_STATUS">
         <value xml:lang="de">Kommissionierliste</value>
@@ -12925,7 +12935,7 @@
         <value xml:lang="th">สถานะการดำเนินการผลิต</value>
         <value xml:lang="vi">Trạng thái chạy sản phẩm</value>
         <value xml:lang="zh">产品运行状态</value>
-        <value xml:lang="zh_TW">產品運行狀態</value>
+        <value xml:lang="zh_TW">產品執行狀態</value>
     </property>
     <property key="StatusType.description.PRTYASGN_STATUS">
         <value xml:lang="de">Akteur</value>
@@ -12940,7 +12950,7 @@
         <value xml:lang="th">กลุ่มผู้ใช้ทั่วไป</value>
         <value xml:lang="vi">Tác nhân</value>
         <value xml:lang="zh">会员</value>
-        <value xml:lang="zh_TW">夥伴</value>
+        <value xml:lang="zh_TW">團體</value>
     </property>
     <property key="StatusType.description.PURCH_SHIP_STATUS">
         <value xml:lang="de">Einkauf Lieferung</value>
@@ -13678,7 +13688,7 @@
         <value xml:lang="th">การพิจารณาคำร้อง</value>
         <value xml:lang="vi">Xem Yêu cầu</value>
         <value xml:lang="zh">评价请求</value>
-        <value xml:lang="zh_TW">評論要求</value>
+        <value xml:lang="zh_TW">評論請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_REVIEWED.CRQ_CANCELLED">
         <value xml:lang="de">Anfrage annullieren</value>
@@ -13693,7 +13703,7 @@
         <value xml:lang="th">ยกเลิกคำร้อง</value>
         <value xml:lang="vi">Hủy bỏ Yêu cầu</value>
         <value xml:lang="zh">取消请求</value>
-        <value xml:lang="zh_TW">取消要求</value>
+        <value xml:lang="zh_TW">取消請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_REVIEWED.CRQ_COMPLETED">
         <value xml:lang="de">Anfrage abschliessen</value>
@@ -13709,7 +13719,7 @@
         <value xml:lang="th">คำร้องเสร็จสมบูรณ์</value>
         <value xml:lang="vi">Hoàn thành Yêu cầu</value>
         <value xml:lang="zh">完成请求</value>
-        <value xml:lang="zh_TW">完成要求</value>
+        <value xml:lang="zh_TW">完成請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_SUBMITTED.CRQ_ACCEPTED">
         <value xml:lang="de">Anfrage annehmen</value>
@@ -13725,7 +13735,7 @@
         <value xml:lang="th">ยอมรับคำร้อง</value>
         <value xml:lang="vi">Chấp nhận Yêu cầu</value>
         <value xml:lang="zh">接受请求</value>
-        <value xml:lang="zh_TW">接受要求</value>
+        <value xml:lang="zh_TW">接受請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_SUBMITTED.CRQ_CANCELLED">
         <value xml:lang="de">Anfrage annullieren</value>
@@ -13741,7 +13751,7 @@
         <value xml:lang="th">ยกเลิกคำร้อง</value>
         <value xml:lang="vi">Hủy bỏ Yêu cầu</value>
         <value xml:lang="zh">取消请求</value>
-        <value xml:lang="zh_TW">取消要求</value>
+        <value xml:lang="zh_TW">取消請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CRQ_SUBMITTED.CRQ_REJECTED">
         <value xml:lang="de">Anfrage ablehnen</value>
@@ -13757,7 +13767,7 @@
         <value xml:lang="th">ปฏิเสธคำร้อง</value>
         <value xml:lang="vi">Từ chối Yêu cầu</value>
         <value xml:lang="zh">拒绝请求</value>
-        <value xml:lang="zh_TW">拒絕要求</value>
+        <value xml:lang="zh_TW">拒絕請求</value>
     </property>
     <property key="StatusValidChange.transitionName.CTNT_FINAL_DRAFT.CTNT_PUBLISHED">
         <value xml:lang="de">Letzten Entwurf publiziert</value>
@@ -13773,8 +13783,8 @@
         <value xml:lang="th">ประกาศเอกสารฉบับร่างสุดท้าย</value>
         <value xml:lang="vi">Bản thảo cuối cùng</value>
         <value xml:lang="zh">最终定稿已发布</value>
-        <value xml:lang="zh_TW">最終定稿已發布</value>
-    </property>    
+        <value xml:lang="zh_TW">最終定稿已發行</value>
+    </property>
     <property key="StatusValidChange.transitionName.CTNT_INITIAL_DRAFT.CTNT_PUBLISHED">
         <value xml:lang="de">Erster Entwurf publiziert</value>
         <value xml:lang="en">Initial draft Publised</value>
@@ -13789,7 +13799,7 @@
         <value xml:lang="th">ประกาศเอกสารฉบับร่างเบื้องต้น</value>
         <value xml:lang="vi">Bản thảo khởi tạo</value>
         <value xml:lang="zh">初稿已发布</value>
-        <value xml:lang="zh_TW">初稿已發布</value>
+        <value xml:lang="zh_TW">初稿已發行</value>
     </property>
     <property key="StatusValidChange.transitionName.CTNT_INITIAL_DRAFT.CTNT_REVISED_DRAFT">
         <value xml:lang="de">Entwurf überarbeitet</value>
@@ -13837,7 +13847,7 @@
         <value xml:lang="th">ประกาศ , ไม่แก้ไข</value>
         <value xml:lang="vi">Đã xuất bản, chưa được Xem xét</value>
         <value xml:lang="zh">已发布，未修改</value>
-        <value xml:lang="zh_TW">已發布，未修改</value>
+        <value xml:lang="zh_TW">已發行,未修改</value>
     </property>
     <property key="StatusValidChange.transitionName.CTNT_PUBLISHED.CTNT_DEACTIVATED">
         <value xml:lang="de">Deaktivieren</value>
@@ -13885,7 +13895,7 @@
         <value xml:lang="th">ประกาศการแก้ไขเอกสารฉบับร่าง</value>
         <value xml:lang="vi">Đã xem xét bản thảo đã xuất bản</value>
         <value xml:lang="zh">修订稿已发布</value>
-        <value xml:lang="zh_TW">修訂稿已發布</value>
+        <value xml:lang="zh_TW">修訂稿已發行</value>
     </property>
     <property key="StatusValidChange.transitionName.EXST_APPROVED.EXST_CANCELLED">
         <value xml:lang="de">Beispiel annullieren</value>
@@ -13900,7 +13910,7 @@
         <value xml:lang="th">ยกเลิกตัวอย่าง</value>
         <value xml:lang="vi">Ví dụ hủy bỏ</value>
         <value xml:lang="zh">取消样例</value>
-        <value xml:lang="zh_TW">取消樣例</value>
+        <value xml:lang="zh_TW">取消範例</value>
     </property>
     <property key="StatusValidChange.transitionName.EXST_APPROVED.EXST_IMPLEMENTED">
         <value xml:lang="de">Implementierung abgeschlossen</value>
@@ -13931,7 +13941,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">批准</value>
-        <value xml:lang="zh_TW">批准</value>
+        <value xml:lang="zh_TW">核准</value>
     </property>
     <property key="StatusValidChange.transitionName.EXST_DEFINED.EXST_CANCELLED">
         <value xml:lang="de">Beispiel annullieren</value>
@@ -14088,7 +14098,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">批准</value>
-        <value xml:lang="zh_TW">批准</value>
+        <value xml:lang="zh_TW">核准</value>
     </property>
     <property key="StatusValidChange.transitionName.INVOICE_IN_PROCESS.INVOICE_CANCELLED">
         <value xml:lang="de">Annullieren</value>
@@ -14202,7 +14212,7 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">批准</value>
-        <value xml:lang="zh_TW">批准</value>
+        <value xml:lang="zh_TW">核准</value>
     </property>
     <property key="StatusValidChange.transitionName.INVOICE_RECEIVED.INVOICE_CANCELLED">
         <value xml:lang="de">Annullieren</value>
@@ -14566,7 +14576,7 @@
         <value xml:lang="th">ยกเลิกรายการ</value>
         <value xml:lang="vi">Hủy bỏ</value>
         <value xml:lang="zh">取消明细</value>
-        <value xml:lang="zh_TW">取消明細</value>
+        <value xml:lang="zh_TW">取消細項</value>
     </property>
     <property key="StatusValidChange.transitionName.ITEM_APPROVED.ITEM_COMPLETED">
         <value xml:lang="de">Element abschliessen</value>
@@ -14583,7 +14593,7 @@
         <value xml:lang="th">รายการเสร็จสมบูรณ์</value>
         <value xml:lang="vi">Kết thúc</value>
         <value xml:lang="zh">完成明细</value>
-        <value xml:lang="zh_TW">完成明細</value>
+        <value xml:lang="zh_TW">完成細項</value>
     </property>
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_APPROVED">
         <value xml:lang="de">Element genehmigen</value>
@@ -14599,7 +14609,7 @@
         <value xml:lang="th">รายการเห็นด้วย</value>
         <value xml:lang="vi">Duyệt</value>
         <value xml:lang="zh">批准明细</value>
-        <value xml:lang="zh_TW">批准明細</value>
+        <value xml:lang="zh_TW">核准細項</value>
     </property>
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_CANCELLED">
         <value xml:lang="de">Element annullieren</value>
@@ -14615,7 +14625,7 @@
         <value xml:lang="th">รายการยกเลิก</value>
         <value xml:lang="vi">Hủy bỏ</value>
         <value xml:lang="zh">取消明细</value>
-        <value xml:lang="zh_TW">取消明細</value>
+        <value xml:lang="zh_TW">取消細項</value>
     </property>
     <property key="StatusValidChange.transitionName.ITEM_CREATED.ITEM_REJECTED">
         <value xml:lang="de">Element ablehnen</value>
@@ -14631,7 +14641,7 @@
         <value xml:lang="th">รายการปฏิเสธ</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">拒绝明细</value>
-        <value xml:lang="zh_TW">拒絕明細</value>
+        <value xml:lang="zh_TW">拒絕細項</value>
     </property>
     <property key="StatusValidChange.transitionName.IXF_EN_ROUTE.IXF_COMPLETE">
         <value xml:lang="de">Transfer abgeschlossen</value>
@@ -14828,7 +14838,7 @@
         <value xml:lang="th">เห็นด้วยกับแผนการตลาด</value>
         <value xml:lang="vi">Duyệt Chiến dịch tiếp thị</value>
         <value xml:lang="zh">批准市场活动</value>
-        <value xml:lang="zh_TW">批准市場活動</value>
+        <value xml:lang="zh_TW">核准市場活動</value>
     </property>
     <property key="StatusValidChange.transitionName.MKTG_CAMP_PLANNED.MKTG_CAMP_CANCELLED">
         <value xml:lang="de">Marketingkampagne annullieren</value>
@@ -14859,7 +14869,7 @@
         <value xml:lang="th">เห็นด้วยกับตารางเวลาการส่งของ</value>
         <value xml:lang="vi">Duyệt lịch giao hàng</value>
         <value xml:lang="zh">批准交付计划</value>
-        <value xml:lang="zh_TW">批准交付計劃</value>
+        <value xml:lang="zh_TW">核准交付計劃</value>
     </property>
     <property key="StatusValidChange.transitionName.ODS_ACCEPTED.ODS_CANCELLED">
         <value xml:lang="de">Lieferung annullieren</value>
@@ -15051,7 +15061,7 @@
         <value xml:lang="th">เห็นด้วยกับรายการสั่งซื้อ</value>
         <value xml:lang="vi">Duyệt Đặt hàng</value>
         <value xml:lang="zh">批准订单</value>
-        <value xml:lang="zh_TW">批准訂單</value>
+        <value xml:lang="zh_TW">核准訂單</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_CREATED.ORDER_CANCELLED">
         <value xml:lang="de">Auftrag annullieren</value>
@@ -15118,7 +15128,7 @@
         <value xml:lang="th">เห็นด้วยกับรายการสั่งซื้อ</value>
         <value xml:lang="vi">Duyệt Đặt hàng</value>
         <value xml:lang="zh">批准订单</value>
-        <value xml:lang="zh_TW">批准訂單</value>
+        <value xml:lang="zh_TW">核准訂單</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_HOLD.ORDER_CANCELLED">
         <value xml:lang="de">Auftrag annullieren</value>
@@ -15151,7 +15161,7 @@
         <value xml:lang="th">เห็นด้วยกับรายการสั่งซื้อ</value>
         <value xml:lang="vi">Duyệt Đặt hàng</value>
         <value xml:lang="zh">批准订单</value>
-        <value xml:lang="zh_TW">批准訂單</value>
+        <value xml:lang="zh_TW">核准訂單</value>
     </property>
     <property key="StatusValidChange.transitionName.ORDER_PROCESSING.ORDER_CANCELLED">
         <value xml:lang="de">Auftrag annullieren</value>
@@ -15442,6 +15452,7 @@
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="vi">Hủy bỏ</value>
         <value xml:lang="zh">取消</value>
+        <value xml:lang="zh_TW">取消</value>
     </property>
     <property key="StatusValidChange.transitionName.PICKLIST_PRINTED.PICKLIST_PICKED">
         <value xml:lang="en">Pick</value>
@@ -15564,7 +15575,7 @@
         <value xml:lang="th">ยอมรับการตรวจสอบ</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">评价已批准</value>
-        <value xml:lang="zh_TW">評論已批准</value>
+        <value xml:lang="zh_TW">評論已核准</value>
     </property>
     <property key="StatusValidChange.transitionName.PRR_PENDING.PRR_DELETED">
         <value xml:lang="de">Überprüfung löschen</value>
@@ -15842,7 +15853,7 @@
         <value xml:lang="th">ร้องขอการยอมรับการคืนค่า</value>
         <value xml:lang="vi">Đã Chấp thuận</value>
         <value xml:lang="zh">请求返回已接受</value>
-        <value xml:lang="zh_TW">要求的退貨已接受</value>
+        <value xml:lang="zh_TW">請求的退貨已接受</value>
     </property>
     <property key="StatusValidChange.transitionName.RETURN_REQUESTED.RETURN_CANCELLED">
         <value xml:lang="de">Verlangte Rücklieferung annullieren</value>
@@ -15859,7 +15870,7 @@
         <value xml:lang="th">ร้องขอการยกเลิกการคืนค่า</value>
         <value xml:lang="vi">Đã Hủy bỏ</value>
         <value xml:lang="zh">请求返回已取消</value>
-        <value xml:lang="zh_TW">要求的退貨已取消</value>
+        <value xml:lang="zh_TW">請求的退貨已取消</value>
     </property>
     <property key="StatusValidChange.transitionName.SHIPMENT_INPUT.SHIPMENT_CANCELLED">
         <value xml:lang="de">Annullieren</value>
@@ -16322,7 +16333,7 @@
         <value xml:lang="ru">Ангольские кванза</value>
         <value xml:lang="th">ควันซา อังโกลา</value>
         <value xml:lang="zh">安哥拉宽扎</value>
-        <value xml:lang="zh_TW">安哥拉寬扎</value>
+        <value xml:lang="zh_TW">安哥拉寬紮</value>
     </property>
     <property key="Uom.description.ARA">
         <value xml:lang="de">Austral Argentinien</value>
@@ -16384,7 +16395,7 @@
         <value xml:lang="th">ตารางเซนติเมตร</value>
         <value xml:lang="vi">cm2</value>
         <value xml:lang="zh">平方厘米</value>
-        <value xml:lang="zh_TW">方厘米</value>
+        <value xml:lang="zh_TW">方釐米</value>
     </property>
     <property key="Uom.description.AREA_ft2">
         <value xml:lang="de">Quadratfuss</value>
@@ -16599,7 +16610,7 @@
         <value xml:lang="ru">Азербайджанский манат</value>
         <value xml:lang="th">มานาท อาเซอร์ไบจัน</value>
         <value xml:lang="zh">阿塞拜疆曼纳特</value>
-        <value xml:lang="zh_TW">阿塞拜疆曼納特</value>
+        <value xml:lang="zh_TW">亞塞拜然曼納特</value>
     </property>
     <property key="Uom.description.BAD">
         <value xml:lang="de">Dinar Bonsien-Herzegovina</value>
@@ -16697,7 +16708,7 @@
         <value xml:lang="ru">Бурундийский франк</value>
         <value xml:lang="th">ฟรังก์ บุรุนดี</value>
         <value xml:lang="zh">布隆迪法郎</value>
-        <value xml:lang="zh_TW">布隆迪法郎</value>
+        <value xml:lang="zh_TW">蒲隆地法郎</value>
     </property>
     <property key="Uom.description.BMD">
         <value xml:lang="de">Dollar Bermuda</value>
@@ -16711,7 +16722,7 @@
         <value xml:lang="ru">Бермудский доллар</value>
         <value xml:lang="th">ดอลลาร์ เบอร์มิวดา</value>
         <value xml:lang="zh">百慕大元</value>
-        <value xml:lang="zh_TW">百慕大元</value>
+        <value xml:lang="zh_TW">百慕達元</value>
     </property>
     <property key="Uom.description.BND">
         <value xml:lang="de">Dollar Brunei</value>
@@ -16753,7 +16764,7 @@
         <value xml:lang="ru">Бразильский реал</value>
         <value xml:lang="th">เรียล บราซิล</value>
         <value xml:lang="zh">巴西里尔</value>
-        <value xml:lang="zh_TW">巴西里爾</value>
+        <value xml:lang="zh_TW">巴西裡爾</value>
     </property>
     <property key="Uom.description.BRR">
         <value xml:lang="en">Brazil</value>
@@ -16948,7 +16959,7 @@
         <value xml:lang="ru">Эскудо о-вов Зеленого Мыса</value>
         <value xml:lang="th">เอสคูโด สาธารณรัฐเคปเวิร์ด</value>
         <value xml:lang="zh">佛得角埃斯库多</value>
-        <value xml:lang="zh_TW">佛得角埃斯庫多</value>
+        <value xml:lang="zh_TW">維德角埃斯庫多</value>
     </property>
     <property key="Uom.description.CYP">
         <value xml:lang="de">Pfund Zypern</value>
@@ -17267,7 +17278,7 @@
         <value xml:lang="ru">Франк Джибути</value>
         <value xml:lang="th">ฟรังก์ จิบูตี</value>
         <value xml:lang="zh">吉布提法郎</value>
-        <value xml:lang="zh_TW">吉布提法郎</value>
+        <value xml:lang="zh_TW">吉布地法郎</value>
     </property>
     <property key="Uom.description.DKK">
         <value xml:lang="de">Krone Dänemark</value>
@@ -17869,7 +17880,7 @@
         <value xml:lang="ru">Иранский риал</value>
         <value xml:lang="th">เรียล อิหร่าน</value>
         <value xml:lang="zh">伊朗里亚尔</value>
-        <value xml:lang="zh_TW">伊朗里亞爾</value>
+        <value xml:lang="zh_TW">伊朗裡亞爾</value>
     </property>
     <property key="Uom.description.ISK">
         <value xml:lang="de">Kronen Island</value>
@@ -17968,7 +17979,7 @@
         <value xml:lang="ru">Камбоджийский риель</value>
         <value xml:lang="th">เรียล กัมพูชา</value>
         <value xml:lang="zh">柬埔寨里尔</value>
-        <value xml:lang="zh_TW">柬埔寨里爾</value>
+        <value xml:lang="zh_TW">柬埔寨裡爾</value>
     </property>
     <property key="Uom.description.KIS">
         <value xml:lang="en">Kirghizstan Som</value>
@@ -18170,7 +18181,7 @@
         <value xml:lang="ru">Сантиметр</value>
         <value xml:lang="th">เซนติเมตร</value>
         <value xml:lang="zh">厘米</value>
-        <value xml:lang="zh_TW">厘米</value>
+        <value xml:lang="zh_TW">釐米</value>
     </property>
     <property key="Uom.description.LEN_dam">
         <value xml:lang="de">Dekameter</value>
@@ -18311,7 +18322,7 @@
         <value xml:lang="ru">Лига</value>
         <value xml:lang="th">หน่วยระยะทาง</value>
         <value xml:lang="zh">里格</value>
-        <value xml:lang="zh_TW">里格</value>
+        <value xml:lang="zh_TW">裡格</value>
     </property>
     <property key="Uom.description.LEN_lnG">
         <value xml:lang="en">Link (Gunter's)</value>
@@ -18519,7 +18530,7 @@
         <value xml:lang="ru">Рупия Шри-Ланки</value>
         <value xml:lang="th">รูปี ศรีลังกา</value>
         <value xml:lang="zh">斯里兰卡卢比</value>
-        <value xml:lang="zh_TW">斯里蘭卡盧比</value>
+        <value xml:lang="zh_TW">斯裡蘭卡盧比</value>
     </property>
     <property key="Uom.description.LRD">
         <value xml:lang="de">Dollar Liberia</value>
@@ -18533,7 +18544,7 @@
         <value xml:lang="ru">Либерийский доллар</value>
         <value xml:lang="th">ดอลลาร์ ไลบีเรีย</value>
         <value xml:lang="zh">利比里亚元</value>
-        <value xml:lang="zh_TW">利比里亞元</value>
+        <value xml:lang="zh_TW">利比裡亞元</value>
     </property>
     <property key="Uom.description.LSL">
         <value xml:lang="de">Loti Lesotho</value>
@@ -18674,7 +18685,7 @@
         <value xml:lang="ru">Монгольский тугрик</value>
         <value xml:lang="th">ทูกริค มองโกเลีย</value>
         <value xml:lang="zh">蒙古图格里克</value>
-        <value xml:lang="zh_TW">蒙古圖格里克</value>
+        <value xml:lang="zh_TW">蒙古圖格裡克</value>
     </property>
     <property key="Uom.description.MOP">
         <value xml:lang="de">Pataca Macao</value>
@@ -18702,7 +18713,7 @@
         <value xml:lang="ru">Мавританская угия</value>
         <value xml:lang="th">อูกุยยา / อูกียา มอริเทเนีย</value>
         <value xml:lang="zh">毛里塔尼亚乌吉亚</value>
-        <value xml:lang="zh_TW">毛里塔尼亞烏吉亞</value>
+        <value xml:lang="zh_TW">毛裡塔尼亞烏吉亞</value>
     </property>
     <property key="Uom.description.MTL">
         <value xml:lang="de">Lira Malta</value>
@@ -18730,7 +18741,7 @@
         <value xml:lang="ru">Маврикийская рупия</value>
         <value xml:lang="th">รูปี มอริเชียส</value>
         <value xml:lang="zh">毛里求斯卢比</value>
-        <value xml:lang="zh_TW">毛里求斯盧比</value>
+        <value xml:lang="zh_TW">模里西斯盧比</value>
     </property>
     <property key="Uom.description.MVR">
         <value xml:lang="de">Rufiyaa Malediven</value>
@@ -18814,7 +18825,7 @@
         <value xml:lang="ru">Мозамбикский метикал</value>
         <value xml:lang="th">เมททิคัล โมซัทบิก</value>
         <value xml:lang="zh">莫桑比克美提卡</value>
-        <value xml:lang="zh_TW">莫桑比克美提卡</value>
+        <value xml:lang="zh_TW">莫三比克美提卡</value>
     </property>
     <property key="Uom.description.NGN">
         <value xml:lang="de">Naira Nigeria</value>
@@ -18940,7 +18951,7 @@
         <value xml:lang="ru">Оманский риал</value>
         <value xml:lang="th">เรียล โอมาล</value>
         <value xml:lang="zh">阿曼里亚尔</value>
-        <value xml:lang="zh_TW">阿曼里亞爾</value>
+        <value xml:lang="zh_TW">阿曼裡亞爾</value>
     </property>
     <property key="Uom.description.OTH_A">
         <value xml:lang="de">Ampere - Elektrischer Strom</value>
@@ -18994,7 +19005,7 @@
         <value xml:lang="ru">Моль - молекулярная плотность</value>
         <value xml:lang="th">โมล - สสาร (โมเลกุล)</value>
         <value xml:lang="zh">摩尔 -物质  (分子)</value>
-        <value xml:lang="zh_TW">摩爾 -物質  (分子)</value>
+        <value xml:lang="zh_TW">摩爾 -物質 (分子)</value>
     </property>
     <property key="Uom.description.OTH_pp">
         <value xml:lang="en">Per Person</value>
@@ -19173,19 +19184,19 @@
         <value xml:lang="ru">Катарский риял</value>
         <value xml:lang="th">เรียล กาตาร์</value>
         <value xml:lang="zh">卡塔尔里亚尔</value>
-        <value xml:lang="zh_TW">卡塔爾里亞爾</value>
+        <value xml:lang="zh_TW">卡塔爾裡亞爾</value>
     </property>
-    <!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 property key="Uom.description.RMB">
-        <value xml:lang="en">Chinese Renminbi Yuan</value>
-        <value xml:lang="fr">Yuan Renmimbi chinois</value>
-        <value xml:lang="it">Chinese Renminbi Yuan</value>
-        <value xml:lang="ja">中国人民元</value>
-        <value xml:lang="pt">Chinese Renminbi Yuan</value>
-        <value xml:lang="ro">Chinese Renminbi Yuan</value>
-        <value xml:lang="ru">Китайский юань</value>
-        <value xml:lang="th">หยวน จีนเหรินหมินปี้</value>
-        <value xml:lang="zh">中国人民币元</value>
-    </property-->
+  <!-- see https://issues.apache.org/jira/browse/OFBIZ-3246 property key="Uom.description.RMB">
+            <value xml:lang="en">Chinese Renminbi Yuan</value>
+            <value xml:lang="fr">Yuan Renmimbi chinois</value>
+            <value xml:lang="it">Chinese Renminbi Yuan</value>
+            <value xml:lang="ja">中国人民元</value>
+            <value xml:lang="pt">Chinese Renminbi Yuan</value>
+            <value xml:lang="ro">Chinese Renminbi Yuan</value>
+            <value xml:lang="ru">Китайский юань</value>
+            <value xml:lang="th">หยวน จีนเหรินหมินปี้</value>
+            <value xml:lang="zh">中国人民币元</value>
+      </property-->
     <property key="Uom.description.ROL">
         <value xml:lang="de">Leu Rumänien</value>
         <value xml:lang="en">Romanian Leu</value>
@@ -19240,7 +19251,7 @@
         <value xml:lang="ru">Саудовский риял</value>
         <value xml:lang="th">ริยัล ซาอุดิอาระเบีย</value>
         <value xml:lang="zh">沙特里亚尔</value>
-        <value xml:lang="zh_TW">沙特里亞爾</value>
+        <value xml:lang="zh_TW">沙特裡亞爾</value>
     </property>
     <property key="Uom.description.SBD">
         <value xml:lang="de">Dollar Solomonen</value>
@@ -19408,7 +19419,7 @@
         <value xml:lang="ru">Суринамский гульден</value>
         <value xml:lang="th">ดอลลาร์ สุรินัม</value>
         <value xml:lang="zh">苏里南盾</value>
-        <value xml:lang="zh_TW">蘇里南盾</value>
+        <value xml:lang="zh_TW">蘇裡南盾</value>
     </property>
     <property key="Uom.description.STD">
         <value xml:lang="de">Dobra Sao Tome und Principe</value>
@@ -19682,7 +19693,7 @@
         <value xml:lang="ru">Раз/неделю</value>
         <value xml:lang="th">เวลาในสัปดาห์</value>
         <value xml:lang="zh">周</value>
-        <value xml:lang="zh_TW">周</value>
+        <value xml:lang="zh_TW">週</value>
     </property>
     <property key="Uom.description.TF_yr">
         <value xml:lang="de">Zeit in Jahren</value>
@@ -19849,7 +19860,7 @@
         <value xml:lang="ru">Украинская гривна</value>
         <value xml:lang="th">รีฟเนีย ยูเครน</value>
         <value xml:lang="zh">乌克兰格里夫那</value>
-        <value xml:lang="zh_TW">烏克蘭格里夫那</value>
+        <value xml:lang="zh_TW">烏克蘭格裡夫那</value>
     </property>
     <property key="Uom.description.UAK">
         <value xml:lang="en">UAK</value>
@@ -19861,7 +19872,7 @@
         <value xml:lang="ru">Украинская Гривна</value>
         <value xml:lang="th">UAK</value>
         <value xml:lang="zh">乌克兰格里夫那</value>
-        <value xml:lang="zh_TW">烏克蘭格里夫那</value>
+        <value xml:lang="zh_TW">烏克蘭格裡夫那</value>
     </property>
     <property key="Uom.description.UGS">
         <value xml:lang="de">Schilling Uganda</value>
@@ -20083,7 +20094,7 @@
         <value xml:lang="en">Cup</value>
         <value xml:lang="es">Taza</value>
         <value xml:lang="fr">Cup (236,59 cm³)</value>
-        <!-- a very good link : http://unit-converter.org -->
+    <!-- a very good link : http://unit-converter.org -->
         <value xml:lang="it">Tazza</value>
         <value xml:lang="ja">カップ</value>
         <value xml:lang="pt">Taça</value>
@@ -20156,7 +20167,7 @@
         <value xml:lang="th">หน่วยความจุของเหลวเท่ากับ 1/4 ไพท์ </value>
         <value xml:lang="vi">Gill (1/4 pint UK = 142,07 cm³)</value>
         <value xml:lang="zh">及耳 (1/4 英制品脱)</value>
-        <value xml:lang="zh_TW">及耳 (1/4 英制品脫)</value>
+        <value xml:lang="zh_TW">及耳 (1/4 英製品脫)</value>
     </property>
     <property key="Uom.description.VLIQ_ml">
         <value xml:lang="de">Milliliter</value>
@@ -20188,7 +20199,7 @@
         <value xml:lang="th">ออนซ์, ของเหลว (UK)</value>
         <value xml:lang="vi">Once, fluide (UK = 28,413 cm³)</value>
         <value xml:lang="zh">盎司，液体 (英)</value>
-        <value xml:lang="zh_TW">盎司，液體 (英)</value>
+        <value xml:lang="zh_TW">盎司,液體 (英)</value>
     </property>
     <property key="Uom.description.VLIQ_ozUS">
         <value xml:lang="de">Unze, Flüssigkeit (US)</value>
@@ -20204,7 +20215,7 @@
         <value xml:lang="th">ออนซ์, ของเหลว (US)</value>
         <value xml:lang="vi">Once, fluide (US = 29,574 cm³)</value>
         <value xml:lang="zh">盎司，液体 (美)</value>
-        <value xml:lang="zh_TW">盎司，液體 (美)</value>
+        <value xml:lang="zh_TW">盎司,液體 (美)</value>
     </property>
     <property key="Uom.description.VLIQ_ptUK">
         <value xml:lang="de">Pinte (UK)</value>
@@ -20566,7 +20577,7 @@
         <value xml:lang="ru">Йеменский риал</value>
         <value xml:lang="th">เรียล เยเมน</value>
         <value xml:lang="zh">也门里亚尔</value>
-        <value xml:lang="zh_TW">也門里亞爾</value>
+        <value xml:lang="zh_TW">也門裡亞爾</value>
     </property>
     <property key="Uom.description.ZAR">
         <value xml:lang="de">Rand Südafrika</value>
@@ -20607,7 +20618,7 @@
         <value xml:lang="ru">Заир</value>
         <value xml:lang="th">ซาเอียร์</value>
         <value xml:lang="zh">扎伊尔</value>
-        <value xml:lang="zh_TW">扎伊爾</value>
+        <value xml:lang="zh_TW">紮伊爾</value>
     </property>
     <property key="Uom.description.ZWD">
         <value xml:lang="de">Dollar Simbabwe</value>
@@ -20653,7 +20664,7 @@
         <value xml:lang="th">สกุลเงิน</value>
         <value xml:lang="vi">Tiền tệ</value>
         <value xml:lang="zh">币种</value>
-        <value xml:lang="zh_TW">度量單位</value>
+        <value xml:lang="zh_TW">幣別</value>
     </property>
     <property key="UomType.description.DATASPD_MEASURE">
         <value xml:lang="de">Daten Geschwindigkeit</value>
@@ -20828,7 +20839,7 @@
         <value xml:lang="ru">Это бизнес, это бизнес время. Я не могу сказать что-то лучше о себе. Эта тема получена ниже</value>
         <value xml:lang="vi">It's bizzness, it's bizzness time.  I couldn't have said it better myself. This theme gets down</value>
         <value xml:lang="zh">商务时代。我不能自己说它是最好的。本风格搞定</value>
-        <value xml:lang="zh_TW">商務時代。我不能自己说它是最好的。本風格搞定</value>
+        <value xml:lang="zh_TW">商務時代.我不能自己說它是最好的.本風格搞定</value>
     </property>
     <property key="VisualTheme.description.BLUELIGHT">
         <value xml:lang="en">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
@@ -20839,7 +20850,7 @@
         <value xml:lang="ru">Светло-голубая тема: Бреадкрамбсы, раскрывающиеся меню с закругленным углами</value>
         <value xml:lang="vi">BlueLight Theme: Breadcrumbs, drop-down menus and rounded corners</value>
         <value xml:lang="zh">浅蓝风格：自动的多级导航，下拉式菜单，以及圆角</value>
-        <value xml:lang="zh_TW">浅藍風格：自動的多级導航，下拉式選單，以及圓角</value>
+        <value xml:lang="zh_TW">淺藍風格:自動的多級導航,下拉式選單,以及圓角</value>
     </property>
     <property key="VisualTheme.description.DROPPINGCRUMBS">
         <value xml:lang="en">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
@@ -20850,7 +20861,7 @@
         <value xml:lang="ru">Падающие крамбы: Эволюция светло-голубых, включает раскрывающиеся меню встроенных в полосу бреадкрамбов</value>
         <value xml:lang="vi">Dropping Crumbs: Evolution of Blue-Light, includes a drop down menu embedded in the breadcrumbs bar</value>
         <value xml:lang="zh">下拉多级：浅蓝风格的演化版，包括一个嵌入多级导航条的下拉式菜单</value>
-        <value xml:lang="zh_TW">下拉多级：淺藍風格的演化版，包括一個嵌入多级導航條的下拉式選單</value>
+        <value xml:lang="zh_TW">下拉多級:淺藍風格的演化版,包括一個嵌入多級導航條的下拉式選單</value>
     </property>
     <property key="VisualTheme.description.FLAT_GREY">
         <value xml:lang="en">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
@@ -20861,7 +20872,7 @@
         <value xml:lang="ru">Плоские серые - Плавающие лейауты, Слабовидящий доступ, Двунаправленный</value>
         <value xml:lang="vi">Flat Grey - Floating Layout, Sight-Impaired Accessible, Bidirectional</value>
         <value xml:lang="zh">浅灰－浮动样式，视觉阻挡，双向</value>
-        <value xml:lang="zh_TW">淺灰－浮動式，視障殘疾人專用，双向</value>
+        <value xml:lang="zh_TW">淺灰－浮動式,視障殘疾人專用,雙向</value>
     </property>
     <property key="VisualTheme.description.MULTIFLEX">
         <value xml:lang="en">Alternative VisualTheme for Ecommerce</value>
@@ -20883,6 +20894,6 @@
         <value xml:lang="ru">Томахавк: эволюция падающих крамбов темы</value>
         <value xml:lang="vi">Tomahawk: Ôi võ đức trí djjava ơi. evolution of the Dropping Crumbs theme</value>
         <value xml:lang="zh">印第安战斧：下拉多级风格的演化版</value>
-        <value xml:lang="zh_TW">印第安戰斧：下拉多级風格的演化版</value>
+        <value xml:lang="zh_TW">印第安戰斧:下拉多級風格的演化版</value>
     </property>
 </resource>

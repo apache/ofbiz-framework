@@ -120,7 +120,7 @@
         <value xml:lang="th">สมาชิกของ</value>
         <value xml:lang="vi">Thành viên của</value>
         <value xml:lang="zh">成员属于</value>
-        <value xml:lang="zh_TW">成員屬于</value>
+        <value xml:lang="zh_TW">成員屬於</value>
     </property>
     <property key="ContentAssocPredicate.description.references">
         <value xml:lang="da">referencer</value>
@@ -134,7 +134,7 @@
         <value xml:lang="th">อ้างอิง</value>
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">引用</value>
-        <value xml:lang="zh_TW">引用</value>
+        <value xml:lang="zh_TW">引薦人</value>
     </property>
     <property key="ContentAssocPredicate.description.related-to">
         <value xml:lang="da">relateret-til</value>
@@ -148,7 +148,7 @@
         <value xml:lang="th">เกี่ยวข้องกัน</value>
         <value xml:lang="vi">Liên quan tới</value>
         <value xml:lang="zh">关联到</value>
-        <value xml:lang="zh_TW">關聯到</value>
+        <value xml:lang="zh_TW">結合到</value>
     </property>
     <property key="ContentAssocPredicate.description.topifies">
         <value xml:lang="da">omdan afsnit</value>
@@ -177,7 +177,7 @@
         <value xml:lang="th">ทางเลือก</value>
         <value xml:lang="vi">Nơi thay thế</value>
         <value xml:lang="zh">改变语言</value>
-        <value xml:lang="zh_TW">改變語言</value>
+        <value xml:lang="zh_TW">變更語系</value>
     </property>
     <property key="ContentAssocType.description.ATTRIBUTE">
         <value xml:lang="da">Attribut</value>
@@ -221,7 +221,7 @@
         <value xml:lang="th">ประกอบด้วยส่วนของเอกสาร</value>
         <value xml:lang="vi">Tài liệu thành phần</value>
         <value xml:lang="zh">合成文档部分</value>
-        <value xml:lang="zh_TW">合成文檔部分</value>
+        <value xml:lang="zh_TW">複合檔部分</value>
     </property>
     <property key="ContentAssocType.description.DEPARTMENT">
         <value xml:lang="da">Afdeling</value>
@@ -266,7 +266,7 @@
         <value xml:lang="th">เชื่อมต่อกับกราฟ</value>
         <value xml:lang="vi">Liên kết đồ họa</value>
         <value xml:lang="zh">图形链接</value>
-        <value xml:lang="zh_TW">圖形鏈結</value>
+        <value xml:lang="zh_TW">圖形連結</value>
     </property>
     <property key="ContentAssocType.description.INSTANCE">
         <value xml:lang="da">Instans af</value>
@@ -280,7 +280,7 @@
         <value xml:lang="th">ตัวอย่างของ</value>
         <value xml:lang="vi">Khởi tạo của</value>
         <value xml:lang="zh">实例源自</value>
-        <value xml:lang="zh_TW">實例源自</value>
+        <value xml:lang="zh_TW">實例源於</value>
     </property>
     <property key="ContentAssocType.description.LIST_ENTRY">
         <value xml:lang="da">Liste indgang</value>
@@ -295,7 +295,7 @@
         <value xml:lang="th">รายการกรอกข้อมูล</value>
         <value xml:lang="vi">Danh sách điểm nhập</value>
         <value xml:lang="zh">条目列表</value>
-        <value xml:lang="zh_TW">條目列表</value>
+        <value xml:lang="zh_TW">表列條目</value>
     </property>
     <property key="ContentAssocType.description.PUBLISH_LINK">
         <value xml:lang="da">Udgiv link</value>
@@ -310,7 +310,7 @@
         <value xml:lang="th">เชื่อมต่อกับการพิมพ์</value>
         <value xml:lang="vi">Liên kết xuất bản</value>
         <value xml:lang="zh">发布链接</value>
-        <value xml:lang="zh_TW">發布鏈結</value>
+        <value xml:lang="zh_TW">發佈連結</value>
     </property>
     <property key="ContentAssocType.description.RELATED_CONTENT">
         <value xml:lang="da">Relateret indhold</value>
@@ -325,7 +325,7 @@
         <value xml:lang="th">เชื่อมกับหัวข้อ</value>
         <value xml:lang="vi">Nội dung liên quan</value>
         <value xml:lang="zh">内嵌内容</value>
-        <value xml:lang="zh_TW">內嵌內容</value>
+        <value xml:lang="zh_TW">相關內容</value>
     </property>
     <property key="ContentAssocType.description.RESPONSE">
         <value xml:lang="da">Svar</value>
@@ -340,7 +340,7 @@
         <value xml:lang="th">คำตอบ</value>
         <value xml:lang="vi">Phản hồi</value>
         <value xml:lang="zh">回答</value>
-        <value xml:lang="zh_TW">回答</value>
+        <value xml:lang="zh_TW">回應</value>
     </property>
     <property key="ContentAssocType.description.STRUCTURE_DEF">
         <value xml:lang="da">Definition af dokumentstruktur</value>
@@ -355,7 +355,7 @@
         <value xml:lang="th">โครงสร้างของเอกสาร</value>
         <value xml:lang="vi">Định nghĩa cấu trúc tài liệu</value>
         <value xml:lang="zh">文档结构定义</value>
-        <value xml:lang="zh_TW">文檔結構定義</value>
+        <value xml:lang="zh_TW">檔結構定義</value>
     </property>
     <property key="ContentAssocType.description.SUBSITE">
         <value xml:lang="da">Subside</value>
@@ -370,7 +370,7 @@
         <value xml:lang="th">ที่ตั้งย่อย</value>
         <value xml:lang="vi">Trang thành phần</value>
         <value xml:lang="zh">子站点</value>
-        <value xml:lang="zh_TW">子站點</value>
+        <value xml:lang="zh_TW">子站台</value>
     </property>
     <property key="ContentAssocType.description.SUB_CONTENT">
         <value xml:lang="da">Subsektion</value>
@@ -385,7 +385,7 @@
         <value xml:lang="th">กลุ่มย่อย</value>
         <value xml:lang="vi">Khung nội dung (section) thành phần</value>
         <value xml:lang="zh">小段</value>
-        <value xml:lang="zh_TW">小段</value>
+        <value xml:lang="zh_TW">子章節</value>
     </property>
     <property key="ContentAssocType.description.SUMMARY">
         <value xml:lang="da">Resumé</value>
@@ -400,7 +400,7 @@
         <value xml:lang="th">สรุป</value>
         <value xml:lang="vi">Tổng quan</value>
         <value xml:lang="zh">摘要</value>
-        <value xml:lang="zh_TW">摘要</value>
+        <value xml:lang="zh_TW">總結</value>
     </property>
     <property key="ContentAssocType.description.TEMPLATE_MEMBER">
         <value xml:lang="da">Skabelon medlem</value>
@@ -414,7 +414,7 @@
         <value xml:lang="th">รูปแบบสมาชิก</value>
         <value xml:lang="vi">Thành viên biểu mẫu</value>
         <value xml:lang="zh">模板成员</value>
-        <value xml:lang="zh_TW">範本成員</value>
+        <value xml:lang="zh_TW">模板會員</value>
     </property>
     <property key="ContentAssocType.description.TOPIC">
         <value xml:lang="da">Afsnit</value>
@@ -429,7 +429,7 @@
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="vi">Chủ đề (topic)</value>
         <value xml:lang="zh">主题</value>
-        <value xml:lang="zh_TW">主題</value>
+        <value xml:lang="zh_TW">話題</value>
     </property>
     <property key="ContentAssocType.description.TREE_CHILD">
         <value xml:lang="da">Barn af træstruktur</value>
@@ -474,7 +474,7 @@
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="vi">Tạo mới thành phần con</value>
         <value xml:lang="zh">新建子内容</value>
-        <value xml:lang="zh_TW">新建子內容</value>
+        <value xml:lang="zh_TW">子內容新建</value>
     </property>
     <property key="ContentOperation.description.CHILD_DELETE">
         <value xml:lang="da">Slet barn</value>
@@ -489,7 +489,7 @@
         <value xml:lang="th">ลบ</value>
         <value xml:lang="vi">Xóa thành phần con</value>
         <value xml:lang="zh">删除子内容</value>
-        <value xml:lang="zh_TW">刪除子內容</value>
+        <value xml:lang="zh_TW">子內容刪除</value>
     </property>
     <property key="ContentOperation.description.CHILD_UPDATE">
         <value xml:lang="da">Opdater barn</value>
@@ -504,7 +504,7 @@
         <value xml:lang="th">เปลี่ยนแปลง</value>
         <value xml:lang="vi">Cập nhật thành phần con</value>
         <value xml:lang="zh">更新子内容</value>
-        <value xml:lang="zh_TW">更新子內容</value>
+        <value xml:lang="zh_TW">子內容更新</value>
     </property>
     <property key="ContentOperation.description.CHILD_VIEW">
         <value xml:lang="da">Vis barn</value>
@@ -519,7 +519,7 @@
         <value xml:lang="th">ดู</value>
         <value xml:lang="vi">Xem thành phần con</value>
         <value xml:lang="zh">浏览子内容</value>
-        <value xml:lang="zh_TW">瀏覽子內容</value>
+        <value xml:lang="zh_TW">子內容檢視</value>
     </property>
     <property key="ContentOperation.description.CONTENT_ADMIN">
         <value xml:lang="da">Indholdsadministration</value>
@@ -549,7 +549,7 @@
         <value xml:lang="th">หัวข้อที่สร้าง</value>
         <value xml:lang="vi">Tạo mới nội dung</value>
         <value xml:lang="zh">内容创建</value>
-        <value xml:lang="zh_TW">內容創建</value>
+        <value xml:lang="zh_TW">內容新建</value>
     </property>
     <property key="ContentOperation.description.CONTENT_CREATE_SUB">
         <value xml:lang="da">Opret subindhold</value>
@@ -594,7 +594,7 @@
         <value xml:lang="th">หัวข้อที่เชื่อมต่อ</value>
         <value xml:lang="vi">Liên kết nội dung</value>
         <value xml:lang="zh">内容链接</value>
-        <value xml:lang="zh_TW">內容鏈結</value>
+        <value xml:lang="zh_TW">內容連結</value>
     </property>
     <property key="ContentOperation.description.CONTENT_LINK_FROM">
         <value xml:lang="da">Indholdslink fra</value>
@@ -608,7 +608,7 @@
         <value xml:lang="th">หัวข้อที่เชื่อมต่อจาก</value>
         <value xml:lang="vi">Liên kết đến nội dung Từ</value>
         <value xml:lang="zh">内容链接来自</value>
-        <value xml:lang="zh_TW">內容鏈結來自</value>
+        <value xml:lang="zh_TW">內容連結來自</value>
     </property>
     <property key="ContentOperation.description.CONTENT_LINK_TO">
         <value xml:lang="da">Indholdslink til</value>
@@ -622,7 +622,7 @@
         <value xml:lang="th">หัวข้อที่เชื่อมถึง</value>
         <value xml:lang="vi">Liên kết đến nội dung Tới</value>
         <value xml:lang="zh">把内容链接到</value>
-        <value xml:lang="zh_TW">把內容鏈結到</value>
+        <value xml:lang="zh_TW">把內容連結到</value>
     </property>
     <property key="ContentOperation.description.CONTENT_PUBLISH">
         <value xml:lang="da">Udgiv indhold</value>
@@ -636,7 +636,7 @@
         <value xml:lang="th">หัวข้อที่ประกาศ</value>
         <value xml:lang="vi">Xuất bản nội dung</value>
         <value xml:lang="zh">内容发布</value>
-        <value xml:lang="zh_TW">內容發布</value>
+        <value xml:lang="zh_TW">內容發佈</value>
     </property>
     <property key="ContentOperation.description.CONTENT_PUBLISH_SELF">
         <value xml:lang="da">Udgiv indhold</value>
@@ -650,7 +650,7 @@
         <value xml:lang="th">หัวข้อที่ประกาศ</value>
         <value xml:lang="vi">Xuất bản nội dung</value>
         <value xml:lang="zh">内容发布</value>
-        <value xml:lang="zh_TW">內容發布</value>
+        <value xml:lang="zh_TW">內容發佈</value>
     </property>
     <property key="ContentOperation.description.CONTENT_RESPOND">
         <value xml:lang="da">Svar på indhold</value>
@@ -664,7 +664,7 @@
         <value xml:lang="th">หัวข้อคำตอบ</value>
         <value xml:lang="vi">Phản hồi nội dung</value>
         <value xml:lang="zh">内容回答</value>
-        <value xml:lang="zh_TW">內容回答</value>
+        <value xml:lang="zh_TW">內容回應</value>
     </property>
     <property key="ContentOperation.description.CONTENT_UPDATE">
         <value xml:lang="da">Opdater indhold</value>
@@ -692,7 +692,7 @@
         <value xml:lang="th">หัวข้อที่ดู</value>
         <value xml:lang="vi">Xem nội dung</value>
         <value xml:lang="zh">内容浏览</value>
-        <value xml:lang="zh_TW">內容瀏覽</value>
+        <value xml:lang="zh_TW">內容檢視</value>
     </property>
     <property key="ContentOperation.description.CONTENT_VIEW_SHORT">
         <value xml:lang="da">Vis kort beskrivelse</value>
@@ -706,7 +706,7 @@
         <value xml:lang="th">แสดงรายละเอียดสั้นๆ</value>
         <value xml:lang="vi">Xem miêu tả ngắn</value>
         <value xml:lang="zh">浏览简短描述</value>
-        <value xml:lang="zh_TW">瀏覽簡短描述</value>
+        <value xml:lang="zh_TW">檢視簡短描述</value>
     </property>
     <property key="ContentOperation.description.HAS_ADMIN_ROLE">
         <value xml:lang="da">Har administrator rolle</value>
@@ -720,7 +720,7 @@
         <value xml:lang="th">มีข้อบังคับของผู้ดูแลระบบ</value>
         <value xml:lang="vi">Có vai trò quản trị</value>
         <value xml:lang="zh">具有管理员角色</value>
-        <value xml:lang="zh_TW">具有管理員角色</value>
+        <value xml:lang="zh_TW">具有管理者角色</value>
     </property>
     <property key="ContentOperation.description.HAS_AUTHOR_ROLE">
         <value xml:lang="da">Har forfatter rolle</value>
@@ -762,7 +762,7 @@
         <value xml:lang="th">มีข้อบังคับของผู้ใช้</value>
         <value xml:lang="vi">Có vai trò sở hữu</value>
         <value xml:lang="zh">具有用户角色</value>
-        <value xml:lang="zh_TW">具有用戶角色</value>
+        <value xml:lang="zh_TW">有消費者角色</value>
     </property>
     <property key="ContentOperation.description.HAS_PUBLISHER_ROLE">
         <value xml:lang="da">Har udgiver rolle</value>
@@ -776,7 +776,7 @@
         <value xml:lang="th">มีข้อบังคับของผู้ประกาศ</value>
         <value xml:lang="vi">Có vai trò Xuất bản</value>
         <value xml:lang="zh">具有发布者角色</value>
-        <value xml:lang="zh_TW">具有發布者角色</value>
+        <value xml:lang="zh_TW">有發佈者角色</value>
     </property>
     <property key="ContentOperation.description.HAS_USER_ROLE">
         <value xml:lang="da">Har bruger rolle</value>
@@ -790,7 +790,7 @@
         <value xml:lang="th">มีข้อบังคับของผู้ใช้</value>
         <value xml:lang="vi">Có vai trò người dùng</value>
         <value xml:lang="zh">具有用户角色</value>
-        <value xml:lang="zh_TW">具有用戶角色</value>
+        <value xml:lang="zh_TW">有使用者角色</value>
     </property>
     <property key="ContentOperation.description._NA_">
         <value xml:lang="da">Ikke gældende</value>
@@ -805,7 +805,7 @@
         <value xml:lang="th">ไม่สามารถนำไปใช้ได้</value>
         <value xml:lang="vi">Không có khả năng Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
-        <value xml:lang="zh_TW">不可用</value>
+        <value xml:lang="zh_TW">不適用</value>
     </property>
     <property key="ContentPurposeType.description.ADVERTISEMENT">
         <value xml:lang="da">Annonce</value>
@@ -891,7 +891,7 @@
         <value xml:lang="th">คำถามที่ถามบ่อยๆ</value>
         <value xml:lang="vi">Câu hỏi thường gặp</value>
         <value xml:lang="zh">问答</value>
-        <value xml:lang="zh_TW">問答</value>
+        <value xml:lang="zh_TW">常見問題</value>
     </property>
     <property key="ContentPurposeType.description.FEEDBACK">
         <value xml:lang="da">Tilbagemelding</value>
@@ -905,7 +905,7 @@
         <value xml:lang="th">ผลตอบรับ</value>
         <value xml:lang="vi">Phản hồi</value>
         <value xml:lang="zh">反馈</value>
-        <value xml:lang="zh_TW">反饋</value>
+        <value xml:lang="zh_TW">回饋</value>
     </property>
     <property key="ContentPurposeType.description.GENERAL_INFO">
         <value xml:lang="da">Generel information</value>
@@ -919,7 +919,7 @@
         <value xml:lang="th">ข้อมูลทั่วไป</value>
         <value xml:lang="vi">Thông tin chung</value>
         <value xml:lang="zh">通用信息</value>
-        <value xml:lang="zh_TW">通用資訊</value>
+        <value xml:lang="zh_TW">一般資訊</value>
     </property>
     <property key="ContentPurposeType.description.MAIN_ARTICLE">
         <value xml:lang="da">Hovedindhold</value>
@@ -947,7 +947,7 @@
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="vi">Thông điệp</value>
         <value xml:lang="zh">消息</value>
-        <value xml:lang="zh_TW">消息</value>
+        <value xml:lang="zh_TW">訊息</value>
     </property>
     <property key="ContentPurposeType.description.OWNER">
         <value xml:lang="da">Ejer</value>
@@ -961,7 +961,7 @@
         <value xml:lang="th">เจ้าของ</value>
         <value xml:lang="vi">Sở hữu</value>
         <value xml:lang="zh">拥有人</value>
-        <value xml:lang="zh_TW">擁有人</value>
+        <value xml:lang="zh_TW">擁有者</value>
     </property>
     <property key="ContentPurposeType.description.PRODUCT_INFO">
         <value xml:lang="da">Produkt</value>
@@ -999,7 +999,7 @@
         <value xml:lang="th">คำตอบ</value>
         <value xml:lang="vi">Phản hồi (response)</value>
         <value xml:lang="zh">回答</value>
-        <value xml:lang="zh_TW">回答</value>
+        <value xml:lang="zh_TW">回應</value>
     </property>
     <property key="ContentPurposeType.description.SECTION">
         <value xml:lang="da">Sektion</value>
@@ -1027,7 +1027,7 @@
         <value xml:lang="th">แหล่งที่มาทั่วไป</value>
         <value xml:lang="vi">Nguồn chung</value>
         <value xml:lang="zh">常用资料</value>
-        <value xml:lang="zh_TW">常用資料</value>
+        <value xml:lang="zh_TW">一般來源</value>
     </property>
     <property key="ContentPurposeType.description.SUB_ARTICLE">
         <value xml:lang="da">Subindhold</value>
@@ -1041,7 +1041,7 @@
         <value xml:lang="th">หัวข้อย่อย</value>
         <value xml:lang="vi">Nội dung thành phần con</value>
         <value xml:lang="zh">章节内容</value>
-        <value xml:lang="zh_TW">章節內容</value>
+        <value xml:lang="zh_TW">子內容</value>
     </property>
     <property key="ContentPurposeType.description.SUMMARY">
         <value xml:lang="da">Resumé</value>
@@ -1055,7 +1055,7 @@
         <value xml:lang="th">สรุป</value>
         <value xml:lang="vi">Tổng quan</value>
         <value xml:lang="zh">摘要</value>
-        <value xml:lang="zh_TW">摘要</value>
+        <value xml:lang="zh_TW">總結</value>
     </property>
     <property key="ContentPurposeType.description.TOPIC">
         <value xml:lang="da">Tema</value>
@@ -1083,7 +1083,7 @@
         <value xml:lang="th">ผู้ใช้</value>
         <value xml:lang="vi">Người dùng</value>
         <value xml:lang="zh">用户</value>
-        <value xml:lang="zh_TW">用戶</value>
+        <value xml:lang="zh_TW">使用者</value>
     </property>
     <property key="ContentPurposeType.description._NA_">
         <value xml:lang="da">Ikke relevant</value>
@@ -1097,7 +1097,7 @@
         <value xml:lang="th">ไม่สามารถนำไปใช้ได้</value>
         <value xml:lang="vi">Không có khả năng Khớp lệnh</value>
         <value xml:lang="zh">不可用</value>
-        <value xml:lang="zh_TW">不可用</value>
+        <value xml:lang="zh_TW">不適用</value>
     </property>
     <property key="ContentType.description.ANNOTATION">
         <value xml:lang="da">Note</value>
@@ -1111,7 +1111,7 @@
         <value xml:lang="th">คำอธิบายประกอบ</value>
         <value xml:lang="vi">Ghi chú</value>
         <value xml:lang="zh">说明</value>
-        <value xml:lang="zh_TW">說明</value>
+        <value xml:lang="zh_TW">註記</value>
     </property>
     <property key="ContentType.description.BLOG_ROOT">
         <value xml:lang="da">Blog rod</value>
@@ -1135,7 +1135,7 @@
         <value xml:lang="th">ตัวอย่างส่วนประกอบของเอกสาร</value>
         <value xml:lang="vi">Khởi tạo tài liệu kết hợp</value>
         <value xml:lang="zh">合成文档实例</value>
-        <value xml:lang="zh_TW">合成文檔實例</value>
+        <value xml:lang="zh_TW">複合檔實例</value>
     </property>
     <property key="ContentType.description.COMPDOC_TEMPLATE">
         <value xml:lang="da">Sammensat dokumentskabelon</value>
@@ -1149,7 +1149,7 @@
         <value xml:lang="th">รูปแบบส่วนประกอบของเอกสาร</value>
         <value xml:lang="vi">Biểu mẫu tài liệu kết hợp</value>
         <value xml:lang="zh">合成文档模板</value>
-        <value xml:lang="zh_TW">合成文檔範本</value>
+        <value xml:lang="zh_TW">複合檔模板</value>
     </property>
     <property key="ContentType.description.CONTENT_LIST">
         <value xml:lang="da">Indholdsfortegnelse</value>
@@ -1163,7 +1163,7 @@
         <value xml:lang="th">รายการหัวข้อ</value>
         <value xml:lang="vi">Danh sách nội dung</value>
         <value xml:lang="zh">内容列表</value>
-        <value xml:lang="zh_TW">內容列表</value>
+        <value xml:lang="zh_TW">內容清單</value>
     </property>
     <property key="ContentType.description.DECORATOR">
         <value xml:lang="da">Dekoratør</value>
@@ -1201,7 +1201,7 @@
         <value xml:lang="th">เอกสาร</value>
         <value xml:lang="vi">Tài liệu</value>
         <value xml:lang="zh">文档</value>
-        <value xml:lang="zh_TW">文檔</value>
+        <value xml:lang="zh_TW">檔</value>
     </property>
     <property key="ContentType.description.FAQ_ROOT">
         <value xml:lang="da">FAQ rod</value>
@@ -1225,7 +1225,7 @@
         <value xml:lang="th">ที่มาของข้อคิดเห็น</value>
         <value xml:lang="vi">Điểm xuất bản diễn đàn gốc</value>
         <value xml:lang="zh">论坛根发布点</value>
-        <value xml:lang="zh_TW">論壇根發布點</value>
+        <value xml:lang="zh_TW">論壇根發佈點</value>
     </property>
     <property key="ContentType.description.GRAPH_ROOT">
         <value xml:lang="da">Graf rod</value>
@@ -1319,7 +1319,7 @@
         <value xml:lang="th">เจ้าของสถานที่</value>
         <value xml:lang="vi">Giữ chỗ</value>
         <value xml:lang="zh">占位符</value>
-        <value xml:lang="zh_TW">占位符</value>
+        <value xml:lang="zh_TW">位置標誌符</value>
     </property>
     <property key="ContentType.description.STRUCTURE_DEF">
         <value xml:lang="da">Strukturdefinition (som DTD)</value>
@@ -1347,7 +1347,7 @@
         <value xml:lang="th">หน้าโครงสร้าง</value>
         <value xml:lang="vi">Cấu trúc bên lá (Leaf)</value>
         <value xml:lang="zh">结构的叶</value>
-        <value xml:lang="zh_TW">結構的葉</value>
+        <value xml:lang="zh_TW">結構葉</value>
     </property>
     <property key="ContentType.description.STRUCTURE_NODE">
         <value xml:lang="da">Struktur node</value>
@@ -1389,7 +1389,7 @@
         <value xml:lang="th">Template หรือ รูปแบบ</value>
         <value xml:lang="vi">Biểu mẫu của form</value>
         <value xml:lang="zh">模板或表单</value>
-        <value xml:lang="zh_TW">範本或表單</value>
+        <value xml:lang="zh_TW">模板或表單</value>
     </property>
     <property key="ContentType.description.TOPIC">
         <value xml:lang="da">Afsnit</value>
@@ -1403,7 +1403,7 @@
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="vi">Chủ đề</value>
         <value xml:lang="zh">主题</value>
-        <value xml:lang="zh_TW">主題</value>
+        <value xml:lang="zh_TW">話題</value>
     </property>
     <property key="ContentType.description.TREE_ROOT">
         <value xml:lang="da">Træ rod</value>
@@ -1445,7 +1445,7 @@
         <value xml:lang="th">ความคิดเห็นที่ลงประกาศ</value>
         <value xml:lang="vi">Điểm xuất bản</value>
         <value xml:lang="zh">发布点</value>
-        <value xml:lang="zh_TW">發布點</value>
+        <value xml:lang="zh_TW">發佈點</value>
     </property>
     <property key="DataCategory.categoryName.BUSINESS">
         <value xml:lang="da">Forretning</value>
@@ -1473,7 +1473,7 @@
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="vi">Sản phẩm</value>
         <value xml:lang="zh">制造</value>
-        <value xml:lang="zh_TW">制造</value>
+        <value xml:lang="zh_TW">製造</value>
     </property>
     <property key="DataCategory.categoryName.BUS_RETAIL">
         <value xml:lang="da">Detail</value>
@@ -1543,7 +1543,7 @@
         <value xml:lang="th">ส่วนบุคคล</value>
         <value xml:lang="vi">Cá nhân</value>
         <value xml:lang="zh">人</value>
-        <value xml:lang="zh_TW">人</value>
+        <value xml:lang="zh_TW">個人的</value>
     </property>
     <property key="DataCategory.categoryName.POLITICAL">
         <value xml:lang="da">Politisk</value>
@@ -1557,7 +1557,7 @@
         <value xml:lang="th">การเมือง</value>
         <value xml:lang="vi">Chính trị</value>
         <value xml:lang="zh">政策</value>
-        <value xml:lang="zh_TW">政策</value>
+        <value xml:lang="zh_TW">政治的</value>
     </property>
     <property key="DataCategory.categoryName.ROOT">
         <value xml:lang="da">Rod</value>
@@ -1626,7 +1626,7 @@
         <value xml:lang="th">ซอฟต์แวร์</value>
         <value xml:lang="vi">Phần mềm</value>
         <value xml:lang="zh">软件</value>
-        <value xml:lang="zh_TW">軟件</value>
+        <value xml:lang="zh_TW">軟體</value>
     </property>
     <property key="DataCategory.categoryName.TECH_SOFT_JAVA">
         <value xml:lang="en">Java</value>
@@ -1651,7 +1651,7 @@
         <value xml:lang="pt">Modelo</value>
         <value xml:lang="vi">Biểu mẫu</value>
         <value xml:lang="zh">模板</value>
-        <value xml:lang="zh_TW">範本</value>
+        <value xml:lang="zh_TW">模板</value>
     </property>
     <property key="DataResourceType.description.AUDIO_OBJECT">
         <value xml:lang="da">Audio</value>
@@ -1675,7 +1675,7 @@
         <value xml:lang="th">ไฟล์ (เกี่ยวกับที่มาของโปรแกรมประยุกต์)</value>
         <value xml:lang="vi">Tập tin (liên quan đến ứng dụng web gốc)</value>
         <value xml:lang="zh">文件(相对于webapp根目录)</value>
-        <value xml:lang="zh_TW">文件(相對于webapp根目錄)</value>
+        <value xml:lang="zh_TW">檔案(相對於webapp根目錄)</value>
     </property>
     <property key="DataResourceType.description.CONTEXT_FILE_BIN">
         <value xml:lang="da">Binær fil (relativ til webapp rod)</value>
@@ -1689,7 +1689,7 @@
         <value xml:lang="th">2 ไฟล์ (เกี่ยวกับที่มาของโปรแกรมประยุกต์)</value>
         <value xml:lang="vi">Tập tin nhị phân (liên quan đến ứng dụng web gốc)</value>
         <value xml:lang="zh">二进制文件(相对于webapp根目录)</value>
-        <value xml:lang="zh_TW">二進制文件(相對于webapp根目錄)</value>
+        <value xml:lang="zh_TW">二進位制檔案(相對於webapp根目錄)</value>
     </property>
     <property key="DataResourceType.description.ELECTRONIC_TEXT">
         <value xml:lang="da">Lang tekst</value>
@@ -1703,7 +1703,7 @@
         <value xml:lang="th">ตัวอักษรยาว ๆ </value>
         <value xml:lang="vi">Đoạn chữ dài</value>
         <value xml:lang="zh">长文本</value>
-        <value xml:lang="zh_TW">長文本</value>
+        <value xml:lang="zh_TW">長本文</value>
     </property>
     <property key="DataResourceType.description.IMAGE_OBJECT">
         <value xml:lang="da">Billede</value>
@@ -1731,7 +1731,7 @@
         <value xml:lang="th">ลิงค์ย่อย</value>
         <value xml:lang="vi">Liên kết URL</value>
         <value xml:lang="zh">超链接</value>
-        <value xml:lang="zh_TW">超鏈結</value>
+        <value xml:lang="zh_TW">超連結</value>
     </property>
     <property key="DataResourceType.description.LOCAL_FILE">
         <value xml:lang="da">Locale fil</value>
@@ -1745,7 +1745,7 @@
         <value xml:lang="th">ที่อยู่ของไฟล์</value>
         <value xml:lang="vi">Tập tin cục bộ</value>
         <value xml:lang="zh">本地文件</value>
-        <value xml:lang="zh_TW">本地文件</value>
+        <value xml:lang="zh_TW">本地檔案</value>
     </property>
     <property key="DataResourceType.description.LOCAL_FILE_BIN">
         <value xml:lang="da">Locale binær fil</value>
@@ -1759,7 +1759,7 @@
         <value xml:lang="th">ที่อยู่ของไฟล์ที่ 2</value>
         <value xml:lang="vi">Tập tin nhị phân cục bộ</value>
         <value xml:lang="zh">本地二进制文件</value>
-        <value xml:lang="zh_TW">本地二進制文件</value>
+        <value xml:lang="zh_TW">本地二進位制檔案</value>
     </property>
     <property key="DataResourceType.description.OFBIZ_FILE">
         <value xml:lang="da">Fil (relativ til OFBIZ_HOME)</value>
@@ -1773,7 +1773,7 @@
         <value xml:lang="th">ไฟล์ (เกี่ยวกับ OFBIZ_HOME)</value>
         <value xml:lang="vi">Tập tin (trên cơ sở OFBIZ_HOME)</value>
         <value xml:lang="zh">文件(相对于OFBIZ_HOME)</value>
-        <value xml:lang="zh_TW">文件(相對于OFBIZ_HOME)</value>
+        <value xml:lang="zh_TW">檔案(相對於OFBIZ_HOME)</value>
     </property>
     <property key="DataResourceType.description.OFBIZ_FILE_BIN">
         <value xml:lang="da">Binær fil (relativ til OFBIZ_HOME)</value>
@@ -1787,7 +1787,7 @@
         <value xml:lang="th">ไฟล์ที่ 2 (เกี่ยวกับ OFBIZ_HOME)</value>
         <value xml:lang="vi">Tập tin nhị phân(trên cơ sở OFBIZ_HOME)</value>
         <value xml:lang="zh">二进制文件(相对于OFBIZ_HOME)</value>
-        <value xml:lang="zh_TW">二進制文件(相對于OFBIZ_HOME)</value>
+        <value xml:lang="zh_TW">二進位制檔案(相對於OFBIZ_HOME)</value>
     </property>
     <property key="DataResourceType.description.OTHER_OBJECT">
         <value xml:lang="da">Andre</value>
@@ -1815,7 +1815,7 @@
         <value xml:lang="th">ตัวอักษรสั้น ๆ</value>
         <value xml:lang="vi">Đoạn chữ ngắn</value>
         <value xml:lang="zh">简短文本</value>
-        <value xml:lang="zh_TW">簡短文本</value>
+        <value xml:lang="zh_TW">簡短本文</value>
     </property>
     <property key="DataResourceType.description.SURVEY">
         <value xml:lang="da">Rundspørge</value>
@@ -1843,7 +1843,7 @@
         <value xml:lang="th">สำรวจคำตอบ</value>
         <value xml:lang="vi">Phản hồi thăm dò ý kiến (survey)</value>
         <value xml:lang="zh">调查回答</value>
-        <value xml:lang="zh_TW">調查回答</value>
+        <value xml:lang="zh_TW">調查回應</value>
     </property>
     <property key="DataResourceType.description.URL_RESOURCE">
         <value xml:lang="da">URL Ressource</value>
@@ -1885,7 +1885,7 @@
         <value xml:lang="th">ไม่มี Template</value>
         <value xml:lang="vi">Không biểu mẫu</value>
         <value xml:lang="zh">没有模板</value>
-        <value xml:lang="zh_TW">沒有範本</value>
+        <value xml:lang="zh_TW">沒有模板</value>
     </property>
     <property key="DataTemplateType.description.SCREEN_COMBINED">
         <value xml:lang="da">Screen Widget</value>
@@ -1899,7 +1899,7 @@
         <value xml:lang="th">หน้า widget</value>
         <value xml:lang="vi">Ứng dụng widget</value>
         <value xml:lang="zh">屏幕挂件</value>
-        <value xml:lang="zh_TW">螢幕挂件</value>
+        <value xml:lang="zh_TW">畫面器件</value>
     </property>
     <property key="DataTemplateType.description.WM">
         <value xml:lang="en">WebMacro</value>
@@ -1920,7 +1920,7 @@
         <value xml:lang="th">รายการของสินค้า</value>
         <value xml:lang="vi">Vận đơn</value>
         <value xml:lang="zh">提货单</value>
-        <value xml:lang="zh_TW">提貨單</value>
+        <value xml:lang="zh_TW">裝載單</value>
     </property>
     <property key="DocumentType.description.EXPORT_DOCUMENTATION">
         <value xml:lang="da">Eksportdokumentation</value>
@@ -1934,7 +1934,7 @@
         <value xml:lang="th">การเตรียมเอกสารส่งออก</value>
         <value xml:lang="vi">Xuất tài liệu ra</value>
         <value xml:lang="zh">出口文件</value>
-        <value xml:lang="zh_TW">出口文件</value>
+        <value xml:lang="zh_TW">出口檔</value>
     </property>
     <property key="DocumentType.description.MANIFEST">
         <value xml:lang="da">Manifest</value>
@@ -1948,6 +1948,7 @@
         <value xml:lang="th">รายการสินค้า</value>
         <value xml:lang="vi">Kê khai</value>
         <value xml:lang="zh">MANIFEST</value>
+        <value xml:lang="zh_TW">載貨單</value>
     </property>
     <property key="DocumentType.description.OTHER_SHIP_DOCUMENT">
         <value xml:lang="da">Andet forsendelsesdokument</value>
@@ -1975,7 +1976,7 @@
         <value xml:lang="th">สลิปการห่อสินค้า</value>
         <value xml:lang="vi">PACKAGING_SLIP</value>
         <value xml:lang="zh">发货清单</value>
-        <value xml:lang="zh_TW">發貨清單</value>
+        <value xml:lang="zh_TW">包裝清單</value>
     </property>
     <property key="DocumentType.description.PORT_CHARGE_DOCUMENT">
         <value xml:lang="da">Havnegebyrsdokument</value>
@@ -1989,7 +1990,7 @@
         <value xml:lang="th">เอกสารการเปลี่ยนพอร์ท</value>
         <value xml:lang="vi">Tài liệu thay đổi Cảng</value>
         <value xml:lang="zh">港务费单据</value>
-        <value xml:lang="zh_TW">港務費單據</value>
+        <value xml:lang="zh_TW">港務費檔</value>
     </property>
     <property key="DocumentType.description.SHIPPING_DOCUMENT">
         <value xml:lang="da">Forsendelsesdokument</value>
@@ -2018,7 +2019,7 @@
         <value xml:lang="th">ที่อยู่อีเมล์ของผู้เขียนหรือผู้สร้างหัวข้อ</value>
         <value xml:lang="vi">Địa chỉ thư điện tử của tác giả hoặc người tạo đối tượng.</value>
         <value xml:lang="zh">主题的作者或创建者的电子邮件地址.</value>
-        <value xml:lang="zh_TW">主題的作者或創建者的電子郵件位址.</value>
+        <value xml:lang="zh_TW">主題的作者或新建者的電子郵件位址.</value>
     </property>
     <property key="MetaDataPredicate.description.author-name">
         <value xml:lang="da">Navn på forfatter eller skaber af emnet. </value>
@@ -2033,7 +2034,7 @@
         <value xml:lang="th">ชื่อของผู้เขียนหรือผู้สร้างหัวข้อ</value>
         <value xml:lang="vi">Tên của tác giả hoặc người tạo đối tượng.</value>
         <value xml:lang="zh">主题的作者或创建者姓名。</value>
-        <value xml:lang="zh_TW">主題的作者或創建者姓名。</value>
+        <value xml:lang="zh_TW">主題的作者或新建者姓名.</value>
     </property>
     <property key="MetaDataPredicate.description.event-date">
         <value xml:lang="da">Dato og tid hvor emnets begivenhed fandt sted, fortrinsvis i det faldende standard format: [yyyy-MM-dd hh:mm:ss].</value>
@@ -2048,7 +2049,7 @@
         <value xml:lang="th">วันและเวลาที่หัวข้อที่อยู่, ควรให้อยู่ในรูปแบบมาตรฐาน : [yyyy-MM-dd hh:mm:ss]</value>
         <value xml:lang="vi">Ngày và giờ đặt chỗ sự kiện,  thứ tự giảm dần theo định dạng: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="zh">主题事件发生的日期和时间，按标准格式的降序排列：[yyyy-MM-dd hh:mm:ss]。</value>
-        <value xml:lang="zh_TW">主題事件發生的日期和時間，按標准格式的降序排列：[yyyy-MM-dd hh:mm:ss]。</value>
+        <value xml:lang="zh_TW">主題事件發生的日期和時間,按標準格式的降冪排列:[yyyy-MM-dd hh:mm:ss].</value>
     </property>
     <property key="MetaDataPredicate.description.event-location">
         <value xml:lang="da">Lokationen hvor emnets begivenhed fand sted.</value>
@@ -2063,7 +2064,7 @@
         <value xml:lang="th">ที่ตั้งของหัวข้อที่วางอยู่นี้</value>
         <value xml:lang="vi">Địa điểm đặt chỗ sự kiện</value>
         <value xml:lang="zh">主题事件发生的地点。</value>
-        <value xml:lang="zh_TW">主題事件發生的地點。</value>
+        <value xml:lang="zh_TW">主題事件發生的地點.</value>
     </property>
     <property key="MetaDataPredicate.description.event-person-name">
         <value xml:lang="da">Navnet på personen involveret i emnets begivenhed.</value>
@@ -2078,7 +2079,7 @@
         <value xml:lang="th">ชื่อของบุคคลที่เกี่ยวข้องกับหัวข้อ</value>
         <value xml:lang="vi">Tên khách tham dự sự kiện.</value>
         <value xml:lang="zh">主题事件中牵扯到的人员姓名。</value>
-        <value xml:lang="zh_TW">主題事件中牽扯到的人員姓名。</value>
+        <value xml:lang="zh_TW">主題事件中牽涉到的人員姓名.</value>
     </property>
     <property key="MimeType.description.application/msword">
         <value xml:lang="en">Microsoft Word</value>
@@ -2139,7 +2140,7 @@
         <value xml:lang="ja">OpenOffice OpenDocument スプレッドシート</value>
         <value xml:lang="pt">Planilha do OpenDocument OpenOffice</value>
         <value xml:lang="zh">OpenOffice文档</value>
-        <value xml:lang="zh_TW">OpenOffice文檔</value>
+        <value xml:lang="zh_TW">OpenOffice檔案</value>
     </property>
     <property key="MimeType.description.application/vnd.oasis.opendocument.text">
         <value xml:lang="da">OpenOffice OpenDocument Tekst</value>
@@ -2152,7 +2153,7 @@
         <value xml:lang="ro">Document de Test OpenOffice Open</value>
         <value xml:lang="th">OpenOffice OpenDocument ตัวอักษร</value>
         <value xml:lang="zh">OpenOffice OpenDocument文本</value>
-        <value xml:lang="zh_TW">OpenOffice OpenDocument文本</value>
+        <value xml:lang="zh_TW">OpenOffice OpenDocument本文</value>
     </property>
     <property key="MimeType.description.application/vnd.ofbiz.survey">
         <value xml:lang="da">Rundspørge</value>
@@ -2180,7 +2181,7 @@
         <value xml:lang="th">สำรวจคำตอบ</value>
         <value xml:lang="vi">Bản trả lời thăm dò ý kiến</value>
         <value xml:lang="zh">调查回答</value>
-        <value xml:lang="zh_TW">調查回答</value>
+        <value xml:lang="zh_TW">調查回應</value>
     </property>
     <property key="MimeType.description.application/x-shockwave-flash">
         <value xml:lang="da">Shockwave Flash Movie</value>
@@ -2198,7 +2199,7 @@
         <value xml:lang="ja">Gzip Tar アーカイブファイル</value>
         <value xml:lang="pt">Arquivo tar.gz</value>
         <value xml:lang="zh">Gzip Tar压缩文件</value>
-        <value xml:lang="zh_TW">Gzip Tar壓縮文件</value>
+        <value xml:lang="zh_TW">Gzip Tar壓縮檔案</value>
     </property>
     <property key="MimeType.description.application/x-zip-compressed">
         <value xml:lang="da">ZIP komprimeret fil</value>
@@ -2210,7 +2211,7 @@
         <value xml:lang="pt">Arquivo compactado em ZIP</value>
         <value xml:lang="th">ZIP การบีบอัดไฟล์</value>
         <value xml:lang="zh">ZIP压缩文件</value>
-        <value xml:lang="zh_TW">ZIP壓縮文件</value>
+        <value xml:lang="zh_TW">ZIP壓縮檔案</value>
     </property>
     <property key="MimeType.description.application/zip">
         <value xml:lang="da">ZIP Data</value>
@@ -2349,7 +2350,7 @@
         <value xml:lang="th">ข้อความภายนอก</value>
         <value xml:lang="vi">Bên ngoài phần thân thông điệp</value>
         <value xml:lang="zh">外部主体消息</value>
-        <value xml:lang="zh_TW">外部主體消息</value>
+        <value xml:lang="zh_TW">外部主體訊息</value>
     </property>
     <property key="MimeType.description.message/http">
         <value xml:lang="da">HTTP besked</value>
@@ -2363,7 +2364,7 @@
         <value xml:lang="th">ข้อความ HTTP</value>
         <value xml:lang="vi">Thông điệp HTTP</value>
         <value xml:lang="zh">HTTP消息</value>
-        <value xml:lang="zh_TW">HTTP消息</value>
+        <value xml:lang="zh_TW">HTTP訊息</value>
     </property>
     <property key="MimeType.description.message/news">
         <value xml:lang="da">Ny besked</value>
@@ -2377,7 +2378,7 @@
         <value xml:lang="th">ข้อความข่าว</value>
         <value xml:lang="vi">Thông điệp mới</value>
         <value xml:lang="zh">新闻消息</value>
-        <value xml:lang="zh_TW">新聞消息</value>
+        <value xml:lang="zh_TW">新聞訊息</value>
     </property>
     <property key="MimeType.description.message/partial">
         <value xml:lang="da">Delvis besked</value>
@@ -2391,7 +2392,7 @@
         <value xml:lang="th">ข้อความบางส่วน</value>
         <value xml:lang="vi">Một phần thông điệp</value>
         <value xml:lang="zh">部分消息</value>
-        <value xml:lang="zh_TW">部分消息</value>
+        <value xml:lang="zh_TW">部分訊息</value>
     </property>
     <property key="MimeType.description.message/rfc822">
         <value xml:lang="da">RFC 822 Headered besked</value>
@@ -2417,7 +2418,7 @@
         <value xml:lang="th">ข้อความ HTTPS/S-HTTP </value>
         <value xml:lang="vi">Thông điệp HTTPS/S-HTTP</value>
         <value xml:lang="zh">HTTPS/S-HTTP消息</value>
-        <value xml:lang="zh_TW">HTTPS/S-HTTP消息</value>
+        <value xml:lang="zh_TW">HTTPS/S-HTTP訊息</value>
     </property>
     <property key="MimeType.description.model/mesh">
         <value xml:lang="en">Mesh Model</value>
@@ -2454,7 +2455,7 @@
         <value xml:lang="ja">マルチパートダイジェスト</value>
         <value xml:lang="th">บทสรุปของหลาย ๆ ข้อความ</value>
         <value xml:lang="zh">消息多段内容的摘要</value>
-        <value xml:lang="zh_TW">消息多段內容的摘要</value>
+        <value xml:lang="zh_TW">訊息多段內容的摘要</value>
     </property>
     <property key="MimeType.description.multipart/encrypted">
         <value xml:lang="en">Encrypted Multipart</value>
@@ -2489,7 +2490,7 @@
         <value xml:lang="pt">Multipart relacionado</value>
         <value xml:lang="th">ส่วนที่เกี่ยวข้องกัน</value>
         <value xml:lang="zh">内嵌的多段内容</value>
-        <value xml:lang="zh_TW">內嵌的多段內容</value>
+        <value xml:lang="zh_TW">相關的多段內容</value>
     </property>
     <property key="MimeType.description.multipart/signed">
         <value xml:lang="en">Signed Multipart</value>
@@ -2497,7 +2498,7 @@
         <value xml:lang="ja">マルチパートサインド</value>
         <value xml:lang="th">ส่วนเดียว</value>
         <value xml:lang="zh">签名的多段内容</value>
-        <value xml:lang="zh_TW">簽名的多段內容</value>
+        <value xml:lang="zh_TW">簽章的多段內容</value>
     </property>
     <property key="MimeType.description.text/css">
         <value xml:lang="da">CSS Tekst</value>
@@ -2509,7 +2510,7 @@
         <value xml:lang="ro">Text CSS</value>
         <value xml:lang="th">ตัวอักษรแบบ CSS</value>
         <value xml:lang="zh">CSS文本</value>
-        <value xml:lang="zh_TW">CSS文本</value>
+        <value xml:lang="zh_TW">CSS本文</value>
     </property>
     <property key="MimeType.description.text/csv">
         <value xml:lang="da">Kommasepareret tekstværdi</value>
@@ -2522,7 +2523,7 @@
         <value xml:lang="th">ใช้เครื่องหมายจุลภาคคั่นคาตัวอักษร</value>
         <value xml:lang="vi">CSV- Giá trị cách nhau bởi dấu phẩy</value>
         <value xml:lang="zh">逗号分隔文本</value>
-        <value xml:lang="zh_TW">逗號分隔文本</value>
+        <value xml:lang="zh_TW">逗號分隔本文</value>
     </property>
     <property key="MimeType.description.text/enriched">
         <value xml:lang="da">Enriched Text</value>
@@ -2536,7 +2537,7 @@
         <value xml:lang="th">ตกแต่งตัวอักษร</value>
         <value xml:lang="vi">Nội dung chữ giàu định dạng (Enriched Text)</value>
         <value xml:lang="zh">增强格式文本</value>
-        <value xml:lang="zh_TW">增強格式文本</value>
+        <value xml:lang="zh_TW">增強格式本文</value>
     </property>
     <property key="MimeType.description.text/html">
         <value xml:lang="da">HTML Text</value>
@@ -2550,7 +2551,7 @@
         <value xml:lang="th">ตัวอักษร HTML</value>
         <value xml:lang="vi">Nội dung HTML</value>
         <value xml:lang="zh">HTML文本</value>
-        <value xml:lang="zh_TW">HTML文本</value>
+        <value xml:lang="zh_TW">HTML本文</value>
     </property>
     <property key="MimeType.description.text/plain">
         <value xml:lang="da">Plain Text</value>
@@ -2564,7 +2565,7 @@
         <value xml:lang="th">ตัวอักษรธรรมดา</value>
         <value xml:lang="vi">Thuần chữ</value>
         <value xml:lang="zh">纯文本</value>
-        <value xml:lang="zh_TW">純文本</value>
+        <value xml:lang="zh_TW">純本文</value>
     </property>
     <property key="MimeType.description.text/richtext">
         <value xml:lang="da">Rich Text</value>
@@ -2578,7 +2579,7 @@
         <value xml:lang="th">ตัวอักษรสีเข้ม</value>
         <value xml:lang="vi">Chữ có định dạng</value>
         <value xml:lang="zh">富格式文本</value>
-        <value xml:lang="zh_TW">富格式文本</value>
+        <value xml:lang="zh_TW">富格式本文</value>
     </property>
     <property key="MimeType.description.text/rtf">
         <value xml:lang="da">RTF Rich Text</value>
@@ -2592,7 +2593,7 @@
         <value xml:lang="th">ตัวอักษรแบบ RTF ที่สีเข้ม</value>
         <value xml:lang="vi">Chữ kiểu RTF</value>
         <value xml:lang="zh">RTF富格式文本</value>
-        <value xml:lang="zh_TW">RTF富格式文本</value>
+        <value xml:lang="zh_TW">RTF富格式本文</value>
     </property>
     <property key="MimeType.description.text/sgml">
         <value xml:lang="da">SGML Text</value>
@@ -2605,7 +2606,7 @@
         <value xml:lang="ro">Text SGML</value>
         <value xml:lang="th">ตัวอักษร SGML</value>
         <value xml:lang="zh">SGML文本</value>
-        <value xml:lang="zh_TW">SGML文本</value>
+        <value xml:lang="zh_TW">SGML本文</value>
     </property>
     <property key="MimeType.description.text/tab-separated-values">
         <value xml:lang="da">Tab separeret værdi tekst</value>
@@ -2619,7 +2620,7 @@
         <value xml:lang="th">ใช้แท็บคั่นค่าตัวอักษร</value>
         <value xml:lang="vi">Các giá trị ngăn cách bởi TAB</value>
         <value xml:lang="zh">制表键分隔文本</value>
-        <value xml:lang="zh_TW">制表鍵分隔文本</value>
+        <value xml:lang="zh_TW">跳位字元分隔本文</value>
     </property>
     <property key="MimeType.description.text/x-diff">
         <value xml:lang="da">diff til patchnings filer</value>
@@ -2629,7 +2630,7 @@
         <value xml:lang="pt">diff para Patch de arquivos</value>
         <value xml:lang="vi">So sánh để tạo tập tin vá</value>
         <value xml:lang="zh">补丁文件</value>
-        <value xml:lang="zh_TW">補丁文件</value>
+        <value xml:lang="zh_TW">差異修補檔案</value>
     </property>
     <property key="MimeType.description.text/x-vcard">
         <value xml:lang="da">eletronisk visitkort</value>
@@ -2653,7 +2654,7 @@
         <value xml:lang="th">ตัวอักษร XML</value>
         <value xml:lang="vi">Chữ dạng XML</value>
         <value xml:lang="zh">XML文本</value>
-        <value xml:lang="zh_TW">XML文本</value>
+        <value xml:lang="zh_TW">XML本文</value>
     </property>
     <property key="MimeType.description.video/avi">
         <value xml:lang="da">AVI Video</value>
@@ -2771,7 +2772,7 @@
         <value xml:lang="th">ออกจากการทำรายการ</value>
         <value xml:lang="vi">Thanh toán</value>
         <value xml:lang="zh">结账</value>
-        <value xml:lang="zh_TW">結賬</value>
+        <value xml:lang="zh_TW">結帳</value>
     </property>
     <property key="SurveyApplType.description.CUSTOMER_PROFILE">
         <value xml:lang="da">Kundeprofil</value>
@@ -2786,7 +2787,7 @@
         <value xml:lang="th">ประวัติส่วนตัวของลูกค้า</value>
         <value xml:lang="vi">Hồ sơ khách hàng</value>
         <value xml:lang="zh">客户档案</value>
-        <value xml:lang="zh_TW">客戶檔案</value>
+        <value xml:lang="zh_TW">客戶基本資料</value>
     </property>
     <property key="SurveyApplType.description.GENERAL_POLL">
         <value xml:lang="da">Generel meningsmåling</value>
@@ -2801,7 +2802,7 @@
         <value xml:lang="th">การสำรวจทั่วไป</value>
         <value xml:lang="vi">Bầu chọn chung</value>
         <value xml:lang="zh">通用调查</value>
-        <value xml:lang="zh_TW">通用調查</value>
+        <value xml:lang="zh_TW">一般民意調查</value>
     </property>
     <property key="SurveyApplType.description.PORDER_PLACE">
         <value xml:lang="da">Indkøbsordre placering</value>
@@ -2831,7 +2832,7 @@
         <value xml:lang="th">การกำหนดรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Sắp xếp hạng mục đơn mua hàng (PO)</value>
         <value xml:lang="zh">下购物订单明细</value>
-        <value xml:lang="zh_TW">下購物訂單明細</value>
+        <value xml:lang="zh_TW">下購物訂單細項</value>
     </property>
     <property key="SurveyApplType.description.RANDOM_POLL">
         <value xml:lang="da">Vilkårlig meningsmåling</value>
@@ -2846,7 +2847,7 @@
         <value xml:lang="th">สุ่มการสำรวจ</value>
         <value xml:lang="vi">Bầu chọn ngẫu nhiên</value>
         <value xml:lang="zh">随机调查</value>
-        <value xml:lang="zh_TW">隨機調查</value>
+        <value xml:lang="zh_TW">隨機民意調查</value>
     </property>
     <property key="SurveyApplType.description.SORDER_PLACE">
         <value xml:lang="da">Salgsordre placering</value>
@@ -2876,7 +2877,7 @@
         <value xml:lang="th">Boolean (ใช่/ไม่ใช่)</value>
         <value xml:lang="vi">Đúng/Sai</value>
         <value xml:lang="zh">布尔值 (是/否)</value>
-        <value xml:lang="zh_TW">布爾值 (是/否)</value>
+        <value xml:lang="zh_TW">布林值 (是/否)</value>
     </property>
     <property key="SurveyQuestionType.description.CONTENT">
         <value xml:lang="da">Indholdsrecord</value>
@@ -2957,7 +2958,7 @@
         <value xml:lang="pt">Enumeração</value>
         <value xml:lang="vi">Liệt kê</value>
         <value xml:lang="zh">枚举</value>
-        <value xml:lang="zh_TW">枚舉</value>
+        <value xml:lang="zh_TW">列舉</value>
     </property>
     <property key="SurveyQuestionType.description.GEO">
         <value xml:lang="da">Geo liste</value>
@@ -2967,7 +2968,7 @@
         <value xml:lang="pt">Lista de geo</value>
         <value xml:lang="vi">Danh sách địa điểm địa lý (Geo)</value>
         <value xml:lang="zh">地理列表</value>
-        <value xml:lang="zh_TW">地理列表</value>
+        <value xml:lang="zh_TW">地理清單</value>
     </property>
     <property key="SurveyQuestionType.description.GIFT_CARD">
         <value xml:lang="da">Gavekort nummer</value>
@@ -2982,7 +2983,7 @@
         <value xml:lang="th">หมายเลขบัตรของขวัญ</value>
         <value xml:lang="vi">Số thẻ quà tặng</value>
         <value xml:lang="zh">礼品卡号码</value>
-        <value xml:lang="zh_TW">禮品卡號碼</value>
+        <value xml:lang="zh_TW">禮物卡號碼</value>
     </property>
     <property key="SurveyQuestionType.description.NUMBER_CURRENCY">
         <value xml:lang="da">Numerisk (kurs)</value>
@@ -3087,17 +3088,17 @@
         <value xml:lang="th">เส้นคั่นตัวอักษร</value>
         <value xml:lang="vi">Chữ phân cách</value>
         <value xml:lang="zh">分隔文本</value>
-        <value xml:lang="zh_TW">分隔文本</value>
+        <value xml:lang="zh_TW">分隔本文</value>
     </property>
     <property key="SurveyQuestionType.description.STATE_PROVINCE">
         <value xml:lang="da">Stat/provins</value>
         <value xml:lang="en">State/Province</value>
-        <value xml:lang="it">Stato/Provincia    </value>
-        <value xml:lang="ja">都道府県/州/地方</value>
+        <value xml:lang="it">Stato/Provincia        </value>
+        <value xml:lang="ja">都道府県//地方</value>
         <value xml:lang="pt">Estado/província</value>
         <value xml:lang="vi">Tỉnh/Thành phố</value>
         <value xml:lang="zh">省市自治区</value>
-        <value xml:lang="zh_TW">省市自治區</value>
+        <value xml:lang="zh_TW">州/省</value>
     </property>
     <property key="SurveyQuestionType.description.TEXTAREA">
         <value xml:lang="da">Tekst (multi-line)</value>
@@ -3112,7 +3113,7 @@
         <value xml:lang="th">ตัวอักษร (หลายบรรทัด)</value>
         <value xml:lang="vi">Chữ (nhiều dòng)</value>
         <value xml:lang="zh">文本 (多行)</value>
-        <value xml:lang="zh_TW">文本 (多行)</value>
+        <value xml:lang="zh_TW">本文 (多行)</value>
     </property>
     <property key="SurveyQuestionType.description.TEXT_LONG">
         <value xml:lang="da">Lang tekst (single-line)</value>
@@ -3127,7 +3128,7 @@
         <value xml:lang="th">ข้อความยาว (บรรทัดเดียว)</value>
         <value xml:lang="vi">Chữ dài (đơn dòng)</value>
         <value xml:lang="zh">长文本 (单行)</value>
-        <value xml:lang="zh_TW">長文本 (單行)</value>
+        <value xml:lang="zh_TW">長本文 (單行)</value>
     </property>
     <property key="SurveyQuestionType.description.TEXT_SHORT">
         <value xml:lang="da">Kort tekst (single-line)</value>
@@ -3142,7 +3143,7 @@
         <value xml:lang="th">ข้อความสั้น (บรรทัดเดียว)</value>
         <value xml:lang="vi">Chữ ngắn (đơn dòng</value>
         <value xml:lang="zh">简短文本 (单行)</value>
-        <value xml:lang="zh_TW">簡短文本 (單行)</value>
+        <value xml:lang="zh_TW">簡短本文 (單行)</value>
     </property>
     <property key="SurveyQuestionType.description.URL">
         <value xml:lang="en">URL</value>
@@ -3156,6 +3157,7 @@
         <value xml:lang="pt">Raiz do Blog</value>
         <value xml:lang="vi">Gốc blog</value>
         <value xml:lang="zh">博客根</value>
+        <value xml:lang="zh_TW">部落格根</value>
     </property>
     <property key="WebSiteContentType.description.DEFAULT_PAGE">
         <value xml:lang="en">Default Page</value>
@@ -3164,6 +3166,7 @@
         <value xml:lang="pt">Página padrão</value>
         <value xml:lang="vi">Trang mặc định</value>
         <value xml:lang="zh">缺省页面</value>
+        <value xml:lang="zh_TW">預設頁面</value>
     </property>
     <property key="WebSiteContentType.description.ERROR_ROOT">
         <value xml:lang="en">Error Root</value>
@@ -3172,6 +3175,7 @@
         <value xml:lang="pt">Raiz de erro</value>
         <value xml:lang="vi">Lỗi gốc</value>
         <value xml:lang="zh">错误根</value>
+        <value xml:lang="zh_TW">錯誤根</value>
     </property>
     <property key="WebSiteContentType.description.FORUM_ROOT">
         <value xml:lang="en">Forum Root</value>
@@ -3180,6 +3184,7 @@
         <value xml:lang="pt">Raiz do Fórum</value>
         <value xml:lang="vi">Diễn đàn gốc</value>
         <value xml:lang="zh">论坛根</value>
+        <value xml:lang="zh_TW">論壇根</value>
     </property>
     <property key="WebSiteContentType.description.MENU_ROOT">
         <value xml:lang="en">Menu Root</value>
@@ -3188,6 +3193,7 @@
         <value xml:lang="pt">Menu raiz</value>
         <value xml:lang="vi">Thực đơn gốc</value>
         <value xml:lang="zh">菜单根</value>
+        <value xml:lang="zh_TW">選單根</value>
     </property>
     <property key="WebSiteContentType.description.PUBLISH_POINT">
         <value xml:lang="da">Udgivelsespunkt</value>
@@ -3201,6 +3207,6 @@
         <value xml:lang="th">ความคิดเห็นที่ลงประกาศ</value>
         <value xml:lang="vi">Điểm xuất bản</value>
         <value xml:lang="zh">发布点</value>
-        <value xml:lang="zh_TW">發布點</value>
+        <value xml:lang="zh_TW">發佈點</value>
     </property>
 </resource>

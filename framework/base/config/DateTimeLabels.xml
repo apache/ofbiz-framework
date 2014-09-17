@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="hour.plural">
         <value xml:lang="de">Stunden</value>
         <value xml:lang="en">hours</value>
@@ -133,7 +134,7 @@
         <value xml:lang="ru">недели</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
-        <value xml:lang="zh_TW">周</value>
+        <value xml:lang="zh_TW">週</value>
     </property>
     <property key="week.singular">
         <value xml:lang="de">Woche</value>
@@ -146,6 +147,6 @@
         <value xml:lang="ru">неделя</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
-        <value xml:lang="zh_TW">周</value>
+        <value xml:lang="zh_TW">週</value>
     </property>
 </resource>

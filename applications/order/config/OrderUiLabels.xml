@@ -57,7 +57,7 @@
         <value xml:lang="th">รหัสรายการสั่งซื้อสินค้าสินค้าอัตโนมัติ</value>
         <value xml:lang="vi">Danh sách đặt hàng tự động</value>
         <value xml:lang="zh">自动订单货运列表标识</value>
-        <value xml:lang="zh_TW">自動訂單貨運列表ID</value>
+        <value xml:lang="zh_TW">自動訂單貨運清單識別</value>
     </property>
     <property key="FormFieldTitle_billToCustomerPartyId">
         <value xml:lang="de">Rechnung an Kunde Akteur ID</value>
@@ -73,7 +73,7 @@
         <value xml:lang="th">ใบเสร็จถึงรหัสกลุ่มลูกค้า</value>
         <value xml:lang="vi">Thanh toán đến nhân viên bên khách hàng</value>
         <value xml:lang="zh">账单记入客户会员标识</value>
-        <value xml:lang="zh_TW">賬單記入客戶成員ID</value>
+        <value xml:lang="zh_TW">帳單記入客戶團體識別</value>
     </property>
     <property key="FormFieldTitle_cancelBackOrderDate">
         <value xml:lang="de">Datum des Lieferrücksstands annullieren</value>
@@ -100,7 +100,7 @@
         <value xml:lang="th">รหัสประเภทสถานะผู้ส่ง</value>
         <value xml:lang="vi">Loại vai trò nhà chuyển vận (carrier)</value>
         <value xml:lang="zh">送货人角色类型标识</value>
-        <value xml:lang="zh_TW">送貨者角色類型ID</value>
+        <value xml:lang="zh_TW">送貨者角色類型識別</value>
     </property>
     <property key="FormFieldTitle_cartons">
         <value xml:lang="de">Schachteln</value>
@@ -164,7 +164,7 @@
         <value xml:lang="ja">設定ID</value>
         <value xml:lang="pt_BR">ID de configuração</value>
         <value xml:lang="zh">配置标识</value>
-        <value xml:lang="zh_TW">配置ID</value>
+        <value xml:lang="zh_TW">配置識別</value>
     </property>
     <property key="FormFieldTitle_countryGeoId">
         <value xml:lang="de">Land Geo ID</value>
@@ -180,7 +180,7 @@
         <value xml:lang="th">Country Geo Id</value>
         <value xml:lang="vi">Mã địa lý của Quốc gia</value>
         <value xml:lang="zh">国家地理标识</value>
-        <value xml:lang="zh_TW">國別地理ID</value>
+        <value xml:lang="zh_TW">國別地理識別</value>
     </property>
     <property key="FormFieldTitle_currencyUom">
         <value xml:lang="de">Währungseinheit</value>
@@ -196,7 +196,7 @@
         <value xml:lang="th">หน่วยวัดสกุลเงิน</value>
         <value xml:lang="vi">Đơn vị tiền tệ</value>
         <value xml:lang="zh">货币币种</value>
-        <value xml:lang="zh_TW">度量單位</value>
+        <value xml:lang="zh_TW">幣別</value>
     </property>
     <property key="FormFieldTitle_custRequestId">
         <value xml:lang="de">Kundenanfrage-ID</value>
@@ -208,7 +208,7 @@
         <value xml:lang="pt_BR">ID de solicitação de cliente</value>
         <value xml:lang="vi">Id yêu cầu</value>
         <value xml:lang="zh">客户请求标识</value>
-        <value xml:lang="zh_TW">客戶要求ID</value>
+        <value xml:lang="zh_TW">客戶請求識別</value>
     </property>
     <property key="FormFieldTitle_custRequestItemSeqId">
         <value xml:lang="de">Kundenanfrage Element Seq. ID</value>
@@ -224,7 +224,7 @@
         <value xml:lang="th">รหัสรายการคำร้องของลูกค้า</value>
         <value xml:lang="vi">Số thứ tự hạng mục yêu cầu</value>
         <value xml:lang="zh">客户请求明细序号标识</value>
-        <value xml:lang="zh_TW">要求序列ID</value>
+        <value xml:lang="zh_TW">請求序列識別</value>
     </property>
     <property key="FormFieldTitle_custRequestName">
         <value xml:lang="de">Kundenanfrage Name</value>
@@ -240,7 +240,7 @@
         <value xml:lang="th">ชื่อคำร้องของลูกค้า</value>
         <value xml:lang="vi">Tên yêu cầu</value>
         <value xml:lang="zh">客户请求名称</value>
-        <value xml:lang="zh_TW">要求名稱</value>
+        <value xml:lang="zh_TW">請求名稱</value>
     </property>
     <property key="FormFieldTitle_custRequestResolutionId">
         <value xml:lang="de">Kundenanfrage Lösung ID</value>
@@ -256,7 +256,7 @@
         <value xml:lang="th">รหัสการลงมติคำร้องของลูกค้า</value>
         <value xml:lang="vi">Khách hàng yêu cầu Giải pháp</value>
         <value xml:lang="zh">客户请求解决标识</value>
-        <value xml:lang="zh_TW">要求解決ID</value>
+        <value xml:lang="zh_TW">請求解決識別</value>
     </property>
     <property key="FormFieldTitle_custRequestTypeId">
         <value xml:lang="de">Kundenanfragetyp ID</value>
@@ -272,7 +272,7 @@
         <value xml:lang="th">รหัสประเภทคำร้องของลูกค้า</value>
         <value xml:lang="vi">Loại yêu cầu</value>
         <value xml:lang="zh">客户请求类型标识</value>
-        <value xml:lang="zh_TW">要求類型ID</value>
+        <value xml:lang="zh_TW">請求類型識別</value>
     </property>
     <property key="FormFieldTitle_deleteLink">
         <value xml:lang="de">Link löschen</value>
@@ -288,7 +288,7 @@
         <value xml:lang="th">ลบลิงค์</value>
         <value xml:lang="vi">Liên kết xóa bỏ</value>
         <value xml:lang="zh">删除链接</value>
-        <value xml:lang="zh_TW">刪除鏈結</value>
+        <value xml:lang="zh_TW">刪除連結</value>
     </property>
     <property key="FormFieldTitle_deliverableId">
         <value xml:lang="de">Lieferung ID</value>
@@ -363,7 +363,7 @@
         <value xml:lang="pt_BR">Estado esperado par ao item</value>
         <value xml:lang="vi">Trạng thái hạng mục kỳ vọng</value>
         <value xml:lang="zh">期望的明细状态</value>
-        <value xml:lang="zh_TW">期望的明細狀態</value>
+        <value xml:lang="zh_TW">期望的細項狀態</value>
     </property>
     <property key="FormFieldTitle_externalId">
         <value xml:lang="de">Externe ID</value>
@@ -379,7 +379,7 @@
         <value xml:lang="th">รหัสลักษณะภายนอก</value>
         <value xml:lang="vi">Id ngoài</value>
         <value xml:lang="zh">外部标识</value>
-        <value xml:lang="zh_TW">外部ID</value>
+        <value xml:lang="zh_TW">外部識別</value>
     </property>
     <property key="FormFieldTitle_facilityQuantityOnHandTotal">
         <value xml:lang="de">Lagermenge Verfügbar Total</value>
@@ -409,7 +409,7 @@
         <value xml:lang="th">รหัสรายการการทดลองครั้งแรก</value>
         <value xml:lang="vi">Đơn đặt hàng (thử - attempt)  đầu tiên</value>
         <value xml:lang="zh">初次尝试订单标识</value>
-        <value xml:lang="zh_TW">首次嘗試訂單ID</value>
+        <value xml:lang="zh_TW">首次嘗試訂單識別</value>
     </property>
     <property key="FormFieldTitle_fulfillContactMechId">
         <value xml:lang="de">Kontaktmechanismus ID</value>
@@ -424,7 +424,7 @@
         <value xml:lang="th">เติมรหัสวิธีการติดต่อคลังสินค้า</value>
         <value xml:lang="vi">Id liên lạc chi tiết người đáp ứng</value>
         <value xml:lang="zh">完成联系方法标识</value>
-        <value xml:lang="zh_TW">表單聯絡方法ID</value>
+        <value xml:lang="zh_TW">表單聯絡方法識別</value>
     </property>
     <property key="FormFieldTitle_grandTotal">
         <value xml:lang="de">Gesamtsumme</value>
@@ -532,7 +532,7 @@
         <value xml:lang="th">ปรับปรุงผู้ดูแลระบบครั้งสุดท้าย</value>
         <value xml:lang="vi">Quản trị cập nhật cuối cùng</value>
         <value xml:lang="zh">上次管理员修改的</value>
-        <value xml:lang="zh_TW">上次管理員修改的</value>
+        <value xml:lang="zh_TW">上次管理者修改的</value>
     </property>
     <property key="FormFieldTitle_lastOrderedDate">
         <value xml:lang="de">Datum der letzten Bestellung</value>
@@ -564,7 +564,7 @@
         <value xml:lang="th">รายชื่อ</value>
         <value xml:lang="vi">Tên danh sách</value>
         <value xml:lang="zh">列表名称</value>
-        <value xml:lang="zh_TW">列表名稱</value>
+        <value xml:lang="zh_TW">清單名稱</value>
     </property>
     <property key="FormFieldTitle_maximumAmount">
         <value xml:lang="de">Maximum Betrag</value>
@@ -690,7 +690,7 @@
         <value xml:lang="th">รหัสหัวข้อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Phần đầu</value>
         <value xml:lang="zh">订单头标识</value>
-        <value xml:lang="zh_TW">訂單標頭ID</value>
+        <value xml:lang="zh_TW">訂單標頭識別</value>
     </property>
     <property key="FormFieldTitle_orderId">
         <value xml:lang="ar">تعريف الترتيب</value>
@@ -707,7 +707,7 @@
         <value xml:lang="th">รหัสรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Id</value>
         <value xml:lang="zh">订单标识</value>
-        <value xml:lang="zh_TW">訂單ID</value>
+        <value xml:lang="zh_TW">訂單識別</value>
     </property>
     <property key="FormFieldTitle_orderItemSeqId">
         <value xml:lang="ar">تعريف تسلسل جزء الترتيب</value>
@@ -723,7 +723,7 @@
         <value xml:lang="th">รหัสรายการหัวข้อการสั่งซื้อ</value>
         <value xml:lang="vi">Id thứ tự hàng hóa</value>
         <value xml:lang="zh">订单明细顺序标识</value>
-        <value xml:lang="zh_TW">明細序列ID</value>
+        <value xml:lang="zh_TW">細項序列識別</value>
     </property>
     <property key="FormFieldTitle_orderName">
         <value xml:lang="de">Auftrag Name</value>
@@ -753,7 +753,7 @@
         <value xml:lang="th">รหัสสถานะรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Trạng thái</value>
         <value xml:lang="zh">订单状态标识</value>
-        <value xml:lang="zh_TW">訂單狀態ID</value>
+        <value xml:lang="zh_TW">訂單狀態識別</value>
     </property>
     <property key="FormFieldTitle_orderTypeId">
         <value xml:lang="de">Auftragstyp ID</value>
@@ -769,7 +769,7 @@
         <value xml:lang="th">รหัสประเภทรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">订单类型标识</value>
-        <value xml:lang="zh_TW">訂單類型ID</value>
+        <value xml:lang="zh_TW">訂單類型識別</value>
     </property>
     <property key="FormFieldTitle_ordersLink">
         <value xml:lang="de">Link zu den Bestellungen</value>
@@ -785,7 +785,7 @@
         <value xml:lang="th">ลิงค์รายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Liên kết (link)</value>
         <value xml:lang="zh">订单链接</value>
-        <value xml:lang="zh_TW">訂單鏈結</value>
+        <value xml:lang="zh_TW">訂單連結</value>
     </property>
     <property key="FormFieldTitle_originFacilityId">
         <value xml:lang="de">Herkunft Lager ID</value>
@@ -801,7 +801,7 @@
         <value xml:lang="th">รหัสที่มาคลังสินค้า</value>
         <value xml:lang="vi">Id cơ sở gốc (Origin Facility)</value>
         <value xml:lang="zh">起点场所标识</value>
-        <value xml:lang="zh_TW">來源機構ID</value>
+        <value xml:lang="zh_TW">來源機構識別</value>
     </property>
     <property key="FormFieldTitle_parentShoppingListId">
         <value xml:lang="de">Übergeordnete Einkaufsliste ID</value>
@@ -817,7 +817,7 @@
         <value xml:lang="th">รหัสกลุ่มรายการซื้อสินค้า</value>
         <value xml:lang="vi">Id danh sách mua sắm cấp cha</value>
         <value xml:lang="zh">上级购物列表标识</value>
-        <value xml:lang="zh_TW">上層採購列表ID</value>
+        <value xml:lang="zh_TW">上層採購清單識別</value>
     </property>
     <property key="FormFieldTitle_postalCode">
         <value xml:lang="de">Postleitzahl</value>
@@ -849,7 +849,7 @@
         <value xml:lang="th">สิทธิพิเศษ</value>
         <value xml:lang="vi">Độ ưu tiên</value>
         <value xml:lang="zh">优先级</value>
-        <value xml:lang="zh_TW">優先級</value>
+        <value xml:lang="zh_TW">優先順序</value>
     </property>
     <property key="FormFieldTitle_quantityPurchased">
         <value xml:lang="de">Menge gekauft</value>
@@ -891,7 +891,7 @@
         <value xml:lang="th">รหัสคำร้อง</value>
         <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">询价标识</value>
-        <value xml:lang="zh_TW">報價ID</value>
+        <value xml:lang="zh_TW">報價識別</value>
     </property>
     <property key="FormFieldTitle_quoteItemSeqId">
         <value xml:lang="de">Angebot Position Seq. ID</value>
@@ -907,7 +907,7 @@
         <value xml:lang="th">รหัสรายการหัวข้อคำร้อง</value>
         <value xml:lang="vi">Thứ tự của hạng mục trên báo giá</value>
         <value xml:lang="zh">询价明细顺序标识</value>
-        <value xml:lang="zh_TW">報價明細序列ID</value>
+        <value xml:lang="zh_TW">報價細項序列識別</value>
     </property>
     <property key="FormFieldTitle_reason">
         <value xml:lang="de">Grund</value>
@@ -939,7 +939,7 @@
         <value xml:lang="th">ผลรวมย่อยยังเหมือนเดิม</value>
         <value xml:lang="vi">Tổng thành phần (Sub Total) còn lại</value>
         <value xml:lang="zh">剩余小计</value>
-        <value xml:lang="zh_TW">剩余小計</value>
+        <value xml:lang="zh_TW">剩餘小計</value>
     </property>
     <property key="FormFieldTitle_remove">
         <value xml:lang="de">Entfernen</value>
@@ -971,7 +971,7 @@
         <value xml:lang="th">ลิงค์คำร้อง</value>
         <value xml:lang="vi">Liên kết của yêu cầu (request)</value>
         <value xml:lang="zh">请求链接</value>
-        <value xml:lang="zh_TW">要求鏈結</value>
+        <value xml:lang="zh_TW">請求連結</value>
     </property>
     <property key="FormFieldTitle_requiredByDate">
         <value xml:lang="de">Benötigt bis zum Datum</value>
@@ -1019,7 +1019,7 @@
         <value xml:lang="th">รหัสการเรียกร้อง</value>
         <value xml:lang="vi">Id Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求标识</value>
-        <value xml:lang="zh_TW">需求ID</value>
+        <value xml:lang="zh_TW">需求識別</value>
     </property>
     <property key="FormFieldTitle_requirementStartDate">
         <value xml:lang="de">Bedarfs-Start-Datum</value>
@@ -1049,7 +1049,7 @@
         <value xml:lang="th">รหัสประเภทการเรียกร้อง</value>
         <value xml:lang="vi">Loại Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求类型标识</value>
-        <value xml:lang="zh_TW">需求類型ID</value>
+        <value xml:lang="zh_TW">需求類型識別</value>
     </property>
     <property key="FormFieldTitle_reservLength">
         <value xml:lang="de">Reservationslänge</value>
@@ -1093,7 +1093,7 @@
         <value xml:lang="th">วันที่ตอบสนองการร้องขอ</value>
         <value xml:lang="vi">Ngày phản hồi yêu cầu</value>
         <value xml:lang="zh">回答需要的日期</value>
-        <value xml:lang="zh_TW">回答需要的日期</value>
+        <value xml:lang="zh_TW">回應需要的日期</value>
     </property>
     <property key="FormFieldTitle_reservStart">
         <value xml:lang="de">Startdatum Reservation</value>
@@ -1118,7 +1118,7 @@
         <value xml:lang="pt_BR">ID do tipo de cabeçalho de devolução</value>
         <value xml:lang="vi">Kiểu phần đầu hoàn trả (Return HeaderType)</value>
         <value xml:lang="zh">退货头类型标识</value>
-        <value xml:lang="zh_TW">退貨標頭類型ID</value>
+        <value xml:lang="zh_TW">退貨標頭類型識別</value>
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="de">Verkaufskanal Id</value>
@@ -1130,7 +1130,7 @@
         <value xml:lang="pt_BR">ID de enumeração de canal de vendas</value>
         <value xml:lang="vi">Liệt kê kênh bán hàng</value>
         <value xml:lang="zh">销售渠道枚举标识</value>
-        <value xml:lang="zh_TW">銷售通路列舉ID</value>
+        <value xml:lang="zh_TW">銷售通路列舉識別</value>
     </property>
     <property key="FormFieldTitle_salesTaxAmount">
         <value xml:lang="de">Verkaufssteuern Betrag</value>
@@ -1176,7 +1176,7 @@
         <value xml:lang="th">ส่งถึง</value>
         <value xml:lang="vi">Gửi đến</value>
         <value xml:lang="zh">收件人</value>
-        <value xml:lang="zh_TW">收件人</value>
+        <value xml:lang="zh_TW">收件者</value>
     </property>
     <property key="FormFieldTitle_shipAfterDate">
         <value xml:lang="de">Versenden nach Datum</value>
@@ -1224,7 +1224,7 @@
         <value xml:lang="th">รหัสรายการซื้อของ</value>
         <value xml:lang="vi">Id danh sách mua sắm</value>
         <value xml:lang="zh">购物列表标识</value>
-        <value xml:lang="zh_TW">採購列表ID</value>
+        <value xml:lang="zh_TW">採購清單識別</value>
     </property>
     <property key="FormFieldTitle_shoppingListItemSeqId">
         <value xml:lang="de">Folgenummer Einkaufslistenposition</value>
@@ -1235,7 +1235,7 @@
         <value xml:lang="pt_BR">ID de sequência de item da lista de compras</value>
         <value xml:lang="vi">Số thứ tự hạng mục của danh sách mua sắm</value>
         <value xml:lang="zh">购物列表明细序列号</value>
-        <value xml:lang="zh_TW">採購列表明細序列ID</value>
+        <value xml:lang="zh_TW">採購清單細項序列識別</value>
     </property>
     <property key="FormFieldTitle_shoppingListTypeId">
         <value xml:lang="de">Einkaufslistentyp ID</value>
@@ -1251,7 +1251,7 @@
         <value xml:lang="th">รหัสประเภทรายการซื้อของ</value>
         <value xml:lang="vi">Loại danh sách mua sắm</value>
         <value xml:lang="zh">购物列表类型标识</value>
-        <value xml:lang="zh_TW">採購列表類型ID</value>
+        <value xml:lang="zh_TW">採購清單類型識別</value>
     </property>
     <property key="FormFieldTitle_skidsPallets">
         <value xml:lang="de">Anzahl Paletten</value>
@@ -1294,7 +1294,7 @@
         <value xml:lang="th">State Province Geo Id</value>
         <value xml:lang="vi">Mã địa lý của Tỉnh/Thành phố</value>
         <value xml:lang="zh">省地理标识</value>
-        <value xml:lang="zh_TW">州省地理ID</value>
+        <value xml:lang="zh_TW">州省地理識別</value>
     </property>
     <property key="FormFieldTitle_story">
         <value xml:lang="de">Geschichte</value>
@@ -1326,7 +1326,7 @@
         <value xml:lang="th">รหัสสถานะที่เกิดขึ้นพร้อมกัน</value>
         <value xml:lang="vi">Trạng thái đồng bộ</value>
         <value xml:lang="zh">同步状态标识</value>
-        <value xml:lang="zh_TW">同步狀態ID</value>
+        <value xml:lang="zh_TW">同步狀態識別</value>
     </property>
     <property key="FormFieldTitle_terminalId">
         <value xml:lang="de">Terminal ID</value>
@@ -1342,7 +1342,7 @@
         <value xml:lang="th">รหัสปลายทาง</value>
         <value xml:lang="vi">Trạm</value>
         <value xml:lang="zh">终端标识</value>
-        <value xml:lang="zh_TW">終端ID</value>
+        <value xml:lang="zh_TW">終端識別</value>
     </property>
     <property key="FormFieldTitle_totalCostPrice">
         <value xml:lang="de">Preis Totalkosten</value>
@@ -1416,7 +1416,7 @@
         <value xml:lang="th">ผลรวมรายการราคา</value>
         <value xml:lang="vi">Tổng giá gốc (list)</value>
         <value xml:lang="zh">列表价格合计</value>
-        <value xml:lang="zh_TW">列表價格合計</value>
+        <value xml:lang="zh_TW">清單價格合計</value>
     </property>
     <property key="FormFieldTitle_totalMarkup">
         <value xml:lang="de">Total Gewinnspanne</value>
@@ -1534,7 +1534,7 @@
         <value xml:lang="th">รหัสรายการ</value>
         <value xml:lang="vi">Id giao dịch</value>
         <value xml:lang="zh">交易标识</value>
-        <value xml:lang="zh_TW">交易ID</value>
+        <value xml:lang="zh_TW">交易識別</value>
     </property>
     <property key="FormFieldTitle_unassignedRequirements">
         <value xml:lang="de">Nicht zugewiesener Bedarf</value>
@@ -1598,7 +1598,7 @@
         <value xml:lang="th">รหัสการมาเยือน</value>
         <value xml:lang="vi">Id duyệt trang</value>
         <value xml:lang="zh">访问标识</value>
-        <value xml:lang="zh_TW">拜訪ID</value>
+        <value xml:lang="zh_TW">拜訪識別</value>
     </property>
     <property key="FormFieldTitle_visitorId">
         <value xml:lang="de">Besucher ID</value>
@@ -1614,7 +1614,7 @@
         <value xml:lang="th">รหัสผู้มาเยือน</value>
         <value xml:lang="vi">Duyệt từ máy</value>
         <value xml:lang="zh">访问者标识</value>
-        <value xml:lang="zh_TW">拜訪者ID</value>
+        <value xml:lang="zh_TW">拜訪者識別</value>
     </property>
     <property key="OrderActions">
         <value xml:lang="de">Aktionen</value>
@@ -1712,7 +1712,7 @@
         <value xml:lang="vi">Thêm ghi nhớ</value>
         <value xml:lang="zh">添加便笺</value>
         <value xml:lang="zh_CN">添加注释</value>
-        <value xml:lang="zh_TW">添加便箋</value>
+        <value xml:lang="zh_TW">增加便箋</value>
     </property>
     <property key="OrderAddOrderToShoppingList">
         <value xml:lang="de">Bestellpositionen zur Einkaufsliste hinzufügen</value>
@@ -1729,7 +1729,7 @@
         <value xml:lang="vi">Thêm hạng mục trong Đơn hàng vào Danh sách mua hàng</value>
         <value xml:lang="zh">把订单明细添加到购物列表</value>
         <value xml:lang="zh_CN">添加订单项目到购物清单</value>
-        <value xml:lang="zh_TW">把訂單明細添加到購物列表</value>
+        <value xml:lang="zh_TW">把訂單細項增加到購物清單</value>
     </property>
     <property key="OrderAddQntToOrder">
         <value xml:lang="de">zur Bestellung</value>
@@ -1777,7 +1777,7 @@
         <value xml:lang="vi">Thêm vào Đặt hàng</value>
         <value xml:lang="zh">添加到订单</value>
         <value xml:lang="zh_CN">加入到订单</value>
-        <value xml:lang="zh_TW">添加到訂單</value>
+        <value xml:lang="zh_TW">增加到訂單</value>
     </property>
     <property key="OrderAddToShoppingList">
         <value xml:lang="cs">přidat do nákupního seznamu</value>
@@ -1796,7 +1796,7 @@
         <value xml:lang="th">เพิ่มลงรายการที่ซื้อ</value>
         <value xml:lang="vi">Thêm vào Danh sách mua sắm</value>
         <value xml:lang="zh">添加到购物列表中</value>
-        <value xml:lang="zh_TW">添加到購物列表中</value>
+        <value xml:lang="zh_TW">增加到購物清單中</value>
     </property>
     <property key="OrderAddedItemToOrder">
         <value xml:lang="de">Artikel hinzugefügt zu Bestellung: </value>
@@ -1808,7 +1808,7 @@
         <value xml:lang="pt_BR">Item adicionado ao pedido: </value>
         <value xml:lang="vi">Thêm hạng mục vào Đặt hàng:</value>
         <value xml:lang="zh">已添加明细到订单：</value>
-        <value xml:lang="zh_TW">已添加明細到訂單：</value>
+        <value xml:lang="zh_TW">已增加細項到訂單:</value>
     </property>
     <property key="OrderAddress">
         <value xml:lang="de">Adresse</value>
@@ -1836,6 +1836,7 @@
         <value xml:lang="pt_BR">Verificação de endereço</value>
         <value xml:lang="vi">Xác nhận địa chỉ (AVS)</value>
         <value xml:lang="zh">地址验证(AVS)</value>
+        <value xml:lang="zh_TW">位址驗證(AVS)</value>
     </property>
     <property key="OrderAdjustment">
         <value xml:lang="de">Anpassung</value>
@@ -1859,7 +1860,7 @@
         <value xml:lang="en">Adjustment Type</value>
         <value xml:lang="es">Tipo de ajuste</value>
         <value xml:lang="fr">Type d'ajustement</value>
-        <!--value xml:lang="nl">Soort correctie</value to be checked... -->
+    <!--value xml:lang="nl">Soort correctie</value to be checked... -->
         <value xml:lang="it">Aggiustamento</value>
         <value xml:lang="ja">調整種類</value>
         <value xml:lang="nl">Soort instelling</value>
@@ -1934,7 +1935,7 @@
         <value xml:lang="vi">(cho phép mời chào?)</value>
         <value xml:lang="zh">（允许提示？）</value>
         <value xml:lang="zh_CN">(可以联络)</value>
-        <value xml:lang="zh_TW">（允許提示？）</value>
+        <value xml:lang="zh_TW">(允許提示？)</value>
     </property>
     <property key="OrderAllowSplit">
         <value xml:lang="cs">Povolení rozdělit</value>
@@ -1970,7 +1971,7 @@
         <value xml:lang="th">ดูรายการเสมอ</value>
         <value xml:lang="vi">Luôn luôn là giá gốc (List)</value>
         <value xml:lang="zh">但是仍会被包含进来如果它们在这些分类中的话：</value>
-        <value xml:lang="zh_TW">但是仍會被包含進來如果它們在這些分類中的話：</value>
+        <value xml:lang="zh_TW">但是仍會被包含進來如果它們在這些分類中的話:</value>
     </property>
     <property key="OrderAmount">
         <value xml:lang="de">Betrag</value>
@@ -2093,7 +2094,7 @@
         <value xml:lang="vi">Duyệt đặt hàng</value>
         <value xml:lang="zh">批准订单</value>
         <value xml:lang="zh_CN">批准订单</value>
-        <value xml:lang="zh_TW">批准訂單</value>
+        <value xml:lang="zh_TW">核准訂單</value>
     </property>
     <property key="OrderApproveRequirements">
         <value xml:lang="de">Bedarf bestätigen</value>
@@ -2109,7 +2110,7 @@
         <value xml:lang="th">ปรับปรุงคำร้อง</value>
         <value xml:lang="vi">Phê duyệt nhu cầu</value>
         <value xml:lang="zh">批准需求</value>
-        <value xml:lang="zh_TW">批准需求</value>
+        <value xml:lang="zh_TW">核准需求</value>
     </property>
     <property key="OrderApproved">
         <value xml:lang="de">Genehmigt</value>
@@ -2126,7 +2127,7 @@
         <value xml:lang="vi">Đã phê duyệt</value>
         <value xml:lang="zh">已批准</value>
         <value xml:lang="zh_CN">已批准</value>
-        <value xml:lang="zh_TW">已批准</value>
+        <value xml:lang="zh_TW">已核准</value>
     </property>
     <property key="OrderApprovedProductRequirements">
         <value xml:lang="de">Produktbedarf bestätigen</value>
@@ -2142,7 +2143,7 @@
         <value xml:lang="th">ปรับปรุงคำร้องสินค้า</value>
         <value xml:lang="vi">Nhu cầu sản phẩm đã phê duyệt</value>
         <value xml:lang="zh">已批准的产品需求</value>
-        <value xml:lang="zh_TW">已批准的產品需求</value>
+        <value xml:lang="zh_TW">已核准的產品需求</value>
     </property>
     <property key="OrderAssignItems">
         <value xml:lang="da">Tildel emne</value>
@@ -2158,7 +2159,7 @@
         <value xml:lang="th">กำหนดรายการ</value>
         <value xml:lang="vi">Các mục được nhượng lại</value>
         <value xml:lang="zh">分配明细</value>
-        <value xml:lang="zh_TW">分配明細</value>
+        <value xml:lang="zh_TW">分配細項</value>
     </property>
     <property key="OrderAssociatedProducts">
         <value xml:lang="de">Authentifizierungsservice</value>
@@ -2213,7 +2214,7 @@
         <value xml:lang="vi">Tự động tạo điều chỉnh</value>
         <value xml:lang="zh">自动创建调整</value>
         <value xml:lang="zh_CN">自动建立调整</value>
-        <value xml:lang="zh_TW">自動創建調整</value>
+        <value xml:lang="zh_TW">自動新建調整</value>
     </property>
     <property key="OrderAverageRating">
         <value xml:lang="cs">Průměrné hodnocení</value>
@@ -2236,7 +2237,7 @@
     <property key="OrderAvs">
         <value xml:lang="en">AVS</value>
         <value xml:lang="zh">地址验证服务</value>
-        <value xml:lang="zh_TW">地址驗証服務</value>
+        <value xml:lang="zh_TW">位址驗證服務</value>
     </property>
     <property key="OrderBackOrdered">
         <value xml:lang="de">Auftrag im Rückstand</value>
@@ -2339,7 +2340,7 @@
         <value xml:lang="th">ใบเสร็จรับเงินของ</value>
         <value xml:lang="vi">Tính (là)</value>
         <value xml:lang="zh">账单到</value>
-        <value xml:lang="zh_TW">賬單到</value>
+        <value xml:lang="zh_TW">帳單到</value>
     </property>
     <property key="OrderBillingAddress">
         <value xml:lang="de">Rechnungsadresse</value>
@@ -2354,7 +2355,7 @@
         <value xml:lang="th">ที่อยู่ใบเสร็จรับเงิน</value>
         <value xml:lang="vi">Địa chỉ thanh toán</value>
         <value xml:lang="zh">寄账单地址</value>
-        <value xml:lang="zh_TW">寄賬單位址</value>
+        <value xml:lang="zh_TW">寄帳單位址</value>
     </property>
     <property key="OrderBoxNumber">
         <value xml:lang="de">Kistennummer</value>
@@ -2431,7 +2432,7 @@
         <value xml:lang="vi">Nhấp vào đây xem Lịch</value>
         <value xml:lang="zh">点击这里得到日历</value>
         <value xml:lang="zh_CN">点击这里查看日历</value>
-        <value xml:lang="zh_TW">點擊這里得到日歷</value>
+        <value xml:lang="zh_TW">點擊這裡得到日曆</value>
     </property>
     <property key="OrderCancelAllItems">
         <value xml:lang="de">Alle Positionen löschen</value>
@@ -2447,7 +2448,7 @@
         <value xml:lang="vi">Hủy bỏ tất cả hạng mục</value>
         <value xml:lang="zh">取消全部明细</value>
         <value xml:lang="zh_CN">取消所有项目</value>
-        <value xml:lang="zh_TW">取消全部明細</value>
+        <value xml:lang="zh_TW">取消全部細項</value>
     </property>
     <property key="OrderCancelledItemToOrder">
         <value xml:lang="de">Anullierter Artikel der Bestellung: </value>
@@ -2456,6 +2457,7 @@
         <value xml:lang="ja">取消アイテム、注文:</value>
         <value xml:lang="vi">Đã hủy bỏ hạng mục vào Đặt hàng: </value>
         <value xml:lang="zh">已取消明细到订单：</value>
+        <value xml:lang="zh_TW">已取消細項到訂單:</value>
     </property>
     <property key="OrderCancelOrder">
         <value xml:lang="de">Auftrag stornieren</value>
@@ -2479,7 +2481,7 @@
         <value xml:lang="pt_BR">Cancelar o restante dos itens</value>
         <value xml:lang="vi">Hủy bỏ các Đơn hàng mua còn lại (Remaining PO)</value>
         <value xml:lang="zh">取消剩余的产品订单明细</value>
-        <value xml:lang="zh_TW">取消剩下的PO項目</value>
+        <value xml:lang="zh_TW">取消剩下的PO細項</value>
     </property>
     <property key="OrderCancelSelectedItems">
         <value xml:lang="de">Ausgewählte Artikel abbestellen</value>
@@ -2490,7 +2492,7 @@
         <value xml:lang="pt_BR">Cancelar itens selecionados</value>
         <value xml:lang="vi">Hủy các hạng mục đã chọn</value>
         <value xml:lang="zh">取消选中的明细</value>
-        <value xml:lang="zh_TW">取消選擇項目</value>
+        <value xml:lang="zh_TW">取消選擇細項</value>
     </property>
     <property key="OrderCancelled">
         <value xml:lang="de">Annulliert</value>
@@ -2517,7 +2519,7 @@
         <value xml:lang="pt_BR">Minhas solicitações de clientes canceladas</value>
         <value xml:lang="vi">Các yêu cầu đã hủy của tôi</value>
         <value xml:lang="zh">我的已取消的客户请求</value>
-        <value xml:lang="zh_TW">我註銷的要求</value>
+        <value xml:lang="zh_TW">我註銷的請求</value>
     </property>
     <property key="OrderCannotBeChanged">
         <value xml:lang="de">(kann nicht geändert werden, ohne den Auftrag zu löschen)</value>
@@ -2534,7 +2536,7 @@
         <value xml:lang="vi">(không thể thay đổi nếu không xóa Đặt hàng.)</value>
         <value xml:lang="zh">(不清除订单的话不能修改。)</value>
         <value xml:lang="zh_CN">(必须清空订单才能改变)</value>
-        <value xml:lang="zh_TW">(不清除訂單的話不能修改。)</value>
+        <value xml:lang="zh_TW">(不清除訂單的話不能修改.)</value>
     </property>
     <property key="OrderCannotCancelRequestAlreadyWorkedOn">
         <value xml:lang="de">Sie können diese Kundenanfrage nicht abbrechen, die Arbeit hat bereits begonnen.</value>
@@ -2545,7 +2547,7 @@
         <value xml:lang="pt_BR">Você não pode cancelar essa solicitação de cliente, tarefas já fora iniciadas par tal.</value>
         <value xml:lang="vi">Bạn không thể hủy yêu cầu khách hàng này, yêu cầu đã đang trong chu trình xử lý</value>
         <value xml:lang="zh">你不能取消这个客户请求，对它已经开始展开工作了。</value>
-        <value xml:lang="zh_TW">你不能取消這個要求，它已開始展開工作了。</value>
+        <value xml:lang="zh_TW">你不能取消這個請求,它已開始展開工作了.</value>
     </property>
     <property key="OrderCannotChangeQuantityInPromotion">
         <value xml:lang="de">Sie können die Menge auf dem Aktionselement ${productName} (Produkt ID: ${productId}) nicht ändern, Menge nicht angepasst.</value>
@@ -2558,7 +2560,7 @@
         <value xml:lang="pt_BR">Sentimos muito, você não pode alterar a quantidade em itens promocionais ${productName} (product ID: ${productId}, quantidade sem alterar).</value>
         <value xml:lang="vi">Bạn không thể thay đổi số lượng hạng mục khuyến mãi ${productName} (ID sản phẩm: ${productId} theo chính sách</value>
         <value xml:lang="zh">对不起，你不能修改促销明细${productName}的数量(产品标识：${productId}，没有设置数量。)</value>
-        <value xml:lang="zh_TW">對不起，你不能修改促銷明細${productName}的數量(產品ID：${productId}，沒有設置數量。)</value>
+        <value xml:lang="zh_TW">對不起,你不能修改促銷細項${productName}的數量(產品識別:${productId},沒有設定數量.)</value>
     </property>
     <property key="OrderCaptureService">
         <value xml:lang="de">Abbuchungsservice</value>
@@ -2572,7 +2574,7 @@
         <value xml:lang="th">ให้ความสนใจบริการ</value>
         <value xml:lang="vi">dùng Dịch vụ</value>
         <value xml:lang="zh">捕获服务</value>
-        <value xml:lang="zh_TW">捕獲服務</value>
+        <value xml:lang="zh_TW">擷取服務</value>
     </property>
     <property key="OrderCardSecurityCode">
         <value xml:lang="de">Sicherheitscode der Karte</value>
@@ -2607,7 +2609,7 @@
         <value xml:lang="th">บัตรใช้ในโปรโมชัน</value>
         <value xml:lang="vi">Hạng mục trong giỏ hàng là hàng khuyến mãi</value>
         <value xml:lang="zh">购物车明细使用促销情况</value>
-        <value xml:lang="zh_TW">購物車明細使用促銷情況</value>
+        <value xml:lang="zh_TW">購物車細項使用促銷情況</value>
     </property>
     <property key="OrderCartSummary">
         <value xml:lang="cs">Obsah košíku</value>
@@ -2687,7 +2689,7 @@
         <value xml:lang="th">ออกจากการทำรายการ</value>
         <value xml:lang="vi">Thanh toán</value>
         <value xml:lang="zh">结账</value>
-        <value xml:lang="zh_TW">結賬</value>
+        <value xml:lang="zh_TW">結帳</value>
     </property>
     <property key="OrderCheckoutQuick">
         <value xml:lang="de">schnelle Abmeldung</value>
@@ -2704,7 +2706,7 @@
         <value xml:lang="th">ออกจากการทำรายการอย่างรวดเร็ว</value>
         <value xml:lang="vi">Thanh toán nhanh</value>
         <value xml:lang="zh">快速结账</value>
-        <value xml:lang="zh_TW">快速結賬</value>
+        <value xml:lang="zh_TW">快速結帳</value>
     </property>
     <property key="OrderChooseAmount">
         <value xml:lang="cs">Vybrat množství</value>
@@ -2739,7 +2741,7 @@
         <value xml:lang="th">เลือกของขวัญชนิดอื่น</value>
         <value xml:lang="vi">Chọn Quà tặng khác</value>
         <value xml:lang="zh">选择其它礼品</value>
-        <value xml:lang="zh_TW">選擇其他禮品</value>
+        <value xml:lang="zh_TW">選擇其他禮物</value>
     </property>
     <property key="OrderChooseFacilityDifferentDefault">
         <value xml:lang="de">Sie können ein anderes Lager als das Standard-Lager wählen</value>
@@ -2773,7 +2775,7 @@
         <value xml:lang="vi">Bạn có thể chọn một trong những sản phẩm sau để làm quà</value>
         <value xml:lang="zh">你还可以选择下列礼品</value>
         <value xml:lang="zh_CN">你也可以选择下列礼品中的一个</value>
-        <value xml:lang="zh_TW">你還可以選擇下列禮品</value>
+        <value xml:lang="zh_TW">你還可以選擇下列禮物</value>
     </property>
     <property key="OrderChooseVariations">
         <value xml:lang="cs">Výběr varianty</value>
@@ -2825,7 +2827,7 @@
         <value xml:lang="th">เคลียร์ข้อมูลการค้นหา</value>
         <value xml:lang="vi">Xóa lịch sử tìm kiếm</value>
         <value xml:lang="zh">清除搜索历史记录</value>
-        <value xml:lang="zh_TW">清除搜索歷史記錄</value>
+        <value xml:lang="zh_TW">清除搜尋歷史記錄</value>
     </property>
     <property key="OrderClearSearchHistoryNote">
         <value xml:lang="de">Such-Historie löschen</value>
@@ -2842,7 +2844,7 @@
         <value xml:lang="th">Note : หมายเหตุ หลังจากที่คุณออกจากการทำรายการนี้ข้อมูลการค้นหาของคุณจะถูกยกเลิกโดยอัตโนมัติ</value>
         <value xml:lang="vi">Xóa ghi chú lịch sử tìm kiếm</value>
         <value xml:lang="zh">(注意：在你离开本站点后，你的历史记录会被自动清除。)</value>
-        <value xml:lang="zh_TW">(注意：在你離開本站點後，你的歷史記錄會被自動清除。)</value>
+        <value xml:lang="zh_TW">(注意:在你離開本站台後,你的歷史記錄會被自動清除.)</value>
     </property>
     <property key="OrderCommaSeperatedEmailAddresses">
         <value xml:lang="cs">Můžete přidat další e-mailové adresy (oddělené čárkou), které mohou být použity pouze při vyřizování současné objednávky</value>
@@ -2861,7 +2863,7 @@
         <value xml:lang="th">คุณสามารถใส่ที่อยู่อีเมล์ได้ที่นี่ เพื่อใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
         <value xml:lang="vi">Bạn có thể thêm nhiều địa chỉ thư điện tử (cách nhau bởi dấu phẩy), các địa chỉ này chỉ áp dụng cho Đặt hàng hiện tại</value>
         <value xml:lang="zh">你可以在这里添加其它逗号分隔的电子邮件地址，这些电子邮件地址仅用于当前订单</value>
-        <value xml:lang="zh_TW">你可以在這里添加其他逗號分隔的電子郵件位址，這些電子郵件位址僅用于當前訂單</value>
+        <value xml:lang="zh_TW">你可以在這裡增加其他逗號分隔的電子郵件位址,這些電子郵件位址僅用於當前訂單</value>
     </property>
     <property key="OrderCompanyName">
         <value xml:lang="de">OFBiz: Auftragsverwaltung</value>
@@ -2897,7 +2899,7 @@
         <value xml:lang="vi">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
-        <value xml:lang="zh_TW">開源軟件OFBiz家族的一部分</value>
+        <value xml:lang="zh_TW">開源軟體OFBiz家族的一部分</value>
     </property>
     <property key="OrderCompleteOrder">
         <value xml:lang="de">Auftrag abschließen</value>
@@ -2943,7 +2945,7 @@
         <value xml:lang="pt_BR">Minhas solicitações de clientes concluídas</value>
         <value xml:lang="vi">Các yêu cầu đã hoàn thành của tôi</value>
         <value xml:lang="zh">我的已完成的客户请求</value>
-        <value xml:lang="zh_TW">個人完成要求</value>
+        <value xml:lang="zh_TW">個人完成請求</value>
     </property>
     <property key="OrderConfigure">
         <value xml:lang="de">Konfigurieren</value>
@@ -2977,7 +2979,7 @@
         <value xml:lang="vi">Thông tin liên hệ</value>
         <value xml:lang="zh">联系信息</value>
         <value xml:lang="zh_CN">联络信息</value>
-        <value xml:lang="zh_TW">聯系資訊</value>
+        <value xml:lang="zh_TW">聯絡資訊</value>
     </property>
     <property key="OrderContainsBackOrders">
         <value xml:lang="de">Enthält Elemente im Rückstand</value>
@@ -3045,7 +3047,7 @@
         <value xml:lang="vi">Sao chép Yêu cầu</value>
         <value xml:lang="zh">复制请求明细</value>
         <value xml:lang="zh_CN">复制请求项目</value>
-        <value xml:lang="zh_TW">複製要求明細</value>
+        <value xml:lang="zh_TW">複製請求細項</value>
     </property>
     <property key="OrderCopyQuote">
         <value xml:lang="de">Angebot kopieren</value>
@@ -3073,6 +3075,7 @@
         <value xml:lang="ja">カテゴリ ${productCategoryId} に製品が見つかりません。注文は作成されません</value>
         <value xml:lang="vi">Không hàng hóa nào được tìm thấy trong Phân loại Quản lý ${productCategoryId} nên sẽ không có Đặt hàng nào được tạo ra</value>
         <value xml:lang="zh">在分类${productCategoryId}中没有找到产品；不会新建订单</value>
+        <value xml:lang="zh_TW">在分類${productCategoryId}中沒有找到產品;不會新建訂單</value>
     </property>
     <property key="OrderCreateAsNewOrder">
         <value xml:lang="de">Als neuen Auftrag erstellen</value>
@@ -3086,7 +3089,7 @@
         <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าใหม่</value>
         <value xml:lang="vi">Tạo như Đặt hàng mới</value>
         <value xml:lang="zh">创建为新订单</value>
-        <value xml:lang="zh_TW">創建為新訂單</value>
+        <value xml:lang="zh_TW">新建為新訂單</value>
     </property>
     <property key="OrderCreateCustRequestFromCart">
         <value xml:lang="de">Angebotsanfrage erstellen</value>
@@ -3104,7 +3107,7 @@
         <value xml:lang="vi">Tạo yêu cầu lấy Báo giá</value>
         <value xml:lang="zh">为询价创建请求</value>
         <value xml:lang="zh_CN">为报价价建立请求</value>
-        <value xml:lang="zh_TW">為報價建立要求</value>
+        <value xml:lang="zh_TW">為報價建立請求</value>
     </property>
     <property key="OrderCreateCustRequestFromShoppingList">
         <value xml:lang="de">Angebotsanfrage aus Einkaufsliste erstellen</value>
@@ -3122,7 +3125,7 @@
         <value xml:lang="vi">Tạo yêu cầu lấy Báo giá</value>
         <value xml:lang="zh">为询价创建请求</value>
         <value xml:lang="zh_CN">为报价建立请求</value>
-        <value xml:lang="zh_TW">為報價建立要求</value>
+        <value xml:lang="zh_TW">為報價建立請求</value>
     </property>
     <property key="OrderCreated">
         <value xml:lang="de">Erstellt</value>
@@ -3137,6 +3140,7 @@
         <value xml:lang="th">สร้าง</value>
         <value xml:lang="vi">Đã tạo</value>
         <value xml:lang="zh">已创建</value>
+        <value xml:lang="zh_TW">已新建</value>
     </property>
     <property key="OrderCreateExchangeOrder">
         <value xml:lang="de">Ersatzauftrag erstellen</value>
@@ -3147,6 +3151,7 @@
         <value xml:lang="pt_BR">Criar pedido de troca</value>
         <value xml:lang="vi">Tạo đặt hàng trao đổi (Exchange Order)</value>
         <value xml:lang="zh">创建换货订单</value>
+        <value xml:lang="zh_TW">新建換貨訂單</value>
     </property>
     <property key="OrderCreateNewReturn">
         <value xml:lang="de">Neue Retoure erstellen</value>
@@ -3180,7 +3185,7 @@
         <value xml:lang="vi">Tạo Đặt hàng</value>
         <value xml:lang="zh">创建订单</value>
         <value xml:lang="zh_CN">建立订单</value>
-        <value xml:lang="zh_TW">創建訂單</value>
+        <value xml:lang="zh_TW">新建訂單</value>
     </property>
     <property key="OrderCreateOrderQuote">
         <value xml:lang="de">Neues Angebot erstellen</value>
@@ -3215,7 +3220,7 @@
         <value xml:lang="vi">Tạo Điều chỉnh bằng con người</value>
         <value xml:lang="zh">创建人工调整</value>
         <value xml:lang="zh_CN">建立调整</value>
-        <value xml:lang="zh_TW">創建人工調整</value>
+        <value xml:lang="zh_TW">新建人工調整</value>
     </property>
     <property key="OrderCreateOrderQuoteAttribute">
         <value xml:lang="de">Neues Angebotsattribut erstellen</value>
@@ -3251,7 +3256,7 @@
         <value xml:lang="vi">Tạo mới hệ số của báo giá</value>
         <value xml:lang="zh">新建询价系数</value>
         <value xml:lang="zh_CN">新创报价系数</value>
-        <value xml:lang="zh_TW">新建報價系數</value>
+        <value xml:lang="zh_TW">新建報價係數</value>
     </property>
     <property key="OrderCreateOrderQuoteItem">
         <value xml:lang="de">Neues Angebotselement erstellen</value>
@@ -3269,13 +3274,14 @@
         <value xml:lang="vi">Thêm mới hạng mục của báo giá</value>
         <value xml:lang="zh">新建询价明细</value>
         <value xml:lang="zh_CN">新建报价项</value>
-        <value xml:lang="zh_TW">新建報價明細</value>
+        <value xml:lang="zh_TW">新建報價細項</value>
     </property>
     <property key="OrderCreateOrderQuoteNote">
         <value xml:lang="de">Neue Anmerkung zu Angebot erstellen</value>
         <value xml:lang="de_CH">Neue Anmerkung zu Offerte erstellen</value>
         <value xml:lang="en">Create New Quote Note</value>
         <value xml:lang="zh">新建询价便笺</value>
+        <value xml:lang="zh_TW">新建詢價便箋</value>
     </property>
     <property key="OrderCreateOrderQuoteRole">
         <value xml:lang="de">Neue Angebotsrolle erstellen</value>
@@ -3300,6 +3306,7 @@
         <value xml:lang="en">Create New Quote Term</value>
         <value xml:lang="fr">Créer une condition de réglement de devis</value>
         <value xml:lang="zh">新建询价条款</value>
+        <value xml:lang="zh_TW">新建詢價條款</value>
     </property>
     <property key="OrderCreateOrderQuoteWorkEfforts">
         <value xml:lang="de">Angebot für Arbeitsaufwand erstellen</value>
@@ -3316,7 +3323,7 @@
         <value xml:lang="th">สร้างงานคำร้อง</value>
         <value xml:lang="vi">Thêm mới Lượng giá nguồn lực của báo giá</value>
         <value xml:lang="zh">创建询价人工服务</value>
-        <value xml:lang="zh_TW">新建工項報價</value>
+        <value xml:lang="zh_TW">新建工作投入報價</value>
     </property>
     <property key="OrderCreateQuoteFromCart">
         <value xml:lang="de">Neues Angebot aus dem Warenkorb anlegen</value>
@@ -3348,7 +3355,7 @@
         <value xml:lang="pt_BR">Criar cotação a partir da solicitação</value>
         <value xml:lang="vi">Tạo mới Báo giá từ Yêu cầu</value>
         <value xml:lang="zh">从请求创建询价</value>
-        <value xml:lang="zh_TW">由要求建立報價</value>
+        <value xml:lang="zh_TW">由請求建立報價</value>
     </property>
     <property key="OrderCreateQuoteFromShoppingList">
         <value xml:lang="de">Neues Angebot erstellen</value>
@@ -3383,7 +3390,7 @@
         <value xml:lang="th">สร้างงานคำร้องใหม่</value>
         <value xml:lang="vi">Thêm mới Lượng giá nguồn lực của báo giá</value>
         <value xml:lang="zh">新建询价人工服务</value>
-        <value xml:lang="zh_TW">建立新的工項報價</value>
+        <value xml:lang="zh_TW">建立新的工作投入報價</value>
     </property>
     <property key="OrderCreateReplacementOrder">
         <value xml:lang="de">Ersatzbestellung erstellen</value>
@@ -3422,6 +3429,7 @@
         <value xml:lang="pt_BR">Criado ajuste de devolução com ID:${seqId} bem sucedida</value>
         <value xml:lang="vi">Thêm mới điều chỉnh hoàn trả (ReturnAdjustment) với Id:${seqId} thành công.</value>
         <value xml:lang="zh">成功地用标识${seqId}创建退货调整（ReturnAdjustment）。</value>
+        <value xml:lang="zh_TW">成功地用標識${seqId}新建退貨調整(ReturnAdjustment).</value>
     </property>
     <property key="OrderCreateReturnAdjustmentFailed">
         <value xml:lang="de">Speichern der Anpassung der Retoure nicht erfolgreich</value>
@@ -3432,6 +3440,7 @@
         <value xml:lang="vi">Lưu trữ Điều chỉnh hoàn trả không thành công</value>
         <value xml:lang="pt_BR">Falha ao armazenar ajuste de devolução</value>
         <value xml:lang="zh">存储退货调整时失败</value>
+        <value xml:lang="zh_TW">儲存退貨調整時失敗</value>
     </property>
     <property key="OrderCreateReturnAdjustmentNotFoundOrderAdjustment">
         <value xml:lang="de">Anpassung der Bestellung mit ID ${orderAdjustmentId} nicht gefunden</value>
@@ -3440,6 +3449,7 @@
         <value xml:lang="ja">注文調整 ${orderAdjustmentId} が見つかりません</value>
         <value xml:lang="pt_BR">Ajuste de Pedido ${orderAdjustmentId} não encontrado</value>
         <value xml:lang="zh">没有找到订单调整${orderAdjustmentId}</value>
+        <value xml:lang="zh_TW">沒有找到訂單調整${orderAdjustmentId}</value>
     </property>
     <property key="OrderCreateReturnShipment">
         <value xml:lang="de">Retoure Versand erstellen</value>
@@ -3519,7 +3529,7 @@
         <value xml:lang="pt_BR">Notificação de solicitação de cliente concluída</value>
         <value xml:lang="vi">Thư điện tử nhắc nhở khi Yêu cầu xử lý xong</value>
         <value xml:lang="zh">完成客户请求的通知邮件</value>
-        <value xml:lang="zh_TW">要求完成的通知郵件</value>
+        <value xml:lang="zh_TW">請求完成的通知郵件</value>
     </property>
     <property key="OrderCustRequestNotificationMailCreation">
         <value xml:lang="de">Benachrichtigungsmail für Kundenanfrage erstellt</value>
@@ -3530,7 +3540,7 @@
         <value xml:lang="pt_BR">Notificação de criação de solicitação de cliente</value>
         <value xml:lang="vi">Thư điện tử nhắc nhở khi Yêu cầu tạo mới xong</value>
         <value xml:lang="zh">创建客户请求的通知邮件</value>
-        <value xml:lang="zh_TW">要求建立的通知郵件</value>
+        <value xml:lang="zh_TW">請求建立的通知郵件</value>
     </property>
     <property key="OrderCustRequestNotificationMailNoteAdded">
         <value xml:lang="de">Notiz zur Benachrichtungsmail für Kundenanfrage hinzugefügt</value>
@@ -3541,7 +3551,7 @@
         <value xml:lang="pt_BR">Notificação de adição de nota de solicitação de cliente</value>
         <value xml:lang="vi">Ghi chú khi thêm mới nhắc nhở (notification)</value>
         <value xml:lang="zh">客户请求便笺添加了通知</value>
-        <value xml:lang="zh_TW">要求註記的通知</value>
+        <value xml:lang="zh_TW">請求註記的通知</value>
     </property>
     <property key="OrderCustRequestShouldHaveCustRequestNameIfNotDraft">
         <value xml:lang="de">Kundenfrage sollte einen 'Namen' haben, falls nicht im Entwurfsstatus</value>
@@ -3551,7 +3561,7 @@
         <value xml:lang="pt_BR">Requisição de cliente deveria ter um 'Nome' se não for rascunho</value>
         <value xml:lang="vi">Yêu cầu từ khách hàng cần có 'Tên' nếu không ở trạng thái 'Tạm'</value>
         <value xml:lang="zh">如果不是草稿状态，客户请求应该有一个名称</value>
-        <value xml:lang="zh_TW">如果不是草稿狀態, 要求必須要有名稱</value>
+        <value xml:lang="zh_TW">如果不是草稿狀態, 請求必須要有名稱</value>
     </property>
     <property key="OrderCustRequestShouldHaveFromPartyIdIfNotDraft">
         <value xml:lang="de">Kundenanfrage sollte eine 'von' partyId haben, falls nicht im Entwurfsstatus</value>
@@ -3561,6 +3571,7 @@
         <value xml:lang="pt_BR">Requisição de cliente deveria ter um partyId de origem se não for rascunho</value>
         <value xml:lang="vi">Yêu cầu từ khách hàng cần có thông tin Tác nhân 'từ' nếu không ở trạng thái 'Tạm'</value>
         <value xml:lang="zh">如果不是草稿状态，客户请求应该有一个“来自”的会员标识</value>
+        <value xml:lang="zh_TW">如果不是草稿狀態,客戶請求應該有一個「來自」的團體標識</value>
     </property>
     <property key="OrderCustRequestStatusList">
         <value xml:lang="de">Kundenanfragen Statusliste</value>
@@ -3571,7 +3582,7 @@
         <value xml:lang="pt_BR">Lista de estados das solicitações de clientes</value>
         <value xml:lang="vi">Danh sách trạng thái yêu cầu khách hàng</value>
         <value xml:lang="zh">客户请求状态列表</value>
-        <value xml:lang="zh_TW">要求狀態列表</value>
+        <value xml:lang="zh_TW">請求狀態清單</value>
     </property>
     <property key="OrderCustomer">
         <value xml:lang="de">Kunde</value>
@@ -3602,7 +3613,7 @@
         <value xml:lang="vi">Số đặt mua hàng (PO) </value>
         <value xml:lang="zh">客户购物订单#</value>
         <value xml:lang="zh_CN">客户购买订单号</value>
-        <value xml:lang="zh_TW">客戶購物訂單#</value>
+        <value xml:lang="zh_TW">客戶採購訂單#</value>
     </property>
     <property key="OrderCustomerReviews">
         <value xml:lang="cs">Hodnocení zákazníka</value>
@@ -3638,7 +3649,7 @@
         <value xml:lang="th">หมายเลขผู้เสียภาษี</value>
         <value xml:lang="vi">Id thuế khách hàng</value>
         <value xml:lang="zh">客户税务标识</value>
-        <value xml:lang="zh_TW">客戶稅務ID</value>
+        <value xml:lang="zh_TW">客戶稅務識別</value>
     </property>
     <property key="OrderDate">
         <value xml:lang="de">Auftragsdatum</value>
@@ -3704,7 +3715,7 @@
         <value xml:lang="th">Note: หมายเหตุ นี่คือตัวอย่าง เมื่อทำรายการที่นี่จะไม่มีใบเสร็จการชำระเงินและไม่มีการทำรายการที่เสร็จสิ้นสมบูรณ์</value>
         <value xml:lang="vi">Lưu ý: Đây là kho hàng Ví dụ (DEMO). Các đặt hàng sẽ KHÔNG được lên hóa đơn, và KHÔNG được đáp ứng</value>
         <value xml:lang="zh">注意：这是一个演示店铺前台。这里下的订单不会被记入账单，并且不会被执行</value>
-        <value xml:lang="zh_TW">注意：這是一個演示店鋪前台。這里下的訂單不會被記入賬單，並且不會被執行</value>
+        <value xml:lang="zh_TW">注意:這是一個演示店鋪前臺.這裡下的訂單不會被記入帳單,並且不會被責任履行</value>
     </property>
     <property key="OrderDesiredDeliveryDate">
         <value xml:lang="de">Gewünschtes Lieferdatum</value>
@@ -3751,7 +3762,7 @@
         <value xml:lang="pt_BR">Arquivos de produtos digitais</value>
         <value xml:lang="vi">Tập tin sản phẩm</value>
         <value xml:lang="zh">数字产品文件</value>
-        <value xml:lang="zh_TW">數字產品文件</value>
+        <value xml:lang="zh_TW">數字產品檔</value>
     </property>
     <property key="OrderDistributor">
         <value xml:lang="cs">Dodavatel</value>
@@ -3783,7 +3794,7 @@
         <value xml:lang="pt_BR">Sentimos muito, não temos o suficiente (voce tentou ${requestedQuantity}) do produto ${productName} (ID do produto: ${productId}) em estoque. Incapaz de adicionar ao carrinho. Por favor, tente novamente mais tarde ou ligue para o serviço de atendimento ao cliente.</value>
         <value xml:lang="vi">Xin lỗi, chúng tôi hiện tại chưa có có đủ (bạn đã đặt số lượng ${requestedQuantity}) của sản phẩm ${productName} (product ID: ${productId}) trong kho, nên không thể thêm vào Giỏ hàng. Bạn hãy thử với số lượng nhỏ hơn, hoặc thử lại sau, hoặc gọi cho trung tâm chăm sóc khách hàng để có thêm thông tin</value>
         <value xml:lang="zh">对不起，我们没有足够的库存(你要求${requestedQuantity})产品${productName} (产品标识：${productId})，所以没有添加到购物车。请用小一些的数量试一试，稍后再试，或打客户服务电话获取更多信息。</value>
-        <value xml:lang="zh_TW">對不起，我們沒有足夠的庫存(你要求${requestedQuantity})產品${productName} (產品ID：${productId})，所以沒有添加到購物車。請用小一些的數量試一試，稍後再試，或打客戶服務電話獲取更多資訊。</value>
+        <value xml:lang="zh_TW">對不起,我們沒有足夠的庫存(你請求${requestedQuantity})產品${productName} (產品識別:${productId}),所以沒有增加到購物車.請用小一些的數量試一試,稍後再試,或打客戶服務電話獲取更多資訊.</value>
     </property>
     <property key="OrderDoNotInclude">
         <value xml:lang="de">Nicht einschließen</value>
@@ -3794,6 +3805,7 @@
         <value xml:lang="pt_BR">Não incluir</value>
         <value xml:lang="vi">Không được thêm vào</value>
         <value xml:lang="zh">不含</value>
+        <value xml:lang="zh_TW">不含</value>
     </property>
     <property key="OrderDoPromotions">
         <value xml:lang="de">Aktionen anwenden</value>
@@ -3827,7 +3839,7 @@
         <value xml:lang="th">โหลดไฟล์หัวข้อ</value>
         <value xml:lang="vi">Tải về các tiêu đề tập tin</value>
         <value xml:lang="zh">为这个产品下载文件</value>
-        <value xml:lang="zh_TW">為這個產品下載文件</value>
+        <value xml:lang="zh_TW">為這個產品下載檔</value>
     </property>
     <property key="OrderDropShipped">
         <value xml:lang="de">Direktlieferung</value>
@@ -3875,7 +3887,7 @@
         <value xml:lang="vi">Cập nhật hạng mục</value>
         <value xml:lang="zh">编辑明细</value>
         <value xml:lang="zh_CN">编辑项目</value>
-        <value xml:lang="zh_TW">編輯明細</value>
+        <value xml:lang="zh_TW">編輯細項</value>
     </property>
     <property key="OrderEditRequirement">
         <value xml:lang="de">Bedarf bearbeiten</value>
@@ -3921,7 +3933,7 @@
         <value xml:lang="th">ยอมรับ. รายการสั่งซื้อของคุณกำลังอยู่ในช่วงดำเนินการ, และคุณจะได้รับอีเมล์แจ้งการทำรายการสำหรับการขนส่งขอบคุณสำหรับการทำรายการสั่งซื้อ!</value>
         <value xml:lang="vi">Đã được chấp nhận. Đặt hàng của bạn sẽ tiếp tục được xử lý, và bạn sẽ nhận được thư điện tử thông báo mỗi khi hàng hóa được chuyển. Cám ơn bạn đã đặt hàng !</value>
         <value xml:lang="zh">已被接受。你的订单会被处理，一旦发货，你就会收到一封电子邮件通知。谢谢你的惠顾！</value>
-        <value xml:lang="zh_TW">已被接受。你的訂單會被處理，一旦發貨，你就會收到一封電子郵件通知。謝謝你的惠顧！</value>
+        <value xml:lang="zh_TW">已被接受.你的訂單會被處理,一旦發貨,你就會收到一封電子郵件通知.謝謝你的惠顧！</value>
     </property>
     <property key="OrderEmailCustomerService">
         <value xml:lang="de">Kundendienst</value>
@@ -3972,7 +3984,7 @@
         <value xml:lang="th">ขณะนี้การทำรายการสั่งซื้อของคุณได้ถูกยกเลิกและจะไม่มีการดำเนินการ กรุณาติดต่อฝ่ายบริการลูกค้าหากคุณมีข้อสงสัย</value>
         <value xml:lang="vi">Thời điểm này Đặt hàng của bạn đã bị hủy bỏ và sẽ không được xử lý. Bạn hãy liên hệ với bộ phận Chăm sóc khách hàng nếu bạn có bất kỳ câu hỏi nào.</value>
         <value xml:lang="zh">现在你的订单已经被取消了，并且不会被处理。如有任何疑问，请与客户服务联系。</value>
-        <value xml:lang="zh_TW">現在你的訂單已經被取消了，並且不會被處理。如有任何疑問，請與客戶服務聯系。</value>
+        <value xml:lang="zh_TW">現在你的訂單已經被取消了,並且不會被處理.如有任何疑問,請與客戶服務聯絡.</value>
     </property>
     <property key="OrderEmailProblemWithYourPaymentMethod">
         <value xml:lang="de">Dieses E-Mail informiert Sie über Probleme bei der Bezahlung für den Auftrag #</value>
@@ -3989,7 +4001,7 @@
         <value xml:lang="th">อีเมล์นี้แจ้งให้ทราบปัญหาเกี่ยวกับวิธีการชำระเงินในการสั่งซื้อสินค้าของคุณ</value>
         <value xml:lang="vi">Thư điện tử này thông báo với bạn có lỗi xảy ra trong quá trình thanh toán của bạn với Đặt hàng #</value>
         <value xml:lang="zh">本电子邮件是通知你，你的支付方法出现问题，订单 #</value>
-        <value xml:lang="zh_TW">本電子郵件是通知你，你的支付方法出現問題，訂單 #</value>
+        <value xml:lang="zh_TW">本電子郵件是通知你,你的支付方法出現問題,訂單 #</value>
     </property>
     <property key="OrderEmailSentToFollowingAddresses">
         <value xml:lang="cs">Vaše objednávka bude zaslána na následující e-mailovou adresu</value>
@@ -4025,7 +4037,7 @@
         <value xml:lang="th">ขอโทษค่ะ,มีปัญหาเกี่ยวกับอีเมล์นี้,กรุณาติดต่อฝ่ายบริการลูกค้าสำหรับข้อมูลในการสั่งซื้อสินค้าของคุณ #</value>
         <value xml:lang="vi">Rất tiếc, có lỗi xẩy ra với địa chỉ thư điện từ này, làm ơn liên hệ với trung tâm Chăm sóc khách hàng để được hỗ trợ thêm với Đơn hàng #</value>
         <value xml:lang="zh">对不起，这个电子邮件地址有问题，请与客户服务联系了解详细信息，订单 #</value>
-        <value xml:lang="zh_TW">對不起，這個電子郵件位址有問題，請與客戶服務聯系了解詳細資訊，訂單 #</value>
+        <value xml:lang="zh_TW">對不起,這個電子郵件位址有問題,請與客戶服務聯絡瞭解詳細資訊,訂單 #</value>
     </property>
     <property key="OrderEnteredPromoCodes">
         <value xml:lang="de">Eingegebene Aktionscodes</value>
@@ -4052,6 +4064,7 @@
         <value xml:lang="pt_BR">Exceção de entity, veja os relatórios (logs)</value>
         <value xml:lang="vi">Để biết ngoại lệ của thực thể (Entity Exception) bạn hay xem vết hệ thống (Logs)</value>
         <value xml:lang="zh">实体意外，参见日志</value>
+        <value xml:lang="zh_TW">資料實體異常,參見日誌</value>
     </property>
     <property key="OrderEntryDate">
         <value xml:lang="de">Erfassungsdatum</value>
@@ -4085,7 +4098,7 @@
         <value xml:lang="vi">Rất tiếc : Chi nhánh / Cơ sở không có địa chỉ</value>
         <value xml:lang="zh">错误：场所没有地址</value>
         <value xml:lang="zh_CN">错误 : 这个设施没有地址</value>
-        <value xml:lang="zh_TW">錯誤：場所沒有位址</value>
+        <value xml:lang="zh_TW">錯誤:場所沒有位址</value>
     </property>
     <property key="OrderErrorNoPromotionFoundWithID">
         <value xml:lang="de">FEHLER: Keine Aktion gefunden mit der ID</value>
@@ -4103,7 +4116,7 @@
         <value xml:lang="th">Error: ผิดพลาด !ไม่มีโปรโมชั่นของหมายเลขนี้</value>
         <value xml:lang="vi">Rất tiếc : Không có khuyến mãi với Id</value>
         <value xml:lang="zh">错误：没有找到促销——标识</value>
-        <value xml:lang="zh_TW">錯誤：沒有找到促銷ID</value>
+        <value xml:lang="zh_TW">錯誤:沒有找到促銷識別</value>
     </property>
     <property key="OrderErrorSelectCustomer">
         <value xml:lang="de">Fehler: Kunde auswählen</value>
@@ -4117,6 +4130,7 @@
         <value xml:lang="th">Error : ผิดพลาด ! การเลือกลูกค้า</value>
         <value xml:lang="vi">Rất tiếc : Bạn hãy chọn Khách hàng</value>
         <value xml:lang="zh">错误：选择客户</value>
+        <value xml:lang="zh_TW">錯誤:選擇客戶</value>
     </property>
     <property key="OrderErrorShoppingCartEmpty">
         <value xml:lang="cs">Chyba: Košík je prázdný, prosíme zkuste to znovu</value>
@@ -4136,7 +4150,7 @@
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีข้อมูลในบัตร, กรุณาเริ่มใหม่</value>
         <value xml:lang="vi">Rất tiếc : Giỏ hàng của bạn không có hàng hóa, mời bạn chọn hàng</value>
         <value xml:lang="zh">错误：购物车是空的，请重新开始</value>
-        <value xml:lang="zh_TW">錯誤：購物車是空的，請重新開始</value>
+        <value xml:lang="zh_TW">錯誤:購物車是空的,請重新開始</value>
     </property>
     <property key="OrderEstimatedReadyDate">
         <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
@@ -4150,6 +4164,7 @@
         <value xml:lang="th">อ่านประมาณวันที่</value>
         <value xml:lang="vi">Ngày sẵn sàng ước tính</value>
         <value xml:lang="zh">预计完成日期</value>
+        <value xml:lang="zh_TW">預計完成日期</value>
     </property>
     <property key="OrderEstimatedShipDate">
         <value xml:lang="de">Geschätztes Versanddatum</value>
@@ -4163,6 +4178,7 @@
         <value xml:lang="th">ชำระเงินประมาณวันที่</value>
         <value xml:lang="vi">Ngày chuyển hàng ước tính</value>
         <value xml:lang="zh">预计发货日期</value>
+        <value xml:lang="zh_TW">預計發貨日期</value>
     </property>
     <property key="OrderExcludeCategories">
         <value xml:lang="de">Kategorien ausschliessen</value>
@@ -4179,7 +4195,7 @@
         <value xml:lang="th">ไม่มีหมวดหมู่</value>
         <value xml:lang="vi">Các Phân loại Quản lý loại trừ</value>
         <value xml:lang="zh">除非它们在这些分类中：</value>
-        <value xml:lang="zh_TW">除非它們在這些分類中：</value>
+        <value xml:lang="zh_TW">除非它們在這些分類中:</value>
     </property>
     <property key="OrderExemptAmount">
         <value xml:lang="de">Freibetrag</value>
@@ -4212,7 +4228,7 @@
         <value xml:lang="vi">Id quản lý ngoài (External)</value>
         <value xml:lang="zh">外部标识</value>
         <value xml:lang="zh_CN">外部标识</value>
-        <value xml:lang="zh_TW">外部ID</value>
+        <value xml:lang="zh_TW">外部識別</value>
     </property>
     <property key="OrderFilterAuthProblems">
         <value xml:lang="de">Probleme Bezahlung</value>
@@ -4274,6 +4290,7 @@
         <value xml:lang="th">ปัญหาการเพิ่มสินค้าคงเหลือ</value>
         <value xml:lang="vi">Bộ lọc bật với lỗi phát sinh từ kho</value>
         <value xml:lang="zh">过滤库存问题</value>
+        <value xml:lang="zh_TW">過濾庫存問題</value>
     </property>
     <property key="OrderFilterPOs">
         <value xml:lang="de">Beschaffungsaufträge</value>
@@ -4318,7 +4335,7 @@
         <value xml:lang="th">ด้วยหัวข้อที่ไม่ยอมรับ</value>
         <value xml:lang="vi">với các hạng mục bị từ chối</value>
         <value xml:lang="zh">有被拒绝的明细</value>
-        <value xml:lang="zh_TW">有被拒絕的明細</value>
+        <value xml:lang="zh_TW">有被拒絕的細項</value>
     </property>
     <property key="OrderFilterPartiallyReceivedPOs">
         <value xml:lang="de">teilweise erhalten</value>
@@ -4353,7 +4370,7 @@
         <value xml:lang="th">ออกจากการทำรายการครั้งสุดท้าย</value>
         <value xml:lang="vi">Lần xem xét thanh toán cuối cùng</value>
         <value xml:lang="zh">完成结账浏览</value>
-        <value xml:lang="zh_TW">完成結賬瀏覽</value>
+        <value xml:lang="zh_TW">完成結帳檢查</value>
     </property>
     <property key="OrderFinalizeOrder">
         <value xml:lang="de">Aufragserfassung abschließen</value>
@@ -4451,7 +4468,7 @@
         <value xml:lang="th">ค้นหาการร้องขอ</value>
         <value xml:lang="vi">Tìm Yêu cầu</value>
         <value xml:lang="zh">查找需求</value>
-        <value xml:lang="zh_TW">查詢要求</value>
+        <value xml:lang="zh_TW">查詢請求</value>
     </property>
     <property key="OrderFindRequirements">
         <value xml:lang="de">Bedarf suchen</value>
@@ -4481,7 +4498,7 @@
         <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้</value>
         <value xml:lang="vi">Tìm Yêu cầu Nguồn lực cho Nhà cung cấp</value>
         <value xml:lang="zh">查找对供货商的需求</value>
-        <value xml:lang="zh_TW">查詢供貨商的需求</value>
+        <value xml:lang="zh_TW">查詢供應商的需求</value>
     </property>
     <property key="OrderFindReturn">
         <value xml:lang="de">Retouren finden</value>
@@ -4546,7 +4563,7 @@
         <value xml:lang="th">ของขวัญ</value>
         <value xml:lang="vi">Quà</value>
         <value xml:lang="zh">礼品</value>
-        <value xml:lang="zh_TW">禮品</value>
+        <value xml:lang="zh_TW">禮物</value>
     </property>
     <property key="OrderGiftCard">
         <value xml:lang="de">Gutschein</value>
@@ -4562,7 +4579,7 @@
         <value xml:lang="th">บัตรของขวัญ</value>
         <value xml:lang="vi">Thẻ quà tặng</value>
         <value xml:lang="zh">礼品卡</value>
-        <value xml:lang="zh_TW">禮品卡</value>
+        <value xml:lang="zh_TW">禮物卡</value>
     </property>
     <property key="OrderGiftMessage">
         <value xml:lang="cs">Informace o dárku</value>
@@ -4582,7 +4599,7 @@
         <value xml:lang="vi">Thông điệp tặng quà</value>
         <value xml:lang="zh">礼品信息</value>
         <value xml:lang="zh_CN">礼品消息</value>
-        <value xml:lang="zh_TW">禮品資訊</value>
+        <value xml:lang="zh_TW">禮物資訊</value>
     </property>
     <property key="OrderGiftWrapAllItems">
         <value xml:lang="de">Alles in Geschenkverpackung</value>
@@ -4599,7 +4616,7 @@
         <value xml:lang="vi">Gói tất cả các hàng hóa ?</value>
         <value xml:lang="zh">全部明细使用礼品包装吗?</value>
         <value xml:lang="zh_CN">礼品打包到一项？</value>
-        <value xml:lang="zh_TW">全部明細使用禮品包裝嗎?</value>
+        <value xml:lang="zh_TW">全部細項使用禮物包裝嗎?</value>
     </property>
     <property key="OrderGrandTotal">
         <value xml:lang="cs">Celková částka</value>
@@ -4653,7 +4670,7 @@
         <value xml:lang="vi">Giá trị USD đã bán (Gross) (gồm cả Khuyến mãi và các Đặt hàng đang xử lý)</value>
         <value xml:lang="zh">已售的全部明细 (包括促销和待处理的订单)</value>
         <value xml:lang="zh_CN">总销售项目 (包括促销和未完成的订单)</value>
-        <value xml:lang="zh_TW">已售的全部明細 (包括促銷和待處理的訂單)</value>
+        <value xml:lang="zh_TW">已售的全部細項 (包括促銷和待處理的訂單)</value>
     </property>
     <property key="OrderHelpAlsoInterestedIn">
         <value xml:lang="de">Sie könnten auch an Folgendem interessiert sein:</value>
@@ -4670,7 +4687,7 @@
         <value xml:lang="vi">Có thể bạn quan tâm đến :</value>
         <value xml:lang="zh">你可能还会对下列产品感兴趣：</value>
         <value xml:lang="zh_CN">你可能也对这些感兴趣 :</value>
-        <value xml:lang="zh_TW">你可能還會對下列產品感興趣：</value>
+        <value xml:lang="zh_TW">你可能還會對下列產品感興趣:</value>
     </property>
     <property key="OrderHistoryNotAvailable">
         <value xml:lang="de">Verlauf nicht verfügbar</value>
@@ -4698,7 +4715,7 @@
         <value xml:lang="th">การควบคุมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Đơn hàng đang Giữ (Hold)</value>
         <value xml:lang="zh">扣留订单</value>
-        <value xml:lang="zh_TW">扣留訂單</value>
+        <value xml:lang="zh_TW">保留訂單</value>
     </property>
     <property key="OrderHowShallWeShipIt">
         <value xml:lang="cs">Jak to máme poslat</value>
@@ -4833,7 +4850,7 @@
         <value xml:lang="th">แสดงรายรับของลูกค้า</value>
         <value xml:lang="vi">Các yêu cầu khách hàng mới đến</value>
         <value xml:lang="zh">输入的客户请求</value>
-        <value xml:lang="zh_TW">輸入的要求</value>
+        <value xml:lang="zh_TW">輸入的請求</value>
     </property>
     <property key="OrderInformationAboutYou">
         <value xml:lang="de">Informationen zu Ihnen</value>
@@ -4936,7 +4953,7 @@
         <value xml:lang="vi">Nếu bạn chọn 'Có' thì thông tin Ghi chú này sẽ không hiển thị trên Bản in</value>
         <value xml:lang="zh">如果选择了是，这个便笺不会出现在打印文档中</value>
         <value xml:lang="zh_CN">如果选择“是”, 这个注释将不会出现在打印文本中</value>
-        <value xml:lang="zh_TW">如果選擇了是，這個便箋不會出現在列印文檔中</value>
+        <value xml:lang="zh_TW">如果選擇了是,這個便箋不會出現在列印檔中</value>
     </property>
     <property key="OrderInvoiced">
         <value xml:lang="de">In Rechnung gestellt</value>
@@ -5004,7 +5021,7 @@
         <value xml:lang="th">ของขวัญใช่หรือไม่</value>
         <value xml:lang="vi">Là Quà tặng</value>
         <value xml:lang="zh">是礼品</value>
-        <value xml:lang="zh_TW">是禮品</value>
+        <value xml:lang="zh_TW">是禮物</value>
     </property>
     <property key="OrderIsThisGift">
         <value xml:lang="cs">Je to dárek</value>
@@ -5024,7 +5041,7 @@
         <value xml:lang="vi">Có phải là Quà tặng không ?</value>
         <value xml:lang="zh">这是礼品吗?</value>
         <value xml:lang="zh_CN">这是礼品吗？</value>
-        <value xml:lang="zh_TW">這是禮品嗎?</value>
+        <value xml:lang="zh_TW">這是禮物嗎?</value>
     </property>
     <property key="OrderIssuedToShipmentItem">
         <value xml:lang="de">Ausgegeben mit Versandelement</value>
@@ -5041,7 +5058,7 @@
         <value xml:lang="vi">Đã tạo Issue đến Hàng hóa chuyển đi</value>
         <value xml:lang="zh">为货运明细投保</value>
         <value xml:lang="zh_CN">记录发货项问题</value>
-        <value xml:lang="zh_TW">貨運明細問題</value>
+        <value xml:lang="zh_TW">貨運細項問題</value>
     </property>
     <property key="OrderIssuedWithoutShipment">
         <value xml:lang="de">Ausgegeben ohne Versand (direkt ab Lager)</value>
@@ -5076,7 +5093,7 @@
         <value xml:lang="th">รายการ</value>
         <value xml:lang="vi">Hàng hóa</value>
         <value xml:lang="zh">明细</value>
-        <value xml:lang="zh_TW">明細</value>
+        <value xml:lang="zh_TW">細項</value>
     </property>
     <property key="OrderItemDiscontinued">
         <value xml:lang="de">Eingestellt</value>
@@ -5090,6 +5107,7 @@
         <value xml:lang="th">ไม่ต่อเนื่อง</value>
         <value xml:lang="vi">Không tiếp tục</value>
         <value xml:lang="zh">已终止</value>
+        <value xml:lang="zh_TW">已終止</value>
     </property>
     <property key="OrderItemGroups">
         <value xml:lang="de">Artikelgruppen</value>
@@ -5106,7 +5124,7 @@
         <value xml:lang="th">กลุ่มสินค้า</value>
         <value xml:lang="vi">Nhóm hàng hóa</value>
         <value xml:lang="zh">明细组</value>
-        <value xml:lang="zh_TW">明細組</value>
+        <value xml:lang="zh_TW">細項群組</value>
     </property>
     <property key="OrderItemN">
         <value xml:lang="de">Elementnr.</value>
@@ -5118,13 +5136,13 @@
         <value xml:lang="ja">アイテムNo</value>
         <value xml:lang="nl">Regel nr</value>
         <value xml:lang="pt_BR">Item nº</value>
-        <!--value xml:lang="nl">Item #</value  to be checked -->
+    <!--value xml:lang="nl">Item #</value  to be checked -->
         <value xml:lang="ro">Linie #</value>
         <value xml:lang="ru">№ позиции</value>
         <value xml:lang="th">รายการ #</value>
         <value xml:lang="vi">Hàng #</value>
         <value xml:lang="zh">明细 #</value>
-        <value xml:lang="zh_TW">明細 #</value>
+        <value xml:lang="zh_TW">細項 #</value>
     </property>
     <property key="OrderItemDescriptionCannotBeEmpty">
         <value xml:lang="de">Artikelbeschreibung darf nicht leer sein</value>
@@ -5134,15 +5152,17 @@
         <value xml:lang="ja">アイテムの詳細は空にできません</value>
         <value xml:lang="vi">Miêu tả hàng hóa cần có thông tin</value>
         <value xml:lang="zh">明细描述不能为空</value>
+        <value xml:lang="zh_TW">細項描述不能為空</value>
     </property>
     <property key="OrderItemQtyMustBePositive">
         <value xml:lang="de">Menge muss größer als 0 sein, benutzen Sie Artikel abbestellen um komplett abzubestellen!</value>
-        <value xml:lang="en">Quantity must be >0, use cancel item to cancel completely!</value>
+        <value xml:lang="en">Quantity must be &gt;0, use cancel item to cancel completely!</value>
         <value xml:lang="fr">La quantité doit être supérieure à zéro, utiliser "Annuler la ligne" pour l'annuler complètement !</value>
         <value xml:lang="it">Quantità deve essere maggiore di zero, usare le righe cancellate per cancellare completamente l'ordine!</value>
         <value xml:lang="ja">数量は0より大きくしてください。キャンセルを完了するには、アイテムの取消を使用してください。</value>
-        <value xml:lang="vi">Số lượng phải >0, bạn hãy hủy các Hàng hóa trước để hoàn thành quá trình hủy bỏ !</value>
+        <value xml:lang="vi">Số lượng phải &gt;0, bạn hãy hủy các Hàng hóa trước để hoàn thành quá trình hủy bỏ !</value>
         <value xml:lang="zh">数量必须大于0，用取消明细来彻底取消！</value>
+        <value xml:lang="zh_TW">數量必須大於0,用取消細項來徹底取消！</value>
     </property>
     <property key="OrderItemStatus">
         <value xml:lang="de">Element Status</value>
@@ -5158,7 +5178,7 @@
         <value xml:lang="th">หัวข้อสถานะ</value>
         <value xml:lang="vi">Trạng thái hàng hóa</value>
         <value xml:lang="zh">明细状态</value>
-        <value xml:lang="zh_TW">明細狀態</value>
+        <value xml:lang="zh_TW">細項狀態</value>
     </property>
     <property key="OrderItemTotal">
         <value xml:lang="de">Element Summe</value>
@@ -5175,7 +5195,7 @@
         <value xml:lang="vi">Tổng hàng hóa</value>
         <value xml:lang="zh">明细合计</value>
         <value xml:lang="zh_CN">项目总计</value>
-        <value xml:lang="zh_TW">明細合計</value>
+        <value xml:lang="zh_TW">細項合計</value>
     </property>
     <property key="OrderItems">
         <value xml:lang="cs">Položky</value>
@@ -5194,7 +5214,7 @@
         <value xml:lang="th">รายการ</value>
         <value xml:lang="vi">Hàng hóa</value>
         <value xml:lang="zh">明细</value>
-        <value xml:lang="zh_TW">明細</value>
+        <value xml:lang="zh_TW">細項</value>
     </property>
     <property key="OrderItemsBackOrdered">
         <value xml:lang="de">Elemente im Rückstand</value>
@@ -5211,7 +5231,7 @@
         <value xml:lang="vi">Đặt hàng đợi xử lý</value>
         <value xml:lang="zh">列入缺货通知单的明细</value>
         <value xml:lang="zh_CN">Items Backordered</value>
-        <value xml:lang="zh_TW">列入缺貨通知單的明細</value>
+        <value xml:lang="zh_TW">列入缺貨通知單的細項</value>
     </property>
     <property key="OrderItemsOrdered">
         <value xml:lang="de">Bestellte Elemente</value>
@@ -5228,7 +5248,7 @@
         <value xml:lang="vi">Hàng hóa đã Đặt hàng</value>
         <value xml:lang="zh">已下订单的明细</value>
         <value xml:lang="zh_CN">订货项</value>
-        <value xml:lang="zh_TW">已下訂單的明細</value>
+        <value xml:lang="zh_TW">已下訂單的細項</value>
     </property>
     <property key="OrderItemsReturned">
         <value xml:lang="de">Zurückgesendete Elemente</value>
@@ -5245,7 +5265,7 @@
         <value xml:lang="vi">Hàng Trả về</value>
         <value xml:lang="zh">已退货的明细</value>
         <value xml:lang="zh_CN">退货项 </value>
-        <value xml:lang="zh_TW">已退貨的明細</value>
+        <value xml:lang="zh_TW">已退貨的細項</value>
     </property>
     <property key="OrderItemsSubTotal">
         <value xml:lang="de">Elemente Zwischensumme</value>
@@ -5262,7 +5282,7 @@
         <value xml:lang="vi">Tổng giá trị hàng hóa thành phần</value>
         <value xml:lang="zh">明细合计</value>
         <value xml:lang="zh_CN">项目小计</value>
-        <value xml:lang="zh_TW">明細合計</value>
+        <value xml:lang="zh_TW">細項合計</value>
     </property>
     <property key="OrderJurisdiction">
         <value xml:lang="de">Gerichtsbarkeit</value>
@@ -5314,7 +5334,7 @@
         <value xml:lang="th">ค้นหาครั้งสุดท้าย</value>
         <value xml:lang="vi">Tìm kiếm cuối cùng</value>
         <value xml:lang="zh">最近使用的搜索</value>
-        <value xml:lang="zh_TW">最近使用的搜索</value>
+        <value xml:lang="zh_TW">最近使用的搜尋</value>
     </property>
     <property key="OrderLimitPerCustomer">
         <value xml:lang="de">Limit ${limit} pro Kunde. </value>
@@ -5325,6 +5345,7 @@
         <value xml:lang="pt_BR">Limite de ${limit} por cliente. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Khách hàng. </value>
         <value xml:lang="zh">限制每个客户${limit}个。</value>
+        <value xml:lang="zh_TW">限制每個客戶${limit}個.</value>
     </property>
     <property key="OrderLimitPerOrder">
         <value xml:lang="de">Limit ${limit} pro Bestellung. </value>
@@ -5335,6 +5356,7 @@
         <value xml:lang="pt_BR">Limite de ${limit} por pedido. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Đơn hàng. </value>
         <value xml:lang="zh">限制每个订单${limit}个。</value>
+        <value xml:lang="zh_TW">限制每個訂單${limit}個.</value>
     </property>
     <property key="OrderLimitPerPromotion">
         <value xml:lang="de">Limit ${limit} pro Aktion. </value>
@@ -5345,6 +5367,7 @@
         <value xml:lang="pt_BR">Limite de ${limit} por promoção. </value>
         <value xml:lang="vi">Hạn mức ${limit} mỗi Khuyến mãi. </value>
         <value xml:lang="zh">限制每个促销${limit}个。</value>
+        <value xml:lang="zh_TW">限制每個促銷${limit}個.</value>
     </property>
     <property key="OrderLinkedFromOrderItem">
         <value xml:lang="de">Verlinkt von Auftragselement</value>
@@ -5359,7 +5382,7 @@
         <value xml:lang="th">ลิงค์จากรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="vi">Liên kết từ hàng hóa trong Đơn hàng</value>
         <value xml:lang="zh">链接自订单明细</value>
-        <value xml:lang="zh_TW">鏈結自訂單明細</value>
+        <value xml:lang="zh_TW">連結自訂單細項</value>
     </property>
     <property key="OrderLinkedToOrderItem">
         <value xml:lang="de">Verlinkt mit Auftragselement</value>
@@ -5375,7 +5398,7 @@
         <value xml:lang="th">ลิงค์ไปยังรายการสั่งซื้อสินค้าสินค้า</value>
         <value xml:lang="vi">Liên kết đến hàng hóa trong Đơn hàng</value>
         <value xml:lang="zh">链接到订单明细</value>
-        <value xml:lang="zh_TW">鏈結到訂單明細</value>
+        <value xml:lang="zh_TW">連結到訂單細項</value>
     </property>
     <property key="OrderLinkedToQuote">
         <value xml:lang="de">Verlinkt mit Angebot</value>
@@ -5392,7 +5415,7 @@
         <value xml:lang="th">ลิงค์ไปยังคำร้อง</value>
         <value xml:lang="vi">Liên kết đến Báo giá</value>
         <value xml:lang="zh">链接到询价</value>
-        <value xml:lang="zh_TW">鏈結到報價</value>
+        <value xml:lang="zh_TW">連結到報價</value>
     </property>
     <property key="OrderLinkedToRequirement">
         <value xml:lang="de">Verlinkt mit Bedarf</value>
@@ -5408,7 +5431,7 @@
         <value xml:lang="th">ลิงค์ไปยังการร้องขอ</value>
         <value xml:lang="vi">Liên kết đến Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">链接到需求</value>
-        <value xml:lang="zh_TW">鏈結到需求</value>
+        <value xml:lang="zh_TW">連結到需求</value>
     </property>
     <property key="OrderListType">
         <value xml:lang="cs">Typ seznamu</value>
@@ -5427,7 +5450,7 @@
         <value xml:lang="th">รายการประเภท</value>
         <value xml:lang="vi">Kiểu danh sách</value>
         <value xml:lang="zh">列表类型</value>
-        <value xml:lang="zh_TW">列表類型</value>
+        <value xml:lang="zh_TW">清單類型</value>
     </property>
     <property key="OrderLookupOrder">
         <value xml:lang="de">Aufträge ansehen</value>
@@ -5444,7 +5467,7 @@
         <value xml:lang="vi">Chọn Đặt hàng</value>
         <value xml:lang="zh">查找订单</value>
         <value xml:lang="zh_CN">查找订单</value>
-        <value xml:lang="zh_TW">查尋訂單</value>
+        <value xml:lang="zh_TW">查詢訂單</value>
     </property>
     <property key="OrderLookupReturn">
         <value xml:lang="de">Retouren ansehen</value>
@@ -5569,6 +5592,7 @@
         <value xml:lang="pt_BR">Pacote de marketing composto por:</value>
         <value xml:lang="vi">Gói tiếp thị gồm:</value>
         <value xml:lang="zh">行銷包裝組合者:</value>
+        <value xml:lang="zh_TW">行銷包裝組合者:</value>
     </property>
     <property key="OrderMethod">
         <value xml:lang="cs">Způsob</value>
@@ -5623,7 +5647,7 @@
         <value xml:lang="th">ตัวเลือกมากมายที่สามารถใช้ได้ในดรอบดาวน์</value>
         <value xml:lang="vi">Các tùy chọn sẵn có ở hộp chọn</value>
         <value xml:lang="zh">在下拉框中更多可用的选项</value>
-        <value xml:lang="zh_TW">在下拉框中更多可用的選項</value>
+        <value xml:lang="zh_TW">在下拉清單中更多可用的選項</value>
     </property>
     <property key="OrderMoveQty">
         <value xml:lang="de">Menge zum Verschieben</value>
@@ -5647,6 +5671,7 @@
         <value xml:lang="ja">私の返品</value>
         <value xml:lang="vi">Các hoàn trả của tôi</value>
         <value xml:lang="zh">我的退货</value>
+        <value xml:lang="zh_TW">我的退貨</value>
     </property>
     <property key="OrderNOTEMultipleShipmentsExist">
         <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
@@ -5662,7 +5687,7 @@
         <value xml:lang="th">NOTE: หมายเหตุ วิธีการชำระเงินมีหลายวิธี, สามารถแยกวิธีการชำระเงินได้</value>
         <value xml:lang="vi">Ghi chú: Bạn đã chọn sử dụng Nhiều phương pháp chuyển vận, bạn hãy sử dụng chức năng Chia nhỏ chuyển vận (Split Shipment).</value>
         <value xml:lang="zh">注意：存在多个货运，使用分拆货运。</value>
-        <value xml:lang="zh_TW">注意：存在多個貨運，使用分拆貨運。</value>
+        <value xml:lang="zh_TW">注意:存在多個貨運,使用分拆貨運.</value>
     </property>
     <property key="OrderNbr">
         <value xml:lang="de">Nr.</value>
@@ -5672,6 +5697,7 @@
         <value xml:lang="ja">No</value>
         <value xml:lang="pt_BR">Nº</value>
         <value xml:lang="ru">№</value>
+        <value xml:lang="zh_TW">#</value>
     </property>
     <property key="OrderNbrPersons">
         <value xml:lang="de">Personen</value>
@@ -5702,6 +5728,7 @@
         <value xml:lang="th">จำนวนสุทธิ</value>
         <value xml:lang="vi">Giá trị chưa thuế (Net)</value>
         <value xml:lang="zh">净额</value>
+        <value xml:lang="zh_TW">淨額</value>
     </property>
     <property key="OrderNetPriceHT">
         <value xml:lang="de">Nettopreis ohne Steuern</value>
@@ -5715,6 +5742,7 @@
         <value xml:lang="th">ราคาสุทธิHT</value>
         <value xml:lang="vi">Giá chưa thuế HT</value>
         <value xml:lang="zh">税前净价</value>
+        <value xml:lang="zh_TW">稅前淨價</value>
     </property>
     <property key="OrderNewDropShipmentForShipGroup">
         <value xml:lang="de">Neue Direktlieferung für Versandgruppe</value>
@@ -5729,7 +5757,7 @@
         <value xml:lang="th">ลดการขนส่งใหม่สำหรับกลุ่มการขนส่ง</value>
         <value xml:lang="vi">Tạo mới chính sách 'giảm giá chuyển vận' cho 'nhóm hàng chuyển'</value>
         <value xml:lang="zh">为货运组新建厂家直送</value>
-        <value xml:lang="zh_TW">為遞送群組新的供貨商直送</value>
+        <value xml:lang="zh_TW">為遞送群組新的供應商直送</value>
     </property>
     <property key="OrderNewOrder">
         <value xml:lang="de">Neuer Auftrag</value>
@@ -5817,7 +5845,7 @@
         <value xml:lang="vi">Hạng mục Báo giá mới</value>
         <value xml:lang="zh">新建询价明细</value>
         <value xml:lang="zh_CN">新建报价条目</value>
-        <value xml:lang="zh_TW">新建報價明細</value>
+        <value xml:lang="zh_TW">新建報價細項</value>
     </property>
     <property key="OrderNewReceipt">
         <value xml:lang="de">Neue Quittung</value>
@@ -5851,7 +5879,7 @@
         <value xml:lang="vi">Yêu cầu mới</value>
         <value xml:lang="zh">新建需求</value>
         <value xml:lang="zh_CN">新建请求</value>
-        <value xml:lang="zh_TW">建立要求</value>
+        <value xml:lang="zh_TW">建立請求</value>
     </property>
     <property key="OrderNewRequestItem">
         <value xml:lang="de">Neues Anfrageelement</value>
@@ -5868,7 +5896,7 @@
         <value xml:lang="vi">Hạng mục yêu cầu mới</value>
         <value xml:lang="zh">新建需求明细</value>
         <value xml:lang="zh_CN">新建请求项目</value>
-        <value xml:lang="zh_TW">建立要求明細</value>
+        <value xml:lang="zh_TW">建立請求細項</value>
     </property>
     <property key="OrderNewRequirement">
         <value xml:lang="de">Neuer Bedarf</value>
@@ -5919,7 +5947,7 @@
         <value xml:lang="vi">Chính sách chuyển vận cho 'nhóm hàng chuyển' mới </value>
         <value xml:lang="zh">为运输组新建货运</value>
         <value xml:lang="zh_CN">新建货运组发货记录</value>
-        <value xml:lang="zh_TW">替本組建新的貨單</value>
+        <value xml:lang="zh_TW">替本群組建新的貨單</value>
     </property>
     <property key="OrderNewShippingAddress">
         <value xml:lang="de">Neue Versandadresse</value>
@@ -5932,7 +5960,7 @@
         <value xml:lang="vi">Địa chỉ chuyển hàng mới</value>
         <value xml:lang="zh">新的货运地址</value>
         <value xml:lang="zh_CN">新的货运地址</value>
-        <value xml:lang="zh_TW">新的遞送地址</value>
+        <value xml:lang="zh_TW">新的遞送位址</value>
     </property>
     <property key="OrderNewShoppingList">
         <value xml:lang="cs">Nový nákupní seznam</value>
@@ -5979,7 +6007,7 @@
         <value xml:lang="pt_BR">Nenhum acordo encontrado com ID sem fazer promoções</value>
         <value xml:lang="vi">Không có 'thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
         <value xml:lang="zh">没有找到带有不做促销的标识的合同</value>
-        <value xml:lang="zh_TW">找不到帶有不做促銷ID的合同</value>
+        <value xml:lang="zh_TW">找不到帶有不做促銷識別的合約</value>
     </property>
     <property key="OrderNoAgreementItemFoundForAgreementWithIdNotDoingPromotions">
         <value xml:lang="de">Kein Vereinbarungselement mit dieser ID gefunden. Es werden keine Aktion angewendet</value>
@@ -5990,7 +6018,7 @@
         <value xml:lang="pt_BR">Nenhum artigo encontrado com ID sem fazer promoções</value>
         <value xml:lang="vi">Không có 'điều khoản thỏa thuận' nào với Id và không thực hiện Khuyến mãi</value>
         <value xml:lang="zh">没有找到带有不做促销的标识的合同条款</value>
-        <value xml:lang="zh_TW">找不到帶有不做促銷的ID的合同條款</value>
+        <value xml:lang="zh_TW">找不到帶有不做促銷的識別的合約條款</value>
     </property>
     <property key="OrderNoChannel">
         <value xml:lang="de">Kein Kanal</value>
@@ -6014,7 +6042,7 @@
         <value xml:lang="fr">Pas de carte cadeau trouvée</value>
         <value xml:lang="ja">商品券はありません</value>
         <value xml:lang="pt_BR">Nenhum certificado de presente</value>
-         <value xml:lang="vi">Không có chứng nhận quà tặng nào được tìm thấy</value>
+        <value xml:lang="vi">Không có chứng nhận quà tặng nào được tìm thấy</value>
         <value xml:lang="zh">没有找到礼品证书</value>
         <value xml:lang="zh_TW">找不到禮券</value>
     </property>
@@ -6033,7 +6061,7 @@
         <value xml:lang="vi">Không có gói quà nào</value>
         <value xml:lang="zh">无礼品包装</value>
         <value xml:lang="zh_CN">没有礼品打包</value>
-        <value xml:lang="zh_TW">無禮品包裝</value>
+        <value xml:lang="zh_TW">無禮物包裝</value>
     </property>
     <property key="OrderNoNotes">
         <value xml:lang="de">Keine Anmerkungen zu diesem Auftrag</value>
@@ -6067,7 +6095,7 @@
         <value xml:lang="vi">Không có ghi chú cho Yêu cầu hàng hóa này</value>
         <value xml:lang="zh">这个需求明细没有便笺</value>
         <value xml:lang="zh_CN">此请求没有注释项。</value>
-        <value xml:lang="zh_TW">這個要求明細沒有註記</value>
+        <value xml:lang="zh_TW">這個請求細項沒有註記</value>
     </property>
     <property key="OrderNoOrderAdjustments">
         <value xml:lang="de">Keine Anpassungen bei diesem Auftrag.</value>
@@ -6083,7 +6111,7 @@
         <value xml:lang="th">ไม่มีการปรับเปลี่ยนบนรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="vi">Không có điều chỉnh nào trong Đặt hàng này</value>
         <value xml:lang="zh">这个订单没有调整。</value>
-        <value xml:lang="zh_TW">這個訂單沒有調整。</value>
+        <value xml:lang="zh_TW">這個訂單沒有調整.</value>
     </property>
     <property key="OrderNoOrderFound">
         <value xml:lang="cs">Nenalezena žádná objednávka</value>
@@ -6118,7 +6146,7 @@
         <value xml:lang="th">ไม่พบรายการสั่งซื้อสินค้าสำหรับกลุ่มผู้ใช้นี้</value>
         <value xml:lang="vi">Không tìm thấy Đặt hàng nào với Tác nhân</value>
         <value xml:lang="zh">没有找到订单，会员标识</value>
-        <value xml:lang="zh_TW">找不到成員ID相關的訂單</value>
+        <value xml:lang="zh_TW">找不到團體識別相關的訂單</value>
     </property>
     <property key="OrderNoOrderItemsToDisplay">
         <value xml:lang="de">Keine Auftragspositionen zum Anzeigen</value>
@@ -6135,7 +6163,7 @@
         <value xml:lang="vi">Không có hàng hóa trên Đặt hàng để hiển thị</value>
         <value xml:lang="zh">没有要显示的订单明细。</value>
         <value xml:lang="zh_CN">没有订单项目可显示</value>
-        <value xml:lang="zh_TW">沒有要顯示的訂單明細。</value>
+        <value xml:lang="zh_TW">沒有要顯示的訂單細項.</value>
     </property>
     <property key="OrderNoOrderPaymentPreferences">
         <value xml:lang="de">Keine Zahlungspräferenzen für diesen Auftrag.</value>
@@ -6150,7 +6178,7 @@
         <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="vi">Chưa có thiết lập thanh toán nào với Đặt hàng này</value>
         <value xml:lang="zh">没有与这个订单关联的支付优先方式。</value>
-        <value xml:lang="zh_TW">沒有與這個訂單關聯的支付優先方式。</value>
+        <value xml:lang="zh_TW">沒有與這個訂單結合的支付偏好方式.</value>
     </property>
     <property key="OrderNoProductStoreFinAccountSettingsFound">
         <value xml:lang="de">Keine Product Store FinAcccount Einstellungen gefunden</value>
@@ -6160,6 +6188,7 @@
         <value xml:lang="pt_BR">Nenhuma configuração de para conta de financiamento de produtos encontrada</value>
         <value xml:lang="vi">Chưa có thiết lập tài khoản tài chính với Cửa hàng này</value>
         <value xml:lang="zh">没有找到商品店铺的财务账户设置</value>
+        <value xml:lang="zh_TW">沒有找到商品店鋪的財務帳戶設定</value>
     </property>
     <property key="OrderNoPurchaseOrderSpecified">
         <value xml:lang="de">Kein Beschaffungsauftrag angegeben.</value>
@@ -6189,7 +6218,7 @@
         <value xml:lang="th">ไม่พบข้อมูลวิธีการชำระการสั่งซื้อ</value>
         <value xml:lang="vi">Không tìm thấy thông tin phương pháp thanh toán mua hàng nào</value>
         <value xml:lang="zh">没有找到购物支付方式信息。</value>
-        <value xml:lang="zh_TW">沒有找到購物支付方式資訊。</value>
+        <value xml:lang="zh_TW">沒有找到購物支付方式資訊.</value>
     </property>
     <property key="OrderNoPurchaseProduct">
         <value xml:lang="de">Keine Informationen zu Einkaufsprodukt gefunden.</value>
@@ -6205,7 +6234,7 @@
         <value xml:lang="th">ไม่พบข้อมูลสินค้าที่สั่งซื้อ</value>
         <value xml:lang="vi">Không tìm thấy thông tin sản phẩm đặt mua</value>
         <value xml:lang="zh">没有找到购买的产品信息。</value>
-        <value xml:lang="zh_TW">沒有找到購買的產品資訊。</value>
+        <value xml:lang="zh_TW">沒有找到購買的產品資訊.</value>
     </property>
     <property key="OrderNoPurchaseSpecified">
         <value xml:lang="de">Kein Beschaffungsauftrag angegeben</value>
@@ -6256,7 +6285,7 @@
         <value xml:lang="vi">Không tìm thấy Yêu cầu</value>
         <value xml:lang="zh">没有找到需求</value>
         <value xml:lang="zh_CN">没有找到请求</value>
-        <value xml:lang="zh_TW">沒有找到要求</value>
+        <value xml:lang="zh_TW">沒有找到請求</value>
     </property>
     <property key="OrderNoReturnFound">
         <value xml:lang="de">Keine Retouren gefunden</value>
@@ -6273,7 +6302,7 @@
         <value xml:lang="vi">Không tìm thấy Hoàn trả.</value>
         <value xml:lang="zh">没有找到退货。</value>
         <value xml:lang="zh_CN">没有找到退货单</value>
-        <value xml:lang="zh_TW">沒有找到退貨。</value>
+        <value xml:lang="zh_TW">沒有找到退貨.</value>
     </property>
     <property key="OrderNoReturnFoundWithId">
         <value xml:lang="de">Keine Retouren gefunden mit Retoure ID</value>
@@ -6290,7 +6319,7 @@
         <value xml:lang="vi">Không tìm thấy Hoàn trả với Id</value>
         <value xml:lang="zh">没有找到退货，退货标识</value>
         <value xml:lang="zh_CN">根据退货标识找不到退货单</value>
-        <value xml:lang="zh_TW">找不到退貨ID相關的退貨</value>
+        <value xml:lang="zh_TW">找不到退貨識別相關的退貨</value>
     </property>
     <property key="OrderNoReturnItemsFound">
         <value xml:lang="de">Keine Elemente in der Rücklieferung.</value>
@@ -6306,7 +6335,7 @@
         <value xml:lang="th">ไม่มีการคืนรายการ</value>
         <value xml:lang="vi">Không tìm thấy Hàng hóa trong Hoàn trả.</value>
         <value xml:lang="zh">退货中没有明细。</value>
-        <value xml:lang="zh_TW">退貨中沒有明細。</value>
+        <value xml:lang="zh_TW">退貨中沒有細項.</value>
     </property>
     <property key="OrderNoReturnableItems">
         <value xml:lang="cs">Nebyly nalezeny žádné  vratné položky Vaší objednávky</value>
@@ -6325,7 +6354,7 @@
         <value xml:lang="th">ไม่พบรายการสำหรับการสั่งซื้อ</value>
         <value xml:lang="vi">Không hàng hóa hoàn trả nào được tìm thấy trong Đặt hàng này</value>
         <value xml:lang="zh">没有找到订单中可退货明细</value>
-        <value xml:lang="zh_TW">沒有找到訂單中可退貨明細</value>
+        <value xml:lang="zh_TW">沒有找到訂單中可退貨細項</value>
     </property>
     <property key="OrderNoRolesAssociatedRequest">
         <value xml:lang="de">Der Kundenanfrage ist keine Rolle zugewiesen</value>
@@ -6342,7 +6371,7 @@
         <value xml:lang="vi">Không Vai trò nào liên quan đến Yêu cầu khách hàng này</value>
         <value xml:lang="zh">没有与这个客户请求关联的角色</value>
         <value xml:lang="zh_CN">此客户请求没有与其关联的角色</value>
-        <value xml:lang="zh_TW">這個要求沒有關聯的角色</value>
+        <value xml:lang="zh_TW">這個請求沒有結合的角色</value>
     </property>
     <property key="OrderNoShipGroupsDefined">
         <value xml:lang="de">Keine Versandgruppen definiert</value>
@@ -6359,7 +6388,7 @@
         <value xml:lang="th">ไม่มีการกำหนดวิธีการขนส่ง</value>
         <value xml:lang="vi">Chưa có 'nhóm hàng chuyển' nào được định nghĩa</value>
         <value xml:lang="zh">没有定义送货组</value>
-        <value xml:lang="zh_TW">沒有定義送貨組</value>
+        <value xml:lang="zh_TW">沒有定義送貨群組</value>
     </property>
     <property key="OrderNotAGift">
         <value xml:lang="de">Kein Geschenk</value>
@@ -6376,7 +6405,7 @@
         <value xml:lang="th">ไม่ใช่ของขวัญ</value>
         <value xml:lang="vi">Không phải Quà</value>
         <value xml:lang="zh">不是礼品</value>
-        <value xml:lang="zh_TW">不是禮品</value>
+        <value xml:lang="zh_TW">不是禮物</value>
     </property>
     <property key="OrderNotPrintableNote">
         <value xml:lang="de">Interne Anmerkung (Nicht gedruckt)</value>
@@ -6427,7 +6456,7 @@
         <value xml:lang="vi">Không áp dụng cho Đặt hàng mua (PO)</value>
         <value xml:lang="zh">不用于购物订单</value>
         <value xml:lang="zh_CN">不适用于采购订单</value>
-        <value xml:lang="zh_TW">不用于購物訂單</value>
+        <value xml:lang="zh_TW">不用於購物訂單</value>
     </property>
     <property key="OrderNotUsedForSales">
         <value xml:lang="de">Nicht verwendet für Kundenaufträge</value>
@@ -6444,7 +6473,7 @@
         <value xml:lang="vi">Không áp dụng cho Đặt hàng bán (SO)</value>
         <value xml:lang="zh">不用于销售订单</value>
         <value xml:lang="zh_CN">不适用于销售订单</value>
-        <value xml:lang="zh_TW">不用于銷售訂單</value>
+        <value xml:lang="zh_TW">不用於銷售訂單</value>
     </property>
     <property key="OrderNotYetKnown">
         <value xml:lang="de">Noch nicht bekannt</value>
@@ -6547,7 +6576,7 @@
         <value xml:lang="vi">Ghi chú cho Hàng hóa yêu cầu</value>
         <value xml:lang="zh">用于请求明细的便笺</value>
         <value xml:lang="zh_CN">请求项注释</value>
-        <value xml:lang="zh_TW">用於要求明細的註記</value>
+        <value xml:lang="zh_TW">用於請求細項的註記</value>
     </property>
     <property key="OrderNotesPrivate">
         <value xml:lang="de">Als Privat markieren</value>
@@ -6594,7 +6623,7 @@
         <value xml:lang="th">ไม่มีการทำที่นี่</value>
         <value xml:lang="vi">Không có việc gì để thực hiện</value>
         <value xml:lang="zh">这里没有可操作的。对不起，这一定是个错误造成的。</value>
-        <value xml:lang="zh_TW">這裡沒有可操作的。</value>
+        <value xml:lang="zh_TW">這裡沒有可操作的.</value>
     </property>
     <property key="OrderNumberOfPersons">
         <value xml:lang="de">Anzahl Personen</value>
@@ -6645,7 +6674,7 @@
         <value xml:lang="vi">Ngoại tuyến: sử dụng tiền séc</value>
         <value xml:lang="zh">离线：支票/现金订单</value>
         <value xml:lang="zh_CN">离线: 支票/现金 订单</value>
-        <value xml:lang="zh_TW">離線：支票/現金訂單</value>
+        <value xml:lang="zh_TW">離線:支票/現金訂單</value>
     </property>
     <property key="OrderOnFriday">
         <value xml:lang="de">am Freitag</value>
@@ -6659,7 +6688,7 @@
         <value xml:lang="th">ภายในวันศุกร์</value>
         <value xml:lang="vi">Vào thứ sáu</value>
         <value xml:lang="zh">星期五</value>
-        <value xml:lang="zh_TW">星期五</value>
+        <value xml:lang="zh_TW">週五</value>
     </property>
     <property key="OrderOnOrder">
         <value xml:lang="de">Auf Auftrag</value>
@@ -6727,7 +6756,7 @@
         <value xml:lang="pt_BR">Abrir solicitações de clientes dos meus colegas</value>
         <value xml:lang="vi">Các Yêu cầu từ Khách hàng đang Mở (Open Customer requests) từ Giảm giá của tôi</value>
         <value xml:lang="zh">来自我同事的处于开放状态的客户请求</value>
-        <value xml:lang="zh_TW">開啟我整理的客戶要求</value>
+        <value xml:lang="zh_TW">開啟我整理的客戶請求</value>
     </property>
     <property key="OrderOpenCompanyCustomerRequests">
         <value xml:lang="de">Weitere Kundenanfragen vom gleichen Unternehmen</value>
@@ -6738,7 +6767,7 @@
         <value xml:lang="pt_BR">Outras solicitações de clientes da mesma empresa</value>
         <value xml:lang="vi">Có các Yêu cầu khách hàng khác từ cùng Doanh nghiệp</value>
         <value xml:lang="zh">来自同一个公司的其它客户请求</value>
-        <value xml:lang="zh_TW">來自同一個公司的要求</value>
+        <value xml:lang="zh_TW">來自同一個公司的請求</value>
     </property>
     <property key="OrderOpenMyCustomerRequests">
         <value xml:lang="de">Meine offenen Kundenanfragen</value>
@@ -6750,7 +6779,7 @@
         <value xml:lang="th">ความต้องการของลูกค้า</value>
         <value xml:lang="vi">Các Yêu cầu từ Khách hàng đang Mở  của tôi</value>
         <value xml:lang="zh">我的开放状态的客户请求</value>
-        <value xml:lang="zh_TW">我開啟的要求</value>
+        <value xml:lang="zh_TW">我開啟的請求</value>
     </property>
     <property key="OrderOpportunities">
         <value xml:lang="de">Opportunitäten</value>
@@ -6815,7 +6844,7 @@
         <value xml:lang="vi">Hóa đơn thanh toán từ Tác nhân</value>
         <value xml:lang="zh">账单自会员</value>
         <value xml:lang="zh_CN">帐单来自客户</value>
-        <value xml:lang="zh_TW">賬單自會員</value>
+        <value xml:lang="zh_TW">帳單來自團體</value>
     </property>
     <property key="OrderOrderBillToParty">
         <value xml:lang="de">Rechnung an Akteur</value>
@@ -6832,7 +6861,7 @@
         <value xml:lang="vi">Hóa đơn thanh toán đến Tác nhân</value>
         <value xml:lang="zh">账单到会员</value>
         <value xml:lang="zh_CN">帐单发给客户</value>
-        <value xml:lang="zh_TW">賬單到會員</value>
+        <value xml:lang="zh_TW">帳單送往團體</value>
     </property>
     <property key="OrderOrderConfirmation">
         <value xml:lang="de">Auftragsbestätigung</value>
@@ -6884,7 +6913,7 @@
         <value xml:lang="vi">Điểm nhập đặt hàng</value>
         <value xml:lang="zh">订购记录</value>
         <value xml:lang="zh_CN">订单录入</value>
-        <value xml:lang="zh_TW">訂單登錄</value>
+        <value xml:lang="zh_TW">訂單輸入</value>
     </property>
     <property key="OrderOrderEntryCurrencyAgreementShipDates">
         <value xml:lang="de">Eingabe Auftragswährung, Verträge und Versanddatum</value>
@@ -6900,7 +6929,7 @@
         <value xml:lang="th">การเข้าสู่รายการการเงิน , การยอมรับ และวันที่ขนส่ง</value>
         <value xml:lang="vi">Nhập Loại tiền tệ, Điều khoản, và Ngày chuyển hàng</value>
         <value xml:lang="zh">输入订单币种、合同和送货日期</value>
-        <value xml:lang="zh_TW">輸入訂單幣種、合同和送貨日期</value>
+        <value xml:lang="zh_TW">輸入訂單幣種、合約和送貨日期</value>
     </property>
     <property key="OrderOrderEntryCustomerInfo">
         <value xml:lang="de">Auftragserfassung Kundeninformation</value>
@@ -6917,7 +6946,7 @@
         <value xml:lang="vi">Thông tin khách hàng của Đặt hàng</value>
         <value xml:lang="zh">订单记录客户信息</value>
         <value xml:lang="zh_CN">客户信息</value>
-        <value xml:lang="zh_TW">訂單登錄客戶資訊</value>
+        <value xml:lang="zh_TW">訂單輸入客戶資訊</value>
     </property>
     <property key="OrderOrderEntryInternalOrganization">
         <value xml:lang="de">Interne Organisation</value>
@@ -6951,7 +6980,7 @@
         <value xml:lang="vi">Các khái niệm trong Đặt hàng</value>
         <value xml:lang="zh">订单记录订单条件</value>
         <value xml:lang="zh_CN">订单条款</value>
-        <value xml:lang="zh_TW">訂單登錄訂單條件</value>
+        <value xml:lang="zh_TW">訂單輸入訂單條件</value>
     </property>
     <property key="OrderOrderEntryPaymentSettings">
         <value xml:lang="de">Auftragserfassung Zahlungsmodalitäten</value>
@@ -6968,7 +6997,7 @@
         <value xml:lang="vi">Thiết lập thanh toán Đặt hàng</value>
         <value xml:lang="zh">订单记录支付设置</value>
         <value xml:lang="zh_CN">支付设定</value>
-        <value xml:lang="zh_TW">訂單登錄支付設置</value>
+        <value xml:lang="zh_TW">訂單輸入支付設定</value>
     </property>
     <property key="OrderOrderEntryShipToSettings">
         <value xml:lang="de">Auftragserfassung Versandmodalitäten</value>
@@ -6985,7 +7014,7 @@
         <value xml:lang="vi">Thiết lập Gửi hàng đến</value>
         <value xml:lang="zh">订单记录货运目的地设置</value>
         <value xml:lang="zh_CN">发货设置</value>
-        <value xml:lang="zh_TW">訂單登錄貨運目的地設置</value>
+        <value xml:lang="zh_TW">訂單輸入貨運目的地設定</value>
     </property>
     <property key="OrderOrderFor">
         <value xml:lang="de">Auftrag für</value>
@@ -7002,7 +7031,7 @@
         <value xml:lang="vi">Đặt hàng cho</value>
         <value xml:lang="zh">订单：</value>
         <value xml:lang="zh_CN">订单为</value>
-        <value xml:lang="zh_TW">訂單：</value>
+        <value xml:lang="zh_TW">訂單:</value>
     </property>
     <property key="OrderOrderFound">
         <value xml:lang="de">Gefundene Aufträge</value>
@@ -7064,7 +7093,7 @@
         <value xml:lang="vi">Id đặt hàng</value>
         <value xml:lang="zh">订单标识</value>
         <value xml:lang="zh_CN">订单标识</value>
-        <value xml:lang="zh_TW">訂單ID</value>
+        <value xml:lang="zh_TW">訂單識別</value>
     </property>
     <property key="OrderOrderInclude">
         <value xml:lang="de">Enthalten</value>
@@ -7096,7 +7125,7 @@
         <value xml:lang="th">ประเภทรายการ</value>
         <value xml:lang="vi">Loại đề mục</value>
         <value xml:lang="zh">明细类型</value>
-        <value xml:lang="zh_TW">明細類型</value>
+        <value xml:lang="zh_TW">細項類型</value>
     </property>
     <property key="OrderOrderItems">
         <value xml:lang="cs">Položky objednávky</value>
@@ -7116,7 +7145,7 @@
         <value xml:lang="vi">Mục đặt hàng</value>
         <value xml:lang="zh">订单明细</value>
         <value xml:lang="zh_CN">订单项</value>
-        <value xml:lang="zh_TW">訂單明細</value>
+        <value xml:lang="zh_TW">訂單細項</value>
     </property>
     <property key="OrderOrderList">
         <value xml:lang="de">Auftragsliste</value>
@@ -7133,7 +7162,7 @@
         <value xml:lang="vi">Danh sách đặt hàng</value>
         <value xml:lang="zh">订单列表</value>
         <value xml:lang="zh_CN">订单列表</value>
-        <value xml:lang="zh_TW">訂單列表</value>
+        <value xml:lang="zh_TW">訂單清單</value>
     </property>
     <property key="OrderOrderName">
         <value xml:lang="de">Auftragsname</value>
@@ -7176,6 +7205,7 @@
         <value xml:lang="ja">外部執行サービスの実行中にエラー</value>
         <value xml:lang="vi">Lỗi khi thực thi dịch vụ cung cấp của bên ngoài</value>
         <value xml:lang="zh">运行外部执行服务时出错</value>
+        <value xml:lang="zh_TW">責任履行履行外部責任履行履行服務時出錯</value>
     </property>
     <property key="OrderOrderContachMechNotFound">
         <value xml:lang="de">FEHLER: Probleme beim Kontaktieren: ${errorString}</value>
@@ -7185,6 +7215,7 @@
         <value xml:lang="ja">エラー: 連絡方法の取得時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra: Lấy thông tin liên lạc chi tiết không thành công: ${errorString}</value>
         <value xml:lang="zh">错误：获取联系方式时出了问题：${errorString}</value>
+        <value xml:lang="zh_TW">錯誤:獲取聯絡方式時出了問題:${errorString}</value>
     </property>
     <property key="OrderOrderNoteCannotBeCreated">
         <value xml:lang="de">Problem beim Verbinden von Notiz und Bestellung: ${errorString}</value>
@@ -7194,6 +7225,7 @@
         <value xml:lang="ja">連絡を注文に関連付け時にエラー: ${errorString}</value>
         <value xml:lang="vi">Đính kèm Ghi chú với Đặt hàng không thành công: ${errorString}</value>
         <value xml:lang="zh">把订单与便笺关联时出错：${errorString}</value>
+        <value xml:lang="zh_TW">把訂單與便箋結合時出錯:${errorString}</value>
     </property>
     <property key="OrderOrderNotFound">
         <value xml:lang="de">Konnte OrderHeader mit ID ${orderId} nicht finden</value>
@@ -7203,6 +7235,7 @@
         <value xml:lang="ja">ID ${orderId} の注文ヘッダが見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Phần đầu đặt hàng với Id ${orderId}</value>
         <value xml:lang="zh">无法用标识${orderId}找到订单头（OrderHeader）</value>
+        <value xml:lang="zh_TW">無法用標識${orderId}找到訂單頭(OrderHeader)</value>
     </property>
     <property key="OrderOrderWithoutWebSite">
         <value xml:lang="de">Keine Website zur Bestellung verbunden; kann keine Benachrichtigung erstellen ${orderId}</value>
@@ -7212,6 +7245,7 @@
         <value xml:lang="ja">注文にWebサイトが結びついていません。通知を生成できません ${orderId}</value>
         <value xml:lang="vi">Không có trang thông tin nào đính kèm với Đặt hàng; nên không gửi được thông báo ${orderId}</value>
         <value xml:lang="zh">没有附加到订单的站点；无法生成通知 ${orderId}</value>
+        <value xml:lang="zh_TW">沒有附加到訂單的網站;無法產生通知 ${orderId}</value>
     </property>
     <property key="OrderOrderWithoutEmailAddress">
         <value xml:lang="de">Kunde ist nicht fähig, E-Mails zu empfangen; keine Addresse gefunden ${orderId}</value>
@@ -7221,6 +7255,7 @@
         <value xml:lang="ja">顧客が受信の電子メールを設定していません。アドレスが見つかりません ${orderId}</value>
         <value xml:lang="vi">Không tim thấy thông tin thư điện tử nhận nào với Đặt hàng ${orderId}</value>
         <value xml:lang="zh">客户没有设置接收电子邮件；没有找到地址 ${orderId}</value>
+        <value xml:lang="zh_TW">客戶沒有設置接收電子郵件;沒有找到位址 ${orderId}</value>
     </property>
     <property key="OrderOrderNumber">
         <value xml:lang="de">Auftragsnummer</value>
@@ -7254,7 +7289,7 @@
         <value xml:lang="vi">Thiết lập tùy chọn đặt hàng</value>
         <value xml:lang="zh">订单选项设置</value>
         <value xml:lang="zh_CN">订单选项设置</value>
-        <value xml:lang="zh_TW">訂單選項設置</value>
+        <value xml:lang="zh_TW">訂單選項設定</value>
     </property>
     <property key="OrderOrderPaymentPreferencesCannotGetPaymentMethodTypes">
         <value xml:lang="de">Probleme beim empfangen der PaymentMethodTypes: ${errorString}</value>
@@ -7264,6 +7299,7 @@
         <value xml:lang="ja">支払方法種類取得時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lấy thông tin Kiểu phương thức thanh toán không thành công: ${errorString}</value>
         <value xml:lang="zh">获取支付方式类型时出错：${errorString}</value>
+        <value xml:lang="zh_TW">獲取支付方式類型時出錯:${errorString}</value>
     </property>
     <property key="OrderOrderPaymentGatewayResponseCannotBeCreated">
         <value xml:lang="de">Unfähig, die PaymentGatewayResponse zu erstellen</value>
@@ -7273,6 +7309,7 @@
         <value xml:lang="ja">支払ゲートウェイレスポンスレコードが作成できません</value>
         <value xml:lang="vi">Không thể tạo bản ghi PaymentGatewayResponse</value>
         <value xml:lang="zh">无法创建支付网关响应（PaymentGatewayResponse）记录</value>
+        <value xml:lang="zh_TW">無法新建支付閘道回應(PaymentGatewayResponse)記錄</value>
     </property>
     <property key="OrderOrderPaymentPreferencesCannotBeCreated">
         <value xml:lang="de">FEHLER: Konnte OrderPaymentPreference nicht erstellen: ${errorString}</value>
@@ -7282,6 +7319,7 @@
         <value xml:lang="ja">エラー: 注文支払設定が作成できません: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra: không thể tạo OrderPaymentPreference: ${errorString}</value>
         <value xml:lang="zh">错误：不能创建订单支付设置（OrderPaymentPreference）：${errorString}</value>
+        <value xml:lang="zh_TW">錯誤:不能新建訂單支付偏好(OrderPaymentPreference):${errorString}</value>
     </property>
     <property key="OrderOrderPaymentFailed">
         <value xml:lang="de">Problem beim Erstellen der Bezahlung: ${errorString}</value>
@@ -7291,6 +7329,7 @@
         <value xml:lang="ja">支払作成時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo thanh toán: ${errorString}</value>
         <value xml:lang="zh">创建支付（Payment）时出错：${errorString}</value>
+        <value xml:lang="zh_TW">新建支付(Payment)時出錯:${errorString}</value>
     </property>
     <property key="OrderOrderPaymentApplicationFailed">
         <value xml:lang="de">Problem beim Erstellen von PaymentApplication: ${errorString}</value>
@@ -7300,6 +7339,7 @@
         <value xml:lang="ja">支払申請作成時にエラー: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo ứng dụng thanh toán: ${errorString}</value>
         <value xml:lang="zh">创建支付申请（PaymentApplication）时出错：${errorString}</value>
+        <value xml:lang="zh_TW">新建支付申請(PaymentApplication)時出錯:${errorString}</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreated">
         <value xml:lang="de">Fehler beim Erstellen der Bezahlung: OrderPaymentPreference mit orderPaymentPreferenceId kann nicht gefunden werden: ${orderPaymentPreferenceId}</value>
@@ -7309,6 +7349,7 @@
         <value xml:lang="ja">支払の作成に失敗しました。注文支払設定が見つかりません。注文支払設定ID: ${orderPaymentPreferenceId}</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: không tìm thấy thiết lập thanh toán với Id : ${orderPaymentPreferenceId}</value>
         <value xml:lang="zh">创建支付（Payment）时失败：无法找到标识为${orderPaymentPreferenceId}的订单支付设置（OrderPaymentPreference）</value>
+        <value xml:lang="zh_TW">新建支付(Payment)時失敗:無法找到標識為${orderPaymentPreferenceId}的訂單支付偏好(OrderPaymentPreference)</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedPayToPartyIdNotSet">
         <value xml:lang="de">Fehler beim Erstellen der Bezahlung: payToPartyId in ProductStore nicht gesetzt</value>
@@ -7318,6 +7359,7 @@
         <value xml:lang="ja">支払の作成に失敗しました。支払先取引先IDが製品店舗に設定されていません。</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Cửa hàng không có Tác nhân nhận thanh toán</value>
         <value xml:lang="zh">创建支付（Payment）时失败：产品店铺（ProductStore）中没有设置支付到会员标识（payToPartyId）</value>
+        <value xml:lang="zh_TW">新建支付(Payment)時失敗:產品商店(ProductStore)中沒有設置支付到團體標識(payToPartyId)</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedOrderHeader">
         <value xml:lang="de">Fehler beim Erstellen der Bezahlung: Kann OrderHeader von den Zahlungseinstellungen nicht erfassen</value>
@@ -7327,6 +7369,7 @@
         <value xml:lang="ja">支払の作成に失敗しました。支払設定から関連する注文ヘッダが取得できません</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Không thể lấy Phần đầu đặt hàng liên quan từ thiết lập thanh toán</value>
         <value xml:lang="zh">创建支付（Payment）时失败：无法从支付设置中得到相关的订单头（OrderHeader）</value>
+        <value xml:lang="zh_TW">新建支付(Payment)時失敗:無法從支付偏好中得到相關的訂單頭(OrderHeader)</value>
     </property>
     <property key="OrderOrderPaymentCannotBeCreatedWithRelatedProductStore">
         <value xml:lang="de">Fehler beim Erstellen der Bezahlung: Kann ProductStore für den order header nicht erreichen</value>
@@ -7336,6 +7379,7 @@
         <value xml:lang="ja">支払の作成に失敗しました。注文ヘッダに対する製品店舗が取得できません</value>
         <value xml:lang="vi">Tạo thanh toán không thành công: Không thể lấy thông tin Cửa hàng với các Phần đầu đặt hàng khác</value>
         <value xml:lang="zh">创建支付（Payment）时失败：无法为订单头获得产品店铺（ProductStore）</value>
+        <value xml:lang="zh_TW">新建支付(Payment)時失敗:無法為訂單頭獲得產品商店(ProductStore)</value>
     </property>
     <property key="OrderOrderCancelRemainingPurchaseOrderItemsError">
         <value xml:lang="de">Fehler während cancelRemainingPurchaseOrderItems bei Bestellung: </value>
@@ -7345,6 +7389,7 @@
         <value xml:lang="ja">残購買注文アイテムの取消でエラー、注文:</value>
         <value xml:lang="vi">Lỗi 'hủy bỏ hàng hóa đặt hàng còn lại' với Đặt hàng:</value>
         <value xml:lang="zh">为订单运行取消剩余采购订单明细（cancelRemainingPurchaseOrderItems）时出错：</value>
+        <value xml:lang="zh_TW">為訂單執行取消剩餘採購訂單細項(cancelRemainingPurchaseOrderItems)時出錯:</value>
     </property>
     <property key="OrderOrderCheckOrderItemStatusError">
         <value xml:lang="de">Fehler checkOrderItemStatus bei Bestellung: </value>
@@ -7354,6 +7399,7 @@
         <value xml:lang="ja">注文アイテムステータス確認でエラー、注文:</value>
         <value xml:lang="vi">Lỗi kiểm tra trạng thái hàng hóa đặt hàng với Đơn hàng:</value>
         <value xml:lang="zh">为订单运行检查订单明细状态（checkOrderItemStatus）时出错：</value>
+        <value xml:lang="zh_TW">為訂單執行檢查訂單細項狀態(checkOrderItemStatus)時出錯:</value>
     </property>
     <property key="OrderOrderCreatingDropShipmentsError">
         <value xml:lang="de">Der folgende Fehler trat während des Erstellens von Direktlieferungen bei Bestellung ${orderId} auf: ${errorString}</value>
@@ -7363,6 +7409,7 @@
         <value xml:lang="ja">注文 ${orderId} に対する直送の作成中に次のエラーが発生しました: ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra như sau khi tạo 'giảm giá chuyển vận' cho Đặt hàng ${orderId}: ${errorString}</value>
         <value xml:lang="zh">为订单${orderId}创建厂家直送时发生下列错误：${errorString}</value>
+        <value xml:lang="zh_TW">為訂單${orderId}新建廠家直送時發生下列錯誤:${errorString}</value>
     </property>
     <property key="OrderOrderPickingListCreationError">
         <value xml:lang="de">Fehler beim Erstellen des Komissionierscheins von Bestellung:</value>
@@ -7372,6 +7419,7 @@
         <value xml:lang="ja">ピッキングリストの作成中にエラー、注文: </value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo Danh sách lấy hàng từ các Đơn hàng: </value>
         <value xml:lang="zh">从订单创建分拣列表时出错：</value>
+        <value xml:lang="zh_TW">從訂單新建揀貨清單時出錯:</value>
     </property>
     <property key="OrderOrderPurchaseToBeScheduled">
         <value xml:lang="de">Einkaufsaufträge einzuplanen</value>
@@ -7414,6 +7462,7 @@
         <value xml:lang="ja">注文全体のクイック発送でエラー、注文: </value>
         <value xml:lang="vi">Lỗi gửi hàng (quickShipEntireOrder) nhanh cho Đặt hàng: </value>
         <value xml:lang="zh">为订单执行快速送货整个订单时出错：</value>
+        <value xml:lang="zh_TW">為訂單執行快速送貨整個訂單時出錯:</value>
     </property>
     <property key="OrderOrderQuote">
         <value xml:lang="de">Angebot</value>
@@ -7448,7 +7497,7 @@
         <value xml:lang="th">รหัสการปรับเปลี่ยนคำร้อง</value>
         <value xml:lang="vi">Id điều chỉnh báo giá</value>
         <value xml:lang="zh">询价调整标识</value>
-        <value xml:lang="zh_TW">報價調整ID</value>
+        <value xml:lang="zh_TW">報價調整識別</value>
     </property>
     <property key="OrderOrderQuoteAdjustmentType">
         <value xml:lang="de">Angebotsanpassungstyp</value>
@@ -7480,7 +7529,7 @@
         <value xml:lang="th">รหัสประเภทการปรับเปลี่ยนคำร้อง</value>
         <value xml:lang="vi">Loại điều chỉnh báo giá</value>
         <value xml:lang="zh">询价调整类型标识</value>
-        <value xml:lang="zh_TW">報價調整類型ID</value>
+        <value xml:lang="zh_TW">報價調整類型識別</value>
     </property>
     <property key="OrderOrderQuoteAdjustments">
         <value xml:lang="de">Anpassung</value>
@@ -7576,6 +7625,7 @@
         <value xml:lang="ja">ID ${quoteId} の見積が見つかりません</value>
         <value xml:lang="vi">Không tìm thấy Báo giá với Id ${quoteId}</value>
         <value xml:lang="zh">无法找到标识为${quoteId}的询价</value>
+        <value xml:lang="zh_TW">無法找到標識為${quoteId}的詢價</value>
     </property>
     <property key="OrderOrderQuoteCannotBeStored">
         <value xml:lang="de">Konnte Angebot nicht speichern</value>
@@ -7585,6 +7635,7 @@
         <value xml:lang="ja">見積の格納ができません</value>
         <value xml:lang="vi">Không thể lưu trữ Báo giá</value>
         <value xml:lang="zh">无法存储询价</value>
+        <value xml:lang="zh_TW">無法存儲詢價</value>
     </property>
     <property key="OrderOrderQuoteCoeffName">
         <value xml:lang="de">Koeffizient Name</value>
@@ -7601,7 +7652,7 @@
         <value xml:lang="vi">Tên hệ số</value>
         <value xml:lang="zh">系数名称</value>
         <value xml:lang="zh_CN">系数名</value>
-        <value xml:lang="zh_TW">系數名稱</value>
+        <value xml:lang="zh_TW">係數名稱</value>
     </property>
     <property key="OrderOrderQuoteCoeffValue">
         <value xml:lang="de">Koeffizient Wert</value>
@@ -7618,7 +7669,7 @@
         <value xml:lang="vi">Giá trị hệ số</value>
         <value xml:lang="zh">系数值</value>
         <value xml:lang="zh_CN">系数值</value>
-        <value xml:lang="zh_TW">系數值</value>
+        <value xml:lang="zh_TW">係數值</value>
     </property>
     <property key="OrderOrderQuoteCoefficients">
         <value xml:lang="de">Angebotskoeffizienten</value>
@@ -7636,7 +7687,7 @@
         <value xml:lang="vi">Hệ số Báo giá</value>
         <value xml:lang="zh">询价系数</value>
         <value xml:lang="zh_CN">价格系数</value>
-        <value xml:lang="zh_TW">報價系數</value>
+        <value xml:lang="zh_TW">報價係數</value>
     </property>
     <property key="OrderOrderQuoteCostToPrice">
         <value xml:lang="de">Kosten zu Preis</value>
@@ -7687,7 +7738,7 @@
         <value xml:lang="vi">Id kiểu nhận hàng</value>
         <value xml:lang="zh">交付类型标识</value>
         <value xml:lang="zh_CN">发货方式</value>
-        <value xml:lang="zh_TW">遞送類型ID</value>
+        <value xml:lang="zh_TW">遞送類型識別</value>
     </property>
     <property key="OrderOrderQuoteEdit">
         <value xml:lang="de">Angebot bearbeiten</value>
@@ -7755,7 +7806,7 @@
         <value xml:lang="th">แก้ไขตัวเลขคำร้อง</value>
         <value xml:lang="vi">Cập nhật hệ số báo giá</value>
         <value xml:lang="zh">编辑询价系数</value>
-        <value xml:lang="zh_TW">修改報價系數</value>
+        <value xml:lang="zh_TW">修改報價係數</value>
     </property>
     <property key="OrderOrderQuoteEditItems">
         <value xml:lang="de">Angebotselement bearbeiten</value>
@@ -7772,7 +7823,7 @@
         <value xml:lang="th">แก้ไขหัวข้อคำร้อง</value>
         <value xml:lang="vi">Cập nhật hạng mục báo giá</value>
         <value xml:lang="zh">编辑询价明细</value>
-        <value xml:lang="zh_TW">修改報價明細</value>
+        <value xml:lang="zh_TW">修改報價細項</value>
     </property>
     <property key="OrderOrderQuoteEditReportMail">
         <value xml:lang="de">Angebotsbericht E-Mail bearbeiten</value>
@@ -7808,12 +7859,13 @@
         <value xml:lang="zh">编辑询价角色</value>
         <value xml:lang="zh_TW">修改報價角色</value>
     </property>
-        <property key="OrderOrderQuoteEditTerm">
+    <property key="OrderOrderQuoteEditTerm">
         <value xml:lang="de">Angebotsbedingung bearbeiten</value>
         <value xml:lang="en">Edit Quote Term</value>
         <value xml:lang="fr">Editer les conditions de réglement du devis</value>
         <value xml:lang="vi">Cập nhật Điều khoản trên Báo giá</value>
         <value xml:lang="zh">编辑询价条款</value>
+        <value xml:lang="zh_TW">編輯詢價條款</value>
     </property>
     <property key="OrderOrderQuoteEditWorkEfforts">
         <value xml:lang="de">Angebotene Arbeitsaufwände bearbeiten</value>
@@ -7830,7 +7882,7 @@
         <value xml:lang="th">แก้ไขงานคำร้อง</value>
         <value xml:lang="vi">Cập nhật Lượng giá nguồn lực Báo giá</value>
         <value xml:lang="zh">编辑询价人工服务</value>
-        <value xml:lang="zh_TW">修改工項報價</value>
+        <value xml:lang="zh_TW">修改工作投入報價</value>
     </property>
     <property key="OrderOrderQuoteEnterWorkEffortId">
         <value xml:lang="de">Bestehende Arbeitseinsatz ID eingeben</value>
@@ -7846,7 +7898,7 @@
         <value xml:lang="th">การเข้ารหัสงานยังคงอยู่ข้างล่าง</value>
         <value xml:lang="vi">Nhập Lượng giá nguồn lực đã có</value>
         <value xml:lang="zh">输入下面已有的人工服务标识</value>
-        <value xml:lang="zh_TW">輸入下面已有的工項ID</value>
+        <value xml:lang="zh_TW">輸入下面已有的工作投入識別</value>
     </property>
     <property key="OrderOrderQuoteEnterWorkEffortIdNew">
         <value xml:lang="de">oder neue Arbeitseinsatz Daten angeben um neuen Datensatz anzulegen (Arbeitseinsatz ID leer lassen)</value>
@@ -7862,7 +7914,7 @@
         <value xml:lang="th">หรือเพิ่มข้อมูลงานข้างล่างจนถึงการสร้างเอนทิตีใหม่ (จากรหัสงานที่ว่างเปล่า)</value>
         <value xml:lang="vi">HOẶC thêm mới dữ liệu Lượng giá nguồn lực dưới đây để tạo mới thực thể (hãy để trống Lượng giá nguồn lực Id)</value>
         <value xml:lang="zh">或者在下面新建人工服务以便新建实体 (人工服务标识留空)</value>
-        <value xml:lang="zh_TW">或者在下面新建工項以便新建實體 (工項ID留空)</value>
+        <value xml:lang="zh_TW">或者在下面新建工作投入以便新建資料實體 (工作投入識別留空)</value>
     </property>
     <property key="OrderOrderQuoteEstimatedDeliveryDate">
         <value xml:lang="de">Geschätztes Lieferdatum</value>
@@ -7897,7 +7949,7 @@
         <value xml:lang="vi">Định danh</value>
         <value xml:lang="zh">询价标识</value>
         <value xml:lang="zh_CN">报价标识</value>
-        <value xml:lang="zh_TW">報價ID</value>
+        <value xml:lang="zh_TW">報價識別</value>
     </property>
     <property key="OrderOrderQuoteIssueDate">
         <value xml:lang="de">Datum des Angebots</value>
@@ -7933,7 +7985,7 @@
         <value xml:lang="vi">Hạng mục báo giá</value>
         <value xml:lang="zh">询价明细</value>
         <value xml:lang="zh_CN">报价项目</value>
-        <value xml:lang="zh_TW">報價明細</value>
+        <value xml:lang="zh_TW">報價細項</value>
     </property>
     <property key="OrderOrderQuoteItemSeqId">
         <value xml:lang="de">Angebotspostion Lfd.Nr.</value>
@@ -7951,7 +8003,7 @@
         <value xml:lang="vi">Id thứ tự của hạng mục trong Báo giá</value>
         <value xml:lang="zh">询价明细序号标识</value>
         <value xml:lang="zh_CN">报价项目序列标识</value>
-        <value xml:lang="zh_TW">報價明細序列ID</value>
+        <value xml:lang="zh_TW">報價細項序列識別</value>
     </property>
     <property key="OrderOrderQuoteItems">
         <value xml:lang="de">Angebotspositionen</value>
@@ -7969,7 +8021,7 @@
         <value xml:lang="vi">Hạng mục báo giá</value>
         <value xml:lang="zh">询价明细</value>
         <value xml:lang="zh_CN">报价项目</value>
-        <value xml:lang="zh_TW">報價明細</value>
+        <value xml:lang="zh_TW">報價細項</value>
     </property>
     <property key="OrderOrderQuoteListAdjustments">
         <value xml:lang="de">Liste der Angebotsanpassungen</value>
@@ -8020,7 +8072,7 @@
         <value xml:lang="th">รายการตัวเลขคำร้อง</value>
         <value xml:lang="vi">Danh sách hệ số Báo giá</value>
         <value xml:lang="zh">询价系数列表</value>
-        <value xml:lang="zh_TW">列出報價系數</value>
+        <value xml:lang="zh_TW">列出報價係數</value>
     </property>
     <property key="OrderOrderQuoteListItems">
         <value xml:lang="de">Liste der Angebotspositionen</value>
@@ -8037,7 +8089,7 @@
         <value xml:lang="th">รายการหัวข้อคำร้อง</value>
         <value xml:lang="vi">Danh sách hạng mục Báo giá</value>
         <value xml:lang="zh">询价明细列表</value>
-        <value xml:lang="zh_TW">列出報價明細</value>
+        <value xml:lang="zh_TW">列出報價細項</value>
     </property>
     <property key="OrderOrderQuoteListRoles">
         <value xml:lang="de">Liste der Angebotsrollen</value>
@@ -8055,11 +8107,12 @@
         <value xml:lang="zh">询价角色列表</value>
         <value xml:lang="zh_TW">列出報價角色</value>
     </property>
-        <property key="OrderOrderQuoteListTerms">
+    <property key="OrderOrderQuoteListTerms">
         <value xml:lang="de">Liste der Angebotsbedingungen</value>
         <value xml:lang="en">List Quote Terms</value>
         <value xml:lang="fr">Liste des conditions de règlement du devis</value>
         <value xml:lang="zh">询价条款列表</value>
+        <value xml:lang="zh_TW">詢價條款清單</value>
     </property>
     <property key="OrderOrderQuoteManualUnitPrice">
         <value xml:lang="de">Manueller Stückpreis</value>
@@ -8101,12 +8154,14 @@
         <value xml:lang="ja">見積連絡一覧</value>
         <value xml:lang="vi">Danh sách Ghi chú</value>
         <value xml:lang="zh">询价便笺列表</value>
+        <value xml:lang="zh_TW">詢價便箋清單</value>
     </property>
     <property key="OrderOrderQuoteNotes">
         <value xml:lang="en">Quote Notes</value>
         <value xml:lang="ja">見積連絡</value>
         <value xml:lang="vi">Ghi chú</value>
         <value xml:lang="zh">询价便笺</value>
+        <value xml:lang="zh_TW">詢價便箋</value>
     </property>
     <property key="OrderOrderQuotePercProfit">
         <value xml:lang="de">Prozentualer provisorischer Gewinn</value>
@@ -8228,7 +8283,7 @@
         <value xml:lang="vi">ID loại kỹ năng</value>
         <value xml:lang="zh">询价技能类型标识</value>
         <value xml:lang="zh_CN">报价技能类型标识</value>
-        <value xml:lang="zh_TW">報價技能類型ID</value>
+        <value xml:lang="zh_TW">報價技能類型識別</value>
     </property>
     <property key="OrderOrderQuoteTerms">
         <value xml:lang="de">Angebotsbedingung</value>
@@ -8237,6 +8292,7 @@
         <value xml:lang="ja">見積条件</value>
         <value xml:lang="vi">Khái niệm</value>
         <value xml:lang="zh">询价条款</value>
+        <value xml:lang="zh_TW">詢價條款</value>
     </property>
     <property key="OrderOrderQuoteTermList">
         <value xml:lang="de">Liste der Angebotsbedingungen</value>
@@ -8245,6 +8301,7 @@
         <value xml:lang="ja">見積条件一覧</value>
         <value xml:lang="vi">Danh sách khái niệm</value>
         <value xml:lang="zh">询价条款列表</value>
+        <value xml:lang="zh_TW">詢價條款清單</value>
     </property>
     <property key="OrderOrderQuoteType">
         <value xml:lang="de">Angebotstyp</value>
@@ -8278,7 +8335,7 @@
         <value xml:lang="vi">Loại</value>
         <value xml:lang="zh">询价类型标识</value>
         <value xml:lang="zh_CN">报价类型标识</value>
-        <value xml:lang="zh_TW">報價類型ID</value>
+        <value xml:lang="zh_TW">報價類型識別</value>
     </property>
     <property key="OrderOrderQuoteUnitPrice">
         <value xml:lang="de">Angebot Stückpreis</value>
@@ -8308,14 +8365,14 @@
         <value xml:lang="ja">見積単位ID</value>
         <value xml:lang="nl">Offerte Uom Id</value>
         <value xml:lang="pt_BR">Unidade de medida</value>
-        <!--value xml:lang="nl">UoM offerte</value to be checked -->
+    <!--value xml:lang="nl">UoM offerte</value to be checked -->
         <value xml:lang="ro">UdM Oferta</value>
         <value xml:lang="ru">Код валюты предложения</value>
         <value xml:lang="th">รหัสหน่วยวัดคำร้อง</value>
         <value xml:lang="vi">Id đơn vị tính giá (UOM)</value>
         <value xml:lang="zh">询价币种标识</value>
         <value xml:lang="zh_CN">报价单位标识</value>
-        <value xml:lang="zh_TW">報價UomID</value>
+        <value xml:lang="zh_TW">報價度量單位識別</value>
     </property>
     <property key="OrderOrderQuoteViewProfit">
         <value xml:lang="de">Gewinn aus Angebot anzeigen</value>
@@ -8332,7 +8389,7 @@
         <value xml:lang="th">แสดงผลประโยชน์คำร้อง</value>
         <value xml:lang="vi">Xem lợi nhuận Báo giá</value>
         <value xml:lang="zh">浏览询价利润</value>
-        <value xml:lang="zh_TW">瀏覽報價利潤</value>
+        <value xml:lang="zh_TW">檢視報價利潤</value>
     </property>
     <property key="OrderOrderQuoteViewRequest">
         <value xml:lang="de">Anfrage anzeigen</value>
@@ -8349,7 +8406,7 @@
         <value xml:lang="vi">Xem yêu cầu</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_CN">查看请求</value>
-        <value xml:lang="zh_TW">瀏覽要求</value>
+        <value xml:lang="zh_TW">檢視請求</value>
     </property>
     <property key="OrderOrderQuoteWorkEffortId">
         <value xml:lang="de">Angebotener Aufwand ID</value>
@@ -8367,7 +8424,7 @@
         <value xml:lang="vi">Lượng giá nguồn lực</value>
         <value xml:lang="zh">询价人工服务标识</value>
         <value xml:lang="zh_CN">报价工作计划标识</value>
-        <value xml:lang="zh_TW">工項報價ID</value>
+        <value xml:lang="zh_TW">工作投入報價識別</value>
     </property>
     <property key="OrderOrderQuoteWorkEfforts">
         <value xml:lang="de">Angebotene Aufwände</value>
@@ -8384,7 +8441,7 @@
         <value xml:lang="th">งานคำร้อง</value>
         <value xml:lang="vi">Lượng giá nguồn lực Báo giá</value>
         <value xml:lang="zh">询价人工服务</value>
-        <value xml:lang="zh_TW">工項報價</value>
+        <value xml:lang="zh_TW">工作投入報價</value>
     </property>
     <property key="OrderOrderQuotes">
         <value xml:lang="de">Angebote</value>
@@ -8516,7 +8573,7 @@
         <value xml:lang="vi">Ngày áp dụng điều khoản</value>
         <value xml:lang="zh">条件日期</value>
         <value xml:lang="zh_CN">协议天数</value>
-        <value xml:lang="zh_TW">條件日期</value>
+        <value xml:lang="zh_TW">條件天數</value>
     </property>
     <property key="OrderOrderTermType">
         <value xml:lang="de">Konditionstyp</value>
@@ -8652,7 +8709,7 @@
         <value xml:lang="vi">Số lượng đếm hàng hóa</value>
         <value xml:lang="zh">订单明细计数</value>
         <value xml:lang="zh_CN">订单项目个数</value>
-        <value xml:lang="zh_TW">訂單明細計數</value>
+        <value xml:lang="zh_TW">訂單細項計數</value>
     </property>
     <property key="OrderOrdersPending">
         <value xml:lang="de">Hängige Aufträge</value>
@@ -8669,7 +8726,7 @@
         <value xml:lang="vi">Đơn hàng đang xử lý</value>
         <value xml:lang="zh">扣留的订单</value>
         <value xml:lang="zh_CN">未完成订单</value>
-        <value xml:lang="zh_TW">扣留的訂單</value>
+        <value xml:lang="zh_TW">待決的訂單</value>
     </property>
     <property key="OrderOrderShipEstimate">
         <value xml:lang="de">Geschätzter Versandbetrag</value>
@@ -8678,6 +8735,7 @@
         <value xml:lang="ja">発送見積金額</value>
         <value xml:lang="vi">Giá trị chuyển vận ước tính</value>
         <value xml:lang="zh">送货预计金额</value>
+        <value xml:lang="zh_TW">送貨預計金額</value>
     </property>
     <property key="OrderOrdersTotals">
         <value xml:lang="de">Aufträge Total</value>
@@ -8807,7 +8865,7 @@
         <value xml:lang="th">รวบรวมการขนส่งสินค้าสหรับกลุ่มการขนส่ง</value>
         <value xml:lang="vi">Đóng gói chuyển vận cho 'nhóm hàng chuyển'</value>
         <value xml:lang="zh">为货运组打包装运</value>
-        <value xml:lang="zh_TW">為遞送組打包貨運</value>
+        <value xml:lang="zh_TW">為遞送群組打包貨運</value>
     </property>
     <property key="OrderPaidDollarAmountsIncludesAdjustments">
         <value xml:lang="de">Beträge bezahlt (inklusive Anpassungen)</value>
@@ -8841,7 +8899,7 @@
         <value xml:lang="vi">Số lượng hàng hóa đã bán (gồm cả Khuyến mãi)</value>
         <value xml:lang="zh">已支付的销售明细 (包括促销)</value>
         <value xml:lang="zh_CN">已付款的销售项 (包括促销)</value>
-        <value xml:lang="zh_TW">已支付的銷售明細 (包括促銷)</value>
+        <value xml:lang="zh_TW">已支付的銷售細項 (包括促銷)</value>
     </property>
     <property key="OrderPartyDontWish">
         <value xml:lang="de">Keine weiteren Akteure hinzufügen.</value>
@@ -8857,7 +8915,7 @@
         <value xml:lang="th">ฉันไม่คาดหวังว่าะเพิ่มกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Tôi không muốn thêm vào các Tác nhân khác</value>
         <value xml:lang="zh">我不希望添加附加会员。</value>
-        <value xml:lang="zh_TW">我不希望添加附加會員。</value>
+        <value xml:lang="zh_TW">我不希望增加附加團體.</value>
     </property>
     <property key="OrderPartyNameNotFound">
         <value xml:lang="de">Name nicht gefunden</value>
@@ -8889,7 +8947,7 @@
         <value xml:lang="th">เลือกสถานะสำหรับกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Chọn Vai trò cho Tác nhân</value>
         <value xml:lang="zh">为会员选择角色</value>
-        <value xml:lang="zh_TW">為會員選擇角色</value>
+        <value xml:lang="zh_TW">為團體選擇角色</value>
     </property>
     <property key="OrderPayBy">
         <value xml:lang="de">Bezahlen mit</value>
@@ -8934,7 +8992,7 @@
         <value xml:lang="th">เพิ่มการตั้งค่าการชำระเงินใหม่</value>
         <value xml:lang="vi">Thêm mới thiết lập thanh toán</value>
         <value xml:lang="zh">支付添加新设置</value>
-        <value xml:lang="zh_TW">支付添加新設置</value>
+        <value xml:lang="zh_TW">支付增加新設定</value>
     </property>
     <property key="OrderPaymentConfig">
         <value xml:lang="de">Zahlung Konfiguration</value>
@@ -8981,7 +9039,7 @@
         <value xml:lang="vi">Thanh toán ngoại tuyết: Séc / Tiền</value>
         <value xml:lang="zh">离线支付：支票/现金订单</value>
         <value xml:lang="zh_CN">离线支付: 支票/现金</value>
-        <value xml:lang="zh_TW">離線支付：支票/現金訂單</value>
+        <value xml:lang="zh_TW">離線支付:支票/現金訂單</value>
     </property>
     <property key="OrderPaymentProcessorAuthService">
         <value xml:lang="de">Prozessor Authentifizierungsservice</value>
@@ -9009,7 +9067,7 @@
         <value xml:lang="th">การบริการให้ความสนใจการประมวลผล</value>
         <value xml:lang="vi">Dịch vụ nhận xử lý</value>
         <value xml:lang="zh">处理程序捕获服务</value>
-        <value xml:lang="zh_TW">處理程式捕獲服務</value>
+        <value xml:lang="zh_TW">處理程式擷取服務</value>
     </property>
     <property key="OrderPaymentProcessorPropertiesURL">
         <value xml:lang="de">Prozessor Properties URL</value>
@@ -9110,7 +9168,7 @@
         <value xml:lang="th">ตั้งค่าการอัพเดทวิธีการชำระเงิน</value>
         <value xml:lang="vi">Thiết lập cập nhật thanh toán</value>
         <value xml:lang="zh">支付更新设置</value>
-        <value xml:lang="zh_TW">支付更新設置</value>
+        <value xml:lang="zh_TW">支付更新設定</value>
     </property>
     <property key="OrderPendingPaymentDollarAmountsIncludesAdjustments">
         <value xml:lang="de">Beträge hängige Zahlungen (inklusive Anpassungen)</value>
@@ -9127,7 +9185,7 @@
         <value xml:lang="vi">Số lượng Đô la chưa thanh toán (gồm cả Điều chỉnh)</value>
         <value xml:lang="zh">扣留的支付金额 (包括调整)</value>
         <value xml:lang="zh_CN">为支付数额 (包括调整)</value>
-        <value xml:lang="zh_TW">扣留的支付金額 (包括調整)</value>
+        <value xml:lang="zh_TW">待決的支付金額 (包括調整)</value>
     </property>
     <property key="OrderPendingPaymentItemsSoldIncludesPromotions">
         <value xml:lang="de">Hängige Beträge verkauft (inklusive Aktionen)</value>
@@ -9144,7 +9202,7 @@
         <value xml:lang="vi">Số lượng hàng hóa đã bán đang xử lý (gồm Khuyến mãi)</value>
         <value xml:lang="zh">扣留的销售支付明细 (包括促销)</value>
         <value xml:lang="zh_CN">为支付的销售项 (包括促销)</value>
-        <value xml:lang="zh_TW">扣留的銷售支付明細 (包括促銷)</value>
+        <value xml:lang="zh_TW">待決的銷售支付細項 (包括促銷)</value>
     </property>
     <property key="OrderPercentageMarkup">
         <value xml:lang="de">Prozent Zuschlag</value>
@@ -9173,7 +9231,7 @@
         <value xml:lang="th">การคัดสรรรายการสังซื้อ</value>
         <value xml:lang="vi">Nhặt Đặt hàng</value>
         <value xml:lang="zh">分拣订单</value>
-        <value xml:lang="zh_TW">分揀訂單</value>
+        <value xml:lang="zh_TW">揀貨訂單</value>
     </property>
     <property key="OrderPickedBy">
         <value xml:lang="de">Komissioniert von</value>
@@ -9184,6 +9242,7 @@
         <value xml:lang="pt_BR">Recolhido por</value>
         <value xml:lang="vi">Được nhặt (pick) bởi</value>
         <value xml:lang="zh">分拣员</value>
+        <value xml:lang="zh_TW">揀貨員</value>
     </property>
     <property key="OrderPieces">
         <value xml:lang="cs">ks</value>
@@ -9272,7 +9331,7 @@
         <value xml:lang="th">กรุณาส่งสินค้ามาตามรายการที่สั่งตามที่มีสินค้าอยู่(คุณอาจจะต้องเสียค่าใช้จ่ายในการขนส่งเพิ่มขึ้น)</value>
         <value xml:lang="vi">Hãy chuyển hàng mà tôi đã Đặt ngay khi có hàng (bạn có thể mất thêm phí chuyển hàng)</value>
         <value xml:lang="zh">一旦有货，请把我订的物品运送给我 (你可能需要支付运费)</value>
-        <value xml:lang="zh_TW">一旦有貨，請把我訂的物品運送給我 (你可能需要支付運費)</value>
+        <value xml:lang="zh_TW">一旦有貨,請把我訂的物品運送給我 (你可能需要支付運費)</value>
     </property>
     <property key="OrderPleaseWaitUntilBeforeShipping">
         <value xml:lang="cs">Prosím počkejte s odesláním, dokud není celká zásilka připravena</value>
@@ -9292,7 +9351,7 @@
         <value xml:lang="th">กรุณารอจนกว่ารายการสินค้าที่สั่งซื้อจะมีครบสมบูรณ์ก่อนที่จะมีการขนส่งสินค้า</value>
         <value xml:lang="vi">Bạn vui lòng đợi đến khi hóa đơn sẵn sàng để được chuyển</value>
         <value xml:lang="zh">在送货前，请等待整个订单准备就绪</value>
-        <value xml:lang="zh_TW">在送貨前，請等待整個訂單准備就緒</value>
+        <value xml:lang="zh_TW">在送貨前,請等待整個訂單準備就緒</value>
     </property>
     <property key="OrderPoNumber">
         <value xml:lang="cs">Číslo objednávky zákazníka</value>
@@ -9311,7 +9370,7 @@
         <value xml:lang="th">เลขที่ PO </value>
         <value xml:lang="vi">Số PO</value>
         <value xml:lang="zh">购物订单编号</value>
-        <value xml:lang="zh_TW">購物訂單編號</value>
+        <value xml:lang="zh_TW">採購訂單編號</value>
     </property>
     <property key="OrderPrepareOrder">
         <value xml:lang="de">Auftrag vorbereiten</value>
@@ -9326,7 +9385,7 @@
         <value xml:lang="th">จัดเตรียมรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Chuẩn bị đặt hàng</value>
         <value xml:lang="zh">准备订单</value>
-        <value xml:lang="zh_TW">准備訂單</value>
+        <value xml:lang="zh_TW">準備訂單</value>
     </property>
     <property key="OrderPrice">
         <value xml:lang="de">Preis</value>
@@ -9390,7 +9449,7 @@
         <value xml:lang="th">ปัจจุบันรายการสั่งซื้อสินค้านี้อยู่ในสภาพซึ่งทำกำไร</value>
         <value xml:lang="vi">Đặt hàng đang ở trong trạng thái 'Hoạt động'.</value>
         <value xml:lang="zh">这个订单当前处于“有效”状态。</value>
-        <value xml:lang="zh_TW">這個訂單當前處于『有效』狀態。</value>
+        <value xml:lang="zh_TW">這個訂單當前處于『有效』狀態.</value>
     </property>
     <property key="OrderProcessingInHold">
         <value xml:lang="de">Dieser Auftrag ist aktuell im 'Warten' Status. Die Aktivität wurde ausgesetzt.</value>
@@ -9406,7 +9465,7 @@
         <value xml:lang="th">ปัจจุบันรายการสั่งซื้อสินค้านี้อยู่ในสภาพที่ต้องควบคุม รายการนี้จะถูกระงับชั่วคราว</value>
         <value xml:lang="vi">Đặt hàng đang ở trong trạng thái 'Giữ'. Quá trình xử lý đang tạm dừng.</value>
         <value xml:lang="zh">这个订单当前处于“扣留”状态。操作已被暂停。</value>
-        <value xml:lang="zh_TW">這個訂單當前處于『扣留』狀態。操作已被暫停。</value>
+        <value xml:lang="zh_TW">這個訂單當前處于『保留』狀態.操作已被暫停.</value>
     </property>
     <property key="OrderProcessingInHoldNote">
         <value xml:lang="de">** Hinweis: Wenn dieser Status das Resultat einer automatischen Aktivität ist, kann eine Anpassung keinen Einfluss haben bis alle nötigen Bedingungen erfüllt sind.</value>
@@ -9422,7 +9481,7 @@
         <value xml:lang="th">**Note : หมายเหตุ ถ้าสภาพนี้เป็นผลลัพธ์ที่ทำโดยอัตโนมัติ , อาจจะไม่มีออกวางจำหน่ายมีผลจนถึงเงื่อนไขทั้งหมดที่พบ</value>
         <value xml:lang="vi">Ghi chú : Nếu trạng thái là kết quả của quá trình xử lý tự động, có thể không được kết thúc đến khi thỏa mãn tất cả các điều kiện.</value>
         <value xml:lang="zh">** 注意：如果这个状态是一个自动操作的结果，释放可能直到全部条件都满足了才能生效。</value>
-        <value xml:lang="zh_TW">** 注意：如果這個狀態是一個自動操作的結果，釋放可能直到全部條件都滿足了才能生效。</value>
+        <value xml:lang="zh_TW">** 注意:如果這個狀態是一個自動操作的結果,釋放可能直到全部條件都滿足了才能生效.</value>
     </property>
     <property key="OrderProcessingStatus">
         <value xml:lang="de">In Verarbeitung Status</value>
@@ -9464,6 +9523,7 @@
         <value xml:lang="ja">支払処理中にエラー:</value>
         <value xml:lang="vi">Lỗi khi xử lý thanh toán:</value>
         <value xml:lang="zh">处理支付时出错：</value>
+        <value xml:lang="zh_TW">處理支付時出錯:</value>
     </property>
     <property key="OrderProcessOrderPaymentsStatusInvalid">
         <value xml:lang="de">FEHLER: Der Auftragsstatus ist </value>
@@ -9473,6 +9533,7 @@
         <value xml:lang="ja">エラー: 注文ステータスは </value>
         <value xml:lang="vi">Lỗi xảy ra:  Trạng thái Đặt hàng là</value>
         <value xml:lang="zh">错误：订单状态是</value>
+        <value xml:lang="zh_TW">錯誤:訂單狀態是</value>
     </property>
     <property key="OrderProduct">
         <value xml:lang="cs">Výrobek</value>
@@ -9508,7 +9569,7 @@
         <value xml:lang="vi">Cửa hàng</value>
         <value xml:lang="zh">产品店铺</value>
         <value xml:lang="zh_CN">货品仓库</value>
-        <value xml:lang="zh_TW">產品店鋪</value>
+        <value xml:lang="zh_TW">產品商店</value>
     </property>
     <property key="OrderProductsForPromotion">
         <value xml:lang="de">Aktionsprodukte</value>
@@ -9587,7 +9648,7 @@
         <value xml:lang="th">รายละเอียดโปรโมชัน</value>
         <value xml:lang="vi">Chi tiết khuyến mại</value>
         <value xml:lang="zh">促销明细</value>
-        <value xml:lang="zh_TW">促銷明細</value>
+        <value xml:lang="zh_TW">促銷細項</value>
     </property>
     <property key="OrderPromotionInformation">
         <value xml:lang="cs">Informace o akci</value>
@@ -9790,7 +9851,7 @@
         <value xml:lang="th">จำนวนที่เลือก</value>
         <value xml:lang="vi">Số lượng đã Nhặt (pick)</value>
         <value xml:lang="zh">已分拣数量</value>
-        <value xml:lang="zh_TW">已分揀數量</value>
+        <value xml:lang="zh_TW">已揀貨數量</value>
     </property>
     <property key="OrderQtyShipped">
         <value xml:lang="cs">Expedované množství</value>
@@ -9854,7 +9915,7 @@
         <value xml:lang="vi">Lịch sử số lượng hàng hóa</value>
         <value xml:lang="zh">明细数量历史</value>
         <value xml:lang="zh_CN">明细数量历史</value>
-        <value xml:lang="zh_TW">明細數量歷史</value>
+        <value xml:lang="zh_TW">細項數量歷史</value>
     </property>
     <property key="OrderQuantityInShipGroup">
         <value xml:lang="de">In Gruppe</value>
@@ -9869,7 +9930,7 @@
         <value xml:lang="th">ในกลุ่ม</value>
         <value xml:lang="vi">Trong nhóm</value>
         <value xml:lang="zh">在送货组</value>
-        <value xml:lang="zh_TW">在送貨組</value>
+        <value xml:lang="zh_TW">在送貨群組</value>
     </property>
     <property key="OrderQuantityInShipGroupTotal">
         <value xml:lang="de">Total in Gruppe</value>
@@ -9884,7 +9945,7 @@
         <value xml:lang="th">ผลรวมในกลุ่ม</value>
         <value xml:lang="vi">Tổng số trong nhóm</value>
         <value xml:lang="zh">在送货组的合计</value>
-        <value xml:lang="zh_TW">在送貨組的合計</value>
+        <value xml:lang="zh_TW">在送貨群組的合計</value>
     </property>
     <property key="OrderQuantityPurchase">
         <value xml:lang="de">Menge Einkauf</value>
@@ -9964,7 +10025,7 @@
         <value xml:lang="th">เพิ่มอย่ารวดเร็ว</value>
         <value xml:lang="vi">Thêm nhanh</value>
         <value xml:lang="zh">快速添加</value>
-        <value xml:lang="zh_TW">快速添加</value>
+        <value xml:lang="zh_TW">快速增加</value>
     </property>
     <property key="OrderQuickAddOrderItem">
         <value xml:lang="de">Auftragselement schnell hinzufügen</value>
@@ -9981,7 +10042,7 @@
         <value xml:lang="vi">Thêm nhanh đặt hàng</value>
         <value xml:lang="zh">快速添加订单明细</value>
         <value xml:lang="zh_CN">快速添加订单项目</value>
-        <value xml:lang="zh_TW">快速添加訂單明細</value>
+        <value xml:lang="zh_TW">快速增加訂單細項</value>
     </property>
     <property key="OrderQuickFinalizeOrder">
         <value xml:lang="de">Schnell Auftrag abschliessen</value>
@@ -10089,6 +10150,7 @@
         <value xml:lang="fr">Le total du devis est vide</value>
         <value xml:lang="it">Totale preventivo è vuoto</value>
         <value xml:lang="zh">清空全部询价</value>
+        <value xml:lang="zh_TW">清空全部詢價</value>
     </property>
     <property key="OrderQuotePricePermissionError">
         <value xml:lang="de">Angebotspreis Berechtigungsfehler</value>
@@ -10109,6 +10171,7 @@
         <value xml:lang="ja">条件詳細</value>
         <value xml:lang="vi">Miêu tả khái niệm</value>
         <value xml:lang="zh">条款描述</value>
+        <value xml:lang="zh_TW">條款描述</value>
     </property>
     <property key="OrderRanking">
         <value xml:lang="cs">Pořadí</value>
@@ -10326,7 +10389,7 @@
         <value xml:lang="vi">Tham chiếu</value>
         <value xml:lang="zh">引用</value>
         <value xml:lang="zh_CN">参考</value>
-        <value xml:lang="zh_TW">引用</value>
+        <value xml:lang="zh_TW">參考</value>
     </property>
     <property key="OrderRefundService">
         <value xml:lang="de">Rückerstattungsdienst</value>
@@ -10385,7 +10448,7 @@
         <value xml:lang="th">ควมคุมการออกวางจำหน่าย</value>
         <value xml:lang="vi">Tiếp tục, bỏ 'Giữ'</value>
         <value xml:lang="zh">解除扣留</value>
-        <value xml:lang="zh_TW">解除扣留</value>
+        <value xml:lang="zh_TW">解除保留</value>
     </property>
     <property key="OrderRemaining">
         <value xml:lang="de">Rest</value>
@@ -10402,7 +10465,7 @@
         <value xml:lang="vi">Còn lại</value>
         <value xml:lang="zh">剩余</value>
         <value xml:lang="zh_CN">剩余</value>
-        <value xml:lang="zh_TW">剩余</value>
+        <value xml:lang="zh_TW">剩餘</value>
     </property>
     <property key="OrderRemainingSubTotal">
         <value xml:lang="de">Rest Zwischensumme</value>
@@ -10419,7 +10482,7 @@
         <value xml:lang="vi">Tổng thành phần còn lại</value>
         <value xml:lang="zh">剩余小计</value>
         <value xml:lang="zh_CN">剩余小计</value>
-        <value xml:lang="zh_TW">剩余小計</value>
+        <value xml:lang="zh_TW">剩餘小計</value>
     </property>
     <property key="OrderRemoveSelected">
         <value xml:lang="de">Ausgewählte entfernen</value>
@@ -10448,7 +10511,7 @@
         <value xml:lang="th">จากวันที่(รายการสั่งซื้อสินค้าวันที่&gt;=)</value>
         <value xml:lang="vi">Từ ngày( Ngày đặt hàng&gt;=)</value>
         <value xml:lang="zh">开始日期（订单日期&gt;=）</value>
-        <value xml:lang="zh_TW">開始日期（訂單日期&gt;=）</value>
+        <value xml:lang="zh_TW">開始日期(訂單日期&gt;=)</value>
     </property>
     <property key="OrderReportOpenOrderItems">
         <value xml:lang="de">Offene Auftragselemente Bericht</value>
@@ -10463,7 +10526,7 @@
         <value xml:lang="th">เปิดรายงานรายการสั่งซื้อสินค้ารายการ</value>
         <value xml:lang="vi">Mở báo cáo hàng hóa đặt hàng</value>
         <value xml:lang="zh">打开订单明细报告</value>
-        <value xml:lang="zh_TW">打開訂單明細報告</value>
+        <value xml:lang="zh_TW">打開訂單細項報告</value>
     </property>
     <property key="OrderReportPurchasesByOrganization">
         <value xml:lang="de">Einkäufe pro Organisation Bericht</value>
@@ -10540,7 +10603,7 @@
         <value xml:lang="th">ถึงวันที่(รายการสั่งซื้อสินค้าวันที่&lt;)</value>
         <value xml:lang="vi">Đến ngày(Ngày đặt hàng&lt;)</value>
         <value xml:lang="zh">结束日期（订单日期&lt;）</value>
-        <value xml:lang="zh_TW">結束日期（訂單日期&lt;）</value>
+        <value xml:lang="zh_TW">結束日期(訂單日期&lt;)</value>
     </property>
     <property key="OrderReports">
         <value xml:lang="de">Auftrag Berichte</value>
@@ -10573,7 +10636,7 @@
         <value xml:lang="vi">Yêu cầu</value>
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_CN">请求</value>
-        <value xml:lang="zh_TW">要求</value>
+        <value xml:lang="zh_TW">請求</value>
     </property>
     <property key="OrderRequestContent">
         <value xml:lang="de">Inhalt</value>
@@ -10602,7 +10665,7 @@
         <value xml:lang="vi">Ngày tạo</value>
         <value xml:lang="zh">创建日期</value>
         <value xml:lang="zh_CN">创建日期</value>
-        <value xml:lang="zh_TW">創建日期</value>
+        <value xml:lang="zh_TW">新建日期</value>
     </property>
     <property key="OrderRequestCreatedFromShoppingCart">
         <value xml:lang="de">Aus dem Einkaufswagen erstellte Anfrage</value>
@@ -10611,6 +10674,7 @@
         <value xml:lang="ja">買い物かごからリクエストが作成されました</value>
         <value xml:lang="vi">Yêu cầu được tạo từ giỏ hàng</value>
         <value xml:lang="zh">从购物车创建的请求</value>
+        <value xml:lang="zh_TW">從購物車新建的請求</value>
     </property>
     <property key="OrderRequestDate">
         <value xml:lang="de">Anfragedatum</value>
@@ -10627,7 +10691,7 @@
         <value xml:lang="vi">Ngày yêu cầu</value>
         <value xml:lang="zh">请求日期</value>
         <value xml:lang="zh_CN">请求日期</value>
-        <value xml:lang="zh_TW">要求日期</value>
+        <value xml:lang="zh_TW">請求日期</value>
     </property>
     <property key="OrderRequestInformation">
         <value xml:lang="de">Information anfragen</value>
@@ -10637,6 +10701,7 @@
         <value xml:lang="ja">リクエスト情報</value>
         <value xml:lang="vi">Thông tin yêu cầu</value>
         <value xml:lang="zh">请求信息</value>
+        <value xml:lang="zh_TW">請求資訊</value>
     </property>
     <property key="OrderRequestItem">
         <value xml:lang="de">Anfrageelement</value>
@@ -10653,7 +10718,7 @@
         <value xml:lang="vi">Hàng hóa yêu cầu</value>
         <value xml:lang="zh">请求明细</value>
         <value xml:lang="zh_CN">请求项目</value>
-        <value xml:lang="zh_TW">要求明細</value>
+        <value xml:lang="zh_TW">請求細項</value>
     </property>
     <property key="OrderRequestItemNotes">
         <value xml:lang="de">Anmerkungen</value>
@@ -10690,7 +10755,7 @@
         <value xml:lang="pt_BR">Solicitação de itens de esforço de trabalho</value>
         <value xml:lang="vi">Yêu cầu Lượng giá nguồn lực hàng hóa</value>
         <value xml:lang="zh">需求明细人工服务</value>
-        <value xml:lang="zh_TW">需求明細人工服務</value>
+        <value xml:lang="zh_TW">請求細項工作投入</value>
     </property>
     <property key="OrderRequestItems">
         <value xml:lang="de">Anfragelemente</value>
@@ -10707,7 +10772,7 @@
         <value xml:lang="vi">Yêu cầu hàng hóa</value>
         <value xml:lang="zh">需求明细</value>
         <value xml:lang="zh_CN">请求项目</value>
-        <value xml:lang="zh_TW">要求明細</value>
+        <value xml:lang="zh_TW">請求細項</value>
     </property>
     <property key="OrderRequestLastModifiedDate">
         <value xml:lang="de">Datum letzte Änderung</value>
@@ -10741,7 +10806,7 @@
         <value xml:lang="vi">Danh sách yêu cầu khách hàng</value>
         <value xml:lang="zh">需求列表</value>
         <value xml:lang="zh_CN">请求列表</value>
-        <value xml:lang="zh_TW">要求列表</value>
+        <value xml:lang="zh_TW">請求清單</value>
     </property>
     <property key="OrderRequestManager">
         <value xml:lang="de">Anfrageverwaltung</value>
@@ -10758,7 +10823,7 @@
         <value xml:lang="vi">Nhà quản lý yêu cầu</value>
         <value xml:lang="zh">请求管理程序</value>
         <value xml:lang="zh_CN">请求管理者</value>
-        <value xml:lang="zh_TW">要求管理</value>
+        <value xml:lang="zh_TW">請求管理</value>
     </property>
     <property key="OrderRequestMaximumAmount">
         <value xml:lang="de">Maximum Betrag</value>
@@ -10792,7 +10857,7 @@
         <value xml:lang="vi">Tên yêu cầu</value>
         <value xml:lang="zh">请求名称</value>
         <value xml:lang="zh_CN">请求名称</value>
-        <value xml:lang="zh_TW">要求名稱</value>
+        <value xml:lang="zh_TW">請求名稱</value>
     </property>
     <property key="OrderRequestOverview">
         <value xml:lang="de">Übersicht</value>
@@ -10823,7 +10888,7 @@
         <value xml:lang="th">แสดงคำร้อง</value>
         <value xml:lang="vi">Yêu cầu Hoàn trả</value>
         <value xml:lang="zh">请求退货</value>
-        <value xml:lang="zh_TW">要求退貨</value>
+        <value xml:lang="zh_TW">請求退貨</value>
     </property>
     <property key="OrderRequestRoles">
         <value xml:lang="de">Anfragerollen</value>
@@ -10840,7 +10905,7 @@
         <value xml:lang="vi">Yêu cầu Vai trò</value>
         <value xml:lang="zh">请求角色</value>
         <value xml:lang="zh_CN">请求角色</value>
-        <value xml:lang="zh_TW">要求角色</value>
+        <value xml:lang="zh_TW">請求角色</value>
     </property>
     <property key="OrderRequestTaker">
         <value xml:lang="de">Anfrage Bearbeiter</value>
@@ -10857,7 +10922,7 @@
         <value xml:lang="vi">Yêu cầu người lấy (taker)</value>
         <value xml:lang="zh">请求接受者</value>
         <value xml:lang="zh_CN">请求执行者</value>
-        <value xml:lang="zh_TW">要求接受者</value>
+        <value xml:lang="zh_TW">請求接受者</value>
     </property>
     <property key="OrderRequestedResponse">
         <value xml:lang="cs">požadovaná odpověď</value>
@@ -10876,7 +10941,7 @@
         <value xml:lang="th">คำตอบของคำร้อง</value>
         <value xml:lang="vi">Phản hồi với Yêu cầu</value>
         <value xml:lang="zh">请求的回答</value>
-        <value xml:lang="zh_TW">要求的回應</value>
+        <value xml:lang="zh_TW">請求的回應</value>
     </property>
     <property key="OrderRequestingParty">
         <value xml:lang="de">Anfragender Akteur</value>
@@ -10893,7 +10958,7 @@
         <value xml:lang="vi">Người được yêu cầu</value>
         <value xml:lang="zh">请求的会员</value>
         <value xml:lang="zh_CN">请求单位</value>
-        <value xml:lang="zh_TW">要求的成員</value>
+        <value xml:lang="zh_TW">請求的團體</value>
     </property>
     <property key="OrderRequests">
         <value xml:lang="de">Anfragen</value>
@@ -10910,7 +10975,7 @@
         <value xml:lang="vi">Yêu cầu từ Khách hàng</value>
         <value xml:lang="zh">请求</value>
         <value xml:lang="zh_CN">请求</value>
-        <value xml:lang="zh_TW">要求</value>
+        <value xml:lang="zh_TW">請求</value>
     </property>
     <property key="OrderRequiredForSO">
         <value xml:lang="de">Benötigt für Kundenauftrag</value>
@@ -10970,6 +11035,7 @@
         <value xml:lang="ja">ID ${requirementId} の要求は存在しません。</value>
         <value xml:lang="vi">Yêu cầu Nguồn lực với Id ${requirementId} không tồn tại.</value>
         <value xml:lang="zh">不存在标识为${requirementId}的需求。</value>
+        <value xml:lang="zh_TW">不存在標識為${requirementId}的需求.</value>
     </property>
     <property key="OrderRequirementId">
         <value xml:lang="de">Bedarf ID</value>
@@ -10986,7 +11052,7 @@
         <value xml:lang="vi">Id yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求标识</value>
         <value xml:lang="zh_CN">需求标识</value>
-        <value xml:lang="zh_TW">需求ID</value>
+        <value xml:lang="zh_TW">需求識別</value>
     </property>
     <property key="OrderRequirementNumberOfProducts">
         <value xml:lang="de">Anzahl Produkte</value>
@@ -11032,7 +11098,7 @@
         <value xml:lang="th">รหัสสถานะรายการสั่งซื้อสินค้าที่ต้องการ</value>
         <value xml:lang="vi">Id trạng thái yêu cầu Nguồn lực của đặt hàng</value>
         <value xml:lang="zh">订单需求状态标识</value>
-        <value xml:lang="zh_TW">訂單需求狀態ID</value>
+        <value xml:lang="zh_TW">訂單需求狀態識別</value>
     </property>
     <property key="OrderRequirements">
         <value xml:lang="de">Bedarf</value>
@@ -11066,7 +11132,7 @@
         <value xml:lang="vi">Yêu cầu Nguồn lực cho các hàng hóa đã yêu cầu</value>
         <value xml:lang="zh">请求明细的需求</value>
         <value xml:lang="zh_CN">请求项目的需求</value>
-        <value xml:lang="zh_TW">要求明細的需求</value>
+        <value xml:lang="zh_TW">請求細項的請求</value>
     </property>
     <property key="OrderRequirementsList">
         <value xml:lang="de">Bedarfsliste</value>
@@ -11080,7 +11146,7 @@
         <value xml:lang="th">รายการสิ่งที่ต้องการ</value>
         <value xml:lang="vi">Danh sách yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求列表</value>
-        <value xml:lang="zh_TW">需求列表</value>
+        <value xml:lang="zh_TW">需求清單</value>
     </property>
     <property key="OrderRequiresCodeToUse">
         <value xml:lang="de">Code zum Benutzen benötigt. </value>
@@ -11091,7 +11157,7 @@
         <value xml:lang="pt_BR">Requer um código para ser usado</value>
         <value xml:lang="vi">Mã bắt buộc để áp dụng</value>
         <value xml:lang="zh">要求使用促销代码。</value>
-        <value xml:lang="zh_TW">要求使用促銷代碼。</value>
+        <value xml:lang="zh_TW">要求使用促銷代碼.</value>
     </property>
     <property key="OrderReturnAccept">
         <value xml:lang="de">Retoure annehmen</value>
@@ -11134,7 +11200,7 @@
         <value xml:lang="pt_BR">Isso não pode ser alterado sem recriar a devolução.</value>
         <value xml:lang="vi">Đối tượng này không thể thay đổi trừ khi tạo mới Hoàn trả</value>
         <value xml:lang="zh">没有重建退货的话就不能修改这个。</value>
-        <value xml:lang="zh_TW">沒有重建退貨的話就不能修改這個。</value>
+        <value xml:lang="zh_TW">沒有重建退貨的話就不能修改這個.</value>
     </property>
     <property key="OrderReturnCannotBeFound">
         <value xml:lang="de">Kann Retoure mit ID nicht finden</value>
@@ -11145,7 +11211,7 @@
         <value xml:lang="pt_BR">Não foi possível encontrar devolução com ID</value>
         <value xml:lang="vi">Không tìm thấy Hoàn trả với Id</value>
         <value xml:lang="zh">无法找到退货，标识为</value>
-        <value xml:lang="zh_TW">找不到退貨ID為</value>
+        <value xml:lang="zh_TW">找不到退貨識別為</value>
     </property>
     <property key="OrderReturnDestinationFacility">
         <value xml:lang="de">Ziellager</value>
@@ -11170,7 +11236,7 @@
         <value xml:lang="ja">返品アイテムRA#</value>
         <value xml:lang="vi">RA# của hàng hóa đã hoàn trả</value>
         <value xml:lang="zh">退货明细的退货申请#</value>
-        <value xml:lang="zh_TW">退貨項目RA#</value>
+        <value xml:lang="zh_TW">退貨細項RA#</value>
     </property>
     <property key="OrderReturnEnumId">
         <value xml:lang="de">Retoure Seq. ID</value>
@@ -11183,7 +11249,7 @@
         <value xml:lang="th">กลับคืนรหัสที่ระบุ</value>
         <value xml:lang="vi">Id liệt kê Hoàn trả</value>
         <value xml:lang="zh">退货枚举标识</value>
-        <value xml:lang="zh_TW">退貨列舉ID</value>
+        <value xml:lang="zh_TW">退貨列舉識別</value>
     </property>
     <property key="OrderReturnFound">
         <value xml:lang="de">Gefundene Retouren</value>
@@ -11233,7 +11299,7 @@
         <value xml:lang="th">กลับคืนรายการจากรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Hàng hóa hoàn trả từ Đặt hàng</value>
         <value xml:lang="zh">退货明细来自订单</value>
-        <value xml:lang="zh_TW">退貨明細來自訂單</value>
+        <value xml:lang="zh_TW">退貨細項來自訂單</value>
     </property>
     <property key="OrderReturnFromParty">
         <value xml:lang="de">Retoure von Akteur</value>
@@ -11250,7 +11316,7 @@
         <value xml:lang="vi">Hoàn trả từ tác nhân</value>
         <value xml:lang="zh">退货来自会员</value>
         <value xml:lang="zh_CN">退货单位</value>
-        <value xml:lang="zh_TW">退貨來自會員</value>
+        <value xml:lang="zh_TW">退貨來自團體</value>
     </property>
     <property key="OrderReturnHeader">
         <value xml:lang="de">Retourenkopf</value>
@@ -11295,7 +11361,7 @@
         <value xml:lang="vi">Id hoàn trả</value>
         <value xml:lang="zh">退货标识</value>
         <value xml:lang="zh_CN">退货单标识</value>
-        <value xml:lang="zh_TW">退貨ID</value>
+        <value xml:lang="zh_TW">退貨識別</value>
     </property>
     <property key="OrderReturnItemInventoryStatus">
         <value xml:lang="de">Lager Status</value>
@@ -11331,7 +11397,7 @@
         <value xml:lang="vi">Hàng hóa hoàn trả</value>
         <value xml:lang="zh">退货明细</value>
         <value xml:lang="zh_CN">退货项目</value>
-        <value xml:lang="zh_TW">退貨明細</value>
+        <value xml:lang="zh_TW">退貨細項</value>
     </property>
     <property key="OrderReturnItemsFromOrder">
         <value xml:lang="cs">vrátit položku objednávky</value>
@@ -11350,7 +11416,7 @@
         <value xml:lang="th">แสดงรายการจากการสั่งซื้อ</value>
         <value xml:lang="vi">Hàng hóa hoàn trả từ Đơn hàng</value>
         <value xml:lang="zh">来自订单的退货明细</value>
-        <value xml:lang="zh_TW">來自訂單的退貨明細</value>
+        <value xml:lang="zh_TW">來自訂單的退貨細項</value>
     </property>
     <property key="OrderReturnLabelEmailSuccessful">
         <value xml:lang="de">Retouren Aufkleber in E-Mail erfolgreich versandt</value>
@@ -11361,6 +11427,7 @@
         <value xml:lang="pt_BR">Etiqueta de envio de devolução enviada pro email com sucesso</value>
         <value xml:lang="vi">Hệ thống đã gửi thư điện tử 'Nhãn chuyển hàng' thành công</value>
         <value xml:lang="zh">成功发送了退货送货标签的电子邮件</value>
+        <value xml:lang="zh_TW">成功發送了退貨送貨標籤的電子郵件</value>
     </property>
     <property key="OrderReturnLoadItems">
         <value xml:lang="de">Elemente ab Auftrag für Retoure verwenden</value>
@@ -11376,7 +11443,7 @@
         <value xml:lang="th">โหลดรายการรายการสำหรับการชดเชย</value>
         <value xml:lang="vi">Lấythông tin hàng hóa của đặt hàng để hoàn trả</value>
         <value xml:lang="zh">为退货载入订单明细</value>
-        <value xml:lang="zh_TW">為退貨載入訂單明細</value>
+        <value xml:lang="zh_TW">為退貨載入訂單細項</value>
     </property>
     <property key="OrderReturnManualAdjustment">
         <value xml:lang="de">Manuelle Anpassung Retoure für Auftrag</value>
@@ -11403,7 +11470,7 @@
         <value xml:lang="pt_BR">Se sim (Y), então a devolução será automáticamente completada quando for aceita, ignorando o estado de recebido e processando.</value>
         <value xml:lang="vi">Nếu là Y thì Hoàn trả sẽ tự động được Kết thúc khi hoàn trả này được Chấp nhận, bỏ qua trạng thái Đã nhận và tiếp tục xử lý.</value>
         <value xml:lang="zh">如果这是Y，那么当退货被接受时它会自动完成，会跳过已接收状态及处理。</value>
-        <value xml:lang="zh_TW">如果這是Y，那麼當退貨被接受時它會自動完成，會跳過已接收狀態及處理。</value>
+        <value xml:lang="zh_TW">如果這是Y,那麼當退貨被接受時它會自動完成,會跳過已接收狀態及處理.</value>
     </property>
     <property key="OrderReturnNeedsAutoReceive">
         <value xml:lang="de">Auto-Erhalten bei ACCEPT</value>
@@ -11435,7 +11502,7 @@
         <value xml:lang="th">ไม่พบรายการซึ่งกลับคืนได้สำหรับรายการนี้</value>
         <value xml:lang="vi">Không hàng hóa nào có thể hoàn trả với đặt hàng này</value>
         <value xml:lang="zh">订单中没有可以退货的明细</value>
-        <value xml:lang="zh_TW">訂單中沒有可以退貨的明細</value>
+        <value xml:lang="zh_TW">訂單中沒有可以退貨的細項</value>
     </property>
     <property key="OrderReturnPrice">
         <value xml:lang="de">Retoure Preis</value>
@@ -11564,7 +11631,7 @@
         <value xml:lang="th">คำตอบ</value>
         <value xml:lang="vi">Phản hồi</value>
         <value xml:lang="zh">回答</value>
-        <value xml:lang="zh_TW">回答</value>
+        <value xml:lang="zh_TW">回應</value>
     </property>
     <property key="OrderReturnSelectedItems">
         <value xml:lang="cs">vrátit vybranou položku</value>
@@ -11583,7 +11650,7 @@
         <value xml:lang="th">แสดงการเลือกรายการ</value>
         <value xml:lang="vi">Hàng hóa đã chọn để hoàn trả</value>
         <value xml:lang="zh">对所选明细退货</value>
-        <value xml:lang="zh_TW">對所選明細退貨</value>
+        <value xml:lang="zh_TW">對所選細項退貨</value>
     </property>
     <property key="OrderReturnShipFromAddress">
         <value xml:lang="de">Bitte wählen Sie eine 'Versand von' Adresse aus</value>
@@ -11737,7 +11804,7 @@
         <value xml:lang="vi">Xem xét Đặt hàng</value>
         <value xml:lang="zh">浏览订单</value>
         <value xml:lang="zh_CN">检查订单</value>
-        <value xml:lang="zh_TW">瀏覽訂單</value>
+        <value xml:lang="zh_TW">檢查訂單</value>
     </property>
     <property key="OrderRunAction">
         <value xml:lang="de">Aktion ausführen</value>
@@ -11984,7 +12051,7 @@
         <value xml:lang="vi">Bạn hãy chọn một cam kết cho đặt hàng này</value>
         <value xml:lang="zh">为这个订单选择一个合同</value>
         <value xml:lang="zh_CN">为这个订单选择协议</value>
-        <value xml:lang="zh_TW">為這個訂單選擇一個合同</value>
+        <value xml:lang="zh_TW">為這個訂單選擇一個合約</value>
     </property>
     <property key="OrderSelectAgreementRoles">
         <value xml:lang="de">Vereinbarungs-Rolle auswählen</value>
@@ -11996,7 +12063,7 @@
         <value xml:lang="pt_BR">Selecione os papéis para o acordo</value>
         <value xml:lang="vi">Bạn hãy chọn vai trò của cam kết</value>
         <value xml:lang="zh">选择订单合同角色</value>
-        <value xml:lang="zh_TW">選擇訂單合同角色</value>
+        <value xml:lang="zh_TW">選擇訂單合約角色</value>
     </property>
     <property key="OrderSelectCurrency">
         <value xml:lang="de">Oder bestimmen Sie eine Währung für diesen Auftrag</value>
@@ -12039,6 +12106,7 @@
         <value xml:lang="pt_BR">Selecione a quantia para presente</value>
         <value xml:lang="vi">Chọn giá trị quà tặng</value>
         <value xml:lang="zh">选择礼品金额</value>
+        <value xml:lang="zh_TW">選擇禮物金額</value>
     </property>
     <property key="OrderSelectPartyToOrder">
         <value xml:lang="de">Wählen Sie einen Akteurtyp aus, um ihn dem Auftrag zuzuordnen</value>
@@ -12055,7 +12123,7 @@
         <value xml:lang="vi">Chọn loại của Tác nhân liên quan đến Đặt hàng</value>
         <value xml:lang="zh">选择要关联到订单的会员类型</value>
         <value xml:lang="zh_CN">选择与这个订单关联的组织类型</value>
-        <value xml:lang="zh_TW">選擇要關聯到訂單的會員類型</value>
+        <value xml:lang="zh_TW">選擇要結合到訂單的團體類型</value>
     </property>
     <property key="OrderSelectPaymentMethod">
         <value xml:lang="de">Zahlungsmethode wählen</value>
@@ -12134,7 +12202,7 @@
         <value xml:lang="pt_BR">Selecione o fornecedor</value>
         <value xml:lang="vi">Bạn hãy chọn nhà cung cấp</value>
         <value xml:lang="zh">选择供货商</value>
-        <value xml:lang="zh_TW">選擇供貨商</value>
+        <value xml:lang="zh_TW">選擇供應商</value>
     </property>
     <property key="OrderSelectVariant">
         <value xml:lang="de">Variante auswählen</value>
@@ -12164,7 +12232,7 @@
         <value xml:lang="vi">Gói quà đã chọn không áp dụng cho tất cả các hàng hó. Hàng hóa có thể áp dụng đã được chọn, các hàng hóa còn lại sẽ không được thay đổi.</value>
         <value xml:lang="zh">所选的礼品包装不能用于全部明细。已经把可以使用的选择了出来，其它的保持不变。</value>
         <value xml:lang="zh_CN">选择的礼品打包对所有项目不可用。 可用的项目已被选中，其他保持不变。</value>
-        <value xml:lang="zh_TW">所選的禮品包裝不能用于全部明細。已經把可以使用的選擇了出來，其他的保持不變。</value>
+        <value xml:lang="zh_TW">所選的禮物包裝不能用於全部細項.已經把可以使用的選擇了出來,其他的保持不變.</value>
     </property>
     <property key="OrderSendConfirmationEmail">
         <value xml:lang="de">E-Mail Bestätigung senden</value>
@@ -12274,7 +12342,7 @@
         <value xml:lang="vi">Gửi đến</value>
         <value xml:lang="zh">收件人</value>
         <value xml:lang="zh_CN">发送</value>
-        <value xml:lang="zh_TW">收件人</value>
+        <value xml:lang="zh_TW">收件者</value>
     </property>
     <property key="OrderSendConfirmationEmailSubject">
         <value xml:lang="de">Betreff</value>
@@ -12354,6 +12422,7 @@
         <value xml:lang="pt_BR">Nome do remetente:</value>
         <value xml:lang="vi">Tên người gửi:</value>
         <value xml:lang="zh">发送者名称：</value>
+        <value xml:lang="zh_TW">發送者名稱:</value>
     </property>
     <property key="OrderShipAfterDate">
         <value xml:lang="de">Versand nach Datum</value>
@@ -12406,7 +12475,7 @@
         <value xml:lang="th">ส่งของทั้งหมดมาครั้งเดียวหรือที่มีอยู่</value>
         <value xml:lang="vi">Gửi tất cả một lần, hoặc 'như sẵn sàng' ('as available')</value>
         <value xml:lang="zh">一次全部送到，或者“送有现货的”</value>
-        <value xml:lang="zh_TW">一次全部送到，或者『送有現貨的』</value>
+        <value xml:lang="zh_TW">一次全部送到,或者『送有現貨的』</value>
     </property>
     <property key="OrderShipAllItemsTogether">
         <value xml:lang="de">Alle Positionen zusammen versenden</value>
@@ -12423,7 +12492,7 @@
         <value xml:lang="th">ส่งของทั้งหมดมาพร้อมกัน</value>
         <value xml:lang="vi">Gửi tất cả hàng hóa cùng nhau</value>
         <value xml:lang="zh">把全部明细一起送到</value>
-        <value xml:lang="zh_TW">把全部明細一起送到</value>
+        <value xml:lang="zh_TW">把全部細項一起送到</value>
     </property>
     <property key="OrderShipBeforeDate">
         <value xml:lang="de">Versand vor Datum</value>
@@ -12486,7 +12555,7 @@
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่ง</value>
         <value xml:lang="vi">Id thứ tự 'nhóm hàng chuyển'</value>
         <value xml:lang="zh">货运组序号标识</value>
-        <value xml:lang="zh_TW">遞送群組序列ID</value>
+        <value xml:lang="zh_TW">遞送群組序列識別</value>
     </property>
     <property key="OrderShipGroupSeqIdInvalid">
         <value xml:lang="de">Ungültige shipGroupSeqId ${shipGroupSeqId}</value>
@@ -12496,6 +12565,7 @@
         <value xml:lang="ja">発送グループ連番ID ${shipGroupSeqId} が正しくありません</value>
         <value xml:lang="vi">Id thứ tự 'nhóm hàng chuyển' ${shipGroupSeqId} không hợp lệ</value>
         <value xml:lang="zh">无效的送货组序号标识${shipGroupSeqId}</value>
+        <value xml:lang="zh_TW">不正確送貨群組序號標識${shipGroupSeqId}</value>
     </property>
     <property key="OrderShipGroupTo">
         <value xml:lang="de">zu Versandgruppe</value>
@@ -12556,7 +12626,7 @@
         <value xml:lang="th">การร้องขอการขนส่ง</value>
         <value xml:lang="vi">Yêu cầu chuyển</value>
         <value xml:lang="zh">货运请求</value>
-        <value xml:lang="zh_TW">遞送要求</value>
+        <value xml:lang="zh_TW">遞送請求</value>
     </property>
     <property key="OrderShipTo">
         <value xml:lang="de">Liefern an</value>
@@ -12590,7 +12660,7 @@
         <value xml:lang="vi">Chuyển đến tác nhân khác</value>
         <value xml:lang="zh">送货给另一个会员</value>
         <value xml:lang="zh_CN">发货给另一客户</value>
-        <value xml:lang="zh_TW">運送至其他成員</value>
+        <value xml:lang="zh_TW">運送至其他團體</value>
     </property>
     <property key="OrderShipToCountry">
         <value xml:lang="de">Versende in Land</value>
@@ -12614,7 +12684,7 @@
         <value xml:lang="th">การขนส่งถึงกลุ่มผู้ใช้</value>
         <value xml:lang="vi">Chuyển đến tác nhân</value>
         <value xml:lang="zh">送货到会员</value>
-        <value xml:lang="zh_TW">送貨至會員</value>
+        <value xml:lang="zh_TW">送貨送往團體</value>
     </property>
     <property key="OrderShipVia">
         <value xml:lang="de">Liefern via</value>
@@ -12686,7 +12756,7 @@
         <value xml:lang="th">บริษัทขนส่ง</value>
         <value xml:lang="vi">Người chuyển vận</value>
         <value xml:lang="zh">承运人</value>
-        <value xml:lang="zh_TW">承運人</value>
+        <value xml:lang="zh_TW">快遞</value>
     </property>
     <property key="OrderShippingAddress">
         <value xml:lang="cs">Dodací adresa</value>
@@ -12819,6 +12889,7 @@
         <value xml:lang="ja">申込自動記録の実行が完了しました。${count} 件の申込を延長しました。</value>
         <value xml:lang="vi">Thực hiện 'thuê bao cho Đặt hàng lại tự động' đã kết thúc, đã mở rộng ${count} thuê bao (subscription).</value>
         <value xml:lang="zh">完成了运行订阅自动记录（runSubscriptionAutoReorders），延长了${count}个订阅。</value>
+        <value xml:lang="zh_TW">完成了執行訂閱自動記錄(runSubscriptionAutoReorders),延長了${count}個訂閱.</value>
     </property>
     <property key="OrderShoppingListCreationError">
         <value xml:lang="de">Fehler während der Erstellung einer neuen Einkaufsliste, basiert auf automatischer Neubestellung ${errorString}</value>
@@ -12828,6 +12899,7 @@
         <value xml:lang="ja">自動記録に基づく新規発送一覧の作成中にエラー ${errorString}</value>
         <value xml:lang="vi">Lỗi xảy ra khi tạo mới Danh sách mua hàng dựa trên 'Đặt hàng lại tự động' ${errorString}</value>
         <value xml:lang="zh">基于自动重下订单创建新的送货列表时出错${errorString}</value>
+        <value xml:lang="zh_TW">基於自動重下訂單新建新的送貨清單時出錯${errorString}</value>
     </property>
     <property key="OrderShortfalled">
         <value xml:lang="de">Rückstand</value>
@@ -12877,7 +12949,7 @@
         <value xml:lang="vi">Xem Ghi chú của Hàng hóa này</value>
         <value xml:lang="zh">显示这个明细的便笺</value>
         <value xml:lang="zh_CN">显示此条款注释</value>
-        <value xml:lang="zh_TW">顯示這個明細的便箋</value>
+        <value xml:lang="zh_TW">顯示這個細項的便箋</value>
     </property>
     <property key="OrderSizeAvailableMultiple">
         <value xml:lang="de">Verfügbare Größen</value>
@@ -12969,7 +13041,7 @@
         <value xml:lang="th">ไม่พบรายการสั่งซื้อสินค้า, กรุณาทำอีกครั้ง</value>
         <value xml:lang="vi">Hóa đơn mong muốn không tìm thấy, bạn hãy thử lại</value>
         <value xml:lang="zh">没有找到指定的订单，请重试</value>
-        <value xml:lang="zh_TW">沒有找到指定的訂單，請重試</value>
+        <value xml:lang="zh_TW">沒有找到指定的訂單,請重試</value>
     </property>
     <property key="OrderSplitIntoMultipleShipments">
         <value xml:lang="de">In mehrere Lieferungen aufteilen</value>
@@ -13021,7 +13093,7 @@
         <value xml:lang="vi">Cấu hình quá trình chia chuyển vận</value>
         <value xml:lang="zh">分拆优先条件</value>
         <value xml:lang="zh_CN">拆分偏好</value>
-        <value xml:lang="zh_TW">分拆優先條件</value>
+        <value xml:lang="zh_TW">分拆偏好條件</value>
     </property>
     <property key="OrderStartDateTime">
         <value xml:lang="de">Startdatum/-zeit</value>
@@ -13144,7 +13216,7 @@
         <value xml:lang="th">กรุณารอสักครู่, กำลังดำเนินการในการสั่งซื้อสินค้า...</value>
         <value xml:lang="vi">Bạn vui lòng  đợi một chút, hệ thống đang xử lý Đặt hàng...</value>
         <value xml:lang="zh">请稍候，正在处理订单...</value>
-        <value xml:lang="zh_TW">請稍候，正在處理訂單...</value>
+        <value xml:lang="zh_TW">請稍候,正在處理訂單...</value>
     </property>
     <property key="OrderSupplierData">
         <value xml:lang="de">Daten Lieferant</value>
@@ -13161,7 +13233,7 @@
         <value xml:lang="vi">Dữ liệu nhà cung cấp</value>
         <value xml:lang="zh">供货商数据</value>
         <value xml:lang="zh_CN">供应商数据</value>
-        <value xml:lang="zh_TW">供貨商資料</value>
+        <value xml:lang="zh_TW">供應商資料</value>
     </property>
     <property key="OrderSupplierFinancialData">
         <value xml:lang="de">Finanzielle Daten Lieferant</value>
@@ -13178,7 +13250,7 @@
         <value xml:lang="vi">Dữ liệu tài chính của nhà cung cấp</value>
         <value xml:lang="zh">供货商财务数据</value>
         <value xml:lang="zh_CN">供应商财务数据</value>
-        <value xml:lang="zh_TW">供貨商財務資料</value>
+        <value xml:lang="zh_TW">供應商財務資料</value>
     </property>
     <property key="OrderSurvey">
         <value xml:lang="de">Befragung</value>
@@ -13227,7 +13299,7 @@
         <value xml:lang="th">รายการสั่งซื้อนี้เป็นของขวัญ</value>
         <value xml:lang="vi">Đặt hàng này là Quà tặng</value>
         <value xml:lang="zh">本订单是个礼品</value>
-        <value xml:lang="zh_TW">本訂單是個禮品</value>
+        <value xml:lang="zh_TW">本訂單是個禮物</value>
     </property>
     <property key="OrderThisIsNotGift">
         <value xml:lang="cs">Tato objednávka není dárek</value>
@@ -13246,7 +13318,7 @@
         <value xml:lang="th">รายการสั่งซื้อนี้ไม่ใช่ของขวัญ</value>
         <value xml:lang="vi">Đặt hàng này không là Quà tặng</value>
         <value xml:lang="zh">本订单不是礼品</value>
-        <value xml:lang="zh_TW">本訂單不是禮品</value>
+        <value xml:lang="zh_TW">本訂單不是禮物</value>
     </property>
     <property key="OrderThisOrderDoesNotHaveShippingInstructions">
         <value xml:lang="de">Diese Bestellung hat keine Versandinformationen</value>
@@ -13274,7 +13346,7 @@
         <value xml:lang="vi">Đặt hàng này là Quà tặng</value>
         <value xml:lang="zh">本订单是个礼品</value>
         <value xml:lang="zh_CN">这个订单是个礼品</value>
-        <value xml:lang="zh_TW">本訂單是個禮品</value>
+        <value xml:lang="zh_TW">本訂單是個禮物</value>
     </property>
     <property key="OrderThisOrderNotGift">
         <value xml:lang="de">Dieser Auftrag ist kein Geschenk</value>
@@ -13291,7 +13363,7 @@
         <value xml:lang="vi">Đặt hàng này không là Quà tặng</value>
         <value xml:lang="zh">本订单不是礼品</value>
         <value xml:lang="zh_CN">这个订单不是礼品</value>
-        <value xml:lang="zh_TW">本訂單不是禮品</value>
+        <value xml:lang="zh_TW">本訂單不是禮物</value>
     </property>
     <property key="OrderToAddSelectedItemsToShoppingList">
         <value xml:lang="cs">Přidat vybrané položky do nákupního seznamu</value>
@@ -13310,7 +13382,7 @@
         <value xml:lang="th">ในการเพิ่มสินค้าสู่รายการสั่งซื้อ</value>
         <value xml:lang="vi">Để thêm hàng hóa đã chọn vào Danh sách mua hàng</value>
         <value xml:lang="zh">把所选的明细添加到购物列表</value>
-        <value xml:lang="zh_TW">把所選的明細添加到購物列表</value>
+        <value xml:lang="zh_TW">把所選的細項增加到購物清單</value>
     </property>
     <property key="OrderToCart">
         <value xml:lang="cs">do košíku</value>
@@ -13391,7 +13463,7 @@
         <value xml:lang="pt_BR">Nº total de itens</value>
         <value xml:lang="vi">Tổng số lượng hàng hóa</value>
         <value xml:lang="zh">明细数量合计</value>
-        <value xml:lang="zh_TW">合計明細編號</value>
+        <value xml:lang="zh_TW">合計細項編號</value>
     </property>
     <property key="OrderTotalOtherOrderAdjustments">
         <value xml:lang="de">Gesamtsumme anderer Auftragsanpassungen</value>
@@ -13575,7 +13647,7 @@
         <value xml:lang="vi">Mã theo dõi hàng</value>
         <value xml:lang="zh">跟踪码</value>
         <value xml:lang="zh_CN">追踪代码</value>
-        <value xml:lang="zh_TW">跟蹤碼</value>
+        <value xml:lang="zh_TW">追蹤碼</value>
     </property>
     <property key="OrderTrackingNumber">
         <value xml:lang="cs">Referenční číslo</value>
@@ -13612,7 +13684,7 @@
         <value xml:lang="vi">Đơn vị / Danh sách</value>
         <value xml:lang="zh">单位/列表</value>
         <value xml:lang="zh_CN">单位 / 列表</value>
-        <value xml:lang="zh_TW">單位/列表</value>
+        <value xml:lang="zh_TW">單位/清單</value>
     </property>
     <property key="OrderUnitPrice">
         <value xml:lang="de">Stückpreis</value>
@@ -13654,7 +13726,7 @@
         <value xml:lang="vi">Lịch sử giá đơn vị hàng hóa</value>
         <value xml:lang="zh">明细单价历史</value>
         <value xml:lang="zh_CN">明细单价历史</value>
-        <value xml:lang="zh_TW">明細歷史單價</value>
+        <value xml:lang="zh_TW">細項歷史單價</value>
     </property>
     <property key="OrderUnitsPieces">
         <value xml:lang="de">Stückpreise</value>
@@ -13719,7 +13791,7 @@
         <value xml:lang="vi">Cập nhật hàng hóa</value>
         <value xml:lang="zh">更新明细</value>
         <value xml:lang="zh_CN">更新项目</value>
-        <value xml:lang="zh_TW">更新明細</value>
+        <value xml:lang="zh_TW">更新細項</value>
     </property>
     <property key="OrderUpdateReturnAdjustment">
         <value xml:lang="de">Retourenanpassung mit Id:${returnAdjustmentId} zu Betrag ${amount} erfolgreich geändert.</value>
@@ -13730,6 +13802,7 @@
         <value xml:lang="pt_BR">Atualizar ReturnAdjustment com Id: ${returnAdjustmentId} para quantia ${amount} bem sucedida.</value>
         <value xml:lang="vi">Cập nhật điều chỉnh hoàn trả với Id:${returnAdjustmentId} tới giá trị ${amount} thành công.</value>
         <value xml:lang="zh">成功更新了退货，把标识为${returnAdjustmentId}退货调整（ReturnAdjustment）为数量${amount}。</value>
+        <value xml:lang="zh_TW">成功更新了退貨,把標識為${returnAdjustmentId}退貨調整(ReturnAdjustment)為數量${amount}.</value>
     </property>
     <property key="OrderUseDefault">
         <value xml:lang="cs">Upozornění pro uživatele: jiný způsob zaslání není možný</value>
@@ -13747,7 +13820,7 @@
         <value xml:lang="th">Use Default: ไม่มีวิธีการขนส่งที่เป็นไปได้</value>
         <value xml:lang="vi">Áp dụng Mặc định : Không phương thức chuyển vận khác có thể áp dụng</value>
         <value xml:lang="zh">使用缺省值：没有其它可用的送货方法</value>
-        <value xml:lang="zh_TW">使用預設值：沒有其他可用的送貨方法</value>
+        <value xml:lang="zh_TW">使用預設值:沒有其他可用的送貨方法</value>
     </property>
     <property key="OrderUseDefaultComment">
         <value xml:lang="de">Als voreingestellten Kommentar für den nächsten Eintrag verwenden.</value>
@@ -13781,7 +13854,7 @@
         <value xml:lang="vi">Sử dụng như 'ngày mong muốn nhận hàng' mặc định cho điểm nhập tiếp theo</value>
         <value xml:lang="zh">作为下一条记录的缺省期望送货日期</value>
         <value xml:lang="zh_CN">作为下一记录的缺省期望发货日期</value>
-        <value xml:lang="zh_TW">作為下一條記錄的預設期望送貨日期</value>
+        <value xml:lang="zh_TW">作為下一條記錄的預設期望送達日期</value>
     </property>
     <property key="OrderValuePurchase">
         <value xml:lang="de">Wert eingekauft</value>
@@ -13863,7 +13936,7 @@
         <value xml:lang="th">แสดงโปรโมชั่นทั้งหมด</value>
         <value xml:lang="vi">Xem các Khuyến mại đang có</value>
         <value xml:lang="zh">浏览全部促销</value>
-        <value xml:lang="zh_TW">瀏覽全部促銷</value>
+        <value xml:lang="zh_TW">檢視全部促銷</value>
     </property>
     <property key="OrderViewCart">
         <value xml:lang="cs">Ukázat obsah košíku</value>
@@ -13883,7 +13956,7 @@
         <value xml:lang="th">แสดงรายการในตะกร้า</value>
         <value xml:lang="vi">Xem giỏ hàng</value>
         <value xml:lang="zh">浏览购物车</value>
-        <value xml:lang="zh_TW">瀏覽購物車</value>
+        <value xml:lang="zh_TW">檢視購物車</value>
     </property>
     <property key="OrderViewEditDelivery">
         <value xml:lang="de">Ansicht/Bearbeiten Lieferung</value>
@@ -13896,7 +13969,7 @@
         <value xml:lang="th">แสดงหรือแก้ไขการส่ง</value>
         <value xml:lang="vi">Xem / Sửa nhận hàng</value>
         <value xml:lang="zh">浏览/编辑递送</value>
-        <value xml:lang="zh_TW">瀏覽/編輯遞送</value>
+        <value xml:lang="zh_TW">檢視/編輯遞送</value>
     </property>
     <property key="OrderViewEditDeliveryScheduleInfo">
         <value xml:lang="de">Ansicht/Bearbeiten Planung Lieferung Informationen</value>
@@ -13913,7 +13986,7 @@
         <value xml:lang="vi">Xem / Sửa thông tin lịch nhận hàng</value>
         <value xml:lang="zh">浏览/编辑交货计划信息</value>
         <value xml:lang="zh_CN">查看编辑发货计划</value>
-        <value xml:lang="zh_TW">瀏覽/編輯交貨計劃資訊</value>
+        <value xml:lang="zh_TW">檢視/編輯交貨計劃資訊</value>
     </property>
     <property key="OrderViewImage">
         <value xml:lang="de">Bild anzeigen</value>
@@ -13930,7 +14003,7 @@
         <value xml:lang="vi">Xem ảnh</value>
         <value xml:lang="zh">浏览图像</value>
         <value xml:lang="zh_CN">查看图片</value>
-        <value xml:lang="zh_TW">瀏覽圖像</value>
+        <value xml:lang="zh_TW">檢視圖像</value>
     </property>
     <property key="OrderViewOrder">
         <value xml:lang="de">Auftrag anzeigen</value>
@@ -13977,7 +14050,7 @@
         <value xml:lang="vi">Bạn không có thẩm quyền để xem trang này(cần có "ORDERMGR_VIEW", "ORDERMGR_PURCHASE_VIEW" hoặc "ORDERMGR_ADMIN").</value>
         <value xml:lang="zh">你无权浏览这个页面。</value>
         <value xml:lang="zh_CN">你没有权限查看此页</value>
-        <value xml:lang="zh_TW">你無權瀏覽這個頁面。</value>
+        <value xml:lang="zh_TW">你無權檢視這個頁面.</value>
     </property>
     <property key="OrderViewQuote">
         <value xml:lang="de">Angebot Anzeigen</value>
@@ -13995,7 +14068,7 @@
         <value xml:lang="vi">Xem báo giá</value>
         <value xml:lang="zh">浏览询价</value>
         <value xml:lang="zh_CN">查看报价</value>
-        <value xml:lang="zh_TW">瀏覽報價</value>
+        <value xml:lang="zh_TW">檢視報價</value>
     </property>
     <property key="OrderViewQuoteProfit">
         <value xml:lang="de">Gewinn</value>
@@ -14029,7 +14102,7 @@
         <value xml:lang="vi">Xem yêu cầu</value>
         <value xml:lang="zh">浏览请求</value>
         <value xml:lang="zh_CN">查看请求</value>
-        <value xml:lang="zh_TW">瀏覽要求</value>
+        <value xml:lang="zh_TW">檢視請求</value>
     </property>
     <property key="OrderViewed">
         <value xml:lang="de">Gesehen</value>
@@ -14074,7 +14147,7 @@
         <value xml:lang="vi">Chờ phê duyệt</value>
         <value xml:lang="zh">等待批准</value>
         <value xml:lang="zh_CN">等待批准</value>
-        <value xml:lang="zh_TW">等待批准</value>
+        <value xml:lang="zh_TW">等待核准</value>
     </property>
     <property key="OrderWaitingCompletion">
         <value xml:lang="de">Auf Abschluss wartend</value>
@@ -14154,7 +14227,7 @@
         <value xml:lang="th">เราจะจัดส่งได้ที่ไหน</value>
         <value xml:lang="vi">Chúng tôi có thể chuyển tới đâu</value>
         <value xml:lang="zh">送货到哪里</value>
-        <value xml:lang="zh_TW">送貨到哪里</value>
+        <value xml:lang="zh_TW">送貨到哪裡</value>
     </property>
     <property key="OrderWithPromoCode">
         <value xml:lang="de">Mit Aktionscode</value>
@@ -14199,7 +14272,7 @@
         <value xml:lang="vi">Quy trình</value>
         <value xml:lang="zh">工作流</value>
         <value xml:lang="zh_CN">工作流</value>
-        <value xml:lang="zh_TW">工作流</value>
+        <value xml:lang="zh_TW">工作流程</value>
     </property>
     <property key="OrderYTD">
         <value xml:lang="de">Total Jahr</value>
@@ -14233,7 +14306,7 @@
         <value xml:lang="th">ใช่, นี่คือของขวัญ</value>
         <value xml:lang="vi">Đúng, đây là Quà tặng</value>
         <value xml:lang="zh">是一个礼品</value>
-        <value xml:lang="zh_TW">是一個禮品</value>
+        <value xml:lang="zh_TW">是一個禮物</value>
     </property>
     <property key="OrderYouMust">
         <value xml:lang="cs">Musíte</value>
@@ -14282,7 +14355,7 @@
         <value xml:lang="pt_BR">Requisitos aprovados do produto</value>
         <value xml:lang="vi">Duyệt yêu cầu Nguồn lực với Sản phẩm</value>
         <value xml:lang="zh">已批准的产品需求</value>
-        <value xml:lang="zh_TW">已批准的產品需求</value>
+        <value xml:lang="zh_TW">已核准的產品需求</value>
     </property>
     <property key="PageTitleApprovedProductRequirementsByVendor">
         <value xml:lang="de">Genehmigter Produktbedarf nach Hersteller</value>
@@ -14293,7 +14366,7 @@
         <value xml:lang="pt_BR">Requisitos aprovados do produto pelo fornecedor</value>
         <value xml:lang="vi">Duyệt yêu cầu Nguồn lực bởi Nhà bán hàng</value>
         <value xml:lang="zh">由供货商批准的产品需求</value>
-        <value xml:lang="zh_TW">由供貨商批准的產品需求</value>
+        <value xml:lang="zh_TW">由供應商核准的產品需求</value>
     </property>
     <property key="PageTitleCreateQuoteForCustRequest">
         <value xml:lang="de">Neues Angebot und Angebotspositionen für Kundenanfrage erstellen</value>
@@ -14310,7 +14383,7 @@
         <value xml:lang="th">สร้างคำร้องใหม่และหัวข้อคำร้องสำหรับการร้องขอของลูกค้า</value>
         <value xml:lang="vi">Tạo mới Báo giá và Hạng mục báo giá trên cơ sở Yêu cầu khách hàng</value>
         <value xml:lang="zh">为客户请求新建询价和询价明细</value>
-        <value xml:lang="zh_TW">建立報價及明細的要求</value>
+        <value xml:lang="zh_TW">建立報價及細項的請求</value>
     </property>
     <property key="PageTitleEditOrderHeader">
         <value xml:lang="de">Bestellungskopf bearbeiten</value>
@@ -14338,7 +14411,7 @@
         <value xml:lang="th">แก้ไขหัวข้อคำร้องสำหรับการร้องขอของลูกค้า</value>
         <value xml:lang="vi">Cập nhật Hàng hóa đặt hàng với Yêu cầu khách hàng</value>
         <value xml:lang="zh">为客户请求编辑询价明细</value>
-        <value xml:lang="zh_TW">修改報價明細的要求</value>
+        <value xml:lang="zh_TW">修改報價細項的請求</value>
     </property>
     <property key="PageTitleEditRequestContent">
         <value xml:lang="de">Anfrageninhalt bearbeiten</value>
@@ -14349,7 +14422,7 @@
         <value xml:lang="pt_BR">Alterar conteúdo de uma solicitação</value>
         <value xml:lang="vi">Cập nhật yêu cầu nội dung</value>
         <value xml:lang="zh">编辑请求内容</value>
-        <value xml:lang="zh_TW">修改要求的內容</value>
+        <value xml:lang="zh_TW">修改請求的內容</value>
     </property>
     <property key="PageTitleEditRequestItem">
         <value xml:lang="de">Anfrageelemen bearbeiten</value>
@@ -14365,7 +14438,7 @@
         <value xml:lang="th">แก้ไขหัวข้อคำร้อง</value>
         <value xml:lang="vi">Cập nhật yêu cầu hàng hóa</value>
         <value xml:lang="zh">编辑请求明细</value>
-        <value xml:lang="zh_TW">修改要求項目</value>
+        <value xml:lang="zh_TW">修改請求細項</value>
     </property>
     <property key="PageTitleEditRequestItemWorkEffort">
         <value xml:lang="de">Anfrageelement Arbeitseinsatz bearbeiten</value>
@@ -14381,7 +14454,7 @@
         <value xml:lang="th">แก้ไขงานหัวข้อคำร้อง</value>
         <value xml:lang="vi">Cập nhật yêu cầu Lượng giá nguồn lực với hàng hóa</value>
         <value xml:lang="zh">编辑请求明细的人工服务</value>
-        <value xml:lang="zh_TW">修改要求項目的工項</value>
+        <value xml:lang="zh_TW">修改請求細項的工作投入</value>
     </property>
     <property key="PageTitleEditRequestRoles">
         <value xml:lang="de">Anfrage Rolle bearbeiten</value>
@@ -14394,7 +14467,7 @@
         <value xml:lang="th">แก้ไขสถานะการร้องขอ</value>
         <value xml:lang="vi">Cập nhật yêu cầu Vai trò</value>
         <value xml:lang="zh">编辑请求角色</value>
-        <value xml:lang="zh_TW">修改要求角色</value>
+        <value xml:lang="zh_TW">修改請求角色</value>
     </property>
     <property key="PageTitleEditRequirement">
         <value xml:lang="de">Bedarf bearbeiten</value>
@@ -14434,7 +14507,7 @@
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
         <value xml:lang="vi">Tìm nhu cầu sản phẩm đã phê duyệt</value>
         <value xml:lang="zh">查找已批准的产品需求</value>
-        <value xml:lang="zh_TW">查詢已批准的產品需求</value>
+        <value xml:lang="zh_TW">查詢已核准的產品需求</value>
     </property>
     <property key="PageTitleFindApprovedRequirementsBySupplier">
         <value xml:lang="de">Genehmigten Bedarf pro Lieferant suchen</value>
@@ -14447,7 +14520,7 @@
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติโดยผู้จำหน่าย</value>
         <value xml:lang="vi">Tìm kiếm các phê duyệt nguồn lực bởi nhà cung cấp</value>
         <value xml:lang="zh">查找由供货商批准的产品需求</value>
-        <value xml:lang="zh_TW">以供貨商查詢批准需求</value>
+        <value xml:lang="zh_TW">按供應商查詢核准需求</value>
     </property>
     <property key="PageTitleFindNotApprovedRequirements">
         <value xml:lang="de">Nicht genehmigten Bedarf suchen</value>
@@ -14460,7 +14533,7 @@
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติ</value>
         <value xml:lang="vi">Tìm kiếm các nhu cầu nguồn lực không được phê duyệt</value>
         <value xml:lang="zh">找不到已批准的需求</value>
-        <value xml:lang="zh_TW">找不到批准需求</value>
+        <value xml:lang="zh_TW">找不到核准需求</value>
     </property>
     <property key="PageTitleFindQuickReturn">
         <value xml:lang="de">Schnelle Retoure</value>
@@ -14503,7 +14576,7 @@
         <value xml:lang="pt_BR">Listar cabeçalhos de pedidos</value>
         <value xml:lang="vi">Danh sách các phần đầu của Đặt hàng</value>
         <value xml:lang="zh">订单头列表</value>
-        <value xml:lang="zh_TW">訂單頭列表</value>
+        <value xml:lang="zh_TW">訂單頭清單</value>
     </property>
     <property key="PageTitleListRequirementCustRequests">
         <value xml:lang="de">Liste Bedarf Kundenanfragen</value>
@@ -14519,7 +14592,7 @@
         <value xml:lang="th">รายการสิ่งที่ลูกค้าต้องการเรียกร้อง</value>
         <value xml:lang="vi">Danh sách các Yêu cầu Nguồn lực của khách hàng</value>
         <value xml:lang="zh">客户请求的需求列表</value>
-        <value xml:lang="zh_TW">列出需求相關的要求</value>
+        <value xml:lang="zh_TW">列出請求相關的請求</value>
     </property>
     <property key="PageTitleListRequirementOrders">
         <value xml:lang="de">Liste Bedarf Aufträge</value>
@@ -14565,7 +14638,7 @@
         <value xml:lang="th">ค้นหาการร้องขอของลูกค้า</value>
         <value xml:lang="vi">Chọn Yêu cầu từ khách hàng</value>
         <value xml:lang="zh">查找客户请求</value>
-        <value xml:lang="zh_TW">查詢要求</value>
+        <value xml:lang="zh_TW">查詢請求</value>
     </property>
     <property key="PageTitleLookupCustomerRequestItem">
         <value xml:lang="de">Kundenanfrage Element suchen</value>
@@ -14581,7 +14654,7 @@
         <value xml:lang="th">ค้นหาหัวข้อการร้องขอของลูกค้า</value>
         <value xml:lang="vi">Chọn Yêu cầu hàng hóa từ khách hàng</value>
         <value xml:lang="zh">查找客户请求明细</value>
-        <value xml:lang="zh_TW">查詢要求明細項目</value>
+        <value xml:lang="zh_TW">查詢請求細項細項</value>
     </property>
     <property key="PageTitleLookupOrderHeader">
         <value xml:lang="de">Auftragskopf suchen</value>
@@ -14663,7 +14736,7 @@
         <value xml:lang="th">ค้นหาหัวข้อคำร้อง</value>
         <value xml:lang="vi">Chọn Hàng hóa của báo giá</value>
         <value xml:lang="zh">查找询价明细</value>
-        <value xml:lang="zh_TW">查詢報價明細</value>
+        <value xml:lang="zh_TW">查詢報價細項</value>
     </property>
     <property key="PageTitleLookupRequirement">
         <value xml:lang="de">Bedarf suchen</value>
@@ -14695,7 +14768,7 @@
         <value xml:lang="th">ค้นหารายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Chọn Danh sách mua sắm</value>
         <value xml:lang="zh">查找购物列表</value>
-        <value xml:lang="zh_TW">查詢購物列表</value>
+        <value xml:lang="zh_TW">查詢購物清單</value>
     </property>
     <property key="PageTitleOrderAgreements">
         <value xml:lang="de">Auftragsverträge</value>
@@ -14711,7 +14784,7 @@
         <value xml:lang="th">รายการสัญญา</value>
         <value xml:lang="vi">Điều khoản của đặt hàng</value>
         <value xml:lang="zh">订单合同</value>
-        <value xml:lang="zh_TW">訂單合同</value>
+        <value xml:lang="zh_TW">訂單合約</value>
     </property>
     <property key="PageTitleOrderInits">
         <value xml:lang="de">Auftrag initialisieren</value>
@@ -14771,7 +14844,7 @@
         <value xml:lang="th">ข้อความหัวข้อการรร้องขอ</value>
         <value xml:lang="vi">Ghi chú yêu cầu hàng hóa</value>
         <value xml:lang="zh">请求明细便笺</value>
-        <value xml:lang="zh_TW">要求項目註記</value>
+        <value xml:lang="zh_TW">請求細項註記</value>
     </property>
     <property key="PageTitleRequestItemQuotes">
         <value xml:lang="de">Angebote für Anfragepositionen</value>
@@ -14788,7 +14861,7 @@
         <value xml:lang="th">หัวข้อการร้องขอคำร้อง</value>
         <value xml:lang="vi">Báo giá yêu cầu hàng hóa</value>
         <value xml:lang="zh">请求明细询价</value>
-        <value xml:lang="zh_TW">要求項目報價</value>
+        <value xml:lang="zh_TW">請求細項報價</value>
     </property>
     <property key="PageTitleRequestItemRequirements">
         <value xml:lang="de">Bedarf für Anfrageposition</value>
@@ -14805,7 +14878,7 @@
         <value xml:lang="th">หัวข้อการรร้องขอสิ่งที่ต้องการ</value>
         <value xml:lang="vi">Yêu cầu Nguồn lực của hàng hóa được Yêu cầu</value>
         <value xml:lang="zh">请求明细需求</value>
-        <value xml:lang="zh_TW">要求項目需求</value>
+        <value xml:lang="zh_TW">請求細項請求</value>
     </property>
     <property key="PageTitleRequestItems">
         <value xml:lang="de">Anfrageelemente</value>
@@ -14821,7 +14894,7 @@
         <value xml:lang="th">หัวข้อการร้องขอ</value>
         <value xml:lang="vi">Yêu cầu hàng hóa</value>
         <value xml:lang="zh">请求明细</value>
-        <value xml:lang="zh_TW">要求明細項目</value>
+        <value xml:lang="zh_TW">請求細項細項</value>
     </property>
     <property key="PageTitleRequestRoles">
         <value xml:lang="de">Anfrage Rollen</value>
@@ -14837,7 +14910,7 @@
         <value xml:lang="th">สถานะการร้องขอ</value>
         <value xml:lang="vi">Yêu cầu vai trò</value>
         <value xml:lang="zh">请求角色</value>
-        <value xml:lang="zh_TW">要求角色</value>
+        <value xml:lang="zh_TW">請求角色</value>
     </property>
     <property key="PageTitleReturnHeader">
         <value xml:lang="de">Retourenkopf</value>
@@ -14869,7 +14942,7 @@
         <value xml:lang="th">กลับสู่รายการ</value>
         <value xml:lang="vi">Hàng hóa hoàn trả</value>
         <value xml:lang="zh">退货明细</value>
-        <value xml:lang="zh_TW">退貨明細項目</value>
+        <value xml:lang="zh_TW">退貨細項細項</value>
     </property>
     <property key="PageTitleReturnList">
         <value xml:lang="de">Liste der Retouren</value>
@@ -14885,7 +14958,7 @@
         <value xml:lang="th">กลับสู่รายการ</value>
         <value xml:lang="vi">Danh sách hoàn trả</value>
         <value xml:lang="zh">退货列表</value>
-        <value xml:lang="zh_TW">退貨列表</value>
+        <value xml:lang="zh_TW">退貨清單</value>
     </property>
     <property key="PageTitleShoppingListItem">
         <value xml:lang="de">Einkaufliste Artikel</value>
@@ -14895,7 +14968,7 @@
         <value xml:lang="pt_BR">Item da lista de compras</value>
         <value xml:lang="vi">Hàng hóa trong danh sách mua sắm</value>
         <value xml:lang="zh">送货列表明细</value>
-        <value xml:lang="zh_TW">送貨列表明細</value>
+        <value xml:lang="zh_TW">送貨清單細項</value>
     </property>
     <property key="PageTitleShowAllPromotions">
         <value xml:lang="de">Alle Aktionen anzeigen</value>
@@ -14946,7 +15019,7 @@
         <value xml:lang="th">แยกสินค้าเพื่อการขนส่ง</value>
         <value xml:lang="vi">Phân chia danh mục sản phẩm để vận chuyển</value>
         <value xml:lang="zh">为送货分拆明细</value>
-        <value xml:lang="zh_TW">為送貨分拆明細</value>
+        <value xml:lang="zh_TW">為送貨分拆細項</value>
     </property>
     <property key="PageTitleViewRequest">
         <value xml:lang="de">Anfrage anzeigen</value>
@@ -14962,7 +15035,7 @@
         <value xml:lang="th">แสดงการร้องขอ</value>
         <value xml:lang="vi">Xem yêu cầu</value>
         <value xml:lang="zh">浏览请求</value>
-        <value xml:lang="zh_TW">瀏覽要求</value>
+        <value xml:lang="zh_TW">檢視請求</value>
     </property>
     <property key="QuoteEditNote">
         <value xml:lang="de">Anmerkung bearbeiten</value>
@@ -14970,6 +15043,7 @@
         <value xml:lang="ja">連絡を更新</value>
         <value xml:lang="vi">Cập nhật ghi chú</value>
         <value xml:lang="zh">更新便笺</value>
+        <value xml:lang="zh_TW">更新便箋</value>
     </property>
     <property key="OrderRent">
         <value xml:lang="de">Miete</value>
@@ -14977,5 +15051,6 @@
         <value xml:lang="ja">賃貸</value>
         <value xml:lang="vi">Thuê</value>
         <value xml:lang="zh">租赁</value>
+        <value xml:lang="zh_TW">租賃</value>
     </property>
 </resource>

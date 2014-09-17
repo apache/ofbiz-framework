@@ -73,7 +73,7 @@
         <value xml:lang="th">ส่วนของการตลาด</value>
         <value xml:lang="vi">Phân khúc thị trường</value>
         <value xml:lang="zh">市场分区</value>
-        <value xml:lang="zh_TW">行銷分區</value>
+        <value xml:lang="zh_TW">市場分區</value>
     </property>
     <property key="SegmentGroupType.description.SALES_SEGMENT">
         <value xml:lang="en">Sales Segment</value>
@@ -139,6 +139,6 @@
         <value xml:lang="th">หุ้นส่วนการควบคุม</value>
         <value xml:lang="vi">Đối tác</value>
         <value xml:lang="zh">已管理的伙伴</value>
-        <value xml:lang="zh_TW">夥伴</value>
+        <value xml:lang="zh_TW">團體</value>
     </property>
 </resource>

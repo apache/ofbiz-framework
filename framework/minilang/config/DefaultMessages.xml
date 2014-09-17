@@ -24,18 +24,18 @@
         <value xml:lang="fr">Erreur : </value>
         <value xml:lang="it">Errore: </value>
         <value xml:lang="ja">エラー:</value>
-        <value xml:lang="nl">Fout: </value>     
+        <value xml:lang="nl">Fout: </value>
         <value xml:lang="zh">错误：</value>
-        <value xml:lang="zh_TW">錯誤：</value>
+        <value xml:lang="zh-TW">錯誤:</value>
     </property>
     <property key="check.error.suffix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="check.message.prefix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="check.message.suffix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="service.default.message">
         <value xml:lang="de">Aktion erfolgreich ausgeführt.</value>
@@ -44,12 +44,12 @@
         <value xml:lang="fr">Opération réussie.</value>
         <value xml:lang="it">L'azione è stata eseguita con successo.</value>
         <value xml:lang="ja">操作は成功しました。</value>
-        <value xml:lang="nl">De acties is met succes uitgevoerd.</value>        
+        <value xml:lang="nl">De acties is met succes uitgevoerd.</value>
         <value xml:lang="ro">Operatia a fost executata cu succes.</value>
         <value xml:lang="ru">Действие выполнено успешно.</value>
         <value xml:lang="th">การปฏิบัติหน้าที่เสร็จสมบูรณ์แล้ว</value>
         <value xml:lang="zh">已成功执行本操作。</value>
-        <value xml:lang="zh_TW">已成功執行本操作。</value>
+        <value xml:lang="zh-TW">已成功執行本操作.</value>
     </property>
     <property key="service.error.prefix">
         <value xml:lang="de">Fehler: </value>
@@ -57,23 +57,23 @@
         <value xml:lang="fr">Erreur : </value>
         <value xml:lang="it">Errore: </value>
         <value xml:lang="ja">エラー:</value>
-        <value xml:lang="nl">Fout: </value>     
+        <value xml:lang="nl">Fout: </value>
         <value xml:lang="zh">错误：</value>
-        <value xml:lang="zh_TW">錯誤：</value>
+        <value xml:lang="zh-TW">錯誤:</value>
     </property>
     <property key="service.error.suffix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="service.message.prefix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="service.message.suffix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="service.success.prefix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
     <property key="service.success.suffix">
-        <value xml:lang="en">&#160;</value>
+        <value xml:lang="en"> </value>
     </property>
 </resource>

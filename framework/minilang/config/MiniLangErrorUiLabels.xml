@@ -30,7 +30,7 @@
         <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
         <value xml:lang="th">Error : ผิดพลด ! ในการเริ่มต้นดำเนินการ ไม่สามารถประมวลผลวิธีการนี้ได้</value>
         <value xml:lang="zh">尝试开始交易时出错，无法执行</value>
-        <value xml:lang="zh_TW">嘗試開始交易時出錯，無法執行</value>
+        <value xml:lang="zh_TW">嘗試開始交易時出錯,無法執行</value>
     </property>
     <property key="simpleMethod.error_running">
         <value xml:lang="de">Fehler beim Ausführen der simple-method</value>

@@ -34,7 +34,7 @@
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="vi">Tỷ lệ giảm giá (Commission)</value>
         <value xml:lang="zh">节</value>
-        <value xml:lang="zh_TW">節</value>
+        <value xml:lang="zh_TW">佣金比例</value>
     </property>
     <property key="AgreementItemType.description.AGREEMENT_EXHIBIT">
         <value xml:lang="de">Exponat</value>
@@ -68,7 +68,7 @@
         <value xml:lang="th">การกำหนดราคา</value>
         <value xml:lang="vi">Giá</value>
         <value xml:lang="zh">价格</value>
-        <value xml:lang="zh_TW">價格</value>
+        <value xml:lang="zh_TW">價格設定</value>
     </property>
     <property key="AgreementItemType.description.AGREEMENT_SECTION">
         <value xml:lang="de">Abschnitt</value>
@@ -85,7 +85,7 @@
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="vi">Vùng</value>
         <value xml:lang="zh">节</value>
-        <value xml:lang="zh_TW">節</value>
+        <value xml:lang="zh_TW">章節</value>
     </property>
     <property key="AgreementItemType.description.SUBAGREEMENT">
         <value xml:lang="de">Untervereinbarung</value>
@@ -102,7 +102,7 @@
         <value xml:lang="th">หัวข้อย่อยของข้อตกลง</value>
         <value xml:lang="vi">Điều khoản con</value>
         <value xml:lang="zh">子合同</value>
-        <value xml:lang="zh_TW">子合同</value>
+        <value xml:lang="zh_TW">子合約</value>
     </property>
     <property key="AgreementType.description.COMMISSION_AGREEMENT">
         <value xml:lang="de">Kommission</value>
@@ -147,7 +147,7 @@
         <value xml:lang="pt_BR">Licença de software do usuário final</value>
         <value xml:lang="vi">Điều khoản giấy phép của người dùng cuối</value>
         <value xml:lang="zh">最终用户版权协议</value>
-        <value xml:lang="zh_TW">最終用戶版權協定</value>
+        <value xml:lang="zh_TW">最終使用者版權協定</value>
     </property>
     <property key="AgreementType.description.OTHER_AGREEMENT">
         <value xml:lang="de">Andere</value>
@@ -232,7 +232,7 @@
         <value xml:lang="th">กิจกรรมตามคำขอร้อง</value>
         <value xml:lang="vi">Hành động yêu cầu</value>
         <value xml:lang="zh">活动请求</value>
-        <value xml:lang="zh_TW">活動要求</value>
+        <value xml:lang="zh_TW">活動請求</value>
     </property>
     <property key="CommunicationEventPrpTyp.description.CONFERENCE">
         <value xml:lang="de">Konferenz</value>
@@ -350,7 +350,7 @@
         <value xml:lang="th">การช่วยเหลือสนับสนุนเรียก</value>
         <value xml:lang="vi">Gọi hỗ trợ</value>
         <value xml:lang="zh">支持电话</value>
-        <value xml:lang="zh_TW">支援電話</value>
+        <value xml:lang="zh_TW">服務電話</value>
     </property>
     <property key="CommunicationEventType.description.AUTO_EMAIL_COMM">
         <value xml:lang="de">Automatische E-Mail</value>
@@ -492,7 +492,7 @@
         <value xml:lang="th">อีเมล์ใบเสร็จ (AP)</value>
         <value xml:lang="vi">Thư điện tử thanh toán</value>
         <value xml:lang="zh">寄账单电子邮件</value>
-        <value xml:lang="zh_TW">寄賬單電子郵件</value>
+        <value xml:lang="zh_TW">寄送帳單電子郵件</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_LOCATION">
         <value xml:lang="de">Rechnungsadresse</value>
@@ -509,7 +509,7 @@
         <value xml:lang="th">ใบเสร็จรับเงิน (AP)</value>
         <value xml:lang="vi">Địa chỉ thanh toán</value>
         <value xml:lang="zh">寄账单地址</value>
-        <value xml:lang="zh_TW">寄賬單地址</value>
+        <value xml:lang="zh_TW">寄送帳單位址</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_BILLING">
         <value xml:lang="de">Rechnungs Faxnumer</value>
@@ -518,6 +518,7 @@
         <value xml:lang="ja">請求先FAX番号</value>
         <value xml:lang="vi">Số fax của nơi thanh toán</value>
         <value xml:lang="zh">寄账单目的地传真号码</value>
+        <value xml:lang="zh_TW">寄送帳單目的地傳真號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.FAX_NUMBER">
         <value xml:lang="de">Haupt-Faxnummer</value>
@@ -560,6 +561,7 @@
         <value xml:lang="ja">発送先FAX番号</value>
         <value xml:lang="vi">Số fax nơi chuyển hàng đến</value>
         <value xml:lang="zh">送货目的地传真号码</value>
+        <value xml:lang="zh_TW">送貨目的地傳真號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.GENERAL_LOCATION">
         <value xml:lang="de">Allgemeine Korrespondenzadresse</value>
@@ -582,6 +584,7 @@
         <value xml:lang="en">iCalendar URL</value>
         <value xml:lang="fr">Adresse du calendrier (URL)</value>
         <value xml:lang="zh">iCalendar网址</value>
+        <value xml:lang="zh_TW">iCalendar網址</value>
     </property>
     <property key="ContactMechPurposeType.description.MARKETING_EMAIL">
         <value xml:lang="en">Primary Marketing Email Address</value>
@@ -589,6 +592,7 @@
         <value xml:lang="ja">主マーケティング電子メールアドレス</value>
         <value xml:lang="vi">Địa chỉ thư điện tử tiếp thị chính</value>
         <value xml:lang="zh">主要的市场电子邮件地址</value>
+        <value xml:lang="zh_TW">主要的市場電子郵件位址</value>
     </property>
     <property key="ContactMechPurposeType.description.ORDER_EMAIL">
         <value xml:lang="de">Auftrags-Benachrichtigungen E-Mail-Adresse</value>
@@ -605,7 +609,7 @@
         <value xml:lang="th">การแจ้งรายการสั่งซื้อทางที่อยู่ของอีเมล์</value>
         <value xml:lang="vi">Địa chỉ thư điện tử báo đơn hàng</value>
         <value xml:lang="zh">订单通知电子邮件地址</value>
-        <value xml:lang="zh_TW">訂單通知電子郵件地址</value>
+        <value xml:lang="zh_TW">訂單通知電子郵件位址</value>
     </property>
     <property key="ContactMechPurposeType.description.OTHER_EMAIL">
         <value xml:lang="de">Andere E-Mail-Adresse</value>
@@ -622,7 +626,7 @@
         <value xml:lang="th">ที่อยู่อีเมล์อื่น</value>
         <value xml:lang="vi">Địa chỉ thư khác</value>
         <value xml:lang="zh">其它电子邮件地址</value>
-        <value xml:lang="zh_TW">其他電子郵件地址</value>
+        <value xml:lang="zh_TW">其他電子郵件位址</value>
     </property>
     <property key="ContactMechPurposeType.description.PAYMENT_EMAIL">
         <value xml:lang="de">Zahlung E-Mail-Adresse</value>
@@ -638,7 +642,7 @@
         <value xml:lang="th">การชำระเงินทางอีเมล์ (AR) </value>
         <value xml:lang="vi">Thư điện tử thanh toán (Payment)</value>
         <value xml:lang="zh">支付电子邮件</value>
-        <value xml:lang="zh_TW">支付電子郵件</value>
+        <value xml:lang="zh_TW">付款電子郵件</value>
     </property>
     <property key="ContactMechPurposeType.description.PAYMENT_LOCATION">
         <value xml:lang="de">Zahlungsadresse</value>
@@ -655,7 +659,7 @@
         <value xml:lang="th">ที่อยู่ในการชำระเงิน (AR)</value>
         <value xml:lang="vi">Địa chỉ thanh toán (Payment)</value>
         <value xml:lang="zh">支付地址</value>
-        <value xml:lang="zh_TW">支付地址</value>
+        <value xml:lang="zh_TW">付款位址</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_ASSISTANT">
         <value xml:lang="de">Telefonnummer Assistent</value>
@@ -688,7 +692,7 @@
         <value xml:lang="th">หมายเลขโทรศัพท์ที่แจ้งต่อลูกค้า (AP)</value>
         <value xml:lang="vi">Số điện thoại thanh toán</value>
         <value xml:lang="zh">寄账单电话号码</value>
-        <value xml:lang="zh_TW">寄賬單電話號碼</value>
+        <value xml:lang="zh_TW">寄送帳單電話號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_DID">
         <value xml:lang="en">Direct Inward Dialing Phone Number</value>
@@ -733,7 +737,7 @@
         <value xml:lang="th">เบอร์โทรศัพท์มือถือ</value>
         <value xml:lang="vi">Số điện thoại di động chính thức</value>
         <value xml:lang="zh">主要移动电话号码</value>
-        <value xml:lang="zh_TW">主要移動電話號碼</value>
+        <value xml:lang="zh_TW">主要行動電話號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_PAYMENT">
         <value xml:lang="de">Zahlung Telefonnummer</value>
@@ -750,7 +754,7 @@
         <value xml:lang="th">เบอร์โทรศัพท์ของการชำระเงิน (AR)</value>
         <value xml:lang="vi">Số điện thoại cổng thanh toán</value>
         <value xml:lang="zh">支付电话号码</value>
-        <value xml:lang="zh_TW">支付電話號碼</value>
+        <value xml:lang="zh_TW">付款電話號碼</value>
     </property>
     <property key="ContactMechPurposeType.description.PHONE_QUICK">
         <value xml:lang="en">Quick Calls Phone Number</value>
@@ -843,7 +847,7 @@
         <value xml:lang="th">ที่อยู่ก่อนหน้า</value>
         <value xml:lang="vi">Địa chỉ trước</value>
         <value xml:lang="zh">上一个地址</value>
-        <value xml:lang="zh_TW">上一個地址</value>
+        <value xml:lang="zh_TW">上一個位址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_EMAIL">
         <value xml:lang="de">Haupt-E-Mail-Adresse</value>
@@ -860,7 +864,7 @@
         <value xml:lang="th">ที่อยู่อีเมล์ที่สำคัญ</value>
         <value xml:lang="vi">Thư điện tử chính</value>
         <value xml:lang="zh">第一个电子邮件地址</value>
-        <value xml:lang="zh_TW">第一個電子郵件地址</value>
+        <value xml:lang="zh_TW">第一個電子郵件位址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_LOCATION">
         <value xml:lang="de">Adresse</value>
@@ -877,7 +881,7 @@
         <value xml:lang="th">ที่อยู่ที่สำคัญ</value>
         <value xml:lang="vi">Địa chỉ chính</value>
         <value xml:lang="zh">首选地址</value>
-        <value xml:lang="zh_TW">首選地址</value>
+        <value xml:lang="zh_TW">首選位址</value>
     </property>
     <property key="ContactMechPurposeType.description.PRIMARY_PHONE">
         <value xml:lang="de">Haupt-Telefonnummer</value>
@@ -928,7 +932,7 @@
         <value xml:lang="th">แสดงที่อยู่การซื้อ</value>
         <value xml:lang="vi">Địa chỉ nếu hoàn trả mua hàng</value>
         <value xml:lang="zh">购物退货地址</value>
-        <value xml:lang="zh_TW">購物退貨地址</value>
+        <value xml:lang="zh_TW">購物退貨位址</value>
     </property>
     <property key="ContactMechPurposeType.description.SHIPPING_LOCATION">
         <value xml:lang="de">Versandresse</value>
@@ -945,7 +949,7 @@
         <value xml:lang="th">ที่อยู่ปลายทางของการขนส่ง</value>
         <value xml:lang="vi">Địa điểm chuyển hàng tới</value>
         <value xml:lang="zh">货运目的地址</value>
-        <value xml:lang="zh_TW">貨運目的地址</value>
+        <value xml:lang="zh_TW">貨運目的位址</value>
     </property>
     <property key="ContactMechPurposeType.description.SHIP_ORIG_LOCATION">
         <value xml:lang="de">Absenderadresse</value>
@@ -962,7 +966,7 @@
         <value xml:lang="th">ที่อยู่เริ่มต้นของการส่งของ</value>
         <value xml:lang="vi">Địa chỉ chuyển hàng gốc</value>
         <value xml:lang="zh">货运发货地址</value>
-        <value xml:lang="zh_TW">貨運發貨地址</value>
+        <value xml:lang="zh_TW">貨運發貨位址</value>
     </property>
     <property key="ContactMechType.description.DOMAIN_NAME">
         <value xml:lang="de">Internet Domain Name</value>
@@ -979,7 +983,7 @@
         <value xml:lang="th">ชื่อโดเมนต์อินเทอร์เน็ต</value>
         <value xml:lang="vi">Tên miền internet</value>
         <value xml:lang="zh">互联网域名</value>
-        <value xml:lang="zh_TW">互聯網域名</value>
+        <value xml:lang="zh_TW">網際網路功能變數名稱</value>
     </property>
     <property key="ContactMechType.description.ELECTRONIC_ADDRESS">
         <value xml:lang="de">Elektronische Adresse</value>
@@ -996,7 +1000,7 @@
         <value xml:lang="th">ที่อยู่อิเล็กทรอนิกส์</value>
         <value xml:lang="vi">Địa chỉ điện tử</value>
         <value xml:lang="zh">电子地址</value>
-        <value xml:lang="zh_TW">電子地址</value>
+        <value xml:lang="zh_TW">電子位址</value>
     </property>
     <property key="ContactMechType.description.EMAIL_ADDRESS">
         <value xml:lang="de">E-Mail-Adresse</value>
@@ -1013,7 +1017,7 @@
         <value xml:lang="th">ที่อยู่อีเมล์</value>
         <value xml:lang="vi">Địa chỉ thư điện tử</value>
         <value xml:lang="zh">电子邮件地址</value>
-        <value xml:lang="zh_TW">電子郵件地址</value>
+        <value xml:lang="zh_TW">電子郵件位址</value>
     </property>
     <property key="ContactMechType.description.INTERNAL_PARTYID">
         <value xml:lang="en">Internal Party Note</value>
@@ -1021,6 +1025,7 @@
         <value xml:lang="ja">内部取引先連絡</value>
         <value xml:lang="vi">Ghi chú tác nhân nội bộ</value>
         <value xml:lang="zh">内部会员便笺</value>
+        <value xml:lang="zh_TW">內部團體便箋</value>
     </property>
     <property key="ContactMechType.description.IP_ADDRESS">
         <value xml:lang="de">Internet IP Adresse</value>
@@ -1037,7 +1042,7 @@
         <value xml:lang="th">ที่อยู่ของ IP อินเทอร์เน็ต</value>
         <value xml:lang="vi">Địa chỉ IP internet</value>
         <value xml:lang="zh">互联网IP地址</value>
-        <value xml:lang="zh_TW">互聯網IP位址</value>
+        <value xml:lang="zh_TW">網際網路IP位址</value>
     </property>
     <property key="ContactMechType.description.LDAP_ADDRESS">
         <value xml:lang="en">LDAP Address</value>
@@ -1045,6 +1050,7 @@
         <value xml:lang="ja">LDAPアドレス</value>
         <value xml:lang="vi">Địa chỉ LDAP</value>
         <value xml:lang="zh">LDAP地址</value>
+        <value xml:lang="zh_TW">LDAP位址</value>
     </property>
     <property key="ContactMechType.description.POSTAL_ADDRESS">
         <value xml:lang="de">Postadresse</value>
@@ -1061,7 +1067,7 @@
         <value xml:lang="th">รหัสไปรษณีย์ของที่อยู่</value>
         <value xml:lang="vi">Địa chỉ thư tín</value>
         <value xml:lang="zh">邮政地址</value>
-        <value xml:lang="zh_TW">郵政地址</value>
+        <value xml:lang="zh_TW">郵政位址</value>
     </property>
     <property key="ContactMechType.description.TELECOM_NUMBER">
         <value xml:lang="de">Telefonnummer</value>
@@ -1169,7 +1175,7 @@
         <value xml:lang="th">พนักงาน</value>
         <value xml:lang="vi">Nhân viên</value>
         <value xml:lang="zh">雇员</value>
-        <value xml:lang="zh_TW">雇員</value>
+        <value xml:lang="zh_TW">員工</value>
     </property>
     <property key="PartyClassificationGroup.description.MANUFACTURING">
         <value xml:lang="de">Produktion</value>
@@ -1184,7 +1190,7 @@
         <value xml:lang="th">การผลิต</value>
         <value xml:lang="vi">Sản xuất</value>
         <value xml:lang="zh">制造</value>
-        <value xml:lang="zh_TW">制造</value>
+        <value xml:lang="zh_TW">製造</value>
     </property>
     <property key="PartyClassificationType.description.ANNUAL_REVENUE">
         <value xml:lang="de">Jahreseinkommen</value>
@@ -1273,7 +1279,7 @@
         <value xml:lang="pt_BR">Número de empregados</value>
         <value xml:lang="vi">Số nhân viên</value>
         <value xml:lang="zh">雇员数量</value>
-        <value xml:lang="zh_TW">雇員數量</value>
+        <value xml:lang="zh_TW">員工人數</value>
     </property>
     <property key="PartyClassificationType.description.ORGANIZATION_CLASSIF">
         <value xml:lang="de">Organisation</value>
@@ -1333,7 +1339,7 @@
         <value xml:lang="pt_BR">Código SIC</value>
         <value xml:lang="vi">Mã SIC</value>
         <value xml:lang="zh">标准工业分类规则</value>
-        <value xml:lang="zh_TW">標准工業分類規則</value>
+        <value xml:lang="zh_TW">標準工業分類規則</value>
     </property>
     <property key="PartyClassificationType.description.SIZE_CLASSIFICATION">
         <value xml:lang="de">Grösse</value>
@@ -1413,6 +1419,7 @@
         <value xml:lang="pt_BR">Conteúdo interno</value>
         <value xml:lang="vi">Thông tin nội bộ</value>
         <value xml:lang="zh">内部内容</value>
+        <value xml:lang="zh_TW">內部內容</value>
     </property>
     <property key="PartyContentType.description.LGOIMGURL">
         <value xml:lang="en">Logo Image URL</value>
@@ -1422,6 +1429,7 @@
         <value xml:lang="pt_BR">URL do logotipo</value>
         <value xml:lang="vi">URL ảnh Logo</value>
         <value xml:lang="zh">标志图片网址</value>
+        <value xml:lang="zh_TW">商標圖片網址</value>
     </property>
     <property key="PartyContentType.description.USERDEF">
         <value xml:lang="en">User Defined Content</value>
@@ -1432,6 +1440,7 @@
         <value xml:lang="pt_BR">Conteúdo definido por usuário</value>
         <value xml:lang="vi">Thông tin riêng của người dùng</value>
         <value xml:lang="zh">用户定义的内容</value>
+        <value xml:lang="zh_TW">使用者定義的內容</value>
     </property>
     <property key="PartyContentType.description.VNDSHPINF">
         <value xml:lang="en">Vendor Shipping Info</value>
@@ -1442,6 +1451,7 @@
         <value xml:lang="pt_BR">Informação do transportador</value>
         <value xml:lang="vi">Thông tin chuyển hàng của nhà bán hàng</value>
         <value xml:lang="zh">厂家送货信息</value>
+        <value xml:lang="zh_TW">賣家送貨資訊</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.ACCOUNT">
         <value xml:lang="en">Account Owned by</value>
@@ -1454,7 +1464,7 @@
         <value xml:lang="pt_BR">Conta</value>
         <value xml:lang="vi">Tài khoản sở hữu bởi</value>
         <value xml:lang="zh">账户</value>
-        <value xml:lang="zh_TW">賬戶</value>
+        <value xml:lang="zh_TW">帳戶</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.AGENT">
         <value xml:lang="de">Vertreter</value>
@@ -1500,7 +1510,7 @@
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ใช้</value>
         <value xml:lang="vi">Người dùng blog</value>
         <value xml:lang="zh">博客用户</value>
-        <value xml:lang="zh_TW">部落格用戶</value>
+        <value xml:lang="zh_TW">部落格使用者</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.CHILD">
         <value xml:lang="en">Child</value>
@@ -1530,7 +1540,7 @@
         <value xml:lang="th">ติดต่อ</value>
         <value xml:lang="vi">Liên lạc</value>
         <value xml:lang="zh">联系</value>
-        <value xml:lang="zh_TW">聯系</value>
+        <value xml:lang="zh_TW">聯絡</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.CUSTOMER_REL">
         <value xml:lang="de">Kunde</value>
@@ -1564,7 +1574,7 @@
         <value xml:lang="th">ผู้แทนจำหน่าย</value>
         <value xml:lang="vi">Nhà phân phối</value>
         <value xml:lang="zh">批发商</value>
-        <value xml:lang="zh_TW">批發商</value>
+        <value xml:lang="zh_TW">分銷商</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.EMPLOYMENT">
         <value xml:lang="de">Angestellter</value>
@@ -1581,7 +1591,7 @@
         <value xml:lang="th">พนักงาน</value>
         <value xml:lang="vi">Nhân sự</value>
         <value xml:lang="zh">职员</value>
-        <value xml:lang="zh_TW">職員</value>
+        <value xml:lang="zh_TW">員工</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.FRIEND">
         <value xml:lang="en">Friend</value>
@@ -1611,7 +1621,7 @@
         <value xml:lang="th">กลุ่มสมาชิก</value>
         <value xml:lang="vi">Nhóm thành viên</value>
         <value xml:lang="zh">组成员</value>
-        <value xml:lang="zh_TW">群組成員</value>
+        <value xml:lang="zh_TW">群組會員</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.HOST_SERVER_VISITOR">
         <value xml:lang="de">Host Server Besucher</value>
@@ -1652,7 +1662,7 @@
         <value xml:lang="nl">Lead relatie</value>
         <value xml:lang="vi">Quan hệ của đầu mối</value>
         <value xml:lang="zh">线索关系</value>
-        <value xml:lang="zh_TW">線索關系</value>
+        <value xml:lang="zh_TW">線索關係</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.MANAGER">
         <value xml:lang="de">Manager</value>
@@ -1707,7 +1717,7 @@
         <value xml:lang="pt_BR">Conta precursora</value>
         <value xml:lang="vi">Tài khoản cha</value>
         <value xml:lang="zh">上级账户</value>
-        <value xml:lang="zh_TW">上級賬戶</value>
+        <value xml:lang="zh_TW">上級帳戶</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.PARTNERSHIP">
         <value xml:lang="de">Partner</value>
@@ -1724,7 +1734,7 @@
         <value xml:lang="th">หุ้นส่วน</value>
         <value xml:lang="vi">Bạn hàng</value>
         <value xml:lang="zh">合作伙伴</value>
-        <value xml:lang="zh_TW">合作伙伴</value>
+        <value xml:lang="zh_TW">合作團體</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.REPORTS_TO">
         <value xml:lang="en">Reports to</value>
@@ -1753,7 +1763,7 @@
         <value xml:lang="th">บริษัทในเครือของการขาย</value>
         <value xml:lang="vi">Hội viên kinh doanh</value>
         <value xml:lang="zh">附属销售</value>
-        <value xml:lang="zh_TW">附屬銷售</value>
+        <value xml:lang="zh_TW">銷售關係企業/人</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.SPOUSE">
         <value xml:lang="en">Spouse</value>
@@ -1782,7 +1792,7 @@
         <value xml:lang="th">ผู้จัดหาสิ่งของให้</value>
         <value xml:lang="vi">Nhà cung cấp</value>
         <value xml:lang="zh">供货商</value>
-        <value xml:lang="zh_TW">供貨商</value>
+        <value xml:lang="zh_TW">供應商</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.VISITOR_ISP">
         <value xml:lang="de">ISP Besucher</value>
@@ -1798,7 +1808,7 @@
         <value xml:lang="th">ผู้เยี่ยมชม ISP</value>
         <value xml:lang="vi">Thăm quan ISP</value>
         <value xml:lang="zh">互联网服务提供商访问者</value>
-        <value xml:lang="zh_TW">互聯網服務提供商訪問者</value>
+        <value xml:lang="zh_TW">網際網服務供應商訪問者</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.WEB_MASTER_ASSIGNMEN">
         <value xml:lang="de">Webmaster</value>
@@ -1814,7 +1824,7 @@
         <value xml:lang="th">Web Master</value>
         <value xml:lang="vi">Điều hành trang thông tin</value>
         <value xml:lang="zh">网站管理员</value>
-        <value xml:lang="zh_TW">網站管理員</value>
+        <value xml:lang="zh_TW">網站管理者</value>
     </property>
     <property key="PartyType.description.AUTOMATED_AGENT">
         <value xml:lang="de">Automatischer Agent</value>
@@ -1847,7 +1857,7 @@
         <value xml:lang="th">บริษัท</value>
         <value xml:lang="vi">Doanh nghiệp</value>
         <value xml:lang="zh">集团</value>
-        <value xml:lang="zh_TW">集團</value>
+        <value xml:lang="zh_TW">公司</value>
     </property>
     <property key="PartyType.description.FAMILY">
         <value xml:lang="de">Familie</value>
@@ -1898,7 +1908,7 @@
         <value xml:lang="th">กลุ่มซึ่งเป็นกันเอง</value>
         <value xml:lang="vi">Nhóm không chính thức</value>
         <value xml:lang="zh">非正式组</value>
-        <value xml:lang="zh_TW">非正式組</value>
+        <value xml:lang="zh_TW">非正式群組</value>
     </property>
     <property key="PartyType.description.LEGAL_ORGANIZATION">
         <value xml:lang="de">Juristische Person</value>
@@ -1915,7 +1925,7 @@
         <value xml:lang="th">องค์กรที่ถูกต้องตามกฎหมาย</value>
         <value xml:lang="vi">Tổ chức hợp phát</value>
         <value xml:lang="zh">法务部门</value>
-        <value xml:lang="zh_TW">法務部門</value>
+        <value xml:lang="zh_TW">法人</value>
     </property>
     <property key="PartyType.description.PARTY_GROUP">
         <value xml:lang="de">Akteurgruppe</value>
@@ -1932,7 +1942,7 @@
         <value xml:lang="th">กลุ่มผู้ใช้</value>
         <value xml:lang="vi">Nhóm tác nhân</value>
         <value xml:lang="zh">会员组</value>
-        <value xml:lang="zh_TW">會員組</value>
+        <value xml:lang="zh_TW">團體群組</value>
     </property>
     <property key="PartyType.description.PERSON">
         <value xml:lang="de">Person</value>
@@ -1977,7 +1987,7 @@
         <value xml:lang="pt_BR">Conta</value>
         <value xml:lang="vi">Tài khoản</value>
         <value xml:lang="zh">账户</value>
-        <value xml:lang="zh_TW">賬戶</value>
+        <value xml:lang="zh_TW">帳戶</value>
     </property>
     <property key="RoleType.description.ACCOUNT_LEAD">
         <value xml:lang="en">Account Lead</value>
@@ -1989,7 +1999,7 @@
         <value xml:lang="pt_BR">Conta principal</value>
         <value xml:lang="vi">Tài khoản đầu mối</value>
         <value xml:lang="zh">账户线索</value>
-        <value xml:lang="zh_TW">賬戶線索</value>
+        <value xml:lang="zh_TW">帳戶線索</value>
     </property>
     <property key="RoleType.description.ADDRESSEE">
         <value xml:lang="en">Addressee</value>
@@ -2016,7 +2026,7 @@
         <value xml:lang="th">ผู้บริหาร</value>
         <value xml:lang="vi">Quản trị</value>
         <value xml:lang="zh">管理员</value>
-        <value xml:lang="zh_TW">管理員</value>
+        <value xml:lang="zh_TW">管理者</value>
     </property>
     <property key="RoleType.description.AFFILIATE">
         <value xml:lang="de">Partner</value>
@@ -2033,7 +2043,7 @@
         <value xml:lang="th">บริษัทในเครือ</value>
         <value xml:lang="vi">Bạn hàng</value>
         <value xml:lang="zh">附属</value>
-        <value xml:lang="zh_TW">附屬</value>
+        <value xml:lang="zh_TW">集團</value>
     </property>
     <property key="RoleType.description.AGENT">
         <value xml:lang="de">Vertreter</value>
@@ -2067,7 +2077,7 @@
         <value xml:lang="th">ผู้อนุมัติ</value>
         <value xml:lang="vi">Người duyệt</value>
         <value xml:lang="zh">批准人</value>
-        <value xml:lang="zh_TW">批准人</value>
+        <value xml:lang="zh_TW">核准人</value>
     </property>
     <property key="RoleType.description.ASSOCIATION">
         <value xml:lang="de">Vereinigung</value>
@@ -2084,7 +2094,7 @@
         <value xml:lang="th">กลุ่ม</value>
         <value xml:lang="vi">Kết hợp</value>
         <value xml:lang="zh">关联</value>
-        <value xml:lang="zh_TW">關聯</value>
+        <value xml:lang="zh_TW">結合</value>
     </property>
     <property key="RoleType.description.AUTOMATED_AGENT_ROLE">
         <value xml:lang="de">Automatischer Agent</value>
@@ -2112,7 +2122,7 @@
         <value xml:lang="pt_BR">Cópia oculta</value>
         <value xml:lang="vi">Tự động sao chép</value>
         <value xml:lang="zh">密送</value>
-        <value xml:lang="zh_TW">密送</value>
+        <value xml:lang="zh_TW">密複本</value>
     </property>
     <property key="RoleType.description.BILL_FROM_VENDOR">
         <value xml:lang="de">Rechnung vom Verkäufer</value>
@@ -2129,7 +2139,7 @@
         <value xml:lang="th">ใบแจ้งชำระเงินจากผู้ขาย</value>
         <value xml:lang="vi">Thanh toán từ nhà bán hàng</value>
         <value xml:lang="zh">发出账单的厂家</value>
-        <value xml:lang="zh_TW">發出帳單的供應商</value>
+        <value xml:lang="zh_TW">供應商付擔</value>
     </property>
     <property key="RoleType.description.BILL_TO_CUSTOMER">
         <value xml:lang="de">Rechnung an Kunde</value>
@@ -2146,7 +2156,7 @@
         <value xml:lang="th">ใบแจ้งชำระเงินถึงลูกค้า</value>
         <value xml:lang="vi">Thanh toán từ khách hàng</value>
         <value xml:lang="zh">接收账单的客户</value>
-        <value xml:lang="zh_TW">接收賬單的客戶</value>
+        <value xml:lang="zh_TW">客戶付擔</value>
     </property>
     <property key="RoleType.description.BLOG">
         <value xml:lang="de">Blog</value>
@@ -2178,7 +2188,7 @@
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้บริหาร</value>
         <value xml:lang="vi">Quản trị blog</value>
         <value xml:lang="zh">博客管理员</value>
-        <value xml:lang="zh_TW">部落格管理員</value>
+        <value xml:lang="zh_TW">部落格管理者</value>
     </property>
     <property key="RoleType.description.BLOG_AUTHOR">
         <value xml:lang="de">Blog Autor</value>
@@ -2258,7 +2268,7 @@
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ใช้</value>
         <value xml:lang="vi">Người dùng blog</value>
         <value xml:lang="zh">博客用户</value>
-        <value xml:lang="zh_TW">部落格用戶</value>
+        <value xml:lang="zh_TW">部落格使用者</value>
     </property>
     <property key="RoleType.description.BULK_CUSTOMER">
         <value xml:lang="en">Bulk Customer</value>
@@ -2295,14 +2305,14 @@
         <value xml:lang="fr">Calendrier</value>
         <value xml:lang="hi_IN">कैलेंडर</value>
         <value xml:lang="it">Calendario</value>
-        <value xml:lang="ja">日程表</value>
+        <value xml:lang="ja">時程表</value>
         <value xml:lang="pt_BR">Agenda</value>
         <value xml:lang="ro">Calendar</value>
         <value xml:lang="ru">Календарь</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="vi">Hội thảo (Calendar)</value>
         <value xml:lang="zh">日历</value>
-        <value xml:lang="zh_TW">日歷</value>
+        <value xml:lang="zh_TW">日曆</value>
     </property>
     <property key="RoleType.description.CAL_ATTENDEE">
         <value xml:lang="de">Teilnehmer am Kalender</value>
@@ -2311,14 +2321,14 @@
         <value xml:lang="fr">Participant</value>
         <value xml:lang="hi_IN">कैलेंडर अटेंडी</value>
         <value xml:lang="it">Membro del calendario</value>
-        <value xml:lang="ja">日程表参加者</value>
+        <value xml:lang="ja">時程表参加者</value>
         <value xml:lang="pt_BR">Membro da agenda</value>
         <value xml:lang="ro">Membru din Calendar</value>
         <value xml:lang="ru">Назначение в календаре</value>
         <value xml:lang="th">ปฏิทินของผู้เข้าร่วม</value>
         <value xml:lang="vi">Lịch hội thảo</value>
         <value xml:lang="zh">日历参加者</value>
-        <value xml:lang="zh_TW">日歷參加者</value>
+        <value xml:lang="zh_TW">日曆參加者</value>
     </property>
     <property key="RoleType.description.CAL_DELEGATE">
         <value xml:lang="de">Delegierter für Kalender</value>
@@ -2327,25 +2337,25 @@
         <value xml:lang="fr">Secrétaire</value>
         <value xml:lang="hi_IN">कैलेंडर प्रतिनिधि</value>
         <value xml:lang="it">Delegato del calendario</value>
-        <value xml:lang="ja">日程表代表</value>
+        <value xml:lang="ja">時程表代表</value>
         <value xml:lang="pt_BR">Representante de agenda</value>
         <value xml:lang="ro">Delegat din Calendar</value>
         <value xml:lang="ru">Делегирование в календаре</value>
         <value xml:lang="th">ปฏิทินของตัวแทน</value>
         <value xml:lang="vi">Khách tham dự hội thảo</value>
         <value xml:lang="zh">日历代表</value>
-        <value xml:lang="zh_TW">日歷代表</value>
+        <value xml:lang="zh_TW">日曆代表</value>
     </property>
     <property key="RoleType.description.CAL_HOST">
         <value xml:lang="en">Calendar Host</value>
         <value xml:lang="fr">Hôte du calendrier</value>
         <value xml:lang="hi_IN">कैलेंडर मेजबान</value>
         <value xml:lang="it">Ospite calendario</value>
-        <value xml:lang="ja">日程表ホスト</value>
+        <value xml:lang="ja">時程表ホスト</value>
         <value xml:lang="pt_BR">Anfitrião de agenda</value>
         <value xml:lang="vi">Địa điểm hội thảo</value>
         <value xml:lang="zh">日历主机</value>
-        <value xml:lang="zh_TW">日歷主機</value>
+        <value xml:lang="zh_TW">日曆主機</value>
     </property>
     <property key="RoleType.description.CAL_ORGANIZER">
         <value xml:lang="de">Kalenderorganisator</value>
@@ -2354,14 +2364,14 @@
         <value xml:lang="fr">Organisateur</value>
         <value xml:lang="hi_IN">कैलेंडर आयोजक</value>
         <value xml:lang="it">Organizzatore del calendario</value>
-        <value xml:lang="ja">日程表主催者</value>
+        <value xml:lang="ja">時程表主催者</value>
         <value xml:lang="pt_BR">Organizador da agenda</value>
         <value xml:lang="ro">Organizatorul Calendarului</value>
         <value xml:lang="ru">Календарный организатор</value>
         <value xml:lang="th">ปฏิทินของผู้จัดตั้ง</value>
         <value xml:lang="vi">Nhà tổ chức hội thảo</value>
         <value xml:lang="zh">日历组织者</value>
-        <value xml:lang="zh_TW">日歷組織者</value>
+        <value xml:lang="zh_TW">日曆組織者</value>
     </property>
     <property key="RoleType.description.CAL_OWNER">
         <value xml:lang="de">Kalenderbesitzer</value>
@@ -2370,14 +2380,14 @@
         <value xml:lang="fr">Créateur</value>
         <value xml:lang="hi_IN">कैलेंडर स्वामी</value>
         <value xml:lang="it">Proprietario del calendario</value>
-        <value xml:lang="ja">日程表所有者</value>
+        <value xml:lang="ja">時程表所有者</value>
         <value xml:lang="pt_BR">Dono da agenda</value>
         <value xml:lang="ro">Proprietaul Calendarului</value>
         <value xml:lang="ru">Владелец календаря</value>
         <value xml:lang="th">ปฏิทินของเจ้าของ</value>
         <value xml:lang="vi">Chủ trì hội thảo</value>
         <value xml:lang="zh">日历拥有者</value>
-        <value xml:lang="zh_TW">日歷擁有者</value>
+        <value xml:lang="zh_TW">日曆擁有者</value>
     </property>
     <property key="RoleType.description.CARRIER">
         <value xml:lang="de">Spediteur</value>
@@ -2394,7 +2404,7 @@
         <value xml:lang="th">ผู้ส่ง</value>
         <value xml:lang="vi">Hãng chuyển vận</value>
         <value xml:lang="zh">承运人</value>
-        <value xml:lang="zh_TW">承運人</value>
+        <value xml:lang="zh_TW">快遞</value>
     </property>
     <property key="RoleType.description.CASHIER">
         <value xml:lang="de">Kassierer</value>
@@ -2488,7 +2498,7 @@
         <value xml:lang="pt_BR">Participante de comunicação</value>
         <value xml:lang="vi">Nguyên tắc phối hợp</value>
         <value xml:lang="zh">沟通参与人</value>
-        <value xml:lang="zh_TW">溝通參與人</value>
+        <value xml:lang="zh_TW">通訊參與人</value>
     </property>
     <property key="RoleType.description.COMPETITOR">
         <value xml:lang="de">Mitbewerber</value>
@@ -2539,7 +2549,7 @@
         <value xml:lang="th">ติดต่อ</value>
         <value xml:lang="vi">Liên hệ</value>
         <value xml:lang="zh">联系</value>
-        <value xml:lang="zh_TW">聯系</value>
+        <value xml:lang="zh_TW">聯絡</value>
     </property>
     <property key="RoleType.description.CONTENT">
         <value xml:lang="en">Content Member</value>
@@ -2550,7 +2560,7 @@
         <value xml:lang="pt_BR">Membro de conteúdo</value>
         <value xml:lang="vi">Thành viên nội dung tin tức</value>
         <value xml:lang="zh">内容成员</value>
-        <value xml:lang="zh_TW">內容成員</value>
+        <value xml:lang="zh_TW">內容會員</value>
     </property>
     <property key="RoleType.description.CONTENT_ADMIN">
         <value xml:lang="en">Content Administrator</value>
@@ -2562,7 +2572,7 @@
         <value xml:lang="pt_BR">Administrador de conteúdo</value>
         <value xml:lang="vi">Quản trị nội dung</value>
         <value xml:lang="zh">内容管理员</value>
-        <value xml:lang="zh_TW">內容管理員</value>
+        <value xml:lang="zh_TW">內容管理者</value>
     </property>
     <property key="RoleType.description.CONTENT_AUTHOR">
         <value xml:lang="en">Content Author</value>
@@ -2607,7 +2617,7 @@
         <value xml:lang="pt_BR">Editor de conteúdo(Publicação)</value>
         <value xml:lang="vi">Xuất bản nội dung tin tức</value>
         <value xml:lang="zh">内容发布者</value>
-        <value xml:lang="zh_TW">內容發布者</value>
+        <value xml:lang="zh_TW">內容發佈者</value>
     </property>
     <property key="RoleType.description.CONTENT_USER">
         <value xml:lang="en">Content User</value>
@@ -2618,7 +2628,7 @@
         <value xml:lang="pt_BR">Usuário de conteúdo</value>
         <value xml:lang="vi">Người dùng nội dung</value>
         <value xml:lang="zh">内容用户</value>
-        <value xml:lang="zh_TW">內容用戶</value>
+        <value xml:lang="zh_TW">內容使用者</value>
     </property>
     <property key="RoleType.description.CONTRACTOR">
         <value xml:lang="de">Vertragspartner</value>
@@ -2703,7 +2713,7 @@
         <value xml:lang="th">การจำหน่าย</value>
         <value xml:lang="vi">Nhà phân phối</value>
         <value xml:lang="zh">批发商</value>
-        <value xml:lang="zh_TW">批發商</value>
+        <value xml:lang="zh_TW">分銷商</value>
     </property>
     <property key="RoleType.description.DIVISION">
         <value xml:lang="de">Division</value>
@@ -2720,7 +2730,7 @@
         <value xml:lang="th">แผนก</value>
         <value xml:lang="vi">Phòng</value>
         <value xml:lang="zh">分部</value>
-        <value xml:lang="zh_TW">分部</value>
+        <value xml:lang="zh_TW">部門</value>
     </property>
     <property key="RoleType.description.EMAIL_ADMIN">
         <value xml:lang="en">Email Administrator</value>
@@ -2731,7 +2741,7 @@
         <value xml:lang="pt_BR">Administrador de e-mail</value>
         <value xml:lang="vi">Thư điện tử quản trị</value>
         <value xml:lang="zh">电子邮件管理员</value>
-        <value xml:lang="zh_TW">電子郵件管理員</value>
+        <value xml:lang="zh_TW">電子郵件管理者</value>
     </property>
     <property key="RoleType.description.EMPLOYEE">
         <value xml:lang="de">Angestellter</value>
@@ -2748,7 +2758,7 @@
         <value xml:lang="th">พนักงาน</value>
         <value xml:lang="vi">Nhân viên</value>
         <value xml:lang="zh">职员</value>
-        <value xml:lang="zh_TW">職員</value>
+        <value xml:lang="zh_TW">員工</value>
     </property>
     <property key="RoleType.description.END_USER_CUSTOMER">
         <value xml:lang="de">Endnutzer</value>
@@ -2765,7 +2775,7 @@
         <value xml:lang="th">เสร็จสิ้น-ลูกค้าที่เป็นผู้ใช้</value>
         <value xml:lang="vi">Khách hàng là người dùng cuối</value>
         <value xml:lang="zh">最终客户</value>
-        <value xml:lang="zh_TW">最終客戶</value>
+        <value xml:lang="zh_TW">最終使用者</value>
     </property>
     <property key="RoleType.description.FAMILY_MEMBER">
         <value xml:lang="de">Familienmitglied</value>
@@ -2782,7 +2792,7 @@
         <value xml:lang="th">สมาชิกครอบครัว</value>
         <value xml:lang="vi">Thành viên gia đình</value>
         <value xml:lang="zh">家庭成员</value>
-        <value xml:lang="zh_TW">家庭成員</value>
+        <value xml:lang="zh_TW">家庭會員</value>
     </property>
     <property key="RoleType.description.FAM_ASSIGNEE">
         <value xml:lang="en">Fixed Asset Maint Assignee</value>
@@ -2792,7 +2802,7 @@
         <value xml:lang="pt_BR">Encarregado de manutenção</value>
         <value xml:lang="vi">Phụ trách tài sản cố định</value>
         <value xml:lang="zh">固定资产维修保养受托人</value>
-        <value xml:lang="zh_TW">固定資產維修保養受托人</value>
+        <value xml:lang="zh_TW">固定資產維修保養受託人</value>
     </property>
     <property key="RoleType.description.FAM_MANAGER">
         <value xml:lang="en">Maintenance Manager or Supervisor</value>
@@ -2803,7 +2813,7 @@
         <value xml:lang="pt_BR">Gerente ou supervisor de manutenção</value>
         <value xml:lang="vi">Quản lý hỗ trợ bảo hành (Maintenance Manager)</value>
         <value xml:lang="zh">维修保养管理员或监管者</value>
-        <value xml:lang="zh_TW">維修保養管理員或監管者</value>
+        <value xml:lang="zh_TW">維修保養管理者或監管者</value>
     </property>
     <property key="RoleType.description.FAM_SUPPLIER">
         <value xml:lang="en">Maintenance Supplier or Service</value>
@@ -2841,7 +2851,7 @@
         <value xml:lang="th">ผู้ให้บริการ</value>
         <value xml:lang="vi">Hosting Server</value>
         <value xml:lang="zh">托管服务器</value>
-        <value xml:lang="zh_TW">托管伺服器</value>
+        <value xml:lang="zh_TW">託管伺服器</value>
     </property>
     <property key="RoleType.description.HOUSEHOLD">
         <value xml:lang="de">Haushalt</value>
@@ -2864,10 +2874,11 @@
         <value xml:lang="en">Calendar Member</value>
         <value xml:lang="fr">Membre iCalendar</value>
         <value xml:lang="it">Membro calendario</value>
-        <value xml:lang="ja">日程表メンバ</value>
+        <value xml:lang="ja">時程表メンバ</value>
         <value xml:lang="pt_BR">Membro de agenda</value>
         <value xml:lang="vi">Thành viên hội thảo</value>
         <value xml:lang="zh">日历成员</value>
+        <value xml:lang="zh_TW">日曆會員</value>
     </property>
     <property key="RoleType.description.INTERNAL_ORGANIZATIO">
         <value xml:lang="de">Interne Organisation</value>
@@ -2893,7 +2904,7 @@
         <value xml:lang="it">FAI</value>
         <value xml:lang="ru">Провайдер Интернет</value>
         <value xml:lang="zh">互联网服务提供商</value>
-        <value xml:lang="zh_TW">互聯網服務提供商</value>
+        <value xml:lang="zh_TW">網際網服務供應商</value>
     </property>
     <property key="RoleType.description.LEAD">
         <value xml:lang="en">Lead</value>
@@ -2901,7 +2912,7 @@
         <value xml:lang="hi_IN">नेतृत्व</value>
         <value xml:lang="it">Leader</value>
         <value xml:lang="ja">指揮</value>
-        <value xml:lang="nl">Lead (persoon)</value> 
+        <value xml:lang="nl">Lead (persoon)</value>
         <value xml:lang="pt_BR">Comando</value>
         <value xml:lang="ro">Lead</value>
         <value xml:lang="ru">Обращение</value>
@@ -2924,7 +2935,7 @@
         <value xml:lang="th">เข้าสู่ระบบ</value>
         <value xml:lang="vi">Đã truy nhập</value>
         <value xml:lang="zh">已登录</value>
-        <value xml:lang="zh_TW">已登錄</value>
+        <value xml:lang="zh_TW">已登入</value>
     </property>
     <property key="RoleType.description.LTD_ADMIN">
         <value xml:lang="de">Eingeschränkter Administrator</value>
@@ -2940,7 +2951,7 @@
         <value xml:lang="th">จำกัดผู้บริหาร</value>
         <value xml:lang="vi">Nhà quản trị hữu hạn</value>
         <value xml:lang="zh">有限权力的管理员</value>
-        <value xml:lang="zh_TW">有限權力的管理員</value>
+        <value xml:lang="zh_TW">有限權力的管理者</value>
     </property>
     <property key="RoleType.description.MANAGER">
         <value xml:lang="de">Manager</value>
@@ -2969,7 +2980,7 @@
         <value xml:lang="pt_BR">Fabricante</value>
         <value xml:lang="vi">Nhà sản xuất</value>
         <value xml:lang="zh">制造商</value>
-        <value xml:lang="zh_TW">制造商</value>
+        <value xml:lang="zh_TW">製造商</value>
     </property>
     <property key="RoleType.description.ORDER_CLERK">
         <value xml:lang="de">Einkäufer</value>
@@ -2986,7 +2997,7 @@
         <value xml:lang="th">พนักงานสั่งสินค้า</value>
         <value xml:lang="vi">Thư ký đơn hàng</value>
         <value xml:lang="zh">定货登记员</value>
-        <value xml:lang="zh_TW">定貨登記員</value>
+        <value xml:lang="zh_TW">訂貨登記員</value>
     </property>
     <property key="RoleType.description.ORGANIZATION_ROLE">
         <value xml:lang="de">Organisation</value>
@@ -3129,7 +3140,7 @@
         <value xml:lang="th">หุ้นส่วน</value>
         <value xml:lang="vi">Bạn hàng</value>
         <value xml:lang="zh">合作伙伴</value>
-        <value xml:lang="zh_TW">合作伙伴</value>
+        <value xml:lang="zh_TW">合作團體</value>
     </property>
     <property key="RoleType.description.PERMISSION_GROUP">
         <value xml:lang="de">Berechtigungsgruppe</value>
@@ -3162,7 +3173,7 @@
         <value xml:lang="th">สมาชิกกลุ่มการอนุญาต</value>
         <value xml:lang="vi">Thành viên nhóm phân quyền</value>
         <value xml:lang="zh">权限组成员</value>
-        <value xml:lang="zh_TW">權限群組成員</value>
+        <value xml:lang="zh_TW">權限群組會員</value>
     </property>
     <property key="RoleType.description.PERSON_ROLE">
         <value xml:lang="de">Person</value>
@@ -3195,7 +3206,7 @@
         <value xml:lang="th">คนงาน</value>
         <value xml:lang="vi">Người lấy hàng (picker)</value>
         <value xml:lang="zh">分拣员</value>
-        <value xml:lang="zh_TW">分揀員</value>
+        <value xml:lang="zh_TW">揀貨員</value>
     </property>
     <property key="RoleType.description.PLACING_CUSTOMER">
         <value xml:lang="de">Bestellender Kunde</value>
@@ -3210,7 +3221,7 @@
         <value xml:lang="th">ตำแหน่งของลูกค้า</value>
         <value xml:lang="vi">Khách hàng ruột được ưu tiên (Placing)</value>
         <value xml:lang="zh">意向客户</value>
-        <value xml:lang="zh_TW">意向客戶</value>
+        <value xml:lang="zh_TW">有意向客戶</value>
     </property>
     <property key="RoleType.description.PROJECT_TEAM">
         <value xml:lang="de">Projektteam</value>
@@ -3276,7 +3287,7 @@
         <value xml:lang="pt_BR">Funcionário do fornecedor</value>
         <value xml:lang="vi">Chuyên ngành</value>
         <value xml:lang="zh">供应商实现人员</value>
-        <value xml:lang="zh_TW">供應商實現人員</value>
+        <value xml:lang="zh_TW">供應商參加運作人員</value>
     </property>
     <property key="RoleType.description.PROVIDER_MANAGER">
         <value xml:lang="en">Provider Manager</value>
@@ -3346,7 +3357,7 @@
         <value xml:lang="th">ผู้อ้างอิง</value>
         <value xml:lang="vi">Chỉ dẫn viên</value>
         <value xml:lang="zh">引用</value>
-        <value xml:lang="zh_TW">引用</value>
+        <value xml:lang="zh_TW">引薦人</value>
     </property>
     <property key="RoleType.description.REGULATORY_AGENCY">
         <value xml:lang="de">Aufsichtsbehörde</value>
@@ -3378,7 +3389,7 @@
         <value xml:lang="th">ผู้จัดการคำร้อง</value>
         <value xml:lang="vi">Quản lý yêu cầu</value>
         <value xml:lang="zh">请求管理</value>
-        <value xml:lang="zh_TW">要求管理</value>
+        <value xml:lang="zh_TW">請求管理</value>
     </property>
     <property key="RoleType.description.REQ_REQUESTER">
         <value xml:lang="de">Anfragender Akteur</value>
@@ -3394,7 +3405,7 @@
         <value xml:lang="th">กลุ่มผู้ใช้ตามคำร้อง</value>
         <value xml:lang="vi">Tác nhân yêu cầu</value>
         <value xml:lang="zh">发出请求的会员</value>
-        <value xml:lang="zh_TW">發出要求的成員</value>
+        <value xml:lang="zh_TW">發出請求團體</value>
     </property>
     <property key="RoleType.description.REQ_TAKER">
         <value xml:lang="de">Empfänger der Anfrage</value>
@@ -3410,7 +3421,7 @@
         <value xml:lang="th">ผู้ทำงานตามคำร้อง</value>
         <value xml:lang="vi">Người lấy yêu cầu</value>
         <value xml:lang="zh">请求接受者</value>
-        <value xml:lang="zh_TW">要求接受者</value>
+        <value xml:lang="zh_TW">請求接受者</value>
     </property>
     <property key="RoleType.description.REVIEWER">
         <value xml:lang="de">Prüfer</value>
@@ -3426,7 +3437,7 @@
         <value xml:lang="th">ผู้ทบทวน</value>
         <value xml:lang="vi">Người xem xét</value>
         <value xml:lang="zh">检查员</value>
-        <value xml:lang="zh_TW">檢查員</value>
+        <value xml:lang="zh_TW">檢查者</value>
     </property>
     <property key="RoleType.description.SALES_REP">
         <value xml:lang="de">Aussendienstvertreter</value>
@@ -3477,7 +3488,7 @@
         <value xml:lang="th">พนักงานส่งของ</value>
         <value xml:lang="vi">Thư ký chuyển vận</value>
         <value xml:lang="zh">货运登记员</value>
-        <value xml:lang="zh_TW">貨運登記員</value>
+        <value xml:lang="zh_TW">配送員工</value>
     </property>
     <property key="RoleType.description.SHIP_FROM_VENDOR">
         <value xml:lang="de">Lieferung vom Verkäufer</value>
@@ -3494,7 +3505,7 @@
         <value xml:lang="th">กาส่งของจากผู้ขาย</value>
         <value xml:lang="vi">Gửi từ Nhà bán hàng</value>
         <value xml:lang="zh">发货的厂家</value>
-        <value xml:lang="zh_TW">發貨的供應商</value>
+        <value xml:lang="zh_TW">發貨供應商</value>
     </property>
     <property key="RoleType.description.SHIP_TO_CUSTOMER">
         <value xml:lang="de">Lieferung an Kunde</value>
@@ -3511,14 +3522,14 @@
         <value xml:lang="th">การส่งของถึงลูกค้า</value>
         <value xml:lang="vi">Gửi đến Khách hàng</value>
         <value xml:lang="zh">收货的客户</value>
-        <value xml:lang="zh_TW">收貨的客戶</value>
+        <value xml:lang="zh_TW">收貨客戶</value>
     </property>
     <property key="RoleType.description.SPONSOR">
         <value xml:lang="en">Sponsor</value>
         <value xml:lang="fr">Sponsor/Parrain</value>
         <value xml:lang="hi_IN">प्रायोजक</value>
         <value xml:lang="it">Sponsorizzatore</value>
-        <value xml:lang="ja">スポンサー</value>        
+        <value xml:lang="ja">スポンサー</value>
         <value xml:lang="pt_BR">Patrocinador</value>
         <value xml:lang="vi">Nhà tài trợ</value>
         <value xml:lang="zh">赞助商</value>
@@ -3567,7 +3578,7 @@
         <value xml:lang="th">ผู้สั่งจอง</value>
         <value xml:lang="vi">Đăng ký</value>
         <value xml:lang="zh">用户</value>
-        <value xml:lang="zh_TW">用戶</value>
+        <value xml:lang="zh_TW">訂戶</value>
     </property>
     <property key="RoleType.description.SUBSIDIARY">
         <value xml:lang="de">Filiale</value>
@@ -3601,7 +3612,7 @@
         <value xml:lang="th">ผู้จัดหาสิ่งของให้</value>
         <value xml:lang="vi">Nhà cung cấp</value>
         <value xml:lang="zh">供货商</value>
-        <value xml:lang="zh_TW">供貨商</value>
+        <value xml:lang="zh_TW">供應商</value>
     </property>
     <property key="RoleType.description.SUPPLIER_AGENT">
         <value xml:lang="de">Lieferantenvertreter</value>
@@ -3669,7 +3680,7 @@
         <value xml:lang="th">ผู้ขาย</value>
         <value xml:lang="vi">Nhà bán hàng</value>
         <value xml:lang="zh">厂家</value>
-        <value xml:lang="zh_TW">供應商</value>
+        <value xml:lang="zh_TW">賣家</value>
     </property>
     <property key="RoleType.description.VISITOR">
         <value xml:lang="de">Besucher</value>
@@ -3703,7 +3714,7 @@
         <value xml:lang="th">Web Master</value>
         <value xml:lang="vi">Web Master</value>
         <value xml:lang="zh">网站管理员</value>
-        <value xml:lang="zh_TW">網站管理員</value>
+        <value xml:lang="zh_TW">網站管理者</value>
     </property>
     <property key="RoleType.description.WF_OWNER">
         <value xml:lang="de">Workflow Besitzer</value>
@@ -3720,7 +3731,7 @@
         <value xml:lang="th">เจ้าของขั้นตอนก่ารทำงาน</value>
         <value xml:lang="vi">Sở hữu quy trình (Workflow)</value>
         <value xml:lang="zh">工作流拥有者</value>
-        <value xml:lang="zh_TW">工作流擁有者</value>
+        <value xml:lang="zh_TW">工作流程擁有者</value>
     </property>
     <property key="RoleType.description.WORKER">
         <value xml:lang="de">Arbeiter</value>
@@ -3754,7 +3765,7 @@
         <value xml:lang="th">ขั้นตอนก่ารทำงาน</value>
         <value xml:lang="vi">Quy trình</value>
         <value xml:lang="zh">工作流</value>
-        <value xml:lang="zh_TW">工作流</value>
+        <value xml:lang="zh_TW">工作流程</value>
     </property>
     <property key="RoleType.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
@@ -3771,8 +3782,8 @@
         <value xml:lang="th">ไม่มีสิ่งที่สามารถใช้ได้</value>
         <value xml:lang="vi">Không áp dụng</value>
         <value xml:lang="zh">不可用</value>
-        <value xml:lang="zh_TW">不可用</value>
-    </property>    
+        <value xml:lang="zh_TW">不適用</value>
+    </property>
     <property key="TermType.description.AGREEMENT_TERMINATIO">
         <value xml:lang="de">Vertragsdauer</value>
         <value xml:lang="en">Agreement Termination</value>
@@ -3789,7 +3800,7 @@
         <value xml:lang="th">ข้อสรุปความเห็นชอบ</value>
         <value xml:lang="vi">Điều khoản thanh lý</value>
         <value xml:lang="zh">合同终止</value>
-        <value xml:lang="zh_TW">合同終止</value>
+        <value xml:lang="zh_TW">合約終止</value>
     </property>
     <property key="TermType.description.CFR">
         <value xml:lang="en">Incoterm Cost and Freight</value>
@@ -3810,7 +3821,7 @@
         <value xml:lang="pt_BR">Incoterm CIF</value>
         <value xml:lang="vi">Điều khoản: Giá , Bảo hiểm và Chuyên chở</value>
         <value xml:lang="zh">国际贸易到岸价格（成本、保险费加运费）</value>
-        <value xml:lang="zh_TW">國際貿易到岸價格（成本、保險費加運費）</value>
+        <value xml:lang="zh_TW">國際貿易到岸價格(成本、保險費加運費)</value>
     </property>
     <property key="TermType.description.CIP">
         <value xml:lang="en">Incoterm Carriage and Insurance Paid to</value>
@@ -3928,7 +3939,7 @@
         <value xml:lang="th">ความสัมพันธ์พิเศษ</value>
         <value xml:lang="vi">Quan hệ độc quyền</value>
         <value xml:lang="zh">排他关系</value>
-        <value xml:lang="zh_TW">排他關系</value>
+        <value xml:lang="zh_TW">排他關連</value>
     </property>
     <property key="TermType.description.EXW">
         <value xml:lang="en">Incoterm Ex Works</value>
@@ -3994,7 +4005,7 @@
         <value xml:lang="th">ค่าใช้จ่ายสำหรับการรวมกลุ่ม</value>
         <value xml:lang="vi">Đại lý thu nhận chịu trách nhiệm phạt</value>
         <value xml:lang="zh">催账公司的罚款</value>
-        <value xml:lang="zh_TW">催賬公司的罰款</value>
+        <value xml:lang="zh_TW">催帳公司的罰款</value>
     </property>
     <property key="TermType.description.FIN_COMM_FIXED">
         <value xml:lang="de">Feste Kommission pro Einheit</value>
@@ -4098,7 +4109,7 @@
         <value xml:lang="th">ไม่แสดงรายการสินค้าที่ขาย</value>
         <value xml:lang="vi">Hàng hóa miễn hoàn trả</value>
         <value xml:lang="zh">不可退换销售明细</value>
-        <value xml:lang="zh_TW">不可退換銷售明細</value>
+        <value xml:lang="zh_TW">不可退換銷售細項</value>
     </property>
     <property key="TermType.description.FIN_PAYMENT_DISC">
         <value xml:lang="de">Zahlung (Skonto bei Zahlung innerhalb der angegebenen Frist)</value>
@@ -4115,7 +4126,7 @@
         <value xml:lang="th">การชำระเงิน(ลดราคาถ้าจ่ายภายในวันที่กำหนด)</value>
         <value xml:lang="vi">Thanh toán (giảm giá nếu thanh toán vào những ngày khuyến mãi)</value>
         <value xml:lang="zh">支付 (如果在指定天数内支付可获得折扣)</value>
-        <value xml:lang="zh_TW">支付 (如果在指定天數內支付可獲得折扣)</value>
+        <value xml:lang="zh_TW">付款 (如果在指定天數內付款可獲得折扣)</value>
     </property>
     <property key="TermType.description.FIN_PAYMENT_FIXDAY">
         <value xml:lang="de">Zahlung (Fällig am angegebenen Tag des Monats)</value>
@@ -4132,7 +4143,7 @@
         <value xml:lang="th">การชำระเงิน(ระหว่างวันที่กำหนดของเดือน)</value>
         <value xml:lang="vi">Thanh toán ( phụ thuộc tùy ngày của tháng)</value>
         <value xml:lang="zh">支付 (在每月的指定日期付款)</value>
-        <value xml:lang="zh_TW">支付 (在每月的指定日期付款)</value>
+        <value xml:lang="zh_TW">付款 (在每月的指定日期付款)</value>
     </property>
     <property key="TermType.description.FIN_PAYMENT_TERM">
         <value xml:lang="de">Zahlung (Tage netto)</value>
@@ -4149,7 +4160,7 @@
         <value xml:lang="th">การชำระเงิน(ทางอินเทอร์เนต)</value>
         <value xml:lang="vi">Thanh toán (các ngày thực giá- không thuế)</value>
         <value xml:lang="zh">支付 (工作日)</value>
-        <value xml:lang="zh_TW">支付 (工作日)</value>
+        <value xml:lang="zh_TW">付款 (工作日)</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_1">
         <value xml:lang="de">Nettozahlung in Tagen, Teil 1</value>
@@ -4161,7 +4172,7 @@
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 1</value>
         <value xml:lang="vi">Ngày thanh toán phí thực giá - không thuế, phần 1</value>
         <value xml:lang="zh">支付净天数，第一部分</value>
-        <value xml:lang="zh_TW">支付淨天數，第一部分</value>
+        <value xml:lang="zh_TW">付款淨天數,第一部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_2">
         <value xml:lang="de">Nettozahlung in Tagen, Teil 2</value>
@@ -4173,7 +4184,7 @@
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 2</value>
         <value xml:lang="vi">Ngày thanh toán phí thực giá - không thuế, phần 2</value>
         <value xml:lang="zh">支付净天数，第二部分</value>
-        <value xml:lang="zh_TW">支付淨天數，第二部分</value>
+        <value xml:lang="zh_TW">付款淨天數,第二部分</value>
     </property>
     <property key="TermType.description.FIN_PAY_NETDAYS_3">
         <value xml:lang="de">Nettozahlung in Tagen, Teil 3</value>
@@ -4185,7 +4196,7 @@
         <value xml:lang="pt_BR">Pagamento em dias corridos, parte 3</value>
         <value xml:lang="vi">Ngày thanh toán phí thực giá - không thuế, phần 3</value>
         <value xml:lang="zh">支付净天数，第三部分</value>
-        <value xml:lang="zh_TW">支付淨天數，第三部分</value>
+        <value xml:lang="zh_TW">付款淨天數,第三部分</value>
     </property>
     <property key="TermType.description.FOB">
         <value xml:lang="en">Incoterm Free On Board</value>
@@ -4212,7 +4223,7 @@
         <value xml:lang="th">สิ่งกระตุ้น</value>
         <value xml:lang="vi">Khuyến khích</value>
         <value xml:lang="zh">动机</value>
-        <value xml:lang="zh_TW">動機</value>
+        <value xml:lang="zh_TW">奬金</value>
     </property>
     <property key="TermType.description.INCO_TERM">
         <value xml:lang="en">Incoterm</value>
@@ -4330,7 +4341,7 @@
         <value xml:lang="pt_BR">Identificação de cliente fornecedor</value>
         <value xml:lang="vi">ID nhà bán hàng của khách hàng</value>
         <value xml:lang="zh">供货商客户标识</value>
-        <value xml:lang="zh_TW">供貨商客戶ID</value>
+        <value xml:lang="zh_TW">供應商客戶識別</value>
     </property>
     <property key="TermType.description.THRESHOLD">
         <value xml:lang="de">Grenzwert</value>
@@ -4348,6 +4359,6 @@
         <value xml:lang="th">จุดเริ่มต้น</value>
         <value xml:lang="vi">Ngưỡng</value>
         <value xml:lang="zh">阈值</value>
-        <value xml:lang="zh_TW">閾值</value>
+        <value xml:lang="zh_TW">門檻值</value>
     </property>
 </resource>

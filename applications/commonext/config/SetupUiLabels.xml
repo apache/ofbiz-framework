@@ -57,27 +57,27 @@
         <value xml:lang="zh_TW">OFBiz: 設置應用程式</value>
     </property>
     <property key="SetupCompanySubtitle">
-        <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
+    <!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value>
         <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
+    <!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
         <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
         <value xml:lang="it">Un modulo della famiglia di software open source Open For Business</value>
-        <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
+    <!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
         <value xml:lang="ja">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value>
         <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
+    <!--value xml:lang="pt-PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
         <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value>
-        <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
+    <!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</valuevalue xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
         <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value>
-        <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
+    <!--value xml:lang="ru">Часть семейства ПО Open For Business</valuevalue xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
         <value xml:lang="ru">Входит в состав семейства Open For Business</value>
-        <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
+    <!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
-        <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
+    <!--value xml:lang="zh">开源软件OFBiz的组成部分</valuevalue xml:lang="zh">开源软件OFBiz的组成部分</value-->
         <value xml:lang="vi">Thành viên của gia đình 'Open For Business Family' của 'Open Source Software'</value>
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh_CN">OFBiz的一部分</value>
@@ -144,6 +144,7 @@
         <value xml:lang="pt_BR">Nome da Instalação está faltando</value>
         <value xml:lang="vi">Bạn chưa nhập tên cơ sở (Facility Name)</value>
         <value xml:lang="zh">缺少场所名称</value>
+        <value xml:lang="zh_TW">缺少場所名稱</value>
     </property>
     <property key="SetupFirstCustomer">
         <value xml:lang="en">First Customer</value>
@@ -214,6 +215,7 @@
         <value xml:lang="pt_BR">Nome da organização está faltando</value>
         <value xml:lang="vi">Bạn chưa nhập tên doanh nghiệp</value>
         <value xml:lang="zh">缺少组织名称</value>
+        <value xml:lang="zh_TW">缺少組織名稱</value>
     </property>
     <property key="SetupOrganizationPartyId">
         <value xml:lang="en">Organization Party Id</value>
@@ -222,7 +224,7 @@
         <value xml:lang="pt_BR">Id da Organização</value>
         <value xml:lang="vi">Id Doanh nghiệp</value>
         <value xml:lang="zh">组织会员标识</value>
-        <value xml:lang="zh_TW">組織成員ID</value>
+        <value xml:lang="zh_TW">組織團體識別</value>
     </property>
     <property key="SetupPageError">
         <value xml:lang="en">You do not have sufficient data to access this page.</value>
@@ -231,7 +233,7 @@
         <value xml:lang="pt_BR">Você não tem dados suficientes para acessar essa página.</value>
         <value xml:lang="vi">Bạn chưa có đủ quyền để truy nhập vào trang này.</value>
         <value xml:lang="zh">你没有足够的数据来访问这个页面。</value>
-        <value xml:lang="zh_TW">您沒有進入此頁面的權限。</value>
+        <value xml:lang="zh_TW">您沒有進入此頁面的權限.</value>
     </property>
     <property key="SetupProductCatalog">
         <value xml:lang="en">Product Catalog</value>
@@ -240,7 +242,7 @@
         <value xml:lang="pt_BR">Catálogo de Produtos</value>
         <value xml:lang="vi">Catalog sản phẩm</value>
         <value xml:lang="zh">产品目录</value>
-        <value xml:lang="zh_TW">產品目錄</value>
+        <value xml:lang="zh_TW">產品型錄</value>
     </property>
     <property key="SetupProductStore">
         <value xml:lang="en">Product Store</value>
@@ -266,6 +268,7 @@
         <value xml:lang="pt_BR">Nome da loja está faltando</value>
         <value xml:lang="vi">Bạn chưa nhập tên cửa hàng</value>
         <value xml:lang="zh">缺少店铺名称</value>
+        <value xml:lang="zh_TW">缺少店鋪名稱</value>
     </property>
     <property key="SetupResults">
         <value xml:lang="en">Results</value>
@@ -292,6 +295,7 @@
         <value xml:lang="pt_BR">O primeiro cliente de</value>
         <value xml:lang="vi">Khách hàng đầu tiên của</value>
         <value xml:lang="zh">第一个客户属于</value>
+        <value xml:lang="zh_TW">第一個客戶屬於</value>
     </property>
     <property key="SetupWebSite">
         <value xml:lang="en">Web Site</value>

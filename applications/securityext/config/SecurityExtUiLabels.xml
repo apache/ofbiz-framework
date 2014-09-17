@@ -26,7 +26,7 @@
         <value xml:lang="fr">un nouvel</value>
         <value xml:lang="it">una nuova</value>
         <value xml:lang="ja">お知らせ</value>
-        <value xml:lang="nl">een nieuw(e)</value>       
+        <value xml:lang="nl">een nieuw(e)</value>
         <value xml:lang="pt_BR">uma nova</value>
         <value xml:lang="th">ใหม่</value>
         <value xml:lang="vi">mới</value>
@@ -40,7 +40,7 @@
         <value xml:lang="fr">Votre mot de passe est : </value>
         <value xml:lang="it">La tua password è :- </value>
         <value xml:lang="ja">あなたのパスワードは :-</value>
-        <value xml:lang="nl">Uw wachtwoord is :</value>     
+        <value xml:lang="nl">Uw wachtwoord is :</value>
         <value xml:lang="pt_BR">Sua senha é:</value>
         <value xml:lang="zh">你的密码是：- </value>
         <value xml:lang="vi">Mật khẩu của bạn :-</value>
@@ -53,7 +53,7 @@
         <value xml:lang="fr">Votre nouveau mot de passe est : </value>
         <value xml:lang="it">La nuova password è :- </value>
         <value xml:lang="ja">あなたの新しいパスワードは :-</value>
-        <value xml:lang="nl">Uw nieuwe wachtwoord is : </value>     
+        <value xml:lang="nl">Uw nieuwe wachtwoord is : </value>
         <value xml:lang="pt_BR">Sua nova senha é:</value>
         <value xml:lang="zh">你的新密码是：- </value>
         <value xml:lang="zh_TW">你的新密碼是 :- </value>
@@ -66,7 +66,7 @@
         <value xml:lang="fr">mot de passe qui vous a été envoyé</value>
         <value xml:lang="it">password inviata a te</value>
         <value xml:lang="ja">パスワードを送信しました</value>
-        <value xml:lang="nl">Wachtwoord dat naar u verzonden is</value>     
+        <value xml:lang="nl">Wachtwoord dat naar u verzonden is</value>
         <value xml:lang="pt_BR">Senha enviada para você</value>
         <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
         <value xml:lang="vi">mật khẩu được gửi tới bạn</value>
@@ -80,12 +80,12 @@
         <value xml:lang="fr">Ce courriel en réponse à votre demande d'obtenir</value>
         <value xml:lang="it">Questa email ti è stata inviata in seguito alla tua richiesta.</value>
         <value xml:lang="ja">このメールはあなたがリクエストされたものです</value>
-        <value xml:lang="nl">Deze email is verzonden naar aanleiding van uw verzoek.</value>    
+        <value xml:lang="nl">Deze email is verzonden naar aanleiding van uw verzoek.</value>
         <value xml:lang="pt_BR">Este e-mail lhe foi enviado devido ao seu pedido</value>
         <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
         <value xml:lang="vi">Thư điện tử này để phản hồi việc bạn yêu cầu muốn có</value>
         <value xml:lang="zh">这个电子邮件是回答你要求的</value>
-        <value xml:lang="zh_TW">此電子郵件是回覆你的要求的</value>
+        <value xml:lang="zh_TW">此電子郵件是回應你的請求的</value>
     </property>
     <property key="SecurityExtYour">
         <value xml:lang="da">Deres</value>
@@ -94,7 +94,7 @@
         <value xml:lang="fr">Votre</value>
         <value xml:lang="it">tuo</value>
         <value xml:lang="ja">あなたの</value>
-        <value xml:lang="nl">uw</value>     
+        <value xml:lang="nl">uw</value>
         <value xml:lang="pt_BR">seu</value>
         <value xml:lang="th">ของคุณ</value>
         <value xml:lang="vi">của bạn</value>

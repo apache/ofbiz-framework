@@ -32,7 +32,7 @@
         <value xml:lang="ru">Ошибка доступа к паролю: ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่าน: ${errorMessage}.</value>
         <value xml:lang="zh">访问密码时出错：${errorMessage}。</value>
-        <value xml:lang="zh_TW">使用密碼錯誤: ${errorMessage}。</value>
+        <value xml:lang="zh_TW">使用密碼錯誤: ${errorMessage}.</value>
     </property>
     <property key="loginevents.error_accessing_password_change_history">
         <value xml:lang="de">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
@@ -46,7 +46,7 @@
         <value xml:lang="ru">Ошибка доступа к паролю меняющему историю: $(errorMessage)</value>
         <value xml:lang="th">ผิดพลาดในการใช้รหัสผ่านเปลี่ยนข้อมูล: ${errorMessage}.</value>
         <value xml:lang="zh">访问密码修改历史记录时出错：${errorMessage}。</value>
-        <value xml:lang="zh_TW">使用密碼變更歷史記錄錯誤: ${errorMessage}。</value>
+        <value xml:lang="zh_TW">使用密碼變更歷史記錄錯誤: ${errorMessage}.</value>
     </property>
     <property key="loginevents.error_saving_new_password_email_not_correct_password">
         <value xml:lang="de">Fehler beim Speichern des neuen Passworts, die E-Mail, die sie erhalten wird nicht das korrekte Passwort enthalten, das alte Passwort ist weiterhin gültig: ${errorMessage}.</value>
@@ -60,7 +60,7 @@
         <value xml:lang="ru">Ошибка сохранения нового пароля, полученное вами сообщение будет содержать неверный пароль, по прежнему используется ваш старый пароль: ${errorMessage}.</value>
         <value xml:lang="th">ผิดพลาดขณะกำลังบันทึกรหัสผ่านใหม่, อีเมลนั่นที่คุณได้รับจะไม่มีรหัสผ่านที่ถูกต้องในนั้น, รหัสผ่านเก่าของคุณยังคงใช้ได้อยู่: ${errorMessage}.</value>
         <value xml:lang="zh">保存新密码时出错，你收到的电子邮件中的密码不会是正确的，仍会使用你的旧密码：${errorMessage}。</value>
-        <value xml:lang="zh_TW">儲存密碼錯誤, 你收到電子郵件密碼不正確, 仍舊使用舊密碼: ${errorMessage}。</value>
+        <value xml:lang="zh_TW">儲存密碼錯誤, 你收到電子郵件密碼不正確, 仍舊使用舊密碼: ${errorMessage}.</value>
     </property>
     <property key="loginevents.error_unable_email_password_contact_customer_service">
         <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice.</value>
@@ -75,7 +75,7 @@
         <value xml:lang="ru">Произошла ошибка: невозможно отправить пароль по эл. почте.  Повторите попытку позже или свяжитесь со службой поддержки.</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นผิดพลาด: ไม่สามารถถึงรหัสผ่านอีเมล.  กรุณาลองอีกครั้งหรือติดต่อบริการลูกค้า.</value>
         <value xml:lang="zh">发生错误：无法发送带有密码的电子邮件。请重试或与客户服务联系。</value>
-        <value xml:lang="zh_TW">發生錯誤: 無法送出帶有密碼的電子郵件, 請重試或連絡客服。</value>
+        <value xml:lang="zh_TW">發生錯誤: 無法送出帶有密碼的電子郵件, 請重試或聯絡客服.</value>
     </property>
     <property key="loginevents.error_unable_email_password_contact_customer_service_errorwas">
         <value xml:lang="de">Fehler: Passwort konnte nicht per E-Mail verschickt werden. Versuchen Sie es später noch einmal oder wenden Sie sich an den Kundenservice. (Fehler war: ${errorMessage}).</value>
@@ -90,7 +90,7 @@
         <value xml:lang="ru">Произошла ошибка: невозможно отправить пароль по эл. почте.  Повторите попытку позже или свяжитесь со службой поддержки. (ошибка: ${errorMessage}).</value>
         <value xml:lang="th">สิ่งที่เกิดขึ้นผิดพลาด: ไม่สามารถถึงรหัสผ่านอีเมล.  กรุณาลองอีกครั้งหรือติดต่อบริการลูกค้า. (ผิดพลาดคือ: ${errorMessage}).</value>
         <value xml:lang="zh">发生错误：无法发送带有密码的电子邮件。请重试或与客户服务联系(错误是：${errorMessage})。</value>
-        <value xml:lang="zh_TW">發生錯誤: 無法送出帶有密碼的電子郵件, 請重試或連絡客服(錯誤為: ${errorMessage})。</value>
+        <value xml:lang="zh_TW">發生錯誤: 無法送出帶有密碼的電子郵件, 請重試或聯絡客服(錯誤為: ${errorMessage}).</value>
     </property>
     <property key="loginevents.following_error_occurred_during_login">
         <value xml:lang="de">${errorMessage}</value>
@@ -105,7 +105,7 @@
         <value xml:lang="ru">Во время регистрации в системе произошла следующая ошибка: ${errorMessage}</value>
         <value xml:lang="th">ผิดพลาดตามสิ่งที่เกิดขึ้นระหว่างการลอกอินเข้าสู่ระบบ: ${errorMessage}</value>
         <value xml:lang="zh">登录时发生下列错误：${errorMessage}</value>
-        <value xml:lang="zh_TW">登入時發生錯誤: ${errorMessage}。</value>
+        <value xml:lang="zh_TW">登入時發生錯誤: ${errorMessage}.</value>
     </property>
     <property key="loginevents.new_password_createdandsent_check_email">
         <value xml:lang="de">Ein neues Passwort wurde erzeugt und Ihnen per E-Mail zugeschickt. Überprüfen Sie bitte Ihren E-Mail-Eingang.</value>
@@ -120,7 +120,7 @@
         <value xml:lang="ru">Новый пароль создан и выслан вам. Пожалуйста, проверьте свою эл. почту.</value>
         <value xml:lang="th">รหัสผ่านใหม่มีการสร้างและส่งถึงคุณ. กรุณาตรวจสอบอีเมลของคุณ.</value>
         <value xml:lang="zh">新建了一个新密码并发送给你了。请检查你的电子邮件。</value>
-        <value xml:lang="zh_TW">建立一個新密碼並寄出給你, 請檢查電子郵件。</value>
+        <value xml:lang="zh_TW">建立一個新密碼並寄出給你, 請檢查電子郵件.</value>
     </property>
     <property key="loginevents.new_password_sent_check_email">
         <value xml:lang="de">Ihr Passwort wurde Ihnen per E-Mail zugeschickt. Überprüfen sie Ihren E-Mail-Eingang.</value>
@@ -135,7 +135,7 @@
         <value xml:lang="ru">Ваш пароль был выслан в ваш адрес. Пожалуйста, проверьте свою эл. почту.</value>
         <value xml:lang="th">รหัสผ่านของคุณได้ส่งถึงคุณ. กรุณาตรวจสอบอีเมลของคุณ.</value>
         <value xml:lang="zh">你的密码已经发送给你了。请检查你的电子邮件。</value>
-        <value xml:lang="zh_TW">密碼已經寄出給你, 請檢查電子郵件。</value>
+        <value xml:lang="zh_TW">密碼已經寄出給你, 請檢查電子郵件.</value>
     </property>
     <property key="loginevents.no_password_hint_specified_try_password_emailed">
         <value xml:lang="de">Es wurde kein Passwort-Hinweis angegeben, versuchen Sie sich das Passwort zumailen zu lassen.</value>
@@ -150,7 +150,7 @@
         <value xml:lang="ru">Подсказка пароля не указана, попробуйте отправку пароля эл. почтой.</value>
         <value xml:lang="th">ไม่ระบุรหัสผ่านที่ซ่อน, ตรวจสอบรหัสผ่านแทนที่จะอีเมล.</value>
         <value xml:lang="zh">没有指定密码提示，请尝试使用电子邮件邮寄密码。</value>
-        <value xml:lang="zh_TW">無密碼提示, 請試試以電子郵件寄送密碼。</value>
+        <value xml:lang="zh_TW">無密碼提示, 請試試以電子郵件寄送密碼.</value>
     </property>
     <property key="loginevents.no_primary_email_address_set_contact_customer_service">
         <value xml:lang="de">Es wurde keine primäre E-Mailadresse vergeben, bitte wenden Sie sich an den Kundenservice.</value>
@@ -165,7 +165,7 @@
         <value xml:lang="ru">Не установлен основной адрес эл. почты, пожалуйста связывайтесь со службой поддержки.</value>
         <value xml:lang="th">ไม่มีการตั้งค่าที่อยู่อีเมลในขั้นแรก, กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">没有设置电子邮件地址，请与客户服务联系。</value>
-        <value xml:lang="zh_TW">無電子郵件, 請與客服連絡。</value>
+        <value xml:lang="zh_TW">無電子郵件, 請與客服聯絡.</value>
     </property>
     <property key="loginevents.password_expiration_alert">
         <value xml:lang="en">Alert: Your password will expire on ${passwordExpirationDate}. Update password before it expired.</value>
@@ -173,7 +173,7 @@
         <value xml:lang="ru">Уведомление: Твой пароль будет действителен на ${passwordExpirationDate}. Поменяйте пароль перед тем как его срок годности пройдет. </value>
         <value xml:lang="zh">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
         <value xml:lang="zh_CN">注意：您的密码将在${passwordExpirationDate}过期，请在这之前更改密码。</value>
-        <value xml:lang="zh_TW">注意：您的密碼將在${passwordExpirationDate}過期，請在這之前更改密碼。</value>
+        <value xml:lang="zh_TW">注意:您的密碼將在${passwordExpirationDate}過期,請在這之前更改密碼.</value>
     </property>
     <property key="loginevents.password_expired_message">
         <value xml:lang="en">Alert: Your password expired on ${passwordExpirationDate}. Update your password.</value>
@@ -181,7 +181,7 @@
         <value xml:lang="ru">Уведомление: Твой пароль истек на ${passwordExpirationDate}. </value>
         <value xml:lang="zh">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
         <value xml:lang="zh_CN">您的密码已于${passwordExpirationDate}过期，请更改密码。</value>
-        <value xml:lang="zh_TW">您的密碼已於${passwordExpirationDate}過期，請更改密碼。</value>
+        <value xml:lang="zh_TW">您的密碼已於${passwordExpirationDate}過期,請更改密碼.</value>
     </property>
     <property key="loginevents.password_hint_is">
         <value xml:lang="de">Der Passwort-Hinweis ist: ${passwordHint}.</value>
@@ -196,7 +196,7 @@
         <value xml:lang="ru">Подсказка пароля: ${passwordHint}.</value>
         <value xml:lang="th">รหัสผ่านที่ซ่อนคือ: ${passwordHint}.</value>
         <value xml:lang="zh">密码提示是：${passwordHint}。</value>
-        <value xml:lang="zh_TW">密碼提示: ${passwordHint}。</value>
+        <value xml:lang="zh_TW">密碼提示: ${passwordHint}.</value>
     </property>
     <property key="loginevents.password_was_changed_with_success">
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert</value>
@@ -209,7 +209,7 @@
         <value xml:lang="pt_BR">Sua senha foi alterada com sucesso</value>
         <value xml:lang="ru">Твой пароль был успешно изменен</value>
         <value xml:lang="zh">你的密码已成功修改</value>
-        <value xml:lang="zh_TW">你的密碼已成功變更。</value>
+        <value xml:lang="zh_TW">你的密碼已成功變更.</value>
     </property>
     <property key="loginevents.password_was_empty_reenter">
         <value xml:lang="de">Es wurde kein Passwort eingegeben.</value>
@@ -224,7 +224,7 @@
         <value xml:lang="ru">Пароль пустой, введите повторно.</value>
         <value xml:lang="th">กลับเข้าไปสู่รหัสผ่านที่ว่างเปล่า</value>
         <value xml:lang="zh">密码是空的，请重新输入。</value>
-        <value xml:lang="zh_TW">密碼是空的, 請重新輸入。</value>
+        <value xml:lang="zh_TW">密碼是空的, 請重新輸入.</value>
     </property>
     <property key="loginevents.problems_with_configuration_contact_customer_service">
         <value xml:lang="de">Fehler bei der Konfiguration; bitte wenden Sie sich an den Kundenservice.</value>
@@ -239,7 +239,7 @@
         <value xml:lang="ru">Проблемы с конфигурацией; свяжитесь со службой поддержки.</value>
         <value xml:lang="th">ปัญหาโครงร่างภายนอก; กรุณาติดต่อบริการลูกค้า</value>
         <value xml:lang="zh">配置出错；请与客户服务联系。</value>
-        <value xml:lang="zh_TW">設定有問題: 請連絡客服。</value>
+        <value xml:lang="zh_TW">設定有問題: 請聯絡客服.</value>
     </property>
     <property key="loginevents.unable_to_login_tenant">
         <value xml:lang="en">You cannot login to this tenant</value>
@@ -279,7 +279,7 @@
         <value xml:lang="ru">Этот пользователь уже выполнил вход в систему.</value>
         <value xml:lang="th">ผู้ใช้ลอกอินเข้าสู่ระบบเรียบร้อยแล้ว</value>
         <value xml:lang="zh">这个用户已经登录了。</value>
-        <value xml:lang="zh_TW">此使用者已經登入。</value>
+        <value xml:lang="zh_TW">此使用者已經登入.</value>
     </property>
     <property key="loginevents.username_not_found_reenter">
         <value xml:lang="de">Benutzername konnte nicht gefunden werden. Bitte erneut eingeben.</value>
@@ -294,7 +294,7 @@
         <value xml:lang="ru">Это имя пользователя не найдено, введите повторно.</value>
         <value xml:lang="th">ไม่พบชื่อผู้เข้าใช้, กรุณากรอกข้อมูลอีกครั้ง</value>
         <value xml:lang="zh">没有找到用户名，请重新输入。</value>
-        <value xml:lang="zh_TW">無此使用者, 請重新輸入。</value>
+        <value xml:lang="zh_TW">無此使用者, 請重新輸入.</value>
     </property>
     <property key="loginevents.username_was_empty_reenter">
         <value xml:lang="de">Es wurde kein Benutzername eingegeben.</value>
@@ -309,7 +309,7 @@
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ว่าง, กรุณากรอกข้อมูลอีกครั้ง</value>
         <value xml:lang="zh">用户名是空的，请重新输入</value>
-        <value xml:lang="zh_TW">空的使用者登入代號, 請重新輸入。</value>
+        <value xml:lang="zh_TW">空的使用者登入代號, 請重新輸入.</value>
     </property>
     <property key="loginmapprocs.new_password_missing">
         <value xml:lang="de">Das neue Passwort fehlt.</value>
@@ -324,7 +324,7 @@
         <value xml:lang="ru">Отсутствует новый пароль.</value>
         <value xml:lang="th">ไม่พบรหัสผ่านใหม่</value>
         <value xml:lang="zh">缺少新密码。</value>
-        <value xml:lang="zh_TW">沒有新的密碼。</value>
+        <value xml:lang="zh_TW">沒有新的密碼.</value>
     </property>
     <property key="loginmapprocs.new_password_verify_missing">
         <value xml:lang="de">Das Bestätigungspasswort fehlt.</value>
@@ -339,7 +339,7 @@
         <value xml:lang="ru">Отсутствует новый проверочный пароль</value>
         <value xml:lang="th">ไม่พบการตรวจสอบรหัสผ่านใหม่</value>
         <value xml:lang="zh">缺少新密码验证</value>
-        <value xml:lang="zh_TW">沒有新的確認碼。</value>
+        <value xml:lang="zh_TW">沒有新的確認碼.</value>
     </property>
     <property key="loginmapprocs.old_password_missing">
         <value xml:lang="de">Das (alte) Passwort fehlt.</value>
@@ -354,7 +354,7 @@
         <value xml:lang="ru">Отсутствует пароль (старый).</value>
         <value xml:lang="th">ไม่พบรหัสผ่านเก่า</value>
         <value xml:lang="zh">缺少(旧)密码。</value>
-        <value xml:lang="zh_TW">沒有(舊的)密碼。</value>
+        <value xml:lang="zh_TW">沒有(舊的)密碼.</value>
     </property>
     <property key="loginmapprocs.password_not_equal_verfiy_password">
         <value xml:lang="de">Das neue Passwort ist nicht identisch mit dem Bestätigungspasswort</value>
@@ -369,7 +369,7 @@
         <value xml:lang="ru">Новый пароль не равен проверочному</value>
         <value xml:lang="th">รหัสผ่านใหม่ไม่ตรงกับรหัสผ่านที่ยืนยันความถูกต้อง</value>
         <value xml:lang="zh">新密码不等于验证密码</value>
-        <value xml:lang="zh_TW">新密碼與確認碼不相符。</value>
+        <value xml:lang="zh_TW">新密碼與確認碼不相符.</value>
     </property>
     <property key="loginmapprocs.password_successfully_updated">
         <value xml:lang="de">Ihr Passwort wurde erfolgreich geändert.</value>
@@ -384,7 +384,7 @@
         <value xml:lang="ru">Пароль успешно обновлен.</value>
         <value xml:lang="th">อัพเดทรหัสผ่านเป็นผลสำเร็จ</value>
         <value xml:lang="zh">密码已成功更新。</value>
-        <value xml:lang="zh_TW">密碼更新成功。</value>
+        <value xml:lang="zh_TW">密碼更新成功.</value>
     </property>
     <property key="loginservices.account_for_user_login_id_disabled">
         <value xml:lang="de">Das Konto mit dem Benutzernamen "${username}" wurde gesperrt</value>
@@ -399,7 +399,7 @@
         <value xml:lang="ru">Пользователь с именем "${username}" заблокирован.</value>
         <value xml:lang="th">บัญชีสำหรับรหัสการลอกอินเข้าสู่ระบบของผู้ใช้ "${username}" ไม่สามารถ.</value>
         <value xml:lang="zh">用户登录标识为"${username}"的账户已被禁用。</value>
-        <value xml:lang="zh_TW">使用者帳戶 "${username}" 已被停用。</value>
+        <value xml:lang="zh_TW">使用者帳戶 "${username}" 已被停用.</value>
     </property>
     <property key="loginservices.could_not_change_password_read_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Lesefehler): ${errorMessage}.</value>
@@ -414,7 +414,7 @@
         <value xml:lang="ru">Невозможно изменить пароль (ошибка чтения): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน (การอ่านล้มเหลว): ${errorMessage}.</value>
         <value xml:lang="zh">无法修改密码(读错误)：${errorMessage}。</value>
-        <value xml:lang="zh_TW">無法修改密碼(讀取錯誤): ${errorMessage}。</value>
+        <value xml:lang="zh_TW">無法修改密碼(讀取錯誤): ${errorMessage}.</value>
     </property>
     <property key="loginservices.could_not_change_password_userlogin_with_id_not_exist">
         <value xml:lang="de">Passwort konnte nicht geändert werden, Benutzername mit der ID "${userLoginId}" existiert nicht.</value>
@@ -429,7 +429,7 @@
         <value xml:lang="ru">Невозможно изменить пароль, Имя пользователя с кодом "${userLoginId}" не существует.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน, การลอกอินเข้าสู่ระบบของผู้ใช้ด้วยรหัส "${userLoginId}"ไม่มีอยู่</value>
         <value xml:lang="zh">无法修改密码，用户登录标识"${userLoginId}"不存在。</value>
-        <value xml:lang="zh_TW">無法修改密碼, 使用者登入代號 ${userLoginId} 不存在。</value>
+        <value xml:lang="zh_TW">無法修改密碼, 使用者登入識別 ${userLoginId} 不存在.</value>
     </property>
     <property key="loginservices.could_not_change_password_write_failure">
         <value xml:lang="de">Das Passwort konnte nicht geändert werden (Schreibfehler): ${errorMessage}.</value>
@@ -444,7 +444,7 @@
         <value xml:lang="ru">Невозможно изменить пароль (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนรหัสผ่าน (การเขียนล้มเหลว): ${errorMessage}.</value>
         <value xml:lang="zh">无法修改密码(写错误)：${errorMessage}。</value>
-        <value xml:lang="zh_TW">無法修改密碼(寫入錯誤): ${errorMessage}。</value>
+        <value xml:lang="zh_TW">無法修改密碼(寫入錯誤): ${errorMessage}.</value>
     </property>
     <property key="loginservices.could_not_create_login_user_read_failure">
         <value xml:lang="de">Konnte user-login nicht erstellen (Lesefehler): ${errorMessage}.</value>
@@ -459,7 +459,7 @@
         <value xml:lang="ru">Невозможно создать имя пользователя (ошибка чтения): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้ (การอ่านล้มเหลว): ${errorMessage}.</value>
         <value xml:lang="zh">无法创建登录用户(读错误)：${errorMessage}。</value>
-        <value xml:lang="zh_TW">無法建立使用者(讀取錯誤): ${errorMessage}。</value>
+        <value xml:lang="zh_TW">無法建立使用者(讀取錯誤): ${errorMessage}.</value>
     </property>
     <property key="loginservices.could_not_create_login_user_with_ID_exists">
         <value xml:lang="de">Benutzername "${userLoginId}" existiert bereits</value>
@@ -474,7 +474,7 @@
         <value xml:lang="ru">Невозможно создать имя: пользователь с кодом "${userLoginId}" уже существует.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้: ผู้ใช้ด้วยรหัส "${userLoginId}" ยังคงมีอยู่แล้ว.</value>
         <value xml:lang="zh">无法创建登录用户：用户标识"${userLoginId}"已存在。</value>
-        <value xml:lang="zh_TW">無法建立使用者, 使用者登入代號 ${userLoginId} 已存在。</value>
+        <value xml:lang="zh_TW">無法建立使用者, 使用者登入識別 ${userLoginId} 已存在.</value>
     </property>
     <property key="loginservices.could_not_create_login_user_write_failure">
         <value xml:lang="de">Konnte user-login nicht erstellen (Schreibfehler): ${errorMessage}.</value>
@@ -489,7 +489,7 @@
         <value xml:lang="ru">Невозможно создать имя пользователяr (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถสร้างการลอกอินเข้าสู่ระบบของผู้ใช้ (การเขียนล้มเหลว): ${errorMessage}.</value>
         <value xml:lang="zh">无法创建登录用户(写错误)：${errorMessage}。</value>
-        <value xml:lang="zh_TW">無法建立使用者(寫入錯誤): ${errorMessage}。</value>
+        <value xml:lang="zh_TW">無法建立使用者(寫入錯誤): ${errorMessage}.</value>
     </property>
     <property key="loginservices.could_not_disable_old_login_user_write_failure">
         <value xml:lang="de">Vorheriger Benutzername konnte nicht gesperrt werden (Schreibfehler): ${errorMessage}.</value>
@@ -504,7 +504,7 @@
         <value xml:lang="ru">Невозможно заблокировать старое имя пользователя (ошибка записи): ${errorMessage}.</value>
         <value xml:lang="th">ไม่สามารถใช้การลอกอินเข้าสู่ระบบของผู้ใช้เก่า  (การเขียนช้มเหลว): ${errorMessage}. </value>
         <value xml:lang="zh">无法禁用旧的登录用户(写错误)：${errorMessage}。</value>
-        <value xml:lang="zh_TW">無法停用舊有使用者(寫入錯誤): ${errorMessage}。</value>
+        <value xml:lang="zh_TW">無法停用舊有使用者(寫入錯誤): ${errorMessage}.</value>
     </property>
     <property key="loginservices.ldap_authentication_failed">
         <value xml:lang="de">LDAP Anmeldung nicht möglich</value>
@@ -517,7 +517,7 @@
         <value xml:lang="pt_BR">Autenticação LDAP falhou.</value>
         <value xml:lang="ru">LDAP аутентификация прервана.</value>
         <value xml:lang="zh">LDAP认证失败。</value>
-        <value xml:lang="zh_TW">LDAP驗證失敗。</value>
+        <value xml:lang="zh_TW">LDAP驗證失敗.</value>
     </property>
     <property key="loginservices.must_be_logged_in_and_permission_create_login_party_ID_exists">
         <value xml:lang="de">Sie müssen mit den erforderlichen Berechtigungen angemeldet sein um ein user-login mit einer Party ID anzulegen, für eine Party die bereits existiert.</value>
@@ -532,7 +532,7 @@
         <value xml:lang="ru">Вы должны войти в систему и у вас должны быть права на создание имени пользователя для существующего участника.</value>
         <value xml:lang="th">คุณต้องมีการลอกอินเข้าสู่ระบบและมีการอนุญาตถึงการสร้างการลอกอิยของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้สำหรับกลุ่มผู้ใช้ที่ยังคงมีอยู่แล้ว</value>
         <value xml:lang="zh">你必须登录，并且必须有权使用一个已有的会员标识创建用户登录。</value>
-        <value xml:lang="zh_TW">需登入具有權限帳戶, 才能將替舊有成員建立一個新的使用者登入帳戶。</value>
+        <value xml:lang="zh_TW">需登入具有權限帳戶, 才能將替舊有團體建立一個新的使用者登入帳戶.</value>
     </property>
     <property key="loginservices.must_logged_in_have_permission_create_user_login_exists">
         <value xml:lang="de">Sie müssen angemeldet sein und die über erforderlichen Berechtigungen verfügen um ein user-login mit einer party-id anzulegen, für eine party die bereits existiert.</value>
@@ -547,7 +547,7 @@
         <value xml:lang="ru">Вы должны войти в систему и у вас должны быть права на создание имени пользователя для существующего участника.</value>
         <value xml:lang="th">คุณต้องมีการลอกอินเข้าสู่ระบบและมีการอนุญาตถึงการสร้างการลอกอิยของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้สำหรับกลุ่มผู้ใช้ที่ยังคงมีอยู่แล้ว</value>
         <value xml:lang="zh">你必须登录，并且有权限用已存在的会员标识创建用户登录。</value>
-        <value xml:lang="zh_TW">需登入具有權限帳戶, 才能將替舊有成員建立一個新的使用者登入帳戶。</value>
+        <value xml:lang="zh_TW">需登入具有權限帳戶, 才能將替舊有團體建立一個新的使用者登入帳戶.</value>
     </property>
     <property key="loginservices.new_password_is_equal_to_old_password">
         <value xml:lang="de">Das neue Passwort darf nicht identisch mit dem alten Passwort sein.</value>
@@ -561,7 +561,7 @@
         <value xml:lang="ru">Новы пароль должен отличаться от нынешнего.</value>
         <value xml:lang="th">รหัสผ่านใหม่ต้องแตกต่างจากอันเดิม</value>
         <value xml:lang="zh">新密码必须与旧的不同。</value>
-        <value xml:lang="zh_TW">新密碼要和舊密碼不相同。</value>
+        <value xml:lang="zh_TW">新密碼要和舊密碼不相同.</value>
     </property>
     <property key="loginservices.not_have_permission_update_password_for_user_login">
         <value xml:lang="de">Sie verfügen nicht über die erforderliche Berechtigungen um das Passwort für diesen Benutzernamen zu ändern.</value>
@@ -576,7 +576,7 @@
         <value xml:lang="ru">У вас недостаточно прав для обновления пароля этого пользователя.</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการอัพเดทรหัสผ่านสำหรับการลอกอินของผู้ใช้</value>
         <value xml:lang="zh">你没有权限为这个用户更新密码。</value>
-        <value xml:lang="zh_TW">沒權限變更此使用者的密碼。</value>
+        <value xml:lang="zh_TW">沒權限變更此使用者的密碼.</value>
     </property>
     <property key="loginservices.not_permission_update_security_info_for_user_login">
         <value xml:lang="de">Sie verfügen nicht über die erforderlichen Berechtigungen die Sicherheitsinformationen für diese Benutzeranmeldung zu ändern.</value>
@@ -591,7 +591,7 @@
         <value xml:lang="ru">У вас нет прав измениять информацию по безопасности для этого имени пользователя.</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตถึงการอัพเดทข้อมูลความปลอดภัยสำหรับการลอกอินของผู้ใช้นี้</value>
         <value xml:lang="zh">你无权为这个登录用户更新安全信息。</value>
-        <value xml:lang="zh_TW">沒權限變更此使用者的安全資料。</value>
+        <value xml:lang="zh_TW">沒權限變更此使用者的安全資料.</value>
     </property>
     <property key="loginservices.not_scheduled_to_be_reenabled">
         <value xml:lang="de">Eine erneute Freigabe ist nicht geplant.</value>
@@ -606,7 +606,7 @@
         <value xml:lang="ru">Не запланирован для разблокирования.</value>
         <value xml:lang="th">ไม่สามารถใช้งานตารางเวลาได้อีกครั้ง</value>
         <value xml:lang="zh">没有把重新启用列入计划。</value>
-        <value xml:lang="zh_TW">沒有重新啟用的安排。</value>
+        <value xml:lang="zh_TW">沒有重新啟用的安排.</value>
     </property>
     <property key="loginservices.old_password_not_correct_reenter">
         <value xml:lang="de">Das alte Passwort ist falsch, bitte erneut eingeben.</value>
@@ -621,7 +621,7 @@
         <value xml:lang="ru">Старый пароль не корректный, пожалуйста введите правильный.</value>
         <value xml:lang="th">รหัสผ่านเดิมไม่ถูกต้อง, กรุณากรอกข้อมูลอีกครั้ง</value>
         <value xml:lang="zh">旧密码不正确，请重新输入。</value>
-        <value xml:lang="zh_TW">舊有密碼不正確, 請重新輸入。</value>
+        <value xml:lang="zh_TW">舊有密碼不正確, 請重新輸入.</value>
     </property>
     <property key="loginservices.party_with_party_id_exists_not_permission_create_user_login">
         <value xml:lang="de">Eine Party mit der angegebenen Party-ID existiert bereits und sie verfügen nicht über die erforderlichen Berechtigungen ein user-login mit dieser Party-ID zu erstellen.</value>
@@ -636,7 +636,7 @@
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
         <value xml:lang="zh">指定的会员标识已存在，你无权用这个会员标识创建用户登录。</value>
-        <value xml:lang="zh_TW">使用的夥伴代號已存在, 無法以此代號建立新的使用者。</value>
+        <value xml:lang="zh_TW">使用的團體識別已存在, 無法以此識別建立新的使用者.</value>
     </property>
     <property key="loginservices.party_with_specified_party_ID_exists_not_have_permission">
         <value xml:lang="de">Party mit angegebener Party ID existiert bereits und sie verfügen nicht über die erforderliche Berechtigung ein user-login mit dieser Party ID anzulegen.</value>
@@ -651,7 +651,7 @@
         <value xml:lang="ru">Участник с указанным кодом найден, но у вас недостаточно прав создавать имя пользователя для этого участника.</value>
         <value xml:lang="th">กลุ่มผู้ใช้ด้วยการระบุรหัสกลุ่มผู้ใช้ที่ยังคงมีอยู่และคุณไม่มีการอนุญาตถึงการสร้างการลอกอินของผู้ใช้ด้วยรหัสกลุ่มผู้ใช้นี้.</value>
         <value xml:lang="zh">指定的会员标识已存在，你无权使用这个标识创建用户登录。</value>
-        <value xml:lang="zh_TW">使用的夥伴代號已存在, 無法以此代號建立新的使用者。</value>
+        <value xml:lang="zh_TW">使用的團體識別已存在, 無法以此識別建立新的使用者.</value>
     </property>
     <property key="loginservices.password_did_not_match_verify_password">
         <value xml:lang="de">Das Passwort stimmt nicht mit der zweiten Eingabe des Passwortes überein.</value>
@@ -666,7 +666,7 @@
         <value xml:lang="ru">Пароль не соответствует проверочному.</value>
         <value xml:lang="th">รหัสผ่านไม่ตรงกับรหัสผ่านที่ยืนยันความถูกต้อง</value>
         <value xml:lang="zh">密码与验证密码不一致。</value>
-        <value xml:lang="zh_TW">密碼與驗證碼不相符。</value>
+        <value xml:lang="zh_TW">密碼與驗證碼不相符.</value>
     </property>
     <property key="loginservices.password_hint_may_not_contain_password">
         <value xml:lang="de">Der Passwort-Hinweis darf nicht das Passwort enthalten.</value>
@@ -681,7 +681,7 @@
         <value xml:lang="ru">Подсказка пароля не может содержать сам пароль.</value>
         <value xml:lang="th">รหัสผ่านที่ซ่อนอาจจะไม่มีรหัสผ่าน</value>
         <value xml:lang="zh">密码提示里不能含有密码。</value>
-        <value xml:lang="zh_TW">密碼提示中不能有密碼。</value>
+        <value xml:lang="zh_TW">密碼提示中不能有密碼.</value>
     </property>
     <property key="loginservices.password_incorrect">
         <value xml:lang="de">Das Passwort ist falsch</value>
@@ -696,7 +696,7 @@
         <value xml:lang="ru">Неверный пароль.</value>
         <value xml:lang="th">รหัสผ่านไม่ถูกต้อง</value>
         <value xml:lang="zh">密码不正确。</value>
-        <value xml:lang="zh_TW">密碼不正確。</value>
+        <value xml:lang="zh_TW">密碼不正確.</value>
     </property>
     <property key="loginservices.password_may_not_equal_username">
         <value xml:lang="de">Das Passwort darf nicht mit dem Benutzernamen übereinstimmen.</value>
@@ -711,7 +711,7 @@
         <value xml:lang="ru">Пароль не может быть таким же, как и имя пользователя.</value>
         <value xml:lang="th">รหัสผ่านอาจจะไม่เม่ากับชื่อผู้เข้าใช้</value>
         <value xml:lang="zh">密码不能与用户名一样。</value>
-        <value xml:lang="zh_TW">密碼不能和使用者登入代號相同。</value>
+        <value xml:lang="zh_TW">密碼不能和使用者登入代號相同.</value>
     </property>
     <property key="loginservices.password_missing">
         <value xml:lang="de">Passwort fehlt.</value>
@@ -726,7 +726,7 @@
         <value xml:lang="ru">Отсутствует пароль.</value>
         <value xml:lang="th">ไม่พบรหัสผ่าน</value>
         <value xml:lang="zh">缺少密码。</value>
-        <value xml:lang="zh_TW">沒有密碼。</value>
+        <value xml:lang="zh_TW">沒有密碼.</value>
     </property>
     <property key="loginservices.password_must_be_different_from_last_passwords">
         <value xml:lang="de">Das Passwort darf nicht eines Ihrer letzen ${passwordChangeHistoryLimit} Passwörter sein.</value>
@@ -740,7 +740,7 @@
         <value xml:lang="ru">Пароль не может быть одним из твоих последних ${passwordChangeHistoryLimit} паролей.</value>
         <value xml:lang="th">รหัสผ่านไม่สามารถเป็นหนึ่งของสิ่งสุดท้ายของคุณ ${passwordChangeHistoryLimit} รหัสผ่าน.</value>
         <value xml:lang="zh">密码不能是你用过的最近的${passwordChangeHistoryLimit}个密码之一。</value>
-        <value xml:lang="zh_TW">密碼不能是最近 ${passwordChangeHistoryLimit} 次用過的密碼。</value>
+        <value xml:lang="zh_TW">密碼不能是最近 ${passwordChangeHistoryLimit} 次用過的密碼.</value>
     </property>
     <property key="loginservices.password_must_be_least_characters_long">
         <value xml:lang="de">Das Passwort muß aus mindestens ${minPasswordLength} Zeichen bestehen.</value>
@@ -755,7 +755,7 @@
         <value xml:lang="ru">Длина пароля должна быть как минимум ${minPasswordLength} символов.</value>
         <value xml:lang="th">ความยาวตัวอักษรของรหัสผ่านต้องเป็นอย่างน้อยที่สุด ${minPasswordLength} .</value>
         <value xml:lang="zh">密码必须至少有${minPasswordLength} 个字符。</value>
-        <value xml:lang="zh_TW">密碼至少要有 ${minPasswordLength} 個字元。</value>
+        <value xml:lang="zh_TW">密碼至少要有 ${minPasswordLength} 個字元.</value>
     </property>
     <property key="loginservices.password_or_verify_missing">
         <value xml:lang="de">Das Passwort oder zweite Eingabe des Passwortes fehlt.</value>
@@ -770,13 +770,14 @@
         <value xml:lang="ru">Отсутствуют пароль или проверочный пароль.</value>
         <value xml:lang="th">รหัสผ่านหรือไม่พบการยืนยันรหัสผ่านที่ถูกต้อง.</value>
         <value xml:lang="zh">缺少密码或验证密码。</value>
-        <value xml:lang="zh_TW">缺少密碼或驗證密碼。</value>
+        <value xml:lang="zh_TW">缺少密碼或驗證密碼.</value>
     </property>
     <property key="loginservices.password_reminder_subject">
         <value xml:lang="en">Password Reminder (${userLoginId})".</value>
         <value xml:lang="fr">Rappel du mot de passe (${userLoginId})".</value>
         <value xml:lang="ru">Напоминатель о пароле (${userLoginId})".</value>
         <value xml:lang="zh">密码提示(${userLoginId})。</value>
+        <value xml:lang="zh_TW">密碼提示(${userLoginId}).</value>
     </property>
     <property key="loginservices.password.pattern.errmsg">
         <value xml:lang="ar">كلمة السر ليست مطابقة للنمط، يرجى الرجوع النمط التالي: ${passwordPatternMessage}</value>
@@ -786,7 +787,7 @@
         <value xml:lang="it">La password non è corrispondente al modello, fare riferimento seguente schema: ${passwordPatternMessage}.</value>
         <value xml:lang="ru">Пароль не соответствует шаблону: ${passwordPatternMessage}</value>
         <value xml:lang="zh">密码不符合样式：${passwordPatternMessage} </value>
-        <value xml:lang="zh_TW">密码不符合格式：${passwordPatternMessage} </value>
+        <value xml:lang="zh_TW">密碼不符合格式:${passwordPatternMessage} </value>
     </property>
     <property key="loginservices.since_datetime">
         <value xml:lang="de">(seit ${disabledDateTime})</value>
@@ -801,7 +802,7 @@
         <value xml:lang="ru">с ${disabledDateTime}.</value>
         <value xml:lang="th">ตั้งแต่ ${disabledDateTime}.</value>
         <value xml:lang="zh">自${disabledDateTime}以来。</value>
-        <value xml:lang="zh_TW">從 ${disabledDateTime} 開始。</value>
+        <value xml:lang="zh_TW">從 ${disabledDateTime} 開始.</value>
     </property>
     <property key="loginservices.user_not_found">
         <value xml:lang="de">Benutzer konnte nicht gefunden werden</value>
@@ -816,7 +817,7 @@
         <value xml:lang="ru">Пользователь не найден.</value>
         <value xml:lang="th">ไม่พบผู้เข้าใช้</value>
         <value xml:lang="zh">没有找到用户。</value>
-        <value xml:lang="zh_TW">没找到使用者。</value>
+        <value xml:lang="zh_TW">沒找到使用者.</value>
     </property>
     <property key="loginservices.username_missing">
         <value xml:lang="de">Benutzername fehlt.</value>
@@ -831,7 +832,7 @@
         <value xml:lang="ru">Отсутствует имя пользователя.</value>
         <value xml:lang="th">ไม่พบชื่อผู้เข้าใช้</value>
         <value xml:lang="zh">缺少用户名。</value>
-        <value xml:lang="zh_TW">缺少使用者登入代號。</value>
+        <value xml:lang="zh_TW">缺少使用者登入代號.</value>
     </property>
     <property key="loginservices.will_be_reenabled">
         <value xml:lang="de">Es wird am/um ${reEnableTime} wieder freigegeben.</value>
@@ -846,6 +847,6 @@
         <value xml:lang="ru">Он будет разблокирован ${reEnableTime}.</value>
         <value xml:lang="th">มันจะไม่สามารถใช้ได้อีกครั้ง ${reEnableTime}.</value>
         <value xml:lang="zh">将重新启用 ${reEnableTime}。</value>
-        <value xml:lang="zh_TW">將重新啟用 ${reEnableTime}。</value>
+        <value xml:lang="zh_TW">將重新啟用 ${reEnableTime}.</value>
     </property>
 </resource>

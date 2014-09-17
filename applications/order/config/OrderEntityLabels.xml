@@ -19,7 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-
     <property key="CustRequestResolution.description.DUPLICATE">
         <value xml:lang="de">Duplikat</value>
         <value xml:lang="en">Duplicate</value>
@@ -34,7 +33,7 @@
         <value xml:lang="th">จำลอง</value>
         <value xml:lang="vi">Nhân bản</value>
         <value xml:lang="zh">重复</value>
-        <value xml:lang="zh_TW">重複</value>
+        <value xml:lang="zh_TW">複製</value>
     </property>
     <property key="CustRequestResolution.description.FIXED">
         <value xml:lang="de">Gelöst</value>
@@ -146,7 +145,7 @@
         <value xml:lang="th">คำขอร้องสำหรับหมวดหมู่</value>
         <value xml:lang="vi">Yêu cầu tài liệu giới thiệu</value>
         <value xml:lang="zh">目录请求</value>
-        <value xml:lang="zh_TW">目錄請求</value>
+        <value xml:lang="zh_TW">型錄請求</value>
     </property>
     <property key="CustRequestType.description.RF_FEATURE">
         <value xml:lang="de">Produktmerkmal verlangt</value>
@@ -503,7 +502,7 @@
         <value xml:lang="th">รายการความจุ</value>
         <value xml:lang="vi">Hàng hóa đặt hàng kiểu Rác</value>
         <value xml:lang="zh">大宗订单明细</value>
-        <value xml:lang="zh_TW">大宗訂單明細</value>
+        <value xml:lang="zh_TW">大宗訂單細項</value>
     </property>
     <property key="OrderItemType.description.PRODUCT_ORDER_ITEM">
         <value xml:lang="de">Produkt</value>
@@ -517,7 +516,7 @@
         <value xml:lang="th">รายการ</value>
         <value xml:lang="vi">Hàng hóa đặt hàng</value>
         <value xml:lang="zh">产品订单明细</value>
-        <value xml:lang="zh_TW">產品訂單明細</value>
+        <value xml:lang="zh_TW">產品訂單細項</value>
     </property>
     <property key="OrderItemType.description.RENTAL_ORDER_ITEM">
         <value xml:lang="de">Miete</value>
@@ -531,7 +530,7 @@
         <value xml:lang="th">รายการการเช่า</value>
         <value xml:lang="vi">Hàng hóa đặt hàng kiểu Thuê</value>
         <value xml:lang="zh">租赁订单明细</value>
-        <value xml:lang="zh_TW">租賃訂單明細</value>
+        <value xml:lang="zh_TW">租賃訂單細項</value>
     </property>
     <property key="OrderItemType.description.WORK_ORDER_ITEM">
         <value xml:lang="de">Arbeit</value>
@@ -545,7 +544,7 @@
         <value xml:lang="th">รายการงาน</value>
         <value xml:lang="vi">Hàng hóa đặt hàng Làm việc</value>
         <value xml:lang="zh">派工单明细</value>
-        <value xml:lang="zh_TW">派工單明細</value>
+        <value xml:lang="zh_TW">作業指令細項</value>
     </property>
     <property key="OrderType.description.PURCHASE_ORDER">
         <value xml:lang="de">Beschaffungsauftrag</value>
@@ -591,7 +590,7 @@
         <value xml:lang="vi">Đặt hàng Làm việc</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">派工单</value>
-        <value xml:lang="zh_TW">派工單</value>
+        <value xml:lang="zh_TW">作業指令單</value>
     </property>
     <property key="QuoteType.description.OTHER_QUOTE">
         <value xml:lang="de">Andere</value>
@@ -714,7 +713,7 @@
         <value xml:lang="ro">Necesar Ciclu Productie propus de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PROD_ORDER</value>
         <value xml:lang="zh">MRP中产品订单的物料需求</value>
-        <value xml:lang="zh_TW">MRP中產品訂單的物料需求</value>
+        <value xml:lang="zh_TW">MRP中產品訂單的物料請求</value>
     </property>
     <property key="RequirementType.description.MRP_PRO_PURCH_ORDER">
         <value xml:lang="de">Einkaufsbedarf gemäss Produktionsplanung MRP</value>
@@ -728,7 +727,7 @@
         <value xml:lang="ro">Necesar Comanda Comparare propusa de procesul MRP</value>
         <value xml:lang="th">MRP_PRO_PURCH_ORDER</value>
         <value xml:lang="zh">MRP中采购订单的物料需求</value>
-        <value xml:lang="zh_TW">MRP中採購訂單的物料需求</value>
+        <value xml:lang="zh_TW">MRP中採購訂單的物料請求</value>
     </property>
     <property key="RequirementType.description.PRODUCT_REQUIREMENT">
         <value xml:lang="de">Produkt Bedarf</value>
@@ -772,7 +771,7 @@
         <value xml:lang="pt_BR">Devolução de funcionalidade adicional</value>
         <value xml:lang="vi">Tính năng gia tăng Hoàn trả</value>
         <value xml:lang="zh">退货的附加特征</value>
-        <value xml:lang="zh_TW">退貨的附加特征</value>
+        <value xml:lang="zh_TW">退貨的附加特色</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
         <value xml:lang="de">Retourenrabatt</value>
@@ -926,7 +925,7 @@
         <value xml:lang="th">รายการมีตำหนิ</value>
         <value xml:lang="vi">Hàng bị lỗi</value>
         <value xml:lang="zh">有缺陷的明细</value>
-        <value xml:lang="zh_TW">有缺陷的明細</value>
+        <value xml:lang="zh_TW">有缺陷的細項</value>
     </property>
     <property key="ReturnReason.description.RTN_DIG_FILL_FAIL">
         <value xml:lang="de">Elektronische Auslieferung fehlgeschlagen</value>
@@ -941,7 +940,7 @@
         <value xml:lang="th">การปฏิบัติการของดิจิตอลล้มเหลว</value>
         <value xml:lang="vi">Đáp ứng trên hệ thống Số không thành công</value>
         <value xml:lang="zh">数字执行失败</value>
-        <value xml:lang="zh_TW">數字執行失敗</value>
+        <value xml:lang="zh_TW">數字責任履行履行失敗</value>
     </property>
     <property key="ReturnReason.description.RTN_MISSHIP_ITEM">
         <value xml:lang="de">Falsch versandtes Element</value>
@@ -956,7 +955,7 @@
         <value xml:lang="th">ไม่มีรายการขนส่ง</value>
         <value xml:lang="vi">Hàng giao lỡ</value>
         <value xml:lang="zh">送错的明细</value>
-        <value xml:lang="zh_TW">送錯的明細</value>
+        <value xml:lang="zh_TW">送錯的細項</value>
     </property>
     <property key="ReturnReason.description.RTN_NOT_WANT">
         <value xml:lang="de">Element nicht verlangt</value>
@@ -972,7 +971,7 @@
         <value xml:lang="th">ไม่ต้องการรายการ</value>
         <value xml:lang="vi">Hàng không mong muốn</value>
         <value xml:lang="zh">不需要明细</value>
-        <value xml:lang="zh_TW">不需要明細</value>
+        <value xml:lang="zh_TW">不需要細項</value>
     </property>
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
         <value xml:lang="de">Umtausch Größe</value>
@@ -983,6 +982,7 @@
         <value xml:lang="pt_BR">Troca de tamanho</value>
         <value xml:lang="vi">Chuyển đổi cỡ</value>
         <value xml:lang="zh">更换尺寸</value>
+        <value xml:lang="zh_TW">更換尺寸</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
         <value xml:lang="de">Guthaben</value>
@@ -998,7 +998,7 @@
         <value xml:lang="th">สะสมเครดิต</value>
         <value xml:lang="vi">Tín dụng cửa hàng</value>
         <value xml:lang="zh">存储信用</value>
-        <value xml:lang="zh_TW">存儲信用</value>
+        <value xml:lang="zh_TW">儲存信用</value>
     </property>
     <property key="ReturnType.description.RTN_CSREPLACE">
         <value xml:lang="de">Austausch bei Lieferung</value>
@@ -1103,7 +1103,7 @@
         <value xml:lang="th">การจดทะเบียนของขวัญ</value>
         <value xml:lang="vi">Điểm nhập Quà</value>
         <value xml:lang="zh">礼品注册</value>
-        <value xml:lang="zh_TW">禮品注冊</value>
+        <value xml:lang="zh_TW">禮物註冊</value>
     </property>
     <property key="ShoppingListType.description.SLT_SPEC_PURP">
         <value xml:lang="de">Spezialfälle</value>
@@ -1133,7 +1133,7 @@
         <value xml:lang="th">รายการความต้องการ</value>
         <value xml:lang="vi">Hàng mong đợi</value>
         <value xml:lang="zh">期望列表</value>
-        <value xml:lang="zh_TW">期望列表</value>
+        <value xml:lang="zh_TW">期望清單</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_DELIVERS">
         <value xml:lang="de">Liefert</value>
