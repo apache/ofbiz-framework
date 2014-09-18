@@ -146,10 +146,8 @@ public class CatalinaContainer implements Container {
         SSLUtil.loadJsseProperties();
     }
 
-    protected Tomcat tomcat = null;
+    private Tomcat tomcat = null;
     protected Map<String, ContainerConfig.Container.Property> clusterConfig = new HashMap<String, ContainerConfig.Container.Property>();
-    protected Map<String, Engine> engines = new HashMap<String, Engine>();
-    protected Map<String, Host> hosts = new HashMap<String, Host>();
 
     protected boolean contextReloadable = false;
     protected boolean crossContext = false;
@@ -210,14 +208,15 @@ public class CatalinaContainer implements Container {
             throw new ContainerException(e);
         }
 
-        // create the engines
+        // create the engine
         List<ContainerConfig.Container.Property> engineProps = cc.getPropertiesWithValue("engine");
         if (UtilValidate.isEmpty(engineProps)) {
-            throw new ContainerException("Cannot load CatalinaContainer; no engines defined!");
+            throw new ContainerException("Cannot load CatalinaContainer; no engines defined.");
         }
-        for (ContainerConfig.Container.Property engineProp: engineProps) {
-            createEngine(engineProp);
+        if (engineProps.size() > 1) {
+            throw new ContainerException("Cannot load CatalinaContainer; more than one engine configuration found; only one is supported.");
         }
+        createEngine(engineProps.get(0));
 
         // create the connectors
         List<ContainerConfig.Container.Property> connectorProps = cc.getPropertiesWithValue("connector");
@@ -248,7 +247,7 @@ public class CatalinaContainer implements Container {
         return true;
     }
 
-    protected Engine createEngine(ContainerConfig.Container.Property engineConfig) throws ContainerException {
+    private Engine createEngine(ContainerConfig.Container.Property engineConfig) throws ContainerException {
         if (tomcat == null) {
             throw new ContainerException("Cannot create Engine without Tomcat instance!");
         }
@@ -261,9 +260,8 @@ public class CatalinaContainer implements Container {
         String engineName = engineConfig.name;
         String hostName = defaultHostProp.value;
 
-        StandardEngine engine = new StandardEngine();
+        Engine engine = tomcat.getEngine();
         engine.setName(engineName);
-        engine.setDefaultHost(hostName);
 
         // set the JVM Route property (JK/JK2)
         String jvmRoute = ContainerConfig.getPropertyValue(engineConfig, "jvm-route", null);
@@ -277,13 +275,10 @@ public class CatalinaContainer implements Container {
         realm.setPathname(dbConfigPath);
         engine.setRealm(realm);
 
-        // cache the engine
-        engines.put(engine.getName(), engine);
-
         // create a default virtual host; others will be created as needed
         Host host = createHost(engine, hostName);
-        hosts.put(engineName + "._DEFAULT", host);
         engine.addChild(host);
+        engine.setDefaultHost(hostName);
 
         // configure clustering
         List<ContainerConfig.Container.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
@@ -301,7 +296,7 @@ public class CatalinaContainer implements Container {
         boolean enableSessionValve = ContainerConfig.getPropertyValue(engineConfig, "enable-cross-subdomain-sessions", false);
         if (enableSessionValve) {
             CrossSubdomainSessionValve sessionValve = new CrossSubdomainSessionValve();
-            engine.addValve(sessionValve);
+            ((StandardEngine)engine).addValve(sessionValve);
         }
 
         // configure the access log valve
@@ -325,7 +320,7 @@ public class CatalinaContainer implements Container {
             Integer sslAcceleratorPort = Integer.valueOf(sslAcceleratorPortStr);
             SslAcceleratorValve sslAcceleratorValve = new SslAcceleratorValve();
             sslAcceleratorValve.setSslAcceleratorPort(sslAcceleratorPort);
-            engine.addValve(sslAcceleratorValve);
+            ((StandardEngine)engine).addValve(sslAcceleratorValve);
         }
 
 
@@ -345,15 +340,14 @@ public class CatalinaContainer implements Container {
         }
 
         if (al != null) {
-            engine.addValve(al);
+            ((StandardEngine)engine).addValve(al);
         }
 
-        tomcat.getService().setContainer(engine);
         return engine;
     }
 
-    protected Host createHost(Engine engine, String hostName) throws ContainerException {
-        Debug.logInfo("createHost(" + engine + ", " + hostName + ")", module);
+    private Host createHost(Engine engine, String hostName) throws ContainerException {
+        Debug.logInfo("Adding Host " + hostName + " to " + engine, module);
         if (tomcat == null) {
             throw new ContainerException("Cannot create Host without Tomcat instance!");
         }
@@ -364,8 +358,9 @@ public class CatalinaContainer implements Container {
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
-        host.setRealm(engine.getRealm());
-        hosts.put(engine.getName() + hostName, host);
+        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP)
+                , "work" + File.separator + engine.getName() + File.separator + host.getName()).getAbsolutePath());
+        host.setParent(engine);
 
         return host;
     }
@@ -488,50 +483,35 @@ public class CatalinaContainer implements Container {
         return connector;
     }
 
-    protected Callable<Context> createContext(final ComponentConfig.WebappInfo appInfo) throws ContainerException {
+    private Callable<Context> createContext(final ComponentConfig.WebappInfo appInfo) throws ContainerException {
         Debug.logInfo("Creating context [" + appInfo.name + "]", module);
-        final Engine engine = engines.get(appInfo.server);
-        if (engine == null) {
-            Debug.logWarning("Server with name [" + appInfo.server + "] not found; not mounting [" + appInfo.name + "]", module);
-            return null;
-        }
+        final Engine engine = tomcat.getEngine();
+
         List<String> virtualHosts = appInfo.getVirtualHosts();
         final Host host;
         if (UtilValidate.isEmpty(virtualHosts)) {
-            host = hosts.get(engine.getName() + "._DEFAULT");
+            host = tomcat.getHost();
         } else {
             // assume that the first virtual-host will be the default; additional virtual-hosts will be aliases
             Iterator<String> vhi = virtualHosts.iterator();
             String hostName = vhi.next();
 
-            boolean newHost = false;
-            if (hosts.containsKey(engine.getName() + "." + hostName)) {
-                host = hosts.get(engine.getName() + "." + hostName);
+            org.apache.catalina.Container childContainer = engine.findChild(hostName);
+            if (childContainer instanceof Host) {
+                host = (Host)childContainer;
             } else {
                 host = createHost(engine, hostName);
-                newHost = true;
+                engine.addChild(host);
             }
             while (vhi.hasNext()) {
                 host.addAlias(vhi.next());
             }
-
-            if (newHost) {
-                hosts.put(engine.getName() + "." + hostName, host);
-                engine.addChild(host);
-            }
-        }
-
-        if (host instanceof StandardHost) {
-            // set the catalina's work directory to the host
-            StandardHost standardHost = (StandardHost) host;
-            standardHost.setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP)
-                    , "work" + File.separator + engine.getName() + File.separator + host.getName()).getAbsolutePath());
         }
 
         return new Callable<Context>() {
             public Context call() throws ContainerException, LifecycleException {
                 StandardContext context = configureContext(engine, host, appInfo);
-                context.setParent(host);
+                host.addChild(context);
                 return context;
             }
         };
@@ -603,9 +583,6 @@ public class CatalinaContainer implements Container {
             standardJarScanner.setScanClassPath(false);
         }
 
-        Engine egn = (Engine) context.getParent().getParent();
-        egn.setService(tomcat.getService());
-
         context.setJ2EEApplication(J2EE_APP);
         context.setJ2EEServer(J2EE_SERVER);
         context.setLoader(new WebappLoader(Thread.currentThread().getContextClassLoader()));
@@ -643,10 +620,6 @@ public class CatalinaContainer implements Container {
         for (Map.Entry<String, String> entry: initParameters.entrySet()) {
             context.addParameter(entry.getKey(), entry.getValue());
         }
-
-        context.setRealm(host.getRealm());
-        host.addChild(context);
-        context.getMapper().setDefaultHostName(host.getName());
 
         return context;
     }
