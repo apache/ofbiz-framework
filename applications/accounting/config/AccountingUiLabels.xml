@@ -11476,8 +11476,7 @@
         <value xml:lang="ja">会計支払方法ID........</value>
         <value xml:lang="nl">AccountingPaymentMethodId........</value>
         <value xml:lang="pt">ID de forma de pagamento........</value>
-        <value xml:lang="ro">No values are passed............???</value>
-        <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
+        <value xml:lang="th">รหัสวิธีการชำระเงิน............</value>
         <value xml:lang="vi">ID phương thức thanh toán........</value>
         <value xml:lang="zh">会计支付方法标识........</value>
         <value xml:lang="zh_TW">會計支付方法識別........</value>
@@ -19716,7 +19715,7 @@
         <value xml:lang="ja">税務ID書式バターン</value>
         <value xml:lang="nl">BSN formaatpatroon</value>
         <value xml:lang="pt">Formato padrão para ID de imposto</value>
-        <value xml:lang="ro">Id Taxe-Format Stil  </value>
+        <value xml:lang="ro">Id Taxe-Format Stil</value>
         <value xml:lang="ru">Шаблон налогового номера</value>
         <value xml:lang="th">แบบแผนรูปแบบรหัสภาษี</value>
         <value xml:lang="vi">Định dạng ID thuế</value>

@@ -1434,13 +1434,13 @@
     </property>
     <property key="ProductContentType.description.DETAIL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Details</value>
-        <value xml:lang="en">Image Alt Text - Detail        </value>
-        <value xml:lang="es">Texto alternativo para la imagen - Detalle        </value>
+        <value xml:lang="en">Image Alt Text - Detail</value>
+        <value xml:lang="es">Texto alternativo para la imagen - Detalle</value>
         <value xml:lang="fr">Texte alternatif de l'image - Détail</value>
-        <value xml:lang="it">Immagine testo alternativo - dettaglio        </value>
+        <value xml:lang="it">Immagine testo alternativo - dettaglio</value>
         <value xml:lang="ja">画像代替(Alt)テキスト - 詳細</value>
-        <value xml:lang="ru">Альтер. текст изображения - детальное        </value>
-        <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด        </value>
+        <value xml:lang="ru">Альтер. текст изображения - детальное</value>
+        <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด </value>
         <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Chi tiết</value>
         <value xml:lang="zh">图像替代文字 - 详细</value>
         <value xml:lang="zh_TW">圖像替代文字 - 詳細</value>

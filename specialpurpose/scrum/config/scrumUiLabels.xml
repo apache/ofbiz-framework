@@ -1911,7 +1911,7 @@ under the License.
         <value xml:lang="zh_TW">週日</value>
     </property>
     <property key="ScrumTab">
-        <value xml:lang="en">     </value>
+        <value xml:lang="en">&#160;&#160;&#160;&#160;&#160;</value>
     </property>
     <property key="ScrumTask">
         <value xml:lang="en">Task</value>

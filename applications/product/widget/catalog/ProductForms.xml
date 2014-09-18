@@ -947,7 +947,7 @@ under the License.
         <field name="availableFromDate" title="${uiLabelMap.ProductAvailableFromDate}" red-when="after-now" sort-field="true"><display/></field>
         <field name="availableThruDate" title="${uiLabelMap.ProductAvailableThruDate}" red-when="before-now" sort-field="true"><display/></field>
         <field name="quantityUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
-        <!-- field name="supplierCommissionPerc"><display/></field-->
+        <!-- field name="supplierCommissionPerc"><display/></field--><!-- Unused field, better use commission run using agreements in accounting -->
         <field name="lastPrice" sort-field="true">
             <display type="currency" currency="${currencyUomId}"/>
         </field>

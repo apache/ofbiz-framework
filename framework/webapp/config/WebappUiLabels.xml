@@ -28,8 +28,7 @@
         <value xml:lang="ja">必要なパラメータ 'デリゲータ' が渡されませんでした。</value>
         <value xml:lang="ro">Parametru 'delegat' cerut ne trecut.</value>
         <value xml:lang="ru">Не передан обязательный параметр 'delegator'.</value>
-        <value xml:lang="th">ความต้องการของตัวแปร 'delegator' ไม่ถูกต้อง
-        </value>
+        <value xml:lang="th">ความต้องการของตัวแปร 'delegator' ไม่ถูกต้อง</value>
         <value xml:lang="zh">所需的参数 'delegator' 没有传递过来。</value>
         <value xml:lang="zh_TW">所需的參數 'delegator' 沒有傳遞過來.</value>
     </property>
@@ -42,8 +41,7 @@
         <value xml:lang="ja">ディスパッチ内容がnullです</value>
         <value xml:lang="ro">Continut Dispecer este nul</value>
         <value xml:lang="ru">Контекст диспетчера не имеет значения</value>
-        <value xml:lang="th">รายละเอียดของสิ่งที่ส่งไปเป็นค่าว่าง
-        </value>
+        <value xml:lang="th">รายละเอียดของสิ่งที่ส่งไปเป็นค่าว่าง</value>
         <value xml:lang="zh">执行context是null</value>
         <value xml:lang="zh_TW">執行coNtext是null</value>
     </property>
@@ -82,8 +80,7 @@
         <value xml:lang="ja">エラー: サービス名に対するモデルサービスが見つかりませんでした</value>
         <value xml:lang="ro">Eroare in cererea de ModelService pentru serviceName</value>
         <value xml:lang="ru">Не найден ModelService для serviceName</value>
-        <value xml:lang="th">ผิดพลาด ! ในการค้นหา ModelService สำหรับ serviceName
-        </value>
+        <value xml:lang="th">ผิดพลาด ! ในการค้นหา ModelService สำหรับ serviceName</value>
         <value xml:lang="zh">为服务名称查找ModelService时出错</value>
         <value xml:lang="zh_TW">按服務名稱查詢ModelService時出錯</value>
     </property>
@@ -174,8 +171,7 @@
         <value xml:lang="ja">'サービス名'を指定してください、オプションで'モード' (同期/非同期、デフォルトは同期)も指定できます</value>
         <value xml:lang="ro">Nici-un delegat definit la acest nume</value>
         <value xml:lang="ru">Нет делегаторов определенных под таким именем</value>
-        <value xml:lang="th">ไม่มีตัวแปรที่ระบุด้วยชื่อนี้
-        </value>
+        <value xml:lang="th">ไม่มีตัวแปรที่ระบุด้วยชื่อนี้</value>
         <value xml:lang="zh">没有定义使用那个名字的代表</value>
         <value xml:lang="zh_TW">沒有定義使用那個名字的代表</value>
     </property>
@@ -188,8 +184,7 @@
         <value xml:lang="ja">指定した名称のディスパッチャが登録されていません</value>
         <value xml:lang="ro">Nu a fost inregistrat nici-un dispecer cu acest nume</value>
         <value xml:lang="ru">Нет диспетчеров зарегистрированных под таким именем</value>
-        <value xml:lang="th">ไม่มีการส่งของด้วยชื่อที่ลงทะเบียนนี้
-        </value>
+        <value xml:lang="th">ไม่มีการส่งของด้วยชื่อที่ลงทะเบียนนี้</value>
         <value xml:lang="zh">已注册的执行程序中没有那个名字</value>
         <value xml:lang="zh_TW">已註冊的執行程式中沒有那個名字</value>
     </property>
@@ -200,8 +195,7 @@
         <value xml:lang="it">Nessun campo precedentemente trovato in questa sessione</value>
         <value xml:lang="ja">セッションに前の項目が見つかりません</value>
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
-        <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
-        </value>
+        <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session</value>
         <value xml:lang="zh">会话中没有找到以前的数据项</value>
         <value xml:lang="zh_TW">會話中沒有找到以前的欄位</value>
     </property>
@@ -214,8 +208,7 @@
         <value xml:lang="ja">このサービスを呼び出す権限がありません。ログインして SERVICE_INVOKE_ANY 権限が必要です</value>
         <value xml:lang="ro">Nu esti autorizat sa chemi acest serviciu ne-exportat, trebuie sa fii autentificat si sa ai permisul SERVICE_INVOKE_ANY</value>
         <value xml:lang="ru">Вы не авторизированны для вызова этой не экспортируемой службы, вы должны быть зарегистрированным в системе и иметь права SERVICE_INVOKE_ANY</value>
-        <value xml:lang="th">คุณไม่สามารถเรียก service ออกมาได้ คุณต้องเข้าสู่ระบบและได้รับอนุญาตจาก SERVICE_INVOKE_ANY ก่อน
-        </value>
+        <value xml:lang="th">คุณไม่สามารถเรียก service ออกมาได้ คุณต้องเข้าสู่ระบบและได้รับอนุญาตจาก SERVICE_INVOKE_ANY ก่อน</value>
         <value xml:lang="zh">你无权调用这个非输出的服务，你必须登录，并具有SERVICE_INVOKE_ANY权限才行</value>
         <value xml:lang="zh_TW">你無權呼叫這個非輸出的服務,你必須登入,並具有SERVICE_INVOKE_ANY權限才行</value>
     </property>

@@ -1667,7 +1667,7 @@
         <value xml:lang="ja">税務機関取引先</value>
         <value xml:lang="nl">Belastinginstantie</value>
         <value xml:lang="pt_BR">Participante responsável por impostos</value>
-        <value xml:lang="ro">Taxe Autoritati  </value>
+        <value xml:lang="ro">Taxe Autoritati</value>
         <value xml:lang="ru">Налоговый орган</value>
         <value xml:lang="th">กลุ่มผู้เสียภาษี</value>
         <value xml:lang="vi">Cơ quan Thuế</value>
@@ -11485,7 +11485,7 @@
         <value xml:lang="pt_BR">ID de requisição de cliente do serviço de gerenciamento</value>
         <value xml:lang="ro">Gestiune Serviciu Cod Cerere Client//Furnizor</value>
         <value xml:lang="ru">Код запроса клиента управления службами</value>
-        <value xml:lang="th">รหัสการจัดการการให้บริการคำร้องของลูกค้า        </value>
+        <value xml:lang="th">รหัสการจัดการการให้บริการคำร้องของลูกค้า </value>
         <value xml:lang="vi">Yêu cầu khách hàng của dịch vụ quản lý</value>
         <value xml:lang="zh">服务管理客户请求标识</value>
         <value xml:lang="zh_TW">服務管理客戶請求識別</value>
@@ -12388,7 +12388,7 @@
         <value xml:lang="pt_BR">Erro de segurança: para executar updatePartyClassificationGroup você de deve ter permissão PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa  updatePartyClassificationGroup trebuie sa ai permisul PARTYMGR_UPDATE sau PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска updatePartyClassificationGroup у вас должны быть права PARTYMGR_UPDATE или PARTYMGR_ADMIN</value>
-        <value xml:lang="th">Security Error: ในการเปลี่ยนแปลงการจัดประเภทกลุ่มผู้ใช้ คุณต้องได้รับ PARTYMGR_UPDATE หรือ PARTYMGR_ADMIN ก่อน                                                                                                             </value>
+        <value xml:lang="th">Security Error: ในการเปลี่ยนแปลงการจัดประเภทกลุ่มผู้ใช้ คุณต้องได้รับ PARTYMGR_UPDATE หรือ PARTYMGR_ADMIN ก่อน </value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi updatePartyClassificationGroup bạn cần phải có quyền PARTYMGR_UPDATE hoặc quyền PARTYMGR_ADMIN</value>
         <value xml:lang="zh">安全错误: 要运行 updatePartyClassificationGroup，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
         <value xml:lang="zh_TW">安全錯誤: 要執行 updatePartyClassificationGroup,您必須具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 權限</value>
