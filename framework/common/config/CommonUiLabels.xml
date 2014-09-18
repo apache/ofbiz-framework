@@ -1299,6 +1299,10 @@
         <value xml:lang="zh_CN">让利</value>
         <value xml:lang="zh_TW">回報</value>
     </property>
+    <property key="CommonBuiltOn">
+        <value xml:lang="en">built on</value>
+        <value xml:lang="fr">compilée le</value>
+    </property>
     <property key="CommonBut">
         <value xml:lang="ar">إلا</value>
         <value xml:lang="cs">ale</value>
@@ -2785,10 +2789,6 @@
         <value xml:lang="zh">深度</value>
         <value xml:lang="zh-CN">深度</value>
         <value xml:lang="zh_TW">深度</value>
-    </property>
-    <property key="CommonDeployedOn">
-        <value xml:lang="en">Deployed on</value>
-        <value xml:lang="fr">Déployé le</value>
     </property>
     <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
