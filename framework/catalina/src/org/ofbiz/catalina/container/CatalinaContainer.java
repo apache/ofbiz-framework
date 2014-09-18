@@ -21,6 +21,7 @@ package org.ofbiz.catalina.container;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -31,8 +32,6 @@ import java.util.concurrent.ScheduledExecutorService;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-
-import javolution.util.FastList;
 
 import org.apache.catalina.Cluster;
 import org.apache.catalina.Context;
@@ -63,8 +62,6 @@ import org.apache.catalina.tribes.transport.ReplicationTransmitter;
 import org.apache.catalina.tribes.transport.nio.NioReceiver;
 import org.apache.catalina.util.ServerInfo;
 import org.apache.catalina.valves.AccessLogValve;
-import org.apache.coyote.ProtocolHandler;
-import org.apache.coyote.http11.Http11Protocol;
 import org.apache.tomcat.JarScanner;
 import org.apache.tomcat.util.IntrospectionUtils;
 import org.apache.tomcat.util.scan.StandardJarScanner;
@@ -236,24 +233,16 @@ public class CatalinaContainer implements Container {
         // load the web applications
         loadComponents();
 
-        for (Connector con: tomcat.getService().findConnectors()) {
-            ProtocolHandler ph = con.getProtocolHandler();
-            int port = con.getPort();
-            con.setAttribute("port", port);
-            if (ph instanceof Http11Protocol) {
-                Http11Protocol hph = (Http11Protocol) ph;
-                Debug.logInfo("Connector " + hph.getName() + " @ " + hph.getPort() + " - " +
-                    (hph.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
-            } else {
-                Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
-                    (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
-            }
-        }
         // Start the Tomcat server
         try {
             tomcat.getServer().start();
         } catch (LifecycleException e) {
             throw new ContainerException(e);
+        }
+
+        for (Connector con: tomcat.getService().findConnectors()) {
+            Debug.logInfo("Connector " + con.getProtocol() + " @ " + con.getPort() + " - " +
+                (con.getSecure() ? "secure" : "not-secure") + " [" + con.getProtocolHandlerClassName() + "] started.", module);
         }
         Debug.logInfo("Started " + ServerInfo.getServerInfo(), module);
         return true;
@@ -473,87 +462,28 @@ public class CatalinaContainer implements Container {
         if (tomcat == null) {
             throw new ContainerException("Cannot create Connector without Tomcat instance!");
         }
-
-        // need some standard properties
-        String protocol = ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1");
-        String address = ContainerConfig.getPropertyValue(connectorProp, "address", "0.0.0.0");
-        int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset;
-
-        boolean secure = ContainerConfig.getPropertyValue(connectorProp, "secure", false);
-        if (protocol.toLowerCase().startsWith("ajp")) {
-            protocol = "ajp";
-        } else if ("memory".equals(protocol.toLowerCase())) {
-            protocol = "memory";
-        } else if (secure) {
-            protocol = "https";
-        } else {
-            protocol = "http";
-        }
-
         Connector connector = null;
         if (UtilValidate.isNotEmpty(connectorProp.properties)) {
-            if (address != null) {
-                /*
-                 * InetAddress.toString() returns a string of the form
-                 * "<hostname>/<literal_IP>". Get the latter part, so that the
-                 * address can be parsed (back) into an InetAddress using
-                 * InetAddress.getByName().
-                 */
-                int index = address.indexOf('/');
-                if (index != -1) {
-                    address = address.substring(index + 1);
+            String protocol = ContainerConfig.getPropertyValue(connectorProp, "protocol", "HTTP/1.1");
+            int port = ContainerConfig.getPropertyValue(connectorProp, "port", 0) + Start.getInstance().getConfig().portOffset;
+
+            // set the protocol and the port first
+            connector = new Connector(protocol);
+            connector.setPort(port);
+            // then set all the other parameters
+            for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
+                if ("protocol".equals(prop.name) || "port".equals(prop.name)) {
+                    // protocol and port are already set
+                    continue;
                 }
-            }
-
-            Debug.logInfo("Creating connector for address='" +
-                          ((address == null) ? "ALL" : address) +
-                          "' port='" + port + "' protocol='" + protocol + "'", module);
-
-            try {
-
-                if (protocol.equals("ajp")) {
-                    connector = new Connector("org.apache.coyote.ajp.AjpProtocol");
-                } else if (protocol.equals("memory")) {
-                    connector = new Connector("org.apache.coyote.memory.MemoryProtocolHandler");
-                } else if (protocol.equals("http")) {
-                    connector = new Connector();
-                } else if (protocol.equals("https")) {
-                    connector = new Connector();
-                    connector.setScheme("https");
-                    connector.setSecure(true);
-                    connector.setProperty("SSLEnabled","true");
-                    // FIXME !!!! SET SSL PROPERTIES
+                if (IntrospectionUtils.setProperty(connector, prop.name, prop.value)) {
+                    Debug.logInfo("Tomcat " + connector + ": set " + prop.name + "=" + prop.value, module);
                 } else {
-                    connector = new Connector(protocol);
+                    Debug.logWarning("Tomcat " + connector + ": ignored parameter " + prop.name, module);
                 }
-
-                if (address != null) {
-                    IntrospectionUtils.setProperty(connector, "address", "" + address);
-                }
-                IntrospectionUtils.setProperty(connector, "port", "" + port);
-
-            } catch (Exception e) {
-                Debug.logError(e, "Couldn't create connector.", module);
             }
 
-            try {
-                for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
-                    if ("port".equals(prop.name)) {
-                        connector.setProperty(prop.name, "" + port);
-                    } else {
-                        connector.setProperty(prop.name, prop.value);
-                        //connector.setAttribute(prop.name, prop.value);
-                    }
-                }
-
-                if (connectorProp.properties.containsKey("URIEncoding")) {
-                    connector.setURIEncoding(connectorProp.properties.get("URIEncoding").value);
-                }
-
-                tomcat.getService().addConnector(connector);
-            } catch (Exception e) {
-                throw new ContainerException(e);
-            }
+            tomcat.getService().addConnector(connector);
         }
         return connector;
     }
@@ -728,21 +658,21 @@ public class CatalinaContainer implements Container {
 
         // load the applications
         List<ComponentConfig.WebappInfo> webResourceInfos = ComponentConfig.getAllWebappResourceInfos();
-        List<String> loadedMounts = FastList.newInstance();
+        List<String> loadedMounts = new ArrayList<String>();
         if (webResourceInfos == null) {
             return;
         }
 
         ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(CATALINA_THREAD_GROUP, "catalina-startup", -1, true);
         try {
-            List<Future<Context>> futures = FastList.newInstance();
+            List<Future<Context>> futures = new ArrayList<Future<Context>>();
 
             for (int i = webResourceInfos.size(); i > 0; i--) {
                 ComponentConfig.WebappInfo appInfo = webResourceInfos.get(i - 1);
                 String engineName = appInfo.server;
                 List<String> virtualHosts = appInfo.getVirtualHosts();
                 String mount = appInfo.getContextRoot();
-                List<String> keys = FastList.newInstance();
+                List<String> keys = new ArrayList<String>();
                 if (virtualHosts.isEmpty()) {
                     keys.add(engineName + ":DEFAULT:" + mount);
                 } else {
