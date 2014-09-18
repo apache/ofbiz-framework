@@ -25,16 +25,8 @@ under the License.
 </div>
 <!-- footer -->
 <div id="footer">
-    <div class="poweredBy">
-      <span>
-        ${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" class="noicon">OFBiz</a></span><span>Copyright 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a>
-        <#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" /> 
-        <#assign isDeployed = Static["org.ofbiz.base.util.FileUtil"].isFile("runtime/deployedOn.ftl")?c />
-        <#if isDeployed == "true">
-          - ${uiLabelMap.CommonDeployedOn} <#include "ofbizhome://runtime/deployedOn.ftl" />
-        </#if>
-      </span>
-    </div> 
+    <div class="poweredBy"><span>${uiLabelMap.CommonPoweredBy} <a href="http://ofbiz.apache.org" class="noicon">OFBiz</a></span><span>Copyright 2001-${nowTimestamp?string("yyyy")} <a href="http://www.apache.org" class="noicon">The Apache Software Foundation - www.apache.org</a></span><span><#include "ofbizhome://runtime/svninfo.ftl" /> <#include "ofbizhome://runtime/gitinfo.ftl" /></span></div>
+
 </div>
 <!-- footer -->
 </body>
