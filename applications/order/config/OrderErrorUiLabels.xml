@@ -1105,10 +1105,10 @@
         <value xml:lang="en">ERROR : No order items found. </value>
         <value xml:lang="es">ERROR: No se han encontrado ítems del pedido.</value>
         <value xml:lang="fr">Erreur : Aucun articles de la commande trouvés. </value>
-        <value xml:lang="it">ERRORE : Nessuna riga ordine trovata.  </value>
+        <value xml:lang="it">ERRORE : Nessuna riga ordine trovata.</value>
         <value xml:lang="ja">エラー: 注文アイテムが見つかりません。</value>
         <value xml:lang="pt_BR">ERRO: Nenhum item de pedido encontrado. </value>
-        <value xml:lang="ro">EROARE : Nici-o linie comanda gasita.  </value>
+        <value xml:lang="ro">EROARE : Nici-o linie comanda gasita.</value>
         <value xml:lang="ru">ОШИБКА: Не найдены позиции заказа. </value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่พบรายการสั่งซื้อ</value>
         <value xml:lang="vi">Lỗi xảy ra : Không tìm thấy hạng mục hàng hóa nào trên đơn hàng</value>
@@ -1340,10 +1340,10 @@
         <value xml:lang="en">ERROR : Unable to find order header. </value>
         <value xml:lang="es">ERROR: No se pudo encontrar encabezado del pedido</value>
         <value xml:lang="fr">Erreur : Impossible de trouver l'en-tête de la commande. </value>
-        <value xml:lang="it">ERRORE : Non è possibile trovare testata ordine.  </value>
+        <value xml:lang="it">ERRORE : Non è possibile trovare testata ordine. </value>
         <value xml:lang="ja">エラー: 注文ヘッダが見つかりません</value>
         <value xml:lang="pt_BR">ERRO: Incapaz de encontrar cabeçalho do pedido.</value>
-        <value xml:lang="ro">EROARE : Nu este posibila gasirea Antetului comenzii.  </value>
+        <value xml:lang="ro">EROARE : Nu este posibila gasirea Antetului comenzii. </value>
         <value xml:lang="ru">ОШИБКА: Невозможно найти шапку заказа. </value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถค้นหาหัวข้อใบคำสั่งซื้อ</value>
         <value xml:lang="vi">Lỗi xảy ra : Không tìm thấy phần đầu của đơn hàng.</value>
@@ -3616,7 +3616,7 @@
         <value xml:lang="it">Errore sicurezza : per eseguire il servizio deleteOrderAdjustment tu devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="ja">セキュリティエラー: deleteOrderAdjustmentの実行には ORDERMGR_DELETE または ORDERMGR_ADMIN 権限が必要です</value>
         <value xml:lang="pt_BR">Erro de segurança: para rodar deleteOrderAdjustment você deve ter a permissão ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
-        <value xml:lang="ru">Ошибка безопасности: для выполнения deleteOrderAdjustment у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN  </value>
+        <value xml:lang="ru">Ошибка безопасности: для выполнения deleteOrderAdjustment у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ deleteOrderAdjustment คุณต้องมี ORDERMGR_DELETE หรือ ORDERMGR_ADMIN อนุญาต </value>
         <value xml:lang="vi">Lỗi phân quyền: để thực thi dịch vụ deleteOrderAdjustment bạn cần có quyền ORDERMGR_DELETE hoặc ORDERMGR_ADMIN</value>
         <value xml:lang="zh">安全错误：要运行 deleteOrderAdjustment，你必须具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限 </value>
@@ -4982,7 +4982,7 @@
         <value xml:lang="ja">数量は正の数である必要があります</value>
         <value xml:lang="pt_BR">A quantidade deve ser um número positivo</value>
         <value xml:lang="pt_PT">Quantity must be a positive number</value>
-        <value xml:lang="ro">Cantitatea trebuie sa fie un numar positiv  </value>
+        <value xml:lang="ro">Cantitatea trebuie sa fie un numar positiv</value>
         <value xml:lang="ru">Количество должно быть положительным числом</value>
         <value xml:lang="th">จำนวนต้องเป็นตัวเลขจำนวนบวกเท่านั้น</value>
         <value xml:lang="vi">Số lượng phải là số nguyên dương</value>

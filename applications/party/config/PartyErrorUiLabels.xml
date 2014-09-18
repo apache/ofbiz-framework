@@ -554,8 +554,7 @@
     </property>
     <property key="partytypehelper.NotPersonType">
         <value xml:lang="en">The party ${0} is not a PERSON type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value>
-    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
         <value xml:lang="nl">De relatie ${0} is niet van het soort PERSON</value>
         <value xml:lang="zh">会员${0}不是人员（PERSON）类型的会员</value>
@@ -563,8 +562,7 @@
     </property>
     <property key="partytypehelper.NotGroupType">
         <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
-        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value>
-    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
         <value xml:lang="nl">De relatie ${0} is not van het soort PARTYGROUP</value>
         <value xml:lang="zh">会员${0}不是会员组（PARTYGROUP）类型的会员</value>
@@ -754,7 +752,7 @@
         <value xml:lang="nl">De relatierol kan niet worden aangemaakt (schrijffout).</value>
         <value xml:lang="pt_BR">Não foi possível criar o papel de participante (erro de escrita).</value>
         <value xml:lang="ro">Nu este posibila crearea  rolului Subiect (scriere falita): ${errMessage}.</value>
-        <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการเขียนได้        </value>
+        <value xml:lang="th">ไม่สามารถสร้างสถานะกลุ่มผู้ใช้ในการเขียนได้</value>
         <value xml:lang="zh">无法新建会员写角色</value>
         <value xml:lang="zh_TW">無法新建團體員寫角色</value>
     </property>
@@ -1165,8 +1163,7 @@
         <value xml:lang="de">Kann Informationen zur Person nicht hinzufügen (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not add person info (write failure): ${0}</value>
         <value xml:lang="es">No se pudo añadir la información de la persona (error en la escritura): ${0}</value>
-        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value>
-    <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
+        <value xml:lang="fr">Ajout d`information sur la personne impossible (échec en écriture): ${0}</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी नहीं जोड़ पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiungere informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を追加できません (書き込み失敗): ${0}。</value>
@@ -1234,8 +1231,7 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Lesefehler): ${0}</value>
         <value xml:lang="en">Could not update person information (read failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de lectura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value>
-    <!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="fr">Mise à jour d`information personne impossible (échec lecture): ${0}</value> <!-- ` used instead of ' else ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (पड़ने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita lettura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (読み込み失敗): ${0}</value>
@@ -1269,8 +1265,7 @@
         <value xml:lang="de">Daten zur Person können nicht aktualisiert werden (Schreibfehler): ${0}</value>
         <value xml:lang="en">Could not update person information (write failure): ${0}</value>
         <value xml:lang="es">No se pudo actualizar la información de la persona(error de escritura): ${0}</value>
-        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value>
-    <!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
+        <value xml:lang="fr">Mise à jour d`information sur la personne impossible (échec en écriture): ${0}</value> <!-- ` used instead of ' else because ' may interfere with the result from {0} and prevent it to appears-->
         <value xml:lang="hi_IN">व्यक्ति की जानकारी अद्यतन(update) नहीं कर पाएँ (लिखने में असफल): ${0}</value>
         <value xml:lang="it">Non è possibile aggiornare informazioni sulla persona (fallita scrittura): ${0}</value>
         <value xml:lang="ja">個人情報を更新できません (書き込み失敗): ${0}</value>

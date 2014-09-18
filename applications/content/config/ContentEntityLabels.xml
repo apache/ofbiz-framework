@@ -3093,7 +3093,7 @@
     <property key="SurveyQuestionType.description.STATE_PROVINCE">
         <value xml:lang="da">Stat/provins</value>
         <value xml:lang="en">State/Province</value>
-        <value xml:lang="it">Stato/Provincia        </value>
+        <value xml:lang="it">Stato/Provincia</value>
         <value xml:lang="ja">都道府県//地方</value>
         <value xml:lang="pt">Estado/província</value>
         <value xml:lang="vi">Tỉnh/Thành phố</value>

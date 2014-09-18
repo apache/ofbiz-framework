@@ -6099,8 +6099,7 @@
         <value xml:lang="ja">製品機能カテゴリID</value>
         <value xml:lang="ro">Categorie Caracteristica Produs</value>
         <value xml:lang="ru">Код категории особенности</value>
-        <value xml:lang="th">รหัสหมวดหมู่ลักษณะสินค้า
-            </value>
+        <value xml:lang="th">รหัสหมวดหมู่ลักษณะสินค้า</value>
         <value xml:lang="vi">Phân loại Quản lý</value>
         <value xml:lang="zh">产品特征 分类标识</value>
         <value xml:lang="zh_TW">產品特性分類識別</value>
@@ -14112,8 +14111,7 @@
         <value xml:lang="ja">変更できません、製品カタログを再作成してください</value>
         <value xml:lang="ro">Acesta nu poate fi modificat fara a recrea Catalogul Produs.</value>
         <value xml:lang="ru">После создания код изменить нельзя.</value>
-        <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างหมวดหมู่สินค้าใหม่
-            </value>
+        <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างหมวดหมู่สินค้าใหม่</value>
         <value xml:lang="vi">Thông tin này không thể thay đổi trừ khi Tạo lại Phân loại Trình diễn</value>
         <value xml:lang="zh">只有重新创建产品目录，才能修改。</value>
         <value xml:lang="zh_TW">只有重新新建產品型錄,才能修改.</value>
@@ -16654,8 +16652,7 @@
         <value xml:lang="ja">このグループのすべてのアイテムに機能がない場合に表示</value>
         <value xml:lang="ro">Vizualizeaza numai daca toate liniile nu au caracteristici in acest grup</value>
         <value xml:lang="ru">Показывать только если ни у одной позиции нет особенностей в этой группе</value>
-        <value xml:lang="th">แสดงเท่านั้นถ้ารายการทั้งหมดไม่มีลักษณะในกลุ่มนี้
-            </value>
+        <value xml:lang="th">แสดงเท่านั้นถ้ารายการทั้งหมดไม่มีลักษณะในกลุ่มนี้</value>
         <value xml:lang="vi">Chỉ hiển thị khi toàn bộ hàng hóa không là Đặc tính SP gia tăng trong nhóm này</value>
         <value xml:lang="zh">仅在全部明细没有属于这个组的特征时显示</value>
         <value xml:lang="zh_TW">僅在全部細項沒有屬於這個群組的特性時顯示</value>
@@ -20864,8 +20861,7 @@
         <value xml:lang="ja">この発送には複数の梱包があります。手動で発送する必要があります。</value>
         <value xml:lang="ro">Mai mult de un pachet gasit pentru aceasta expediere. Tu ar trebui da le expediezi manual.</value>
         <value xml:lang="ru">В этой поставке найдено более одного места. Вы должны выполнить поставку вручную</value>
-        <value xml:lang="th">พบมากกว่าหนึ่งแพคเกจสำหรับการขนส่งสินค้านี้ คุณต้องขนส่งสินค้านี้ด้วยมือ
-            </value>
+        <value xml:lang="th">พบมากกว่าหนึ่งแพคเกจสำหรับการขนส่งสินค้านี้ คุณต้องขนส่งสินค้านี้ด้วยมือ</value>
         <value xml:lang="vi">Có nhiều hơn một Kiện hàng cho Chuyển vận này nên bạn phải tự thiết lập chuyển hàng</value>
         <value xml:lang="zh">为这个送货找到了一个以上的包装。你必须手工送货</value>
         <value xml:lang="zh_TW">為這個出貨找到了一個以上的包裝.你必須手工出貨</value>
@@ -23844,8 +23840,7 @@
         <value xml:lang="ja">コンテンツを配置するファイルのスケルトンを定義します。/ で始まり、終わりは / なしにします。</value>
         <value xml:lang="ro">Defineste structura continutului fisierului. Incepe de la un / si termina fara /</value>
         <value xml:lang="ru">Определите структуру файла размещения контента. Начать следует с / и закончить путь без /</value>
-        <value xml:lang="th">กำหนดโครงสร้างของไฟล์การกำหนดหัวข้อ เริ่มขึ้นโดย / และจบลงโดยไม่มี /
-            </value>
+        <value xml:lang="th">กำหนดโครงสร้างของไฟล์การกำหนดหัวข้อ เริ่มขึ้นโดย / และจบลงโดยไม่มี /</value>
         <value xml:lang="vi">Định nghĩa bộ khung của tập tin thay thế nội dung. Bắt đầu bởi ký tự / và kết thúc không bởi ký tự /</value>
         <value xml:lang="zh">定义内容文件的框架。以/开始并且不以/结束</value>
         <value xml:lang="zh_TW">定義內容檔的框架.以/開始並且不以/結束</value>
@@ -26216,8 +26211,7 @@
         <value xml:lang="it">Ricevi Inventario a fronte di un Ordine di Acquisto</value>
         <value xml:lang="ja">購買注文と引き換えに在庫を受取</value>
         <value xml:lang="ru">Получение ТМЦ для закупочного заказа</value>
-        <value xml:lang="th">ได้รับสินค้าคงเหลือเปรียบเทียบรายการสั่งซื้อ
-            </value>
+        <value xml:lang="th">ได้รับสินค้าคงเหลือเปรียบเทียบรายการสั่งซื้อ</value>
         <value xml:lang="vi">Biên nhận cung ứng (kho) mâu thuẫn PO</value>
         <value xml:lang="zh">接收对应的采购订单</value>
         <value xml:lang="zh_TW">接收對應的採購訂單</value>
@@ -26698,8 +26692,7 @@
         <value xml:lang="ja">2人目追加料金割合(%)</value>
         <value xml:lang="ro">Adauga pret procentual A doua persona</value>
         <value xml:lang="ru">Добавит процент цены если вторая персона</value>
-        <value xml:lang="th">ลำดับที่สองเพิ่มบุคคล อัตราร้อยละราคา
-            </value>
+        <value xml:lang="th">ลำดับที่สองเพิ่มบุคคล อัตราร้อยละราคา</value>
         <value xml:lang="zh">添加第二个人员。价格百分数</value>
         <value xml:lang="zh_TW">增加第二個人員.價格百分數</value>
     </property>
