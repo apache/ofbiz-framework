@@ -32,10 +32,10 @@
         <logger name="org.apache" level="warn" additivity="false">
             <appender-ref ref="external"/>
         </logger>
-        <logger name="org.apache.tomcat" level="info" additivity="true">
+        <logger name="org.apache.tomcat" level="info" additivity="false">
             <appender-ref ref="external"/>
         </logger>
-        <logger name="org.apache.catalina" level="info" additivity="true">
+        <logger name="org.apache.catalina" level="info" additivity="false">
             <appender-ref ref="external"/>
         </logger>
         <logger name="freemarker" level="warn" additivity="false">
