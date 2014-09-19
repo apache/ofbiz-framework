@@ -266,42 +266,42 @@ under the License.
   
 
     <target name="build-dev" 
-        description="Patch sources in a dev environment if patch files are present in runtime/patches.>
-        <!-- patch task can't handle a fileset => create a global patch -->
-        <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
-          <fileset dir="${basedir}/runtime/patches" casesensitive="no">
-            <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
-            <include name="*.patch"/>
-          </fileset>
-        </concat>
-        <condition property="isWindows">
-          <os family="windows"/>
-        </condition>
-        <if>
-          <available file="${basedir}/runtime/patches/dev.patch"/>
-          <then>
-            <if>
-              <isset property="isWindows"/>
-              <then>
-                <echo message="Windows todos"/>
-                <exec executable="${basedir}/tools/todos.exe" dir="${basedir}/runtime/patches/">
-                  <arg value="${basedir}/runtime/patches/dev.patch"/>
-                </exec>
-                <echo message="Windows patch"/>
-                <exec executable="${basedir}/tools/patch.exe" dir="${basedir}">
-                  <arg value="-p0"/>
-                  <arg value="-i${basedir}\runtime\patches\dev.patch"/>
-                </exec>
-              </then>
-              <else>
-                <patch strip="0" patchfile="${basedir}/runtime/patches/dev.patch" dir="${basedir}"/>
-              </else>
-            </if>
-          </then>
+      description="Patch sources in a dev environment if patch files are present in runtime/patches.">
+      <!-- patch task can't handle a fileset => create a global patch -->
+      <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
+        <fileset dir="${basedir}/runtime/patches" casesensitive="no">
+          <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
+          <include name="*.patch"/>
+        </fileset>
+      </concat>
+      <condition property="isWindows">
+        <os family="windows"/>
+      </condition>
+      <if>
+        <available file="${basedir}/runtime/patches/dev.patch"/>
+        <then>
+          <if>
+            <isset property="isWindows"/>
+            <then>
+              <echo message="Windows todos"/>
+              <exec executable="${basedir}/tools/todos.exe" dir="${basedir}/runtime/patches/">
+                <arg value="${basedir}/runtime/patches/dev.patch"/>
+              </exec>
+              <echo message="Windows patch"/>
+              <exec executable="${basedir}/tools/patch.exe" dir="${basedir}">
+                <arg value="-p0"/>
+                <arg value="-i${basedir}\runtime\patches\dev.patch"/>
+              </exec>
+            </then>
+            <else>
+              <patch strip="0" patchfile="${basedir}/runtime/patches/dev.patch" dir="${basedir}"/>
+            </else>
+          </if>
           <delete>
             <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
           </delete>
-        </if>
+        </then>
+      </if>
     </target>
     
     <target name="build-test" 
