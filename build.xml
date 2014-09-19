@@ -262,27 +262,46 @@ under the License.
     <!-- ================================================================== -->
     <!-- Apply patches where needed                                         -->
     <!-- ================================================================== -->
+  
+  
 
     <target name="build-dev" 
-        description="Patch and build all sources in a dev environment. This includes patching OFBiz using patches in runtime/patches. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
+        description="Patch sources in a dev environment if patch files are present in runtime/patches.>
         <!-- patch task can't handle a fileset => create a global patch -->
-        <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">            
-            <fileset dir="${basedir}/runtime/patches" casesensitive="no">
-                <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
-                <include name="*.patch"/>
-            </fileset>
+        <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
+          <fileset dir="${basedir}/runtime/patches" casesensitive="no">
+            <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
+            <include name="*.patch"/>
+          </fileset>
         </concat>
+        <condition property="isWindows">
+          <os family="windows"/>
+        </condition>
         <if>
-            <resourceexists>
-                <file file="${basedir}/runtime/patches/dev.patch"/>
-            </resourceexists>            
-            <then>                          
+          <available file="${basedir}/runtime/patches/dev.patch"/>
+          <then>
+            <if>
+              <isset property="isWindows"/>
+              <then>
+                <echo message="Windows todos"/>
+                <exec executable="${basedir}/tools/todos.exe" dir="${basedir}/runtime/patches/">
+                  <arg value="${basedir}/runtime/patches/dev.patch"/>
+                </exec>
+                <echo message="Windows patch"/>
+                <exec executable="${basedir}/tools/patch.exe" dir="${basedir}">
+                  <arg value="-p0"/>
+                  <arg value="-i${basedir}\runtime\patches\dev.patch"/>
+                </exec>
+              </then>
+              <else>
                 <patch strip="0" patchfile="${basedir}/runtime/patches/dev.patch" dir="${basedir}"/>
-                <delete>
-                    <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
-                </delete>
-            </then>                                  
-        </if>        
+              </else>
+            </if>
+          </then>
+          <delete>
+            <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
+          </delete>
+        </if>
     </target>
     
     <target name="build-test" 
@@ -324,6 +343,8 @@ under the License.
     
     <target name="build" depends="ofbiz-init">
         <echo message="[build] ========== Start Building (Compile) =========="/>
+
+        <antcall target="build-dev"/>
 
         <antcall target="build-framework"/>
         <antcall target="build-applications"/>
