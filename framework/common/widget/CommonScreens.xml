@@ -42,6 +42,9 @@ under the License.
 
     <screen name="cctypes">
         <section>
+            <actions>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/CcTypes.groovy"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/cctypes.ftl"/></html></platform-specific>
             </widgets>

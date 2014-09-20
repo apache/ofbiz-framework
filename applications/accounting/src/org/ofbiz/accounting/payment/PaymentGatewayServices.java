@@ -2868,13 +2868,13 @@ public class PaymentGatewayServices {
             if (creditCard != null) {
                 String cardType = creditCard.getString("cardType");
                 // add more types as necessary -- maybe we should create seed data for credit card types??
-                if ("Discover".equals(cardType)) {
+                if ("CCT_DISCOVER".equals(cardType)) {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.disc.days", "90");
-                } else if ("AmericanExpress".equals(cardType)) {
+                } else if ("CCT_AMERICANEXPRESS".equals(cardType)) {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.amex.days", "30");
-                } else if ("MasterCard".equals(cardType)) {
+                } else if ("CCT_MASTERCARD".equals(cardType)) {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.mc.days", "30");
-                } else if ("Visa".equals(cardType)) {
+                } else if ("CCT_VISA".equals(cardType)) {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.visa.days", "7");
                 } else {
                     reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.other.days", "7");

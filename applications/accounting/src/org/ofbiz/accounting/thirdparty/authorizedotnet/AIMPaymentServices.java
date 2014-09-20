@@ -810,12 +810,12 @@ public class AIMPaymentServices {
     }
     
     private static String getCardType(String cardType) {
-        if ((cardType.equalsIgnoreCase("VISA"))) return "V";
-        if ((cardType.equalsIgnoreCase("MASTERCARD"))) return "M";
-        if (((cardType.equalsIgnoreCase("AMERICANEXPRESS")) || (cardType.equalsIgnoreCase("AMEX")))) return "A";
-        if ((cardType.equalsIgnoreCase("DISCOVER"))) return "D";
-        if ((cardType.equalsIgnoreCase("JCB"))) return "J";
-        if (((cardType.equalsIgnoreCase("DINERSCLUB")))) return "C";        
+        if (("CCT_VISA".equalsIgnoreCase(cardType))) return "V";
+        if (("CCT_MASTERCARD".equalsIgnoreCase(cardType))) return "M";
+        if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType)))) return "A";
+        if (("CCT_DISCOVER".equalsIgnoreCase(cardType))) return "D";
+        if (("CCT_JCB".equalsIgnoreCase(cardType))) return "J";
+        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)))) return "C";        
         return "";
     }
     

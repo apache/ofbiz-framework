@@ -1241,16 +1241,16 @@ public class UtilValidate {
 
         if (!isCreditCard(cc)) return "Unknown";
 
-        if (isMasterCard(cc)) return "MasterCard";
-        if (isVisa(cc)) return "Visa";
-        if (isAmericanExpress(cc)) return "AmericanExpress";
-        if (isDinersClub(cc)) return "DinersClub";
-        if (isDiscover(cc)) return "Discover";
-        if (isEnRoute(cc)) return "EnRoute";
-        if (isJCB(cc)) return "JCB";
-        if (isSolo(cc)) return "Solo";
-        if (isswitch (cc)) return "Switch";
-        if (isVisaElectron(cc)) return "VisaElectron";
+        if (isMasterCard(cc)) return "CCT_MASTERCARD";
+        if (isVisa(cc)) return "CCT_VISA";
+        if (isAmericanExpress(cc)) return "CCT_AMERICANEXPRESS";
+        if (isDinersClub(cc)) return "CCT_DINERSCLUB";
+        if (isDiscover(cc)) return "CCT_DISCOVER";
+        if (isEnRoute(cc)) return "CCT_ENROUTE";
+        if (isJCB(cc)) return "CCT_JCB";
+        if (isSolo(cc)) return "CCT_SOLO";
+        if (isswitch (cc)) return "CCT_SWITCH";
+        if (isVisaElectron(cc)) return "CCT_VISAELECTRON";
         return "Unknown";
     }
 
@@ -1264,17 +1264,17 @@ public class UtilValidate {
         if (isEmpty(cardNumberPassed)) return defaultEmptyOK;
         String cardNumber = stripCharsInBag(cardNumberPassed, creditCardDelimiters);
 
-        if ((cardType.equalsIgnoreCase("VISA")) && (isVisa(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("MASTERCARD")) && (isMasterCard(cardNumber))) return true;
-        if (((cardType.equalsIgnoreCase("AMERICANEXPRESS")) || (cardType.equalsIgnoreCase("AMEX"))) && (isAmericanExpress(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("DISCOVER")) && (isDiscover(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("JCB")) && (isJCB(cardNumber))) return true;
-        if (((cardType.equalsIgnoreCase("DINERSCLUB")) || (cardType.equalsIgnoreCase("DINERS"))) && (isDinersClub(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("CARTEBLANCHE")) && (isCarteBlanche(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("ENROUTE")) && (isEnRoute(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("SOLO")) && (isSolo(cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("SWITCH")) && (isswitch (cardNumber))) return true;
-        if ((cardType.equalsIgnoreCase("VISAELECTRON")) && (isVisaElectron(cardNumber))) return true;
+        if (("CCT_VISA".equalsIgnoreCase(cardType)) && (isVisa(cardNumber))) return true;
+        if (("CCT_MASTERCARD".equalsIgnoreCase(cardType)) && (isMasterCard(cardNumber))) return true;
+        if ((("CCT_AMERICANEXPRESS".equalsIgnoreCase(cardType)) || ("CCT_AMEX".equalsIgnoreCase(cardType))) && (isAmericanExpress(cardNumber))) return true;
+        if (("CCT_DISCOVER".equalsIgnoreCase(cardType)) && (isDiscover(cardNumber))) return true;
+        if (("CCT_JCB".equalsIgnoreCase(cardType)) && (isJCB(cardNumber))) return true;
+        if ((("CCT_DINERSCLUB".equalsIgnoreCase(cardType)) || ("CCT_DINERS".equalsIgnoreCase(cardType))) && (isDinersClub(cardNumber))) return true;
+        if (("CCT_CARTEBLANCHE".equalsIgnoreCase(cardType)) && (isCarteBlanche(cardNumber))) return true;
+        if (("CCT_ENROUTE".equalsIgnoreCase(cardType)) && (isEnRoute(cardNumber))) return true;
+        if (("CCT_SOLO".equalsIgnoreCase(cardType)) && (isSolo(cardNumber))) return true;
+        if (("CCT_SWITCH".equalsIgnoreCase(cardType)) && (isswitch (cardNumber))) return true;
+        if (("CCT_VISAELECTRON".equalsIgnoreCase(cardType)) && (isVisaElectron(cardNumber))) return true;
         return false;
     }
 

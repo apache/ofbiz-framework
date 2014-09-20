@@ -346,13 +346,7 @@ function makeExpDate() {
                     <option>${creditCard.cardType}</option>
                     <option value="${creditCard.cardType}">---</option>
                     </#if>
-                    <option>Visa</option>
-                    <option value='MasterCard'>Master Card</option>
-                    <option value='AmericanExpress'>American Express</option>
-                    <option value='DinersClub'>Diners Club</option>
-                    <option>Discover</option>
-                    <option>EnRoute</option>
-                    <option>JCB</option>
+                    ${screens.render("component://common/widget/CommonScreens.xml#cctypes")}
                   </select>
                 *</td>
               </tr>

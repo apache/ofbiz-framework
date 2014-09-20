@@ -142,13 +142,6 @@
     <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="CCT_VISA" glAccountId="122300"/>
     <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="CCT_MASTERCARD" glAccountId="122300"/>
     
-    <!-- The following ones are required until the issue OFBIZ-1524 is resolved -->
-    <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="AmericanExpress" glAccountId="122100"/>
-    <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="DinersClub" glAccountId="122100"/>
-    <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="Discover" glAccountId="122200"/>
-    <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="Visa" glAccountId="122300"/>
-    <CreditCardTypeGlAccount organizationPartyId="ORGPARTYID" cardType="MasterCard" glAccountId="122300"/>
-    
     <FinAccountTypeGlAccount organizationPartyId="ORGPARTYID" finAccountTypeId="GIFTCERT_ACCOUNT" glAccountId="213200"/>
     <FinAccountTypeGlAccount organizationPartyId="ORGPARTYID" finAccountTypeId="DEPOSIT_ACCOUNT" glAccountId="213500"/>
     <FinAccountTypeGlAccount organizationPartyId="ORGPARTYID" finAccountTypeId="BANK_ACCOUNT" glAccountId="213500"/>

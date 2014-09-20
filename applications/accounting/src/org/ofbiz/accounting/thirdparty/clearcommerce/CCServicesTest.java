@@ -56,7 +56,7 @@ public class CCServicesTest extends OFBizTestCase {
         creditAmount = new BigDecimal("234.00");
         emailAddr = delegator.makeValue("ContactMech", UtilMisc.toMap("infoString","test@hansbakker.com"));
         orderId = "testOrder1000";
-        creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap("cardType","VISA",
+        creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap("cardType","CCT_VISA",
                 "expireDate","12/2008",  // mm/yyyy, gets converted to mm/yy
                 "cardNumber","4111111111111111"));
         billingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap("toName","The customer Name",
