@@ -1213,6 +1213,8 @@ under the License.
         </check-permission>
         <check-errors/>
 
+        <set field="viewSize" from-field="parameters.viewSize" type="Integer"/>
+        <set field="viewIndex" from-field="parameters.viewIndex" type="Integer"/>
         <entity-condition entity-name="Picklist" list="picklistList">
             <condition-list combine="and">
                 <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
@@ -1220,14 +1222,36 @@ under the License.
                 <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
             </condition-list>
             <order-by field-name="picklistDate"/>
+            <limit-view view-size="${viewSize}" view-index="${viewIndex+1}"/>
         </entity-condition>
 
+        <entity-count entity-name="Picklist" count-field="picklistCount">
+            <condition-list combine="and">
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
+            </condition-list>
+        </entity-count>
         <iterate entry="picklist" list="picklistList">
             <call-simple-method method-name="getPicklistSingleInfoInline"/>
             <field-to-list field="picklistInfo" list="picklistInfoList"/>
         </iterate>
 
+        <set field="lowIndex" value="${(viewIndex * viewSize) + 1}" type="Integer"/>
+        <set field="highIndex" value="${(viewIndex + 1) * viewSize}" type="Integer"/>
+        <if-compare-field field="highIndex" operator="greater" to-field="picklistCount" type="Integer">
+            <set field="highIndex" from-field="picklistCount" type="Integer"/>
+        </if-compare-field>
+        <if-compare-field field="viewSize" operator="greater" to-field="picklistCount" type="Integer">
+            <set field="highIndex" from-field="picklistCount" type="Integer"/>
+        </if-compare-field>
+        
         <field-to-result field="picklistInfoList"/>
+        <field-to-result field="viewIndex"/>
+        <field-to-result field="viewSize"/>
+        <field-to-result field="lowIndex"/>
+        <field-to-result field="highIndex"/>
+        <field-to-result field="picklistCount"/>
     </simple-method>
 
     <simple-method method-name="getPickAndPackReportInfo" short-description="getPickAndPackReportInfo">

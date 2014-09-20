@@ -79,6 +79,11 @@ under the License.
             location="component://product/script/org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="getPicklistDisplayInfo">
         <description>Create Picklist From Orders</description>
         <attribute name="facilityId" type="String" mode="IN" optional="false"/>
+        <attribute name="viewIndex" mode="INOUT" type="Integer" optional="true"/>
+        <attribute name="viewSize" mode="INOUT" type="Integer" optional="true"/>
+        <attribute name="highIndex" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="lowIndex" mode="OUT" type="Integer" optional="true"/>
+        <attribute name="picklistCount" mode="OUT" type="Long" optional="true"/>
         <attribute name="picklistInfoList" type="List" mode="OUT" optional="true"/>
     </service>
 
