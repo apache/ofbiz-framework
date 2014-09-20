@@ -25,7 +25,16 @@ under the License.
     <!-- ======== Anonymous Checkout Events ======== -->
     <!-- =========================================== -->
 
-    <simple-method method-name="createUpdateUser" short-description="Create or Update User" login-required="false">
+    <simple-method method-name="createUpdateCustomer" short-description="Create update customer and settings" login-required="false">
+        <set field="require_email" value="true"/>
+        <set field="require_phone" value="true"/>
+        <set field="require_login" value="false"/>
+        <set field="shipToPostalAddress" value="true"/>
+        <set field="billToPostalAddress" value="true"/>
+        <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
+        <set field="create_allow_password" value="true"/>
+
+        <set field="parameters.roleTypeId" value="CUSTOMER"/>
 
         <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
         <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
@@ -481,20 +490,7 @@ under the License.
             </else>
             </if-empty>
         </if-not-empty>
-    </simple-method>
 
-    <simple-method method-name="processCustomerSettings" short-description="Process Customer Settings; to be called as a Request Event" login-required="false">
-        <set field="require_email" value="true"/>
-        <set field="require_phone" value="true"/>
-        <set field="require_login" value="false"/>
-        <set field="shipToPostalAddress" value="true"/>
-        <set field="billToPostalAddress" value="true"/>
-        <!-- this parameter must be set to true or the createUser method below will use a default password instead of the one entered by user -->
-        <set field="create_allow_password" value="true"/>
-
-        <set field="parameters.roleTypeId" value="CUSTOMER"/>
-
-        <call-simple-method method-name="createUpdateUser"/>
         <!-- see if we should continue now... -->
         <session-to-field field="cart" session-name="shoppingCart"/>
         <session-to-field field="userLogin"/>
@@ -517,7 +513,6 @@ under the License.
                     }
                 ]]></call-bsh>
             </if-not-empty>
-            <set from-field="partyId" field="partyId"/>
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
                 <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
