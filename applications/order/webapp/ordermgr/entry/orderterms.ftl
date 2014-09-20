@@ -33,6 +33,7 @@ under the License.
                                     <td>${uiLabelMap.OrderOrderTermType}</td>
                                     <td align="center">${uiLabelMap.OrderOrderTermValue}</td>
                                     <td align="center">${uiLabelMap.OrderOrderTermDays}</td>
+                                    <td align="center">${uiLabelMap.OrderOrderTextValue}</td>
                                     <td>${uiLabelMap.CommonDescription}</td>
                                     <td>&nbsp;</td>
                                 </tr>
@@ -42,6 +43,7 @@ under the License.
                                         <td align="center">${orderTerm.termValue!}</td>
                                         <td align="center">${orderTerm.termDays!}</td>
                                         <td nowrap="nowrap">${orderTerm.textValue!}</td>
+                                        <td nowrap="nowrap">${orderTerm.description?if_exists}</td>
                                         <td align="right">
                                             <a href="<@ofbizUrl>setOrderTerm?termIndex=${orderTerm_index}&amp;createNew=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                                             <a href="<@ofbizUrl>removeCartOrderTerm?termIndex=${orderTerm_index}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRemove}</a>
@@ -94,11 +96,20 @@ under the License.
                                     </tr>
                                     <tr>
                                         <td width="26%" align="right" valign="top">
+                                            ${uiLabelMap.OrderOrderTextValue}
+                                        </td>
+                                        <td width="5">&nbsp;</td>
+                                        <td width="74%">
+                                            <input type="text" size="30" maxlength="60" name="textValue" value="${textValue?if_exists}" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="26%" align="right" valign="top">
                                             ${uiLabelMap.CommonDescription}
                                         </td>
                                         <td width="5">&nbsp;</td>
                                         <td width="74%">
-                                            <input type="text" size="30" maxlength="255" name="textValue" value="${textValue!}" />
+                                            <input type="text" size="30" maxlength="255" name="description" value="${description?if_exists}" />
                                         </td>
                                     </tr>
                                     <tr>
