@@ -99,16 +99,16 @@ public class SagePayPaymentServices {
                     nameOnCard = firstName + " " + middleName + " " + lastName;
                     cardType = creditCard.getString("cardType");
                     if (cardType != null) {
-                        if (cardType.equals("MasterCard")) {
+                        if ("CCT_MASTERCARD".equals(cardType)) {
                             cardType = "MC";
                         }
-                        if (cardType.equals("VisaElectron")) {
+                        if ("CCT_VISAELECTRON".equals(cardType)) {
                             cardType = "UKE";
                         }
-                        if (cardType.equals("DinersClub")) {
+                        if ("CCT_DINERSCLUB".equals(cardType)) {
                             cardType = "DC";
                         }
-                        if (cardType.equals("Switch")) {
+                        if ("CCT_SWITCH".equals(cardType)) {
                             cardType = "MAESTRO";
                         }
                     }

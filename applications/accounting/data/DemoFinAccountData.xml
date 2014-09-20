@@ -33,7 +33,7 @@ under the License.
             organizationPartyId="Company" ownerPartyId="Company" postToGlAccountId="231000" isRefundable="Y" replenishLevel="0.00" actualBalance="0.00" availableBalance="0.00"/>
     <FinAccountStatus finAccountId="AMEX_01" statusId="FNACT_ACTIVE" statusDate="2009-04-01 00:00:01.000"/>
     <PaymentMethod paymentMethodId="AMEX_01" paymentMethodTypeId="CREDIT_CARD" partyId="Company" description="AmEx 0005" glAccountId="231000" finAccountId="AMEX_01" fromDate="2009-04-01 00:00:00.000"/>
-    <CreditCard paymentMethodId="AMEX_01" cardType="AmericanExpress" cardNumber="378282246310005" expireDate="02/2020" companyNameOnCard="Your Company Name"
+    <CreditCard paymentMethodId="AMEX_01" cardType="CCT_AMERICANEXPRESS" cardNumber="378282246310005" expireDate="02/2020" companyNameOnCard="Your Company Name"
         titleOnCard="" firstNameOnCard="Smart" middleNameOnCard="" lastNameOnCard="Guy" suffixOnCard="" contactMechId="9000"/>
     <PaymentMethod paymentMethodId="PETTY_CASH" paymentMethodTypeId="CASH" partyId="Company" description="Petty Cash" glAccountId="110000" fromDate="2009-04-01 00:00:00.000"/>
 

@@ -67,7 +67,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 "infoString","test@hansbakker.com"));
         orderId = "Demo1002";
         creditCard = delegator.makeValue("CreditCard", UtilMisc.toMap(
-                "cardType","VISA",
+                "cardType","CCT_VISA",
                 "expireDate","10/2011",  // mm/yyyy, gets converted to mm/yy
                 "cardNumber","4444333322221111"));
         billingAddress = delegator.makeValue("PostalAddress", UtilMisc.toMap(

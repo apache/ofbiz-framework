@@ -81,7 +81,7 @@ under the License.
         <clear-field field="oldPaymentMethodId"/>
 
         <!-- try now with few changes (cardType, cardNumber in this case), a new record will be created in PaymentMethod, CreditCard entity -->
-        <set field="serviceCtx.cardType" value="MasterCard"/>
+        <set field="serviceCtx.cardType" value="CCT_MASTERCARD"/>
         <set field="serviceCtx.cardNumber" value="5500000000000004"/>
         <call-service service-name="updateCreditCard" in-map-name="serviceCtx">
             <result-to-field result-name="paymentMethodId"/>

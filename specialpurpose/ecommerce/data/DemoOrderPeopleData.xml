@@ -144,7 +144,7 @@ under the License.
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9026" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="9015" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
+    <CreditCard paymentMethodId="9015" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
         titleOnCard="" firstNameOnCard="DEMO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="9015"/>
 
     <!-- EuroCustomer want invoices in euro and be located in Amsterdam -->
@@ -170,7 +170,7 @@ under the License.
     <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
-    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
+    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2021" companyNameOnCard=""
     titleOnCard="" firstNameOnCard="EURO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="EUROCUSTOMER"/>
 
     <!-- FrenchCustomer want invoices in euro and be located in Poussan -->
@@ -196,7 +196,7 @@ under the License.
     <PartyContactMechPurpose partyId="FrenchCustomer" contactMechId="FRA01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2009-01-09 00:00:00.000"/>
 
     <PaymentMethod paymentMethodId="FRENCHCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="FrenchCustomer" fromDate="2009-01-09 00:00:00.000"/>
-    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard=""
+    <CreditCard paymentMethodId="FRENCHCUSTOMER" cardType="CCT_VISA" cardNumber="4111111111111111" expireDate="02/2020" companyNameOnCard=""
         titleOnCard="" firstNameOnCard="FRENCH" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="FRENCHCUSTOMER"/>
     
     <PartyTaxAuthInfo partyId="FrenchCustomer" taxAuthGeoId="FRA" taxAuthPartyId="FRA_TA" fromDate="2001-05-13 00:00:00.000" partyTaxId="FR-12345678901" isExempt="N"/>
