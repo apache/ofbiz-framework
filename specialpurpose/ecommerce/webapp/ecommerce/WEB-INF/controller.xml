@@ -470,7 +470,7 @@ under the License.
 
     <request-map uri="quickAnonProcessCustomerSettings">
         <security https="true" auth="false"/>
-        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="processCustomerSettings"/>
+        <event type="simple" path="component://ecommerce/script/org/ofbiz/ecommerce/customer/QuickAnonCustomerEvents.xml" invoke="createUpdateCustomer"/>
         <response name="success" type="request" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonCustSetting"/>
     </request-map>
