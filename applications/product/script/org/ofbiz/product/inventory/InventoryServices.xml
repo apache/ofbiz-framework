@@ -778,137 +778,21 @@ under the License.
         <field-to-result field="quantityOnHandTotal"/>
     </simple-method>
 
+     <!-- 
+         Code in balanceInventoryItems service was doing same job which reassignInventoryReservations service is doing. Purpose of both the services are same. In fact reassignInventoryReservations service does better job of 
+         reserving items for an order. 1) It takes into account the order priority, currentPromisedDate, reservedDateTime and sequenceId. where as  balanceInventoryItems was prioritizing orders 
+         based on reservedDatetime and sequenceId. 2) reassignInventoryReservations excludes items with sufficient inventory, where as balanceInventoryItems also pulls up order items which have sufficient inventory. 
+         
+         Calling reassignInventoryReservations from balanceInventoryItems. balanceInventoryItems can be deleted, but not deleting it because its used in many places in OFBiz. 
+         To DO: We can delete balanceInventoryItems in future and replace it with reassignInventoryReservations every where. 
+     -->
+         
     <simple-method method-name="balanceInventoryItems" short-description="Balances available-to-promise on inventory items">
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-
-        <!-- find all items which have a negative ATP -->
-        <entity-condition entity-name="BalanceInventoryItemsView" list="inventoryItems">
-            <condition-list combine="or">
-                <condition-list combine="and">
-                    <condition-expr field-name="productId" operator="equals" from-field="inventoryItem.productId"/>
-                    <condition-expr field-name="facilityId" operator="equals" from-field="inventoryItem.facilityId"/>
-                    <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="availableToPromiseTotal" operator="equals" from-field="nullField"/>
-                        <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
-                        <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
-                    </condition-list>
-                </condition-list>
-                <!-- the current item is added to the list, even if its atp is greater than zero, because there could be
-                     negative reservations (backorders) on it, if the atp has been increased by an inventory variance -->
-                <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItem.inventoryItemId"/>
-            </condition-list>
-            <order-by field-name="reservedDatetime"/>
-            <order-by field-name="sequenceId"/>
-        </entity-condition>
-
-        <!--  find their current reservations -->
-        <set field="reserveQtyAccum" value="0" type="Double"/>
-        <iterate list="inventoryItems" entry="item">
-            <!-- If quantityOnHandTotal is not equal to availableToPromiseTotal this means that
-                 there are pending reservations on the item that cause availableToPromiseTotal
-                 to be lower than the quantityOnHandTotal (the opposite can never happen).
-                 In fact, if availableToPromiseTotal is negative, this doesn't mean that there are reservations;
-                 for example, if we have a negative quantityOnHandTotal and quantityOnHandTotal equal to
-                 availableToPromiseTotal, then no reservations are present.
-            -->
-            <if>
-                <condition>
-                    <and>
-                        <if-compare-field field="reserveQtyAccum" operator="less" to-field="inventoryItem.quantityOnHandTotal" type="Double"/>
-                        <if-compare-field field="item.quantityOnHandTotal" operator="not-equals" to-field="item.availableToPromiseTotal"/>
-                    </and>
-                </condition>
-                <then>
-                <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
-                    <condition-list combine="and">
-                        <condition-expr field-name="orderId" from-field="item.orderId"/>
-                        <condition-expr field-name="shipGroupSeqId" from-field="item.shipGroupSeqId"/>
-                        <condition-expr field-name="orderItemSeqId" from-field="item.orderItemSeqId"/>
-                        <condition-expr field-name="inventoryItemId" from-field="item.inventoryItemId"/>
-                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
-                        <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
-                    </condition-list>
-                </entity-condition>
-                <!-- only cancel/re-reserve when there are no picklists associated; this will prevent
-                     orders appearing on duplicate pick lists -->
-                <if-empty field="picklistItemList">
-                    <log level="info" message="Order [${item.orderId}] was not found on any picklist for InventoryItem [${item.inventoryItemId}]"/>
-                    <if>
-                        <condition>
-                            <and>
-                                <if-compare-field field="parameters.priorityOrderId" operator="equals" to-field="item.orderId"/>
-                                <if-compare-field field="parameters.priorityOrderItemSeqId" operator="equals" to-field="item.orderItemSeqId"/>
-                            </and>
-                        </condition>
-                        <then>
-                            <field-to-list field="item" list="privilegedReservations"/>
-                        </then>
-                        <else>
-                            <field-to-list field="item" list="reservations"/>
-                        </else>
-                    </if>
-                    <set field="reserveQtyAccum" value="${reserveQtyAccum + item.quantity}" type="BigDecimal"/>
-                </if-empty>
-                </then>
-            </if>
-        </iterate>
-
-        <list-to-list list="privilegedReservations" to-list="allReservations"/>
-        <list-to-list list="reservations" to-list="allReservations"/>
-
-        <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
-            <!-- if the new item is serialized, i.e. qoh is 1, we just need the first reservation -->
-            <first-from-list entry="inventoryReservation" list="allReservations"/>
-            <clear-field field="allReservations"/>
-            <field-to-list field="inventoryReservation" list="allReservations"/>
-        </if-compare>
-
-        <!-- FIRST, cancel all the reservations -->
-        <iterate list="allReservations" entry="oisgir">
-            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" to-map="cancelOisgirMap" map="oisgir"/>
-            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
-        </iterate>
-
-        <!-- THEN, re-reserve the cancelled items -->
-        <iterate list="allReservations" entry="oisgir">
-            <!-- maintain a Set (in a Map) of orderIds that we have reallocated for, but only if they had some quantityNotReserved -->
-            <if-not-empty field="oisgir.quantityNotAvailable">
-                <if-compare field="oisgir.quantityNotAvailable" operator="greater" value="0" type="BigDecimal">
-                    <set field="touchedOrderIdMap[oisgir.orderId]" value="Y"/>
-                    <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
-                </if-compare>
-            </if-not-empty>
-            <set-service-fields service-name="reserveProductInventory" to-map="resMap" map="oisgir"/>
-            <set field="resMap.productId" from-field="inventoryItem.productId"/>
-            <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
-            <set field="resMap.requireInventory" value="N"/>
-            <log level="info" message="Re-reserving product [${resMap.productId}] for order item [${resMap.orderId}:${resMap.orderItemSeqId}] quantity [${resMap.quantity}]; facility [${inventoryItem.facilityId}]"/>
-            <if-empty field="inventoryItem.facilityId">
-                <log level="warning" message="In balanceInventoryItems there is no facilityId, so reserving from any facility for order item [${resMap.orderId}:${resMap.orderItemSeqId}]"></log>
-                <call-service service-name="reserveProductInventory" in-map-name="resMap"/>
-                <else>
-                    <set field="resMap.facilityId" from-field="inventoryItem.facilityId"/>
-                    <call-service service-name="reserveProductInventoryByFacility" in-map-name="resMap"/>
-                </else>
-            </if-empty>
-        </iterate>
-
-        <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
-        <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
-            <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
-            <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
-                <result-to-field result-name="isBackOrder"/>
-            </call-service>
-
-            <if-compare field="isBackOrder" operator="equals" value="false" type="Boolean">
-                <set field="noLongerOnBackOrderIdMap[touchedOrderId]" value="Y"/>
-            </if-compare>
-        </iterate-map>
-        <if-not-empty field="noLongerOnBackOrderIdMap">
-            <call-object-method obj-field="noLongerOnBackOrderIdMap" method-name="keySet" ret-field="noLongerOnBackOrderIdSet"/>
-            <field-to-result field="noLongerOnBackOrderIdSet"/>
-        </if-not-empty>
+        <set field="reassignInventoryReservationsCtx.productId" from-field="inventoryItem.productId"/>
+        <set field="reassignInventoryReservationsCtx.facilityId" from-field="inventoryItem.facilityId"/>
+        <set field="reassignInventoryReservationsCtx.fromDate" from-field="nowTimestamp"/>
+        <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
     </simple-method>
 
     <simple-method method-name="reassignInventoryReservations" short-description="Balances available-to-promise on inventory items">
