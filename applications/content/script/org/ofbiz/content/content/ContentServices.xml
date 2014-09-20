@@ -159,7 +159,11 @@
     </simple-method>
 
     <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">
-        <entity-one entity-name="Content" value-field="content"/>
+        <set-service-fields service-name="getContent" map="parameters" to-map="getC"/>
+        <call-service service-name="getContent" in-map-name="getC">
+            <result-to-field result-name="view" field="content"/>
+        </call-service>
+        <clone-value value-field="content" new-value-field="content"/>
         <if-not-empty field="content.dataResourceId">
             <set-service-fields service-name="getElectronicText" map="content" to-map="getEt"/>
             <call-service service-name="getElectronicText" in-map-name="getEt">
