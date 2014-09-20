@@ -169,9 +169,11 @@ public class ContextFilter implements Filter {
             String redirectPath = config.getInitParameter("redirectPath");
             String errorCode = config.getInitParameter("errorCode");
 
-            List<String> allowList = StringUtil.split(allowedPath, ":");
-            allowList.add("/");  // No path is allowed.
-            allowList.add("");   // No path is allowed.
+            List<String> allowList = null;
+            if ((allowList = StringUtil.split(allowedPath, ":")) != null) {
+                allowList.add("/");  // No path is allowed.
+                allowList.add("");   // No path is allowed.
+            }
 
             if (debug) Debug.logInfo("[Domain]: " + httpRequest.getServerName() + " [Request]: " + httpRequest.getRequestURI(), module);
 
@@ -205,8 +207,10 @@ public class ContextFilter implements Filter {
 
             // Verbose Debugging
             if (Debug.verboseOn()) {
-                for (String allow: allowList) {
-                    Debug.logVerbose("[Allow]: " + allow, module);
+                if (allowList != null) {
+                    for (String allow: allowList) {
+                        Debug.logVerbose("[Allow]: " + allow, module);
+                    }
                 }
                 Debug.logVerbose("[Request path]: " + requestPath, module);
                 Debug.logVerbose("[Request info]: " + requestInfo, module);
@@ -214,7 +218,9 @@ public class ContextFilter implements Filter {
             }
 
             // check to make sure the requested url is allowed
-            if (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath())) {
+            if (allowList != null &&
+                (!allowList.contains(requestPath) && !allowList.contains(requestInfo) && !allowList.contains(httpRequest.getServletPath()))
+                ) {
                 String filterMessage = "[Filtered request]: " + contextUri;
                 
                 if (redirectPath == null) {
