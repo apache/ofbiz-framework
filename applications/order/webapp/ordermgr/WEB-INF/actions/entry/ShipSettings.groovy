@@ -104,5 +104,15 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
         }
         context.facilityMaps = facilityMaps;
     }
+    // Ship to another party
+    if (shipToPartyId) {
+        shipToParty = delegator.findOne("Party", [partyId : shipToPartyId], false);
+        if (shipToParty)
+        {
+            context.shipToParty = shipToParty;
+            shipToPartyShippingContactMechList = ContactHelper.getContactMech(shipToParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
+            context.shipToPartyShippingContactMechList = shipToPartyShippingContactMechList;
+        }
+    }
 }
 }
