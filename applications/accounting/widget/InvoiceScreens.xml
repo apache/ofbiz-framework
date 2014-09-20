@@ -206,6 +206,11 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
+                                <not><if-empty field="invoice"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                            <condition>
                                 <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"/>
                             </condition>
                             <widgets>
@@ -304,6 +309,11 @@ under the License.
                                 <screenlet title="${uiLabelMap.AccountingTransactions}" navigation-form-name="AcctgTransAndEntries">
                                     <include-form name="AcctgTransAndEntries" location="component://accounting/widget/InvoiceForms.xml"/>
                                 </screenlet>
+                            </fail-widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <label text="${uiLabelMap.AccountingInvoiceDoesNotExists}"></label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
