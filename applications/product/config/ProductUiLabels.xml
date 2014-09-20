@@ -169,6 +169,9 @@
         <value xml:lang="zh">按库房区域分组</value>
         <value xml:lang="zh_TW">按庫房區域分群組</value>
     </property>
+    <property key="FacilityGroupFirst">
+        <value xml:lang="en">Group First</value>
+    </property>
     <property key="FacilityGroupName">
         <value xml:lang="en">Group Name</value>
         <value xml:lang="it">Nome gruppo</value>

@@ -438,6 +438,17 @@ under the License.
             <clear-field field="orderHeaderInfo"/>
             <clear-field field="orderItemShipGroupList"/>
             <clear-field field="orderItemShipGrpInvResList"/>
+            <if>
+              <condition>
+                <and>
+                  <not><if-empty field="maxNumberOfOrders"/></not>
+                  <if-compare-field field="numberSoFar" type="Long" to-field="maxNumberOfOrders" operator="greater-equals"/>
+                </and>
+              </condition>
+              <then>
+                <break/>
+              </then>
+            </if>
         </iterate>
 
         <!-- find all groupName, for each one get the value from the pickMoveInfoMap and add it to the pickMoveInfoList -->
