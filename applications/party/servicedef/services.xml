@@ -589,7 +589,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
     <service name="deletePartyContactMechPurpose" engine="java"
             location="org.ofbiz.party.contact.ContactMechServices" invoke="deletePartyContactMechPurpose" auth="true">
