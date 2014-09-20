@@ -555,8 +555,10 @@ public class GoogleCheckoutHelper {
         String contactMechPurposeTypeId = getAddressType(addrType);
 
         // check to make sure the purpose doesn't already exist
-        List<GenericValue> values = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId,
+        List<GenericValue> values = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("partyId", partyId,
                 "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+        values = EntityUtil.filterByDate(values, null, "contactFromDate", "contactThruDate", true);
+        values = EntityUtil.filterByDate(values, null, "purposeFromDate", "purposeThruDate", true);
 
         if (UtilValidate.isEmpty(values)) {
             Map<String, Object> addPurposeMap = FastMap.newInstance();
