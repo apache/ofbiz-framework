@@ -299,16 +299,20 @@ public class InvoiceWorker {
             if (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))
                 destinationPartyId = invoice.getString("partyId");
             try {
-                locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false));
+                locations = delegator.findByAnd("PartyContactWithPurpose",
+                        UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+                locations = EntityUtil.filterByDate(locations, null, "contactFromDate", "contactThruDate", true);
+                locations = EntityUtil.filterByDate(locations, null, "purposeFromDate", "purposeThruDate", true);
             } catch (GenericEntityException e) {
                 Debug.logError("Trouble getting contact party purpose list", module);
             }
             //if still not found get it from the general location
             if (UtilValidate.isEmpty(locations))    {
                 try {
-                    locations = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                            UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", "GENERAL_LOCATION"), null, false));
+                    locations = delegator.findByAnd("PartyContactWithPurpose",
+                            UtilMisc.toMap("partyId", destinationPartyId, "contactMechPurposeTypeId", "GENERAL_LOCATION"), null, false);
+                    locations = EntityUtil.filterByDate(locations, null, "contactFromDate", "contactThruDate", true);
+                    locations = EntityUtil.filterByDate(locations, null, "purposeFromDate", "purposeThruDate", true);
                 } catch (GenericEntityException e) {
                     Debug.logError("Trouble getting contact party purpose list", module);
                 }

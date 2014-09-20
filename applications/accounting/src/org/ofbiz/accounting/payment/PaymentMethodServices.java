@@ -213,10 +213,11 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false), true);
-
-                tempVal = EntityUtil.getFirst(allPCMPs);
+                List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
+                tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 tempVal = null;
@@ -387,10 +388,12 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false), true);
+                List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
 
-                tempVal = EntityUtil.getFirst(allPCMPs);
+                tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 tempVal = null;
@@ -726,11 +729,12 @@ public class PaymentMethodServices {
 
             GenericValue tempVal = null;
             try {
-                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", 
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
-                                "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false), true);
+                List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
 
-                tempVal = EntityUtil.getFirst(allPCMPs);
+                tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 tempVal = null;
@@ -854,10 +858,11 @@ public class PaymentMethodServices {
             GenericValue tempVal = null;
 
             try {
-                List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose",
-                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, 
-                                "contactMechPurposeTypeId",contactMechPurposeTypeId), null, false), true);
-                tempVal = EntityUtil.getFirst(allPCMPs);
+                List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose",
+                        UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+                allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
+                tempVal = EntityUtil.getFirst(allPCWPs);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 tempVal = null;

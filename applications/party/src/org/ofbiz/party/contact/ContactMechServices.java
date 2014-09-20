@@ -809,9 +809,11 @@ public class ContactMechServices {
         try {
             Map<String, String> pcmpFindMap = UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId);
             //Debug.logInfo("pcmpFindMap = " + pcmpFindMap, module);
-            List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", pcmpFindMap, null, false), true);
+            List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose", pcmpFindMap, null, false);
+            allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+            allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
 
-            tempVal = EntityUtil.getFirst(allPCMPs);
+            tempVal = EntityUtil.getFirst(allPCWPs);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             tempVal = null;
@@ -870,9 +872,11 @@ public class ContactMechServices {
         try {
             Map<String, String> pcmpFindMap = UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId);
             //Debug.logInfo("pcmpFindMap = " + pcmpFindMap, module);
-            List<GenericValue> allPCMPs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMechPurpose", pcmpFindMap, null, false), true);
+            List<GenericValue> allPCWPs = delegator.findByAnd("PartyContactWithPurpose", pcmpFindMap, null, false);
+            allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "contactFromDate", "contactThruDate", true);
+            allPCWPs = EntityUtil.filterByDate(allPCWPs, null, "purposeFromDate", "purposeThruDate", true);
 
-            tempVal = EntityUtil.getFirst(allPCMPs);
+            tempVal = EntityUtil.getFirst(allPCWPs);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             tempVal = null;
