@@ -8609,6 +8609,18 @@
         <value xml:lang="zh_CN">协议值</value>
         <value xml:lang="zh_TW">條件值</value>
     </property>
+    <property key="OrderOrderTextValue">
+        <value xml:lang="en">Text Value</value>
+        <value xml:lang="fr">Valeur du texte</value>
+        <value xml:lang="hi_IN">पाठ्य मान</value>
+        <value xml:lang="it">Testo Valore</value>
+        <value xml:lang="nl">Text Value</value>
+        <value xml:lang="pt">Valor do Texto</value>
+        <value xml:lang="ru">Текстовое значение</value>
+        <value xml:lang="th">ค่าตัวอักษร</value>
+        <value xml:lang="zh">文本值</value>
+        <value xml:lang="zh_TW">文本值</value>
+    </property>
     <property key="OrderOrderTerms">
         <value xml:lang="de">Auftragskonditionen</value>
         <value xml:lang="en">Order Terms</value>

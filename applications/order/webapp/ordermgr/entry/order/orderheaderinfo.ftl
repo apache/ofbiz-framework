@@ -70,7 +70,8 @@ under the License.
                             <td width="35%"><div><b>${uiLabelMap.OrderOrderTermType}</b></div></td>
                             <td width="10%"><div><b>${uiLabelMap.OrderOrderTermValue}</b></div></td>
                             <td width="10%"><div><b>${uiLabelMap.OrderOrderTermDays}</b></div></td>
-                            <td width="45%"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
+                            <td width="10%"><div><b>${uiLabelMap.OrderOrderTextValue}</b></div></td>
+                            <td width="35%"><div><b>${uiLabelMap.CommonDescription}</b></div></td>
                         </tr>
                         <tr><td colspan="4"><hr /></td></tr>
                         <#assign index=0/>
@@ -79,10 +80,11 @@ under the License.
                             <td width="35%"><div>${orderTerm.getRelatedOne("TermType", false).get("description",locale)}</div></td>
                             <td width="10%"><div>${orderTerm.termValue?default("")}</div></td>
                             <td width="10%"><div>${orderTerm.termDays?default("")}</div></td>
-                            <td width="45%"><div>${orderTerm.textValue?default("")}</div></td>
+                            <td width="10%"><div>${orderTerm.textValue?default("")}</div></td>
+                            <td width="35%"><div>${orderTerm.description?default("")}</div></td>
                         </tr>
                             <#if orderTerms.size()&lt;index>
-                        <tr><td colspan="4"><hr /></td></tr>
+                        <tr><td colspan="5"><hr /></td></tr>
                             </#if>
                             <#assign index=index+1/>
                         </#list>
