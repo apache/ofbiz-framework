@@ -29,7 +29,7 @@ under the License.
             </#if>
       <table width='100%' border='0' cellspacing='0' cellpadding='0' class="boxboutside">
         <tr>
-          <td>
+          <td colspan="4">
           <a href="<@ofbizUrl>setShipping?createNewShipGroup=Y</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateShipGroup}</a>
           
 
@@ -107,6 +107,38 @@ under the License.
 </#list>
           </td>
         </tr>
+        <#if shipToPartyShippingContactMechList?has_content>
+          <tr><td colspan="4"><hr /></td></tr>
+          <tr><td colspan="4">${uiLabelMap.OrderShipToAnotherParty}: <b>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(shipToParty)}</b></td></tr>
+          <tr><td colspan="4"><hr /></td></tr>
+          <#list shipToPartyShippingContactMechList as shippingContactMech>
+            <#assign shippingAddress = shippingContactMech.getRelatedOne("PostalAddress", false)>
+            <tr>
+              <td valign="top" nowrap="nowrap">
+                <input type="radio" name="${shipGroupIndex?default("0")}_shipping_contact_mech_id" value="${shippingAddress.contactMechId}"/>
+              </td>
+              <td nowrap="nowrap">&nbsp;&nbsp;&nbsp;&nbsp;</td>
+              <td valign="top" width="100%" nowrap="nowrap">
+                <div>
+                  <#if shippingAddress.toName?has_content><b>${uiLabelMap.CommonTo}:</b>&nbsp;${shippingAddress.toName}<br /></#if>
+                  <#if shippingAddress.attnName?has_content><b>${uiLabelMap.CommonAttn}:</b>&nbsp;${shippingAddress.attnName}<br /></#if>
+                  <#if shippingAddress.address1?has_content>${shippingAddress.address1}<br /></#if>
+                  <#if shippingAddress.address2?has_content>${shippingAddress.address2}<br /></#if>
+                  <#if shippingAddress.city?has_content>${shippingAddress.city}</#if>
+                  <#if shippingAddress.stateProvinceGeoId?has_content><br />${shippingAddress.stateProvinceGeoId}</#if>
+                  <#if shippingAddress.postalCode?has_content><br />${shippingAddress.postalCode}</#if>
+                  <#if shippingAddress.countryGeoId?has_content><br />${shippingAddress.countryGeoId}</#if>
+                </div>
+              </td>
+              <td>
+                <div><a href="/partymgr/control/editcontactmech?partyId=${orderParty.partyId}&amp;contactMechId=${shippingContactMech.contactMechId}" target="_blank" class="buttontext">${uiLabelMap.CommonUpdate}</a></div>
+              </td>
+            </tr>
+            <#if shippingContactMech_has_next>
+              <tr><td colspan="4"><hr /></td></tr>
+            </#if>
+          </#list>
+        </#if>
       </table>
             </form>
 
