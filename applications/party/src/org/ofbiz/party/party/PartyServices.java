@@ -223,12 +223,13 @@ public class PartyServices {
         try {
             GenericValue party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
 
-            if (party.get("statusId") == null) { // old records
-                party.set("statusId", "PARTY_ENABLED");
-            }
-
             String oldStatusId = party.getString("statusId");
-            if (!party.getString("statusId").equals(statusId)) {
+            if (!statusId.equals(oldStatusId)) {
+
+                if (oldStatusId == null) { // old records
+                    party.set("statusId", "PARTY_ENABLED");
+                    oldStatusId = party.getString("statusId");
+                } else {
 
                 // check that status is defined as a valid change
                 GenericValue statusValidChange = delegator.findOne("StatusValidChange", UtilMisc.toMap("statusId", party.getString("statusId"), "statusIdTo", statusId), false);
@@ -242,6 +243,7 @@ public class PartyServices {
                 }
 
                 party.set("statusId", statusId);
+                }
                 party.store();
 
                 // record this status change in PartyStatus table
