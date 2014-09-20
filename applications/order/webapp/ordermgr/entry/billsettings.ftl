@@ -489,9 +489,9 @@ function makeExpDate() {
 
           <form method="post" action="<@ofbizUrl>finalizeOrder</@ofbizUrl>" name="checkoutsetupform" id="checkoutsetupform">
             <input type="hidden" name="finalizeMode" value="payment"/>
-            <input type="hidden" name="createNew" value="Y"/>
+            <input type="hidden" name="createNew" value="${(requestParameters.createNew)!}"/>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
-              <#if !requestParameters.createNew??>
+              <#if "Y" != requestParameters.createNew?default("")>
               <tr>
                 <td width='1%' nowrap="nowrap"><input type="radio" name="paymentMethodTypeAndId" value="EXT_OFFLINE" <#if checkOutPaymentId?? && checkOutPaymentId == "EXT_OFFLINE">checked="checked"</#if> onchange="setCheckoutPaymentId(this.value)" onclick="setCheckoutPaymentId(this.value)"/></td>
                 <td width='50%' nowrap="nowrap"><div>${uiLabelMap.OrderPaymentOfflineCheckMoney}</div></td>
