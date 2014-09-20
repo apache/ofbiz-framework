@@ -31,7 +31,7 @@ under the License.
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <include-menu name="cms" location="component://lucene/widget/LuceneMenus.xml"/>
@@ -41,13 +41,13 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="UPDATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
                                 <decorator-section-include name="body"/>
                             </widgets>
                             <fail-widgets>
-                                <label style="h3">${uiLabelMap.ContentUpdatePermissionError}</label>
+                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
                             </fail-widgets>
                         </section>
                     </decorator-section>
