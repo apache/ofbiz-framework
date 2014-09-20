@@ -25,7 +25,7 @@ under the License.
         <auto-fields-entity entity-name="Budget" default-field-type="hidden"/>
         <field name="budgetId" title="${uiLabelMap.HumanResBudgetID}"><text-find/></field>
         <field name="budgetTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="budgetTypeId" entity-name="BudgetType"></entity-options>
             </drop-down>
         </field>
@@ -54,7 +54,7 @@ under the License.
         <auto-fields-entity entity-name="BudgetItem" default-field-type="hidden"/>
         <field name="budgetItemSeqId" title="${uiLabelMap.HumanResBudgetItemSeqId}"><text-find/></field>
         <field name="budgetItemTypeId">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="budgetItemTypeId" entity-name="BudgetItemType"></entity-options>
             </drop-down>
         </field>
