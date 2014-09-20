@@ -38,6 +38,8 @@ under the License.
       <tr><td>&nbsp;</td></tr>
     </table>
     <div align ='right'>
+      <span class="label">${uiLabelMap.FacilityGroupFirst}</span>
+      <input type="text" size="4" name="maxNumberOfOrders" value="50"/>
       <input type="submit" value="Submit" class="buttontext" align='right'/>
     </div>
   </form>

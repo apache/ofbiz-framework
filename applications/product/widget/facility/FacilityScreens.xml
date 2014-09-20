@@ -1150,6 +1150,7 @@ under the License.
                 <set field="groupByShippingMethod" from-field="parameters.groupByShippingMethod"/>
                 <set field="groupByWarehouseArea" from-field="parameters.groupByWarehouseArea"/>
                 <set field="groupByNoOfOrderItems" from-field="parameters.groupByNoOfOrderItems"/>
+                <set field="maxNumberOfOrders" from-field="parameters.maxNumberOfOrders" default-value="50"/>
                 <service service-name="findOrdersToPickMove">
                     <field-map field-name="facilityId"/>
                     <field-map field-name="groupByShippingMethod"/>
