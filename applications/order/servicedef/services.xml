@@ -256,6 +256,7 @@ under the License.
             location="org.ofbiz.order.order.OrderServices" invoke="recalcOrderTax">
         <description>Adjust the order tax amount</description>
         <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="changeOrderStatus" engine="java" auth="true"

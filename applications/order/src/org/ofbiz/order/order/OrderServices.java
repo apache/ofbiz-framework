@@ -1542,6 +1542,7 @@ public class OrderServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
@@ -1725,7 +1726,11 @@ public class OrderServices {
                 Map<String, Object> createOrderAdjContext = new HashMap<String, Object>();
                 createOrderAdjContext.put("orderAdjustmentTypeId", "SALES_TAX");
                 createOrderAdjContext.put("orderId", orderId);
-                createOrderAdjContext.put("orderItemSeqId", "_NA_");
+                if (UtilValidate.isNotEmpty(orderItemSeqId)) {
+                    createOrderAdjContext.put("orderItemSeqId", orderItemSeqId);
+                } else {
+                	createOrderAdjContext.put("orderItemSeqId", "_NA_");
+                }
                 createOrderAdjContext.put("shipGroupSeqId", "_NA_");
                 createOrderAdjContext.put("description", "Tax adjustment due to order change");
                 createOrderAdjContext.put("amount", orderTaxDifference);
