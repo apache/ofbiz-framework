@@ -274,29 +274,13 @@ under the License.
           <include name="*.patch"/>
         </fileset>
       </concat>
-      <condition property="isWindows">
-        <os family="windows"/>
-      </condition>
       <if>
         <available file="${basedir}/runtime/patches/dev.patch"/>
         <then>
-          <if>
-            <isset property="isWindows"/>
-            <then>
-              <echo message="Windows todos"/>
-              <exec executable="${basedir}/tools/todos.exe" dir="${basedir}/runtime/patches/">
-                <arg value="${basedir}/runtime/patches/dev.patch"/>
-              </exec>
-              <echo message="Windows patch"/>
-              <exec executable="${basedir}/tools/patch.exe" dir="${basedir}">
-                <arg value="-p0"/>
-                <arg value="-i${basedir}\runtime\patches\dev.patch"/>
-              </exec>
-            </then>
-            <else>
-              <patch strip="0" patchfile="${basedir}/runtime/patches/dev.patch" dir="${basedir}"/>
-            </else>
-          </if>
+          <exec executable="svn" dir="${basedir}">
+            <arg value="patch"/>
+            <arg value="${basedir}\runtime\patches\dev.patch"/>
+          </exec>
           <delete>
             <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
           </delete>
