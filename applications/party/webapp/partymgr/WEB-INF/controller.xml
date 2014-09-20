@@ -565,7 +565,7 @@ under the License.
     <request-map uri="createPartyRelationship">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyRelationship"/>
-        <response name="success" type="view-last" value="EditPartyRelationships"/>
+        <response name="success" type="view" value="EditPartyRelationships"/>
         <response name="error" type="view" value="EditPartyRelationships"/>
     </request-map>
     <request-map uri="createPartyRelationshipAndRole">
