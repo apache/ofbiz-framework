@@ -158,12 +158,13 @@ public class PaymentWorker {
     public static GenericValue getPaymentAddress(Delegator delegator, String partyId) {
         List<GenericValue> paymentAddresses = null;
         try {
-            paymentAddresses = delegator.findByAnd("PartyContactMechPurpose",
-                UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
-                UtilMisc.toList("-fromDate"), false);
-            paymentAddresses = EntityUtil.filterByDate(paymentAddresses);
+            paymentAddresses = delegator.findByAnd("PartyContactWithPurpose",
+                    UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
+                    UtilMisc.toList("-fromDate"), false);
+            paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "contactFromDate", "contactThruDate", true);
+            paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "purposeFromDate", "purposeThruDate", true);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting PartyContactMechPurpose entity list", module);
+            Debug.logError(e, "Trouble getting PartyContactWithPurpose view entity list", module);
         }
 
         // get the address for the primary contact mech
