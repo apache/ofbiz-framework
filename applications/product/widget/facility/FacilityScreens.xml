@@ -1247,6 +1247,8 @@ under the License.
                 <set field="tabButtonItem" value="PicklistManage"/>
 
                 <set field="facilityId" from-field="parameters.facilityId"/>
+                <set field="viewIndex" from-field="parameters.viewIndex" default-value="0"/>
+                <set field="viewSize" from-field="parameters.viewSize" default-value="10"/>
                 <service service-name="getPicklistDisplayInfo">
                     <field-map field-name="facilityId"/>
                 </service>
