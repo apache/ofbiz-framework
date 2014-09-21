@@ -52,7 +52,6 @@ import org.apache.catalina.filters.RequestDumperFilter;
 import org.apache.catalina.ha.tcp.ReplicationValve;
 import org.apache.catalina.ha.tcp.SimpleTcpCluster;
 import org.apache.catalina.loader.WebappLoader;
-import org.apache.catalina.realm.MemoryRealm;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.tribes.group.GroupChannel;
@@ -185,9 +184,6 @@ public class CatalinaContainer implements Container {
         System.setProperty("catalina.useNaming", String.valueOf(useNaming));
         tomcat = new Tomcat();
         tomcat.setBaseDir(System.getProperty("ofbiz.home"));
-        if (useNaming) {
-            tomcat.enableNaming();
-        }
 
         // https://tomcat.apache.org/tomcat-7.0-doc/config/listeners.html#JRE_Memory_Leak_Prevention_Listener_-_org.apache.catalina.core.JreMemoryLeakPreventionListener
         // <<The JRE Memory Leak Prevention Listener provides work-arounds for known places where the Java Runtime environment uses
@@ -202,6 +198,9 @@ public class CatalinaContainer implements Container {
 
         // configure JNDI in the StandardServer
         StandardServer server = (StandardServer) tomcat.getServer();
+        if (useNaming) {
+            tomcat.enableNaming();
+        }
         try {
             server.setGlobalNamingContext(new InitialContext());
         } catch (NamingException e) {
@@ -260,6 +259,7 @@ public class CatalinaContainer implements Container {
         String engineName = engineConfig.name;
         String hostName = defaultHostProp.value;
 
+        tomcat.setHostname(hostName);
         Engine engine = tomcat.getEngine();
         engine.setName(engineName);
 
@@ -269,16 +269,9 @@ public class CatalinaContainer implements Container {
             engine.setJvmRoute(jvmRoute);
         }
 
-        // create the default realm -- TODO: make this configurable
-        String dbConfigPath = new File(System.getProperty("catalina.home"), "catalina-users.xml").getAbsolutePath();
-        MemoryRealm realm = new MemoryRealm();
-        realm.setPathname(dbConfigPath);
-        engine.setRealm(realm);
-
         // create a default virtual host; others will be created as needed
-        Host host = createHost(engine, hostName);
-        engine.addChild(host);
-        engine.setDefaultHost(hostName);
+        Host host = tomcat.getHost();
+        configureHost(host);
 
         // configure clustering
         List<ContainerConfig.Container.Property> clusterProps = engineConfig.getPropertiesWithValue("cluster");
@@ -346,23 +339,18 @@ public class CatalinaContainer implements Container {
         return engine;
     }
 
-    private Host createHost(Engine engine, String hostName) throws ContainerException {
-        Debug.logInfo("Adding Host " + hostName + " to " + engine, module);
-        if (tomcat == null) {
-            throw new ContainerException("Cannot create Host without Tomcat instance!");
-        }
-
+    private static Host createHost(String hostName) {
         Host host = new StandardHost();
-        host.setAppBase(CATALINA_HOSTS_HOME);
         host.setName(hostName);
+        configureHost(host);
+        return host;
+    }
+    private static void configureHost(Host host) {
+        host.setAppBase(CATALINA_HOSTS_HOME);
         host.setDeployOnStartup(false);
         host.setBackgroundProcessorDelay(5);
         host.setAutoDeploy(false);
-        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP)
-                , "work" + File.separator + engine.getName() + File.separator + host.getName()).getAbsolutePath());
-        host.setParent(engine);
-
-        return host;
+        ((StandardHost)host).setWorkDir(new File(System.getProperty(Globals.CATALINA_HOME_PROP), "work" + File.separator + host.getName()).getAbsolutePath());
     }
 
     protected Cluster createCluster(ContainerConfig.Container.Property clusterProps, Host host) throws ContainerException {
@@ -500,14 +488,13 @@ public class CatalinaContainer implements Container {
             if (childContainer instanceof Host) {
                 host = (Host)childContainer;
             } else {
-                host = createHost(engine, hostName);
+                host = createHost(hostName);
                 engine.addChild(host);
             }
             while (vhi.hasNext()) {
                 host.addAlias(vhi.next());
             }
         }
-
         return new Callable<Context>() {
             public Context call() throws ContainerException, LifecycleException {
                 StandardContext context = configureContext(engine, host, appInfo);
