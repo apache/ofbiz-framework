@@ -160,7 +160,7 @@ public class PaymentWorker {
         try {
             paymentAddresses = delegator.findByAnd("PartyContactWithPurpose",
                     UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
-                    UtilMisc.toList("-fromDate"), false);
+                    UtilMisc.toList("-purposeFromDate"), false);
             paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "contactFromDate", "contactThruDate", true);
             paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "purposeFromDate", "purposeThruDate", true);
         } catch (GenericEntityException e) {
