@@ -266,7 +266,7 @@ under the License.
   
 
     <target name="build-dev" 
-      description="Patch sources in a dev environment if patch files are present in runtime/patches.">
+      description="Patch sources in a dev environment if patch files are present in runtime/patches. Needs a Subversion client installed">
       <!-- patch task can't handle a fileset => create a global patch -->
       <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
         <fileset dir="${basedir}/runtime/patches" casesensitive="no">
