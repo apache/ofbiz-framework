@@ -460,7 +460,12 @@ public class CatalinaContainer implements Container {
                     continue;
                 }
                 if (IntrospectionUtils.setProperty(connector, prop.name, prop.value)) {
-                    Debug.logInfo("Tomcat " + connector + ": set " + prop.name + "=" + prop.value, module);
+                    if (prop.name.indexOf("Pass") != -1) {
+                        // this property may be a password, do not include its value in the logs
+                        Debug.logInfo("Tomcat " + connector + ": set " + prop.name, module);
+                    } else {
+                        Debug.logInfo("Tomcat " + connector + ": set " + prop.name + "=" + prop.value, module);
+                    }
                 } else {
                     Debug.logWarning("Tomcat " + connector + ": ignored parameter " + prop.name, module);
                 }

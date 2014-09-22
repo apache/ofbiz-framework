@@ -144,8 +144,9 @@ under the License.
             <property name="clientAuth" value="false"/>
             -->
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
-            <property name="keystorePass" value="changeit"/>
             <property name="keystoreType" value="JKS"/>
+            <property name="keyAlias" value="ofbiz"/>
+            <property name="keyPass" value="changeit"/>
             <property name="sslProtocol" value="TLS"/>
             <property name="ciphers" value=""/>
         </property>
