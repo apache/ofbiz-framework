@@ -31,12 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Future;
 
-import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -78,7 +74,6 @@ public class GenericDAO {
     private final GenericHelperInfo helperInfo;
     private final ModelFieldTypeReader modelFieldTypeReader;
     private final Datasource datasource;
-    private final ExecutorService executor;
 
     public static GenericDAO getGenericDAO(GenericHelperInfo helperInfo) {
         String cacheKey = helperInfo.getHelperFullName();
@@ -94,11 +89,6 @@ public class GenericDAO {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
         this.datasource = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
-        this.executor = ExecutionPool.getScheduledExecutor(GENERIC_DAO_THREAD_GROUP, "OFBiz-entity-datasource(" + helperInfo.getHelperFullName() + ")", datasource.getMaxWorkerPoolSize(), false);
-    }
-
-    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
-        return this.executor.submit(callable);
     }
 
     private void addFieldIfMissing(List<ModelField> fieldsToSave, String fieldName, ModelEntity modelEntity) {
@@ -1228,13 +1218,13 @@ public class GenericDAO {
     /* ====================================================================== */
 
     public void checkDb(Map<String, ModelEntity> modelEntities, List<String> messages, boolean addMissing) {
-        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
+        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
         dbUtil.checkDb(modelEntities, messages, addMissing);
     }
 
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
-        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo, this.executor);
+        DatabaseUtil dbUtil = new DatabaseUtil(this.helperInfo);
         return dbUtil.induceModelFromDb(messages);
     }
 }

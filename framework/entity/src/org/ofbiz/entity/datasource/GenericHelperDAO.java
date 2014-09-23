@@ -57,10 +57,6 @@ public class GenericHelperDAO implements GenericHelper {
         return this.helperInfo.getHelperFullName();
     }
 
-    public <T> Future<T> submitWork(Callable<T> callable) throws GenericEntityException {
-        return genericDAO.submitWork(callable);
-    }
-
     /** Creates a Entity in the form of a GenericValue and write it to the database
      *@return GenericValue instance containing the new instance
      */

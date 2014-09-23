@@ -411,7 +411,6 @@ under the License.
         <xs:attribute type="xs:string" name="table-type"/>
         <xs:attribute type="xs:string" name="character-set"/>
         <xs:attribute type="xs:string" name="collate"/>
-        <xs:attribute type="xs:integer" name="max-worker-pool-size" default="0"/>
     </xs:attributeGroup>
     <xs:element name="sql-load-path">
         <xs:complexType>

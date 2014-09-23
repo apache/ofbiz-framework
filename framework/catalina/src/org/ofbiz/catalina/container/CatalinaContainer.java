@@ -616,7 +616,7 @@ public class CatalinaContainer implements Container {
             return;
         }
 
-        ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(CATALINA_THREAD_GROUP, "catalina-startup", -1, true);
+        ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(CATALINA_THREAD_GROUP, "catalina-startup", Runtime.getRuntime().availableProcessors(), 0, true);
         try {
             List<Future<Context>> futures = new ArrayList<Future<Context>>();
 

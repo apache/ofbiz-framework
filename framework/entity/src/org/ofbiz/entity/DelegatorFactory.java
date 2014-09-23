@@ -36,7 +36,7 @@ public abstract class DelegatorFactory implements Factory<Delegator, String> {
     public static final String module = DelegatorFactoryImpl.class.getName();
     private static final ConcurrentHashMap<String, Future<Delegator>> delegators = new ConcurrentHashMap<String, Future<Delegator>>();
     private static final ThreadGroup DELEGATOR_THREAD_GROUP = new ThreadGroup("DelegatorFactory");
-    private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", -1, 10, true);
+    private static final ScheduledExecutorService executor = ExecutionPool.getScheduledExecutor(DELEGATOR_THREAD_GROUP, "delegator-startup", Runtime.getRuntime().availableProcessors(), 10, true);
 
     public static Delegator getDelegator(String delegatorName) {
         Future<Delegator> future = getDelegatorFuture(delegatorName);
