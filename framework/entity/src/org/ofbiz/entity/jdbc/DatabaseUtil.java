@@ -40,6 +40,7 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
@@ -47,7 +48,6 @@ import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.model.EntityConfig;
@@ -62,8 +62,6 @@ import org.ofbiz.entity.model.ModelRelation;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
 /**
  * Utilities for Entity Database Maintenance
@@ -85,18 +83,12 @@ public class DatabaseUtil {
     protected String password = null;
 
     boolean isLegacy = false;
-    protected ExecutorService executor;
 
     // OFBiz DatabaseUtil
     public DatabaseUtil(GenericHelperInfo helperInfo) {
-        this(helperInfo, null);
-    }
-
-    public DatabaseUtil(GenericHelperInfo helperInfo, ExecutorService executor) {
         this.helperInfo = helperInfo;
         this.modelFieldTypeReader = ModelFieldTypeReader.getModelFieldTypeReader(helperInfo.getHelperBaseName());
         this.datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
-        this.executor = executor;
     }
 
     // Legacy DatabaseUtil
@@ -106,31 +98,6 @@ public class DatabaseUtil {
         this.userName = userName;
         this.password = password;
         this.isLegacy = true;
-    }
-
-    protected <T> Future<T> submitWork(Callable<T> callable) {
-        if (this.executor == null) {
-            FutureTask<T> task = new FutureTask<T>(callable);
-            task.run();
-            return task;
-        }
-        return this.executor.submit(callable);
-    }
-
-    protected <T> List<Future<T>> submitAll(Collection<? extends Callable<T>> tasks) {
-        List<Future<T>> futures = new ArrayList<Future<T>>(tasks.size());
-        if (this.executor == null) {
-            for (Callable<T> callable: tasks) {
-                FutureTask<T> task = new FutureTask<T>(callable);
-                task.run();
-                futures.add(task);
-            }
-            return futures;
-        }
-        for (Callable<T> callable: tasks) {
-            futures.add(this.executor.submit(callable));
-        }
-        return futures;
     }
 
     protected Connection getConnection() throws SQLException, GenericEntityException {
@@ -216,6 +183,9 @@ public class DatabaseUtil {
         if (isLegacy) {
             throw new RuntimeException("Cannot run checkDb on a legacy database connection; configure a database helper (entityengine.xml)");
         }
+
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
         UtilTimer timer = new UtilTimer();
         timer.timerString("Start - Before Get Database Meta Data");
 
@@ -233,7 +203,7 @@ public class DatabaseUtil {
         timer.timerString("After Get All Table Names");
 
         // get ALL column info, put into hashmap by table name
-        Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, checkPks, messages);
+        Map<String, Map<String, ColumnCheckInfo>> colInfo = getColumnInfo(tableNames, checkPks, messages, executor);
         if (colInfo == null) {
             String message = "Could not get column information from the database, aborting.";
             if (messages != null) messages.add(message);
@@ -455,7 +425,7 @@ public class DatabaseUtil {
 
                 if (addMissing) {
                     // create the table
-                    tableFutures.add(submitWork(new CreateTableCallable(entity, modelEntities, tableName)));
+                    tableFutures.add(executor.submit(new CreateTableCallable(entity, modelEntities, tableName)));
                 }
             }
         }
@@ -478,7 +448,7 @@ public class DatabaseUtil {
             List<Future<AbstractCountingCallable>> fkIndicesFutures = new LinkedList<Future<AbstractCountingCallable>>();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getRelationsOneSize() > 0) {
-                    fkIndicesFutures.add(submitWork(new AbstractCountingCallable(curEntity, modelEntities) {
+                    fkIndicesFutures.add(executor.submit(new AbstractCountingCallable(curEntity, modelEntities) {
                         public AbstractCountingCallable call() throws Exception {
                             count = createForeignKeyIndices(entity, datasourceInfo.getConstraintNameClipLength(), messages);
                             return this;
@@ -507,7 +477,7 @@ public class DatabaseUtil {
             List<Future<AbstractCountingCallable>> disFutures = new LinkedList<Future<AbstractCountingCallable>>();
             for (ModelEntity curEntity: entitiesAdded) {
                 if (curEntity.getIndexesSize() > 0) {
-                    disFutures.add(submitWork(new AbstractCountingCallable(curEntity,  modelEntities) {
+                    disFutures.add(executor.submit(new AbstractCountingCallable(curEntity,  modelEntities) {
                     public AbstractCountingCallable call() throws Exception {
                         count = createDeclaredIndices(entity, messages);
                         return this;
@@ -755,17 +725,19 @@ public class DatabaseUtil {
 
         }
 
-
+        executor.shutdown();
         timer.timerString("Finished Checking Entity Database");
     }
 
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
+        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
         // get ALL tables from this database
         TreeSet<String> tableNames = this.getTableNames(messages);
 
         // get ALL column info, put into hashmap by table name
-        Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, true, messages);
+        Map<String, Map<String, ColumnCheckInfo>> colInfo = getColumnInfo(tableNames, true, messages, executor);
 
         // go through each table and make a ModelEntity object, add to list
         // for each entity make corresponding ModelField objects
@@ -789,64 +761,8 @@ public class DatabaseUtil {
             newEntList.add(newEntity);
         }
 
+        executor.shutdown();
         return newEntList;
-    }
-
-    public Document induceModelFromDb(String packageName) {
-        Document document = UtilXml.makeEmptyXmlDocument("entitymodel");
-        Element root = document.getDocumentElement();
-        root.appendChild(document.createElement("title"));
-        root.appendChild(document.createElement("description"));
-        root.appendChild(document.createElement("copyright"));
-        root.appendChild(document.createElement("author"));
-        root.appendChild(document.createElement("version"));
-
-        // messages list
-        List<String> messages = new ArrayList<String>();
-
-        // get ALL tables from this database
-        TreeSet<String> tableNames = this.getTableNames(messages);
-
-        // get ALL column info, put into hashmap by table name
-        Map<String, Map<String, ColumnCheckInfo>> colInfo = this.getColumnInfo(tableNames, true, messages);
-
-        boolean isCaseSensitive = false;
-        DatabaseMetaData dbData = this.getDatabaseMetaData(null, messages);
-        if (dbData != null) {
-            try {
-                isCaseSensitive = dbData.supportsMixedCaseIdentifiers();
-            } catch (SQLException e) {
-                Debug.logError(e, "Error getting db meta data about case sensitive", module);
-            }
-        }
-
-        if (UtilValidate.isNotEmpty(packageName)) {
-            String catalogName = null;
-            try {
-                catalogName = this.getConnection().getCatalog();
-            } catch (Exception e) {
-                // ignore
-            }
-            packageName = "org.ofbiz.ext." + (catalogName != null ? catalogName : "unknown");
-        }
-
-
-        // iterate over the table names is alphabetical order
-        for (String tableName: new TreeSet<String>(colInfo.keySet())) {
-            Map<String, ColumnCheckInfo> colMap = colInfo.get(tableName);
-            ModelEntity newEntity = new ModelEntity(tableName, colMap, modelFieldTypeReader, isCaseSensitive);
-            root.appendChild(newEntity.toXmlElement(document, "org.ofbiz.ext." + packageName));
-        }
-
-        // print the messages to the console
-        for (String message: messages) {
-            Debug.logInfo(message, module);
-        }
-        return document;
-    }
-
-    public Document induceModelFromDb() {
-        return this.induceModelFromDb("");
     }
 
     public DatabaseMetaData getDatabaseMetaData(Connection connection, Collection<String> messages) {
@@ -1129,7 +1045,7 @@ public class DatabaseUtil {
         };
     }
 
-    public Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages) {
+    private Map<String, Map<String, ColumnCheckInfo>> getColumnInfo(Set<String> tableNames, boolean getPks, Collection<String> messages, ExecutorService executor) {
         // if there are no tableNames, don't even try to get the columns
         if (tableNames.size() == 0) {
             return new HashMap<String, Map<String, ColumnCheckInfo>>();
@@ -1261,7 +1177,7 @@ public class DatabaseUtil {
                         List<Future<AbstractCountingCallable>> pkFetcherFutures = new LinkedList<Future<AbstractCountingCallable>>();
                         for (String curTable: tableNames) {
                             curTable = curTable.substring(curTable.indexOf('.') + 1); //cut off schema name
-                            pkFetcherFutures.add(submitWork(createPrimaryKeyFetcher(dbData, lookupSchemaName, needsUpperCase, colInfo, messages, curTable)));
+                            pkFetcherFutures.add(executor.submit(createPrimaryKeyFetcher(dbData, lookupSchemaName, needsUpperCase, colInfo, messages, curTable)));
                         }
                         for (AbstractCountingCallable pkFetcherCallable: ExecutionPool.getAllFutures(pkFetcherFutures)) {
                             pkCount += pkFetcherCallable.updateData(messages);

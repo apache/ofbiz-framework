@@ -44,7 +44,7 @@ public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
     public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
-    private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(autoAdjustThreadCount(-1), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
+    private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors(), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -65,22 +65,8 @@ public final class ExecutionPool {
         }
     }
 
-    private static int autoAdjustThreadCount(int threadCount) {
-        if (threadCount == 0) {
-            return 1;
-        } else if (threadCount < 0) {
-            int numCpus = Runtime.getRuntime().availableProcessors();
-            return Math.abs(threadCount) * numCpus;
-        } else {
-            return threadCount;
-        }
-    }
-
-    public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
-        return getScheduledExecutor(group, namePrefix, threadCount, 0, preStart);
-    }
     public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, long keepAliveSeconds, boolean preStart) {
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(autoAdjustThreadCount(threadCount), new ExecutionPoolThreadFactory(group, namePrefix));
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(threadCount, new ExecutionPoolThreadFactory(group, namePrefix));
         if (keepAliveSeconds > 0) {
             executor.setKeepAliveTime(keepAliveSeconds, TimeUnit.SECONDS);
             executor.allowCoreThreadTimeOut(true);
@@ -114,7 +100,7 @@ public final class ExecutionPool {
     }
 
     static {
-        int numberOfExecutionPoolPulseWorkers = autoAdjustThreadCount(-1);
+        int numberOfExecutionPoolPulseWorkers = Runtime.getRuntime().availableProcessors();
         for (int i = 0; i < numberOfExecutionPoolPulseWorkers; i++) {
             pulseExecutionPool.execute(new ExecutionPoolPulseWorker());
         }
