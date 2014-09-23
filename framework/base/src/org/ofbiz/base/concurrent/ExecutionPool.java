@@ -19,7 +19,6 @@
 package org.ofbiz.base.concurrent;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
@@ -42,14 +41,13 @@ import org.ofbiz.base.util.Debug;
 @SourceMonitored
 public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
-    public static final ExecutorService GLOBAL_BATCH = getPooledExecutor(null, "OFBiz-batch", -1, Integer.MAX_VALUE, false);
-    public static final ScheduledExecutorService GLOBAL_EXECUTOR = getScheduledExecutor(null, "OFBiz-config", -1, false);
-    public static final ForkJoinPool GLOBAL_FORK_JOIN = getForkJoinPool(-1);
+    public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
+    public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
         private final String namePrefix;
-        private int count = 0;
+        private volatile int count = 1;
 
         protected ExecutionPoolThreadFactory(ThreadGroup group, String namePrefix) {
             this.group = group;
@@ -65,11 +63,7 @@ public final class ExecutionPool {
         }
     }
 
-    public static ThreadFactory createThreadFactory(ThreadGroup group, String namePrefix) {
-        return new ExecutionPoolThreadFactory(group, namePrefix);
-    }
-
-    public static int autoAdjustThreadCount(int threadCount) {
+    private static int autoAdjustThreadCount(int threadCount) {
         if (threadCount == 0) {
             return 1;
         } else if (threadCount < 0) {
@@ -80,31 +74,19 @@ public final class ExecutionPool {
         }
     }
 
-    @Deprecated
-    public static ScheduledExecutorService getExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
-        return getScheduledExecutor(group, namePrefix, threadCount, preStart);
-    }
-
     public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, boolean preStart) {
-        ThreadFactory threadFactory = createThreadFactory(group, namePrefix);
-        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(autoAdjustThreadCount(threadCount), threadFactory);
+        return getScheduledExecutor(group, namePrefix, threadCount, 0, preStart);
+    }
+    public static ScheduledExecutorService getScheduledExecutor(ThreadGroup group, String namePrefix, int threadCount, long keepAliveSeconds, boolean preStart) {
+        ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(autoAdjustThreadCount(threadCount), new ExecutionPoolThreadFactory(group, namePrefix));
+        if (keepAliveSeconds > 0) {
+            executor.setKeepAliveTime(keepAliveSeconds, TimeUnit.SECONDS);
+            executor.allowCoreThreadTimeOut(true);
+        }
         if (preStart) {
             executor.prestartAllCoreThreads();
         }
         return executor;
-    }
-
-    public static ExecutorService getPooledExecutor(ThreadGroup group, String namePrefix, int threadCount, int maximumPoolSize, boolean preStart) {
-        ThreadFactory threadFactory = createThreadFactory(group, namePrefix);
-        ThreadPoolExecutor executor = new ThreadPoolExecutor(autoAdjustThreadCount(threadCount), maximumPoolSize, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), threadFactory);
-        if (preStart) {
-            executor.prestartAllCoreThreads();
-        }
-        return executor;
-    }
-
-    public static ForkJoinPool getForkJoinPool(int threadCount) {
-        return new ForkJoinPool(autoAdjustThreadCount(threadCount));
     }
 
     public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {
@@ -127,17 +109,6 @@ public final class ExecutionPool {
 
     public static void removePulse(Pulse pulse) {
         delayQueue.remove(pulse);
-    }
-
-    public static void pulseAll(Class<? extends Pulse> match) {
-        Iterator<Pulse> it = delayQueue.iterator();
-        while (it.hasNext()) {
-            Pulse pulse = it.next();
-            if (match.isInstance(pulse)) {
-                it.remove();
-                pulse.run();
-            }
-        }
     }
 
     static {
