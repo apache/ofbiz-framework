@@ -24,6 +24,7 @@ import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.ScheduledExecutorService;
@@ -43,6 +44,7 @@ public final class ExecutionPool {
     public static final String module = ExecutionPool.class.getName();
     public static final ExecutorService GLOBAL_BATCH = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 5, TimeUnit.SECONDS, new SynchronousQueue<Runnable>(), new ExecutionPoolThreadFactory(null, "OFBiz-batch"));
     public static final ForkJoinPool GLOBAL_FORK_JOIN = new ForkJoinPool();
+    private static final ExecutorService pulseExecutionPool = Executors.newFixedThreadPool(autoAdjustThreadCount(-1), new ExecutionPoolThreadFactory(null, "OFBiz-ExecutionPoolPulseWorker"));
 
     protected static class ExecutionPoolThreadFactory implements ThreadFactory {
         private final ThreadGroup group;
@@ -112,13 +114,9 @@ public final class ExecutionPool {
     }
 
     static {
-        ExecutionPoolPulseWorker worker = new ExecutionPoolPulseWorker();
-        int processorCount = Runtime.getRuntime().availableProcessors();
-        for (int i = 0; i < processorCount; i++) {
-            Thread t = new Thread(worker);
-            t.setDaemon(true);
-            t.setName("OFBiz-ExecutionPoolPulseWorker-" + i);
-            t.start();
+        int numberOfExecutionPoolPulseWorkers = autoAdjustThreadCount(-1);
+        for (int i = 0; i < numberOfExecutionPoolPulseWorkers; i++) {
+            pulseExecutionPool.execute(new ExecutionPoolPulseWorker());
         }
     }
 
