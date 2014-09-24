@@ -373,7 +373,7 @@ public class HttpClient {
                     charset = contentType.substring(charsetEqualsLoc + 1);
                 }
 
-                if (charset != null) charset = charset.trim();
+                if (charset != null) charset = charset.trim().replaceAll("\"", "");
                 if (Debug.verboseOn() || debug) Debug.logVerbose("Getting text from HttpClient with charset: " + charset, module);
             }
 
