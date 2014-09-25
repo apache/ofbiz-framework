@@ -74,11 +74,11 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/> <!-- set to false to improve performance (false is the default value in Tomcat) -->
             <!-- AJP/13 connector attributes -->
             <!-- commented out because the values match the Tomcat defaults:
             <property name="tomcatAuthentication" value="true"/>
             <property name="allowTrace" value="false"/>
+            <property name="enableLookups" value="false"/>
             <property name="maxPostSize" value="2097152"/>
             <property name="noCompressionUserAgents" value=""/>
             <property name="connectionLinger" value="-1"/>
@@ -102,11 +102,11 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/> <!-- set to false to improve performance (false is the default value in Tomcat) -->
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <!-- commented out because the values match the Tomcat defaults:
             <property name="allowTrace" value="false"/>
+            <property name="enableLookups" value="false"/>
             <property name="maxPostSize" value="2097152"/>
             <property name="noCompressionUserAgents" value=""/>
             <property name="connectionLinger" value="-1"/>
@@ -131,7 +131,6 @@ under the License.
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/> <!-- set to false to improve performance (false is the default value in Tomcat) -->
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <!-- SSL connector attributes -->
@@ -178,7 +177,6 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/>
         </property>
         <property name="http-connector" value="connector">
             <property name="port" value="8080"/>
@@ -187,7 +185,6 @@ under the License.
             <property name="secure" value="false"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
         </property>
@@ -199,7 +196,6 @@ under the License.
             <property name="SSLEnabled" value="true"/>
             <property name="URIEncoding" value="UTF-8"/>
             <property name="xpoweredBy" value="true"/>
-            <property name="enableLookups" value="true"/>
             <property name="compression" value="on"/>
             <property name="compressableMimeType" value="text/html,text/xml,text/plain,text/javascript,text/css"/>
             <property name="sslImplementationName" value="org.ofbiz.catalina.container.SSLImpl"/>
