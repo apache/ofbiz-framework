@@ -91,15 +91,6 @@ public class DatabaseUtil {
         this.datasourceInfo = EntityConfig.getDatasource(helperInfo.getHelperBaseName());
     }
 
-    // Legacy DatabaseUtil
-    public DatabaseUtil(String driverName, String connectionUrl, String userName, String password) {
-        this.driverName = driverName;
-        this.connectionUrl = connectionUrl;
-        this.userName = userName;
-        this.password = password;
-        this.isLegacy = true;
-    }
-
     protected Connection getConnection() throws SQLException, GenericEntityException {
         Connection connection = null;
         if (!isLegacy) {
@@ -184,7 +175,7 @@ public class DatabaseUtil {
             throw new RuntimeException("Cannot run checkDb on a legacy database connection; configure a database helper (entityengine.xml)");
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(datasourceInfo.getMaxWorkerPoolSize());
 
         UtilTimer timer = new UtilTimer();
         timer.timerString("Start - Before Get Database Meta Data");
@@ -731,7 +722,7 @@ public class DatabaseUtil {
 
     /** Creates a list of ModelEntity objects based on meta data from the database */
     public List<ModelEntity> induceModelFromDb(Collection<String> messages) {
-        ExecutorService executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+        ExecutorService executor = Executors.newFixedThreadPool(datasourceInfo.getMaxWorkerPoolSize());
 
         // get ALL tables from this database
         TreeSet<String> tableNames = this.getTableNames(messages);

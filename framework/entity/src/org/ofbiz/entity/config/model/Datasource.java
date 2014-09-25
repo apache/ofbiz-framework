@@ -74,6 +74,7 @@ public final class Datasource {
     private final String tableType; // type = xs:string
     private final String characterSet; // type = xs:string
     private final String collate; // type = xs:string
+    private final int maxWorkerPoolSize; // type = xs:integer
     private final List<SqlLoadPath> sqlLoadPathList; // <sql-load-path>
     private final List<ReadData> readDataList; // <read-data>
     private final InlineJdbc inlineJdbc; // <inline-jdbc>
@@ -160,6 +161,22 @@ public final class Datasource {
         this.tableType = element.getAttribute("table-type").intern();
         this.characterSet = element.getAttribute("character-set").intern();
         this.collate = element.getAttribute("collate").intern();
+        String maxWorkerPoolSize = element.getAttribute("max-worker-pool-size").intern();
+        if (maxWorkerPoolSize.isEmpty()) {
+            this.maxWorkerPoolSize = 1;
+        } else {
+            try {
+                int maxWorkerPoolSizeInt = Integer.parseInt(maxWorkerPoolSize);
+                if (maxWorkerPoolSizeInt == 0) {
+                    maxWorkerPoolSizeInt = 1;
+                } else if (maxWorkerPoolSizeInt < 0) {
+                    maxWorkerPoolSizeInt = Math.abs(maxWorkerPoolSizeInt) * Runtime.getRuntime().availableProcessors();
+                }
+                this.maxWorkerPoolSize = maxWorkerPoolSizeInt;
+            } catch (Exception e) {
+                throw new GenericEntityConfException("<datasource> element max-worker-pool-size attribute is invalid" + lineNumberText);
+            }
+        }
         List<? extends Element> sqlLoadPathElementList = UtilXml.childElementList(element, "sql-load-path");
         if (sqlLoadPathElementList.isEmpty()) {
             this.sqlLoadPathList = Collections.emptyList();
@@ -365,6 +382,11 @@ public final class Datasource {
     /** Returns the value of the <code>collate</code> attribute. */
     public String getCollate() {
         return this.collate;
+    }
+
+    /** Returns the value of the <code>max-worker-pool-size</code> attribute. */
+    public int getMaxWorkerPoolSize() {
+        return this.maxWorkerPoolSize;
     }
 
     /** Returns the <code>&lt;sql-load-path&gt;</code> child elements. */
