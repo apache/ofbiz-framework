@@ -780,12 +780,17 @@
         </call-service>
 
         <set-service-fields service-name="createCommContentDataResource" mode="OUT" map="persistOut" to-map="filteredPersistOut"/>
-        <iterate-map key="key" value="val" map="filteredPersistOut">
-            <if-compare field="key" operator="equals" value="responseMessage">
-                <continue/>
-            </if-compare>
-            <field-to-result field="val" result-name="${key}"/>
-        </iterate-map>
+        <field-to-result field="filteredPersistOut.contentId" result-name="contentId"/>
+        <field-to-result field="filteredPersistOut.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="filteredPersistOut.drDataResourceId" result-name="drDataResourceId"/>
+        <field-to-result field="filteredPersistOut.caContentIdTo" result-name="caContentIdTo"/>
+        <field-to-result field="filteredPersistOut.caContentId" result-name="caContentId"/>
+        <field-to-result field="filteredPersistOut.caContentAssocTypeId" result-name="caContentAssocTypeId"/>
+        <field-to-result field="filteredPersistOut.caFromDate" result-name="caFromDate"/>
+        <field-to-result field="filteredPersistOut.caSequenceNum" result-name="caSequenceNum"/>
+        <field-to-result field="filteredPersistOut.roleTypeList" result-name="roleTypeList"/>
+        <field-to-result field="filteredPersistOut.fromDate" result-name="fromDate"/>
+
         <set field="mapIn.contentId"  from-field="persistOut.contentId"/>
         <set field="mapIn.communicationEventId"  from-field="parameters.communicationEventId"/>
         <set field="mapIn.sequenceNum"  from-field="parameters.sequenceNum"/>
@@ -819,12 +824,16 @@
         <call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
         </call-service>
 
-        <iterate-map key="key" value="val" map="persistOut">
-            <if-compare field="key" operator="equals" value="responseMessage">
-                <continue/>
-            </if-compare>
-            <field-to-result field="val" result-name="${key}"/>
-        </iterate-map>
+        <set-service-fields service-name="updateCommContentDataResource" mode="OUT" map="persistOut" to-map="filteredPersistOut"/>
+        <field-to-result field="filteredPersistOut.contentId" result-name="contentId"/>
+        <field-to-result field="filteredPersistOut.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="filteredPersistOut.drDataResourceId" result-name="drDataResourceId"/>
+        <field-to-result field="filteredPersistOut.caContentIdTo" result-name="caContentIdTo"/>
+        <field-to-result field="filteredPersistOut.caContentId" result-name="caContentId"/>
+        <field-to-result field="filteredPersistOut.caContentAssocTypeId" result-name="caContentAssocTypeId"/>
+        <field-to-result field="filteredPersistOut.caFromDate" result-name="caFromDate"/>
+        <field-to-result field="filteredPersistOut.caSequenceNum" result-name="caSequenceNum"/>
+        <field-to-result field="filteredPersistOut.roleTypeList" result-name="roleTypeList"/>
 
     </simple-method>
 
