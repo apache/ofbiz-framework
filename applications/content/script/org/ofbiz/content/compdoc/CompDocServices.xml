@@ -197,17 +197,16 @@ under the License.
             <results-to-map map-name="pResults"/>
         </call-service>
         <!--  put all the result fields in this service's result -->
-        <set-service-fields service-name="persistCompDoc" mode="OUT" map="pResults" to-map="filteredPersistOut"/>
-        <field-to-result field="filteredPersistOut.contentRevisionSeqId" result-name="contentRevisionSeqId"/>
-        <field-to-result field="filteredPersistOut.contentId" result-name="contentId"/>
-        <field-to-result field="filteredPersistOut.dataResourceId" result-name="dataResourceId"/>
-        <field-to-result field="filteredPersistOut.drDataResourceId" result-name="drDataResourceId"/>
-        <field-to-result field="filteredPersistOut.caContentIdTo" result-name="caContentIdTo"/>
-        <field-to-result field="filteredPersistOut.caContentId" result-name="caContentId"/>
-        <field-to-result field="filteredPersistOut.caContentAssocTypeId" result-name="caContentAssocTypeId"/>
-        <field-to-result field="filteredPersistOut.caFromDate" result-name="caFromDate"/>
-        <field-to-result field="filteredPersistOut.caSequenceNum" result-name="caSequenceNum"/>
-        <field-to-result field="filteredPersistOut.roleTypeList" result-name="roleTypeList"/>
+        <field-to-result field="pResults.contentRevisionSeqId" result-name="contentRevisionSeqId"/>
+        <field-to-result field="pResults.contentId" result-name="contentId"/>
+        <field-to-result field="pResults.dataResourceId" result-name="dataResourceId"/>
+        <field-to-result field="pResults.drDataResourceId" result-name="drDataResourceId"/>
+        <field-to-result field="pResults.caContentIdTo" result-name="caContentIdTo"/>
+        <field-to-result field="pResults.caContentId" result-name="caContentId"/>
+        <field-to-result field="pResults.caContentAssocTypeId" result-name="caContentAssocTypeId"/>
+        <field-to-result field="pResults.caFromDate" result-name="caFromDate"/>
+        <field-to-result field="pResults.caSequenceNum" result-name="caSequenceNum"/>
+        <field-to-result field="pResults.roleTypeList" result-name="roleTypeList"/>
 
         <log level="info" message="pResults : ${pResults}"/>
         <if-not-empty field="pResults.contentIdTo">
