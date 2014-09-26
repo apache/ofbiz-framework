@@ -47,8 +47,8 @@ under the License.
         <main-jar/>
         <test-jar>
             <test-selector>
-                <filename name="META-INF/services" negate="true"/>
-                <filename name="META-INF/services/*" negate="true"/>
+                <filename name="META-INF/services"/>
+                <filename name="META-INF/services/*"/>
             </test-selector>
         </test-jar>
     </target>
