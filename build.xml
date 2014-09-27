@@ -221,7 +221,7 @@ under the License.
         <basename property="releasePath" file="${info.entry.url}"/>
         <tstamp>
             <format property="dateTime" pattern="yyyy-MM-dd HH:mm:ss"/>
-        </tstamp>        
+        </tstamp>
         <echo message=" - Release-revision : ${releasePath}-r${info.entry.commit(revision)},  ${uiLabelMap.CommonBuiltOn} ${dateTime}" file="runtime/svninfo.ftl"/>
         <delete file="runtime/svninfo_tmp.xml"/>
         <echo message="Done!"/>
