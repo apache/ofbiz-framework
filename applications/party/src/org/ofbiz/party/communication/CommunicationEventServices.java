@@ -27,6 +27,8 @@ import java.net.URL;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -41,9 +43,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -84,7 +83,7 @@ public class CommunicationEventServices {
         String communicationEventId = (String) context.get("communicationEventId");
 
         Map<String, Object> result = ServiceUtil.returnSuccess();
-        List<Object> errorMessages = FastList.newInstance(); // used to keep a list of all error messages returned from sending emails to contact list
+        List<Object> errorMessages = new LinkedList<Object>(); // used to keep a list of all error messages returned from sending emails to contact list
 
         try {
             // find the communication event and make sure that it is actually an email
@@ -116,7 +115,7 @@ public class CommunicationEventServices {
             }
 
             // prepare the email
-            Map<String, Object> sendMailParams = FastMap.newInstance();
+            Map<String, Object> sendMailParams = new HashMap<String, Object>();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
@@ -129,7 +128,7 @@ public class CommunicationEventServices {
             List <GenericValue> comEventContents = communicationEvent.getRelated("CommEventContentAssoc", null, null, false);
             if (UtilValidate.isNotEmpty(comEventContents)) {
                 isMultiPart = true;
-                List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
+                List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String,? extends Object>>();
                 if (UtilValidate.isNotEmpty(communicationEvent.getString("content"))) {
                     bodyParts.add(UtilMisc.<String, Object>toMap("content", communicationEvent.getString("content"), "type", communicationEvent.getString("contentMimeTypeId")));
                 }
@@ -241,7 +240,7 @@ public class CommunicationEventServices {
 
             } else {
                 // Call the sendEmailToContactList service if there's a contactListId present
-                Map<String, Object> sendEmailToContactListContext = FastMap.newInstance();
+                Map<String, Object> sendEmailToContactListContext = new HashMap<String, Object>();
                 sendEmailToContactListContext.put("contactListId", communicationEvent.getString("contactListId"));
                 sendEmailToContactListContext.put("communicationEventId", communicationEventId);
                 sendEmailToContactListContext.put("userLogin", userLogin);
@@ -273,7 +272,7 @@ public class CommunicationEventServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
-        List<Object> errorMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
         String errorCallingUpdateContactListPartyService = UtilProperties.getMessage(resource, "commeventservices.errorCallingUpdateContactListPartyService", locale);
         String errorCallingSendMailService = UtilProperties.getMessage(resource, "commeventservices.errorCallingSendMailService", locale);
         String errorInSendEmailToContactListService = UtilProperties.getMessage(resource, "commeventservices.errorInSendEmailToContactListService", locale);
@@ -289,7 +288,7 @@ public class CommunicationEventServices {
             GenericValue communicationEvent = delegator.findOne("CommunicationEvent", UtilMisc.toMap("communicationEventId", communicationEventId), false);
             GenericValue contactList = delegator.findOne("ContactList", UtilMisc.toMap("contactListId", contactListId), false);
 
-            Map<String, Object> sendMailParams = FastMap.newInstance();
+            Map<String, Object> sendMailParams = new HashMap<String, Object>();
             sendMailParams.put("sendFrom", communicationEvent.getRelatedOne("FromContactMech", false).getString("infoString"));
             sendMailParams.put("subject", communicationEvent.getString("subject"));
             sendMailParams.put("contentType", communicationEvent.getString("contentMimeTypeId"));
@@ -346,7 +345,6 @@ public class CommunicationEventServices {
 
                     sendMailParams.put("sendTo", emailAddress);
                     sendMailParams.put("partyId", partyId);
-                    
 
                     // if it is a NEWSLETTER then we do not want the outgoing emails stored, so put a communicationEventId in the sendMail context to prevent storeEmailAsCommunicationEvent from running
                     /*
@@ -371,19 +369,19 @@ public class CommunicationEventServices {
                         // There was a successful earlier attempt, so skip this address
                         continue;
                     }
-                    
+
                     // Send e-mail
                     Debug.logInfo("Sending email to contact list [" + contactListId + "] party [" + partyId + "] : " + emailAddress, module);
                     // Make the attempt to send the email to the address
-                    
+
                     Map<String, Object> tmpResult = null;
-                    
+
                     // Retrieve a contact list party status
                     List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"), null, false);
                     GenericValue contactListPartyStatus = EntityUtil.getFirst(contactListPartyStatuses);
                     if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
                         // prepare body parameters
-                        Map<String, Object> bodyParameters = FastMap.newInstance();
+                        Map<String, Object> bodyParameters = new HashMap<String, Object>();
                         bodyParameters.put("contactListId", contactListId);
                         bodyParameters.put("partyId", contactListPartyAndContactMech.getString("partyId"));
                         bodyParameters.put("preferredContactMechId", contactListPartyAndContactMech.getString("preferredContactMechId"));
@@ -409,7 +407,7 @@ public class CommunicationEventServices {
                             }
                         }
                     }
-                    
+
                     // If the e-mail does not be sent then send normal e-mail
                     if (UtilValidate.isEmpty(tmpResult)) {
                         sendMailParams.put("body", communicationEvent.getString("content"));
@@ -576,7 +574,7 @@ public class CommunicationEventServices {
 
         Timestamp now = UtilDateTime.nowTimestamp();
 
-        Map<String, Object> commEventMap = FastMap.newInstance();
+        Map<String, Object> commEventMap = new HashMap<String, Object>();
         commEventMap.put("communicationEventTypeId", "EMAIL_COMMUNICATION");
         commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
         commEventMap.put("contactMechIdFrom", contactMechIdFrom);
@@ -624,7 +622,7 @@ public class CommunicationEventServices {
         String communicationEventId = (String) context.get("communicationEventId");
         MimeMessageWrapper wrapper = (MimeMessageWrapper) context.get("messageWrapper");
 
-        Map<String, Object> commEventMap = FastMap.newInstance();
+        Map<String, Object> commEventMap = new HashMap<String, Object>();
         commEventMap.put("communicationEventId", communicationEventId);
         commEventMap.put("subject", wrapper.getSubject());
         commEventMap.put("statusId", "COM_COMPLETE");
@@ -789,7 +787,7 @@ public class CommunicationEventServices {
             partyIdFrom = (String)result.get("partyId");
             contactMechIdFrom = (String)result.get("contactMechId");
 
-            Map<String, Object> commEventMap = FastMap.newInstance();
+            Map<String, Object> commEventMap = new HashMap<String, Object>();
             commEventMap.put("communicationEventTypeId", "AUTO_EMAIL_COMM");
             commEventMap.put("contactMechTypeId", "EMAIL_ADDRESS");
             commEventMap.put("messageId", messageId);
@@ -983,7 +981,7 @@ public class CommunicationEventServices {
         if (attachmentIndexes.size() > 0) {
             Debug.logInfo("=== message has attachments [" + attachmentIndexes.size() + "] =====", module);
             for (String attachmentIdx : attachmentIndexes) {
-                Map<String, Object> attachmentMap = FastMap.newInstance();
+                Map<String, Object> attachmentMap = new HashMap<String, Object>();
                 attachmentMap.put("communicationEventId", communicationEventId);
                 attachmentMap.put("contentTypeId", "DOCUMENT");
                 attachmentMap.put("mimeTypeId", "text/html");
@@ -1082,7 +1080,7 @@ public class CommunicationEventServices {
         }
 
         if (emailAddress != null) {
-            map = FastMap.newInstance();
+            map = new HashMap<String, Object>();
             map.put("address", emailAddress.getAddress());
             map.put("userLogin", userLogin);
             result = dispatcher.runSync("findPartyFromEmailAddress", map);
@@ -1097,7 +1095,7 @@ public class CommunicationEventServices {
     private static List<Map<String, Object>> buildListOfPartyInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
         Map<String, Object> result = null;
-        List<Map<String, Object>> tempResults = FastList.newInstance();
+        List<Map<String, Object>> tempResults = new LinkedList<Map<String,Object>>();
 
         if (addresses != null) {
             for (Address addr: addresses) {
@@ -1123,7 +1121,7 @@ public class CommunicationEventServices {
     private static List<Map<String, Object>> buildListOfWorkEffortInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
         Map<String, Object> result = null;
-        List<Map<String, Object>> tempResults = FastList.newInstance();
+        List<Map<String, Object>> tempResults = new LinkedList<Map<String,Object>>();
         String caseInsensitiveEmail = org.ofbiz.base.util.UtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N");
 
         if (addresses != null) {
@@ -1132,7 +1130,7 @@ public class CommunicationEventServices {
                     emailAddress = (InternetAddress)addr;
 
                     if (emailAddress != null) {
-                        Map<String, String> inputFields = FastMap.newInstance();
+                        Map<String, String> inputFields = new HashMap<String, String>();
                         inputFields.put("infoString", emailAddress.getAddress());
                         inputFields.put("infoString_ic", caseInsensitiveEmail);
                         result = dispatcher.runSync("performFind", UtilMisc.<String, Object>toMap("entityName", "WorkEffortContactMechView"
@@ -1226,7 +1224,7 @@ public class CommunicationEventServices {
                             GenericValue value = values.get(0);
 
                             // update the communication event status
-                            Map<String, Object> updateCtx = FastMap.newInstance();
+                            Map<String, Object> updateCtx = new HashMap<String, Object>();
                             updateCtx.put("communicationEventId", value.getString("communicationEventId"));
                             updateCtx.put("statusId", "COM_BOUNCED");
                             updateCtx.put("userLogin", context.get("userLogin"));
@@ -1257,7 +1255,7 @@ public class CommunicationEventServices {
                                 // there should be only one; unique key
                                 GenericValue value = values.get(0);
 
-                                Map<String, Object> updateCtx = FastMap.newInstance();
+                                Map<String, Object> updateCtx = new HashMap<String, Object>();
                                 updateCtx.put("communicationEventId", value.getString("communicationEventId"));
                                 updateCtx.put("contactListId", value.getString("contactListId"));
                                 updateCtx.put("contactMechId", value.getString("contactMechId"));
