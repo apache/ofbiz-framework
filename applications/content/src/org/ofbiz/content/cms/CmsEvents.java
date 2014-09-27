@@ -78,9 +78,7 @@ public class CmsEvents {
 
         // is this a default request or called from a defined request mapping
         String targetRequest = (String) request.getAttribute("targetRequestUri");
-        Debug.logInfo("The targetRequest is " +  targetRequest , module);
         String actualRequest = (String) request.getAttribute("thisRequestUri");
-        Debug.logInfo("The actualRequest is " +  actualRequest , module);
 
         if (targetRequest != null) {
             targetRequest = targetRequest.replaceAll("\\W", "");
@@ -105,7 +103,6 @@ public class CmsEvents {
             pathInfo = overrideViewUri;
         } else {
             pathInfo = request.getPathInfo();
-            Debug.logInfo("The pathInfo is " +  actualRequest , module);
             if (targetRequest.equals(actualRequest) && pathInfo != null) {
                 // was called directly -- path info is everything after the request
                 String[] pathParsed = pathInfo.split("/", 3);
@@ -143,7 +140,6 @@ public class CmsEvents {
             if (pathInfo.endsWith("/")) {
                 pathInfo = pathInfo.substring(0, pathInfo.length() - 1);
             }
-            Debug.logInfo("Path INFO for Alias: " + pathInfo, module);
 
             GenericValue pathAlias = null;
             try {
@@ -159,7 +155,6 @@ public class CmsEvents {
                     if (!alias.startsWith("/")) {
                        alias = "/" + alias;
                     }
-                    Debug.logInfo("WebPathAlias is set to " + alias , module);
                     RequestDispatcher rd = request.getRequestDispatcher(request.getServletPath() + alias);
                     try {
                         rd.forward(request, response);
@@ -179,9 +174,6 @@ public class CmsEvents {
             Locale locale = UtilHttp.getLocale(request);
 
             // get the contentId/mapKey from URL
-            
-            // If webpathalias is valid then system will never look for content id or mapKey.
-            
             if (contentId == null) {
                 if (Debug.verboseOn()) Debug.logVerbose("Current PathInfo: " + pathInfo, module);
                 String[] pathSplit = pathInfo.split("/");
