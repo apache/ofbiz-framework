@@ -25,85 +25,57 @@ under the License.
     <version>1.0</version>
 
     <!-- Product Feature Services -->
-    <service name="createProductFeatureCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCategory" auth="true">
+    <service name="createProductFeatureCategory" engine="entity-auto" invoke="create" default-entity-name="ProductFeatureCategory" auth="true">
         <description>Create a ProductFeatureCategory record</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="false"/>
         <attribute name="productFeatureCategoryId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateProductFeatureCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCategory" auth="true">
+    <service name="updateProductFeatureCategory" engine="entity-auto" invoke="update" default-entity-name="ProductFeatureCategory" auth="true">
         <description>Update a ProductFeatureCategory record</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="false"/>
         <attribute name="parentCategoryId" type="String" mode="IN" optional="true"/>
         <attribute name="description" type="String" mode="IN" optional="false"/>
     </service>
 
-    <service name="createProductFeature" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeature" auth="true">
+    <service name="createProductFeature" engine="entity-auto" invoke="create" default-entity-name="ProductFeature" auth="true">
         <description>Create a ProductFeature record</description>
-        <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
-        <attribute name="uomId" type="String" mode="IN" optional="true"/>
-        <attribute name="numberSpecified" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="defaultAmount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="true"/>
+        <auto-attributes include="all" mode="IN" optional="true"/>
         <attribute name="productFeatureId" type="String" mode="OUT" optional="false"/>
-        <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="idCode" type="String" mode="IN" optional="true"/>
-        <attribute name="abbrev" type="String" mode="IN" optional="true"/>
+        <override name="productFeatureTypeId" mode="IN" optional="false"/>
+        <override name="description" mode="IN" optional="false"/>
     </service>
-    <service name="updateProductFeature" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeature" auth="true">
+    <service name="updateProductFeature" engine="entity-auto" invoke="update" default-entity-name="ProductFeature" auth="true">
         <description>Update a ProductFeature record</description>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureCategoryId" type="String" mode="IN" optional="true"/>
-        <attribute name="description" type="String" mode="IN" optional="false"/>
-        <attribute name="uomId" type="String" mode="IN" optional="true"/>
-        <attribute name="numberSpecified" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="defaultAmount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="defaultSequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="idCode" type="String" mode="IN" optional="true"/>
-        <attribute name="abbrev" type="String" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productFeatureTypeId" mode="IN" optional="false"/>
+        <override name="description" mode="IN" optional="false"/>
     </service>
 
-    <service name="applyFeatureToProduct" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProduct" auth="true">
+    <service name="applyFeatureToProduct" engine="entity-auto" invoke="create" default-entity-name="ProductFeatureAppl" auth="true">
         <description>Apply a ProductFeature to a Product; a fromDate can be used
             to specify when the feature will be applied, if no fromDate is specified,
             it will be applied now.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productFeatureApplTypeId" mode="IN" optional="false"/>
+        <override name="fromDate" mode="IN" optional="true"/>
     </service>
-    <service name="updateFeatureToProductApplication" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateFeatureToProductApplication" auth="true">
+    <service name="updateFeatureToProductApplication" engine="entity-auto" invoke="update" default-entity-name="ProductFeatureAppl" auth="true">
         <description>Update a ProductFeature to Product Application</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureApplTypeId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
-        <attribute name="amount" type="BigDecimal" mode="IN" optional="true"/>
-        <attribute name="recurringAmount" type="BigDecimal" mode="IN" optional="true"/>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="productFeatureApplTypeId" mode="IN" optional="false"/>
     </service>
-    <service name="removeFeatureFromProduct" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeFeatureFromProduct" auth="true">
-        <description>Remove a ProductFeature from a Product; a thruDate can be used
-            to specify when the feature will be removed, if no thruDate is specified,
-            it will be removed now.</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
+    <service name="removeFeatureFromProduct" engine="entity-auto" invoke="delete" default-entity-name="ProductFeatureAppl" auth="true">
+        <description>Remove a ProductFeature from a Product</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="applyFeatureToProductFromTypeAndCode" engine="simple"
                 location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="applyFeatureToProductFromTypeAndCode" auth="true">
@@ -118,94 +90,89 @@ under the License.
     </service>
 
     <!-- ProductFeatureCategoryAppl Services -->
-    <service name="createProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCategoryAppl" auth="true">
+    <service name="createProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductFeatureCategory to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCategoryAppl" auth="true">
+    <service name="updateProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureCategory to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureCategoryAppl" auth="true">
+    <service name="removeProductFeatureCategoryAppl" default-entity-name="ProductFeatureCategoryAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureCategory to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ProductFeatureCatGrpAppl Services -->
-    <service name="createProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureCatGrpAppl" auth="true">
+    <service name="createProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductFeatureGroup to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureCatGrpAppl" auth="true">
+    <service name="updateProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureGroup to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureCatGrpAppl" auth="true">
+    <service name="removeProductFeatureCatGrpAppl" default-entity-name="ProductFeatureCatGrpAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureGroup to ProductCategory Application</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- ProductFeatureGroup Services -->
-    <service name="createProductFeatureGroup" engine="simple"
-            location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureGroup" auth="true">
+    <service name="createProductFeatureGroup" default-entity-name="ProductFeatureGroup" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductFeatureGroup</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
         <attribute name="productFeatureGroupId" type="String" mode="OUT" optional="false"/>
     </service>
-    <service name="updateProductFeatureGroup" engine="simple"
-            location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureGroup" auth="true">
+    <service name="updateProductFeatureGroup" default-entity-name="ProductFeatureGroup" engine="entity-auto" invoke="update" auth="true">
         <description>Create a ProductFeatureGroup</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createProductFeatureGroupAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureGroupAppl" auth="true">
+    <service name="createProductFeatureGroupAppl" default-entity-name="ProductFeatureGroupAppl" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductFeatureGroup to ProductFeature Application</description>
-        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" mode="IN" optional="true"/>
     </service>
-    <service name="updateProductFeatureGroupAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureGroupAppl" auth="true">
+    <service name="updateProductFeatureGroupAppl" default-entity-name="ProductFeatureGroupAppl" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureGroup to ProductFeature Application</description>
-        <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
-        <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
-        <attribute name="thruDate" type="java.sql.Timestamp" mode="IN" optional="true"/>
-        <attribute name="sequenceNum" type="Long" mode="IN" optional="true"/>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFeatureGroupAppl" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureGroupAppl" auth="true">
+    <service name="removeProductFeatureGroupAppl" default-entity-name="ProductFeatureGroupAppl" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureGroup to ProductFeature Application</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <attribute name="productFeatureGroupId" type="String" mode="IN" optional="false"/>
         <attribute name="productFeatureId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="java.sql.Timestamp" mode="IN" optional="false"/>
     </service>
     <!-- ProductFeatureIactn Services -->
-    <service name="createProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="simple"
-        location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureIactn" auth="true">
+    <service name="createProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProductFeatureIactn</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productFeatureIactnTypeId" mode="IN" optional="false"/>
     </service>
-    <service name="removeProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="simple"
-        location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureIactn" auth="true">
+    <service name="removeProductFeatureIactn" default-entity-name="ProductFeatureIactn" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureIactn</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- ProductFeatureType Services -->
@@ -216,41 +183,41 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="productFeatureTypeId" mode="IN" optional="true" />
     </service>
-    <service name="updateProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureType" auth="true">
+    <service name="updateProductFeatureType" default-entity-name="ProductFeatureType" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureType</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFeatureType" default-entity-name="ProductFeatureType" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureType" auth="true">
+    <service name="removeProductFeatureType" default-entity-name="ProductFeatureType" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureType</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <!-- ProductFeatureApplAttr  -->
     <service name="createProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
                 location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createProductFeatureApplAttr" auth="true">
         <description>Create a ProductFeatureApplAttr</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateProductFeatureApplAttr" auth="true">
+    <service name="updateProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="entity-auto" invoke="update" auth="true">
         <description>Update a ProductFeatureApplAttr</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="simple"
-                location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="removeProductFeatureApplAttr" auth="true">
+    <service name="removeProductFeatureApplAttr" default-entity-name="ProductFeatureApplAttr" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove a ProductFeatureApplAttr</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
     <!-- Feature Price Service -->
-    <service name="createFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
-        location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="createFeaturePrice" auth="true">
+    <service name="createFeaturePrice" default-entity-name="ProductFeaturePrice" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Feature Price</description>
+        <permission-service service-name="productGenericPermission" main-action="CREATE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
@@ -262,9 +229,9 @@ under the License.
         <override name="fromDate" mode="INOUT" optional="true"/>
         <override name="price" optional="false"/>
     </service>
-    <service name="updateFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
-        location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="updateFeaturePrice" auth="true">
+    <service name="updateFeaturePrice" default-entity-name="ProductFeaturePrice" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Feature Price</description>
+        <permission-service service-name="productGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
@@ -274,9 +241,9 @@ under the License.
         </auto-attributes>
         <override name="price" optional="false"/>
     </service>
-    <service name="deleteFeaturePrice" engine="simple" default-entity-name="ProductFeaturePrice"
-        location="component://product/script/org/ofbiz/product/feature/ProductFeatureServices.xml" invoke="deleteFeaturePrice" auth="true">
+    <service name="deleteFeaturePrice" default-entity-name="ProductFeaturePrice" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Feature Price</description>
+        <permission-service service-name="productGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 </services>
