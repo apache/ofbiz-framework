@@ -26,6 +26,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.base.util.*;
@@ -72,8 +73,9 @@ public class FinAccountProductServices {
         String productId = orderItem.getString("productId");
         GenericValue featureAndAppl;
         try {
-            List<GenericValue> featureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
-                    "productFeatureTypeId", "TYPE", "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
+            List<GenericValue> featureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl")
+                    .where("productId", productId, "productFeatureTypeId", "TYPE", "productFeatureApplTypeId", "STANDARD_FEATURE")
+                    .queryList();
             featureAndAppls = EntityUtil.filterByDate(featureAndAppls);
             featureAndAppl = EntityUtil.getFirst(featureAndAppls);
         } catch (GenericEntityException e) {
@@ -96,7 +98,7 @@ public class FinAccountProductServices {
         // locate the financial account type
         GenericValue finAccountType;
         try {
-            finAccountType = delegator.findOne("FinAccountType", UtilMisc.toMap("finAccountTypeId", finAccountTypeId), false);
+            finAccountType = EntityQuery.use(delegator).from("FinAccountType").where("finAccountTypeId", finAccountTypeId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
