@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
@@ -77,11 +78,11 @@ public class BillingAccountWorker {
         }
         List<String> relatedPartyIdList = UtilGenerics.checkList(agentResult.get("relatedPartyIdList"));
 
-        EntityCondition barFindCond = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
-                EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")), EntityOperator.AND);
-        List<GenericValue> billingAccountRoleList = delegator.findList("BillingAccountRole", barFindCond, null, null, null, false);
-        billingAccountRoleList = EntityUtil.filterByDate(billingAccountRoleList);
+        List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
+                .where(UtilMisc.toList(
+                        EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")))
+                .filterByDate().queryList();
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
@@ -113,13 +114,13 @@ public class BillingAccountWorker {
      * Returns list of orders which are currently open against a billing account
      */
     public static List<GenericValue> getBillingAccountOpenOrders(Delegator delegator, String billingAccountId) throws GenericEntityException {
-        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")),
-                EntityOperator.AND);
-        return delegator.findList("OrderHeader", ecl, null, null, null, false);
+        return EntityQuery.use(delegator).from("OrderHeader")
+                .where(UtilMisc.toList(
+                        EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")))
+                .queryList();
     }
 
     /**
@@ -141,7 +142,7 @@ public class BillingAccountWorker {
     }
 
     public static BigDecimal getBillingAccountAvailableBalance(Delegator delegator, String billingAccountId) throws GenericEntityException {
-        GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
+        GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
         return getBillingAccountAvailableBalance(billingAccount);
     }
 
@@ -157,7 +158,7 @@ public class BillingAccountWorker {
         BigDecimal balance = ZERO;
 
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
+        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId", billingAccountId).queryList();
         for (Iterator<GenericValue> pAi = paymentAppls.iterator(); pAi.hasNext();) {
             GenericValue paymentAppl = pAi.next();
             BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
@@ -196,7 +197,7 @@ public class BillingAccountWorker {
         Map<String, Object> result = ServiceUtil.returnSuccess();
 
         try {
-            GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", billingAccountId), false);
+            GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", billingAccountId).queryOne();
             if (billingAccount == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "AccountingBillingAccountNotFound",

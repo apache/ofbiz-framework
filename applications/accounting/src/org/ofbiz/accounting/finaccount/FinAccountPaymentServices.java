@@ -21,8 +21,6 @@ package org.ofbiz.accounting.finaccount;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -39,10 +37,8 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityFindOptions;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -102,7 +98,7 @@ public class FinAccountPaymentServices {
         GenericValue finAccount;
         if (finAccountId != null) {
             try {
-                finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
+                finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -133,7 +129,7 @@ public class FinAccountPaymentServices {
         try {
             // fin the store requires a pin number; validate the PIN with the code
             Map<String, Object> findProductStoreFinActSettingMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccountTypeId);
-            GenericValue finAccountSettings = delegator.findOne("ProductStoreFinActSetting", findProductStoreFinActSettingMap, true);
+            GenericValue finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(findProductStoreFinActSettingMap).cache().queryOne();
 
             if (finAccountSettings == null) {
                 Debug.logWarning("In finAccountPreAuth could not find ProductStoreFinActSetting record, values searched by: " + findProductStoreFinActSettingMap, module);
@@ -344,7 +340,7 @@ public class FinAccountPaymentServices {
         String finAccountAuthId = authTrans.getString("referenceNum");
         GenericValue finAccountAuth;
         try {
-            finAccountAuth = delegator.findOne("FinAccountAuth", UtilMisc.toMap("finAccountAuthId", finAccountAuthId), false);
+            finAccountAuth = EntityQuery.use(delegator).from("FinAccountAuth").where("finAccountAuthId", finAccountAuthId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -553,7 +549,7 @@ public class FinAccountPaymentServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
+            finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -640,7 +636,7 @@ public class FinAccountPaymentServices {
 
         GenericValue finAccount;
         try {
-            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
+            finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -718,7 +714,7 @@ public class FinAccountPaymentServices {
         // lookup the FinAccount
         GenericValue finAccount;
         try {
-            finAccount = delegator.findOne("FinAccount", UtilMisc.toMap("finAccountId", finAccountId), false);
+            finAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", finAccountId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -757,7 +753,7 @@ public class FinAccountPaymentServices {
         GenericValue finAccountSettings;
         Map<String, Object> psfasFindMap = UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "finAccountTypeId", finAccount.getString("finAccountTypeId"));
         try {
-            finAccountSettings = delegator.findOne("ProductStoreFinActSetting", psfasFindMap, true);
+            finAccountSettings = EntityQuery.use(delegator).from("ProductStoreFinActSetting").where(psfasFindMap).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -833,7 +829,7 @@ public class FinAccountPaymentServices {
 
         GenericValue paymentMethod;
         try {
-            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -904,24 +900,19 @@ public class FinAccountPaymentServices {
     }
 
     private static String getLastProductStoreId(Delegator delegator, String finAccountId) {
-        EntityFindOptions opts = new EntityFindOptions();
-        opts.setMaxRows(1);
-        opts.setFetchSize(1);
-
-        List<EntityExpr> exprs = new ArrayList<EntityExpr>();
-        exprs.add(EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"));
-        exprs.add(EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId));
-        exprs.add(EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null));
-        List<String> orderBy = UtilMisc.toList("-transactionDate");
-
-        List<GenericValue> transList = null;
+        GenericValue trans = null;
         try {
-            transList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, opts, false);
+            trans = EntityQuery.use(delegator).from("FinAccountTrans")
+                    .where(UtilMisc.toList(
+                            EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
+                            EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
+                            EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null)
+                            ))
+                            .orderBy("-transactionDate").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
 
-        GenericValue trans = EntityUtil.getFirst(transList);
         if (trans != null) {
             String orderId = trans.getString("orderId");
             OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
@@ -930,7 +921,7 @@ public class FinAccountPaymentServices {
 
         // none found; pick one from our set stores
         try {
-            GenericValue store = EntityUtil.getFirst(delegator.findList("ProductStore", null, null, UtilMisc.toList("productStoreId"), null, false));
+            GenericValue store = EntityQuery.use(delegator).from("ProductStore").orderBy("productStoreId").queryFirst();
             if (store != null)
                 return store.getString("productStoreId");
         } catch (GenericEntityException e) {

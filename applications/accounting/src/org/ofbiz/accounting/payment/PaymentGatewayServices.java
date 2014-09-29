@@ -52,6 +52,7 @@ import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderChangeHelper;
@@ -128,8 +129,7 @@ public class PaymentGatewayServices {
         GenericValue orderHeader = null;
         GenericValue orderPaymentPreference = null;
         try {
-            orderPaymentPreference = delegator.findOne("OrderPaymentPreference", 
-                    UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+            orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
             orderHeader = orderPaymentPreference.getRelatedOne("OrderHeader", false);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -231,8 +231,7 @@ public class PaymentGatewayServices {
                                     }
 
                                     if (UtilValidate.isNotEmpty(billToPartyId)) {
-                                        otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard",
-                                                UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"), null, false);
+                                        otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard", UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"), null, false);
                                         otherPaymentMethodAndCreditCardList = EntityUtil.filterByDate(otherPaymentMethodAndCreditCardList, true);
                                     }
 
@@ -333,7 +332,7 @@ public class PaymentGatewayServices {
 
         try {
             // get the OrderHeader
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             // get the payments to auth
             Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_AUTH");
@@ -716,8 +715,7 @@ public class PaymentGatewayServices {
         GenericValue paymentPref = null;
         try {
             if (orderPaymentPreferenceId != null) {
-                paymentPref = delegator.findOne("OrderPaymentPreference", 
-                        UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+                paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
                 orderId = paymentPref.getString("orderId");
             }
             else {
@@ -885,7 +883,7 @@ public class PaymentGatewayServices {
         // Get the OrderPaymentPreference
         GenericValue paymentPref = null;
         try {
-            paymentPref = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+            paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + 
                     orderPaymentPreferenceId, module);
@@ -905,7 +903,7 @@ public class PaymentGatewayServices {
         GenericValue orderHeader = null;
         String orderId = paymentPref.getString("orderId");
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problem getting OrderHeader for orderId " + orderId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
@@ -1089,7 +1087,7 @@ public class PaymentGatewayServices {
         // lookup the invoice
         GenericValue invoice = null;
         try {
-            invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
+            invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble looking up Invoice #" + invoiceId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -1181,7 +1179,7 @@ public class PaymentGatewayServices {
         List<GenericValue> paymentPrefsBa = null;
 
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             // get the payment prefs
             Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_AUTHORIZED");
@@ -1507,7 +1505,7 @@ public class PaymentGatewayServices {
 
         try {
             // Note that the partyIdFrom of the Payment should be the partyIdTo of the invoice, since you're receiving a payment from the party you billed
-            GenericValue invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
+            GenericValue invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId).queryOne();
             Map<String, Object> paymentParams = UtilMisc.<String, Object>toMap("paymentTypeId", "CUSTOMER_PAYMENT", "paymentMethodTypeId", "EXT_BILLACT",
                     "partyIdFrom", invoice.getString("partyId"), "partyIdTo", invoice.getString("partyIdFrom"),
                     "statusId", "PMNT_RECEIVED", "effectiveDate", UtilDateTime.nowTimestamp());
@@ -1534,7 +1532,7 @@ public class PaymentGatewayServices {
 
             if (orderId != null && captureAmount.compareTo(BigDecimal.ZERO) > 0) {
                 // Create a paymentGatewayResponse, if necessary
-                GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                 if (order == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "AccountingNoPaymentGatewayResponseCreatedForInvoice", 
@@ -1542,9 +1540,8 @@ public class PaymentGatewayServices {
                                     "orderId", orderId), locale));
                 }
                 // See if there's an orderPaymentPreference - there should be only one OPP for EXT_BILLACT per order
-                List<GenericValue> orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"), null, false);
-                if (orderPaymentPreferences.size() > 0) {
-                    GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
+                GenericValue orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT").queryFirst();
+                if (orderPaymentPreference != null) {
 
                     // Check the productStore setting to see if we need to do this explicitly
                     GenericValue productStore = order.getRelatedOne("ProductStore", false);
@@ -1593,11 +1590,9 @@ public class PaymentGatewayServices {
 
         try {
             // Select all the unapplied payment applications associated to the billing account
-            List<EntityExpr> conditionList = UtilMisc.toList(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                                                  EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, GenericEntity.NULL_FIELD));
-            EntityCondition conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
-
-            List<GenericValue> paymentApplications = delegator.findList("PaymentApplication", conditions, null, UtilMisc.toList("-amountApplied"), null, false);
+            List<GenericValue> paymentApplications = EntityQuery.use(delegator).from("PaymentApplication")
+                    .where("billingAccountId", billingAccountId, "invoiceId", null)
+                    .orderBy("-amountApplied").queryList();
             if (UtilValidate.isNotEmpty(paymentApplications)) {
                 Iterator<GenericValue> paymentApplicationsIt = paymentApplications.iterator();
                 while (paymentApplicationsIt.hasNext()) {
@@ -1909,7 +1904,7 @@ public class PaymentGatewayServices {
 
         try {
             String paymentMethodId = orderPaymentPreference.getString("paymentMethodId");
-            GenericValue paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            GenericValue paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
             GenericValue creditCard = null;
             if (paymentMethod != null && "CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
                 creditCard = paymentMethod.getRelatedOne("CreditCard", false);
@@ -2046,13 +2041,11 @@ public class PaymentGatewayServices {
                     //   and that have resultNsf = Y, ie only consider other NSF responses
                     Long autoOrderCcTryLaterMax = productStore.getLong("autoOrderCcTryLaterMax");
                     if (autoOrderCcTryLaterMax != null) {
-                        long failedTries = delegator.findCountByCondition("PaymentGatewayResponse",
-                                EntityCondition.makeCondition(UtilMisc.toMap(
-                                        "orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"),
-                                        "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
-                                        "resultNsf", "Y"),
-                                    EntityOperator.AND),
-                                null, null);
+                        long failedTries = EntityQuery.use(delegator).from("PaymentGatewayResponse")
+                            .where("orderPaymentPreferenceId", orderPaymentPreference.get("orderPaymentPreferenceId"),
+                                    "paymentMethodId", orderPaymentPreference.get("paymentMethodId"),
+                                    "resultNsf", "Y")
+                            .queryCount();
                         if (failedTries < autoOrderCcTryLaterMax.longValue()) {
                             needsNsfRetry = true;
                         }
@@ -2282,7 +2275,7 @@ public class PaymentGatewayServices {
             GenericValue invoice = null;
             if (invoiceId != null) {
                 try {
-                    invoice = delegator.findOne("Invoice", UtilMisc.toMap("invoiceId", invoiceId), false);
+                    invoice = EntityQuery.use(delegator).from("Invoice").where("invoiceId", invoiceId).queryOne();
                 } catch (GenericEntityException e) {
                     String message = "Failed to process capture result:  Could not find invoice ["+invoiceId+"] due to entity error: " + e.getMessage();
                     Debug.logError(e, message, module);
@@ -2298,14 +2291,13 @@ public class PaymentGatewayServices {
             } else {
                 // otherwise get the party from the order's OrderRole
                 String orderId = paymentPreference.getString("orderId");
-                List<GenericValue> orl = null;
+                GenericValue orderRole = null;
                 try {
-                    orl = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER"), null, false);
+                    orderRole = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "BILL_TO_CUSTOMER").queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                if (UtilValidate.isNotEmpty(orl)) {
-                    GenericValue orderRole = EntityUtil.getFirst(orl);
+                if (orderRole != null) {
                     partyIdFrom = orderRole.getString("partyId");
                 }
             }
@@ -2384,7 +2376,7 @@ public class PaymentGatewayServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue orderPaymentPreference = null;
         try {
-            orderPaymentPreference = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+            orderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -2639,7 +2631,7 @@ public class PaymentGatewayServices {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.toString());
@@ -2706,8 +2698,11 @@ public class PaymentGatewayServices {
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.find("OrderPaymentPreference",
-                    EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, UtilMisc.toList("orderId"), null);
+            eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where(UtilMisc.toList(
+                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
+                            EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0))))
+                    .orderBy("orderId").queryIterator();
             List<String> processList = FastList.newInstance();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
@@ -2756,6 +2751,11 @@ public class PaymentGatewayServices {
             eli = delegator.find("OrderPaymentPreference",
                     EntityCondition.makeCondition(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)),
                     null, null, UtilMisc.toList("orderId"), null);
+            eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where(UtilMisc.toList(
+                            EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
+                            EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)))
+                    .orderBy("orderId").queryIterator();
 
             List<String> processList = FastList.newInstance();
             if (eli != null) {
@@ -3009,7 +3009,7 @@ public class PaymentGatewayServices {
         // check the payment method; verify type
         GenericValue paymentMethod;
         try {
-            paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -3031,7 +3031,7 @@ public class PaymentGatewayServices {
         // get the credit card object
         GenericValue creditCard;
         try {
-            creditCard = delegator.findOne("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+            creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -3146,7 +3146,7 @@ public class PaymentGatewayServices {
         // Get the OrderPaymentPreference
         GenericValue paymentPref = null;
         try {
-            paymentPref = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", orderPaymentPreferenceId), false);
+            paymentPref = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problem getting OrderPaymentPreference for orderPaymentPreferenceId " + 
                     orderPaymentPreferenceId, module);
@@ -3166,7 +3166,7 @@ public class PaymentGatewayServices {
         GenericValue orderHeader = null;
         String orderId = paymentPref.getString("orderId");
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problem getting OrderHeader for orderId " + orderId, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, 
@@ -3733,7 +3733,7 @@ public class PaymentGatewayServices {
         String serviceName = null;
         GenericValue customMethod = null;
         try {
-            customMethod = delegator.findOne("CustomMethod", UtilMisc.toMap("customMethodId", customMethodId), false);
+            customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", customMethodId).queryOne();
             if (UtilValidate.isNotEmpty(customMethod)) {
                 serviceName = customMethod.getString("customMethodName");
             }
