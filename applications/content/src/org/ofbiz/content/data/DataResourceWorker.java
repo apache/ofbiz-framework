@@ -1017,7 +1017,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             }
 
             byte[] bytes = text.getBytes();
-            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Integer.valueOf(bytes.length));
+            return UtilMisc.toMap("stream", new ByteArrayInputStream(bytes), "length", Long.valueOf(bytes.length));
 
         // object (binary) data
         } else if (dataResourceTypeId.endsWith("_OBJECT")) {
