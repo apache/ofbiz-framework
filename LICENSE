@@ -435,7 +435,7 @@ BSD License:
 applications/content/lib/dom4j-1.6.1.jar
 framework/base/lib/antisamy-bin.1.2.jar
 framework/base/lib/bsh-engine-modified.jar
-framework/base/lib/freemarker-2.3.21-rc01.jar
+framework/base/lib/freemarker-2.3.21-rc02.jar
 framework/base/lib/hamcrest-all-1.2.jar
 framework/base/lib/httpunit-1.7.jar
 framework/base/lib/ical4j-1.0-rc2.jar
