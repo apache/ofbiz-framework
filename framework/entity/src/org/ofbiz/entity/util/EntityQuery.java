@@ -31,9 +31,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.DynamicViewEntity;
-import org.ofbiz.entity.util.EntityFindOptions;
-import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.entity.util.EntityUtil;
 
 /**
  * Used to setup various options for and subsequently execute entity queries.
@@ -166,7 +163,7 @@ public class EntityQuery {
      * @param fieldMap - A list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * @return this EntityQuery object, to enable chaining
      */
-    public EntityQuery where(List<EntityCondition> andConditions) {
+    public <T extends EntityCondition> EntityQuery where(List<T> andConditions) {
         this.whereEntityCondition = EntityCondition.makeCondition(andConditions);
         return this;
     }
