@@ -20,92 +20,6 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
-    <simple-method method-name="createProdCatalog" short-description="Create an ProdCatalog">
-        <make-value value-field="newEntity" entity-name="ProdCatalog"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="parameters.prodCatalogId">
-            <sequenced-id sequence-name="ProdCatalog" field="newEntity.prodCatalogId"/>
-        <else>
-            <set field="newEntity.prodCatalogId" from-field="parameters.prodCatalogId"/>
-            <check-id field="newEntity.prodCatalogId"/>
-            <check-errors/>
-        </else>
-        </if-empty>
-        <field-to-result field="newEntity.prodCatalogId" result-name="prodCatalogId"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
-        <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
-        <set-nonpk-fields map="parameters" value-field="prodCatalog"/>
-        <store-value value-field="prodCatalog"/>
-    </simple-method>
-    <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
-        <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
-        <remove-value value-field="prodCatalog"/>
-    </simple-method>
-
-    <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">
-        <!-- Check that the ProductCategory exists -->
-        <entity-one entity-name="ProductCategory" value-field="productCategory"/>
-        <if-empty field="productCategory">
-            <add-error><fail-property resource="ProductUiLabels" property="ProductCategoryNotFoundForCategoryID"/></add-error>
-        </if-empty>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newEntity.fromDate"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductCategoryToProdCatalog" short-description="Remove ContactMech From ProdCatalog">
-
-        <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
-        <set-nonpk-fields map="parameters" value-field="prodCatalogCategory"/>
-        <store-value value-field="prodCatalogCategory"/>
-    </simple-method>
-    <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
-
-        <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
-        <remove-value value-field="prodCatalogCategory"/>
-    </simple-method>
-
-    <!-- Party and Catalog services -->
-    <simple-method method-name="addProdCatalogToParty" short-description="Add ProdCatalog To Party">
-        <make-value value-field="newEntity" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProdCatalogToParty" short-description="Update ProdCatalog To Party">
-        <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">
-        <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <simple-method method-name="getAllCategories" short-description="get All categories" login-required="false">
         <if-not-empty field="parameters.topCategory">
@@ -127,6 +41,7 @@ under the License.
             <log level="info" message="=========${category.productCategoryId}"/>
         </iterate -->
     </simple-method>
+
     <simple-method method-name="getRelatedCategories" short-description="get All Related categories" login-required="false">
         <set value="sequenceNum" field="orderByString"/>
         <field-to-list list="orderByStringList" field="orderByString"/>
@@ -182,6 +97,7 @@ under the License.
         </iterate -->
         <field-to-result result-name="categories" field="categories"/>
     </simple-method>
+
     <simple-method method-name="checkImageUrlForAllCategories" short-description="Check for image url exists or not for All categories" login-required="false">
         <!-- Get all the categories from top category -->
         <set-service-fields to-map="categoryFindContext" service-name="getAllCategories" map="parameters"/>
@@ -401,6 +317,7 @@ under the License.
             <field-to-result field="filesImageMap" result-name="filesImageMap"/>
         </if-not-empty>
     </simple-method>
+
     <simple-method method-name="checkImageUrlForProduct" short-description="Check for image url exists or not for product" login-required="false">
         <if-not-empty field="parameters.productId">
             <set field="productFindContext.productId" from-field="parameters.productId"/>
@@ -466,8 +383,8 @@ under the License.
             <!-- set-service-fields service-name="updateProduct" map-name="product" to-map-name="updateProductContext"/>
             <call-service service-name="updateProduct" in-map-name="updateProductContext" / -->
             </if-not-empty>
-
     </simple-method>
+
     <!-- get file image url and return Y or N -->
     <simple-method method-name="checkImageUrl" short-description="Check for image url exists or not" login-required="false">
         <set field="imageUrl" from-field="parameters.imageUrl"/>
@@ -530,7 +447,7 @@ under the License.
         <entity-and list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="false">
             <field-map field-name="prodCatalogId" from-field="parameters.prodCatalogId"/>
         </entity-and>
-        
+
         <!-- Get all categories -->
         <call-class-method method-name="newInstance" class-name="javolution.util.FastList" ret-field="parameters.productCategories"/>
         <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
@@ -541,9 +458,8 @@ under the License.
             <set field="parameters.parentProductCategoryId" from-field="rootProductCategoryId"/>
             <call-simple-method method-name="createMissingCategoryAltUrlInline"/>
         </iterate>
-        
+
         <iterate entry="productCategoryList" list="parameters.productCategories">
-        
             <!-- Create Product Category Alternative URLs -->
             <if-empty field="category">
                 <entity-condition list="productCategoryContentAndInfoList" entity-name="ProductCategoryContentAndInfo" filter-by-date="true" use-cache="true">
@@ -598,7 +514,7 @@ under the License.
                 </else>
                 </if-empty>
             </if-empty>
-            
+
             <!-- Create Product Alternative URLs -->
             <if-empty field="product">
                 <entity-condition list="productCategoryMemberList" entity-name="ProductCategoryMember" filter-by-date="true" use-cache="true">
@@ -659,6 +575,7 @@ under the License.
         <field-to-result field="categoriesUpdated" result-name="categoriesUpdated"/>
         <field-to-result field="productsUpdated" result-name="productsUpdated"/>
     </simple-method>
+
     <simple-method method-name="createMissingCategoryAltUrlInline" short-description="create missing category alternative inline">
         <entity-and list="productCategoryRollups" entity-name="ProductCategoryRollup" filter-by-date="true">
             <field-map field-name="parentProductCategoryId" from-field="parameters.parentProductCategoryId"/>
@@ -669,7 +586,6 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
             </entity-one>
             <field-to-list list="parameters.productCategories" field="productCategory"/>
-            
             <!-- find rollup product categories -->
             <set field="parameters.parentProductCategoryId" from-field="productCategoryRollup.productCategoryId"/>
             <call-simple-method method-name="createMissingCategoryAltUrlInline"/>
