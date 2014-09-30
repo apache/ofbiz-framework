@@ -624,69 +624,60 @@ under the License.
     <!-- ======================================== -->
     <!-- Product Catalog Services -->
     <!-- ======================================== -->
-    <service name="createProdCatalog" default-entity-name="ProdCatalog" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="createProdCatalog" auth="true">
+    <service name="createProdCatalog" default-entity-name="ProdCatalog" engine="entity-auto" invoke="create" auth="true">
         <description>Create a ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="catalogName" optional="false"/>
     </service>
-    <service name="updateProdCatalog" default-entity-name="ProdCatalog" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="updateProdCatalog" auth="true">
+    <service name="updateProdCatalog" default-entity-name="ProdCatalog" engine="entity-auto" invoke="update" auth="true">
         <description>Update an ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="catalogName" optional="false"/>
     </service>
-    <service name="deleteProdCatalog" default-entity-name="ProdCatalog" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="deleteProdCatalog" auth="true">
+    <service name="deleteProdCatalog" default-entity-name="ProdCatalog" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete an ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="addProductCategoryToProdCatalog" default-entity-name="ProdCatalogCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="addProductCategoryToProdCatalog" auth="true">
+    <service name="addProductCategoryToProdCatalog" default-entity-name="ProdCatalogCategory" engine="entity-auto" invoke="create" auth="true">
         <description>Add ProductCategory To ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProductCategoryToProdCatalog" default-entity-name="ProdCatalogCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="updateProductCategoryToProdCatalog" auth="true">
+    <service name="updateProductCategoryToProdCatalog" default-entity-name="ProdCatalogCategory" engine="entity-auto" invoke="update" auth="true">
         <description>Add ProductCategory To ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="prodCatalogCategoryTypeId" optional="false"/>
     </service>
-    <service name="removeProductCategoryFromProdCatalog" default-entity-name="ProdCatalogCategory" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="removeProductCategoryFromProdCatalog" auth="true">
+    <service name="removeProductCategoryFromProdCatalog" default-entity-name="ProdCatalogCategory" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProductCategory From ProdCatalog</description>
         <permission-service service-name="catalogPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
-    <service name="addProdCatalogToParty" default-entity-name="ProdCatalogRole" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="addProdCatalogToParty" auth="true">
+    <service name="addProdCatalogToParty" default-entity-name="ProdCatalogRole" engine="entity-auto" invoke="create" auth="true">
         <description>Add ProdCatalog To Party</description>
         <permission-service service-name="prodCatalogToPartyPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
     </service>
-    <service name="updateProdCatalogToParty" default-entity-name="ProdCatalogRole" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="updateProdCatalogToParty" auth="true">
+    <service name="updateProdCatalogToParty" default-entity-name="ProdCatalogRole" engine="entity-auto" invoke="update" auth="true">
         <description>Add ProdCatalog To Party</description>
         <permission-service service-name="prodCatalogToPartyPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="removeProdCatalogFromParty" default-entity-name="ProdCatalogRole" engine="simple"
-                location="component://product/script/org/ofbiz/product/catalog/CatalogServices.xml" invoke="removeProdCatalogFromParty" auth="true">
+    <service name="removeProdCatalogFromParty" default-entity-name="ProdCatalogRole" engine="entity-auto" invoke="delete" auth="true">
         <description>Remove ProdCatalog From Party</description>
         <permission-service service-name="prodCatalogToPartyPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
