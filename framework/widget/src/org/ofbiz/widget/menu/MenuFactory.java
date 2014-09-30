@@ -32,8 +32,6 @@ import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -94,24 +92,13 @@ public class MenuFactory {
         return modelMenuMap;
     }
 
-    @Deprecated
-    public static Map<String, ModelMenu> readMenuDocument(Document menuFileDoc, Delegator delegator, LocalDispatcher dispatcher, String menuLocation) {
-        return readMenuDocument(menuFileDoc, menuLocation);
-    }
-
     public static ModelMenu getMenuFromLocation(String resourceName, String menuName) throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(resourceName);
         if (modelMenuMap == null) {
             synchronized (MenuFactory.class) {
                 modelMenuMap = menuLocationCache.get(resourceName);
                 if (modelMenuMap == null) {
-                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                    if (loader == null) {
-                        loader = MenuFactory.class.getClassLoader();
-                    }
-
-                    URL menuFileUrl = null;
-                    menuFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
+                    URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
                     Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
                     modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
                     menuLocationCache.put(resourceName, modelMenuMap);
@@ -129,11 +116,4 @@ public class MenuFactory {
         }
         return modelMenu;
     }
-
-    @Deprecated
-    public static ModelMenu getMenuFromLocation(String resourceName, String menuName, Delegator delegator, LocalDispatcher dispatcher)
-            throws IOException, SAXException, ParserConfigurationException {
-        return getMenuFromLocation(resourceName, menuName);
-    }
-
 }

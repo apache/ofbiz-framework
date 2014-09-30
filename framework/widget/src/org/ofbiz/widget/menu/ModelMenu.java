@@ -24,19 +24,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
 import org.w3c.dom.Element;
-
-import bsh.EvalError;
-import bsh.Interpreter;
 
 /**
  * Widget Library - Menu model class
@@ -209,7 +203,6 @@ public class ModelMenu extends ModelWidget {
             this.defaultCellWidth = menuElement.getAttribute("default-cell-width");
         if (menuElement.hasAttribute("default-hide-if-selected")) {
             String val = menuElement.getAttribute("default-hide-if-selected");
-                //Debug.logInfo("in ModelMenu, hideIfSelected, val:" + val, module);
             if (val != null && val.equalsIgnoreCase("true"))
                 defaultHideIfSelected = Boolean.TRUE;
             else
@@ -250,49 +243,28 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
-    @Deprecated
-    public ModelMenu(Element menuElement, Delegator delegator, LocalDispatcher dispatcher) {
-        this(menuElement);
-    }
     /**
      * add/override modelMenuItem using the menuItemList and menuItemMap
      *
      * @return The same ModelMenuItem, or if merged with an existing item, the existing item.
      */
     public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
-
-            // not a conditional item, see if a named item exists in Map
-            ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
-            if (existingMenuItem != null) {
-                // does exist, update the item by doing a merge/override
-                existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
-                return existingMenuItem;
-            } else {
-                // does not exist, add to List and Map
-                this.menuItemList.add(modelMenuItem);
-                this.menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
-                return modelMenuItem;
-            }
+        // not a conditional item, see if a named item exists in Map
+        ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
+        if (existingMenuItem != null) {
+            // does exist, update the item by doing a merge/override
+            existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
+            return existingMenuItem;
+        } else {
+            // does not exist, add to List and Map
+            this.menuItemList.add(modelMenuItem);
+            this.menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
+            return modelMenuItem;
+        }
     }
 
     public ModelMenuItem getModelMenuItemByName(String name) {
-            ModelMenuItem existingMenuItem = this.menuItemMap.get(name);
-            return existingMenuItem;
-    }
-
-    public ModelMenuItem getModelMenuItemByContentId(String contentId, Map<String, Object> context) {
-
-        ModelMenuItem existingMenuItem = null;
-        if (UtilValidate.isEmpty(contentId))
-            return existingMenuItem;
-        for (ModelMenuItem mi : this.menuItemList) {
-            String assocContentId = mi.getAssociatedContentId(context);
-            if (contentId.equals(assocContentId)) {
-                existingMenuItem = mi;
-                break;
-            }
-        }
-            return existingMenuItem;
+        return this.menuItemMap.get(name);
     }
 
     /**
@@ -311,19 +283,12 @@ public class ModelMenu extends ModelWidget {
      *   use the same menu definitions for many types of menu UIs
      */
     public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-
-        boolean passed = true;
-
-            //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
-        if (passed) {
-            ModelMenuAction.runSubActions(this.actions, context);
-            if ("simple".equals(this.type)) {
-                this.renderSimpleMenuString(writer, context, menuStringRenderer);
-            } else {
-                throw new IllegalArgumentException("The type " + this.getType() + " is not supported for menu with name " + this.getName());
-            }
+        ModelMenuAction.runSubActions(this.actions, context);
+        if ("simple".equals(this.type)) {
+            this.renderSimpleMenuString(writer, context, menuStringRenderer);
+        } else {
+            throw new IllegalArgumentException("The type " + this.getType() + " is not supported for menu with name " + this.getName());
         }
-            //Debug.logInfo("in ModelMenu, buffer:" + buffer.toString(), module);
     }
 
     public int renderedMenuItemCount(Map<String, Object> context)
@@ -337,43 +302,21 @@ public class ModelMenu extends ModelWidget {
     }
     
     public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-        //Iterator menuItemIter = null;
-        //Set alreadyRendered = new TreeSet();
-
         // render menu open
         menuStringRenderer.renderMenuOpen(writer, context, this);
 
         // render formatting wrapper open
         menuStringRenderer.renderFormatSimpleWrapperOpen(writer, context, this);
 
-        //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
         // render each menuItem row, except hidden & ignored rows
-        // include portal pages if specified
-        //menuStringRenderer.renderFormatSimpleWrapperRows(writer, context, this);
         for (ModelMenuItem item : this.menuItemList) {
-                item.renderMenuItemString(writer, context, menuStringRenderer);
+            item.renderMenuItemString(writer, context, menuStringRenderer);
         }
         // render formatting wrapper close
         menuStringRenderer.renderFormatSimpleWrapperClose(writer, context, this);
 
         // render menu close
         menuStringRenderer.renderMenuClose(writer, context, this);
-    }
-
-    /**
-     * @deprecated Use getDispatcher(Map<String, Object>) instead, this method will throw an {@link UnsupportedOperationException} if used
-     */
-    @Deprecated
-    public LocalDispatcher getDispacher() {
-        throw new UnsupportedOperationException("This method is no longer supported, use getDispatcher(Map<String, Object>) instead.");
-    }
-
-    /**
-     * @deprecated Use getDelegator(Map<String, Object>) instead, this method will throw an {@link UnsupportedOperationException} if used
-     */
-    @Deprecated
-    public Delegator getDelegator() {
-        throw new UnsupportedOperationException("This method is no longer supported, use getDelegator(Map<String, Object>) instead.");
     }
 
     public String getDefaultEntityName() {
@@ -387,7 +330,6 @@ public class ModelMenu extends ModelWidget {
     public String getDefaultAlignStyle() {
         return this.defaultAlignStyle;
     }
-
 
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
@@ -448,15 +390,6 @@ public class ModelMenu extends ModelWidget {
     @Override
     public String getBoundaryCommentName() {
         return menuLocation + "#" + name;
-    }
-
-    public Interpreter getBshInterpreter(Map<String, Object> context) throws EvalError {
-        Interpreter bsh = (Interpreter) context.get("bshInterpreter");
-        if (bsh == null) {
-            bsh = BshUtil.makeInterpreter(context);
-            context.put("bshInterpreter", bsh);
-        }
-        return bsh;
     }
 
     /**
