@@ -113,13 +113,8 @@ public class ScreenFactory {
                 modelScreenMap = screenLocationCache.get(resourceName);
                 if (modelScreenMap == null) {
                     long startTime = System.currentTimeMillis();
-                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                    if (loader == null) {
-                        loader = ScreenFactory.class.getClassLoader();
-                    }
-
                     URL screenFileUrl = null;
-                    screenFileUrl = FlexibleLocation.resolveLocation(resourceName, loader);
+                    screenFileUrl = FlexibleLocation.resolveLocation(resourceName);
                     if (screenFileUrl == null) {
                         throw new IllegalArgumentException("Could not resolve location to URL: " + resourceName);
                     }

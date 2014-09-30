@@ -350,13 +350,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.autoUpdateTargetExdr.expandString(context);
         }
 
-        /**
-         * @deprecated Use the version that takes a context parameter.
-         */
-        public String getAutoUpdateInterval() {
-            return this.autoUpdateInterval.getOriginal();
-        }
-
         public String getAutoUpdateInterval(Map<String, Object> context) {
             return this.autoUpdateInterval.expandString(context);
         }
@@ -584,7 +577,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 context.put("_WIDGETTRAIL_", widgetTrail);
             }
 
-            // dont need the renderer here, will just pass this on down to another screen call; screenStringRenderer.renderContainerBegin(writer, context, this);
+            // don't need the renderer here, will just pass this on down to another screen call; screenStringRenderer.renderContainerBegin(writer, context, this);
             String name = this.getName(context);
             String location = this.getLocation(context);
 
@@ -821,7 +814,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 UtilGenerics.<MapStack<String>>cast(context).push();
             }
             ModelForm modelForm = getModelForm(context);
-            //Debug.logInfo("before renderFormString, context:" + context, module);
             try {
                 modelForm.renderFormString(writer, context, formStringRenderer);
             } catch (IOException e) {
@@ -1081,91 +1073,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     mimeTypeId = content.getString("mimeTypeId");
                 }
 
-                if (UtilValidate.isNotEmpty(mimeTypeId)
-                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0)) {
-
-/*
-                     // this code is not yet working, will update it the next few weeks...(Hans)
-                    if (mimeTypeId.equals("application/pdf")) {
-                        TransformerFactory tfactory = TransformerFactory.newInstance();
-                        try {
-
-                            //
-                            //  this part is not working. If somebody can help to make it work?
-                            //  currently using only real temp files for debugging purposes.
-                            //
-                            //  most of the code should be replaced by functions in xslTransform.java and other files.
-                            //  for debugging here mostly code using the code outside of ofbiz.
-                            //
-                            SAXParserFactory pfactory= SAXParserFactory.newInstance();
-                            pfactory.setNamespaceAware(true);
-                            pfactory.setValidating(true);
-                            pfactory.setXIncludeAware(true);
-                            XMLReader reader = null;
-                            try {
-                                reader = pfactory.newSAXParser().getXMLReader();
-                            } catch (Exception e) {
-                                throw new TransformerException("Error creating SAX parser/reader", e);
-                            }
-
-                            // do the actual preprocessing fr includes
-                            String fileName = "/home/hans/ofbiz/svn/applications/commonext/documents/ApacheOfbiz.xml";
-                            SAXSource source = new SAXSource(reader, new InputSource(fileName));
-                            // compile the xsl template
-                            Transformer transformer1 = tfactory.newTransformer(new StreamSource("/home/hans/ofbiz/svn/applications/content/template/docbook/fo/docbook.xsl"));
-                            // and apply the xsl template to the source document and save in a result string
-                            StringWriter sw = new StringWriter();
-                            StreamResult sr = new StreamResult(sw);
-                            transformer1.transform(source, sr);
-                            // store into a file for debugging
-//                            java.io.FileWriter fw = new java.io.FileWriter(new java.io.File("/tmp/file1.fo"));
-//                            fw.write(sw.toString());
-//                            fw.close();
-
-
-                            FopFactory fopFactory = FopFactory.newInstance();
-                            FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
-                            // configure foUserAgent as desired
-
-                            // Setup output stream.  Note: Using BufferedOutputStream
-                            // for performance reasons (helpful with FileOutputStreams).
-//                            OutputStream out = new FileOutputStream("/tmp/file.pdf");
-//                            out = new BufferedOutputStream(out);
-//                            OutputStream outWriter = (OutputStream) writer;
-                            ByteArrayOutputStream out = new ByteArrayOutputStream();
-                            Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-
-                            // Setup JAXP using identity transformer
-                            TransformerFactory factory = TransformerFactory.newInstance();
-                            Transformer transformer = factory.newTransformer(); // identity transformer
-
-                            // Setup input stream
-                            Source src = new StreamSource(new ByteArrayInputStream(sw.toString().getBytes()));
-
-                            // Resulting SAX events (the generated FO) must be piped through to FOP
-                            Result result = new SAXResult(fop.getDefaultHandler());
-
-                            // Start XSLT transformation and FOP processing
-                            transformer.transform(src, result);
-
-                            out.flush();
-                            out.close();
-                            // to a file for debugging
-                           FileOutputStream fw = new FileOutputStream("/tmp/file.pdf");
-                            fw.write(out.toByteArray());
-                            fw.close();
-                            HttpServletResponse response = (HttpServletResponse) context.get("response");
-                            response.setContentType("application/pdf");
-                            response.setContentLength(out.size());
-                            response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
-                            writer.append(new String(out.toByteArray()));
-                        } catch(Exception e) {
-                            Debug.logError("Exception converting from FO to PDF: " + e, module);
-                        }
-                    } else {
-*/                        screenStringRenderer.renderContentFrame(writer, context, this);
-//                    }
-                } else {
+                if (!(UtilValidate.isNotEmpty(mimeTypeId)
+                        && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0))) {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
                     screenStringRenderer.renderContentEnd(writer, context, this);

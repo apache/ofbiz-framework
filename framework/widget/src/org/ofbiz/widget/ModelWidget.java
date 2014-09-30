@@ -38,7 +38,6 @@ public class ModelWidget implements Serializable {
      */
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
     protected String name;
-    protected boolean enableWidgetBoundaryComments = false;
     private String systemId;
     private int startColumn;
     private int startLine;
@@ -101,27 +100,6 @@ public class ModelWidget implements Serializable {
      */
     public String getBoundaryCommentName() {
         return name;
-    }
-
-    /**
-     * Returns true if boundary comments are enabled for this widget, otherwise
-     * returns false.
-     * @return True if boundary comments are enabled for this widget
-     * @deprecated Use the static <code>widgetBoundaryCommentsEnabled</code> method instead
-     */
-    @Deprecated
-    public boolean boundaryCommentsEnabled() {
-        return enableWidgetBoundaryComments;
-    }
-
-    /**
-     * Enables/disables boundary comments for this widget.
-     * @param context The screen rendering context
-     * @deprecated Do not use this - it is not thread-safe
-     */
-    @Deprecated
-    public void setWidgetBoundaryComments(Map<String, ? extends Object> context) {
-        enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled(context);
     }
 
     /**

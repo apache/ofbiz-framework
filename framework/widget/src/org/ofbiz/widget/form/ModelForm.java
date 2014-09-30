@@ -172,9 +172,6 @@ public class ModelForm extends ModelWidget {
      */
     protected FieldGroup defaultFieldGroup;
 
-    /** Default hyperlink target. */
-    public static String DEFAULT_TARGET_TYPE = "intra-app";
-
     /** Pagination settings and defaults. */
     public static int DEFAULT_PAGE_SIZE = 10;
     public static int MAX_PAGE_SIZE = 10000;
@@ -311,10 +308,6 @@ public class ModelForm extends ModelWidget {
                 this.altRowStyles = parent.altRowStyles;
 
                 this.useWhenFields = parent.useWhenFields;
-
-                //these are done below in a special way...
-                //this.fieldList = parent.fieldList;
-                //this.fieldMap = parent.fieldMap;
 
                 // Create this fieldList/Map from clones of parent's
                 for (ModelFormField parentChildField: parent.fieldList) {
@@ -539,7 +532,6 @@ public class ModelForm extends ModelWidget {
             } else {
                 modelFormField = this.addUpdateField(modelFormField);
             }
-            //Debug.logInfo("Added field " + modelFormField.getName() + " from def, mapName=" + modelFormField.getMapName(), module);
         }
 
         // Create the default field group
@@ -1516,8 +1508,6 @@ public class ModelForm extends ModelWidget {
         getListLimits(context, obj);
 
         int listSize = ((Integer) context.get("listSize")).intValue();
-        //int viewIndex = ((Integer) context.get("viewIndex")).intValue();
-        //int viewSize = ((Integer) context.get("viewSize")).intValue();
         int lowIndex = ((Integer) context.get("lowIndex")).intValue();
         int highIndex = ((Integer) context.get("highIndex")).intValue();
 
@@ -3272,7 +3262,6 @@ public class ModelForm extends ModelWidget {
                     ModelFormField.HyperlinkField link = (ModelFormField.HyperlinkField) modelFormField.getFieldInfo();
                     String target = link.getTarget(null);
                     String urlMode = link.getTargetType();
-                    // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
 
                     Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
                     if (controllerLocAndRequestSet != null) {

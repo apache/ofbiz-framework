@@ -39,7 +39,6 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.PortalPageWorker;
 import org.w3c.dom.Element;
@@ -78,10 +77,6 @@ public class ModelMenuItem {
     protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
     protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
 
-
-    public static String DEFAULT_TARGET_TYPE = "intra-app";
-
-    protected EntityPermissionChecker permissionChecker;
     protected ModelMenuItem parentMenuItem;
     protected ModelMenuCondition condition;
     protected boolean disabled = false;
@@ -137,7 +132,6 @@ public class ModelMenuItem {
         this.cellWidth = fieldElement.getAttribute("cell-width");
 
         dataMap.put("name", this.name);
-        //dataMap.put("associatedContentId", this.associatedContentId);
 
         Element subMenuElement = UtilXml.firstChildElement(fieldElement, "sub-menu");
         if (subMenuElement != null) {
@@ -161,21 +155,15 @@ public class ModelMenuItem {
         }
 
         Element linkElement = UtilXml.firstChildElement(fieldElement, "link");
-        //if (Debug.infoOn()) Debug.logInfo("in ModelMenuItem, linkElement:" + linkElement, module);
         if (linkElement != null) {
             link = new Link(linkElement, this);
         }
-
-//        Element permissionElement = UtilXml.firstChildElement(fieldElement, "if-entity-permission");
-//        if (permissionElement != null)
-//            permissionChecker = new EntityPermissionChecker(permissionElement);
 
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
         List<? extends Element> itemElements = UtilXml.childElementList(fieldElement, "menu-item");
         for (Element itemElement: itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
             modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
-            //Debug.logInfo("Added item " + modelMenuItem.getName() + " from def, mapName=" + modelMenuItem.getMapName(), module);
         }
         // read condition under the "condition" element
         Element conditionElement = UtilXml.firstChildElement(fieldElement, "condition");

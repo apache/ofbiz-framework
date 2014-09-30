@@ -52,13 +52,7 @@ public class FormFactory {
 
     public static Map<String, ModelForm> getFormsFromLocation(String resourceName, ModelReader entityModelReader, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
-        /*
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
-        if (loader == null) {
-            loader = FormFactory.class.getClassLoader();
-        }
-        */
-        URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
+        URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
         Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
         return readFormDocument(formFileDoc, entityModelReader, dispatchContext, resourceName);
     }
@@ -68,13 +62,7 @@ public class FormFactory {
         String cacheKey = resourceName + "#" + formName;
         ModelForm modelForm = formLocationCache.get(cacheKey);
         if (modelForm == null) {
-            /*
-            ClassLoader loader = Thread.currentThread().getContextClassLoader();
-            if (loader == null) {
-                loader = FormFactory.class.getClassLoader();
-            }
-            */
-            URL formFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
+            URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             if (formFileDoc == null) {
                 throw new IllegalArgumentException("Could not find resource [" + resourceName + "]");
