@@ -22,5 +22,5 @@
     
 <web-app>
     <display-name>Empty placeholder</display-name>
-    <description>Empty placeholder</description>
+    <description>Empty placeholder, see http://svn.apache.org/viewvc?view=revision&amp;revision=1612202 </description>
 </web-app>
