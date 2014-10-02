@@ -272,7 +272,7 @@ public class ModelServiceReader implements Serializable {
         service.description = getCDATADef(serviceElement, "description");
         service.nameSpace = getCDATADef(serviceElement, "namespace");
 
-        // contruct the context
+        // construct the context
         service.contextInfo = FastMap.newInstance();
         this.createNotification(serviceElement, service);
         this.createPermission(serviceElement, service);
