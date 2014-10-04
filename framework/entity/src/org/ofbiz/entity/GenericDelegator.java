@@ -2532,10 +2532,12 @@ public class GenericDelegator implements Delegator {
                     sequencer = this.AtomicRefSequencer.get();
                 }
             }
-
-            // might be null, but will usually match the entity name
-            ModelEntity seqModelEntity = this.getModelEntity(seqName);
-
+            ModelEntity seqModelEntity = null;
+            try {
+                seqModelEntity = getModelReader().getModelEntity(seqName);
+            } catch (GenericEntityException e) {
+                Debug.logInfo("Entity definition not found for sequence name " + seqName, module);
+            }
             Long newSeqId = sequencer == null ? null : sequencer.getNextSeqId(seqName, staggerMax, seqModelEntity);
             return newSeqId;
         } catch (Exception e) {
