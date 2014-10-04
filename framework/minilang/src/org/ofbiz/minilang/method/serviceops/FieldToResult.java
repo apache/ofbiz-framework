@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.serviceops;
 
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.base.util.collections.*;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -60,7 +61,14 @@ public final class FieldToResult extends MethodOperation {
         Object fieldVal = this.fieldFma.get(methodContext.getEnvMap());
         if (fieldVal != null) {
             if (this.resultFma.containsNestedExpression()) {
-                String expression = (String) this.resultFma.get(methodContext.getEnvMap());
+                /*
+                 *  Replace FMA nested expression functionality with our own.
+                 *  The nested expression must be evaluated once using the
+                 *  method context, [methodContext.getEnvMap()] then again to
+                 *  place the value in the result Map [methodContext.getResults()].
+                 */
+                FlexibleStringExpander fse = FlexibleStringExpander.getInstance(this.resultFma.getOriginalName());
+                String expression = fse.expandString(methodContext.getEnvMap());
                 FlexibleMapAccessor<Object> resultFma = FlexibleMapAccessor.getInstance(expression);
                 resultFma.put(methodContext.getResults(), fieldVal);
             } else {
