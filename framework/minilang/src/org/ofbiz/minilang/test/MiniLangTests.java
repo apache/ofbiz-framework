@@ -102,7 +102,7 @@ public class MiniLangTests extends OFBizTestCase {
         MethodContext context = createServiceMethodContext();
         String result = methodToTest.exec(context);
         assertEquals("testFieldToResult success result", methodToTest.getDefaultSuccessCode(), result);
-        assertEquals("Constant result name set", "someResultValue", context.getResult("constantResultName"));
-        //assertEquals("Dynamic result name set", "someResultValue", context.getResult("dynamicResultName")); This one fails!
+        assertEquals("Plain expression result name set", "someResultValue", context.getResult("constantResultName"));
+        assertEquals("Nested expression result name set", "someResultValue", context.getResult("dynamicResultName"));
     }
 }
