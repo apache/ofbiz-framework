@@ -18,8 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.serviceops;
 
+import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.base.util.collections.*;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
