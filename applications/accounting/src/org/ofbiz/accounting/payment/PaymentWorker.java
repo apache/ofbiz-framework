@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 
@@ -59,7 +60,7 @@ public class PaymentWorker {
     public static List<Map<String, GenericValue>> getPartyPaymentMethodValueMaps(Delegator delegator, String partyId, Boolean showOld) {
         List<Map<String, GenericValue>> paymentMethodValueMaps = FastList.newInstance();
         try {
-            List<GenericValue> paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId), null, false);
+            List<GenericValue> paymentMethods = EntityQuery.use(delegator).from("PaymentMethod").where("partyId", partyId).queryList();
 
             if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
 
@@ -113,10 +114,10 @@ public class PaymentWorker {
 
         if (UtilValidate.isNotEmpty(paymentMethodId)) {
             try {
-                paymentMethod = delegator.findOne("PaymentMethod", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
-                creditCard = delegator.findOne("CreditCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
-                giftCard = delegator.findOne("GiftCard", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
-                eftAccount = delegator.findOne("EftAccount", UtilMisc.toMap("paymentMethodId", paymentMethodId), false);
+                paymentMethod = EntityQuery.use(delegator).from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
+                creditCard = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
+                giftCard = EntityQuery.use(delegator).from("GiftCard").where("paymentMethodId", paymentMethodId).queryOne();
+                eftAccount = EntityQuery.use(delegator).from("EftAccount").where("paymentMethodId", paymentMethodId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -156,23 +157,21 @@ public class PaymentWorker {
     }
 
     public static GenericValue getPaymentAddress(Delegator delegator, String partyId) {
-        List<GenericValue> paymentAddresses = null;
+        GenericValue purpose = null;
         try {
-            paymentAddresses = delegator.findByAnd("PartyContactWithPurpose",
-                    UtilMisc.toMap("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION"),
-                    UtilMisc.toList("-purposeFromDate"), false);
-            paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "contactFromDate", "contactThruDate", true);
-            paymentAddresses = EntityUtil.filterByDate(paymentAddresses, null, "purposeFromDate", "purposeThruDate", true);
+            purpose = EntityQuery.use(delegator).from("PartyContactWithPurpose")
+                    .where("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION")
+                    .orderBy("-purposeFromDate").filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                    .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting PartyContactWithPurpose view entity list", module);
         }
 
         // get the address for the primary contact mech
-        GenericValue purpose = EntityUtil.getFirst(paymentAddresses);
         GenericValue postalAddress = null;
         if (purpose != null) {
             try {
-                postalAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", purpose.getString("contactMechId")), false);
+                postalAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", purpose.getString("contactMechId")).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Trouble getting PostalAddress record for contactMechId: " + purpose.getString("contactMechId"), module);
             }
@@ -217,7 +216,7 @@ public class PaymentWorker {
 
         GenericValue payment = null;
         try {
-            payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
+            payment = EntityQuery.use(delegator).from("Payment").where("paymentId", paymentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Payment", module);
         }
@@ -237,7 +236,7 @@ public class PaymentWorker {
         GenericValue paymentApplication = null;
         BigDecimal appliedAmount = BigDecimal.ZERO;
         try {
-            paymentApplication = delegator.findOne("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paymentApplicationId), false);
+            paymentApplication = EntityQuery.use(delegator).from("PaymentApplication").where("paymentApplicationId", paymentApplicationId).queryOne();
             appliedAmount = paymentApplication.getBigDecimal("amountApplied");
             if (paymentApplication.get("paymentId") != null) {
                 GenericValue payment = paymentApplication.getRelatedOne("Payment", false);
@@ -323,7 +322,7 @@ public class PaymentWorker {
 
         GenericValue payment = null;
         try {
-            payment = delegator.findOne("Payment", UtilMisc.toMap("paymentId", paymentId), false);
+            payment = EntityQuery.use(delegator).from("Payment").where("paymentId", paymentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Payment", module);
         }
