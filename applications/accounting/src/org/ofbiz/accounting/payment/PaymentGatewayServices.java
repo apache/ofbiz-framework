@@ -230,8 +230,8 @@ public class PaymentGatewayServices {
                                     }
 
                                     if (UtilValidate.isNotEmpty(billToPartyId)) {
-                                        otherPaymentMethodAndCreditCardList = delegator.findByAnd("PaymentMethodAndCreditCard", UtilMisc.toMap("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD"), null, false);
-                                        otherPaymentMethodAndCreditCardList = EntityUtil.filterByDate(otherPaymentMethodAndCreditCardList, true);
+                                        otherPaymentMethodAndCreditCardList = EntityQuery.use(delegator).from("PaymentMethodAndCreditCard")
+                                                .where("partyId", billToPartyId, "paymentMethodTypeId", "CREDIT_CARD").filterByDate().queryList();
                                     }
 
                                     if (UtilValidate.isNotEmpty(otherPaymentMethodAndCreditCardList)) {
@@ -336,11 +336,11 @@ public class PaymentGatewayServices {
             // get the payments to auth
             Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_AUTH");
             List<String> orderList = UtilMisc.toList("maxAmount");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
+            paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(lookupMap).orderBy(orderList).queryList();
             if (reAuth) {
                 lookupMap.put("orderId", orderId);
                 lookupMap.put("statusId", "PAYMENT_AUTHORIZED");
-                paymentPrefs.addAll(delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false));
+                paymentPrefs.addAll(EntityQuery.use(delegator).from("OrderPaymentPreference").where(lookupMap).orderBy(orderList).queryList());
             }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting the order information", module);
@@ -740,7 +740,7 @@ public class PaymentGatewayServices {
             EntityCondition con3 = EntityCondition.makeCondition(UtilMisc.toList(con2, authExpr), EntityOperator.OR);
             EntityExpr orderExpr = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
             EntityCondition con4 = EntityCondition.makeCondition(UtilMisc.toList(con3, orderExpr), EntityOperator.AND);
-            paymentPrefs = delegator.findList("OrderPaymentPreference", con4, null, null, null, false);
+            paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(con4).queryList();
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
@@ -1181,13 +1181,13 @@ public class PaymentGatewayServices {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             // get the payment prefs
-            Map<String, String> lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_AUTHORIZED");
-            List<String> orderList = UtilMisc.toList("-maxAmount");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
+            paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where("orderId", orderId, "statusId", "PAYMENT_AUTHORIZED").orderBy("-maxAmount").queryList();
 
             if (UtilValidate.isNotEmpty(billingAccountId)) {
-                lookupMap = UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT", "statusId", "PAYMENT_NOT_RECEIVED");
-                paymentPrefsBa = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList, false);
+                paymentPrefsBa = EntityQuery.use(delegator).from("OrderPaymentPreference")
+                        .where("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT", "statusId", "PAYMENT_NOT_RECEIVED")
+                        .orderBy("-maxAmount").queryList();
             }
         } catch (GenericEntityException gee) {
             Debug.logError(gee, "Problems getting entity record(s), see stack trace", module);
