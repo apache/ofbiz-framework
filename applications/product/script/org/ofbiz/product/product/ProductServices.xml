@@ -352,21 +352,6 @@ under the License.
     </simple-method>
 
     <!-- Product Keyword Services -->
-    <simple-method method-name="createProductKeyword" short-description="create a ProductKeyword">
-        <make-value entity-name="ProductKeyword" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductKeyword" short-description="update a ProductKeyword">
-        <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductKeyword" short-description="delete a ProductKeyword">
-        <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
     <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
         <entity-one entity-name="Product" value-field="product"/>
         <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
@@ -487,78 +472,6 @@ under the License.
             <set from-field="parameters.quantity" field="callSubMap.quantity"/>
             <call-service service-name="countProductQuantityOrdered" in-map-name="callSubMap"></call-service>
         </if-not-empty>
-    </simple-method>
-
-    <!-- GoodIdentification methods -->
-    <simple-method method-name="createGoodIdentification" short-description="Create an GoodIdentification">
-        <set value="createGoodIdentification" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="GoodIdentification"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateGoodIdentification" short-description="Update an GoodIdentification">
-        <set value="updateGoodIdentification" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteGoodIdentification" short-description="Delete an GoodIdentification">
-        <set value="deleteGoodIdentification" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ProductGlAccount methods -->
-    <simple-method method-name="createProductGlAccount" short-description="Create an ProductGlAccount">
-        <set value="createProductGlAccount" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductGlAccount"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductGlAccount" short-description="Update an ProductGlAccount">
-        <set value="updateProductGlAccount" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductGlAccount" short-description="Delete an ProductGlAccount">
-        <set value="deleteProductGlAccount" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createProductReview" short-description="Create a ProductReview" login-required="false">
@@ -753,125 +666,6 @@ under the License.
         </iterate>
     </simple-method>
 
-    <!-- for managing product to product associations -->
-    <simple-method method-name="createProductAssoc" short-description="Create an association between two products">
-        <set value="createProductAssoc" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductAssoc"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductAssoc" short-description="Update an association between two products">
-        <set value="updateProductAssoc" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
-        <set-nonpk-fields map="parameters" value-field="productAssocInstance"/>
-        <store-value value-field="productAssocInstance"/>
-    </simple-method>
-    <simple-method method-name="deleteProductAssoc" short-description="Delete an association between two products">
-        <set value="deleteProductAssoc" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
-        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
-        <remove-value value-field="productAssocInstance"/>
-    </simple-method>
-
-    <!-- Create/Update/Delete Product Maint Record -->
-    <simple-method method-name="createProductMaint" short-description="Create an Product Maintenance">
-        <set value="createProductMaint" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductMaint"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="productMaintSeqId"/> <!-- this finds the next sub-sequence ID -->
-        <field-to-result field="newEntity.productMaintSeqId" result-name="productMaintSeqId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductMaint" short-description="Update an existing Product Maintenance">
-        <set value="updateProductMaint" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductMaint" short-description="Delete Product Maint from PRODUCT_MAINT">
-        <set value="deleteProductMaint" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <!-- Create/Update/Delete Product Meter Record -->
-    <simple-method method-name="createProductMeter" short-description="Create an Product Meter">
-        <set value="createProductMeter" field="callingMethodName"/>
-        <set value="CREATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="ProductMeter"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductMeter" short-description="Update an existing Product Meter">
-        <set value="updateProductMeter" field="callingMethodName"/>
-        <set value="UPDATE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductMeter" short-description="Delete an existing Product Meter">
-        <set value="deleteProductMeter" field="callingMethodName"/>
-        <set value="DELETE" field="checkAction"/>
-        <call-simple-method method-name="checkProductRelatedPermission"/>
-        <check-errors/>
-
-        <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ProductGeo Services -->
-    <simple-method method-name="createProductGeo" short-description="Create an Product Geo">
-        <make-value value-field="newEntity" entity-name="ProductGeo"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductGeo" short-description="Update an existing Product Geo">
-        <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductGeo" short-description="Delete an existing Product Geo">
-        <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- a method to centralize product security code, meant to be called in-line with
         call-simple-method, and the checkAction and callingMethodName attributes should be in the method context -->
     <simple-method method-name="checkProductRelatedPermission" short-description="Check Product Related Permission">
@@ -913,8 +707,9 @@ under the License.
                 </not>
             </condition>
             <then>
+                <set field="checkActionLabel" value="${groovy: 'ProductCatalog' + checkAction.charAt(0) + checkAction.substring(1).toLowerCase() + 'PermissionError'}"/>
                 <add-error>
-                    <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
+                    <fail-property resource="ProductUiLabels" property="${checkActionLabel}"/>
                 </add-error>
             </then>
         </if>
@@ -943,22 +738,6 @@ under the License.
                 <field-to-result field="failMessage"/>
             </else>
         </if-empty>
-    </simple-method>
-    <!-- Product Attribute Services -->
-    <simple-method method-name="createProductAttribute" short-description="create a ProductAttribute">
-        <make-value entity-name="ProductAttribute" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateProductAttribute" short-description="update a ProductAttribute">
-        <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteProductAttribute" short-description="delete a ProductAttribute">
-        <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
