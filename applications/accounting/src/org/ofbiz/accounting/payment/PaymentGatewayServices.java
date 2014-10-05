@@ -43,7 +43,6 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -2748,9 +2747,6 @@ public class PaymentGatewayServices {
 
         EntityListIterator eli = null;
         try {
-            eli = delegator.find("OrderPaymentPreference",
-                    EntityCondition.makeCondition(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)),
-                    null, null, UtilMisc.toList("orderId"), null);
             eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
                     .where(UtilMisc.toList(
                             EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
