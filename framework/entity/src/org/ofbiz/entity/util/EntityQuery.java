@@ -19,6 +19,7 @@
 package org.ofbiz.entity.util;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,7 @@ import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -59,6 +61,7 @@ public class EntityQuery {
     private EntityCondition havingEntityCondition = null;
     private boolean filterByDate = false;
     private Timestamp filterByDateMoment;
+    private List<String> filterByFieldNames = null;
 
 
 
@@ -285,6 +288,7 @@ public class EntityQuery {
     public EntityQuery filterByDate() {
         this.filterByDate  = true;
         this.filterByDateMoment = null;
+        this.filterByFieldNames = null;
         return this;
     }
 
@@ -296,6 +300,22 @@ public class EntityQuery {
     public EntityQuery filterByDate(Timestamp moment) {
         this.filterByDate = true;
         this.filterByDateMoment = moment;
+        this.filterByFieldNames = null;
+        return this;
+    }
+
+    /** Specifies whether the query should return only values that are currently active using the specified from/thru field name pairs.
+     * 
+     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @return this EntityQuery object, to enable chaining
+     */
+    public EntityQuery filterByDate(String... filterByFieldName) {
+        this.filterByDate  = true;
+        this.filterByDateMoment = null;
+        if (filterByFieldName.length % 2 != 0) {
+            throw new IllegalArgumentException("You must pass an even sized array to this method, each pair should represent a from date field name and a thru date field name");
+        }
+        this.filterByFieldNames = Arrays.asList(filterByFieldName);
         return this;
     }
 
@@ -373,11 +393,7 @@ public class EntityQuery {
             result = queryIterator().getCompleteList();
         }
         if (filterByDate && useCache) {
-            if (filterByDateMoment == null) {
-                return EntityUtil.filterByDate(result);
-            } else {
-                return EntityUtil.filterByDate(result, filterByDateMoment);
-            }
+            return EntityUtil.filterByCondition(result, this.makeDateCondition());
         }
         return result;
     }
@@ -402,12 +418,26 @@ public class EntityQuery {
     private EntityCondition makeWhereCondition(boolean usingCache) {
         // we don't use the useCache field here because not all queries will actually use the cache, e.g. findCountByCondition never uses the cache
         if (filterByDate && !usingCache) {
-            if (filterByDateMoment == null) {
-                return EntityCondition.makeCondition(whereEntityCondition, EntityUtil.getFilterByDateExpr());
-            } else {
-                return EntityCondition.makeCondition(whereEntityCondition, EntityUtil.getFilterByDateExpr(filterByDateMoment));
-            }
+                return EntityCondition.makeCondition(whereEntityCondition, this.makeDateCondition());
         }
         return whereEntityCondition;
+    }
+
+    private EntityCondition makeDateCondition() {
+        List<EntityCondition> conditions = new ArrayList<EntityCondition>();
+        if (UtilValidate.isEmpty(this.filterByFieldNames)) {
+            this.filterByDate("fromDate", "thruDate");
+        }
+
+        for (int i = 0; i < this.filterByFieldNames.size();) {
+            String fromDateFieldName = this.filterByFieldNames.get(i++);
+            String thruDateFieldName = this.filterByFieldNames.get(i++);
+            if (filterByDateMoment == null) {
+                conditions.add(EntityUtil.getFilterByDateExpr(fromDateFieldName, thruDateFieldName));
+            } else {
+                conditions.add(EntityUtil.getFilterByDateExpr(this.filterByDateMoment, fromDateFieldName, thruDateFieldName));
+            }
+        }
+        return EntityCondition.makeCondition(conditions);
     }
 }
