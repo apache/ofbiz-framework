@@ -281,6 +281,16 @@ public class EntityQuery {
         return this;
     }
 
+    /** Specifies whether results should be read from the cache (or written to the cache if the results have not yet been cached)
+     * 
+     * @param useCache - boolean to indicate if the cache should be used or not
+     * @return this EntityQuery object, to enable chaining
+     */
+    public EntityQuery cache(boolean useCache) {
+        this.useCache = useCache;
+        return this;
+    }
+
     /** Specifies whether the query should return only values that are currently active using from/thruDate fields.
      * 
      * @return this EntityQuery object, to enable chaining
