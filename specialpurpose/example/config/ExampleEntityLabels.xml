@@ -148,7 +148,6 @@
         <value xml:lang="th">วันที่อื่น ๆ</value>
         <value xml:lang="zh">另一个日期</value>
         <value xml:lang="zh_TW">另一個日期</value>
-        <value xml:lang="zh_TW">另一個日期</value>
     </property>
     <property key="FieldDescription.anotherText">
         <value xml:lang="en">Another Text</value>
@@ -169,7 +168,6 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
-        <value xml:lang="zh_TW">評論</value>
         <value xml:lang="zh_TW">評論</value>
     </property>
     <property key="FieldDescription.exampleDate">

@@ -2569,7 +2569,6 @@
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
         <value xml:lang="zh">USPS地址验证需要zip5或者省和市</value>
         <value xml:lang="zh_TW">USPS位址驗證需要zip5或者省和市</value>
-        <value xml:lang="zh_TW">USPS位址驗證需要zip5或者省和市</value>
     </property>
     <property key="FacilityShipmentUspsConnectionProblem">
         <value xml:lang="en">Problem connecting with USPS server: ${errorString}</value>
@@ -3016,7 +3015,6 @@
         <value xml:lang="th">กรุณารอจนกระทั่งอ่านรายการสั่งซื้อทั้งหมดก่อนการขนส่งสินค้า</value>
         <value xml:lang="vi">Bạn hãy đợi cho đến khi Toàn bộ đặt hàng sẵn sàng để chuyển.</value>
         <value xml:lang="zh">请等待整个订单都有货时再送货。</value>
-        <value xml:lang="zh_TW">請等待整個訂單都有貨時再送貨.</value>
         <value xml:lang="zh_CN">等待直到整个订单完成后发货。</value>
         <value xml:lang="zh_TW">請等待整個訂單都有貨時再送貨.</value>
     </property>
@@ -27169,7 +27167,6 @@
         <value xml:lang="th">ข้อบังคับการขาย</value>
         <value xml:lang="vi">Chính sách bán</value>
         <value xml:lang="zh">销售规则</value>
-        <value xml:lang="zh_TW">銷售規則</value>
         <value xml:lang="zh_TW">銷售規則</value>
     </property>
     <property key="ProductSales">
