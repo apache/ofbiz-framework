@@ -1005,7 +1005,6 @@
         <value xml:lang="vi">Số giờ thực tế</value>
         <value xml:lang="zh">实际工时</value>
         <value xml:lang="zh_TW">實際工時</value>
-        <value xml:lang="zh_TW">實際工時</value>
     </property>
     <property key="ProjectMgrActualTotal">
         <value xml:lang="de">Ist-Stunden gesamt</value>
@@ -1922,7 +1921,6 @@
         <value xml:lang="th">ชื่อโปรเจค</value>
         <value xml:lang="vi">Tên dự án</value>
         <value xml:lang="zh">项目名称</value>
-        <value xml:lang="zh_TW">專案名稱</value>
         <value xml:lang="zh_TW">專案名稱</value>
     </property>
     <property key="ProjectMgrProjectNoNotes">

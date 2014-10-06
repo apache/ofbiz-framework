@@ -883,7 +883,6 @@
         <value xml:lang="ja">サンプルテキストが拡張フォームの中にあるサンプル。</value>
         <value xml:lang="zh">这个样例文本意味着我们处于扩展表单中。</value>
         <value xml:lang="zh_TW">這個範例文本意味著我們處於擴展表單中.</value>
-        <value xml:lang="zh_TW">這個範例文本意味著我們處於擴展表單中.</value>
     </property>
     <property key="ExampleToDo">
         <value xml:lang="en">Explanation TODO</value>
