@@ -48,6 +48,50 @@ under the License.
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryWaiter">
     </service>
 
+    <!-- testing different entity-auto call-->
+    <service name="testEntityAutoCreateTestingPkPresent" auth="false"
+        engine="entity-auto" default-entity-name="Testing" invoke="create">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="testEntityAutoCreateTestingPkMissing" auth="false"
+        engine="entity-auto" default-entity-name="Testing" invoke="create">
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="testingId" mode="OUT" type="String"/>
+    </service>
+    <service name="testEntityAutoCreateTestingItemPkPresent" auth="false"
+        engine="entity-auto" default-entity-name="TestingItem" invoke="create">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="testEntityAutoCreateTestingItemPkMissing" auth="false"
+        engine="entity-auto" default-entity-name="TestingItem" invoke="create">
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingSeqId" mode="OUT" type="String"/>
+    </service>
+    <service name="testEntityAutoCreateTestingNodeMemberPkPresent" auth="false"
+        engine="entity-auto" default-entity-name="TestingNodeMember" invoke="create">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="testEntityAutoCreateTestingNodeMemberPkMissing" auth="false"
+        engine="entity-auto" default-entity-name="TestingNodeMember" invoke="create">
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="testingId" mode="IN" type="String"/>
+        <attribute name="testingNodeId" mode="IN" type="String"/>
+        <attribute name="fromDate" mode="OUT" type="String"/>
+    </service>
+    <service name="testEntityAutoUpdateTesting" auth="false"
+        engine="entity-auto" default-entity-name="Testing" invoke="update">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="testEntityAutoRemoveTesting" auth="false"
+        engine="entity-auto" default-entity-name="Testing" invoke="delete">
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <!-- lock wait timeout retry testing services - a scenario that we can't do automatically with the single service because the parent owns the tx we have to have end before it will succeed -->
     <service name="testServiceLockWaitTimeoutRetryCantRecover" engine="java" auth="false" transaction-timeout="2"
         location="org.ofbiz.service.test.ServiceEngineTestServices" invoke="testServiceLockWaitTimeoutRetryCantRecover">

@@ -123,6 +123,21 @@ under the License.
         <prim-key field="testFieldTypeId"/>
     </entity>
   <!-- =========================================================
+    Testing Item entity : testing line on a Testing entity
+  ========================================================= -->
+    <entity entity-name="TestingItem"
+            package-name="org.ofbiz.entity.test"
+            title="Testing Item">
+        <field name="testingId" type="id-ne"/>
+        <field name="testingSeqId" type="id-ne"/>
+        <field name="testingHistory" type="very-long"/>
+        <prim-key field="testingId"/>
+        <prim-key field="testingSeqId"/>
+        <relation type="one" fk-name="TESTING_IT_TEST" rel-entity-name="Testing">
+            <key-map field-name="testingId"/>
+        </relation>
+    </entity>
+  <!-- =========================================================
     Testing Node entity : hierarchy of nodes having
     'testing node member' as potential members
   ========================================================= -->
