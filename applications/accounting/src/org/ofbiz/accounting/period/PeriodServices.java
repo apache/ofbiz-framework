@@ -28,11 +28,13 @@ import java.util.Map;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -65,27 +67,26 @@ public class PeriodServices {
             List<EntityCondition> findClosedConditions = UtilMisc.toList(EntityCondition.makeConditionMap("organizationPartyId", organizationPartyId),
                     EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, findDate),
                     EntityCondition.makeConditionMap("isClosed", "Y"));
-            if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
+            if (UtilValidate.isNotEmpty(periodTypeId)) {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(EntityCondition.makeConditionMap("periodTypeId", periodTypeId));
             }
-            List<GenericValue> closedTimePeriods = delegator.findList("CustomTimePeriod", EntityCondition.makeCondition(findClosedConditions),
-                    UtilMisc.toSet("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate"),
-                    UtilMisc.toList("thruDate DESC"), null, false);
+            GenericValue closedTimePeriod = EntityQuery.use(delegator).select("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate")
+                    .where(findClosedConditions).orderBy("thruDate DESC").queryFirst();
 
-            if ((closedTimePeriods != null) && (closedTimePeriods.size() > 0) && (closedTimePeriods.get(0).get("thruDate") != null)) {
-                lastClosedTimePeriod = closedTimePeriods.get(0);
+            if (closedTimePeriod != null && closedTimePeriod.get("thruDate") != null) {
+                lastClosedTimePeriod = closedTimePeriod;
                 lastClosedDate = UtilDateTime.toTimestamp(lastClosedTimePeriod.getDate("thruDate"));
             } else {
                 // uh oh, no time periods have been closed?  in that case, just find the earliest beginning of a time period for this organization
                 // and optionally, for this period type
                 Map<String, String> findParams = UtilMisc.toMap("organizationPartyId", organizationPartyId);
-                if ((periodTypeId != null) && !(periodTypeId.equals(""))) {
+                if (UtilValidate.isNotEmpty(periodTypeId)) {
                     findParams.put("periodTypeId", periodTypeId);
                 }
-                List<GenericValue> timePeriods = delegator.findByAnd("CustomTimePeriod", findParams, UtilMisc.toList("fromDate ASC"), false);
-                if ((timePeriods != null) && (timePeriods.size() > 0) && (timePeriods.get(0).get("fromDate") != null)) {
-                    lastClosedDate = UtilDateTime.toTimestamp(timePeriods.get(0).getDate("fromDate"));
+                GenericValue timePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").where(findParams).orderBy("fromDate ASC").queryFirst();
+                if (timePeriod != null && timePeriod.get("fromDate") != null) {
+                    lastClosedDate = UtilDateTime.toTimestamp(timePeriod.getDate("fromDate"));
                 } else {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "AccountingPeriodCannotGet", locale));

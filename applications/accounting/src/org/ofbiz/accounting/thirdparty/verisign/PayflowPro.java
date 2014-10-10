@@ -921,7 +921,7 @@ public class PayflowPro {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue payflowPro = delegator.findOne("PaymentGatewayPayflowPro", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                GenericValue payflowPro = EntityQuery.use(delegator).from("PaymentGatewayPayflowPro").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(payflowPro)) {
                     Object payflowProField = payflowPro.get(paymentGatewayConfigParameterName);
                     if (payflowProField != null) {

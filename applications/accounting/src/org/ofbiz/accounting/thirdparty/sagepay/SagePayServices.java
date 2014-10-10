@@ -38,6 +38,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -55,7 +56,7 @@ public class SagePayServices
 
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue sagePay = delegator.findOne("PaymentGatewaySagePay", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                GenericValue sagePay = EntityQuery.use(delegator).from("PaymentGatewaySagePay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(sagePay)) {
                     Map<String, Object> tmp = sagePay.getAllFields();
                     Set<String> keys = tmp.keySet();

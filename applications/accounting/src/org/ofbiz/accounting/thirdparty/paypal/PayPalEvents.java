@@ -48,6 +48,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -74,7 +75,7 @@ public class PayPalEvents {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
@@ -260,7 +261,7 @@ public class PayPalEvents {
         // get the system user
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get UserLogin for: system; cannot continue", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingAuthenticationUser", locale));
@@ -274,7 +275,7 @@ public class PayPalEvents {
         GenericValue orderHeader = null;
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
-                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "payPalEvents.problemsGettingOrderHeader", locale));
@@ -405,8 +406,7 @@ public class PayPalEvents {
         Debug.logVerbose("Setting payment prefrences..", module);
         List <GenericValue> paymentPrefs = null;
         try {
-            Map <String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
+            paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;
@@ -509,11 +509,11 @@ public class PayPalEvents {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue payPal = delegator.findOne("PaymentGatewayPayPal", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
-                if (UtilValidate.isNotEmpty(payPal)) {
-                    Object payPalField = payPal.get(paymentGatewayConfigParameterName);
+                GenericValue payPal = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
+                if (payPal != null) {
+                    String payPalField = payPal.getString(paymentGatewayConfigParameterName);
                     if (payPalField != null) {
-                        returnValue = payPalField.toString().trim();
+                        returnValue = payPalField.trim();
                     }
                 }
             } catch (GenericEntityException e) {

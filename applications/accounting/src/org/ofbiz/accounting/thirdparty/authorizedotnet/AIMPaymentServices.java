@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -790,7 +791,7 @@ public class AIMPaymentServices {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue payflowPro = delegator.findOne("PaymentGatewayAuthorizeNet", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                GenericValue payflowPro = EntityQuery.use(delegator).from("PaymentGatewayAuthorizeNet").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(payflowPro)) {
                     Object payflowProField = payflowPro.get(paymentGatewayConfigParameterName);
                     if (payflowProField != null) {

@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
@@ -291,7 +292,7 @@ public class OrbitalPaymentServices {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue paymentGatewayOrbital = delegator.findOne("PaymentGatewayOrbital", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                GenericValue paymentGatewayOrbital = EntityQuery.use(delegator).from("PaymentGatewayOrbital").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(paymentGatewayOrbital)) {
                     Object paymentGatewayOrbitalField = paymentGatewayOrbital.get(paymentGatewayConfigParameterName);
                     if (UtilValidate.isNotEmpty(paymentGatewayOrbitalField)) {
@@ -630,13 +631,12 @@ public class OrbitalPaymentServices {
     private static String getShippingRefForOrder(String orderId, Delegator delegator) {
         String shippingRef = "";
         try {
-            GenericValue orderHeader = delegator.findOne("OrderHeader", false, UtilMisc.toMap("orderId", orderId));
-            GenericValue trackingCodeOrder = EntityUtil.getFirst(orderHeader.getRelated("TrackingCodeOrder", null, null, false));
+            GenericValue trackingCodeOrder = EntityQuery.use(delegator).from("TrackingCodeOrder").where("orderId", orderId).queryFirst();
             GenericValue trackingCode = null;
-            if (UtilValidate.isNotEmpty(trackingCodeOrder)) {
+            if (trackingCodeOrder != null) {
                 trackingCode = trackingCodeOrder.getRelatedOne("TrackingCode", false);
             }
-            if (UtilValidate.isNotEmpty(trackingCode) && UtilValidate.isNotEmpty(trackingCode.getString("description"))) {
+            if (trackingCode != null && UtilValidate.isNotEmpty(trackingCode.getString("description"))) {
                 // get tracking code description and provide it into shipping reference.
                 shippingRef = trackingCode.getString("trackingCodeId") + "====" + trackingCode.getString("description");
             } else {

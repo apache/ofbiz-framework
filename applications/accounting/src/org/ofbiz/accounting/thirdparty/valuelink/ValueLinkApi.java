@@ -66,6 +66,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * ValueLinkApi - Implementation of ValueLink Encryption & Transport
@@ -739,7 +740,7 @@ public class ValueLinkApi {
     public GenericValue getGenericValue() {
         GenericValue value = null;
         try {
-            value = delegator.findOne("ValueLinkKey", UtilMisc.toMap("merchantId", merchantId), true);
+            value = EntityQuery.use(delegator).from("ValueLinkKey").where("merchantId", merchantId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

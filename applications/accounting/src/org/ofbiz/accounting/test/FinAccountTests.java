@@ -25,6 +25,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -38,7 +39,7 @@ public class FinAccountTests extends OFBizTestCase {
     }
 
     public void testFinAccountOperations() throws Exception {
-        GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+        GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         Map<String, Object> ctx = new HashMap<String, Object>();
         ctx.put("finAccountId", "TESTACCOUNT1");
         ctx.put("finAccountName", "Test Financial Account");

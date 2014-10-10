@@ -20,12 +20,10 @@ package org.ofbiz.accounting.thirdparty.worldpay;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,7 +42,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -69,7 +67,7 @@ public class WorldPayEvents {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
@@ -108,16 +106,15 @@ public class WorldPayEvents {
         // get the contact address to pass over
         GenericValue contactAddress = null;
         GenericValue contactAddressShip = null;
-        List<GenericValue> addresses = null;
-        List<GenericValue> shippingAddresses = null;
+        GenericValue addressOcm = null;
+        GenericValue shippingAddress = null;
         try {
-            addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"), null, false);
-            shippingAddresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"), null, false);
-            if (addresses.size() == 0) {
-                addresses = shippingAddresses;
+            addressOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryFirst();
+            shippingAddress = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION").queryFirst();
+            if (addressOcm == null) {
+                addressOcm = shippingAddress;
             }
-            GenericValue contactMech = EntityUtil.getFirst(addresses);
-            contactAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMech.getString("contactMechId")), false);
+            contactAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", addressOcm.getString("contactMechId")).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order contact information", module);
         }
@@ -175,9 +172,8 @@ public class WorldPayEvents {
         String emailAddress = null;
         GenericValue emailContact = null;
         try {
-            List<GenericValue> emails = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL"), null, false);
-            GenericValue firstEmail = EntityUtil.getFirst(emails);
-            emailContact = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", firstEmail.getString("contactMechId")), false);
+            GenericValue emailOcm = EntityQuery.use(delegator).from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "ORDER_EMAIL").queryFirst();
+            emailContact = emailOcm.getRelatedOne("ContactMech", false);
             emailAddress = emailContact.getString("infoString");
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order email address", module);
@@ -186,10 +182,9 @@ public class WorldPayEvents {
         StringBuilder shipAddress = new StringBuilder();
         String shipPostalCode = "";
         String shipName = "";
-        if (shippingAddresses != null) {
+        if (shippingAddress != null) {
             try {
-                GenericValue contactMechShip = EntityUtil.getFirst(shippingAddresses);
-                contactAddressShip = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechShip.getString("contactMechId")), false);
+                contactAddressShip = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingAddress.get("contactMechId")).queryOne();
                 if (UtilValidate.isNotEmpty(contactAddressShip)) {
                     if (UtilValidate.isNotEmpty(contactAddressShip.getString("attnName"))) {
                         shipName = contactAddressShip.getString("attnName");
@@ -324,7 +319,7 @@ public class WorldPayEvents {
         if (userLogin == null) {
             String userLoginId = "system";
             try {
-                userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
+                userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get UserLogin for: " + userLoginId + "; cannot continue", module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingAuthenticationUser", locale));
@@ -335,7 +330,7 @@ public class WorldPayEvents {
         GenericValue orderHeader = null;
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
-                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get the order header for order: " + orderId, module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resourceErr, "worldPayEvents.problemsGettingOrderHeader", locale));
@@ -410,8 +405,8 @@ public class WorldPayEvents {
         Debug.logVerbose("Setting payment preferences..", module);
         List<GenericValue> paymentPrefs = null;
         try {
-            Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED");
-            paymentPrefs = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
+            paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
+                    .where("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;
@@ -501,7 +496,7 @@ public class WorldPayEvents {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(paymentGatewayConfigId)) {
             try {
-                GenericValue worldPay = delegator.findOne("PaymentGatewayWorldPay", UtilMisc.toMap("paymentGatewayConfigId", paymentGatewayConfigId), false);
+                GenericValue worldPay = EntityQuery.use(delegator).from("PaymentGatewayWorldPay").where("paymentGatewayConfigId", paymentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(worldPay)) {
                     Object worldPayField = worldPay.get(paymentGatewayConfigParameterName);
                     if (worldPayField != null) {

@@ -33,10 +33,10 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -1099,11 +1099,11 @@ public class ValueLinkServices {
         // get the productFeature type TYPE (VL promo code)
         GenericValue typeFeature = null;
         try {
-            Map<String, Object> fields = UtilMisc.toMap("productId", product.get("productId"), "productFeatureTypeId", "TYPE");
-            List<String> order = UtilMisc.toList("-fromDate");
-            List<GenericValue> featureAppls = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
-            featureAppls = EntityUtil.filterByDate(featureAppls);
-            typeFeature = EntityUtil.getFirst(featureAppls);
+            typeFeature = EntityQuery.use(delegator)
+                    .from("ProductFeatureAndAppl")
+                    .where("productId", product.get("productId"), 
+                            "productFeatureTypeId", "TYPE")
+                    .orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -1128,12 +1128,11 @@ public class ValueLinkServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map<String, Object> fields = UtilMisc.<String, Object>toMap("orderId", orderId, 
-                    "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
-            // there should be only one
-            surveyResponse = EntityUtil.getFirst(responses);
+            surveyResponse = EntityQuery.use(delegator).from("SurveyResponse")
+                    .where("orderId", orderId,
+                            "orderItemSeqId", orderItem.get("orderItemSeqId"),
+                            "surveyId", surveyId)
+                    .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -1254,7 +1253,7 @@ public class ValueLinkServices {
             GenericValue productStoreEmail = null;
             String emailType = "PRDS_GC_PURCHASE";
             try {
-                productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
             }
@@ -1374,12 +1373,11 @@ public class ValueLinkServices {
         // get the survey response
         GenericValue surveyResponse = null;
         try {
-            Map<String, Object> fields = UtilMisc.toMap("orderId", orderId, 
-                    "orderItemSeqId", orderItem.get("orderItemSeqId"), "surveyId", surveyId);
-            List<String> order = UtilMisc.toList("-responseDate");
-            List<GenericValue> responses = delegator.findByAnd("SurveyResponse", fields, order, false);
-            // there should be only one
-            surveyResponse = EntityUtil.getFirst(responses);
+            surveyResponse = EntityQuery.use(delegator).from("SurveyResponse")
+                    .where("orderId", orderId, 
+                            "orderItemSeqId", orderItem.get("orderItemSeqId"), 
+                            "surveyId", surveyId).orderBy("-responseDate")
+                    .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
@@ -1502,7 +1500,7 @@ public class ValueLinkServices {
         GenericValue productStoreEmail = null;
         String emailType = "PRDS_GC_RELOAD";
         try {
-            productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get product store email setting for gift card purchase", module);
         }
