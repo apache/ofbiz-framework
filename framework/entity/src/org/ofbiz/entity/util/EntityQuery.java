@@ -160,6 +160,17 @@ public class EntityQuery {
         return this;
     }
 
+    /** Set a series of EntityConditions to be ANDed together as the WHERE clause for the query
+     * 
+     * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
+     * @param fieldMap - A series of EntityConditions to be ANDed together as the where clause for the query
+     * @return this EntityQuery object, to enable chaining
+     */
+    public EntityQuery where(EntityCondition...entityCondition) {
+        this.whereEntityCondition = EntityCondition.makeCondition(Arrays.asList(entityCondition));
+        return this;
+    }
+
     /** Set a list of EntityCondition objects to be ANDed together as the WHERE clause for the query
      * 
      * NOTE: Each successive call to any of the where(...) methods will replace the currently set condition for the query.
