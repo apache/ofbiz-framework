@@ -42,7 +42,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
@@ -82,8 +82,8 @@ public class TaxAuthorityServices {
         if (shippingPrice != null) priceWithTax = priceWithTax.add(shippingPrice);
 
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
-            GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
+            GenericValue productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             if (productStore == null) {
                 throw new IllegalArgumentException("Could not find ProductStore with ID [" + productStoreId + "] for tax calculation");
             }
@@ -91,10 +91,11 @@ public class TaxAuthorityServices {
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
                 Set<GenericValue> taxAuthoritySet = FastSet.newInstance();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
-                    List<GenericValue> taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.EQUALS, productStore.get("vatTaxAuthGeoId")), null, null, null, true);
+                    List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator).from("TaxAuthority")
+                            .where("taxAuthGeoId", productStore.get("vatTaxAuthGeoId")).cache().queryList();
                     taxAuthoritySet.addAll(taxAuthorityRawList);
                 } else {
-                    GenericValue taxAuthority = delegator.findOne("TaxAuthority", UtilMisc.toMap("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")), true);
+                    GenericValue taxAuthority = EntityQuery.use(delegator).from("TaxAuthority").where("taxAuthGeoId", productStore.get("vatTaxAuthGeoId"), "taxAuthPartyId", productStore.get("vatTaxAuthPartyId")).cache().queryOne();
                     taxAuthoritySet.add(taxAuthority);
                 }
 
@@ -154,10 +155,10 @@ public class TaxAuthorityServices {
         GenericValue facility = null;
         try {
             if (productStoreId != null) {
-                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
+                productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).queryOne();
             }
             if (facilityId != null) {
-                facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", facilityId), false);
+                facility = EntityQuery.use(delegator).from("Facility").where("facilityId", facilityId).queryOne();
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
@@ -173,8 +174,7 @@ public class TaxAuthorityServices {
             try {
                 GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, facilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                 if (facilityContactMech != null) {
-                    shippingAddress = delegator.findOne("PostalAddress",
-                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
+                    shippingAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.get("contactMechId")).queryOne();
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Data error getting tax settings: " + e.toString(), module);
@@ -258,7 +258,8 @@ public class TaxAuthorityServices {
         geoIdByTypeMap = GeoWorker.expandGeoRegionDeep(geoIdByTypeMap, delegator);
         //Debug.logInfo("Tax calc geoIdByTypeMap after expand:" + geoIdByTypeMap, module);
 
-        List<GenericValue> taxAuthorityRawList = delegator.findList("TaxAuthority", EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdByTypeMap.values()), null, null, null, true);
+        List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator)
+                .from("TaxAuthority").where(EntityCondition.makeCondition("taxAuthGeoId", EntityOperator.IN, geoIdByTypeMap.values())).cache().queryList();
         taxAuthoritySet.addAll(taxAuthorityRawList);
         //Debug.logInfo("Tax calc taxAuthoritySet after expand:" + taxAuthoritySet, module);
     }
@@ -325,8 +326,9 @@ public class TaxAuthorityServices {
                 } else {
                     productIdCond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.getString("productId"));
                 }
-                List<GenericValue> pcmList = delegator.findList("ProductCategoryMember", productIdCond, UtilMisc.toSet("productCategoryId", "fromDate", "thruDate"), null, null, true);
-                pcmList = EntityUtil.filterByDate(pcmList, true);
+                List<GenericValue> pcmList = EntityQuery.use(delegator).select("productCategoryId", "fromDate", "thruDate")
+                        .from("ProductCategoryMember")
+                        .where(productIdCond).cache().filterByDate().queryList();
                 for (GenericValue pcm : pcmList) {
                     productCategoryIdSet.add(pcm.getString("productCategoryId"));
                 }
@@ -376,20 +378,17 @@ public class TaxAuthorityServices {
             mainExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("minPurchase", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("minPurchase", EntityOperator.LESS_THAN_EQUAL_TO, itemAmount)));
             EntityCondition mainCondition = EntityCondition.makeCondition(mainExprs, EntityOperator.AND);
 
-            // create the orderby clause
-            List<String> orderList = UtilMisc.<String>toList("minItemPrice", "minPurchase", "fromDate");
-
             // finally ready... do the rate query
-            List<GenericValue> lookupList = delegator.findList("TaxAuthorityRateProduct", mainCondition, null, orderList, null, false);
-            List<GenericValue> filteredList = EntityUtil.filterByDate(lookupList, true);
+            List<GenericValue> lookupList = EntityQuery.use(delegator).from("TaxAuthorityRateProduct")
+                    .where(mainCondition).orderBy("minItemPrice", "minPurchase", "fromDate").filterByDate().queryList();
 
-            if (filteredList.size() == 0) {
+            if (lookupList.size() == 0) {
                 Debug.logWarning("In TaxAuthority Product Rate no records were found for condition:" + mainCondition.toString(), module);
                 return adjustments;
             }
 
             // find the right entry(s) based on purchase amount
-            for (GenericValue taxAuthorityRateProduct : filteredList) {
+            for (GenericValue taxAuthorityRateProduct : lookupList) {
                 BigDecimal taxRate = taxAuthorityRateProduct.get("taxPercentage") != null ? taxAuthorityRateProduct.getBigDecimal("taxPercentage") : ZERO_BASE;
                 BigDecimal taxable = ZERO_BASE;
 
@@ -415,7 +414,8 @@ public class TaxAuthorityServices {
                 String taxAuthPartyId = taxAuthorityRateProduct.getString("taxAuthPartyId");
 
                 // get glAccountId from TaxAuthorityGlAccount entity using the payToPartyId as the organizationPartyId
-                GenericValue taxAuthorityGlAccount = delegator.findOne("TaxAuthorityGlAccount", UtilMisc.toMap("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId), false);
+                GenericValue taxAuthorityGlAccount = EntityQuery.use(delegator).from("TaxAuthorityGlAccount")
+                        .where("taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, "organizationPartyId", payToPartyId).queryOne();
                 String taxAuthGlAccountId = null;
                 if (taxAuthorityGlAccount != null) {
                     taxAuthGlAccountId = taxAuthorityGlAccount.getString("glAccountId");
@@ -426,15 +426,13 @@ public class TaxAuthorityServices {
                 GenericValue productPrice = null;
                 if (product != null && taxAuthPartyId != null && taxAuthGeoId != null) {
                     // find a ProductPrice for the productId and taxAuth* values, and see if it has a priceWithTax value
-                    Map<String, String> priceFindMap = UtilMisc.toMap("productId", product.getString("productId"), 
-                            "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
-                            "productPricePurposeId", "PURCHASE");
-                    List<GenericValue> productPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"), false);
-                    productPriceList = EntityUtil.filterByDate(productPriceList, true);
-                    productPrice = (productPriceList != null && productPriceList.size() > 0) ? productPriceList.get(0): null;
+                    productPrice = EntityQuery.use(delegator).from("ProductPrice")
+                            .where("productId", product.get("productId"), 
+                                    "taxAuthPartyId", taxAuthPartyId, "taxAuthGeoId", taxAuthGeoId, 
+                                    "productPricePurposeId", "PURCHASE")
+                            .orderBy("-fromDate").filterByDate().queryFirst();
                     //Debug.logInfo("=================== productId=" + product.getString("productId"), module);
                     //Debug.logInfo("=================== productPrice=" + productPrice, module);
-                    
                 }
 
                 GenericValue taxAdjValue = delegator.makeValue("OrderAdjustment");
@@ -468,7 +466,10 @@ public class TaxAuthorityServices {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
                     Set<String> billToPartyIdSet = FastSet.newInstance();
                     billToPartyIdSet.add(billToPartyId);
-                    List<GenericValue> partyRelationshipList = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true), true);
+                    List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship")
+                            .where("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP")
+                            .cache().filterByDate().queryList();
+
                     for (GenericValue partyRelationship : partyRelationshipList) {
                         billToPartyIdSet.add(partyRelationship.getString("partyIdFrom"));
                     }
@@ -543,11 +544,10 @@ public class TaxAuthorityServices {
         ptiConditionList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
         EntityCondition ptiCondition = EntityCondition.makeCondition(ptiConditionList, EntityOperator.AND);
         // sort by -fromDate to get the newest (largest) first, just in case there is more than one, we only want the most recent valid one, should only be one per jurisdiction...
-        List<GenericValue> partyTaxInfos = delegator.findList("PartyTaxAuthInfo", ptiCondition, null, UtilMisc.toList("-fromDate"), null, false);
+        GenericValue partyTaxInfo = EntityQuery.use(delegator).from("PartyTaxAuthInfo").where(ptiCondition).orderBy("-fromDate").queryFirst();
 
         boolean foundExemption = false;
-        if (partyTaxInfos.size() > 0) {
-            GenericValue partyTaxInfo = partyTaxInfos.get(0);
+        if (partyTaxInfo != null) {
             adjValue.set("customerReferenceId", partyTaxInfo.get("partyTaxId"));
             if ("Y".equals(partyTaxInfo.getString("isExempt"))) {
                 adjValue.set("amount", BigDecimal.ZERO);
@@ -559,11 +559,9 @@ public class TaxAuthorityServices {
         // if no exceptions were found for the current; try the parent
         if (!foundExemption) {
             // try the "parent" TaxAuthority
-            List<GenericValue> taxAuthorityAssocList = delegator.findByAnd("TaxAuthorityAssoc",
-                    UtilMisc.toMap("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER"),
-                    UtilMisc.toList("-fromDate"), true);
-            taxAuthorityAssocList = EntityUtil.filterByDate(taxAuthorityAssocList, true);
-            GenericValue taxAuthorityAssoc = EntityUtil.getFirst(taxAuthorityAssocList);
+            GenericValue taxAuthorityAssoc = EntityQuery.use(delegator).from("TaxAuthorityAssoc")
+                    .where("toTaxAuthGeoId", taxAuthGeoId, "toTaxAuthPartyId", taxAuthPartyId, "taxAuthorityAssocTypeId", "EXEMPT_INHER")
+                    .orderBy("-fromDate").filterByDate().queryFirst();
             // Debug.logInfo("Parent assoc to " + taxAuthGeoId + " : " + taxAuthorityAssoc, module);
             if (taxAuthorityAssoc != null) {
                 handlePartyTaxExempt(adjValue, billToPartyIdSet, taxAuthorityAssoc.getString("taxAuthGeoId"), taxAuthorityAssoc.getString("taxAuthPartyId"), taxAmount, nowTimestamp, delegator);

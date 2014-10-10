@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 
 public class UtilAccounting {
@@ -55,8 +56,9 @@ public class UtilAccounting {
         GenericValue account = null;
         try {
             // first try to find the account in ProductGlAccount
-            account = delegator.findOne("ProductGlAccount",
-                    UtilMisc.toMap("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId), true);
+            account = EntityQuery.use(delegator).from("ProductGlAccount")
+                    .where("productId", productId, "glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId)
+                    .cache().queryOne();
         } catch (GenericEntityException e) {
             throw new AccountingException("Failed to find a ProductGLAccount for productId [" + productId + "], organization [" + organizationPartyId + "], and productGlAccountTypeId [" + glAccountTypeId + "].", e);
         }
@@ -64,7 +66,7 @@ public class UtilAccounting {
         // otherwise try the default accounts
         if (account == null) {
             try {
-                account = delegator.findOne("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId), true);
+                account = EntityQuery.use(delegator).from("GlAccountTypeDefault").where("glAccountTypeId", glAccountTypeId, "organizationPartyId", organizationPartyId).cache().queryOne();
             } catch (GenericEntityException e) {
                 throw new AccountingException("Failed to find a GlAccountTypeDefault for glAccountTypeId [" + glAccountTypeId + "] and organizationPartyId [" + organizationPartyId+ "].", e);
             }

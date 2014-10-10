@@ -104,7 +104,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
             "maxAmount", new BigDecimal("200.00"), 
             "statusId", "PAYMENT_AUTHORIZED"));
         
-        GenericValue checkOrderPaymentPreference = delegator.findOne("OrderPaymentPreference", UtilMisc.toMap("orderPaymentPreferenceId", "testOrder1000_01"), false);
+        GenericValue checkOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", "testOrder1000_01").queryOne();
         if (UtilValidate.isEmpty(checkOrderPaymentPreference)) {
             orderPaymentPreference.create();
         }
@@ -151,7 +151,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
                         "paymentServiceTypeEnumId", "PRDS_PAY_AUTH",
                         "currencyUomId", "AUD"
                         ));
-                GenericValue checkPaymentGatewayResponse = delegator.findOne("PaymentGatewayResponse", UtilMisc.toMap("paymentGatewayResponseId", "testOrder1000_01"), false);
+                GenericValue checkPaymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
                 if (UtilValidate.isEmpty(checkPaymentGatewayResponse)) {
                     paymentGatewayResponse.create();
                 }
@@ -163,7 +163,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
 
     public void testdoCapture() throws Exception {
         Debug.logInfo("=====[testdoCapture] starting....", module);
-        GenericValue paymentGatewayResponse = delegator.findOne("PaymentGatewayResponse", UtilMisc.toMap("paymentGatewayResponseId", "testOrder1000_01"), false);
+        GenericValue paymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
         try {
             Map<String, Object> serviceInput = UtilMisc.<String, Object>toMap(
                     "paymentConfig", configFile,
@@ -185,7 +185,7 @@ public class SecurePayServiceTest extends OFBizTestCase{
                 TestCase.fail("Returned messages:" + result.get("internalRespMsgs"));
             } else {
                 String captureRefNum = (String) result.get("captureRefNum");
-                GenericValue checkPaymentGatewayResponse = delegator.findOne("PaymentGatewayResponse", UtilMisc.toMap("paymentGatewayResponseId", "testOrder1000_01"), false);
+                GenericValue checkPaymentGatewayResponse = EntityQuery.use(delegator).from("PaymentGatewayResponse").where("paymentGatewayResponseId", "testOrder1000_01").queryOne();
                 checkPaymentGatewayResponse.set("referenceNum", captureRefNum);
                 checkPaymentGatewayResponse.store();
                 Debug.logInfo("[testdoCapture] Result from SecurePay: " + result, module);
