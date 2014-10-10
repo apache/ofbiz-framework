@@ -654,9 +654,8 @@ public class InvoiceWorker {
         try {
             Delegator delegator = invoice.getDelegator();
             invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem")
-                    .where(UtilMisc.<EntityCondition>toList(
-                            EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
-                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator)))
+                    .where(EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
+                            EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator))
                     ).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);
@@ -692,11 +691,10 @@ public class InvoiceWorker {
         try {
             Delegator delegator = invoice.getDelegator();
             invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem")
-                    .where(UtilMisc.toList(
-                            EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
+                    .where(EntityCondition.makeCondition("invoiceId", invoice.getString("invoiceId")),
                             EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator)),
                             EntityCondition.makeCondition("taxAuthPartyId", taxAuthPartyId),
-                            EntityCondition.makeCondition("taxAuthGeoId", taxAuthGeoId))
+                            EntityCondition.makeCondition("taxAuthGeoId", taxAuthGeoId)
                     ).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);
@@ -714,11 +712,10 @@ public class InvoiceWorker {
          try {
              Delegator delegator = invoice.getDelegator();
              invoiceTaxItems = EntityQuery.use(delegator).from("InvoiceItem")
-                     .where(UtilMisc.toList(
-                             EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
+                     .where(EntityCondition.makeCondition("invoiceId", invoice.get("invoiceId")),
                              EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, getTaxableInvoiceItemTypeIds(delegator)),
-                             EntityCondition.makeCondition("taxAuthPartyId", null)))
-                     .queryList();
+                             EntityCondition.makeCondition("taxAuthPartyId", null)
+                     ).queryList();
          } catch (GenericEntityException e) {
              Debug.logError(e, "Trouble getting InvoiceItem list", module);
              return null;

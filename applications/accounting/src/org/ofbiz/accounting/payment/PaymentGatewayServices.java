@@ -2698,9 +2698,8 @@ public class PaymentGatewayServices {
         EntityListIterator eli = null;
         try {
             eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
-                    .where(UtilMisc.toList(
-                            EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
-                            EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0))))
+                    .where(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAYMENT_NOT_AUTH"),
+                            EntityCondition.makeCondition("processAttempt", EntityOperator.GREATER_THAN, Long.valueOf(0)))
                     .orderBy("orderId").queryIterator();
             List<String> processList = FastList.newInstance();
             if (eli != null) {
@@ -2748,9 +2747,8 @@ public class PaymentGatewayServices {
         EntityListIterator eli = null;
         try {
             eli = EntityQuery.use(delegator).from("OrderPaymentPreference")
-                    .where(UtilMisc.toList(
-                            EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
-                            EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)))
+                    .where(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), 
+                            EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo))
                     .orderBy("orderId").queryIterator();
 
             List<String> processList = FastList.newInstance();

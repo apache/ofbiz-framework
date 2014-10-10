@@ -79,10 +79,9 @@ public class BillingAccountWorker {
         List<String> relatedPartyIdList = UtilGenerics.checkList(agentResult.get("relatedPartyIdList"));
 
         List<GenericValue> billingAccountRoleList = EntityQuery.use(delegator).from("BillingAccountRole")
-                .where(UtilMisc.toList(
-                        EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
-                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")))
-                .filterByDate().queryList();
+                .where(EntityCondition.makeCondition("partyId", EntityOperator.IN, relatedPartyIdList),
+                        EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "BILL_TO_CUSTOMER")
+                ).filterByDate().queryList();
 
         if (billingAccountRoleList.size() > 0) {
             BigDecimal totalAvailable = BigDecimal.ZERO;
@@ -115,12 +114,11 @@ public class BillingAccountWorker {
      */
     public static List<GenericValue> getBillingAccountOpenOrders(Delegator delegator, String billingAccountId) throws GenericEntityException {
         return EntityQuery.use(delegator).from("OrderHeader")
-                .where(UtilMisc.toList(
-                        EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                .where(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
-                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")))
-                .queryList();
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED")
+                ).queryList();
     }
 
     /**

@@ -903,12 +903,11 @@ public class FinAccountPaymentServices {
         GenericValue trans = null;
         try {
             trans = EntityQuery.use(delegator).from("FinAccountTrans")
-                    .where(UtilMisc.toList(
+                    .where(
                             EntityCondition.makeCondition("finAccountTransTypeId", EntityOperator.EQUALS, "DEPOSIT"),
                             EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
                             EntityCondition.makeCondition("orderId", EntityOperator.NOT_EQUAL, null)
-                            ))
-                            .orderBy("-transactionDate").queryFirst();
+                    ).orderBy("-transactionDate").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
