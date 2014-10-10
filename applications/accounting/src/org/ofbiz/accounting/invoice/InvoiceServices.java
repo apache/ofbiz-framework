@@ -761,10 +761,9 @@ public class InvoiceServices {
 
             // check for previous order payments
             List<GenericValue> orderPaymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference")
-                    .where(UtilMisc.<EntityCondition>toList(
-                            EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
+                    .where(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
                             EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")
-                    )).queryList();
+                    ).queryList();
             List<GenericValue> currentPayments = FastList.newInstance();
             for (GenericValue paymentPref : orderPaymentPrefs) {
                 List<GenericValue> payments = paymentPref.getRelated("Payment", null, null, false);
