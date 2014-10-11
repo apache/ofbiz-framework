@@ -40,10 +40,6 @@ public class UrlLoader extends ResourceLoader implements Serializable {
         } catch (java.net.MalformedURLException e) {
             throw new GenericConfigException("Error with malformed URL while trying to load URL resource at location [" + fullLocation + "]", e);
         }
-        if (url == null) {
-            throw new GenericConfigException("URL Resource not found: " + fullLocation);
-        }
-
         return url;
     }
 
