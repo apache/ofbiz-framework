@@ -274,13 +274,14 @@ public class EntityDataLoadContainer implements Container {
         String groupNameToUse = overrideGroup != null ? overrideGroup : entityGroupName;
         Delegator delegator = DelegatorFactory.getDelegator(delegatorNameToUse);
         Delegator baseDelegator = null;
+        if (delegator == null) {
+            throw new ContainerException("Invalid delegator name!");
+        }
+
         if (delegator.getDelegatorTenantId() != null) {
             baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
         } else {
             baseDelegator = delegator;
-        }
-        if (delegator == null) {
-            throw new ContainerException("Invalid delegator name!");
         }
 
         GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(groupNameToUse);
