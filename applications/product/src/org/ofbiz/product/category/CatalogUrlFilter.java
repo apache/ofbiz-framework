@@ -356,7 +356,7 @@ public class CatalogUrlFilter extends ContextFilter {
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
             StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.append(contextPath);
-            if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+            if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
                 urlBuilder.append("/");
             }
             // append alternative URL
@@ -431,7 +431,7 @@ public class CatalogUrlFilter extends ContextFilter {
         if (UtilValidate.isNotEmpty(alternativeUrl) && UtilValidate.isNotEmpty(alternativeUrl.toString())) {
             StringBuilder urlBuilder = new StringBuilder();
             urlBuilder.append(contextPath);
-            if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+            if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
                 urlBuilder.append("/");
             }
             // append alternative URL
