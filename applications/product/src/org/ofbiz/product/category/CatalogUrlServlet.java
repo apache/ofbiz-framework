@@ -157,7 +157,7 @@ public class CatalogUrlServlet extends HttpServlet {
     public static String makeCatalogUrl(HttpServletRequest request, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
             urlBuilder.append("/");
         }
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);
@@ -183,7 +183,7 @@ public class CatalogUrlServlet extends HttpServlet {
     public static String makeCatalogUrl(String contextPath, List<String> crumb, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(contextPath);
-        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
             urlBuilder.append("/");
         }
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);

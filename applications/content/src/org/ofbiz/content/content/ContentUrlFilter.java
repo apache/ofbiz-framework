@@ -151,7 +151,7 @@ public class ContentUrlFilter extends ContextFilter {
         }
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
             urlBuilder.append("/");
         }
         urlBuilder.append(CONTROL_MOUNT_POINT);
