@@ -18,6 +18,7 @@ framework/base/lib/avalon-framework-4.2.0.jar
 framework/base/lib/batik-all-1.7.jar
 framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
+framework/base/lib/freemarker-2.3.21.jar
 framework/base/lib/httpclient-4.2.1.jar
 framework/base/lib/httpclient-cache-4.2.1.jar
 framework/base/lib/httpcore-4.2.1.jar
@@ -435,7 +436,6 @@ BSD License:
 applications/content/lib/dom4j-1.6.1.jar
 framework/base/lib/antisamy-bin.1.2.jar
 framework/base/lib/bsh-engine-modified.jar
-framework/base/lib/freemarker-2.3.21-rc02.jar
 framework/base/lib/hamcrest-all-1.2.jar
 framework/base/lib/httpunit-1.7.jar
 framework/base/lib/ical4j-1.0-rc2.jar

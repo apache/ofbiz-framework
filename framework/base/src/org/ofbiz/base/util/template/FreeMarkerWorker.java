@@ -58,6 +58,7 @@ import freemarker.cache.TemplateLoader;
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
 import freemarker.ext.beans.BeansWrapper;
+import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.Configuration;
 import freemarker.template.SimpleHash;
 import freemarker.template.SimpleScalar;
@@ -79,15 +80,11 @@ public class FreeMarkerWorker {
 
     // use soft references for this so that things from Content records don't kill all of our memory, or maybe not for performance reasons... hmmm, leave to config file...
     private static final UtilCache<String, Template> cachedTemplates = UtilCache.createUtilCache("template.ftl.general", 0, 0, false);
-    private static final BeansWrapper defaultOfbizWrapper = configureBeansWrapper(new BeansWrapper(version));
+    private static final BeansWrapper defaultOfbizWrapper = new BeansWrapperBuilder(version).build();
     private static final Configuration defaultOfbizConfig = makeConfiguration(defaultOfbizWrapper);
 
     public static BeansWrapper getDefaultOfbizWrapper() {
         return defaultOfbizWrapper;
-    }
-
-    public static <T extends BeansWrapper> T configureBeansWrapper(T wrapper) {
-        return wrapper;
     }
 
     public static Configuration makeConfiguration(BeansWrapper wrapper) {
