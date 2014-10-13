@@ -21,7 +21,7 @@
     <classpathentry kind="lib" path="framework/base/lib/clhm-release-1.0-lru.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/fop-1.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.21-rc02.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.21.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpcore-4.2.1.jar"/>
