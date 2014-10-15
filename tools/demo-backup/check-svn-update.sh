@@ -1,11 +1,11 @@
 #!/bin/sh
 
-# check trunk for updates
+# check trunk for updates finally no longer done, restart all demos each morning at 3
 
 cd /home/ofbizDemo/trunk
-svn st -u | grep '*'
+#svn st -u | grep '*'
 
-if [ $? = 0 ]; then
+#if [ $? = 0 ]; then
     svn up
     ./ant stop
     ./ant clean-all
@@ -13,14 +13,14 @@ if [ $? = 0 ]; then
     ./ant svninfo
     #./ant start  > console.log
     ./ant start-batch
-fi
+#fi
 
 # check branch for updates
 
 cd /home/ofbizDemo/branch13.7
-svn st -u | grep '*'
+#svn st -u | grep '*'
 
-if [ $? = 0 ]; then
+#if [ $? = 0 ]; then
     svn up
     ./ant stop -Dportoffset=10000
     ./ant clean-all
@@ -28,12 +28,12 @@ if [ $? = 0 ]; then
     ./ant svninfo
     #./ant start -Dportoffset=10000 > console.log
     ./ant start-batch -Dportoffset=10000
-fi
+#fi
 
 cd /home/ofbizDemo/branch12.4
-svn st -u | grep '*'
+#svn st -u | grep '*'
 
-if [ $? = 0 ]; then
+#if [ $? = 0 ]; then
     svn up
     tools/stopofbiz.sh
     sleep 10
@@ -46,4 +46,4 @@ if [ $? = 0 ]; then
     ./ant svninfo
     sleep 10
     nohup tools/startofbiz.sh &
-fi
+#fi
