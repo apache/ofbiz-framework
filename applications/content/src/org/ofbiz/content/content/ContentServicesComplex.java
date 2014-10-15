@@ -78,9 +78,8 @@ public class ContentServicesComplex {
         return results;
     }
 
-    @SuppressWarnings("unchecked")
     public static Map<String, Object> getAssocAndContentAndDataResourceMethod(Delegator delegator, String contentId, String mapKey, String direction, Timestamp fromDate, Timestamp thruDate, String fromDateStr, String thruDateStr, List<String> assocTypes, List<String> contentTypes) {
-        List exprList = FastList.newInstance();
+        List<EntityCondition> exprList = FastList.newInstance();
         EntityExpr joinExpr = null;
         String viewName = null;
         if (mapKey != null) {
@@ -133,7 +132,7 @@ public class ContentServicesComplex {
             EntityConditionList<EntityExpr> thruExprList = EntityCondition.makeCondition(thruList, EntityOperator.OR);
             exprList.add(thruExprList);
         }
-        EntityConditionList<EntityExpr> assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+        EntityConditionList<EntityCondition> assocExprList = EntityCondition.makeCondition(exprList, EntityOperator.AND);
         List<GenericValue> relatedAssocs = null;
         try {
             relatedAssocs = delegator.findList(viewName, assocExprList, null,UtilMisc.toList("caFromDate"), null, false);
