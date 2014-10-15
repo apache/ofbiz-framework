@@ -319,9 +319,16 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(Timestamp moment) {
-        this.filterByDate = true;
-        this.filterByDateMoment = moment;
-        this.filterByFieldNames = null;
+        if (moment != null) {
+            this.filterByDate = true;
+            this.filterByDateMoment = moment;
+            this.filterByFieldNames = null;
+        } else {
+            // Maintain existing behavior exhibited by EntityUtil.filterByDate(moment) when moment is null and perform no date filtering
+            this.filterByDate = false;
+            this.filterByDateMoment = null;
+            this.filterByFieldNames = null;
+        }
         return this;
     }
 
