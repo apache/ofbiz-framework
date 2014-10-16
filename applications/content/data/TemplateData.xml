@@ -27,7 +27,6 @@ under the License.
     <DataResource dataResourceId="ARTICLE_WRAP" dataResourceTypeId="OFBIZ_FILE" dataTemplateTypeId="FTL" />
     <DataResource dataResourceId="LEFTBAR" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Left Bar" objectInfo="LEFT BAR"/>
     <DataResource dataResourceId="RP_MEDAL" dataResourceTypeId="IMAGE_OBJECT" dataTemplateTypeId="NONE" dataResourceName="Project Reliance Medallion Logo" objectInfo="pr_medal.png"/>
-    <DataResource dataResourceId="STDWRAP001" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Standard SubContent Wrapper" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TMPLT_IMG_CENTER" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Centered" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_IMAGE_LEFT" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Image Left" mimeTypeId="text/html"/>
     <DataResource dataResourceId="TEMPLATE_TEXT_ONLY" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" dataResourceName="Template Text" mimeTypeId="text/html"/>
@@ -55,7 +54,6 @@ under the License.
     <Content contentId="VIEW_WRAP" contentTypeId="DOCUMENT" dataResourceId="VIEW_WRAP" contentName="View Wrap"/>
     <Content contentId="WRAP_ARTICLE" contentTypeId="DOCUMENT" dataResourceId="WRAP_ARTICLE"/>
     <Content contentId="WRAP_NEXT_PREV" contentTypeId="ANNOTATION" dataResourceId="WRAP_NEXT_PREV" contentName="Next-Prev wrapper" description="Next and Previous wrapper"/>
-    <Content contentId="WRAP_STD_001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html"/>
     <Content contentId="WRAP_STD_LOOP" contentTypeId="DOCUMENT" dataResourceId="WRAP_STD_LOOP" contentName="Loop Wrap" mimeTypeId="text/html"/>
     <Content contentId="WRAP_VIEW" contentTypeId="DOCUMENT" dataResourceId="WRAP_VIEW"/>
     <Content contentId="ARTICLE_WRAP" contentTypeId="DOCUMENT" dataResourceId="ARTICLE_WRAP"/>
@@ -152,40 +150,6 @@ under the License.
    }
 </script>
             ]]></textData>
-    </ElectronicText>
-    <ElectronicText dataResourceId="STDWRAP001">
-        <textData><![CDATA[<#assign mapKey=wrapMapKey?if_exists/>
-<#assign subDataResourceId=wrapDataResourceId?if_exists/>
-<#assign subDataResourceTypeId=wrapDataResourceTypeId?if_exists/>
-<#assign contentIdTo=wrapContentIdTo?if_exists/>
-<#assign mimeTypeId=wrapMimeTypeId?if_exists/>
-<#assign subContentId=wrapSubContentId?if_exists/>
-<div id="divTwo" class="wrapOuter">
-    <div>
-    ${mapKey?if_exists}
-    <a class="buttontext" href="javascript:lookupSubContent('<@ofbizUrl>/LookupSubContent</@ofbizUrl>', '${contentIdTo?if_exists}','${mapKey?if_exists}',  '${subDataResourceTypeId?if_exists}', '${mimeTypeId?if_exists}')"
->[Find]</a>
-    <#assign ofbizRequest=""/>
-    <#assign httpParams="contentIdTo=" + contentIdTo?if_exists + "&mapKey=" + mapKey?if_exists />
-    <#if subDataResourceTypeId == "IMAGE_OBJECT">
-        <#assign ofbizRequest="EditLayoutImage"/>
-    <#else>
-        <#if subDataResourceTypeId == "URL_RESOURCE">
-            <#assign ofbizRequest="EditLayoutUrl"/>
-        <#else>
-            <#assign ofbizRequest="EditLayoutSubContent"/>
-        </#if>
-    </#if>
-    <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&mode=add</@ofbizUrl>">[New]</a>
-    <#if subContentId?exists && (0 < subContentId?length)>
-        <a class="buttontext" href="<@ofbizUrl>/${ofbizRequest}?${httpParams}&contentId=${subContentId}&drData
-ResourceId=${subDataResourceId?if_exists}</@ofbizUrl>">[Edit]</a>
-    </#if>
-    </div>
-<div id="divOne" class="wrapInner">
-<@renderWrappedText/>
-</div>
-</div>]]></textData>
     </ElectronicText>
     <ElectronicText dataResourceId="TMPLT_IMG_CENTER">
         <textData><![CDATA[<table>
