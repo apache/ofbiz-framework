@@ -262,12 +262,10 @@ under the License.
     <!-- ================================================================== -->
     <!-- Apply patches where needed                                         -->
     <!-- ================================================================== -->
-  
-  
 
-    <target name="build-dev" 
-      description="Patch sources in a dev environment if patch files are present in runtime/patches. Needs a Subversion client installed">
-      <!-- patch task can't handle a fileset => create a global patch -->
+    <target name="build-dev"
+      description="Patch sources in a dev environment if patch files are present in runtime/patches.">
+      <!-- Ant patch task can't handle a fileset => create a global patch -->
       <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
         <fileset dir="${basedir}/runtime/patches" casesensitive="no">
           <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
@@ -277,20 +275,71 @@ under the License.
       <if>
         <available file="${basedir}/runtime/patches/dev.patch"/>
         <then>
-          <exec executable="svn" dir="${basedir}">
-            <arg value="patch"/>
-            <arg value="${basedir}/runtime/patches/dev.patch"/>
-          </exec>
-          <delete>
-            <fileset dir="${basedir}/runtime/patches" includes="dev.patch"/>
-          </delete>
+            <antcall target="patch">
+                <param name="dir-name" value="${basedir}"/>
+                <param name="diff-file" value="${basedir}/runtime/patches/dev.patch"/>
+            </antcall>
+            <delete file="${basedir}/runtime/patches/dev.patch"/>
         </then>
       </if>
     </target>
     
+    <!-- Following allow to use "svn patch" and fallback on "patch" if necessary -->
+    <target name="calculate-svn-patch-available">
+        <mkdir dir="build/svn-check"/>
+        <exec dir="build/svn-check" output="build/svn-check/svn.output" executable="svn" failonerror="true">
+            <arg value="--version" />
+        </exec>
+        <loadfile property="svn-output" srcFile="build/svn-check/svn.output"/>
+        <condition property="svn-version-ok">
+        <!-- On Linux prefer patch because "svn patch" needs "ant exec and you can't check patching errors -->
+          <and>
+            <os family="windows"/>
+            <or>
+                <!-- This might also depend on the format of the working copy -->
+                <contains string="${svn-output}" substring="1.7."/>
+                <contains string="${svn-output}" substring="1.8."/>
+                <contains string="${svn-output}" substring="1.9."/>
+                <contains string="${svn-output}" substring="1.10."/>
+                <contains string="${svn-output}" substring="1.11."/>
+            </or>
+          </and>
+        </condition>
+        <delete dir="build/svn-check"/>
+    </target>
+    
+    <target name="calculate-patch-available" depends="calculate-svn-patch-available" unless="svn-version-ok">
+        <condition property="patch-ok">
+            <os family="unix"/>
+        </condition>
+    </target>
+    
+    <target name="check-svn-patch-available" depends="calculate-svn-patch-available" unless="svn-version-ok">
+        <echo message="You need svn version 1.7 or higher - attempting patch instead."/>
+    </target>
+    
+    <target name="check-patch-available" depends="calculate-patch-available" unless="patch-ok"/>
+    
+    <target name="patch-via-svn" depends="check-svn-patch-available" if="svn-version-ok">
+        <exec dir="${basedir}" executable="svn" failonerror="true">
+            <arg value="patch" />
+            <arg value="${diff-file}" />
+            <arg value="${dir-name}" />
+        </exec>
+    </target>
+    
+    <target name="patch-via-patch" depends="check-patch-available" if="patch-ok">
+        <exec dir="${basedir}" executable="patch" input="${diff-file}" failonerror="true">
+            <arg value="--binary" /><!-- To prevent EOL issues which comes when using mixed development platforms (ie Unix and Win) -->
+            <arg value="-p0" />
+        </exec>
+    </target>
+    
+    <target name="patch" depends="patch-via-svn,patch-via-patch"/>
+    
     <target name="build-test" 
         description="Patch and build all sources for use in a test environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
-        <subant inheritall="false" target="prepare-to-build-test">
+        <subant inheritall="false" target="prepare-to-build-test" failonerror="true">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
@@ -301,7 +350,7 @@ under the License.
     
     <target name="build-qa" 
         description="Patch and build all sources for use in a qa environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
-        <subant inheritall="false" target="prepare-to-build-qa">
+        <subant inheritall="false" target="prepare-to-build-qa" failonerror="true">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
@@ -312,7 +361,7 @@ under the License.
 
     <target name="build-production" 
         description="Patch and build all sources for use in a live environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
-        <subant inheritall="false" target="prepare-to-build-production">
+        <subant inheritall="false" target="prepare-to-build-production" failonerror="true">
             <fileset dir="${basedir}/hot-deploy" casesensitive="no">
                 <exclude name="disabled/**"/>
                 <include name="*/build.xml"/>
