@@ -162,10 +162,10 @@ under the License.
     <!--
         This macro applies all patches found in ./patches/@{deployment} relative to ${ofbiz.home.dir}
         and stops the build process if patches fail (to save time deleting all the rejects)
+        We use patch command here instead of svn patch because it's supposed to run in a server where patch is intalled in path
     -->
     <macrodef name="apply-patches">
         <attribute name="deployment" default="dev" />
-        
         <sequential>
             <!-- patch task can't handle a fileset => create a global patch -->
             <if>
@@ -175,13 +175,11 @@ under the License.
                         <!-- exclude the patch itself in case it's still there -->
                         <fileset dir="patches" includes="@{deployment}/*.patch"/>
                     </concat>
-                    
-                    <patch strip="0" patchfile="patches/@{deployment}.patch" dir="${ofbiz.home.dir}"/>
-                    
+                    <patch strip="0" patchfile="patches/@{deployment}.patch" dir="${ofbiz.home.dir}" failonerror="true"/>
                     <delete>
                         <fileset dir="patches" includes="@{deployment}.patch"/>
                     </delete>
-                </then>                                  
+                </then>
             </if>
         </sequential>
     </macrodef>
