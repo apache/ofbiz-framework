@@ -163,7 +163,6 @@
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="4"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Content" portletSeqId="00001" columnSeqId="00002" sequenceNum="5"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Notes" portletSeqId="00001" columnSeqId="00002" sequenceNum="6"/>
-    <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="Visits" portletSeqId="00001" columnSeqId="00002" sequenceNum="7"/>
     <PortalPagePortlet portalPageId="PartyProfile" portalPortletId="ProductStores" portletSeqId="00001" columnSeqId="00002" sequenceNum="8"/>
 
 </entity-engine-xml>
