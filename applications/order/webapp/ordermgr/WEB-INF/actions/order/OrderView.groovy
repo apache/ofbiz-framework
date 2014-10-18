@@ -25,6 +25,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.inventory.InventoryWorker;
@@ -55,9 +56,11 @@ def partyId = null;
 orderHeader = null;
 orderItems = null;
 orderAdjustments = null;
+comments = null;
 
 if (orderId) {
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    comments = EntityQuery.use(delegator).select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin").from("OrderItemChange").where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))).orderBy("-changeDatetime").queryList();
 }
 
 if (orderHeader) {
@@ -73,6 +76,7 @@ if (orderHeader) {
     orderTerms = orderHeader.getRelated("OrderTerm", null, null, false);
 
     context.orderHeader = orderHeader;
+    context.comments = comments;
     context.orderReadHelper = orderReadHelper;
     context.orderItems = orderItems;
     context.orderAdjustments = orderAdjustments;
