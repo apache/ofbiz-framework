@@ -17,7 +17,7 @@
                 <set field="applicationTitle" value="${uiLabelMap.@component-resource-name@Application}" global="true"/>
             </actions>
             <widgets>
-                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+                <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
             </widgets>
         </section>
     </screen>
