@@ -129,7 +129,7 @@ under the License.
     <!-- Visual theme mapping -->
     <request-map uri="ListVisualThemes">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListVisualThemes"/>
+        <response name="success" type="view" value="ListVisualThemes" save-last-view="true"/>
     </request-map>
 
     <request-map uri="main">
