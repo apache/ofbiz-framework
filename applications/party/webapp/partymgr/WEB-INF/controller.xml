@@ -637,11 +637,6 @@ under the License.
     </request-map>
     <request-map uri="ViewCommunicationEvent">
         <security https="true" auth="true"/>
-        <event type="service" invoke="setCommEventRoleToRead"/>
-        <response name="success" type="view" value="ViewCommunicationEvent"/>
-    </request-map>
-    <request-map uri="viewCommunicationEvent">
-        <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewCommunicationEvent"/>
     </request-map>
     <request-map uri="uploadAttachFiletoEmail">
