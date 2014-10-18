@@ -70,6 +70,10 @@ public class WidgetWorker {
     public static void buildHyperlinkUrl(Appendable externalWriter, String target, String targetType, Map<String, String> parameterMap,
             String prefix, boolean fullPath, boolean secure, boolean encode, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         String localRequestName = UtilHttp.encodeAmpersands(target);
+        // We may get an encoded request like: &#47;projectmgr&#47;control&#47;EditTaskContents&#63;workEffortId&#61;10003
+        // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
+        // This step make sure the following appending externalLoginKey operation to work correctly
+        localRequestName = StringUtil.defaultWebEncoder.canonicalize(localRequestName);
         Appendable localWriter = new StringWriter();
 
         if ("intra-app".equals(targetType)) {
