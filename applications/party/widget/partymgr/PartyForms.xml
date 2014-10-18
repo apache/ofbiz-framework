@@ -707,7 +707,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListCarrierAccounts" type="list" target="updatePartyCarrierAccount"
+    <form name="ListCarrierAccounts" type="list" target="updatePartyCarrierAccount" list-name="carrierAccounts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         paginate="true"  view-size="3" paginate-target="viewprofile" paginate-target-anchor="ListCarrierAccounts">
         <actions>
