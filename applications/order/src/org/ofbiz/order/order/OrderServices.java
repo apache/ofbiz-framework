@@ -3557,6 +3557,9 @@ public class OrderServices {
                     item.setIsModifiedPrice(true);
                 }
 
+                item.setItemComment(changeComments);
+                item.setDesiredDeliveryDate(itemDesiredDeliveryDate);
+                cart.clearItemShipInfo(item);
                 cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
             } else {
                 ShoppingCartItem item = ShoppingCartItem.makeItem(null, productId, null, quantity, null, null, null, null, null, null, null, null, prodCatalogId, null, null, null, dispatcher, cart, null, null, null, Boolean.FALSE, Boolean.FALSE);
@@ -3712,6 +3715,15 @@ public class OrderServices {
                     } else {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                                 "OrderItemDescriptionCannotBeEmpty", locale));
+                    }
+                }
+
+                // Update the item comment
+                if (itemCommentMap != null && itemCommentMap.containsKey(itemSeqId)) {
+                    String comments = itemCommentMap.get(itemSeqId);
+                    if (UtilValidate.isNotEmpty(comments)) {
+                        cartItem.setItemComment(comments);
+                        Debug.logInfo("Set item comment: [" + itemSeqId + "] " + comments, module);
                     }
                 }
 
@@ -4247,11 +4259,17 @@ public class OrderServices {
                     String oldItemDescription = oldOrderItem.getString("itemDescription") != null ? oldOrderItem.getString("itemDescription") : "";
                     BigDecimal oldQuantity = oldOrderItem.getBigDecimal("quantity") != null ? oldOrderItem.getBigDecimal("quantity") : BigDecimal.ZERO;
                     BigDecimal oldUnitPrice = oldOrderItem.getBigDecimal("unitPrice") != null ? oldOrderItem.getBigDecimal("unitPrice") : BigDecimal.ZERO;
+                    String oldItemComment = oldOrderItem.getString("comments") != null ? oldOrderItem.getString("comments") : "";
 
                     boolean changeFound = false;
                     Map<String, Object> modifiedItem = FastMap.newInstance();
                     if (!oldItemDescription.equals(valueObj.getString("itemDescription"))) {
                         modifiedItem.put("itemDescription", oldItemDescription);
+                        changeFound = true;
+                    }
+
+                    if (!oldItemComment.equals(valueObj.getString("comments"))) {
+                        modifiedItem.put("changeComments", valueObj.getString("comments"));
                         changeFound = true;
                     }
 
@@ -4269,14 +4287,9 @@ public class OrderServices {
 
                         //  found changes to store
                         Map<String, String> itemReasonMap = UtilGenerics.checkMap(changeMap.get("itemReasonMap"));
-                        Map<String, String> itemCommentMap = UtilGenerics.checkMap(changeMap.get("itemCommentMap"));
                         if (UtilValidate.isNotEmpty(itemReasonMap)) {
                             String changeReasonId = itemReasonMap.get(valueObj.getString("orderItemSeqId"));
                             modifiedItem.put("reasonEnumId", changeReasonId);
-                        }
-                        if (UtilValidate.isNotEmpty(itemCommentMap)) {
-                            String changeComments = itemCommentMap.get(valueObj.getString("orderItemSeqId"));
-                            modifiedItem.put("changeComments", changeComments);
                         }
 
                         modifiedItem.put("orderId", valueObj.getString("orderId"));

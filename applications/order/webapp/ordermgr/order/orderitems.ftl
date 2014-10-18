@@ -656,6 +656,47 @@ under the License.
                                 </tr>
                             </#list>
                         </#if>
+                        <#if orderItem.comments?has_content>
+                          <tr<#if itemClass == "1"> class="alternate-row"</#if>>
+                            <td>&nbsp;</td>
+                            <td>
+                              <div class= "screenlet">
+                                <div class = "screenlet-body">
+                                  <table>
+                                    <tr>
+                                      <td align="right">
+                                        <span class="label">${uiLabelMap.CommonComments}</span>
+                                      </td>
+                                      <td align="">
+                                        <span class="label">${uiLabelMap.CommonCurrent}:</span>&nbsp;${orderItem.comments}
+                                        <#assign orderItemSeqId = orderItem.orderItemSeqId!>
+                                        <#if comments?has_content>
+                                          <hr/>
+                                          <#list comments as comm>
+                                            <#if comm.orderItemSeqId?has_content && orderItemSeqId?has_content && comm.orderItemSeqId == orderItemSeqId>
+                                              <#if comm.changeComments?has_content>
+                                                <div>
+                                                ${(comm.changeComments)!}
+                                                &nbsp;
+                                                <#if comm.changeDatetime?has_content>${Static["org.ofbiz.base.util.UtilFormatOut"].formatDateTime(comm.changeDatetime, "", locale, timeZone)?default("0000-00-00 00:00:00")}</#if>  &nbsp;  ${uiLabelMap.CommonBy} -  [${(comm.changeUserLogin)!}]
+                                                </div>
+                                              </#if>
+                                            </#if>
+                                          </#list>
+                                        </#if>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                </div>
+                              </div>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                          </tr>
+                        </#if>
                         <#if itemClass == "2">
                             <#assign itemClass = "1">
                         <#else>
