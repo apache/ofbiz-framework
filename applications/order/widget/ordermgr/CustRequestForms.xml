@@ -83,7 +83,7 @@ under the License.
         </actions>
     </form>
 
-    <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests"
+    <form name="ListRequestList" type="list" use-row-submit="true" list-name="custRequests" title="List of customer requests" sort-field-parameter-name="custRequestSortField"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="custRequestId" sort-field="true">
             <hyperlink description="${custRequestId}" target="ViewRequest">

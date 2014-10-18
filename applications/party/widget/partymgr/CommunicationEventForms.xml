@@ -487,9 +487,9 @@ under the License.
     </form>
     
     <form name="ListPartyCommEvents" type="list" target="RemoveCommunicationEventRole" list-name="listIt"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" sort-field-parameter-name="partyCommEventSortField">
         <actions>
-            <set field="parameters.sortField" from-field="parameters.sortField" default-value="${groovy: 'true'.equals(parameters.all) ? '-entryDate' : 'entryDate'}"/>
+            <set field="parameters.partyCommEventSortField" from-field="parameters.partyCommEventSortField" default-value="${groovy: 'true'.equals(parameters.all) ? '-entryDate' : 'entryDate'}"/>
             <set field="searchParameters.partyId" from-field="partyId"/>
             <set field="searchParameters.statusId" value="COM_UNKNOWN_PARTY"/>
             <set field="searchParameters.statusId_op" value="notEqual"/>
@@ -499,7 +499,7 @@ under the License.
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="searchParameters"/>
                 <field-map field-name="entityName" value="CommunicationEventAndRole"/>
-                <field-map field-name="orderBy" from-field="parameters.sortField"/>
+                <field-map field-name="orderBy" from-field="parameters.partyCommEventSortField"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
