@@ -380,6 +380,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleViewCommunication"/>
                 <set field="tabButtonItem" value="OverView"/>
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId"/>
+                <service service-name="setCommEventRoleToRead"></service>
                 <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
                 <set field="partyIdFrom" from-field="parameters.partyId" default-value="${userLogin.partyId}"/>
             </actions>
