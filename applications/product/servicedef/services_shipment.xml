@@ -627,7 +627,6 @@ under the License.
         <attribute name="selInfo" type="Map" string-map-prefix="sel_" mode="IN" optional="true"/>
         <attribute name="iteInfo" type="Map" string-map-prefix="ite_" mode="IN" optional="true"/>
         <attribute name="wgtInfo" type="Map" string-map-prefix="wgt_" mode="IN" optional="true"/>
-        <attribute name="boxTypeInfo" type="Map" string-map-prefix="boxType_" mode="IN" optional="true"/>
         <attribute name="numPackagesInfo" type="Map" string-map-prefix="numPackages_" mode="IN" optional="true"/>
     </service>
 
@@ -690,6 +689,7 @@ under the License.
         <attribute name="dimensionUomId" type="String" mode="IN" optional="true"/>
         <attribute name="weightUomId" type="String" mode="IN" optional="true"/>
         <attribute name="shipmentId" type="String" mode="OUT" optional="false"/>
+        <attribute name="boxTypes" type="Map" string-map-prefix="boxType_" mode="IN" optional="true"/>
     </service>
 
     <!-- Shipment Plan Services -->

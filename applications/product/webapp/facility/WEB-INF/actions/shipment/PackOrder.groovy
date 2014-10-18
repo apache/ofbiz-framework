@@ -133,10 +133,10 @@ if (orderId) {
         orderItemShipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
         context.orderItemShipGroup = orderItemShipGroup;
         carrierPartyId = orderItemShipGroup.carrierPartyId;
-        if ("USPS".equals(carrierPartyId)) {
             carrierShipmentBoxTypes = delegator.findList("CarrierShipmentBoxType", EntityCondition.makeCondition([partyId : carrierPartyId]), null, null, null, false);
+            if (carrierShipmentBoxTypes) {
             context.carrierShipmentBoxTypes = carrierShipmentBoxTypes;
-        }
+            }
 
         if ("ORDER_APPROVED".equals(orderHeader.statusId)) {
             if (shipGroupSeqId) {
