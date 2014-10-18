@@ -513,7 +513,7 @@ under the License.
     <screen name="IncomingCustRequests">
         <section>
             <actions>
-                <set field="parameters.sortField" from-field="parameters.sortField" default-value="-custRequestDate"/>
+                <set field="custRequestSortField" from-field="parameters.custRequestSortField" default-value="-custRequestDate"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
                 <entity-condition list="custRequests" entity-name="CustReqAndTypeAndPartyRel">
                     <condition-list combine="and">
@@ -523,7 +523,7 @@ under the License.
                             <condition-expr field-name="partyIdTo" operator="equals" from-field="userLogin.partyId"/>
                         </condition-list>
                     </condition-list>
-                    <order-by field-name="${parameters.sortField}"/>
+                    <order-by field-name="${custRequestSortField}"/>
                 </entity-condition>
             </actions>
             <widgets>
