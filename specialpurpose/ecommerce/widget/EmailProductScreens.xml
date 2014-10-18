@@ -23,7 +23,7 @@ under the License.
     <screen name="TellFriend">
         <section>
             <actions>
-                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control/"/>
+                <set field="baseEcommerceSecureUrl" value="${baseSecureUrl}/ecommerce/control"/>
                 <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
