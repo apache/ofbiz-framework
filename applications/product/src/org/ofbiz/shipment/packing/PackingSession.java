@@ -70,6 +70,7 @@ public class PackingSession implements java.io.Serializable {
     protected List<ItemDisplay> itemInfos = null;
     protected int packageSeq = -1;
     protected int status = 1;
+    protected Map<Integer, String> shipmentBoxTypes = null;
 
     private transient Delegator _delegator = null;
     private transient LocalDispatcher _dispatcher = null;
@@ -91,6 +92,7 @@ public class PackingSession implements java.io.Serializable {
         this.itemInfos = FastList.newInstance();
         this.packageSeq = 1;
         this.packageWeights = FastMap.newInstance();
+        this.shipmentBoxTypes = FastMap.newInstance();
     }
 
     public PackingSession(LocalDispatcher dispatcher, GenericValue userLogin, String facilityId) {
@@ -598,6 +600,7 @@ public class PackingSession implements java.io.Serializable {
     public void clearAllLines() {
         this.packLines.clear();
         this.packageWeights.clear();
+        this.shipmentBoxTypes.clear();
         this.packageSeq = 1;
     }
 
@@ -610,6 +613,7 @@ public class PackingSession implements java.io.Serializable {
         this.primaryShipGrp = null;
         this.additionalShippingCharge = null;
         if (this.packageWeights != null) this.packageWeights.clear();
+        if (this.shipmentBoxTypes != null) this.shipmentBoxTypes.clear();
         this.weightUomId = null;
         this.packageSeq = 1;
         this.status = 1;
@@ -795,7 +799,7 @@ public class PackingSession implements java.io.Serializable {
             Map<String, Object> pkgCtx = FastMap.newInstance();
             pkgCtx.put("shipmentId", shipmentId);
             pkgCtx.put("shipmentPackageSeqId", shipmentPackageSeqId);
-            pkgCtx.put("shipmentBoxTypeId", this.shipmentBoxTypeId);
+            pkgCtx.put("shipmentBoxTypeId", getShipmentBoxType(i+1));
             pkgCtx.put("weight", getPackageWeight(i+1));
             pkgCtx.put("weightUomId", getWeightUomId());
             pkgCtx.put("userLogin", userLogin);
@@ -987,6 +991,25 @@ public class PackingSession implements java.io.Serializable {
         BigDecimal packageWeight = getPackageWeight(packageSeqId);
         BigDecimal newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : weight.add(packageWeight);
         setPackageWeight(packageSeqId, newPackageWeight);
+    }
+
+    // These methods (setShipmentBoxType and getShipmentBoxType) are added so that each package will have different box type.
+    public void setShipmentBoxType(int packageSeqId, String shipmentBoxType) {
+        if (UtilValidate.isEmpty(shipmentBoxType)) {
+            shipmentBoxTypes.remove(Integer.valueOf(packageSeqId));
+        } else {
+            shipmentBoxTypes.put(Integer.valueOf(packageSeqId), shipmentBoxType);
+        }
+    }
+
+    public String getShipmentBoxType(int packageSeqId) {
+        if (this.shipmentBoxTypes == null) return null;
+        String shipmentBoxType = null;
+        Object p = shipmentBoxTypes.get(packageSeqId);
+        if (p != null) {
+            shipmentBoxType = (String) p;
+        }
+        return shipmentBoxType;
     }
 
     class ItemDisplay extends AbstractMap<Object, Object> {
