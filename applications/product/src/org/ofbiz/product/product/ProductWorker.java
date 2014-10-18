@@ -21,6 +21,7 @@ package org.ofbiz.product.product;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +33,7 @@ import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -1204,5 +1206,44 @@ nextProd:
         }
 
         return false;
+    }
+
+    // Method to filter-out out of stock products 
+    public static List<GenericValue> filterOutOfStockProducts (List<GenericValue> productsToFilter, LocalDispatcher dispatcher, Delegator delegator) throws GeneralException {
+        ArrayList<GenericValue> productsInStock = new ArrayList<GenericValue>();
+        if (UtilValidate.isNotEmpty(productsToFilter)) {
+            for (GenericValue genericRecord : productsToFilter) {
+                String productId = genericRecord.getString("productId");
+                GenericValue product = null;
+                product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                Boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG");
+                
+                if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
+                    Map<String, Object> resultOutput = new FastMap<String, Object>();
+                    resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" ,productId));
+                    Debug.logWarning("Error getting available marketing package.", module);
+                    
+                    BigDecimal availableInventory = (BigDecimal) resultOutput.get("availableToPromiseTotal");
+                    if(availableInventory.compareTo(BigDecimal.ZERO) > 0) { 
+                        productsInStock.add(genericRecord);
+                    }
+                } else {
+                    List<GenericValue> facilities = delegator.findList("ProductFacility", EntityCondition.makeCondition("productId",EntityOperator.EQUALS, productId), null, null, null, false);
+                    BigDecimal availableInventory = BigDecimal.ZERO;
+                    if (UtilValidate.isNotEmpty(facilities)) {
+                        for (GenericValue facility : facilities) {
+                            BigDecimal lastInventoryCount = facility.getBigDecimal("lastInventoryCount");
+                            if (lastInventoryCount != null) {
+                                availableInventory = lastInventoryCount.add(availableInventory);
+                            }
+                        }
+                        if (availableInventory.compareTo(BigDecimal.ZERO) > 0) {
+                            productsInStock.add(genericRecord);
+                        }
+                    }
+                }
+            }
+        }
+        return productsInStock;
     }
 }

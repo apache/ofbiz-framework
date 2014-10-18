@@ -41,14 +41,14 @@ under the License.
 </script>
 
 <#macro paginationControls>
-    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize - 1)?double / viewSize?double)>
+    <#assign viewIndexMax = Static["java.lang.Math"].ceil((listSize)?double / viewSize?double)>
       <#if (viewIndexMax?int > 0)>
         <div class="product-prevnext">
             <select name="pageSelect" onchange="callDocumentByPaginate(this[this.selectedIndex].value);">
                 <option value="#">${uiLabelMap.CommonPage} ${viewIndex?int + 1} ${uiLabelMap.CommonOf} ${viewIndexMax}</option>
                 <#if (viewIndex?int > 1)>
-                    <#list 0..viewIndexMax as curViewNum>
-                         <option value="${productCategoryId}~${viewSize}~${curViewNum?int}">${uiLabelMap.CommonGotoPage} ${curViewNum + 1}</option>
+                    <#list 1..viewIndexMax as curViewNum>
+                         <option value="${productCategoryId}~${viewSize}~${curViewNum-1?int}">${uiLabelMap.CommonGotoPage} ${curViewNum}</option>
                     </#list>
                 </#if>
             </select>
