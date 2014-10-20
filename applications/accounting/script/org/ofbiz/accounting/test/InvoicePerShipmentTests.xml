@@ -128,7 +128,6 @@ under the License.
         <set field="packInput.prdInfo._1" value="GZ-1000"/>
         <set field="packInput.iteInfo._1" value="00001"/>
         <set field="packInput.wgtInfo._1" value="0"/>
-        <set field="packInput.boxTypeInfo._1" value="FX10KGBOX"/>
         <set field="packInput.numPackagesInfo._1" value="1"/>
         <call-service service-name="packBulkItems" in-map-name="packInput">
             <result-to-field result-name="responseMessage"/>
@@ -255,7 +254,6 @@ under the License.
         <set field="packInput.prdInfo._1" value="GZ-1000"/>
         <set field="packInput.iteInfo._1" value="00001"/>
         <set field="packInput.wgtInfo._1" value="0"/>
-        <set field="packInput.boxTypeInfo._1" value="FX10KGBOX"/>
         <set field="packInput.numPackagesInfo._1" value="1"/>
         <call-service service-name="packBulkItems" in-map-name="packInput">
             <result-to-field result-name="responseMessage"/>
@@ -381,7 +379,6 @@ under the License.
         <set field="packInput.prdInfo._1" value="GZ-2644"/>
         <set field="packInput.iteInfo._1" value="00001"/>
         <set field="packInput.wgtInfo._1" value="0"/>
-        <set field="packInput.boxTypeInfo._1" value="FX10KGBOX"/>
         <set field="packInput.numPackagesInfo._1" value="1"/>
         <call-service service-name="packBulkItems" in-map-name="packInput">
             <result-to-field result-name="responseMessage"/>
@@ -507,7 +504,6 @@ under the License.
         <set field="packInput.prdInfo._1" value="GZ-2644"/>
         <set field="packInput.iteInfo._1" value="00001"/>
         <set field="packInput.wgtInfo._1" value="0"/>
-        <set field="packInput.boxTypeInfo._1" value="FX10KGBOX"/>
         <set field="packInput.numPackagesInfo._1" value="1"/>
         <call-service service-name="packBulkItems" in-map-name="packInput">
             <result-to-field result-name="responseMessage"/>
