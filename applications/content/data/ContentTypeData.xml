@@ -253,7 +253,6 @@ under the License.
 </div>]]></textData>
     </ElectronicText>
     <Content contentId="STDWRAP001" contentTypeId="DOCUMENT" dataResourceId="STDWRAP001" contentName="Standard SubContent Wrapper" description="Standard SubContent Wrapper" mimeTypeId="text/html"/>
-    <Content contentId="TREE_ROOT"/>
 
     <WebAnalyticsType description="Web Analytics" hasTable="N" parentTypeId="" webAnalyticsTypeId="WEB_ANALYTICS"/>
     <WebAnalyticsType webAnalyticsTypeId="GOOGLE_ANALYTICS" parentTypeId="WEB_ANALYTICS" hasTable="N" description="Google Analytics"/>
