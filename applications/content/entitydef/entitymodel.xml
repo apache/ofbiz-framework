@@ -520,7 +520,6 @@ under the License.
       <field name="dataSourceId" type="id"></field>
       <prim-key field="contentId"/>
       <prim-key field="metaDataPredicateId"/>
-      <prim-key field="metaDataValue"/>
       <relation type="one" fk-name="CONTENTMD_CNTNT" rel-entity-name="Content">
         <key-map field-name="contentId"/>
       </relation>
@@ -893,7 +892,6 @@ under the License.
       <field name="dataSourceId" type="id"></field>
       <prim-key field="dataResourceId"/>
       <prim-key field="metaDataPredicateId"/>
-      <prim-key field="metaDataValue"/>
       <relation type="one" fk-name="DATA_MD_DATREC" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
       </relation>
