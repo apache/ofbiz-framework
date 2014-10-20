@@ -36,7 +36,7 @@ public class JustLoadComponentsContainer implements Container {
         this.name = name;
         try {
             ComponentContainer cc = new ComponentContainer();
-            cc.loadComponents(null, true, null, null);
+            cc.loadComponents(null);
         } catch (AlreadyLoadedException e) {
             Debug.logError(e, module);
         } catch (ComponentException e) {

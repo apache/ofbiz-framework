@@ -241,9 +241,10 @@ public final class Start {
 
     private void initStartLoaders() throws StartupException {
         Classpath classPath = new Classpath();
+        Classpath libraryPath = new Classpath(System.getProperty("java.library.path"));
         try {
-            this.config.initClasspath(classPath);
-        } catch (IOException e) {
+            this.config.initClasspath(classPath, libraryPath);
+        } catch (Exception e) {
             throw (StartupException) new StartupException("Couldn't initialized classpath").initCause(e);
         }
         ClassLoader classloader = classPath.getClassLoader();
