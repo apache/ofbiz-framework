@@ -25,10 +25,11 @@ under the License.
     <DataResource dataResourceId="HELP_TEMPL"/><!--  further defined in the content application -->
 
     <Content contentId="DOCUMENTS" contentTypeId="DOCUMENT" contentName="Documents"/>
-    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
 
     <!-- system document root used in content -> navigate -->
     <Content contentId="TREE_ROOT" contentTypeId="DOCUMENT" contentName="ROOT" dataResourceId=""/>
+    <ContentAssoc contentId="TREE_ROOT" contentIdTo="DOCUMENTS" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
+
     <!-- show help on the system document root -->
     <ContentAssoc contentId="TREE_ROOT" contentIdTo="HELP_ROOT" contentAssocTypeId="TREE_CHILD" fromDate="2006-01-12 01:01:01"/>
     <DataResource dataResourceId="HELP_ROOT" localeString="en" dataResourceTypeId="OFBIZ_FILE" objectInfo="applications/content/data/helpdata/HELP_ROOT.xml" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="Help system root" mimeTypeId="text/xml" isPublic="Y" />
