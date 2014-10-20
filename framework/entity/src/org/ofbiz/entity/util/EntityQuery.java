@@ -446,7 +446,11 @@ public class EntityQuery {
     private EntityCondition makeWhereCondition(boolean usingCache) {
         // we don't use the useCache field here because not all queries will actually use the cache, e.g. findCountByCondition never uses the cache
         if (filterByDate && !usingCache) {
+            if (whereEntityCondition != null) {
                 return EntityCondition.makeCondition(whereEntityCondition, this.makeDateCondition());
+            } else {
+                return this.makeDateCondition();
+            }
         }
         return whereEntityCondition;
     }
