@@ -50,10 +50,6 @@ public class Config {
     public final String adminKey;
     public final int adminPort;
     public final String awtHeadless;
-    public final String baseConfig;
-    public final String baseDtd;
-    public final String baseJar;
-    public final String baseLib;
     public final String containerConfig;
     public final String instrumenterClassName;
     public final String instrumenterFile;
@@ -94,18 +90,6 @@ public class Config {
         ofbizHome = ofbizHomeTmp;
         System.setProperty("ofbiz.home", ofbizHome);
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
-
-        // base config directory
-        baseConfig = getOfbizHomeProp(props, "ofbiz.base.config", "framework/base/config");
-
-        // base schema directory
-        baseDtd = getOfbizHomeProp(props, "ofbiz.base.schema", "framework/base/dtd");
-
-        // base lib directory
-        baseLib = getOfbizHomeProp(props, "ofbiz.base.lib", "framework/base/lib");
-
-        // base jar file
-        baseJar = getOfbizHomeProp(props, "ofbiz.base.jar", "framework/base/build/lib/ofbiz-base.jar");
 
         // log directory
         logDir = getOfbizHomeProp(props, "ofbiz.log.dir", "runtime/logs");
