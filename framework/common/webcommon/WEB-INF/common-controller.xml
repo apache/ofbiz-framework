@@ -154,7 +154,7 @@ under the License.
         <response name="success" type="view-last"/>
     </request-map>
 
-    <!-- Common json reponse events, chain these after events to send json reponses -->
+    <!-- Common json response events, chain these after events to send json responses -->
     <!-- Standard json response, For security reason (OFBIZ-5409) tries to keep only the initially called service attributes -->
     <request-map uri="json">
         <security direct-request="false"/>
