@@ -25,18 +25,15 @@ import java.util.List;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.minilang.method.MethodOperation;
 import org.w3c.dom.Element;
 
 /**

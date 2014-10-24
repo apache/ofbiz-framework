@@ -29,7 +29,6 @@ import org.ofbiz.base.component.AlreadyLoadedException;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.component.ComponentLoaderConfig;
-import org.ofbiz.base.start.Classpath;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilValidate;

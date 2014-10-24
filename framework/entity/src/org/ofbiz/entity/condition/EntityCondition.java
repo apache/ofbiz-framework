@@ -18,8 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.condition;
 
-import static org.ofbiz.base.util.UtilGenerics.cast;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
