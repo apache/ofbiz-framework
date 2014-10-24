@@ -21,6 +21,7 @@ package org.ofbiz.entity.util;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -329,6 +330,16 @@ public class EntityQuery {
             this.filterByDateMoment = null;
             this.filterByFieldNames = null;
         }
+        return this;
+    }
+
+    /** Specifies whether the query should return only values that are active during the specified moment using from/thruDate fields.
+     * 
+     * @param moment - Date representing the moment in time that the values should be active during
+     * @return this EntityQuery object, to enable chaining
+     */
+    public EntityQuery filterByDate(Date moment) {
+        this.filterByDate(new java.sql.Timestamp(moment.getTime()));
         return this;
     }
 
