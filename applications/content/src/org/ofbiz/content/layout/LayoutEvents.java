@@ -44,6 +44,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
 import org.ofbiz.service.GenericServiceException;
@@ -136,7 +137,7 @@ public class LayoutEvents {
                 dispatcher.runSync("deactivateAssocs", context2);
             }
 
-            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             //Debug.logVerbose("in createLayoutImage, dataResource:" + dataResource, module);
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
@@ -147,7 +148,7 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
             //Debug.logVerbose("in createLayoutImage, imageDataResource(0):" + imageDataResource, module);
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
@@ -195,7 +196,7 @@ public class LayoutEvents {
             String dataResourceId = (String) context.get("drDataResourceId");
             Debug.logVerbose("in createLayoutImage(java), dataResourceId:" + dataResourceId, "");
 
-            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             Debug.logVerbose("in createLayoutImage(java), dataResource:" + dataResource, "");
             // Use objectInfo field to store the name of the file, since there is no
             // place in ImageDataResource for it.
@@ -207,7 +208,7 @@ public class LayoutEvents {
             }
 
             // See if this needs to be a create or an update procedure
-            GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
             if (imageDataResource == null) {
                 imageDataResource = delegator.makeValue("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId));
                 imageDataResource.set("imageData", byteWrap.array());
@@ -253,10 +254,11 @@ public class LayoutEvents {
         if (UtilValidate.isEmpty(contentId)) {
             // Look for an existing associated Content
             try {
-                List lst = delegator.findByAnd("DataResourceContentView ", UtilMisc.toMap("dataResourceId", dataResourceId));
-                if (lst.size() > 0) {
-                    GenericValue dataResourceContentView = (GenericValue) lst.get(0);
-                    contentId = (String) dataResourceContentView.get("coContentId");
+                GenericValue dataResourceContentView = EntityQuery.use(delegator).from("DataResourceContentView")
+                        .where("dataResourceId", dataResourceId)
+                        .queryFirst();
+                if (dataResourceContentView != null) {
+                    contentId = dataResourceContentView.getString("coContentId");
                 }
             } catch (GenericEntityException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -321,7 +323,7 @@ public class LayoutEvents {
         String newId = null;
         String newDataResourceId = null;
         try {
-            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+            content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             Debug.logVerbose("in cloneLayout, content:" + content, "");
             if (content == null) {
                 String errMsg = UtilProperties.getMessage(LayoutEvents.err_resource, "layoutEvents.content_empty", locale);
@@ -334,7 +336,7 @@ public class LayoutEvents {
             newId = delegator.getNextSeqId("Content");
             newContent.set("contentId", newId);
             String dataResourceId = (String) content.get("dataResourceId");
-            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
             if (dataResource != null) {
                 GenericValue newDataResource = delegator.makeValue("DataResource", dataResource);
                 Debug.logVerbose("in cloneLayout, newDataResource:" + newDataResource, "");

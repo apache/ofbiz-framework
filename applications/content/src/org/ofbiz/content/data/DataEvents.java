@@ -21,7 +21,6 @@ package org.ofbiz.content.data;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -39,6 +38,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -81,7 +81,7 @@ public class DataEvents {
         // get the content record
         GenericValue content;
         try {
-            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+            content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -108,7 +108,7 @@ public class DataEvents {
         // get the data resource
         GenericValue dataResource;
         try {
-            dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -244,7 +244,7 @@ public class DataEvents {
         }
 
         try {
-            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
             if (!"Y".equals(dataResource.getString("isPublic"))) {
                 // now require login...
                 GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
@@ -257,9 +257,11 @@ public class DataEvents {
 
                 // make sure the logged in user can download this content; otherwise is a pretty big security hole for DataResource records...
                 // TODO: should we restrict the roleTypeId?
-                List<GenericValue> contentAndRoleList = delegator.findByAnd("ContentAndRole",
-                        UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId), null, false);
-                if (contentAndRoleList.size() == 0) {
+                long contentAndRoleCount = EntityQuery.use(delegator).from("ContentAndRole")
+                        .where("partyId", userLogin.get("partyId"),
+                                "dataResourceId", dataResourceId)
+                        .queryCount();
+                if (contentAndRoleCount == 0) {
                     String errorMsg = "You do not have permission to download the Data Resource with ID [" + dataResourceId + "], ie you are not associated with it.";
                     Debug.logError(errorMsg, module);
                     request.setAttribute("_ERROR_MESSAGE_", errorMsg);

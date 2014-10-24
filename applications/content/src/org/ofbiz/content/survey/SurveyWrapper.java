@@ -47,6 +47,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 import freemarker.template.Configuration;
@@ -240,7 +241,7 @@ public class SurveyWrapper {
     public GenericValue getSurvey() {
         GenericValue survey = null;
         try {
-            survey = delegator.findOne("Survey", UtilMisc.toMap("surveyId", surveyId), true);
+            survey = EntityQuery.use(delegator).from("Survey").where("surveyId", surveyId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get Survey : " + surveyId, module);
         }
@@ -286,12 +287,10 @@ public class SurveyWrapper {
         List<GenericValue> questions = FastList.newInstance();
 
         try {
-            Map<String, Object> fields = UtilMisc.<String, Object>toMap("surveyId", surveyId);
-            List<String> order = UtilMisc.toList("sequenceNum", "surveyMultiRespColId");
-            questions = delegator.findByAnd("SurveyQuestionAndAppl", fields, order, true);
-            if (questions != null) {
-                questions = EntityUtil.filterByDate(questions);
-            }
+            questions = EntityQuery.use(delegator).from("SurveyQuestionAndAppl")
+                    .where("surveyId", surveyId)
+                    .orderBy("sequenceNum", "surveyMultiRespColId")
+                    .filterByDate().cache().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get questions for survey : " + surveyId, module);
         }
@@ -312,7 +311,10 @@ public class SurveyWrapper {
         String responseId = null;
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId, "partyId", partyId), UtilMisc.toList("-lastModifiedDate"), false);
+            responses = EntityQuery.use(delegator).from("SurveyResponse")
+                    .where("surveyId", surveyId, "partyId", partyId)
+                    .orderBy("-lastModifiedDate")
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -335,7 +337,7 @@ public class SurveyWrapper {
     public long getNumberResponses() throws SurveyWrapperException {
         long responses = 0;
         try {
-            responses = delegator.findCountByCondition("SurveyResponse", EntityCondition.makeCondition("surveyId", EntityOperator.EQUALS, surveyId), null, null);
+            responses = EntityQuery.use(delegator).from("SurveyResponse").where("surveyId", surveyId).queryCount();
         } catch (GenericEntityException e) {
             throw new SurveyWrapperException(e);
         }
@@ -345,7 +347,7 @@ public class SurveyWrapper {
     public List<GenericValue> getSurveyResponses(GenericValue question) throws SurveyWrapperException {
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyQuestionId", question.getString("surveyQuestionId")), null, false);
+            responses = EntityQuery.use(delegator).from("SurveyResponse").where("surveyQuestionId", question.get("surveyQuestionId")).queryList();
         } catch (GenericEntityException e) {
             throw new SurveyWrapperException(e);
         }
@@ -359,7 +361,7 @@ public class SurveyWrapper {
         if (responseId != null) {
             List<GenericValue> answers = null;
             try {
-                answers = delegator.findByAnd("SurveyResponseAnswer", UtilMisc.toMap("surveyResponseId", responseId), null, false);
+                answers = EntityQuery.use(delegator).from("SurveyResponseAnswer").where("surveyResponseId", responseId).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -658,7 +660,9 @@ public class SurveyWrapper {
         long result = 0;
 
         try {
-            result = delegator.findCountByCondition("SurveyResponseAndAnswer", makeEliCondition(question), null, null);
+            result = EntityQuery.use(delegator).from("SurveyResponseAndAnswer")
+                    .where(makeEliCondition(question))
+                    .queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new SurveyWrapperException("Unable to get responses", e);
@@ -724,19 +728,11 @@ public class SurveyWrapper {
     }
 
     private EntityListIterator getEli(GenericValue question, int maxRows) throws GenericEntityException {
-        EntityFindOptions efo = new EntityFindOptions();
-        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-        efo.setResultSetConcurrency(EntityFindOptions.CONCUR_READ_ONLY);
-        efo.setSpecifyTypeAndConcur(true);
-        efo.setDistinct(false);
-        if (maxRows > 0) {
-            efo.setMaxRows(maxRows);
-        }
-
-        EntityListIterator eli = null;
-        eli = delegator.find("SurveyResponseAndAnswer", makeEliCondition(question), null, null, null, efo);
-
-        return eli;
+        return EntityQuery.use(delegator).from("SurveyResponseAndAnswer")
+                .where(makeEliCondition(question))
+                .cursorScrollInsensitive()
+                .maxRows(maxRows)
+                .queryIterator();
     }
 
     @SuppressWarnings("serial")

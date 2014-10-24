@@ -42,6 +42,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
@@ -112,9 +113,9 @@ public class ContentMapFacade implements Map<Object, Object> {
         this.cache = cache;
         try {
             if (cache) {
-                this.value = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
+                this.value = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
             } else {
-                this.value = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                this.value = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
@@ -232,11 +233,11 @@ public class ContentMapFacade implements Map<Object, Object> {
                 return fields;
             }
             try {
+                EntityQuery contentQuery = EntityQuery.use(delegator).from("Content").where("contentId", contentId);
                 if (cache) {
-                    this.fields = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
-                } else {
-                    this.fields = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                    contentQuery.cache();
                 }
+                this.fields = contentQuery.queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -257,16 +258,12 @@ public class ContentMapFacade implements Map<Object, Object> {
                 // Try and find a WebSitePathAlias record to use, it isn't very feasible to find an alias by (parent)contentId/mapKey
                 // so we're only looking for a direct alias using contentId
                 if (webSiteId != null && delegator != null) {
-                    EntityCondition condition = EntityCondition.makeCondition(
-                            UtilMisc.toMap(
-                                    "mapKey", null,
-                                    "webSiteId", webSiteId,
-                                    "contentId", this.contentId
-                            )
-                    );
                     try {
-                        List<GenericValue> webSitePathAliases = delegator.findList("WebSitePathAlias", condition, null, null, null, true);
-                        GenericValue webSitePathAlias = EntityUtil.getFirst(webSitePathAliases);
+                        GenericValue webSitePathAlias = EntityQuery.use(delegator).from("WebSitePathAlias")
+                                .where("mapKey", null,
+                                        "webSiteId", webSiteId,
+                                        "contentId", this.contentId)
+                                .cache().queryFirst();
                         if (webSitePathAlias != null) {
                             contentUri = webSitePathAlias.getString("pathAlias");
                         }
@@ -297,13 +294,15 @@ public class ContentMapFacade implements Map<Object, Object> {
                     expressions.put("statusId", this.statusFilter);
                 }
 
-                subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder), cache);
+                subs = EntityQuery.use(delegator).from("ContentAssocViewTo")
+                        .where(expressions)
+                        .orderBy(this.sortOrder)
+                        .filterByDate()
+                        .cache(cache).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
             if (subs != null) {
-                subs = EntityUtil.filterByDate(subs);
-
                 for (GenericValue v: subs) {
                     subContent.add(new ContentMapFacade(dispatcher, delegator, v.getString("contentId"), context, locale, mimeType, cache));
                 }
@@ -429,9 +428,9 @@ public class ContentMapFacade implements Map<Object, Object> {
             GenericValue content = null;
             try {
                 if (cache) {
-                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", name), true);
+                    content = EntityQuery.use(delegator).from("Content").where("contentId", name).cache().queryOne();
                 } else {
-                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", name), false);
+                    content = EntityQuery.use(delegator).from("Content").where("contentId", name).queryOne();
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -459,7 +458,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             }
 
             // key is the mapKey
-            List<GenericValue> subs = null;
+            GenericValue sub = null;
             try {
                 Map<String, Object> expressions = FastMap.newInstance();
                 expressions.put("contentIdStart", contentId);
@@ -467,16 +466,16 @@ public class ContentMapFacade implements Map<Object, Object> {
                 if(!this.statusFilter.equals("")) {
                     expressions.put("statusId", this.statusFilter);
                 }
-                subs = delegator.findByAnd("ContentAssocViewTo", expressions, UtilMisc.toList(this.sortOrder), cache);
+                sub = EntityQuery.use(delegator).from("ContentAssocViewTo")
+                        .where(expressions)
+                        .orderBy(this.sortOrder)
+                        .cache(cache)
+                        .filterByDate().queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            if (subs != null) {
-                subs = EntityUtil.filterByDate(subs);
-                GenericValue v = EntityUtil.getFirst(subs);
-                if (v != null) {
-                    return new ContentMapFacade(dispatcher, delegator, v.getString("contentId"), context, locale, mimeType, cache);
-                }
+            if (sub != null) {
+                return new ContentMapFacade(dispatcher, delegator, sub.getString("contentId"), context, locale, mimeType, cache);
             }
 
             return null;
@@ -507,7 +506,9 @@ public class ContentMapFacade implements Map<Object, Object> {
             String name = (String) key;
             List<GenericValue> metaData = null;
             try {
-                metaData = delegator.findByAnd("ContentMetaData", UtilMisc.toMap("contentId", contentId, "metaDataPredicateId", name), null, cache);
+                metaData = EntityQuery.use(delegator).from("ContentMetaData")
+                        .where("contentId", contentId, "metaDataPredicateId", name)
+                        .cache(cache).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

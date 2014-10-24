@@ -39,7 +39,6 @@ import org.ofbiz.common.KeywordSearchUtil;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
@@ -50,8 +49,8 @@ import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 public class ContentSearch {
@@ -79,7 +78,7 @@ public class ContentSearch {
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdFrom", contentId), null, true);
+            List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdFrom", contentId).cache().queryList();
             for (GenericValue contentAssoc: contentAssocList) {
                 String subContentId = contentAssoc.getString("contentIdTo");
                 if (contentIdSet.contains(subContentId)) {
@@ -94,8 +93,10 @@ public class ContentSearch {
             }
 
             // Find Content where current contentId = contentParentId; only select minimal fields to keep the size low
-            List<GenericValue> childContentList = delegator.findList("Content", EntityCondition.makeCondition("contentParentId", EntityComparisonOperator.EQUALS, contentId),
-                    UtilMisc.toSet("contentId", "contentParentId"), null, null, true);
+            List<GenericValue> childContentList = EntityQuery.use(delegator)
+                    .select("contentId", "contentParentId").from("Content")
+                    .where("contentParentId", contentId)
+                    .cache().queryList();
             for (GenericValue childContent: childContentList) {
                 String subContentId = childContent.getString("contentId");
                 if (contentIdSet.contains(subContentId)) {
@@ -115,7 +116,7 @@ public class ContentSearch {
         public int index = 1;
         public List<EntityCondition> entityConditionList = FastList.newInstance();
         public List<String> orderByList = FastList.newInstance();
-        public List<String> fieldsToSelect = UtilMisc.toList("contentId");
+        public Set<String> fieldsToSelect = UtilMisc.toSet("contentId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean contentIdGroupBy = false;
         public boolean includedKeywordSearch = false;
@@ -286,16 +287,15 @@ public class ContentSearch {
 
             // Debug.logInfo("ContentSearch, whereCondition = " + whereCondition.toString(), module);
 
-            EntityFindOptions efo = new EntityFindOptions();
-            efo.setDistinct(true);
-            efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-            if (maxResults != null) {
-                efo.setMaxRows(maxResults);
-            }
-
             EntityListIterator eli = null;
             try {
-                eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, orderByList, efo);
+                eli = EntityQuery.use(delegator)
+                        .select(fieldsToSelect).from(dynamicViewEntity)
+                        .where(whereCondition)
+                        .cursorScrollInsensitive()
+                        .distinct()
+                        .maxRows(maxResults)
+                        .queryIterator();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error in content search", module);
                 return null;
@@ -555,8 +555,8 @@ public class ContentSearch {
             GenericValue content = null;
             GenericValue contentAssocType = null;
             try {
-                content = delegator.findOne("Content", UtilMisc.toMap("contentId", this.contentId), true);
-                contentAssocType = delegator.findOne("ContentAssocType", UtilMisc.toMap("contentAssocTypeId", this.contentAssocTypeId), true);
+                content = EntityQuery.use(delegator).from("Content").where("contentId", this.contentId).cache().queryOne();
+                contentAssocType = EntityQuery.use(delegator).from("ContentAssocType").where("contentAssocTypeId", this.contentAssocTypeId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up ContentAssocConstraint pretty print info: " + e.toString(), module);
             }

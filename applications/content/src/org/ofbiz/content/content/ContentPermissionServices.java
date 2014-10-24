@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entityext.permission.EntityPermissionChecker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -121,7 +122,7 @@ public class ContentPermissionServices {
             String passedUserLoginId = (String)context.get("userLoginId");
             if (UtilValidate.isNotEmpty(passedUserLoginId)) {
                 try {
-                    userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", passedUserLoginId), true);
+                    userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", passedUserLoginId).cache().queryOne();
                     if (userLogin != null) {
                         partyId = userLogin.getString("partyId");
                     }
@@ -276,8 +277,8 @@ public class ContentPermissionServices {
         GenericValue contentTo = null;
         GenericValue contentFrom = null;
         try {
-            contentTo = delegator.findOne("Content", UtilMisc.toMap("contentId", contentIdTo), true);
-            contentFrom = delegator.findOne("Content",  UtilMisc.toMap("contentId", contentIdFrom), true);
+            contentTo = EntityQuery.use(delegator).from("Content").where("contentId", contentIdTo).cache().queryOne();
+            contentFrom = EntityQuery.use(delegator).from("Content").where("contentId", contentIdFrom).cache().queryOne();
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,
                     "ContentContentToOrFromErrorRetriving", locale));

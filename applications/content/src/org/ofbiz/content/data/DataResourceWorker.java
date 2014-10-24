@@ -72,6 +72,7 @@ import org.ofbiz.content.content.UploadContentAndImage;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -114,15 +115,12 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         }
 
         // Find all the categoryTypes that are children of the categoryNode.
-        String matchValue = null;
-        if (parentCategoryId != null) {
-            matchValue = parentCategoryId;
-        }
-        List<GenericValue> categoryValues = delegator.findByAnd("DataCategory", UtilMisc.toMap("parentCategoryId", matchValue), null, true);
+        List<GenericValue> categoryValues = EntityQuery.use(delegator).from("DataCategory")
+                .where("parentCategoryId", parentCategoryId)
+                .cache().queryList();
         categoryNode.put("count", Integer.valueOf(categoryValues.size()));
         List<Map<String, Object>> subCategoryIds = FastList.newInstance();
-        for (int i = 0; i < categoryValues.size(); i++) {
-            GenericValue category = categoryValues.get(i);
+        for (GenericValue category : categoryValues) {
             String id = (String) category.get("dataCategoryId");
             String categoryName = (String) category.get("categoryName");
             Map<String, Object> newNode = FastMap.newInstance();
@@ -154,7 +152,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
      */
     public static void getDataCategoryAncestry(Delegator delegator, String dataCategoryId, List<String> categoryTypeIds) throws GenericEntityException {
         categoryTypeIds.add(dataCategoryId);
-        GenericValue dataCategoryValue = delegator.findOne("DataCategory", UtilMisc.toMap("dataCategoryId", dataCategoryId), false);
+        GenericValue dataCategoryValue = EntityQuery.use(delegator).from("DataCategory").where("dataCategoryId", dataCategoryId).queryOne();
         if (dataCategoryValue == null)
             return;
         String parentCategoryId = (String) dataCategoryValue.get("parentCategoryId");
@@ -310,7 +308,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             String ownerContentId = (String) context.get("ownerContentId");
             if (UtilValidate.isNotEmpty(ownerContentId)) {
                 try {
-                    GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", ownerContentId), false);
+                    GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", ownerContentId).queryOne();
                     if (content != null)
                         serviceInMap.put("currentContent", content);
                 } catch (GenericEntityException e) {
@@ -334,7 +332,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     public static byte[] acquireImage(Delegator delegator, String dataResourceId) throws GenericEntityException {
 
         byte[] b = null;
-        GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
         if (dataResource == null)
             return b;
 
@@ -345,7 +343,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     public static byte[] acquireImage(Delegator delegator, GenericValue dataResource) throws  GenericEntityException {
         byte[] b = null;
         String dataResourceId = dataResource.getString("dataResourceId");
-        GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+        GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
         if (imageDataResource != null) {
             //b = (byte[]) imageDataResource.get("imageData");
             b = imageDataResource.getBytes("imageData");
@@ -461,7 +459,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             mimeType = view.getString("drMimeTypeId");
             //if (Debug.infoOn()) Debug.logInfo("getDataResourceMimeType, mimeType(2):" + mimeType, "");
         if (UtilValidate.isEmpty(mimeType) && UtilValidate.isNotEmpty(dataResourceId)) {
-                GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+                GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
                 //if (Debug.infoOn()) Debug.logInfo("getDataResourceMimeType, dataResource(2):" + dataResource, "");
                 mimeType = dataResource.getString("mimeTypeId");
 
@@ -586,7 +584,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             throw new GeneralException("Cannot clear dataResource related cache for a null dataResourceId");
         }
 
-        GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
         if (dataResource != null) {
             String dataTemplateTypeId = dataResource.getString("dataTemplateTypeId");
             if ("FTL".equals(dataTemplateTypeId)) {
@@ -652,7 +650,9 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         }
 
         // get the data resource object
-        GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+        GenericValue dataResource = EntityQuery.use(delegator).from("DataResource")
+                .where("dataResourceId", dataResourceId)
+                .cache(cache).queryOne();
 
         if (dataResource == null) {
             throw new GeneralException("No data resource object found for dataResourceId: [" + dataResourceId + "]");
@@ -707,7 +707,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 } else {
                     String defaultVisualThemeId = EntityUtilProperties.getPropertyValue("general", "VISUAL_THEME", delegator);
                     if (defaultVisualThemeId != null) {
-                        GenericValue themeValue = delegator.findOne("VisualThemeResource", UtilMisc.toMap("visualThemeId", defaultVisualThemeId, "resourceTypeEnumId", "VT_DOCBOOKSTYLESHEET", "sequenceId", "01"), true);
+                        GenericValue themeValue = EntityQuery.use(delegator).from("VisualThemeResource").where("visualThemeId", defaultVisualThemeId, "resourceTypeEnumId", "VT_DOCBOOKSTYLESHEET", "sequenceId", "01").cache().queryOne();
                         sourceFileLocation = new File(System.getProperty("ofbiz.home") + "/themes" + themeValue.get("resourceValue"));
                         UtilMisc.copyFile(sourceFileLocation,targetFileLocation);
                     }
@@ -827,7 +827,9 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             String text = dataResource.getString("objectInfo");
             writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
         } else if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)) {
-            GenericValue electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+            GenericValue electronicText = EntityQuery.use(delegator).from("ElectronicText")
+                    .where("dataResourceId", dataResourceId)
+                    .cache(cache).queryOne();
             if (electronicText != null) {
                 String text = electronicText.getString("textData");
                 writeText(dataResource, text, templateContext, mimeTypeId, locale, out);
@@ -902,7 +904,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
         if ("text/html".equals(targetMimeTypeId)) {
             // get the default mime type template
-            GenericValue mimeTypeTemplate = delegator.findOne("MimeTypeHtmlTemplate", UtilMisc.toMap("mimeTypeId", dataResourceMimeTypeId), true);
+            GenericValue mimeTypeTemplate = EntityQuery.use(delegator).from("MimeTypeHtmlTemplate").where("mimeTypeId", dataResourceMimeTypeId).cache().queryOne();
 
             if (mimeTypeTemplate != null && mimeTypeTemplate.get("templateLocation") != null) {
                 // prepare the context
@@ -1008,7 +1010,9 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             if ("SHORT_TEXT".equals(dataResourceTypeId) || "LINK".equals(dataResourceTypeId)) {
                 text = dataResource.getString("objectInfo");
             } else if ("ELECTRONIC_TEXT".equals(dataResourceTypeId)) {
-                GenericValue electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+                GenericValue electronicText = EntityQuery.use(delegator).from("ElectronicText")
+                        .where("dataResourceId", dataResourceId)
+                        .cache(cache).queryOne();
                 if (electronicText != null) {
                     text = electronicText.getString("textData");
                 }
@@ -1025,22 +1029,22 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
             GenericValue valObj;
 
             if ("IMAGE_OBJECT".equals(dataResourceTypeId)) {
-                valObj = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+                valObj = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).cache(cache).queryOne();
                 if (valObj != null) {
                     bytes = valObj.getBytes("imageData");
                 }
             } else if ("VIDEO_OBJECT".equals(dataResourceTypeId)) {
-                valObj = delegator.findOne("VideoDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+                valObj = EntityQuery.use(delegator).from("VideoDataResource").where("dataResourceId", dataResourceId).cache(cache).queryOne();
                 if (valObj != null) {
                     bytes = valObj.getBytes("videoData");
                 }
             } else if ("AUDIO_OBJECT".equals(dataResourceTypeId)) {
-                valObj = delegator.findOne("AudioDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+                valObj = EntityQuery.use(delegator).from("AudioDataResource").where("dataResourceId", dataResourceId).cache(cache).queryOne();
                 if (valObj != null) {
                     bytes = valObj.getBytes("audioData");
                 }
             } else if ("OTHER_OBJECT".equals(dataResourceTypeId)) {
-                valObj = delegator.findOne("OtherDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), cache);
+                valObj = EntityQuery.use(delegator).from("OtherDataResource").where("dataResourceId", dataResourceId).cache(cache).queryOne();
                 if (valObj != null) {
                     bytes = valObj.getBytes("dataResourceContent");
                 }
@@ -1088,7 +1092,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     // TODO: remove this method in favor of getDataResourceStream
     public static void streamDataResource(OutputStream os, Delegator delegator, String dataResourceId, String https, String webSiteId, Locale locale, String rootDir) throws IOException, GeneralException {
         try {
-            GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+            GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
             if (dataResource == null) {
                 throw new GeneralException("Error in streamDataResource: DataResource with ID [" + dataResourceId + "] was not found.");
             }
@@ -1105,7 +1109,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 String text = dataResource.getString("objectInfo");
                 os.write(text.getBytes());
             } else if (dataResourceTypeId.equals("ELECTRONIC_TEXT")) {
-                GenericValue electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+                GenericValue electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).cache().queryOne();
                 if (electronicText != null) {
                     String text = electronicText.getString("textData");
                     if (text != null) os.write(text.getBytes());

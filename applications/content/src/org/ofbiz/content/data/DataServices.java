@@ -22,13 +22,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.StringWriter;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -44,6 +43,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
@@ -137,9 +137,9 @@ public class DataServices {
         // get first statusId  for content out of the statusItem table if not provided
         if (UtilValidate.isEmpty(dataResource.get("statusId"))) {
             try {
-                List<GenericValue> statusItems = delegator.findByAnd("StatusItem",UtilMisc.toMap("statusTypeId", "CONTENT_STATUS"), UtilMisc.toList("sequenceId"), false);
-                if (!UtilValidate.isEmpty(statusItems)) {
-                    dataResource.put("statusId",  statusItems.get(0).getString("statusId"));
+                GenericValue statusItem = EntityQuery.use(delegator).from("StatusItem").where("statusTypeId", "CONTENT_STATUS").orderBy("sequenceId").queryFirst();
+                if (statusItem != null) {
+                    dataResource.put("statusId",  statusItem.get("statusId"));
                 }
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(e.getMessage());
@@ -312,7 +312,7 @@ public class DataServices {
         // If textData exists, then create DataResource and return dataResourceId
         String dataResourceId = (String) context.get("dataResourceId");
         try {
-            dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ContentDataResourceNotFound", UtilMisc.toMap("parameters.dataResourceId", dataResourceId), locale));
@@ -366,7 +366,7 @@ public class DataServices {
             Debug.logVerbose("in updateElectronicText, textData:" + textData, module);
         }
         try {
-            electronicText = delegator.findOne("ElectronicText", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+            electronicText = EntityQuery.use(delegator).from("ElectronicText").where("dataResourceId", dataResourceId).queryOne();
             if (electronicText != null) {
                 electronicText.put("textData", textData);
                 electronicText.store();
@@ -521,7 +521,7 @@ public class DataServices {
         if (byteBuffer != null) {
             byte[] imageBytes = byteBuffer.array();
             try {
-                GenericValue imageDataResource = delegator.findOne("ImageDataResource", UtilMisc.toMap("dataResourceId", dataResourceId), false);
+                GenericValue imageDataResource = EntityQuery.use(delegator).from("ImageDataResource").where("dataResourceId", dataResourceId).queryOne();
                 if (Debug.infoOn()) {
                     Debug.logInfo("imageDataResource(U):" + imageDataResource, module);
                     Debug.logInfo("imageBytes(U):" + imageBytes, module);

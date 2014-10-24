@@ -40,6 +40,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -194,7 +195,7 @@ public class ContentManagementEvents {
         List<Object []> origPublishedLinkList = null;
         try {
             // TODO: this needs to be given author userLogin
-            delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", authorId), true);
+            EntityQuery.use(delegator).from("UserLogin").where("userLoginId", authorId).cache().queryOne();
             origPublishedLinkList = ContentManagementWorker.getPublishedLinks(delegator, targContentId, webSiteId, userLogin, security, permittedAction, permittedOperations, roles);
         } catch (GenericEntityException e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
@@ -254,7 +255,12 @@ public class ContentManagementEvents {
                     if (!currentSubContentId.equals(origSubContentId)) {
                         // disable existing link
                         if (UtilValidate.isNotEmpty(origSubContentId) && origFromDate != null) {
-                            List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
+                            List<GenericValue> oldActiveValues = EntityQuery.use(delegator).from("ContentAssoc")
+                                    .where("contentId", targContentId, 
+                                            "contentIdTo", origSubContentId, 
+                                            "contentAssocTypeId", "PUBLISH_LINK", 
+                                            "thruDate", null)
+                                    .queryList();
                             for (GenericValue cAssoc : oldActiveValues) {
                                 cAssoc.set("thruDate", nowTimestamp);
                                 cAssoc.store();
@@ -295,7 +301,7 @@ public class ContentManagementEvents {
                         //if (Debug.infoOn()) Debug.logInfo("in updatePublishLinks, results(3b):" + results , module);
                         if (!statusIdUpdated) {
                             try {
-                                GenericValue targContent = delegator.findOne("Content", UtilMisc.toMap("contentId", targContentId), false);
+                                GenericValue targContent = EntityQuery.use(delegator).from("Content").where("contentId", targContentId).queryOne();
                                 targContent.set("statusId", "CTNT_PUBLISHED");
                                 targContent.store();
                                 statusIdUpdated = true;
@@ -308,12 +314,12 @@ public class ContentManagementEvents {
                     }
                 } else if (UtilValidate.isNotEmpty(origSubContentId)) {
                     // if no current link is passed in, look to see if there is an existing link(s) that must be disabled
-                    List<GenericValue> oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", origSubContentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
-                    for (GenericValue cAssoc : oldActiveValues) {
-                        cAssoc.set("thruDate", nowTimestamp);
-                        cAssoc.store();
-                    }
-                    oldActiveValues = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", targContentId, "contentIdTo", contentId, "contentAssocTypeId", "PUBLISH_LINK", "thruDate", null), null, false);
+                    List<GenericValue> oldActiveValues = EntityQuery.use(delegator).from("ContentAssoc")
+                            .where("contentId", targContentId, 
+                                    "contentIdTo", origSubContentId, 
+                                    "contentAssocTypeId", "PUBLISH_LINK", 
+                                    "thruDate", null)
+                            .queryList();
                     for (GenericValue cAssoc : oldActiveValues) {
                         cAssoc.set("thruDate", nowTimestamp);
                         cAssoc.store();

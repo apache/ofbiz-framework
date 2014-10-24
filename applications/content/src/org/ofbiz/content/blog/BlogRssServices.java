@@ -36,6 +36,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -74,7 +75,7 @@ public class BlogRssServices {
         // get the main blog content
         GenericValue content = null;
         try {
-            content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+            content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -101,14 +102,14 @@ public class BlogRssServices {
 
     public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
         List<SyndEntry> entries = FastList.newInstance();
-        List<EntityCondition> exprs = FastList.newInstance();
-        exprs.add(EntityCondition.makeCondition("contentIdStart", contentId));
-        exprs.add(EntityCondition.makeCondition("caContentAssocTypeId", "PUBLISH_LINK"));
-        exprs.add(EntityCondition.makeCondition("statusId", "CTNT_PUBLISHED"));
 
         List<GenericValue> contentRecs = null;
         try {
-            contentRecs = delegator.findList("ContentAssocViewTo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("-caFromDate"), null, false);
+            contentRecs = EntityQuery.use(delegator).from("ContentAssocViewTo")
+                    .where("contentIdStart", contentId,
+                           "caContentAssocTypeId", "PUBLISH_LINK",
+                           "statusId", "CTNT_PUBLISHED")
+                    .orderBy("-caFromDate").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

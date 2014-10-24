@@ -41,6 +41,7 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
@@ -83,7 +84,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 if (UtilValidate.isEmpty(contentRevisionSeqId)) {
                     if (UtilValidate.isEmpty(mapKey) && UtilValidate.isEmpty(contentAssocTypeId)) {
                         if (UtilValidate.isNotEmpty(contentId)) {
-                            GenericValue content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), true);
+                            GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).cache().queryOne();
                             dataResourceId = content.getString("dataResourceId");
                         }
                         if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
@@ -105,7 +106,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                         if (Debug.verboseOn()) Debug.logVerbose("dataResourceId:" + dataResourceId, module);
                     }
                 } else {
-                    GenericValue contentRevisionItem = delegator.findOne("ContentRevisionItem", UtilMisc.toMap("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId), true);
+                    GenericValue contentRevisionItem = EntityQuery.use(delegator).from("ContentRevisionItem").where("contentId", rootContentId, "itemContentId", contentId, "contentRevisionSeqId", contentRevisionSeqId).cache().queryOne();
                     if (contentRevisionItem == null) {
                         throw new ViewHandlerException("ContentRevisionItem record not found for contentId=" + rootContentId
                                                        + ", contentRevisionSeqId=" + contentRevisionSeqId + ", itemContentId=" + contentId);
@@ -117,7 +118,7 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 }
             }
             if (UtilValidate.isNotEmpty(dataResourceId)) {
-                GenericValue dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", dataResourceId), true);
+                GenericValue dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", dataResourceId).cache().queryOne();
                 // DEJ20080717: why are we rendering the DataResource directly instead of rendering the content?
                 ByteBuffer byteBuffer = DataResourceWorker.getContentAsByteBuffer(delegator, dataResourceId, https, webSiteId, locale, rootDir);
                 ByteArrayInputStream bais = new ByteArrayInputStream(byteBuffer.array());
