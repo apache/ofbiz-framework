@@ -27,7 +27,6 @@ import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
-import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
