@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -123,7 +124,6 @@ In order ta make this service active add the following to the service definition
                                 String check = "\\", checkSubContent = ",", contentName = "", contentNameInprogress = "", data = line.substring(3, size);
                                 //Debug.logInfo("======Data======"+data);
                                 size = data.length();
-                                List<GenericValue> contents = null;
 
                                 for (int index = 0; index< size; index++) {//start character in line
                                     boolean contentNameMatch = false;
@@ -135,21 +135,21 @@ In order ta make this service active add the following to the service definition
                                             contentName = contentName.substring(0, 100);
                                         }
                                         //check duplicate folder
-                                        contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), null, false);
-                                        if (contents.size() > 0) {
-                                            GenericValue contentResult = contents.get(0);
-                                            contentId = contentResult.get("contentId").toString();
+                                        GenericValue content = EntityQuery.use(delegator).from("Content").where("contentName", contentName).queryFirst();
+                                        if (content != null) {
+                                            contentId = content.getString("contentId");
                                         }
-                                        if (contents.size() > 0 && hasFolder==true) {
-                                            GenericValue contentResult = contents.get(0);
-                                            contentId = contentResult.get("contentId").toString();
+                                        if (content != null && hasFolder==true) {
                                             if (rootContent != null) {
-                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent), null, false);
-                                                List<GenericValue> contentAssocCheck = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentIdTo", rootContent), null, false);
+                                                contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
+                                                        .where("contentId", contentId, "contentIdTo", rootContent)
+                                                        .queryList();
+                                                List<GenericValue> contentAssocCheck = EntityQuery.use(delegator).from("ContentAssoc").where("contentIdTo", rootContent).queryList();
+
                                                 Iterator<GenericValue> contentAssChecks = contentAssocCheck.iterator();
                                                 while (contentAssChecks.hasNext() && contentNameMatch == false) {
                                                     GenericValue contentAss = contentAssChecks.next();
-                                                    GenericValue contentcheck = delegator.findOne("Content", UtilMisc.toMap("contentId", contentAss.get("contentId")), false);
+                                                    GenericValue contentcheck = EntityQuery.use(delegator).from("Content").where("contentId", contentAss.get("contentId")).queryOne();
                                                     if (contentcheck!=null) {
                                                         if (contentcheck.get("contentName").equals(contentName) && contentNameMatch == false) {
                                                             contentNameMatch = true;
@@ -159,7 +159,9 @@ In order ta make this service active add the following to the service definition
                                                 }
                                             } else {
                                                 rootContent = "HOME_DUCUMENT";
-                                                contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent), null, false);
+                                                contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
+                                                        .where("contentId", contentId, "contentIdTo", rootContent)
+                                                        .queryList();
                                             }
                                             contentAssocSize = contentAssocs.size();
                                         }
@@ -174,10 +176,6 @@ In order ta make this service active add the following to the service definition
                                             Entity.set("createdByUserLogin", userLogin.get("userLoginId"));
                                             Entity.set("lastModifiedByUserLogin", userLogin.get("userLoginId"));
                                             Entity.set("createdDate", UtilDateTime.nowTimestamp());
-                                            Entity.set("lastUpdatedStamp", UtilDateTime.nowTimestamp());
-                                            Entity.set("lastUpdatedTxStamp", UtilDateTime.nowTimestamp());
-                                            Entity.set("createdStamp", UtilDateTime.nowTimestamp());
-                                            Entity.set("createdTxStamp", UtilDateTime.nowTimestamp());
                                             delegator.create(Entity);
                                             hasFolder = false;
                                         } else {
@@ -188,7 +186,12 @@ In order ta make this service active add the following to the service definition
                                         if (rootContent == null) {
                                             rootContent = "HOME_DUCUMENT";
                                         }
-                                        contentAssocs = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentIdTo", rootContent, "contentAssocTypeId", "TREE_CHILD"), null, false);
+                                        contentAssocs = EntityQuery.use(delegator).from("ContentAssoc")
+                                                .where("contentId", contentId, 
+                                                        "contentIdTo", rootContent,
+                                                        "contentAssocTypeId", "TREE_CHILD")
+                                                .queryList();
+
                                         if (contentAssocs.size() == 0) {
                                             contentAssoc = FastMap.newInstance();
                                             contentAssoc.put("contentId", contentId);
@@ -263,13 +266,15 @@ In order ta make this service active add the following to the service definition
                     if (contentName.length()>100) {
                         contentName = contentName.substring(0,100);
                     }
-                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), UtilMisc.toList("-contentId"), false);
+                    List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("contentName", contentName).orderBy("-contentId").queryList();
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while (contentCheck.hasNext() && contentNameMatch == false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
-                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent), null, false);
+                                List<GenericValue> contentAssocsChecks = EntityQuery.use(delegator).from("ContentAssoc")
+                                        .where("contentId", contentch.get("contentId"), "contentIdTo", rootContent)
+                                        .queryList();
                                 if (contentAssocsChecks.size() > 0) {
                                     contentNameMatch = true;
                                 }
@@ -323,14 +328,16 @@ In order ta make this service active add the following to the service definition
                 //lastItem
                 if (index == size - 1) {
                     contentNameMatch = false;
-                    List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("contentName", contentName), null, false);
+                    List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("contentName", contentName).queryList();
                     if (contents != null) {
                         Iterator<GenericValue> contentCheck = contents.iterator();
                         while (contentCheck.hasNext() && contentNameMatch == false) {
                             GenericValue contentch = contentCheck.next();
                             if (contentch != null) {
-                                List<GenericValue> contentAssocsChecks = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentch.get("contentId"), "contentIdTo", rootContent), null, false);
-                                if (contentAssocsChecks.size() > 0) {
+                                long contentAssocCount = EntityQuery.use(delegator).from("ContentAssoc")
+                                        .where("contentId", contentch.get("contentId"), "contentIdTo", rootContent)
+                                        .queryCount();
+                                if (contentAssocCount > 0) {
                                     contentNameMatch = true;
                                 }
                             }

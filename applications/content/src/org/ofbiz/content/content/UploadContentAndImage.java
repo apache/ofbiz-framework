@@ -47,7 +47,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.SimpleMapProcessor;
 import org.ofbiz.service.GenericServiceException;
@@ -294,12 +294,13 @@ public class UploadContentAndImage {
 
             // Check for existing AUTHOR link
             String userLoginId = userLogin.getString("userLoginId");
-            GenericValue authorContent = delegator.findOne("Content", UtilMisc.toMap("contentId", userLoginId), true);
+            GenericValue authorContent = EntityQuery.use(delegator).from("Content").where("contentId", userLoginId).cache().queryOne();
             if (authorContent != null) {
-                List<GenericValue> authorAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR"), null, false);
-                List<GenericValue> currentAuthorAssocList = EntityUtil.filterByDate(authorAssocList);
+                long currentAuthorAssocCount = EntityQuery.use(delegator).from("ContentAssoc")
+                        .where("contentId", ftlContentId, "contentIdTo", userLoginId, "contentAssocTypeId", "AUTHOR")
+                        .filterByDate().queryCount();
                 //if (Debug.infoOn()) Debug.logInfo("[UploadContentAndImage]currentAuthorAssocList " + currentAuthorAssocList, module);
-                if (currentAuthorAssocList.size() == 0) {
+                if (currentAuthorAssocCount == 0) {
                     // Don't want to bother with permission checking on this association
                     GenericValue authorAssoc = delegator.makeValue("ContentAssoc");
                     authorAssoc.set("contentId", ftlContentId);

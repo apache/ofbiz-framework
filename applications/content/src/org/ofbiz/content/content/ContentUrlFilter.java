@@ -44,6 +44,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.webapp.control.ContextFilter;
 import org.owasp.esapi.errors.EncodingException;
@@ -72,13 +73,15 @@ public class ContentUrlFilter extends ContextFilter {
             String alternativeUrl = pathInfo.substring(pathInfo.lastIndexOf("/"));
             if (alternativeUrl.endsWith("-content")) {
                 try {
-                    List<GenericValue> contentDataResourceViews = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("drObjectInfo", alternativeUrl), null, false);
-                    if (contentDataResourceViews.size() > 0) {
-                        contentDataResourceViews = EntityUtil.orderBy(contentDataResourceViews, UtilMisc.toList("createdDate DESC"));
-                        GenericValue contentDataResourceView = EntityUtil.getFirst(contentDataResourceViews);
-                        List<GenericValue> contents = EntityUtil.filterByDate(delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentAssocTypeId", "ALTERNATIVE_URL", "contentIdTo", contentDataResourceView.getString("contentId")), null, false));
-                        if (contents.size() > 0) {
-                            GenericValue content = EntityUtil.getFirst(contents);
+                    GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView")
+                            .where("drObjectInfo", alternativeUrl)
+                            .orderBy("createdDate DESC").queryFirst();
+                    if (contentDataResourceView != null) {
+                        GenericValue content = EntityQuery.use(delegator).from("ContentAssoc")
+                                .where("contentAssocTypeId", "ALTERNATIVE_URL", 
+                                        "contentIdTo", contentDataResourceView.get("contentId"))
+                                .filterByDate().queryFirst();
+                        if (content != null) {
                             urlContentId = content.getString("contentId");
                         }
                     }
@@ -113,14 +116,15 @@ public class ContentUrlFilter extends ContextFilter {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
-            List<EntityCondition> expr = FastList.newInstance();
-            expr.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "ALTERNATIVE_URL"));
-            expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
-            expr.add(EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS, contentId));
-            Set<String> fieldsToSelect = UtilMisc.toSet("contentIdStart", "drObjectInfo", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate");
-            List<GenericValue> contentAssocDataResources = delegator.findList("ContentAssocDataResourceViewTo", EntityCondition.makeCondition(expr), fieldsToSelect, UtilMisc.toList("-caFromDate"), null, true);
-            if (contentAssocDataResources.size() > 0) {
-                GenericValue contentAssocDataResource = EntityUtil.getFirst(contentAssocDataResources);
+            GenericValue contentAssocDataResource = EntityQuery.use(delegator)
+                    .select("contentIdStart", "drObjectInfo", "dataResourceId", "caFromDate", "caThruDate", "caCreatedDate")
+                    .from("ContentAssocDataResourceViewTo")
+                    .where("caContentAssocTypeId", "ALTERNATIVE_URL",
+                            "caThruDate", null,
+                            "contentIdStart", contentId)
+                    .orderBy("-caFromDate")
+                    .queryFirst();
+            if (contentAssocDataResource != null) {
                 url = contentAssocDataResource.getString("drObjectInfo");
                 try {
                     url = StringUtil.defaultWebEncoder.decodeFromURL(url);

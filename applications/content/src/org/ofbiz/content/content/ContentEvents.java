@@ -32,6 +32,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.content.content.ContentKeywordIndex;
 import org.ofbiz.security.Security;
 
@@ -78,11 +79,12 @@ public class ContentEvents {
             // begin the transaction
             beganTx = TransactionUtil.begin(7200);
             try {
+                EntityQuery contentQuery = EntityQuery.use(delegator).from("Content");
                 if (Debug.infoOn()) {
-                    long count = delegator.findCountByCondition("Content", null, null, null);
+                    long count = contentQuery.queryCount();
                     Debug.logInfo("========== Found " + count + " contents to index ==========", module);
                 }
-                entityListIterator = delegator.find("Content", null, null, null, null, null);
+                entityListIterator = contentQuery.queryIterator();
             } catch (GenericEntityException gee) {
                 Debug.logWarning(gee, gee.getMessage(), module);
                 Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());

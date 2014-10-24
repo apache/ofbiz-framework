@@ -39,6 +39,7 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.ftl.LoopWriter;
 
@@ -124,7 +125,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
             }
             if (UtilValidate.isNotEmpty(thisContentId)) {
                 try {
-                    view = delegator.findOne("Content", UtilMisc.toMap("contentId", thisContentId), false);
+                    view = EntityQuery.use(delegator).from("Content").where("contentId", thisContentId).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Error getting sub-content", module);
                     throw new RuntimeException(e.getMessage());
@@ -186,7 +187,7 @@ public class TraverseSubContentTransform implements TemplateTransformModel {
 /*
                 if (UtilValidate.isNotEmpty(contentId)) {
                     try {
-                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                        content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                     } catch (GenericEntityException e) {
                         // TODO: Not sure what to put here.
                         throw new RuntimeException(e.getMessage());
