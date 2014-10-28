@@ -354,7 +354,7 @@ under the License.
     <CountryAddressFormat geoId="CHN" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="COL" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="MEX" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
-    <CountryAddressFormat geoId="NLD" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="NLD" geoAssocTypeId="REGIONS" requireStateProvinceId="N" requirePostalCode="Y" postalCodeRegex="^[1-9][\d]{3}\s?(?!(sa|sd|ss|SA|SD|SS))([a-eghj-opr-tv-xzA-EGHJ-OPR-TV-XZ]{2})?$ " hasPostalCodeExt="N" requirePostalCodeExt="N" addressFormat=""/>
     <CountryAddressFormat geoId="POL" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="IND" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="ITA" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
