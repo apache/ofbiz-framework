@@ -34,7 +34,7 @@ under the License.
 <ContentAssoc
  contentId="BLOGROOT"
  contentIdTo="BLOGROOTBIGAL"
- contentAssocTypeId="SUB_CONTENT"
+ contentAssocTypeId="PUBLISH_LINK"
  fromDate="2004-11-22 17:32:33.987"
  createdByUserLogin="admin"
  lastModifiedByUserLogin="admin"
@@ -56,7 +56,7 @@ under the License.
 <ContentAssoc
  contentId="BLOGROOT"
  contentIdTo="BLOGROOTMADMAX"
- contentAssocTypeId="SUB_CONTENT"
+ contentAssocTypeId="PUBLISH_LINK"
  fromDate="2004-11-22 17:32:33.987"
  createdByUserLogin="admin"
  lastModifiedByUserLogin="admin"
