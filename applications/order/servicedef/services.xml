@@ -1147,4 +1147,11 @@ under the License.
         <auto-attributes mode="IN" entity-name="OrderItemGroupOrder" include="pk" optional="false"/>
     </service>
     
+    <service name="countProductQuantityOrdered" engine="java"
+        location="org.ofbiz.order.order.OrderServices" invoke="countProductQuantityOrdered" auth="true">
+        <description>count Product Quantity Ordered</description>
+        <attribute name="productId" type="String" mode="IN" optional="false"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+    </service>
+    
 </services>

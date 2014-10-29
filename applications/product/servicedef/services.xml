@@ -175,13 +175,7 @@ under the License.
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="weight" type="Long" mode="IN" optional="true"/>
     </service>
-    <service name="countProductQuantityOrdered" engine="simple"
-                location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="countProductQuantityOrdered" auth="true">
-        <description>count Product Quantity Ordered</description>
-        <attribute name="productId" type="String" mode="IN" optional="false"/>
-        <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
-    </service>
-
+    
     <service name="createProductReview" engine="simple"
             location="component://product/script/org/ofbiz/product/product/ProductServices.xml" invoke="createProductReview" auth="true">
         <description>Create a product review entity</description>
