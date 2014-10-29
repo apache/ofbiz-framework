@@ -445,35 +445,7 @@ under the License.
             <call-service service-name="countProductView" in-map-name="callSubMap"></call-service>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="countProductQuantityOrdered" short-description="Count Product Quantity Ordered" login-required="true">
-        <if-empty field="parameters.quantity">
-            <calculate field="parameters.quantity" type="BigDecimal"><number value="1"/></calculate>
-        </if-empty>
-        <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
-        <if-empty field="productCalculatedInfo">
-            <!-- go ahead and create it -->
-            <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
-            <set from-field="parameters.productId" field="productCalculatedInfo.productId"/>
-            <set from-field="parameters.quantity" field="productCalculatedInfo.totalQuantityOrdered"/>
-            <create-value value-field="productCalculatedInfo"/>
-        <else>
-            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}" type="BigDecimal"/>
-            <store-value value-field="productCalculatedInfo"/>
-        </else>
-        </if-empty>
-
-        <!-- do the same for the virtual product... -->
-        <entity-one entity-name="Product" value-field="product" use-cache="true"/>
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
-            <field field="product" type="GenericValue"/>
-        </call-class-method>
-        <if-not-empty field="virtualProductId">
-            <set from-field="virtualProductId" field="callSubMap.productId"/>
-            <set from-field="parameters.quantity" field="callSubMap.quantity"/>
-            <call-service service-name="countProductQuantityOrdered" in-map-name="callSubMap"></call-service>
-        </if-not-empty>
-    </simple-method>
-
+    
     <simple-method method-name="createProductReview" short-description="Create a ProductReview" login-required="false">
         <make-value value-field="newEntity" entity-name="ProductReview"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
