@@ -280,15 +280,10 @@ public class OrderServices {
                     normalizedItemQuantities.put(currentProductId, currentQuantity.add(orderItem.getBigDecimal("quantity")));
                 }
 
-                try {
-                    // count product ordered quantities
-                    // run this synchronously so it will run in the same transaction
-                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getBigDecimal("quantity"), "userLogin", userLogin));
-                } catch (GenericServiceException e1) {
-                    Debug.logError(e1, "Error calling countProductQuantityOrdered service", module);
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
-                            "OrderErrorCallingCountProductQuantityOrderedService",locale) + e1.toString());
-                }
+                Map<String, Object> countContext = new HashMap<String, Object>();
+                countContext.put("productId", currentProductId);
+                countContext.put("quantity", orderItem.getBigDecimal("quantity"));
+                countProductQuantityOrdered(ctx, countContext);
             }
         }
 
@@ -1152,6 +1147,54 @@ public class OrderServices {
 
         return successResult;
     }
+    
+    public static Map<String, Object> countProductQuantityOrdered(DispatchContext ctx, Map<String, Object> context) {
+        Delegator delegator = ctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        List<GenericValue> productCalculatedInfoList = null;
+        GenericValue productCalculatedInfo = null;
+        String productId = (String) context.get("productId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        try {
+            productCalculatedInfoList = delegator.findByAnd("ProductCalculatedInfo", UtilMisc.toMap("productId", productId), null, false);
+            if (UtilValidate.isEmpty(productCalculatedInfoList)) {
+                productCalculatedInfo = delegator.makeValue("ProductCalculatedInfo");
+                productCalculatedInfo.set("productId", productId);
+                productCalculatedInfo.set("totalQuantityOrdered", quantity);
+                productCalculatedInfo.create();
+            } else {
+                productCalculatedInfo = productCalculatedInfoList.get(0);
+                BigDecimal totalQuantityOrdered = productCalculatedInfo.getBigDecimal("totalQuantityOrdered");
+                if (totalQuantityOrdered == null) {
+                    productCalculatedInfo.set("totalQuantityOrdered", quantity);
+                } else {
+                    productCalculatedInfo.set("totalQuantityOrdered", totalQuantityOrdered.add(quantity));
+                }
+            }
+            productCalculatedInfo.store();
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error calling countProductQuantityOrdered service", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                    "OrderErrorCallingCountProductQuantityOrderedService",locale) + e.toString());
+
+        }
+        
+        String virtualProductId = null;
+        try {
+            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            virtualProductId = ProductWorker.getVariantVirtualId(product);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error calling countProductQuantityOrdered service", module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                    "OrderErrorCallingCountProductQuantityOrderedService",locale) + e.toString());
+        }
+        
+        if (UtilValidate.isNotEmpty(virtualProductId)) {
+            context.put("productId", virtualProductId);
+            countProductQuantityOrdered(ctx, context);
+        }
+        return ServiceUtil.returnSuccess();
+    }            
 
     public static void reserveInventory(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List<GenericValue> orderItemShipGroupInfo, List<String> dropShipGroupIds, Map<String, GenericValue> itemValuesBySeqId, String orderTypeId, String productStoreId, List<String> resErrorMessages) throws GeneralException {
         boolean isImmediatelyFulfilled = false;
@@ -1729,7 +1772,7 @@ public class OrderServices {
                 if (UtilValidate.isNotEmpty(orderItemSeqId)) {
                     createOrderAdjContext.put("orderItemSeqId", orderItemSeqId);
                 } else {
-                	createOrderAdjContext.put("orderItemSeqId", "_NA_");
+                    createOrderAdjContext.put("orderItemSeqId", "_NA_");
                 }
                 createOrderAdjContext.put("shipGroupSeqId", "_NA_");
                 createOrderAdjContext.put("description", "Tax adjustment due to order change");
