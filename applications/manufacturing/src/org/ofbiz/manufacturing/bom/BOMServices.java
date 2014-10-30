@@ -37,7 +37,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -82,7 +82,8 @@ public class BOMServices {
         List<String> bomTypes = FastList.newInstance();
         if (bomType == null) {
             try {
-                List<GenericValue> bomTypesValues = delegator.findByAnd("ProductAssocType", UtilMisc.toMap("parentTypeId", "PRODUCT_COMPONENT"), null, false);
+                List<GenericValue> bomTypesValues = EntityQuery.use(delegator).from("ProductAssocType")
+                        .where("parentTypeId", "PRODUCT_COMPONENT").queryList();
                 for (GenericValue bomTypesValue : bomTypesValues) {
                     bomTypes.add(bomTypesValue.getString("productAssocTypeId"));
                 }
@@ -135,19 +136,20 @@ public class BOMServices {
 
         Long llc = null;
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             Map<String, Object> depthResult = dispatcher.runSync("getMaxDepth", 
                     UtilMisc.toMap("productId", productId, "bomType", "MANUF_COMPONENT"));
             llc = (Long)depthResult.get("depth");
             // If the product is a variant of a virtual, then the billOfMaterialLevel cannot be
             // lower than the billOfMaterialLevel of the virtual product.
-            List<GenericValue> virtualProducts = delegator.findByAnd("ProductAssoc", 
-                    UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-            virtualProducts = EntityUtil.filterByDate(virtualProducts);
+            List<GenericValue> virtualProducts = EntityQuery.use(delegator).from("ProductAssoc")
+                    .where("productIdTo", productId,
+                            "productAssocTypeId", "PRODUCT_VARIANT")
+                    .filterByDate().queryList();
             int virtualMaxDepth = 0;
             for (GenericValue oneVirtualProductAssoc : virtualProducts) {
                 int virtualDepth = 0;
-                GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", oneVirtualProductAssoc.getString("productId")), false);
+                GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", oneVirtualProductAssoc.getString("productId")).queryOne();
                 if (virtualProduct.get("billOfMaterialLevel") != null) {
                     virtualDepth = virtualProduct.getLong("billOfMaterialLevel").intValue();
                 } else {
@@ -181,11 +183,12 @@ public class BOMServices {
                 }
             }
             if (alsoVariants.booleanValue()) {
-                List<GenericValue> variantProducts = delegator.findByAnd("ProductAssoc", 
-                        UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-                variantProducts = EntityUtil.filterByDate(variantProducts, true);
+                List<GenericValue> variantProducts = EntityQuery.use(delegator).from("ProductAssoc")
+                        .where("productId", productId, 
+                                "productAssocTypeId", "PRODUCT_VARIANT")
+                        .filterByDate().queryList();
                 for (GenericValue oneVariantProductAssoc : variantProducts) {
-                    GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", oneVariantProductAssoc.getString("productId")), false);
+                    GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", oneVariantProductAssoc.getString("productId")).queryOne();
                     variantProduct.set("billOfMaterialLevel", llc);
                     variantProduct.store();
                 }
@@ -210,8 +213,7 @@ public class BOMServices {
         Locale locale = (Locale) context.get("locale");
 
         try {
-            List<GenericValue> products = delegator.findList("Product", null, null, 
-                    UtilMisc.toList("isVirtual DESC"), null, false);
+            List<GenericValue> products = EntityQuery.use(delegator).from("Product").orderBy("isVirtual DESC").queryList();
             Long zero = Long.valueOf(0);
             List<GenericValue> allProducts = FastList.newInstance();
             for (GenericValue product : products) {
@@ -473,7 +475,7 @@ public class BOMServices {
         String shipmentId = (String) context.get("shipmentId");
 
         try {
-            List<GenericValue> packages = delegator.findByAnd("ShipmentPackage", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+            List<GenericValue> packages = EntityQuery.use(delegator).from("ShipmentPackage").where("shipmentId", shipmentId).queryList();
             if (!UtilValidate.isEmpty(packages)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomPackageAlreadyFound", locale));
             }
@@ -483,7 +485,7 @@ public class BOMServices {
         // ShipmentItems are loaded
         List<GenericValue> shipmentItems = null;
         try {
-            shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+            shipmentItems = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId).queryList();
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingBomErrorLoadingShipmentItems", locale));
         }
@@ -491,13 +493,15 @@ public class BOMServices {
         Map<String, Object> partyOrderShipments = FastMap.newInstance();
         for (GenericValue shipmentItem : shipmentItems) {
             // Get the OrderShipments
-            List<GenericValue> orderShipments = null;
+            GenericValue orderShipment = null;
             try {
-                orderShipments = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.getString("shipmentItemSeqId")), null, false);
+                orderShipment = EntityQuery.use(delegator).from("OrderShipment")
+                        .where("shipmentId", shipmentId, 
+                                "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId"))
+                        .queryFirst();
             } catch (GenericEntityException e) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
             }
-            GenericValue orderShipment = org.ofbiz.entity.util.EntityUtil.getFirst(orderShipments);
             if (orderShipment != null && !orderReadHelpers.containsKey(orderShipment.getString("orderId"))) {
                 orderReadHelpers.put(orderShipment.getString("orderId"), new OrderReadHelper(delegator, orderShipment.getString("orderId")));
             }
@@ -575,7 +579,7 @@ public class BOMServices {
                             if (!boxTypes.containsKey(boxTypeId)) {
                                 GenericValue boxType = null;
                                 try {
-                                    boxType = delegator.findOne("ShipmentBoxType", UtilMisc.toMap("shipmentBoxTypeId", boxTypeId), false);
+                                    boxType = EntityQuery.use(delegator).from("ShipmentBoxType").where("shipmentBoxTypeId", boxTypeId).queryOne();
                                 } catch (GenericEntityException e) {
                                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                                 }
@@ -604,7 +608,7 @@ public class BOMServices {
                         if (!boxTypes.containsKey(boxTypeId)) {
                             GenericValue boxType = null;
                             try {
-                                boxType = delegator.findOne("ShipmentBoxType", UtilMisc.toMap("shipmentBoxTypeId", boxTypeId), false);
+                                boxType = EntityQuery.use(delegator).from("ShipmentBoxType").where("shipmentBoxTypeId", boxTypeId).queryOne();
                             } catch (GenericEntityException e) {
                                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingPackageConfiguratorError", locale));
                             }

@@ -28,7 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 
 /** Helper class containing static method useful when dealing
@@ -64,9 +64,10 @@ public class BOMHelper {
         // If the date is null, set it to today.
         if (inDate == null) inDate = new Date();
         int maxDepth = 0;
-        List<GenericValue> productNodesList = delegator.findByAnd("ProductAssoc", 
-                UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", bomType), null, true);
-        productNodesList = EntityUtil.filterByDate(productNodesList, inDate);
+        List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
+                .where("productIdTo", productId, 
+                        "productAssocTypeId", bomType)
+                .cache().filterByDate(inDate).queryList();
         int depth = 0;
         for (GenericValue oneNode : productNodesList) {
             depth = 0;
@@ -107,9 +108,10 @@ public class BOMHelper {
             productIdKeys = tree.getAllProductsId();
             productIdKeys.add(productIdKey);
         }
-        List<GenericValue> productNodesList = delegator.findByAnd("ProductAssoc",
-                UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", bomType), null, true);
-        productNodesList = EntityUtil.filterByDate(productNodesList, inDate);
+        List<GenericValue> productNodesList = EntityQuery.use(delegator).from("ProductAssoc")
+                .where("productIdTo", productId, 
+                        "productAssocTypeId", bomType)
+                .cache().filterByDate(inDate).queryList();
         GenericValue duplicatedNode = null;
         for (GenericValue oneNode : productNodesList) {
             for (int i = 0; i < productIdKeys.size(); i++) {
@@ -133,11 +135,16 @@ public class BOMHelper {
         String shipmentId = request.getParameter("shipmentId");
 
         try {
-        List<GenericValue> shipmentPlans = delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+        List<GenericValue> shipmentPlans = EntityQuery.use(delegator).from("OrderShipment")
+                .where("shipmentId", shipmentId).queryList();
         for (GenericValue shipmentPlan : shipmentPlans) {
             GenericValue orderItem = shipmentPlan.getRelatedOne("OrderItem", false);
 
-            List<GenericValue> productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", shipmentPlan.getString("orderId"), "orderItemSeqId", shipmentPlan.getString("orderItemSeqId"), "shipGroupSeqId", shipmentPlan.getString("shipGroupSeqId")), null, true);
+            List<GenericValue> productionRuns = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
+                    .where("orderId", shipmentPlan.get("orderId"),
+                            "orderItemSeqId", shipmentPlan.get("orderItemSeqId"),
+                            "shipGroupSeqId", shipmentPlan.get("shipGroupSeqId"))
+                    .cache().queryList();
             if (UtilValidate.isNotEmpty(productionRuns)) {
                 Debug.logError("Production Run for order item (" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + ") not created.", module);
                 continue;

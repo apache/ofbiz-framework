@@ -44,6 +44,7 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.bom.BOMNode;
@@ -121,9 +122,11 @@ public class ProductionRunServices {
                 serviceContext.put("userLogin", userLogin);
                 dispatcher.runSync("updateWorkEffort", serviceContext);
                 // Cancel the product promised
-                List<GenericValue> products = delegator.findByAnd("WorkEffortGoodStandard", 
-                        UtilMisc.toMap("workEffortId", productionRunId, "workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
-                                "statusId", "WEGS_CREATED"), null, false);
+                List<GenericValue> products = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
+                        .where("workEffortId", productionRunId, 
+                                "workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
+                                "statusId", "WEGS_CREATED")
+                        .queryList();
                 if (!UtilValidate.isEmpty(products)) {
                     for (GenericValue product : products) {
                         product.set("statusId", "WEGS_CANCELLED");
@@ -142,9 +145,11 @@ public class ProductionRunServices {
                     serviceContext.put("userLogin", userLogin);
                     dispatcher.runSync("updateWorkEffort", serviceContext);
                     // cancel all the components
-                    List<GenericValue> components = delegator.findByAnd("WorkEffortGoodStandard", 
-                            UtilMisc.toMap("workEffortId", taskId, "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", 
-                                    "statusId", "WEGS_CREATED"), null, false);
+                    List<GenericValue> components = EntityQuery.use(delegator).from("WorkEffortGoodStandard")
+                            .where("workEffortId", taskId, 
+                                    "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", 
+                                    "statusId", "WEGS_CREATED")
+                            .queryList();
                     if (!UtilValidate.isEmpty(components)) {
                         for (GenericValue component : components) {
                             component.set("statusId", "WEGS_CANCELLED");
@@ -204,7 +209,7 @@ public class ProductionRunServices {
         List<GenericValue> routingTaskAssocs = null;
         try {
             // Find the product
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
@@ -642,7 +647,10 @@ public class ProductionRunServices {
             // change only the production run (header) status to PRUN_RUNNING
             // First check if there are production runs with precedence not still completed
             try {
-                List<GenericValue> mandatoryWorkEfforts = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", UtilMisc.toMap("workEffortIdTo", productionRunId, "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY"), null, false));
+                List<GenericValue> mandatoryWorkEfforts = EntityQuery.use(delegator).from("WorkEffortAssoc")
+                        .where("workEffortIdTo", productionRunId, 
+                                "workEffortAssocTypeId", "WORK_EFF_PRECEDENCY")
+                        .filterByDate().queryList();
                 for (int i = 0; i < mandatoryWorkEfforts.size(); i++) {
                     GenericValue mandatoryWorkEffortAssoc = mandatoryWorkEfforts.get(i);
                     GenericValue mandatoryWorkEffort = mandatoryWorkEffortAssoc.getRelatedOne("FromWorkEffort", false);
@@ -828,7 +836,9 @@ public class ProductionRunServices {
             if (issueAllComponents.booleanValue()) {
                 // Issue all the components, if this task needs components and they still need to be issued
                 try {
-                    List<GenericValue> inventoryAssigned = delegator.findByAnd("WorkEffortInventoryAssign", UtilMisc.toMap("workEffortId", taskId), null, false);
+                    List<GenericValue> inventoryAssigned = EntityQuery.use(delegator).from("WorkEffortInventoryAssign")
+                            .where("workEffortId", taskId)
+                            .queryList();
                     if (UtilValidate.isEmpty(inventoryAssigned)) {
                         serviceContext.clear();
                         serviceContext.put("workEffortId", taskId);
@@ -919,9 +929,9 @@ public class ProductionRunServices {
                         totalCost = ZERO;
                     }
 
-                    List<GenericValue> productCostComponentCalcs = delegator.findByAnd("ProductCostComponentCalc",
-                            UtilMisc.toMap("productId", productionRun.getProductProduced().getString("productId")),
-                            UtilMisc.toList("sequenceNum"), false);
+                    List<GenericValue> productCostComponentCalcs = EntityQuery.use(delegator).from("ProductCostComponentCalc")
+                            .where("productId", productionRun.getProductProduced().get("productId"))
+                            .orderBy("sequenceNum").queryList();
                     for (int i = 0; i < productCostComponentCalcs.size(); i++) {
                         GenericValue productCostComponentCalc = productCostComponentCalcs.get(i);
                         GenericValue costComponentCalc = productCostComponentCalc.getRelatedOne("CostComponentCalc", false);
@@ -969,13 +979,14 @@ public class ProductionRunServices {
         String workEffortId = (String)context.get("workEffortId");
         Locale locale = (Locale) context.get("locale");
         try {
-            GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+            GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
             if (workEffort == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingWorkEffortNotExist", locale) + " " + workEffortId);
             }
             // Get all the valid CostComponents entries
-            List<GenericValue> costComponents = EntityUtil.filterByDate(delegator.findByAnd("CostComponent",
-                    UtilMisc.toMap("workEffortId", workEffortId), null, false));
+            List<GenericValue> costComponents = EntityQuery.use(delegator).from("CostComponent")
+                    .where("workEffortId", workEffortId)
+                    .filterByDate().queryList();
             result.put("costComponents", costComponents);
             // TODO: before doing these totals we should convert the cost components' costs to the
             //       base currency uom of the owner of the facility in which the task is running
@@ -1004,8 +1015,10 @@ public class ProductionRunServices {
         String workEffortId = (String)context.get("workEffortId");
         Locale locale = (Locale) context.get("locale");
         try {
-            List<GenericValue> tasks = delegator.findByAnd("WorkEffort", 
-                    UtilMisc.toMap("workEffortParentId", workEffortId), UtilMisc.toList("workEffortId"), false);
+            List<GenericValue> tasks = EntityQuery.use(delegator).from("WorkEffort")
+                    .where("workEffortParentId", workEffortId)
+                    .orderBy("workEffortId")
+                    .queryList();
             BigDecimal totalCost = ZERO;
             Map<String, Object> outputMap = dispatcher.runSync("getWorkEffortCosts", 
                     UtilMisc.<String, Object>toMap("userLogin", userLogin, "workEffortId", workEffortId));
@@ -1033,7 +1046,7 @@ public class ProductionRunServices {
         // this is the id of the actual (real) production run task
         String productionRunTaskId = (String)context.get("productionRunTaskId");
         try {
-            GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRunTaskId), false);
+            GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunTaskId).queryOne();
             if (UtilValidate.isEmpty(workEffort)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTaskNotFound", UtilMisc.toMap("productionRunTaskId", productionRunTaskId), locale));
             }
@@ -1049,18 +1062,19 @@ public class ProductionRunServices {
             actualTotalMilliSeconds += actualSetupMillis.doubleValue();
             actualTotalMilliSeconds += actualMilliSeconds.doubleValue();
             // Get the template (aka routing task) of the work effort
-            GenericValue routingTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc",
-                                                            UtilMisc.toMap("workEffortIdTo", productionRunTaskId,
-                                                                           "workEffortAssocTypeId", "WORK_EFF_TEMPLATE"), null, false)));
+            GenericValue routingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
+                    .where("workEffortIdTo", productionRunTaskId,
+                            "workEffortAssocTypeId", "WORK_EFF_TEMPLATE")
+                            .filterByDate().queryFirst();
             GenericValue routingTask = null;
-            if (UtilValidate.isNotEmpty(routingTaskAssoc)) {
+            if (routingTaskAssoc != null) {
                 routingTask = routingTaskAssoc.getRelatedOne("FromWorkEffort", false);
             }
 
             // Get all the valid CostComponentCalc entries
-            List<GenericValue> workEffortCostCalcs = delegator.findByAnd("WorkEffortCostCalc", 
-                    UtilMisc.toMap("workEffortId", productionRunTaskId), null, false);
-            workEffortCostCalcs = EntityUtil.filterByDate(workEffortCostCalcs);
+            List<GenericValue> workEffortCostCalcs = EntityQuery.use(delegator).from("WorkEffortCostCalc")
+                    .where("workEffortId", productionRunTaskId)
+                    .filterByDate().queryList();
 
             for (GenericValue workEffortCostCalc : workEffortCostCalcs) {
                 GenericValue costComponentCalc = workEffortCostCalc.getRelatedOne("CostComponentCalc", false);
@@ -1139,8 +1153,8 @@ public class ProductionRunServices {
         // materials costs: these are the costs derived from the materials used by the production run task
         try {
             Map<String, BigDecimal> materialsCostByCurrency = FastMap.newInstance();
-            for (GenericValue inventoryConsumed : delegator.findByAnd("WorkEffortAndInventoryAssign",
-                                UtilMisc.toMap("workEffortId", productionRunTaskId), null, false)) {
+            for (GenericValue inventoryConsumed : EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
+                                .where("workEffortId", productionRunTaskId).queryList()) {
                 BigDecimal quantity = inventoryConsumed.getBigDecimal("quantity");
                 BigDecimal unitCost = inventoryConsumed.getBigDecimal("unitCost");
                 if (UtilValidate.isEmpty(unitCost) || UtilValidate.isEmpty(quantity)) {
@@ -1294,7 +1308,7 @@ public class ProductionRunServices {
 
         try {
             // Find the product
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
@@ -1368,7 +1382,7 @@ public class ProductionRunServices {
 
         try {
             // Find the product
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductNotExist", locale));
             }
@@ -1437,7 +1451,7 @@ public class ProductionRunServices {
         // The routing task is loaded
         GenericValue routingTask = null;
         try {
-            routingTask = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", routingTaskId), false);
+            routingTask = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", routingTaskId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(),  module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskNotExists", locale));
@@ -1503,8 +1517,9 @@ public class ProductionRunServices {
         // copy date valid WorkEffortPartyAssignments from the routing task to the run task
         List<GenericValue> workEffortPartyAssignments = null;
         try {
-            workEffortPartyAssignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", 
-                    UtilMisc.toMap("workEffortId", routingTaskId), null, false));
+            workEffortPartyAssignments = EntityQuery.use(delegator).from("WorkEffortPartyAssignment")
+                    .where("workEffortId", routingTaskId)
+                    .filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(),  module);
         }
@@ -1607,7 +1622,7 @@ public class ProductionRunServices {
         if (UtilValidate.isNotEmpty(lotId)) {
             try {
                 // Find the lot
-                GenericValue lot = delegator.findOne("Lot", UtilMisc.toMap("lotId", lotId), false);
+                GenericValue lot = EntityQuery.use(delegator).from("Lot").where("lotId", lotId).queryOne();
                 if (lot == null) {
                     if (createLotIfNeeded.booleanValue()) {
                         lot = delegator.makeValue("Lot", UtilMisc.toMap("lotId", lotId, "creationDate", UtilDateTime.nowTimestamp()));
@@ -1960,17 +1975,20 @@ public class ProductionRunServices {
         // If less than passed quantity then return an error message.
         try {
             BigDecimal totalIssued = BigDecimal.ZERO;
-            for (GenericValue issuance : delegator.findByAnd("WorkEffortAndInventoryAssign", 
-                            UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId), null, false)) {
+            for (GenericValue issuance : EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
+                            .where("workEffortId", productionRunTaskId, "productId", productId).queryList()) {
                 BigDecimal issued = issuance.getBigDecimal("quantity");
                 if (issued != null) {
                     totalIssued = totalIssued.add(issued);
                 }
             }
             BigDecimal totalReturned = BigDecimal.ZERO;
-            for (GenericValue returned : delegator.findByAnd("WorkEffortAndInventoryProduced", 
-                            UtilMisc.toMap("workEffortId", productionRunTaskId, "productId", productId), null, false)) {
-                GenericValue returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", UtilMisc.toMap("inventoryItemId", returned.getString("inventoryItemId")), UtilMisc.toList("inventoryItemDetailSeqId"), false));
+            for (GenericValue returned : EntityQuery.use(delegator).from("WorkEffortAndInventoryProduced")
+                            .where("workEffortId", productionRunTaskId, "productId", productId).queryList()) {
+                GenericValue returnDetail = EntityQuery.use(delegator).from("InventoryItemDetail")
+                        .where("inventoryItemId", returned.get("inventoryItemId"))
+                        .orderBy("inventoryItemDetailSeqId")
+                        .queryFirst();
                 if (returnDetail != null) {
                     BigDecimal qtyReturned = returnDetail.getBigDecimal("quantityOnHandDiff");
                     if (qtyReturned != null) {
@@ -2092,7 +2110,10 @@ public class ProductionRunServices {
                     for (GenericValue component : components) {
                         BigDecimal totalRequiredMaterialQuantity = component.getBigDecimal("estimatedQuantity").multiply(totalQuantityProduced).divide(quantityToProduce, rounding);
                         // now get the units that have been already issued and subtract them
-                        List<GenericValue> issuances = delegator.findByAnd("WorkEffortAndInventoryAssign", UtilMisc.toMap("workEffortId", workEffortId, "productId", component.getString("productId")), null, false);
+                        List<GenericValue> issuances = EntityQuery.use(delegator).from("WorkEffortAndInventoryAssign")
+                                .where("workEffortId", workEffortId, 
+                                        "productId", component.get("productId"))
+                                .queryList();
                         BigDecimal totalIssued = BigDecimal.ZERO;
                         for (GenericValue issuance : issuances) {
                             BigDecimal issued = issuance.getBigDecimal("quantity");
@@ -2187,7 +2208,7 @@ public class ProductionRunServices {
         String requirementId = (String)context.get("requirementId");
         GenericValue requirement = null;
         try {
-            requirement = delegator.findOne("Requirement", UtilMisc.toMap("requirementId", requirementId), false);
+            requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
         } catch (GenericEntityException gee) {
         }
 
@@ -2218,7 +2239,7 @@ public class ProductionRunServices {
 
         GenericValue requirement = null;
         try {
-            requirement = delegator.findOne("Requirement", UtilMisc.toMap("requirementId", requirementId), false);
+            requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
         } catch (GenericEntityException gee) {
         }
         if (requirement == null) {
@@ -2344,9 +2365,10 @@ public class ProductionRunServices {
                 // check if a bom exists
                 List<GenericValue> bomList = null;
                 try {
-                    bomList = delegator.findByAnd("ProductAssoc", 
-                            UtilMisc.toMap("productId", componentProductId, "productAssocTypeId", "MANUF_COMPONENT"), null, false);
-                    bomList = EntityUtil.filterByDate(bomList, UtilDateTime.nowTimestamp());
+                    bomList = EntityQuery.use(delegator).from("ProductAssoc")
+                            .where("productId", componentProductId,
+                                    "productAssocTypeId", "MANUF_COMPONENT")
+                            .filterByDate().queryList();
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunTryToGetBomListError", locale));
                 }
@@ -2441,7 +2463,7 @@ public class ProductionRunServices {
         // hasn't been reserved and ATP not yet decreased
         boolean isImmediatelyFulfilled = false;
         try {
-            GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             GenericValue productStore = delegator.getRelatedOne("ProductStore", order, false);
             isImmediatelyFulfilled = "Y".equals(productStore.getString("isImmediatelyFulfilled"));
         } catch (GenericEntityException e) {
@@ -2450,7 +2472,7 @@ public class ProductionRunServices {
 
         GenericValue orderItem = null;
         try {
-            orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+            orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunForMarketingPackagesCreationError", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "errorString", e.getMessage()), locale));
         }
@@ -2568,9 +2590,9 @@ public class ProductionRunServices {
             try {
                 GenericValue orderItem = null;
                 if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
-                    orderItem = delegator.findOne("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId), false);
+                    orderItem = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId).queryOne();
                 } else {
-                    orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+                    orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
                 }
                 if (orderItem == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", ""), locale));
@@ -2584,7 +2606,7 @@ public class ProductionRunServices {
             }
         } else {
             try {
-                orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId), null, false);
+                orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId).queryList();
                 if (orderItems == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrder, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", ""), locale));
                 }
@@ -2626,13 +2648,16 @@ public class ProductionRunServices {
             try {
                 List<GenericValue> existingProductionRuns = null;
                 if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
-                    existingProductionRuns = delegator.findByAnd("WorkOrderItemFulfillment", 
-                            UtilMisc.toMap("orderId", orderItemOrShipGroupAssoc.getString("orderId"), 
-                                    "orderItemSeqId", orderItemOrShipGroupAssoc.getString("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId), null, true);
+                    existingProductionRuns = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
+                            .where("orderId", orderItemOrShipGroupAssoc.get("orderId"), 
+                                    "orderItemSeqId", orderItemOrShipGroupAssoc.get("orderItemSeqId"),
+                                    "shipGroupSeqId", shipGroupSeqId)
+                                    .cache().queryList();
                 } else {
-                    existingProductionRuns = delegator.findByAnd("WorkOrderItemFulfillment", 
-                            UtilMisc.toMap("orderId", orderItemOrShipGroupAssoc.getString("orderId"), 
-                                    "orderItemSeqId", orderItemOrShipGroupAssoc.getString("orderItemSeqId")), null, true);
+                    existingProductionRuns = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
+                            .where("orderId", orderItemOrShipGroupAssoc.get("orderId"), 
+                                    "orderItemSeqId", orderItemOrShipGroupAssoc.get("orderItemSeqId"))
+                                    .cache().queryList();
                 }
                 if (UtilValidate.isNotEmpty(existingProductionRuns)) {
                     Debug.logWarning("Production Run for order item [" + orderItemOrShipGroupAssoc.getString("orderId") + "/" + orderItemOrShipGroupAssoc.getString("orderItemSeqId") + "] and ship group [" + shipGroupSeqId + "] already exists.", module);
@@ -2712,7 +2737,7 @@ public class ProductionRunServices {
         try {
             Map<String, Object> serviceContext = FastMap.newInstance();
             Map<String, Object> resultService = null;
-            GenericValue task = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", taskId), false);
+            GenericValue task = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", taskId).queryOne();
             String currentStatusId = task.getString("currentStatusId");
             String prevStatusId = "";
             while (!"PRUN_COMPLETED".equals(currentStatusId)) {
@@ -2913,9 +2938,10 @@ public class ProductionRunServices {
             findOutgoingProductionRunsStatusConds.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PRUN_RUNNING"));
             findOutgoingProductionRunsConds.add(EntityCondition.makeCondition(findOutgoingProductionRunsStatusConds, EntityOperator.OR));
 
-            List<GenericValue> outgoingProductionRuns = delegator.findList("WorkEffortAndGoods", 
-                    EntityCondition.makeCondition(findOutgoingProductionRunsConds, EntityOperator.AND), null, 
-                    UtilMisc.toList("-estimatedStartDate"), null, false);
+            List<GenericValue> outgoingProductionRuns = EntityQuery.use(delegator).from("WorkEffortAndGoods")
+                    .where(findOutgoingProductionRunsConds)
+                    .orderBy("-estimatedStartDate")
+                    .queryList();
             if (outgoingProductionRuns != null) {
                 for (int i = 0; i < outgoingProductionRuns.size(); i++) {
                     GenericValue outgoingProductionRun = outgoingProductionRuns.get(i);
@@ -2945,7 +2971,7 @@ public class ProductionRunServices {
         }
          */
         try {
-            GenericValue inventoryItem = delegator.findOne("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId), false);
+            GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
             if (inventoryItem == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceProduct, "ProductInventoryItemNotFound", UtilMisc.toMap("inventoryItemId", inventoryItemId), locale));
             }
@@ -2985,8 +3011,8 @@ public class ProductionRunServices {
         BigDecimal quantity = (BigDecimal)context.get("quantity");
         List<String> inventoryItemIds = FastList.newInstance();
         try {
-            GenericValue inventoryItem = delegator.findOne("InventoryItem", 
-                    UtilMisc.toMap("inventoryItemId", inventoryItemId), false);
+            GenericValue inventoryItem = EntityQuery.use(delegator).from("InventoryItem")
+                    .where("inventoryItemId", inventoryItemId).queryOne();
             if (inventoryItem == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingProductionRunCannotDecomposingInventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId), locale));
             }
@@ -3086,9 +3112,11 @@ public class ProductionRunServices {
         Map<String, TreeMap<Timestamp, Object>> products = FastMap.newInstance();
 
         try {
-            List<GenericValue> resultList = delegator.findByAnd("WorkEffortAndGoods", 
-                    UtilMisc.toMap("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
-                            "statusId", "WEGS_CREATED", "workEffortTypeId", "PROD_ORDER_HEADER"), null, false);
+            List<GenericValue> resultList = EntityQuery.use(delegator).from("WorkEffortAndGoods")
+                    .where("workEffortGoodStdTypeId", "PRUN_PROD_DELIV",
+                            "statusId", "WEGS_CREATED", 
+                            "workEffortTypeId", "PROD_ORDER_HEADER")
+                    .queryList();
             for (GenericValue genericResult : resultList) {
                 if ("PRUN_CLOSED".equals(genericResult.getString("currentStatusId")) ||
                     "PRUN_CREATED".equals(genericResult.getString("currentStatusId"))) {
@@ -3127,9 +3155,10 @@ public class ProductionRunServices {
             }
 
             // Approved purchase orders
-            resultList = delegator.findByAnd("OrderHeaderAndItems", 
-                    UtilMisc.toMap("orderTypeId", "PURCHASE_ORDER", 
-                            "itemStatusId", "ITEM_APPROVED"), UtilMisc.toList("orderId"), false);
+            resultList = EntityQuery.use(delegator).from("OrderHeaderAndItems")
+                    .where("orderTypeId", "PURCHASE_ORDER", 
+                            "itemStatusId", "ITEM_APPROVED")
+                    .orderBy("orderId").queryList();
             String orderId = null;
             GenericValue orderDeliverySchedule = null;
             for (GenericValue genericResult : resultList) {
@@ -3138,7 +3167,7 @@ public class ProductionRunServices {
                     orderDeliverySchedule = null;
                     orderId = newOrderId;
                     try {
-                        orderDeliverySchedule = delegator.findOne("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"), false);
+                        orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
                     } catch (GenericEntityException e) {
                     }
                 }
@@ -3146,7 +3175,7 @@ public class ProductionRunServices {
                 BigDecimal orderQuantity = genericResult.getBigDecimal("quantity");
                 GenericValue orderItemDeliverySchedule = null;
                 try {
-                    orderItemDeliverySchedule = delegator.findOne("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")), false);
+                    orderItemDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", genericResult.getString("orderItemSeqId")).queryOne();
                 } catch (GenericEntityException e) {
                 }
                 Timestamp estimatedShipDate = null;
@@ -3180,13 +3209,16 @@ public class ProductionRunServices {
             backordersCondList.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
             //backordersCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ITEM_CREATED"), EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.LESS_THAN, "ITEM_APPROVED")));
 
-            List<GenericValue> backorders = delegator.findList("OrderItemAndShipGrpInvResAndItem", 
-                    EntityCondition.makeCondition(backordersCondList, EntityOperator.AND), null, 
-                    UtilMisc.toList("shipBeforeDate"), null, false);
+            List<GenericValue> backorders = EntityQuery.use(delegator).from("OrderItemAndShipGrpInvResAndItem")
+                    .where(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null),
+                            EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO))
+                    .orderBy("shipBeforeDate").queryList();
             for (GenericValue genericResult : backorders) {
                 String productId = genericResult.getString("productId");
-                GenericValue orderItemShipGroup = delegator.findOne("OrderItemShipGroup", UtilMisc.toMap("orderId", genericResult.get("orderId"),
-                                                                                                                  "shipGroupSeqId", genericResult.get("shipGroupSeqId")), false);
+                GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup")
+                        .where("orderId", genericResult.get("orderId"),
+                                "shipGroupSeqId", genericResult.get("shipGroupSeqId"))
+                        .queryOne();
                 Timestamp requiredByDate = orderItemShipGroup.getTimestamp("shipByDate");
 
                 BigDecimal quantityNotAvailable = genericResult.getBigDecimal("quantityNotAvailable");
@@ -3211,11 +3243,12 @@ public class ProductionRunServices {
                     if (remainingQty.compareTo(quantityNotAvailableRem) >= 0) {
                         remainingQty = remainingQty.subtract(quantityNotAvailableRem);
                         currentDateMap.put("remainingQty", remainingQty);
-                        GenericValue orderItemShipGrpInvRes = delegator.findOne("OrderItemShipGrpInvRes",
-                                UtilMisc.toMap("orderId", genericResult.getString("orderId"),
-                                        "shipGroupSeqId", genericResult.getString("shipGroupSeqId"),
-                                        "orderItemSeqId", genericResult.getString("orderItemSeqId"),
-                                        "inventoryItemId", genericResult.getString("inventoryItemId")), false);
+                        GenericValue orderItemShipGrpInvRes = EntityQuery.use(delegator).from("OrderItemShipGrpInvRes").
+                                where("orderId", genericResult.get("orderId"),
+                                        "shipGroupSeqId", genericResult.get("shipGroupSeqId"),
+                                        "orderItemSeqId", genericResult.get("orderItemSeqId"),
+                                        "inventoryItemId", genericResult.get("inventoryItemId"))
+                                .queryOne();
                         orderItemShipGrpInvRes.set("promisedDatetime", currentDate);
                         orderItemShipGrpInvRes.store();
                         // TODO: set the reservation

@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.techdata.TechDataServices;
 import org.ofbiz.service.LocalDispatcher;
@@ -76,11 +77,11 @@ public class ProductionRun {
         try {
             if (! UtilValidate.isEmpty(productionRunId)) {
                 this.dispatcher = dispatcher;
-                GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", productionRunId), false);
+                GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", productionRunId).queryOne();
                 if (workEffort != null) {
                     // If this is a task, get the parent production run
                     if (workEffort.getString("workEffortTypeId") != null && "PROD_ORDER_TASK".equals(workEffort.getString("workEffortTypeId"))) {
-                        workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffort.getString("workEffortParentId")), false);
+                        workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffort.getString("workEffortParentId")).queryOne();
                     }
                 }
                 this.productionRun = workEffort;

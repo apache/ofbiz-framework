@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.manufacturing.mrp.ProposedOrder;
 import org.ofbiz.service.GenericServiceException;
@@ -85,7 +86,7 @@ public class BOMNode {
     }
 
     public BOMNode(String productId, Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin) throws GenericEntityException {
-        this(delegator.findOne("Product", UtilMisc.toMap("productId", productId), false), dispatcher, userLogin);
+        this(EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne(), dispatcher, userLogin);
     }
 
     protected void loadChildren(String partBomTypeId, Date inDate, List<GenericValue> productFeatures, int type) throws GenericEntityException {
@@ -96,19 +97,19 @@ public class BOMNode {
         if (inDate == null) inDate = new Date();
         bomTypeId = partBomTypeId;
 //        Delegator delegator = product.getDelegator();
-        List<GenericValue> rows = delegator.findByAnd("ProductAssoc", 
-                UtilMisc.toMap("productId", product.get("productId"),
-                        "productAssocTypeId", partBomTypeId),
-                UtilMisc.toList("sequenceNum","productIdTo ASC"), false);
-        rows = EntityUtil.filterByDate(rows, inDate);
+        List<GenericValue> rows = EntityQuery.use(delegator).from("ProductAssoc")
+                .where("productId", product.get("productId"),
+                        "productAssocTypeId", partBomTypeId)
+                .orderBy("sequenceNum", "productIdTo")
+                .filterByDate(inDate).queryList();
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no child is found and this is a substituted node
             // we try to search for substituted node's children.
-            rows = delegator.findByAnd("ProductAssoc",
-                                        UtilMisc.toMap("productId", substitutedNode.getProduct().get("productId"),
-                                                       "productAssocTypeId", partBomTypeId),
-                                        UtilMisc.toList("sequenceNum"), false);
-            rows = EntityUtil.filterByDate(rows, inDate);
+            rows = EntityQuery.use(delegator).from("ProductAssoc")
+                    .where("productId", substitutedNode.getProduct().get("productId"),
+                            "productAssocTypeId", partBomTypeId)
+                    .orderBy("sequenceNum")
+                    .filterByDate(inDate).queryList();
         }
         children = FastList.newInstance();
         children.addAll(rows);
@@ -225,38 +226,40 @@ public class BOMNode {
             // If the part is VIRTUAL and
             // productFeatures and productPartRules are not null
             // we have to substitute the part with the right part's variant
-            List<GenericValue> productPartRules = delegator.findByAnd("ProductManufacturingRule",
-                                                    UtilMisc.toMap("productId", productIdForRules,
-                                                    "productIdFor", node.get("productId"),
-                                                    "productIdIn", node.get("productIdTo")), null, false);
+            List<GenericValue> productPartRules = EntityQuery.use(delegator).from("ProductManufacturingRule")
+                    .where("productId", productIdForRules,
+                            "productIdFor", node.get("productId"),
+                            "productIdIn", node.get("productIdTo"))
+                    .filterByDate(inDate).queryList();
             if (substitutedNode != null) {
-                productPartRules.addAll(delegator.findByAnd("ProductManufacturingRule",
-                                                    UtilMisc.toMap("productId", productIdForRules,
-                                                    "productIdFor", substitutedNode.getProduct().getString("productId"),
-                                                    "productIdIn", node.get("productIdTo")), null, false));
+                productPartRules.addAll(EntityQuery.use(delegator).from("ProductManufacturingRule")
+                        .where("productId", productIdForRules,
+                                "productIdFor", substitutedNode.getProduct().get("productId"),
+                                "productIdIn", node.get("productIdTo"))
+                        .filterByDate(inDate).queryList());
             }
-            productPartRules = EntityUtil.filterByDate(productPartRules, inDate);
             newNode = substituteNode(oneChildNode, productFeatures, productPartRules);
             if (newNode.equals(oneChildNode)) {
                 // If no substitution has been done (no valid rule applied),
                 // we try to search for a generic link-rule
-                List<GenericValue> genericLinkRules = delegator.findByAnd("ProductManufacturingRule",
-                                                        UtilMisc.toMap("productIdFor", node.get("productId"),
-                                                        "productIdIn", node.get("productIdTo")), null, false);
+                List<GenericValue> genericLinkRules = EntityQuery.use(delegator).from("ProductManufacturingRule")
+                        .where("productIdFor", node.get("productId"),
+                                "productIdIn", node.get("productIdTo"))
+                        .filterByDate(inDate).queryList();
                 if (substitutedNode != null) {
-                    genericLinkRules.addAll(delegator.findByAnd("ProductManufacturingRule",
-                                                        UtilMisc.toMap("productIdFor", substitutedNode.getProduct().getString("productId"),
-                                                        "productIdIn", node.get("productIdTo")), null, false));
+                    genericLinkRules.addAll(EntityQuery.use(delegator).from("ProductManufacturingRule")
+                            .where("productIdFor", substitutedNode.getProduct().get("productId"),
+                                    "productIdIn", node.get("productIdTo"))
+                            .filterByDate(inDate).queryList());
                 }
-                genericLinkRules = EntityUtil.filterByDate(genericLinkRules, inDate);
                 newNode = substituteNode(oneChildNode, productFeatures, genericLinkRules);
                 if (newNode.equals(oneChildNode)) {
                     // If no substitution has been done (no valid rule applied),
                     // we try to search for a generic node-rule
-                    List<GenericValue> genericNodeRules = delegator.findByAnd("ProductManufacturingRule",
-                                                            UtilMisc.toMap("productIdIn", node.get("productIdTo")),
-                                                            UtilMisc.toList("ruleSeqId"), false);
-                    genericNodeRules = EntityUtil.filterByDate(genericNodeRules, inDate);
+                    List<GenericValue> genericNodeRules = EntityQuery.use(delegator).from("ProductManufacturingRule")
+                            .where("productIdIn", node.get("productIdTo"))
+                            .orderBy("ruleSeqId")
+                            .filterByDate(inDate).queryList();
                     newNode = null;
                     newNode = substituteNode(oneChildNode, productFeatures, genericNodeRules);
                     if (newNode.equals(oneChildNode)) {
@@ -321,19 +324,19 @@ public class BOMNode {
 
         bomTypeId = partBomTypeId;
 //        Delegator delegator = product.getDelegator();
-        List<GenericValue> rows = delegator.findByAnd("ProductAssoc",
-                                            UtilMisc.toMap("productIdTo", product.get("productId"),
-                                                       "productAssocTypeId", partBomTypeId),
-                                            UtilMisc.toList("sequenceNum"), false);
-        rows = EntityUtil.filterByDate(rows, inDate);
+        List<GenericValue> rows = EntityQuery.use(delegator).from("ProductAssoc")
+                .where("productIdTo", product.get("productId"),
+                        "productAssocTypeId", partBomTypeId)
+                .orderBy("sequenceNum")
+                .filterByDate(inDate).queryList();
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no parent is found and this is a substituted node
             // we try to search for substituted node's parents.
-            rows = delegator.findByAnd("ProductAssoc",
-                                        UtilMisc.toMap("productIdTo", substitutedNode.getProduct().get("productId"),
-                                                       "productAssocTypeId", partBomTypeId),
-                                        UtilMisc.toList("sequenceNum"), false);
-            rows = EntityUtil.filterByDate(rows, inDate);
+            rows = EntityQuery.use(delegator).from("ProductAssoc")
+                    .where("productIdTo", substitutedNode.getProduct().get("productId"),
+                            "productAssocTypeId", partBomTypeId)
+                    .orderBy("sequenceNum")
+                    .filterByDate(inDate).queryList();
         }
         children = FastList.newInstance();
         children.addAll(rows);
