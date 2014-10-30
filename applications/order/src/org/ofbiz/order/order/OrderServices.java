@@ -281,10 +281,15 @@ public class OrderServices {
                     normalizedItemQuantities.put(currentProductId, currentQuantity.add(orderItem.getBigDecimal("quantity")));
                 }
 
-                Map<String, Object> countContext = new HashMap<String, Object>();
-                countContext.put("productId", currentProductId);
-                countContext.put("quantity", orderItem.getBigDecimal("quantity"));
-                countProductQuantityOrdered(ctx, countContext);
+                try {
+                    // count product ordered quantities
+                    // run this synchronously so it will run in the same transaction
+                    dispatcher.runSync("countProductQuantityOrdered", UtilMisc.<String, Object>toMap("productId", currentProductId, "quantity", orderItem.getBigDecimal("quantity"), "userLogin", userLogin));
+                } catch (GenericServiceException e1) {
+                    Debug.logError(e1, "Error calling countProductQuantityOrdered service", module);
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
+                            "OrderErrorCallingCountProductQuantityOrderedService",locale) + e1.toString());
+                }
             }
         }
 
