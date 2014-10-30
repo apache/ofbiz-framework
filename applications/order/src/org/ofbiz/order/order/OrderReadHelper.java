@@ -50,6 +50,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.security.Security;
@@ -129,7 +130,7 @@ public class OrderReadHelper {
 
     public OrderReadHelper(Delegator delegator, String orderId) {
         try {
-            this.orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            this.orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error finding order with ID [" + orderId + "]: " + e.toString();
             Debug.logError(e, errMsg, module);
@@ -163,7 +164,7 @@ public class OrderReadHelper {
         String productStoreId = orderHeader.getString("productStoreId");
         try {
             Delegator delegator = orderHeader.getDelegator();
-            GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+            GenericValue productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             return productStore;
         } catch (GenericEntityException ex) {
             Debug.logError(ex, "Failed to get product store for order header [" + orderHeader + "] due to exception "+ ex.getMessage(), module);
@@ -665,7 +666,8 @@ public class OrderReadHelper {
             List<GenericValue> paymentPreferences = null;
             try {
                 Delegator delegator = orderHeader.getDelegator();
-                paymentPreferences = delegator.findByAnd("OrderPurchasePaymentSummary", UtilMisc.toMap("orderId", orderHeader.getString("orderId")), null, false);
+                paymentPreferences = EntityQuery.use(delegator).from("OrderPurchasePaymentSummary")
+                        .where("orderId", orderHeader.get("orderId")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -730,10 +732,10 @@ public class OrderReadHelper {
             GenericValue orderRole = EntityUtil.getFirst(orderHeader.getRelated("OrderRole", UtilMisc.toMap("roleTypeId", roleTypeId), null, false));
 
             if (orderRole != null) {
-                partyObject = delegator.findOne("Person", UtilMisc.toMap("partyId", orderRole.getString("partyId")), false);
+                partyObject = EntityQuery.use(delegator).from("Person").where("partyId", orderRole.getString("partyId")).queryOne();
 
                 if (partyObject == null) {
-                    partyObject = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId", orderRole.getString("partyId")), false);
+                    partyObject = EntityQuery.use(delegator).from("PartyGroup").where("partyId", orderRole.getString("partyId")).queryOne();
                 }
             }
         } catch (GenericEntityException e) {
@@ -998,7 +1000,7 @@ public class OrderReadHelper {
                     try {
                         String virtualId = ProductWorker.getVariantVirtualId(product);
                         if (UtilValidate.isNotEmpty(virtualId)) {
-                            GenericValue virtual = delegator.findOne("Product", UtilMisc.toMap("productId", virtualId), true);
+                            GenericValue virtual = EntityQuery.use(delegator).from("Product").where("productId", virtualId).cache().queryOne();
                             if (virtual != null) {
                                 weight = virtual.getBigDecimal("weight");
                             }
@@ -1114,7 +1116,7 @@ public class OrderReadHelper {
                     try {
                         String virtualId = ProductWorker.getVariantVirtualId(product);
                         if (UtilValidate.isNotEmpty(virtualId)) {
-                            GenericValue virtual = delegator.findOne("Product", UtilMisc.toMap("productId", virtualId), true);
+                            GenericValue virtual = EntityQuery.use(delegator).from("Product").where("productId", virtualId).cache().queryOne();
                             if (virtual != null) {
                                 if (height == null) height = virtual.getBigDecimal("shippingHeight");
                                 if (width == null) width = virtual.getBigDecimal("shippingWidth");
@@ -1160,9 +1162,11 @@ public class OrderReadHelper {
                     // get the virtual product and check its weight
                     GenericValue virtual = null;
                     try {
-                        List<GenericValue> virtuals = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.getString("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"), false);
-                        virtuals = EntityUtil.filterByDate(virtuals);
-                        virtual = EntityUtil.getFirst(virtuals);
+                        virtual = EntityQuery.use(delegator).from("ProductAssoc")
+                                .where("productIdTo", product.get("productId"),
+                                        "productAssocTypeId", "PRODUCT_VARIANT")
+                                .orderBy("-fromDate")
+                                .filterByDate().queryFirst();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Problem getting virtual product");
                     }
@@ -1214,8 +1218,10 @@ public class OrderReadHelper {
         // get the email addresses from the order contact mech(s)
         List<GenericValue> orderContactMechs = null;
         try {
-            Map<String, Object> ocFields = UtilMisc.toMap("orderId", orderHeader.get("orderId"), "contactMechPurposeTypeId", "ORDER_EMAIL");
-            orderContactMechs = delegator.findByAnd("OrderContactMech", ocFields, null, false);
+            orderContactMechs = EntityQuery.use(delegator).from("OrderContactMech")
+                    .where("orderId", orderHeader.get("orderId"),
+                            "contactMechPurposeTypeId", "ORDER_EMAIL")
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Problems getting order contact mechs", module);
         }
@@ -1315,7 +1321,8 @@ public class OrderReadHelper {
         Delegator delegator = orderHeader.getDelegator();
         List<GenericValue> surveys = null;
         try {
-            surveys = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("orderId", orderHeader.getString("orderId")), null, false);
+            surveys = EntityQuery.use(delegator).from("SurveyResponse")
+                    .where("orderId", orderHeader.get("orderId")).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -1382,7 +1389,7 @@ public class OrderReadHelper {
         Delegator delegator = orderHeader.getDelegator();
         GenericValue orderDeliverySchedule = null;
         try {
-            orderDeliverySchedule = delegator.findOne("OrderDeliverySchedule", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"), false);
+            orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
         } catch (GenericEntityException e) {
         }
         Timestamp estimatedShipDate = null;
@@ -1549,9 +1556,10 @@ public class OrderReadHelper {
         GenericValue workOrderItemFulFillment = null;
         GenericValue workEffort = null;
         try {
-            List<GenericValue> workOrderItemFulFillments = delegator.findByAnd("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, true);
-            if (!UtilValidate.isEmpty(workOrderItemFulFillments)) {
-                workOrderItemFulFillment = EntityUtil.getFirst(workOrderItemFulFillments);
+            workOrderItemFulFillment = EntityQuery.use(delegator).from("WorkOrderItemFulfillment")
+                    .where("orderId", orderId, "orderItemSeqId", orderItemSeqId)
+                    .cache().queryFirst();
+            if (workOrderItemFulFillment != null) {
                 workEffort = workOrderItemFulFillment.getRelatedOne("WorkEffort", false);
             }
         } catch (GenericEntityException e) {
@@ -1584,7 +1592,8 @@ public class OrderReadHelper {
             Delegator delegator = orderHeader.getDelegator();
 
             try {
-                orderItemPriceInfos = delegator.findByAnd("OrderItemPriceInfo", UtilMisc.toMap("orderId", orderHeader.get("orderId")), null, false);
+                orderItemPriceInfos = EntityQuery.use(delegator).from("OrderItemPriceInfo")
+                        .where("orderId", orderHeader.get("orderId")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
@@ -1610,7 +1619,8 @@ public class OrderReadHelper {
         if (this.orderItemShipGrpInvResList == null) {
             Delegator delegator = orderItem.getDelegator();
             try {
-                orderItemShipGrpInvResList = delegator.findByAnd("OrderItemShipGrpInvRes", UtilMisc.toMap("orderId", orderItem.get("orderId")), null, false);
+                orderItemShipGrpInvResList = EntityQuery.use(delegator).from("OrderItemShipGrpInvRes")
+                        .where("orderId", orderItem.get("orderId")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Trouble getting OrderItemShipGrpInvRes List", module);
             }
@@ -1628,7 +1638,8 @@ public class OrderReadHelper {
             Delegator delegator = orderItem.getDelegator();
 
             try {
-                orderItemIssuances = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderItem.get("orderId")), null, false);
+                orderItemIssuances = EntityQuery.use(delegator).from("ItemIssuance")
+                        .where("orderId", orderItem.get("orderId")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Trouble getting ItemIssuance(s)", module);
             }
@@ -1657,7 +1668,7 @@ public class OrderReadHelper {
         Delegator delegator = orderHeader.getDelegator();
         if (this.orderReturnItems == null) {
             try {
-                this.orderReturnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("orderId", orderHeader.getString("orderId")), null, false);
+                this.orderReturnItems = EntityQuery.use(delegator).from("ReturnItem").where("orderId", orderHeader.get("orderId")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problem getting ReturnItem from order", module);
                 return null;
@@ -2137,7 +2148,7 @@ public class OrderReadHelper {
         Delegator delegator = orderHeader.getDelegator();
         Set<String> productPromoCodesEntered = FastSet.newInstance();
         try {
-            for (GenericValue orderProductPromoCode: delegator.findByAnd("OrderProductPromoCode", UtilMisc.toMap("orderId", orderHeader.get("orderId")), null, true)) {
+            for (GenericValue orderProductPromoCode: EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId", orderHeader.get("orderId")).cache().queryList()) {
                 productPromoCodesEntered.add(orderProductPromoCode.getString("productPromoCodeId"));
             }
         } catch (GenericEntityException e) {
@@ -2149,7 +2160,7 @@ public class OrderReadHelper {
     public List<GenericValue> getProductPromoUse() {
         Delegator delegator = orderHeader.getDelegator();
         try {
-            return delegator.findByAnd("ProductPromoUse", UtilMisc.toMap("orderId", orderHeader.get("orderId")), null, true);
+            return EntityQuery.use(delegator).from("ProductPromoUse").where("orderId", orderHeader.get("orderId")).cache().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -2181,7 +2192,7 @@ public class OrderReadHelper {
         GenericValue orderHeader = null;
         if (orderId != null && delegator != null) {
             try {
-                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get order header", module);
             }
@@ -2226,7 +2237,7 @@ public class OrderReadHelper {
         GenericValue productStore = null;
         if (orderHeader.get("productStoreId") != null) {
             try {
-                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", orderHeader.getString("productStoreId")), true);
+                productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", orderHeader.getString("productStoreId")).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot locate ProductStore from OrderHeader", module);
             }
@@ -2292,7 +2303,7 @@ public class OrderReadHelper {
         String orderId = orderHeader.getString("orderId");
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", "_NA_"), null, false);
+            responses = EntityQuery.use(delegator).from("SurveyResponse").where("orderId", orderId, "orderItemSeqId", "_NA_").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -2309,7 +2320,7 @@ public class OrderReadHelper {
         String orderId = orderItem.getString("orderId");
         List<GenericValue> responses = null;
         try {
-            responses = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+            responses = EntityQuery.use(delegator).from("SurveyResponse").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -2629,15 +2640,15 @@ public class OrderReadHelper {
         BigDecimal quantity = BigDecimal.ZERO;
 
         // first find all open purchase orders
-        List<EntityExpr> openOrdersExprs = UtilMisc.toList(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
-        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
-        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
-        openOrdersExprs.add(EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"));
-        openOrdersExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
-        EntityCondition openOrdersCond = EntityCondition.makeCondition(openOrdersExprs, EntityOperator.AND);
         List<GenericValue> openOrders = null;
         try {
-            openOrders = delegator.findList("OrderHeaderAndItems", openOrdersCond, null, null, null, false);
+            openOrders = EntityQuery.use(delegator).from("OrderHeaderAndItems")
+                    .where(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"),
+                            EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
+                            EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"),
+                            EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
+                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId))
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -2722,7 +2733,7 @@ public class OrderReadHelper {
         List<GenericValue> adjustments;
         try {
             // TODO: find on a view-entity with a sum is probably more efficient
-            adjustments = delegator.findByAnd("ReturnAdjustment", condition, null, false);
+            adjustments = EntityQuery.use(delegator).from("ReturnAdjustment").where(condition).queryList();
             if (adjustments != null) {
                 for (GenericValue returnAdjustment : adjustments) {
                     total = total.add(setScaleByType("RET_SALES_TAX_ADJ".equals(returnAdjustment.get("returnAdjustmentTypeId")),returnAdjustment.getBigDecimal("amount")));
@@ -2933,20 +2944,21 @@ public class OrderReadHelper {
         BigDecimal accountLimit = getAccountLimit(billingAccount);
         balance = balance.add(accountLimit);
         // pending (not cancelled, rejected, or received) order payments
-        EntityConditionList<EntityExpr> whereConditions = EntityCondition.makeCondition(UtilMisc.toList(
-                EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
-                EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
-                EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
-                EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED")) // PAYMENT_NOT_AUTH
-           ), EntityOperator.AND);
+        List<GenericValue> orderPaymentPreferenceSums = EntityQuery.use(delegator)
+                .select("maxAmount")
+                .from("OrderPurchasePaymentSummary")
+                .where(EntityCondition.makeCondition("billingAccountId", EntityOperator.EQUALS, billingAccountId),
+                        EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.EQUALS, "EXT_BILLACT"),
+                        EntityCondition.makeCondition("statusId", EntityOperator.NOT_IN, UtilMisc.toList("ORDER_CANCELLED", "ORDER_REJECTED")),
+                        EntityCondition.makeCondition("preferenceStatusId", EntityOperator.NOT_IN, UtilMisc.toList("PAYMENT_SETTLED", "PAYMENT_RECEIVED", "PAYMENT_DECLINED", "PAYMENT_CANCELLED"))) // PAYMENT_NOT_AUTH
+                .queryList();
 
-        List<GenericValue> orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
         for (GenericValue orderPaymentPreferenceSum : orderPaymentPreferenceSums) {
             BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
             balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
-        List<GenericValue> paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
+        List<GenericValue> paymentAppls = EntityQuery.use(delegator).from("PaymentApplication").where("billingAccountId", billingAccountId).queryList();
         // TODO: cancelled payments?
         for (GenericValue paymentAppl : paymentAppls) {
             if (paymentAppl.getString("invoiceId") == null) {

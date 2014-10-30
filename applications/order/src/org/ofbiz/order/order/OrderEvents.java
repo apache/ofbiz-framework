@@ -32,11 +32,11 @@ import javax.servlet.http.HttpSession;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -61,15 +61,18 @@ public class OrderEvents {
 
         try {
             // has the userLogin.partyId ordered a product with DIGITAL_DOWNLOAD content associated for the given dataResourceId?
-            List<GenericValue> orderRoleAndProductContentInfoList = delegator.findByAnd("OrderRoleAndProductContentInfo",
-                    UtilMisc.toMap("partyId", userLogin.get("partyId"), "dataResourceId", dataResourceId, "productContentTypeId", "DIGITAL_DOWNLOAD", "statusId", "ITEM_COMPLETED"), null, false);
+            GenericValue orderRoleAndProductContentInfo = EntityQuery.use(delegator).from("OrderRoleAndProductContentInfo")
+                    .where("partyId", userLogin.get("partyId"),
+                            "dataResourceId", dataResourceId,
+                            "productContentTypeId", "DIGITAL_DOWNLOAD",
+                            "statusId", "ITEM_COMPLETED")
+                    .queryFirst();
 
-            if (orderRoleAndProductContentInfoList.size() == 0) {
+            if (orderRoleAndProductContentInfo == null) {
                 request.setAttribute("_ERROR_MESSAGE_", "No record of purchase for digital download found (dataResourceId=[" + dataResourceId + "]).");
                 return "error";
             }
 
-            GenericValue orderRoleAndProductContentInfo = orderRoleAndProductContentInfoList.get(0);
 
             // TODO: check validity based on ProductContent fields: useCountLimit, useTime/useTimeUomId
 
@@ -113,7 +116,7 @@ public class OrderEvents {
         if (orderItemSeqIds != null) {
             for (String orderItemSeqId : orderItemSeqIds) {
                 try {
-                    GenericValue orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+                    GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
                     List<GenericValue> orderItemShipGroupAssocs = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false);
                     for (GenericValue orderItemShipGroupAssoc : orderItemShipGroupAssocs) {
                         GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);

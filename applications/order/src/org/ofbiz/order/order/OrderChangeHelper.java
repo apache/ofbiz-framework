@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -172,7 +173,7 @@ public class OrderChangeHelper {
             Delegator delegator = dispatcher.getDelegator();
             GenericValue orderHeader = null;
             try {
-                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to get OrderHeader for OrderID : " + orderId, module);
             }
@@ -306,7 +307,7 @@ public class OrderChangeHelper {
         // find the workEffortId for this order
         List workEfforts = null;
         try {
-            workEfforts = delegator.findByAnd("WorkEffort", UtilMisc.toMap("currentStatusId", "WF_SUSPENDED", "sourceReferenceId", orderId));
+            workEfforts = EntityQuery.use(delegator).from("WorkEffort").where("currentStatusId", "WF_SUSPENDED", sourceReferenceId", orderId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting WorkEffort with order ref number: " + orderId, module);
             return false;
@@ -348,7 +349,7 @@ public class OrderChangeHelper {
         // find the workEffortId for this order
         GenericValue workEffort = null;
         try {
-            List workEfforts = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", "WORK_FLOW", "sourceReferenceId", orderId));
+            List workEfforts = EntityQuery.use(delegator).from("WorkEffort").where("workEffortTypeId", "WORK_FLOW", "sourceReferenceId", orderId).queryList();
             if (workEfforts != null && workEfforts.size() > 1) {
                 Debug.logWarning("More then one workflow found for defined order: " + orderId, module);
             }
