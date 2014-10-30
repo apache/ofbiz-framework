@@ -19,7 +19,6 @@
 package org.ofbiz.marketing.marketing;
 
 import java.sql.Timestamp;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -31,9 +30,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -67,33 +64,32 @@ public class MarketingServices {
 
         try {
             // locate the contact list
-            Map<String, Object> input = UtilMisc.<String, Object>toMap("contactListId", contactListId);
-            GenericValue contactList = delegator.findOne("ContactList", input, false);
+            GenericValue contactList = EntityQuery.use(delegator).from("ContactList").where("contactListId", contactListId).queryOne();
             if (contactList == null) {
-                String error = UtilProperties.getMessage(resourceMarketing, "MarketingContactListNotFound", input, locale);
+                String error = UtilProperties.getMessage(resourceMarketing, "MarketingContactListNotFound", UtilMisc.<String, Object>toMap("contactListId", contactListId), locale);
                 return ServiceUtil.returnError(error);
             }
 
             // perform actions as the system user
-            GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), true);
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
 
             // associate the email with anonymous user TODO: do we need a custom contact mech purpose type, say MARKETING_EMAIL?
             if (partyId == null) {
                 // Check existing email
-                List<EntityCondition> conds = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, email));
-                conds.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
-                conds.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_EMAIL"));
-                conds.add(EntityUtil.getFilterByDateExpr("purposeFromDate", "purposeThruDate"));
-                conds.add(EntityUtil.getFilterByDateExpr());
-                List<GenericValue> contacts = delegator.findList("PartyContactDetailByPurpose", EntityCondition.makeCondition(conds), null, UtilMisc.toList("-fromDate"), null, false);
-                if (UtilValidate.isNotEmpty(contacts)) {
-                    GenericValue contact = EntityUtil.getFirst(contacts);
+                GenericValue contact = EntityQuery.use(delegator).from("PartyContactDetailByPurpose")
+                        .where("infoString", email,
+                                "contactMechTypeId", "EMAIL_ADDRESS",
+                                "contactMechPurposeTypeId", "PRIMARY_EMAIL")
+                        .orderBy("-fromDate")
+                        .filterByDate("fromDate", "thruDate", "purposeFromDate", "purposeThruDate")
+                        .queryFirst();
+                if (contact != null) {
                     partyId = contact.getString("partyId");
                 } else {
                     partyId = "_NA_";
                 }
             }
-            input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId, "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
+            Map<String, Object> input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", partyId, "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
             Map<String, Object> serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
