@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -130,7 +131,7 @@ public class EbayStoreCustomerService {
             } else {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredContactStatusSetting", locale));
             }
-            GenericValue  ebayUserBestOffer = delegator.findOne("EbayUserBestOffer", UtilMisc.toMap("userId", userId, "itemId", itemId), false);
+            GenericValue  ebayUserBestOffer = EntityQuery.use(delegator).from("EbayUserBestOffer").where("userId", userId, "itemId", itemId).queryOne();
             ebayUserBestOffer.set("contactStatus", contactStatus);
             ebayUserBestOffer.store();
             
@@ -159,7 +160,7 @@ public class EbayStoreCustomerService {
         String itemId = (String) context.get("itemId");
         String userId = (String) context.get("userId");
         try {
-            GenericValue ebayUserBestOffer = delegator.findOne("EbayUserBestOffer", UtilMisc.toMap("itemId", itemId, "userId", userId), false);
+            GenericValue ebayUserBestOffer = EntityQuery.use(delegator).from("EbayUserBestOffer").where("itemId", itemId, "userId", userId).queryOne();
             ebayUserBestOffer.remove();
             result.put("productStoreId", productStoreId);
         } catch (Exception e) {

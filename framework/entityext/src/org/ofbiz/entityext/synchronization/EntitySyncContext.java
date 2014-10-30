@@ -49,6 +49,7 @@ import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entityext.EntityGroupUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GeneralServiceException;
@@ -163,7 +164,7 @@ public class EntitySyncContext {
         }
 
         try {
-            this.entitySync = delegator.findOne("EntitySync", false, "entitySyncId", this.entitySyncId);
+            this.entitySync = EntityQuery.use(delegator).from("EntitySync").where("entitySyncId", this.entitySyncId).queryOne();
             if (this.entitySync == null) {
                 throw new SyncAbortException("Not running EntitySync [" + entitySyncId + "], no record found with that ID.");
             }

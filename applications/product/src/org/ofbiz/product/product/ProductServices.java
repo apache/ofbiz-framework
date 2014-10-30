@@ -54,6 +54,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -123,7 +124,7 @@ public class ProductServices {
             }
             if (variantFound) {
                 try {
-                    products.add(delegator.findOne("Product", UtilMisc.toMap("productId", oneVariant.getString("productIdTo")), false));
+                    products.add(EntityQuery.use(delegator).from("Product").where("productId", oneVariant.getString("productIdTo")).queryOne());
                 } catch (GenericEntityException e) {
                     Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
                     String errMsg = UtilProperties.getMessage(resourceError,"productservices.problem_reading_product_features_errors", messageMap, locale);
@@ -226,7 +227,7 @@ public class ProductServices {
             GenericValue productTo = null;
 
             try {
-                productTo = delegator.findOne("Product", UtilMisc.toMap("productId", productIdTo), true);
+                productTo = EntityQuery.use(delegator).from("Product").where("productId", productIdTo).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
@@ -410,7 +411,7 @@ public class ProductServices {
         }
 
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             GenericValue mainProduct = product;
 
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
@@ -482,7 +483,7 @@ public class ProductServices {
         GenericValue product = null;
 
         try {
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resourceError, 
@@ -704,7 +705,7 @@ public class ProductServices {
 
         try {
             // read the product, duplicate it with the given id
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError, 
@@ -756,7 +757,7 @@ public class ProductServices {
             while (st.hasMoreTokens()) {
                 String productFeatureId = st.nextToken();
 
-                GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), false);
+                GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", productFeatureId).queryOne();
 
                 GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                 UtilMisc.toMap("productId", variantProductId, "productFeatureId", productFeatureId,
@@ -841,7 +842,7 @@ public class ProductServices {
                     continue;
                 }
                 // is a Product.productId?
-                GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
+                GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
                 if (variantProduct != null) {
                     variantProductsById.put(variantProductId, variantProduct);
                 } else {
@@ -917,7 +918,7 @@ public class ProductServices {
 
             GenericValue inventoryItem = null;
             try {
-                inventoryItem = delegator.findOne("InventoryItem", UtilMisc.toMap("inventoryItemId", inventoryItemId), true);
+                inventoryItem = EntityQuery.use(delegator).from("InventoryItem").where("inventoryItemId", inventoryItemId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -927,7 +928,7 @@ public class ProductServices {
                 String productId = inventoryItem.getString("productId");
                 GenericValue product = null;
                 try {
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1137,7 +1138,7 @@ public class ProductServices {
             if (UtilValidate.isNotEmpty(contentId)) {
                 GenericValue content = null;
                 try {
-                    content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                    content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -1343,7 +1344,7 @@ public class ProductServices {
                 if (UtilValidate.isNotEmpty(contentId)) {
                     GenericValue content = null;
                     try {
-                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                        content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());

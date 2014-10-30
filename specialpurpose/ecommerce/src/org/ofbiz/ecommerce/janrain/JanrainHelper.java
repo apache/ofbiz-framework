@@ -52,6 +52,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.webapp.control.LoginWorker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -231,7 +232,7 @@ public class JanrainHelper {
             request.setAttribute("userInfoMap", result);
             
             try {
-                GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", preferredUsername), true);
+                GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", preferredUsername).cache().queryOne();
                 if (UtilValidate.isNotEmpty(userLogin)) {
                     LoginWorker.doBasicLogin(userLogin, request);
                     LoginWorker.autoLoginSet(request, response);

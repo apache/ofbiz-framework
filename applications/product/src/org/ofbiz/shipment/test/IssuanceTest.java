@@ -25,6 +25,7 @@ import java.util.List;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.shipment.packing.PackingSession;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -41,7 +42,7 @@ public class IssuanceTest extends OFBizTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+        userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
     }
 
     @Override
@@ -61,7 +62,7 @@ public class IssuanceTest extends OFBizTestCase {
             BigDecimal.valueOf(1000L), false);
         String shipmentId = packSession.complete(false);
 
-        GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), true);
+        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).cache().queryOne();
 
         // Test the OrderShipment is correct
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);

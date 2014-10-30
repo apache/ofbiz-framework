@@ -38,6 +38,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -138,7 +139,7 @@ public class SubscriptionServices {
         try {
             if (lastSubscription != null && !alwaysCreateNewRecord) {
                 Map<String, Object> updateSubscriptionMap = dctx.getModelService("updateSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
-                updateSubscriptionMap.put("userLogin", delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false));
+                updateSubscriptionMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne());
 
                 Map<String, Object> updateSubscriptionResult = dispatcher.runSync("updateSubscription", updateSubscriptionMap);
                 result.put("subscriptionId", updateSubscriptionMap.get("subscriptionId"));
@@ -163,7 +164,7 @@ public class SubscriptionServices {
                     }
                 }
                 Map<String, Object> createSubscriptionMap = dctx.getModelService("createSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
-                createSubscriptionMap.put("userLogin", delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false));
+                createSubscriptionMap.put("userLogin", EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne());
 
                 Map<String, Object> createSubscriptionResult = dispatcher.runSync("createSubscription", createSubscriptionMap);
                 if (ServiceUtil.isError(createSubscriptionResult)) {
@@ -263,7 +264,7 @@ public class SubscriptionServices {
                         "OrderErrorCannotGetOrderRoleEntity", 
                         UtilMisc.toMap("itemMsgInfo", orderId), locale));
             }
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceOrderError, 
                         "OrderErrorNoValidOrderHeaderFoundForOrderId", 
@@ -331,7 +332,7 @@ public class SubscriptionServices {
                     int field = Calendar.MONTH;
                     String subscriptionResourceId = subscription.getString("subscriptionResourceId");
                     GenericValue subscriptionResource = null;
-                    subscriptionResource = delegator.findOne("SubscriptionResource", UtilMisc.toMap("subscriptionResourceId", subscriptionResourceId), false);
+                    subscriptionResource = EntityQuery.use(delegator).from("SubscriptionResource").where("subscriptionResourceId", subscriptionResourceId).queryOne();
                     subscriptionId = subscription.getString("subscriptionId");
                     gracePeriodOnExpiry = subscription.getString("gracePeriodOnExpiry");
                     gracePeriodOnExpiryUomId = subscription.getString("gracePeriodOnExpiryUomId");

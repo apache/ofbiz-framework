@@ -46,6 +46,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.PortalPageWorker;
@@ -1045,7 +1046,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                 if (UtilValidate.isEmpty(expandedDataResourceId)) {
                     if (UtilValidate.isNotEmpty(expandedContentId)) {
-                        content = delegator.findOne("Content", UtilMisc.toMap("contentId", expandedContentId), true);
+                        content = EntityQuery.use(delegator).from("Content").where("contentId", expandedContentId).cache().queryOne();
                     } else {
                         String errMsg = "contentId is empty.";
                         Debug.logError(errMsg, module);
@@ -1062,7 +1063,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
-                    dataResource = delegator.findOne("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId), true);
+                    dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", expandedDataResourceId).cache().queryOne();
                 }
 
                 String mimeTypeId = null;
@@ -1621,7 +1622,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         portalPage = PortalPageWorker.getPortalPage(expandedPortalPageId, context);
                     }
                     else {
-                        portalPage = delegator.findOne("PortalPage", UtilMisc.toMap("portalPageId", expandedPortalPageId), true);
+                        portalPage = EntityQuery.use(delegator).from("PortalPage").where("portalPageId", expandedPortalPageId).cache().queryOne();
                     }
                     if (portalPage == null) {
                         String errMsg = "Could not find PortalPage with portalPageId [" + expandedPortalPageId + "] ";

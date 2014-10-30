@@ -30,6 +30,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 import org.apache.lucene.document.Document;
@@ -68,7 +69,7 @@ public class ProductDocument implements LuceneDocument {
     public Document prepareDocument(Delegator delegator) {
         String productId = getDocumentIdentifier().text();
         try {
-            GenericValue product = delegator.findOne("Product", false, "productId", productId);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (product == null) {
                 // Return a null document (we will remove the document from the index)
                 return null;

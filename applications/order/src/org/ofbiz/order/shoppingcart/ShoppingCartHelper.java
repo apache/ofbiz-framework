@@ -44,6 +44,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -192,7 +193,7 @@ public class ShoppingCartHelper {
         GenericValue product = null;
         if (productId != null) {
             try {
-                product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Unable to lookup product : " + productId, module);
             }
@@ -331,7 +332,7 @@ public class ShoppingCartHelper {
                     String aggregatedProdId = null;
                     if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", ProductWorker.getProductTypeId(delegator, productId), "parentTypeId", "AGGREGATED")) {
                         try {
-                            GenericValue instanceProduct = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                            GenericValue instanceProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             String configId = instanceProduct.getString("configId");
                             aggregatedProdId = ProductWorker.getInstanceAggregatedId(delegator, productId);
                             configWrapper = ProductConfigWorker.loadProductConfigWrapper(delegator, dispatcher, configId, aggregatedProdId, cart.getProductStoreId(), catalogId, cart.getWebSiteId(), cart.getCurrency(), cart.getLocale(), cart.getAutoUserLogin());
@@ -434,7 +435,7 @@ public class ShoppingCartHelper {
                         originalProductId = productId;
                         productId = ProductWorker.getOriginalProductId(delegator, productId);
                         try {
-                            originalProduct = delegator.findOne("Product", UtilMisc.toMap("productId", originalProductId), false);
+                            originalProduct = EntityQuery.use(delegator).from("Product").where("productId", originalProductId).queryOne();
                         } catch (GenericEntityException e) {
                             Debug.logError(e, "Error getting parent product", module);
                         }
@@ -504,7 +505,7 @@ public class ShoppingCartHelper {
                 requirementId = (String) context.get("requirementId" + thisSuffix);
                 GenericValue requirement = null;
                 try {
-                    requirement = delegator.findOne("Requirement", UtilMisc.toMap("requirementId", requirementId), false);
+                    requirement = EntityQuery.use(delegator).from("Requirement").where("requirementId", requirementId).queryOne();
                 } catch (GenericEntityException gee) {
                 }
                 if (requirement == null) {

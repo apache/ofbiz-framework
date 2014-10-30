@@ -43,6 +43,7 @@ import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.product.product.ProductEvents;
@@ -141,7 +142,7 @@ public class LoginEvents {
         GenericValue supposedUserLogin = null;
 
         try {
-            supposedUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, "", module);
         }
@@ -202,7 +203,7 @@ public class LoginEvents {
         String passwordToSend = null;
 
         try {
-            supposedUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            supposedUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (supposedUserLogin == null) {
                 // the Username was not found
                 errMsg = UtilProperties.getMessage(resource, "loginevents.username_not_found_reenter", UtilHttp.getLocale(request));
@@ -291,7 +292,7 @@ public class LoginEvents {
         } else {
             GenericValue emailTemplateSetting = null;
             try {
-                emailTemplateSetting = delegator.findOne("EmailTemplateSetting", true, "emailTemplateSettingId", "EMAIL_PASSWORD");
+                emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", "EMAIL_PASSWORD").cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

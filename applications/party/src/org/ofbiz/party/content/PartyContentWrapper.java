@@ -25,6 +25,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -187,7 +188,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ModelEntity partyPersonModel = delegator.getModelEntity("PartyAndPerson");
             if (partyPersonModel != null && partyPersonModel.isField(candidateFieldName)) {
                 if (party == null) {
-                    party = delegator.findOne("PartyAndPerson", UtilMisc.toMap("partyId", partyId), true);
+                    party = EntityQuery.use(delegator).from("PartyAndPerson").where("partyId", partyId).cache().queryOne();
                 }
                 if (party != null) {
                     String candidateValue = party.getString(candidateFieldName);
@@ -202,7 +203,7 @@ public class PartyContentWrapper implements ContentWrapper {
             ModelEntity partyGroupModel = delegator.getModelEntity("PartyAndGroup");
             if (partyGroupModel != null && partyGroupModel.isField(candidateFieldName)) {
                 if (party == null) {
-                    party = delegator.findOne("PartyAndGroup", UtilMisc.toMap("partyId", partyId), true);
+                    party = EntityQuery.use(delegator).from("PartyAndGroup").where("partyId", partyId).cache().queryOne();
                 }
                 if (party != null) {
                     String candidateValue = party.getString(candidateFieldName);
@@ -217,7 +218,7 @@ public class PartyContentWrapper implements ContentWrapper {
         // otherwise a content field
         GenericValue partyContent;
         if (contentId != null) {
-            partyContent = delegator.findOne("PartyContent", UtilMisc.toMap("partyId", partyId, "contentId", contentId), true);
+            partyContent = EntityQuery.use(delegator).from("PartyContent").where("partyId", partyId, "contentId", contentId).cache().queryOne();
         } else {
             partyContent = getFirstPartyContentByType(partyId, party, partyContentTypeId, delegator);
         }

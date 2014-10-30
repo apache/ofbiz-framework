@@ -51,6 +51,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
@@ -97,7 +98,7 @@ public class OagisShipmentServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId system: "+e.toString();
             Debug.logError(e, errMsg, module);
@@ -194,7 +195,7 @@ public class OagisShipmentServices {
 
         GenericValue shipment = null;
         try {
-            shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error getting Shipment from database for ID [" + shipmentId + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -252,7 +253,7 @@ public class OagisShipmentServices {
                             String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
 
                             // make sure productId is valid
-                            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                             if (product == null) {
                                 String errMsg = "Product with ID [" + productId + "] not found (invalid Product ID).";
                                 errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ProductIdNotValid", "description", errMsg));
@@ -297,7 +298,7 @@ public class OagisShipmentServices {
 
                                 // try getting it by the unit number, which is bogus but can be what some try IFF there is only one INVITEM in the SHPUNIT
                                 if (invitemMapList.size() == 1 && localInvItemElementList.size() == 1 && UtilValidate.isNotEmpty(possibleShipmentItemSeqId)) {
-                                    GenericValue shipmentItem = delegator.findOne("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", possibleShipmentItemSeqId), false);
+                                    GenericValue shipmentItem = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId, "shipmentItemSeqId", possibleShipmentItemSeqId).queryOne();
                                     if (shipmentItem != null && !productId.equals(shipmentItem.getString("productId"))) {
                                         // found an item, but it was for the wrong Product!
                                         shipmentItem = null;
@@ -685,7 +686,7 @@ public class OagisShipmentServices {
         // the userLogin passed in will usually be the customer, so don't use it; use the system user instead
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting userLogin", module);
         }
@@ -714,7 +715,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageSent", UtilMisc.toMap("orderId", orderId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")));
             }
 
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
@@ -804,7 +805,7 @@ public class OagisShipmentServices {
             } else {
                 Map<String, Object> cospResult= dispatcher.runSync("createOrderShipmentPlan", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
                 shipmentId = (String) cospResult.get("shipmentId");
-                shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+                shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             }
 
             bodyParameters.put("shipment", shipment);
@@ -817,7 +818,7 @@ public class OagisShipmentServices {
             bodyParameters.put("emailString", emailString);
             String contactMechId = shipment.getString("destinationTelecomNumberId");
 
-            GenericValue telecomNumber = delegator.findOne("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId), false);
+            GenericValue telecomNumber = EntityQuery.use(delegator).from("TelecomNumber").where("contactMechId", contactMechId).queryOne();
             if (telecomNumber == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotTelecomNumberFound", UtilMisc.toMap("orderId", orderId), locale));
             }
@@ -871,7 +872,7 @@ public class OagisShipmentServices {
             }
             // tracking shipper account, other Party info
             String partyId = shipment.getString("partyIdTo");
-            bodyParameters.put("partyNameView", delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), false));
+            bodyParameters.put("partyNameView", EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).queryOne());
             List<GenericValue> partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId), null, false);
             partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
             if (partyCarrierAccounts != null) {
@@ -1001,7 +1002,7 @@ public class OagisShipmentServices {
 
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error getting system userLogin", module);
         }
@@ -1031,7 +1032,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageForReturnSent", UtilMisc.toMap("returnId", returnId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_SENT")));
             }
 
-            GenericValue returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            GenericValue returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotFound", UtilMisc.toMap("returnId", returnId), locale));
             }
@@ -1079,15 +1080,15 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotValid", UtilMisc.toMap("orderId", orderId), locale));
             }
 
             String partyId = returnHeader.getString("fromPartyId");
-            GenericValue postalAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", returnHeader.getString("originContactMechId")), false);
+            GenericValue postalAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", returnHeader.getString("originContactMechId")).queryOne();
             bodyParameters.put("postalAddress", postalAddress);
-            bodyParameters.put("partyNameView", delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), false));
+            bodyParameters.put("partyNameView", EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).queryOne());
 
             // calculate total qty of return items in a shipping unit received, order associated with return
             double totalQty = 0.0;

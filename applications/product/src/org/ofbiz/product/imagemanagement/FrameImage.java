@@ -54,6 +54,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.content.layout.LayoutWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -97,7 +98,7 @@ public class FrameImage {
         
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = delegator.findOne("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId), false);
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (Exception e) {
             Debug.logError(e, module);
@@ -357,7 +358,7 @@ public class FrameImage {
         
         String frameImageName = null;
         try {
-            GenericValue contentDataResourceView = delegator.findOne("ContentDataResourceView", UtilMisc.toMap("contentId", frameContentId, "drDataResourceId", frameDataResourceId), false);
+            GenericValue contentDataResourceView = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", frameContentId, "drDataResourceId", frameDataResourceId).queryOne();
             frameImageName = contentDataResourceView.getString("contentName");
         } catch (Exception e) {
             request.setAttribute("_ERROR_MESSAGE_", e.getMessage());

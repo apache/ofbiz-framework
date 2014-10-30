@@ -37,6 +37,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
@@ -82,7 +83,7 @@ public class GoogleCheckoutHelper {
         this.delegator = delegator;
 
         try {
-            system = delegator.findOne("UserLogin", true, "userLoginId", "system");
+            system = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             system = delegator.makeValue("UserLogin");

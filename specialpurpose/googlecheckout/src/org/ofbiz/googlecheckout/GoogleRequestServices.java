@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
@@ -434,7 +435,7 @@ public class GoogleRequestServices {
         if (order != null) {
             GenericValue orderItem = null;
             try {
-                orderItem = delegator.findOne("OrderItem", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), false);
+                orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -576,7 +577,7 @@ public class GoogleRequestServices {
     public static GenericValue findGoogleOrder(Delegator delegator, String orderId) {
         GenericValue order = null;
         try {
-            order = delegator.findOne("OrderHeader", false, "orderId", orderId);
+            order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -594,7 +595,7 @@ public class GoogleRequestServices {
     public static String getProductStoreFromShipment(Delegator delegator, String shipmentId) {
         GenericValue shipment = null;
         try {
-            shipment = delegator.findOne("Shipment", false, "shipmentId", shipmentId);
+            shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -616,7 +617,7 @@ public class GoogleRequestServices {
         if (productStoreId == null) return null;
         GenericValue config = null;
         try {
-            config = delegator.findOne("GoogleCoConfiguration", true, "productStoreId", productStoreId);
+            config = EntityQuery.use(delegator).from("GoogleCoConfiguration").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

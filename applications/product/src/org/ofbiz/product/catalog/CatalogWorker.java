@@ -37,6 +37,7 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -213,7 +214,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            GenericValue prodCatalog = delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
+            GenericValue prodCatalog = EntityQuery.use(delegator).from("ProdCatalog").where("prodCatalogId", prodCatalogId).cache().queryOne();
 
             if (prodCatalog != null) {
                 return prodCatalog.getString("catalogName");
@@ -252,7 +253,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            return delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
+            return EntityQuery.use(delegator).from("ProdCatalog").where("prodCatalogId", prodCatalogId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up name for prodCatalog with id " + prodCatalogId, module);
             return null;
@@ -347,7 +348,7 @@ public class CatalogWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         try {
-            GenericValue prodCatalog = delegator.findOne("ProdCatalog", UtilMisc.toMap("prodCatalogId", prodCatalogId), true);
+            GenericValue prodCatalog = EntityQuery.use(delegator).from("ProdCatalog").where("prodCatalogId", prodCatalogId).cache().queryOne();
 
             if (prodCatalog != null) {
                 return "Y".equals(prodCatalog.getString("useQuickAdd"));

@@ -65,6 +65,7 @@ import freemarker.template.SimpleScalar;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import freemarker.template.TemplateExceptionHandler;
+import freemarker.template.TemplateHashModel;
 import freemarker.template.TemplateModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.Version;
@@ -91,7 +92,13 @@ public class FreeMarkerWorker {
         Configuration newConfig = new Configuration(version);
 
         newConfig.setObjectWrapper(wrapper);
-        newConfig.setSharedVariable("Static", wrapper.getStaticModels());
+        TemplateHashModel staticModels = wrapper.getStaticModels();
+        newConfig.setSharedVariable("Static", staticModels);
+        try {
+            newConfig.setSharedVariable("EntityQuery", staticModels.get("org.ofbiz.entity.util.EntityQuery"));
+        } catch (TemplateModelException e) {
+            Debug.logError(e, module);
+        }
         newConfig.setLocalizedLookup(false);
         newConfig.setSharedVariable("StringUtil", new BeanModel(StringUtil.INSTANCE, wrapper));
         newConfig.setTemplateLoader(new FlexibleTemplateLoader());

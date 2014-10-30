@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
@@ -85,7 +86,7 @@ public final class OfbizUrlBuilder {
             Assert.notNull("delegator", delegator);
             String webSiteId = WebAppUtil.getWebSiteId(webAppInfo);
             if (webSiteId != null) {
-                GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
+                GenericValue webSiteValue = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
                 if (webSiteValue != null) {
                     webSiteProps = WebSiteProperties.from(webSiteValue);
                 }

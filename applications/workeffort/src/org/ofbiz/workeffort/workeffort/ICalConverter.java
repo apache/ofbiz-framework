@@ -90,6 +90,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -388,7 +389,7 @@ public class ICalConverter {
      */
     public static ResponseProperties getICalendar(String workEffortId, Map<String, Object> context) throws GenericEntityException {
         Delegator delegator = (Delegator) context.get("delegator");
-        GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+        GenericValue publishProperties = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
             return ICalWorker.createNotFoundResponse(null);
@@ -711,7 +712,7 @@ public class ICalConverter {
             return ICalWorker.createForbiddenResponse(null);
         }
         Delegator delegator = (Delegator) context.get("delegator");
-        GenericValue publishProperties = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+        GenericValue publishProperties = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         if (!isCalendarPublished(publishProperties)) {
             Debug.logInfo("WorkEffort calendar is not published: " + workEffortId, module);
             return ICalWorker.createNotFoundResponse(null);
@@ -824,7 +825,7 @@ public class ICalConverter {
         PropertyList propertyList = component.getProperties();
         String workEffortId = fromXProperty(propertyList, workEffortIdXPropName);
         Delegator delegator = (Delegator) context.get("delegator");
-        GenericValue workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+        GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         if (workEffort == null) {
             return ICalWorker.createNotFoundResponse(null);
         }
@@ -843,7 +844,7 @@ public class ICalConverter {
         String workEffortId = workEffort.getString("workEffortId");
         String workEffortUid = workEffort.getString("universalId");
         String workEffortTypeId = workEffort.getString("workEffortTypeId");
-        GenericValue typeValue = delegator.findOne("WorkEffortType", UtilMisc.toMap("workEffortTypeId", workEffortTypeId), true);
+        GenericValue typeValue = EntityQuery.use(delegator).from("WorkEffortType").where("workEffortTypeId", workEffortTypeId).cache().queryOne();
         boolean isTask = false;
         boolean newComponent = true;
         ComponentList resultList = null;

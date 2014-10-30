@@ -42,6 +42,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -196,7 +197,7 @@ public class EbayEvents {
                 for (String productId : productIds) {
                     AddItemCall addItemCall = new AddItemCall(apiContext);
                     ItemType item = new ItemType();
-                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     item.setTitle(product.getString("internalName"));
                     item.setCurrency(CurrencyCodeType.USD);
                     String productDescription = "";
@@ -544,7 +545,7 @@ public class EbayEvents {
         EbayStoreSiteFacade sf = null;
         // find is exiting product and set category into item in additem call
         try {
-            if (UtilValidate.isNotEmpty(delegator.findOne("Product", UtilMisc.toMap("productId", productId), false))) {
+            if (UtilValidate.isNotEmpty(EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne())) {
                 ApiContext apiContext = getApiContext(request);
                 Map<String,Object> addItemObject = getAddItemListingObject(request, apiContext);
                 List<Map<String,Object>> addItemlist = UtilGenerics.checkList(addItemObject.get("itemListing"));
