@@ -39,6 +39,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -81,9 +82,11 @@ public class TechDataServices {
         constraints.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "ROU_ACTIVE"));
         constraints.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "ROU_TASK"));
 
-        EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(constraints, EntityOperator.AND);
         try {
-            listRoutingTask = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("workEffortName"), null, false);
+            listRoutingTask = EntityQuery.use(delegator).from("WorkEffort")
+                    .where(constraints)
+                    .orderBy("workEffortName")
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
@@ -124,7 +127,10 @@ public class TechDataServices {
         List<GenericValue> listRoutingTaskAssoc = null;
 
         try {
-            listRoutingTaskAssoc = delegator.findByAnd("WorkEffortAssoc",UtilMisc.toMap("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum), UtilMisc.toList("fromDate"), false);
+            listRoutingTaskAssoc = EntityQuery.use(delegator).from("WorkEffortAssoc")
+                    .where("workEffortIdFrom", workEffortIdFrom,"sequenceNum",sequenceNum)
+                    .orderBy("fromDate")
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingTechDataWorkEffortAssocNotExist", UtilMisc.toMap("errorString", e.toString()), locale));
@@ -197,7 +203,7 @@ public class TechDataServices {
         if (techDataCalendar == null) {
             try {
                 Delegator delegator = routingTask.getDelegator();
-                techDataCalendar = delegator.findOne("TechDataCalendar",UtilMisc.toMap("calendarId","DEFAULT"), false);
+                techDataCalendar = EntityQuery.use(delegator).from("TechDataCalendar").where("calendarId", "DEFAULT").queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError("Pb reading TechDataCalendar DEFAULT"+e.getMessage(), module);
             }

@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
@@ -68,7 +69,7 @@ public class RoutingServices {
 
         GenericValue task = null;
         try {
-            task = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", taskId), false);
+            task = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", taskId).queryOne();
         } catch (GenericEntityException gee) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingErrorFindingTask", UtilMisc.toMap("taskId", taskId), locale));
         }

@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.LocalDispatcher;
@@ -97,27 +98,28 @@ public class BOMTree {
         this.delegator = delegator;
         this.dispatcher = dispatcher;
 
-        inputProduct = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+        inputProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
 
         String productIdForRules = productId;
         // The selected product features are loaded
-        List<GenericValue> productFeaturesAppl = delegator.findByAnd("ProductFeatureAppl", 
-                UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false);
+        List<GenericValue> productFeaturesAppl = EntityQuery.use(delegator).from("ProductFeatureAppl")
+                .where("productId", productId, 
+                        "productFeatureApplTypeId", "STANDARD_FEATURE")
+                .queryList();
         List<GenericValue> productFeatures = FastList.newInstance();
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
             oneProductFeatureAppl = productFeaturesAppl.get(i);
-            productFeatures.add(delegator.findOne("ProductFeature",
-                    UtilMisc.toMap("productFeatureId", oneProductFeatureAppl.getString("productFeatureId")), false));
-
+            productFeatures.add(oneProductFeatureAppl.getRelatedOne("ProductFeature", false));
         }
         // If the product is manufactured as a different product,
         // load the new product
         GenericValue manufacturedAsProduct = manufacturedAsProduct(productId, inDate);
         // We load the information about the product that needs to be manufactured
         // from Product entity
-        GenericValue product = delegator.findOne("Product", 
-                UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId)), false);
+        GenericValue product = EntityQuery.use(delegator).from("Product")
+                .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): productId))
+                .queryOne();
         if (product == null) return;
         BOMNode originalNode = new BOMNode(product, dispatcher, userLogin);
         originalNode.setTree(this);
@@ -133,8 +135,9 @@ public class BOMTree {
                 // load the new product
                 productIdForRules = virtualProduct.getString("productId");
                 manufacturedAsProduct = manufacturedAsProduct(virtualProduct.getString("productId"), inDate);
-                product = delegator.findOne("Product", 
-                        UtilMisc.toMap("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId"))), false);
+                product = EntityQuery.use(delegator).from("Product")
+                        .where("productId", (manufacturedAsProduct != null? manufacturedAsProduct.getString("productIdTo"): virtualProduct.get("productId")))
+                        .queryOne();
             }
         }
         if (product == null) return;
@@ -162,15 +165,10 @@ public class BOMTree {
     }
 
     private GenericValue manufacturedAsProduct(String productId, Date inDate) throws GenericEntityException {
-        List<GenericValue> manufacturedAsProducts = delegator.findByAnd("ProductAssoc",
-                                         UtilMisc.toMap("productId", productId,
-                                         "productAssocTypeId", "PRODUCT_MANUFACTURED"), null, false);
-        manufacturedAsProducts = EntityUtil.filterByDate(manufacturedAsProducts, inDate);
-        GenericValue manufacturedAsProduct = null;
-        if (UtilValidate.isNotEmpty(manufacturedAsProducts)) {
-            manufacturedAsProduct = EntityUtil.getFirst(manufacturedAsProducts);
-        }
-        return manufacturedAsProduct;
+        return EntityQuery.use(delegator).from("ProductAssoc")
+                .where("productId", productId,
+                        "productAssocTypeId", "PRODUCT_MANUFACTURED")
+                .filterByDate(inDate).queryFirst();
     }
 
     private boolean hasBom(GenericValue product, Date inDate) throws GenericEntityException {
@@ -333,7 +331,7 @@ public class BOMTree {
         if (root != null) {
             if (UtilValidate.isEmpty(facilityId)) {
                 if (orderId != null) {
-                    GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                    GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                     String productStoreId = order.getString("productStoreId");
                     if (productStoreId != null) {
                         GenericValue productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
@@ -344,7 +342,7 @@ public class BOMTree {
 
                 }
                 if (facilityId == null && shipmentId != null) {
-                    GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+                    GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
                     facilityId = shipment.getString("originFacilityId");
                 }
             }

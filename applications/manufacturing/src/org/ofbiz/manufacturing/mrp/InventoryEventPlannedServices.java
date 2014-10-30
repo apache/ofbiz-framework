@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -66,7 +67,7 @@ public class InventoryEventPlannedServices {
     public static void createOrUpdateMrpEvent(Map<String, Object> mrpEventKeyMap, BigDecimal newQuantity, String facilityId,
             String eventName, boolean isLate, Delegator delegator) throws GenericEntityException {
         GenericValue mrpEvent = null;
-        mrpEvent = delegator.findOne("MrpEvent", mrpEventKeyMap, false);
+        mrpEvent = EntityQuery.use(delegator).from("MrpEvent").where(mrpEventKeyMap).queryOne();
         if (mrpEvent == null) {
             mrpEvent = delegator.makeValue("MrpEvent", mrpEventKeyMap);
             mrpEvent.put("quantity", newQuantity.doubleValue());
