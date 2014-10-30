@@ -52,6 +52,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.security.Security;
@@ -230,11 +231,11 @@ public class ProductEvents {
         Timestamp fromDate = null;
 
         try {
-            if (delegator.findOne("Product", UtilMisc.toMap("productId", productId), false) == null) {
+            if (EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne() == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
             }
-            if (delegator.findOne("Product", UtilMisc.toMap("productId", productIdTo), false) == null) {
+            if (EntityQuery.use(delegator).from("Product").where("productId", productIdTo).queryOne() == null) {
                 Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo);
                 errMsgList.add(UtilProperties.getMessage(resource,"productevents.product_To_with_id_not_found", messageMap, UtilHttp.getLocale(request)));
             }
@@ -433,7 +434,7 @@ public class ProductEvents {
                 if (variantProductId == null) {
                     // only single product to update
                     String productId = request.getParameter("productId");
-                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     product.set("lastModifiedDate", nowTimestamp);
                     product.setString("lastModifiedByUserLogin", userLogin.getString("userLoginId"));
                     try {
@@ -472,7 +473,7 @@ public class ProductEvents {
                     int attribIdx = 0;
                     String productId = variantProductId;
                     do {
-                        GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                        GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                         try {
                             product.set("productHeight", parseBigDecimalForEntity(request.getParameter("productHeight" + attribIdx)));
                             product.set("productWidth", parseBigDecimalForEntity(request.getParameter("productWidth" + attribIdx)));
@@ -533,8 +534,8 @@ public class ProductEvents {
     private static void setOrCreateProdFeature(Delegator delegator, String productId, List<GenericValue> currentProductFeatureAndAppls,
                                           String uomId, String productFeatureTypeId, BigDecimal numberSpecified) throws GenericEntityException {
 
-        GenericValue productFeatureType = delegator.findOne("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId), false);
-        GenericValue uom = delegator.findOne("Uom", UtilMisc.toMap("uomId", uomId), false);
+        GenericValue productFeatureType = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeId).queryOne();
+        GenericValue uom = EntityQuery.use(delegator).from("Uom").where("uomId", uomId).queryOne();
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
@@ -572,7 +573,7 @@ public class ProductEvents {
 
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, use a default category from the configuration
-                if (delegator.findOne("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId), false) == null) {
+                if (EntityQuery.use(delegator).from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureTypeId).queryOne() == null) {
                     GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory");
                     productFeatureCategory.set("productFeatureCategoryId", productFeatureTypeId);
                     productFeatureCategory.set("description", productFeatureType.get("description"));
@@ -605,7 +606,7 @@ public class ProductEvents {
         try {
             boolean beganTransaction = TransactionUtil.begin();
             try {
-                GenericValue productFeatureType = delegator.findOne("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId), false);
+                GenericValue productFeatureType = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeId).queryOne();
                 if (productFeatureType == null) {
                     String errMsg = "Error: the ProductFeature Type specified was not valid and one is require to add or update variant features.";
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -616,9 +617,9 @@ public class ProductEvents {
                 if (variantProductId != null) {
                     // multiple products, so use a numeric suffix to get them all
                     int attribIdx = 0;
-                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     do {
-                        GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
+                        GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
                         String description = request.getParameter("description" + attribIdx);
                         // blank means null, which means delete the feature application
                         if ((description != null) && (description.trim().length() < 1)) {
@@ -736,7 +737,7 @@ public class ProductEvents {
 
                 // if there is a productFeatureCategory with the same id as the productFeatureType, use that category.
                 // otherwise, create a category for the feature type
-                if (delegator.findOne("ProductFeatureCategory", UtilMisc.toMap("productFeatureCategoryId", productFeatureTypeId), false) == null) {
+                if (EntityQuery.use(delegator).from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureTypeId).queryOne() == null) {
                     GenericValue productFeatureCategory = delegator.makeValue("ProductFeatureCategory");
                     productFeatureCategory.set("productFeatureCategoryId", productFeatureTypeId);
                     productFeatureCategory.set("description", productFeatureType.get("description"));
@@ -768,7 +769,7 @@ public class ProductEvents {
         String productFeatureTypeId = request.getParameter("productFeatureTypeId");
 
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             // get all the variants
             List<GenericValue> variantAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"), null, false);
             variantAssocs = EntityUtil.filterByDate(variantAssocs);
@@ -1194,7 +1195,7 @@ public class ProductEvents {
             
             GenericValue userLogin = null;
             try {
-                userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), true);
+                userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").cache().queryOne();
             } catch (GenericEntityException e) {
                 request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
                 return "error";

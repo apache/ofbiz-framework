@@ -39,6 +39,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
@@ -141,7 +142,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isNotEmpty(orderId)) {
                 // Get the order header and verify if this order has been imported
                 // from eBay (i.e. sales channel = EBAY_CHANNEL and externalId is set)
-                orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                 if (orderHeader == null) {
                     Debug.logError("Cannot find order with orderId [" + orderId + "]", module);
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.errorRetrievingOrderFromOrderId", locale));
@@ -600,7 +601,7 @@ public class ImportOrdersFromEbay {
             if (productStoreId == null) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productStoreIdIsMandatory", locale));
             } else {
-                GenericValue productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
+                GenericValue productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).queryOne();
                 if (productStore != null) {
                     defaultCurrencyUomId = productStore.getString("defaultCurrencyUomId");
                     payToPartyId = productStore.getString("payToPartyId");
@@ -658,7 +659,7 @@ public class ImportOrdersFromEbay {
             if (UtilValidate.isEmpty(productId)) {
                 return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdNotAvailable", locale));
             } else {
-                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 if (UtilValidate.isEmpty(product)) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "ordersImportFromEbay.productIdDoesNotExist", locale));
                 }
@@ -735,7 +736,7 @@ public class ImportOrdersFromEbay {
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
                     Debug.logInfo("Found existing party associated to the eBay buyer: " + partyId, module);
-                    GenericValue party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
+                    GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
 
                     contactMechId = EbayHelper.setShippingAddressContactMech(dispatcher, delegator, party, userLogin, parameters);
                     String emailBuyer = (String) parameters.get("emailBuyer");

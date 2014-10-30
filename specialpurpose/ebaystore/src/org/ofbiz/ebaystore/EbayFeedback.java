@@ -23,6 +23,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 import java.util.*;
 
@@ -80,7 +81,7 @@ public class EbayFeedback {
             FeedbackDetailType[] feedback = feedbackCall.getFeedback();
             if (feedback != null) {
                 String partyId = null;
-                GenericValue userLoginEx = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userID), false);
+                GenericValue userLoginEx = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userID).queryOne();
                 if (userLoginEx == null) {
                     //Party
                     GenericValue party =  delegator.makeValue("Party");
@@ -109,7 +110,7 @@ public class EbayFeedback {
                     //convert to ofbiz
                     String contentId = feedback[i].getFeedbackID();
                     Date eBayDateTime = feedback[i].getCommentTime().getTime();
-                    GenericValue contentCheck = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                    GenericValue contentCheck = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
                     if (contentCheck != null) {
                         continue;
                     }

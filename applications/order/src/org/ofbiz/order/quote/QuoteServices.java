@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -63,7 +64,7 @@ public class QuoteServices {
         // get the quote and store
         GenericValue quote = null;
         try {
-            quote = delegator.findOne("Quote", UtilMisc.toMap("quoteId", quoteId), false);
+            quote = EntityQuery.use(delegator).from("Quote").where("quoteId", quoteId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Quote", module);
         }
@@ -76,7 +77,7 @@ public class QuoteServices {
 
         GenericValue productStoreEmail = null;
         try {
-            productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", quote.get("productStoreId"), "emailType", emailType), false);
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", quote.get("productStoreId"), "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting the ProductStoreEmailSetting for productStoreId=" + quote.get("productStoreId") + " and emailType=" + emailType, module);
         }

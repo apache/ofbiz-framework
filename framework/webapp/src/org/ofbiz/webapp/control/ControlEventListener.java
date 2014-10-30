@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * HttpSessionListener that gathers and tracks various information and statistics
@@ -77,7 +78,7 @@ public class ControlEventListener implements HttpSessionListener {
             GenericValue visit = (GenericValue) session.getAttribute("visit");
             if (visit != null) {
                 Delegator delegator = visit.getDelegator();
-                visit = delegator.findOne("Visit", UtilMisc.toMap("visitId", visit.get("visitId")), false);
+                visit = EntityQuery.use(delegator).from("Visit").where("visitId", visit.get("visitId")).queryOne();
                 if (visit != null) {
                     visit.set("thruDate", new Timestamp(session.getLastAccessedTime()));
                     visit.store();

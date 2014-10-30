@@ -33,6 +33,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 
@@ -49,7 +50,7 @@ public class CommonWorkers {
         GenericValue defaultGeo = null;
         if (UtilValidate.isNotEmpty(defaultCountry)) {
             try {
-                defaultGeo = delegator.findOne("Geo", UtilMisc.toMap("geoId", defaultCountry), true);
+                defaultGeo = EntityQuery.use(delegator).from("Geo").where("geoId", defaultCountry).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot lookup Geo", module);
             }

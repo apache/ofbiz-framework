@@ -45,6 +45,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -173,7 +174,7 @@ public class EbayStoreHelper {
                 Debug.logError("Require field partyId.",module);
                 return false;
             }
-            partyRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "EBAY_ACCOUNT"), false);
+            partyRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId, "roleTypeId", "EBAY_ACCOUNT").queryOne();
             if (partyRole == null) {
                 Debug.logError("Party Id ".concat(partyId).concat("not have roleTypeId EBAY_ACCOUNT"),module);
                 return false;
@@ -273,7 +274,7 @@ public class EbayStoreHelper {
         String autoPrefEnumId = (String) context.get("autoPrefEnumId");
         String serviceName = (String) context.get("serviceName");
         try {
-            GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
+            GenericValue ebayProductPref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId).queryOne();
             String jobId = ebayProductPref.getString("autoPrefJobId");
             if (UtilValidate.isNotEmpty(jobId)) {
                 List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId, "statusId", "SERVICE_PENDING"), null, false);
@@ -304,7 +305,7 @@ public class EbayStoreHelper {
                 info = RecurrenceInfo.makeInfo(delegator, startTime, 4, 1, -1);
                 infoId = info.primaryKey();
                 // set the persisted fields
-                GenericValue enumeration = delegator.findOne("Enumeration", UtilMisc.toMap("enumId", autoPrefEnumId), false);
+                GenericValue enumeration = EntityQuery.use(delegator).from("Enumeration").where("enumId", autoPrefEnumId).queryOne();
                     jobName = enumeration.getString("description");
                     if (jobName == null) {
                         jobName = Long.toString((new Date().getTime()));
@@ -355,7 +356,7 @@ public class EbayStoreHelper {
         String productStoreId = (String) context.get("productStoreId");
         String autoPrefEnumId = (String) context.get("autoPrefEnumId");
         try {
-            GenericValue ebayProductPref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId), false);
+            GenericValue ebayProductPref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", autoPrefEnumId).queryOne();
             String jobId = ebayProductPref.getString("autoPrefJobId");
             List<GenericValue> jobs = delegator.findByAnd("JobSandbox", UtilMisc.toMap("parentJobId", jobId ,"statusId", "SERVICE_PENDING"), null, false);
 
@@ -438,7 +439,7 @@ public class EbayStoreHelper {
         AddItemRequestType req = new AddItemRequestType();
         AddItemResponseType resp = null;
         try {
-            GenericValue userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", "system"), false);
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
             ItemType item = addItemCall.getItem();
             req.setItem(item);
             resp = (AddItemResponseType) addItemCall.execute(req);
@@ -618,7 +619,7 @@ public class EbayStoreHelper {
     GetOrdersRequestType req = new GetOrdersRequestType();
     GetOrdersResponseType resp = null;
     try {
-        GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         if (UtilValidate.isNotEmpty(orderHeader)) {
             String externalId = orderHeader.getString("externalId").toString();
             List<GenericValue> orderShipment = orderHeader.getRelated("OrderShipment", null, null, false);

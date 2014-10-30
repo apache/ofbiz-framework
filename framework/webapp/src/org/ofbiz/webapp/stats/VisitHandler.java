@@ -35,6 +35,7 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * Handles saving and maintaining visit information
@@ -164,7 +165,7 @@ public class VisitHandler {
                                 
                                 // sometimes these values get stale, so check it before we use it
                                 try {
-                                    GenericValue checkVisitor = delegator.findOne("Visitor", false, "visitorId", visitorId);
+                                    GenericValue checkVisitor = EntityQuery.use(delegator).from("Visitor").where("visitorId", visitorId).queryOne();
                                     if (checkVisitor == null) {
                                         GenericValue newVisitor = delegator.create("Visitor", "visitorId", visitorId);
                                         session.setAttribute("visitor", newVisitor);
@@ -247,7 +248,7 @@ public class VisitHandler {
                                 }
                             } else {
                                 try {
-                                    visitor = delegator.findOne("Visitor", false, "visitorId", cookieVisitorId);
+                                    visitor = EntityQuery.use(delegator).from("Visitor").where("visitorId", cookieVisitorId).queryOne();
                                     if (visitor == null) {
                                         // looks like we have an ID that doesn't exist in our database, so we'll create a new one
                                         visitor = delegator.makeValue("Visitor");

@@ -43,6 +43,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.webapp.control.ContextFilter;
@@ -339,7 +340,7 @@ public class CatalogUrlFilter extends ContextFilter {
     public static String makeCategoryUrl(HttpServletRequest request, String previousCategoryId, String productCategoryId, String productId, String viewSize, String viewIndex, String viewSort, String searchString) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
-            GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
+            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
             CategoryContentWrapper wrapper = new CategoryContentWrapper(productCategory, request);
             List<String> trail = CategoryWorker.getTrail(request);
             return makeCategoryUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
@@ -414,7 +415,7 @@ public class CatalogUrlFilter extends ContextFilter {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             ProductContentWrapper wrapper = new ProductContentWrapper(product, request);
             List<String> trail = CategoryWorker.getTrail(request);
             url = makeProductUrl(delegator, wrapper, trail, request.getContextPath(), previousCategoryId, productCategoryId, productId);

@@ -50,6 +50,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -105,7 +106,7 @@ public class ProductPromoWorker {
             String productStoreId = cart.getProductStoreId();
             GenericValue productStore = null;
             try {
-                productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+                productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up store with id " + productStoreId, module);
             }
@@ -167,7 +168,7 @@ public class ProductPromoWorker {
         String productStoreId = cart.getProductStoreId();
         GenericValue productStore = null;
         try {
-            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+            productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store with id " + productStoreId, module);
         }
@@ -205,7 +206,7 @@ public class ProductPromoWorker {
         String productStoreId = cart.getProductStoreId();
         GenericValue productStore = null;
         try {
-            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+            productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up store with id " + productStoreId, module);
         }
@@ -248,7 +249,7 @@ public class ProductPromoWorker {
         String agreementId = cart.getAgreementId();
         GenericValue agreement = null;
         try {
-            agreement = delegator.findOne("Agreement", UtilMisc.toMap("agreementId", agreementId), true);
+            agreement = EntityQuery.use(delegator).from("Agreement").where("agreementId", agreementId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up agreement with id " + agreementId, module);
         }
@@ -336,7 +337,7 @@ public class ProductPromoWorker {
             Map<String, Long> usesPerPromo = new HashMap<String, Long>();
             int indexOfFirstOrderTotalPromo = -1;
             for (ProductPromoUseInfo promoUse: sortedPromoUses) {
-                GenericValue productPromo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", promoUse.getProductPromoId()), true);
+                GenericValue productPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", promoUse.getProductPromoId()).cache().queryOne();
                 GenericValue newProductPromo = (GenericValue)productPromo.clone();
                 if (!usesPerPromo.containsKey(promoUse.getProductPromoId())) {
                     usesPerPromo.put(promoUse.getProductPromoId(), 0l);
@@ -596,7 +597,7 @@ public class ProductPromoWorker {
 
     public static String checkCanUsePromoCode(String productPromoCodeId, String partyId, Delegator delegator, ShoppingCart cart, Locale locale) {
         try {
-            GenericValue productPromoCode = delegator.findOne("ProductPromoCode", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), false);
+            GenericValue productPromoCode = EntityQuery.use(delegator).from("ProductPromoCode").where("productPromoCodeId", productPromoCodeId).queryOne();
             if (productPromoCode == null) {
                 return UtilProperties.getMessage(resource_error, "productpromoworker.promotion_code_not_valid", UtilMisc.toMap("productPromoCodeId", productPromoCodeId), locale);
             }
@@ -625,7 +626,7 @@ public class ProductPromoWorker {
 
                 // check partyId
                 if (UtilValidate.isNotEmpty(partyId)) {
-                    if (delegator.findOne("ProductPromoCodeParty", UtilMisc.toMap("productPromoCodeId", productPromoCodeId, "partyId", partyId), false) != null) {
+                    if (EntityQuery.use(delegator).from("ProductPromoCodeParty").where("productPromoCodeId", productPromoCodeId, "partyId", partyId).queryOne() != null) {
                         // found party associated with the code, looks good...
                         return null;
                     }
@@ -709,7 +710,7 @@ public class ProductPromoWorker {
 
                 if (UtilValidate.isEmpty(messageContext.get("productId"))) messageContext.put("productId", "any");
                 if (UtilValidate.isEmpty(messageContext.get("partyId"))) messageContext.put("partyId", "any");
-                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                 if (product != null) {
                     messageContext.put("productName", ProductContentWrapper.getProductContentAsText(product, "PRODUCT_NAME", locale, null));
                 }
@@ -1249,7 +1250,7 @@ public class ProductPromoWorker {
         } else if ("PPIP_RECURRENCE".equals(inputParamEnumId)) {
             if (UtilValidate.isNotEmpty(condValue)) {
                 compareBase = Integer.valueOf(1);
-                GenericValue recurrenceInfo = delegator.findOne("RecurrenceInfo", UtilMisc.toMap("recurrenceInfoId", condValue), true);
+                GenericValue recurrenceInfo = EntityQuery.use(delegator).from("RecurrenceInfo").where("recurrenceInfoId", condValue).cache().queryOne();
                 if (recurrenceInfo != null) {
                     RecurrenceInfo recurrence = null;
                     try {
@@ -1470,7 +1471,7 @@ public class ProductPromoWorker {
                 GenericValue product = null;
                 if (UtilValidate.isNotEmpty(productId)) {
                     // Debug.logInfo("======== Got GWP productId [" + productId + "]", module);
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                     if (product == null) {
                         String errMsg = "GWP Product not found with ID [" + productId + "] for ProductPromoAction [" + productPromoAction.get("productPromoId") + ":" + productPromoAction.get("productPromoRuleId") + ":" + productPromoAction.get("productPromoActionSeqId") + "]";
                         Debug.logError(errMsg, module);
@@ -1557,7 +1558,7 @@ public class ProductPromoWorker {
                         }
                         optionProductIds.remove(alternateGwpProductId);
                         productId = alternateGwpProductId;
-                        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                        product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                     } else {
                         Debug.logWarning(UtilProperties.getMessage(resource_error,"OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId", UtilMisc.toMap("alternateGwpProductId",alternateGwpProductId), cart.getLocale()), module);
                     }
@@ -1569,7 +1570,7 @@ public class ProductPromoWorker {
                     Iterator<String> optionProductIdTempIter = optionProductIds.iterator();
                     productId = optionProductIdTempIter.next();
                     optionProductIdTempIter.remove();
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                 }
 
                 if (product == null) {
@@ -1942,7 +1943,7 @@ public class ProductPromoWorker {
         // get the promoText / promoName to set as a descr of the orderAdj
         GenericValue prodPromo;
         try {
-            prodPromo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", prodPromoId), true);
+            prodPromo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", prodPromoId).cache().queryOne();
             if (UtilValidate.isNotEmpty(prodPromo.get("promoText"))) {
                 return (String) prodPromo.get("promoText");
             }
@@ -2070,7 +2071,7 @@ public class ProductPromoWorker {
     }
 
     protected static boolean isProductOld(String productId, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
-        GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+        GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         if (product != null) {
             Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
             if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(nowTimestamp)) {

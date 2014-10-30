@@ -66,6 +66,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
@@ -185,7 +186,7 @@ public class LoginWorker {
             try {
                 beganTransaction = TransactionUtil.begin();
 
-                GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+                GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 if (userLogin == null) {
                     Debug.logError("Could not find UserLogin record for setLoggedOut with userLoginId [" + userLoginId + "]", module);
                 } else {
@@ -757,7 +758,7 @@ public class LoginWorker {
         if (autoUserLoginId != null) {
             Debug.logInfo("Running autoLogin check.", module);
             try {
-                GenericValue autoUserLogin = delegator.findOne("UserLogin", false, "userLoginId", autoUserLoginId);
+                GenericValue autoUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", autoUserLoginId).queryOne();
                 GenericValue person = null;
                 GenericValue group = null;
                 if (autoUserLogin != null) {
@@ -765,8 +766,8 @@ public class LoginWorker {
 
                     ModelEntity modelUserLogin = autoUserLogin.getModelEntity();
                     if (modelUserLogin.isField("partyId")) {
-                        person = delegator.findOne("Person", false, "partyId", autoUserLogin.getString("partyId"));
-                        group = delegator.findOne("PartyGroup", false, "partyId", autoUserLogin.getString("partyId"));
+                        person = EntityQuery.use(delegator).from("Person").where("partyId", autoUserLogin.getString("partyId")).queryOne();
+                        group = EntityQuery.use(delegator).from("PartyGroup").where("partyId", autoUserLogin.getString("partyId")).queryOne();
                     }
                 }
                 if (person != null) {
@@ -827,7 +828,7 @@ public class LoginWorker {
     public static String loginUserWithUserLoginId(HttpServletRequest request, HttpServletResponse response, String userLoginId) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
-            GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
             if (userLogin != null) {
                 String enabled = userLogin.getString("enabled");
                 if (enabled == null || "Y".equals(enabled)) {
@@ -941,7 +942,7 @@ public class LoginWorker {
                                 //Debug.logInfo("Looking up userLogin from CN: " + userLoginId, module);
 
                                 // CN should match the userLoginId
-                                GenericValue userLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+                                GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                                 if (userLogin != null) {
                                     String enabled = userLogin.getString("enabled");
                                     if (enabled == null || "Y".equals(enabled)) {

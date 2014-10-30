@@ -29,6 +29,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 
 /** TemporalExpression persistence worker. */
 public class TemporalExpressionWorker {
@@ -61,7 +62,7 @@ public class TemporalExpressionWorker {
         if (UtilValidate.isEmpty(tempExprId)) {
             throw new IllegalArgumentException("tempExprId argument cannot be empty");
         }
-        GenericValue exprValue = delegator.findOne("TemporalExpression", UtilMisc.toMap("tempExprId", tempExprId), true);
+        GenericValue exprValue = EntityQuery.use(delegator).from("TemporalExpression").where("tempExprId", tempExprId).cache().queryOne();
         if (UtilValidate.isEmpty(exprValue)) {
             throw new IllegalArgumentException("tempExprId argument invalid - expression not found");
         }

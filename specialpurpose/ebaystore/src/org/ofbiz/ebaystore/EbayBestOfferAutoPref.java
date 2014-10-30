@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -90,7 +91,7 @@ public class EbayBestOfferAutoPref {
                 Map<String, Object> ebayCondition11 = UtilMisc.<String, Object>toMap("userLogin", userLogin);
                 ebayCondition11.put("acceptanceCondition", condition11);
 
-            GenericValue productStorePref = delegator.findOne("EbayProductStorePref", UtilMisc.toMap("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER"), false);
+            GenericValue productStorePref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER").queryOne();
             if (UtilValidate.isEmpty(productStorePref)) {
                  String prefCondId1 = delegator.getNextSeqId("EbayProductStorePrefCond");
                  String parentPrefCondId = prefCondId1;

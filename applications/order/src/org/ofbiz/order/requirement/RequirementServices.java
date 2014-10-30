@@ -31,6 +31,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -133,7 +134,7 @@ public class RequirementServices {
                 // for good identification, get the UPCA type (UPC code)
                 GenericValue gid = gids.get(productId);
                 if (gid == null) {
-                    gid = delegator.findOne("GoodIdentification", UtilMisc.toMap("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")), false);
+                    gid = EntityQuery.use(delegator).from("GoodIdentification").where("goodIdentificationTypeId", "UPCA", "productId", requirement.get("productId")).queryOne();
                     gids.put(productId, gid);
                 }
                 if (gid != null) union.put("idValue", gid.get("idValue"));
@@ -208,7 +209,7 @@ public class RequirementServices {
 
         String orderId = (String) context.get("orderId");
         try {
-            GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             GenericValue productStore = order.getRelatedOne("ProductStore", true);
             if (productStore == null) {
                 Debug.logInfo("ProductStore for order ID " + orderId + " not found, requirements not created", module);
@@ -267,7 +268,7 @@ public class RequirementServices {
          */
         String orderId = (String) context.get("orderId");
         try {
-            GenericValue order = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            GenericValue order = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             GenericValue productStore = order.getRelatedOne("ProductStore", true);
             if (productStore == null) {
                 Debug.logInfo("ProductStore for order ID " + orderId + " not found, ATP requirements not created", module);
@@ -288,7 +289,7 @@ public class RequirementServices {
                 if (ordered.compareTo(BigDecimal.ZERO) <= 0) continue;
 
                 // get the minimum stock for this facility (if not configured assume a minimum of zero, ie create requirements when it goes into backorder)
-                GenericValue productFacility = delegator.findOne("ProductFacility", UtilMisc.toMap("facilityId", facilityId, "productId", product.get("productId")), false);
+                GenericValue productFacility = EntityQuery.use(delegator).from("ProductFacility").where("facilityId", facilityId, "productId", product.get("productId")).queryOne();
                 BigDecimal minimumStock = BigDecimal.ZERO;
                 if (productFacility != null && productFacility.get("minimumStock") != null) {
                     minimumStock = productFacility.getBigDecimal("minimumStock");

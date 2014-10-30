@@ -39,6 +39,7 @@ import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.config.ProductConfigWrapper;
@@ -61,7 +62,7 @@ public class ProductStoreWorker {
         }
         GenericValue productStore = null;
         try {
-            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), true);
+            productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting ProductStore entity", module);
         }
@@ -115,7 +116,7 @@ public class ProductStoreWorker {
     public static String determineSingleFacilityForStore(Delegator delegator, String productStoreId) {
         GenericValue productStore = null;
         try {
-            productStore = delegator.findOne("ProductStore", UtilMisc.toMap("productStoreId", productStoreId), false);
+            productStore = EntityQuery.use(delegator).from("ProductStore").where("productStoreId", productStoreId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -166,7 +167,7 @@ public class ProductStoreWorker {
     public static GenericValue getProductStorePaymentSetting(Delegator delegator, String productStoreId, String paymentMethodTypeId, String paymentServiceTypeEnumId, boolean anyServiceType) {
         GenericValue storePayment = null;
         try {
-            storePayment = delegator.findOne("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId), true);
+            storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId, "paymentServiceTypeEnumId", paymentServiceTypeEnumId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up store payment settings", module);
         }
@@ -487,7 +488,7 @@ public class ProductStoreWorker {
 
                 // if the item is a variant, get its virtual productId
                 try {
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                     if ((product != null) && ("Y".equals(product.get("isVariant")))) {
                         if (parentProductId != null) {
                             virtualProductId = parentProductId;

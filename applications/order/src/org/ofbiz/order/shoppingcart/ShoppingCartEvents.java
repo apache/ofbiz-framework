@@ -53,6 +53,7 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -622,7 +623,7 @@ public class ShoppingCartEvents {
         if(ProductWorker.isAlternativePacking(delegator, productId , parentProductId)){
             GenericValue parentProduct = null;
             try {
-                parentProduct = delegator.findOne("Product", UtilMisc.toMap("productId", parentProductId), false);
+                parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error getting parent product", module);
             }
@@ -721,7 +722,7 @@ public class ShoppingCartEvents {
         // check the preferred currency of the supplier, if set, use that for the cart, otherwise use system defaults.
         ShoppingCart cart = null;
         try {
-            GenericValue supplierParty = delegator.findOne("Party", UtilMisc.toMap("partyId", supplierPartyId), false);
+            GenericValue supplierParty = EntityQuery.use(delegator).from("Party").where("partyId", supplierPartyId).queryOne();
             if (UtilValidate.isNotEmpty(supplierParty.getString("preferredCurrencyUomId"))) {
                 cart = new WebShoppingCart(request, locale, supplierParty.getString("preferredCurrencyUomId"));
             } else {
@@ -742,7 +743,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(orderId)) {
             GenericValue thisOrder = null;
             try {
-                thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                thisOrder = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }
@@ -1305,7 +1306,7 @@ public class ShoppingCartEvents {
         }
 
         try {
-            termType = delegator.findOne("TermType", UtilMisc.toMap("termTypeId", termTypeId), false);
+            termType = EntityQuery.use(delegator).from("TermType").where("termTypeId", termTypeId).queryOne();
         } catch (GenericEntityException gee) {
             request.setAttribute("_ERROR_MESSAGE_", gee.getMessage());
             return "error";
@@ -1666,7 +1667,7 @@ public class ShoppingCartEvents {
             if (UtilValidate.isEmpty(partyId) && UtilValidate.isNotEmpty(userLoginId)) {
                 GenericValue thisUserLogin = null;
                 try {
-                    thisUserLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), false);
+                    thisUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
                 } catch (GenericEntityException gee) {
                     //
                 }
@@ -1679,7 +1680,7 @@ public class ShoppingCartEvents {
             if (UtilValidate.isNotEmpty(partyId)) {
                 GenericValue thisParty = null;
                 try {
-                    thisParty = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
+                    thisParty = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
                 } catch (GenericEntityException gee) {
                     //
                 }
@@ -1735,7 +1736,7 @@ public class ShoppingCartEvents {
             String productPromoId = (String)context.get(keyPrefix + i);
             if (UtilValidate.isNotEmpty(productPromoId)) {
                 try {
-                    GenericValue promo = delegator.findOne("ProductPromo", UtilMisc.toMap("productPromoId", productPromoId), false);
+                    GenericValue promo = EntityQuery.use(delegator).from("ProductPromo").where("productPromoId", productPromoId).queryOne();
                     if (promo != null) {
                         manualPromotions.add(promo);
                     }
@@ -1897,7 +1898,7 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(orderId)) {
             GenericValue thisOrder = null;
             try {
-                thisOrder = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                thisOrder = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }

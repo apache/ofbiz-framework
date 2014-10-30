@@ -41,6 +41,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -271,7 +272,7 @@ public class ShoppingListServices {
             beganTransaction = TransactionUtil.begin();
 
             GenericValue orderHeader = null;
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
 
             if (orderHeader == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderUnableToLocateOrder", UtilMisc.toMap("orderId",orderId), locale));
@@ -312,7 +313,7 @@ public class ShoppingListServices {
             }
 
             GenericValue shoppingList = null;
-            shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), false);
+            shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
 
             if (shoppingList == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderNoShoppingListAvailable",locale));
@@ -335,7 +336,7 @@ public class ShoppingListServices {
                             orderItem.get("productId"), "quantity", orderItem.get("quantity"));
                     if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", ProductWorker.getProductTypeId(delegator, productId), "parentTypeId", "AGGREGATED")) {
                         try {
-                            GenericValue instanceProduct = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                            GenericValue instanceProduct = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                             String configId = instanceProduct.getString("configId");
                             ctx.put("configId", configId);
                             String aggregatedProductId = ProductWorker.getInstanceAggregatedId(delegator, productId);
@@ -539,7 +540,7 @@ public class ShoppingListServices {
         Delegator delegator = dispatcher.getDelegator();
         GenericValue shoppingList = null;
         try {
-            shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), false);
+            shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

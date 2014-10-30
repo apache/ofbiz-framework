@@ -44,6 +44,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -178,7 +179,7 @@ public class ShoppingCartServices {
         // get the order header
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -362,7 +363,7 @@ public class ShoppingCartServices {
                 }
                 if ("ITEM_REJECTED".equals(item.getString("statusId")) || "ITEM_CANCELLED".equals(item.getString("statusId"))) continue;
                 try {
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
                         Map<String, Object> surveyResponseMap = FastMap.newInstance();
                         Map<String, Object> answers = FastMap.newInstance();
@@ -432,7 +433,7 @@ public class ShoppingCartServices {
                     String workEffortId = orh.getCurrentOrderItemWorkEffort(item);
                     if (workEffortId != null) {
                         try {
-                            workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), false);
+                            workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                         }
@@ -450,7 +451,7 @@ public class ShoppingCartServices {
                     ProductConfigWrapper configWrapper = null;
                     String configId = null;
                     try {
-                        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                        product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
                             List<GenericValue>productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")), null, false);
                             productAssocs = EntityUtil.filterByDate(productAssocs);
@@ -660,7 +661,7 @@ public class ShoppingCartServices {
         // get the quote header
         GenericValue quote = null;
         try {
-            quote = delegator.findOne("Quote", UtilMisc.toMap("quoteId", quoteId), false);
+            quote = EntityQuery.use(delegator).from("Quote").where("quoteId", quoteId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -960,7 +961,7 @@ public class ShoppingCartServices {
         // get the shopping list header
         GenericValue shoppingList = null;
         try {
-            shoppingList = delegator.findOne("ShoppingList", UtilMisc.toMap("shoppingListId", shoppingListId), false);
+            shoppingList = EntityQuery.use(delegator).from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

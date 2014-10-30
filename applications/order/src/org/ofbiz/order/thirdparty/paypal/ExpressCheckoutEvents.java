@@ -35,6 +35,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.product.store.ProductStoreWorker;
@@ -102,7 +103,7 @@ public class ExpressCheckoutEvents {
         }
         if (paymentGatewayConfigId != null) {
             try {
-                payPalGatewayConfig = delegator.findOne("PaymentGatewayPayPal", true, "paymentGatewayConfigId", paymentGatewayConfigId);
+                payPalGatewayConfig = EntityQuery.use(delegator).from("PaymentGatewayPayPal").where("paymentGatewayConfigId", paymentGatewayConfigId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

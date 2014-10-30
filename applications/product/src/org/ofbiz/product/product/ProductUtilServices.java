@@ -44,6 +44,7 @@ import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
@@ -78,7 +79,7 @@ public class ProductUtilServices {
             int numSoFarOne = 0;
             while ((productOne = eliOne.next()) != null) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(productOne);
-                GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", virtualProductId), false);
+                GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).queryOne();
                 if (virtualProduct == null) {
                     continue;
                 }
@@ -345,7 +346,7 @@ public class ProductUtilServices {
         }
 
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
 
             List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
@@ -383,7 +384,7 @@ public class ProductUtilServices {
             String variantProductId = productAssoc.getString("productIdTo");
 
             // Product
-            GenericValue variantProduct = delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
+            GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
 
             Debug.logInfo("--variant has ID: " + variantProductId + " and name: " + variantProduct.getString("internalName"), module);
 
@@ -701,7 +702,7 @@ while (allCatIter.hasNext()) {
                 productFeatureGroupId = productFeatureGroupId.substring(0, 20);
             }
 
-            GenericValue productFeatureGroup = delegator.findOne("ProductFeatureGroup", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId), false);
+            GenericValue productFeatureGroup = EntityQuery.use(delegator).from("ProductFeatureGroup").where("productFeatureGroupId", productFeatureGroupId).queryOne();
             if (productFeatureGroup == null) {
                 // auto-create the group
                 String description = "Feature Group for type [" + productFeatureTypeId + "] features in category [" + productCategoryId + "]";

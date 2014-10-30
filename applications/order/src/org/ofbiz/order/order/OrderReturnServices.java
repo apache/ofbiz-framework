@@ -48,6 +48,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.ofbiz.product.product.ProductContentWrapper;
@@ -140,7 +141,7 @@ public class OrderReturnServices {
         // get the return item information
         GenericValue returnItem = null;
         try {
-            returnItem = delegator.findOne("ReturnItem", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId), false);
+            returnItem = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId, "returnItemSeqId", returnItemSeqId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralRuntimeException(e.getMessage());
@@ -200,7 +201,7 @@ public class OrderReturnServices {
         // get the return header
         GenericValue returnHeader = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -248,7 +249,7 @@ public class OrderReturnServices {
 
             GenericValue productStoreEmail = null;
             try {
-                productStoreEmail = delegator.findOne("ProductStoreEmailSetting", UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
+                productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -354,7 +355,7 @@ public class OrderReturnServices {
                             if (returnItemResponse != null) {
                                 String replacementOrderId = returnItemResponse.getString("replacementOrderId");
                                 Map<String, Object> svcCtx = UtilMisc.<String, Object>toMap("orderId", replacementOrderId, "userLogin", userLogin);
-                                GenericValue orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", replacementOrderId), false);
+                                GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", replacementOrderId).queryOne();
                                 if ("ORDER_HOLD".equals(orderHeader.getString("statusId"))) {
                                     try {
                                         dispatcher.runSync("cancelOrderItem", svcCtx);
@@ -460,7 +461,7 @@ public class OrderReturnServices {
 
         GenericValue orderHeader = null;
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -604,7 +605,7 @@ public class OrderReturnServices {
         GenericValue returnHeader = null;
         List<GenericValue> returnItems = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader != null) {
                 returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
             }
@@ -697,7 +698,7 @@ public class OrderReturnServices {
         GenericValue returnHeader = null;
         List<GenericValue> returnItems = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader != null) {
                 returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_CREDIT"), null, false);
             }
@@ -775,7 +776,7 @@ public class OrderReturnServices {
                         String thisBillingAccountId = billingAccountItr.next().getString("billingAccountId");
                         BigDecimal billingAccountBalance = ZERO;
                         try {
-                            GenericValue billingAccount = delegator.findOne("BillingAccount", UtilMisc.toMap("billingAccountId", thisBillingAccountId), false);
+                            GenericValue billingAccount = EntityQuery.use(delegator).from("BillingAccount").where("billingAccountId", thisBillingAccountId).queryOne();
                             billingAccountBalance = OrderReadHelper.getBillingAccountBalance(billingAccount);
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
@@ -1083,7 +1084,7 @@ public class OrderReturnServices {
         GenericValue orderHeader = null;
         List<GenericValue> orderPayPrefs = FastList.newInstance();
         try {
-            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
         } catch (GenericEntityException e) {
             Debug.logError("Problem looking up order information for orderId #" + orderId, module);
@@ -1143,7 +1144,7 @@ public class OrderReturnServices {
         GenericValue returnHeader = null;
         List<GenericValue> returnItems = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader != null) {
                 returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId), null, false);
             }
@@ -1184,7 +1185,7 @@ public class OrderReturnServices {
                 GenericValue orderHeader = null;
                 List<GenericValue> orderPayPrefs = null;
                 try {
-                    orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                    orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                     // sort these desending by maxAmount
                     orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
 
@@ -1196,7 +1197,7 @@ public class OrderReturnServices {
                         List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"), null, false);
                         if (UtilValidate.isNotEmpty(orderItemAssocs)) {
                             String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
-                            orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", originalOrderId), false);
+                            orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", originalOrderId).queryOne();
                             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
                             orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
                             orderId = originalOrderId;
@@ -1355,7 +1356,7 @@ public class OrderReturnServices {
                                     Map<String, Object> result = dispatcher.runSync("createOrderPaymentPreference", serviceContext);
                                     orderPaymentPreferenceNewId = (String) result.get("orderPaymentPreferenceId");
                                     try {
-                                        refundOrderPaymentPreference = delegator.findOne("OrderPaymentPreference", false, "orderPaymentPreferenceId", orderPaymentPreferenceNewId);
+                                        refundOrderPaymentPreference = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceNewId).queryOne();
                                     } catch (GenericEntityException e) {
                                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemsWithTheRefundSeeLogs", locale));
                                     }
@@ -1589,7 +1590,7 @@ public class OrderReturnServices {
         String responseId = (String) context.get("returnItemResponseId");
         String errorMsg = "Failed to create payment applications for return item response [" + responseId + "]. ";
         try {
-            GenericValue response = delegator.findOne("ReturnItemResponse", UtilMisc.toMap("returnItemResponseId", responseId), false);
+            GenericValue response = EntityQuery.use(delegator).from("ReturnItemResponse").where("returnItemResponseId", responseId).queryOne();
             if (response == null) {
                 return ServiceUtil.returnError(errorMsg + "Return Item Response not found with ID [" + responseId + "].");
             }
@@ -1673,7 +1674,7 @@ public class OrderReturnServices {
         GenericValue returnHeader = null;
         List<GenericValue> returnItems = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader != null) {
                 returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", returnTypeId), null, false);
             }
@@ -1697,7 +1698,7 @@ public class OrderReturnServices {
                 // get order header & payment prefs
                 GenericValue orderHeader = null;
                 try {
-                    orderHeader = delegator.findOne("OrderHeader", UtilMisc.toMap("orderId", orderId), false);
+                    orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get Order details for #" + orderId, module);
                     continue;
@@ -2156,7 +2157,7 @@ public class OrderReturnServices {
         GenericValue returnHeader;
         List<GenericValue> returnItems = null;
         try {
-            returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+            returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
             if (returnHeader != null) {
                 returnItems = returnHeader.getRelated("ReturnItem", UtilMisc.toMap("returnTypeId", "RTN_REFUND"), null, false);
             }
@@ -2368,14 +2369,14 @@ public class OrderReturnServices {
         // if orderAdjustment is not empty, then copy most return adjustment information from orderAdjustment's
         if (orderAdjustmentId != null) {
             try {
-                orderAdjustment = delegator.findOne("OrderAdjustment", UtilMisc.toMap("orderAdjustmentId", orderAdjustmentId), false);
+                orderAdjustment = EntityQuery.use(delegator).from("OrderAdjustment").where("orderAdjustmentId", orderAdjustmentId).queryOne();
                 if (orderAdjustment == null) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                             "OrderCreateReturnAdjustmentNotFoundOrderAdjustment", 
                             UtilMisc.toMap("orderAdjustmentId", orderAdjustmentId), locale));
                 }
                 // get returnHeaderTypeId from ReturnHeader and then use it to figure out return item type mapping
-                returnHeader = delegator.findOne("ReturnHeader", UtilMisc.toMap("returnId", returnId), false);
+                returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
                 String returnHeaderTypeId = ((returnHeader != null) && (returnHeader.getString("returnHeaderTypeId") != null)) ? returnHeader.getString("returnHeaderTypeId") : "CUSTOMER_RETURN";
                 returnItemTypeMap = delegator.findOne("ReturnItemTypeMap",
                         UtilMisc.toMap("returnHeaderTypeId", returnHeaderTypeId, "returnItemMapKey", orderAdjustment.get("orderAdjustmentTypeId")), false);
@@ -2470,7 +2471,7 @@ public class OrderReturnServices {
 
 
         try {
-            returnAdjustment = delegator.findOne("ReturnAdjustment", UtilMisc.toMap("returnAdjustmentId", context.get("returnAdjustmentId")), false);
+            returnAdjustment = EntityQuery.use(delegator).from("ReturnAdjustment").where("returnAdjustmentId", context.get("returnAdjustmentId")).queryOne();
             if (returnAdjustment != null) {
                 returnItem = delegator.findOne("ReturnItem",
                         UtilMisc.toMap("returnId", returnAdjustment.get("returnId"), "returnItemSeqId", returnAdjustment.get("returnItemSeqId")), false);

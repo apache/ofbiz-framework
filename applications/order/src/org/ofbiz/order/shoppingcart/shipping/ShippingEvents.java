@@ -39,6 +39,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -279,7 +280,7 @@ public class ShippingEvents {
         String serviceName = null;
         GenericValue customMethod = null;
         try {
-            customMethod = delegator.findOne("CustomMethod", UtilMisc.toMap("customMethodId", shipmentCustomMethodId), false);
+            customMethod = EntityQuery.use(delegator).from("CustomMethod").where("customMethodId", shipmentCustomMethodId).queryOne();
             if (UtilValidate.isNotEmpty(customMethod)) {
                 serviceName = customMethod.getString("customMethodName");
             }

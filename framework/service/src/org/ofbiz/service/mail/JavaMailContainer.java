@@ -50,6 +50,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
@@ -108,7 +109,7 @@ public class JavaMailContainer implements Container {
         // load the userLogin object
         String runAsUser = ContainerConfig.getPropertyValue(cfg, "run-as-user", "system");
         try {
-            this.userLogin = delegator.findOne("UserLogin", false, "userLoginId", runAsUser);
+            this.userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", runAsUser).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to load run-as-user UserLogin; cannot start container", module);
             return false;

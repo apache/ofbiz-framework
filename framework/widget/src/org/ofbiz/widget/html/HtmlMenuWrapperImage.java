@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenuItem;
 import org.xml.sax.SAXException;
@@ -67,7 +68,7 @@ public class HtmlMenuWrapperImage extends HtmlMenuWrapper {
             for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
                String contentId = menuItem.getAssociatedContentId(dummyMap);
                //if (Debug.infoOn()) Debug.logInfo("in init, contentId:" + contentId, module);
-               GenericValue webSitePublishPoint = delegator.findOne("WebSitePublishPoint", UtilMisc.toMap("contentId", contentId), true);
+               GenericValue webSitePublishPoint = EntityQuery.use(delegator).from("WebSitePublishPoint").where("contentId", contentId).cache().queryOne();
                String menuItemName = menuItem.getName();
                //if (Debug.infoOn()) Debug.logInfo("in init, menuItemName:" + menuItemName, module);
                //if (Debug.infoOn()) Debug.logInfo("in init, webSitePublishPoint:" + webSitePublishPoint, module);

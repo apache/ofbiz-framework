@@ -37,6 +37,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartEvents;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
@@ -161,7 +162,7 @@ public class WebPosEvents {
             GenericValue product = null;
             try {
                 String productId = request.getParameter("productId");
-                product = delegator.findOne("Product", false, "productId", productId);
+                product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 if (UtilValidate.isNotEmpty(product)) {
                     request.setAttribute("product", product);
                     if (UtilValidate.isNotEmpty(product.getString("isVirtual")) && "Y".equalsIgnoreCase(product.getString("isVirtual"))) {
@@ -187,7 +188,7 @@ public class WebPosEvents {
                                             featureOrder = UtilMisc.toList(featureSet);
                                             for (int i=0; i < featureOrder.size(); i++) {
                                                 String featureKey = featureOrder.get(i);
-                                                GenericValue featureValue = delegator.findOne("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", featureOrder.get(i)), true);
+                                                GenericValue featureValue = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", featureOrder.get(i)).cache().queryOne();
                                                 if (UtilValidate.isNotEmpty(featureValue) && 
                                                     UtilValidate.isNotEmpty(featureValue.get("description"))) {
                                                     featureTypes.put(featureKey, featureValue.get("description"));

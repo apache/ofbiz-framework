@@ -32,6 +32,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 
 import java.util.Map;
 
@@ -84,7 +85,7 @@ public class VariantEvents {
 
             try {
                 // read the product, duplicate it with the given id
-                GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 if (product == null) {
                     Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                     errMsg = UtilProperties.getMessage(resource,"variantevents.product_not_found_with_ID", messageMap, UtilHttp.getLocale(request));
@@ -130,7 +131,7 @@ public class VariantEvents {
                         return "error";
                     }
 
-                    GenericValue productFeature = delegator.findOne("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureId), false);
+                    GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", productFeatureId).queryOne();
 
                     GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl",
                             UtilMisc.toMap("productId", variantProductId, "productFeatureId", productFeatureId,

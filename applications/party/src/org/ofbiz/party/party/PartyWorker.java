@@ -43,6 +43,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -58,7 +59,7 @@ public class PartyWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         Map<String, GenericValue> result = FastMap.newInstance();
         try {
-            GenericValue party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
+            GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
 
             if (party != null)
                 result.put(partyAttr, party);
@@ -67,7 +68,7 @@ public class PartyWorker {
         }
 
         try {
-            GenericValue person = delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
+            GenericValue person = EntityQuery.use(delegator).from("Person").where("partyId", partyId).queryOne();
 
             if (person != null)
                 result.put(personAttr, person);
@@ -76,7 +77,7 @@ public class PartyWorker {
         }
 
         try {
-            GenericValue partyGroup = delegator.findOne("PartyGroup", UtilMisc.toMap("partyId", partyId), false);
+            GenericValue partyGroup = EntityQuery.use(delegator).from("PartyGroup").where("partyId", partyId).queryOne();
 
             if (partyGroup != null)
                 result.put(partyGroupAttr, partyGroup);
@@ -260,7 +261,7 @@ public class PartyWorker {
             for (GenericValue partyAndAddr: validFound) {
                 String partyId = partyAndAddr.getString("partyId");
                 if (UtilValidate.isNotEmpty(partyId)) {
-                    GenericValue p = delegator.findOne("Person", UtilMisc.toMap("partyId", partyId), false);
+                    GenericValue p = EntityQuery.use(delegator).from("Person").where("partyId", partyId).queryOne();
                     if (p != null) {
                         String fName = p.getString("firstName");
                         String lName = p.getString("lastName");
@@ -493,7 +494,7 @@ public class PartyWorker {
 
         // 1) look if the idToFind given is a real partyId
         if (searchPartyFirst) {
-            party = delegator.findOne("Party", UtilMisc.toMap("partyId", idToFind), true);
+            party = EntityQuery.use(delegator).from("Party").where("partyId", idToFind).cache().queryOne();
         }
 
         if (searchAllId || (searchPartyFirst && UtilValidate.isEmpty(party))) {
@@ -506,7 +507,7 @@ public class PartyWorker {
         }
 
         if (! searchPartyFirst) {
-            party = delegator.findOne("Party", UtilMisc.toMap("partyId", idToFind), true);
+            party = EntityQuery.use(delegator).from("Party").where("partyId", idToFind).cache().queryOne();
         }
 
         if (UtilValidate.isNotEmpty(party)) {
@@ -549,7 +550,7 @@ public class PartyWorker {
                 GenericValue partyToAdd = party;
                 //retreive party GV if the actual genericValue came from viewEntity
                 if (! "Party".equals(party.getEntityName())) {
-                    partyToAdd = delegator.findOne("Party", UtilMisc.toMap("partyId", party.get("partyId")), true);
+                    partyToAdd = EntityQuery.use(delegator).from("Party").where("partyId", party.get("partyId")).cache().queryOne();
                 }
 
                 if (UtilValidate.isEmpty(parties)) {

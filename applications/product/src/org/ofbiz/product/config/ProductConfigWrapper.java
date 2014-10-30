@@ -38,6 +38,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
@@ -96,7 +97,7 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     private void init(Delegator delegator, LocalDispatcher dispatcher, String productId, String productStoreId, String catalogId, String webSiteId, String currencyUomId, Locale locale, GenericValue autoUserLogin) throws Exception {
-        product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+        product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
         if (product == null || !product.getString("productTypeId").equals("AGGREGATED") && !product.getString("productTypeId").equals("AGGREGATED_SERVICE")) {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
@@ -624,7 +625,7 @@ public class ProductConfigWrapper implements Serializable {
                 String variantProductId = componentOptions.get(oneComponent.getString("productId"));
 
                 if (UtilValidate.isNotEmpty(variantProductId)) {
-                    oneComponentProduct = pcw.delegator.findOne("Product", UtilMisc.toMap("productId", variantProductId), false);
+                    oneComponentProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
                 }
 
                 // Get the component's price

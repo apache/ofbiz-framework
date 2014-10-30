@@ -54,6 +54,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 
@@ -578,8 +579,8 @@ public class WorkEffortSearch {
             GenericValue workEffort = null;
             GenericValue workEffortAssocType = null;
             try {
-                workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", this.workEffortId), true);
-                workEffortAssocType = delegator.findOne("WorkEffortAssocType", UtilMisc.toMap("workEffortAssocTypeId", this.workEffortAssocTypeId), true);
+                workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", this.workEffortId).cache().queryOne();
+                workEffortAssocType = EntityQuery.use(delegator).from("WorkEffortAssocType").where("workEffortAssocTypeId", this.workEffortAssocTypeId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error looking up WorkEffortAssocConstraint pretty print info: " + e.toString(), module);
             }
@@ -738,8 +739,8 @@ public class WorkEffortSearch {
             GenericValue partyNameView = null;
             GenericValue roleType = null;
             try {
-                partyNameView = delegator.findOne("PartyNameView", UtilMisc.toMap("partyId", partyId), true);
-                roleType = delegator.findOne("RoleType", UtilMisc.toMap("roleTypeId", roleTypeId), true);
+                partyNameView = EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).cache().queryOne();
+                roleType = EntityQuery.use(delegator).from("RoleType").where("roleTypeId", roleTypeId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding PartyAssignmentConstraint information for constraint pretty print", module);
             }
@@ -855,7 +856,7 @@ public class WorkEffortSearch {
                 Iterator<String> productIdIter = this.productIdSet.iterator();
                 while (productIdIter.hasNext()) {
                     String productId = productIdIter.next();
-                    GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+                    GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
                     if (product == null) {
                         infoOut.append("[");
                         infoOut.append(productId);

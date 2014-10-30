@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -126,14 +127,14 @@ public class PartyRelationshipServices {
 
                 // Before creating the partyRelationShip, create the partyRoles if they don't exist
                 GenericValue partyToRole = null;
-                partyToRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyIdTo, "roleTypeId", roleTypeIdTo), false);
+                partyToRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyIdTo, "roleTypeId", roleTypeIdTo).queryOne();
                 if (partyToRole == null) {
                     partyToRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyIdTo, "roleTypeId", roleTypeIdTo));
                     partyToRole.create();
                 }
 
                 GenericValue partyFromRole= null;
-                partyFromRole = delegator.findOne("PartyRole", UtilMisc.toMap("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom), false);
+                partyFromRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom).queryOne();
                 if (partyFromRole == null) {
                     partyFromRole = delegator.makeValue("PartyRole", UtilMisc.toMap("partyId", partyIdFrom, "roleTypeId", roleTypeIdFrom));
                     partyFromRole.create();

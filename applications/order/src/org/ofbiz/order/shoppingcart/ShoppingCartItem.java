@@ -52,6 +52,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
@@ -182,7 +183,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue product = null;
 
         try {
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
         }
@@ -326,7 +327,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         {
             try
             {
-                parentProduct = delegator.findOne("Product", UtilMisc.toMap("productId", parentProductId), true);
+                parentProduct = EntityQuery.use(delegator).from("Product").where("productId", parentProductId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
             }
@@ -515,7 +516,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         GenericValue product;
 
         try {
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
 
             // first see if there is a purchase allow category and if this product is in it or not
             String purchaseProductCategoryId = CatalogWorker.getCatalogPurchaseAllowCategoryId(delegator, prodCatalogId);

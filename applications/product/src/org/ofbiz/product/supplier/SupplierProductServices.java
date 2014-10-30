@@ -36,6 +36,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
@@ -65,7 +66,7 @@ public class SupplierProductServices {
         BigDecimal quantity =(BigDecimal) context.get("quantity");
         String canDropShip = (String) context.get("canDropShip");
         try {
-            product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), true);
+            product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache().queryOne();
             if (product == null) {
                 results = ServiceUtil.returnSuccess();
                 results.put("supplierProducts",null);
@@ -76,7 +77,7 @@ public class SupplierProductServices {
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
             if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
                 String virtualProductId = ProductWorker.getVariantVirtualId(product);
-                GenericValue virtualProduct = delegator.findOne("Product", UtilMisc.toMap("productId", virtualProductId), true);
+                GenericValue virtualProduct = EntityQuery.use(delegator).from("Product").where("productId", virtualProductId).cache().queryOne();
                 if (virtualProduct != null) {
                     supplierProducts = virtualProduct.getRelated("SupplierProduct", null, null, true);
                 }

@@ -53,6 +53,7 @@ import org.ofbiz.common.uom.UomWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.contact.ContactMechWorker;
 import org.ofbiz.product.product.ProductWorker;
@@ -125,7 +126,7 @@ public class UspsServices {
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             try {
-                GenericValue shipToAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
+                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
                 if (shipToAddress != null) {
                     if (!domesticCountries.contains(shipToAddress.getString("countryGeoId"))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -292,7 +293,7 @@ public class UspsServices {
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         if (UtilValidate.isNotEmpty(shippingContactMechId)) {
             try {
-                GenericValue shipToAddress = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", shippingContactMechId), false);
+                GenericValue shipToAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
                 if (domesticCountries.contains(shipToAddress.get("countryGeoId"))) {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                             "FacilityShipmentUspsRateInternationCannotBeUsedForUsDestinations", locale));
@@ -1234,7 +1235,7 @@ public class UspsServices {
         }
 
         try {
-            GenericValue shipment = delegator.findOne("Shipment", UtilMisc.toMap("shipmentId", shipmentId), false);
+            GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where("shipmentId", shipmentId).queryOne();
             if (shipment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentNotFoundId", locale) + shipmentId);
@@ -1782,7 +1783,7 @@ public class UspsServices {
         String returnValue = "";
         if (UtilValidate.isNotEmpty(shipmentGatewayConfigId)) {
             try {
-                GenericValue usps = delegator.findOne("ShipmentGatewayUsps", UtilMisc.toMap("shipmentGatewayConfigId", shipmentGatewayConfigId), false);
+                GenericValue usps = EntityQuery.use(delegator).from("ShipmentGatewayUsps").where("shipmentGatewayConfigId", shipmentGatewayConfigId).queryOne();
                 if (UtilValidate.isNotEmpty(usps)) {
                     Object uspsField = usps.get(shipmentGatewayConfigParameterName);
                     if (uspsField != null) {

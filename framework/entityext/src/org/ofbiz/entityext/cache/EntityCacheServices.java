@@ -29,6 +29,7 @@ import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.DistributedCacheClear;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entityext.EntityServiceFactory;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -57,7 +58,7 @@ public class EntityCacheServices implements DistributedCacheClear {
     public GenericValue getAuthUserLogin() {
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error finding the userLogin for distributed cache clear", module);
         }

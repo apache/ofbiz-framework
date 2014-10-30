@@ -48,6 +48,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.product.ProductWorker;
@@ -71,7 +72,7 @@ public class CategoryServices {
         List<GenericValue> members = null;
 
         try {
-            productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId), true);
+            productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
             members = EntityUtil.filterByDate(productCategory.getRelated("ProductCategoryMember", null, UtilMisc.toList("sequenceNum"), true), true);
             if (Debug.verboseOn()) Debug.logVerbose("Category: " + productCategory + " Member Size: " + members.size() + " Members: " + members, module);
         } catch (GenericEntityException e) {
@@ -107,7 +108,7 @@ public class CategoryServices {
         GenericValue productCategory;
         List<GenericValue> productCategoryMembers;
         try {
-            productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId), true);
+            productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", categoryId).cache().queryOne();
             productCategoryMembers = delegator.findByAnd(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields, true);
         } catch (GenericEntityException e) {
             Debug.logInfo(e, "Error finding previous/next product info: " + e.toString(), module);
@@ -257,7 +258,7 @@ public class CategoryServices {
 
         GenericValue productCategory = null;
         try {
-            productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
+            productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             productCategory = null;

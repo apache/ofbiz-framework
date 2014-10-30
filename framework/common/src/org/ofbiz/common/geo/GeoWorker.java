@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -42,7 +43,7 @@ public class GeoWorker {
     public static List<GenericValue> expandGeoGroup(String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
-            geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", geoId), true);
+            geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
         }
@@ -93,7 +94,7 @@ public class GeoWorker {
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
             List<GenericValue> geoAssocList = delegator.findByAnd("GeoAssoc", UtilMisc.toMap("geoIdTo", geoIdByTypeEntry.getValue(), "geoAssocTypeId", "REGIONS"), null, true);
             for (GenericValue geoAssoc: geoAssocList) {
-                GenericValue newGeo = delegator.findOne("Geo", true, "geoId", geoAssoc.getString("geoId"));
+                GenericValue newGeo = EntityQuery.use(delegator).from("Geo").where("geoId", geoAssoc.get("geoId")).cache().queryOne();
                 geoIdByTypeMapTemp.put(newGeo.getString("geoTypeId"), newGeo.getString("geoId"));
             }
         }
@@ -108,7 +109,7 @@ public class GeoWorker {
     public static boolean containsGeo(List<GenericValue> geoList, String geoId, Delegator delegator) {
         GenericValue geo = null;
         try {
-            geo = delegator.findOne("Geo", UtilMisc.toMap("geoId", geoId), true);
+            geo = EntityQuery.use(delegator).from("Geo").where("geoId", geoId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to look up Geo from geoId : " + geoId, module);
         }

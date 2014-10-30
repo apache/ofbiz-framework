@@ -36,6 +36,7 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.util.EntityQuery;
 
 import com.ibm.icu.util.Calendar;
 
@@ -474,7 +475,7 @@ public class ServerHitBin {
             // check for type data before running.
             GenericValue serverHitType = null;
 
-            serverHitType = delegator.findOne("ServerHitType", UtilMisc.toMap("hitTypeId", ServerHitBin.typeIds[this.type]), true);
+            serverHitType = EntityQuery.use(delegator).from("ServerHitType").where("hitTypeId", ServerHitBin.typeIds[this.type]).cache().queryOne();
             if (serverHitType == null) {
                 // datamodel data not loaded; not storing hit.
                 Debug.logWarning("The datamodel data has not been loaded; cannot find hitTypeId '" + ServerHitBin.typeIds[this.type] + " not storing ServerHit.", module);
@@ -488,7 +489,7 @@ public class ServerHitBin {
                 return;
             }
             String visitId = visit.getString("visitId");
-            visit = delegator.findOne("Visit", UtilMisc.toMap("visitId", visitId), false);
+            visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
             if (visit == null) {
                 // GenericValue stored in client session does not exist in database.
                 Debug.logInfo("The Visit GenericValue stored in the client session does not exist in the database, not storing server hit.", module);

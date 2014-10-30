@@ -36,6 +36,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
@@ -402,7 +403,7 @@ public class VerifyPickSession implements Serializable {
         if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("vendorPartyId"))) {
             partyIdFrom = orderItemShipGroup.getString("vendorPartyId");
         } else if (UtilValidate.isNotEmpty(orderItemShipGroup.getString("facilityId"))) {
-            GenericValue facility = delegator.findOne("Facility", UtilMisc.toMap("facilityId", orderItemShipGroup.getString("facilityId")), false);
+            GenericValue facility = EntityQuery.use(delegator).from("Facility").where("facilityId", orderItemShipGroup.getString("facilityId")).queryOne();
             if (UtilValidate.isNotEmpty(facility.getString("ownerPartyId"))) {
                 partyIdFrom = facility.getString("ownerPartyId");
             }

@@ -26,6 +26,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionSubSelect;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.testtools.EntityTestCase;
+import org.ofbiz.entity.util.EntityQuery;
 
 public class EntityCryptoTestSuite extends EntityTestCase {
     public EntityCryptoTestSuite(String name) {
@@ -40,11 +41,11 @@ public class EntityCryptoTestSuite extends EntityTestCase {
 
         // Ensure that null values are passed thru unencrypted.
         delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "1", "testingCryptoTypeId", "BASIC"));
-        GenericValue entity = delegator.findOne("TestingCrypto", UtilMisc.toMap("testingCryptoId", "1"), false);
+        GenericValue entity = EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoId", "1").queryOne();
         assertNull(entity.getString("unencryptedValue"));
         assertNull(entity.getString("encryptedValue"));
         assertNull(entity.getString("saltedEncryptedValue"));
-        GenericValue view = delegator.findOne("TestingCryptoRawView", UtilMisc.toMap("testingCryptoId", "1"), false);
+        GenericValue view = EntityQuery.use(delegator).from("TestingCryptoRawView").where("testingCryptoId", "1").queryOne();
         assertNull(view.getString("unencryptedValue"));
         assertNull(view.getString("encryptedValue"));
         assertNull(view.getString("saltedEncryptedValue"));

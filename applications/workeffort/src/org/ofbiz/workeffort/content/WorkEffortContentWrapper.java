@@ -29,6 +29,7 @@ import org.ofbiz.content.content.ContentWrapper;
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
@@ -183,7 +184,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         if (delegator != null) {
             GenericValue contentType = null;
             try {
-                contentType = delegator.findOne("WorkEffortContentType", UtilMisc.toMap("workEffortContentTypeId", contentTypeId), true);
+                contentType = EntityQuery.use(delegator).from("WorkEffortContentType").where("workEffortContentTypeId", contentTypeId).cache().queryOne();
             } catch (GeneralException e) {
                 Debug.logError(e, module);
             }
@@ -285,7 +286,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         ModelEntity workEffortModel = delegator.getModelEntity("WorkEffort");
         if (workEffortModel != null && workEffortModel.isField(candidateFieldName)) {
             if (workEffort == null) {
-                workEffort = delegator.findOne("WorkEffort", UtilMisc.toMap("workEffortId", workEffortId), true);
+                workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).cache().queryOne();
             }
             if (workEffort != null) {
                 String candidateValue = workEffort.getString(candidateFieldName);
@@ -299,7 +300,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         // otherwise check content record
         GenericValue workEffortContent;
         if (contentId != null) {
-            workEffortContent = delegator.findOne("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "contentId", contentId), true);
+            workEffortContent = EntityQuery.use(delegator).from("WorkEffortContent").where("workEffortId", workEffortId, "contentId", contentId).cache().queryOne();
         } else {
             workEffortContent = getFirstWorkEffortContentByType(workEffortId, workEffort, workEffortContentTypeId, delegator);
         }

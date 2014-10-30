@@ -52,6 +52,7 @@ import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -309,7 +310,7 @@ public class WorkEffortServices {
         GenericValue workEffort = null;
 
         try {
-            workEffort = delegator.findOne("WorkEffort", false, "workEffortId", workEffortId);
+            workEffort = EntityQuery.use(delegator).from("WorkEffort").where("workEffortId", workEffortId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
         }
@@ -327,7 +328,7 @@ public class WorkEffortServices {
 
             if (UtilValidate.isNotEmpty(statusId)) {
                 try {
-                    currentStatus = delegator.findOne("StatusItem", UtilMisc.toMap("statusId", statusId), true);
+                    currentStatus = EntityQuery.use(delegator).from("StatusItem").where("statusId", statusId).cache().queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
@@ -350,7 +351,7 @@ public class WorkEffortServices {
 
             if (workEffort.get("currentStatusId") != null) {
                 try {
-                    currentStatus = delegator.findOne("StatusItem", UtilMisc.toMap("statusId", workEffort.get("currentStatusId")), true);
+                    currentStatus = EntityQuery.use(delegator).from("StatusItem").where("statusId", workEffort.get("currentStatusId")).cache().queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, module);
                 }
@@ -1050,7 +1051,7 @@ public class WorkEffortServices {
 
             GenericValue emailTemplateSetting = null;
             try {
-                emailTemplateSetting = delegator.findOne("EmailTemplateSetting", true, "emailTemplateSettingId", "WEFF_EVENT_REMINDER");
+                emailTemplateSetting = EntityQuery.use(delegator).from("EmailTemplateSetting").where("emailTemplateSettingId", "WEFF_EVENT_REMINDER").cache().queryOne();
             } catch (GenericEntityException e1) {
                 Debug.logError(e1, module);
             }

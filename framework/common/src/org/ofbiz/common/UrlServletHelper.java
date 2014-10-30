@@ -38,6 +38,7 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.webapp.control.ContextFilter;
 import org.ofbiz.webapp.website.WebSiteWorker;
@@ -154,7 +155,7 @@ public class UrlServletHelper extends ContextFilter {
         // check path alias
         GenericValue pathAlias = null;
         try {
-            pathAlias = delegator.findOne("WebSitePathAlias", UtilMisc.toMap("webSiteId", webSiteId, "pathAlias", pathInfo), true);
+            pathAlias = EntityQuery.use(delegator).from("WebSitePathAlias").where("webSiteId", webSiteId, "pathAlias", pathInfo).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

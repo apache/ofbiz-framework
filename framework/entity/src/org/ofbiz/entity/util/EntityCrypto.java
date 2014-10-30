@@ -161,7 +161,7 @@ public final class EntityCrypto {
 
         GenericValue keyValue = null;
         try {
-            keyValue = delegator.findOne("EntityKeyStore", false, "keyName", hashedKeyName);
+            keyValue = EntityQuery.use(delegator).from("EntityKeyStore").where("keyName", hashedKeyName).queryOne();
         } catch (GenericEntityException e) {
             throw new EntityCryptoException(e);
         }

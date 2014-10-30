@@ -41,6 +41,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
@@ -157,7 +158,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
+            contactMech = EntityQuery.use(delegator).from("ContactMech").where("contactMechId", contactMechId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             contactMech = null;
@@ -417,7 +418,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
+            contactMech = EntityQuery.use(delegator).from("ContactMech").where("contactMechId", contactMechId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
             contactMech = null;
@@ -455,7 +456,7 @@ public class ContactMechServices {
             GenericValue addr = null;
 
             try {
-                addr = delegator.findOne("PostalAddress", UtilMisc.toMap("contactMechId", contactMechId), false);
+                addr = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", contactMechId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 addr = null;
@@ -635,7 +636,7 @@ public class ContactMechServices {
         GenericValue partyContactMech = null;
 
         try {
-            contactMech = delegator.findOne("ContactMech", UtilMisc.toMap("contactMechId", contactMechId), false);
+            contactMech = EntityQuery.use(delegator).from("ContactMech").where("contactMechId", contactMechId).queryOne();
             // try to find a PartyContactMech with a valid date range
             List<GenericValue> partyContactMechs = EntityUtil.filterByDate(delegator.findByAnd("PartyContactMech", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId), UtilMisc.toList("fromDate"), false), true);
 
@@ -664,7 +665,7 @@ public class ContactMechServices {
             GenericValue telNum = null;
 
             try {
-                telNum = delegator.findOne("TelecomNumber", UtilMisc.toMap("contactMechId", contactMechId), false);
+                telNum = EntityQuery.use(delegator).from("TelecomNumber").where("contactMechId", contactMechId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.toString(), module);
                 telNum = null;
@@ -930,7 +931,7 @@ public class ContactMechServices {
         GenericValue pcmp = null;
 
         try {
-            pcmp = delegator.findOne("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", fromDate), false);
+            pcmp = EntityQuery.use(delegator).from("PartyContactMechPurpose").where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId, "fromDate", fromDate).queryOne();
             if (pcmp == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError,
                         "contactmechservices.could_not_delete_purpose_from_contact_mechanism_not_found", locale));

@@ -59,6 +59,7 @@ import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 
 /**
@@ -95,7 +96,7 @@ public class CommonEvents {
 
         GenericValue visit = null;
         try {
-            visit = delegator.findOne("Visit", false, "visitId", visitId);
+            visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }
@@ -129,7 +130,7 @@ public class CommonEvents {
 
         GenericValue visit = null;
         try {
-            visit = delegator.findOne("Visit", false, "visitId", visitId);
+            visit = EntityQuery.use(delegator).from("Visit").where("visitId", visitId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot Visit Object", module);
         }

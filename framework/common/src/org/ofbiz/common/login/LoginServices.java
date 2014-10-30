@@ -50,6 +50,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
@@ -493,7 +494,7 @@ public class LoginServices {
             GenericValue party = null;
 
             try {
-                party = delegator.findOne("Party", false, "partyId", partyId);
+                party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "", module);
             }
@@ -609,7 +610,7 @@ public class LoginServices {
         GenericValue userLoginToUpdate = null;
 
         try {
-            userLoginToUpdate = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            userLoginToUpdate = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);
@@ -724,7 +725,7 @@ public class LoginServices {
         if (UtilValidate.isNotEmpty(partyId)) {
             //GenericValue party = null;
             //try {
-            //    party = delegator.findOne("Party", UtilMisc.toMap("partyId", partyId), false);
+            //    party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
             //} catch (GenericEntityException e) {
             //    Debug.logWarning(e, "", module);
             //}
@@ -746,7 +747,7 @@ public class LoginServices {
 
         // check to see if there's a matching login and use it if it's for the same party
         try {
-            newUserLogin = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            newUserLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
@@ -834,7 +835,7 @@ public class LoginServices {
         GenericValue userLoginToUpdate = null;
 
         try {
-            userLoginToUpdate = delegator.findOne("UserLogin", false, "userLoginId", userLoginId);
+            userLoginToUpdate = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).queryOne();
         } catch (GenericEntityException e) {
             Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_change_password_read_failure", messageMap, locale);

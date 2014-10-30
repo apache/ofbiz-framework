@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * Web site properties.
@@ -67,7 +68,7 @@ public final class WebSiteProperties {
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
                 if (webSiteId != null) {
-                    GenericValue webSiteValue = delegator.findOne("WebSite", UtilMisc.toMap("webSiteId", webSiteId), true);
+                    GenericValue webSiteValue = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache().queryOne();
                     if (webSiteValue != null) {
                         if (webSiteValue.get("httpPort") != null) {
                             httpPort = webSiteValue.getString("httpPort");

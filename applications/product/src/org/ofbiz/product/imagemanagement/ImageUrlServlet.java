@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
@@ -89,11 +90,11 @@ public class ImageUrlServlet extends HttpServlet {
         
         GenericValue content = null;
         try {
-            GenericValue contentResult = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+            GenericValue contentResult = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             if (contentResult == null) {
-                content = delegator.findOne("Content", UtilMisc.toMap("contentId", sizeTagElement), false);
+                content = EntityQuery.use(delegator).from("Content").where("contentId", sizeTagElement).queryOne();
             } else {
-                content = delegator.findOne("Content", UtilMisc.toMap("contentId", contentId), false);
+                content = EntityQuery.use(delegator).from("Content").where("contentId", contentId).queryOne();
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);

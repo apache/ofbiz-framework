@@ -55,6 +55,7 @@ import org.ofbiz.ebay.ProductsExportToEbay;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -281,7 +282,7 @@ public class EbayStore {
                         if (ebayParentCategoryId != null) {
                             List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId", productCategory.getString("productCategoryId")), UtilMisc.toList("sequenceNum ASC"), false);
                             for (GenericValue productCategoryRollup : productCategoryRollupList) {
-                                productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryRollup.getString("productCategoryId")), false);
+                                productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryRollup.getString("productCategoryId")).queryOne();
                                 StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
                                 String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator, productCategory.getString("productCategoryId"), context.get("partyId").toString());
                                 if (ebayChildCategoryId == null) {
@@ -324,7 +325,7 @@ public class EbayStore {
                             if (ebayParentCategoryId != null) {
                                 List<GenericValue> productChildCategoryRollupList = delegator.findByAnd("ProductCategoryRollup",  UtilMisc.toMap("parentProductCategoryId",productParentCategoryRollup.getString("productCategoryId")),UtilMisc.toList("sequenceNum ASC"), false);
                                 for (GenericValue productChildCategoryRollup : productChildCategoryRollupList) {
-                                    productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productChildCategoryRollup.getString("productCategoryId")), false);
+                                    productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productChildCategoryRollup.getString("productCategoryId")).queryOne();
                                     StoreCustomCategoryType childCategoryType = new StoreCustomCategoryType();
                                     String ebayChildCategoryId = EbayStoreHelper.retriveEbayCategoryIdByPartyId(delegator,productCategory.getString("productCategoryId"),context.get("partyId").toString());
                                     if (ebayChildCategoryId == null) {
@@ -523,7 +524,7 @@ public class EbayStore {
             //UtilXml.addChildElementValue(StoreCategoriesElem, "Country", (String)context.get("country"), storeDocument);
             GenericValue category = null;
             if (UtilValidate.isNotEmpty(context.get("prodCatalogId"))) {
-                category = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), true);
+                category = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).cache().queryOne();
             }
             String categoryName = category.getString("productCategoryId").toString();
             if (category.getString("categoryName").toString() != null) {
@@ -1545,7 +1546,7 @@ public class EbayStore {
         Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
         Map<String, Object> response = null;
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", context.get("productId").toString()), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", context.get("productId").toString()).queryOne();
             int intAtp = 1;
             String facilityId = "";
             if (UtilValidate.isNotEmpty(context.get("requireEbayInventory")) && "on".equals(context.get("requireEbayInventory").toString())) {
@@ -2464,7 +2465,7 @@ public class EbayStore {
     public static boolean checkExistProduct(Delegator delegator, String productId) {
         boolean checkResult = false;
         try {
-            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if(UtilValidate.isNotEmpty(product)) {
                 checkResult = true;
             }
