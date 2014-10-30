@@ -23,8 +23,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -44,8 +46,8 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -75,7 +77,7 @@ public class OrderLookupServices {
         }
 
         // list of fields to select (initial list)
-        List<String> fieldsToSelect = FastList.newInstance();
+        Set<String> fieldsToSelect = FastSet.newInstance();
         fieldsToSelect.add("orderId");
         fieldsToSelect.add("orderName");
         fieldsToSelect.add("statusId");
@@ -253,7 +255,7 @@ public class OrderLookupServices {
         if (UtilValidate.isNotEmpty(userLoginId) && UtilValidate.isEmpty(partyId)) {
             GenericValue ul = null;
             try {
-                ul = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", userLoginId), true);
+                ul = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", userLoginId).cache().queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
             }
@@ -384,7 +386,7 @@ public class OrderLookupServices {
             } else {
                 GenericValue product = null;
                 try {
-                    product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
+                    product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
@@ -565,9 +567,6 @@ public class OrderLookupServices {
             conditions.add(exprs);
         }
 
-        // set distinct on so we only get one row per order
-        EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-
         // create the main condition
         EntityCondition cond = null;
         if (conditions.size() > 0 || showAll.equalsIgnoreCase("Y")) {
@@ -584,13 +583,19 @@ public class OrderLookupServices {
         // get the index for the partial list
         int lowIndex = (((viewIndex.intValue() - 1) * viewSize.intValue()) + 1);
         int highIndex = viewIndex.intValue() * viewSize.intValue();
-        findOpts.setMaxRows(highIndex);
 
         if (cond != null) {
             EntityListIterator eli = null;
             try {
                 // do the lookup
-                eli = delegator.findListIteratorByCondition(dve, cond, null, fieldsToSelect, orderBy, findOpts);
+                eli = EntityQuery.use(delegator)
+                        .select(fieldsToSelect)
+                        .from(dve)
+                        .orderBy(orderBy)
+                        .distinct() // set distinct on so we only get one row per order
+                        .maxRows(highIndex)
+                        .cursorScrollInsensitive()
+                        .queryIterator();
 
                 orderCount = eli.getResultsSizeAfterPartialList();
 
