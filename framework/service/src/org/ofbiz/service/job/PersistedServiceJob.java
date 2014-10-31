@@ -21,11 +21,10 @@ package org.ofbiz.service.job;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.ofbiz.base.config.GenericConfigException;
@@ -291,7 +290,7 @@ public class PersistedServiceJob extends GenericServiceJob {
                 }
             }
             if (context == null) {
-                context = FastMap.newInstance();
+                context = new HashMap<String, Object>();
             }
             // check the runAsUser
             if (!UtilValidate.isEmpty(jobValue.getString("runAsUser"))) {

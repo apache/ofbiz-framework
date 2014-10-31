@@ -20,12 +20,11 @@ package org.ofbiz.service.engine;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
@@ -66,7 +65,7 @@ public class HttpEngine extends GenericAsyncEngine {
             throw new GenericServiceException("Cannot serialize context.", e);
         }
 
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("serviceName", modelService.invoke);
         if (xmlContext != null)
             parameters.put("serviceContext", xmlContext);
@@ -115,7 +114,7 @@ public class HttpEngine extends GenericAsyncEngine {
         String serviceMode = request.getParameter("serviceMode");
         String xmlContext = request.getParameter("serviceContext");
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> context = null;
 
         if (serviceName == null)

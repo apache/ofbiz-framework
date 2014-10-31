@@ -21,9 +21,8 @@ package org.ofbiz.service.jms;
 import java.lang.reflect.Constructor;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicReference;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -45,8 +44,8 @@ public class JmsListenerFactory implements Runnable {
     public static final String TOPIC_LISTENER_CLASS = "org.ofbiz.service.jms.JmsTopicListener";
     public static final String QUEUE_LISTENER_CLASS = "org.ofbiz.service.jms.JmsQueueListener";
 
-    protected static Map<String, GenericMessageListener> listeners = FastMap.newInstance();
-    protected static Map<String, Server> servers = FastMap.newInstance();
+    protected static Map<String, GenericMessageListener> listeners = new ConcurrentHashMap<String, GenericMessageListener>();
+    protected static Map<String, Server> servers = new ConcurrentHashMap<String, Server>();
 
     private static final AtomicReference<JmsListenerFactory> jlFactoryRef = new AtomicReference<JmsListenerFactory>(null);
 

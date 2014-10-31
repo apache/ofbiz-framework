@@ -19,18 +19,17 @@
 
 package org.ofbiz.service;
 
-import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilValidate;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastMap;
+import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.service.config.model.NotificationGroup;
 import org.ofbiz.service.config.model.Notify;
 
@@ -82,8 +81,8 @@ public class ModelNotification {
         }
 
         // template context
-        Map<String, Object> notifyContext = FastMap.newInstance();
-        Map<String, Object> bodyParams = FastMap.newInstance();
+        Map<String, Object> notifyContext = new HashMap<String, Object>();
+        Map<String, Object> bodyParams = new HashMap<String, Object>();
         bodyParams.put("serviceContext", context);
         bodyParams.put("serviceResult", result);
         bodyParams.put("service", model);

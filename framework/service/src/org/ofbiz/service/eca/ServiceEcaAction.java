@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -137,7 +136,7 @@ public class ServiceEcaAction implements java.io.Serializable {
         if (UtilValidate.isNotEmpty(resultMapName)) {
             Map<String, Object> resultMap = UtilGenerics.checkMap(context.get(resultMapName));
             if (resultMap == null) {
-                resultMap = FastMap.newInstance();
+                resultMap = new HashMap<String, Object>();
             }
             resultMap.putAll(dctx.getModelService(this.serviceName).makeValid(actionResult, ModelService.OUT_PARAM, false, null));
             context.put(resultMapName, resultMap);

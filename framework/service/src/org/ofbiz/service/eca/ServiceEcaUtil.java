@@ -19,15 +19,15 @@
 package org.ofbiz.service.eca;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.concurrent.Callable;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
@@ -51,7 +51,7 @@ public class ServiceEcaUtil {
     public static final String module = ServiceEcaUtil.class.getName();
 
     // using a cache is dangerous here because if someone clears it the ECAs won't run: public static UtilCache ecaCache = new UtilCache("service.ServiceECAs", 0, 0, false);
-    public static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = FastMap.newInstance();
+    public static Map<String, Map<String, List<ServiceEcaRule>>> ecaCache = new ConcurrentHashMap<String, Map<String, List<ServiceEcaRule>>>();
 
     public static void reloadConfig() {
         ecaCache.clear();
@@ -64,7 +64,7 @@ public class ServiceEcaUtil {
             return;
         }
 
-        List<Future<List<ServiceEcaRule>>> futures = FastList.newInstance();
+        List<Future<List<ServiceEcaRule>>> futures = new LinkedList<Future<List<ServiceEcaRule>>>();
         List<ServiceEcas> serviceEcasList = null;
         try {
             serviceEcasList = ServiceConfigUtil.getServiceEngine().getServiceEcas();
@@ -102,7 +102,7 @@ public class ServiceEcaUtil {
     }
 
     private static List<ServiceEcaRule> getEcaDefinitions(ResourceHandler handler) {
-        List<ServiceEcaRule> handlerRules = FastList.newInstance();
+        List<ServiceEcaRule> handlerRules = new LinkedList<ServiceEcaRule>();
         Element rootElement = null;
         try {
             rootElement = handler.getDocument().getDocumentElement();
@@ -134,14 +134,14 @@ public class ServiceEcaUtil {
             List<ServiceEcaRule> rules = null;
 
             if (eventMap == null) {
-                eventMap = FastMap.newInstance();
-                rules = FastList.newInstance();
+                eventMap = new HashMap<String, List<ServiceEcaRule>>();
+                rules = new LinkedList<ServiceEcaRule>();
                 ecaCache.put(serviceName, eventMap);
                 eventMap.put(eventName, rules);
             } else {
                 rules = eventMap.get(eventName);
                 if (rules == null) {
-                    rules = FastList.newInstance();
+                    rules = new LinkedList<ServiceEcaRule>();
                     eventMap.put(eventName, rules);
                 }
             }
@@ -160,7 +160,7 @@ public class ServiceEcaUtil {
             if (event != null) {
                 return eventMap.get(event);
             } else {
-                List<ServiceEcaRule> rules = FastList.newInstance();
+                List<ServiceEcaRule> rules = new LinkedList<ServiceEcaRule>();
                 for (Collection<ServiceEcaRule> col: eventMap.values()) {
                     rules.addAll(col);
                 }

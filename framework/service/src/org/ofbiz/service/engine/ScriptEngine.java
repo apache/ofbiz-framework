@@ -21,14 +21,13 @@ package org.ofbiz.service.engine;
 import static org.ofbiz.base.util.UtilGenerics.cast;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptException;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
@@ -74,7 +73,7 @@ public final class ScriptEngine extends GenericAsyncEngine {
     @Override
     public Map<String, Object> runSync(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         Assert.notNull("localName", localName, "modelService.location", modelService.location, "context", context);
-        Map<String, Object> params = FastMap.newInstance();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.putAll(context);
         context.put(ScriptUtil.PARAMETERS_KEY, params);
         DispatchContext dctx = dispatcher.getLocalContext(localName);

@@ -20,9 +20,7 @@ package org.ofbiz.service.group;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
-import javolution.util.FastMap;
+import java.util.*;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -58,19 +56,21 @@ public class GroupModel {
             throw new IllegalArgumentException("Group Definition found with no name attribute! : " + group);
         }
 
-        for (Element service: UtilXml.childElementList(group, "invoke")) {
+        for (Element service : UtilXml.childElementList(group, "invoke")) {
             services.add(new GroupServiceModel(service));
         }
 
         List<? extends Element> oldServiceTags = UtilXml.childElementList(group, "service");
         if (oldServiceTags.size() > 0) {
-            for (Element service: oldServiceTags) {
+            for (Element service : oldServiceTags) {
                 services.add(new GroupServiceModel(service));
             }
-            Debug.logWarning("Service Group Definition : [" + group.getAttribute("name") + "] found with OLD 'service' attribute, change to use 'invoke'", module);
+            Debug.logWarning("Service Group Definition : [" + group.getAttribute("name")
+                    + "] found with OLD 'service' attribute, change to use 'invoke'", module);
         }
 
-        if (Debug.verboseOn()) Debug.logVerbose("Created Service Group Model --> " + this, module);
+        if (Debug.verboseOn())
+            Debug.logVerbose("Created Service Group Model --> " + this, module);
     }
 
     /**
@@ -109,6 +109,7 @@ public class GroupModel {
     public List<GroupServiceModel> getServices() {
         return this.services;
     }
+
     public boolean isOptional() {
         return optional;
     }
@@ -121,7 +122,8 @@ public class GroupModel {
      * @return Map Result Map
      * @throws GenericServiceException
      */
-    public Map<String, Object> run(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
+    public Map<String, Object> run(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
+            throws GenericServiceException {
         if (this.getSendMode().equals("all")) {
             return runAll(dispatcher, localName, context);
         } else if (this.getSendMode().equals("round-robin")) {
@@ -132,7 +134,7 @@ public class GroupModel {
         } else if (this.getSendMode().equals("first-available")) {
             return runOne(dispatcher, localName, context);
         } else if (this.getSendMode().equals("none")) {
-            return FastMap.newInstance();
+            return new HashMap<String, Object>();
         } else {
             throw new GenericServiceException("This mode is not currently supported");
         }
@@ -152,13 +154,16 @@ public class GroupModel {
         return str.toString();
     }
 
-    private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
+    private Map<String, Object> runAll(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
+            throws GenericServiceException {
         Map<String, Object> runContext = UtilMisc.makeMapWritable(context);
-        Map<String, Object> result = FastMap.newInstance();
-        for (GroupServiceModel model: services) {
-            if (Debug.verboseOn()) Debug.logVerbose("Using Context: " + runContext, module);
+        Map<String, Object> result = new HashMap<String, Object>();
+        for (GroupServiceModel model : services) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("Using Context: " + runContext, module);
             Map<String, Object> thisResult = model.invoke(dispatcher, localName, runContext);
-            if (Debug.verboseOn()) Debug.logVerbose("Result: " + thisResult, module);
+            if (Debug.verboseOn())
+                Debug.logVerbose("Result: " + thisResult, module);
 
             // make sure we didn't fail
             if (ServiceUtil.isError(thisResult)) {
@@ -175,14 +180,16 @@ public class GroupModel {
         return result;
     }
 
-    private Map<String, Object> runIndex(ServiceDispatcher dispatcher, String localName, Map<String, Object> context, int index) throws GenericServiceException {
+    private Map<String, Object> runIndex(ServiceDispatcher dispatcher, String localName, Map<String, Object> context, int index)
+            throws GenericServiceException {
         GroupServiceModel model = services.get(index);
         return model.invoke(dispatcher, localName, context);
     }
 
-    private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context) throws GenericServiceException {
+    private Map<String, Object> runOne(ServiceDispatcher dispatcher, String localName, Map<String, Object> context)
+            throws GenericServiceException {
         Map<String, Object> result = null;
-        for (GroupServiceModel model: services) {
+        for (GroupServiceModel model : services) {
             try {
                 result = model.invoke(dispatcher, localName, context);
             } catch (GenericServiceException e) {

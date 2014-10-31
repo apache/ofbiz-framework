@@ -21,15 +21,14 @@ package org.ofbiz.service;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.config.GenericConfigException;
 import org.ofbiz.base.config.ResourceHandler;
@@ -44,6 +43,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.service.ModelParam.ModelParamValidator;
 import org.ofbiz.service.group.GroupModel;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -107,7 +107,7 @@ public class ModelServiceReader implements Serializable {
             }
         }
 
-        Map<String, ModelService> modelServices = FastMap.newInstance();
+        Map<String, ModelService> modelServices = new HashMap<String, ModelService>();
         if (this.isFromURL) {// utilTimer.timerString("Before getDocumentElement in file " + readerURL);
         } else {// utilTimer.timerString("Before getDocumentElement in " + handler);
         }
@@ -273,7 +273,7 @@ public class ModelServiceReader implements Serializable {
         service.nameSpace = getCDATADef(serviceElement, "namespace");
 
         // construct the context
-        service.contextInfo = FastMap.newInstance();
+        service.contextInfo = new HashMap<String, ModelParam>();
         this.createNotification(serviceElement, service);
         this.createPermission(serviceElement, service);
         this.createPermGroups(serviceElement, service);
@@ -690,7 +690,7 @@ public class ModelServiceReader implements Serializable {
         List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
         if (UtilValidate.isNotEmpty(validateElements)) {
             // always clear out old ones; never append
-            param.validators = FastList.newInstance();
+            param.validators = new LinkedList<ModelParamValidator>();
 
             Element validate = validateElements.get(0);
             String methodName = validate.getAttribute("method").intern();

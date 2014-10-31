@@ -21,19 +21,19 @@ package org.ofbiz.service.calendar;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import com.ibm.icu.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+
+import com.ibm.icu.util.Calendar;
 
 /** TemporalExpression UI artifacts worker. */
 public class ExpressionUiHelper {
@@ -141,13 +141,13 @@ public class ExpressionUiHelper {
      */
     public static Set<String> getCandidateIncludeIds(Delegator delegator, String tempExprId) throws GenericEntityException {
         List<GenericValue> findList = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
-        Set<String> excludedIds = FastSet.newInstance();
+        Set<String> excludedIds = new HashSet<String>();
         for (GenericValue value : findList) {
             excludedIds.add(value.getString("toTempExprId"));
         }
         excludedIds.add(tempExprId);
         findList = delegator.findList("TemporalExpression", null, null, null, null, true);
-        Set<String> candidateIds = FastSet.newInstance();
+        Set<String> candidateIds = new HashSet<String>();
         for (GenericValue value : findList) {
             candidateIds.add(value.getString("tempExprId"));
         }

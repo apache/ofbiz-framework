@@ -20,8 +20,7 @@ package org.ofbiz.service.group;
 
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
@@ -41,7 +40,7 @@ public class ServiceGroupReader {
     public static final String module = ServiceGroupReader.class.getName();
 
     // using a cache is dangerous here because if someone clears it the groups won't work at all: public static UtilCache groupsCache = new UtilCache("service.ServiceGroups", 0, 0, false);
-    public static Map<String, GroupModel> groupsCache = FastMap.newInstance();
+    public static Map<String, GroupModel> groupsCache = new ConcurrentHashMap<String, GroupModel>();
 
     public static void readConfig() {
         List<ServiceGroups> serviceGroupsList = null;
