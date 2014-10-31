@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
+import java.util.HashMap;
 import java.util.Map;
+
 import javax.transaction.Status;
 import javax.transaction.Transaction;
 import javax.transaction.xa.XAException;
 import javax.transaction.xa.Xid;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -295,7 +295,7 @@ public class ServiceXaWrapper extends GenericXaResource {
                     if (model.validate) {
                         thisContext = model.makeValid(context, ModelService.IN_PARAM);
                     } else {
-                        thisContext = FastMap.newInstance();
+                        thisContext = new HashMap<String, Object>();
                         thisContext.putAll(context);
                     }
 

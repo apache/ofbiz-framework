@@ -18,11 +18,10 @@
  */
 package org.ofbiz.service.test;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -53,7 +52,7 @@ public class ServiceEngineTestServices {
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
             Map<String, Object> threadAResult = threadAWaiter.waitForResult();
             Map<String, Object> threadBResult = threadBWaiter.waitForResult();
-            List<Object> errorList = FastList.newInstance();
+            List<Object> errorList = new LinkedList<Object>();
             if (ServiceUtil.isError(threadAResult)) {
                 errorList.add(UtilProperties.getMessage(resource, "ServiceTestDeadLockThreadA", UtilMisc.toMap("errorString", ServiceUtil.getErrorMessage(threadAResult)), locale));
             }
@@ -148,7 +147,7 @@ public class ServiceEngineTestServices {
             // make sure to wait for these to both finish to make sure results aren't checked until they are done
             Map<String, Object> grabberResult = grabberWaiter.waitForResult();
             Map<String, Object> waiterResult = waiterWaiter.waitForResult();
-            List<Object> errorList = FastList.newInstance();
+            List<Object> errorList = new LinkedList<Object>();
             if (ServiceUtil.isError(grabberResult)) {
                 errorList.add("Error running testServiceLockWaitTimeoutRetryGrabber: " + ServiceUtil.getErrorMessage(grabberResult));
             }

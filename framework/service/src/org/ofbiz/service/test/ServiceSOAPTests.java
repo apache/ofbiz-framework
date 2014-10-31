@@ -18,10 +18,9 @@
  */
 package org.ofbiz.service.test;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -38,14 +37,14 @@ public class ServiceSOAPTests extends OFBizTestCase {
     }
 
     public void testSOAPSimpleService() throws Exception {
-        Map<String, Object> serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         serviceContext.put("defaultValue", new Double("123.4567"));
         serviceContext.put("message", "Test Message !!!");
         dispatcher.runSync("testSoapSimple", serviceContext);
     }
 
     public void testSOAPService() throws Exception {
-        Map<String, Object> serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         GenericValue testing = delegator.makeValue("Testing");
         testing.put("testingId", "COMPLEX_TYPE_TEST");
         testing.put("testingTypeId", "SOAP_TEST");

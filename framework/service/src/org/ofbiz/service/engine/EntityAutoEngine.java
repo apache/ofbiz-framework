@@ -18,11 +18,10 @@
  */
 package org.ofbiz.service.engine;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -69,7 +68,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         // static java service methods should be: public Map<String, Object> methodName(DispatchContext dctx, Map<String, Object> context)
         DispatchContext dctx = dispatcher.getLocalContext(localName);
         Locale locale = (Locale) parameters.get("locale");
-        Map<String, Object> localContext = FastMap.newInstance();
+        Map<String, Object> localContext = new HashMap<String, Object>();
         localContext.put("parameters", parameters);
         Map<String, Object> result = ServiceUtil.returnSuccess();
 

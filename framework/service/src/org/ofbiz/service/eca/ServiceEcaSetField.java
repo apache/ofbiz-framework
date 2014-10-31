@@ -19,15 +19,15 @@
 
 package org.ofbiz.service.eca;
 
-import org.w3c.dom.Element;
+import java.util.HashMap;
+import java.util.Map;
+
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.model.ModelUtil;
-
-import java.util.Map;
-import javolution.util.FastMap;
+import org.w3c.dom.Element;
 
 /**
  * ServiceEcaSetField
@@ -72,7 +72,7 @@ public class ServiceEcaSetField {
             if (UtilValidate.isNotEmpty(this.mapName) && context.containsKey(this.mapName)) {
                 valueMap = UtilGenerics.checkMap(context.get(mapName));
             } else {
-                valueMap = FastMap.newInstance();
+                valueMap = new HashMap<String, Object>();
             }
             // process the context changes
             Object newValue = null;

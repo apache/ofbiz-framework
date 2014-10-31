@@ -20,10 +20,9 @@ package org.ofbiz.service.engine;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.client.XmlRpcClientConfigImpl;
@@ -128,7 +127,7 @@ public class XMLRPCClientEngine extends GenericAsyncEngine {
         }
 
         Map<String, Object> result = null;
-        Map<String, Object> params = FastMap.newInstance();
+        Map<String, Object> params = new HashMap<String, Object>();
         for (ModelParam modelParam: modelService.getModelParamList()) {
             // don't include OUT parameters in this list, only IN and INOUT
             if ("OUT".equals(modelParam.mode) || modelParam.internal) continue;

@@ -23,13 +23,12 @@ import groovy.lang.GroovyClassLoader;
 import groovy.lang.Script;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.script.ScriptContext;
-
-import javolution.util.FastMap;
 
 import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
@@ -103,10 +102,10 @@ public final class GroovyEngine extends GenericAsyncEngine {
         if (UtilValidate.isEmpty(modelService.location)) {
             throw new GenericServiceException("Cannot run Groovy service with empty location");
         }
-        Map<String, Object> params = FastMap.newInstance();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.putAll(context);
 
-        Map<String, Object> gContext = FastMap.newInstance();
+        Map<String, Object> gContext = new HashMap<String, Object>();
         gContext.putAll(context);
         gContext.put(ScriptUtil.PARAMETERS_KEY, params);
 

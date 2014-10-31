@@ -18,15 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.service.rmi;
 
+import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.net.MalformedURLException;
+import java.util.HashMap;
 import java.util.Map;
 
-import javolution.util.FastMap;
-
-import org.ofbiz.service.rmi.RemoteDispatcher;
 import org.ofbiz.service.GenericServiceException;
 
 /** An example of how to remotely access the Service Engine's RemoteDispatcher.
@@ -67,7 +65,7 @@ public class ExampleRemoteClient {
     }
 
     public Map<String, Object> runTestService() throws RemoteException, GenericServiceException {
-        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> context = new HashMap<String, Object>();
         context.put("message", "Remote Service Test");
         return rd.runSync("testScv", context);
     }

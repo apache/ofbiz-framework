@@ -19,14 +19,13 @@
 package org.ofbiz.service.engine;
 
 import java.io.StringReader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamReader;
-
-import javolution.util.FastMap;
 
 import org.apache.axiom.om.OMAbstractFactory;
 import org.apache.axiom.om.OMElement;
@@ -107,7 +106,7 @@ public final class SOAPClientEngine extends GenericAsyncEngine {
 
         int i = 0;
 
-        Map<String, Object> parameterMap = FastMap.newInstance();
+        Map<String, Object> parameterMap = new HashMap<String, Object>();
         for (ModelParam p: inModelParamList) {
             if (Debug.infoOn()) Debug.logInfo("[SOAPClientEngine.invoke} : Parameter: " + p.name + " (" + p.mode + ") - " + i, module);
 

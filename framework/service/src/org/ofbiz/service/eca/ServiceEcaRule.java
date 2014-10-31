@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.service.eca;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -44,8 +44,8 @@ public final class ServiceEcaRule implements java.io.Serializable {
     protected final String eventName;
     protected final boolean runOnFailure;
     protected final boolean runOnError;
-    protected final List<ServiceEcaCondition> conditions = FastList.newInstance();
-    protected final List<Object> actionsAndSets = FastList.newInstance();
+    protected final List<ServiceEcaCondition> conditions = new ArrayList<ServiceEcaCondition>();
+    protected final List<Object> actionsAndSets = new ArrayList<Object>();
     protected boolean enabled = true;
     protected final String definitionLocation;
 
@@ -103,7 +103,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
     }
 
     public List<ServiceEcaAction> getEcaActionList() {
-        List<ServiceEcaAction> actionList = FastList.newInstance();
+        List<ServiceEcaAction> actionList = new LinkedList<ServiceEcaAction>();
         for (Object actionOrSet: this.actionsAndSets) {
             if (actionOrSet instanceof ServiceEcaAction) {
                 actionList.add((ServiceEcaAction) actionOrSet);
@@ -113,7 +113,7 @@ public final class ServiceEcaRule implements java.io.Serializable {
     }
 
     public List<ServiceEcaCondition> getEcaConditionList() {
-        List<ServiceEcaCondition> condList = FastList.newInstance();
+        List<ServiceEcaCondition> condList = new LinkedList<ServiceEcaCondition>();
         condList.addAll(this.conditions);
         return condList;
     }

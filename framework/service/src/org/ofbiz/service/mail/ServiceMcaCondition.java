@@ -19,8 +19,10 @@
 package org.ofbiz.service.mail;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
 import javax.mail.Address;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
@@ -28,15 +30,12 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.internet.MimeMessage;
 
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.entity.GenericValue;
-
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
@@ -250,7 +249,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
         if (c instanceof String) {
             return UtilMisc.toList((String) c);
         } else if (c instanceof Multipart) {
-            List<String> textContent = FastList.newInstance();
+            List<String> textContent = new LinkedList<String>();
             int count = ((Multipart) c).getCount();
             for (int i = 0; i < count; i++) {
                 BodyPart bp = ((Multipart) c).getBodyPart(i);
@@ -258,7 +257,7 @@ public class ServiceMcaCondition implements java.io.Serializable {
             }
             return textContent;
         } else {
-            return FastList.newInstance();
+            return new LinkedList<String>();
         }
     }
 }

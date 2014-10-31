@@ -18,12 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.service.mail;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
 
@@ -35,8 +36,6 @@ import javax.mail.Multipart;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.internet.MimeMessage;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.conversion.AbstractConverter;
 import org.ofbiz.base.conversion.ConversionException;
@@ -248,7 +247,7 @@ public class MimeMessageWrapper implements java.io.Serializable {
     }
 
     public List<String> getAttachmentIndexes() {
-        List<String> attachments = FastList.newInstance();
+        List<String> attachments = new LinkedList<String>();
         if (getMainPartCount() == 0) { // single part message (no attachments)
             return attachments;
         } else {

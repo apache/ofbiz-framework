@@ -19,15 +19,14 @@
 package org.ofbiz.service.engine;
 
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
 import java.util.Map;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.config.GenericConfigException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.base.util.UtilGenerics;
 
 /**
  * Generic Engine Factory
@@ -39,7 +38,7 @@ public class GenericEngineFactory {
 
     public GenericEngineFactory(ServiceDispatcher dispatcher) {
         this.dispatcher = dispatcher;
-        engines = FastMap.newInstance();
+        engines = new HashMap<String, GenericEngine>();
     }
 
     /**
