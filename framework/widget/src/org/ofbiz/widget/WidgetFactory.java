@@ -24,8 +24,7 @@ import java.lang.reflect.Modifier;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.ServiceLoader;
-
-import javolution.util.FastMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
@@ -42,7 +41,7 @@ import org.w3c.dom.Element;
 public class WidgetFactory {
 
     public static final String module = WidgetFactory.class.getName();
-    protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = FastMap.newInstance();
+    protected static final Map<String, Constructor<? extends ModelScreenWidget>> screenWidgets = new ConcurrentHashMap<String, Constructor<? extends ModelScreenWidget>>();
 
     static {
         loadStandardWidgets();

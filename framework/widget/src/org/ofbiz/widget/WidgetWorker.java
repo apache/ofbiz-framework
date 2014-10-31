@@ -25,6 +25,8 @@ import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.text.DateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +35,6 @@ import java.util.TimeZone;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -414,7 +413,7 @@ public class WidgetWorker {
 
     public static class AutoServiceParameters {
         private String serviceName;
-        List<String> excludeList = FastList.newInstance();
+        List<String> excludeList = new ArrayList<String>();
         boolean includePk;
         boolean includeNonPk;
         boolean sendIfEmpty;
@@ -433,7 +432,7 @@ public class WidgetWorker {
 
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultServiceName) {
-            Map<String, String> autServiceParams = FastMap.newInstance();
+            Map<String, String> autServiceParams = new HashMap<String, String>();
             LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
             if (dispatcher == null) {
                 Debug.logError("We can not append auto service Parameters since we could not find dispatcher in the current context", module);
@@ -477,7 +476,7 @@ public class WidgetWorker {
     public static class AutoEntityParameters {
         private String entityName;
         private String includeType;
-        List<String> excludeList = FastList.newInstance();
+        List<String> excludeList = new ArrayList<String>();
         boolean includePk;
         boolean includeNonPk;
         boolean sendIfEmpty;
@@ -499,7 +498,7 @@ public class WidgetWorker {
 
         @SuppressWarnings("unchecked")
         public Map<String, String> getParametersMap(Map<String, Object> context, String defaultEntityName) {
-            Map<String, String> autEntityParams = FastMap.newInstance();
+            Map<String, String> autEntityParams = new HashMap<String, String>();
             Delegator delegator = (Delegator) context.get("delegator");
             if (delegator == null) {
                 Debug.logError("We can not append auto entity Parameters since we could not find delegator in the current context", module);

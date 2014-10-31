@@ -20,12 +20,12 @@ package org.ofbiz.widget.screen;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import javolution.util.FastList;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -85,8 +85,8 @@ public class ModelScreenCondition implements Serializable {
     }
 
     public static List<ScreenCondition> readSubConditions(ModelScreen modelScreen, Element conditionElement) {
-        List<ScreenCondition> condList = FastList.newInstance();
         List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
+        List<ScreenCondition> condList = new ArrayList<ScreenCondition>(subElementList.size());
         for (Element subElement: subElementList) {
             condList.add(readCondition(modelScreen, subElement));
         }
@@ -420,7 +420,7 @@ public class ModelScreenCondition implements Serializable {
                 fieldVal = "";
             }
 
-            List<Object> messages = FastList.newInstance();
+            List<Object> messages = new LinkedList<Object>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
@@ -471,7 +471,7 @@ public class ModelScreenCondition implements Serializable {
                 fieldVal = "";
             }
 
-            List<Object> messages = FastList.newInstance();
+            List<Object> messages = new LinkedList<Object>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null, false);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldAcsr.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");

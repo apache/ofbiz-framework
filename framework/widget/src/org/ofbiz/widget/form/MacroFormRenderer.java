@@ -26,6 +26,7 @@ import java.rmi.server.UID;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -36,8 +37,6 @@ import java.util.WeakHashMap;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -87,18 +86,18 @@ import freemarker.template.TemplateException;
  * Widget Library - Form Renderer implementation based on Freemarker macros
  *
  */
-public class MacroFormRenderer implements FormStringRenderer {
+public final class MacroFormRenderer implements FormStringRenderer {
 
     public static final String module = MacroFormRenderer.class.getName();
-    private Template macroLibrary;
-    private WeakHashMap<Appendable, Environment> environments = new WeakHashMap<Appendable, Environment>();
-    private StringUtil.SimpleEncoder internalEncoder;
-    protected RequestHandler rh;
-    protected HttpServletRequest request;
-    protected HttpServletResponse response;
-    protected boolean javaScriptEnabled = false;
-    protected boolean renderPagination = true;
-    protected boolean widgetCommentsEnabled = false;
+    private final Template macroLibrary;
+    private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<Appendable, Environment>();
+    private final StringUtil.SimpleEncoder internalEncoder;
+    private final RequestHandler rh;
+    private final HttpServletRequest request;
+    private final HttpServletResponse response;
+    private final boolean javaScriptEnabled;
+    private boolean renderPagination = true;
+    private boolean widgetCommentsEnabled = false;
 
     public MacroFormRenderer(String macroLibraryPath, HttpServletRequest request, HttpServletResponse response) throws TemplateException, IOException {
         macroLibrary = FreeMarkerWorker.getTemplate(macroLibraryPath);
@@ -1087,7 +1086,7 @@ public class MacroFormRenderer implements FormStringRenderer {
         String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
         if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
             if (updateAreas == null) {
-                updateAreas = FastList.newInstance();
+                updateAreas = new LinkedList<ModelForm.UpdateArea>();
             }
             updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
         }
@@ -1414,8 +1413,8 @@ public class MacroFormRenderer implements FormStringRenderer {
             this.renderNextPrev(writer, context, modelForm);
         }
         List<ModelFormField> childFieldList = modelForm.getFieldList();
-        List<String> columnStyleList = FastList.newInstance();
-        List<String> fieldNameList = FastList.newInstance();
+        List<String> columnStyleList = new LinkedList<String>();
+        List<String> fieldNameList = new LinkedList<String>();
         for (ModelFormField childField : childFieldList) {
             int childFieldType = childField.getFieldInfo().getFieldType();
             if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
@@ -2012,7 +2011,7 @@ public class MacroFormRenderer implements FormStringRenderer {
                 autoCompleterTarget = lookupFieldFormName + "&amp;amp;";
             }
             autoCompleterTarget = autoCompleterTarget + "ajaxLookup=Y";
-            updateAreas = FastList.newInstance();
+            updateAreas = new LinkedList<ModelForm.UpdateArea>();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }
         boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;

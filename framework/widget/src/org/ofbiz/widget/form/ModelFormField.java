@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -31,9 +32,6 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.TimeZone;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.conversion.ConversionException;
 import org.ofbiz.base.conversion.DateTimeConverters;
@@ -218,13 +216,13 @@ public class ModelFormField {
     }
 
     protected void addOnChangeUpdateArea(UpdateArea updateArea) {
-        if (onChangeUpdateAreas == null) onChangeUpdateAreas = FastList.newInstance();
+        if (onChangeUpdateAreas == null) onChangeUpdateAreas = new ArrayList<UpdateArea>();
         onChangeUpdateAreas.add(updateArea);
         Debug.logInfo(this.modelForm.getName() + ":" + this.name + " onChangeUpdateAreas size = " + onChangeUpdateAreas.size(), module);
     }
 
     protected void addOnClickUpdateArea(UpdateArea updateArea) {
-        if (onClickUpdateAreas == null) onClickUpdateAreas = FastList.newInstance();
+        if (onClickUpdateAreas == null) onClickUpdateAreas = new ArrayList<UpdateArea>();
         onClickUpdateAreas.add(updateArea);
     }
 
@@ -1519,7 +1517,7 @@ public class ModelFormField {
             List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
             if (dataList != null && dataList.size() != 0) {
                 for (Object data: dataList) {
-                    Map<String, Object> localContext = FastMap.newInstance();
+                    Map<String, Object> localContext = new HashMap<String, Object>();
                     localContext.putAll(context);
                     if (UtilValidate.isNotEmpty(this.listEntryName)) {
                         localContext.put(this.listEntryName, data);
@@ -2225,7 +2223,7 @@ public class ModelFormField {
         protected FlexibleStringExpander imageTitle;
         protected FlexibleStringExpander targetWindowExdr;
         protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
-        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
         protected WidgetWorker.AutoServiceParameters autoServiceParameters;
         protected WidgetWorker.AutoEntityParameters autoEntityParameters;
 
@@ -2337,7 +2335,7 @@ public class ModelFormField {
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = FastMap.newInstance();
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
             
             Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
             if (addlParamMap != null) {
@@ -2433,7 +2431,7 @@ public class ModelFormField {
         protected FlexibleStringExpander target;
         protected FlexibleStringExpander description;
         protected FlexibleStringExpander targetWindowExdr;
-        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
         protected ModelFormField modelFormField;
@@ -2500,7 +2498,7 @@ public class ModelFormField {
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = FastMap.newInstance();
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
 
             /* leaving this here... may want to add it at some point like the hyperlink element:
             Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
@@ -3607,7 +3605,7 @@ public class ModelFormField {
         }
 
         public List<String> getTargetParameterList() {
-            List<String> paramList = FastList.newInstance();
+            List<String> paramList = new LinkedList<String>();
             if (UtilValidate.isNotEmpty(this.targetParameter)) {
                 StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
                 while (stk.hasMoreTokens()) {

@@ -20,6 +20,7 @@ package org.ofbiz.widget.html;
 
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,8 +29,6 @@ import java.util.Map.Entry;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -958,7 +957,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             String backgroundSubmitRefreshTarget = submitField.getBackgroundSubmitRefreshTarget(context);
             if (UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) {
                 if (updateAreas == null) {
-                    updateAreas = FastList.newInstance();
+                    updateAreas = new LinkedList<ModelForm.UpdateArea>();
                 }
                 updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
             }

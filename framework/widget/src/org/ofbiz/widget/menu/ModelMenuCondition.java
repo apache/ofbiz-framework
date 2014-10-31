@@ -19,12 +19,11 @@
 package org.ofbiz.widget.menu;
 
 import java.lang.reflect.Method;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
-
-import javolution.util.FastList;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -101,7 +100,7 @@ public class ModelMenuCondition {
     }
 
     public static List<MenuCondition> readSubConditions(ModelMenuItem modelMenuItem, Element conditionElement) {
-        List<MenuCondition> condList = FastList.newInstance();
+        List<MenuCondition> condList = new LinkedList<MenuCondition>();
         List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
         for (Element subElement: subElementList) {
             condList.add(readCondition(modelMenuItem, subElement));
@@ -422,7 +421,7 @@ public class ModelMenuCondition {
                 fieldVal = "";
             }
 
-            List<Object> messages = FastList.newInstance();
+            List<Object> messages = new LinkedList<Object>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, value, operator, type, format, messages, null, null, true);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
@@ -473,7 +472,7 @@ public class ModelMenuCondition {
                 fieldVal = "";
             }
 
-            List<Object> messages = FastList.newInstance();
+            List<Object> messages = new LinkedList<Object>();
             Boolean resultBool = BaseCompare.doRealCompare(fieldVal, toFieldVal, operator, type, format, messages, null, null, false);
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldVal.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
