@@ -18,24 +18,24 @@
  *******************************************************************************/
 package org.ofbiz.widget.cache;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 
-public class WidgetContextCacheKey {
+public final class WidgetContextCacheKey {
 
     public static final String module = WidgetContextCacheKey.class.getName();
 
-    private static Set<String> fieldNamesToSkip;
+    private static Set<String> fieldNamesToSkip = createFieldNamesToSkip();
 
-    static {
-        fieldNamesToSkip = FastSet.newInstance();
+    private static Set<String> createFieldNamesToSkip(){
+        Set<String> fieldNamesToSkip = new HashSet<String>();
         fieldNamesToSkip.add("globalContext");
         fieldNamesToSkip.add("delegator");
         fieldNamesToSkip.add("dispatcher");
@@ -76,13 +76,13 @@ public class WidgetContextCacheKey {
         // parameters
         fieldNamesToSkip.add("visit");
         fieldNamesToSkip.add("visitor");
+        return Collections.unmodifiableSet(fieldNamesToSkip);
     }
 
-    protected Map<String, Object> context;
+    private final Map<String, Object> context;
 
     public WidgetContextCacheKey(Map<String, ? extends Object> context) {
-        this.context = FastMap.newInstance();
-        this.context.putAll(context);
+        this.context = Collections.unmodifiableMap(new HashMap<String, Object>(context));
     }
 
     @Override
@@ -103,7 +103,7 @@ public class WidgetContextCacheKey {
             return false;
         }
 
-        Set<String> unifiedContext = FastSet.newInstance();
+        Set<String> unifiedContext = new HashSet<String>();
         unifiedContext.addAll(this.context.keySet());
         unifiedContext.addAll(key.context.keySet());
         for (String fieldName: unifiedContext) {
@@ -135,7 +135,7 @@ public class WidgetContextCacheKey {
 
     @Override
     public String toString() {
-        Map<String, Object> printableMap = FastMap.newInstance();
+        Map<String, Object> printableMap = new HashMap<String, Object>();
         for (String fieldName: this.context.keySet()) {
             if (!fieldNamesToSkip.contains(fieldName) && !"parameters".equals(fieldName)) {
                 printableMap.put(fieldName, this.context.get(fieldName));
@@ -146,7 +146,7 @@ public class WidgetContextCacheKey {
     }
 
     public static String printMap(Map<String, ? extends Object> map) {
-        Map<String, Object> printableMap = FastMap.newInstance();
+        Map<String, Object> printableMap = new HashMap<String, Object>();
         for (Map.Entry<String, ? extends Object> entry : map.entrySet()) {
             String fieldName = entry.getKey();
             if (!fieldNamesToSkip.contains(fieldName) &&
@@ -160,7 +160,7 @@ public class WidgetContextCacheKey {
     }
 
     public static boolean parametersAreEqual(Map<String, ? extends Object> map1, Map<String, ? extends Object> map2) {
-        Set<String> unifiedContext = FastSet.newInstance();
+        Set<String> unifiedContext = new HashSet<String>();
         unifiedContext.addAll(map1.keySet());
         unifiedContext.addAll(map2.keySet());
         for (String fieldName: unifiedContext) {

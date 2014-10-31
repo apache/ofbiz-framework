@@ -21,6 +21,8 @@ package org.ofbiz.widget;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -30,10 +32,6 @@ import java.util.regex.PatternSyntaxException;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-import org.w3c.dom.Element;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -59,6 +57,7 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.w3c.dom.Element;
 
 @SuppressWarnings("serial")
 public abstract class ModelWidgetAction implements Serializable {
@@ -140,6 +139,7 @@ public abstract class ModelWidgetAction implements Serializable {
             }
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
@@ -179,9 +179,9 @@ public abstract class ModelWidgetAction implements Serializable {
 
             if (UtilValidate.isNotEmpty(this.type)) {
                 if ("NewMap".equals(this.type)) {
-                    newValue = FastMap.newInstance();
+                    newValue = new HashMap();
                 } else if ("NewList".equals(this.type)) {
-                    newValue = FastList.newInstance();
+                    newValue = new LinkedList();
                 } else {
                     try {
                         newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
@@ -400,7 +400,7 @@ public abstract class ModelWidgetAction implements Serializable {
         @Override
         public void runAction(Map<String, Object> context) throws GeneralException {
             if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = FastMap.newInstance();
+                Map<String, Object> localContext = new HashMap<String, Object>();
                 localContext.putAll(context);
                 DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);
@@ -445,7 +445,7 @@ public abstract class ModelWidgetAction implements Serializable {
                 if ("true".equals(autoFieldMapString)) {
                     DispatchContext dc = WidgetWorker.getDispatcher(context).getDispatchContext();
                     // try a map called "parameters", try it first so values from here are overriden by values in the main context
-                    Map<String, Object> combinedMap = FastMap.newInstance();
+                    Map<String, Object> combinedMap = new HashMap<String, Object>();
                     Map<String, Object> parametersObj = UtilGenerics.toMap(context.get("parameters"));
                     if (parametersObj != null) {
                         combinedMap.putAll(parametersObj);
@@ -460,7 +460,7 @@ public abstract class ModelWidgetAction implements Serializable {
                     }
                 }
                 if (serviceContext == null) {
-                    serviceContext = FastMap.newInstance();
+                    serviceContext = new HashMap<String, Object>();
                 }
 
                 if (this.fieldMap != null) {

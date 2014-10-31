@@ -28,9 +28,6 @@ import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.PatternSyntaxException;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -131,6 +128,7 @@ public abstract class ModelFormAction {
             }
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
@@ -152,9 +150,9 @@ public abstract class ModelFormAction {
 
             if (UtilValidate.isNotEmpty(this.type)) {
                 if ("NewMap".equals(this.type)) {
-                    newValue = FastMap.newInstance();
+                    newValue = new HashMap();
                 } else if ("NewList".equals(this.type)) {
-                    newValue = FastList.newInstance();
+                    newValue = new LinkedList();
                 } else {
                     try {
                         newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
@@ -286,7 +284,7 @@ public abstract class ModelFormAction {
         @Override
         public void runAction(Map<String, Object> context) {
             if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = FastMap.newInstance();
+                Map<String, Object> localContext = new HashMap<String, Object>();
                 localContext.putAll(context);
                 DispatchContext ctx = this.modelForm.dispatchContext;
                 MethodContext methodContext = new MethodContext(ctx, localContext, null);

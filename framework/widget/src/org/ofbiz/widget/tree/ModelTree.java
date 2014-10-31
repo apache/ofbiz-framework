@@ -20,17 +20,16 @@ package org.ofbiz.widget.tree;
 
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -43,11 +42,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.screen.ModelScreen;
-import org.ofbiz.widget.screen.ScreenFactory;
-import org.ofbiz.widget.screen.ScreenStringRenderer;
-import org.ofbiz.widget.screen.ScreenRenderException;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -56,6 +50,11 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.screen.ModelScreen;
+import org.ofbiz.widget.screen.ScreenFactory;
+import org.ofbiz.widget.screen.ScreenRenderException;
+import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -71,8 +70,8 @@ public class ModelTree extends ModelWidget {
     protected String rootNodeName;
     protected String defaultRenderStyle;
     protected FlexibleStringExpander defaultWrapStyleExdr;
-    protected List<ModelNode> nodeList = FastList.newInstance();
-    protected Map<String, ModelNode> nodeMap = FastMap.newInstance();
+    protected List<ModelNode> nodeList = new ArrayList<ModelNode>();
+    protected Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
     protected Delegator delegator;
     protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
@@ -227,6 +226,7 @@ public class ModelTree extends ModelWidget {
      *   different tree elements; implementing your own makes it possible to
      *   use the same tree definitions for many types of tree UIs
      */
+    @SuppressWarnings("rawtypes")
     public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer) throws GeneralException {
         Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
 
@@ -246,10 +246,10 @@ public class ModelTree extends ModelWidget {
             context.put("rootEntityId", trail.get(0));
             context.put(defaultPkName, trail.get(0));
         } else {
-            trail = FastList.newInstance();
+            trail = new LinkedList<String>();
         }
         context.put("targetNodeTrail", trail);
-        context.put("currentNodeTrail", FastList.newInstance());
+        context.put("currentNodeTrail", new LinkedList());
         StringWriter writer = new StringWriter();
         try {
             node.renderNodeString(writer, context, treeStringRenderer, 0);
@@ -282,8 +282,8 @@ public class ModelTree extends ModelWidget {
         protected Label label;
         protected Link link;
         protected Image image;
-        protected List<ModelSubNode> subNodeList = FastList.newInstance();
-        protected List<ModelTreeAction> actions = FastList.newInstance();
+        protected List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
+        protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
         protected String name;
         protected ModelTree modelTree;
         protected List<Object []> subNodeValues;
@@ -545,7 +545,7 @@ public class ModelTree extends ModelWidget {
         }
 
         public void getChildren(Map<String, Object> context) {
-             this.subNodeValues = FastList.newInstance();
+             this.subNodeValues = new ArrayList<Object []>();
              for (ModelSubNode subNode: subNodeList) {
                  String nodeName = subNode.getNodeName(context);
                  ModelNode node = modelTree.nodeMap.get(nodeName);
@@ -699,7 +699,7 @@ public class ModelTree extends ModelWidget {
 
             protected ModelNode rootNode;
             protected FlexibleStringExpander nodeNameExdr;
-            protected List<ModelTreeAction> actions = FastList.newInstance();
+            protected List<ModelTreeAction> actions = new ArrayList<ModelTreeAction>();
             protected ListIterator<? extends Map<String, ? extends Object>> listIterator;
 
             public ModelSubNode() {}
@@ -813,7 +813,7 @@ public class ModelTree extends ModelWidget {
             protected boolean secure = false;
             protected boolean encode = false;
             protected String linkType;
-            protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+            protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
 
             public Link() {
                 setText(null);
@@ -936,7 +936,7 @@ public class ModelTree extends ModelWidget {
             }
 
             public Map<String, String> getParameterMap(Map<String, Object> context) {
-                Map<String, String> fullParameterMap = FastMap.newInstance();
+                Map<String, String> fullParameterMap = new HashMap<String, String>();
 
                 /* leaving this here... may want to add it at some point like the hyperlink element:
                 Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);

@@ -22,10 +22,9 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -220,7 +219,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = FastMap.newInstance();
+        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = new HashMap<String, HtmlTemplateDecoratorSection>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);

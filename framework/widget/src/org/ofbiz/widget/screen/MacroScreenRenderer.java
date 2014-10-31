@@ -34,8 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -59,7 +57,8 @@ import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
-import org.ofbiz.widget.screen.ModelScreenWidget.*;
+import org.ofbiz.widget.screen.ModelScreenWidget.Column;
+import org.ofbiz.widget.screen.ModelScreenWidget.ColumnContainer;
 import org.xml.sax.SAXException;
 
 import freemarker.core.Environment;
@@ -156,7 +155,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = FastMap.newInstance();
+            Map<String, Object> parameters = new HashMap<String, Object>();
             StringBuilder sb = new StringBuilder("Begin ");
             sb.append(section.isMainSection ? "Screen " : "Section Widget ");
             sb.append(section.getBoundaryCommentName());
@@ -166,7 +165,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
         if (this.widgetCommentsEnabled) {
-            Map<String, Object> parameters = FastMap.newInstance();
+            Map<String, Object> parameters = new HashMap<String, Object>();
             StringBuilder sb = new StringBuilder();
             sb.append("End ");
             sb.append(section.isMainSection ? "Screen " : "Section Widget ");
@@ -190,7 +189,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
             autoUpdateLink = rh.makeLink(request, response, autoUpdateTarget);
         }
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("id", containerId);
         parameters.put("style", container.getStyle(context));
         parameters.put("autoUpdateLink", autoUpdateLink);
@@ -203,7 +202,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("text", label.getText(context));
         parameters.put("id", label.getId(context));
         parameters.put("style", label.getStyle(context));
@@ -211,7 +210,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("id", separator.getId(context));
         parameters.put("style", separator.getStyle(context));
         executeMacro(writer, "renderHorizontalSeparator", parameters);
@@ -341,7 +340,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         } else {
             urlString = src;
         }
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("src", src);
         parameters.put("id", image.getId(context));
         parameters.put("style", image.getStyle(context));
@@ -360,7 +359,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
 
          if (Debug.verboseOn()) Debug.logVerbose("directEditRequest:" + editRequest, module);
 
-         Map<String, Object> parameters = FastMap.newInstance();
+         Map<String, Object> parameters = new HashMap<String, Object>();
          parameters.put("editRequest", editRequest);
          parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -378,7 +377,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         Delegator delegator = (Delegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
-        Map<String, Object> contentContext = FastMap.newInstance();
+        Map<String, Object> contentContext = new HashMap<String, Object>();
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
@@ -454,7 +453,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 urlString = rh.makeLink(request, response, editRequest, false, false, false);
             }
 
-            Map<String, Object> parameters = FastMap.newInstance();
+            Map<String, Object> parameters = new HashMap<String, Object>();
             parameters.put("urlString", urlString);
             parameters.put("editMode", editMode);
             parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -476,7 +475,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             fullUrlString = rh.makeLink(request, response, urlString, true, false, false);
         }
 
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("fullUrl", fullUrlString);
         parameters.put("width", content.getWidth());
         parameters.put("height", content.getHeight());
@@ -488,7 +487,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          String enableEditName = content.getEnableEditName(context);
          String enableEditValue = (String)context.get(enableEditName);
 
-         Map<String, Object> parameters = FastMap.newInstance();
+         Map<String, Object> parameters = new HashMap<String, Object>();
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
          parameters.put("editRequest", content.getEditRequest(context));
          parameters.put("enableEditValue", enableEditValue == null ? "" : enableEditValue);
@@ -505,7 +504,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
          Delegator delegator = (Delegator) context.get("delegator");
 
          // create a new map for the content rendering; so our current context does not get overwritten!
-         Map<String, Object> contentContext = FastMap.newInstance();
+         Map<String, Object> contentContext = new HashMap<String, Object>();
          contentContext.putAll(context);
 
          try {
@@ -570,7 +569,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
              }
          }
 
-         Map<String, Object> parameters = FastMap.newInstance();
+         Map<String, Object> parameters = new HashMap<String, Object>();
          parameters.put("urlString", urlString);
          parameters.put("editMode", editMode);
          parameters.put("editContainerStyle", content.getEditContainerStyle(context));
@@ -628,7 +627,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             menuString = sb.toString();
         }
 
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("title", title);
         parameters.put("collapsible", collapsible);
         parameters.put("saveCollapsed", screenlet.saveCollapsed());
@@ -781,7 +780,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             firstLinkUrl = rh.makeLink(request, response, linkText);
         }
 
-        Map<String, Object> parameters = FastMap.newInstance();
+        Map<String, Object> parameters = new HashMap<String, Object>();
         parameters.put("lowIndex", modelForm.getLowIndex(context));
         parameters.put("actualPageSize", actualPageSize);
         parameters.put("ofLabel", ofLabel);

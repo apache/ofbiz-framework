@@ -23,14 +23,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -85,7 +83,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
     public abstract String rawString();
 
     public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
-        List<ModelScreenWidget> subWidgets = FastList.newInstance();
+        List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(subElementList.size());
         for (Element subElement: subElementList) {
             subWidgets.add(WidgetFactory.getModelScreenWidget(modelScreen, subElement));
         }
@@ -570,7 +568,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 // build the widgetpath
                 List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 if (widgetTrail == null) {
-                    widgetTrail = FastList.newInstance();
+                    widgetTrail = new LinkedList<String>();
                 }
 
                 String thisName = nameExdr.expandString(context);
@@ -1273,7 +1271,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         protected String linkType;
         protected String width;
         protected String height;
-        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
         protected WidgetWorker.AutoServiceParameters autoServiceParameters;
         protected WidgetWorker.AutoEntityParameters autoEntityParameters;
 
@@ -1397,7 +1395,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = FastMap.newInstance();
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
 
             /* leaving this here... may want to add it at some point like the hyperlink element:
             Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);

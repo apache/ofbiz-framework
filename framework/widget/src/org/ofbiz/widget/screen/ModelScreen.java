@@ -19,11 +19,10 @@
 package org.ofbiz.widget.screen;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -84,7 +83,7 @@ public class ModelScreen extends ModelWidget {
     }
 
     public Set<String> getAllServiceNamesUsed() {
-        Set<String> allServiceNamesUsed = FastSet.newInstance();
+        Set<String> allServiceNamesUsed = new HashSet<String>();
         findServiceNamesUsedInWidget(this.section, allServiceNamesUsed);
         return allServiceNamesUsed;
     }
@@ -144,7 +143,7 @@ public class ModelScreen extends ModelWidget {
         }
     }
     public Set<String> getAllEntityNamesUsed() {
-        Set<String> allEntityNamesUsed = FastSet.newInstance();
+        Set<String> allEntityNamesUsed = new HashSet<String>();
         findEntityNamesUsedInWidget(this.section, allEntityNamesUsed);
         return allEntityNamesUsed;
     }
@@ -215,7 +214,7 @@ public class ModelScreen extends ModelWidget {
         }
     }
     public Set<String> getAllFormNamesIncluded() {
-        Set<String> allFormNamesIncluded = FastSet.newInstance();
+        Set<String> allFormNamesIncluded = new HashSet<String>();
         findFormNamesIncludedInWidget(this.section, allFormNamesIncluded);
         return allFormNamesIncluded;
     }
@@ -268,7 +267,7 @@ public class ModelScreen extends ModelWidget {
     }
 
     public Set<String> getAllRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestNamesIncluded = FastSet.newInstance();
+        Set<String> allRequestNamesIncluded = new HashSet<String>();
         findRequestNamesLinkedtoInWidget(this.section, allRequestNamesIncluded);
         return allRequestNamesIncluded;
     }

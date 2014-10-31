@@ -18,15 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.widget.tree;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.regex.PatternSyntaxException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -128,6 +127,7 @@ public abstract class ModelTreeAction {
             }
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public void runAction(Map<String, Object> context) {
             String globalStr = this.globalExdr.expandString(context);
@@ -142,9 +142,9 @@ public abstract class ModelTreeAction {
             }
             if (UtilValidate.isNotEmpty(this.type)) {
                 if ("NewMap".equals(this.type)) {
-                    newValue = FastMap.newInstance();
+                    newValue = new HashMap();
                 } else if ("NewList".equals(this.type)) {
-                    newValue = FastList.newInstance();
+                    newValue = new LinkedList();
                 } else {
                     try {
                         newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
@@ -264,7 +264,7 @@ public abstract class ModelTreeAction {
                 if (autoFieldMapBool) {
                     serviceContext = this.modelTree.getDispatcher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
-                    serviceContext = FastMap.newInstance();
+                    serviceContext = new HashMap<String, Object>();
                 }
 
                 if (this.fieldMap != null) {

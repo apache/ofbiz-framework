@@ -29,8 +29,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -52,8 +50,8 @@ import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.screen.ModelScreenWidget;
-import org.ofbiz.widget.screen.ScreenStringRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget.ColumnContainer;
+import org.ofbiz.widget.screen.ScreenStringRenderer;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -667,7 +665,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         Delegator delegator = (Delegator) context.get("delegator");
 
         // make a new map for content rendering; so our current map does not get clobbered
-        Map<String, Object> contentContext = FastMap.newInstance();
+        Map<String, Object> contentContext = new HashMap<String, Object>();
         contentContext.putAll(context);
         String dataResourceId = (String)contentContext.get("dataResourceId");
         if (Debug.verboseOn()) Debug.logVerbose("expandedContentId:" + expandedContentId, module);
@@ -800,7 +798,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             Delegator delegator = (Delegator) context.get("delegator");
 
             // create a new map for the content rendering; so our current context does not get overwritten!
-            Map<String, Object> contentContext = FastMap.newInstance();
+            Map<String, Object> contentContext = new HashMap<String, Object>();
             contentContext.putAll(context);
 
             try {

@@ -19,6 +19,7 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,9 +27,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -39,8 +37,8 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.PortalPageWorker;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
@@ -569,7 +567,7 @@ public class ModelMenuItem {
         protected WidgetWorker.AutoServiceParameters autoServiceParameters;
         protected WidgetWorker.AutoEntityParameters autoEntityParameters;
         protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
-        protected List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
         protected boolean requestConfirmation = false;
         protected FlexibleStringExpander confirmationMsgExdr;
 
@@ -702,7 +700,7 @@ public class ModelMenuItem {
             return this.parameterList;
         }
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = FastMap.newInstance();
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
 
             if (this.parametersMapAcsr != null) {
                 Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);

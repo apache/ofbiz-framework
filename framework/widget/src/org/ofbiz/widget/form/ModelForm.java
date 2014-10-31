@@ -21,7 +21,10 @@ package org.ofbiz.widget.form;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,10 +32,6 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
@@ -131,12 +130,12 @@ public class ModelForm extends ModelWidget {
     protected boolean overridenListSize = false;
     protected boolean clientAutocompleteFields = true;
 
-    protected List<AltTarget> altTargets = FastList.newInstance();
-    protected List<AutoFieldsService> autoFieldsServices = FastList.newInstance();
-    protected List<AutoFieldsEntity> autoFieldsEntities = FastList.newInstance();
-    protected List<String> lastOrderFields = FastList.newInstance();
-    protected List<SortField> sortOrderFields = FastList.newInstance();
-    protected List<AltRowStyle> altRowStyles = FastList.newInstance();
+    protected List<AltTarget> altTargets = new ArrayList<AltTarget>();
+    protected List<AutoFieldsService> autoFieldsServices = new ArrayList<AutoFieldsService>();
+    protected List<AutoFieldsEntity> autoFieldsEntities = new ArrayList<AutoFieldsEntity>();
+    protected List<String> lastOrderFields = new ArrayList<String>();
+    protected List<SortField> sortOrderFields = new ArrayList<SortField>();
+    protected List<AltRowStyle> altRowStyles = new ArrayList<AltRowStyle>();
 
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
@@ -147,25 +146,25 @@ public class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    protected List<ModelFormField> fieldList = FastList.newInstance();
+    protected List<ModelFormField> fieldList = new ArrayList<ModelFormField>();
 
     /** This Map is keyed with the field name and has a ModelFormField for the value.
      */
-    protected Map<String, ModelFormField> fieldMap = FastMap.newInstance();
+    protected Map<String, ModelFormField> fieldMap = new HashMap<String, ModelFormField>();
 
     /** Keeps track of conditional fields to help ensure that only one is rendered
      */
-    protected Set<String> useWhenFields = FastSet.newInstance();
+    protected Set<String> useWhenFields = new HashSet<String>();
 
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
      */
-    protected List<FieldGroupBase> fieldGroupList = FastList.newInstance();
+    protected List<FieldGroupBase> fieldGroupList = new ArrayList<FieldGroupBase>();
 
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
-    protected Map<String, FieldGroupBase> fieldGroupMap = FastMap.newInstance();
+    protected Map<String, FieldGroupBase> fieldGroupMap = new HashMap<String, FieldGroupBase>();
 
     /** This field group will be the "catch-all" group for fields that are not
      *  included in an explicit field-group.
@@ -192,7 +191,7 @@ public class ModelForm extends ModelWidget {
     protected List<ModelFormAction> actions;
     protected List<ModelFormAction> rowActions;
     protected FlexibleStringExpander rowCountExdr;
-    protected List<ModelFormField> multiSubmitFields = FastList.newInstance();
+    protected List<ModelFormField> multiSubmitFields = new ArrayList<ModelFormField>();
     protected int rowCount = 0;
     private String sortFieldParameterName = "sortField";
 
@@ -571,7 +570,7 @@ public class ModelForm extends ModelWidget {
 
         // reorder fields according to sort order
         if (sortOrderFields.size() > 0) {
-            List<ModelFormField> sortedFields = FastList.newInstance();
+            List<ModelFormField> sortedFields = new LinkedList<ModelFormField>();
             for (SortField sortField: this.sortOrderFields) {
                 String fieldName = sortField.getFieldName();
                 if (UtilValidate.isEmpty(fieldName)) {
@@ -599,7 +598,7 @@ public class ModelForm extends ModelWidget {
         }
 
         if (UtilValidate.isNotEmpty(this.lastOrderFields)) {
-            List<ModelFormField> lastedFields = FastList.newInstance();
+            List<ModelFormField> lastedFields = new LinkedList<ModelFormField>();
             for (String fieldName: this.lastOrderFields) {
                 if (UtilValidate.isEmpty(fieldName)) {
                     continue;
@@ -695,7 +694,7 @@ public class ModelForm extends ModelWidget {
 
     protected void addOnSubmitUpdateArea(UpdateArea updateArea) {
         if (onSubmitUpdateAreas == null) {
-            onSubmitUpdateAreas = FastList.newInstance();
+            onSubmitUpdateAreas = new ArrayList<UpdateArea>();
         }
         int index = onSubmitUpdateAreas.indexOf(updateArea);
         if (index != -1) {
@@ -707,7 +706,7 @@ public class ModelForm extends ModelWidget {
 
     protected void addOnPaginateUpdateArea(UpdateArea updateArea) {
         if (onPaginateUpdateAreas == null) {
-            onPaginateUpdateAreas = FastList.newInstance();
+            onPaginateUpdateAreas = new ArrayList<UpdateArea>();
         }
         int index = onPaginateUpdateAreas.indexOf(updateArea);
         if (index != -1) {
@@ -724,7 +723,7 @@ public class ModelForm extends ModelWidget {
 
     protected void addOnSortColumnUpdateArea(UpdateArea updateArea) {
         if (onSortColumnUpdateAreas == null) {
-            onSortColumnUpdateAreas = FastList.newInstance();
+            onSortColumnUpdateAreas = new ArrayList<UpdateArea>();
         }
         int index = onSortColumnUpdateAreas.indexOf(updateArea);
         if (index != -1) {
@@ -916,7 +915,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void renderSingleFormString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer, int positions) throws IOException {
-        List<ModelFormField> tempFieldList = FastList.newInstance();
+        List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
         tempFieldList.addAll(this.fieldList);
 
         // Check to see if there is a field, same name and same use-when (could come from extended form)
@@ -1212,7 +1211,7 @@ public class ModelForm extends ModelWidget {
         // in this model: we can have more fields with the same name when use-when
         // conditions are used or when a form is extended or when the fields are
         // automatically retrieved by a service or entity definition.
-        List<ModelFormField> tempFieldList = FastList.newInstance();
+        List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
         tempFieldList.addAll(this.fieldList);
         for (int j = 0; j < tempFieldList.size(); j++) {
             ModelFormField modelFormField = tempFieldList.get(j);
@@ -1230,13 +1229,13 @@ public class ModelForm extends ModelWidget {
         // We get a sorted (by position, ascending) set of lists;
         // each list contains all the fields with that position.
         Collection<List<ModelFormField>> fieldListsByPosition = this.getFieldListsByPosition(tempFieldList);
-        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = FastList.newInstance(); // this list will contain maps, each one containing the list of fields for a position
+        List<Map<String, List<ModelFormField>>> fieldRowsByPosition = new LinkedList<Map<String, List<ModelFormField>>>(); // this list will contain maps, each one containing the list of fields for a position
         for (List<ModelFormField> mainFieldList: fieldListsByPosition) {
             int numOfColumns = 0;
 
-            List<ModelFormField> innerDisplayHyperlinkFieldsBegin = FastList.newInstance();
-            List<ModelFormField> innerFormFields = FastList.newInstance();
-            List<ModelFormField> innerDisplayHyperlinkFieldsEnd = FastList.newInstance();
+            List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<ModelFormField>();
+            List<ModelFormField> innerFormFields = new LinkedList<ModelFormField>();
+            List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<ModelFormField>();
 
             // render title for each field, except hidden & ignored, etc
 
@@ -1522,7 +1521,7 @@ public class ModelForm extends ModelWidget {
             int itemIndex = -1;
             Object item = null;
             context.put("wholeFormContext", context);
-            Map<String, Object> previousItem = FastMap.newInstance();
+            Map<String, Object> previousItem = new HashMap<String, Object>();
             while ((item = this.safeNext(iter)) != null) {
                 itemIndex++;
                 if (itemIndex >= highIndex) {
@@ -1556,7 +1555,7 @@ public class ModelForm extends ModelWidget {
                 this.resetBshInterpreter(localContext);
                 localContext.push();
                 localContext.put("previousItem", previousItem);
-                previousItem = FastMap.newInstance();
+                previousItem = new HashMap<String, Object>();
                 previousItem.putAll(itemMap);
 
                 ModelFormAction.runSubActions(this.rowActions, localContext);
@@ -1571,7 +1570,7 @@ public class ModelForm extends ModelWidget {
                 if (Debug.verboseOn()) Debug.logVerbose("In form got another row, context is: " + localContext, module);
 
                 // Check to see if there is a field, same name and same use-when (could come from extended form)
-                List<ModelFormField> tempFieldList = FastList.newInstance();
+                List<ModelFormField> tempFieldList = new LinkedList<ModelFormField>();
                 tempFieldList.addAll(this.fieldList);
                 for (int j = 0; j < tempFieldList.size(); j++) {
                     ModelFormField modelFormField = tempFieldList.get(j);
@@ -1608,9 +1607,9 @@ public class ModelForm extends ModelWidget {
                     // we have two phases: preprocessing and rendering
                     this.rowCount++;
 
-                    List<ModelFormField> innerDisplayHyperlinkFieldsBegin = FastList.newInstance();
-                    List<ModelFormField> innerFormFields = FastList.newInstance();
-                    List<ModelFormField> innerDisplayHyperlinkFieldsEnd = FastList.newInstance();
+                    List<ModelFormField> innerDisplayHyperlinkFieldsBegin = new LinkedList<ModelFormField>();
+                    List<ModelFormField> innerFormFields = new LinkedList<ModelFormField>();
+                    List<ModelFormField> innerDisplayHyperlinkFieldsEnd = new LinkedList<ModelFormField>();
 
                     // Preprocessing:
                     // all the form fields are evaluated and the ones that will
@@ -1737,7 +1736,7 @@ public class ModelForm extends ModelWidget {
         // render row formatting open
         formStringRenderer.renderFormatItemRowOpen(writer, localContext, this);
         Iterator<ModelFormField> innerDisplayHyperlinkFieldsBeginIter = innerDisplayHyperlinkFieldsBegin.iterator();
-        Map<String, Integer> fieldCount = FastMap.newInstance();
+        Map<String, Integer> fieldCount = new HashMap<String, Integer>();
         while(innerDisplayHyperlinkFieldsBeginIter.hasNext()){
             ModelFormField modelFormField = innerDisplayHyperlinkFieldsBeginIter.next();
             if(fieldCount.containsKey(modelFormField.getFieldName())){
@@ -1862,7 +1861,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered, List<ModelFormField> fieldList, int position) {
-        List<ModelFormField> hiddenIgnoredFieldList = FastList.newInstance();
+        List<ModelFormField> hiddenIgnoredFieldList = new LinkedList<ModelFormField>();
         for (ModelFormField modelFormField: fieldList) {
             // with position == -1 then gets all the hidden fields
             if (position != -1 && modelFormField.getPosition() != position) {
@@ -1927,7 +1926,7 @@ public class ModelForm extends ModelWidget {
             Integer position = Integer.valueOf(modelFormField.getPosition());
             List<ModelFormField> fieldListByPosition = fieldsByPosition.get(position);
             if (fieldListByPosition == null) {
-                fieldListByPosition = FastList.newInstance();
+                fieldListByPosition = new LinkedList<ModelFormField>();
                 fieldsByPosition.put(position, fieldListByPosition);
             }
             fieldListByPosition.add(modelFormField);
@@ -1936,7 +1935,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public List<ModelFormField> getFieldListByPosition(List<ModelFormField> modelFormFieldList, int position) {
-        List<ModelFormField> fieldListByPosition = FastList.newInstance();
+        List<ModelFormField> fieldListByPosition = new LinkedList<ModelFormField>();
         for (ModelFormField modelFormField: modelFormFieldList) {
             if (modelFormField.getPosition() == position) {
                 fieldListByPosition.add(modelFormField);
@@ -2812,7 +2811,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void setDefaultEntityNameOnUpdateAreas() {
-        List<UpdateArea> allUpdateAreas = FastList.newInstance();
+        List<UpdateArea> allUpdateAreas = new LinkedList<UpdateArea>();
         if (UtilValidate.isNotEmpty(this.onSubmitUpdateAreas)) allUpdateAreas.addAll(this.onSubmitUpdateAreas);
         if (UtilValidate.isNotEmpty(this.onPaginateUpdateAreas)) allUpdateAreas.addAll(this.onPaginateUpdateAreas);
         for (UpdateArea updateArea : allUpdateAreas) {
@@ -2823,7 +2822,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void setDefaultServiceNameOnUpdateAreas() {
-        List<UpdateArea> allUpdateAreas = FastList.newInstance();
+        List<UpdateArea> allUpdateAreas = new LinkedList<UpdateArea>();
         if (UtilValidate.isNotEmpty(this.onSubmitUpdateAreas)) allUpdateAreas.addAll(this.onSubmitUpdateAreas);
         if (UtilValidate.isNotEmpty(this.onPaginateUpdateAreas)) allUpdateAreas.addAll(this.onPaginateUpdateAreas);
         for (UpdateArea updateArea : allUpdateAreas) {
@@ -2901,7 +2900,7 @@ public class ModelForm extends ModelWidget {
         protected String defaultEntityName;
         protected WidgetWorker.AutoEntityParameters autoEntityParameters;
         protected WidgetWorker.AutoEntityParameters autoServiceParameters;
-        List<WidgetWorker.Parameter> parameterList = FastList.newInstance();
+        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
         /** XML constructor.
          * @param updateAreaElement The <code>&lt;on-xxx-update-area&gt;</code>
          * XML element.
@@ -2950,7 +2949,7 @@ public class ModelForm extends ModelWidget {
             return FlexibleStringExpander.expandString(areaTarget, context);
         }
         public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = FastMap.newInstance();
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
             if (autoServiceParameters != null) {
                 fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, defaultServiceName));
             }
@@ -3175,7 +3174,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public Set<String> getAllEntityNamesUsed() {
-        Set<String> allEntityNamesUsed = FastSet.newInstance();
+        Set<String> allEntityNamesUsed = new HashSet<String>();
         for (AutoFieldsEntity autoFieldsEntity: this.autoFieldsEntities) {
             allEntityNamesUsed.add(autoFieldsEntity.entityName);
         }
@@ -3221,7 +3220,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public Set<String> getAllServiceNamesUsed() {
-        Set<String> allServiceNamesUsed = FastSet.newInstance();
+        Set<String> allServiceNamesUsed = new HashSet<String>();
         for (AutoFieldsService autoFieldsService: this.autoFieldsServices) {
             allServiceNamesUsed.add(autoFieldsService.serviceName);
         }
@@ -3254,7 +3253,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public Set<String> getLinkedRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestsUsed = FastSet.newInstance();
+        Set<String> allRequestsUsed = new HashSet<String>();
 
         if (this.fieldList != null) {
             for (ModelFormField modelFormField: this.fieldList) {
@@ -3306,7 +3305,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public Set<String> getTargetedRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestsUsed = FastSet.newInstance();
+        Set<String> allRequestsUsed = new HashSet<String>();
 
         if (this.altTargets != null) {
             for (AltTarget altTarget: this.altTargets) {
