@@ -239,7 +239,9 @@ public class StringUtil {
      * @param list List of String(s) to quote.
      */
     public static List<String> quoteStrList(List<String> list) {
-        List<String> tmpList = new LinkedList<String>();
+        List<String> tmpList = list;
+
+        list = new LinkedList<String>();
         for (String str: tmpList) {
             str = "'" + str + "'";
             list.add(str);
