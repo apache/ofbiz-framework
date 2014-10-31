@@ -18,7 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.config;
 
-import javolution.util.FastMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
@@ -32,7 +32,7 @@ public class JNDIConfigUtil {
 
     public static final String module = JNDIConfigUtil.class.getName();
     public static final String JNDI_CONFIG_XML_FILENAME = "jndiservers.xml";
-    private static final FastMap<String, JndiServerInfo> jndiServerInfos = FastMap.newInstance();
+    private static final ConcurrentHashMap<String, JndiServerInfo> jndiServerInfos = new ConcurrentHashMap<String, JndiServerInfo>();
 
     private static Element getXmlRootElement() throws GenericConfigException {
         try {

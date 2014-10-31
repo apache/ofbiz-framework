@@ -29,9 +29,12 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -39,9 +42,6 @@ import java.util.MissingResourceException;
 import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -78,7 +78,7 @@ public class UtilProperties implements Serializable {
 
     protected static Locale fallbackLocale = null;
     protected static Set<Locale> defaultCandidateLocales = null;
-    protected static Set<String> propertiesNotFound = FastSet.newInstance();
+    protected static Set<String> propertiesNotFound = new HashSet<String>();
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
@@ -658,7 +658,7 @@ public class UtilProperties implements Serializable {
         return getMessage(resource, name, UtilGenerics.toMap(String.class, context), locale);
     }
 
-    protected static Set<String> resourceNotFoundMessagesShown = FastSet.newInstance();
+    protected static Set<String> resourceNotFoundMessagesShown = new HashSet<String>();
     /** Returns the specified resource/properties file as a ResourceBundle
      * @param resource The name of the resource - can be a file, class, or URL
      * @param locale The locale that the given resource will correspond to
@@ -777,7 +777,7 @@ public class UtilProperties implements Serializable {
      * @return A list of candidate locales.
      */
     public static List<Locale> localeToCandidateList(Locale locale) {
-        List<Locale> localeList = FastList.newInstance();
+        List<Locale> localeList = new LinkedList<Locale>();
         localeList.add(locale);
         String localeString = locale.toString();
         int pos = localeString.lastIndexOf("_", localeString.length());
@@ -798,7 +798,7 @@ public class UtilProperties implements Serializable {
         if (defaultCandidateLocales == null) {
             synchronized (UtilProperties.class) {
                 if (defaultCandidateLocales == null) {
-                    defaultCandidateLocales = FastSet.newInstance();
+                    defaultCandidateLocales = new HashSet<Locale>();
                     defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
                     defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
                     defaultCandidateLocales.add(Locale.ROOT);
@@ -822,11 +822,10 @@ public class UtilProperties implements Serializable {
         if (Locale.ROOT.equals(locale)) {
             return UtilMisc.toList(locale);
         }
-        Set<Locale> localeSet = FastSet.newInstance();
+        Set<Locale> localeSet = new HashSet<Locale>();
         localeSet.addAll(localeToCandidateList(locale));
         localeSet.addAll(getDefaultCandidateLocales());
-        List<Locale> localeList = FastList.newInstance();
-        localeList.addAll(localeSet);
+        List<Locale> localeList = new ArrayList<Locale>(localeSet);
         return localeList;
     }
 
@@ -1036,11 +1035,11 @@ public class UtilProperties implements Serializable {
             if (bundle == null) {
                 synchronized (bundleCache) {
                     double startTime = System.currentTimeMillis();
-                    FastList<Locale> candidateLocales = (FastList<Locale>) getCandidateLocales(locale);
+                    List<Locale> candidateLocales = (List<Locale>) getCandidateLocales(locale);
                     UtilResourceBundle parentBundle = null;
                     int numProperties = 0;
                     while (candidateLocales.size() > 0) {
-                        Locale candidateLocale = candidateLocales.removeLast();
+                        Locale candidateLocale = candidateLocales.remove(candidateLocales.size() -1);
                         // ResourceBundles are connected together as a singly-linked list
                         String lookupName = createResourceName(resource, candidateLocale, true);
                         UtilResourceBundle lookupBundle = bundleCache.get(lookupName);

@@ -20,9 +20,8 @@ package org.ofbiz.base.util;
 
 import java.io.File;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
 
@@ -117,7 +116,8 @@ public class UtilJavaParse {
         return nextClose;
     }
 
-    public static Set<String> serviceMethodNames = FastSet.newInstance();
+    // FIXME: Not thread safe
+    public static Set<String> serviceMethodNames = new HashSet<String>();
     static {
         serviceMethodNames.add("runSync");
         serviceMethodNames.add("runSyncIgnore");
@@ -129,7 +129,7 @@ public class UtilJavaParse {
         serviceMethodNames.add("addCommitService");
     }
     public static Set<String> findServiceCallsInBlock(int blockStart, int blockEnd, String javaFile) {
-        Set<String> serviceNameSet = FastSet.newInstance();
+        Set<String> serviceNameSet = new HashSet<String>();
 
         int dispatcherIndex = javaFile.indexOf("dispatcher.", blockStart+1);
         while (dispatcherIndex > 0 && dispatcherIndex < blockEnd) {
@@ -154,7 +154,8 @@ public class UtilJavaParse {
         return serviceNameSet;
     }
 
-    public static Set<String> entityMethodNames = FastSet.newInstance();
+    // FIXME: Not thread safe
+    public static Set<String> entityMethodNames = new HashSet<String>();
     static {
         entityMethodNames.add("getModelEntity");
         entityMethodNames.add("getEntityGroupName");
@@ -197,7 +198,7 @@ public class UtilJavaParse {
         entityMethodNames.add("findCountByCondition");
     }
     public static Set<String> findEntityUseInBlock(int blockStart, int blockEnd, String javaFile) {
-        Set<String> entityNameSet = FastSet.newInstance();
+        Set<String> entityNameSet = new HashSet<String>();
 
         int delegatorIndex = javaFile.indexOf("delegator.", blockStart+1);
         while (delegatorIndex > 0 && delegatorIndex < blockEnd) {

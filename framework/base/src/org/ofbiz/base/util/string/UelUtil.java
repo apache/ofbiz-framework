@@ -19,6 +19,8 @@
 package org.ofbiz.base.util.string;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,9 +39,6 @@ import javax.el.PropertyNotWritableException;
 import javax.el.ResourceBundleELResolver;
 import javax.el.ValueExpression;
 import javax.el.VariableMapper;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -453,6 +452,7 @@ public class UelUtil {
      * @param property Property <code>Object</code> to be evaluated
      * @return New <code>List</code> or <code>Map</code>
      */
+    @SuppressWarnings("rawtypes")
     public static Object autoVivifyListOrMap(Object property) {
         String str = property.toString();
         boolean isList = ("add".equals(str) || str.startsWith("insert@"));
@@ -461,9 +461,9 @@ public class UelUtil {
             isList = (index != null);
         }
         if (isList) {
-            return FastList.newInstance();
+            return new LinkedList();
         } else {
-            return FastMap.newInstance();
+            return new HashMap();
         }
     }
 

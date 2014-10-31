@@ -26,11 +26,10 @@ import groovy.lang.Script;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.script.ScriptContext;
-
-import javolution.util.FastMap;
 
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.runtime.InvokerHelper;
@@ -95,7 +94,7 @@ public class GroovyUtil {
      * @return A <code>Binding</code> instance
      */
     public static Binding getBinding(Map<String, Object> context) {
-        Map<String, Object> vars = FastMap.newInstance();
+        Map<String, Object> vars = new HashMap<String, Object>();
         if (context != null) {
             vars.putAll(context);
             vars.put("context", context);

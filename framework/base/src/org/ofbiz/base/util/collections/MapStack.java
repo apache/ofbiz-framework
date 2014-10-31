@@ -21,11 +21,7 @@ package org.ofbiz.base.util.collections;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.context.ObjectFactory;
-
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilGenerics;
-
 
 /**
  * Map Stack
@@ -35,19 +31,8 @@ public class MapStack<K> extends MapContext<K, Object> {
 
     public static final String module = MapStack.class.getName();
 
-    protected static final ObjectFactory<MapStack<?>> mapStackFactory = new ObjectFactory<MapStack<?>>() {
-        @Override
-        protected MapStack<?> create() {
-            return new MapStack<Object>();
-        }
-    };
-
-    protected static final <K> MapStack<K> getMapStack() {
-        return (MapStack<K>) UtilGenerics.<K, Object>checkMap(mapStackFactory.object());
-    }
-
     public static <K> MapStack<K> create() {
-        MapStack<K> newValue = MapStack.getMapStack();
+        MapStack<K> newValue = new MapStack<K>();
         // initialize with a single entry
         newValue.push();
         return newValue;
@@ -55,7 +40,7 @@ public class MapStack<K> extends MapContext<K, Object> {
 
     @SuppressWarnings("unchecked")
     public static <K> MapStack<K> create(Map<K, Object> baseMap) {
-        MapStack<K> newValue = MapStack.getMapStack();
+        MapStack<K> newValue = new MapStack<K>();
         if (baseMap instanceof MapStack) {
             newValue.stackList.addAll(((MapStack) baseMap).stackList);
         } else {
@@ -66,7 +51,7 @@ public class MapStack<K> extends MapContext<K, Object> {
 
     /** Does a shallow copy of the internal stack of the passed MapStack; enables simultaneous stacks that share common parent Maps */
     public static <K> MapStack<K> create(MapStack<K> source) {
-        MapStack<K> newValue = MapStack.getMapStack();
+        MapStack<K> newValue = new MapStack<K>();
         newValue.stackList.addAll(source.stackList);
         return newValue;
     }

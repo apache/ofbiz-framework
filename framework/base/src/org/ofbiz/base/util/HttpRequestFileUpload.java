@@ -24,12 +24,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 /**
  * HttpRequestFileUpload - Receive a file upload through an HttpServletRequest
@@ -140,7 +139,7 @@ public class HttpRequestFileUpload {
         String boundary = new String(line, 0, boundaryLength); // -2 discards the newline character
 
         System.out.println("boundary=[" + boundary + "] length is " + boundaryLength);
-        fields = FastMap.newInstance();
+        fields = new HashMap<String, String>();
 
         while (requestLength > 0/* i != -1*/) {
             String newLine = "";

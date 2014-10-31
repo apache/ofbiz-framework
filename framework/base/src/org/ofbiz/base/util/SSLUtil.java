@@ -18,23 +18,21 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.component.ComponentConfig;
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
-import java.security.SecureRandom;
 import java.security.Principal;
-import java.security.cert.X509Certificate;
+import java.security.SecureRandom;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
-import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLPeerUnverifiedException;
 import javax.net.ssl.SSLServerSocketFactory;
@@ -44,7 +42,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509KeyManager;
 import javax.net.ssl.X509TrustManager;
 
-import javolution.util.FastList;
+import org.ofbiz.base.component.ComponentConfig;
+import org.ofbiz.base.config.GenericConfigException;
 
 /**
  * KeyStoreUtil - Utilities for setting up SSL connections with specific client certificates
@@ -92,7 +91,7 @@ public class SSLUtil {
     }
 
     public static KeyManager[] getKeyManagers(String alias) throws IOException, GeneralSecurityException, GenericConfigException {
-        List<KeyManager> keyMgrs = FastList.newInstance();
+        List<KeyManager> keyMgrs = new LinkedList<KeyManager>();
         for (ComponentConfig.KeystoreInfo ksi: ComponentConfig.getAllKeystoreInfos()) {
             if (ksi.isCertStore()) {
                 KeyStore ks = ksi.getKeyStore();
