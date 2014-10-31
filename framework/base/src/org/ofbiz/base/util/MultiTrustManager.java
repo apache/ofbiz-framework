@@ -25,11 +25,10 @@ import java.security.cert.Certificate;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.net.ssl.X509TrustManager;
-
-import javolution.util.FastList;
 
 /**
  * MultiTrustManager
@@ -46,7 +45,7 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     public MultiTrustManager() {
-        keystores = FastList.newInstance();
+        keystores = new LinkedList<KeyStore>();
     }
 
     public void add(KeyStore ks) {
@@ -78,7 +77,7 @@ public class MultiTrustManager implements X509TrustManager {
     }
 
     public X509Certificate[] getAcceptedIssuers() {
-        List<X509Certificate> issuers = FastList.newInstance();
+        List<X509Certificate> issuers = new LinkedList<X509Certificate>();
         for (KeyStore store: keystores) {
             try {
                 Enumeration<String> e = store.aliases();

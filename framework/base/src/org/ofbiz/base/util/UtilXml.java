@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.io.Reader;
 import java.io.Writer;
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -44,8 +45,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-
-import javolution.util.FastList;
 
 import org.apache.xerces.parsers.DOMParser;
 import org.apache.xerces.xni.Augmentations;
@@ -666,7 +665,7 @@ public class UtilXml {
     public static List<? extends Element> childElementList(Element element) {
         if (element == null) return null;
 
-        List<Element> elements = FastList.newInstance();
+        List<Element> elements = new LinkedList<Element>();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -686,7 +685,7 @@ public class UtilXml {
     public static List<? extends Element> childElementList(Element element, String childElementName) {
         if (element == null) return null;
 
-        List<Element> elements = FastList.newInstance();
+        List<Element> elements = new LinkedList<Element>();
         Node node = element.getFirstChild();
 
         if (node != null) {
@@ -708,7 +707,7 @@ public class UtilXml {
     public static List<? extends Element> childElementList(Element element, Set<String> childElementNames) {
         if (element == null) return null;
 
-        List<Element> elements = FastList.newInstance();
+        List<Element> elements = new LinkedList<Element>();
         if (childElementNames == null) return elements;
         Node node = element.getFirstChild();
 
@@ -733,7 +732,7 @@ public class UtilXml {
     /** Return a List of Element objects that are children of the given DocumentFragment */
     public static List<? extends Element> childElementList(DocumentFragment fragment) {
         if (fragment == null) return null;
-        List<Element> elements = FastList.newInstance();
+        List<Element> elements = new LinkedList<Element>();
         Node node = fragment.getFirstChild();
         if (node != null) {
             do {
@@ -751,7 +750,7 @@ public class UtilXml {
     public static List<? extends Node> childNodeList(Node node) {
         if (node == null) return null;
 
-        List<Node> nodes = FastList.newInstance();
+        List<Node> nodes = new LinkedList<Node>();
 
         do {
             if (node.getNodeType() == Node.ELEMENT_NODE || node.getNodeType() == Node.COMMENT_NODE) {

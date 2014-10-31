@@ -23,18 +23,15 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
-
-import javolution.context.ObjectFactory;
-import javolution.lang.Reusable;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
@@ -56,6 +53,7 @@ public class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
     public static final String module = StringUtil.class.getName();
+    // FIXME: Not thread safe
     protected static final Map<String, Pattern> substitutionPatternMap;
 
     /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
@@ -67,7 +65,7 @@ public class StringUtil {
         List<Codec> codecList = Arrays.asList(new HTMLEntityCodec(), new PercentCodec());
         defaultWebEncoder = new DefaultEncoder(codecList);
         defaultWebValidator = new DefaultValidator();
-        substitutionPatternMap = FastMap.newInstance();
+        substitutionPatternMap = new HashMap<String, Pattern>();
         substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
         substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
         substitutionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
@@ -203,7 +201,7 @@ public class StringUtil {
         else               st = new StringTokenizer(str);
 
         if (st != null && st.hasMoreTokens()) {
-            splitList = FastList.newInstance();
+            splitList = new LinkedList<String>();
 
             while (st.hasMoreTokens())
                 splitList.add(st.nextToken());
@@ -229,7 +227,7 @@ public class StringUtil {
 
 
         if (st != null && st.length > 0) {
-            splitList = FastList.newInstance();
+            splitList = new LinkedList<String>();
             for (int i=0; i < st.length; i++) splitList.add(st[i]);
         }
 
@@ -241,9 +239,7 @@ public class StringUtil {
      * @param list List of String(s) to quote.
      */
     public static List<String> quoteStrList(List<String> list) {
-        List<String> tmpList = list;
-
-        list = FastList.newInstance();
+        List<String> tmpList = new LinkedList<String>();
         for (String str: tmpList) {
             str = "'" + str + "'";
             list.add(str);
@@ -274,7 +270,7 @@ public class StringUtil {
      */
     public static Map<String, String> strToMap(String str, String delim, boolean trim, String pairsSeparator) {
         if (str == null) return null;
-        Map<String, String> decodedMap = FastMap.newInstance();
+        Map<String, String> decodedMap = new HashMap<String, String>();
         List<String> elements = split(str, delim);
         pairsSeparator = pairsSeparator == null ? "=" : pairsSeparator;
 
@@ -384,7 +380,7 @@ public class StringUtil {
      * @return new Map
      */
     public static Map<String, String> toMap(String s) {
-        Map<String, String> newMap = FastMap.newInstance();
+        Map<String, String> newMap = new HashMap<String, String>();
         if (s.startsWith("{") && s.endsWith("}")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -408,7 +404,7 @@ public class StringUtil {
      * @return new List
      */
     public static List<String> toList(String s) {
-        List<String> newList = FastList.newInstance();
+        List<String> newList = new LinkedList<String>();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -429,7 +425,7 @@ public class StringUtil {
      * @return new List
      */
     public static Set<String> toSet(String s) {
-        Set<String> newSet = FastSet.newInstance();
+        Set<String> newSet = new HashSet<String>();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
@@ -454,7 +450,7 @@ public class StringUtil {
         if (keys == null || values == null || keys.size() != values.size()) {
             throw new IllegalArgumentException("Keys and Values cannot be null and must be the same size");
         }
-        Map<K, V> newMap = FastMap.newInstance();
+        Map<K, V> newMap = new HashMap<K, V>();
         for (int i = 0; i < keys.size(); i++) {
             newMap.put(keys.get(i), values.get(i));
         }
@@ -791,19 +787,12 @@ public class StringUtil {
 
     /**
      * A simple Map wrapper class that will do HTML encoding. To be used for passing a Map to something that will expand Strings with it as a context, etc.
-     * To reduce memory allocation impact this object is recyclable and minimal in that it only keeps a reference to the original Map.
      */
-    public static class HtmlEncodingMapWrapper<K> implements Map<K, Object>, Reusable {
-        protected static final ObjectFactory<HtmlEncodingMapWrapper<?>> mapStackFactory = new ObjectFactory<HtmlEncodingMapWrapper<?>>() {
-            @Override
-            protected HtmlEncodingMapWrapper<?> create() {
-                return new HtmlEncodingMapWrapper<Object>();
-            }
-        };
+    public static class HtmlEncodingMapWrapper<K> implements Map<K, Object> {
         public static <K> HtmlEncodingMapWrapper<K> getHtmlEncodingMapWrapper(Map<K, Object> mapToWrap, SimpleEncoder encoder) {
             if (mapToWrap == null) return null;
 
-            HtmlEncodingMapWrapper<K> mapWrapper = (HtmlEncodingMapWrapper<K>) UtilGenerics.<K, Object>checkMap(mapStackFactory.object());
+            HtmlEncodingMapWrapper<K> mapWrapper = new HtmlEncodingMapWrapper<K>();
             mapWrapper.setup(mapToWrap, encoder);
             return mapWrapper;
         }

@@ -46,9 +46,8 @@ import java.security.cert.X509Certificate;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.codec.binary.Base64;
 import org.ofbiz.base.component.ComponentConfig;
@@ -143,7 +142,7 @@ public class KeyStoreUtil {
     }
 
     public static Map<String, String> getX500Map(Principal x500) {
-        Map<String, String> x500Map = FastMap.newInstance();
+        Map<String, String> x500Map = new HashMap<String, String>();
 
         String name = x500.getName().replaceAll("\\\\,", "&com;");
         String[] x500Opts = name.split("\\,");

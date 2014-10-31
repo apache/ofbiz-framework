@@ -35,6 +35,7 @@ import java.util.Currency;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,9 +47,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.oro.text.regex.MalformedPatternException;
@@ -88,7 +86,7 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getCombinedMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
-        FastMap<String, Object> combinedMap = FastMap.newInstance();
+        Map<String, Object> combinedMap = new HashMap<String, Object>();
         combinedMap.putAll(getParameterMap(request));                   // parameters override nothing
         combinedMap.putAll(getServletContextMap(request, namesToSkip)); // bottom level application attributes
         combinedMap.putAll(getSessionMap(request, namesToSkip));        // session overrides application
@@ -162,7 +160,7 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> getQueryStringOnlyParameterMap(String queryString) {
-        Map<String, Object> paramMap = FastMap.newInstance();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
         if (UtilValidate.isNotEmpty(queryString)) {
             StringTokenizer queryTokens = new StringTokenizer(queryString, "&");
             while (queryTokens.hasMoreTokens()) {
@@ -189,7 +187,7 @@ public class UtilHttp {
 
     public static Map<String, Object> getPathInfoOnlyParameterMap(String pathInfoStr, Set<? extends String> nameSet, Boolean onlyIncludeOrSkip) {
         boolean onlyIncludeOrSkipPrim = onlyIncludeOrSkip == null ? true : onlyIncludeOrSkip.booleanValue();
-        Map<String, Object> paramMap = FastMap.newInstance();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
 
         // now add in all path info parameters /~name1=value1/~name2=value2/
         // note that if a parameter with a given name already exists it will be put into a list with all values
@@ -218,7 +216,7 @@ public class UtilHttp {
                             paramList.add(value);
                         } else {
                             String paramString = (String) curValue;
-                            paramList = FastList.newInstance();
+                            paramList = new LinkedList<String>();
                             paramList.add(paramString);
                             paramList.add(value);
                         }
@@ -249,7 +247,7 @@ public class UtilHttp {
             if (paramEntry.getValue() instanceof String) {
                 paramEntry.setValue(canonicalizeParameter((String) paramEntry.getValue()));
             } else if (paramEntry.getValue() instanceof Collection<?>) {
-                List<String> newList = FastList.newInstance();
+                List<String> newList = new LinkedList<String>();
                 for (String listEntry: UtilGenerics.<String>checkCollection(paramEntry.getValue())) {
                     newList.add(canonicalizeParameter(listEntry));
                 }
@@ -275,7 +273,7 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getJSONAttributeMap(HttpServletRequest request) {
-        Map<String, Object> returnMap = FastMap.newInstance();
+        Map<String, Object> returnMap = new HashMap<String, Object>();
         Map<String, Object> attrMap = getAttributeMap(request);
         for (Map.Entry<String, Object> entry : attrMap.entrySet()) {
             String key = entry.getKey();
@@ -305,7 +303,7 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getAttributeMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
-        Map<String, Object> attributeMap = FastMap.newInstance();
+        Map<String, Object> attributeMap = new HashMap<String, Object>();
 
         // look at all request attributes
         Enumeration<String> requestAttrNames = UtilGenerics.cast(request.getAttributeNames());
@@ -339,7 +337,7 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getSessionMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
-        Map<String, Object> sessionMap = FastMap.newInstance();
+        Map<String, Object> sessionMap = new HashMap<String, Object>();
         HttpSession session = request.getSession();
 
         // look at all the session attributes
@@ -374,7 +372,7 @@ public class UtilHttp {
      * @return The resulting Map
      */
     public static Map<String, Object> getServletContextMap(HttpServletRequest request, Set<? extends String> namesToSkip) {
-        Map<String, Object> servletCtxMap = FastMap.newInstance();
+        Map<String, Object> servletCtxMap = new HashMap<String, Object>();
 
         // look at all servlet context attributes
         ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
@@ -1126,7 +1124,7 @@ public class UtilHttp {
      * index of the row.
      */
     public static Collection<Map<String, Object>> parseMultiFormData(Map<String, Object> parameters) {
-        FastMap<Integer, Map<String, Object>> rows = FastMap.newInstance(); // stores the rows keyed by row number
+        Map<Integer, Map<String, Object>> rows = new HashMap<Integer, Map<String, Object>>(); // stores the rows keyed by row number
 
         // first loop through all the keys and create a hashmap for each ${ROW_SUBMIT_PREFIX}${N} = Y
         for (String key: parameters.keySet()) {
@@ -1138,7 +1136,7 @@ public class UtilHttp {
 
             // decode the value of N and create a new map for it
             Integer n = Integer.decode(key.substring(ROW_SUBMIT_PREFIX_LENGTH, key.length()));
-            Map<String, Object> m = FastMap.newInstance();
+            Map<String, Object> m = new HashMap<String, Object>();
             m.put("row", n); // special "row" = N tuple
             rows.put(n, m); // key it to N
         }
@@ -1170,7 +1168,7 @@ public class UtilHttp {
      * multi form parameters (usually named according to the ${param}_o_N notation).
      */
     public static <V> Map<String, V> removeMultiFormParameters(Map<String, V> parameters) {
-        FastMap<String, V> filteredParameters = new FastMap<String, V>();
+        Map<String, V> filteredParameters = new HashMap<String, V>();
         for (Map.Entry<String, V> entry : parameters.entrySet()) {
             String key = entry.getKey();
             if (key != null && (key.indexOf(MULTI_ROW_DELIMITER) != -1 || key.indexOf("_useRowSubmit") != -1 || key.indexOf("_rowCount") != -1)) {
@@ -1220,7 +1218,7 @@ public class UtilHttp {
         if (UtilValidate.isEmpty(compositeType)) return null;
 
         // collect the composite fields into a map
-        Map<String, String> data = FastMap.newInstance();
+        Map<String, String> data = new HashMap<String, String>();
         for (Enumeration<String> names = UtilGenerics.cast(request.getParameterNames()); names.hasMoreElements();) {
             String name = names.nextElement();
             if (!name.startsWith(prefix + COMPOSITE_DELIMITER)) continue;
@@ -1375,7 +1373,7 @@ public class UtilHttp {
         HttpSession session = request.getSession();
         Map<String, Map<String, Object>> paramMapStore = UtilGenerics.checkMap(session.getAttribute("_PARAM_MAP_STORE_"));
         if (paramMapStore == null) {
-            paramMapStore = FastMap.newInstance();
+            paramMapStore = new HashMap<String, Map<String, Object>>();
             session.setAttribute("_PARAM_MAP_STORE_", paramMapStore);
         }
         Map<String, Object> parameters = getParameterMap(request);

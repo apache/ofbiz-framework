@@ -23,8 +23,10 @@ import java.io.NotSerializableException;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.MissingResourceException;
@@ -37,8 +39,6 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
 import jdbm.helper.FastIterator;
 import jdbm.htree.HTree;
 
@@ -475,7 +475,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
 
     public Collection<V> values() {
         if (fileTable != null) {
-            List<V> values = FastList.newInstance();
+            List<V> values = new LinkedList<V>();
             try {
                 synchronized (this) {
                     FastIterator<V> iter = fileTable.values();
@@ -490,7 +490,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
             }
             return values;
         } else {
-            List<V> valuesList = FastList.newInstance();
+            List<V> valuesList = new LinkedList<V>();
             for (CacheLine<V> line: memoryTable.values()) {
                 valuesList.add(line.getValue());
             }
@@ -896,7 +896,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     private Map<String, Object> createLineInfo(int keyNum, K key, CacheLine<V> line) {
-        Map<String, Object> lineInfo = FastMap.newInstance();
+        Map<String, Object> lineInfo = new HashMap<String, Object>();
         lineInfo.put("elementKey", key);
 
         if (line.getLoadTimeNanos() > 0) {
@@ -908,7 +908,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     private Map<String, Object> createLineInfo(int keyNum, K key, V value) {
-        Map<String, Object> lineInfo = FastMap.newInstance();
+        Map<String, Object> lineInfo = new HashMap<String, Object>();
         lineInfo.put("elementKey", key);
         lineInfo.put("lineSize", findSizeInBytes(value));
         lineInfo.put("keyNum", keyNum);
@@ -916,7 +916,7 @@ public class UtilCache<K, V> implements Serializable, EvictionListener<Object, C
     }
 
     public Collection<? extends Map<String, Object>> getLineInfos() {
-        List<Map<String, Object>> lineInfos = FastList.newInstance();
+        List<Map<String, Object>> lineInfos = new LinkedList<Map<String, Object>>();
         int keyIndex = 0;
         for (K key: getCacheLineKeys()) {
             Object nulledKey = fromKey(key);

@@ -19,22 +19,21 @@
 package org.ofbiz.base.concurrent;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.concurrent.ForkJoinPool;
+import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.Debug;
@@ -78,7 +77,7 @@ public final class ExecutionPool {
     }
 
     public static <F> List<F> getAllFutures(Collection<Future<F>> futureList) {
-        List<F> result = FastList.newInstance();
+        List<F> result = new LinkedList<F>();
         for (Future<F> future: futureList) {
             try {
                 result.add(future.get());
