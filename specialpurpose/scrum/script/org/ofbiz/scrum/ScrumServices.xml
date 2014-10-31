@@ -75,13 +75,13 @@
                 <if-compare operator="equals" value="${parameters.custRequestId}"
                     field="custReq[i].custRequestId">
                     <if-compare operator="not-equals" value="0" field="i">
-                        <set field="temp" from-field="custReq[i].custSequenceNum" /><log level="always" message="$$$$$$$$$ temp : ${temp}"></log>
+                        <set field="temp" from-field="custReq[i].custSequenceNum" /><!--<log level="always" message="$$$$$$$$$ temp : ${temp}"></log>-->
                         <set field="custReq[i].custSequenceNum" from-field="custReq[i-1].custSequenceNum" />
                         <set field="custReq[i-1].custSequenceNum" from-field="temp" />
 
                         <entity-one value-field="firstup" entity-name="CustRequest">
                             <field-map field-name="custRequestId" from-field="custReq[i].custRequestId" />
-                        </entity-one><log level="always" message="666666666666666666666 firstup : ${firstup}"></log>
+                        </entity-one><!--<log level="always" message="666666666666666666666 firstup : ${firstup}"></log>-->
                         <set field="firstup.custSequenceNum" from-field="custReq[i].custSequenceNum" />
                         <if-empty field="firstup">
                             <add-error><fail-message message="Cannot find with ID [${custReq[i].custRequestId}] and custSequenceNum [${custReq[i].custSequenceNum}]"/></add-error>
@@ -322,7 +322,7 @@
             <set field="index" value="${getNum-1}" />
             <set field="bottomCustReq" from-field="custReq[index]" />
             <!-- loop search selected custReq -->
-            <loop count="${index}" field="i"><log level="always" message="////////// i : ${i}"></log>
+            <loop count="${index}" field="i"><!--<log level="always" message="////////// i : ${i}"></log>-->
                 <if-compare-field operator="equals"
                     field="parameters.custRequestId" to-field="custReq[i].custRequestId">
                     <set field="selectedCustReq" from-field="custReq[i]" />
@@ -330,7 +330,7 @@
                     <set field="selectedIndex" from-field="i" />
                 </if-compare-field>
             </loop>
-            <loop count="${diffIndex}" field="j"><log level="always" message="////////// j : ${j}"></log>
+            <loop count="${diffIndex}" field="j"><!--<log level="always" message="////////// j : ${j}"></log>-->
                 <set field="lowerSeqNum" from-field="custReq[j+selectedIndex].custSequenceNum" />
 
                 <entity-one value-field="update" entity-name="CustRequest">
@@ -2377,7 +2377,7 @@
         </if-not-empty>
     </simple-method>
     <simple-method method-name="autoSprintNotification" short-description="Auto Sprint Notification">
-     <log level="always" message="==========>>> Auto Sprint Notification : ${parameters.sprintStatusId} for sprintId # ${parameters.sprintId}"/>
+     <!--<log level="always" message="==========>>> Auto Sprint Notification : ${parameters.sprintStatusId} for sprintId # ${parameters.sprintId}"/>-->
         <if-compare operator="equals" value="SPRINT_ACTIVE" field="parameters.sprintStatusId">
             <call-simple-method method-name="checkProductOwnerOfSprint"/>
             <if-not-empty field="ownerPartyId">
@@ -2404,7 +2404,7 @@
         </if-compare>
     </simple-method>
     <simple-method method-name="autoBacklogNotification" short-description="Auto backlog Notification">
-        <log level="always" message="==========>>> Auto backlog Notification : ${parameters.custRequestStatusId} for custRequestId # ${parameters.custRequestId}"/>
+        <!--<log level="always" message="==========>>> Auto backlog Notification : ${parameters.custRequestStatusId} for custRequestId # ${parameters.custRequestId}"/>-->
         <if-compare operator="equals" value="CRQ_ACCEPTED" field="parameters.custRequestStatusId">
             <call-simple-method method-name="checkProductOwnerOfBacklog"/>
             <if-not-empty field="ownerPartyId">
