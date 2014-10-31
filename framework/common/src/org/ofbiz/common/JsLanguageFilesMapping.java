@@ -20,9 +20,8 @@
 
 package org.ofbiz.common;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 
 public final class JsLanguageFilesMapping {
@@ -32,7 +31,7 @@ public final class JsLanguageFilesMapping {
 
     public static class datejs {
 
-        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static Map<String, String> localeFiles = new LinkedHashMap<String, String>();
         private static String defaultDateJs = "/images/jquery/plugins/datejs/date-en-US.js";
 
         static {
@@ -200,7 +199,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class jquery {
-        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static Map<String, String> localeFiles = new LinkedHashMap<String, String>();
         private static String defaultDateJs = "/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {
@@ -368,7 +367,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class validation {
-        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static Map<String, String> localeFiles = new LinkedHashMap<String, String>();
         private static String defaultValidation = "/images/webapp/images/jquery/plugins/validate/localization/messages_en.js";
 
         static {
@@ -535,7 +534,7 @@ public final class JsLanguageFilesMapping {
     }
 
     public static class dateTime {
-        private static Map<String, String> localeFiles = FastMap.newInstance();
+        private static Map<String, String> localeFiles = new LinkedHashMap<String, String>();
         private static String defaultDateTime = "/images/webapp/images/jquery/ui/i18n/jquery.ui.datepicker-en.js";
 
         static {

@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.common.preferences;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
@@ -132,7 +131,7 @@ public class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(GenericValue rec) throws GeneralException {
-        return addPrefToMap(rec, FastMap.<String, Object>newInstance());
+        return addPrefToMap(rec, new LinkedHashMap<String, Object>());
     }
 
     /**
@@ -142,7 +141,7 @@ public class PreferenceWorker {
      * @return user preference map
      */
     public static Map<String, Object> createUserPrefMap(List<GenericValue> recList) throws GeneralException {
-        Map<String, Object> userPrefMap = FastMap.newInstance();
+        Map<String, Object> userPrefMap =  new LinkedHashMap<String, Object>();
         if (recList != null) {
             for (GenericValue value: recList) {
                 addPrefToMap(value, userPrefMap);

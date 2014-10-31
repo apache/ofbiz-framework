@@ -19,6 +19,8 @@
 package org.ofbiz.common.scripting;
 
 import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Locale;
 import java.util.List;
 import java.util.Map;
@@ -28,9 +30,6 @@ import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.ScriptUtil;
@@ -115,13 +114,13 @@ public final class ContextHelper {
         if (isService()) {
             errorMessages = UtilGenerics.checkList(getResults().get(ModelService.ERROR_MESSAGE_LIST));
             if (errorMessages == null) {
-                errorMessages = FastList.newInstance();
+                errorMessages = new LinkedList<String>();
                 getResults().put(ModelService.ERROR_MESSAGE_LIST, errorMessages);
             }
         } else {
             errorMessages = UtilGenerics.checkList(getResults().get("_error_message_list_"));
             if (errorMessages == null) {
-                errorMessages = FastList.newInstance();
+                errorMessages = new LinkedList<String>();
                 getResults().put("_error_message_list_", errorMessages);
             }
         }
@@ -143,7 +142,7 @@ public final class ContextHelper {
     public Map<String, Object> getParameters() {
         Map<String, Object> parameters = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.PARAMETERS_KEY));
         if (parameters == null) {
-            parameters = FastMap.newInstance();
+            parameters =  new LinkedHashMap<String, Object>();
             this.context.setAttribute(ScriptUtil.PARAMETERS_KEY, parameters, ScriptContext.ENGINE_SCOPE);
         }
         return parameters;
@@ -164,7 +163,7 @@ public final class ContextHelper {
     public Map<String, Object> getResults() {
         Map<String, Object> results = UtilGenerics.checkMap(this.context.getAttribute(ScriptUtil.RESULT_KEY));
         if (results == null) {
-            results = FastMap.newInstance();
+            results =  new LinkedHashMap<String, Object>();
             this.context.setAttribute(ScriptUtil.RESULT_KEY, results, ScriptContext.ENGINE_SCOPE);
         }
         return results;

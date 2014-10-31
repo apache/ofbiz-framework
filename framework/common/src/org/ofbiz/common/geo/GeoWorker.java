@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.common.geo;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -52,7 +51,7 @@ public class GeoWorker {
 
     public static List<GenericValue> expandGeoGroup(GenericValue geo) {
         if (geo == null) {
-            return FastList.newInstance();
+            return new LinkedList<GenericValue>();
         }
         if (!"GROUP".equals(geo.getString("geoTypeId"))) {
             return UtilMisc.toList(geo);
@@ -60,7 +59,7 @@ public class GeoWorker {
 
         //Debug.logInfo("Expanding geo : " + geo, module);
 
-        List<GenericValue> geoList = FastList.newInstance();
+        List<GenericValue> geoList = new LinkedList<GenericValue>();
         List<GenericValue> thisGeoAssoc = null;
         try {
             thisGeoAssoc = geo.getRelated("AssocGeoAssoc", UtilMisc.toMap("geoAssocTypeId", "GROUP_MEMBER"), null, false);
@@ -90,7 +89,7 @@ public class GeoWorker {
         if (UtilValidate.isEmpty(geoIdByTypeMapOrig)) {
             return geoIdByTypeMapOrig;
         }
-        Map<String, String> geoIdByTypeMapTemp = FastMap.newInstance();
+        Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<String, String>();
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
             List<GenericValue> geoAssocList = delegator.findByAnd("GeoAssoc", UtilMisc.toMap("geoIdTo", geoIdByTypeEntry.getValue(), "geoAssocTypeId", "REGIONS"), null, true);
             for (GenericValue geoAssoc: geoAssocList) {
@@ -99,7 +98,7 @@ public class GeoWorker {
             }
         }
         geoIdByTypeMapTemp = expandGeoRegionDeep(geoIdByTypeMapTemp, delegator);
-        Map<String, String> geoIdByTypeMapNew = FastMap.newInstance();
+        Map<String, String> geoIdByTypeMapNew =  new LinkedHashMap<String, String>();
         // add the temp Map first, then the original over top of it, ie give the original priority over the sub/expanded values
         geoIdByTypeMapNew.putAll(geoIdByTypeMapTemp);
         geoIdByTypeMapNew.putAll(geoIdByTypeMapOrig);

@@ -20,6 +20,8 @@
 package org.ofbiz.common.login;
 
 import java.sql.Timestamp;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,9 +29,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.transaction.Transaction;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
@@ -91,7 +90,7 @@ public class LoginServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
 
@@ -469,11 +468,11 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> createUserLogin(DispatchContext ctx, Map<String, ?> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
-        List<String> errorMessageList = FastList.newInstance();
+        List<String> errorMessageList = new LinkedList<String>();
         Locale locale = (Locale) context.get("locale");
 
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -653,7 +652,7 @@ public class LoginServices {
             newPasswordVerify = newPasswordVerify.toLowerCase();
         }
 
-        List<String> errorMessageList = FastList.newInstance();
+        List<String> errorMessageList = new LinkedList<String>();
         if (newPassword != null) {
             checkNewPassword(userLoginToUpdate, currentPassword, newPassword, newPasswordVerify,
                 passwordHint, errorMessageList, adminUser, locale);
@@ -701,10 +700,10 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updateUserLoginId(DispatchContext ctx, Map<String, ?> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");
-        List<String> errorMessageList = FastList.newInstance();
+        List<String> errorMessageList = new LinkedList<String>();
         Locale locale = (Locale) context.get("locale");
 
         //boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -813,7 +812,7 @@ public class LoginServices {
      *@return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updateUserLoginSecurity(DispatchContext ctx, Map<String, ?> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue loggedInUserLogin = (GenericValue) context.get("userLogin");

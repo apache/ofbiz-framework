@@ -31,6 +31,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.Security;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -49,9 +51,6 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -334,7 +333,7 @@ public class EmailServices {
         } catch (SendFailedException e) {
             // message code prefix may be used by calling services to determine the cause of the failure
             Debug.logError(e, "[ADDRERR] Address error when sending message to [" + sendTo + "] from [" + sendFrom + "] cc [" + sendCc + "] bcc [" + sendBcc + "] subject [" + subject + "]", module);
-            List<SMTPAddressFailedException> failedAddresses = FastList.newInstance();
+            List<SMTPAddressFailedException> failedAddresses = new LinkedList<SMTPAddressFailedException>();
             Exception nestedException = null;
             while ((nestedException = e.getNextException()) != null && nestedException instanceof MessagingException) {
                 if (nestedException instanceof SMTPAddressFailedException) {
@@ -430,8 +429,8 @@ public class EmailServices {
         List<String> xslfoAttachScreenLocationListParam = UtilGenerics.checkList(serviceContext.remove("xslfoAttachScreenLocationList"));
         List<String> attachmentNameListParam = UtilGenerics.checkList(serviceContext.remove("attachmentNameList"));
         
-        List<String> xslfoAttachScreenLocationList = FastList.newInstance();
-        List<String> attachmentNameList = FastList.newInstance();
+        List<String> xslfoAttachScreenLocationList = new LinkedList<String>();
+        List<String> attachmentNameList = new LinkedList<String>();
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationParam)) xslfoAttachScreenLocationList.add(xslfoAttachScreenLocationParam);
         if (UtilValidate.isNotEmpty(attachmentNameParam)) attachmentNameList.add(attachmentNameParam);
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationListParam)) xslfoAttachScreenLocationList.addAll(xslfoAttachScreenLocationListParam);
@@ -488,7 +487,7 @@ public class EmailServices {
 
         // check if attachment screen location passed in
         if (UtilValidate.isNotEmpty(xslfoAttachScreenLocationList)) {
-            List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
+            List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String, ? extends Object>>();
             if (bodyText != null) {
                 bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
                 bodyParts.add(UtilMisc.<String, Object>toMap("content", bodyText, "type", "text/html"));
@@ -636,7 +635,7 @@ public class EmailServices {
     
     public static void sendFailureNotification(DispatchContext dctx, Map<String, ? extends Object> context, MimeMessage message, List<SMTPAddressFailedException> failures) {
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> newContext = FastMap.newInstance();
+        Map<String, Object> newContext = new LinkedHashMap<String, Object>();
         newContext.put("userLogin", context.get("userLogin"));
         newContext.put("sendFailureNotification", false);
         newContext.put("sendFrom", context.get("sendFrom"));
@@ -653,9 +652,9 @@ public class EmailServices {
         }
         sb.append(UtilProperties.getMessage(resource, "CommonEmailDeliveryOriginalMessage", locale));
         sb.append("/n/n");
-        List<Map<String, Object>> bodyParts = FastList.newInstance();
+        List<Map<String, Object>> bodyParts = new LinkedList<Map<String, Object>>();
         bodyParts.add(UtilMisc.<String, Object>toMap("content", sb.toString(), "type", "text/plain"));
-        Map<String, Object> bodyPart = FastMap.newInstance();
+        Map<String, Object> bodyPart = new LinkedHashMap<String, Object>();
         bodyPart.put("content", sb.toString());
         bodyPart.put("type", "text/plain");
         try {

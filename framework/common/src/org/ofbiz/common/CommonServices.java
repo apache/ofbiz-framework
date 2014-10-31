@@ -33,6 +33,8 @@ import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,9 +42,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.mail.internet.MimeMessage;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.metrics.Metrics;
 import org.ofbiz.base.metrics.MetricsFactory;
@@ -112,7 +111,7 @@ public class CommonServices {
         Delegator delegator = dctx.getDelegator();
         Map<String, Object> response = ServiceUtil.returnSuccess();
 
-        List<GenericValue> testingNodes = FastList.newInstance();
+        List<GenericValue> testingNodes = new LinkedList<GenericValue>();
         for (int i = 0; i < 3; i ++) {
             GenericValue testingNode = delegator.makeValue("TestingNode");
             testingNode.put("testingNodeId", "TESTING_NODE" + i);
@@ -227,7 +226,7 @@ public class CommonServices {
      * This service does not have required parameters and does not validate
      */
      public static Map<String, Object> echoService(DispatchContext dctx, Map<String, ?> context) {
-         Map<String, Object> result = FastMap.newInstance();
+         Map<String, Object> result =  new LinkedHashMap<String, Object>();
          result.putAll(context);
          result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
          return result;
@@ -387,7 +386,7 @@ public class CommonServices {
         String fileName = (String) context.get("_uploadFile_fileName");
         String contentType = (String) context.get("_uploadFile_contentType");
 
-        Map<String, Object> createCtx = FastMap.newInstance();
+        Map<String, Object> createCtx =  new LinkedHashMap<String, Object>();
         createCtx.put("binData", array);
         createCtx.put("dataResourceTypeId", "OFBIZ_FILE");
         createCtx.put("dataResourceName", fileName);
@@ -409,7 +408,7 @@ public class CommonServices {
 
         GenericValue dataResource = (GenericValue) createResp.get("dataResource");
         if (dataResource != null) {
-            Map<String, Object> contentCtx = FastMap.newInstance();
+            Map<String, Object> contentCtx =  new LinkedHashMap<String, Object>();
             contentCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
             contentCtx.put("localeString", ((Locale) context.get("locale")).toString());
             contentCtx.put("contentTypeId", "DOCUMENT");
@@ -523,10 +522,10 @@ public class CommonServices {
     }
 
     public static Map<String, Object> getAllMetrics(DispatchContext dctx, Map<String, ?> context) {
-        List<Map<String, Object>> metricsMapList = FastList.newInstance();
+        List<Map<String, Object>> metricsMapList = new LinkedList<Map<String, Object>>();
         Collection<Metrics> metricsList = MetricsFactory.getMetrics();
         for (Metrics metrics : metricsList) {
-            Map<String, Object> metricsMap = FastMap.newInstance();
+            Map<String, Object> metricsMap =  new LinkedHashMap<String, Object>();
             metricsMap.put("name", metrics.getName());
             metricsMap.put("serviceRate", metrics.getServiceRate());
             metricsMap.put("threshold", metrics.getThreshold());

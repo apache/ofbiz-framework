@@ -18,18 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.common.status;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
 import static org.ofbiz.base.util.UtilGenerics.checkList;
+
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -53,7 +53,7 @@ public class StatusServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonStatusMandatory", locale));
         }
 
-        List<GenericValue> statusItems = FastList.newInstance();
+        List<GenericValue> statusItems = new LinkedList<GenericValue>();
         for (String statusTypeId: statusTypes) {
             try {
                 List<GenericValue> myStatusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"), true);
@@ -62,7 +62,7 @@ public class StatusServices {
                 Debug.logError(e, module);
             }
         }
-        Map<String, Object> ret = FastMap.newInstance();
+        Map<String, Object> ret =  new LinkedHashMap<String, Object>();
         ret.put("statusItems",statusItems);
         return ret;
     }

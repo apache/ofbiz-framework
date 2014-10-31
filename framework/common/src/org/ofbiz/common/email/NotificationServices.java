@@ -22,10 +22,9 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -143,7 +142,7 @@ public class NotificationServices {
             // make sure we have a valid body before sending
             if (body != null) {
                 // retain only the required attributes for the sendMail service
-                Map<String, Object> emailContext = FastMap.newInstance();
+                Map<String, Object> emailContext =  new LinkedHashMap<String, Object>();
                 emailContext.put("sendTo", context.get("sendTo"));
                 emailContext.put("body", body);
                 emailContext.put("sendCc", context.get("sendCc"));
@@ -191,7 +190,7 @@ public class NotificationServices {
         Locale locale = (Locale) context.get("locale");
         Map<String, Object> result = null;
         if (templateData == null) {
-            templateData = FastMap.newInstance();
+            templateData =  new LinkedHashMap<String, Object>();
         }
 
         try {
