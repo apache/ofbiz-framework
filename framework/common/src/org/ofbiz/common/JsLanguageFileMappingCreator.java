@@ -23,11 +23,10 @@ import java.io.File;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.io.FileUtils;
 import org.ofbiz.base.util.Debug;
@@ -48,10 +47,10 @@ public class JsLanguageFileMappingCreator {
         String encoding = (String) context.get("encoding"); // default value: UTF-8
 
         List<Locale> localeList = UtilMisc.availableLocales();
-        Map<String, Object> jQueryLocaleFile = FastMap.newInstance();
-        Map<String, String> dateJsLocaleFile = FastMap.newInstance();
-        Map<String, String> validationLocaleFile = FastMap.newInstance();
-        Map<String, String> dateTimePickerLocaleFile = FastMap.newInstance();
+        Map<String, Object> jQueryLocaleFile = new LinkedHashMap<String, Object>();
+        Map<String, String> dateJsLocaleFile = new LinkedHashMap<String, String>();
+        Map<String, String> validationLocaleFile = new LinkedHashMap<String, String>();
+        Map<String, String> dateTimePickerLocaleFile = new LinkedHashMap<String, String>();
 
         // setup some variables to locate the js files
         String componentRoot = "component://images/webapp";

@@ -23,14 +23,13 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -70,7 +69,7 @@ public class FindServices {
     public static Map<String, EntityComparisonOperator<?, ?>> entityOperators;
 
     static {
-        entityOperators = FastMap.newInstance();
+        entityOperators =  new LinkedHashMap<String, EntityComparisonOperator<?, ?>>();
         entityOperators.put("between", EntityOperator.BETWEEN);
         entityOperators.put("equals", EntityOperator.EQUALS);
         entityOperators.put("greaterThan", EntityOperator.GREATER_THAN);
@@ -110,7 +109,7 @@ public class FindServices {
         // Note that "normalizedFields" will contain values other than those
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
-        Map<String, Map<String, Map<String, Object>>> normalizedFields = FastMap.newInstance();
+        Map<String, Map<String, Map<String, Object>>> normalizedFields = new LinkedHashMap<String, Map<String, Map<String, Object>>>();
         //StringBuffer queryStringBuf = new StringBuffer();
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if
@@ -182,19 +181,19 @@ public class FindServices {
             }
             subMap = normalizedFields.get(fieldNameRoot);
             if (subMap == null) {
-                subMap = FastMap.newInstance();
+                subMap = new LinkedHashMap<String, Map<String, Object>>();
                 normalizedFields.put(fieldNameRoot, subMap);
             }
             subMap2 = subMap.get(fieldPair);
             if (subMap2 == null) {
-                subMap2 = FastMap.newInstance();
+                subMap2 = new LinkedHashMap<String, Object>();
                 subMap.put(fieldPair, subMap2);
             }
             subMap2.put(fieldMode, fieldValue);
 
             List<Object[]> origList = origValueMap.get(fieldNameRoot);
             if (origList == null) {
-                origList = FastList.newInstance();
+                origList = new LinkedList<Object[]>();
                 origValueMap.put(fieldNameRoot, origList);
             }
             Object [] origValues = {fieldNameRaw, fieldValue};
@@ -214,13 +213,13 @@ public class FindServices {
      * @return returns an EntityCondition list
      */
     public static List<EntityCondition> createConditionList(Map<String, ? extends Object> parameters, List<ModelField> fieldList, Map<String, Object> queryStringMap, Delegator delegator, Map<String, ?> context) {
-        Set<String> processed = FastSet.newInstance();
-        Set<String> keys = FastSet.newInstance();
-        Map<String, ModelField> fieldMap = FastMap.newInstance();
+        Set<String> processed = new LinkedHashSet<String>();
+        Set<String> keys = new LinkedHashSet<String>();
+        Map<String, ModelField> fieldMap = new LinkedHashMap<String, ModelField>();
         for (ModelField modelField : fieldList) {
             fieldMap.put(modelField.getName(), modelField);
         }
-        List<EntityCondition> result = FastList.newInstance();
+        List<EntityCondition> result = new LinkedList<EntityCondition>();
         for (Map.Entry<String, ? extends Object> entry : parameters.entrySet()) {
             String parameterName = entry.getKey();
             if (processed.contains(parameterName)) {
@@ -365,7 +364,7 @@ public class FindServices {
         Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityCondition cond = null;
-        List<EntityCondition> tmpList = FastList.newInstance();
+        List<EntityCondition> tmpList = new LinkedList<EntityCondition>();
         String opString = null;
         boolean ignoreCase = false;
         List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
@@ -548,7 +547,7 @@ public class FindServices {
         }
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
-        Map<String, Object> queryStringMap = FastMap.newInstance();
+        Map<String, Object> queryStringMap = new LinkedHashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
@@ -665,7 +664,7 @@ public class FindServices {
         // Contained in the associated entity.
         // Those extra fields will be ignored in the second half of this method.
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
-        Map<String, Object> normalizedFields = FastMap.newInstance();
+        Map<String, Object> normalizedFields = new LinkedHashMap<String, Object>();
         //StringBuffer queryStringBuf = new StringBuffer();
         for (String fieldNameRaw: inputFields.keySet()) { // The name as it appeas in the HTML form
             String fieldNameRoot = null; // The entity field name. Everything to the left of the first "_" if

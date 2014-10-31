@@ -18,11 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.common.status;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.jsp.PageContext;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -52,7 +51,7 @@ public class StatusWorker {
 
     public static void getStatusItems(PageContext pageContext, String attributeName, String statusTypeIdOne, String statusTypeIdTwo) {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
-        List<GenericValue> statusItems = FastList.newInstance();
+        List<GenericValue> statusItems = new LinkedList<GenericValue>();
 
         try {
             List<GenericValue> calItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdOne), UtilMisc.toList("sequenceId"), true);

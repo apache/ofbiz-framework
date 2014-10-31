@@ -25,11 +25,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
@@ -60,7 +59,7 @@ public class FtpServices {
             Debug.logError(ioe, "[putFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = FastList.newInstance();
+        List<String> errorList = new LinkedList<String>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");
@@ -145,7 +144,7 @@ public class FtpServices {
             Debug.logError(ioe, "[getFile] Problem opening local file", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFtpFileCannotBeOpen", locale));
         }
-        List<String> errorList = FastList.newInstance();
+        List<String> errorList = new LinkedList<String>();
         FTPClient ftp = new FTPClient();
         try {
             Integer defaultTimeout = (Integer) context.get("defaultTimeout");

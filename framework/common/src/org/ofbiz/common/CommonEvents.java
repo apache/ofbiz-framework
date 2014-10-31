@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,7 +41,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastMap;
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -170,7 +170,7 @@ public class CommonEvents {
             String followerSessionId = request.getParameter("followerSid");
             String followSessionId = request.getParameter("followSid");
             Map<String, String> follow = appletSessions.get(followSessionId);
-            if (follow == null) follow = FastMap.newInstance();
+            if (follow == null) follow = new LinkedHashMap<String, String>();
             String followerListStr = follow.get("followers");
             if (followerListStr == null) {
                 followerListStr = followerSessionId;
@@ -192,7 +192,7 @@ public class CommonEvents {
             String followerSessionId = request.getParameter("followerSid");
             String pageUrl = request.getParameter("pageUrl");
             Map<String, String> follow = appletSessions.get(followerSessionId);
-            if (follow == null) follow = FastMap.newInstance();
+            if (follow == null) follow = new LinkedHashMap<String, String>();
             follow.put("followPage", pageUrl);
             appletSessions.put(followerSessionId, follow);
         }

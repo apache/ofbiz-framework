@@ -24,6 +24,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -32,14 +33,10 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.ParserConfigurationException;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilXml;
-
 import org.xml.sax.SAXException;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -73,7 +70,7 @@ public class ImageTransform {
 
         /* VARIABLES */
         BufferedImage bufImg;
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
 
         /* BUFFERED IMAGE */
         try {
@@ -113,7 +110,7 @@ public class ImageTransform {
         /* VARIABLES */
         BufferedImage bufNewImg;
         double defaultHeight, defaultWidth, scaleFactor;
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
 
         /* DIMENSIONS from ImageProperties */
         // A missed dimension is authorized
@@ -220,8 +217,8 @@ public class ImageTransform {
         /* VARIABLES */
         Document document;
         Element rootElt;
-        Map<String, Map<String, String>> valueMap = FastMap.newInstance();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Map<String, String>> valueMap =  new LinkedHashMap<String, Map<String, String>>();
+        Map<String, Object> result =  new LinkedHashMap<String, Object>();
 
         /* PARSING */
         try {
@@ -255,10 +252,10 @@ public class ImageTransform {
         /* get NAME and VALUE */
         List<? extends Element> children = UtilXml.childElementList(rootElt); // FIXME : despite upgrading to jdom 1.1, it seems that getChildren is pre 1.5 java code (ie getChildren does not retun List<Element> but only List)
         for (Element currentElt : children) {
-            Map<String, String> eltMap = FastMap.newInstance();
+            Map<String, String> eltMap =  new LinkedHashMap<String, String>();
             List<? extends Element> children2 = UtilXml.childElementList(currentElt);
             if (children2.size() > 0) {
-                Map<String, String> childMap = FastMap.newInstance();
+                Map<String, String> childMap =  new LinkedHashMap<String, String>();
                 // loop over Children 1st level
                 for (Element currentChild : children2) {
                     childMap.put(currentChild.getAttribute("name"), currentChild.getAttribute("value"));
