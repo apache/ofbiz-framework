@@ -79,8 +79,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
     public abstract void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException;
 
-    public abstract String rawString();
-
     protected static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
         if (subElementList.isEmpty()) {
             return Collections.emptyList();
@@ -312,11 +310,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public boolean isMainSection() {
             return isMainSection;
         }
-
-        @Override
-        public String rawString() {
-            return "<section name=\"" + getName() + "\">";
-        }
     }
 
     public static final class ColumnContainer extends ModelScreenWidget {
@@ -358,11 +351,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
-        }
-
-        @Override
-        public String rawString() {
-            return "<column-container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
         }
     }
 
@@ -448,11 +436,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
-        }
-
-        @Override
-        public String rawString() {
-            return "<container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" auto-update-target=\"" + this.autoUpdateTargetExdr.getOriginal() + "\">";
         }
     }
 
@@ -611,11 +594,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public Menu getTabMenu() {
             return this.tabMenu;
         }
-
-        @Override
-        public String rawString() {
-            return "<screenlet id=\"" + this.idExdr.getOriginal() + "\" title=\"" + this.titleExdr.getOriginal() + "\">";
-        }
     }
 
     public static final class HorizontalSeparator extends ModelScreenWidget {
@@ -640,11 +618,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
-        }
-
-        @Override
-        public String rawString() {
-            return "<horizontal-separator id=\"" + this.idExdr.getOriginal() + "\" name=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\">";
         }
     }
 
@@ -712,11 +685,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
         }
-
-        @Override
-        public String rawString() {
-            return "<include-screen name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\" share-scope=\"" + this.shareScopeExdr.getOriginal() + "\"/>";
-        }
     }
 
     public static final class DecoratorScreen extends ModelScreenWidget {
@@ -776,11 +744,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public Map<String, DecoratorSection> getSectionMap() {
             return sectionMap;
         }
-
-        @Override
-        public String rawString() {
-            return "<decorator-screen name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\"/>";
-        }
     }
 
     public static final class DecoratorSection extends ModelScreenWidget {
@@ -802,11 +765,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
-        }
-
-        @Override
-        public String rawString() {
-            return "<decorator-section name=\"" + getName() + "\">";
         }
     }
 
@@ -837,11 +795,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     sections.render(getName());
                 }
             }
-        }
-
-        @Override
-        public String rawString() {
-            return "<decorator-section-include name=\"" + getName() + "\">";
         }
     }
 
@@ -892,11 +845,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
-        }
-
-        @Override
-        public String rawString() {
-            return "<label id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" text=\"" + this.textExdr.getOriginal() + "\"/>";
         }
     }
 
@@ -972,11 +920,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String shareScopeString = this.shareScopeExdr.expandString(context);
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
-        }
-
-        @Override
-        public String rawString() {
-            return "<include-form name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\" share-scope=\"" + this.shareScopeExdr.getOriginal() + "\"/>";
         }
     }
 
@@ -1055,11 +998,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
         }
-
-        @Override
-        public String rawString() {
-            return "<include-tree name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\" share-scope=\"" + this.shareScopeExdr.getOriginal() + "\"/>";
-        }
     }
 
     public static final class PlatformSpecific extends ModelScreenWidget {
@@ -1098,16 +1036,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             if (subWidget != null) {
                 subWidget.renderWidgetString(writer, context, screenStringRenderer);
             }
-        }
-
-        @Override
-        public String rawString() {
-            Collection<ModelScreenWidget> subWidgetList = this.subWidgets.values();
-            StringBuilder subWidgetsRawString = new StringBuilder("<platform-specific>");
-            for (ModelScreenWidget subWidget: subWidgetList) {
-                subWidgetsRawString.append(subWidget.rawString());
-            }
-            return subWidgetsRawString.append("</platform-specific>").toString();
         }
     }
 
@@ -1236,12 +1164,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.xmlEscape;
         }
 
-        @Override
-        public String rawString() {
-            // may want to expand this a bit more
-            return "<content content-id=\"" + this.contentId.getOriginal() + "\" xml-escape=\"" + this.xmlEscape + "\"/>";
-        }
-
         public String getWidth() {
             return this.width;
         }
@@ -1314,12 +1236,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public boolean xmlEscape() {
             return this.xmlEscape;
         }
-
-        @Override
-        public String rawString() {
-            // may want to expand this a bit more
-            return "<sub-content content-id=\"" + this.contentId.getOriginal() + "\" map-key=\"" + this.mapKey.getOriginal() + "\" xml-escape=\"" + this.xmlEscape + "\"/>";
-        }
     }
 
     public static final class Menu extends ModelScreenWidget {
@@ -1365,11 +1281,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getLocation(Map<String, Object> context) {
             return this.locationExdr.expandString(context);
-        }
-
-        @Override
-        public String rawString() {
-            return "<include-menu name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\"/>";
         }
     }
 
@@ -1544,12 +1455,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
             return fullParameterMap;
         }
-
-        @Override
-        public String rawString() {
-            // may want to add more to this
-            return "<link id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" text=\"" + this.textExdr.getOriginal() + "\" target=\"" + this.targetExdr.getOriginal() + "\" name=\"" + this.nameExdr.getOriginal() + "\" url-mode=\"" + this.urlMode + "\"/>";
-        }
     }
 
     public static final class Image extends ModelScreenWidget {
@@ -1625,12 +1530,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getUrlMode() {
             return this.urlMode;
-        }
-
-        @Override
-        public String rawString() {
-            // may want to add more to this
-            return "<image id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" src=\"" + this.srcExdr.getOriginal() + "\" url-mode=\"" + this.urlMode + "\"/>";
         }
     }
 
@@ -1796,11 +1695,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getUsePrivate() {
             return Boolean.toString(this.usePrivate);
-        }
-
-        @Override
-        public String rawString() {
-            return "<include-portal-page id=\"" + this.idExdr.getOriginal() + "\" name=\"" + this.idExdr.getOriginal() + "\">";
         }
     }
 

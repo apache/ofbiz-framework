@@ -413,12 +413,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
         writer.append("</table>\n");
 
     }
-
-    @Override
-    public String rawString() {
-        // TODO: something more than the empty tag
-        return "<iterate-section/>";
-    }
 }
 
 
