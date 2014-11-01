@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.WidgetFactory;
 import org.ofbiz.widget.WidgetWorker;
@@ -241,6 +242,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // check the condition, if there is one
             boolean condTrue = true;
@@ -328,6 +334,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 columns.add(new Column(modelScreen, element));
             }
             this.columns = Collections.unmodifiableList(columns);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -436,6 +447,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -594,6 +610,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public Menu getTabMenu() {
             return this.tabMenu;
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class HorizontalSeparator extends ModelScreenWidget {
@@ -618,6 +639,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -685,6 +711,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class DecoratorScreen extends ModelScreenWidget {
@@ -744,6 +775,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public Map<String, DecoratorSection> getSectionMap() {
             return sectionMap;
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class DecoratorSection extends ModelScreenWidget {
@@ -765,6 +801,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public List<ModelScreenWidget> getSubWidgets() {
             return subWidgets;
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -795,6 +836,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     sections.render(getName());
                 }
             }
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -845,6 +891,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -920,6 +971,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String shareScopeString = this.shareScopeExdr.expandString(context);
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -998,6 +1054,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // defaults to false, so anything but true is false
             return "true".equals(shareScopeString);
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class PlatformSpecific extends ModelScreenWidget {
@@ -1036,6 +1097,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
             if (subWidget != null) {
                 subWidget.renderWidgetString(writer, context, screenStringRenderer);
             }
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -1175,6 +1241,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public String getBorder() {
             return this.border;
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class SubContent extends ModelScreenWidget {
@@ -1236,6 +1307,12 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public boolean xmlEscape() {
             return this.xmlEscape;
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            // TODO Auto-generated method stub
+            
+        }
     }
 
     public static final class Menu extends ModelScreenWidget {
@@ -1281,6 +1358,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getLocation(Map<String, Object> context) {
             return this.locationExdr.expandString(context);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -1455,6 +1537,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
             return fullParameterMap;
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static final class Image extends ModelScreenWidget {
@@ -1530,6 +1617,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getUrlMode() {
             return this.urlMode;
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -1695,6 +1787,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getUsePrivate() {
             return Boolean.toString(this.usePrivate);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
         }
     }
 

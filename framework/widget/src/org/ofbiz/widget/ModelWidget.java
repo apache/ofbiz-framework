@@ -53,6 +53,8 @@ public abstract class ModelWidget implements Serializable {
         this.startLine = ((Integer) widgetElement.getUserData("startLine")).intValue();
     }
 
+    public abstract void accept(ModelWidgetVisitor visitor);
+
     /**
      * Returns the widget's name.
      * @return Widget's name

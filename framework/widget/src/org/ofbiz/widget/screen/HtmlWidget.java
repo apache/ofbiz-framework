@@ -37,6 +37,7 @@ import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.html.HtmlWidgetRenderer;
 import org.w3c.dom.Element;
 
@@ -200,6 +201,11 @@ public class HtmlWidget extends ModelScreenWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             renderHtmlTemplate(writer, this.locationExdr, context);
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
@@ -240,6 +246,11 @@ public class HtmlWidget extends ModelScreenWidget {
             renderHtmlTemplate(writer, this.locationExdr, context);
             contextMs.pop();
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
@@ -259,5 +270,15 @@ public class HtmlWidget extends ModelScreenWidget {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) {
+            visitor.visit(this);
+        }
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 }
