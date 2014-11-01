@@ -105,6 +105,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
         }
     }
 
+    public List<ModelScreenWidget.Section> getSectionList() {
+        return sectionList;
+    }
+
     @Override
     public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         int viewIndex = 0;

@@ -1210,6 +1210,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.contentId.expandString(context);
         }
 
+        public String getDataResourceId() {
+            return this.dataResourceId.getOriginal();
+        }
+
         public String getDataResourceId(Map<String, Object> context) {
             return this.dataResourceId.expandString(context);
         }
