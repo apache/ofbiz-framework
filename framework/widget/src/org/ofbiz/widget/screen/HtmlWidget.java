@@ -130,16 +130,6 @@ public class HtmlWidget extends ModelScreenWidget {
         }
     }
 
-    @Override
-    public String rawString() {
-        StringBuilder buffer = new StringBuilder("<html-widget>");
-        for (ModelScreenWidget subWidget : subWidgets) {
-            buffer.append(subWidget.rawString());
-        }
-        buffer.append("</html-widget>");
-        return buffer.toString();
-    }
-
     public static void renderHtmlTemplate(Appendable writer, FlexibleStringExpander locationExdr, Map<String, Object> context) {
         String location = locationExdr.expandString(context);
         //Debug.logInfo("Rendering template at location [" + location + "] with context: \n" + context, module);
@@ -210,11 +200,6 @@ public class HtmlWidget extends ModelScreenWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             renderHtmlTemplate(writer, this.locationExdr, context);
         }
-
-        @Override
-        public String rawString() {
-            return "<html-template location=\"" + this.locationExdr.getOriginal() + "\"/>";
-        }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
@@ -255,11 +240,6 @@ public class HtmlWidget extends ModelScreenWidget {
             renderHtmlTemplate(writer, this.locationExdr, context);
             contextMs.pop();
         }
-
-        @Override
-        public String rawString() {
-            return "<html-template-decorator location=\"" + this.locationExdr.getOriginal() + "\"/>";
-        }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
@@ -278,11 +258,6 @@ public class HtmlWidget extends ModelScreenWidget {
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             // render sub-widgets
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
-        }
-
-        @Override
-        public String rawString() {
-            return "<html-template-decorator-section name=\"" + this.name + "\"/>";
         }
     }
 }
