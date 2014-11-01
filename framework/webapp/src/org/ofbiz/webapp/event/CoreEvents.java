@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -36,8 +37,6 @@ import java.util.TimeZone;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -50,8 +49,8 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.calendar.RecurrenceRule;
-import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
+import org.ofbiz.webapp.control.RequestHandler;
 
 /**
  * CoreEvents - WebApp Events Related To Framework pieces
@@ -125,7 +124,7 @@ public class CoreEvents {
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
 
         // the frequency map
-        Map<String, Integer> freqMap = FastMap.newInstance();
+        Map<String, Integer> freqMap = new HashMap<String, Integer>();
 
         freqMap.put("SECONDLY", Integer.valueOf(1));
         freqMap.put("MINUTELY", Integer.valueOf(2));
@@ -169,7 +168,7 @@ public class CoreEvents {
         }
 
         // make the context valid; using the makeValid method from ModelService
-        Map<String, Object> serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         Iterator<String> ci = modelService.getInParamNames().iterator();
         while (ci.hasNext()) {
             String name = ci.next();
@@ -347,7 +346,7 @@ public class CoreEvents {
             session.removeAttribute("_SAVED_SYNC_RESULT_");
 
         Map<String, String[]> serviceFieldsToSave = checkMap(request.getParameterMap(), String.class, String[].class);
-        Map<String, Object> savedFields = FastMap.newInstance();
+        Map<String, Object> savedFields = new HashMap<String, Object>();
 
         for (Map.Entry<String, String[]> entry : serviceFieldsToSave.entrySet()) {
             String key = entry.getKey();
@@ -384,14 +383,14 @@ public class CoreEvents {
                 servicePathMap = checkMap(servicePathObject);
             } else if (servicePathObject instanceof GenericEntity) {
                 GenericEntity servicePathEntity = (GenericEntity)servicePathObject;
-                servicePathMap = FastMap.newInstance();
+                servicePathMap = new HashMap<String, Object>();
                 for (Map.Entry<String, Object> entry: servicePathEntity.entrySet()) {
                     servicePathMap.put(entry.getKey(), entry.getValue());
                 }
             } else if (servicePathObject instanceof Collection<?>) {
                 Collection<?> servicePathColl = checkCollection(servicePathObject);
                 int count=0;
-                servicePathMap = FastMap.newInstance();
+                servicePathMap = new HashMap<String, Object>();
                 for (Object value: servicePathColl) {
                     servicePathMap.put("_"+count+"_", value);
                     count++;

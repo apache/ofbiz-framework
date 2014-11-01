@@ -25,9 +25,11 @@ import java.security.cert.X509Certificate;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,9 +40,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.jsp.PageContext;
 import javax.transaction.Transaction;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
@@ -89,7 +88,7 @@ public class LoginWorker {
     public static final String X509_CERT_ATTR = "SSLx509Cert";
 
     /** This Map is keyed by the randomly generated externalLoginKey and the value is a UserLogin GenericValue object */
-    public static Map<String, GenericValue> externalLoginKeys = FastMap.newInstance();
+    public static Map<String, GenericValue> externalLoginKeys = new ConcurrentHashMap<String, GenericValue>();
 
     public static StringWrapper makeLoginUrl(PageContext pageContext) {
         return makeLoginUrl(pageContext, "checkLogin");
@@ -238,7 +237,7 @@ public class LoginWorker {
             List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
             if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin)) {
                 if (errorMessageList == null) {
-                    errorMessageList = new FastList<Object>();
+                    errorMessageList = new LinkedList<Object>();
                     request.setAttribute("_ERROR_MESSAGE_LIST", errorMessageList);
                 }
                 errorMessageList.add("User does not have permission or is flagged as logged out");
@@ -378,7 +377,7 @@ public class LoginWorker {
             password = (String) request.getAttribute("PASSWORD");
         }
 
-        List<String> unpwErrMsgList = FastList.newInstance();
+        List<String> unpwErrMsgList = new LinkedList<String>();
         if (UtilValidate.isEmpty(username)) {
             unpwErrMsgList.add(UtilProperties.getMessage(resourceWebapp, "loginevents.username_was_empty_reenter", UtilHttp.getLocale(request)));
         }
@@ -967,7 +966,7 @@ public class LoginWorker {
     }
 
     protected static boolean checkValidIssuer(Delegator delegator, Map<String, String> x500Map, BigInteger serialNumber) throws GeneralException {
-        List<EntityCondition> conds = FastList.newInstance();
+        List<EntityCondition> conds = new LinkedList<EntityCondition>();
         conds.add(EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeConditionMap("commonName", x500Map.get("CN")),
                 EntityCondition.makeConditionMap("commonName", null),
                 EntityCondition.makeConditionMap("commonName", "")));
