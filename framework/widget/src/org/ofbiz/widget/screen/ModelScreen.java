@@ -72,8 +72,7 @@ public class ModelScreen extends ModelWidget {
         if (sectionElement == null) {
             throw new IllegalArgumentException("No section found for the screen definition with name: " + getName());
         }
-        this.section = new ModelScreenWidget.Section(this, sectionElement);
-        this.section.isMainSection = true;
+        this.section = new ModelScreenWidget.Section(this, sectionElement, true);
     }
 
     public String getSourceLocation() {
@@ -88,9 +87,9 @@ public class ModelScreen extends ModelWidget {
 
     protected static void findServiceNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allServiceNamesUsed) {
         if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
-            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
-            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
+            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).getActions();
+            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).getSubWidgets();
+            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).getFailWidgets();
             if (actions != null) {
                 for (ModelWidgetAction screenOperation: actions) {
                     if (screenOperation instanceof ModelWidgetAction.Service) {
@@ -110,33 +109,25 @@ public class ModelScreen extends ModelWidget {
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
-            if (decoratorSection.subWidgets != null) {
-                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
-                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-                }
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
+            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
+                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
-            if (decoratorScreen.sectionMap != null) {
-                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
-                for (ModelScreenWidget section: sections) {
-                    findServiceNamesUsedInWidget(section, allServiceNamesUsed);
-                }
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
+            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
+            for (ModelScreenWidget section : sections) {
+                findServiceNamesUsedInWidget(section, allServiceNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
-            if (container.subWidgets != null) {
-                for (ModelScreenWidget widget: container.subWidgets) {
-                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-                }
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
+            for (ModelScreenWidget widget : container.getSubWidgets()) {
+                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
-            if (screenlet.subWidgets != null) {
-                for (ModelScreenWidget widget: screenlet.subWidgets) {
-                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-                }
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
+            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
+                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
             }
         }
     }
@@ -147,9 +138,9 @@ public class ModelScreen extends ModelWidget {
     }
     protected static void findEntityNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allEntityNamesUsed) {
         if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).actions;
-            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).subWidgets;
-            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).failWidgets;
+            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).getActions();
+            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).getSubWidgets();
+            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).getFailWidgets();
             if (actions != null) {
                 for (ModelWidgetAction screenOperation: actions) {
                     if (screenOperation instanceof ModelWidgetAction.EntityOne) {
@@ -181,85 +172,67 @@ public class ModelScreen extends ModelWidget {
                 }
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection)currentWidget;
-            if (decoratorSection.subWidgets != null) {
-                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
-                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-                }
+            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
+            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
+                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen)currentWidget;
-            if (decoratorScreen.sectionMap != null) {
-                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
-                for (ModelScreenWidget section: sections) {
-                    findEntityNamesUsedInWidget(section, allEntityNamesUsed);
-                }
+            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
+            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
+            for (ModelScreenWidget section : sections) {
+                findEntityNamesUsedInWidget(section, allEntityNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container)currentWidget;
-            if (container.subWidgets != null) {
-                for (ModelScreenWidget widget: container.subWidgets) {
-                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-                }
+            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
+            for (ModelScreenWidget widget : container.getSubWidgets()) {
+                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet)currentWidget;
-            if (screenlet.subWidgets != null) {
-                for (ModelScreenWidget widget: screenlet.subWidgets) {
-                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-                }
+            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
+            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
+                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
             }
         }
     }
+
     public Set<String> getAllFormNamesIncluded() {
         Set<String> allFormNamesIncluded = new HashSet<String>();
         findFormNamesIncludedInWidget(this.section, allFormNamesIncluded);
         return allFormNamesIncluded;
     }
+
     protected static void findFormNamesIncludedInWidget(ModelScreenWidget currentWidget, Set<String> allFormNamesIncluded) {
         if (currentWidget instanceof ModelScreenWidget.Form) {
             ModelScreenWidget.Form form = (ModelScreenWidget.Form) currentWidget;
-            allFormNamesIncluded.add(form.locationExdr.getOriginal() + "#" + form.nameExdr.getOriginal());
+            allFormNamesIncluded.add(form.getLocation() + "#" + form.getName());
         } else if (currentWidget instanceof ModelScreenWidget.Section) {
             ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
-            if (section.subWidgets != null) {
-                for (ModelScreenWidget widget: section.subWidgets) {
-                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-                }
+            for (ModelScreenWidget widget : section.getSubWidgets()) {
+                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
             }
-            if (section.failWidgets != null) {
-                for (ModelScreenWidget widget: section.failWidgets) {
-                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-                }
+            for (ModelScreenWidget widget : section.getFailWidgets()) {
+                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
             ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            if (decoratorSection.subWidgets != null) {
-                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
-                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-                }
+            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
+                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
             ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            if (decoratorScreen.sectionMap != null) {
-                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
-                for (ModelScreenWidget section: sections) {
-                    findFormNamesIncludedInWidget(section, allFormNamesIncluded);
-                }
+            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
+            for (ModelScreenWidget section : sections) {
+                findFormNamesIncludedInWidget(section, allFormNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Container) {
             ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            if (container.subWidgets != null) {
-                for (ModelScreenWidget widget: container.subWidgets) {
-                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-                }
+            for (ModelScreenWidget widget : container.getSubWidgets()) {
+                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
             ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            if (screenlet.subWidgets != null) {
-                for (ModelScreenWidget widget: screenlet.subWidgets) {
-                    findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-                }
+            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
+                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
             }
         }
     }
@@ -281,44 +254,32 @@ public class ModelScreen extends ModelWidget {
             allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
         } else if (currentWidget instanceof ModelScreenWidget.Section) {
             ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
-            if (section.subWidgets != null) {
-                for (ModelScreenWidget widget: section.subWidgets) {
-                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-                }
+            for (ModelScreenWidget widget : section.getSubWidgets()) {
+                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
             }
-            if (section.failWidgets != null) {
-                for (ModelScreenWidget widget: section.failWidgets) {
-                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-                }
+            for (ModelScreenWidget widget : section.getFailWidgets()) {
+                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
             ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            if (decoratorSection.subWidgets != null) {
-                for (ModelScreenWidget widget: decoratorSection.subWidgets) {
-                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-                }
+            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
+                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
             ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            if (decoratorScreen.sectionMap != null) {
-                Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.sectionMap.values();
-                for (ModelScreenWidget section: sections) {
-                    findRequestNamesLinkedtoInWidget(section, allRequestNamesIncluded);
-                }
+            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
+            for (ModelScreenWidget section : sections) {
+                findRequestNamesLinkedtoInWidget(section, allRequestNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Container) {
             ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            if (container.subWidgets != null) {
-                for (ModelScreenWidget widget: container.subWidgets) {
-                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-                }
+            for (ModelScreenWidget widget : container.getSubWidgets()) {
+                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
             }
         } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
             ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            if (screenlet.subWidgets != null) {
-                for (ModelScreenWidget widget: screenlet.subWidgets) {
-                    findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-                }
+            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
+                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
             }
         }
     }

@@ -95,7 +95,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         sectionList = new ArrayList<ModelScreenWidget.Section>();
         List<? extends Element> childElementList = UtilXml.childElementList(iterateSectionElement);
         for (Element sectionElement: childElementList) {
-            ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement);
+            ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement, false);
             sectionList.add(section);
         }
     }

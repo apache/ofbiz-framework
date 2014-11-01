@@ -27,16 +27,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -70,7 +69,7 @@ import org.xml.sax.SAXException;
 public abstract class ModelScreenWidget extends ModelWidget {
     public static final String module = ModelScreenWidget.class.getName();
 
-    protected ModelScreen modelScreen;
+    private final ModelScreen modelScreen;
 
     public ModelScreenWidget(ModelScreen modelScreen, Element widgetElement) {
         super(widgetElement);
@@ -82,20 +81,23 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
     public abstract String rawString();
 
-    public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
+    protected static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
+        if (subElementList.isEmpty()) {
+            return Collections.emptyList();
+        }
         List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(subElementList.size());
         for (Element subElement: subElementList) {
             subWidgets.add(WidgetFactory.getModelScreenWidget(modelScreen, subElement));
         }
-        return subWidgets;
+        return Collections.unmodifiableList(subWidgets);
     }
 
-    public static void renderSubWidgetsString(List<ModelScreenWidget> subWidgets, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    protected static void renderSubWidgetsString(List<ModelScreenWidget> subWidgets, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         if (subWidgets == null) {
             return;
         }
         for (ModelScreenWidget subWidget: subWidgets) {
-            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.getName() + "; widget class is " + subWidget.getClass().getName(), module);
+            if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.getModelScreen().getName() + "; widget class is " + subWidget.getClass().getName(), module);
 
             // render the sub-widget itself
             subWidget.renderWidgetString(writer, context, screenStringRenderer);
@@ -106,13 +108,17 @@ public abstract class ModelScreenWidget extends ModelWidget {
         return this.modelScreen;
     }
 
-    public static class SectionsRenderer extends HashMap<String, Object> {
-        protected ScreenStringRenderer screenStringRenderer;
-        protected Map<String, Object> context;
-        protected Appendable writer;
+    public static final class SectionsRenderer implements Map<String, Object> {
+        private final Map<String, Object> sectionMap;
+        private final ScreenStringRenderer screenStringRenderer;
+        private final Map<String, Object> context;
+        private final Appendable writer;
 
-        public SectionsRenderer(Map<String, ? extends Object> sectionMap, Map<String, Object> context, Appendable writer, ScreenStringRenderer screenStringRenderer) {
-            this.putAll(sectionMap);
+        public SectionsRenderer(Map<String, ? extends Object> sectionMap, Map<String, Object> context, Appendable writer,
+                ScreenStringRenderer screenStringRenderer) {
+            Map<String, Object> localMap = new HashMap<String, Object>();
+            localMap.putAll(sectionMap);
+            this.sectionMap = Collections.unmodifiableMap(localMap);
             this.context = context;
             this.writer = writer;
             this.screenStringRenderer = screenStringRenderer;
@@ -127,42 +133,113 @@ public abstract class ModelScreenWidget extends ModelWidget {
             }
             return "";
         }
+
+        public int size() {
+            return sectionMap.size();
+        }
+
+        public boolean isEmpty() {
+            return sectionMap.isEmpty();
+        }
+
+        public boolean containsKey(Object key) {
+            return sectionMap.containsKey(key);
+        }
+
+        public boolean containsValue(Object value) {
+            return sectionMap.containsValue(value);
+        }
+
+        public Object get(Object key) {
+            return sectionMap.get(key);
+        }
+
+        public Object put(String key, Object value) {
+            return sectionMap.put(key, value);
+        }
+
+        public Object remove(Object key) {
+            return sectionMap.remove(key);
+        }
+
+        public void putAll(Map<? extends String, ? extends Object> m) {
+            sectionMap.putAll(m);
+        }
+
+        public void clear() {
+            sectionMap.clear();
+        }
+
+        public Set<String> keySet() {
+            return sectionMap.keySet();
+        }
+
+        public Collection<Object> values() {
+            return sectionMap.values();
+        }
+
+        public Set<java.util.Map.Entry<String, Object>> entrySet() {
+            return sectionMap.entrySet();
+        }
+
+        public boolean equals(Object o) {
+            return sectionMap.equals(o);
+        }
+
+        public int hashCode() {
+            return sectionMap.hashCode();
+        }
     }
 
-    public static class Section extends ModelScreenWidget {
+    public static final class Section extends ModelScreenWidget {
         public static final String TAG_NAME = "section";
-        protected ModelScreenCondition condition;
-        protected List<ModelWidgetAction> actions;
-        protected List<ModelScreenWidget> subWidgets;
-        protected List<ModelScreenWidget> failWidgets;
-        public boolean isMainSection = false;
+        private final ModelScreenCondition condition;
+        private final List<ModelWidgetAction> actions;
+        private final List<ModelScreenWidget> subWidgets;
+        private final List<ModelScreenWidget> failWidgets;
+        private final boolean isMainSection;
 
         public Section(ModelScreen modelScreen, Element sectionElement) {
+            this(modelScreen, sectionElement, false);
+        }
+
+        public Section(ModelScreen modelScreen, Element sectionElement, boolean isMainSection) {
             super(modelScreen, sectionElement);
 
             // read condition under the "condition" element
             Element conditionElement = UtilXml.firstChildElement(sectionElement, "condition");
             if (conditionElement != null) {
                 this.condition = new ModelScreenCondition(modelScreen, conditionElement);
+            } else {
+                this.condition = null;
             }
 
             // read all actions under the "actions" element
             Element actionsElement = UtilXml.firstChildElement(sectionElement, "actions");
             if (actionsElement != null) {
                 this.actions = ModelWidgetAction.readSubActions(modelScreen, actionsElement);
+            } else {
+                this.actions = Collections.emptyList();
             }
 
             // read sub-widgets
             Element widgetsElement = UtilXml.firstChildElement(sectionElement, "widgets");
-            List<? extends Element> subElementList = UtilXml.childElementList(widgetsElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            if (widgetsElement != null) {
+                List<? extends Element> subElementList = UtilXml.childElementList(widgetsElement);
+                this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
+            } else {
+                this.subWidgets = Collections.emptyList();
+            }
 
             // read fail-widgets
             Element failWidgetsElement = UtilXml.firstChildElement(sectionElement, "fail-widgets");
             if (failWidgetsElement != null) {
                 List<? extends Element> failElementList = UtilXml.childElementList(failWidgetsElement);
-                this.failWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, failElementList);
+                this.failWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), failElementList);
+            } else {
+                this.failWidgets = Collections.emptyList();
             }
+            this.isMainSection = isMainSection;
         }
 
         @Override
@@ -189,7 +266,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                     screenStringRenderer.renderSectionEnd(writer, context, this);
                 } catch (IOException e) {
-                    String errMsg = "Error rendering widgets section [" + this.getName() + "] in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                    String errMsg = "Error rendering widgets section [" + getName() + "] in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new RuntimeException(errMsg);
                 }
@@ -203,7 +280,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                     screenStringRenderer.renderSectionEnd(writer, context, this);
                 } catch (IOException e) {
-                    String errMsg = "Error rendering fail-widgets section [" + this.getName() + "] in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                    String errMsg = "Error rendering fail-widgets section [" + this.getName() + "] in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new RuntimeException(errMsg);
                 }
@@ -214,19 +291,35 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public String getBoundaryCommentName() {
             if (isMainSection) {
-                return modelScreen.getSourceLocation() + "#" + modelScreen.getName();
+                return getModelScreen().getSourceLocation() + "#" + getModelScreen().getName();
             } else {
                 return getName();
             }
         }
 
+        public List<ModelWidgetAction> getActions() {
+            return actions;
+        }
+
+        public List<ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
+        }
+
+        public List<ModelScreenWidget> getFailWidgets() {
+            return failWidgets;
+        }
+
+        public boolean isMainSection() {
+            return isMainSection;
+        }
+
         @Override
         public String rawString() {
-            return "<section" + (UtilValidate.isNotEmpty(getName())?" name=\"" + getName() + "\"":"") + ">";
+            return "<section name=\"" + getName() + "\">";
         }
     }
 
-    public static class ColumnContainer extends ModelScreenWidget {
+    public static final class ColumnContainer extends ModelScreenWidget {
         public static final String TAG_NAME = "column-container";
         private final FlexibleStringExpander idExdr;
         private final FlexibleStringExpander styleExdr;
@@ -249,7 +342,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             try {
                 screenStringRenderer.renderColumnContainer(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering container in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                String errMsg = "Error rendering container in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
@@ -273,7 +366,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Column {
+    public static final class Column {
         private final FlexibleStringExpander idExdr;
         private final FlexibleStringExpander styleExdr;
         private final List<ModelScreenWidget> subWidgets;
@@ -298,13 +391,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Container extends ModelScreenWidget {
+    public static final class Container extends ModelScreenWidget {
         public static final String TAG_NAME = "container";
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
-        protected FlexibleStringExpander autoUpdateTargetExdr;
-        protected FlexibleStringExpander autoUpdateInterval;
-        protected List<ModelScreenWidget> subWidgets;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander autoUpdateTargetExdr;
+        private final FlexibleStringExpander autoUpdateInterval;
+        private final List<ModelScreenWidget> subWidgets;
 
         public Container(ModelScreen modelScreen, Element containerElement) {
             super(modelScreen, containerElement);
@@ -318,7 +411,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.autoUpdateInterval = FlexibleStringExpander.getInstance(autoUpdateInterval);
             // read sub-widgets
             List<? extends Element> subElementList = UtilXml.childElementList(containerElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
         }
 
         @Override
@@ -331,7 +424,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
                 screenStringRenderer.renderContainerEnd(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering container in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                String errMsg = "Error rendering container in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
@@ -353,75 +446,87 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.autoUpdateInterval.expandString(context);
         }
 
+        public List<ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
+        }
+
         @Override
         public String rawString() {
             return "<container id=\"" + this.idExdr.getOriginal() + "\" style=\"" + this.styleExdr.getOriginal() + "\" auto-update-target=\"" + this.autoUpdateTargetExdr.getOriginal() + "\">";
         }
     }
 
-    public static class Screenlet extends ModelScreenWidget {
+    public static final class Screenlet extends ModelScreenWidget {
         public static final String TAG_NAME = "screenlet";
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander titleExdr;
-        protected Menu navigationMenu = null;
-        protected Menu tabMenu = null;
-        protected Form navigationForm = null;
-        protected boolean collapsible = false;
-        protected FlexibleStringExpander initiallyCollapsed;
-        protected boolean saveCollapsed = true;
-        protected boolean padded = true;
-        protected List<ModelScreenWidget> subWidgets;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander titleExdr;
+        private final Menu navigationMenu;
+        private final Menu tabMenu;
+        private final Form navigationForm;
+        private final boolean collapsible;
+        private final FlexibleStringExpander initiallyCollapsed;
+        private final boolean saveCollapsed;
+        private final boolean padded;
+        private final List<ModelScreenWidget> subWidgets;
 
         public Screenlet(ModelScreen modelScreen, Element screenletElement) {
             super(modelScreen, screenletElement);
             this.idExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("id"));
-            this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
+            boolean collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
             this.initiallyCollapsed = FlexibleStringExpander.getInstance(screenletElement.getAttribute("initially-collapsed"));
             if ("true".equals(this.initiallyCollapsed.getOriginal())) {
-                this.collapsible = true;
+                collapsible = true;
             }
+            this.collapsible = collapsible;
             // By default, for a collapsible screenlet, the collapsed/expanded status must be saved
             this.saveCollapsed = !("false".equals(screenletElement.getAttribute("save-collapsed")));
 
-            this.padded = !"false".equals(screenletElement.getAttribute("padded"));
-            if (this.collapsible && UtilValidate.isEmpty(getName()) && idExdr.isEmpty()) {
-                throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
+            boolean padded = !"false".equals(screenletElement.getAttribute("padded"));
+            if (this.collapsible && getName().isEmpty() && idExdr.isEmpty()) {
+                throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + getModelScreen().getName() + "]");
             }
             this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
             List<? extends Element> subElementList = UtilXml.childElementList(screenletElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            // Make a copy of the unmodifiable List so we can modify it.
+            ArrayList<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList));
+            Menu navigationMenu = null;
             String navMenuName = screenletElement.getAttribute("navigation-menu-name");
-            if (UtilValidate.isNotEmpty(navMenuName)) {
-                for (ModelWidget subWidget : this.subWidgets) {
+            if (!navMenuName.isEmpty()) {
+                for (ModelWidget subWidget : subWidgets) {
                     if (navMenuName.equals(subWidget.getName()) && subWidget instanceof Menu) {
-                        this.navigationMenu = (Menu) subWidget;
+                        navigationMenu = (Menu) subWidget;
                         subWidgets.remove(subWidget);
                         break;
                     }
                 }
             }
+            this.navigationMenu = navigationMenu;
+            Menu tabMenu = null;
             String tabMenuName = screenletElement.getAttribute("tab-menu-name");
-            if (UtilValidate.isNotEmpty(tabMenuName)) {
-                for (ModelWidget subWidget : this.subWidgets) {
+            if (!tabMenuName.isEmpty()) {
+                for (ModelWidget subWidget : subWidgets) {
                     if (tabMenuName.equals(subWidget.getName()) && subWidget instanceof Menu) {
-                        this.tabMenu = (Menu) subWidget;
+                        tabMenu = (Menu) subWidget;
                         subWidgets.remove(subWidget);
                         break;
                     }
                 }
             }
+            this.tabMenu = tabMenu;
+            Form navigationForm = null;
             String formName = screenletElement.getAttribute("navigation-form-name");
-            if (UtilValidate.isNotEmpty(formName) && this.navigationMenu == null) {
-                for (ModelWidget subWidget : this.subWidgets) {
+            if (!formName.isEmpty() && this.navigationMenu == null) {
+                for (ModelWidget subWidget : subWidgets) {
                     if (formName.equals(subWidget.getName()) && subWidget instanceof Form) {
-                        this.navigationForm = (Form) subWidget;
-                        // Let's give this a try, it can be removed later if it
-                        // proves to cause problems
-                        this.padded = false;
+                        navigationForm = (Form) subWidget;
+                        padded = false;
                         break;
                     }
                 }
             }
+            this.subWidgets = Collections.unmodifiableList(subWidgets);
+            this.navigationForm = navigationForm;
+            this.padded = padded;
         }
 
         @Override
@@ -432,9 +537,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
                 if (requestParameters != null) {
                     String collapsedParam = (String) requestParameters.get(preferenceKey);
-                    if (UtilValidate.isNotEmpty(collapsedParam)) {
-                        collapsed = "true".equals(collapsedParam);
-                    }
+                    collapsed = "true".equals(collapsedParam);
                 }
             }
             try {
@@ -444,7 +547,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
                 screenStringRenderer.renderScreenletEnd(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering screenlet in screen named [" + this.modelScreen.getName() + "]: ";
+                String errMsg = "Error rendering screenlet in screen named [" + getModelScreen().getName() + "]: ";
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg + e);
             }
@@ -474,7 +577,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getPreferenceKey(Map<String, Object> context) {
             String name = this.idExdr.expandString(context);
-            if (UtilValidate.isEmpty(name)) {
+            if (name.isEmpty()) {
                 name = "screenlet" + "_" + Integer.toHexString(hashCode());
             }
             return name;
@@ -482,6 +585,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getId(Map<String, Object> context) {
             return this.idExdr.expandString(context);
+        }
+
+        public List<ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
         }
 
         public String getTitle(Map<String, Object> context) {
@@ -511,10 +618,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class HorizontalSeparator extends ModelScreenWidget {
+    public static final class HorizontalSeparator extends ModelScreenWidget {
         public static final String TAG_NAME = "horizontal-separator";
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
 
         public HorizontalSeparator(ModelScreen modelScreen, Element separatorElement) {
             super(modelScreen, separatorElement);
@@ -541,11 +648,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class IncludeScreen extends ModelScreenWidget {
+    public static final class IncludeScreen extends ModelScreenWidget {
         public static final String TAG_NAME = "include-screen";
-        protected FlexibleStringExpander nameExdr;
-        protected FlexibleStringExpander locationExdr;
-        protected FlexibleStringExpander shareScopeExdr;
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
+        private final FlexibleStringExpander shareScopeExdr;
 
         public IncludeScreen(ModelScreen modelScreen, Element includeScreenElement) {
             super(modelScreen, includeScreenElement);
@@ -580,8 +687,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String name = this.getName(context);
             String location = this.getLocation(context);
 
-            if (UtilValidate.isEmpty(name)) {
-                if (Debug.verboseOn()) Debug.logVerbose("In the include-screen tag the screen name was empty, ignoring include; in screen [" + this.modelScreen.getName() + "]", module);
+            if (name.isEmpty()) {
+                if (Debug.verboseOn()) Debug.logVerbose("In the include-screen tag the screen name was empty, ignoring include; in screen [" + getModelScreen().getName() + "]", module);
                 return;
             }
 
@@ -612,22 +719,23 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class DecoratorScreen extends ModelScreenWidget {
+    public static final class DecoratorScreen extends ModelScreenWidget {
         public static final String TAG_NAME = "decorator-screen";
-        protected FlexibleStringExpander nameExdr;
-        protected FlexibleStringExpander locationExdr;
-        protected Map<String, DecoratorSection> sectionMap = new HashMap<String, DecoratorSection>();
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
+        private final Map<String, DecoratorSection> sectionMap;
 
         public DecoratorScreen(ModelScreen modelScreen, Element decoratorScreenElement) {
             super(modelScreen, decoratorScreenElement);
             this.nameExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("location"));
-
+            Map<String, DecoratorSection> sectionMap = new HashMap<String, DecoratorSection>();
             List<? extends Element> decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
             for (Element decoratorSectionElement: decoratorSectionElementList) {
                 DecoratorSection decoratorSection = new DecoratorSection(modelScreen, decoratorSectionElement);
-                this.sectionMap.put(decoratorSection.getName(), decoratorSection);
+                sectionMap.put(decoratorSection.getName(), decoratorSection);
             }
+            this.sectionMap = Collections.unmodifiableMap(sectionMap);
         }
 
         @Override
@@ -665,21 +773,25 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.locationExdr.expandString(context);
         }
 
+        public Map<String, DecoratorSection> getSectionMap() {
+            return sectionMap;
+        }
+
         @Override
         public String rawString() {
             return "<decorator-screen name=\"" + this.nameExdr.getOriginal() + "\" location=\"" + this.locationExdr.getOriginal() + "\"/>";
         }
     }
 
-    public static class DecoratorSection extends ModelScreenWidget {
+    public static final class DecoratorSection extends ModelScreenWidget {
         public static final String TAG_NAME = "decorator-section";
-        protected List<ModelScreenWidget> subWidgets;
+        private final List<ModelScreenWidget> subWidgets;
 
         public DecoratorSection(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);
             // read sub-widgets
             List<? extends Element> subElementList = UtilXml.childElementList(decoratorSectionElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
         }
 
         @Override
@@ -688,13 +800,17 @@ public abstract class ModelScreenWidget extends ModelWidget {
             renderSubWidgetsString(this.subWidgets, writer, context, screenStringRenderer);
         }
 
+        public List<ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
+        }
+
         @Override
         public String rawString() {
             return "<decorator-section name=\"" + getName() + "\">";
         }
     }
 
-    public static class DecoratorSectionInclude extends ModelScreenWidget {
+    public static final class DecoratorSectionInclude extends ModelScreenWidget {
         public static final String TAG_NAME = "decorator-section-include";
 
         public DecoratorSectionInclude(ModelScreen modelScreen, Element decoratorSectionElement) {
@@ -708,7 +824,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 try {
                     writer.append((String) preRenderedContent.get(getName()));
                 } catch (IOException e) {
-                    String errMsg = "Error rendering pre-rendered content in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                    String errMsg = "Error rendering pre-rendered content in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new RuntimeException(errMsg);
                 }
@@ -729,19 +845,21 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Label extends ModelScreenWidget {
+    public static final class Label extends ModelScreenWidget {
         public static final String TAG_NAME = "label";
-        protected FlexibleStringExpander textExdr;
-
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander textExdr;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
 
         public Label(ModelScreen modelScreen, Element labelElement) {
             super(modelScreen, labelElement);
 
             // put the text attribute first, then the pcdata under the element, if both are there of course
-            String textAttr = UtilFormatOut.checkNull(labelElement.getAttribute("text"));
-            String pcdata = UtilFormatOut.checkNull(UtilXml.elementValue(labelElement));
+            String textAttr = labelElement.getAttribute("text");
+            String pcdata = UtilXml.elementValue(labelElement);
+            if (pcdata == null) {
+                pcdata = "";
+            }
             this.textExdr = FlexibleStringExpander.getInstance(textAttr + pcdata);
 
             this.idExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("id"));
@@ -753,7 +871,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             try {
                 screenStringRenderer.renderLabel(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering label in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
+                String errMsg = "Error rendering label in screen named [" + getModelScreen().getName() + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
@@ -782,16 +900,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Form extends ModelScreenWidget {
+    public static final class Form extends ModelScreenWidget {
         public static final String TAG_NAME = "include-form";
-        protected FlexibleStringExpander nameExdr;
-        protected FlexibleStringExpander locationExdr;
-        protected FlexibleStringExpander shareScopeExdr;
-        protected ModelForm modelForm = null;
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
+        private final FlexibleStringExpander shareScopeExdr;
 
         public Form(ModelScreen modelScreen, Element formElement) {
             super(modelScreen, formElement);
-
             this.nameExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("location"));
             this.shareScopeExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("share-scope"));
@@ -831,7 +947,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String name = this.getName(context);
             String location = this.getLocation(context);
             try {
-                modelForm = FormFactory.getFormFromLocation(location, name, this.modelScreen.getDelegator(context).getModelReader(), this.modelScreen.getDispatcher(context).getDispatchContext());
+                modelForm = FormFactory.getFormFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(), getModelScreen().getDispatcher(context).getDispatchContext());
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
@@ -842,6 +958,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getName(Map<String, Object> context) {
             return this.nameExdr.expandString(context);
+        }
+
+        public String getLocation() {
+            return locationExdr.getOriginal();
         }
 
         public String getLocation(Map<String, Object> context) {
@@ -860,15 +980,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Tree extends ModelScreenWidget {
+    public static final class Tree extends ModelScreenWidget {
         public static final String TAG_NAME = "include-tree";
-        protected FlexibleStringExpander nameExdr;
-        protected FlexibleStringExpander locationExdr;
-        protected FlexibleStringExpander shareScopeExdr;
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
+        private final FlexibleStringExpander shareScopeExdr;
 
         public Tree(ModelScreen modelScreen, Element treeElement) {
             super(modelScreen, treeElement);
-
             this.nameExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("location"));
             this.shareScopeExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("share-scope"));
@@ -894,7 +1013,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             String location = this.getLocation(context);
             ModelTree modelTree = null;
             try {
-                modelTree = TreeFactory.getTreeFromLocation(this.getLocation(context), this.getName(context), this.modelScreen.getDelegator(context), this.modelScreen.getDispatcher(context));
+                modelTree = TreeFactory.getTreeFromLocation(this.getLocation(context), this.getName(context), getModelScreen().getDelegator(context), getModelScreen().getDispatcher(context));
             } catch (IOException e) {
                 String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
@@ -943,13 +1062,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class PlatformSpecific extends ModelScreenWidget {
+    public static final class PlatformSpecific extends ModelScreenWidget {
         public static final String TAG_NAME = "platform-specific";
-        protected Map<String, ModelScreenWidget> subWidgets;
+        private final Map<String, ModelScreenWidget> subWidgets;
 
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
             super(modelScreen, platformSpecificElement);
-            subWidgets = new HashMap<String, ModelScreenWidget>();
+            Map<String, ModelScreenWidget> subWidgets = new HashMap<String, ModelScreenWidget>();
             List<? extends Element> childElements = UtilXml.childElementList(platformSpecificElement);
             if (childElements != null) {
                 for (Element childElement: childElements) {
@@ -964,6 +1083,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     }
                 }
             }
+            this.subWidgets = Collections.unmodifiableMap(subWidgets);
         }
 
         @Override
@@ -991,33 +1111,34 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Content extends ModelScreenWidget {
+    public static final class Content extends ModelScreenWidget {
         public static final String TAG_NAME = "content";
 
-        protected FlexibleStringExpander contentId;
-        protected FlexibleStringExpander editRequest;
-        protected FlexibleStringExpander editContainerStyle;
-        protected FlexibleStringExpander enableEditName;
-        protected boolean xmlEscape = false;
-        protected FlexibleStringExpander dataResourceId;
-        protected String width;
-        protected String height;
-        protected String border;
+        private final FlexibleStringExpander contentId;
+        private final FlexibleStringExpander editRequest;
+        private final FlexibleStringExpander editContainerStyle;
+        private final FlexibleStringExpander enableEditName;
+        private final boolean xmlEscape;
+        private final FlexibleStringExpander dataResourceId;
+        private final String width;
+        private final String height;
+        private final String border;
 
         public Content(ModelScreen modelScreen, Element subContentElement) {
             super(modelScreen, subContentElement);
-
-            // put the text attribute first, then the pcdata under the element, if both are there of course
             this.contentId = FlexibleStringExpander.getInstance(subContentElement.getAttribute("content-id"));
             this.dataResourceId = FlexibleStringExpander.getInstance(subContentElement.getAttribute("dataresource-id"));
             this.editRequest = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-request"));
             this.editContainerStyle = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-container-style"));
             this.enableEditName = FlexibleStringExpander.getInstance(subContentElement.getAttribute("enable-edit-name"));
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
-            this.width = subContentElement.getAttribute("width");
-            if (UtilValidate.isEmpty(this.width)) this.width="60%";
+            String width = subContentElement.getAttribute("width");
+            if (width.isEmpty())
+                width = "60%";
             this.height = subContentElement.getAttribute("height");
-            if (UtilValidate.isEmpty(this.height)) this.width="400px";
+            if (this.height.isEmpty())
+                width = "400px";
+            this.width = width;
             this.border = subContentElement.getAttribute("border");
         }
 
@@ -1042,8 +1163,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 UtilGenerics.<MapStack<String>>cast(context).push();
                 context.put("contentId", expandedContentId);
 
-                if (UtilValidate.isEmpty(expandedDataResourceId)) {
-                    if (UtilValidate.isNotEmpty(expandedContentId)) {
+                if (expandedDataResourceId.isEmpty()) {
+                    if (!expandedContentId.isEmpty()) {
                         content = EntityQuery.use(delegator).from("Content").where("contentId", expandedContentId).cache().queryOne();
                     } else {
                         String errMsg = "contentId is empty.";
@@ -1060,7 +1181,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
 
                 GenericValue dataResource = null;
-                if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
+                if (!expandedDataResourceId.isEmpty()) {
                     dataResource = EntityQuery.use(delegator).from("DataResource").where("dataResourceId", expandedDataResourceId).cache().queryOne();
                 }
 
@@ -1068,11 +1189,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 if (dataResource != null) {
                     mimeTypeId = dataResource.getString("mimeTypeId");
                 }
-                if (UtilValidate.isNotEmpty(content)) {
+                if (content != null) {
                     mimeTypeId = content.getString("mimeTypeId");
                 }
 
-                if (!(UtilValidate.isNotEmpty(mimeTypeId)
+                if (!(mimeTypeId != null
                         && ((mimeTypeId.indexOf("application") >= 0) || (mimeTypeId.indexOf("image")) >= 0))) {
                     screenStringRenderer.renderContentBegin(writer, context, this);
                     screenStringRenderer.renderContentBody(writer, context, this);
@@ -1134,25 +1255,24 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class SubContent extends ModelScreenWidget {
+    public static final class SubContent extends ModelScreenWidget {
         public static final String TAG_NAME = "sub-content";
-        protected FlexibleStringExpander contentId;
-        protected FlexibleStringExpander mapKey;
-        protected FlexibleStringExpander editRequest;
-        protected FlexibleStringExpander editContainerStyle;
-        protected FlexibleStringExpander enableEditName;
-        protected boolean xmlEscape = false;
+        private final FlexibleStringExpander contentId;
+        private final FlexibleStringExpander mapKey;
+        private final FlexibleStringExpander editRequest;
+        private final FlexibleStringExpander editContainerStyle;
+        private final FlexibleStringExpander enableEditName;
+        private final boolean xmlEscape;
 
         public SubContent(ModelScreen modelScreen, Element subContentElement) {
             super(modelScreen, subContentElement);
-
-            // put the text attribute first, then the pcdata under the element, if both are there of course
-            this.contentId = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("content-id")));
-            this.mapKey = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("map-key")));
-            if (this.mapKey.isEmpty()) {
-                this.mapKey = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("assoc-name")));
+            this.contentId = FlexibleStringExpander.getInstance(subContentElement.getAttribute("content-id"));
+            String mapKey = subContentElement.getAttribute("map-key");
+            if (mapKey.isEmpty()) {
+                mapKey = subContentElement.getAttribute("assoc-name");
             }
-            this.editRequest = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("edit-request")));
+            this.mapKey = FlexibleStringExpander.getInstance(mapKey);
+            this.editRequest = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-request"));
             this.editContainerStyle = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-container-style"));
             this.enableEditName = FlexibleStringExpander.getInstance(subContentElement.getAttribute("enable-edit-name"));
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
@@ -1202,14 +1322,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Menu extends ModelScreenWidget {
+    public static final class Menu extends ModelScreenWidget {
         public static final String TAG_NAME = "include-menu";
-        protected FlexibleStringExpander nameExdr;
-        protected FlexibleStringExpander locationExdr;
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
 
         public Menu(ModelScreen modelScreen, Element menuElement) {
             super(modelScreen, menuElement);
-
             this.nameExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("location"));
         }
@@ -1254,61 +1373,69 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Link extends ModelScreenWidget {
+    public static final class Link extends ModelScreenWidget {
         public static final String TAG_NAME = "link";
-        protected FlexibleStringExpander textExdr;
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
-        protected FlexibleStringExpander targetExdr;
-        protected FlexibleStringExpander targetWindowExdr;
-        protected FlexibleStringExpander prefixExdr;
-        protected FlexibleStringExpander nameExdr;
-        protected Image image;
-        protected String urlMode = "intra-app";
-        protected boolean fullPath = false;
-        protected boolean secure = false;
-        protected boolean encode = false;
-        protected String linkType;
-        protected String width;
-        protected String height;
-        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
-        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
-        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
+        private final FlexibleStringExpander textExdr;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander targetExdr;
+        private final FlexibleStringExpander targetWindowExdr;
+        private final FlexibleStringExpander prefixExdr;
+        private final FlexibleStringExpander nameExdr;
+        private final Image image;
+        private final String urlMode;
+        private final boolean fullPath;
+        private final boolean secure;
+        private final boolean encode;
+        private final String linkType;
+        private final String width;
+        private final String height;
+        private final List<WidgetWorker.Parameter> parameterList;
+        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
+        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
 
         public Link(ModelScreen modelScreen, Element linkElement) {
             super(modelScreen, linkElement);
-
-            setText(linkElement.getAttribute("text"));
-            setId(linkElement.getAttribute("id"));
-            setStyle(linkElement.getAttribute("style"));
-            setName(linkElement.getAttribute("name"));
-            setTarget(linkElement.getAttribute("target"));
-            setTargetWindow(linkElement.getAttribute("target-window"));
-            setPrefix(linkElement.getAttribute("prefix"));
-            setUrlMode(linkElement.getAttribute("url-mode"));
-            setFullPath(linkElement.getAttribute("full-path"));
-            setSecure(linkElement.getAttribute("secure"));
-            setEncode(linkElement.getAttribute("encode"));
+            this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
+            this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
+            this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
+            this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
+            this.prefixExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("prefix"));
+            this.urlMode = linkElement.getAttribute("url-mode");
+            this.fullPath = "true".equals(linkElement.getAttribute("full-path"));
+            this.secure = "true".equals(linkElement.getAttribute("secure"));
+            this.encode = "true".equals(linkElement.getAttribute("encode"));
             Element imageElement = UtilXml.firstChildElement(linkElement, "image");
             if (imageElement != null) {
                 this.image = new Image(modelScreen, imageElement);
+            } else {
+                this.image = null;
             }
-
             this.linkType = linkElement.getAttribute("link-type");
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-            for (Element parameterElement: parameterElementList) {
-                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+            if (parameterElementList.isEmpty()) {
+                this.parameterList = Collections.emptyList();
+            } else {
+                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
             }
-
             Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
             if (autoServiceParamsElement != null) {
-                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            } else {
+                this.autoServiceParameters = null;
             }
             Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
             if (autoEntityParamsElement != null) {
-                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            } else {
+                this.autoEntityParameters = null;
             }
-
             this.width = linkElement.getAttribute("width");
             this.height = linkElement.getAttribute("height");
         }
@@ -1418,59 +1545,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return fullParameterMap;
         }
 
-        public void setText(String val) {
-            String textAttr = UtilFormatOut.checkNull(val);
-            this.textExdr = FlexibleStringExpander.getInstance(textAttr);
-        }
-        public void setId(String val) {
-            this.idExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setStyle(String val) {
-            this.styleExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setTarget(String val) {
-            this.targetExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setName(String val) {
-            this.nameExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setTargetWindow(String val) {
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setPrefix(String val) {
-            this.prefixExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setUrlMode(String val) {
-            if (UtilValidate.isNotEmpty(val))
-                this.urlMode = val;
-        }
-        public void setFullPath(String val) {
-            String sFullPath = val;
-            if (sFullPath != null && sFullPath.equalsIgnoreCase("true"))
-                this.fullPath = true;
-            else
-                this.fullPath = false;
-        }
-
-        public void setSecure(String val) {
-            String sSecure = val;
-            if (sSecure != null && sSecure.equalsIgnoreCase("true"))
-                this.secure = true;
-            else
-                this.secure = false;
-        }
-
-        public void setEncode(String val) {
-            String sEncode = val;
-            if (sEncode != null && sEncode.equalsIgnoreCase("true"))
-                this.encode = true;
-            else
-                this.encode = false;
-        }
-        public void setImage(Image img) {
-            this.image = img;
-        }
-
         @Override
         public String rawString() {
             // may want to add more to this
@@ -1478,28 +1552,31 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class Image extends ModelScreenWidget {
+    public static final class Image extends ModelScreenWidget {
         public static final String TAG_NAME = "image";
-        protected FlexibleStringExpander srcExdr;
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
-        protected FlexibleStringExpander widthExdr;
-        protected FlexibleStringExpander heightExdr;
-        protected FlexibleStringExpander borderExdr;
-        protected FlexibleStringExpander alt;
-        protected String urlMode = "content";
+        private final FlexibleStringExpander srcExdr;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander widthExdr;
+        private final FlexibleStringExpander heightExdr;
+        private final FlexibleStringExpander borderExdr;
+        private final FlexibleStringExpander alt;
+        private final String urlMode;
 
         public Image(ModelScreen modelScreen, Element imageElement) {
             super(modelScreen, imageElement);
-
-            setSrc(imageElement.getAttribute("src"));
-            setId(imageElement.getAttribute("id"));
-            setStyle(imageElement.getAttribute("style"));
-            setWidth(imageElement.getAttribute("width"));
-            setHeight(imageElement.getAttribute("height"));
-            setBorder(imageElement.getAttribute("border"));
-            setAlt(imageElement.getAttribute("alt"));
-            setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
+            this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
+            this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
+            this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
+            this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
+            this.borderExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("border"));
+            this.alt = FlexibleStringExpander.getInstance(imageElement.getAttribute("alt"));
+            String urlMode = imageElement.getAttribute("url-mode");
+            if (urlMode.isEmpty()) {
+                urlMode = "content";
+            }
+            this.urlMode = urlMode;
         }
 
         @Override
@@ -1550,38 +1627,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.urlMode;
         }
 
-        public void setSrc(String val) {
-            String textAttr = UtilFormatOut.checkNull(val);
-            this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
-        }
-        public void setId(String val) {
-            this.idExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setStyle(String val) {
-            this.styleExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setWidth(String val) {
-            this.widthExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setHeight(String val) {
-            this.heightExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setBorder(String val) {
-            this.borderExdr = FlexibleStringExpander.getInstance(val);
-        }
-        public void setAlt(String val) {
-            String altAttr = UtilFormatOut.checkNull(val);
-            this.alt = FlexibleStringExpander.getInstance(altAttr);
-        }
-
-        public void setUrlMode(String val) {
-            if (UtilValidate.isEmpty(val)) {
-                this.urlMode = "content";
-            } else {
-                this.urlMode = val;
-            }
-        }
-
         @Override
         public String rawString() {
             // may want to add more to this
@@ -1589,13 +1634,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
     }
 
-    public static class PortalPage extends ModelScreenWidget {
+    public static final class PortalPage extends ModelScreenWidget {
         public static final String TAG_NAME = "include-portal-page";
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander confModeExdr;
-        protected String originalPortalPageId;
-        protected String actualPortalPageId;
-        protected Boolean usePrivate;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander confModeExdr;
+        private final Boolean usePrivate;
 
         public PortalPage(ModelScreen modelScreen, Element portalPageElement) {
             super(modelScreen, portalPageElement);
@@ -1604,38 +1647,41 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.usePrivate = !("false".equals(portalPageElement.getAttribute("use-private")));
         }
 
+        private GenericValue getPortalPageValue(Map<String, Object> context) {
+            Delegator delegator = (Delegator) context.get("delegator");
+            String expandedPortalPageId = getId(context);
+            GenericValue portalPage = null;
+            if (!expandedPortalPageId.isEmpty()) {
+                if (usePrivate) {
+                    portalPage = PortalPageWorker.getPortalPage(expandedPortalPageId, context);
+                } else {
+                    try {
+                        portalPage = EntityQuery.use(delegator).from("PortalPage").where("portalPageId", expandedPortalPageId)
+                                .cache().queryOne();
+                    } catch (GenericEntityException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            if (portalPage == null) {
+                String errMsg = "Could not find PortalPage with portalPageId [" + expandedPortalPageId + "] ";
+                Debug.logError(errMsg, module);
+                throw new RuntimeException(errMsg);
+            }
+            return portalPage;
+        }
+
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             try {
                 Delegator delegator = (Delegator) context.get("delegator");
-                GenericValue portalPage = null;
                 List<GenericValue> portalPageColumns = null;
                 List<GenericValue> portalPagePortlets = null;
                 List<GenericValue> portletAttributes = null;
-
-                String expandedPortalPageId = getId(context);
-
-                if (UtilValidate.isNotEmpty(expandedPortalPageId)) {
-                    if (usePrivate) {
-                        portalPage = PortalPageWorker.getPortalPage(expandedPortalPageId, context);
-                    }
-                    else {
-                        portalPage = EntityQuery.use(delegator).from("PortalPage").where("portalPageId", expandedPortalPageId).cache().queryOne();
-                    }
-                    if (portalPage == null) {
-                        String errMsg = "Could not find PortalPage with portalPageId [" + expandedPortalPageId + "] ";
-                        Debug.logError(errMsg, module);
-                        throw new RuntimeException(errMsg);
-                    } else {
-                        actualPortalPageId = portalPage.getString("portalPageId");
-                        originalPortalPageId = portalPage.getString("originalPortalPageId");
-                        portalPageColumns = delegator.findByAnd("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId), UtilMisc.toList("columnSeqId"), true);
-                    }
-                } else {
-                    String errMsg = "portalPageId is empty.";
-                    Debug.logError(errMsg, module);
-                    return;
-                }
+                GenericValue portalPage = getPortalPageValue(context);
+                String actualPortalPageId = portalPage.getString("portalPageId");
+                portalPageColumns = delegator.findByAnd("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId),
+                        UtilMisc.toList("columnSeqId"), true);
 
                 // Renders the portalPage header
                 screenStringRenderer.renderPortalPageBegin(writer, context, this);
@@ -1734,12 +1780,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.idExdr.expandString(context);
         }
 
-        public String getOriginalPortalPageId() {
-            return this.originalPortalPageId;
+        public String getOriginalPortalPageId(Map<String, Object> context) {
+            GenericValue portalPage = getPortalPageValue(context);
+            return portalPage.getString("originalPortalPageId");
         }
         
-        public String getActualPortalPageId() {
-            return this.actualPortalPageId;
+        public String getActualPortalPageId(Map<String, Object> context) {
+            GenericValue portalPage = getPortalPageValue(context);
+            return portalPage.getString("portalPageId");
         }
 
         public String getConfMode(Map<String, Object> context) {

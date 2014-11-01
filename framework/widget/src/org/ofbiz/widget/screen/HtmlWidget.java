@@ -271,7 +271,7 @@ public class HtmlWidget extends ModelScreenWidget {
             this.name = htmlTemplateDecoratorSectionElement.getAttribute("name");
             // read sub-widgets
             List<? extends Element> subElementList = UtilXml.childElementList(htmlTemplateDecoratorSectionElement);
-            this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
+            this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
         }
 
         @Override
