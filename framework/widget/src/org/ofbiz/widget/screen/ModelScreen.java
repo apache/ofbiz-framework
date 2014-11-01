@@ -48,13 +48,13 @@ public class ModelScreen extends ModelWidget {
 
     public static final String module = ModelScreen.class.getName();
 
-    protected String sourceLocation;
-    protected FlexibleStringExpander transactionTimeoutExdr;
-    protected Map<String, ModelScreen> modelScreenMap;
-    protected boolean useTransaction;
-    protected boolean useCache;
+    private final String sourceLocation;
+    private final FlexibleStringExpander transactionTimeoutExdr;
+    private final Map<String, ModelScreen> modelScreenMap;
+    private final boolean useTransaction;
+    private final boolean useCache;
 
-    protected ModelScreenWidget.Section section;
+    private final ModelScreenWidget.Section section;
 
     // ===== CONSTRUCTORS =====
 
@@ -73,6 +73,26 @@ public class ModelScreen extends ModelWidget {
             throw new IllegalArgumentException("No section found for the screen definition with name: " + getName());
         }
         this.section = new ModelScreenWidget.Section(this, sectionElement, true);
+    }
+
+    public String getTransactionTimeout() {
+        return transactionTimeoutExdr.getOriginal();
+    }
+
+    public Map<String, ModelScreen> getModelScreenMap() {
+        return modelScreenMap;
+    }
+
+    public boolean getUseTransaction() {
+        return useTransaction;
+    }
+
+    public boolean getUseCache() {
+        return useCache;
+    }
+
+    public ModelScreenWidget.Section getSection() {
+        return section;
     }
 
     public String getSourceLocation() {
