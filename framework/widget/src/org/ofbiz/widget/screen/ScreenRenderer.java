@@ -107,7 +107,7 @@ public class ScreenRenderer {
      */
     public String render(String resourceName, String screenName) throws GeneralException, IOException, SAXException, ParserConfigurationException {
         ModelScreen modelScreen = ScreenFactory.getScreenFromLocation(resourceName, screenName);
-        if (modelScreen.useCache) {
+        if (modelScreen.getUseCache()) {
             // if in the screen definition use-cache is set to true
             // then try to get an already built screen output from the cache:
             // 1) if we find it then we get it and attach it to the passed in writer

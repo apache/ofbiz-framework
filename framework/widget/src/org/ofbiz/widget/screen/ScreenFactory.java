@@ -201,7 +201,7 @@ public class ScreenFactory {
                 throw new RuntimeException(errMsg);
             }
         } else {
-            modelScreen = parentWidget.getModelScreen().modelScreenMap.get(name);
+            modelScreen = parentWidget.getModelScreen().getModelScreenMap().get(name);
             if (modelScreen == null) {
                 throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + parentWidget.getModelScreen().getName() + "]");
             }
