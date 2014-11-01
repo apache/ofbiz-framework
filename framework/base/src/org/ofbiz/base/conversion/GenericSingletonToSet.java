@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.util.HashSet;
 import java.util.Set;
-
-import javolution.util.FastSet;
 
 public class GenericSingletonToSet<T> extends AbstractConverter<T, Set<T>> {
     public GenericSingletonToSet(Class<T> sourceClass) {
@@ -28,7 +27,7 @@ public class GenericSingletonToSet<T> extends AbstractConverter<T, Set<T>> {
     }
 
     public Set<T> convert(T obj) throws ConversionException {
-        Set<T> tempSet = FastSet.newInstance();
+        Set<T> tempSet = new HashSet<T>();
         tempSet.add(obj);
         return tempSet;
     }

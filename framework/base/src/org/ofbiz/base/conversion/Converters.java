@@ -19,11 +19,11 @@
 package org.ofbiz.base.conversion;
 
 import java.lang.reflect.Modifier;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.ServiceLoader;
-
-import javolution.util.FastMap;
-import javolution.util.FastSet;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.ofbiz.base.lang.SourceMonitored;
 import org.ofbiz.base.util.Debug;
@@ -35,12 +35,11 @@ import org.ofbiz.base.util.UtilGenerics;
 public class Converters {
     protected static final String module = Converters.class.getName();
     protected static final String DELIMITER = "->";
-    protected static final FastMap<String, Converter<?, ?>> converterMap = FastMap.newInstance();
-    protected static final FastSet<ConverterCreator> creators = FastSet.newInstance();
-    protected static final FastSet<String> noConversions = FastSet.newInstance();
+    protected static final ConcurrentHashMap<String, Converter<?, ?>> converterMap = new ConcurrentHashMap<String, Converter<?, ?>>();
+    protected static final Set<ConverterCreator> creators = new HashSet<ConverterCreator>();
+    protected static final Set<String> noConversions = new HashSet<String>();
 
     static {
-        converterMap.setShared(true);
         registerCreator(new PassThruConverterCreator());
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
         Iterator<ConverterLoader> converterLoaders = ServiceLoader.load(ConverterLoader.class, loader).iterator();
@@ -110,7 +109,11 @@ OUTER:
                     continue OUTER;
                 }
             }
-            if (noConversions.add(key)) {
+            boolean addedToSet = false;
+            synchronized (noConversions) {
+                addedToSet = noConversions.add(key);
+            }
+            if (addedToSet) {
                 Debug.logWarning("*** No converter found, converting from " +
                         sourceClass.getName() + " to " + targetClass.getName() +
                         ". Please report this message to the developer community so " +
@@ -163,7 +166,9 @@ OUTER:
      * @param creator The <code>ConverterCreater</code> instance to register
      */
     public static <S, T> void registerCreator(ConverterCreator creator) {
-        creators.add(creator);
+        synchronized (creators) {
+            creators.add(creator);
+        }
     }
 
     /** Registers a <code>Converter</code> instance to be used by the
