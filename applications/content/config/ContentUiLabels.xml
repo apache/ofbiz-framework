@@ -2477,7 +2477,7 @@
         <value xml:lang="ja">シンプルメソッド呼び出し ${resourceDescription} で、必須項目 ${requiredField} が正しくありません</value>
         <value xml:lang="pt">Campo obrigatório ${requiredField} está ausente na chamada do método simples ${resourceDescription}</value>
         <value xml:lang="vi">Trường bắt buộc ${requiredField} bị thiếu khi gọi hàm ${resourceDescription}</value>
-        <value xml:lang="zh">在用简单方法调用 ${resourceDescription} 时，缺少必须的数据项 ${requiredField}</value>
+        <!--value xml:lang="zh">在用简单方法调用 ${resourceDescription} 时，缺少必须的数据项 ${requiredField}</value-->
         <value xml:lang="zh">在呼叫簡單方法 ${resourceDescription} 時，缺少必要的欄位 ${requiredField}</value>
         <value xml:lang="zh_TW">在呼叫簡單方法 ${resourceDescription} 時,缺少必要的欄位 ${requiredField}</value>
     </property>

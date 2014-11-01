@@ -8981,9 +8981,9 @@
         <value xml:lang="en">No product store(s) found for this party.</value>
         <value xml:lang="fr">Aucun centre de profit trouvé pour cet acteur</value>
         <value xml:lang="ja">この取引先に製品店舗はありません。</value>
-        <value xml:lang="zh_TW">此團體沒有產品商店.</value>
         <value xml:lang="vi">Không tìm thấy cửa hàng cho tác nhân này.</value>
         <value xml:lang="zh">没有找到这个会员的产品店铺。</value>
+        <!--value xml:lang="zh_TW">此團體沒有產品商店.</value-->
         <value xml:lang="zh_TW">沒有找到這這個團體的產品商店.</value>
     </property>
     <property key="PartyNoServerHitsFound">

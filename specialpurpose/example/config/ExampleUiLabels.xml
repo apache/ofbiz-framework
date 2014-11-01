@@ -930,7 +930,7 @@
         <value xml:lang="ja">別のテキスト</value>
         <value xml:lang="th">ตัวหนังสืออื่น ๆ</value>
         <value xml:lang="zh">另一个文本</value>
-        <value xml:lang="zh_TW">另一個文本</value>
+        <!--value xml:lang="zh_TW">另一個文本</value-->
         <value xml:lang="zh_TW">另一個本文</value>
     </property>
     <property key="FormFieldTitle_displayAnotherText">
@@ -938,7 +938,7 @@
         <value xml:lang="it">Testo alternativo</value>
         <value xml:lang="ja">別のテキスト</value>
         <value xml:lang="zh">另一个文本</value>
-        <value xml:lang="zh_TW">另一個文本</value>
+        <!--value xml:lang="zh_TW">另一個文本</value-->
         <value xml:lang="zh_TW">另一個本文</value>
     </property>
     <property key="FormFieldTitle_exampleDate">
@@ -980,7 +980,7 @@
         <value xml:lang="it">Testo esempio</value>
         <value xml:lang="ja">サンプルテキスト</value>
         <value xml:lang="zh">样例文本</value>
-        <value xml:lang="zh_TW">範例文本</value>
+        <!--value xml:lang="zh_TW">範例文本</value-->
         <value xml:lang="zh_TW">範例本文</value>
     </property>
     <property key="PageTitleEditExample">

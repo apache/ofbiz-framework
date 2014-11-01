@@ -1840,7 +1840,7 @@
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
         <value xml:lang="vi">Số giờ theo kế hoạch</value>
         <value xml:lang="zh">已计划工时</value>
-        <value xml:lang="zh_TW">已計畫工時</value>
+        <!--value xml:lang="zh_TW">已計畫工時</value-->
         <value xml:lang="zh_TW">已計劃工時</value>
     </property>
     <property key="ProjectMgrPrintableNote">
