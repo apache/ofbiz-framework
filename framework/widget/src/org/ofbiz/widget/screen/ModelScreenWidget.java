@@ -216,13 +216,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
             if (isMainSection) {
                 return modelScreen.getSourceLocation() + "#" + modelScreen.getName();
             } else {
-                return name;
+                return getName();
             }
         }
 
         @Override
         public String rawString() {
-            return "<section" + (UtilValidate.isNotEmpty(this.name)?" name=\"" + this.name + "\"":"") + ">";
+            return "<section" + (UtilValidate.isNotEmpty(getName())?" name=\"" + getName() + "\"":"") + ">";
         }
     }
 
@@ -384,7 +384,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             this.saveCollapsed = !("false".equals(screenletElement.getAttribute("save-collapsed")));
 
             this.padded = !"false".equals(screenletElement.getAttribute("padded"));
-            if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
+            if (this.collapsible && UtilValidate.isEmpty(getName()) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
             }
             this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
@@ -690,7 +690,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         @Override
         public String rawString() {
-            return "<decorator-section name=\"" + this.name + "\">";
+            return "<decorator-section name=\"" + getName() + "\">";
         }
     }
 
@@ -704,9 +704,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
             Map<String, ? extends Object> preRenderedContent = UtilGenerics.checkMap(context.get("preRenderedContent"));
-            if (preRenderedContent != null && preRenderedContent.containsKey(this.name)) {
+            if (preRenderedContent != null && preRenderedContent.containsKey(getName())) {
                 try {
-                    writer.append((String) preRenderedContent.get(this.name));
+                    writer.append((String) preRenderedContent.get(getName()));
                 } catch (IOException e) {
                     String errMsg = "Error rendering pre-rendered content in screen named [" + this.modelScreen.getName() + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
@@ -716,16 +716,16 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 SectionsRenderer sections = (SectionsRenderer) context.get("sections");
                 // for now if sections is null, just log a warning; may be permissible to make the screen for flexible
                 if (sections == null) {
-                    Debug.logWarning("In decorator-section-include could not find sections object in the context, not rendering section with name [" + this.name + "]", module);
+                    Debug.logWarning("In decorator-section-include could not find sections object in the context, not rendering section with name [" + getName() + "]", module);
                 } else {
-                    sections.render(this.name);
+                    sections.render(getName());
                 }
             }
         }
 
         @Override
         public String rawString() {
-            return "<decorator-section-include name=\"" + this.name + "\">";
+            return "<decorator-section-include name=\"" + getName() + "\">";
         }
     }
 
@@ -816,7 +816,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             try {
                 modelForm.renderFormString(writer, context, formStringRenderer);
             } catch (IOException e) {
-                String errMsg = "Error rendering included form named [" + name + "] at location [" + this.getLocation(context) + "]: " + e.toString();
+                String errMsg = "Error rendering included form named [" + getName() + "] at location [" + this.getLocation(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg + e);
             }

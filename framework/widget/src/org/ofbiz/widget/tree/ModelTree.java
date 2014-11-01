@@ -85,9 +85,6 @@ public class ModelTree extends ModelWidget {
 // ===== CONSTRUCTORS =====
     /** Default Constructor */
 
-    /** XML Constructor */
-    public ModelTree() {}
-
     public ModelTree(Element treeElement, Delegator delegator, LocalDispatcher dispatcher) {
         super(treeElement);
         this.rootNodeName = treeElement.getAttribute("root-node-name");
@@ -125,7 +122,7 @@ public class ModelTree extends ModelWidget {
         }
 
         if (nodeList.size() == 0) {
-            throw new IllegalArgumentException("No node elements found for the tree definition with name: " + this.name);
+            throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
         }
 
     }
@@ -204,7 +201,7 @@ public class ModelTree extends ModelWidget {
 
     @Override
     public String getBoundaryCommentName() {
-        return treeLocation + "#" + name;
+        return treeLocation + "#" + getName();
     }
 
     public void setTreeLocation(String treeLocation) {
@@ -255,7 +252,7 @@ public class ModelTree extends ModelWidget {
             node.renderNodeString(writer, context, treeStringRenderer, 0);
             buf.append(writer.toString());
         } catch (IOException e2) {
-            String errMsg = "Error rendering included label with name [" + name + "] : " + e2.toString();
+            String errMsg = "Error rendering included label with name [" + getName() + "] : " + e2.toString();
             Debug.logError(e2, errMsg, module);
             throw new RuntimeException(errMsg);
         }

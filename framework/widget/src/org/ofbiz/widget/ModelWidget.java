@@ -30,25 +30,23 @@ import org.w3c.dom.Element;
  * extended by other widget model classes.
  */
 @SuppressWarnings("serial")
-public class ModelWidget implements Serializable {
+public abstract class ModelWidget implements Serializable {
 
     /**
      * The parameter name used to control widget boundary comments. Currently
      * set to "widgetVerbose".
      */
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
-    protected String name;
-    private String systemId;
-    private int startColumn;
-    private int startLine;
-
-    protected ModelWidget() {}
+    private final String name;
+    private final String systemId;
+    private final int startColumn;
+    private final int startLine;
 
     /**
      * Derived classes must call this constructor.
      * @param widgetElement The XML Element for the widget
      */
-    public ModelWidget(Element widgetElement) {
+    protected ModelWidget(Element widgetElement) {
         this.name = widgetElement.getAttribute("name");
         this.systemId = (String) widgetElement.getUserData("systemId");
         this.startColumn = ((Integer) widgetElement.getUserData("startColumn")).intValue();
