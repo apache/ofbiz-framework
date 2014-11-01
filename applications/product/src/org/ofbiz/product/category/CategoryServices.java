@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.category;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -434,7 +430,7 @@ public class CategoryServices {
 
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     @SuppressWarnings("unchecked")
-    public static void getChildCategoryTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildCategoryTree(HttpServletRequest request, HttpServletResponse response){
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String productCategoryId = request.getParameter("productCategoryId");
         String isCatalog = request.getParameter("isCatalog");
@@ -528,42 +524,13 @@ public class CategoryServices {
                         categoryList.add(josonMap);
                     }
                     List<Map<Object, Object>> sortedCategoryList = UtilMisc.sortMaps(categoryList, sortList);
-                    toJsonObjectList(sortedCategoryList,response);
+                    request.setAttribute("treeData", sortedCategoryList);
                 }
             }
         } catch (GenericEntityException e) {
             e.printStackTrace();
+            return "error";
         }
-    }
-
-    public static void toJsonObjectList(List attrList, HttpServletResponse response){
-        StringBuilder jsonBuilder = new StringBuilder("[");
-        for (Object attrMap : attrList) {
-            JSONObject json = JSONObject.fromObject(attrMap);
-            jsonBuilder.append(json.toString());
-            jsonBuilder.append(',');
-        }
-        jsonBuilder.append("{ } ]");
-        String jsonStr = jsonBuilder.toString();
-        if (UtilValidate.isEmpty(jsonStr)) {
-            Debug.logError("JSON Object was empty; fatal error!",module);
-        }
-        // set the X-JSON content type
-        response.setContentType("application/json");
-        // jsonStr.length is not reliable for unicode characters
-        try {
-            response.setContentLength(jsonStr.getBytes("UTF8").length);
-        } catch (UnsupportedEncodingException e) {
-            Debug.logError("Problems with Json encoding",module);
-        }
-        // return the JSON String
-        Writer out;
-        try {
-            out = response.getWriter();
-            out.write(jsonStr);
-            out.flush();
-        } catch (IOException e) {
-            Debug.logError("Unable to get response writer",module);
-        }
+        return "success";
     }
 }

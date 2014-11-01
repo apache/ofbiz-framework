@@ -69,7 +69,10 @@ var rawdata = [
                                 "hrefString" : "viewprofile?partyId=" ,
                                 "onclickFunction" : "callDocument"
                         }; 
-                    }
+                    },
+                              success : function(data) {
+                                  return data.hrTree;
+                              }
                 }
             },
             "types" : {

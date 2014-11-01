@@ -37,7 +37,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.ofbiz.base.concurrent.ExecutionPool;
+import org.ofbiz.base.lang.JSON;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.Observable;
 import org.ofbiz.base.util.Observer;
 import org.ofbiz.base.util.UtilDateTime;
@@ -1207,6 +1209,23 @@ public class EntityTestSuite extends EntityTestCase {
         Debug.logInfo("Selected " + totalNumberOfRows + " rows with " + numberOfQueries + " queries (each in its own transaction) in " + totalTimeSeveralSmallTransactions + " ms", module);
         assertTrue("Errors detected executing the small transactions", noErrors);
         assertTrue("One big transaction was not faster than several small ones", totalTimeOneTransaction < totalTimeSeveralSmallTransactions);
+    }
+
+    public void testConverters() throws Exception {
+        // Must use the default delegator because the deserialized GenericValue can't
+        // find the randomized one.
+        Delegator localDelegator = DelegatorFactory.getDelegator("default");
+        GenericValue testValue = localDelegator.create("Testing", "testingId", "JSON_TEST", "testingTypeId", "TEST-UPDATE-1",
+                "description", "Testing JSON Converters", "testingSize", (long) 123, "testingDate",
+                new Timestamp(System.currentTimeMillis()));
+        assertNotNull("Created GenericValue not null", testValue);
+        JSON json = (JSON) ObjectType.simpleTypeConvert(testValue, "org.ofbiz.base.lang.JSON", null, null);
+        assertNotNull("JSON instance not null", json);
+        GenericValue convertedValue = (GenericValue) ObjectType.simpleTypeConvert(json, "org.ofbiz.entity.GenericValue", null,
+                null);
+        assertNotNull("GenericValue converted from JSON not null", convertedValue);
+        assertEquals("GenericValue converted from JSON equals original value", testValue, convertedValue);
+        testValue.remove();
     }
 
     private final class TestObserver implements Observer {

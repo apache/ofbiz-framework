@@ -45,32 +45,14 @@ under the License.
         <file name="org/ofbiz/sql/test/ValuesTest.java"/>
         <file name="org/ofbiz/sql/test/ConditionsTest.java"/>
         <file name="org/ofbiz/sql/test/SelectTest.java"/>
-        <file name="org/ofbiz/sql/test/SQLTest.java"/>
     </filelist>
     <patternset id="cobertura-src-dirs">
-        <include name="build/gen-src/javacc"/>
-        <include name="build/gen-src/jjtree"/>
         <include name="src"/>
     </patternset>
 
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
-
-    <target name="gen-src">
-        <ofbiz-javacc dir="org/ofbiz/sql" file="Parser"/>
-    </target>
-
-    <target name="classes" depends="prepare,gen-src">
-        <javac17>
-            <sourcepath>
-                <dirset dir="build/gen-src">
-                    <include name="javacc"/>
-                    <include name="jjtree"/>
-                </dirset>
-            </sourcepath>
-        </javac17>
-    </target>
 
     <target name="jar" depends="classes">
         <main-jar/>
@@ -83,10 +65,6 @@ under the License.
 
     <target name="docs" depends="prepare-docs">
         <default-javadoc>
-            <fileset dir="build/gen-src/javacc" defaultexcludes="yes">
-                <patternset refid="src.inc.set"/>
-                <patternset refid="src.exc.set"/>
-            </fileset>
             <fileset dir="${src.dir}" defaultexcludes="yes">
                 <patternset refid="src.inc.set"/>
                 <patternset refid="src.exc.set"/>

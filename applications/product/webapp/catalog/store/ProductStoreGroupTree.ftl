@@ -49,17 +49,21 @@ var rawdata = [
         "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
             "json_data" : {
                 "data" : rawdata,
-                          "ajax" : { "url" : "<@ofbizUrl>getProductStoreGroupRollupHierarchy</@ofbizUrl>", "type" : "POST",
-                          "data" : function (n) {
-                            return { 
-                                "parentGroupId" :  n.attr ? n.attr("parentGroupId").replace("node_","") : 1,
-                                "onclickFunction" : "callDocument"
-                        }; 
-                    }
+                "ajax" : { "url" : "<@ofbizUrl>getProductStoreGroupRollupHierarchy</@ofbizUrl>",
+                           "type" : "POST",
+                           "data" : function (n) {
+                               return {
+                                   "parentGroupId" :  n.attr ? n.attr("parentGroupId").replace("node_","") : 1,
+                                   "onclickFunction" : "callDocument"
+                               };
+                           },
+                           success : function (data) {
+                               return data.storeGroupTree;
+                           }
                 }
             },
             "types" : {
-             "valid_children" : [ "root" ]
+                "valid_children" : [ "root" ]
             }
         });
     });

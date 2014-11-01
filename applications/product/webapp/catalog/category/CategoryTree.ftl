@@ -62,20 +62,24 @@ var rawdata = [
             $.cookie('jstree_select', "<#if productCategoryId??>${productCategoryId}<#elseif prodCatalogId??>${prodCatalogId}<#elseif showProductCategoryId??>${showProductCategoryId}</#if>");
         </#if>
         jQuery("#tree").jstree({
-        "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
+            "plugins" : [ "themes", "json_data","ui" ,"cookies", "types"],
             "json_data" : {
                 "data" : rawdata,
-                          "ajax" : { "url" : "<@ofbizUrl>getChild</@ofbizUrl>", "type" : "POST",
-                          "data" : function (n) {
-                            return { 
-                                "isCategoryType" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
-                                "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
-                                "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
-                                "additionParam" : "','category" ,
-                                "hrefString" : "EditCategory?productCategoryId=" ,
-                                "onclickFunction" : "callDocument"
-                        }; 
-                    }
+                "ajax" : { "url" : "<@ofbizUrl>getChild</@ofbizUrl>",
+                           "type" : "POST",
+                           "data" : function (n) {
+                                        return {
+                                            "isCategoryType" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
+                                            "isCatalog" :  n.attr ? n.attr("isCatalog").replace("node_","") : 1 ,
+                                            "productCategoryId" : n.attr ? n.attr("id").replace("node_","") : 1 ,
+                                            "additionParam" : "','category" ,
+                                            "hrefString" : "EditCategory?productCategoryId=" ,
+                                            "onclickFunction" : "callDocument"
+                                        };
+                                    },
+                           success : function(data) {
+                               return data.treeData;
+                           }
                 }
             },
             "types" : {

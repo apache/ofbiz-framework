@@ -18,124 +18,15 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
-import java.util.Collection;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import javolution.util.FastSet;
-
-import org.ofbiz.base.json.JSON;
+import org.ofbiz.base.lang.JSON;
 import org.ofbiz.base.util.UtilGenerics;
 
 /** JSON Converter classes. */
 public class JSONConverters implements ConverterLoader {
-    public static class ObjectToJSONResultCreator<R extends JSONResult> implements ConverterCreator, ConverterLoader {
-        public void loadConverters() {
-            Converters.registerCreator(this);
-        }
-
-        public <S, T> Converter<S, T> createConverter(Class<S> sourceClass, Class<T> targetClass) {
-            if (!JSONResult.class.isAssignableFrom(targetClass)) {
-                return null;
-            }
-            if (Collection.class.isAssignableFrom(sourceClass)) {
-            } else if (Map.class.isAssignableFrom(sourceClass)) {
-            } else if (Byte.class == sourceClass) {
-            } else if (Character.class == sourceClass) {
-            } else if (Double.class == sourceClass) {
-            } else if (Float.class == sourceClass) {
-            } else if (Integer.class == sourceClass) {
-            } else if (Long.class == sourceClass) {
-            } else if (Short.class == sourceClass) {
-            } else {
-                return null;
-            }
-            return UtilGenerics.cast(new ObjectToJSONWriterResult<S, JSONResult>(sourceClass, UtilGenerics.<Class<JSONResult>>cast(targetClass)));
-        }
-    }
-
-    private static class ObjectToJSONWriterResult<S, T extends JSONResult> extends AbstractConverter<S, T> {
-        public ObjectToJSONWriterResult(Class<S> sourceClass, Class<T> targetClass) {
-            super(sourceClass, targetClass);
-        }
-
-        public T convert(S obj) throws ConversionException {
-            try {
-                T result = UtilGenerics.<T>cast(getTargetClass().newInstance());
-                result.getWriter().write(obj);
-                return result;
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
-
-    public static class JSONToByte extends AbstractConverter<JSON, Byte> {
-        public JSONToByte() {
-            super(JSON.class, Byte.class);
-        }
-
-        public Byte convert(JSON obj) throws ConversionException {
-            try {
-                return obj.JSONLong().byteValue();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
-
-    public static class JSONToDouble extends AbstractConverter<JSON, Double> {
-        public JSONToDouble() {
-            super(JSON.class, Double.class);
-        }
-
-        public Double convert(JSON obj) throws ConversionException {
-            try {
-                return obj.JSONFloat();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
-
-    public static class JSONToFloat extends AbstractConverter<JSON, Float> {
-        public JSONToFloat() {
-            super(JSON.class, Float.class);
-        }
-
-        public Float convert(JSON obj) throws ConversionException {
-            try {
-                return obj.JSONFloat().floatValue();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
-
-    public static class JSONToInteger extends AbstractConverter<JSON, Integer> {
-        public JSONToInteger() {
-            super(JSON.class, Integer.class);
-        }
-
-        public Integer convert(JSON obj) throws ConversionException {
-            try {
-                return obj.JSONLong().intValue();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
 
     public static class JSONToList extends AbstractConverter<JSON, List<Object>> {
         public JSONToList() {
@@ -144,26 +35,8 @@ public class JSONConverters implements ConverterLoader {
 
         public List<Object> convert(JSON obj) throws ConversionException {
             try {
-                return obj.JSONArray();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new ConversionException(e);
-            }
-        }
-    }
-
-    public static class JSONToLong extends AbstractConverter<JSON, Long> {
-        public JSONToLong() {
-            super(JSON.class, Long.class);
-        }
-
-        public Long convert(JSON obj) throws ConversionException {
-            try {
-                return obj.JSONLong();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
+                return UtilGenerics.<List<Object>>cast(obj.toObject(List.class));
+            } catch (IOException e) {
                 throw new ConversionException(e);
             }
         }
@@ -176,44 +49,36 @@ public class JSONConverters implements ConverterLoader {
 
         public Map<String, Object> convert(JSON obj) throws ConversionException {
             try {
-                return obj.JSONObject();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
+                return UtilGenerics.<Map<String, Object>>cast(obj.toObject(Map.class));
+            } catch (IOException e) {
                 throw new ConversionException(e);
             }
         }
     }
 
-    public static class JSONToShort extends AbstractConverter<JSON, Short> {
-        public JSONToShort() {
-            super(JSON.class, Short.class);
+    public static class ListToJSON extends AbstractConverter<List<Object>, JSON> {
+        public ListToJSON() {
+            super(List.class, JSON.class);
         }
 
-        public Short convert(JSON obj) throws ConversionException {
+        public JSON convert(List<Object> obj) throws ConversionException {
             try {
-                return obj.JSONLong().shortValue();
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
+                return JSON.from(obj);
+            } catch (IOException e) {
                 throw new ConversionException(e);
             }
         }
     }
 
-    public static class JSONToSet extends AbstractConverter<JSON, Set<Object>> {
-        public JSONToSet() {
-            super(JSON.class, Set.class);
+    public static class MapToJSON extends AbstractConverter<Map<String, Object>, JSON> {
+        public MapToJSON() {
+            super(Map.class, JSON.class);
         }
 
-        public Set<Object> convert(JSON obj) throws ConversionException {
+        public JSON convert(Map<String, Object> obj) throws ConversionException {
             try {
-                Set<Object> set = FastSet.newInstance();
-                set.addAll(obj.JSONArray());
-                return set;
-            } catch (RuntimeException e) {
-                throw e;
-            } catch (Exception e) {
+                return JSON.from(obj);
+            } catch (IOException e) {
                 throw new ConversionException(e);
             }
         }

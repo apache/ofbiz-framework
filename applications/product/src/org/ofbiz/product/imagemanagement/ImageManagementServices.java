@@ -26,30 +26,17 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.nio.ByteBuffer;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.json.JSONObject;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -66,8 +53,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.event.EventHandlerException;
-
 
 /**
  * Product Services
@@ -76,7 +61,6 @@ public class ImageManagementServices {
     
     public static final String module = ImageManagementServices.class.getName();
     public static final String resource = "ProductErrorUiLabels";
-    private static List<Map<String,Object>> josonMap = null;
     private static int imageCount = 0;
     private static String imagePath;
     
@@ -649,131 +633,7 @@ public class ImageManagementServices {
         result.put("scaleFactor", scaleFactor);
         return result;
     }
-    
-    public static String multipleUploadImage(HttpServletRequest request, HttpServletResponse response) throws IOException, JDOMException {
-        HttpSession session = request.getSession(true);
-        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-        
-        Map<String, String> formInput = FastMap.newInstance();
-        ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, FileUtil.getFile("runtime/tmp")));
-        List<FileItem> lst = null;
-        try {
-           lst = UtilGenerics.checkList(fu.parseRequest(request));
-        } catch (FileUploadException e4) {
-            return e4.getMessage();
-        }
-                
-        FileItem fi = null;
-        FileItem imageFi = null;
-        byte[] imageBytes = {};
-        for (int i=0; i < lst.size(); i++) {
-            fi = lst.get(i);
-            String fieldName = fi.getFieldName();
-            if (fi.isFormField()) {
-                String fieldStr = fi.getString();
-                formInput.put(fieldName, fieldStr);
-            } else if (fieldName.startsWith("imageData")) {
-                Map<String, Object> passedParams = FastMap.newInstance();
-                Map<String, Object> contentLength = FastMap.newInstance();
-                if(josonMap == null){
-                     josonMap = FastList.newInstance();
-                }
-                imageFi = fi;
-                String fileName = fi.getName();
-                String contentType = fi.getContentType();
-                imageBytes = imageFi.get();
-                ByteBuffer byteWrap = ByteBuffer.wrap(imageBytes);
-                passedParams.put("userLogin", userLogin);
-                passedParams.put("productId", formInput.get("productId"));
-                passedParams.put("productContentTypeId", "IMAGE");
-                passedParams.put("_uploadedFile_fileName", fileName);
-                passedParams.put("_uploadedFile_contentType", contentType);
-                passedParams.put("uploadedFile", byteWrap);
-                passedParams.put("imageResize", formInput.get("imageResize"));
-                contentLength.put("imageSize", imageFi.getSize());
-                josonMap.add(contentLength);
-                
-                if (passedParams.get("productId") != null) {
-                    try {
-                        dispatcher.runSync("addMultipleuploadForProduct", passedParams);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        return e.getMessage();
-                    }
-                }
-                
-            }
-        }
-        return "success";
-    }
-    
-    public static String progressUploadImage(HttpServletRequest request, HttpServletResponse response) throws EventHandlerException{
-        toJsonObjectList(josonMap,response);
-        josonMap.clear();
-        return "success";
-    }
-    
-    public static void toJsonObject(Map<String,Object> attrMap, HttpServletResponse response){
-        JSONObject json = JSONObject.fromObject(attrMap);
-        String jsonStr = json.toString();
-        if (jsonStr == null) {
-            Debug.logError("JSON Object was empty; fatal error!",module);
-        }
-        // set the X-JSON content type
-        response.setContentType("application/json");
-        // jsonStr.length is not reliable for unicode characters
-        try {
-            response.setContentLength(jsonStr.getBytes("UTF8").length);
-        } catch (UnsupportedEncodingException e) {
-            Debug.logError("Problems with Json encoding",module);
-        }
-        // return the JSON String
-        Writer out;
-        try {
-            out = response.getWriter();
-            out.write(jsonStr);
-            out.flush();
-        } catch (IOException e) {
-            Debug.logError("Unable to get response writer",module);
-        }
-    }
-    
-    public static void toJsonObjectList(List<Map<String,Object>> list, HttpServletResponse response) throws EventHandlerException {
-        JSONObject json = null;
-        List<JSONObject> jsonList = new ArrayList<JSONObject>();
-        if (list != null) {
-            for (Map<String,Object> val : list) {
-                json = new JSONObject();
-                for (String rowKey: val.keySet()) {
-                    json.put(rowKey, val.get(rowKey));
-                }
-                jsonList.add(json);
-            }
-            String jsonStr = jsonList.toString();
-            if (jsonStr == null) {
-                throw new EventHandlerException("JSON Object was empty; fatal error!");
-            }
-            // set the X-JSON content type
-            response.setContentType("application/json");
-            // jsonStr.length is not reliable for unicode characters
-            try {
-                response.setContentLength(jsonStr.getBytes("UTF8").length);
-            } catch (UnsupportedEncodingException e) {
-                throw new EventHandlerException("Problems with Json encoding", e);
-            }
-            // return the JSON String
-            Writer out;
-            try {
-                out = response.getWriter();
-                out.write(jsonStr);
-                out.flush();
-            } catch (IOException e) {
-                throw new EventHandlerException("Unable to get response writer", e);
-            } 
-        }
-    }
-    
+
     public static File checkExistsImage(File file) {
         if (!file.exists()) {
             imageCount = 0;

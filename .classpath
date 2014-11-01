@@ -29,6 +29,9 @@
     <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ivy-2.2.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/jackson-annotations-2.4.0.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/jackson-core-2.4.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/jackson-databind-2.4.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/javolution-5.4.3.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdbm-1.0-SNAPSHOT.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/jdom-1.1.jar"/>
@@ -130,7 +133,6 @@
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.core-3.1.0.M2.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/iText-2.1.7.jar"/>
-    <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
     <classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
@@ -157,7 +159,6 @@
     <classpathentry kind="src" path="applications/humanres/src"/>
     <classpathentry kind="src" path="applications/workeffort/src"/>
     <classpathentry kind="src" path="specialpurpose/appserver/src"/>
-    <classpathentry kind="src" path="framework/base/build/gen-src/javacc"/>
     <classpathentry excluding="org/ofbiz/base/config/CoberturaInstrumenter.java" kind="src" path="framework/base/src"/>
     <classpathentry kind="src" path="framework/bi/src"/>
     <classpathentry kind="src" path="specialpurpose/birt/src"/>
@@ -172,7 +173,6 @@
     <classpathentry kind="src" path="framework/security/src"/>
     <classpathentry kind="src" path="framework/service/src"/>
     <classpathentry kind="src" path="framework/sql/src"/>
-    <classpathentry kind="src" path="framework/sql/build/gen-src/javacc"/>
     <classpathentry kind="src" path="framework/start/src"/>
     <classpathentry kind="src" path="framework/testtools/src"/>
     <classpathentry excluding="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
