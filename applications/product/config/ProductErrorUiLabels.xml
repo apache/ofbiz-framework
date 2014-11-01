@@ -23,6 +23,7 @@
         <value xml:lang="en">Problem reading product categories: ${errMessage}.</value>
         <value xml:lang="it">Problemi leggendo categorie prodotto: ${errMessage}.</value>
         <value xml:lang="ja">製品カテゴリの読み込み中にエラー: ${errMessage}.</value>
+        <value xml:lang="nl">Probleem inzake productcategoriën: ${errMessage}.</value>
         <value xml:lang="zh">读取产品分类时出错：${errMessage}。</value>
         <value xml:lang="zh_TW">讀取產品分類時出錯:${errMessage}.</value>
     </property>
@@ -44,6 +45,7 @@
         <value xml:lang="en">Product not found in the current category.</value>
         <value xml:lang="it">Prodotto non trovato nell'attuale categoria.</value>
         <value xml:lang="ja">現在のカテゴリに製品が見つかりません。</value>
+        <value xml:lang="nl">Product niet gevonden</value>
         <value xml:lang="zh">在当前分类中没有找到产品。</value>
         <value xml:lang="zh_TW">在當前分類中沒有找到產品.</value>
     </property>
@@ -113,12 +115,14 @@
     <property key="ProductErrorAllOrderItemsAreNotPacked">
         <value xml:lang="en">ERROR: All order items are not packed</value>
         <value xml:lang="ja">エラー: すべての注文アイテムが梱包されていません</value>
+        <value xml:lang="nl">Orderregels zijn niet verpakt</value>
         <value xml:lang="zh">错误：所有订单明细都没有包装</value>
         <value xml:lang="zh_TW">錯誤:所有訂單細項都沒有包裝</value>
     </property>
     <property key="ProductErrorAllOrderItemsAreNotVerified">
         <value xml:lang="en">ERROR: All order items are not verified</value>
         <value xml:lang="ja">エラー: すべての注文アイテムが確認されていません</value>
+        <value xml:lang="nl">Orderregels zijn niet geverifieerd</value>
         <value xml:lang="zh">错误：所有订单明细都没有验证</value>
         <value xml:lang="zh_TW">錯誤:所有訂單細項都沒有驗證</value>
     </property>
@@ -156,6 +160,7 @@
     <property key="ProductErrorNoInventoryReservationsAvailableCannotVerifyThisItem">
         <value xml:lang="en">ERROR: No inventory reservations available; cannot pick this item</value>
         <value xml:lang="ja">エラー: 有効な在庫予約がありません。このアイテムをピッキングできません</value>
+        <value xml:lang="nl">Fout: geen voorraadreservering aanwezig: dit artikel kan niet gepickt worden</value>
         <value xml:lang="zh">错误：没有可用的库存预留；无法分拣这个明细</value>
         <value xml:lang="zh_TW">錯誤:沒有可用的庫存預留;無法揀貨這個細項</value>
     </property>
@@ -186,6 +191,7 @@
     <property key="ProductErrorPackageWeightCannotBeNullOrZero">
         <value xml:lang="en">ERROR: Package weight cannot be null/zero, it should be greater than zero</value>
         <value xml:lang="ja">エラー: パッケージの重量は空/ゼロにできません。ゼロより大きくしてください</value>
+        <value xml:lang="nl">FOUT: Gewicht kan niet nul zijn</value>
         <value xml:lang="zh">错误：包装重量不能为空（null）/0，而应该大于0</value>
         <value xml:lang="zh_TW">錯誤:包裝重量不能為空(null)/0,而應該大於0</value>
     </property>
