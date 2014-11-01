@@ -81,9 +81,9 @@ under the License.
             },
             success: function(data) {
                 document.getElementById('loading').innerHTML = '';
-                if (data) {
+                if (data && data.categories) {
                     removeOptions(id);
-                    var resp = eval(data);
+                    var resp = eval(data.categories);
                     var leng = resp.length;
                      if (leng) {
                         for (i=0;i<leng;i++) {
@@ -112,8 +112,8 @@ under the License.
             success: function(data){
                 removeOptions('theme');
                 previewPic(":http://pics.ebay.com/aw/pics/vit/None2_sample_100x120.gif");
-                if(data!=null){
-                    var resp = eval(data);
+                if(data!=null && data.itemTemplates!=null){
+                    var resp = eval(data.itemTemplates);
                     var leng = resp.length;
                     var j = 0;
                     for (i=0;i<leng;i++) {

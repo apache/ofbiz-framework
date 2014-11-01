@@ -1051,7 +1051,8 @@ under the License.
     <request-map uri="getHRChild">
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.humanres.HumanResEvents" invoke="getChildHRCategoryTree"/>
-        <response name="success" type="none"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="createInternalOrg">
         <security https="true" auth="true"/>

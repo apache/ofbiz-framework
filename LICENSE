@@ -23,6 +23,9 @@ framework/base/lib/httpclient-4.2.1.jar
 framework/base/lib/httpclient-cache-4.2.1.jar
 framework/base/lib/httpcore-4.2.1.jar
 framework/base/lib/ivy-2.2.0.jar
+framework/base/lib/jackson-annotations-2.4.0.jar
+framework/base/lib/jackson-core-2.4.2.jar
+framework/base/lib/jackson-databind-2.4.2.jar
 framework/base/lib/jakarta-regexp-1.5.jar
 framework/base/lib/jpim-0.1.jar
 framework/base/lib/juel-impl-2.2.7.jar
@@ -92,7 +95,6 @@ framework/service/lib/neethi-2.0.4.jar
 framework/service/lib/XmlSchema-1.4.3.jar
 framework/webapp/lib/fop-1.1.jar
 framework/webapp/lib/xmlgraphics-commons-1.5.jar
-framework/webapp/lib/json-lib-2.2.3-jdk15.jar
 framework/webapp/lib/ezmorph-0.9.1.jar
 framework/webapp/lib/rome-0.9.jar
 framework/webapp/lib/serializer-2.7.0.jar
@@ -439,7 +441,6 @@ framework/base/lib/bsh-engine-modified.jar
 framework/base/lib/hamcrest-all-1.2.jar
 framework/base/lib/httpunit-1.7.jar
 framework/base/lib/ical4j-1.0-rc2.jar
-lib/build/javacc/javacc.jar (5.0)
 framework/base/lib/javolution-5.4.3.jar
 framework/base/lib/xpp3-1.1.4c.jar
 framework/base/lib/xstream-1.4.6.jar

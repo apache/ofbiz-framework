@@ -34,8 +34,8 @@ under the License.
          data: pars,
          beforeStart: function() {document.getElementById('loading').innerHTML = ' ${uiLabelMap.CommonPleaseWait}';},
              success: function(data) {
-                if (data != null){
-                    var resp = eval("("+data+")");
+                if (data != null && data.storeColorSchemeMap){
+                    var resp = eval("("+data.storeColorSchemeMap+")");
                     if (resp.storeColorPrimary!=null) document.getElementById('storePrimaryColor').value =  resp.storeColorPrimary;
                     if (resp.storeColorAccent!=null) document.getElementById('storeSecondaryColor').value = resp.storeColorAccent;
                     if (resp.storeColorSecondary!=null) document.getElementById('storeAccentColor').value = resp.storeColorSecondary;

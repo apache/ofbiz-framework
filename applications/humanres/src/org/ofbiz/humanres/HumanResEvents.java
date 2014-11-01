@@ -18,18 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.humanres;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javolution.util.FastList;
 import javolution.util.FastMap;
-import net.sf.json.JSONObject;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -46,7 +42,7 @@ public class HumanResEvents {
     
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
     @SuppressWarnings("unchecked")
-    public static void getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){
+    public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
         String onclickFunction = request.getParameter("onclickFunction");
@@ -54,7 +50,7 @@ public class HumanResEvents {
         String hrefString = request.getParameter("hrefString");
         String hrefString2 = request.getParameter("hrefString2");
         
-        List categoryList = FastList.newInstance();
+        List categoryList = new ArrayList();
         List<GenericValue> childOfComs;
         //check employee position
         try {
@@ -107,11 +103,11 @@ public class HumanResEvents {
                         
                         categoryList.add(josonMap);
                     }
-                    toJsonObjectList(categoryList,response);
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
         
         try {
@@ -235,41 +231,12 @@ public class HumanResEvents {
                         categoryList.add(emplMap);
                     }
                 }
-                
-                toJsonObjectList(categoryList,response);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return "error";
         }
-    }
-    
-    @SuppressWarnings("unchecked")
-    public static void toJsonObjectList(List attrList, HttpServletResponse response){
-        String jsonStr = "[";
-        for (Object attrMap : attrList) {
-            JSONObject json = JSONObject.fromObject(attrMap);
-            jsonStr = jsonStr + json.toString() + ',';
-        }
-        jsonStr = jsonStr + "{ } ]";
-        if (UtilValidate.isEmpty(jsonStr)) {
-            Debug.logError("JSON Object was empty; fatal error!",module);
-        }
-        // set the X-JSON content type
-        response.setContentType("application/json");
-        // jsonStr.length is not reliable for unicode characters
-        try {
-            response.setContentLength(jsonStr.getBytes("UTF8").length);
-        } catch (UnsupportedEncodingException e) {
-            Debug.logError("Problems with Json encoding",module);
-        }
-        // return the JSON String
-        Writer out;
-        try {
-            out = response.getWriter();
-            out.write(jsonStr);
-            out.flush();
-        } catch (IOException e) {
-            Debug.logError("Unable to get response writer",module);
-        }
+        request.setAttribute("hrTree", categoryList);
+        return "success";
     }
 }

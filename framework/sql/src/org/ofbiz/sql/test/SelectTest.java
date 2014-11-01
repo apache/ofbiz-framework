@@ -18,7 +18,6 @@
  */
 package org.ofbiz.sql.test;
 
-import java.io.StringReader;
 import java.util.Collections;
 import java.util.Set;
 
@@ -30,7 +29,6 @@ import org.ofbiz.sql.FieldDef;
 import org.ofbiz.sql.FieldValue;
 import org.ofbiz.sql.FunctionCall;
 import org.ofbiz.sql.OrderByItem;
-import org.ofbiz.sql.Parser;
 import org.ofbiz.sql.StaticValue;
 import org.ofbiz.sql.Value;
 
@@ -42,10 +40,6 @@ public class SelectTest extends GenericTestCaseBase {
 
     public SelectTest(String name) {
         super(name);
-    }
-
-    private static Parser parser(Object v) {
-        return new Parser(new StringReader(v.toString()));
     }
 
     private static <V> void basicTest(String label, Class<V> clz, V v, V o, boolean matches) {
@@ -62,7 +56,6 @@ public class SelectTest extends GenericTestCaseBase {
     private static void fieldAllTest(String label, FieldAll v, String alias, Set<String> exclude, FieldAll o, boolean matches) throws Exception {
         assertEquals(label + ":alias", alias, v.getAlias());
         assertEquals(label + ":exclude", exclude, set(v));
-        assertEquals(label + ":parse", v, parser(v).parse_FieldAll());
         basicTest(label, FieldAll.class, v, o, matches);
     }
 
@@ -83,7 +76,6 @@ public class SelectTest extends GenericTestCaseBase {
         assertEquals(label + ":value", value, v.getValue());
         assertEquals(label + ":alias", alias, v.getAlias());
         assertEquals(label + ":default-name", defaultName, v.getDefaultName());
-        assertEquals(label + ":parse", v, parser(v).parse_FieldDef());
         basicTest(label, FieldDef.class, v, o, matches);
     }
 
@@ -104,7 +96,6 @@ public class SelectTest extends GenericTestCaseBase {
         assertEquals(label + ":order", order, v.getOrder());
         assertEquals(label + ":nulls", nulls, v.getNulls());
         assertEquals(label + ":value", value, v.getValue());
-        assertEquals(label + ":parse", v, parser(v).parse_OrderByItem());
         basicTest(label, OrderByItem.class, v, o, matches);
     }
 

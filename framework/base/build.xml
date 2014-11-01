@@ -51,6 +51,7 @@ under the License.
         <file name="org/ofbiz/base/conversion/test/TestBooleanConverters.java"/>
         <file name="org/ofbiz/base/conversion/test/DateTimeTests.java"/>
         <file name="org/ofbiz/base/conversion/test/MiscTests.java"/>
+        <file name="org/ofbiz/base/conversion/test/TestJSONConverters.java"/>
         <file name="org/ofbiz/base/util/test/UtilIOTests.java"/>
         <file name="org/ofbiz/base/test/BaseUnitTests.java"/>
         <file name="org/ofbiz/base/util/collections/test/GenericMapTest.java"/>
@@ -78,20 +79,6 @@ under the License.
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </patternset>
-    </target>
-
-    <target name="gen-src">
-        <ofbiz-javacc dir="org/ofbiz/base/json" file="JSON"/>
-    </target>
-
-    <target name="classes" depends="prepare,gen-src">
-        <javac17>
-            <sourcepath>
-                <dirset dir="build/gen-src">
-                    <include name="javacc"/>
-                </dirset>
-            </sourcepath>
-        </javac17>
     </target>
 
     <target name="jar" depends="classes">

@@ -28,8 +28,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -41,13 +41,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-import net.sf.json.JSONSerializer;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.ofbiz.base.lang.JSON;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
@@ -289,15 +286,16 @@ public class CommonEvents {
                 attrMap.remove(ignoreAttr);
             }
         }
-
-        // create a JSON Object for return
-        JSONObject json = JSONObject.fromObject(attrMap);
-        writeJSONtoResponse(json, request.getMethod(), response);
-
+        try {
+            JSON json = JSON.from(attrMap);
+            writeJSONtoResponse(json, request.getMethod(), response);
+        } catch (Exception e) {
+            return "error";
+        }
         return "success";
     }
 
-    private static void writeJSONtoResponse(JSON json, String httpMethod, HttpServletResponse response) {
+    private static void writeJSONtoResponse(JSON json, String httpMethod, HttpServletResponse response) throws UnsupportedEncodingException {
         String jsonStr = json.toString();
         if (jsonStr == null) {
             Debug.logError("JSON Object was empty; fatal error!", module);
@@ -307,21 +305,17 @@ public class CommonEvents {
         // This was added for security reason (OFBIZ-5409), you might need to remove the "//" prefix when handling the JSON response
         // Though normally you simply have to access the data you want, so should not be annoyed by the "//" prefix
         if ("GET".equalsIgnoreCase(httpMethod)) {
-            Debug.logWarning("for security reason (OFBIZ-5409) the the '//' prefix was added handling the JSON response.  " +
-                    "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix." +
-                    "You might need to remove it if you use Ajax GET responses (not recommended)." +
-                    "In case, the util.js scrpt is there to help you", module);
+            Debug.logWarning("for security reason (OFBIZ-5409) the the '//' prefix was added handling the JSON response.  "
+                    + "Normally you simply have to access the data you want, so should not be annoyed by the '//' prefix."
+                    + "You might need to remove it if you use Ajax GET responses (not recommended)."
+                    + "In case, the util.js scrpt is there to help you", module);
             jsonStr = "//" + jsonStr;
         }
 
         // set the X-JSON content type
         response.setContentType("application/x-json");
         // jsonStr.length is not reliable for unicode characters
-        try {
-            response.setContentLength(jsonStr.getBytes("UTF8").length);
-        } catch (UnsupportedEncodingException e) {
-            Debug.logError("Problems with Json encoding: " + e, module);
-        }
+        response.setContentLength(jsonStr.getBytes("UTF8").length);
 
         // return the JSON String
         Writer out;
@@ -334,81 +328,65 @@ public class CommonEvents {
         }
     }
 
-
-    public static String getJSONuiLabelArray(HttpServletRequest request, HttpServletResponse response) {
-        String requiredLabels = request.getParameter("requiredLabels");
-
-        JSONObject uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(requiredLabels)) {
-            // Transform JSON String to Object
-            uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
+    public static String getJSONuiLabelArray(HttpServletRequest request, HttpServletResponse response)
+            throws UnsupportedEncodingException, IOException {
+        // Format - {resource1 : [key1, key2 ...], resource2 : [key1, key2, ...], ...}
+        String jsonString = request.getParameter("requiredLabels");
+        Map<String, List<String>> uiLabelObject = null;
+        if (UtilValidate.isNotEmpty(jsonString)) {
+            JSON json = JSON.from(jsonString);
+            uiLabelObject = UtilGenerics.<Map<String, List<String>>> cast(json.toObject(Map.class));
         }
-
-        JSONObject jsonUiLabel = new JSONObject();
+        if (UtilValidate.isEmpty(uiLabelObject)) {
+            Debug.logError("No resource and labels found in JSON string: " + jsonString, module);
+            return "error";
+        }
         Locale locale = request.getLocale();
-        if(!uiLabelObject.isEmpty()) {
-            Set<String> resourceSet = UtilGenerics.checkSet(uiLabelObject.keySet());
-            // Iterate over the resouce set
-            for (String resource : resourceSet) {
-                JSONArray labels = uiLabelObject.getJSONArray(resource);
-                if (labels.isEmpty() || labels == null) {
-                    continue;
+        Map<String, List<String>> uiLabelMap = new HashMap<String, List<String>>();
+        Set<Map.Entry<String, List<String>>> entrySet = uiLabelObject.entrySet();
+        for (Map.Entry<String, List<String>> entry : entrySet) {
+            String resource = entry.getKey();
+            List<String> resourceKeys = entry.getValue();
+            if (resourceKeys != null) {
+                List<String> labels = new ArrayList<String>(resourceKeys.size());
+                for (String resourceKey : resourceKeys) {
+                    String label = UtilProperties.getMessage(resource, resourceKey, locale);
+                    labels.add(label);
                 }
-
-                // Iterate over the uiLabel List
-                Iterator<String> jsonLabelIterator = UtilGenerics.cast(labels.iterator());
-                JSONArray resourceLabelList = new JSONArray();
-                while(jsonLabelIterator.hasNext()) {
-                    String label = jsonLabelIterator.next();
-                    String receivedLabel = UtilProperties.getMessage(resource, label, locale);
-                    if (UtilValidate.isNotEmpty(receivedLabel)) {
-                        resourceLabelList.add(receivedLabel);
-                    }
-                }
-                jsonUiLabel.element(resource, resourceLabelList);
+                uiLabelMap.put(resource, labels);
             }
         }
-
-        writeJSONtoResponse(jsonUiLabel, request.getMethod(), response);
+        writeJSONtoResponse(JSON.from(uiLabelMap), request.getMethod(), response);
         return "success";
     }
 
-    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response) {
-        String requiredLabels = request.getParameter("requiredLabel");
-
-        JSONObject uiLabelObject = null;
-        if (UtilValidate.isNotEmpty(requiredLabels)) {
-            // Transform JSON String to Object
-            uiLabelObject = (JSONObject) JSONSerializer.toJSON(requiredLabels);
+    public static String getJSONuiLabel(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        // Format - {resource : key}
+        String jsonString = request.getParameter("requiredLabel");
+        Map<String, String> uiLabelObject = null;
+        if (UtilValidate.isNotEmpty(jsonString)) {
+            JSON json = JSON.from(jsonString);
+            uiLabelObject = UtilGenerics.<Map<String, String>>cast(json.toObject(Map.class));
         }
-
-        JSONArray jsonUiLabel = new JSONArray();
+        if (UtilValidate.isEmpty(uiLabelObject)) {
+            Debug.logError("No resource and labels found in JSON string: " + jsonString, module);
+            return "error";
+        } else if (uiLabelObject.size() > 1) {
+            Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", module);
+            return "error";
+        }
         Locale locale = request.getLocale();
-        if(!uiLabelObject.isEmpty()) {
-            Set<String> resourceSet = UtilGenerics.checkSet(uiLabelObject.keySet());
-            // Iterate over the resource set
-            // here we need a keySet because we don't now which label resource to load
-            // the key set should have the size one, if greater or empty error should returned
-            if (UtilValidate.isEmpty(resourceSet)) {
-                Debug.logError("No resource and labels found", module);
-                return "error";
-            } else if (resourceSet.size() > 1) {
-                Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", module);
-                return "error";
-            }
-
-            for (String resource : resourceSet) {
-                String label = uiLabelObject.getString(resource);
-                if (UtilValidate.isEmail(label)) {
-                    continue;
-                }
-
-                String receivedLabel = UtilProperties.getMessage(resource, label, locale);
-                jsonUiLabel.add(receivedLabel);
+        Map<String, String> uiLabelMap = new HashMap<String, String>();
+        Set<Map.Entry<String, String>> entrySet = uiLabelObject.entrySet();
+        for (Map.Entry<String, String> entry : entrySet) {
+            String resource = entry.getKey();
+            String resourceKey = entry.getValue();
+            if (resourceKey != null) {
+                String label = UtilProperties.getMessage(resource, resourceKey, locale);
+                uiLabelMap.put(resource, label);
             }
         }
-
-        writeJSONtoResponse(jsonUiLabel, request.getMethod(), response);
+        writeJSONtoResponse(JSON.from(uiLabelMap), request.getMethod(), response);
         return "success";
     }
 

@@ -19,34 +19,20 @@
 package org.ofbiz.base.util;
 
 import java.io.BufferedInputStream;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.io.Reader;
-import java.io.Serializable;
-import java.io.StringReader;
-import java.io.StringWriter;
 import java.io.Writer;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
 
 import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang.StringUtils;
-import org.ofbiz.base.conversion.Converter;
-import org.ofbiz.base.conversion.Converters;
-import org.ofbiz.base.json.JSON;
-import org.ofbiz.base.json.JSONWriter;
 
 public final class UtilIO {
     public static final Charset UTF8 = Charset.forName("UTF-8");
@@ -328,142 +314,5 @@ public final class UtilIO {
         }
         writer.write(value.substring(r));
         writer.close();
-    }
-
-    public static Object readObject(File file) throws ClassNotFoundException, IOException {
-        return readObject(new FileInputStream(file), false);
-    }
-
-    public static Object readObject(File file, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
-        return readObject(new FileInputStream(file), allowJsonResolve);
-    }
-
-    public static Object readObject(InputStream in) throws ClassNotFoundException, IOException {
-        return readObject(in, false);
-    }
-
-    public static Object readObject(InputStream in, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        IOUtils.copy(in, baos);
-        in.close();
-        byte[] bytes = baos.toByteArray();
-        try {
-            char[] buffer = StringUtils.chomp(readString(bytes)).toCharArray();
-            return parseObject(buffer, 0, buffer.length, allowJsonResolve);
-        } catch (Exception e) {
-        }
-        ObjectInputStream oin = new ObjectInputStream(new ByteArrayInputStream(bytes));
-        Serializable value = (Serializable) oin.readObject();
-        oin.close();
-        return value;
-    }
-
-    public static Object readObject(char[] buffer) throws ClassNotFoundException, IOException {
-        return parseObject(buffer, 0, buffer.length, false);
-    }
-
-    public static Object readObject(char[] buffer, int offset, int length) throws ClassNotFoundException, IOException {
-        return parseObject(buffer, offset, length, false);
-    }
-
-    private static <S, T> T convertObject(Class<S> sourceClass, S value, Class<T> targetClass) throws Exception {
-        Converter<S, T> converter = Converters.getConverter(sourceClass, targetClass);
-        return converter.convert(targetClass, value);
-    }
-
-    private static Object parseObject(char[] buffer, int offset, int length, boolean allowJsonResolve) throws ClassNotFoundException, IOException {
-        try {
-            int i;
-            for (i = offset; i < length && buffer[i] != ':'; i++);
-            if (i > offset && i < length) {
-                String className = new String(buffer, offset, i);
-                Class<?> type = Class.forName(className);
-                if (buffer[length - 1] == '\n') {
-                    length--;
-                }
-                if (buffer[length - 1] == '\r') {
-                    length--;
-                }
-                return convertObject(String.class, new String(buffer, i + 1, length - i - 1), type);
-            }
-        } catch (Exception e) {
-        }
-        try {
-            return new JSON(new StringReader(new String(buffer, offset, length))).allowResolve(allowJsonResolve).JSONValue();
-        } catch (Error e) {
-        } catch (Exception e) {
-        }
-        throw new IOException("Can't read (" + new String(buffer, offset, length) + ")");
-    }
-
-    public static void writeObject(File file, Object value) throws IOException {
-        writeObject(new FileOutputStream(file), value, false);
-    }
-
-    public static void writeObject(File file, Object value, boolean allowJsonResolve) throws IOException {
-        writeObject(new FileOutputStream(file), value, allowJsonResolve);
-    }
-
-    public static void writeObject(OutputStream out, Object value) throws IOException {
-        writeObject(out, value, false);
-    }
-
-    public static void writeObject(OutputStream out, Object value, boolean allowJsonResolve) throws IOException {
-        try {
-            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, UTF8));
-            if (encodeObject(writer, value, allowJsonResolve)) {
-                writer.println();
-                writer.close();
-                return;
-            }
-        } catch (Exception e) {
-        }
-        ObjectOutputStream oout = new ObjectOutputStream(out);
-        oout.writeObject(value);
-        oout.close();
-        out.close();
-    }
-
-    private static <T> boolean encodeObject(Writer writer, T value, boolean allowJsonResolve) throws Exception {
-        Converter<T, String> converter = UtilGenerics.cast(Converters.getConverter(value.getClass(), String.class));
-        if (converter != null) {
-            Class<?> clz = converter.getSourceClass();
-            String str = converter.convert(value);
-            if (clz != null) {
-                writer.write(clz.getName());
-            } else {
-                writer.write(value.getClass().getName());
-            }
-            writer.write(':');
-            writer.write(str);
-            return true;
-        } else {
-            StringWriter sw = new StringWriter();
-            IndentingWriter indenting = new IndentingWriter(writer, true, false);
-            JSONWriter jsonWriter;
-            if (allowJsonResolve) {
-                jsonWriter = new JSONWriter(indenting, JSONWriter.ResolvingFallbackHandler);
-            } else {
-                jsonWriter = new JSONWriter(indenting);
-            }
-            jsonWriter.write(value);
-            writer.write(sw.toString());
-            return true;
-        }
-    }
-
-    public static void writeObject(StringBuilder sb, Object value) throws IOException {
-        writeObject(sb, value, false);
-    }
-
-    public static void writeObject(StringBuilder sb, Object value, boolean allowJsonResolve) throws IOException {
-        try {
-            StringWriter writer = new StringWriter();
-            if (encodeObject(writer, value, allowJsonResolve)) {
-                sb.append(writer.toString());
-                return;
-            }
-        } catch (Exception e) {} //Empty catch because writeObject() calls encodeObject(), which *always* returns true, unless an error occurs.  
-        throw new IOException("Can't write (" + value + ")");            
     }
 }

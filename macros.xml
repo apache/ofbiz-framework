@@ -186,32 +186,6 @@ under the License.
         <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-contrib-1.0b3.jar"/>
     </classpath>
   </taskdef>
- <macrodef name="ofbiz-javacc">
-  <attribute name="dir"/>
-  <attribute name="file"/>
-  <attribute name="prefix" default=""/>
-  <sequential>
-   <if>
-     <not>
-      <uptodate
-       srcfile="@{prefix}src/@{dir}/@{file}.jj"
-       targetfile="@{prefix}build/gen-src/javacc/@{dir}/@{file}.java"/>
-     </not>
-     <then>
-       <delete dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-       <mkdir dir="@{prefix}build/gen-src/javacc/@{dir}"/>
-       <javacc target="@{prefix}src/@{dir}/@{file}.jj"
-          javacchome="${ofbiz.home.dir}/lib/build/javacc"
-          outputdirectory="@{prefix}build/gen-src/javacc/@{dir}"/>
-       <replace token="public class" 
-           value='@SuppressWarnings("all") public class' 
-           dir="@{prefix}build/gen-src/javacc/@{dir}"
-           includes="*.java" />
-       <delete dir="@{prefix}build/classes/@{dir}"/>
-     </then>
-   </if>
-  </sequential>
- </macrodef>
 
  <presetdef name="externalsubant">
   <subant inheritall="false">

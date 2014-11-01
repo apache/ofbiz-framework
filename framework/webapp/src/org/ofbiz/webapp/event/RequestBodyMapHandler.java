@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -15,28 +15,19 @@
  * KIND, either express or implied.  See the License for the
  * specific language governing permissions and limitations
  * under the License.
- *******************************************************************************/
-package org.ofbiz.base.conversion;
+ */
+package org.ofbiz.webapp.event;
 
-import java.io.StringWriter;
+import javax.servlet.ServletRequest;
+import java.io.IOException;
+import java.util.Map;
 
-import org.ofbiz.base.json.JSONWriter;
-
-public interface JSONResult {
-    JSONWriter getWriter();
-    String getResult();
-
-    public static class Indenting implements JSONResult {
-        private final StringWriter sw = new StringWriter();
-        private final JSONWriter writer = new JSONWriter(sw);
-
-        public JSONWriter getWriter() {
-            return writer;
-        }
-
-        public String getResult() {
-            return sw.toString();
-        }
-    }
+/** An handler that can extract a Map (typically used as a service input map) from the data in the body of a <code>ServletRequest</code>. */
+public interface RequestBodyMapHandler {
+    /** Extracts from the data in the body of the <code>ServletRequest</code> an instance of <code>Map<String, Object></code>.
+     *
+     * @param request the request with the data in its body
+     * @return an instance of <code>Map<String, Object></code> that represents the data in the request body
+     */
+    public Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException;
 }
-

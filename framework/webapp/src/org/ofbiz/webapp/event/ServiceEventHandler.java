@@ -21,7 +21,9 @@ package org.ofbiz.webapp.event;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -233,6 +235,15 @@ public class ServiceEventHandler implements EventHandler {
 
         Map<String, Object> rawParametersMap = UtilHttp.getParameterMap(request, null, null);
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
+        Map<String, Object> requestBodyMap = null;
+        try {
+            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
+        } catch (IOException ioe) {
+            Debug.logWarning(ioe, module);
+        }
+        if (requestBodyMap != null) {
+            rawParametersMap.putAll(requestBodyMap);
+        }
 
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = FastMap.newInstance();

@@ -1457,7 +1457,8 @@ under the License.
     <request-map uri="getProductStoreGroupRollupHierarchy">
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.product.store.ProductStoreEvents" invoke="getChildProductStoreGroupTree"/>
-        <response name="success" type="none"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="AddProductStoreToGroup">
         <security auth="true" https="true"/>
@@ -2900,17 +2901,6 @@ under the License.
         <response name="success" type="view" value="viewPreviewImage"/>
         <response name="error" type="view" value="viewPreviewImage"/>
     </request-map>
-    <request-map uri="multipleUploadImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.product.imagemanagement.ImageManagementServices" invoke="multipleUploadImage"/>
-        <response name="success" type="view" value="ImageUpload"/>
-        <response name="error" type="view" value="ImageUpload"/>
-    </request-map>
-    <request-map uri="progressUploadImage">
-        <security https="true" auth="true"/>
-        <event type="java" path="org.ofbiz.virtualvillage.imagemanagement.ImageManagementServices" invoke="progressUploadImage"/>
-        <response name="success" type="view" value="main"/>
-    </request-map>
     <request-map uri="chooseFrameImage">
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.product.imagemanagement.FrameImage" invoke="chooseFrameImage"/>
@@ -3022,7 +3012,8 @@ under the License.
     <request-map uri="getChild">
         <security auth="false" https="true"/>
         <event type="java" path="org.ofbiz.product.category.CategoryServices" invoke="getChildCategoryTree"/>
-        <response name="success" type="none"/>
+        <response name="success" type="request" value="json"/>
+        <response name="error" type="request" value="json"/>
     </request-map>
     <request-map uri="listMiniproduct">
         <security auth="false" https="true"/>
