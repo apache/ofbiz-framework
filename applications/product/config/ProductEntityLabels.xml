@@ -26,7 +26,6 @@
         <value xml:lang="fr">Coût réel du travail</value>
         <value xml:lang="it">Costo attuale manodopera</value>
         <value xml:lang="ja">実績労働原価</value>
-        <value xml:lang="nl">Werk. kosten - Arbeid</value>
         <value xml:lang="ro">Cost Actual Manopera</value>
         <value xml:lang="ru">Действительные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยแท้จริง</value>
@@ -41,7 +40,6 @@
         <value xml:lang="fr">Coût réel du matériel</value>
         <value xml:lang="it">Costo attuale materiali</value>
         <value xml:lang="ja">実績材料原価</value>
-        <value xml:lang="nl">Werk. kosten - Materiaal</value>
         <value xml:lang="ro">Cost Actual Materiale</value>
         <value xml:lang="ru">Действительная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุโดยแท้จริง</value>
@@ -56,7 +54,6 @@
         <value xml:lang="fr">Autre coût réel</value>
         <value xml:lang="it">Altro costo attuale</value>
         <value xml:lang="ja">実績その他原価</value>
-        <value xml:lang="nl">Werk. kosten - Overige</value>
         <value xml:lang="ro">Alt Cost Actual</value>
         <value xml:lang="ru">Другие действительные затраты</value>
         <value xml:lang="th">ต้นทุนอื่นๆ โดยแท้จริง</value>
@@ -71,7 +68,6 @@
         <value xml:lang="fr">Coût réel d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo effettivo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ja">実績経路(固定資産使用)原価</value>
-        <value xml:lang="nl">Werk. kosten - Materieel</value>
         <value xml:lang="ro">Cost Actual Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทัรพย์สินไม่หมุนเวียน) โดยแท้จริง</value>
@@ -86,7 +82,6 @@
         <value xml:lang="fr">Estimation de coût du travail</value>
         <value xml:lang="it">Costo stimato di lavoro</value>
         <value xml:lang="ja">見積労働原価</value>
-        <value xml:lang="nl">Geschatte kosten - Arbeid</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
         <value xml:lang="vi">Dự tính chi phí nhân công</value>
         <value xml:lang="zh">预计劳务费用</value>
@@ -99,7 +94,6 @@
         <value xml:lang="fr">Estimation des matériaux</value>
         <value xml:lang="it">Materiali stimati</value>
         <value xml:lang="ja">見積材料</value>
-        <value xml:lang="nl">Geschatte kosten - Materiaal</value>
         <value xml:lang="th">วัตถุโดยประมาณ</value>
         <value xml:lang="vi">Dự tính nguyên vật liệu</value>
         <value xml:lang="zh">预计物料</value>
@@ -112,7 +106,6 @@
         <value xml:lang="fr">Autre estimation</value>
         <value xml:lang="it">Altro costo stimato</value>
         <value xml:lang="ja">見積その他原価</value>
-        <value xml:lang="nl">Geschatte kosten - Overige</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ โดยประมาณ</value>
         <value xml:lang="vi">Dự tính chi phí khác</value>
         <value xml:lang="zh">预计其它费用</value>
@@ -125,7 +118,6 @@
         <value xml:lang="fr">Estimation standard de coût du travail</value>
         <value xml:lang="it">Costo standard manodopera stimata</value>
         <value xml:lang="ja">見積標準労働原価</value>
-        <value xml:lang="nl">Geschatte kosten - Std. Arbeidskosten</value>
         <value xml:lang="ro">Cost Standard Manopera Stimata</value>
         <value xml:lang="ru">Оценочные стандартные трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงานมาตรฐานโดยประมาณ</value>
@@ -140,7 +132,6 @@
         <value xml:lang="fr">Estimation standard du coût du matériel</value>
         <value xml:lang="it">Costo standard materiali stimati</value>
         <value xml:lang="ja">見積標準材料原価</value>
-        <value xml:lang="nl">Geschatte kosten - Std. Materiaalkosten</value>
         <value xml:lang="ro">Cost Standard Materiale Stimate</value>
         <value xml:lang="ru">Оценочная стандартная стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุมาตรฐานโดยประมาณ</value>
@@ -155,7 +146,6 @@
         <value xml:lang="fr">Autre estimation standard</value>
         <value xml:lang="it">Altro costo standard stimato</value>
         <value xml:lang="ja">見積標準その他原価</value>
-        <value xml:lang="nl">Geschatte kosten - Std. overige kosten</value>
         <value xml:lang="ro">Alt Cost Standard Stimat</value>
         <value xml:lang="ru">Оценочные стандартные другие затраты</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ มาตรฐานโดยประมาณ</value>
@@ -170,7 +160,6 @@
         <value xml:lang="fr">Estimation standard de coût d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo standard ciclo stimato (utilizzo cespiti)</value>
         <value xml:lang="ja">見積標準経路(固定資産使用)原価</value>
-        <value xml:lang="nl">Geschatte kosten - Std. materieelkosten</value>
         <value xml:lang="ro">Cost Standard Itinerariu Stimat (folosire mijloace fixe)</value>
         <value xml:lang="ru">Оценочная стандартная стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route  มาตรฐานโดยประมาณ (การใช้ทรัพย์สินไม่ถาวร)</value>
@@ -185,7 +174,6 @@
         <value xml:lang="fr">Coût du travail</value>
         <value xml:lang="it">Costo manodopera</value>
         <value xml:lang="ja">労働原価</value>
-        <value xml:lang="nl">Kosten - Arbeid</value>
         <value xml:lang="ro">Cost Manopera</value>
         <value xml:lang="ru">Трудозатраты</value>
         <value xml:lang="th">ต้นทุนแรงงาน</value>
@@ -200,7 +188,6 @@
         <value xml:lang="fr">Coût de matériel</value>
         <value xml:lang="it">Costo materiali</value>
         <value xml:lang="ja">材料原価</value>
-        <value xml:lang="nl">Kosten - Grond en hulpstoffen</value>
         <value xml:lang="ro">Cost Materiale</value>
         <value xml:lang="ru">Стоимость материалов</value>
         <value xml:lang="th">ต้นทุนวัตถุ</value>
@@ -215,7 +202,6 @@
         <value xml:lang="fr">Autre coût</value>
         <value xml:lang="it">Altro costo</value>
         <value xml:lang="ja">その他原価</value>
-        <value xml:lang="nl">Kosten - Overige</value>
         <value xml:lang="ro">Alte Costuri</value>
         <value xml:lang="ru">Другие затраты</value>
         <value xml:lang="th">ต้นทุนอื่นๆ </value>
@@ -229,7 +215,6 @@
         <value xml:lang="fr">Coût d'itinéraire (utilisation d'immobilisation)</value>
         <value xml:lang="it">Costo ciclo (utilizzo cespiti)</value>
         <value xml:lang="ja">経路(固定資産使用)原価</value>
-        <value xml:lang="nl">Kosten - Materieel</value>
         <value xml:lang="ro">Cost Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
         <value xml:lang="th">ต้นทุน Route (การใช้ทรัพย์สินไม่ถาวร) </value>
@@ -244,7 +229,6 @@
         <value xml:lang="fr">Structure de gestion</value>
         <value xml:lang="it">Gestione struttura</value>
         <value xml:lang="ja">管理構造</value>
-        <value xml:lang="nl">Structuur Mgt</value>
         <value xml:lang="ro">Gestiune Structura</value>
         <value xml:lang="ru">Управляющая структура</value>
         <value xml:lang="th">โครงสร้างการจัดการ</value>
@@ -259,7 +243,6 @@
         <value xml:lang="fr">Groupe de prix</value>
         <value xml:lang="it">Gruppo prezzo</value>
         <value xml:lang="ja">価格グループ</value>
-        <value xml:lang="nl">Prijsgroep</value>
         <value xml:lang="ro">Grup Pret</value>
         <value xml:lang="ru">Ценовая группа</value>
         <value xml:lang="th">กลุ่มราคา</value>
@@ -274,7 +257,6 @@
         <value xml:lang="fr">Immeuble</value>
         <value xml:lang="it">Palazzo</value>
         <value xml:lang="ja">建物</value>
-        <value xml:lang="nl">Gebouw</value>
         <value xml:lang="ro">Bloc</value>
         <value xml:lang="ru">Здание</value>
         <value xml:lang="th">อาคาร</value>
@@ -289,7 +271,6 @@
         <value xml:lang="fr">Centre d'appel</value>
         <value xml:lang="it">Call center</value>
         <value xml:lang="ja">コールセンタ</value>
-        <value xml:lang="nl">Callcenter</value>
         <value xml:lang="ro">Call Center</value>
         <value xml:lang="ru">Центр телефонного обслуживания</value>
         <value xml:lang="th">ประชาสัมพันธ์</value>
@@ -304,7 +285,6 @@
         <value xml:lang="fr">Étage</value>
         <value xml:lang="it">Piano</value>
         <value xml:lang="ja">フロア</value>
-        <value xml:lang="nl">Verdieping</value>
         <value xml:lang="ro">Etaj</value>
         <value xml:lang="ru">Этаж</value>
         <value xml:lang="th">ชั้นอาคาร</value>
@@ -319,7 +299,6 @@
         <value xml:lang="fr">Bureau</value>
         <value xml:lang="it">Ufficio</value>
         <value xml:lang="ja">オフィス</value>
-        <value xml:lang="nl">Kantoor</value>
         <value xml:lang="ro">Uficiu</value>
         <value xml:lang="ru">Офис</value>
         <value xml:lang="th">ที่ทำงาน</value>
@@ -334,7 +313,6 @@
         <value xml:lang="fr">Usine</value>
         <value xml:lang="it">Fabbrica</value>
         <value xml:lang="ja">工場</value>
-        <value xml:lang="nl">Fabriek</value>
         <value xml:lang="ro">Fabrica</value>
         <value xml:lang="ru">Завод</value>
         <value xml:lang="th">การเพาะปลูก</value>
@@ -349,7 +327,6 @@
         <value xml:lang="fr">Magasin de vente</value>
         <value xml:lang="it">Negozio al dettaglio</value>
         <value xml:lang="ja">小売店舗</value>
-        <value xml:lang="nl">Winkel</value>
         <value xml:lang="ro">Magazin la Detaliu</value>
         <value xml:lang="ru">Розничный магазин</value>
         <value xml:lang="th">คลังสินค้าการขายปลีก</value>
@@ -364,7 +341,6 @@
         <value xml:lang="fr">Salle</value>
         <value xml:lang="it">Stanza</value>
         <value xml:lang="ja">部屋</value>
-        <value xml:lang="nl">Kamer</value>
         <value xml:lang="ro">Camera</value>
         <value xml:lang="ru">Комната</value>
         <value xml:lang="th">ห้อง</value>
@@ -379,7 +355,6 @@
         <value xml:lang="fr">Entrepôt</value>
         <value xml:lang="it">Magazzino</value>
         <value xml:lang="ja">倉庫</value>
-        <value xml:lang="nl">Magazijn</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Склад</value>
         <value xml:lang="th">คลังข้อมูล</value>
@@ -405,7 +380,6 @@
         <value xml:lang="fr">N° du fabricant</value>
         <value xml:lang="it">Numero (modello) produttore</value>
         <value xml:lang="ja">製造者(型式)番号</value>
-        <value xml:lang="nl">Model - Nr. fabrikant</value>
         <value xml:lang="ro">Numar (Model) Productor</value>
         <value xml:lang="ru">Артикул (Модель)</value>
         <value xml:lang="th">หมายเลขการผลิต (Model)</value>
@@ -420,7 +394,6 @@
         <value xml:lang="fr">Année modèle</value>
         <value xml:lang="it">Anno modello</value>
         <value xml:lang="ja">年式</value>
-        <value xml:lang="nl">Model - Jaar</value>
         <value xml:lang="ro">An Model</value>
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">โมเดลปี</value>
@@ -435,7 +408,6 @@
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ja">その他</value>
-        <value xml:lang="nl">Andere ID</value>
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Другой</value>
         <value xml:lang="th">อื่นๆ</value>
@@ -450,7 +422,6 @@
         <value xml:lang="fr">SKU</value>
         <value xml:lang="it">Codice univoco prodotto</value>
         <value xml:lang="ja">最小管理単位(SKU)</value>
-        <value xml:lang="nl">Artikelnummer (SKU)</value>
         <value xml:lang="ro">Cod Univoc Produs</value>
         <value xml:lang="ru">SKU</value>
         <value xml:lang="th">SKU</value>
@@ -485,7 +456,6 @@
         <value xml:lang="fr">Non en série</value>
         <value xml:lang="it">Non-serializzato</value>
         <value xml:lang="ja">複数個口でない</value>
-        <value xml:lang="nl">Ongenummerd goed</value>
         <value xml:lang="ro">Ne-Serializat</value>
         <value xml:lang="ru">Не серийный</value>
         <value xml:lang="th">ไม่มีลำดับหมายเลข</value>
@@ -500,7 +470,6 @@
         <value xml:lang="fr">En série</value>
         <value xml:lang="it">Serializzato</value>
         <value xml:lang="ja">複数個口</value>
-        <value xml:lang="nl">Genummerd goed</value>
         <value xml:lang="ro">Serializat</value>
         <value xml:lang="ru">Серийный</value>
         <value xml:lang="th">ลำดับหมายเลข</value>
@@ -515,7 +484,6 @@
         <value xml:lang="fr">Administration autorisation (un)</value>
         <value xml:lang="it">Amministrazione permessa (Uno)</value>
         <value xml:lang="ja">管理許可(1個)</value>
-        <value xml:lang="nl">Admin alle(s) (Een)</value>
         <value xml:lang="ro">Administratie Permisa(Unu)</value>
         <value xml:lang="ru">Администрирование разрешено (Одна)</value>
         <value xml:lang="th">ผู้ดูแลระบบอนุญาต (หนึ่ง)</value>
@@ -530,7 +498,6 @@
         <value xml:lang="fr">Navigation (un)</value>
         <value xml:lang="it">Mostra radice (Uno)</value>
         <value xml:lang="ja">ルート表示(1個)</value>
-        <value xml:lang="nl">Browse Root (Een)</value>
         <value xml:lang="ro">Afiseaza Radacina (Unu)</value>
         <value xml:lang="ru">Для просмотра (Одна)</value>
         <value xml:lang="th">แสดง Root (หนึ่ง)</value>
@@ -553,7 +520,6 @@
         <value xml:lang="fr">Le plus populaire (un)</value>
         <value xml:lang="it">Più popolari (Uno)</value>
         <value xml:lang="ja">最人気(1個)</value>
-        <value xml:lang="nl">Meest populaire (Een)</value>
         <value xml:lang="ro">Mai Populari (Unu)</value>
         <value xml:lang="ru">Наиболее популярные (Одна)</value>
         <value xml:lang="th">ความนิยมสูงสุด (หนึ่ง)</value>
@@ -568,7 +534,6 @@
         <value xml:lang="fr">Autres recherches (plusieurs)</value>
         <value xml:lang="it">Altre ricerche (Molti)</value>
         <value xml:lang="ja">その他検索(複数)</value>
-        <value xml:lang="nl">Zoeken - Overige (Meerdere)</value>
         <value xml:lang="ro">Alte Cautari (Multi)</value>
         <value xml:lang="ru">Другие для поиска (Много)</value>
         <value xml:lang="th">ค้นหาอื่น ๆ (มาก)</value>
@@ -583,7 +548,6 @@
         <value xml:lang="fr">Promotions (un)</value>
         <value xml:lang="it">Promozioni (Uno)</value>
         <value xml:lang="ja">プロモーション(1個)</value>
-        <value xml:lang="nl">Promos</value>
         <value xml:lang="ro">Promotii (Unu)</value>
         <value xml:lang="ru">Специальные предложения (Одна)</value>
         <value xml:lang="th">โปรโมชัน (หนึ่ง)</value>
@@ -626,7 +590,6 @@
         <value xml:lang="fr">Recherche par défaut (un)</value>
         <value xml:lang="it">Ricerca di default (Uno)</value>
         <value xml:lang="ja">デフォルト検索(1個)</value>
-        <value xml:lang="nl">Zoeken - Standaard (Een)</value>
         <value xml:lang="ro">Cautare de Default (Unu)</value>
         <value xml:lang="ru">Поиск по умолчанию (Одна)</value>
         <value xml:lang="th">ค่าเริ่มต้นการค้นหา (หนึ่ง)</value>
@@ -641,7 +604,6 @@
         <value xml:lang="fr">Visualisation (un)</value>
         <value xml:lang="it">Visione permessa (Uno)</value>
         <value xml:lang="ja">表示許可(1個)</value>
-        <value xml:lang="nl">Zien - Alle(s) (Een per catalogus)</value>
         <value xml:lang="ro">Viziune Permisa(Unu)</value>
         <value xml:lang="ru">Просмотр разрешен (Одна)</value>
         <value xml:lang="th">การอนุญาตการแสดง (หนึ่ง)</value>
@@ -651,12 +613,11 @@
     </property>
     <property key="ProdCatalogCategoryType.description.PCCT_WHATS_NEW">
         <value xml:lang="de">Neuigkeiten (Eine)</value>
-        <value xml:lang="en">What's New (One per catalog)</value>
+        <value xml:lang="en">What's New (One)</value>
         <value xml:lang="es">Novedades (uno)</value>
         <value xml:lang="fr">Nouveauté (une)</value>
         <value xml:lang="it">Quali novità (Uno)</value>
         <value xml:lang="ja">お知らせ(1個)</value>
-        <value xml:lang="nl">Nieuwe producten (Een per catalogus)</value>
         <value xml:lang="ro">Care Noutati(Unu)</value>
         <value xml:lang="ru">Новые продукты (Одна)</value>
         <value xml:lang="th">อะไรใหม่ (หนึ่ง)</value>
@@ -671,7 +632,6 @@
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ja">詳細</value>
-        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
@@ -686,7 +646,6 @@
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
         <value xml:lang="ja">画像</value>
-        <value xml:lang="nl">URL afbeelding</value>
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="ru">Изображение</value>
         <value xml:lang="th">รูปภาพ</value>
@@ -701,7 +660,6 @@
         <value xml:lang="fr">Instructions</value>
         <value xml:lang="it">Istruzioni</value>
         <value xml:lang="ja">説明</value>
-        <value xml:lang="nl">Instructies</value>
         <value xml:lang="ro">Instructiuni</value>
         <value xml:lang="ru">Инструкции</value>
         <value xml:lang="th">คำแนะนำ</value>
@@ -716,7 +674,6 @@
         <value xml:lang="fr">Description - Longue</value>
         <value xml:lang="it">Descrizione - lunga</value>
         <value xml:lang="ja">詳細 - 長い</value>
-        <value xml:lang="nl">Uitgebreide omschrijving</value>
         <value xml:lang="ro">Descriere - Lunga</value>
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
@@ -731,7 +688,6 @@
         <value xml:lang="fr">Egalement acheté</value>
         <value xml:lang="it">Anche comprato</value>
         <value xml:lang="ja">同時購入</value>
-        <value xml:lang="nl">Ook gekocht</value>
         <value xml:lang="ro">Si Cumparate</value>
         <value xml:lang="ru">Сопутствующая</value>
         <value xml:lang="th">ดังนั้นซื้อ</value>
@@ -743,7 +699,6 @@
         <value xml:lang="en">Alternative Packaging</value>
         <value xml:lang="fr">Conditionnement alternatif</value>
         <value xml:lang="ja">代わりのパッケージ</value>
-        <value xml:lang="nl">Alternatieve verpakking</value>
         <value xml:lang="vi">Đóng gói thay thế</value>
         <value xml:lang="zh">替代性包装</value>
         <value xml:lang="zh_TW">替代性包裝</value>
@@ -755,7 +710,6 @@
         <value xml:lang="fr">Nomenclatures d'étude</value>
         <value xml:lang="it">Distinta base ingegneria</value>
         <value xml:lang="ja">設計部品表(EBOM)</value>
-        <value xml:lang="nl">Lijst bestanddelen - Engineering</value>
         <value xml:lang="ro">Lista repere Inginerizata</value>
         <value xml:lang="ru">Конструкторская спецификация материалов</value>
         <value xml:lang="th">วิศวะกรรมศาสตร์รายการวัตถุ</value>
@@ -770,7 +724,6 @@
         <value xml:lang="fr">Nomenclatures de fabrication</value>
         <value xml:lang="it">Distinta base produzione</value>
         <value xml:lang="ja">製造部品表(MBOM)</value>
-        <value xml:lang="nl">Lijst bestanddelen - Fabricage</value>
         <value xml:lang="ro">Lista repere Productie</value>
         <value xml:lang="ru">Производственная спецификация материалов</value>
         <value xml:lang="th">การผลิตรายการวัตถุ</value>
@@ -785,7 +738,6 @@
         <value xml:lang="fr">Produit commercialisé avec</value>
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ</value>
-        <value xml:lang="nl">Marketing product</value>
         <value xml:lang="ro">Component Pachet Vanzare</value>
         <value xml:lang="ru">Компонент маркетингового пакета</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
@@ -800,7 +752,6 @@
         <value xml:lang="fr">Marketing Package Auto Explode Component</value>
         <value xml:lang="it">Pacco di vendita automatico</value>
         <value xml:lang="ja">販売パッケージ自動</value>
-        <value xml:lang="nl">Marketing product - Autom.</value>
         <value xml:lang="ro">Componente Pachet Vanzare Exploadat in mod Automat</value>
         <value xml:lang="ru">Компонент автоматически расширяющий маркетинговый пакет</value>
         <value xml:lang="th">MARKETING_PKG_AUTO</value>
@@ -815,7 +766,6 @@
         <value xml:lang="fr">Accessoire</value>
         <value xml:lang="it">Accessori</value>
         <value xml:lang="ja">アクセサリ</value>
-        <value xml:lang="nl">Accessoire</value>
         <value xml:lang="ru">Аксессуар</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="vi">Phụ tùng</value>
@@ -829,7 +779,6 @@
         <value xml:lang="fr">Réapprovisionnement automatique(nécessite recurrenceInfoId)</value>
         <value xml:lang="it">Riordino automatico</value>
         <value xml:lang="ja">自動再注文(要繰り返し情報ID)</value>
-        <value xml:lang="nl">Autom. herbestelling (recurrenceInfoId nodig)</value>
         <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
         <value xml:lang="vi">Tự động đặt hàng lại (cần mã recurrenceInfoId)</value>
         <value xml:lang="zh">自动记录(需要复现信息标识recurrenceInfoId)</value>
@@ -842,7 +791,6 @@
         <value xml:lang="fr">Éléments complémentaires ou croisés</value>
         <value xml:lang="it">Complementario o vendita-trasversale</value>
         <value xml:lang="ja">補充または組み合わせ販売</value>
-        <value xml:lang="nl">Complementair of Cross-sell</value>
         <value xml:lang="ro">Complementar sau Vanzare -Transversala </value>
         <value xml:lang="ru">Дополнительная и кросс-продажа</value>
         <value xml:lang="th">Complementary or Cross-Sell</value>
@@ -857,7 +805,6 @@
         <value xml:lang="fr">Composant d'un regroupement de produits</value>
         <value xml:lang="it">Componente prodotto attuale</value>
         <value xml:lang="ja">実績製品コンポーネント</value>
-        <value xml:lang="nl">Bestanddeel - werkelijk</value>
         <value xml:lang="ro">Componente Produs Actual</value>
         <value xml:lang="ru">Реальный компонент продукта</value>
         <value xml:lang="th">ส่วนประกอบสินค้าโดยแท้จริง</value>
@@ -880,7 +827,6 @@
         <value xml:lang="fr">Incompatible</value>
         <value xml:lang="it">Incompatibile</value>
         <value xml:lang="ja">非互換</value>
-        <value xml:lang="nl">Incompatibel product</value>
         <value xml:lang="ro">Incompatibil</value>
         <value xml:lang="ru">Несовместимость</value>
         <value xml:lang="th">ขัดแย้งกัน</value>
@@ -895,7 +841,6 @@
         <value xml:lang="fr">Produit fini</value>
         <value xml:lang="it">Prodotto costruito come</value>
         <value xml:lang="ja">製品生産目的</value>
-        <value xml:lang="nl">Product gefabriceerd als</value>
         <value xml:lang="ro">Produs Construit Ca</value>
         <value xml:lang="ru">Продукт произведенный как</value>
         <value xml:lang="th">การผลิตสินค้าเหมือน</value>
@@ -910,7 +855,6 @@
         <value xml:lang="fr">Nouvelle version de remplacement</value>
         <value xml:lang="it">Nuova versione, sostituzione</value>
         <value xml:lang="ja">新バージョン、置換</value>
-        <value xml:lang="nl">Nieuwe versie, vervanging</value>
         <value xml:lang="ro">Noua Versiune, Substitutie</value>
         <value xml:lang="ru">Новая версия, замещение</value>
         <value xml:lang="th">เวอร์ชันใหม่, การแทนที่</value>
@@ -925,7 +869,6 @@
         <value xml:lang="fr">Echange standard</value>
         <value xml:lang="it">Equivalente rinnovato</value>
         <value xml:lang="ja">改良同等品</value>
-        <value xml:lang="nl">Gereviseerd product</value>
         <value xml:lang="ru">Замененный эквивалент</value>
         <value xml:lang="th">เท่ากับทำใหม่</value>
         <value xml:lang="vi">Được tân trang lại</value>
@@ -939,7 +882,6 @@
         <value xml:lang="fr">Service de réparation</value>
         <value xml:lang="it">Servizio riparazioni</value>
         <value xml:lang="ja">修理サービス</value>
-        <value xml:lang="nl">Reparatie service</value>
         <value xml:lang="ru">Услуги ремонта</value>
         <value xml:lang="th">บริการซ่อมแซม</value>
         <value xml:lang="vi">Dịch vụ sửa chữa</value>
@@ -954,7 +896,6 @@
         <value xml:lang="it">Revisione</value>
         <value xml:lang="ja">リビジョン</value>
         <value xml:lang="ro">Revizie</value>
-        <value xml:lang="nl">Revisie</value>
         <value xml:lang="ru">Исправление</value>
         <value xml:lang="th">การปรับปรุงใหม่</value>
         <value xml:lang="vi">Tái bản</value>
@@ -968,7 +909,6 @@
         <value xml:lang="fr">Équivalent ou remplaçant</value>
         <value xml:lang="it">Equivalente o sostituto</value>
         <value xml:lang="ja">同等品または代替品</value>
-        <value xml:lang="nl">Vervanging of equivalent product</value>
         <value xml:lang="ro">Echivalent sau Substituit </value>
         <value xml:lang="ru">Эквивалент или заменитель</value>
         <value xml:lang="th">เท่ากับหรือแทนที่</value>
@@ -983,7 +923,6 @@
         <value xml:lang="fr">Version supérieure ou plus récente</value>
         <value xml:lang="it">Aggiornato o aumentato</value>
         <value xml:lang="ja">アップグレードまたは上位商品販売</value>
-        <value xml:lang="nl">Product - Upgrade</value>
         <value xml:lang="ro">Actualizat sau Marit </value>
         <value xml:lang="ru">Модернизация или дооснащение</value>
         <value xml:lang="th">Upgrade or Up-Sell</value>
@@ -998,7 +937,6 @@
         <value xml:lang="fr">Article décliné</value>
         <value xml:lang="it">Variante prodotto</value>
         <value xml:lang="ja">別の型</value>
-        <value xml:lang="nl">Product - Variant</value>
         <value xml:lang="ro">Variante Produs</value>
         <value xml:lang="ru">Вариант продукта</value>
         <value xml:lang="th">การเปลี่ยนแปลงสินค้า</value>
@@ -1013,7 +951,6 @@
         <value xml:lang="fr">Référence unique</value>
         <value xml:lang="it">Riga univoca</value>
         <value xml:lang="ja">固有アイテム</value>
-        <value xml:lang="nl">Product - Uniek item</value>
         <value xml:lang="ro">Linie Univoca</value>
         <value xml:lang="ru">Уникальная позиция</value>
         <value xml:lang="th">รายการลักษณะเฉพาะ</value>
@@ -1026,7 +963,6 @@
         <value xml:lang="en">Category Image Alt Text</value>
         <value xml:lang="it">Testo alternativo immagine categoria</value>
         <value xml:lang="ja">カテゴリ画像代替(Alt)テキスト</value>
-        <value xml:lang="nl">Afbeelding - Alternatieve text</value>
         <value xml:lang="vi">Hình ảnh minh họa</value>
         <value xml:lang="zh">分类图片替代文字</value>
         <value xml:lang="zh_TW">分類圖片替代文字</value>
@@ -1038,7 +974,6 @@
         <value xml:lang="fr">URL de catégorie d'image</value>
         <value xml:lang="it">URL immagine categoria</value>
         <value xml:lang="ja">カテゴリ画像URL</value>
-        <value xml:lang="nl">Afbeelding - URL</value>
         <value xml:lang="ro">URL Imagine Categorie</value>
         <value xml:lang="ru">URL изображения категории</value>
         <value xml:lang="th">หมวดหมู่รูปภาพ URL</value>
@@ -1053,7 +988,6 @@
         <value xml:lang="fr">Nom de catégorie</value>
         <value xml:lang="it">Nome categoria</value>
         <value xml:lang="ja">カテゴリ名称</value>
-        <value xml:lang="nl">Categorie - Naam</value>
         <value xml:lang="ro">Nume Categorie</value>
         <value xml:lang="ru">Имя категории</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
@@ -1068,7 +1002,6 @@
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ja">詳細</value>
-        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
@@ -1083,7 +1016,6 @@
         <value xml:lang="fr">Note de bas de page</value>
         <value xml:lang="it">Intestazione fine pagina</value>
         <value xml:lang="ja">フッタ</value>
-        <value xml:lang="nl">Footer</value>
         <value xml:lang="ro">Intestare Sfarsit Pagina</value>
         <value xml:lang="ru">Нижняя часть страницы</value>
         <value xml:lang="th">ท้ายกระดาษ</value>
@@ -1095,7 +1027,6 @@
         <value xml:lang="de">Gutschein</value>
         <value xml:lang="en">Gift Card</value>
         <value xml:lang="ja">ギフトカード</value>
-        <value xml:lang="nl">Cadeaubon</value>
         <value xml:lang="vi">Thẻ quà tặng</value>
         <value xml:lang="zh">礼品卡</value>
         <value xml:lang="zh_TW">禮物卡</value>
@@ -1105,7 +1036,6 @@
         <value xml:lang="en">Link 1 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 1</value>
         <value xml:lang="ja">リンク1代替(Alt)テキスト</value>
-        <value xml:lang="nl">Alt. text link1</value>
         <value xml:lang="vi">Liên kết 1 thay thế bởi chữ</value>
         <value xml:lang="zh">链接1替代文字</value>
         <value xml:lang="zh_TW">連結1替代文字</value>
@@ -1115,7 +1045,6 @@
         <value xml:lang="en">Link 2 Alt Text</value>
         <value xml:lang="it">Testo alternativo link 2</value>
         <value xml:lang="ja">リンク2代替(Alt)テキスト</value>
-        <value xml:lang="nl">Alt. text link2</value>
         <value xml:lang="vi">Liên kết 2 thay thế bởi chữ</value>
         <value xml:lang="zh">链接2替代文字</value>
         <value xml:lang="zh_TW">連結2替代文字</value>
@@ -1127,7 +1056,6 @@
         <value xml:lang="fr">Description - Longue</value>
         <value xml:lang="it">Descrizione - lunga</value>
         <value xml:lang="ja">詳細 - 長い</value>
-        <value xml:lang="nl">Omschrijving - uitgebreid</value>
         <value xml:lang="ro">Descriere - Lunga</value>
         <value xml:lang="ru">Полное описание</value>
         <value xml:lang="th">การอธิบาย</value>
@@ -1142,7 +1070,6 @@
         <value xml:lang="fr">Catalogue</value>
         <value xml:lang="it">Catalogo</value>
         <value xml:lang="ja">カタログ</value>
-        <value xml:lang="nl">Categorie - Catalogus</value>
         <value xml:lang="ro">Catalog</value>
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -1157,7 +1084,6 @@
         <value xml:lang="fr">Croisé</value>
         <value xml:lang="it">Vendite trasversali</value>
         <value xml:lang="ja">組み合わせ販売</value>
-        <value xml:lang="nl">Categorie - Cross Sell</value>
         <value xml:lang="ro">Vanzari Transversale</value>
         <value xml:lang="ru">Перекрестные продажи</value>
         <value xml:lang="th">Cross Sell</value>
@@ -1169,7 +1095,6 @@
         <value xml:lang="de">Gutscheine</value>
         <value xml:lang="en">Gift Cards</value>
         <value xml:lang="ja">ギフトカード</value>
-        <value xml:lang="nl">Categorie - Cadeabon</value>
         <value xml:lang="vi">Thẻ tặng quà</value>
         <value xml:lang="zh">礼品卡</value>
         <value xml:lang="zh_TW">禮物卡</value>
@@ -1181,7 +1106,6 @@
         <value xml:lang="fr">Industrie</value>
         <value xml:lang="it">Industria</value>
         <value xml:lang="ja">業種</value>
-        <value xml:lang="nl">Categorie - Industrie/sector</value>
         <value xml:lang="ro">Industria</value>
         <value xml:lang="ru">Отраслевая</value>
         <value xml:lang="th">อุตสาหกรรม</value>
@@ -1196,7 +1120,6 @@
         <value xml:lang="fr">Interne</value>
         <value xml:lang="it">Interna</value>
         <value xml:lang="ja">内部</value>
-        <value xml:lang="nl">Categorie - Intern</value>
         <value xml:lang="ro">Interna</value>
         <value xml:lang="ru">Внутренняя</value>
         <value xml:lang="th">ภายใน</value>
@@ -1211,7 +1134,6 @@
         <value xml:lang="fr">Matériel</value>
         <value xml:lang="it">Materiali</value>
         <value xml:lang="ja">材料</value>
-        <value xml:lang="nl">Categorie - Materialen</value>
         <value xml:lang="ro">Materiale</value>
         <value xml:lang="ru">Материалы</value>
         <value xml:lang="th">วัตถุ</value>
@@ -1226,7 +1148,6 @@
         <value xml:lang="fr">Interchangeable</value>
         <value xml:lang="it">Intercambiabili</value>
         <value xml:lang="ja">混合および一致</value>
-        <value xml:lang="nl">Categorie - Mix-n-Match</value>
         <value xml:lang="ro">Amesteca si Confrunta</value>
         <value xml:lang="ru">Смешанная</value>
         <value xml:lang="th">รวมและเหมือนกัน</value>
@@ -1255,7 +1176,6 @@
         <value xml:lang="fr">Recherche</value>
         <value xml:lang="it">Ricerca</value>
         <value xml:lang="ja">検索</value>
-        <value xml:lang="nl">Categorie - Zoeken en vinden</value>
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">การค้นหา</value>
@@ -1270,7 +1190,6 @@
         <value xml:lang="fr">Taxe</value>
         <value xml:lang="it">Tasse</value>
         <value xml:lang="ja">税</value>
-        <value xml:lang="nl">Categorie - Belastingen</value>
         <value xml:lang="ro">Taxe</value>
         <value xml:lang="ru">Налогообложение</value>
         <value xml:lang="th">ภาษี</value>
@@ -1285,7 +1204,6 @@
         <value xml:lang="fr">Usage</value>
         <value xml:lang="it">Uso</value>
         <value xml:lang="ja">用途</value>
-        <value xml:lang="nl">Categorie - Verbruik</value>
         <value xml:lang="ro">Uz</value>
         <value xml:lang="ru">Использование</value>
         <value xml:lang="th">วิธีใช้</value>
@@ -1298,7 +1216,6 @@
         <value xml:lang="en">Image - Additional View 1</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1</value>
         <value xml:lang="ja">画像 - 追加表示1</value>
-        <value xml:lang="nl">Extra afbeelding 1</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1</value>
         <value xml:lang="zh">图片 - 附图1</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查1</value>
@@ -1308,7 +1225,6 @@
         <value xml:lang="en">Image - Additional View 1 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 piccola</value>
         <value xml:lang="ja">画像 - 追加表示1 小</value>
-        <value xml:lang="nl">Extra afbeelding 1 - Klein</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (nhỏ)</value>
         <value xml:lang="zh">图片 — 小尺寸附图1</value>
         <value xml:lang="zh_TW">圖片 — 小尺寸附圖1</value>
@@ -1318,7 +1234,6 @@
         <value xml:lang="en">Image - Additional View 1 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 media</value>
         <value xml:lang="ja">画像 - 追加表示1 中</value>
-        <value xml:lang="nl">Extra afbeelding 1 -  Middel</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (vừa)</value>
         <value xml:lang="zh">图片 — 中尺寸附图1</value>
         <value xml:lang="zh_TW">圖片 — 中尺寸附圖1</value>
@@ -1328,7 +1243,6 @@
         <value xml:lang="en">Image - Additional View 1 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 grande</value>
         <value xml:lang="ja">画像 - 追加表示1 大</value>
-        <value xml:lang="nl">Extra afbeelding 1 - Groot</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (lớn)</value>
         <value xml:lang="zh">图片 — 大尺寸附图1</value>
         <value xml:lang="zh_TW">圖片 — 大尺寸附圖1</value>
@@ -1338,7 +1252,6 @@
         <value xml:lang="en">Image - Additional View 1 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 1 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示1 詳細</value>
-        <value xml:lang="nl">Extra afbeelding 1 - Detail</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 1 (chi tiết)</value>
         <value xml:lang="zh">图片 — 详细附图1</value>
         <value xml:lang="zh_TW">圖片 — 詳細附圖1</value>
@@ -1348,7 +1261,6 @@
         <value xml:lang="en">Image - Additional View 2</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2</value>
         <value xml:lang="ja">画像 - 追加表示2</value>
-        <value xml:lang="nl">Extra afbeelding 2</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2</value>
         <value xml:lang="zh">图片 - 附图2</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查2</value>
@@ -1358,7 +1270,6 @@
         <value xml:lang="en">Image - Additional View 2 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 piccola</value>
         <value xml:lang="ja">画像 - 追加表示2 小</value>
-        <value xml:lang="nl">Extra afbeelding 2 - Klein</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (nhỏ)</value>
         <value xml:lang="zh">图片 — 小尺寸附图2</value>
         <value xml:lang="zh_TW">圖片 — 小尺寸附圖2</value>
@@ -1368,7 +1279,6 @@
         <value xml:lang="en">Image - Additional View 2 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 media</value>
         <value xml:lang="ja">画像 - 追加表示2 中</value>
-        <value xml:lang="nl">Extra afbeelding 2 - Middel</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (vừa)</value>
         <value xml:lang="zh">图片 — 中尺寸附图2</value>
         <value xml:lang="zh_TW">圖片 — 中尺寸附圖2</value>
@@ -1378,7 +1288,6 @@
         <value xml:lang="en">Image - Additional View 2 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 grande</value>
         <value xml:lang="ja">画像 - 追加表示2 大</value>
-        <value xml:lang="nl">Extra afbeelding 2 - Groot</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (lớn)</value>
         <value xml:lang="zh">图片 — 大尺寸附图2</value>
         <value xml:lang="zh_TW">圖片 — 大尺寸附圖2</value>
@@ -1388,7 +1297,6 @@
         <value xml:lang="en">Image - Additional View 2 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 2 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示2 詳細</value>
-        <value xml:lang="nl">Extra afbeelding 2 - Detail</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 2 (chi tiết)</value>
         <value xml:lang="zh">图片 — 详细附图2</value>
         <value xml:lang="zh_TW">圖片 — 詳細附圖2</value>
@@ -1398,7 +1306,6 @@
         <value xml:lang="en">Image - Additional View 3</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3</value>
         <value xml:lang="ja">画像 - 追加表示3</value>
-        <value xml:lang="nl">Extra afbeelding 3</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3</value>
         <value xml:lang="zh">图片 - 附图3</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查3</value>
@@ -1408,7 +1315,6 @@
         <value xml:lang="en">Image - Additional View 3 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 piccola</value>
         <value xml:lang="ja">画像 - 追加表示3 小</value>
-        <value xml:lang="nl">Extra afbeelding 3 - Klein</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (nhỏ)</value>
         <value xml:lang="zh">图片 — 小尺寸附图3</value>
         <value xml:lang="zh_TW">圖片 — 小尺寸附圖3</value>
@@ -1418,7 +1324,6 @@
         <value xml:lang="en">Image - Additional View 3 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 media</value>
         <value xml:lang="ja">画像 - 追加表示3 中</value>
-        <value xml:lang="nl">Extra afbeelding 3 - Middel</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (vừa)</value>
         <value xml:lang="zh">图片 — 中尺寸附图3</value>
         <value xml:lang="zh_TW">圖片 — 中尺寸附圖3</value>
@@ -1428,7 +1333,6 @@
         <value xml:lang="en">Image - Additional View 3 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 grande</value>
         <value xml:lang="ja">画像 - 追加表示3 大</value>
-        <value xml:lang="nl">Extra afbeelding 3 - Groot</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (lớn)</value>
         <value xml:lang="zh">图片 — 大尺寸附图3</value>
         <value xml:lang="zh_TW">圖片 — 大尺寸附圖3</value>
@@ -1438,7 +1342,6 @@
         <value xml:lang="en">Image - Additional View 3 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 3 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示3 詳細</value>
-        <value xml:lang="nl">Extra afbeelding 3 - Detail</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 3 (chi tiết)</value>
         <value xml:lang="zh">图片 — 详细附图3</value>
         <value xml:lang="zh_TW">圖片 — 詳細附圖3</value>
@@ -1448,7 +1351,6 @@
         <value xml:lang="en">Image - Additional View 4</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4</value>
         <value xml:lang="ja">画像 - 追加表示4</value>
-        <value xml:lang="nl">Extra afbeelding 4</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4</value>
         <value xml:lang="zh">图片 - 附图4</value>
         <value xml:lang="zh_TW">圖像 - 額外檢查4</value>
@@ -1458,7 +1360,6 @@
         <value xml:lang="en">Image - Additional View 4 Small</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 piccola</value>
         <value xml:lang="ja">画像 - 追加表示4 小</value>
-        <value xml:lang="nl">Extra afbeelding 4 - Klein</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (nhỏ)</value>
         <value xml:lang="zh">图片 — 小尺寸附图4</value>
         <value xml:lang="zh_TW">圖片 — 小尺寸附圖4</value>
@@ -1468,7 +1369,6 @@
         <value xml:lang="en">Image - Additional View 4 Medium</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 media</value>
         <value xml:lang="ja">画像 - 追加表示4 中</value>
-        <value xml:lang="nl">Extra afbeelding 4 - Middel</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (vừa)</value>
         <value xml:lang="zh">图片 — 中尺寸附图4</value>
         <value xml:lang="zh_TW">圖片 — 中尺寸附圖4</value>
@@ -1478,7 +1378,6 @@
         <value xml:lang="en">Image - Additional View 4 Large</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 grande</value>
         <value xml:lang="ja">画像 - 追加表示4 大</value>
-        <value xml:lang="nl">Extra afbeelding 4 - Groot</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (lớn)</value>
         <value xml:lang="zh">图片 — 大尺寸附图4</value>
         <value xml:lang="zh_TW">圖片 — 大尺寸附圖4</value>
@@ -1488,7 +1387,6 @@
         <value xml:lang="en">Image - Additional View 4 Detail</value>
         <value xml:lang="it">Immagine - Vista adggiuntiva 4 dettaglio</value>
         <value xml:lang="ja">画像 - 追加表示4 詳細</value>
-        <value xml:lang="nl">Extra afbeelding 4 - Detail</value>
         <value xml:lang="vi">Hình ảnh - Bổ sung cách xem 4 (chi tiết)</value>
         <value xml:lang="zh">图片 — 详细附图4</value>
         <value xml:lang="zh_TW">圖片 — 詳細附圖4</value>
@@ -1498,7 +1396,6 @@
         <value xml:lang="en">Add To Cart Image</value>
         <value xml:lang="it">Aggiungi immagine al carrello</value>
         <value xml:lang="ja">買い物かご画像に追加</value>
-        <value xml:lang="nl">'Add to Cart' - Afbeelding</value>
         <value xml:lang="vi">Thêm hỉnh ảnh giỏ hàng</value>
         <value xml:lang="zh">添加到购物车图像</value>
         <value xml:lang="zh_TW">增加到購物車圖像</value>
@@ -1508,7 +1405,6 @@
         <value xml:lang="en">Add To Cart Label</value>
         <value xml:lang="it">Aggiungi label al carrello</value>
         <value xml:lang="ja">買い物かごラベルに追加</value>
-        <value xml:lang="nl">'Add to Cart' - Label</value>
         <value xml:lang="vi">Thêm nhãn giỏ hàng</value>
         <value xml:lang="zh">添加到购物车标签</value>
         <value xml:lang="zh_TW">增加到購物車標簽</value>
@@ -1518,7 +1414,6 @@
         <value xml:lang="en">Delivery Info</value>
         <value xml:lang="it">Informazioni sulla consegna</value>
         <value xml:lang="ja">配送情報</value>
-        <value xml:lang="nl">Leveringsinfo</value>
         <value xml:lang="vi">Thông tin giao nhận</value>
         <value xml:lang="zh">投递信息</value>
         <value xml:lang="zh_TW">投遞資訊</value>
@@ -1530,7 +1425,6 @@
         <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ja">詳細</value>
-        <value xml:lang="nl">Omschrijving</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
@@ -1543,11 +1437,10 @@
         <value xml:lang="en">Image Alt Text - Detail</value>
         <value xml:lang="es">Texto alternativo para la imagen - Detalle</value>
         <value xml:lang="fr">Texte alternatif de l'image - Détail</value>
-        <value xml:lang="it">Immagine testo alternativo - dettaglio    </value>
+        <value xml:lang="it">Immagine testo alternativo - dettaglio</value>
         <value xml:lang="ja">画像代替(Alt)テキスト - 詳細</value>
-        <value xml:lang="nl">Afbeelding detail - Alt. tekst</value>
-        <value xml:lang="ru">Альтер. текст изображения - детальное    </value>
-        <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด    </value>
+        <value xml:lang="ru">Альтер. текст изображения - детальное</value>
+        <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด </value>
         <value xml:lang="vi">Hình ảnh thay thế bởi chữ - Chi tiết</value>
         <value xml:lang="zh">图像替代文字 - 详细</value>
         <value xml:lang="zh_TW">圖像替代文字 - 詳細</value>
@@ -1559,7 +1452,6 @@
         <value xml:lang="fr">Image détaillée</value>
         <value xml:lang="it">Immagine - dettaglio</value>
         <value xml:lang="ja">画像 - 詳細</value>
-        <value xml:lang="nl">Afbeelding detail - URL</value>
         <value xml:lang="ro">Imagine - Detaliu</value>
         <value xml:lang="ru">Изображение - детальное</value>
         <value xml:lang="th">รูปภาพ - รายละเอียด</value>
@@ -1574,7 +1466,6 @@
         <value xml:lang="fr">Téléchargement numérique</value>
         <value xml:lang="it">Download digitale</value>
         <value xml:lang="ja">デジタルダウンロード</value>
-        <value xml:lang="nl">Download digitaal product</value>
         <value xml:lang="ro">Download Digital</value>
         <value xml:lang="ru">Загрузка цифрового конт.</value>
         <value xml:lang="th">ดาวน์โหลดดิจิตอล</value>
@@ -1589,7 +1480,6 @@
         <value xml:lang="fr">Directions</value>
         <value xml:lang="it">Direzioni</value>
         <value xml:lang="ja">ディレクトリ</value>
-        <value xml:lang="nl">Aanwijzingen</value>
         <value xml:lang="ro">Directii</value>
         <value xml:lang="ru">Направления</value>
         <value xml:lang="th">คำแนะนำ</value>
@@ -1646,7 +1536,6 @@
         <value xml:lang="fr">Éléments</value>
         <value xml:lang="it">Ingredienti</value>
         <value xml:lang="ja">原料</value>
-        <value xml:lang="nl">Bestanddelen</value>
         <value xml:lang="ro">Ingrediente</value>
         <value xml:lang="ru">Ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบ</value>
@@ -1766,7 +1655,6 @@
         <value xml:lang="fr">Nom de l'article</value>
         <value xml:lang="it">Nome prodotto</value>
         <value xml:lang="ja">製品名称</value>
-        <value xml:lang="nl">Product - Naam</value>
         <value xml:lang="ro">Nume Produs</value>
         <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
@@ -1775,10 +1663,9 @@
         <value xml:lang="zh_TW">產品名稱</value>
     </property>
     <property key="ProductContentType.description.SHORT_SALES_PITCH">
-        <value xml:lang="en">Elevator Pitch</value>
+        <value xml:lang="en">Short Sales Pitch</value>
         <value xml:lang="it">Piccolo discorso di vendita</value>
         <value xml:lang="ja">簡単な販売説明</value>
-        <value xml:lang="nl">Elevator pitch</value>
         <value xml:lang="vi">Sắp xếp theo mức độ bán hàng</value>
         <value xml:lang="zh">简短的销售话述</value>
         <value xml:lang="zh_TW">簡短的銷售話述</value>
@@ -1817,7 +1704,6 @@
         <value xml:lang="fr">Instructions spéciales</value>
         <value xml:lang="it">Instruzioni speciali</value>
         <value xml:lang="ja">特別な説明</value>
-        <value xml:lang="nl">Speciale instructies</value>
         <value xml:lang="ro">Instructiuni Speciale</value>
         <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
@@ -1829,7 +1715,6 @@
         <value xml:lang="en">Terms and Conditions</value>
         <value xml:lang="it">Termini e condizioni</value>
         <value xml:lang="ja">条項および条件</value>
-        <value xml:lang="nl">Voorwaarden en condities</value>
         <value xml:lang="vi">Quy định và Điều kiện</value>
         <value xml:lang="zh">条件</value>
         <value xml:lang="zh_TW">條件</value>
@@ -1841,7 +1726,6 @@
         <value xml:lang="fr">Élément unique</value>
         <value xml:lang="it">Ingredienti unici</value>
         <value xml:lang="ja">固有原料</value>
-        <value xml:lang="nl">Unique bestanddelen</value>
         <value xml:lang="ro">Ingredienti Unici</value>
         <value xml:lang="ru">Уникальные ингредиенты</value>
         <value xml:lang="th">ส่วนประกอบพิเศษ</value>
@@ -1856,7 +1740,6 @@
         <value xml:lang="fr">Avertissements</value>
         <value xml:lang="it">Avvertimenti</value>
         <value xml:lang="ja">警告</value>
-        <value xml:lang="nl">Waarschuwingen</value>
         <value xml:lang="ro">Avertimente</value>
         <value xml:lang="ru">Предупреждения</value>
         <value xml:lang="th">คำเตือน</value>
@@ -1871,7 +1754,6 @@
         <value xml:lang="fr">Produits dangereux</value>
         <value xml:lang="it">Prodotto danneggiato</value>
         <value xml:lang="ja">危険物</value>
-        <value xml:lang="nl">Gevaarlijk goed</value>
         <value xml:lang="th">HAZMAT</value>
         <value xml:lang="vi">Hazmat</value>
         <value xml:lang="zh">危险品</value>
@@ -1933,7 +1815,6 @@
         <value xml:lang="fr">Distinct</value>
         <value xml:lang="it">Distinte</value>
         <value xml:lang="ja">特徴</value>
-        <value xml:lang="nl">Feature - Onderscheidend</value>
         <value xml:lang="ro">Distincte</value>
         <value xml:lang="ru">Отличительная</value>
         <value xml:lang="th">ลักษณะนิสัย</value>
@@ -1948,7 +1829,6 @@
         <value xml:lang="fr">Optionnel</value>
         <value xml:lang="it">Opzionale</value>
         <value xml:lang="ja">オプション</value>
-        <value xml:lang="nl">Feature - Optioneel</value>
         <value xml:lang="ro">Optional</value>
         <value xml:lang="ru">Дополнительная</value>
         <value xml:lang="th">ทางเลือก</value>
@@ -1963,7 +1843,6 @@
         <value xml:lang="fr">Requis</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="ja">必須</value>
-        <value xml:lang="nl">Feature - Vereist</value>
         <value xml:lang="ro">Cerere</value>
         <value xml:lang="ru">Требуемая</value>
         <value xml:lang="th">ต้องการ</value>
@@ -1978,7 +1857,6 @@
         <value xml:lang="fr">Sélectionnable</value>
         <value xml:lang="it">Selezionabile</value>
         <value xml:lang="ja">選択可能</value>
-        <value xml:lang="nl">Feature - Selecteerbaar</value>
         <value xml:lang="ro">Selectionabile</value>
         <value xml:lang="ru">Выбираемая</value>
         <value xml:lang="th">สามารถเลือกได้</value>
@@ -1993,7 +1871,6 @@
         <value xml:lang="fr">Standard</value>
         <value xml:lang="it">Standard</value>
         <value xml:lang="ja">標準</value>
-        <value xml:lang="nl">Feature - Standaard</value>
         <value xml:lang="ro">Standard</value>
         <value xml:lang="ru">Стандартная</value>
         <value xml:lang="th">มาตรฐาน</value>
@@ -2008,7 +1885,6 @@
         <value xml:lang="fr">Dépendants</value>
         <value xml:lang="it">Dipendenza</value>
         <value xml:lang="ja">依存機能</value>
-        <value xml:lang="nl">Feature - Afhankelijk</value>
         <value xml:lang="th">FEATURE_IACTN_DEPEND</value>
         <value xml:lang="vi">Tính năng phụ thuộc</value>
         <value xml:lang="zh">依赖特征</value>
@@ -2021,7 +1897,6 @@
         <value xml:lang="fr">Incompatibles</value>
         <value xml:lang="it">Incompatibile</value>
         <value xml:lang="ja">非互換機能</value>
-        <value xml:lang="nl">Feature - Incompatibel</value>
         <value xml:lang="th">FEATURE_IACTN_INCOMP</value>
         <value xml:lang="vi">Tính năng độc lập</value>
         <value xml:lang="zh">不兼容特征</value>
@@ -2035,7 +1910,6 @@
         <value xml:lang="it">Accessorio</value>
         <value xml:lang="ja">アクセサリ</value>
         <value xml:lang="ro">Accesoriu</value>
-        <value xml:lang="nl">Accessoire</value>
         <value xml:lang="ru">Принадлежности</value>
         <value xml:lang="th">ส่วนประกอบ</value>
         <value xml:lang="vi">Phụ kiện</value>
@@ -2049,7 +1923,6 @@
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ja">金額</value>
-        <value xml:lang="nl">Bedrag</value>
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
@@ -2064,7 +1937,6 @@
         <value xml:lang="fr">Artiste</value>
         <value xml:lang="it">Artista</value>
         <value xml:lang="ja">達人</value>
-        <value xml:lang="nl">Artiest</value>
         <value xml:lang="ro">Artist</value>
         <value xml:lang="ru">Оформление</value>
         <value xml:lang="th">ศิลปะ</value>
@@ -2079,7 +1951,6 @@
         <value xml:lang="fr">Caractéristiques</value>
         <value xml:lang="it">Caratteristica fatturazione</value>
         <value xml:lang="ja">請求特性</value>
-        <value xml:lang="nl">Feature - Verrekening</value>
         <value xml:lang="ro">Caracteristica Facturare</value>
         <value xml:lang="ru">Оплата</value>
         <value xml:lang="th">ลักษณะใบเสร็จรับเงิน</value>
@@ -2094,7 +1965,6 @@
         <value xml:lang="fr">Marque</value>
         <value xml:lang="it">Marca</value>
         <value xml:lang="ja">ブランド</value>
-        <value xml:lang="nl">Merk</value>
         <value xml:lang="ro">Marca</value>
         <value xml:lang="ru">Брэнд</value>
         <value xml:lang="th">ยี่ห้อ</value>
@@ -2109,7 +1979,6 @@
         <value xml:lang="fr">Soin</value>
         <value xml:lang="it">Cura</value>
         <value xml:lang="ja">ケア</value>
-        <value xml:lang="nl">Behandeling</value>
         <value xml:lang="ro">Cura</value>
         <value xml:lang="ru">Обслуживание</value>
         <value xml:lang="th">การปกป้อง</value>
@@ -2124,7 +1993,6 @@
         <value xml:lang="fr">Couleur</value>
         <value xml:lang="it">Colore</value>
         <value xml:lang="ja">色</value>
-        <value xml:lang="nl">Kleur</value>
         <value xml:lang="ro">Culoare</value>
         <value xml:lang="ru">Цвет</value>
         <value xml:lang="th">สี</value>
@@ -2139,7 +2007,6 @@
         <value xml:lang="fr">Dimension</value>
         <value xml:lang="it">Dimensione</value>
         <value xml:lang="ja">寸法</value>
-        <value xml:lang="nl">Dimensie</value>
         <value xml:lang="ro">Dimensiune</value>
         <value xml:lang="ru">Размеры</value>
         <value xml:lang="th">มิติ</value>
@@ -2154,7 +2021,6 @@
         <value xml:lang="fr">Classe d'équipement</value>
         <value xml:lang="it">Classe apparecchiatura</value>
         <value xml:lang="ja">機器分類</value>
-        <value xml:lang="nl">Materieel klasse</value>
         <value xml:lang="ro">Clasa Aparatura</value>
         <value xml:lang="ru">Класс оборудования</value>
         <value xml:lang="th">ชั้นอุปกรณ์</value>
@@ -2169,7 +2035,6 @@
         <value xml:lang="fr">Fabrication</value>
         <value xml:lang="it">Tessuto</value>
         <value xml:lang="ja">構造</value>
-        <value xml:lang="nl">Stof</value>
         <value xml:lang="ro">Tesut</value>
         <value xml:lang="ru">Материал</value>
         <value xml:lang="th">สิ่งทอ</value>
@@ -2184,7 +2049,6 @@
         <value xml:lang="fr">Genre</value>
         <value xml:lang="it">Genere</value>
         <value xml:lang="ja">ジャンル</value>
-        <value xml:lang="nl">Genre</value>
         <value xml:lang="ro">Fel</value>
         <value xml:lang="ru">Жанр</value>
         <value xml:lang="th">ชนิด</value>
@@ -2199,7 +2063,6 @@
         <value xml:lang="fr">Emballage de cadeau</value>
         <value xml:lang="it">Involucro regalo</value>
         <value xml:lang="ja">ギフト包装</value>
-        <value xml:lang="nl">Cadeauverpakking</value>
         <value xml:lang="ro">Invelis Cadou</value>
         <value xml:lang="ru">Подарочная упаковка</value>
         <value xml:lang="th">กระดาษห่อของขวัญ</value>
@@ -2213,7 +2076,6 @@
         <value xml:lang="fr">Matériaux utilisés</value>
         <value xml:lang="it">Caratteristica hardware</value>
         <value xml:lang="ja">ハードウェア機能</value>
-        <value xml:lang="nl">Feature - Hardware</value>
         <value xml:lang="ro">Caracteristica Hardware</value>
         <value xml:lang="ru">Техническая особенность</value>
         <value xml:lang="th">ลักษณะฮาร์ดแวร์</value>
@@ -2228,7 +2090,6 @@
         <value xml:lang="fr">Caractère dangereux</value>
         <value xml:lang="it">Danneggiato</value>
         <value xml:lang="ja">危険物</value>
-        <value xml:lang="nl">Gevaarlijk goed</value>
         <value xml:lang="ro">Hazmat</value>
         <value xml:lang="ru">Hazmat</value>
         <value xml:lang="th">Hazmat</value>
@@ -2243,7 +2104,6 @@
         <value xml:lang="fr">License</value>
         <value xml:lang="it">Licenza</value>
         <value xml:lang="ja">ライセンス</value>
-        <value xml:lang="nl">Licentie</value>
         <value xml:lang="ro">Licenta</value>
         <value xml:lang="ru">Лицензия</value>
         <value xml:lang="th">ใบอนุญาต</value>
@@ -2258,7 +2118,6 @@
         <value xml:lang="fr">Année modèle</value>
         <value xml:lang="it">Anno modello</value>
         <value xml:lang="ja">年式</value>
-        <value xml:lang="nl">Modeljaar</value>
         <value xml:lang="ro">Anno Model</value>
         <value xml:lang="ru">Год выпуска модели</value>
         <value xml:lang="th">ปีโมเดล</value>
@@ -2273,7 +2132,6 @@
         <value xml:lang="fr">Poids net</value>
         <value xml:lang="it">Peso netto</value>
         <value xml:lang="ja">正味重量</value>
-        <value xml:lang="nl">Netto gewicht</value>
         <value xml:lang="ro">Greutate Neta</value>
         <value xml:lang="ru">Вес нетто</value>
         <value xml:lang="th">น้ำหนักสุทธิ</value>
@@ -2288,7 +2146,6 @@
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
         <value xml:lang="ja">由来</value>
-        <value xml:lang="nl">Origine</value>
         <value xml:lang="ro">Origine</value>
         <value xml:lang="ru">Происхождение</value>
         <value xml:lang="th">ต้นกำเนิด</value>
@@ -2303,7 +2160,6 @@
         <value xml:lang="fr">Autre caractéristique</value>
         <value xml:lang="it">Altra caratteristica</value>
         <value xml:lang="ja">その他機能</value>
-        <value xml:lang="nl">Feature - Overige</value>
         <value xml:lang="ro">Alta Caracteristica</value>
         <value xml:lang="ru">Другие особенности</value>
         <value xml:lang="th">ลักษณะอื่นๆ</value>
@@ -2318,7 +2174,6 @@
         <value xml:lang="fr">Qualité</value>
         <value xml:lang="it">Qualità prodotto</value>
         <value xml:lang="ja">製品品質</value>
-        <value xml:lang="nl">Productkwaliteit</value>
         <value xml:lang="ro">Calitate Produs</value>
         <value xml:lang="ru">Качество продукта</value>
         <value xml:lang="th">คุณภาพสินค้า</value>
@@ -2334,7 +2189,6 @@
         <value xml:lang="fr">Taille</value>
         <value xml:lang="it">Larghezza</value>
         <value xml:lang="ja">サイズ</value>
-        <value xml:lang="nl">Maat</value>
         <value xml:lang="ro">Latime </value>
         <value xml:lang="ru">Размер</value>
         <value xml:lang="th">ขนาด</value>
@@ -2349,7 +2203,6 @@
         <value xml:lang="fr">Caractéristique du logiciel</value>
         <value xml:lang="it">Caratteristica software</value>
         <value xml:lang="ja">ソフトウェア機能</value>
-        <value xml:lang="nl">Feature - Software</value>
         <value xml:lang="ro">Caracteristica Software</value>
         <value xml:lang="ru">Программная особенность</value>
         <value xml:lang="th">ลักษณะซอฟต์แวร์</value>
@@ -2364,7 +2217,6 @@
         <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Stile</value>
         <value xml:lang="ja">スタイル</value>
-        <value xml:lang="nl">Stijl</value>
         <value xml:lang="ro">Stil</value>
         <value xml:lang="ru">Стиль</value>
         <value xml:lang="th">สไตล์</value>
@@ -2379,7 +2231,6 @@
         <value xml:lang="fr">Symptôme</value>
         <value xml:lang="it">Sintomo</value>
         <value xml:lang="ja">症状</value>
-        <value xml:lang="nl">Symptoom</value>
         <value xml:lang="ro">Sintom</value>
         <value xml:lang="ru">Признак</value>
         <value xml:lang="th">อาการ</value>
@@ -2394,7 +2245,6 @@
         <value xml:lang="fr">Matière</value>
         <value xml:lang="it">Argomento</value>
         <value xml:lang="ja">トピック</value>
-        <value xml:lang="nl">Thema</value>
         <value xml:lang="ro">Argument</value>
         <value xml:lang="ru">Тема</value>
         <value xml:lang="th">ใจความ</value>
@@ -2409,7 +2259,6 @@
         <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="ja">種類</value>
-        <value xml:lang="nl">Type</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
@@ -2424,7 +2273,6 @@
         <value xml:lang="fr">Garantie</value>
         <value xml:lang="it">Garanzia</value>
         <value xml:lang="ja">保証</value>
-        <value xml:lang="nl">Garantie</value>
         <value xml:lang="ro">Garantie</value>
         <value xml:lang="ru">Гарантия</value>
         <value xml:lang="th">การรับประกัน</value>
@@ -2439,7 +2287,6 @@
         <value xml:lang="fr">Année de construction</value>
         <value xml:lang="it">Anno di fabbricazione</value>
         <value xml:lang="ja">製造年</value>
-        <value xml:lang="nl">Jaar - Fabricage</value>
         <value xml:lang="ro">An Fabricatie</value>
         <value xml:lang="ru">Год изготовления</value>
         <value xml:lang="th">ทำปี</value>
@@ -2453,7 +2300,6 @@
         <value xml:lang="es">Costo de bienes vendidos</value>
         <value xml:lang="fr">Coût des biens vendus</value>
         <value xml:lang="it">Costo del venduto</value>
-        <value xml:lang="nl">Kostprijs verkopen</value>
         <value xml:lang="ja">売上原価(COGS)</value>
         <value xml:lang="th">COGS</value>
         <value xml:lang="vi">COGS</value>
@@ -2480,7 +2326,6 @@
         <value xml:lang="fr">Ventes</value>
         <value xml:lang="it">vendite</value>
         <value xml:lang="ja">販売</value>
-        <value xml:lang="nl">Verkopen</value>
         <value xml:lang="th">ขาย</value>
         <value xml:lang="vi">sales</value>
         <value xml:lang="zh">销售</value>
@@ -2491,7 +2336,6 @@
         <value xml:lang="en">Chassis Lubrication</value>
         <value xml:lang="it">Lubrificazione telaio</value>
         <value xml:lang="ja">シャシー潤滑</value>
-        <value xml:lang="nl">Smering</value>
         <value xml:lang="vi">Bôi trơn khung gầm</value>
         <value xml:lang="zh">底盘润滑</value>
         <value xml:lang="zh_TW">底盤潤滑</value>
@@ -2501,7 +2345,6 @@
         <value xml:lang="en">Check Battery</value>
         <value xml:lang="it">Controllo batteria</value>
         <value xml:lang="ja">バッテリー検査</value>
-        <value xml:lang="nl">Controle batterij</value>
         <value xml:lang="vi">Kiểm tra pin</value>
         <value xml:lang="zh">检查电池</value>
         <value xml:lang="zh_TW">檢查電池</value>
@@ -2511,7 +2354,6 @@
         <value xml:lang="en">Check/Recharge Refrigerant</value>
         <value xml:lang="it">Controllo/Ricarica refrigerante</value>
         <value xml:lang="ja">冷却水検査/補充</value>
-        <value xml:lang="nl">Controle koelvloeistof</value>
         <value xml:lang="vi">Kiểm tra/Nạp thêm gas làm lạnh</value>
         <value xml:lang="zh">检查/补充制冷剂</value>
         <value xml:lang="zh_TW">檢查/補充製冷劑</value>
@@ -2521,7 +2363,6 @@
         <value xml:lang="en">HVAC Maintenance</value>
         <value xml:lang="it">Manutenzione HVAC</value>
         <value xml:lang="ja">空調メンテナンス</value>
-        <value xml:lang="nl">Onderhoud airco/koeling</value>
         <value xml:lang="vi">Bảo dưỡng HVAC</value>
         <value xml:lang="zh">中央空调维修保养</value>
         <value xml:lang="zh_TW">中央空調維修保養</value>
@@ -2531,7 +2372,6 @@
         <value xml:lang="en">Replace Air Filter</value>
         <value xml:lang="it">Sostituzione filtro aria</value>
         <value xml:lang="ja">エアフィルター交換</value>
-        <value xml:lang="nl">Filter vervangen</value>
         <value xml:lang="vi">Thay thế lọc gió</value>
         <value xml:lang="zh">换空滤</value>
         <value xml:lang="zh_TW">換空濾</value>
@@ -2543,7 +2383,6 @@
         <value xml:lang="fr">Changer l'huile</value>
         <value xml:lang="it">Cambio olio</value>
         <value xml:lang="ja">オイル交換</value>
-        <value xml:lang="nl">Olie vervangen</value>
         <value xml:lang="ro">Schimb Ulei</value>
         <value xml:lang="ru">Замена масла</value>
         <value xml:lang="th">เปลี่ยนน้ำมัน</value>
@@ -2558,7 +2397,6 @@
         <value xml:lang="fr">Refaire le plein</value>
         <value xml:lang="it">Rifornimento</value>
         <value xml:lang="ja">給油</value>
-        <value xml:lang="nl">Voltanken</value>
         <value xml:lang="ro">Reforniment</value>
         <value xml:lang="ru">Заправка</value>
         <value xml:lang="th">เติมน้ำมัน</value>
@@ -2573,7 +2411,6 @@
         <value xml:lang="fr">Remplacer Batteries</value>
         <value xml:lang="it">Sostituzione batteria</value>
         <value xml:lang="ja">バッテリー交換</value>
-        <value xml:lang="nl">Batterij vervangen</value>
         <value xml:lang="ro">Substitutie Baterie</value>
         <value xml:lang="ru">Замена батарей</value>
         <value xml:lang="th">แทนที่แบตเตอรี่</value>
@@ -2586,7 +2423,6 @@
         <value xml:lang="en">Rotate Tires</value>
         <value xml:lang="it">Invertire le gomme</value>
         <value xml:lang="ja">タイヤローテーション</value>
-        <value xml:lang="nl">Banden draaien</value>
         <value xml:lang="vi">Rotate Tires</value>
         <value xml:lang="zh">轮胎轮换</value>
         <value xml:lang="zh_TW">輪胎輪換</value>
@@ -2598,7 +2434,6 @@
         <value xml:lang="fr">Remplacement de courroie serpentine</value>
         <value xml:lang="it">Sostituzione cinghia di distribuzione</value>
         <value xml:lang="ja">Vベルト交換</value>
-        <value xml:lang="nl">V-riem vervangen</value>
         <value xml:lang="ro">Substitutie Curea de Distributie</value>
         <value xml:lang="ru">Замена приводных ремней</value>
         <value xml:lang="th">การแทนที่ทางโค้งคดเคี้ยว</value>
@@ -2611,7 +2446,6 @@
         <value xml:lang="en">Tune Up</value>
         <value xml:lang="it">Mettere a punto</value>
         <value xml:lang="ja">調整(チューンアップ)</value>
-        <value xml:lang="nl">Afstellen</value>
         <value xml:lang="vi">Lên dây</value>
         <value xml:lang="zh">调音</value>
         <value xml:lang="zh_TW">調音</value>
@@ -2623,7 +2457,6 @@
         <value xml:lang="fr">Révision du véhicule</value>
         <value xml:lang="it">Manutenzione veicolo</value>
         <value xml:lang="ja">車両メンテナンス</value>
-        <value xml:lang="nl">Onderhoud vervoermiddel</value>
         <value xml:lang="ro">Intretinere Vehicol</value>
         <value xml:lang="ru">Обслуживание транспортных средств</value>
         <value xml:lang="th">การบำรุงรักษายานพาหนะ</value>
@@ -2638,7 +2471,6 @@
         <value xml:lang="fr">Laver</value>
         <value xml:lang="it">Lavaggio</value>
         <value xml:lang="ja">洗浄</value>
-        <value xml:lang="nl">Wassen</value>
         <value xml:lang="ro">Curatire</value>
         <value xml:lang="ru">Мойка</value>
         <value xml:lang="th">ล้าง</value>
@@ -2653,7 +2485,6 @@
         <value xml:lang="fr">Compteur de copie</value>
         <value xml:lang="it">Copia conta metri</value>
         <value xml:lang="ja">コピーカウント計</value>
-        <value xml:lang="nl">Kopie-teller</value>
         <value xml:lang="ro">Copiaza Conta Metri</value>
         <value xml:lang="ru">Количество копий</value>
         <value xml:lang="th">คัดลอกจำนวนมิเตอร์</value>
@@ -2668,7 +2499,6 @@
         <value xml:lang="fr">Compteur de distance</value>
         <value xml:lang="it">Contatore distanza</value>
         <value xml:lang="ja">距離計</value>
-        <value xml:lang="nl">Afstand</value>
         <value xml:lang="ro">Contor Distanta</value>
         <value xml:lang="ru">Счетчик расстояния</value>
         <value xml:lang="th">มิเตอร์ระยะทาง</value>
@@ -2683,7 +2513,6 @@
         <value xml:lang="fr">Compteur de temps moteur</value>
         <value xml:lang="it">Contatore vita motore</value>
         <value xml:lang="ja">モータ運転時間計</value>
-        <value xml:lang="nl">Draaiuren</value>
         <value xml:lang="ro">Contator Timp Motor</value>
         <value xml:lang="ru">Счетчик времени наработки двигателя</value>
         <value xml:lang="th">มิเตอร์เวลาเครื่องยนต์</value>
@@ -2697,7 +2526,6 @@
         <value xml:lang="fr">Odomètre</value>
         <value xml:lang="it">Odometro</value>
         <value xml:lang="ja">走行距離計</value>
-        <value xml:lang="nl">Kilometerteller</value>
         <value xml:lang="vi">Đồng hồ công tơ mét quãng đường đi</value>
         <value xml:lang="zh">里程表</value>
         <value xml:lang="zh_TW">里程表</value>
@@ -2709,7 +2537,6 @@
         <value xml:lang="fr">Indicateur de vitesse</value>
         <value xml:lang="it">Misuratore della velocità</value>
         <value xml:lang="ja">速度計</value>
-        <value xml:lang="nl">Snelheidsmeter</value>
         <value xml:lang="ro">Masurator de Viteza</value>
         <value xml:lang="ru">Спидометр</value>
         <value xml:lang="th">มิเตอร์ความเร็ว</value>
@@ -2724,7 +2551,6 @@
         <value xml:lang="fr">Compte-tours</value>
         <value xml:lang="it">Tachimetro</value>
         <value xml:lang="ja">タコメータ(回転速度計)</value>
-        <value xml:lang="nl">Toerenteller</value>
         <value xml:lang="ro">Tachimetru</value>
         <value xml:lang="ru">Тахометр</value>
         <value xml:lang="th">เครื่องวัดความเร็ว</value>
@@ -2739,7 +2565,6 @@
         <value xml:lang="fr">Utiliser le compteur</value>
         <value xml:lang="it">Usa conta metri</value>
         <value xml:lang="ja">使用カウント計</value>
-        <value xml:lang="nl">Verbruikmeter</value>
         <value xml:lang="ro">Foloseste Conta Metri</value>
         <value xml:lang="ru">Количество использования</value>
         <value xml:lang="th">เครื่องงนับการใช้</value>
@@ -2752,7 +2577,6 @@
         <value xml:lang="en">Use Trip Meter</value>
         <value xml:lang="fr">Utiliser le compteur de distance par trajet</value>
         <value xml:lang="ja">距離計を使用</value>
-        <value xml:lang="nl">Afstandmeter</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo quãng đường chuyến đi</value>
         <value xml:lang="zh">使用里程表</value>
         <value xml:lang="zh_TW">使用里程表</value>
@@ -2762,7 +2586,6 @@
         <value xml:lang="en">Use Tacograph</value>
         <value xml:lang="fr">Utiliser le tacographe</value>
         <value xml:lang="ja">タコグラフを使用</value>
-        <value xml:lang="nl">Tachograaf gebruiken</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo tốc độ gốc</value>
         <value xml:lang="zh">使用转速表</value>
         <value xml:lang="zh_TW">使用轉速表</value>
@@ -2772,7 +2595,6 @@
         <value xml:lang="en">Use Taximeter</value>
         <value xml:lang="fr">Utiliser le taximètre</value>
         <value xml:lang="ja">タクシーメータを使用</value>
-        <value xml:lang="nl">Taximeter gebruiken</value>
         <value xml:lang="vi">Sử dụng đồng hồ tính tiền taxi</value>
         <value xml:lang="zh">使用出租车计价器</value>
         <value xml:lang="zh_TW">使用計程車計價器</value>
@@ -2782,7 +2604,6 @@
         <value xml:lang="en">Use Event Data Recorder</value>
         <value xml:lang="fr">Utiliser l'enregistreur d'évènements</value>
         <value xml:lang="ja">イベントデータレコーダを使用</value>
-        <value xml:lang="nl">Datarecorder gebeurtenis gebruiken</value>
         <value xml:lang="vi">Sử dụng bộ ghi dữ liệu sự kiện</value>
         <value xml:lang="zh">使用事件数据记录器</value>
         <value xml:lang="zh_TW">使用事件資料記錄器</value>
@@ -2792,7 +2613,6 @@
         <value xml:lang="en">Use Pedometer</value>
         <value xml:lang="fr">Utiliser le podomètre</value>
         <value xml:lang="ja">歩数計を使用</value>
-        <value xml:lang="nl">Pedometer gebruiken</value>
         <value xml:lang="vi">Sử dụng đồng hồ đo bước</value>
         <value xml:lang="zh">使用计步器</value>
         <value xml:lang="zh_TW">使用計步器</value>
@@ -2804,7 +2624,6 @@
         <value xml:lang="fr">Remplacement du prix</value>
         <value xml:lang="it">Sostituzione importo fisso</value>
         <value xml:lang="ja">固定金額上書</value>
-        <value xml:lang="nl">All-in prijs overschrijven</value>
         <value xml:lang="ro">Substitutie Valoare Fixa</value>
         <value xml:lang="ru">Замещение фиксированного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนที่ไม่ชัดเจน</value>
@@ -2819,7 +2638,6 @@
         <value xml:lang="fr">Ajout au prix public</value>
         <value xml:lang="it">Modifica importo fisso</value>
         <value xml:lang="ja">固定金額更新</value>
-        <value xml:lang="nl">All-in prijs veranderen</value>
         <value xml:lang="ro">Modifica Valoarea Fixa</value>
         <value xml:lang="ru">Изменение фиксированного количества</value>
         <value xml:lang="th">ปรับปรุงจำนวนที่ไม่ชัดเจน</value>
@@ -2834,7 +2652,6 @@
         <value xml:lang="fr">Usage du prix promotionnel + valeur</value>
         <value xml:lang="it">Sostituzione importo promozione</value>
         <value xml:lang="ja">プロモーション金額上書</value>
-        <value xml:lang="nl">Promo prijs overschrijven</value>
         <value xml:lang="ro">Substitutie Valoare Promotie</value>
         <value xml:lang="ru">Замещение акционного количества</value>
         <value xml:lang="th">ยกเลิกจำนวนโปรโมชัน</value>
@@ -2849,7 +2666,6 @@
         <value xml:lang="fr">Pourcentage du coût moyen</value>
         <value xml:lang="it">Percentuale del costo medio</value>
         <value xml:lang="ja">平均原価割合(%)</value>
-        <value xml:lang="nl">Percentage gemiddelde kosten</value>
         <value xml:lang="ro">Procent din Costul Mediu</value>
         <value xml:lang="ru">Процент от средней стоимости</value>
         <value xml:lang="th">อัตราร้อยละของถัวเฉลี่ย</value>
@@ -2864,7 +2680,6 @@
         <value xml:lang="fr">Pourcentage du prix par défaut</value>
         <value xml:lang="it">Percentuale del prezzo di default</value>
         <value xml:lang="ja">デフォルト価格割合(%)</value>
-        <value xml:lang="nl">Percentage standaard prijs</value>
         <value xml:lang="ro">Procent din Pretul din Default</value>
         <value xml:lang="ru">Процент от обычной цены</value>
         <value xml:lang="th">อัตราร้อยละของราคาเริ่มต้น</value>
@@ -2879,7 +2694,6 @@
         <value xml:lang="fr">Pourcentage du prix public</value>
         <value xml:lang="it">Percentuale del prezzo di listino</value>
         <value xml:lang="ja">定価割合(%)</value>
-        <value xml:lang="nl">Percentage lijstprijs</value>
         <value xml:lang="ro">Procent din Pretul din Lista</value>
         <value xml:lang="ru">Процент от прейскурантной цены</value>
         <value xml:lang="th">อัตราร้อยละของรายการราคา</value>
@@ -2894,7 +2708,6 @@
         <value xml:lang="fr">Pourcentage de la marge</value>
         <value xml:lang="it">Percentuale del margine</value>
         <value xml:lang="ja">利益割合(%)</value>
-        <value xml:lang="nl">Percentage marge</value>
         <value xml:lang="ro">Procent Din Margine</value>
         <value xml:lang="ru">Процент от маржи</value>
         <value xml:lang="th">อัตราร้อยละของผลต่าง</value>
@@ -2906,7 +2719,6 @@
         <value xml:lang="en">Percent Of Wholesale</value>
         <value xml:lang="fr">Pourcentage du prix de gros</value>
         <value xml:lang="ja">卸売割合(%)</value>
-        <value xml:lang="nl">Percentage groothandelsprijs</value>
         <value xml:lang="vi">Tỷ lệ phần trăm của bán buôn</value>
         <value xml:lang="zh">批发百分比</value>
         <value xml:lang="zh_TW">批發百分比</value>
@@ -2918,7 +2730,6 @@
         <value xml:lang="fr">Usage du prix de gros + valeur</value>
         <value xml:lang="it">Sostituzione importo all'ingrosso</value>
         <value xml:lang="ja">卸売金額上書</value>
-        <value xml:lang="nl">Groothandelsprijs overschrijven</value>
         <value xml:lang="ro">Substitutie Valoare la Intrare</value>
         <value xml:lang="ru">Замещение оптового количества</value>
         <value xml:lang="th">ยกเลิกจำนวนการขนส่ง</value>
@@ -2933,7 +2744,6 @@
         <value xml:lang="fr">Prix du composant</value>
         <value xml:lang="it">Prezzo componente</value>
         <value xml:lang="ja">コンポーネント価格</value>
-        <value xml:lang="nl">Prijs component</value>
         <value xml:lang="ro">Pret Componente</value>
         <value xml:lang="ru">Цена комплектующих</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
@@ -2948,7 +2758,6 @@
         <value xml:lang="fr">Achat/Initial</value>
         <value xml:lang="it">Acquisto/Iniziale</value>
         <value xml:lang="ja">購入/初期</value>
-        <value xml:lang="nl">Initiele verkoop</value>
         <value xml:lang="ro">Cumparare/Initiala</value>
         <value xml:lang="ru">Закупка/Начальный</value>
         <value xml:lang="th">การสั่งซื้อ/เริ่มแรก</value>
@@ -2963,7 +2772,6 @@
         <value xml:lang="fr">Charge/coût récurrent</value>
         <value xml:lang="it">Ricarico periodico</value>
         <value xml:lang="ja">繰り返し手数料</value>
-        <value xml:lang="nl">Terugkerende kosten</value>
         <value xml:lang="ro">Incarcare Periodica</value>
         <value xml:lang="ru">Периодические платежи</value>
         <value xml:lang="th">Recurring Charge</value>
@@ -2978,7 +2786,6 @@
         <value xml:lang="fr">Charge/coût d'usage</value>
         <value xml:lang="it">Usa ricarico</value>
         <value xml:lang="ja">使用手数料</value>
-        <value xml:lang="nl">Gebruikskosten</value>
         <value xml:lang="ro">Foloseste Incarcare</value>
         <value xml:lang="ru">Оплата использования</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
@@ -2993,7 +2800,6 @@
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="ja">平均原価</value>
-        <value xml:lang="nl">Gemiddelde kosten</value>
         <value xml:lang="ro">Cost Mediu</value>
         <value xml:lang="ru">Средняя стоимость</value>
         <value xml:lang="th">ต้นทุนเฉลี่ย</value>
@@ -3008,7 +2814,6 @@
         <value xml:lang="fr">Prix compétitif</value>
         <value xml:lang="it">Prezzo competitivo</value>
         <value xml:lang="ja">競合価格</value>
-        <value xml:lang="nl">Concurrentieprijs</value>
         <value xml:lang="ro">Pret Competitiv</value>
         <value xml:lang="ru">Конкурентная цена</value>
         <value xml:lang="th">ราคาเปรียบเทียบ</value>
@@ -3022,7 +2827,6 @@
         <value xml:lang="es">Precio de componente</value>
         <value xml:lang="fr">Prix du composant</value>
         <value xml:lang="it">Prezzo componente</value>
-        <value xml:lang="nl">Prijs component</value>
         <value xml:lang="ja">コンポーネント価格</value>
         <value xml:lang="th">ส่วนประกอบราคา</value>
         <value xml:lang="vi">Giá thành phần</value>
@@ -3036,7 +2840,6 @@
         <value xml:lang="fr">Prix par défaut</value>
         <value xml:lang="it">Prezzo di default</value>
         <value xml:lang="ja">デフォルト価格</value>
-        <value xml:lang="nl">Standaard prijs</value>
         <value xml:lang="ro">Pret de Default</value>
         <value xml:lang="ru">Обычная цена</value>
         <value xml:lang="th">ราคาเริ่มต้น</value>
@@ -3051,7 +2854,6 @@
         <value xml:lang="fr">Prix public</value>
         <value xml:lang="it">Prezzo di listino</value>
         <value xml:lang="ja">定価</value>
-        <value xml:lang="nl">Lijstprijs</value>
         <value xml:lang="ro">Pret de Listare</value>
         <value xml:lang="ru">Прейскурантная цена</value>
         <value xml:lang="th">รายการราคา</value>
@@ -3066,7 +2868,6 @@
         <value xml:lang="fr">Prix maximum</value>
         <value xml:lang="it">Prezzo massimo</value>
         <value xml:lang="ja">最高価格</value>
-        <value xml:lang="nl">Maximum prijs</value>
         <value xml:lang="ro">Pret Maxim</value>
         <value xml:lang="ru">Максимальная цена</value>
         <value xml:lang="th">ราคาสูงสุด</value>
@@ -3078,7 +2879,6 @@
         <value xml:lang="de">Minimum Bestellpreis</value>
         <value xml:lang="en">Minimum order Price</value>
         <value xml:lang="ja">最低注文価格</value>
-        <value xml:lang="nl">Prijs minimum order</value>
         <value xml:lang="vi">Giá sàn đặt hàng</value>
         <value xml:lang="zh">最低订单价格</value>
         <value xml:lang="zh_TW">最低訂單價格</value>
@@ -3090,7 +2890,6 @@
         <value xml:lang="fr">Prix minimum</value>
         <value xml:lang="it">Prezzo minimo</value>
         <value xml:lang="ja">最低価格</value>
-        <value xml:lang="nl">Minimum prijs</value>
         <value xml:lang="ro">Pret Minim</value>
         <value xml:lang="ru">Минимальная цена</value>
         <value xml:lang="th">ราคาน้อยสุด</value>
@@ -3105,7 +2904,6 @@
         <value xml:lang="fr">Prix promotionnel</value>
         <value xml:lang="it">Prezzo promozionale</value>
         <value xml:lang="ja">プロモーション価格</value>
-        <value xml:lang="nl">Prijs promotie</value>
         <value xml:lang="ro">Pret Promotional </value>
         <value xml:lang="ru">Акционная цена</value>
         <value xml:lang="th">ราคาโปรโมชัน</value>
@@ -3120,7 +2918,6 @@
         <value xml:lang="fr">Charge périodique</value>
         <value xml:lang="it">Ricarico ricorrente</value>
         <value xml:lang="ja">繰り返し手数料</value>
-        <value xml:lang="nl">Terugkerende prijs</value>
         <value xml:lang="th">RECURRING_CHARGE</value>
         <value xml:lang="vi">Phí thường niên</value>
         <value xml:lang="zh">经常性费用</value>
@@ -3132,7 +2929,6 @@
         <value xml:lang="fr">Prix spécial promo</value>
         <value xml:lang="it">Prezzo promozionale speciale</value>
         <value xml:lang="ja">特別プロモーション価格</value>
-        <value xml:lang="nl">Speciale promo prijs</value>
         <value xml:lang="ro">Pret Promotional Special</value>
         <value xml:lang="ru">Специальная цена</value>
         <value xml:lang="th">ราคาโปรโมชันพิเศษ</value>
@@ -3147,7 +2943,6 @@
         <value xml:lang="fr">Charge d'utilisation</value>
         <value xml:lang="it">Uso Ricarico</value>
         <value xml:lang="ja">使用手数料</value>
-        <value xml:lang="nl">Prijs verbruik</value>
         <value xml:lang="th">ค่าธรรมเนียมการใช้</value>
         <value xml:lang="vi">Phí sử dụng</value>
         <value xml:lang="zh">使用费</value>
@@ -3161,7 +2956,6 @@
         <value xml:lang="it">Prezzo all'ingrosso</value>
         <value xml:lang="ja">卸売価格</value>
         <value xml:lang="ro">Pret la Ingros</value>
-        <value xml:lang="nl">Groothandelsprijs</value>
         <value xml:lang="ru">Оптовая цена</value>
         <value xml:lang="th">ราคาขายส่ง</value>
         <value xml:lang="vi">Giá bán buôn</value>
@@ -3175,7 +2969,6 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
-        <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
@@ -3189,7 +2982,6 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
-        <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
         <value xml:lang="th">ไม่ใช้ประโยชน์ได้</value>
@@ -3204,7 +2996,6 @@
         <value xml:lang="fr">Produit configurable</value>
         <value xml:lang="it">Bene configurabile</value>
         <value xml:lang="ja">カスタマイズ可能商品</value>
-        <value xml:lang="nl">Configureerbaar product</value>
         <value xml:lang="ro">Bun Configurabil</value>
         <value xml:lang="ru">Товар требующий конфигурации</value>
         <value xml:lang="th">สามารถสร้างสินค้า</value>
@@ -3228,7 +3019,6 @@
         <value xml:lang="fr">Usage d'immobilisation</value>
         <value xml:lang="it">Uso cespite</value>
         <value xml:lang="ja">固定資産使用</value>
-        <value xml:lang="nl">Gebruik vaste activa</value>
         <value xml:lang="ro">Folosire Mijloc Fix</value>
         <value xml:lang="ru">Использование ОС</value>
         <value xml:lang="th">วิธีการใช้ทรัพย์สินไม่หมุนเวียน</value>
@@ -3243,7 +3033,6 @@
         <value xml:lang="fr">Produit immatériel</value>
         <value xml:lang="it">Bene digitale</value>
         <value xml:lang="ja">デジタル商品</value>
-        <value xml:lang="nl">Digitaal product</value>
         <value xml:lang="ro">Bun Digital</value>
         <value xml:lang="ru">Цифровой товар</value>
         <value xml:lang="th">สินค้าดิจิตอล</value>
@@ -3258,7 +3047,6 @@
         <value xml:lang="fr">Produit fini immatériel</value>
         <value xml:lang="it">Bene finito/digitale</value>
         <value xml:lang="ja">完成品/デジタル商品</value>
-        <value xml:lang="nl">Digitaal/Gereed product</value>
         <value xml:lang="ro">Bun Finit/Digital</value>
         <value xml:lang="ru">Готовый/цифровой товар</value>
         <value xml:lang="th">เสร็จสิ้น/สินค้าดิจิตอล</value>
@@ -3273,7 +3061,6 @@
         <value xml:lang="fr">Produit fini</value>
         <value xml:lang="it">Bene finito</value>
         <value xml:lang="ja">完成品</value>
-        <value xml:lang="nl">Gereed product</value>
         <value xml:lang="ro">Bun Finit</value>
         <value xml:lang="ru">Готовый товар</value>
         <value xml:lang="th">สินค้าเคลือบเงา</value>
@@ -3288,7 +3075,6 @@
         <value xml:lang="fr">Bien</value>
         <value xml:lang="it">Bene</value>
         <value xml:lang="ja">商品</value>
-        <value xml:lang="nl">Product</value>
         <value xml:lang="ro">Bun</value>
         <value xml:lang="ru">Товар</value>
         <value xml:lang="th">สินค้า</value>
@@ -3301,7 +3087,6 @@
         <value xml:lang="en">Marketing Package</value>
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ</value>
-        <value xml:lang="nl">Marketing product</value>
         <value xml:lang="vi">Gói marketing</value>
         <value xml:lang="zh">促销包</value>
         <value xml:lang="zh_TW">促銷包</value>
@@ -3313,7 +3098,6 @@
         <value xml:lang="fr">Conditionnement marketing</value>
         <value xml:lang="it">Pacco di vendita</value>
         <value xml:lang="ja">販売パッケージ: 自動生産</value>
-        <value xml:lang="nl">Marketing product - autom. gefabriceerd</value>
         <value xml:lang="ru">Маркетинговый пакет</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
         <value xml:lang="vi">Gói marketing: tự động điền nhà sản xuất</value>
@@ -3327,7 +3111,6 @@
         <value xml:lang="fr">Conditionnement marketing: assemblage durant le prélèvement</value>
         <value xml:lang="it">Pacco di vendita: assemblato durante il prelievo</value>
         <value xml:lang="ja">販売パッケージ: 選択組立</value>
-        <value xml:lang="nl">Marketing product - samenstelling kiezen</value>
         <value xml:lang="th">แพคเกจการตลาด: การเลือกการรวมกลุ่ม</value>
         <value xml:lang="vi">Gói marketing: chọn lựa lắp ráp</value>
         <value xml:lang="zh">促销包：分拣组装</value>
@@ -3340,7 +3123,6 @@
         <value xml:lang="fr">Matières Premières</value>
         <value xml:lang="it">Materia prima</value>
         <value xml:lang="ja">原材料</value>
-        <value xml:lang="nl">Grondstof</value>
         <value xml:lang="ro">Materie Prima</value>
         <value xml:lang="ru">Необработанный материал</value>
         <value xml:lang="th">วัตถุดิบ</value>
@@ -3355,7 +3137,6 @@
         <value xml:lang="fr">Service</value>
         <value xml:lang="it">Servizio</value>
         <value xml:lang="ja">サービス</value>
-        <value xml:lang="nl">Service/dienst</value>
         <value xml:lang="ro">Serviciu</value>
         <value xml:lang="ru">Услуга</value>
         <value xml:lang="th">บริการ</value>
@@ -3370,7 +3151,6 @@
         <value xml:lang="fr">Semi-fini</value>
         <value xml:lang="it">Subassemblato</value>
         <value xml:lang="ja">部分組立</value>
-        <value xml:lang="nl">Tussenproduct</value>
         <value xml:lang="ro">Subasamblat</value>
         <value xml:lang="ru">Комплектующие</value>
         <value xml:lang="th">การรวมกลุ่มย่อย</value>
@@ -3385,7 +3165,6 @@
         <value xml:lang="fr">Travaux</value>
         <value xml:lang="it">Semilavorato</value>
         <value xml:lang="ja">仕掛品</value>
-        <value xml:lang="nl">Werk in uitvoering</value>
         <value xml:lang="ro">Semifabricat</value>
         <value xml:lang="ru">Незавершенная работа</value>
         <value xml:lang="th">งานที่ก้าวหน้า</value>
@@ -3465,7 +3244,6 @@
         <value xml:lang="fr">Endommagé</value>
         <value xml:lang="it">Danneggiato</value>
         <value xml:lang="ja">損傷</value>
-        <value xml:lang="nl">Beschadigd</value>
         <value xml:lang="ro">Stricat</value>
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
@@ -3480,7 +3258,6 @@
         <value xml:lang="fr">Non commandé</value>
         <value xml:lang="it">Non ordinato</value>
         <value xml:lang="ja">未注文</value>
-        <value xml:lang="nl">Niet georderd</value>
         <value xml:lang="ro">Ne Ordonat</value>
         <value xml:lang="ru">Не заказывалось</value>
         <value xml:lang="th">ไม่ใช่รายการสั่งซื้อ</value>
@@ -3495,7 +3272,6 @@
         <value xml:lang="fr">Expédié en excédent</value>
         <value xml:lang="it">Sovra spedito</value>
         <value xml:lang="ja">過発送</value>
-        <value xml:lang="nl">Teveel geleverd</value>
         <value xml:lang="ro">Sopra Expediat</value>
         <value xml:lang="ru">Поставка лишнего</value>
         <value xml:lang="th">การขนส่งมาก</value>
@@ -3510,7 +3286,6 @@
         <value xml:lang="fr">Adresse d'origine de l'expédition</value>
         <value xml:lang="it">Spedisci dall'indirizzo</value>
         <value xml:lang="ja">発送元住所</value>
-        <value xml:lang="nl">Adres - leverancier</value>
         <value xml:lang="th">การขนส่งจากที่อยู่</value>
         <value xml:lang="vi">Gửi hàng từ địa chỉ</value>
         <value xml:lang="zh">发货地址</value>
@@ -3523,7 +3298,6 @@
         <value xml:lang="fr">N° de téléphone de l'origine de l'expédition</value>
         <value xml:lang="it">Spedisci dal numero di telefono</value>
         <value xml:lang="ja">発送元電話</value>
-        <value xml:lang="nl">Telefoon - leverancier</value>
         <value xml:lang="th">การขนส่งจากโทรคมนาคม</value>
         <value xml:lang="vi">Giao hàng qua mạng viễn thông</value>
         <value xml:lang="zh">发货电话</value>
@@ -3536,7 +3310,6 @@
         <value xml:lang="fr">Adresse d'expédition</value>
         <value xml:lang="it">Spedisci all'indirizzo</value>
         <value xml:lang="ja">発送先住所</value>
-        <value xml:lang="nl">Adres - ontvanger</value>
         <value xml:lang="th">การขนส่งถึงที่อยู่</value>
         <value xml:lang="vi">Giao hàng tới địa chỉ</value>
         <value xml:lang="zh">收货地址</value>
@@ -3549,7 +3322,6 @@
         <value xml:lang="fr">Courriel de l'expédition</value>
         <value xml:lang="it">Spedisci all'email</value>
         <value xml:lang="ja">発送先Eメール</value>
-        <value xml:lang="nl">Emailadres - ontvanger</value>
         <value xml:lang="th">การขนส่งถึงอีเมล</value>
         <value xml:lang="vi">Giao hàng tới email</value>
         <value xml:lang="zh">收货电子邮件</value>
@@ -3562,7 +3334,6 @@
         <value xml:lang="fr">N° de téléphone de l'expédition</value>
         <value xml:lang="it">Spedisci al numero di telefono</value>
         <value xml:lang="ja">発送先電話</value>
-        <value xml:lang="nl">Telefoon - ontvanger</value>
         <value xml:lang="th">การขนส่งถึงโทรคมนาคม</value>
         <value xml:lang="vi">Giao hàng tới mạng viễn thông</value>
         <value xml:lang="zh">收货电话</value>
@@ -3575,7 +3346,6 @@
         <value xml:lang="fr">Expédition par un tiers</value>
         <value xml:lang="it">Spedizione Esterna</value>
         <value xml:lang="ja">直送</value>
-        <value xml:lang="nl">Drop-zending</value>
         <value xml:lang="ro">Drop Shipment</value>
         <value xml:lang="ru">Прямая поставка</value>
         <value xml:lang="th">หยุดการขนส่ง</value>
@@ -3590,7 +3360,6 @@
         <value xml:lang="fr">A recevoir</value>
         <value xml:lang="it">Ingresso</value>
         <value xml:lang="ja">入庫</value>
-        <value xml:lang="nl">Zending - inkomend</value>
         <value xml:lang="ro">Intrare</value>
         <value xml:lang="ru">Входящая</value>
         <value xml:lang="th">รายได้</value>
@@ -3605,7 +3374,6 @@
         <value xml:lang="fr">Expédition de fabrication</value>
         <value xml:lang="it">Spedizione di produzione</value>
         <value xml:lang="ja">生産発送</value>
-        <value xml:lang="nl">Zending - fabricage</value>
         <value xml:lang="th">การผลิตการขนส่ง</value>
         <value xml:lang="vi">Nhà sản xuất gửi hàng</value>
         <value xml:lang="zh">制造中的船舶</value>
@@ -3618,7 +3386,6 @@
         <value xml:lang="fr">Sortant</value>
         <value xml:lang="it">Uscita</value>
         <value xml:lang="ja">出庫</value>
-        <value xml:lang="nl">Zending - uitgaand</value>
         <value xml:lang="ro">Iesire</value>
         <value xml:lang="ru">Исходящая</value>
         <value xml:lang="th">ออกจากสถานที่</value>
@@ -3633,7 +3400,6 @@
         <value xml:lang="fr">Retour d'achat</value>
         <value xml:lang="it">Reso di acquisto</value>
         <value xml:lang="ja">購買返品</value>
-        <value xml:lang="nl">Inkoopretour</value>
         <value xml:lang="ro">Returnare Cumparari</value>
         <value xml:lang="ru">Возврат закупленного</value>
         <value xml:lang="th">คืนค่าการสั่งซื้อ</value>
@@ -3648,7 +3414,6 @@
         <value xml:lang="fr">Expédition d'achat</value>
         <value xml:lang="it">Spedizione di acquisto</value>
         <value xml:lang="ja">購買発送</value>
-        <value xml:lang="nl">Inkoopzending</value>
         <value xml:lang="ro">Expediere Cumparaturi</value>
         <value xml:lang="ru">Поставка закупленного</value>
         <value xml:lang="th">การขนส่งการสั่งซื้อ</value>
@@ -3663,7 +3428,6 @@
         <value xml:lang="fr">Retour de vente</value>
         <value xml:lang="it">Reso di vendita</value>
         <value xml:lang="ja">販売返品</value>
-        <value xml:lang="nl">Verkoopretour</value>
         <value xml:lang="ro">Returnare din Vanzari</value>
         <value xml:lang="ru">Возврат проданного</value>
         <value xml:lang="th">คืนค่าการขาย</value>
@@ -3678,7 +3442,6 @@
         <value xml:lang="fr">Expédition de vente</value>
         <value xml:lang="it">Spedizione di vendita</value>
         <value xml:lang="ja">販売発送</value>
-        <value xml:lang="nl">Verkoopzending</value>
         <value xml:lang="ro">Expediere Vanzari</value>
         <value xml:lang="ru">Поставка проданного</value>
         <value xml:lang="th">การขนส่งการขาย</value>
@@ -3707,7 +3470,6 @@
         <value xml:lang="fr">Groupe de nouvelles</value>
         <value xml:lang="it">Notiziario</value>
         <value xml:lang="ja">ニュースグループ</value>
-        <value xml:lang="nl">Abonnement - nieuwsgroep</value>
         <value xml:lang="ro">Notitiar</value>
         <value xml:lang="ru">Новости</value>
         <value xml:lang="th">กลุ่มข่าว</value>
@@ -3722,7 +3484,6 @@
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ja">その他</value>
-        <value xml:lang="nl">Abonnement - overige</value>
         <value xml:lang="ro">Alte</value>
         <value xml:lang="ru">Друго</value>
         <value xml:lang="th">อื่น ๆ</value>
@@ -3737,7 +3498,6 @@
         <value xml:lang="fr">Information sur le produit</value>
         <value xml:lang="it">Informazioni prodotto</value>
         <value xml:lang="ja">製品情報</value>
-        <value xml:lang="nl">Abonnement - productinfo</value>
         <value xml:lang="ro">Informatii Produs</value>
         <value xml:lang="ru">Информация о продукте</value>
         <value xml:lang="th">ข้อมูลสินค้า</value>
@@ -3752,7 +3512,6 @@
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品</value>
-        <value xml:lang="nl">Abonnement - product</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
         <value xml:lang="vi">Sản phẩm</value>
@@ -3766,7 +3525,6 @@
         <value xml:lang="fr">Endommagé</value>
         <value xml:lang="it">Danneggiato</value>
         <value xml:lang="ja">損傷</value>
-        <value xml:lang="nl">Afw. - beschadigd</value>
         <value xml:lang="ro">Stricat</value>
         <value xml:lang="ru">Повреждено</value>
         <value xml:lang="th">รายจ่าย</value>
@@ -3781,7 +3539,6 @@
         <value xml:lang="fr">Trouvé</value>
         <value xml:lang="it">Trovato</value>
         <value xml:lang="ja">発見</value>
-        <value xml:lang="nl">Afw. - gevonden</value>
         <value xml:lang="ro">Gasit</value>
         <value xml:lang="ru">Найдено</value>
         <value xml:lang="th">พบ</value>
@@ -3796,7 +3553,6 @@
         <value xml:lang="fr">Intégré</value>
         <value xml:lang="it">Integrazione</value>
         <value xml:lang="ja">統合</value>
-        <value xml:lang="nl">Afw. - integratie</value>
         <value xml:lang="ro">Integrare</value>
         <value xml:lang="ru">Интеграция</value>
         <value xml:lang="th">การรวมเข้าด้วยกัน</value>
@@ -3811,7 +3567,6 @@
         <value xml:lang="fr">Perdu</value>
         <value xml:lang="it">Perso</value>
         <value xml:lang="ja">紛失</value>
-        <value xml:lang="nl">Afw. - verloren</value>
         <value xml:lang="ro">Pierdut</value>
         <value xml:lang="ru">Утеряно</value>
         <value xml:lang="th">สูญเสีย</value>
@@ -3823,7 +3578,6 @@
         <value xml:lang="en">Mis-shipped Item Ordered (+)</value>
         <value xml:lang="it">Riga non-spedita ordinata (+)</value>
         <value xml:lang="ja">誤発送アイテム注文済 (+)</value>
-        <value xml:lang="nl">Afw. - meer dan besteld</value>
         <value xml:lang="vi">Sản phẩm đặt hàng bị thất lạc khi vận chuyển (+)</value>
         <value xml:lang="zh">已订购的误装明细 (+)</value>
         <value xml:lang="zh_TW">已訂購的誤裝細項 (+)</value>
@@ -3832,7 +3586,6 @@
         <value xml:lang="en">Mis-shipped Item Shipped (-)</value>
         <value xml:lang="it">Riga non-spedita spedita (-)</value>
         <value xml:lang="ja">誤発送アイテム発送済 (-)</value>
-        <value xml:lang="nl">Afw. - minder dan besteld</value>
         <value xml:lang="vi">Sản phẩm giao hàng thất lạc khi vận chuyển (-)</value>
         <value xml:lang="zh">已装运的误装明细 (-)</value>
         <value xml:lang="zh_TW">已裝運的誤裝細項 (-)</value>
@@ -3844,7 +3597,6 @@
         <value xml:lang="fr">Échantillon</value>
         <value xml:lang="it">Campione (Dato via)</value>
         <value xml:lang="ja">サンプル (景品)</value>
-        <value xml:lang="nl">Afw. - monster</value>
         <value xml:lang="ro">Esantion (Introdu Strada)</value>
         <value xml:lang="ru">Проба (испорчен)</value>
         <value xml:lang="th">ตัวอย่าง (เปิดเผย)</value>
@@ -3859,7 +3611,6 @@
         <value xml:lang="fr">Volé</value>
         <value xml:lang="it">Rubato</value>
         <value xml:lang="ja">盗難</value>
-        <value xml:lang="nl">Afw. - gestolen</value>
         <value xml:lang="ro">Furat</value>
         <value xml:lang="ru">Украдено</value>
         <value xml:lang="th">ของเถื่อน</value>
@@ -3872,7 +3623,6 @@
         <value xml:lang="en">Search Parameters</value>
         <value xml:lang="fr">Paramètres de recherche</value>
         <value xml:lang="ja">検索パラメータ</value>
-        <value xml:lang="nl">Zoekparameters</value>
         <value xml:lang="vi">Tham số tìm kiếm</value>
         <value xml:lang="zh">搜索参数</value>
         <value xml:lang="zh_TW">搜尋參數</value>
