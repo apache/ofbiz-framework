@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -52,56 +53,65 @@ import org.w3c.dom.Element;
  */
 @SuppressWarnings("serial")
 public class IterateSectionWidget extends ModelScreenWidget {
+
     public static final String module = IterateSectionWidget.class.getName();
-
-    protected ModelScreenWidget childWidget;
-    protected List<ModelScreenWidget.Section> sectionList;
-    protected FlexibleMapAccessor<Object> listNameExdr;
-    protected FlexibleStringExpander entryNameExdr;
-    protected FlexibleStringExpander keyNameExdr;
-    protected FlexibleStringExpander paginateTarget;
-    protected FlexibleStringExpander paginate;
-
     public static int DEFAULT_PAGE_SIZE = 5;
     public static int MAX_PAGE_SIZE = 10000;
-    protected int viewIndex = 0;
-    protected int viewSize = DEFAULT_PAGE_SIZE;
-    protected int lowIndex = -1;
-    protected int highIndex = -1;
-    protected int listSize = 0;
-    protected int actualPageSize = 0;
 
+    private final List<ModelScreenWidget.Section> sectionList;
+    private final FlexibleMapAccessor<Object> listNameExdr;
+    private final FlexibleStringExpander entryNameExdr;
+    private final FlexibleStringExpander keyNameExdr;
+    private final FlexibleStringExpander paginateTarget;
+    private final FlexibleStringExpander paginate;
+    private final int viewSize;
 
     public IterateSectionWidget(ModelScreen modelScreen, Element iterateSectionElement) {
         super(modelScreen, iterateSectionElement);
-        listNameExdr = FlexibleMapAccessor.getInstance(iterateSectionElement.getAttribute("list"));
-        if (listNameExdr.isEmpty()) listNameExdr = FlexibleMapAccessor.getInstance(iterateSectionElement.getAttribute("list-name"));
-        entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry"));
-        if (entryNameExdr.isEmpty()) entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry-name"));
-        keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key"));
-        if (keyNameExdr.isEmpty()) keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key-name"));
-
-        if (this.paginateTarget == null || iterateSectionElement.hasAttribute("paginate-target")) {
-            this.paginateTarget = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate-target"));
+        String listName = iterateSectionElement.getAttribute("list");
+        if (listName.isEmpty()) {
+            listName = iterateSectionElement.getAttribute("list-name");
         }
-
-        if (this.paginate == null || iterateSectionElement.hasAttribute("paginate")) {
-            this.paginate = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate"));
+        this.listNameExdr = FlexibleMapAccessor.getInstance(listName);
+        String entryName = iterateSectionElement.getAttribute("entry");
+        if (entryName.isEmpty()) {
+            entryName = iterateSectionElement.getAttribute("entry-name");
         }
-
-        if (iterateSectionElement.hasAttribute("view-size")) {
-            setViewSize(iterateSectionElement.getAttribute("view-size"));
+        this.entryNameExdr = FlexibleStringExpander.getInstance(entryName);
+        String keyName = iterateSectionElement.getAttribute("key");
+        if (keyName.isEmpty()) {
+            keyName = iterateSectionElement.getAttribute("key-name");
         }
-        sectionList = new ArrayList<ModelScreenWidget.Section>();
+        this.keyNameExdr = FlexibleStringExpander.getInstance(keyName);
+        this.paginateTarget = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate-target"));
+        this.paginate = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate"));
+        int viewSize = DEFAULT_PAGE_SIZE;
+        String viewSizeStr = iterateSectionElement.getAttribute("view-size");
+        if (!viewSizeStr.isEmpty()) {
+            viewSize = Integer.parseInt(viewSizeStr);
+        }
+        this.viewSize = viewSize;
         List<? extends Element> childElementList = UtilXml.childElementList(iterateSectionElement);
-        for (Element sectionElement: childElementList) {
-            ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement, false);
-            sectionList.add(section);
+        if (childElementList.isEmpty()) {
+            this.sectionList = Collections.emptyList();
+        } else {
+            List<ModelScreenWidget.Section> sectionList = new ArrayList<ModelScreenWidget.Section>(childElementList.size());
+            for (Element sectionElement: childElementList) {
+                ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement, false);
+                sectionList.add(section);
+            }
+            this.sectionList = Collections.unmodifiableList(sectionList);
         }
     }
 
     @Override
     public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+        int viewIndex = 0;
+        int viewSize = this.viewSize;
+        int lowIndex = -1;
+        int highIndex = -1;
+        int listSize = 0;
+        int actualPageSize = 0;
 
         boolean isEntrySet = false;
         // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
@@ -126,10 +136,33 @@ public class IterateSectionWidget extends ModelScreenWidget {
             Debug.logError("Object not list or map type", module);
             return;
         }
+        listSize = theList.size();
         WidgetWorker.incrementPaginatorNumber(context);
         int startPageNumber = WidgetWorker.getPaginatorNumber(context);
-        getListLimits(context, theList);
-        int rowCount = 0;
+
+        if (getPaginate(context)) {
+            try {
+                Map<String, String> params = UtilGenerics.cast(context.get("parameters"));
+                String viewIndexString = params.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
+                String viewSizeString = params.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
+                viewIndex = Integer.parseInt(viewIndexString);
+                viewSize = Integer.parseInt(viewSizeString);
+            } catch (Exception e) {
+                try {
+                    viewIndex = ((Integer) context.get("viewIndex")).intValue();
+                } catch (Exception e2) {
+                    viewIndex = 0;
+                }
+            }
+            context.put("viewIndex", Integer.valueOf(viewIndex));
+            lowIndex = viewIndex * viewSize;
+            highIndex = (viewIndex + 1) * viewSize;
+        } else {
+            viewIndex = 0;
+            viewSize = MAX_PAGE_SIZE;
+            lowIndex = 0;
+            highIndex = MAX_PAGE_SIZE;
+        }
         Iterator<?> iter = theList.iterator();
         int itemIndex = -1;
         int iterateIndex = 0;
@@ -155,16 +188,15 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 contextMs.put("iterateId",String.valueOf(entryName+iterateIndex));
                 iterateIndex++;
             }
-            rowCount++;
             for (ModelScreenWidget.Section section: this.sectionList) {
                 section.renderWidgetString(writer, contextMs, screenStringRenderer);
             }
         }
 
         if ((itemIndex + 1) < highIndex) {
-            setHighIndex(itemIndex + 1);
+            highIndex = itemIndex + 1;
         }
-        setActualPageSize(highIndex - lowIndex);
+        actualPageSize = highIndex - lowIndex;
         if (getPaginate(context)) {
             try {
                 Integer lastPageNumber = null;
@@ -173,9 +205,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
                     lastPageNumber = (Integer)globalCtx.get("PAGINATOR_NUMBER");
                     globalCtx.put("PAGINATOR_NUMBER", Integer.valueOf(startPageNumber));
                 }
-
-                renderNextPrev(writer, context);
-
+                renderNextPrev(writer, context, listSize, actualPageSize);
                 if (globalCtx != null) {
                     globalCtx.put("PAGINATOR_NUMBER", lastPageNumber);
                 }
@@ -194,103 +224,18 @@ public class IterateSectionWidget extends ModelScreenWidget {
     }
 
     public boolean getPaginate(Map<String, Object> context) {
-        if (this.paginate != null && !this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
+        if (!this.paginate.isEmpty() && UtilValidate.isNotEmpty(this.paginate.expandString(context))) {
             return Boolean.valueOf(this.paginate.expandString(context)).booleanValue();
         } else {
             return true;
         }
     }
 
-    public void setPaginate(boolean val) {
-        this.paginate = FlexibleStringExpander.getInstance(Boolean.valueOf(val).toString());
-    }
-
-    public void setViewIndex(int val) {
-        viewIndex = val;
-    }
-
-    public void setViewSize(int val) {
-        viewSize = val;
-    }
-
-    public void setViewSize(String val) {
-        try {
-            viewSize = Integer.parseInt(val);
-        } catch (NumberFormatException e) {
-            viewSize = DEFAULT_PAGE_SIZE;
-        }
-    }
-
-    public void setListSize(int val) {
-        listSize = val;
-    }
-
-    public void setLowIndex(int val) {
-        lowIndex = val;
-    }
-
-    public void setHighIndex(int val) {
-        highIndex = val;
-    }
-    public void setActualPageSize(int val) {
-        actualPageSize = val;
-    }
-
-    public int getViewIndex() {
-        return viewIndex;
-    }
-
     public int getViewSize() {
         return viewSize;
     }
 
-    public int getListSize() {
-        return listSize;
-    }
-
-    public int getLowIndex() {
-        return lowIndex;
-    }
-
-    public int getHighIndex() {
-        return highIndex;
-    }
-
-    public int getActualPageSize() {
-        return actualPageSize;
-    }
-
-    public <X> void getListLimits(Map<String, Object> context, List<X> items) {
-        listSize = items.size();
-
-        if (getPaginate(context)) {
-            try {
-                Map<String, String> params = UtilGenerics.cast(context.get("parameters"));
-                String viewIndexString = params.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
-                String viewSizeString = params.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
-                viewIndex = Integer.parseInt(viewIndexString);
-                viewSize = Integer.parseInt(viewSizeString);
-            } catch (Exception e) {
-                try {
-                    viewIndex = ((Integer) context.get("viewIndex")).intValue();
-                } catch (Exception e2) {
-                    viewIndex = 0;
-                }
-            }
-            context.put("viewIndex", Integer.valueOf(this.viewIndex));
-
-            lowIndex = viewIndex * viewSize;
-            highIndex = (viewIndex + 1) * viewSize;
-        } else {
-            viewIndex = 0;
-            viewSize = MAX_PAGE_SIZE;
-            lowIndex = 0;
-            highIndex = MAX_PAGE_SIZE;
-        }
-    }
-
-
-    public void renderNextPrev(Appendable writer, Map<String, Object> context) throws IOException {
+    public void renderNextPrev(Appendable writer, Map<String, Object> context, int listSize, int actualPageSize) throws IOException {
         String targetService = this.getPaginateTarget(context);
         if (targetService == null) {
             targetService = "${targetService}";
@@ -328,12 +273,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
             viewSize = this.getViewSize();
         }
 
-        int listSize = -1;
-        try {
-            listSize = this.getListSize();
-        } catch (Exception e) {
-            listSize = -1;
-        }
 
         /*
         int highIndex = -1;
@@ -353,7 +292,6 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
         int lowIndex = viewIndex * viewSize;
         int highIndex = (viewIndex + 1) * viewSize;
-        int actualPageSize = this.getActualPageSize();
         // if this is all there seems to be (if listSize < 0, then size is unknown)
         if (actualPageSize >= listSize && listSize > 0) {
             return;
