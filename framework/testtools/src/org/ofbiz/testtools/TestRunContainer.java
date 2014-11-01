@@ -22,11 +22,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.lang.String;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.Map;
 
-import javolution.util.FastMap;
 import junit.framework.AssertionFailedError;
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -205,7 +204,7 @@ public class TestRunContainer implements Container {
 
     class JunitXmlListener extends XMLJUnitResultFormatter {
 
-        Map<String, Long> startTimes = FastMap.newInstance();
+        Map<String, Long> startTimes = new HashMap<String, Long>();
 
         public JunitXmlListener(OutputStream out) {
             this.setOutput(out);
