@@ -31,6 +31,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.widget.artifact.ArtifactInfoContext;
+import org.ofbiz.widget.artifact.ArtifactInfoGatherer;
 import org.ofbiz.widget.form.ModelForm;
 import org.xml.sax.SAXException;
 
@@ -68,12 +70,14 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
 
     /** note this is mean to be called after the object is created and added to the ArtifactInfoFactory.allFormInfos in ArtifactInfoFactory.getFormWidgetArtifactInfo */
     public void populateAll() throws GeneralException {
-        // populate entitiesUsedInThisForm, servicesUsedInThisForm, formThisFormExtends (and reverse in aif.allFormInfosExtendingForm)
-        this.populateUsedEntities();
-        this.populateUsedServices();
+        ArtifactInfoContext infoContext = new ArtifactInfoContext();
+        ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
+        infoGatherer.visit(this.modelForm);
+        populateEntitiesFromNameSet(infoContext.getEntityNames());
+        populateServicesFromNameSet(infoContext.getServiceNames());
         this.populateFormExtended();
-        this.populateLinkedRequests();
-        this.populateTargetedRequests();
+        this.populateLinkedRequests(infoContext.getRequestLocations());
+        this.populateTargetedRequests(infoContext.getTargetLocations());
     }
 
     protected void populateFormExtended() throws GeneralException {
@@ -97,11 +101,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             UtilMisc.addToSortedSetInMap(this, aif.allFormInfosExtendingForm, formName);
         }
     }
-    protected void populateUsedEntities() throws GeneralException {
-        // populate entitiesUsedInThisForm and for each the reverse-associate cache in the aif
-        Set<String> allEntityNameSet = this.modelForm.getAllEntityNamesUsed();
-        populateEntitiesFromNameSet(allEntityNameSet);
-    }
+
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
             if (entityName.contains("${")) {
@@ -117,11 +117,6 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             // the reverse reference
             UtilMisc.addToSortedSetInMap(this, aif.allFormInfosReferringToEntityName, entityName);
         }
-    }
-    protected void populateUsedServices() throws GeneralException {
-        // populate servicesUsedInThisForm and for each the reverse-associate cache in the aif
-        Set<String> allServiceNameSet = this.modelForm.getAllServiceNamesUsed();
-        populateServicesFromNameSet(allServiceNameSet);
     }
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
         for (String serviceName: allServiceNameSet) {
@@ -142,8 +137,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests() throws GeneralException{
-        Set<String> allRequestUniqueId = this.modelForm.getLinkedRequestsLocationAndUri();
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
@@ -160,8 +154,7 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
             }
         }
     }
-    protected void populateTargetedRequests() throws GeneralException{
-        Set<String> allRequestUniqueId = this.modelForm.getTargetedRequestsLocationAndUri();
+    protected void populateTargetedRequests(Set<String> allRequestUniqueId) throws GeneralException{
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {

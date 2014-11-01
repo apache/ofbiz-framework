@@ -35,7 +35,6 @@ import java.util.TreeSet;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -55,8 +54,8 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
-import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
@@ -189,8 +188,8 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
     public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
 
-    protected List<ModelFormAction> actions;
-    protected List<ModelFormAction> rowActions;
+    protected List<ModelWidgetAction> actions;
+    protected List<ModelWidgetAction> rowActions;
     protected FlexibleStringExpander rowCountExdr;
     protected List<ModelFormField> multiSubmitFields = new ArrayList<ModelFormField>();
     protected int rowCount = 0;
@@ -221,6 +220,30 @@ public class ModelForm extends ModelWidget {
     public ModelForm(Element formElement) {
         super(formElement);
         initForm(formElement);
+    }
+
+    public String getTarget() {
+        return target.getOriginal();
+    }
+
+    public List<AltTarget> getAltTargets() {
+        return altTargets;
+    }
+
+    public List<ModelWidgetAction> getActions() {
+        return actions;
+    }
+
+    public List<ModelWidgetAction> getRowActions() {
+        return rowActions;
+    }
+
+    public List<AutoFieldsEntity> getAutoFieldsEntities() {
+        return autoFieldsEntities;
+    }
+
+    public List<AutoFieldsService> getAutoFieldsServices() {
+        return autoFieldsServices;
     }
 
     public void initForm(Element formElement) {
@@ -3158,166 +3181,6 @@ public class ModelForm extends ModelWidget {
         public void renderString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderBanner(writer, context, this);
         }
-    }
-
-    public Set<String> getAllEntityNamesUsed() {
-        Set<String> allEntityNamesUsed = new HashSet<String>();
-        for (AutoFieldsEntity autoFieldsEntity: this.autoFieldsEntities) {
-            allEntityNamesUsed.add(autoFieldsEntity.entityName);
-        }
-        if (this.actions != null) {
-            for (ModelFormAction modelFormAction: this.actions) {
-                if (modelFormAction instanceof ModelFormAction.EntityOne) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityOne)modelFormAction).finder.getEntityName());
-                } else if (modelFormAction instanceof ModelFormAction.EntityAnd) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityAnd)modelFormAction).finder.getEntityName());
-                } else if (modelFormAction instanceof ModelFormAction.EntityCondition) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityCondition)modelFormAction).finder.getEntityName());
-                }
-
-            }
-        }
-        if (this.rowActions != null) {
-            for (ModelFormAction modelFormAction: this.rowActions) {
-                if (modelFormAction instanceof ModelFormAction.EntityOne) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityOne)modelFormAction).finder.getEntityName());
-                } else if (modelFormAction instanceof ModelFormAction.EntityAnd) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityAnd)modelFormAction).finder.getEntityName());
-                } else if (modelFormAction instanceof ModelFormAction.EntityCondition) {
-                    allEntityNamesUsed.add(((ModelFormAction.EntityCondition)modelFormAction).finder.getEntityName());
-                }
-            }
-        }
-        for (ModelFormField modelFormField: this.fieldList) {
-            if (UtilValidate.isNotEmpty(modelFormField.getEntityName())) {
-                allEntityNamesUsed.add(modelFormField.getEntityName());
-            }
-            if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
-                allEntityNamesUsed.add(((ModelFormField.DisplayEntityField)modelFormField.getFieldInfo()).entityName);
-            }
-            if (modelFormField.getFieldInfo() instanceof ModelFormField.FieldInfoWithOptions) {
-                for (ModelFormField.OptionSource optionSource: ((ModelFormField.FieldInfoWithOptions)modelFormField.getFieldInfo()).optionSources) {
-                    if (optionSource instanceof ModelFormField.EntityOptions) {
-                        allEntityNamesUsed.add(((ModelFormField.EntityOptions)optionSource).entityName);
-                    }
-                }
-            }
-        }
-        return allEntityNamesUsed;
-    }
-
-    public Set<String> getAllServiceNamesUsed() {
-        Set<String> allServiceNamesUsed = new HashSet<String>();
-        for (AutoFieldsService autoFieldsService: this.autoFieldsServices) {
-            allServiceNamesUsed.add(autoFieldsService.serviceName);
-        }
-        if (this.actions != null) {
-            for (ModelFormAction modelFormAction: this.actions) {
-                try {
-                    ModelFormAction.Service service = (ModelFormAction.Service) modelFormAction;
-                    if (!service.serviceNameExdr.isEmpty()) {
-                        allServiceNamesUsed.add(service.serviceNameExdr.toString());
-                    }
-                } catch (ClassCastException e) {}
-            }
-        }
-        if (this.rowActions != null) {
-            for (ModelFormAction modelFormAction: this.rowActions) {
-                try {
-                    ModelFormAction.Service service = (ModelFormAction.Service) modelFormAction;
-                    if (!service.serviceNameExdr.isEmpty()) {
-                        allServiceNamesUsed.add(service.serviceNameExdr.toString());
-                    }
-                } catch (ClassCastException e) {}
-            }
-        }
-        for (ModelFormField modelFormField: this.fieldList) {
-            if (UtilValidate.isNotEmpty(modelFormField.getServiceName())) {
-                allServiceNamesUsed.add(modelFormField.getServiceName());
-            }
-        }
-        return allServiceNamesUsed;
-    }
-
-    public Set<String> getLinkedRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestsUsed = new HashSet<String>();
-
-        if (this.fieldList != null) {
-            for (ModelFormField modelFormField: this.fieldList) {
-                if (modelFormField.getFieldInfo() instanceof ModelFormField.HyperlinkField) {
-                    ModelFormField.HyperlinkField link = (ModelFormField.HyperlinkField) modelFormField.getFieldInfo();
-                    String target = link.getTarget(null);
-                    String urlMode = link.getTargetType();
-
-                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
-                    if (controllerLocAndRequestSet != null) {
-                        allRequestsUsed.addAll(controllerLocAndRequestSet);
-                    }
-                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
-                    ModelFormField.DisplayEntityField parentField = (ModelFormField.DisplayEntityField) modelFormField.getFieldInfo();
-                    if (parentField.subHyperlink != null) {
-                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
-                        if (controllerLocAndRequestSet != null) {
-                            allRequestsUsed.addAll(controllerLocAndRequestSet);
-                        }
-                    }
-                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.TextField) {
-                    ModelFormField.TextField parentField = (ModelFormField.TextField) modelFormField.getFieldInfo();
-                    if (parentField.subHyperlink != null) {
-                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
-                        if (controllerLocAndRequestSet != null) {
-                            allRequestsUsed.addAll(controllerLocAndRequestSet);
-                        }
-                    }
-                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.DropDownField) {
-                    ModelFormField.DropDownField parentField = (ModelFormField.DropDownField) modelFormField.getFieldInfo();
-                    if (parentField.subHyperlink != null) {
-                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
-                        if (controllerLocAndRequestSet != null) {
-                            allRequestsUsed.addAll(controllerLocAndRequestSet);
-                        }
-                    }
-                } else if (modelFormField.getFieldInfo() instanceof ModelFormField.ImageField) {
-                    ModelFormField.ImageField parentField = (ModelFormField.ImageField) modelFormField.getFieldInfo();
-                    if (parentField.subHyperlink != null) {
-                        Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(parentField.subHyperlink.getTarget(null), parentField.subHyperlink.getTargetType());
-                        if (controllerLocAndRequestSet != null) {
-                            allRequestsUsed.addAll(controllerLocAndRequestSet);
-                        }
-                    }
-                }
-            }
-        }
-        return allRequestsUsed;
-    }
-
-    public Set<String> getTargetedRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestsUsed = new HashSet<String>();
-
-        if (this.altTargets != null) {
-            for (AltTarget altTarget: this.altTargets) {
-                String target = altTarget.targetExdr.getOriginal();
-                String urlMode = "intra-app";
-
-                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
-                if (controllerLocAndRequestSet != null) {
-                    allRequestsUsed.addAll(controllerLocAndRequestSet);
-                }
-            }
-        }
-
-        if (!this.target.isEmpty()) {
-            String target = this.target.getOriginal();
-            String urlMode = UtilValidate.isNotEmpty(this.targetType) ? this.targetType : "intra-app";
-            if (target.indexOf("${") < 0) {
-                Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
-                if (controllerLocAndRequestSet != null) {
-                    allRequestsUsed.addAll(controllerLocAndRequestSet);
-                }
-            }
-        }
-
-        return allRequestsUsed;
     }
 
     @Override
