@@ -23,13 +23,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.Delegator;
@@ -70,7 +69,7 @@ public class ServiceStreamHandler implements EventHandler {
             throw new EventHandlerException(e.getMessage(), e);
         }
 
-        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> context = new HashMap<String, Object>();
         context.put("inputStream", in);
         context.put("outputStream", out);
 

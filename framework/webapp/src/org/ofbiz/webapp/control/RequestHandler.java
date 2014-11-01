@@ -26,6 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,8 +35,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Debug;
@@ -546,7 +545,7 @@ public class RequestHandler {
         String preReqAttStr = (String) request.getSession().getAttribute("_REQ_ATTR_MAP_");
         Map<String, Object> previousRequestAttrMap = null;
         if (preReqAttStr != null) {
-            previousRequestAttrMap = FastMap.newInstance();
+            previousRequestAttrMap = new HashMap<String, Object>();
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
@@ -828,7 +827,7 @@ public class RequestHandler {
         if (Debug.infoOn()) Debug.logInfo("Sending redirect to: [" + url + "], sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
         Enumeration<String> attributeNameEnum = UtilGenerics.cast(req.getAttributeNames());
-        Map<String, Object> reqAttrMap = FastMap.newInstance();
+        Map<String, Object> reqAttrMap = new HashMap<String, Object>();
         Integer statusCode;
         try {
             statusCode = Integer.valueOf(statusCodeString);

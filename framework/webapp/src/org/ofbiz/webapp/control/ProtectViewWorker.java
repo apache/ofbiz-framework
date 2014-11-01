@@ -20,12 +20,11 @@ package org.ofbiz.webapp.control;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -43,8 +42,8 @@ public class ProtectViewWorker {
 
     private final static String module = ProtectViewWorker.class.getName();
     private static final String resourceWebapp = "WebappUiLabels";
-    private static final FastMap<String, Long> hitsByViewAccessed = FastMap.newInstance();
-    private static final FastMap<String, Long> durationByViewAccessed = FastMap.newInstance();
+    private static final Map<String, Long> hitsByViewAccessed = new ConcurrentHashMap<String, Long>();
+    private static final Map<String, Long> durationByViewAccessed = new ConcurrentHashMap<String, Long>();
     private static final Long one = new Long(1);
 
     /**

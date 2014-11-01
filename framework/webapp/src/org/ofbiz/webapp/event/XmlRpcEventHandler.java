@@ -27,14 +27,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.apache.xmlrpc.XmlRpcException;
 import org.apache.xmlrpc.XmlRpcHandler;
@@ -190,7 +189,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
                 String password = config.getBasicPassword();
 
                 // check the account
-                Map<String, Object> context = FastMap.newInstance();
+                Map<String, Object> context = new HashMap<String, Object>();
                 context.put("login.username", username);
                 context.put("login.password", password);
 
@@ -287,7 +286,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
             }
 
             // context placeholder
-            Map<String, Object> context = FastMap.newInstance();
+            Map<String, Object> context = new HashMap<String, Object>();
 
             if (model != null) {
                 int parameterCount = xmlRpcReq.getParameterCount();

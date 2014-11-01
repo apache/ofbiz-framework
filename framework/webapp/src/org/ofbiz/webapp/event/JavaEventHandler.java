@@ -19,13 +19,12 @@
 package org.ofbiz.webapp.event;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.webapp.control.ConfigXMLReader;
@@ -39,7 +38,7 @@ public class JavaEventHandler implements EventHandler {
 
     public static final String module = JavaEventHandler.class.getName();
 
-    private Map<String, Class<?>> eventClassMap = FastMap.newInstance();
+    private Map<String, Class<?>> eventClassMap = new HashMap<String, Class<?>>();
 
     /**
      * @see org.ofbiz.webapp.event.EventHandler#init(javax.servlet.ServletContext)

@@ -22,15 +22,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 import org.ofbiz.base.location.FlexibleLocation;
@@ -60,7 +60,7 @@ public class ConfigXMLReader {
     public static final RequestResponse emptyNoneRequestResponse = RequestResponse.createEmptyNoneRequestResponse();
 
     public static Set<String> findControllerFilesWithRequest(String requestUri, String controllerPartialPath) throws GeneralException {
-        Set<String> allControllerRequestSet = FastSet.newInstance();
+        Set<String> allControllerRequestSet = new HashSet<String>();
         if (UtilValidate.isEmpty(requestUri)) {
             return allControllerRequestSet;
         }
@@ -70,7 +70,7 @@ public class ConfigXMLReader {
             try {
                 // find controller.xml file with webappMountPoint + "/WEB-INF" in the path
                 List<File> controllerFiles = FileUtil.findXmlFiles(null, controllerPartialPath, "site-conf", "site-conf.xsd");
-                controllerConfigs = FastList.newInstance();
+                controllerConfigs = new LinkedList<ControllerConfig>();
                 for (File controllerFile : controllerFiles) {
                     URL controllerUrl = null;
                     try {
@@ -125,7 +125,7 @@ public class ConfigXMLReader {
             // if (controllerLocAndRequestSet.size() > 0) Debug.logInfo("============== In findRequestNamesLinkedtoInWidget, controllerLocAndRequestSet: " + controllerLocAndRequestSet, module);
             return controllerLocAndRequestSet;
         } else {
-            return FastSet.newInstance();
+            return new HashSet<String>();
         }
     }
 
@@ -176,16 +176,16 @@ public class ConfigXMLReader {
         private String securityClass;
         private String defaultRequest;
         private String statusCode;
-        private List<URL> includes = FastList.newInstance();
-        private Map<String, Event> firstVisitEventList = FastMap.newInstance();
-        private Map<String, Event> preprocessorEventList = FastMap.newInstance();
-        private Map<String, Event> postprocessorEventList = FastMap.newInstance();
-        private Map<String, Event> afterLoginEventList = FastMap.newInstance();
-        private Map<String, Event> beforeLogoutEventList = FastMap.newInstance();
-        private Map<String, String> eventHandlerMap = FastMap.newInstance();
-        private Map<String, String> viewHandlerMap = FastMap.newInstance();
-        private Map<String, RequestMap> requestMapMap = FastMap.newInstance();
-        private Map<String, ViewMap> viewMapMap = FastMap.newInstance();
+        private List<URL> includes = new ArrayList<URL>();
+        private Map<String, Event> firstVisitEventList = new HashMap<String, Event>();
+        private Map<String, Event> preprocessorEventList = new HashMap<String, Event>();
+        private Map<String, Event> postprocessorEventList = new HashMap<String, Event>();
+        private Map<String, Event> afterLoginEventList = new HashMap<String, Event>();
+        private Map<String, Event> beforeLogoutEventList = new HashMap<String, Event>();
+        private Map<String, String> eventHandlerMap = new HashMap<String, String>();
+        private Map<String, String> viewHandlerMap = new HashMap<String, String>();
+        private Map<String, RequestMap> requestMapMap = new HashMap<String, RequestMap>();
+        private Map<String, ViewMap> viewMapMap = new HashMap<String, ViewMap>();
 
         public ControllerConfig(URL url) throws WebAppConfigurationException {
             this.url = url;
@@ -532,7 +532,7 @@ public class ConfigXMLReader {
         public boolean securityCert = false;
         public boolean securityExternalView = true;
         public boolean securityDirectRequest = true;
-        public Map<String, RequestResponse> requestResponseMap = FastMap.newInstance();
+        public Map<String, RequestResponse> requestResponseMap = new HashMap<String, RequestResponse>();
         public Metrics metrics = null;
 
         public RequestMap(Element requestMapElement) {
@@ -587,8 +587,8 @@ public class ConfigXMLReader {
         public boolean saveLastView = false;
         public boolean saveCurrentView = false;
         public boolean saveHomeView = false;
-        public Map<String, String> redirectParameterMap = FastMap.newInstance();
-        public Map<String, String> redirectParameterValueMap = FastMap.newInstance();
+        public Map<String, String> redirectParameterMap = new HashMap<String, String>();
+        public Map<String, String> redirectParameterValueMap = new HashMap<String, String>();
 
         public RequestResponse() {
         }

@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -34,9 +35,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -132,7 +130,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         boolean isMultiPart = ServletFileUpload.isMultipartContent(request);
-        Map<String, Object> multiPartMap = FastMap.newInstance();
+        Map<String, Object> multiPartMap = new HashMap<String, Object>();
         if (isMultiPart) {
             // get the http upload configuration
             String maxSizeStr = EntityUtilProperties.getPropertyValue("general.properties", "http.upload.max.size", "-1", dctx.getDelegator());
@@ -190,7 +188,7 @@ public class ServiceEventHandler implements EventHandler {
                             if (mapValue instanceof List<?>) {
                                 checkList(mapValue, Object.class).add(item.getString());
                             } else if (mapValue instanceof String) {
-                                List<String> newList = FastList.newInstance();
+                                List<String> newList = new LinkedList<String>();
                                 newList.add((String) mapValue);
                                 newList.add(item.getString());
                                 multiPartMap.put(fieldName, newList);
@@ -246,7 +244,7 @@ public class ServiceEventHandler implements EventHandler {
         }
 
         // we have a service and the model; build the context
-        Map<String, Object> serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         for (ModelParam modelParam: model.getInModelParamList()) {
             String name = modelParam.name;
 
@@ -320,7 +318,7 @@ public class ServiceEventHandler implements EventHandler {
 
         // get only the parameters for this service - converted to proper type
         // TODO: pass in a list for error messages, like could not convert type or not a proper X, return immediately with messages if there are any
-        List<Object> errorMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
         serviceContext = model.makeValid(serviceContext, ModelService.IN_PARAM, true, errorMessages, timeZone, locale);
         if (errorMessages.size() > 0) {
             // uh-oh, had some problems...

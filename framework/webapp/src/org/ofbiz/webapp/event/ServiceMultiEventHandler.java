@@ -19,6 +19,8 @@
 package org.ofbiz.webapp.event;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,9 +31,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -50,9 +49,9 @@ import org.ofbiz.service.ServiceAuthException;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.ServiceValidationException;
 import org.ofbiz.webapp.control.ConfigXMLReader;
-import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.ConfigXMLReader.Event;
 import org.ofbiz.webapp.control.ConfigXMLReader.RequestMap;
+import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.WebAppConfigurationException;
 
 /**
@@ -155,8 +154,8 @@ public class ServiceMultiEventHandler implements EventHandler {
         String messageSuffixStr = UtilProperties.getMessage("DefaultMessages", "service.message.suffix", locale);
 
         // prepare the error message and success message lists
-        List<Object> errorMessages = FastList.newInstance();
-        List<String> successMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
+        List<String> successMessages = new LinkedList<String>();
 
         // Check the global-transaction attribute of the event from the controller to see if the
         //  event should be wrapped in a transaction
@@ -207,7 +206,7 @@ public class ServiceMultiEventHandler implements EventHandler {
                 }
 
                 // build the context
-                Map<String, Object> serviceContext = FastMap.newInstance();
+                Map<String, Object> serviceContext = new HashMap<String, Object>();
                 for (ModelParam modelParam: modelService.getInModelParamList()) {
                     String paramName = modelParam.name;
 
