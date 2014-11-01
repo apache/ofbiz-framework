@@ -82,14 +82,14 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        if (section.isMainSection) {
+        if (section.isMainSection()) {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
-        renderBeginningBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
+        renderBeginningBoundaryComment(writer, section.isMainSection()?"Screen":"Section Widget", section);
     }
 
     public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        renderEndingBoundaryComment(writer, section.isMainSection?"Screen":"Section Widget", section);
+        renderEndingBoundaryComment(writer, section.isMainSection()?"Screen":"Section Widget", section);
     }
 
     public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {

@@ -151,13 +151,13 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
-        if (section.isMainSection) {
+        if (section.isMainSection()) {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         if (this.widgetCommentsEnabled) {
             Map<String, Object> parameters = new HashMap<String, Object>();
             StringBuilder sb = new StringBuilder("Begin ");
-            sb.append(section.isMainSection ? "Screen " : "Section Widget ");
+            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
             sb.append(section.getBoundaryCommentName());
             parameters.put("boundaryComment", sb.toString());
             executeMacro(writer, "renderSectionBegin", parameters);
@@ -168,7 +168,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             Map<String, Object> parameters = new HashMap<String, Object>();
             StringBuilder sb = new StringBuilder();
             sb.append("End ");
-            sb.append(section.isMainSection ? "Screen " : "Section Widget ");
+            sb.append(section.isMainSection() ? "Screen " : "Section Widget ");
             sb.append(section.getBoundaryCommentName());
             parameters.put("boundaryComment", sb.toString());
             executeMacro(writer, "renderSectionEnd", parameters);
@@ -801,8 +801,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
-        String portalPageId = portalPage.getActualPortalPageId();
-        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String portalPageId = portalPage.getActualPortalPageId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String confMode = portalPage.getConfMode(context);
 
         Map<String, String> uiLabelMap = UtilGenerics.cast(context.get("uiLabelMap"));
@@ -838,8 +838,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
-        String portalPageId = portalPage.getActualPortalPageId();
-        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String portalPageId = portalPage.getActualPortalPageId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String columnSeqId = portalPageColumn.getString("columnSeqId");
         String columnWidthPercentage = portalPageColumn.getString("columnWidthPercentage");
         String columnWidthPixels = portalPageColumn.getString("columnWidthPixels");
@@ -908,8 +908,8 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     }
 
     public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
-        String portalPageId = portalPage.getActualPortalPageId();
-        String originalPortalPageId = portalPage.getOriginalPortalPageId();
+        String portalPageId = portalPage.getActualPortalPageId(context);
+        String originalPortalPageId = portalPage.getOriginalPortalPageId(context);
         String portalPortletId = portalPortlet.getString("portalPortletId");
         String portletSeqId = portalPortlet.getString("portletSeqId");
         String columnSeqId = portalPortlet.getString("columnSeqId");
