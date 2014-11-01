@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.base.conversion;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 public class GenericSingletonToList<T> extends AbstractConverter<T, List<T>> {
     public GenericSingletonToList(Class<T> sourceClass) {
@@ -28,7 +27,7 @@ public class GenericSingletonToList<T> extends AbstractConverter<T, List<T>> {
     }
 
     public List<T> convert(T obj) throws ConversionException {
-        List<T> tempList = FastList.newInstance();
+        List<T> tempList = new LinkedList<T>();
         tempList.add(obj);
         return tempList;
     }

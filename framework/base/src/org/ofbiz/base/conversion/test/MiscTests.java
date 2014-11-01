@@ -22,11 +22,9 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.conversion.Converter;
 import org.ofbiz.base.conversion.ConverterLoader;
@@ -79,12 +77,12 @@ public class MiscTests extends GenericTestCaseBase {
         List<String> baseList = UtilMisc.toList("a", "1", "b", "2", "c", "3");
         ArrayList<String> arrayList = new ArrayList<String>();
         arrayList.addAll(baseList);
-        List<String> fastList = FastList.newInstance();
+        List<String> fastList = new LinkedList<String>();
         fastList.addAll(baseList);
         Map<String, String> baseMap = UtilMisc.toMap("a", "1", "b", "2", "c", "3");
         HashMap<String, String> hashMap = new HashMap<String, String>();
         hashMap.putAll(baseMap);
-        Map<String, String> fastMap = FastMap.newInstance();
+        Map<String, String> fastMap = new HashMap<String, String>();
         fastMap.putAll(baseMap);
         Object[] testObjects = new Object[] {
             string,
