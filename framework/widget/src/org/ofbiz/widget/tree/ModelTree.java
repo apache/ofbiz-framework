@@ -50,6 +50,7 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
@@ -1106,6 +1107,9 @@ public class ModelTree extends ModelWidget {
             }
         }
     }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
+    }
 }
-
-

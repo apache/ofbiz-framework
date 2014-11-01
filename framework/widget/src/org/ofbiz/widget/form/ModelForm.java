@@ -57,6 +57,7 @@ import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
@@ -3317,5 +3318,10 @@ public class ModelForm extends ModelWidget {
         }
 
         return allRequestsUsed;
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 }

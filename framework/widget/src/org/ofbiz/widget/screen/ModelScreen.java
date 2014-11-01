@@ -38,6 +38,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
 /**
@@ -73,6 +74,11 @@ public class ModelScreen extends ModelWidget {
             throw new IllegalArgumentException("No section found for the screen definition with name: " + getName());
         }
         this.section = new ModelScreenWidget.Section(this, sectionElement, true);
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 
     public String getTransactionTimeout() {

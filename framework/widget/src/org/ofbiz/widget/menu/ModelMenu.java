@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
 /**
@@ -597,5 +598,10 @@ public class ModelMenu extends ModelWidget {
 
     public void setExtraIndex(String extraIndex) {
         this.extraIndex = FlexibleStringExpander.getInstance(extraIndex);
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 }

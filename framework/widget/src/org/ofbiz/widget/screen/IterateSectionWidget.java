@@ -44,6 +44,7 @@ import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
@@ -350,6 +351,11 @@ public class IterateSectionWidget extends ModelScreenWidget {
         writer.append("  </tr>\n");
         writer.append("</table>\n");
 
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 }
 
