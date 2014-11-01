@@ -90,8 +90,6 @@ public class ModelMenu extends ModelWidget {
 
 
    // ===== CONSTRUCTORS =====
-    /** Default Constructor */
-    public ModelMenu() {}
 
     /** XML Constructor */
     public ModelMenu(Element menuElement) {
@@ -368,7 +366,7 @@ public class ModelMenu extends ModelWidget {
     }
 
     public String getCurrentMenuName(Map<String, Object> context) {
-        return this.name;
+        return getName();
     }
 
     public String getId() {
@@ -389,7 +387,7 @@ public class ModelMenu extends ModelWidget {
 
     @Override
     public String getBoundaryCommentName() {
-        return menuLocation + "#" + name;
+        return menuLocation + "#" + getName();
     }
 
     /**
@@ -440,13 +438,6 @@ public class ModelMenu extends ModelWidget {
      */
     public void setMenuLocation(String menuLocation) {
         this.menuLocation = menuLocation;
-    }
-
-    /**
-     * @param string
-     */
-    public void setName(String string) {
-        this.name = string;
     }
 
     /**

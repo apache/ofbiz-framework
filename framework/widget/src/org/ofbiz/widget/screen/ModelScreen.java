@@ -57,8 +57,6 @@ public class ModelScreen extends ModelWidget {
     protected ModelScreenWidget.Section section;
 
     // ===== CONSTRUCTORS =====
-    /** Default Constructor */
-    protected ModelScreen() {}
 
     /** XML Constructor */
     public ModelScreen(Element screenElement, Map<String, ModelScreen> modelScreenMap, String sourceLocation) {
@@ -72,7 +70,7 @@ public class ModelScreen extends ModelWidget {
         // read in the section, which will read all sub-widgets too
         Element sectionElement = UtilXml.firstChildElement(screenElement, "section");
         if (sectionElement == null) {
-            throw new IllegalArgumentException("No section found for the screen definition with name: " + this.name);
+            throw new IllegalArgumentException("No section found for the screen definition with name: " + getName());
         }
         this.section = new ModelScreenWidget.Section(this, sectionElement);
         this.section.isMainSection = true;
@@ -360,7 +358,7 @@ public class ModelScreen extends ModelWidget {
                 try {
                     transactionTimeout = Integer.parseInt(transactionTimeoutPar);
                 } catch (NumberFormatException nfe) {
-                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + this.name + "] is invalid and it will be ignored: " + nfe.toString();
+                    String msg = "TRANSACTION_TIMEOUT parameter for screen [" + this.sourceLocation + "#" + getName() + "] is invalid and it will be ignored: " + nfe.toString();
                     Debug.logWarning(msg, module);
                 }
             }
@@ -396,7 +394,7 @@ public class ModelScreen extends ModelWidget {
         } catch (ScreenRenderException e) {
             throw e;
         } catch (RuntimeException e) {
-            String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + this.name + "]: " + e.toString();
+            String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);
             try {
                 // only rollback the transaction if we started one...
@@ -407,7 +405,7 @@ public class ModelScreen extends ModelWidget {
             // after rolling back, rethrow the exception
             throw new ScreenRenderException(errMsg, e);
         } catch (Exception e) {
-            String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + this.name + "]: " + e.toString();
+            String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);
             try {
                 // only rollback the transaction if we started one...

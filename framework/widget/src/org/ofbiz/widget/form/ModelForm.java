@@ -203,8 +203,6 @@ public class ModelForm extends ModelWidget {
     protected List<UpdateArea> onSortColumnUpdateAreas;
 
     // ===== CONSTRUCTORS =====
-    /** Default Constructor */
-    public ModelForm() {}
 
     /** XML Constructor */
     public ModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -2060,11 +2058,6 @@ public class ModelForm extends ModelWidget {
         return lstNm;
     }
 
-    @Override
-    public String getName() {
-        return this.name;
-    }
-
     public String getCurrentFormName(Map<String, Object> context) {
         Integer itemIndex = (Integer) context.get("itemIndex");
         String formName = (String) context.get("formName");
@@ -2102,7 +2095,7 @@ public class ModelForm extends ModelWidget {
                     condTrue = boolVal.booleanValue();
                 } else {
                     throw new IllegalArgumentException(
-                        "Return value from target condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + this.name);
+                        "Return value from target condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + getName());
                 }
 
                 if (condTrue && !targetType.equals("inter-app")) {
@@ -2110,7 +2103,7 @@ public class ModelForm extends ModelWidget {
                 }
             }
         } catch (EvalError e) {
-            String errmsg = "Error evaluating BeanShell target conditions on form " + this.name;
+            String errmsg = "Error evaluating BeanShell target conditions on form " + getName();
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
@@ -2162,7 +2155,7 @@ public class ModelForm extends ModelWidget {
 
     @Override
     public String getBoundaryCommentName() {
-        return formLocation + "#" + name;
+        return formLocation + "#" + getName();
     }
 
     public void resetBshInterpreter(Map<String, Object> context) {
@@ -2306,13 +2299,6 @@ public class ModelForm extends ModelWidget {
      */
     public void setListName(String string) {
         this.listName = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setName(String string) {
-        this.name = string;
     }
 
     /**
@@ -2860,11 +2846,11 @@ public class ModelForm extends ModelWidget {
                     }
                 } else {
                     throw new IllegalArgumentException(
-                        "Return value from style condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + this.name);
+                        "Return value from style condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + getName());
                 }
             }
         } catch (EvalError e) {
-            String errmsg = "Error evaluating BeanShell style conditions on form " + this.name;
+            String errmsg = "Error evaluating BeanShell style conditions on form " + getName();
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
