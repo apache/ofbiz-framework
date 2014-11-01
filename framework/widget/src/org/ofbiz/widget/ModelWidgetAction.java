@@ -74,6 +74,8 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
 
+    public abstract void accept(ModelActionVisitor visitor);
+
     public static List<ModelWidgetAction> readSubActions(ModelWidget modelWidget, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
@@ -273,6 +275,11 @@ public abstract class ModelWidgetAction implements Serializable {
             }
             return newValue;
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class PropertyMap extends ModelWidgetAction {
@@ -327,6 +334,11 @@ public abstract class ModelWidgetAction implements Serializable {
                     }
                 }
             }
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -384,6 +396,11 @@ public abstract class ModelWidgetAction implements Serializable {
             }
             fieldAcsr.put(context, value);
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class Script extends ModelWidgetAction {
@@ -413,6 +430,11 @@ public abstract class ModelWidgetAction implements Serializable {
             } else {
                 ScriptUtil.executeScript(this.location, this.method, context);
             }
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -495,6 +517,11 @@ public abstract class ModelWidgetAction implements Serializable {
         public FlexibleStringExpander getServiceNameExdr() {
             return this.serviceNameExdr;
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class EntityOne extends ModelWidgetAction {
@@ -518,6 +545,11 @@ public abstract class ModelWidgetAction implements Serializable {
 
         public PrimaryKeyFinder getFinder() {
             return this.finder;
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -543,6 +575,11 @@ public abstract class ModelWidgetAction implements Serializable {
         public ByAndFinder getFinder() {
             return this.finder;
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class EntityCondition extends ModelWidgetAction {
@@ -566,6 +603,11 @@ public abstract class ModelWidgetAction implements Serializable {
 
         public ByConditionFinder getFinder() {
             return this.finder;
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -609,6 +651,11 @@ public abstract class ModelWidgetAction implements Serializable {
 
         public String getRelationName() {
             return this.relationName;
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -666,6 +713,11 @@ public abstract class ModelWidgetAction implements Serializable {
 
         public String getRelationName() {
             return this.relationName;
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 }
