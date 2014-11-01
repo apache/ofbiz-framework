@@ -18,14 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.widget.screen;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -35,9 +30,7 @@ import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
@@ -54,10 +47,7 @@ public class ModelScreen extends ModelWidget {
     private final Map<String, ModelScreen> modelScreenMap;
     private final boolean useTransaction;
     private final boolean useCache;
-
     private final ModelScreenWidget.Section section;
-
-    // ===== CONSTRUCTORS =====
 
     /** XML Constructor */
     public ModelScreen(Element screenElement, Map<String, ModelScreen> modelScreenMap, String sourceLocation) {
@@ -104,212 +94,6 @@ public class ModelScreen extends ModelWidget {
     public String getSourceLocation() {
         return sourceLocation;
     }
-
-    public Set<String> getAllServiceNamesUsed() {
-        Set<String> allServiceNamesUsed = new HashSet<String>();
-        findServiceNamesUsedInWidget(this.section, allServiceNamesUsed);
-        return allServiceNamesUsed;
-    }
-
-    protected static void findServiceNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allServiceNamesUsed) {
-        if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).getActions();
-            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).getSubWidgets();
-            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).getFailWidgets();
-            if (actions != null) {
-                for (ModelWidgetAction screenOperation: actions) {
-                    if (screenOperation instanceof ModelWidgetAction.Service) {
-                        String serviceName = ((ModelWidgetAction.Service) screenOperation).getServiceNameExdr().getOriginal();
-                        if (UtilValidate.isNotEmpty(serviceName)) allServiceNamesUsed.add(serviceName);
-                    }
-                }
-            }
-            if (subWidgets != null) {
-                for (ModelScreenWidget widget: subWidgets) {
-                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-                }
-            }
-            if (failWidgets != null) {
-                for (ModelScreenWidget widget: failWidgets) {
-                    findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-                }
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
-                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
-            for (ModelScreenWidget section : sections) {
-                findServiceNamesUsedInWidget(section, allServiceNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            for (ModelScreenWidget widget : container.getSubWidgets()) {
-                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
-                findServiceNamesUsedInWidget(widget, allServiceNamesUsed);
-            }
-        }
-    }
-    public Set<String> getAllEntityNamesUsed() {
-        Set<String> allEntityNamesUsed = new HashSet<String>();
-        findEntityNamesUsedInWidget(this.section, allEntityNamesUsed);
-        return allEntityNamesUsed;
-    }
-    protected static void findEntityNamesUsedInWidget(ModelScreenWidget currentWidget, Set<String> allEntityNamesUsed) {
-        if (currentWidget instanceof ModelScreenWidget.Section) {
-            List<ModelWidgetAction> actions = ((ModelScreenWidget.Section)currentWidget).getActions();
-            List<ModelScreenWidget> subWidgets = ((ModelScreenWidget.Section)currentWidget).getSubWidgets();
-            List<ModelScreenWidget> failWidgets = ((ModelScreenWidget.Section)currentWidget).getFailWidgets();
-            if (actions != null) {
-                for (ModelWidgetAction screenOperation: actions) {
-                    if (screenOperation instanceof ModelWidgetAction.EntityOne) {
-                        String entName = ((ModelWidgetAction.EntityOne) screenOperation).getFinder().getEntityName();
-                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelWidgetAction.EntityAnd) {
-                        String entName = ((ModelWidgetAction.EntityAnd) screenOperation).getFinder().getEntityName();
-                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelWidgetAction.EntityCondition) {
-                        String entName = ((ModelWidgetAction.EntityCondition) screenOperation).getFinder().getEntityName();
-                        if (UtilValidate.isNotEmpty(entName)) allEntityNamesUsed.add(entName);
-                    } else if (screenOperation instanceof ModelWidgetAction.GetRelated) {
-                        String relationName = ((ModelWidgetAction.GetRelated) screenOperation).getRelationName();
-                        if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
-                    } else if (screenOperation instanceof ModelWidgetAction.GetRelatedOne) {
-                        String relationName = ((ModelWidgetAction.GetRelatedOne) screenOperation).getRelationName();
-                        if (UtilValidate.isNotEmpty(relationName)) allEntityNamesUsed.add(relationName);
-                    }
-                }
-            }
-            if (subWidgets != null) {
-                for (ModelScreenWidget widget: subWidgets) {
-                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-                }
-            }
-            if (failWidgets != null) {
-                for (ModelScreenWidget widget: failWidgets) {
-                    findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-                }
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
-                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
-            for (ModelScreenWidget section : sections) {
-                findEntityNamesUsedInWidget(section, allEntityNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            for (ModelScreenWidget widget : container.getSubWidgets()) {
-                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
-                findEntityNamesUsedInWidget(widget, allEntityNamesUsed);
-            }
-        }
-    }
-
-    public Set<String> getAllFormNamesIncluded() {
-        Set<String> allFormNamesIncluded = new HashSet<String>();
-        findFormNamesIncludedInWidget(this.section, allFormNamesIncluded);
-        return allFormNamesIncluded;
-    }
-
-    protected static void findFormNamesIncludedInWidget(ModelScreenWidget currentWidget, Set<String> allFormNamesIncluded) {
-        if (currentWidget instanceof ModelScreenWidget.Form) {
-            ModelScreenWidget.Form form = (ModelScreenWidget.Form) currentWidget;
-            allFormNamesIncluded.add(form.getLocation() + "#" + form.getName());
-        } else if (currentWidget instanceof ModelScreenWidget.Section) {
-            ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
-            for (ModelScreenWidget widget : section.getSubWidgets()) {
-                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-            }
-            for (ModelScreenWidget widget : section.getFailWidgets()) {
-                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
-                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
-            for (ModelScreenWidget section : sections) {
-                findFormNamesIncludedInWidget(section, allFormNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            for (ModelScreenWidget widget : container.getSubWidgets()) {
-                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
-                findFormNamesIncludedInWidget(widget, allFormNamesIncluded);
-            }
-        }
-    }
-
-    public Set<String> getAllRequestsLocationAndUri() throws GeneralException {
-        Set<String> allRequestNamesIncluded = new HashSet<String>();
-        findRequestNamesLinkedtoInWidget(this.section, allRequestNamesIncluded);
-        return allRequestNamesIncluded;
-    }
-    protected static void findRequestNamesLinkedtoInWidget(ModelScreenWidget currentWidget, Set<String> allRequestNamesIncluded) throws GeneralException {
-        if (currentWidget instanceof ModelScreenWidget.Link) {
-            ModelScreenWidget.Link link = (ModelScreenWidget.Link) currentWidget;
-            String target = link.getTarget(null);
-            String urlMode = link.getUrlMode();
-            // Debug.logInfo("In findRequestNamesLinkedtoInWidget found link [" + link.rawString() + "] with target [" + target + "]", module);
-
-            Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target, urlMode);
-            if (controllerLocAndRequestSet == null) return;
-            allRequestNamesIncluded.addAll(controllerLocAndRequestSet);
-        } else if (currentWidget instanceof ModelScreenWidget.Section) {
-            ModelScreenWidget.Section section = (ModelScreenWidget.Section) currentWidget;
-            for (ModelScreenWidget widget : section.getSubWidgets()) {
-                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-            }
-            for (ModelScreenWidget widget : section.getFailWidgets()) {
-                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorSection) {
-            ModelScreenWidget.DecoratorSection decoratorSection = (ModelScreenWidget.DecoratorSection) currentWidget;
-            for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
-                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.DecoratorScreen) {
-            ModelScreenWidget.DecoratorScreen decoratorScreen = (ModelScreenWidget.DecoratorScreen) currentWidget;
-            Collection<ModelScreenWidget.DecoratorSection> sections = decoratorScreen.getSectionMap().values();
-            for (ModelScreenWidget section : sections) {
-                findRequestNamesLinkedtoInWidget(section, allRequestNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Container) {
-            ModelScreenWidget.Container container = (ModelScreenWidget.Container) currentWidget;
-            for (ModelScreenWidget widget : container.getSubWidgets()) {
-                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-            }
-        } else if (currentWidget instanceof ModelScreenWidget.Screenlet) {
-            ModelScreenWidget.Screenlet screenlet = (ModelScreenWidget.Screenlet) currentWidget;
-            for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
-                findRequestNamesLinkedtoInWidget(widget, allRequestNamesIncluded);
-            }
-        }
-    }
-
 
     /**
      * Renders this screen to a String, i.e. in a text format, as defined with the

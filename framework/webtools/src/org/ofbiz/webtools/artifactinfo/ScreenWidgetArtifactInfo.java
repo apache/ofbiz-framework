@@ -33,6 +33,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.widget.artifact.ArtifactInfoContext;
+import org.ofbiz.widget.artifact.ArtifactInfoGatherer;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.xml.sax.SAXException;
 
@@ -71,16 +73,15 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     }
 
     public void populateAll() throws GeneralException {
-        this.populateUsedEntities();
-        this.populateUsedServices();
-        this.populateIncludedForms();
-        this.populateLinkedRequests();
+        ArtifactInfoContext infoContext = new ArtifactInfoContext();
+        ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
+        infoGatherer.visit(this.modelScreen);
+        populateServicesFromNameSet(infoContext.getServiceNames());
+        populateEntitiesFromNameSet(infoContext.getEntityNames());
+        populateFormsFromNameSet(infoContext.getFormLocations());
+        populateLinkedRequests(infoContext.getRequestLocations());
     }
-    protected void populateUsedServices() throws GeneralException {
-        // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
-        Set<String> allServiceNameSet = this.modelScreen.getAllServiceNamesUsed();
-        populateServicesFromNameSet(allServiceNameSet);
-    }
+
     protected void populateServicesFromNameSet(Set<String> allServiceNameSet) throws GeneralException {
         for (String serviceName: allServiceNameSet) {
             if (serviceName.contains("${")) {
@@ -99,11 +100,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToServiceName, serviceName);
         }
     }
-    protected void populateUsedEntities() throws GeneralException {
-        // populate entitiesUsedInThisScreen and for each the reverse-associate cache in the aif
-        Set<String> allEntityNameSet = this.modelScreen.getAllEntityNamesUsed();
-        populateEntitiesFromNameSet(allEntityNameSet);
-    }
+
     protected void populateEntitiesFromNameSet(Set<String> allEntityNameSet) throws GeneralException {
         for (String entityName: allEntityNameSet) {
             if (entityName.contains("${")) {
@@ -122,11 +119,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
             UtilMisc.addToSortedSetInMap(this, aif.allScreenInfosReferringToEntityName, entityName);
         }
     }
-    protected void populateIncludedForms() throws GeneralException {
-        // populate servicesUsedInThisScreen and for each the reverse-associate cache in the aif
-        Set<String> allFormNameSet = this.modelScreen.getAllFormNamesIncluded();
-        populateFormsFromNameSet(allFormNameSet);
-    }
+
     protected void populateFormsFromNameSet(Set<String> allFormNameSet) throws GeneralException {
         for (String formName: allFormNameSet) {
             if (formName.contains("${")) {
@@ -147,8 +140,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
         }
     }
 
-    protected void populateLinkedRequests() throws GeneralException{
-        Set<String> allRequestUniqueId = this.modelScreen.getAllRequestsLocationAndUri();
+    protected void populateLinkedRequests(Set<String> allRequestUniqueId) throws GeneralException{
 
         for (String requestUniqueId: allRequestUniqueId) {
             if (requestUniqueId.contains("${")) {
