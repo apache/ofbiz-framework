@@ -19,13 +19,12 @@
 package org.ofbiz.entityext.eca;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
@@ -37,7 +36,10 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityConfException;
-import org.ofbiz.entity.config.model.*;
+import org.ofbiz.entity.config.model.DelegatorElement;
+import org.ofbiz.entity.config.model.EntityConfig;
+import org.ofbiz.entity.config.model.EntityEcaReader;
+import org.ofbiz.entity.config.model.Resource;
 import org.w3c.dom.Element;
 
 /**
@@ -52,7 +54,8 @@ public class EntityEcaUtil {
     public static Map<String, Map<String, List<EntityEcaRule>>> getEntityEcaCache(String entityEcaReaderName) {
         Map<String, Map<String, List<EntityEcaRule>>> ecaCache = entityEcaReaders.get(entityEcaReaderName);
         if (ecaCache == null) {
-            ecaCache = FastMap.newInstance();
+            // FIXME: Collections are not thread safe
+            ecaCache = new HashMap<String, Map<String, List<EntityEcaRule>>>();
             readConfig(entityEcaReaderName, ecaCache);
             ecaCache = entityEcaReaders.putIfAbsentAndGet(entityEcaReaderName, ecaCache);
         }
@@ -85,7 +88,7 @@ public class EntityEcaUtil {
             return;
         }
 
-        List<Future<List<EntityEcaRule>>> futures = FastList.newInstance();
+        List<Future<List<EntityEcaRule>>> futures = new LinkedList<Future<List<EntityEcaRule>>>();
         for (Resource eecaResourceElement : entityEcaReaderInfo.getResourceList()) {
             ResourceHandler handler = new MainResourceHandler(EntityConfig.ENTITY_ENGINE_XML_FILENAME, eecaResourceElement.getLoader(), eecaResourceElement.getLocation());
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createEcaLoaderCallable(handler)));
@@ -105,14 +108,14 @@ public class EntityEcaUtil {
                 Map<String, List<EntityEcaRule>> eventMap = ecaCache.get(entityName);
                 List<EntityEcaRule> rules = null;
                 if (eventMap == null) {
-                    eventMap = FastMap.newInstance();
-                    rules = FastList.newInstance();
+                    eventMap = new HashMap<String, List<EntityEcaRule>>();
+                    rules = new LinkedList<EntityEcaRule>();
                     ecaCache.put(entityName, eventMap);
                     eventMap.put(eventName, rules);
                 } else {
                     rules = eventMap.get(eventName);
                     if (rules == null) {
-                        rules = FastList.newInstance();
+                        rules = new LinkedList<EntityEcaRule>();
                         eventMap.put(eventName, rules);
                     }
                 }
@@ -122,7 +125,7 @@ public class EntityEcaUtil {
     }
 
     private static List<EntityEcaRule> getEcaDefinitions(ResourceHandler handler) {
-        List<EntityEcaRule> rules = FastList.newInstance();
+        List<EntityEcaRule> rules = new LinkedList<EntityEcaRule>();
         Element rootElement = null;
         try {
             rootElement = handler.getDocument().getDocumentElement();

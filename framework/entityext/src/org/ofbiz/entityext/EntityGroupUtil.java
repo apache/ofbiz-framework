@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.entityext;
 
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
@@ -40,7 +39,7 @@ public class EntityGroupUtil {
     public static final String module = EntityGroupUtil.class.getName();
 
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
-        Set<String> entityNames = FastSet.newInstance();
+        Set<String> entityNames = new HashSet<String>();
 
         List<GenericValue> entitySyncGroupIncludes = delegator.findByAnd("EntityGroupEntry", UtilMisc.toMap("entityGroupId", entityGroupId), null, false);
 
@@ -53,7 +52,7 @@ public class EntityGroupUtil {
     }
 
     public static List<ModelEntity> getModelEntitiesFromRecords(List<GenericValue> entityGroupEntryValues, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
-        List<ModelEntity> entityModelToUseList = FastList.newInstance();
+        List<ModelEntity> entityModelToUseList = new LinkedList<ModelEntity>();
 
         for (String entityName: delegator.getModelReader().getEntityNames()) {
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
