@@ -94,6 +94,10 @@
         <value xml:lang="zh_CN">帐单地址和运货地址相同</value>
         <value xml:lang="zh_TW">帳單位址和送貨位址相同</value>
     </property>
+    <property key="FacilityCat">
+        <value xml:lang="en">CAT</value>
+        <value xml:lang="en">Cat.</value>
+    </property>
     <property key="FacilityCompanyName">
         <value xml:lang="de">OFBiz: Einrichtungen Verwaltung</value>
         <value xml:lang="en">OFBiz: Facility Manager</value>
@@ -180,13 +184,16 @@
         <value xml:lang="zh">组名称</value>
         <value xml:lang="zh_TW">群組名稱</value>
     </property>
+    <property key="FacilityInv">
+        <value xml:lang="en">INV</value>
+        <value xml:lang="nl">VOOR</value>
+    </property>
     <property key="FacilityReturnHeaderTypeNotSupported">
         <value xml:lang="en">${returnHeader.returnHeaderTypeId} is not supported</value>
         <value xml:lang="it">${returnHeader.returnHeaderTypeId} non è supportata</value>
         <value xml:lang="ja">${returnHeader.returnHeaderTypeId} はサポートされていません</value>
         <value xml:lang="vi">${returnHeader.returnHeaderTypeId} không được hỗ trợ</value>
         <value xml:lang="zh">不支持${returnHeader.returnHeaderTypeId}</value>
-        <value xml:lang="zh_TW">不支援${returnHeader.returnHeaderTypeId}</value>
     </property>
     <property key="FacilityHoldShipment">
         <value xml:lang="en">Hold Shipment</value>
@@ -3009,7 +3016,7 @@
         <value xml:lang="fr">Attendre que la commande soit complète avant de l'expédier.</value>
         <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto per la spedizione.</value>
         <value xml:lang="ja">注文全体が準備できるまで発送を待ってください。</value>
-        <value xml:lang="nl">Wacht alstublieft tot de gehele bestelling compleet is voor verzenden.</value>
+        <value xml:lang="nl">Wacht alstublieft tot de hele order compleet is voor verzenden.</value>
         <value xml:lang="ro">Va rog asteptati pana cand intreaga comanda  este gata pentru expediere.</value>
         <value xml:lang="ru">Пожалуйста поставляйте после того как будет готов весь заказ.</value>
         <value xml:lang="th">กรุณารอจนกระทั่งอ่านรายการสั่งซื้อทั้งหมดก่อนการขนส่งสินค้า</value>
@@ -3557,7 +3564,7 @@
         <value xml:lang="es">Resto reserva stock al crear pedido</value>
         <value xml:lang="fr">Expédition par un tiers : réservation de stock réévaluée suivant les dates d'exp. au plus tard</value>
         <value xml:lang="ja">注文作成時に残高予約</value>
-        <value xml:lang="nl">Voorraadreserveringen compenseren nav aanmaken bestelling</value>
+        <value xml:lang="nl">Voorraadreserveringen compenseren nav aanmaken order</value>
         <value xml:lang="vi">Số dư dự trữ khi Tạo đặt hàng</value>
         <value xml:lang="zh">订单创建时平衡预订</value>
         <value xml:lang="zh_TW">建立訂單時保留存貨</value>
@@ -6353,7 +6360,7 @@
         <value xml:lang="fr">Centre de profit [Réf.]</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="ja">製品店舗ID</value>
-        <value xml:lang="nl">Produkt Winkel Id</value>
+        <value xml:lang="nl">Product Winkel Id</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="ru">Код торг. т. продукта</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
@@ -7044,7 +7051,7 @@
         <value xml:lang="fr">Choisir le type de paiement par article</value>
         <value xml:lang="it">Seleziona Tipo Pagamento Per Riga</value>
         <value xml:lang="ja">アイテムで支払種類を選択</value>
-        <value xml:lang="nl">Toestaan betaalmethode per bestellingregel</value>
+        <value xml:lang="nl">Toestaan betaalmethode per orderregel</value>
         <value xml:lang="ro">Selectioneaza Tip Plata Pe Linie</value>
         <value xml:lang="ru">Выбирать способ платежа по каждой позиции</value>
         <value xml:lang="th">เลือกวิธีการชำระเงินต่อหนึ่งรายการ</value>
@@ -10788,7 +10795,7 @@
         <value xml:lang="fr">Rechercher un ou des articles</value>
         <value xml:lang="it">Ricerca prodotti</value>
         <value xml:lang="ja">製品を検索</value>
-        <value xml:lang="nl">Produkt zoeken</value>
+        <value xml:lang="nl">Product zoeken</value>
         <value xml:lang="ro">Cauta Produse</value>
         <value xml:lang="ru">Искать продукт</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -12154,7 +12161,7 @@
         <value xml:lang="hi_IN">इस टोकरी मे सामान्य भार कि वस्तु डालिये</value>
         <value xml:lang="it">Aggiungi al carrello i prodotti di questa categoria usando la quantità di default</value>
         <value xml:lang="ja">デフォルト数量を使用して買い物かごにこのカテゴリの製品を追加</value>
-        <value xml:lang="nl">Voeg produkten in deze categorie toe aan de winkelwagen gebruikmakende van de default hoeveelheden</value>
+        <value xml:lang="nl">Voeg producten in deze categorie toe aan de winkelwagen gebruikmakende van de default hoeveelheden</value>
         <value xml:lang="pt_PT">Adicionar Produtos desta Categoria para o Cesto usando as Quantidades Pré-definidas</value>
         <value xml:lang="ro">Adauga produse din aceasta Categorie la Cos folosind Cantitate de Default</value>
         <value xml:lang="ru">Добавить продукты этой категории в корзину используя обычное количество</value>
@@ -12519,6 +12526,7 @@
         <value xml:lang="en">Customers who bought this item also bought:</value>
         <value xml:lang="it">Clienti che hanno comprato questo prodotto hanno comprato anche:</value>
         <value xml:lang="ja">このアイテムを購入した人が他に購入したもの</value>
+        <value xml:lang="nl">Klanten die dit product kochten hebben ook gekocht:</value>
         <value xml:lang="vi">Khách hàng khi mua sản phẩm này thường hay quan tâm đến:</value>
         <value xml:lang="zh">购买了本商品的客户还买了：</value>
         <value xml:lang="zh_TW">購買了本商品的客戶還買了:</value>
@@ -13091,6 +13099,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="ro">Disponibile</value>
         <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">ใช้ประโยชน์ได้</value>
@@ -13498,7 +13507,7 @@
         <value xml:lang="hi_IN">अन्जान सामान नही देखा जाएगा</value>
         <value xml:lang="it">Non è possibile recensire un prodotto sconosciuto</value>
         <value xml:lang="ja">未知の製品はレビューできません</value>
-        <value xml:lang="nl">Kan niet een onbekend produkt beoordelen</value>
+        <value xml:lang="nl">Kan niet een onbekend product beoordelen</value>
         <value xml:lang="pt_PT">Impossível rever um produto desconhecido</value>
         <value xml:lang="ro">Nu este posibila revederea unui produs necunoscut</value>
         <value xml:lang="ru">Невозможно просмотреть неизвестный продукт</value>
@@ -15044,7 +15053,7 @@
         <value xml:lang="fr">Création d'une nouvelle catégorie</value>
         <value xml:lang="it">Creare nuova categoria</value>
         <value xml:lang="ja">新規カテゴリを作成</value>
-        <value xml:lang="nl">Aanmaken nieuwe categorie</value>
+        <value xml:lang="nl">Nieuwe categorie</value>
         <value xml:lang="ro">Creare Noua Categorie</value>
         <value xml:lang="ru">Новая категория</value>
         <value xml:lang="th">สร้างหมวดหมู่ใหม่</value>
@@ -15409,6 +15418,7 @@
         <value xml:lang="fr">Vous pourriez aussi être intéressé(e) par ceci :</value>
         <value xml:lang="it">Tu potresti essere interessato anche a questi:</value>
         <value xml:lang="ja">こちらもご興味があるかもしれません:</value>
+        <value xml:lang="nl">Deze produten kunnen ook interessant zijn:</value>
         <value xml:lang="ro">Tu poti sa fii interesat si de aceste:</value>
         <value xml:lang="ru">Вас также могут заинтересовать:</value>
         <value xml:lang="th">คุณอาจจะสนใจในสิ่งนี้ดี :</value>
@@ -16351,7 +16361,7 @@
         <value xml:lang="hi_IN">रुकिये: सामान नही मिला</value>
         <value xml:lang="it">ERRORE: Prodotto non trovato</value>
         <value xml:lang="ja">エラー: 製品が見つかりません</value>
-        <value xml:lang="nl">FOUT: Produkt niet gevonden</value>
+        <value xml:lang="nl">FOUT: Product niet gevonden</value>
         <value xml:lang="pt_PT">ERRO: Produto não encontrado</value>
         <value xml:lang="ro">ERRORE: Produs negasit ProductIncludeSubcategories=Include sub-categorie?</value>
         <value xml:lang="ru">ОШИБКА: Продукт не найден</value>
@@ -16789,6 +16799,7 @@
         <value xml:lang="fr">Lieux de stockage</value>
         <value xml:lang="it">Stabilimenti</value>
         <value xml:lang="ja">拠点</value>
+        <value xml:lang="nl">Faciliteiten</value>
         <value xml:lang="ro">Compartimente</value>
         <value xml:lang="ru">Объекты</value>
         <value xml:lang="th">คลังสินค้า</value>
@@ -18487,6 +18498,7 @@
         <value xml:lang="fr">Dans l'inventaire</value>
         <value xml:lang="it">In Inventario</value>
         <value xml:lang="ja">在庫中</value>
+        <value xml:lang="nl">In voorraad</value>
         <value xml:lang="ro">In Inventar</value>
         <value xml:lang="ru">В реестре ТМЦ</value>
         <value xml:lang="th">ในสินค้าคงเหลือ</value>
@@ -18501,6 +18513,7 @@
         <value xml:lang="fr">En production</value>
         <value xml:lang="it">In Produzione</value>
         <value xml:lang="ja">生産中</value>
+        <value xml:lang="nl">In productie</value>
         <value xml:lang="ro">In Productie</value>
         <value xml:lang="ru">В производстве</value>
         <value xml:lang="th">ในการผลิต</value>
@@ -22163,7 +22176,7 @@
         <value xml:lang="hi_IN">इस कार्यकाल मे आपने कोई सामान नही देखा</value>
         <value xml:lang="it">Non hai visualizzato nessun prodotto in questa sessione</value>
         <value xml:lang="ja">このセッションでは製品を表示していません</value>
-        <value xml:lang="nl">U hebt geen produkten bekeken in deze sessie</value>
+        <value xml:lang="nl">U hebt geen producten bekeken in deze sessie</value>
         <value xml:lang="pt_PT">Ainda não viu quaisquer produtos nesta sessão</value>
         <value xml:lang="ro">Tu nu ai vizualizat nici-un produs in aceasta  sesiune</value>
         <value xml:lang="ru">Вы не просмотрели ни одного продукта в этой сессии</value>
@@ -23739,7 +23752,7 @@
         <value xml:lang="fr">Popularité par nb. de cmd.</value>
         <value xml:lang="it">Popolarità per ordini</value>
         <value xml:lang="ja">注文上の人気</value>
-        <value xml:lang="nl">succes bij bestellingen</value>
+        <value xml:lang="nl">succes per orders</value>
         <value xml:lang="ro">Popularitate pe Comenzi</value>
         <value xml:lang="ru">Популярноть по заказам</value>
         <value xml:lang="th">รายการสั่งซื้อที่เป็นที่นิยม</value>
@@ -24521,7 +24534,7 @@
         <value xml:lang="hi_IN">सामान नाम</value>
         <value xml:lang="it">Nome prodotto</value>
         <value xml:lang="ja">製品名称</value>
-        <value xml:lang="nl">Produkt Naam</value>
+        <value xml:lang="nl">Product Naam</value>
         <value xml:lang="ro">Nume Produs</value>
         <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
@@ -24552,7 +24565,7 @@
         <value xml:lang="hi_IN">यह माल बेचने के लिये उपलब्घ नही</value>
         <value xml:lang="it">Questo prodotto non è più disponibile per la vendita</value>
         <value xml:lang="ja">この製品はもう販売対象ではありません</value>
-        <value xml:lang="nl">Dit produkt wordt niet langer verkocht</value>
+        <value xml:lang="nl">Dit product wordt niet langer verkocht</value>
         <value xml:lang="pt_PT">Este produto encontra-se indisponível para venda</value>
         <value xml:lang="ro">Acest produs nu mai este disponibil pentru vanzare.</value>
         <value xml:lang="ru">Этот продукт более недоступен к продаже</value>
@@ -24570,7 +24583,7 @@
         <value xml:lang="hi_IN">सामान नम्बर से सामान नही मिला</value>
         <value xml:lang="it">Nessun prodotto con questo codice</value>
         <value xml:lang="ja">製品はありません、製品ID</value>
-        <value xml:lang="nl">Produkt niet gevonden met de ID</value>
+        <value xml:lang="nl">Product niet gevonden met de ID</value>
         <value xml:lang="pt_PT">Produto Não Encontrado Com Essa Identificação</value>
         <value xml:lang="ro">Nu gaseste Produs pe Cod Produs</value>
         <value xml:lang="ru">Продукт не найдет по Product ID</value>
@@ -24601,7 +24614,7 @@
         <value xml:lang="fr">Cet article n'a encore aucun commentaire</value>
         <value xml:lang="it">Questo prodotto non è stato ancora recensito</value>
         <value xml:lang="ja">この製品はまだ誰もレビューを書いていません</value>
-        <value xml:lang="nl">Dit produkt is nog niet beoordeeld</value>
+        <value xml:lang="nl">Dit product is nog niet beoordeeld</value>
         <value xml:lang="pt_PT">Este produto ainda não foi revisto</value>
         <value xml:lang="ro">Acest produs nu a fost inca recenzat</value>
         <value xml:lang="ru">Отзывов по этому продукту нет</value>
@@ -24619,7 +24632,7 @@
         <value xml:lang="hi_IN">यह माल बेचने के लिये अभी तक उपलब्घ नही</value>
         <value xml:lang="it">Questo prodotto non è ancora disponibile per la vendita</value>
         <value xml:lang="ja">この製品はまだ販売対象になっていません</value>
-        <value xml:lang="nl">Dit produkt is nog niet beschikbaar voor de verkoop</value>
+        <value xml:lang="nl">Dit product is nog niet beschikbaar voor de verkoop</value>
         <value xml:lang="pt_PT">Este produto ainda não se encontra disponível para venda</value>
         <value xml:lang="ro">Acest produs nu a fost inca pus in disponibilitate la vanzare</value>
         <value xml:lang="ru">Этот продукт пока еще не доступен к продаже</value>
@@ -24714,7 +24727,7 @@
         <value xml:lang="hi_IN">सामान खोज</value>
         <value xml:lang="it">Ricerca prodotto</value>
         <value xml:lang="ja">製品検索</value>
-        <value xml:lang="nl">Zoek naar Produkt</value>
+        <value xml:lang="nl">Zoek naar Product</value>
         <value xml:lang="ro">Cauta Produs</value>
         <value xml:lang="ru">Поиск продукта</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -25020,7 +25033,7 @@
         <value xml:lang="hi_IN">अन्त बार देखा सामान</value>
         <value xml:lang="it">Ultimi prodotti visti</value>
         <value xml:lang="ja">最近表示した製品</value>
-        <value xml:lang="nl">Produkten het laatste bekeken</value>
+        <value xml:lang="nl">Laatst bekeken producten</value>
         <value xml:lang="pt_PT">Últimos Produtos Visualizados</value>
         <value xml:lang="ro">ultimele Produse Vazute</value>
         <value xml:lang="ru">Последние просмотры продуктов</value>
@@ -26943,7 +26956,7 @@
         <value xml:lang="hi_IN">सामान कि जान्च किजीये</value>
         <value xml:lang="it">Recensisci questo prodotto!</value>
         <value xml:lang="ja">この製品をレビューしてください!</value>
-        <value xml:lang="nl">Beoordeel dit produkt!</value>
+        <value xml:lang="nl">Beoordeel product!</value>
         <value xml:lang="ro">Revedeti Acest Produs!</value>
         <value xml:lang="ru">Напишите отзыв к этому продукту!</value>
         <value xml:lang="th">ตรวจสอบสินค้านี้!</value>
@@ -28757,7 +28770,7 @@
     </property>
     <property key="ProductShowProductFacilities">
         <value xml:lang="de">Alle Produkteinrichtungen anzeigen</value>
-        <value xml:lang="en">showProductFacilities</value>
+        <value xml:lang="en">Show Product Facilities</value>
         <value xml:lang="es">Mostrar almacenes</value>
         <value xml:lang="fr">Montrer les lieux de stockage de l'article</value>
         <value xml:lang="it">Mostra Stabilimento Prodotto</value>
@@ -28885,7 +28898,7 @@
         <value xml:lang="fr">Trier les commandes</value>
         <value xml:lang="it">Ordinamento</value>
         <value xml:lang="ja">ソート順序</value>
-        <value xml:lang="nl">Sorteer bestelling</value>
+        <value xml:lang="nl">Sorteer order</value>
         <value xml:lang="ro">Tip Ordonare</value>
         <value xml:lang="ru">Порядок сортировки</value>
         <value xml:lang="th">เรียงตามรายการที่สั่งซื้อ</value>
@@ -31478,5 +31491,57 @@
         <value xml:lang="vi">Trạng thái chuyển vận 'Hoàn trả'</value>
         <value xml:lang="zh">退货运输状态</value>
         <value xml:lang="zh_TW">退運狀態</value>
+    </property>
+    
+    
+    <property key="ProductVirtVarSection">
+        <value xml:lang="en">Virtuals and Variants</value>
+        <value xml:lang="nl">Sectie 1: Virtuelen en varianten</value>
+    </property>
+    <property key="ProductDatesSection">
+        <value xml:lang="en">Dates</value>
+        <value xml:lang="nl">Sectie 2: Data</value>
+    </property>
+    <property key="ProductInventorySection">
+        <value xml:lang="en">Inventory</value>
+        <value xml:lang="nl">Sectie 3: Voorraad</value>
+    </property>
+    <property key="ProductMeasuresSection">
+        <value xml:lang="en">Measures</value>
+        <value xml:lang="nl">Sectie 4: Maten</value>
+    </property>
+    <property key="ProductShippingSection">
+        <value xml:lang="en">Shipping</value>
+        <value xml:lang="nl">Sectie 5: Zending</value>
+    </property>
+    <property key="ProductCatFacSection">
+        <value xml:lang="en">Prim. Category and Facility</value>
+        <value xml:lang="nl">Sectie 6: Category en faciliteit</value>
+    </property>
+    <property key="ProductAmountSection">
+        <value xml:lang="en">Amounts</value>
+        <value xml:lang="nl">Sectie 7: Bedragen</value>
+    </property>
+    <property key="ProductRatingsSetion">
+        <value xml:lang="en">Ratings</value>
+        <value xml:lang="nl">Sectie 8: Waarderingen</value>
+    </property>
+    <property key="ProductMiscellaneousSection">
+        <value xml:lang="en">Miscellaneous</value>
+        <value xml:lang="nl">Sectie 9: Diversen</value>
+    </property>
+    
+    
+    <property key="LotUsageReport">
+        <value xml:lang="en">Lot Usage Report</value>
+        <value xml:lang="nl">Batch rapport</value>
+    </property>
+    <property key="Manufacturer">
+        <value xml:lang="en">Manufacturer</value>
+        <value xml:lang="nl">Producent</value>
+    </property>
+    <property key="ManufacturerRef">
+        <value xml:lang="en">Lot Ref.</value>
+        <value xml:lang="nl">Batch ref.</value>
     </property>
 </resource>
