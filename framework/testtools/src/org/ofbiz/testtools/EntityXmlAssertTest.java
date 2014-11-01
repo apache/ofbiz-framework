@@ -19,9 +19,9 @@
 package org.ofbiz.testtools;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 
-import javolution.util.FastList;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestResult;
 
@@ -72,7 +72,7 @@ public class EntityXmlAssertTest extends OFBizTestCase {
 
         try {
             URL entityXmlURL = FlexibleLocation.resolveLocation(entityXmlUrlString);
-            List<Object> errorMessages = FastList.newInstance();
+            List<Object> errorMessages = new LinkedList<Object>();
 
             if ("assert".equals(this.action)) {
                 EntityDataAssert.assertData(entityXmlURL, delegator, errorMessages);

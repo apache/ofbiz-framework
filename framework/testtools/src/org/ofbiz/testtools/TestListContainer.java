@@ -22,10 +22,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
-import java.lang.String;
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.config.GenericConfigException;
@@ -72,7 +70,7 @@ public class TestListContainer implements Container {
     }
 
     public boolean start() throws ContainerException {
-        List<FoundTest> foundTests = FastList.newInstance();
+        List<FoundTest> foundTests = new LinkedList<FoundTest>();
         for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(null)) {
             String componentName = testSuiteInfo.getComponentConfig().getComponentName();
             ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
