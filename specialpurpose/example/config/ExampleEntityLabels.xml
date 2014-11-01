@@ -156,7 +156,7 @@
         <value xml:lang="ja">別のテキスト</value>
         <value xml:lang="th">ตัวอักษรอื่น ๆ</value>
         <value xml:lang="zh">另一个文本</value>
-        <value xml:lang="zh_TW">另一個文本</value>
+        <!--value xml:lang="zh_TW">另一個文本</value-->
         <value xml:lang="zh_TW">另一個本文</value>
     </property>
     <property key="FieldDescription.comments">
