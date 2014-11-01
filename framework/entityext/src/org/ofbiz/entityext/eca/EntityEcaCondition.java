@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.entityext.eca;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
@@ -75,7 +74,7 @@ public final class EntityEcaCondition implements java.io.Serializable {
         if (Debug.verboseOn()) Debug.logVerbose("Comparing : " + lhsValue + " " + operator + " " + rhsValue, module);
 
         // evaluate the condition & invoke the action(s)
-        List<Object> messages = FastList.newInstance();
+        List<Object> messages = new LinkedList<Object>();
         Boolean cond = ObjectType.doRealCompare(lhsValue, rhsValue, operator, compareType, format, messages, null, dctx.getClassLoader(), constant);
 
         // if any messages were returned send them out

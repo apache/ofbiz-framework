@@ -27,13 +27,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -284,7 +283,7 @@ public class EntitySyncServices {
             gotMoreData = false;
 
             // call pullAndReportEntitySyncData, initially with no results, then with results from last loop
-            Map<String, Object> remoteCallContext = FastMap.newInstance();
+            Map<String, Object> remoteCallContext = new HashMap<String, Object>();
             remoteCallContext.put("entitySyncId", entitySyncId);
             remoteCallContext.put("delegatorName", context.get("remoteDelegatorName"));
             remoteCallContext.put("userLogin", context.get("userLogin"));

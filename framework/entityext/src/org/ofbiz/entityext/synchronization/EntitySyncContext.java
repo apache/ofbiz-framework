@@ -21,16 +21,14 @@ package org.ofbiz.entityext.synchronization;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -107,8 +105,8 @@ public class EntitySyncContext {
     //results for a given time block, we will do a query to find the next create/update/remove
     //time for that entity, and also keep track of a global next with the lowest future next value;
     //using these we can skip a lot of queries and speed this up significantly
-    public Map<String, Timestamp> nextEntityCreateTxTime = FastMap.newInstance();
-    public Map<String, Timestamp> nextEntityUpdateTxTime = FastMap.newInstance();
+    public Map<String, Timestamp> nextEntityCreateTxTime = new HashMap<String, Timestamp>();
+    public Map<String, Timestamp> nextEntityUpdateTxTime = new HashMap<String, Timestamp>();
     public Timestamp nextCreateTxTime = null;
     public Timestamp nextUpdateTxTime = null;
     public Timestamp nextRemoveTxTime = null;
@@ -839,7 +837,7 @@ public class EntitySyncContext {
     }
 
     public Set<String> makeEntityNameToUseSet() {
-        Set<String> entityNameToUseSet = FastSet.newInstance();
+        Set<String> entityNameToUseSet = new HashSet<String>();
         for (ModelEntity modelEntity: this.entityModelToUseList) {
             entityNameToUseSet.add(modelEntity.getEntityName());
         }
@@ -1140,7 +1138,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = FastList.newInstance();
+                List<Object> errorList = new LinkedList<Object>();
                 esc.saveSyncErrorInfo("ESR_OTHER_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }
@@ -1158,7 +1156,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = FastList.newInstance();
+                List<Object> errorList = new LinkedList<Object>();
                 esc.saveSyncErrorInfo("ESR_DATA_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }
@@ -1176,7 +1174,7 @@ public class EntitySyncContext {
         @Override
         public void saveSyncErrorInfo(EntitySyncContext esc) {
             if (esc != null) {
-                List<Object> errorList = FastList.newInstance();
+                List<Object> errorList = new LinkedList<Object>();
                 esc.saveSyncErrorInfo("ESR_SERVICE_ERROR", errorList);
                 this.addErrorMessages(errorList);
             }

@@ -18,11 +18,26 @@
  *******************************************************************************/
 package org.ofbiz.entityext.data;
 
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.security.Security;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -30,27 +45,11 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.FileUtil;
-import org.ofbiz.base.util.UtilURL;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
-import org.ofbiz.base.util.UtilValidate;
-
-import javolution.util.FastList;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
-import java.net.URISyntaxException;
+import org.ofbiz.security.Security;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 
 /**
  * Entity Data Import/Export Services
@@ -161,7 +160,7 @@ public class EntityDataServices {
     }
 
     private static List<File> getFileList(File root) {
-        List<File> fileList = FastList.newInstance();
+        List<File> fileList = new LinkedList<File>();
 
         // check for a file list file
         File listFile = new File(root, "FILELIST.txt");
@@ -330,7 +329,7 @@ public class EntityDataServices {
         String groupName = (String) context.get("groupName");
         Boolean fixSizes = (Boolean) context.get("fixColSizes");
         if (fixSizes == null) fixSizes = Boolean.FALSE;
-        List<String> messages = FastList.newInstance();
+        List<String> messages = new LinkedList<String>();
 
         GenericHelperInfo helperInfo = delegator.getGroupHelperInfo(groupName);
         DatabaseUtil dbUtil = new DatabaseUtil(helperInfo);
@@ -369,7 +368,7 @@ public class EntityDataServices {
         // step 5 - repair field sizes
         if (fixSizes.booleanValue()) {
             Debug.logImportant("Updating column field size changes", module);
-            List<String> fieldsWrongSize = FastList.newInstance();
+            List<String> fieldsWrongSize = new LinkedList<String>();
             dbUtil.checkDb(modelEntities, fieldsWrongSize, messages, true, true, true, true);
             if (fieldsWrongSize.size() > 0) {
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsWrongSize, messages);

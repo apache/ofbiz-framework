@@ -24,11 +24,10 @@ import java.net.URL;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.container.Container;
@@ -66,7 +65,7 @@ public class EntityDataLoadContainer implements Container {
     protected String configFile = null;
     protected String readers = null;
     protected String directory = null;
-    protected List<String> files = FastList.newInstance();
+    protected List<String> files = new LinkedList<String>();
     protected String component = null;
     protected boolean useDummyFks = false;
     protected boolean maintainTxs = false;
@@ -222,7 +221,7 @@ public class EntityDataLoadContainer implements Container {
             if (delegator == null) {
                 throw new ContainerException("Invalid delegator name!");
             }
-            List<EntityExpr> expr = FastList.newInstance();
+            List<EntityExpr> expr = new LinkedList<EntityExpr>();
             expr.add(EntityCondition.makeCondition("disabled", EntityOperator.EQUALS, "N"));
             expr.add(EntityCondition.makeCondition("disabled", EntityOperator.EQUALS, null));
             List<GenericValue> tenantList;
@@ -264,7 +263,7 @@ public class EntityDataLoadContainer implements Container {
         List<String> readerNames = null;
         if (this.readers != null && !"none".equalsIgnoreCase(this.readers)) {
             if (this.readers.indexOf(",") == -1) {
-                readerNames = FastList.newInstance();
+                readerNames = new LinkedList<String>();
                 readerNames.add(this.readers);
             } else {
                 readerNames = StringUtil.split(this.readers, ",");
@@ -317,7 +316,7 @@ public class EntityDataLoadContainer implements Container {
             }
         }
         // load specify components
-        List<String> loadComponents = FastList.newInstance();
+        List<String> loadComponents = new LinkedList<String>();
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && EntityUtil.isMultiTenantEnabled()) {
             try {
                 List<EntityExpr> exprs = new ArrayList<EntityExpr>();
@@ -353,7 +352,7 @@ public class EntityDataLoadContainer implements Container {
         }
         // check for drop index/fks
         if (dropConstraints) {
-            List<String> messages = FastList.newInstance();
+            List<String> messages = new LinkedList<String>();
 
             Debug.logImportant("Dropping foreign key indcies...", module);
             for (String entityName : modelEntityNames) {
@@ -390,7 +389,7 @@ public class EntityDataLoadContainer implements Container {
 
         // drop pks
         if (dropPks) {
-            List<String> messages = FastList.newInstance();
+            List<String> messages = new LinkedList<String>();
             Debug.logImportant("Dropping primary keys...", module);
             for (String entityName : modelEntityNames) {
                 ModelEntity modelEntity = modelEntities.get(entityName);
@@ -410,11 +409,11 @@ public class EntityDataLoadContainer implements Container {
 
         // repair columns
         if (repairColumns) {
-            List<String> fieldsToRepair = FastList.newInstance();
-            List<String> messages = FastList.newInstance();
+            List<String> fieldsToRepair = new LinkedList<String>();
+            List<String> messages = new LinkedList<String>();
             dbUtil.checkDb(modelEntities, fieldsToRepair, messages, false, false, false, false);
             if (fieldsToRepair.size() > 0) {
-                messages = FastList.newInstance();
+                messages = new LinkedList<String>();
                 dbUtil.repairColumnSizeChanges(modelEntities, fieldsToRepair, messages);
                 if (messages.size() > 0) {
                     if (Debug.infoOn()) {
@@ -427,7 +426,7 @@ public class EntityDataLoadContainer implements Container {
         }
 
         // get the reader name URLs first
-        List<URL> urlList = FastList.newInstance();
+        List<URL> urlList = null;
         if (UtilValidate.isNotEmpty(loadComponents)) {
             if (UtilValidate.isNotEmpty(readerNames)) {
                 urlList = EntityDataLoader.getUrlByComponentList(helperInfo.getHelperBaseName(), loadComponents, readerNames);
@@ -443,7 +442,7 @@ public class EntityDataLoadContainer implements Container {
         }
         // need a list if it is empty
         if (urlList == null) {
-            urlList = FastList.newInstance();
+            urlList = new LinkedList<URL>();
         }
 
         // add in the defined extra files
@@ -478,8 +477,8 @@ public class EntityDataLoadContainer implements Container {
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
 
-        List<Object> errorMessages = FastList.newInstance();
-        List<String> infoMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
+        List<String> infoMessages = new LinkedList<String>();
         int totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load using delegator '" + delegator.getDelegatorName() + "' with the following files:", module);
@@ -520,7 +519,7 @@ public class EntityDataLoadContainer implements Container {
 
         // create primary keys
         if (createPks) {
-            List<String> messages = FastList.newInstance();
+            List<String> messages = new LinkedList<String>();
 
             Debug.logImportant("Creating primary keys...", module);
             for (String entityName : modelEntityNames) {
@@ -540,7 +539,7 @@ public class EntityDataLoadContainer implements Container {
 
         // create constraints
         if (createConstraints) {
-            List<String> messages = FastList.newInstance();
+            List<String> messages = new LinkedList<String>();
 
             Debug.logImportant("Creating foreign keys...", module);
             for (String entityName : modelEntityNames) {

@@ -20,11 +20,10 @@ package org.ofbiz.entityext.eca;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilXml;
@@ -118,7 +117,7 @@ public final class EntityEcaRule implements java.io.Serializable {
             return;
         }
 
-        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> context = new HashMap<String, Object>();
         context.putAll(value);
 
         boolean allCondTrue = true;
