@@ -65,6 +65,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.ModelFieldVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
 import org.w3c.dom.Element;
@@ -1345,6 +1346,8 @@ public class ModelFormField {
             this.modelFormField = modelFormField;
         }
 
+        public abstract void accept(ModelFieldVisitor visitor);
+
         public ModelFormField getModelFormField() {
             return modelFormField;
         }
@@ -1402,6 +1405,10 @@ public class ModelFormField {
                 // this must be added or the multi-form select box options would not show up
                 this.addOptionSource(new SingleOption("Y", " ", this));
             }
+        }
+
+        public List<OptionSource> getOptionSources() {
+            return optionSources;
         }
 
         public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
@@ -1581,6 +1588,10 @@ public class ModelFormField {
             }
 
             this.fieldInfo = fieldInfo;
+        }
+
+        public String getEntityName() {
+            return entityName;
         }
 
         public String getKeyFieldName() {
@@ -2126,6 +2137,11 @@ public class ModelFormField {
                 return "";
             }
         }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class DisplayEntityField extends DisplayField {
@@ -2165,6 +2181,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public String getDescription(Map<String, Object> context) {
             Locale locale = UtilMisc.ensureLocale(context.get("locale"));
 
@@ -2199,6 +2220,10 @@ public class ModelFormField {
             if (UtilValidate.isEmpty(retVal)) retVal = fieldValue;
             if (UtilValidate.isEmpty(retVal)) retVal = "";
             return retVal;
+        }
+
+        public String getEntityName() {
+            return entityName;
         }
 
         public SubHyperlink getSubHyperlink() {
@@ -2269,6 +2294,11 @@ public class ModelFormField {
             if (autoEntityParamsElement != null) {
                 autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
             }
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -2772,6 +2802,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextField(writer, context, this);
         }
@@ -2901,6 +2936,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextareaField(writer, context, this);
         }
@@ -3005,6 +3045,11 @@ public class ModelFormField {
             mask = element.getAttribute("mask");
             if (UtilValidate.isNotEmpty(element.getAttribute("step"))) this.setStep(element.getAttribute("step"));
             else this.setStep("1");
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3142,6 +3187,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderDropDownField(writer, context, this);
         }
@@ -3243,6 +3293,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderRadioField(writer, context, this);
         }
@@ -3267,6 +3322,11 @@ public class ModelFormField {
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3307,6 +3367,11 @@ public class ModelFormField {
             this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element.getAttribute("background-submit-refresh-target"));
             setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
             setConfirmationMsg(element.getAttribute("confirmation-message"));
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3387,6 +3452,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderResetField(writer, context, this);
         }
@@ -3410,6 +3480,11 @@ public class ModelFormField {
         public HiddenField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.setValue(element.getAttribute("value"));
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3450,6 +3525,11 @@ public class ModelFormField {
 
         public IgnoredField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3499,6 +3579,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderTextFindField(writer, context, this);
         }
@@ -3516,6 +3601,11 @@ public class ModelFormField {
 
         public DateFindField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3544,6 +3634,11 @@ public class ModelFormField {
 
         public RangeFindField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3593,6 +3688,11 @@ public class ModelFormField {
 
         public LookupField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3697,6 +3797,11 @@ public class ModelFormField {
         }
 
         @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFileField(writer, context, this);
         }
@@ -3710,6 +3815,11 @@ public class ModelFormField {
 
         public PasswordField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3749,6 +3859,11 @@ public class ModelFormField {
             if (subHyperlinkElement != null) {
                 this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
             }
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
@@ -3830,6 +3945,11 @@ public class ModelFormField {
 
         public ContainerField(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
         @Override
