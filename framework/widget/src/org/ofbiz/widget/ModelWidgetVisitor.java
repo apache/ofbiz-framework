@@ -87,4 +87,8 @@ public interface ModelWidgetVisitor {
     void visit(ModelScreenWidget.Tree tree);
 
     void visit(ModelTree modelTree);
+
+    void visit(ModelTree.ModelNode modelNode);
+
+    void visit(ModelTree.ModelNode.ModelSubNode modelSubNode);
 }

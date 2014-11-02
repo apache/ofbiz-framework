@@ -96,6 +96,8 @@ import org.ofbiz.widget.screen.ModelScreenWidget.Screenlet;
 import org.ofbiz.widget.screen.ModelScreenWidget.Section;
 import org.ofbiz.widget.screen.ModelScreenWidget.Tree;
 import org.ofbiz.widget.tree.ModelTree;
+import org.ofbiz.widget.tree.ModelTree.ModelNode;
+import org.ofbiz.widget.tree.ModelTree.ModelNode.ModelSubNode;
 import org.ofbiz.widget.tree.ModelTreeAction;
 
 /**
@@ -414,6 +416,14 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(ModelTree modelTree) {
+    }
+
+    @Override
+    public void visit(ModelNode modelNode) {
+    }
+
+    @Override
+    public void visit(ModelSubNode modelSubNode) {
     }
 
     @Override
