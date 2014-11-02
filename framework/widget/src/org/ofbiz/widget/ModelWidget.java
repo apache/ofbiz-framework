@@ -44,6 +44,17 @@ public abstract class ModelWidget implements Serializable {
 
     /**
      * Derived classes must call this constructor.
+     * @param name The widget name
+     */
+    protected ModelWidget(String name) {
+        this.name = name;
+        this.systemId = "anonymous";
+        this.startColumn = 0;
+        this.startLine = 0;
+    }
+
+    /**
+     * Derived classes must call this constructor.
      * @param widgetElement The XML Element for the widget
      */
     protected ModelWidget(Element widgetElement) {

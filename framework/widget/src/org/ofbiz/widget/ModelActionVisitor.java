@@ -19,6 +19,7 @@
 package org.ofbiz.widget;
 
 import org.ofbiz.widget.form.ModelFormAction;
+import org.ofbiz.widget.menu.ModelMenuAction;
 
 /**
  *  A <code>ModelWidgetAction</code> visitor.
@@ -52,4 +53,6 @@ public interface ModelActionVisitor {
     void visit(ModelFormAction.EntityAnd entityAnd);
 
     void visit(ModelFormAction.EntityCondition entityCondition);
+
+    void visit(ModelMenuAction.SetField setField);
 }

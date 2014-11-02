@@ -30,6 +30,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
@@ -41,35 +42,27 @@ public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
-    protected String menuLocation;
-    protected String type;
-    protected String target;
-    protected String id;
-    protected FlexibleStringExpander title;
-    protected String tooltip;
-    protected String defaultEntityName;
-    protected String defaultTitleStyle;
-    protected String defaultWidgetStyle;
-    protected String defaultTooltipStyle;
-    protected String defaultSelectedStyle;
-    protected String defaultMenuItemName;
-    protected String defaultPermissionOperation;
-    protected String defaultPermissionEntityAction;
-    protected FlexibleStringExpander defaultAssociatedContentId;
-    protected String defaultPermissionStatusId;
-    protected String defaultPrivilegeEnumId;
-    protected String orientation = "horizontal";
-    protected String menuWidth;
-    protected String defaultCellWidth;
-    protected Boolean defaultHideIfSelected;
-    protected String defaultDisabledTitleStyle;
-    protected FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
-    protected FlexibleStringExpander menuContainerStyleExdr;
+    protected List<ModelWidgetAction> actions;
     protected String defaultAlign;
     protected String defaultAlignStyle;
-    protected String fillStyle;
+    protected FlexibleStringExpander defaultAssociatedContentId;
+    protected String defaultCellWidth;
+    protected String defaultDisabledTitleStyle;
+    protected String defaultEntityName;
+    protected Boolean defaultHideIfSelected;
+    protected String defaultMenuItemName;
+    protected String defaultPermissionEntityAction;
+    protected String defaultPermissionOperation;
+    protected String defaultPermissionStatusId;
+    protected String defaultPrivilegeEnumId;
+    protected String defaultSelectedStyle;
+    protected String defaultTitleStyle;
+    protected String defaultTooltipStyle;
+    protected String defaultWidgetStyle;
     protected FlexibleStringExpander extraIndex;
-
+    protected String fillStyle;
+    protected String id;
+    protected FlexibleStringExpander menuContainerStyleExdr;
     /** This List will contain one copy of each item for each item name in the order
      * they were encountered in the service, entity, or menu definition; item definitions
      * with constraints will also be in this list but may appear multiple times for the same
@@ -80,14 +73,19 @@ public class ModelMenu extends ModelWidget {
      * list clean and implement the override features for item definitions.
      */
     protected List<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
-
     /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
      * with conditions will not be put in this Map so item definition overrides for items
      * with conditions is not possible.
      */
     protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
-
-    protected List<ModelMenuAction> actions;
+    protected String menuLocation;
+    protected String menuWidth;
+    protected String orientation = "horizontal";
+    protected FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
+    protected String target;
+    protected FlexibleStringExpander title;
+    protected String tooltip;
+    protected String type;
 
 
    // ===== CONSTRUCTORS =====
@@ -156,7 +154,7 @@ public class ModelMenu extends ModelWidget {
                 this.selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
                 this.menuContainerStyleExdr = parent.menuContainerStyleExdr;
                 if (parent.actions != null) {
-                    this.actions = new ArrayList<ModelMenuAction>();
+                    this.actions = new ArrayList<ModelWidgetAction>();
                     this.actions.addAll(parent.actions);
                 }
             }
@@ -229,7 +227,7 @@ public class ModelMenu extends ModelWidget {
                 this.actions = ModelMenuAction.readSubActions(this, actionsElement);
             } else {
                 this.actions.addAll(ModelMenuAction.readSubActions(this, actionsElement));
-                ArrayList<ModelMenuAction> actionsList = (ArrayList<ModelMenuAction>)this.actions;
+                ArrayList<ModelWidgetAction> actionsList = (ArrayList<ModelWidgetAction>)this.actions;
                 actionsList.trimToSize();
             }
         }
@@ -282,7 +280,7 @@ public class ModelMenu extends ModelWidget {
      *   use the same menu definitions for many types of menu UIs
      */
     public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-        ModelMenuAction.runSubActions(this.actions, context);
+        ModelWidgetAction.runSubActions(this.actions, context);
         if ("simple".equals(this.type)) {
             this.renderSimpleMenuString(writer, context, menuStringRenderer);
         } else {

@@ -37,6 +37,9 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
@@ -45,78 +48,94 @@ import org.xml.sax.SAXException;
 /**
  * Widget Library - Form model class
  */
-public class ModelMenuItem {
+@SuppressWarnings("serial")
+public class ModelMenuItem extends ModelWidget {
 
     public static final String module = ModelMenuItem.class.getName();
 
-    protected ModelMenu modelMenu;
-
-    protected Map<String, Object> dataMap = new HashMap<String, Object>();
-    protected String name;
-    protected String entityName;
-    protected FlexibleStringExpander title;
-    protected FlexibleStringExpander tooltip;
-    protected FlexibleStringExpander parentPortalPageId;
-    protected String titleStyle;
-    protected String disabledTitleStyle;
-    protected String widgetStyle;
-    protected String tooltipStyle;
-    protected String selectedStyle;
-    protected Integer position = null;
-
-    protected FlexibleStringExpander associatedContentId;
-    protected String cellWidth;
-    protected Boolean hideIfSelected;
-    protected Boolean hasPermission;
-    protected String disableIfEmpty;
-    protected ModelMenu subMenu;
-    protected Link link;
-
-    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
-    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
-
-    protected ModelMenuItem parentMenuItem;
-    protected ModelMenuCondition condition;
-    protected boolean disabled = false;
-    protected List<ModelMenuAction> actions;
+    protected List<ModelWidgetAction> actions;
     protected String align;
     protected String alignStyle;
+    protected FlexibleStringExpander associatedContentId;
+    protected String cellWidth;
+    protected ModelMenuCondition condition;
+    protected Map<String, Object> dataMap = new HashMap<String, Object>();
+    protected boolean disabled = false;
+    protected String disabledTitleStyle;
+    protected String disableIfEmpty;
+    protected String entityName;
+    protected Boolean hasPermission;
+    protected Boolean hideIfSelected;
+    protected Link link;
+    /** This List will contain one copy of each item for each item name in the order
+     * they were encountered in the service, entity, or menu definition; item definitions
+     * with constraints will also be in this list but may appear multiple times for the same
+     * item name.
+     *
+     * When rendering the menu the order in this list should be following and it should not be
+     * necessary to use the Map. The Map is used when loading the menu definition to keep the
+     * list clean and implement the override features for item definitions.
+     */
+    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
+    /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
+     * with conditions will not be put in this Map so item definition overrides for items
+     * with conditions is not possible.
+     */
+    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
+    protected ModelMenu modelMenu;
+    protected String overrideName = null;
+    protected ModelMenuItem parentMenuItem;
+    protected FlexibleStringExpander parentPortalPageId;
+    protected Integer position = null;
+    protected String selectedStyle;
+    protected ModelMenu subMenu;
+    protected FlexibleStringExpander title;
+    protected String titleStyle;
+    protected FlexibleStringExpander tooltip;
+    protected String tooltipStyle;
+    protected String widgetStyle;
 
     // ===== CONSTRUCTORS =====
-    /** Default Constructor */
-    public ModelMenuItem(ModelMenu modelMenu) {
-        this.modelMenu = modelMenu;
+    public ModelMenuItem(String name) {
+        super(name);
     }
 
-    /** XML Constructor */
-    public ModelMenuItem(Element fieldElement, ModelMenuItem modelMenuItem) {
+    public ModelMenuItem(Element menuItemElement) {
+        super(menuItemElement);
+        loadMenuItem(menuItemElement);
+    }
+
+    public ModelMenuItem(Element menuItemElement, ModelMenu modelMenu) {
+        super(menuItemElement);
+        loadMenuItem(menuItemElement, modelMenu);
+    }
+
+    public ModelMenuItem(Element menuItemElement, ModelMenuItem modelMenuItem) {
+        super(menuItemElement);
         parentMenuItem = modelMenuItem;
-        loadMenuItem(fieldElement, modelMenuItem.getModelMenu());
+        loadMenuItem(menuItemElement, modelMenuItem.getModelMenu());
     }
 
-
-    public ModelMenuItem(Element fieldElement, ModelMenu modelMenu) {
-        loadMenuItem(fieldElement, modelMenu);
-    }
-
-    public void loadMenuItem(Element fieldElement, ModelMenu modelMenu) {
+    private void loadMenuItem(Element menuItemElement, ModelMenu modelMenu) {
         this.modelMenu = modelMenu;
-        this.name = fieldElement.getAttribute("name");
-        this.entityName = fieldElement.getAttribute("entity-name");
-        this.setTitle(fieldElement.getAttribute("title"));
-        this.setTooltip(fieldElement.getAttribute("tooltip"));
-        this.setParentPortalPageId(fieldElement.getAttribute("parent-portal-page-value"));
-        this.titleStyle = fieldElement.getAttribute("title-style");
-        this.disabledTitleStyle = fieldElement.getAttribute("disabled-title-style");
-        this.widgetStyle = fieldElement.getAttribute("widget-style");
-        this.tooltipStyle = fieldElement.getAttribute("tooltip-style");
-        this.selectedStyle = fieldElement.getAttribute("selected-style");
-        this.setHideIfSelected(fieldElement.getAttribute("hide-if-selected"));
-        this.disableIfEmpty = fieldElement.getAttribute("disable-if-empty");
-        this.align = fieldElement.getAttribute("align");
-        this.alignStyle = fieldElement.getAttribute("align-style");
+        loadMenuItem(menuItemElement);
+    }
 
-        String positionStr = fieldElement.getAttribute("position");
+    private void loadMenuItem(Element menuItemElement) {
+        this.entityName = menuItemElement.getAttribute("entity-name");
+        this.setTitle(menuItemElement.getAttribute("title"));
+        this.setTooltip(menuItemElement.getAttribute("tooltip"));
+        this.setParentPortalPageId(menuItemElement.getAttribute("parent-portal-page-value"));
+        this.titleStyle = menuItemElement.getAttribute("title-style");
+        this.disabledTitleStyle = menuItemElement.getAttribute("disabled-title-style");
+        this.widgetStyle = menuItemElement.getAttribute("widget-style");
+        this.tooltipStyle = menuItemElement.getAttribute("tooltip-style");
+        this.selectedStyle = menuItemElement.getAttribute("selected-style");
+        this.setHideIfSelected(menuItemElement.getAttribute("hide-if-selected"));
+        this.disableIfEmpty = menuItemElement.getAttribute("disable-if-empty");
+        this.align = menuItemElement.getAttribute("align");
+        this.alignStyle = menuItemElement.getAttribute("align-style");
+        String positionStr = menuItemElement.getAttribute("position");
         try {
             if (UtilValidate.isNotEmpty(positionStr)) {
                 position = Integer.valueOf(positionStr);
@@ -126,12 +145,12 @@ public class ModelMenuItem {
                     positionStr + "], using the default of the menu renderer", module);
         }
 
-        this.setAssociatedContentId(fieldElement.getAttribute("associated-content-id"));
-        this.cellWidth = fieldElement.getAttribute("cell-width");
+        this.setAssociatedContentId(menuItemElement.getAttribute("associated-content-id"));
+        this.cellWidth = menuItemElement.getAttribute("cell-width");
 
-        dataMap.put("name", this.name);
+        dataMap.put("name", getName());
 
-        Element subMenuElement = UtilXml.firstChildElement(fieldElement, "sub-menu");
+        Element subMenuElement = UtilXml.firstChildElement(menuItemElement, "sub-menu");
         if (subMenuElement != null) {
             String subMenuLocation = subMenuElement.getAttribute("location");
             String subMenuName = subMenuElement.getAttribute("name");
@@ -152,26 +171,26 @@ public class ModelMenuItem {
             }
         }
 
-        Element linkElement = UtilXml.firstChildElement(fieldElement, "link");
+        Element linkElement = UtilXml.firstChildElement(menuItemElement, "link");
         if (linkElement != null) {
             link = new Link(linkElement, this);
         }
 
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
-        List<? extends Element> itemElements = UtilXml.childElementList(fieldElement, "menu-item");
+        List<? extends Element> itemElements = UtilXml.childElementList(menuItemElement, "menu-item");
         for (Element itemElement: itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
             modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
         }
         // read condition under the "condition" element
-        Element conditionElement = UtilXml.firstChildElement(fieldElement, "condition");
+        Element conditionElement = UtilXml.firstChildElement(menuItemElement, "condition");
         if (conditionElement != null) {
             this.condition = new ModelMenuCondition(this, conditionElement);
         }
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(conditionElement, "actions");
         if (actionsElement != null) {
-            this.actions = ModelMenuAction.readSubActions(this, actionsElement);
+            this.actions = ModelWidgetAction.readSubActions(this, actionsElement);
         }
 
     }
@@ -215,13 +234,21 @@ public class ModelMenuItem {
          return this.disabled;
     }
 
+    @Override
+    public String getName() {
+        if (this.overrideName != null) {
+            return this.overrideName;
+        }
+        return super.getName();
+    }
+
     public void mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
         if (overrideMenuItem == null)
             return;
 
         // incorporate updates for values that are not empty in the overrideMenuItem
-        if (UtilValidate.isNotEmpty(overrideMenuItem.name))
-            this.name = overrideMenuItem.name;
+        if (UtilValidate.isNotEmpty(overrideMenuItem.getName()))
+            this.overrideName = overrideMenuItem.getName();
         if (UtilValidate.isNotEmpty(overrideMenuItem.entityName))
             this.entityName = overrideMenuItem.entityName;
         if (UtilValidate.isNotEmpty(overrideMenuItem.parentPortalPageId))
@@ -262,15 +289,15 @@ public class ModelMenuItem {
         Locale locale = (Locale) context.get("locale");
            //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
         if (passed) {
-            ModelMenuAction.runSubActions(this.actions, context);
+            ModelWidgetAction.runSubActions(this.actions, context);
             String parentPortalPageId = this.getParentPortalPageId(context);
             if (UtilValidate.isNotEmpty(parentPortalPageId)) {
                 List<GenericValue> portalPages = PortalPageWorker.getPortalPages(parentPortalPageId, context);
                 if (UtilValidate.isNotEmpty(portalPages)) {
                     for (GenericValue portalPage : portalPages) {
                         if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                            ModelMenuItem localItem = new ModelMenuItem(this.getModelMenu());
-                            localItem.name =  portalPage.getString("portalPageId");
+                            String itemName =  portalPage.getString("portalPageId");
+                            ModelMenuItem localItem = new ModelMenuItem(itemName);
                             localItem.setTitle((String) portalPage.get("portalPageName", locale));
                             localItem.link = new Link(this);
                             List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
@@ -298,7 +325,7 @@ public class ModelMenuItem {
         return modelMenu;
     }
 
-    public List<ModelMenuAction> getActions() {
+    public List<ModelWidgetAction> getActions() {
         return actions;
     }
 
@@ -320,11 +347,6 @@ public class ModelMenuItem {
         } else {
             return this.modelMenu.getDefaultAlign();
         }
-    }
-
-
-    public String getName() {
-        return name;
     }
 
     public int getPosition() {
@@ -424,13 +446,6 @@ public class ModelMenuItem {
      */
     public void setEntityName(String string) {
         entityName = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setName(String string) {
-        name = string;
     }
 
     /**
@@ -546,7 +561,7 @@ public class ModelMenuItem {
     }
 
     public boolean isSelected(Map<String, Object> context) {
-        return this.name.equals(modelMenu.getSelectedMenuItemContextFieldName(context));
+        return getName().equals(modelMenu.getSelectedMenuItemContextFieldName(context));
     }
 
     public static class Link {
@@ -904,5 +919,10 @@ public class ModelMenuItem {
                 this.urlMode = val;
         }
 
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) {
+        visitor.visit(this);
     }
 }
