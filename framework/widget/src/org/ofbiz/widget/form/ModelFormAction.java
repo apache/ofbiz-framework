@@ -18,22 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
-import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.regex.PatternSyntaxException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -41,17 +35,17 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
-import org.ofbiz.entity.finder.PrimaryKeyFinder;
-import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.minilang.MiniLangException;
-import org.ofbiz.minilang.SimpleMethod;
-import org.ofbiz.minilang.method.MethodContext;
-import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.ModelActionVisitor;
+import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.ModelWidgetAction.EntityOne;
+import org.ofbiz.widget.ModelWidgetAction.PropertyMap;
+import org.ofbiz.widget.ModelWidgetAction.PropertyToField;
+import org.ofbiz.widget.ModelWidgetAction.Script;
+import org.ofbiz.widget.ModelWidgetAction.SetField;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
-
 
 /**
  * Widget Library - Screen model class
@@ -59,17 +53,10 @@ import org.w3c.dom.Element;
 public abstract class ModelFormAction {
     public static final String module = ModelFormAction.class.getName();
 
-    protected ModelForm modelForm;
-
-    public ModelFormAction(ModelForm modelForm, Element actionElement) {
-        this.modelForm = modelForm;
-        if (Debug.verboseOn()) Debug.logVerbose("Reading Screen action with name: " + actionElement.getNodeName(), module);
-    }
-
     public abstract void runAction(Map<String, Object> context);
 
-    public static List<ModelFormAction> readSubActions(ModelForm modelForm, Element parentElement) {
-        List<ModelFormAction> actions = new LinkedList<ModelFormAction>();
+    public static List<ModelWidgetAction> readSubActions(ModelForm modelForm, Element parentElement) {
+        List<ModelWidgetAction> actions = new LinkedList<ModelWidgetAction>();
 
         for (Element actionElement: UtilXml.childElementList(parentElement)) {
             if ("set".equals(actionElement.getNodeName())) {
@@ -98,209 +85,21 @@ public abstract class ModelFormAction {
         return actions;
     }
 
-    public static void runSubActions(List<ModelFormAction> actions, Map<String, Object> context) {
+    public static void runSubActions(List<ModelWidgetAction> actions, Map<String, Object> context) {
         if (actions == null) return;
 
-        for (ModelFormAction action: actions) {
+        for (ModelWidgetAction action: actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running screen action " + action.getClass().getName(), module);
-            action.runAction(context);
-        }
-    }
-
-    public static class SetField extends ModelFormAction {
-        protected FlexibleMapAccessor<Object> field;
-        protected FlexibleMapAccessor<String> fromField;
-        protected FlexibleStringExpander valueExdr;
-        protected FlexibleStringExpander defaultExdr;
-        protected FlexibleStringExpander globalExdr;
-        protected String type;
-
-        public SetField(ModelForm modelForm, Element setElement) {
-            super (modelForm, setElement);
-            this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
-            this.fromField = FlexibleMapAccessor.getInstance(setElement.getAttribute("from-field"));
-            this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
-            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
-            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-            this.type = setElement.getAttribute("type");
-            if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
-                throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
-            }
-        }
-
-        @SuppressWarnings("rawtypes")
-        @Override
-        public void runAction(Map<String, Object> context) {
-            String globalStr = this.globalExdr.expandString(context);
-            // default to false
-            boolean global = "true".equals(globalStr);
-
-            Object newValue = null;
-            if (!this.fromField.isEmpty()) {
-                newValue = this.fromField.get(context);
-                if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-            } else if (!this.valueExdr.isEmpty()) {
-                newValue = this.valueExdr.expand(context);
-            }
-
-            // If newValue is still empty, use the default value
-            if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
-                newValue = this.defaultExdr.expand(context);
-            }
-
-            if (UtilValidate.isNotEmpty(this.type)) {
-                if ("NewMap".equals(this.type)) {
-                    newValue = new HashMap();
-                } else if ("NewList".equals(this.type)) {
-                    newValue = new LinkedList();
-                } else {
-                    try {
-                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
-                    } catch (GeneralException e) {
-                        String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        throw new IllegalArgumentException(errMsg);
-                    }
-                }
-            }
-            if (Debug.verboseOn()) Debug.logVerbose("In screen setting field [" + this.field.getOriginalName() + "] to value: " + newValue, module);
-            this.field.put(context, newValue);
-
-            if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-                if (globalCtx != null) {
-                    this.field.put(globalCtx, newValue);
-                }
-            }
-
-            // this is a hack for backward compatibility with the JPublish page object
-            Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
-            if (page != null) {
-                this.field.put(page, newValue);
+            try {
+                action.runAction(context);
+            } catch (GeneralException e) {
+                throw new RuntimeException(e);
             }
         }
     }
 
-    public static class PropertyMap extends ModelFormAction {
-        protected FlexibleStringExpander resourceExdr;
-        protected FlexibleMapAccessor<Map<String, Object>> mapNameAcsr;
-        protected FlexibleStringExpander globalExdr;
-
-        public PropertyMap(ModelForm modelForm, Element setElement) {
-            super (modelForm, setElement);
-            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
-            this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
-            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-        }
-
-        @Override
-        public void runAction(Map<String, Object> context) {
-            String globalStr = this.globalExdr.expandString(context);
-            // default to false
-            boolean global = "true".equals(globalStr);
-
-            Locale locale = (Locale) context.get("locale");
-            String resource = this.resourceExdr.expandString(context, locale);
-            Map<String, Object> propertyMap = UtilProperties.getResourceBundleMap(resource, locale);
-            this.mapNameAcsr.put(context, propertyMap);
-
-            if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-                if (globalCtx != null) {
-                    this.mapNameAcsr.put(globalCtx, propertyMap);
-                }
-            }
-        }
-    }
-
-    public static class PropertyToField extends ModelFormAction {
-
-        protected FlexibleStringExpander resourceExdr;
-        protected FlexibleStringExpander propertyExdr;
-        protected FlexibleMapAccessor<String> fieldAcsr;
-        protected FlexibleStringExpander defaultExdr;
-        protected boolean noLocale;
-        protected FlexibleMapAccessor<List<Object>> argListAcsr;
-        protected FlexibleStringExpander globalExdr;
-
-        public PropertyToField(ModelForm modelForm, Element setElement) {
-            super (modelForm, setElement);
-            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
-            this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
-            this.fieldAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
-            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
-            noLocale = "true".equals(setElement.getAttribute("no-locale"));
-            this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
-            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-        }
-
-        @Override
-        public void runAction(Map<String, Object> context) {
-            //String globalStr = this.globalExdr.expandString(context);
-            // default to false
-            //boolean global = "true".equals(globalStr);
-
-            Locale locale = (Locale) context.get("locale");
-            String resource = this.resourceExdr.expandString(context, locale);
-            String property = this.propertyExdr.expandString(context, locale);
-
-            String value = null;
-            if (noLocale) {
-                value = EntityUtilProperties.getPropertyValue(resource, property, WidgetWorker.getDelegator(context));
-            } else {
-                value = EntityUtilProperties.getMessage(resource, property, locale, WidgetWorker.getDelegator(context));
-            }
-            if (UtilValidate.isEmpty(value)) {
-                value = this.defaultExdr.expandString(context);
-            }
-
-            // note that expanding the value string here will handle defaultValue and the string from
-            //  the properties file; if we decide later that we don't want the string from the properties
-            //  file to be expanded we should just expand the defaultValue at the beginning of this method.
-            value = FlexibleStringExpander.expandString(value, context);
-
-            if (!argListAcsr.isEmpty()) {
-                List<Object> argList = argListAcsr.get(context);
-                if (UtilValidate.isNotEmpty(argList)) {
-                    value = MessageFormat.format(value, argList.toArray());
-                }
-            }
-
-            fieldAcsr.put(context, value);
-        }
-    }
-
-    public static class Script extends ModelFormAction {
-        protected String location;
-        protected String method;
-
-        public Script(ModelForm modelForm, Element scriptElement) {
-            super (modelForm, scriptElement);
-            String scriptLocation = scriptElement.getAttribute("location");
-            this.location = WidgetWorker.getScriptLocation(scriptLocation);
-            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
-        }
-
-        @Override
-        public void runAction(Map<String, Object> context) {
-            if (location.endsWith(".xml")) {
-                Map<String, Object> localContext = new HashMap<String, Object>();
-                localContext.putAll(context);
-                DispatchContext ctx = this.modelForm.dispatchContext;
-                MethodContext methodContext = new MethodContext(ctx, localContext, null);
-                try {
-                    SimpleMethod.runSimpleMethod(location, method, methodContext);
-                    context.putAll(methodContext.getResults());
-                } catch (MiniLangException e) {
-                    throw new IllegalArgumentException("Error running simple method at location [" + location + "]", e);
-                }
-            } else {
-                ScriptUtil.executeScript(this.location, this.method, context);
-            }
-        }
-    }
-
-    public static class Service extends ModelFormAction {
+    @SuppressWarnings("serial")
+    public static class Service extends ModelWidgetAction {
         protected FlexibleStringExpander serviceNameExdr;
         protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
         protected FlexibleStringExpander autoFieldMapExdr;
@@ -389,44 +188,33 @@ public abstract class ModelFormAction {
                 Object listObj = result.get(listName);
                 if (listObj != null) {
                     if (!(listObj instanceof List<?>) && !(listObj instanceof ListIterator<?>)) {
-                        throw new IllegalArgumentException("Error in form [" + this.modelForm.getName() + "] calling service with name [" + serviceNameExpanded + "]: the result that is supposed to be a List or ListIterator and is not.");
+                        throw new IllegalArgumentException("Error in form [" + this.modelWidget.getName() + "] calling service with name [" + serviceNameExpanded + "]: the result that is supposed to be a List or ListIterator and is not.");
                     }
                     context.put("listName", listName);
                     context.put(listName, listObj);
                 }
             } catch (GenericServiceException e) {
-                String errMsg = "Error in form [" + this.modelForm.getName() + "] calling service with name [" + serviceNameExpanded + "]: " + e.toString();
+                String errMsg = "Error in form [" + this.modelWidget.getName() + "] calling service with name [" + serviceNameExpanded + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 if (!this.ignoreError) {
                     throw new IllegalArgumentException(errMsg);
                 }
             }
         }
-    }
-
-    public static class EntityOne extends ModelFormAction {
-        protected PrimaryKeyFinder finder;
-
-        public EntityOne(ModelForm modelForm, Element entityOneElement) {
-            super (modelForm, entityOneElement);
-            finder = new PrimaryKeyFinder(entityOneElement);
-        }
 
         @Override
-        public void runAction(Map<String, Object> context) {
-            try {
-                finder.runFind(context, WidgetWorker.getDelegator(context));
-            } catch (GeneralException e) {
-                String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
-            }
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public String getServiceName() {
+            return serviceNameExdr.getOriginal();
         }
     }
 
-    public static class EntityAnd extends ModelFormAction {
+    @SuppressWarnings("serial")
+    public static class EntityAnd extends ModelWidgetAction {
         protected ByAndFinder finder;
-        String actualListName;
 
         public EntityAnd(ModelForm modelForm, Element entityAndElement) {
             super (modelForm, entityAndElement);
@@ -444,8 +232,6 @@ public abstract class ModelFormAction {
                 }
                 entityAndElement.setAttribute("list", lstNm);
             }
-            this.actualListName = entityAndElement.getAttribute("list");
-            if (UtilValidate.isEmpty(this.actualListName)) this.actualListName = entityAndElement.getAttribute("list-name");
             finder = new ByAndFinder(entityAndElement);
         }
 
@@ -472,9 +258,18 @@ public abstract class ModelFormAction {
             }
         }
 
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public ByAndFinder getFinder() {
+            return finder;
+        }
     }
 
-    public static class EntityCondition extends ModelFormAction {
+    @SuppressWarnings("serial")
+    public static class EntityCondition extends ModelWidgetAction {
         ByConditionFinder finder;
         String actualListName;
 
@@ -521,15 +316,26 @@ public abstract class ModelFormAction {
                 throw new IllegalArgumentException(errMsg);
             }
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        public ByConditionFinder getFinder() {
+            return finder;
+        }
     }
 
-    public static class CallParentActions extends ModelFormAction {
+    @SuppressWarnings("serial")
+    public static class CallParentActions extends ModelWidgetAction {
         protected static enum ActionsKind {
             ACTIONS,
             ROW_ACTIONS
         };
 
         protected ActionsKind kind;
+        private final ModelForm modelForm;
 
         public CallParentActions(ModelForm modelForm, Element callParentActionsElement) {
             super(modelForm, callParentActionsElement);
@@ -546,6 +352,7 @@ public abstract class ModelFormAction {
             if (parentModel == null) {
                 throw new IllegalArgumentException("call-parent-actions can only be used with form extending another form");
             }
+            this.modelForm = modelForm;
         }
 
         @Override
@@ -559,6 +366,11 @@ public abstract class ModelFormAction {
                     ModelFormAction.runSubActions(parentModel.rowActions, context);
                     break;
             }
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 }
