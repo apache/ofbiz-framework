@@ -59,7 +59,9 @@ public class FormFactory {
 
     public static ModelForm getFormFromLocation(String resourceName, String formName, ModelReader entityModelReader, DispatchContext dispatchContext)
             throws IOException, SAXException, ParserConfigurationException {
-        String cacheKey = resourceName + "#" + formName;
+        StringBuilder sb = new StringBuilder(dispatchContext.getDelegator().getDelegatorName());
+        sb.append(":").append(resourceName).append("#").append(formName);
+        String cacheKey = sb.toString();
         ModelForm modelForm = formLocationCache.get(cacheKey);
         if (modelForm == null) {
             URL formFileUrl = FlexibleLocation.resolveLocation(resourceName);

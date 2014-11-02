@@ -72,9 +72,6 @@ public class ModelForm extends ModelWidget {
     public static final String module = ModelForm.class.getName();
     public static final String DEFAULT_FORM_RESULT_LIST_NAME = "defaultFormResultList";
 
-    protected ModelReader entityModelReader;
-    protected DispatchContext dispatchContext;
-
     protected String formLocation;
     protected String parentFormName;
     protected String parentFormLocation;
@@ -207,19 +204,12 @@ public class ModelForm extends ModelWidget {
     /** XML Constructor */
     public ModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
         super(formElement);
-        this.entityModelReader = entityModelReader;
-        this.dispatchContext = dispatchContext;
         try {
-            initForm(formElement);
+            initForm(formElement, entityModelReader, dispatchContext);
         } catch (RuntimeException e) {
             Debug.logError(e, "Error parsing form [" + formElement.getAttribute("name") + "]: " + e.toString(), module);
             throw e;
         }
-    }
-
-    public ModelForm(Element formElement) {
-        super(formElement);
-        initForm(formElement);
     }
 
     public String getTarget() {
@@ -246,7 +236,7 @@ public class ModelForm extends ModelWidget {
         return autoFieldsServices;
     }
 
-    public void initForm(Element formElement) {
+    public void initForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
 
         setDefaultViewSize(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize"));
         // check if there is a parent form to inherit from
@@ -534,19 +524,19 @@ public class ModelForm extends ModelWidget {
         // auto-fields-service
         for (Element autoFieldsServiceElement: UtilXml.childElementList(formElement, "auto-fields-service")) {
             AutoFieldsService autoFieldsService = new AutoFieldsService(autoFieldsServiceElement);
-            this.addAutoFieldsFromService(autoFieldsService);
+            this.addAutoFieldsFromService(autoFieldsService, entityModelReader, dispatchContext);
         }
 
         // auto-fields-entity
         for (Element autoFieldsEntityElement: UtilXml.childElementList(formElement, "auto-fields-entity")) {
             AutoFieldsEntity autoFieldsEntity = new AutoFieldsEntity(autoFieldsEntityElement);
-            this.addAutoFieldsFromEntity(autoFieldsEntity);
+            this.addAutoFieldsFromEntity(autoFieldsEntity, entityModelReader);
         }
 
         // read in add field defs, add/override one by one using the fieldList and fieldMap
         String thisType = this.getType();
         for (Element fieldElement: UtilXml.childElementList(formElement, "field")) {
-            ModelFormField modelFormField = new ModelFormField(fieldElement, this);
+            ModelFormField modelFormField = new ModelFormField(fieldElement, this, entityModelReader, dispatchContext);
             ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
             if (thisType.equals("multi") && fieldInfo instanceof ModelFormField.SubmitField) {
                multiSubmitFields.add(modelFormField);
@@ -760,13 +750,13 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public void addAutoFieldsFromService(AutoFieldsService autoFieldsService) {
+    private void addAutoFieldsFromService(AutoFieldsService autoFieldsService, ModelReader entityModelReader, DispatchContext dispatchContext) {
         autoFieldsServices.add(autoFieldsService);
 
         // read service def and auto-create fields
         ModelService modelService = null;
         try {
-            modelService = this.dispatchContext.getModelService(autoFieldsService.serviceName);
+            modelService = dispatchContext.getModelService(autoFieldsService.serviceName);
         } catch (GenericServiceException e) {
             String errmsg = "Error finding Service with name " + autoFieldsService.serviceName + " for auto-fields-service in a form widget";
             Debug.logError(e, errmsg, module);
@@ -782,7 +772,7 @@ public class ModelForm extends ModelWidget {
                 if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
                     ModelEntity modelEntity;
                     try {
-                        modelEntity = this.entityModelReader.getModelEntity(modelParam.entityName);
+                        modelEntity = entityModelReader.getModelEntity(modelParam.entityName);
                         if (modelEntity != null) {
                             ModelField modelField = modelEntity.getField(modelParam.fieldName);
                             if (modelField != null) {
@@ -809,7 +799,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public ModelFormField addFieldFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType, int defaultPosition) {
+    private ModelFormField addFieldFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType, int defaultPosition) {
         // create field def from service param def
         ModelFormField newFormField = new ModelFormField(this);
         newFormField.setName(modelParam.name);
@@ -822,12 +812,12 @@ public class ModelForm extends ModelWidget {
         return this.addUpdateField(newFormField);
     }
 
-    public void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity) {
+    private void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity, ModelReader entityModelReader) {
         autoFieldsEntities.add(autoFieldsEntity);
         // read entity def and auto-create fields
         ModelEntity modelEntity = null;
         try {
-            modelEntity = this.entityModelReader.getModelEntity(autoFieldsEntity.entityName);
+            modelEntity = entityModelReader.getModelEntity(autoFieldsEntity.entityName);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -849,7 +839,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public ModelFormField addFieldFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType, int defaultPosition) {
+    private ModelFormField addFieldFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType, int defaultPosition) {
         // create field def from entity field def
         ModelFormField newFormField = new ModelFormField(this);
         newFormField.setName(modelField.getName());
