@@ -18,14 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.widget;
 
-import org.ofbiz.widget.form.ModelFormAction;
 
 /**
  *  A <code>ModelWidgetAction</code> visitor.
  */
 public interface ModelActionVisitor {
-
-    void visit(ModelFormAction.CallParentActions callParentActions);
 
     void visit(ModelWidgetAction.EntityAnd entityAnd);
 
