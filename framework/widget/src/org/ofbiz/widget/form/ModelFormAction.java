@@ -18,8 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.widget.form;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -39,11 +40,6 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.ModelActionVisitor;
 import org.ofbiz.widget.ModelWidgetAction;
-import org.ofbiz.widget.ModelWidgetAction.EntityOne;
-import org.ofbiz.widget.ModelWidgetAction.PropertyMap;
-import org.ofbiz.widget.ModelWidgetAction.PropertyToField;
-import org.ofbiz.widget.ModelWidgetAction.Script;
-import org.ofbiz.widget.ModelWidgetAction.SetField;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
@@ -51,26 +47,15 @@ import org.w3c.dom.Element;
  * Widget Library - Screen model class
  */
 public abstract class ModelFormAction {
+
     public static final String module = ModelFormAction.class.getName();
 
-    public abstract void runAction(Map<String, Object> context);
-
     public static List<ModelWidgetAction> readSubActions(ModelForm modelForm, Element parentElement) {
-        List<ModelWidgetAction> actions = new LinkedList<ModelWidgetAction>();
-
-        for (Element actionElement: UtilXml.childElementList(parentElement)) {
-            if ("set".equals(actionElement.getNodeName())) {
-                actions.add(new SetField(modelForm, actionElement));
-            } else if ("property-map".equals(actionElement.getNodeName())) {
-                actions.add(new PropertyMap(modelForm, actionElement));
-            } else if ("property-to-field".equals(actionElement.getNodeName())) {
-                actions.add(new PropertyToField(modelForm, actionElement));
-            } else if ("script".equals(actionElement.getNodeName())) {
-                actions.add(new Script(modelForm, actionElement));
-            } else if ("service".equals(actionElement.getNodeName())) {
+        List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
+        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        for (Element actionElement : UtilXml.childElementList(parentElement)) {
+            if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelForm, actionElement));
-            } else if ("entity-one".equals(actionElement.getNodeName())) {
-                actions.add(new EntityOne(modelForm, actionElement));
             } else if ("entity-and".equals(actionElement.getNodeName())) {
                 actions.add(new EntityAnd(modelForm, actionElement));
             } else if ("entity-condition".equals(actionElement.getNodeName())) {
@@ -78,24 +63,10 @@ public abstract class ModelFormAction {
             } else if ("call-parent-actions".equals(actionElement.getNodeName())) {
                 actions.add(new CallParentActions(modelForm, actionElement));
             } else {
-                throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
+                actions.add(ModelWidgetAction.toModelWidgetAction(modelForm, actionElement));
             }
         }
-
-        return actions;
-    }
-
-    public static void runSubActions(List<ModelWidgetAction> actions, Map<String, Object> context) {
-        if (actions == null) return;
-
-        for (ModelWidgetAction action: actions) {
-            if (Debug.verboseOn()) Debug.logVerbose("Running screen action " + action.getClass().getName(), module);
-            try {
-                action.runAction(context);
-            } catch (GeneralException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        return Collections.unmodifiableList(actions);
     }
 
     @SuppressWarnings("serial")
@@ -363,7 +334,7 @@ public abstract class ModelFormAction {
                     parentModel.runFormActions(context);
                     break;
                 case ROW_ACTIONS:
-                    ModelFormAction.runSubActions(parentModel.rowActions, context);
+                    ModelWidgetAction.runSubActions(parentModel.rowActions, context);
                     break;
             }
         }

@@ -861,7 +861,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void runFormActions(Map<String, Object> context) {
-        ModelFormAction.runSubActions(this.actions, context);
+        ModelWidgetAction.runSubActions(this.actions, context);
     }
 
     /**
@@ -1580,7 +1580,7 @@ public class ModelForm extends ModelWidget {
                 previousItem = new HashMap<String, Object>();
                 previousItem.putAll(itemMap);
 
-                ModelFormAction.runSubActions(this.rowActions, localContext);
+                ModelWidgetAction.runSubActions(this.rowActions, localContext);
 
                 localContext.put("itemIndex", Integer.valueOf(itemIndex - lowIndex));
                 if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {
