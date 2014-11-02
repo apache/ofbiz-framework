@@ -20,6 +20,7 @@ package org.ofbiz.widget;
 
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.menu.ModelMenu;
+import org.ofbiz.widget.menu.ModelMenuItem;
 import org.ofbiz.widget.screen.HtmlWidget;
 import org.ofbiz.widget.screen.IterateSectionWidget;
 import org.ofbiz.widget.screen.ModelScreen;
@@ -44,6 +45,8 @@ public interface ModelWidgetVisitor {
     void visit(ModelForm modelForm);
 
     void visit(ModelMenu modelMenu);
+
+    void visit(ModelMenuItem modelMenuItem);
 
     void visit(ModelScreen modelScreen);
 

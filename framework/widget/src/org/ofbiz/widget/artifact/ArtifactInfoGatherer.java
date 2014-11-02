@@ -67,6 +67,8 @@ import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
 import org.ofbiz.widget.menu.ModelMenu;
+import org.ofbiz.widget.menu.ModelMenuAction;
+import org.ofbiz.widget.menu.ModelMenuItem;
 import org.ofbiz.widget.screen.HtmlWidget;
 import org.ofbiz.widget.screen.HtmlWidget.HtmlTemplate;
 import org.ofbiz.widget.screen.HtmlWidget.HtmlTemplateDecorator;
@@ -276,6 +278,14 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(ModelMenu modelMenu) {
+    }
+
+    @Override
+    public void visit(ModelMenuAction.SetField setField) {
+    }
+
+    @Override
+    public void visit(ModelMenuItem modelMenuItem) {
     }
 
     @Override
