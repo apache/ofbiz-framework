@@ -18,19 +18,16 @@
  *******************************************************************************/
 package org.ofbiz.widget.tree;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
-import java.util.Locale;
 import java.util.Map;
-import java.util.TimeZone;
 import java.util.regex.PatternSyntaxException;
 
-import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.ScriptUtil;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
@@ -40,177 +37,104 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.finder.ByAndFinder;
 import org.ofbiz.entity.finder.ByConditionFinder;
 import org.ofbiz.entity.finder.EntityFinderUtil;
-import org.ofbiz.entity.finder.PrimaryKeyFinder;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.minilang.MiniLangException;
+import org.ofbiz.minilang.SimpleMethod;
+import org.ofbiz.minilang.method.MethodContext;
+import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.ModelActionVisitor;
+import org.ofbiz.widget.ModelWidget;
+import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
  * Widget Library - Tree model class
  */
-public abstract class ModelTreeAction {
+@SuppressWarnings("serial")
+public abstract class ModelTreeAction extends ModelWidgetAction {
+
     public static final String module = ModelTreeAction.class.getName();
 
     protected ModelTree modelTree;
-    protected ModelTree.ModelNode modelNode;
     protected ModelTree.ModelNode.ModelSubNode modelSubNode;
 
     public ModelTreeAction(ModelTree.ModelNode modelNode, Element actionElement) {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
-        this.modelNode = modelNode;
         this.modelTree = modelNode.getModelTree();
     }
 
     public ModelTreeAction(ModelTree.ModelNode.ModelSubNode modelSubNode, Element actionElement) {
         if (Debug.verboseOn()) Debug.logVerbose("Reading Tree action with name: " + actionElement.getNodeName(), module);
         this.modelSubNode = modelSubNode;
-        this.modelNode = this.modelSubNode.getNode();
-        this.modelTree = this.modelNode.getModelTree();
+        this.modelTree = modelSubNode.getNode().getModelTree();
     }
 
-    public abstract void runAction(Map<String, Object> context);
-
-/*
-    public static List readSubActions(ModelTree.ModelNode modelNode, Element parentElement) {
-        List actions = new LinkedList();
-
-        List actionElementList = UtilXml.childElementList(parentElement);
-        Iterator actionElementIter = actionElementList.iterator();
-        while (actionElementIter.hasNext()) {
-            Element actionElement = (Element) actionElementIter.next();
-            if ("set".equals(actionElement.getNodeName())) {
-                actions.add(new SetField(modelTree, actionElement));
-            } else if ("script".equals(actionElement.getNodeName())) {
-                actions.add(new Script(modelTree, actionElement));
-            } else if ("service".equals(actionElement.getNodeName())) {
-                actions.add(new Service(modelTree, actionElement));
-            } else if ("entity-one".equals(actionElement.getNodeName())) {
-                actions.add(new EntityOne(modelTree, actionElement));
-            } else if ("entity-and".equals(actionElement.getNodeName())) {
-                actions.add(new EntityAnd(modelTree, actionElement));
-            } else if ("entity-condition".equals(actionElement.getNodeName())) {
-                actions.add(new EntityCondition(modelTree, actionElement));
-            } else {
-                throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
-            }
+    public static List<ModelWidgetAction> readNodeActions(ModelWidget modelNode, Element actionsElement) {
+        List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
+        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        for (Element actionElement : actionElementList) {
+            // TODO: Check for tree-specific actions
+            actions.add(ModelWidgetAction.toModelWidgetAction(modelNode, actionElement));
         }
-
         return actions;
-    }
-    */
-
-    public static void runSubActions(List<? extends ModelTreeAction> actions, Map<String, Object> context) {
-        for (ModelTreeAction action: actions) {
-            if (Debug.verboseOn()) Debug.logVerbose("Running tree action " + action.getClass().getName(), module);
-            action.runAction(context);
-        }
-    }
-
-    public static class SetField extends ModelTreeAction {
-        protected FlexibleMapAccessor<Object> field;
-        protected FlexibleMapAccessor<Object> fromField;
-        protected FlexibleStringExpander valueExdr;
-        protected FlexibleStringExpander globalExdr;
-        protected String type;
-
-        public SetField(ModelTree.ModelNode modelNode, Element setElement) {
-            super (modelNode, setElement);
-            this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
-            this.fromField = FlexibleMapAccessor.getInstance(setElement.getAttribute("from-field"));
-            this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
-            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
-            this.type = setElement.getAttribute("type");
-            if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
-                throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a tree widget");
-            }
-        }
-
-        @SuppressWarnings("rawtypes")
-        @Override
-        public void runAction(Map<String, Object> context) {
-            String globalStr = this.globalExdr.expandString(context);
-            // default to false
-            boolean global = "true".equals(globalStr);
-
-            Object newValue = null;
-            if (!this.fromField.isEmpty()) {
-                newValue = this.fromField.get(context);
-            } else if (!this.valueExdr.isEmpty()) {
-                newValue = this.valueExdr.expandString(context);
-            }
-            if (UtilValidate.isNotEmpty(this.type)) {
-                if ("NewMap".equals(this.type)) {
-                    newValue = new HashMap();
-                } else if ("NewList".equals(this.type)) {
-                    newValue = new LinkedList();
-                } else {
-                    try {
-                        newValue = ObjectType.simpleTypeConvert(newValue, this.type, null, (TimeZone) context.get("timeZone"), (Locale) context.get("locale"), true);
-                    } catch (GeneralException e) {
-                        String errMsg = "Could not convert field value for the field: [" + this.field.getOriginalName() + "] to the [" + this.type + "] type for the value [" + newValue + "]: " + e.toString();
-                        Debug.logError(e, errMsg, module);
-                        throw new IllegalArgumentException(errMsg);
-                    }
-                }
-            }
-            this.field.put(context, newValue);
-
-            if (global) {
-                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
-                if (globalCtx != null) {
-                    this.field.put(globalCtx, newValue);
-                }
-            }
-
-            // this is a hack for backward compatibility with the JPublish page object
-            Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
-            if (page != null) {
-                this.field.put(page, newValue);
-            }
-        }
     }
 
     public static class Script extends ModelTreeAction {
         protected String location;
+        protected String method;
 
         public Script(ModelTree.ModelNode modelNode, Element scriptElement) {
             super (modelNode, scriptElement);
-            this.location = scriptElement.getAttribute("location");
+            String scriptLocation = scriptElement.getAttribute("location");
+            this.location = WidgetWorker.getScriptLocation(scriptLocation);
+            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
         }
 
         public Script(ModelTree.ModelNode.ModelSubNode modelSubNode, Element scriptElement) {
             super (modelSubNode, scriptElement);
-            this.location = scriptElement.getAttribute("location");
+            String scriptLocation = scriptElement.getAttribute("location");
+            this.location = WidgetWorker.getScriptLocation(scriptLocation);
+            this.method = WidgetWorker.getScriptMethodName(scriptLocation);
         }
 
         @Override
         public void runAction(Map<String, Object> context) {
-            if (location.endsWith(".bsh")) {
+            context.put("_LIST_ITERATOR_", null);
+            if (location.endsWith(".xml")) {
+                Map<String, Object> localContext = new HashMap<String, Object>();
+                localContext.putAll(context);
+                DispatchContext ctx = WidgetWorker.getDispatcher(context).getDispatchContext();
+                MethodContext methodContext = new MethodContext(ctx, localContext, null);
                 try {
-                    context.put("_LIST_ITERATOR_", null);
-                    BshUtil.runBshAtLocation(location, context);
-                    Object obj = context.get("_LIST_ITERATOR_");
-                    if (this.modelSubNode != null) {
-                        if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
-                            ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
-                            this.modelSubNode.setListIterator(listIt);
-                        } else {
-                            if (obj instanceof List<?>) {
-                                List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
-                                this.modelSubNode.setListIterator(list.listIterator());
-                            }
-                        }
-                    }
-                } catch (GeneralException e) {
-                    String errMsg = "Error running BSH script at location [" + location + "]: " + e.toString();
-                    Debug.logError(e, errMsg, module);
-                    throw new IllegalArgumentException(errMsg);
+                    SimpleMethod.runSimpleMethod(location, method, methodContext);
+                    context.putAll(methodContext.getResults());
+                } catch (MiniLangException e) {
+                    throw new RuntimeException("Error running simple method at location [" + location + "]", e);
                 }
             } else {
-                throw new IllegalArgumentException("For tree script actions the script type is not yet support for location:" + location);
+                ScriptUtil.executeScript(this.location, this.method, context);
             }
+            Object obj = context.get("_LIST_ITERATOR_");
+            if (this.modelSubNode != null) {
+                if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
+                    ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
+                    this.modelSubNode.setListIterator(listIt);
+                } else {
+                    if (obj instanceof List<?>) {
+                        List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
+                        this.modelSubNode.setListIterator(list.listIterator());
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -323,31 +247,10 @@ public abstract class ModelTreeAction {
                 throw new IllegalArgumentException(errMsg);
             }
         }
-    }
-
-    public static class EntityOne extends ModelTreeAction {
-        protected PrimaryKeyFinder finder;
-        String valueName;
-
-        public EntityOne(ModelTree.ModelNode modelNode, Element entityOneElement) {
-            super (modelNode, entityOneElement);
-
-            this.valueName = UtilFormatOut.checkEmpty(entityOneElement.getAttribute("value"), entityOneElement.getAttribute("value-name"));
-            if (UtilValidate.isEmpty(this.valueName)) this.valueName = null;
-            entityOneElement.setAttribute("value", this.valueName);
-
-            finder = new PrimaryKeyFinder(entityOneElement);
-        }
 
         @Override
-        public void runAction(Map<String, Object> context) {
-            try {
-                finder.runFind(context, this.modelTree.getDelegator());
-            } catch (GeneralException e) {
-                String errMsg = "Error doing entity query by condition: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
-            }
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 
@@ -389,6 +292,11 @@ public abstract class ModelTreeAction {
                 throw new IllegalArgumentException(errMsg);
             }
         }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     public static class EntityCondition extends ModelTreeAction {
@@ -428,6 +336,11 @@ public abstract class ModelTreeAction {
                 Debug.logError(e, errMsg, module);
                 throw new IllegalArgumentException(errMsg);
             }
+        }
+
+        @Override
+        public void accept(ModelActionVisitor visitor) {
+            visitor.visit(this);
         }
     }
 }
