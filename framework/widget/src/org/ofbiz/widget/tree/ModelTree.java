@@ -754,8 +754,7 @@ public class ModelTree extends ModelWidget {
 
             @Override
             public void accept(ModelWidgetVisitor visitor) {
-                // TODO Auto-generated method stub
-                
+                visitor.visit(this);
             }
         }
 
@@ -1118,8 +1117,7 @@ public class ModelTree extends ModelWidget {
 
         @Override
         public void accept(ModelWidgetVisitor visitor) {
-            // TODO Auto-generated method stub
-            
+            visitor.visit(this);
         }
     }
 
