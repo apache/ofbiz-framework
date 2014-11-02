@@ -31,7 +31,6 @@ public final class ArtifactInfoContext {
     private final Set<String> screenLocationSet = new HashSet<String>();
     private final Set<String> formLocationSet = new HashSet<String>();
     private final Set<String> requestLocationSet = new HashSet<String>();
-    private final Set<String> targetLocationSet = new HashSet<String>();
 
     /**
      * Adds an entity name to this context.
@@ -84,16 +83,6 @@ public final class ArtifactInfoContext {
     }
 
     /**
-     * Adds a target location to this context.
-     * @param name The target location to add to this context
-     */
-    public void addTargetLocation(String name) {
-        if (name != null) {
-            this.targetLocationSet.add(name);
-        }
-    }
-
-    /**
      * Returns the entity names in this context.
      * @return The entity names in this context
      */
@@ -131,13 +120,5 @@ public final class ArtifactInfoContext {
      */
     public Set<String> getServiceNames() {
         return this.serviceNameSet;
-    }
-
-    /**
-     * Returns the target locations in this context.
-     * @return The target locations in this context
-     */
-    public Set<String> getTargetLocations() {
-        return this.targetLocationSet;
     }
 }
