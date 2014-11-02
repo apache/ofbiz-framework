@@ -21,6 +21,7 @@ package org.ofbiz.widget;
 import java.io.Serializable;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -76,43 +77,51 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public abstract void accept(ModelActionVisitor visitor);
 
+    public static ModelWidgetAction toModelWidgetAction(ModelWidget modelWidget, Element actionElement) {
+        if ("set".equals(actionElement.getNodeName())) {
+            return new SetField(modelWidget, actionElement);
+        } else if ("property-map".equals(actionElement.getNodeName())) {
+            return new PropertyMap(modelWidget, actionElement);
+        } else if ("property-to-field".equals(actionElement.getNodeName())) {
+            return new PropertyToField(modelWidget, actionElement);
+        } else if ("script".equals(actionElement.getNodeName())) {
+            return new Script(modelWidget, actionElement);
+        } else if ("service".equals(actionElement.getNodeName())) {
+            return new Service(modelWidget, actionElement);
+        } else if ("entity-one".equals(actionElement.getNodeName())) {
+            return new EntityOne(modelWidget, actionElement);
+        } else if ("entity-and".equals(actionElement.getNodeName())) {
+            return new EntityAnd(modelWidget, actionElement);
+        } else if ("entity-condition".equals(actionElement.getNodeName())) {
+            return new EntityCondition(modelWidget, actionElement);
+        } else if ("get-related-one".equals(actionElement.getNodeName())) {
+            return new GetRelatedOne(modelWidget, actionElement);
+        } else if ("get-related".equals(actionElement.getNodeName())) {
+            return new GetRelated(modelWidget, actionElement);
+        } else {
+            throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
+        }
+    }
+    
     public static List<ModelWidgetAction> readSubActions(ModelWidget modelWidget, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
         for (Element actionElement: actionElementList) {
-            if ("set".equals(actionElement.getNodeName())) {
-                actions.add(new SetField(modelWidget, actionElement));
-            } else if ("property-map".equals(actionElement.getNodeName())) {
-                actions.add(new PropertyMap(modelWidget, actionElement));
-            } else if ("property-to-field".equals(actionElement.getNodeName())) {
-                actions.add(new PropertyToField(modelWidget, actionElement));
-            } else if ("script".equals(actionElement.getNodeName())) {
-                actions.add(new Script(modelWidget, actionElement));
-            } else if ("service".equals(actionElement.getNodeName())) {
-                actions.add(new Service(modelWidget, actionElement));
-            } else if ("entity-one".equals(actionElement.getNodeName())) {
-                actions.add(new EntityOne(modelWidget, actionElement));
-            } else if ("entity-and".equals(actionElement.getNodeName())) {
-                actions.add(new EntityAnd(modelWidget, actionElement));
-            } else if ("entity-condition".equals(actionElement.getNodeName())) {
-                actions.add(new EntityCondition(modelWidget, actionElement));
-            } else if ("get-related-one".equals(actionElement.getNodeName())) {
-                actions.add(new GetRelatedOne(modelWidget, actionElement));
-            } else if ("get-related".equals(actionElement.getNodeName())) {
-                actions.add(new GetRelated(modelWidget, actionElement));
-            } else {
-                throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
-            }
+            actions.add(toModelWidgetAction(modelWidget, actionElement));
         }
-        return actions;
+        return Collections.unmodifiableList(actions);
     }
 
-    public static void runSubActions(List<ModelWidgetAction> actions, Map<String, Object> context) throws GeneralException {
+    public static void runSubActions(List<ModelWidgetAction> actions, Map<String, Object> context) {
         if (actions == null) return;
-
-        for (ModelWidgetAction action: actions) {
-            if (Debug.verboseOn()) Debug.logVerbose("Running widget action " + action.getClass().getName(), module);
-            action.runAction(context);
+        for (ModelWidgetAction action : actions) {
+            if (Debug.verboseOn())
+                Debug.logVerbose("Running action " + action.getClass().getName(), module);
+            try {
+                action.runAction(context);
+            } catch (GeneralException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
