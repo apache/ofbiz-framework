@@ -129,7 +129,7 @@ public class ModelFormField {
     }
 
     /** XML Constructor */
-    public ModelFormField(Element fieldElement, ModelForm modelForm) {
+    public ModelFormField(Element fieldElement, ModelForm modelForm, ModelReader entityModelReader, DispatchContext dispatchContext) {
         this.modelForm = modelForm;
         this.name = fieldElement.getAttribute("name");
         this.setMapName(fieldElement.getAttribute("map-name"));
@@ -182,7 +182,7 @@ public class ModelFormField {
 
             if (UtilValidate.isEmpty(subElementName)) {
                 this.fieldInfo = null;
-                this.induceFieldInfo(null); //no defaultFieldType specified here, will default to edit
+                this.induceFieldInfo(null, entityModelReader, dispatchContext); //no defaultFieldType specified here, will default to edit
             } else if ("display".equals(subElementName)) this.fieldInfo = new DisplayField(subElement, this);
             else if ("display-entity".equals(subElementName)) this.fieldInfo = new DisplayEntityField(subElement, this);
             else if ("hyperlink".equals(subElementName)) this.fieldInfo = new HyperlinkField(subElement, this);
@@ -209,20 +209,20 @@ public class ModelFormField {
         }
     }
 
-    public void addOnEventUpdateArea(UpdateArea updateArea) {
+    private void addOnEventUpdateArea(UpdateArea updateArea) {
         // Event types are sorted as a convenience for the rendering classes
         Debug.logInfo(this.modelForm.getName() + ":" + this.name + " adding UpdateArea type " + updateArea.getEventType(), module);
         if ("change".equals(updateArea.getEventType()))  addOnChangeUpdateArea(updateArea);
         else if ("click".equals(updateArea.getEventType())) addOnClickUpdateArea(updateArea);
     }
 
-    protected void addOnChangeUpdateArea(UpdateArea updateArea) {
+    private void addOnChangeUpdateArea(UpdateArea updateArea) {
         if (onChangeUpdateAreas == null) onChangeUpdateAreas = new ArrayList<UpdateArea>();
         onChangeUpdateAreas.add(updateArea);
         Debug.logInfo(this.modelForm.getName() + ":" + this.name + " onChangeUpdateAreas size = " + onChangeUpdateAreas.size(), module);
     }
 
-    protected void addOnClickUpdateArea(UpdateArea updateArea) {
+    private void addOnClickUpdateArea(UpdateArea updateArea) {
         if (onClickUpdateAreas == null) onClickUpdateAreas = new ArrayList<UpdateArea>();
         onClickUpdateAreas.add(updateArea);
     }
@@ -261,16 +261,14 @@ public class ModelFormField {
         this.encodeOutput = overrideFormField.encodeOutput;
     }
 
-    public boolean induceFieldInfo(String defaultFieldType) {
-        if (this.induceFieldInfoFromEntityField(defaultFieldType)) return true;
-        if (this.induceFieldInfoFromServiceParam(defaultFieldType)) return true;
+    private boolean induceFieldInfo(String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
+        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) return true;
+        if (this.induceFieldInfoFromServiceParam(defaultFieldType, entityModelReader, dispatchContext)) return true;
         return false;
     }
 
-    public boolean induceFieldInfoFromServiceParam(String defaultFieldType) {
+    private boolean induceFieldInfoFromServiceParam(String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
         if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName()))  return false;
-
-        DispatchContext dispatchContext = this.getModelForm().dispatchContext;
         try {
             ModelService modelService = dispatchContext.getModelService(this.getServiceName());
             if (modelService != null) {
@@ -279,7 +277,7 @@ public class ModelFormField {
                     if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
                         this.entityName = modelParam.entityName;
                         this.fieldName = modelParam.fieldName;
-                        if (this.induceFieldInfoFromEntityField(defaultFieldType)) {
+                        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
                             return true;
                         }
                     }
@@ -357,10 +355,8 @@ public class ModelFormField {
         return true;
     }
 
-    public boolean induceFieldInfoFromEntityField(String defaultFieldType) {
+    private boolean induceFieldInfoFromEntityField(String defaultFieldType, ModelReader entityModelReader) {
         if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName())) return false;
-        
-        ModelReader entityModelReader = this.getModelForm().entityModelReader;
         try {
             ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
             if (modelEntity != null) {
