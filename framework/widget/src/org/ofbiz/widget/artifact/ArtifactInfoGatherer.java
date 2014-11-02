@@ -96,6 +96,7 @@ import org.ofbiz.widget.screen.ModelScreenWidget.Screenlet;
 import org.ofbiz.widget.screen.ModelScreenWidget.Section;
 import org.ofbiz.widget.screen.ModelScreenWidget.Tree;
 import org.ofbiz.widget.tree.ModelTree;
+import org.ofbiz.widget.tree.ModelTreeAction;
 
 /**
  * An object that gathers artifact information from screen widgets.
@@ -293,7 +294,6 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         String screenLocation = modelScreen.getSourceLocation().concat("#").concat(modelScreen.getName());
         infoContext.addScreenLocation(screenLocation);
         modelScreen.getSection().accept(this);
-        ;
     }
 
     @Override
@@ -414,6 +414,22 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(ModelTree modelTree) {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.EntityAnd entityAnd) {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.EntityCondition entityCondition) {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.Script script) {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.Service service) {
     }
 
     private class FieldInfoGatherer implements ModelFieldVisitor {
