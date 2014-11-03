@@ -32,6 +32,7 @@ import java.util.Map;
 import javax.script.ScriptContext;
 
 import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.CompilerConfiguration;
 import org.codehaus.groovy.runtime.InvokerHelper;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -45,6 +46,18 @@ public class GroovyUtil {
     public static final String module = GroovyUtil.class.getName();
 
     private static final UtilCache<String, Class<?>> parsedScripts = UtilCache.createUtilCache("script.GroovyLocationParsedCache", 0, 0, false);
+
+    private static final GroovyClassLoader groovyScriptClassLoader;
+    static {
+        GroovyClassLoader groovyClassLoader = null;
+        String scriptBaseClass = UtilProperties.getPropertyValue("groovy.properties", "scriptBaseClass");
+        if (!scriptBaseClass.isEmpty()) {
+            CompilerConfiguration conf = new CompilerConfiguration();
+            conf.setScriptBaseClass(scriptBaseClass);
+            groovyClassLoader = new GroovyClassLoader(GroovyUtil.class.getClassLoader(), conf);
+        }
+        groovyScriptClassLoader = groovyClassLoader;
+    }
 
     /**
      * Evaluate a Groovy condition or expression
@@ -110,9 +123,6 @@ public class GroovyUtil {
     }
 
     public static Class<?> getScriptClassFromLocation(String location) throws GeneralException {
-        return getScriptClassFromLocation(location, null);
-    }
-    public static Class<?> getScriptClassFromLocation(String location, GroovyClassLoader groovyClassLoader) throws GeneralException {
         try {
             Class<?> scriptClass = parsedScripts.get(location);
             if (scriptClass == null) {
@@ -120,8 +130,8 @@ public class GroovyUtil {
                 if (scriptUrl == null) {
                     throw new GeneralException("Script not found at location [" + location + "]");
                 }
-                if (groovyClassLoader != null) {
-                    scriptClass = parseClass(scriptUrl.openStream(), location, groovyClassLoader);
+                if (groovyScriptClassLoader != null) {
+                    scriptClass = parseClass(scriptUrl.openStream(), location, groovyScriptClassLoader);
                 } else {
                     scriptClass = parseClass(scriptUrl.openStream(), location);
                 }
@@ -156,16 +166,8 @@ public class GroovyUtil {
         return new GroovyClassLoader().parseClass(text);
     }
 
-    public static Class<?> parseClass(String text, String location) {
-        return new GroovyClassLoader().parseClass(text, location);
-    }
-
     public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context) throws GeneralException {
-        return runScriptAtLocation(location, methodName, context, null);
-    }
-
-    public static Object runScriptAtLocation(String location, String methodName, Map<String, Object> context, GroovyClassLoader groovyClassLoader) throws GeneralException {
-        Script script = InvokerHelper.createScript(getScriptClassFromLocation(location, groovyClassLoader), getBinding(context));
+        Script script = InvokerHelper.createScript(getScriptClassFromLocation(location), getBinding(context));
         Object result = null;
         if (UtilValidate.isEmpty(methodName)) {
             result = script.run();
@@ -173,31 +175,6 @@ public class GroovyUtil {
             result = script.invokeMethod(methodName, new Object[] { context });
         }
         return result;
-    }
-
-    public static Object runScriptFromClasspath(String script, Map<String,Object> context) throws GeneralException {
-        try {
-            Class<?> scriptClass = parsedScripts.get(script);
-            if (scriptClass == null) {
-                scriptClass = loadClass(script);
-                Class<?> cachedScriptClass = parsedScripts.putIfAbsent(script, scriptClass);
-                if (cachedScriptClass == null) { // putIfAbsent returns null if the class is added
-                    if (Debug.verboseOn()) {
-                        Debug.logVerbose("Cached Groovy script at: " + script, module);
-                    }
-                } else {
-                    // the newly parsed script is discarded and the one found in the cache (that has been created by a concurrent thread in the meantime) is used
-                    scriptClass = cachedScriptClass;
-                }
-            }
-            return InvokerHelper.createScript(scriptClass, getBinding(context)).run();
-        } catch (CompilationFailedException e) {
-            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
-            throw new GeneralException(errMsg, e);
-        } catch (ClassNotFoundException e) {
-            String errMsg = "Error loading Groovy script [" + script + "]: " + e.toString();
-            throw new GeneralException(errMsg, e);
-        }
     }
 
     private GroovyUtil() {}
