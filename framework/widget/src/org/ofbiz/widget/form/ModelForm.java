@@ -1365,8 +1365,8 @@ public class ModelForm extends ModelWidget {
         }
 
         if (getPaginate(context)) {
-            viewIndex = this.getPaginateIndex(context);
-            viewSize = this.getPaginateSize(context);
+            viewIndex = this.getViewIndex(context);
+            viewSize = this.getViewSize(context);
             lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
         } else {
@@ -1487,43 +1487,6 @@ public class ModelForm extends ModelWidget {
         return DEFAULT_PAG_FIRST_STYLE;
     }
 
-    public int getPaginateIndex(Map<String, Object> context) {
-        String field = this.getMultiPaginateIndexField(context);
-
-        int viewIndex = 0;
-        try {
-            Object value = context.get(field);
-
-            if (value == null) {
-                // try parameters.VIEW_INDEX as that is an old OFBiz convention
-                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-                if (parameters != null) {
-                    value = parameters.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
-
-                    if (value == null) {
-                        value = parameters.get(field);
-                    }
-                }
-            }
-
-            // try paginate index field without paginator number
-            if (value == null) {
-                field = this.getPaginateIndexField(context);
-                value = context.get(field);
-            }
-
-            if (value instanceof Integer) {
-                viewIndex = ((Integer) value).intValue();
-            } else if (value instanceof String) {
-                viewIndex = Integer.parseInt((String) value);
-            }
-        } catch (Exception e) {
-            Debug.logWarning(e, "Error getting paginate view index: " + e.toString(), module);
-        }
-
-        return viewIndex;
-    }
-
     public String getPaginateIndexField() {
         return paginateIndexField.getOriginal();
     }
@@ -1585,43 +1548,6 @@ public class ModelForm extends ModelWidget {
 
     public String getPaginatePreviousStyle() {
         return DEFAULT_PAG_PREV_STYLE;
-    }
-
-    public int getPaginateSize(Map<String, Object> context) {
-        String field = this.getMultiPaginateSizeField(context);
-
-        int viewSize = this.defaultViewSize;
-        try {
-            Object value = context.get(field);
-
-            if (value == null) {
-                // try parameters.VIEW_SIZE as that is an old OFBiz convention
-                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
-                if (parameters != null) {
-                    value = parameters.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
-
-                    if (value == null) {
-                        value = parameters.get(field);
-                    }
-                }
-            }
-
-            // try the page size field without paginator number
-            if (value == null) {
-                field = this.getPaginateSizeField(context);
-                value = context.get(field);
-            }
-
-            if (value instanceof Integer) {
-                viewSize = ((Integer) value).intValue();
-            } else if (value instanceof String && UtilValidate.isNotEmpty(value)) {
-                viewSize = Integer.parseInt((String) value);
-            }
-        } catch (Exception e) {
-            Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), module);
-        }
-
-        return viewSize;
     }
 
     public String getPaginateSizeField() {
@@ -1874,11 +1800,67 @@ public class ModelForm extends ModelWidget {
     }
 
     public int getViewIndex(Map<String, Object> context) {
-        return getPaginateIndex(context);
+        String field = this.getMultiPaginateIndexField(context);
+        int viewIndex = 0;
+        try {
+            Object value = context.get(field);
+            if (value == null) {
+                // try parameters.VIEW_INDEX as that is an old OFBiz convention
+                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+                if (parameters != null) {
+                    value = parameters.get("VIEW_INDEX" + "_" + WidgetWorker.getPaginatorNumber(context));
+
+                    if (value == null) {
+                        value = parameters.get(field);
+                    }
+                }
+            }
+            // try paginate index field without paginator number
+            if (value == null) {
+                field = this.getPaginateIndexField(context);
+                value = context.get(field);
+            }
+            if (value instanceof Integer) {
+                viewIndex = ((Integer) value).intValue();
+            } else if (value instanceof String) {
+                viewIndex = Integer.parseInt((String) value);
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting paginate view index: " + e.toString(), module);
+        }
+        return viewIndex;
     }
 
     public int getViewSize(Map<String, Object> context) {
-        return getPaginateSize(context);
+        String field = this.getMultiPaginateSizeField(context);
+        int viewSize = this.defaultViewSize;
+        try {
+            Object value = context.get(field);
+            if (value == null) {
+                // try parameters.VIEW_SIZE as that is an old OFBiz convention
+                Map<String, Object> parameters = UtilGenerics.cast(context.get("parameters"));
+                if (parameters != null) {
+                    value = parameters.get("VIEW_SIZE" + "_" + WidgetWorker.getPaginatorNumber(context));
+
+                    if (value == null) {
+                        value = parameters.get(field);
+                    }
+                }
+            }
+            // try the page size field without paginator number
+            if (value == null) {
+                field = this.getPaginateSizeField(context);
+                value = context.get(field);
+            }
+            if (value instanceof Integer) {
+                viewSize = ((Integer) value).intValue();
+            } else if (value instanceof String && UtilValidate.isNotEmpty(value)) {
+                viewSize = Integer.parseInt((String) value);
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting paginate view size: " + e.toString(), module);
+        }
+        return viewSize;
     }
 
     public boolean getGroupColumns() {
