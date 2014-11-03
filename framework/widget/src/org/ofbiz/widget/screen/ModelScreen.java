@@ -162,19 +162,7 @@ public class ModelScreen extends ModelWidget {
 
             // render the screen, starting with the top-level section
             this.section.renderWidgetString(writer, context, screenStringRenderer);
-        } catch (ScreenRenderException e) {
-            throw e;
-        } catch (RuntimeException e) {
-            String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
-            Debug.logError(errMsg + ". Rolling back transaction.", module);
-            try {
-                // only rollback the transaction if we started one...
-                TransactionUtil.rollback(beganTransaction, errMsg, e);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), module);
-            }
-            // after rolling back, rethrow the exception
-            throw new ScreenRenderException(errMsg, e);
+            TransactionUtil.commit(beganTransaction);
         } catch (Exception e) {
             String errMsg = "Error rendering screen [" + this.sourceLocation + "#" + getName() + "]: " + e.toString();
             Debug.logError(errMsg + ". Rolling back transaction.", module);
@@ -189,13 +177,6 @@ public class ModelScreen extends ModelWidget {
 
             // after rolling back, rethrow the exception
             throw new ScreenRenderException(errMsg, e);
-        } finally {
-            // only commit the transaction if we started one... this will throw an exception if it fails
-            try {
-                TransactionUtil.commit(beganTransaction);
-            } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not commit transaction: " + e2.toString(), module);
-            }
         }
     }
 
