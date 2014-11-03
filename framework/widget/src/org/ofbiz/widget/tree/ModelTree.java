@@ -284,7 +284,6 @@ public class ModelTree extends ModelWidget {
         protected Label label;
         protected Link link;
         protected ModelTree modelTree;
-        protected String name;
         protected String pkName;
         protected String renderStyle;
         protected FlexibleStringExpander screenLocationExdr;
@@ -297,7 +296,6 @@ public class ModelTree extends ModelWidget {
         public ModelNode(Element nodeElement, ModelTree modelTree) {
             super(nodeElement);
             this.modelTree = modelTree;
-            this.name = nodeElement.getAttribute("name");
             this.expandCollapseStyle = nodeElement.getAttribute("expand-collapse-style");
             this.wrapStyleExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("wrap-style"));
             this.renderStyle = nodeElement.getAttribute("render-style");
@@ -443,22 +441,22 @@ public class ModelTree extends ModelWidget {
                     }
                 } catch (ScreenRenderException e) {
                     String errMsg = "Error rendering included label with name ["
-                            + name + "] : " + e.toString();
+                            + getName() + "] : " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new RuntimeException(errMsg);
                 } catch (SAXException e) {
                     String errMsg = "Error rendering included label with name ["
-                            + name + "] : " + e.toString();
+                            + getName() + "] : " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new RuntimeException(errMsg);
                 } catch (ParserConfigurationException e3) {
                     String errMsg = "Error rendering included label with name ["
-                            + name + "] : " + e3.toString();
+                            + getName() + "] : " + e3.toString();
                     Debug.logError(e3, errMsg, module);
                     throw new RuntimeException(errMsg);
                 } catch (IOException e2) {
                     String errMsg = "Error rendering included label with name ["
-                            + name + "] : " + e2.toString();
+                            + getName() + "] : " + e2.toString();
                     Debug.logError(e2, errMsg, module);
                     throw new RuntimeException(errMsg);
                 }
@@ -578,10 +576,6 @@ public class ModelTree extends ModelWidget {
              }
         }
 
-        public String getName() {
-            return name;
-        }
-
         public String getEntryName() {
             return this.entryName;
         }
@@ -613,7 +607,7 @@ public class ModelTree extends ModelWidget {
         }
 
         public boolean isRootNode() {
-            return name.equals(modelTree.getRootNodeName());
+            return getName().equals(modelTree.getRootNodeName());
         }
 
         public boolean showPeers(int currentDepth, Map<String, Object> context) {

@@ -962,7 +962,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
             }
 
-            boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
+            boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
             if (ajaxEnabled) {
                 writer.append("<input type=\"button\"");
             } else {

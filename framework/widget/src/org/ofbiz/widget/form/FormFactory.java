@@ -90,8 +90,7 @@ public class FormFactory {
             URL formFileUrl = servletContext.getResource(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
-            modelForm = new ModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext());
-            modelForm.setFormLocation(resourceName);
+            modelForm = new ModelForm(formElement, resourceName, delegator.getModelReader(), dispatcher.getDispatchContext());
             modelForm = formWebappCache.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
@@ -126,8 +125,7 @@ public class FormFactory {
     }
 
     public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
-        ModelForm modelForm = new ModelForm(formElement, entityModelReader, dispatchContext);
-        modelForm.setFormLocation(formLocation);
+        ModelForm modelForm = new ModelForm(formElement, formLocation, entityModelReader, dispatchContext);
         return modelForm;
     }
 }

@@ -334,7 +334,7 @@ public abstract class ModelFormAction {
                     parentModel.runFormActions(context);
                     break;
                 case ROW_ACTIONS:
-                    ModelWidgetAction.runSubActions(parentModel.rowActions, context);
+                    ModelWidgetAction.runSubActions(parentModel.getRowActions(), context);
                     break;
             }
         }
