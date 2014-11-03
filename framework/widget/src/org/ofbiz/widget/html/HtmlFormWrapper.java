@@ -36,6 +36,7 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.form.FormRenderer;
 
 import org.xml.sax.SAXException;
 
@@ -107,7 +108,7 @@ public class HtmlFormWrapper {
     }
 
     @SuppressWarnings("unchecked")
-    public StringWriter renderFormString(Object contextStack) throws IOException {
+    public StringWriter renderFormString(Object contextStack) throws Exception {
         if (contextStack instanceof MapStack) {
             return renderFormString((MapStack) contextStack);
         } else {
@@ -115,17 +116,19 @@ public class HtmlFormWrapper {
             return renderFormString();
         }
     }
-    public StringWriter renderFormString(MapStack<String> contextStack) throws IOException {
+    public StringWriter renderFormString(MapStack<String> contextStack) throws Exception {
         // create a new context with the current context on the bottom
         contextStack.push(this.context);
         StringWriter buffer = new StringWriter();
-        modelForm.renderFormString(buffer, contextStack, renderer);
+        FormRenderer formRenderer = new FormRenderer(modelForm, renderer);
+        formRenderer.render(buffer, contextStack);
         contextStack.pop();
         return buffer;
     }
-    public StringWriter renderFormString() throws IOException {
+    public StringWriter renderFormString() throws Exception {
         StringWriter buffer = new StringWriter();
-        modelForm.renderFormString(buffer, context, renderer);
+        FormRenderer formRenderer = new FormRenderer(modelForm, renderer);
+        formRenderer.render(buffer, context);
         return buffer;
     }
 

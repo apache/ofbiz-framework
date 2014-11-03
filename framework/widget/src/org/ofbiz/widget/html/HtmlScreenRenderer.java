@@ -47,6 +47,7 @@ import org.ofbiz.widget.WidgetDataResourceWorker;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.form.Paginator;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.screen.ModelScreenWidget;
@@ -254,12 +255,32 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
+    private int getActualPageSize(Map<String, Object> context) {
+        Integer value = (Integer) context.get("actualPageSize");
+        return value != null ? value.intValue() : (getHighIndex(context) - getLowIndex(context));
+    }
+
+    private int getHighIndex(Map<String, Object> context) {
+        Integer value = (Integer) context.get("highIndex");
+        return value != null ? value.intValue() : 0;
+    }
+
+    private int getListSize(Map<String, Object> context) {
+        Integer value = (Integer) context.get("listSize");
+        return value != null ? value.intValue() : 0;
+    }
+
+    private int getLowIndex(Map<String, Object> context) {
+        Integer value = (Integer) context.get("lowIndex");
+        return value != null ? value.intValue() : 0;
+    }
+
     protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         ModelForm modelForm = form.getModelForm(context);
         modelForm.runFormActions(context);
-        modelForm.preparePager(context);
+        Paginator.preparePager(modelForm, context);
         String targetService = modelForm.getPaginateTarget(context);
         if (targetService == null) {
             targetService = "${targetService}";
@@ -270,13 +291,13 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 
-        int viewIndex = modelForm.getViewIndex(context);
-        int viewSize = modelForm.getViewSize(context);
-        int listSize = modelForm.getListSize(context);
+        int viewIndex = Paginator.getViewIndex(modelForm, context);
+        int viewSize = Paginator.getViewSize(modelForm, context);
+        int listSize = getListSize(context);
 
-        int lowIndex = modelForm.getLowIndex(context);
-        int highIndex = modelForm.getHighIndex(context);
-        int actualPageSize = modelForm.getActualPageSize(context);
+        int lowIndex = getLowIndex(context);
+        int highIndex = getHighIndex(context);
+        int actualPageSize = getActualPageSize(context);
 
         // if this is all there seems to be (if listSize < 0, then size is unknown)
         if (actualPageSize >= listSize && listSize >= 0) return;

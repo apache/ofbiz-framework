@@ -51,6 +51,7 @@ import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.WidgetFactory;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormFactory;
+import org.ofbiz.widget.form.FormRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.menu.MenuFactory;
@@ -928,9 +929,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 UtilGenerics.<MapStack<String>>cast(context).push();
             }
             ModelForm modelForm = getModelForm(context);
+            FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
             try {
-                modelForm.renderFormString(writer, context, formStringRenderer);
-            } catch (IOException e) {
+                renderer.render(writer, context);
+            } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + getName() + "] at location [" + this.getLocation(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg + e);
