@@ -45,6 +45,7 @@ import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.form.FormRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.form.ModelForm;
@@ -70,6 +71,7 @@ import org.ofbiz.widget.form.ModelFormField.SubmitField;
 import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
+import org.ofbiz.widget.form.Paginator;
 import org.ofbiz.widget.form.UtilHelpText;
 
 import freemarker.template.TemplateException;
@@ -904,7 +906,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             writer.append(" href=\"javascript:document.");
-            writer.append(modelForm.getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append(".submit()\">");
 
             writer.append(encode(modelFormField.getTitle(context), modelFormField, context));
@@ -1182,7 +1184,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append("\"");
         }
 
-        String containerId =  modelForm.getCurrentContainerId(context);
+        String containerId = FormRenderer.getCurrentContainerId(modelForm, context);
         if (UtilValidate.isNotEmpty(containerId)) {
             writer.append(" id=\"");
             writer.append(containerId);
@@ -1205,7 +1207,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append(" name=\"");
-        writer.append(modelForm.getCurrentFormName(context));
+        writer.append(FormRenderer.getCurrentContainerId(modelForm, context));
         writer.append("\">");
 
         boolean useRowSubmit = modelForm.getUseRowSubmit();
@@ -1226,7 +1228,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
             appendWhitespace(writer);
-            writer.append("document.").append(modelForm.getCurrentFormName(context)).append(".");
+            writer.append("document.").append(FormRenderer.getCurrentFormName(modelForm, context)).append(".");
             writer.append(focusFieldName).append(".focus();");
             appendWhitespace(writer);
             writer.append("</script>");
@@ -1904,7 +1906,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (uiLabelMap != null) {
             localizedIconTitle = uiLabelMap.get("CommonViewCalendar");
         }
-
+        ModelForm modelForm = modelFormField.getModelForm();
         // add calendar pop-up button and seed data IF this is not a "time" type date-find
         if (!"time".equals(dateFindField.getType())) {
             if ("date".equals(dateFindField.getType())) {
@@ -1912,7 +1914,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             } else {
                 writer.append("<a href=\"javascript:call_cal(document.");
             }
-            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append('.');
             writer.append(modelFormField.getParameterName(context));
             writer.append("_fld0_value,'");
@@ -1989,7 +1991,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             } else {
                 writer.append("<a href=\"javascript:call_cal(document.");
             }
-            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append('.');
             writer.append(modelFormField.getParameterName(context));
             writer.append("_fld1_value,'");
@@ -2076,12 +2078,12 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         writer.append("/>");
-
+        ModelForm modelForm = modelFormField.getModelForm();
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         if (UtilValidate.isNotEmpty(descriptionFieldName)) {
             writer.append("<a href=\"javascript:call_fieldlookup3(document.");
-            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append('.');
             writer.append(modelFormField.getParameterName(context));
             writer.append(",'");
@@ -2089,7 +2091,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             writer.append(",'");
         } else {
             writer.append("<a href=\"javascript:call_fieldlookup2(document.");
-            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append('.');
             writer.append(modelFormField.getParameterName(context));
             writer.append(",'");
@@ -2100,7 +2102,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         for (String targetParameter: targetParameterList) {
             // named like: document.${formName}.${targetParameter}.value
             writer.append(", document.");
-            writer.append(modelFormField.getModelForm().getCurrentFormName(context));
+            writer.append(FormRenderer.getCurrentFormName(modelForm, context));
             writer.append(".");
             writer.append(targetParameter);
             writer.append(".value");
@@ -2140,6 +2142,26 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         return result;
     }
 
+    private int getActualPageSize(Map<String, Object> context) {
+        Integer value = (Integer) context.get("actualPageSize");
+        return value != null ? value.intValue() : (getHighIndex(context) - getLowIndex(context));
+    }
+
+    private int getHighIndex(Map<String, Object> context) {
+        Integer value = (Integer) context.get("highIndex");
+        return value != null ? value.intValue() : 0;
+    }
+
+    private int getListSize(Map<String, Object> context) {
+        Integer value = (Integer) context.get("listSize");
+        return value != null ? value.intValue() : 0;
+    }
+
+    private int getLowIndex(Map<String, Object> context) {
+        Integer value = (Integer) context.get("lowIndex");
+        return value != null ? value.intValue() : 0;
+    }
+
     public void renderNextPrev(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         boolean ajaxEnabled = false;
         List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
@@ -2162,13 +2184,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 
-        int viewIndex = modelForm.getViewIndex(context);
-        int viewSize = modelForm.getViewSize(context);
-        int listSize = modelForm.getListSize(context);
+        int viewIndex = Paginator.getViewIndex(modelForm, context);
+        int viewSize = Paginator.getViewSize(modelForm, context);
+        int listSize = getListSize(context);
 
-        int lowIndex = modelForm.getLowIndex(context);
-        int highIndex = modelForm.getHighIndex(context);
-        int actualPageSize = modelForm.getActualPageSize(context);
+        int lowIndex = getLowIndex(context);
+        int highIndex = getHighIndex(context);
+        int actualPageSize = getActualPageSize(context);
 
         // if this is all there seems to be (if listSize < 0, then size is unknown)
         if (actualPageSize >= listSize && listSize >= 0) return;

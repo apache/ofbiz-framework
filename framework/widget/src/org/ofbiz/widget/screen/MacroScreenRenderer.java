@@ -55,6 +55,7 @@ import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.MacroFormRenderer;
 import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.form.Paginator;
 import org.ofbiz.widget.html.HtmlScreenRenderer.ScreenletMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.screen.ModelScreenWidget.Column;
@@ -682,7 +683,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         ModelForm modelForm = form.getModelForm(context);
         modelForm.runFormActions(context);
-        modelForm.preparePager(context);
+        Paginator.preparePager(modelForm, context);
         String targetService = modelForm.getPaginateTarget(context);
         if (targetService == null) {
             targetService = "${targetService}";
@@ -693,12 +694,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String viewIndexParam = modelForm.getMultiPaginateIndexField(context);
         String viewSizeParam = modelForm.getMultiPaginateSizeField(context);
 
-        int viewIndex = modelForm.getViewIndex(context);
-        int viewSize = modelForm.getViewSize(context);
-        int listSize = modelForm.getListSize(context);
+        int viewIndex = Paginator.getViewIndex(modelForm, context);
+        int viewSize = Paginator.getViewSize(modelForm, context);
+        int listSize = Paginator.getListSize(context);
 
-        int highIndex = modelForm.getHighIndex(context);
-        int actualPageSize = modelForm.getActualPageSize(context);
+        int highIndex = Paginator.getHighIndex(context);
+        int actualPageSize = Paginator.getActualPageSize(context);
 
         // if this is all there seems to be (if listSize < 0, then size is unknown)
         if (actualPageSize >= listSize && listSize >= 0) return;
@@ -781,7 +782,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         }
 
         Map<String, Object> parameters = new HashMap<String, Object>();
-        parameters.put("lowIndex", modelForm.getLowIndex(context));
+        parameters.put("lowIndex", Paginator.getLowIndex(context));
         parameters.put("actualPageSize", actualPageSize);
         parameters.put("ofLabel", ofLabel);
         parameters.put("listSize", listSize);
