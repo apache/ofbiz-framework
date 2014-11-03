@@ -1090,7 +1090,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             }
             updateAreas.add(new ModelForm.UpdateArea("submit", formId, backgroundSubmitRefreshTarget));
         }
-        boolean ajaxEnabled = (updateAreas != null || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
+        boolean ajaxEnabled = (UtilValidate.isNotEmpty(updateAreas) || UtilValidate.isNotEmpty(backgroundSubmitRefreshTarget)) && this.javaScriptEnabled;
         String ajaxUrl = "";
         if (ajaxEnabled) {
             ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
@@ -2014,7 +2014,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             updateAreas = new LinkedList<ModelForm.UpdateArea>();
             updateAreas.add(new ModelForm.UpdateArea("change", id, autoCompleterTarget));
         }
-        boolean ajaxEnabled = updateAreas != null && this.javaScriptEnabled;
+        boolean ajaxEnabled = UtilValidate.isNotEmpty(updateAreas) && this.javaScriptEnabled;
         String autocomplete = "";
         if (!lookupField.getClientAutocompleteField() || !ajaxEnabled) {
             autocomplete = "off";
