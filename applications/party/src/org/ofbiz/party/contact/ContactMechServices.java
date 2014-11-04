@@ -885,7 +885,7 @@ public class ContactMechServices {
         if (tempVal != null) {
             Map<String, Object> deletePcmCtx = UtilMisc.toMap("contactMechId", context.get("contactMechId"));
             deletePcmCtx.put("contactMechPurposeTypeId", context.get("contactMechPurposeTypeId"));
-            deletePcmCtx.put("fromDate", tempVal.get("fromDate"));
+            deletePcmCtx.put("fromDate", tempVal.get("purposeFromDate"));
             deletePcmCtx.put("userLogin", context.get("userLogin"));
             deletePcmCtx.put("partyId", partyId);
             try {
