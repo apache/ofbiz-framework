@@ -349,8 +349,18 @@ public class EntityQuery {
      * @return this EntityQuery object, to enable chaining
      */
     public EntityQuery filterByDate(String... filterByFieldName) {
+        return this.filterByDate(null, filterByFieldName);
+    }
+
+    /** Specifies whether the query should return only values that are active during the specified moment using the specified from/thru field name pairs.
+     * 
+     * @param moment - Timestamp representing the moment in time that the values should be active during
+     * @param fromThruFieldName - String pairs representing the from/thru date field names e.g. "fromDate", "thruDate", "contactFromDate", "contactThruDate"
+     * @return this EntityQuery object, to enable chaining
+     */
+    public EntityQuery filterByDate(Timestamp moment, String... filterByFieldName) {
         this.filterByDate  = true;
-        this.filterByDateMoment = null;
+        this.filterByDateMoment = moment;
         if (filterByFieldName.length % 2 != 0) {
             throw new IllegalArgumentException("You must pass an even sized array to this method, each pair should represent a from date field name and a thru date field name");
         }
@@ -469,7 +479,7 @@ public class EntityQuery {
     private EntityCondition makeDateCondition() {
         List<EntityCondition> conditions = new ArrayList<EntityCondition>();
         if (UtilValidate.isEmpty(this.filterByFieldNames)) {
-            this.filterByDate("fromDate", "thruDate");
+            this.filterByDate(filterByDateMoment, "fromDate", "thruDate");
         }
 
         for (int i = 0; i < this.filterByFieldNames.size();) {
