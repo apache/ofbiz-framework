@@ -146,7 +146,8 @@ under the License.
             <property name="keystoreType" value="JKS"/>
             <property name="keyAlias" value="ofbiz"/>
             <property name="keyPass" value="changeit"/>
-            <property name="sslProtocol" value="TLS"/>
+            <property name="sslProtocol" value="TLSv1.2"/>
+            <property name="sslEnabledProtocols" value="TLSv1.2"/>
             <property name="ciphers" value=""/>
         </property>
     </container>
@@ -203,7 +204,8 @@ under the License.
             <property name="keystoreFile" value="framework/base/config/ofbizssl.jks"/>
             <property name="keystorePass" value="changeit"/>
             <property name="keystoreType" value="JKS"/>
-            <property name="sslProtocol" value="TLS"/>
+            <property name="sslProtocol" value="TLSv1.2"/>
+            <property name="sslEnabledProtocols" value="TLSv1.2"/>
             <property name="ciphers" value=""/>
         </property>
     </container>
