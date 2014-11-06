@@ -848,7 +848,7 @@ public class ModelForm extends ModelWidget {
         this.autoFieldsEntities = Collections.unmodifiableList(autoFieldsEntities);
         sortOrderFields.trimToSize();
         this.sortOrderFields = Collections.unmodifiableList(sortOrderFields);
-        String focusFieldName = null;
+        String focusFieldName = "";
         if (formElement.hasAttribute("focus-field-name")) {
             focusFieldName = formElement.getAttribute("focus-field-name");
         } else {
