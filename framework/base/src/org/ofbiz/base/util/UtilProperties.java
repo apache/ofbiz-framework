@@ -34,6 +34,7 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -798,7 +799,7 @@ public class UtilProperties implements Serializable {
         if (defaultCandidateLocales == null) {
             synchronized (UtilProperties.class) {
                 if (defaultCandidateLocales == null) {
-                    defaultCandidateLocales = new HashSet<Locale>();
+                    defaultCandidateLocales = new LinkedHashSet<Locale>();
                     defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
                     defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
                     defaultCandidateLocales.add(Locale.ROOT);
@@ -822,7 +823,7 @@ public class UtilProperties implements Serializable {
         if (Locale.ROOT.equals(locale)) {
             return UtilMisc.toList(locale);
         }
-        Set<Locale> localeSet = new HashSet<Locale>();
+        Set<Locale> localeSet = new LinkedHashSet<Locale>();
         localeSet.addAll(localeToCandidateList(locale));
         localeSet.addAll(getDefaultCandidateLocales());
         List<Locale> localeList = new ArrayList<Locale>(localeSet);
