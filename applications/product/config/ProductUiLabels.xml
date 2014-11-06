@@ -96,7 +96,7 @@
     </property>
     <property key="FacilityCat">
         <value xml:lang="en">CAT</value>
-        <value xml:lang="en">Cat.</value>
+        <value xml:lang="nl">Cat.</value>
     </property>
     <property key="FacilityCompanyName">
         <value xml:lang="de">OFBiz: Einrichtungen Verwaltung</value>
