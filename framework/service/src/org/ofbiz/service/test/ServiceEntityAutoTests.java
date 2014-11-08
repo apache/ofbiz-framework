@@ -104,11 +104,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         testingNodeMember.remove();
 
         //test create auto sub-sequence
-        //test missing pk
+        //test missing pk fromDate
         Map<String, Object> testingNodeMemberPkMissingMap = UtilMisc.toMap("testingId", "TESTING_3", "testingNodeId", "NODE_1");
         results = dispatcher.runSync("testEntityAutoCreateTestingNodeMemberPkMissing", testingNodeMemberPkMissingMap, 10, true);
-        assertTrue(ServiceUtil.isError(results));
-        assertTrue(ServiceUtil.getErrorMessage(results).contains("1. a single OUT pk for primary auto-sequencing"));
+        assertTrue(ServiceUtil.isSuccess(results));
     }
 
     public void testEntityAutoUpdateEntity() throws Exception {
@@ -141,7 +140,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         //test create with bad pk
         Map<String, Object> testingDeleteFailedMap = UtilMisc.toMap("testingId", "TESTING_5_FAILED");
         results = dispatcher.runSync("testEntityAutoRemoveTesting", testingDeleteFailedMap);
-        assertTrue(ServiceUtil.isSuccess(results));
-        //assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFound", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
+        assertTrue(ServiceUtil.isError(results));
+        assertEquals(UtilProperties.getMessage("ServiceErrorUiLabels", "ServiceValueNotFoundForRemove", Locale.ENGLISH), ServiceUtil.getErrorMessage(results));
     }
 }
