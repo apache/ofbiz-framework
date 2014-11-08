@@ -315,6 +315,7 @@ public class SubscriptionServices {
         String gracePeriodOnExpiry = null;
         String gracePeriodOnExpiryUomId = null;
         String subscriptionId = null;
+        Timestamp expirationCompletedDate = null;
         
         try {
             EntityCondition cond1 = EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, "N");
@@ -325,57 +326,61 @@ public class SubscriptionServices {
             
             if (subscriptionList != null) {
                 for (GenericValue subscription : subscriptionList) {
-                    Calendar currentDate = Calendar.getInstance();
-                    currentDate.setTime(UtilDateTime.nowTimestamp());
-                    // check if the thruDate + grace period (if provided) is earlier than today's date
-                    Calendar endDateSubscription = Calendar.getInstance();
-                    int field = Calendar.MONTH;
-                    String subscriptionResourceId = subscription.getString("subscriptionResourceId");
-                    GenericValue subscriptionResource = null;
-                    subscriptionResource = EntityQuery.use(delegator).from("SubscriptionResource").where("subscriptionResourceId", subscriptionResourceId).queryOne();
-                    subscriptionId = subscription.getString("subscriptionId");
-                    gracePeriodOnExpiry = subscription.getString("gracePeriodOnExpiry");
-                    gracePeriodOnExpiryUomId = subscription.getString("gracePeriodOnExpiryUomId");
-                    String serviceNameOnExpiry = subscriptionResource.getString("serviceNameOnExpiry");
-                    endDateSubscription.setTime(subscription.getTimestamp("thruDate"));
-                    
-                    if (gracePeriodOnExpiry != null && gracePeriodOnExpiryUomId != null) {
-                        if ("TF_day".equals(gracePeriodOnExpiryUomId)) {
-                            field = Calendar.DAY_OF_YEAR;
-                        } else if ("TF_wk".equals(gracePeriodOnExpiryUomId)) {
-                            field = Calendar.WEEK_OF_YEAR;
-                        } else if ("TF_mon".equals(gracePeriodOnExpiryUomId)) {
-                            field = Calendar.MONTH;
-                        } else if ("TF_yr".equals(gracePeriodOnExpiryUomId)) {
-                            field = Calendar.YEAR;
-                        } else {
-                            Debug.logWarning("Don't know anything about gracePeriodOnExpiryUomId [" + gracePeriodOnExpiryUomId + "], defaulting to month", module);
+                	expirationCompletedDate = subscription.getTimestamp("expirationCompletedDate");
+                	if (expirationCompletedDate == null) {
+                		Calendar currentDate = Calendar.getInstance();
+                        currentDate.setTime(UtilDateTime.nowTimestamp());
+                        // check if the thruDate + grace period (if provided) is earlier than today's date
+                        Calendar endDateSubscription = Calendar.getInstance();
+                        int field = Calendar.MONTH;
+                        String subscriptionResourceId = subscription.getString("subscriptionResourceId");
+                        GenericValue subscriptionResource = null;
+                        subscriptionResource = EntityQuery.use(delegator).from("SubscriptionResource").where("subscriptionResourceId", subscriptionResourceId).queryOne();
+                        subscriptionId = subscription.getString("subscriptionId");
+                        gracePeriodOnExpiry = subscription.getString("gracePeriodOnExpiry");
+                        gracePeriodOnExpiryUomId = subscription.getString("gracePeriodOnExpiryUomId");
+                        String serviceNameOnExpiry = subscriptionResource.getString("serviceNameOnExpiry");
+                        endDateSubscription.setTime(subscription.getTimestamp("thruDate"));
+                        
+                        if (gracePeriodOnExpiry != null && gracePeriodOnExpiryUomId != null) {
+                            if ("TF_day".equals(gracePeriodOnExpiryUomId)) {
+                                field = Calendar.DAY_OF_YEAR;
+                            } else if ("TF_wk".equals(gracePeriodOnExpiryUomId)) {
+                                field = Calendar.WEEK_OF_YEAR;
+                            } else if ("TF_mon".equals(gracePeriodOnExpiryUomId)) {
+                                field = Calendar.MONTH;
+                            } else if ("TF_yr".equals(gracePeriodOnExpiryUomId)) {
+                                field = Calendar.YEAR;
+                            } else {
+                                Debug.logWarning("Don't know anything about gracePeriodOnExpiryUomId [" + gracePeriodOnExpiryUomId + "], defaulting to month", module);
+                            }
+                            endDateSubscription.add(field, Integer.valueOf(gracePeriodOnExpiry).intValue());
                         }
-                        endDateSubscription.add(field, Integer.valueOf(gracePeriodOnExpiry).intValue());
-                    }
-                    
-                    if ((currentDate.after(endDateSubscription) || currentDate.equals(endDateSubscription)) && serviceNameOnExpiry != null) {
-                        if (userLogin != null) {
-                            expiryMap.put("userLogin", userLogin);
-                        }
-                        if (subscriptionId != null) {
-                            expiryMap.put("subscriptionId", subscriptionId);
-                        }
-                        result = dispatcher.runSync(serviceNameOnExpiry, expiryMap);
-                        if (ServiceUtil.isSuccess(result)) {
-                            Debug.logInfo("Subscription expired successfully for subscription ID:" + subscriptionId, module);
-                        } else if (ServiceUtil.isError(result)) {
-                            result = null;
-                            Debug.logError("Error expiring subscription while processing with subscriptionId: " + subscriptionId, module);
-                        }
+                        if ((currentDate.after(endDateSubscription) || currentDate.equals(endDateSubscription)) && serviceNameOnExpiry != null) {
+                            if (userLogin != null) {
+                                expiryMap.put("userLogin", userLogin);
+                            }
+                            if (subscriptionId != null) {
+                                expiryMap.put("subscriptionId", subscriptionId);
+                            }
+                            result = dispatcher.runSync(serviceNameOnExpiry, expiryMap);
+                            if (ServiceUtil.isSuccess(result)) {
+                                subscription.set("expirationCompletedDate", UtilDateTime.nowTimestamp());
+                                delegator.store(subscription);
+                                Debug.logInfo("Subscription expired successfully for subscription ID:" + subscriptionId, module);
+                            } else if (ServiceUtil.isError(result)) {
+                                result = null;
+                                Debug.logError("Error expiring subscription while processing with subscriptionId: " + subscriptionId, module);
+                            }
 
-                        if (result != null && subscriptionId != null) {
-                            Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + result.get("successMessage"), module);
-                        } else if (result == null && subscriptionId != null) {
-                            Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, module);
-                            return ServiceUtil.returnError("Subscription couldn't be expired for subscriptionId: " + subscriptionId);
+                            if (result != null && subscriptionId != null) {
+                                Debug.logInfo("Service mentioned in serviceNameOnExpiry called with result: " + result.get("successMessage"), module);
+                            } else if (result == null && subscriptionId != null) {
+                                Debug.logError("Subscription couldn't be expired for subscriptionId: " + subscriptionId, module);
+                                return ServiceUtil.returnError("Subscription couldn't be expired for subscriptionId: " + subscriptionId);
+                            }
                         }
-                    }
+                	}
                 }
             }
         } catch (GenericServiceException e) {

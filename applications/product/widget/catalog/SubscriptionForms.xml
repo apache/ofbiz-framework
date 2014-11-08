@@ -304,7 +304,6 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="serviceNameOnExpiry" ><ignored/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
