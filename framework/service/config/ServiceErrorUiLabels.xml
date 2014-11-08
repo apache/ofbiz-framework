@@ -272,11 +272,22 @@
         <value xml:lang="zh">缺少参数</value>
         <value xml:lang="zh_TW">缺少參數</value>
     </property>
+    <property key="ServiceValueFound">
+        <value xml:lang="en">Value found (with ids ${pkFields}), cannot create a new one</value>
+        <value xml:lang="fr">La valeur a été trouvée (avec les réfs. ${pkFields}), une nouvelle ne peut donc pas être créée</value>
+        <value xml:lang="it">Valore troavato, non è possibile creare</value>
+    </property>
     <property key="ServiceValueNotFound">
         <value xml:lang="en">Value not found, cannot update</value>
+        <value xml:lang="fr">La valeur n'a pas été trouvée, elle ne peut donc pas être mise à jour</value>
         <value xml:lang="it">Valore non troavato, non è possibile aggiornare</value>
         <value xml:lang="ja">値が見つかりません。更新できません</value>
         <value xml:lang="zh">没有找到值，无法更新</value>
         <value xml:lang="zh_TW">沒有找到值,無法更新</value>
+    </property>
+    <property key="ServiceValueNotFoundForRemove">
+        <value xml:lang="en">Value not found, cannot remove</value>
+        <value xml:lang="fr">La valeur n'a pas été trouvée, suppression impossible</value>
+        <value xml:lang="it">Valore non troavato, non è possibile sopprimere</value>
     </property>
 </resource>

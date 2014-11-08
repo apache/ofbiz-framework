@@ -80,7 +80,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <attribute name="testingId" mode="IN" type="String"/>
         <attribute name="testingNodeId" mode="IN" type="String"/>
-        <attribute name="fromDate" mode="OUT" type="String"/>
+        <attribute name="fromDate" mode="OUT" type="Timestamp"/>
     </service>
     <service name="testEntityAutoUpdateTesting" auth="false"
         engine="entity-auto" default-entity-name="Testing" invoke="update">
