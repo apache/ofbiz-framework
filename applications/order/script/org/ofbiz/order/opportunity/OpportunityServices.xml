@@ -145,7 +145,13 @@ This file contains basic services for SalesOpportunity and SalesForecast.
             <if-not-empty field="parameters.accountPartyId">
                 <set field="roleMap.roleTypeId" value="ACCOUNT"/>
                 <set field="roleMap.partyId" from-field="parameters.accountPartyId"/>
-                <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+                <entity-one value-field="partyRole" entity-name="PartyRole">
+                    <field-map field-name="roleTypeId" from-field="roleMap.roleTypeId"/>
+                    <field-map field-name="partyId" from-field="roleMap.partyId"/>
+                </entity-one>
+                <if-empty field="partyRole">
+                    <call-service service-name="createPartyRole" in-map-name="roleMap"/>
+                </if-empty>
             </if-not-empty>
             <set field="salesOpportunityRole.roleTypeId" value="ACCOUNT"/>
             <set field="salesOpportunityRole.salesOpportunityId" from-field="parameters.salesOpportunityId"/>

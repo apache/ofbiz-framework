@@ -88,8 +88,13 @@ under the License.
         <if-not-empty field="partyInvitationRoleAssocs">
             <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>
             <iterate list="partyInvitationRoleAssocs" entry="partyInvitationRoleAssoc">
-                <set field="createPartyRoleCtx.roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
-                <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+                <entity-one value-field="partyRole" entity-name="PartyRole">
+                    <field-map field-name="roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
+                </entity-one>
+                <if-empty field="partyRole">
+                    <set field="createPartyRoleCtx.roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
+                    <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
+                </if-empty>
             </iterate>
         </if-not-empty>
         <set field="updatePartyInvitationCtx.partyInvitationId" from-field="parameters.partyInvitationId"/>
