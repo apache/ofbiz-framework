@@ -116,10 +116,18 @@
         </if-not-empty>
     </simple-method>
     <simple-method method-name="addProjectMgrResource" short-description="make parties available in the project manager.">
-        <set-service-fields service-name="createPartyRole" map="parameters" to-map="roleData"/>
-        <call-service service-name="createPartyRole" in-map-name="roleData"/>
+        <entity-one value-field="partyRole" entity-name="PartyRole"/>
+        <if-empty field="partyRole">
+            <set-service-fields service-name="createPartyRole" map="parameters" to-map="roleData"/>
+            <call-service service-name="createPartyRole" in-map-name="roleData"/>
+        </if-empty>
         <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
-        <call-service service-name="createPartyRole" in-map-name="roleData"/>
+        <entity-one value-field="partyRole" entity-name="PartyRole">
+            <field-map field-name="roleTypeId" from-field="roleData.roleTypeId"/>
+        </entity-one>
+        <if-empty field="partyRole">
+            <call-service service-name="createPartyRole" in-map-name="roleData"/>
+        </if-empty>
     </simple-method>
     <!-- create workEffort content -->
     <simple-method method-name="createWorkEffortContent" short-description="Creates Party Associated Content" login-required="false">
