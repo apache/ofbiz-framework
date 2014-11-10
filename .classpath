@@ -22,9 +22,9 @@
     <classpathentry kind="lib" path="framework/base/lib/hamcrest-all-1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/fop-1.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.21.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/httpclient-4.2.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.2.1.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/httpcore-4.2.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/httpclient-4.3.6.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/httpclient-cache-4.3.6.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/httpcore-4.3.3.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/httpunit-1.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ical4j-1.0-rc2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/icu4j-52_1.jar"/>
