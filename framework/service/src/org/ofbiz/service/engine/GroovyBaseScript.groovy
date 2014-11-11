@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.service.engine
 
-import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.Debug
+import org.ofbiz.entity.util.EntityQuery
 import org.ofbiz.service.ServiceUtil
 import org.ofbiz.service.ExecutionServiceException
 
@@ -50,6 +51,18 @@ abstract class GroovyBaseScript extends Script {
         List genericValues = binding.getVariable('delegator').findByAnd(entityName, inputMap, null, false);
         // TODO: get the list of entity fields from the map and use them only
         return genericValues;
+    }
+
+    EntityQuery from(def entity) {
+        return EntityQuery.use(binding.getVariable('delegator')).from(entity);
+    }
+
+    EntityQuery select(String... fields) {
+        return EntityQuery.use(binding.getVariable('delegator')).select(fields);
+    }
+
+    EntityQuery select(Set<String> fields) {
+        return EntityQuery.use(binding.getVariable('delegator')).select(fields);
     }
 
     def success(String message) {

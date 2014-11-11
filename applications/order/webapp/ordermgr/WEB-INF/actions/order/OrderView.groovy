@@ -59,8 +59,8 @@ orderAdjustments = null;
 comments = null;
 
 if (orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
-    comments = EntityQuery.use(delegator).select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin").from("OrderItemChange").where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))).orderBy("-changeDatetime").queryList();
+    orderHeader = from('OrderHeader').where('orderId', orderId).cache(false).queryFirst();
+    comments = select("orderItemSeqId", "changeComments", "changeDatetime", "changeUserLogin").from("OrderItemChange").where(UtilMisc.toList(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId))).orderBy("-changeDatetime").queryList();
 }
 
 if (orderHeader) {
