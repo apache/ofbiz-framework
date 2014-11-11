@@ -25,7 +25,6 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.collections.*;
-import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.order.*;
 import org.ofbiz.party.contact.*;
 import org.ofbiz.product.inventory.InventoryWorker;
