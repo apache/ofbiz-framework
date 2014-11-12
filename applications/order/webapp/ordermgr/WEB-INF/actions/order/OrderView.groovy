@@ -431,7 +431,7 @@ if (orderHeader) {
 
     // Get a map of returnable items
     returnableItems = [:];
-    returnableItemServiceMap = runService("getReturnableItems", [orderId : orderId]);
+    returnableItemServiceMap = run service: 'getReturnableItems', with: [orderId : orderId]
     if (returnableItemServiceMap.returnableItems) {
         returnableItems = returnableItemServiceMap.returnableItems;
     }
