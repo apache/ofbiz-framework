@@ -407,7 +407,7 @@ public class EntityTestSuite extends EntityTestCase {
      * Tests findByCondition and tests searching on a view-entity
      */
     public void testCountViews() throws Exception {
-        delegator.removeByCondition("Testing", EntityCondition.makeCondition("testingId", EntityOperator.LIKE, "TEST-COUNT-VIEW-%"));
+        delegator.removeByCondition("Testing", EntityCondition.makeCondition("testingTypeId", EntityOperator.EQUALS, "TEST-COUNT-VIEW"));
         flushAndRecreateTree("count-views");
         createNodeMembers("TEST-COUNT-VIEW", "Testing Type #Count", "count-views");
 
