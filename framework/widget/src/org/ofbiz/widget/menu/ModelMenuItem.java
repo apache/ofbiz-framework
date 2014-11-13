@@ -310,6 +310,7 @@ public class ModelMenuItem extends ModelWidget {
                                 localItem.link.setTarget("showPortalPage");
                             }
                             localItem.link.setText((String)portalPage.get("portalPageName", locale));
+                            localItem.modelMenu = this.getModelMenu();
                             menuStringRenderer.renderMenuItem(writer, context, localItem);
                         }
                     }
