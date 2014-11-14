@@ -265,7 +265,6 @@ try {
     }
     month = month - 1
     }
-    Debug.log("================  Last 3 Months Sale Order Report====="+months);
     cond = FastList.newInstance();
     cond.add(EntityCondition.makeCondition("orderDateMonthOfYear", EntityOperator.IN, months));
     cond.add(EntityCondition.makeCondition("orderDateYearName", EntityOperator.EQUALS, UtilMisc.toLongObject(thisYear)));
