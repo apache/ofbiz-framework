@@ -189,6 +189,8 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             DispatchContext dctx = dispatcher.getDispatchContext();
             ModelService service = dctx.getModelService(serviceName);
             if (service != null) {
+                //put all requestParameters into templateContext to use them as IN service parameters
+                templateContext.putAll((Map<String, Object>)templateContext.get("requestParameters"));
                 Map<String,Object> serviceCtx = service.makeValid(templateContext, ModelService.IN_PARAM);
                 Map<String,Object> serviceRes;
                 try {
