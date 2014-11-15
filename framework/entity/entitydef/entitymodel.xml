@@ -121,7 +121,7 @@ under the License.
     get a list of tenants per user
     <entity entity-name="TenantUserLogin" package-name="org.ofbiz.entity.tenant">
         <field name="tenantId" type="id-ne"/>
-        <field name="userLoginId" type="name"/>
+        <field name="userLoginId" type="id-vlong-ne"/>
         <field name="fromDate" type="date-time"/>
         <field name="thruDate" type="date-time"/>
         <prim-key field="tenantId"/>
