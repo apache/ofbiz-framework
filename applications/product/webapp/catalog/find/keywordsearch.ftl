@@ -22,7 +22,7 @@ under the License.
   </div>
   <div class="screenlet-body">
     <#list searchConstraintStrings as searchConstraintString>
-      <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
+      <div>&nbsp;<a href="<@ofbizUrl>keywordsearch?removeConstraint=${searchConstraintString_index}&amp;clearSearch=N&amp;SEARCH_CATEGORY_ID=${parameters.SEARCH_CATEGORY_ID!}</@ofbizUrl>" class="buttontext">X</a>&nbsp;${searchConstraintString}</div>
     </#list>
     <span class="label">${uiLabelMap.CommonSortedBy}:</span>${searchSortOrderString}
     <div><a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${(requestParameters.SEARCH_CATEGORY_ID)!}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonRefineSearch}</a></div>
