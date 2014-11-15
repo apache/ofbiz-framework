@@ -94,8 +94,10 @@ under the License.
                 buttons: {
                 '${uiLabelMap.CommonSubmit}': function() {
                     var createAddressForm = jQuery("#displayCreateAddressForm");
-                    jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
-                    createPartyPostalAddress();
+                    if (jQuery("#createPostalAddressForm").valid()) {
+                        jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                        createPartyPostalAddress();
+                    }
                 },
                 '${uiLabelMap.CommonClose}': function() {
                     jQuery(this).dialog('close');
@@ -147,8 +149,11 @@ under the License.
             buttons: {
             '${uiLabelMap.CommonSubmit}': function() {
                 var createAddressForm = jQuery("#displayEditBillToPostalAddress");
-                jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
-                updatePartyBillToPostalAddress();
+                if (jQuery("#editBillToPostalAddress").valid()) {
+                    jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                    updatePartyBillToPostalAddress();
+                }
+                
             },
             '${uiLabelMap.CommonClose}': function() {
                 jQuery(this).dialog('close');
@@ -195,8 +200,10 @@ under the License.
             buttons: {
             '${uiLabelMap.CommonSubmit}': function() {
                 var createAddressForm = jQuery("#displayEditShipToPostalAddress");
-                jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
-                updatePartyShipToPostalAddress('submitEditShipToPostalAddress');
+                if (jQuery("#editShipToPostalAddress").valid()) {
+                    jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                    updatePartyShipToPostalAddress('submitEditShipToPostalAddress');
+                }
             },
             '${uiLabelMap.CommonClose}': function() {
                 jQuery(this).dialog('close');
@@ -263,8 +270,10 @@ under the License.
                     buttons: {
                     '${uiLabelMap.CommonSubmit}': function() {
                         var createAddressForm = jQuery("#displayEditAddressForm_${contactMech.contactMechId}");
-                        jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
-                        updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}');
+                        if (jQuery("#editPostalAddress_${contactMech.contactMechId}").valid()) {
+                            jQuery("<p>${uiLabelMap.CommonUpdatingData}</p>").insertBefore(createAddressForm);
+                            updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}');
+                        }
                     },
                     '${uiLabelMap.CommonClose}': function() {
                         jQuery(this).dialog('close');
