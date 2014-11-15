@@ -281,6 +281,7 @@ under the License.
                             <set from-field="parameters.reservedDatetime" field="reserveOisgirMap.reservedDatetime"/>
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
+                            <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                             <clear-field field="reserveOisgirMap"/>
                         </else>
@@ -363,6 +364,7 @@ under the License.
             <if-not-empty field="inventoryItemReservation.sequenceId">
                 <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
             </if-not-empty>
+            <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
             <call-service service-name="reserveProductInventory" in-map-name="reserveOisgirMap"/>
             <clear-field field="reserveOisgirMap"/>
         </if-not-empty>
@@ -385,6 +387,7 @@ under the License.
             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
         </if-not-empty>
         <!-- store OrderItemShipGrpInvRes record -->
+        <set from-field="parameters.priority" field="reserveOisgirMap.priority"/>
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
         <clear-field field="reserveOisgirMap"/>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>

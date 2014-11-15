@@ -315,6 +315,7 @@ under the License.
         <attribute name="serialNumber" type="String" mode="IN" optional="true"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="promisedDatetime" type="Timestamp" mode="IN" optional="false"/>
+        <attribute name="priority" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="reserveProductInventory" engine="simple"
@@ -333,6 +334,7 @@ under the License.
         <attribute name="reserveOrderEnumId" type="String" mode="IN" optional="false"/>
         <attribute name="sequenceId" type="Long" mode="IN" optional="true"/>
         <attribute name="lotId" mode="IN" type="String" optional="true" />
+        <attribute name="priority" type="String" mode="IN" optional="true"/>
         <attribute name="quantityNotReserved" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
     <service name="reserveProductInventoryByFacility" engine="simple"
