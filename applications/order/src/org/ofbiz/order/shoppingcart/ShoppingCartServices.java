@@ -507,6 +507,7 @@ public class ShoppingCartServices {
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
                 cartItem.setName(item.getString("itemDescription"));
                 cartItem.setExternalId(item.getString("externalId"));
+                cartItem.setListPrice(item.getBigDecimal("unitListPrice"));
 
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
