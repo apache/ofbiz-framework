@@ -24,8 +24,7 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.*;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.config.ProductConfigWorker;
