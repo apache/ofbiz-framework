@@ -72,7 +72,11 @@ public class FormWidgetArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         ArtifactInfoContext infoContext = new ArtifactInfoContext();
         ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
-        infoGatherer.visit(this.modelForm);
+        try {
+            infoGatherer.visit(this.modelForm);
+        } catch (Exception e) {
+            throw new GeneralException(e);
+        }
         populateEntitiesFromNameSet(infoContext.getEntityNames());
         populateServicesFromNameSet(infoContext.getServiceNames());
         this.populateFormExtended();

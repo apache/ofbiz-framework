@@ -747,7 +747,7 @@ public class ModelTree extends ModelWidget {
             }
 
             @Override
-            public void accept(ModelWidgetVisitor visitor) {
+            public void accept(ModelWidgetVisitor visitor) throws Exception {
                 visitor.visit(this);
             }
         }
@@ -1110,13 +1110,13 @@ public class ModelTree extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
 
     @Override
-    public void accept(ModelWidgetVisitor visitor) {
+    public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
     }
 }

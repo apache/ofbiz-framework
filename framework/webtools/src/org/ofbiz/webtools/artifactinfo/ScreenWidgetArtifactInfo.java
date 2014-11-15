@@ -75,7 +75,11 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
     public void populateAll() throws GeneralException {
         ArtifactInfoContext infoContext = new ArtifactInfoContext();
         ArtifactInfoGatherer infoGatherer = new ArtifactInfoGatherer(infoContext);
-        infoGatherer.visit(this.modelScreen);
+        try {
+            infoGatherer.visit(this.modelScreen);
+        } catch (Exception e) {
+            throw new GeneralException(e);
+        }
         populateServicesFromNameSet(infoContext.getServiceNames());
         populateEntitiesFromNameSet(infoContext.getEntityNames());
         populateFormsFromNameSet(infoContext.getFormLocations());

@@ -32,63 +32,63 @@ import org.ofbiz.widget.tree.ModelTree;
  */
 public interface ModelWidgetVisitor {
 
-    void visit(HtmlWidget htmlWidget);
+    void visit(HtmlWidget htmlWidget) throws Exception;
 
-    void visit(HtmlWidget.HtmlTemplate htmlTemplate);
+    void visit(HtmlWidget.HtmlTemplate htmlTemplate) throws Exception;
 
-    void visit(HtmlWidget.HtmlTemplateDecorator htmlTemplateDecorator);
+    void visit(HtmlWidget.HtmlTemplateDecorator htmlTemplateDecorator) throws Exception;
 
-    void visit(HtmlWidget.HtmlTemplateDecoratorSection htmlTemplateDecoratorSection);
+    void visit(HtmlWidget.HtmlTemplateDecoratorSection htmlTemplateDecoratorSection) throws Exception;
 
-    void visit(IterateSectionWidget iterateSectionWidget);
+    void visit(IterateSectionWidget iterateSectionWidget) throws Exception;
 
-    void visit(ModelForm modelForm);
+    void visit(ModelForm modelForm) throws Exception;
 
-    void visit(ModelMenu modelMenu);
+    void visit(ModelMenu modelMenu) throws Exception;
 
-    void visit(ModelMenuItem modelMenuItem);
+    void visit(ModelMenuItem modelMenuItem) throws Exception;
 
-    void visit(ModelScreen modelScreen);
+    void visit(ModelScreen modelScreen) throws Exception;
 
-    void visit(ModelScreenWidget.ColumnContainer columnContainer);
+    void visit(ModelScreenWidget.ColumnContainer columnContainer) throws Exception;
 
-    void visit(ModelScreenWidget.Container container);
+    void visit(ModelScreenWidget.Container container) throws Exception;
 
-    void visit(ModelScreenWidget.Content content);
+    void visit(ModelScreenWidget.Content content) throws Exception;
 
-    void visit(ModelScreenWidget.DecoratorScreen decoratorScreen);
+    void visit(ModelScreenWidget.DecoratorScreen decoratorScreen) throws Exception;
 
-    void visit(ModelScreenWidget.DecoratorSection decoratorSection);
+    void visit(ModelScreenWidget.DecoratorSection decoratorSection) throws Exception;
 
-    void visit(ModelScreenWidget.DecoratorSectionInclude decoratorSectionInclude);
+    void visit(ModelScreenWidget.DecoratorSectionInclude decoratorSectionInclude) throws Exception;
 
-    void visit(ModelScreenWidget.Form form);
+    void visit(ModelScreenWidget.Form form) throws Exception;
 
-    void visit(ModelScreenWidget.HorizontalSeparator horizontalSeparator);
+    void visit(ModelScreenWidget.HorizontalSeparator horizontalSeparator) throws Exception;
 
-    void visit(ModelScreenWidget.Image image);
+    void visit(ModelScreenWidget.Image image) throws Exception;
 
-    void visit(ModelScreenWidget.IncludeScreen includeScreen);
+    void visit(ModelScreenWidget.IncludeScreen includeScreen) throws Exception;
 
-    void visit(ModelScreenWidget.Label label);
+    void visit(ModelScreenWidget.Label label) throws Exception;
 
-    void visit(ModelScreenWidget.Link link);
+    void visit(ModelScreenWidget.Link link) throws Exception;
 
-    void visit(ModelScreenWidget.Menu menu);
+    void visit(ModelScreenWidget.Menu menu) throws Exception;
 
-    void visit(ModelScreenWidget.PlatformSpecific platformSpecific);
+    void visit(ModelScreenWidget.PlatformSpecific platformSpecific) throws Exception;
 
-    void visit(ModelScreenWidget.PortalPage portalPage);
+    void visit(ModelScreenWidget.PortalPage portalPage) throws Exception;
 
-    void visit(ModelScreenWidget.Screenlet screenlet);
+    void visit(ModelScreenWidget.Screenlet screenlet) throws Exception;
 
-    void visit(ModelScreenWidget.Section section);
+    void visit(ModelScreenWidget.Section section) throws Exception;
 
-    void visit(ModelScreenWidget.Tree tree);
+    void visit(ModelScreenWidget.Tree tree) throws Exception;
 
-    void visit(ModelTree modelTree);
+    void visit(ModelTree modelTree) throws Exception;
 
-    void visit(ModelTree.ModelNode modelNode);
+    void visit(ModelTree.ModelNode modelNode) throws Exception;
 
-    void visit(ModelTree.ModelNode.ModelSubNode modelSubNode);
+    void visit(ModelTree.ModelNode.ModelSubNode modelSubNode) throws Exception;
 }
