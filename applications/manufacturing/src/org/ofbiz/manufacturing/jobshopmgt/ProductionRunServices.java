@@ -1229,8 +1229,8 @@ public class ProductionRunServices {
                     if (priority.equals(routingTask.get("priority")) && ! routingTaskId.equals(routingTask.get("workEffortId")))
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ManufacturingRoutingTaskSeqIdAlreadyExist", locale));
                     if (routingTaskId.equals(routingTask.get("workEffortId"))) {
-                        routingTask.set("estimatedSetupMillis", context.get("estimatedSetupMillis"));
-                        routingTask.set("estimatedMilliSeconds", context.get("estimatedMilliSeconds"));
+                        routingTask.set("estimatedSetupMillis", ((BigDecimal) context.get("estimatedSetupMillis")).doubleValue());
+                        routingTask.set("estimatedMilliSeconds", ( (BigDecimal) context.get("estimatedMilliSeconds")).doubleValue());
                         if (first) {    // for the first routingTask the estimatedStartDate update imply estimatedStartDate productonRun update
                             if (! estimatedStartDate.equals(pRestimatedStartDate)) {
                                 productionRun.setEstimatedStartDate(estimatedStartDate);
@@ -1426,8 +1426,14 @@ public class ProductionRunServices {
         String description = (String)context.get("description");
         Timestamp estimatedStartDate = (Timestamp)context.get("estimatedStartDate");
         Timestamp estimatedCompletionDate = (Timestamp)context.get("estimatedCompletionDate");
-        Double estimatedSetupMillis = (Double)context.get("estimatedSetupMillis");
-        Double estimatedMilliSeconds = (Double)context.get("estimatedMilliSeconds");
+
+        Double estimatedSetupMillis = null;
+        if (context.get("estimatedSetupMillis") != null) 
+        estimatedSetupMillis = ((BigDecimal)context.get("estimatedSetupMillis")).doubleValue();
+
+        Double estimatedMilliSeconds = null;
+        if (context.get("estimatedMilliSeconds") != null) 
+        estimatedMilliSeconds = ((BigDecimal)context.get("estimatedMilliSeconds")).doubleValue();
 
         // The production run is loaded
         ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);

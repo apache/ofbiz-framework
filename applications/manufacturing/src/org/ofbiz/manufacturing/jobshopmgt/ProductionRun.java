@@ -423,7 +423,7 @@ public class ProductionRun {
                     Map<String, Object> serviceContext = UtilMisc.<String, Object>toMap("arguments", estimateCalcServiceMap);
                     // serviceContext.put("userLogin", userLogin);
                     Map<String, Object> resultService = dispatcher.runSync(serviceName, serviceContext);
-                    totalTaskTime = ((Double)resultService.get("totalTime")).doubleValue();
+                    totalTaskTime = ((BigDecimal)resultService.get("totalTime")).doubleValue();
                 }
             } catch (Exception exc) {
                 Debug.logError(exc, "Problem calling the customMethod service " + serviceName);
