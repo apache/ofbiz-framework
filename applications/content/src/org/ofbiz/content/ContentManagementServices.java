@@ -181,6 +181,7 @@ public class ContentManagementServices {
         }
 
         GenericValue content = delegator.makeValue("Content");
+        
         content.setPKFields(context);
         content.setNonPKFields(context);
         String contentId = (String) content.get("contentId");
@@ -334,7 +335,6 @@ public class ContentManagementServices {
             results.put("contentId", contentId);
             context.put("contentId", contentId);
             context.put("caContentIdTo", contentId);
-            contentAssoc.put("contentIdTo", contentId);
 
             // Add ContentPurposes if this is a create operation
             if (contentId != null && !contentExists) {
@@ -410,7 +410,7 @@ public class ContentManagementServices {
                     results.put("caSequenceNum", thisResult.get("sequenceNum"));
                 } else {
                     if (deactivateExisting) {
-                        contentAssoc.put("thruDate", UtilDateTime.nowTimestamp());
+                        contentAssocExisting.put("thruDate", UtilDateTime.nowTimestamp());
                     }
                     ModelService contentAssocModel = dispatcher.getDispatchContext().getModelService("updateContentAssoc");
                     Map<String, Object> ctx = contentAssocModel.makeValid(contentAssoc, "IN");
