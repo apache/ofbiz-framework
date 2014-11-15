@@ -163,30 +163,30 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(HtmlWidget htmlWidget) {
+    public void visit(HtmlWidget htmlWidget) throws Exception {
     }
 
     @Override
-    public void visit(HtmlTemplate htmlTemplate) {
+    public void visit(HtmlTemplate htmlTemplate) throws Exception {
     }
 
     @Override
-    public void visit(HtmlTemplateDecorator htmlTemplateDecorator) {
+    public void visit(HtmlTemplateDecorator htmlTemplateDecorator) throws Exception {
     }
 
     @Override
-    public void visit(HtmlTemplateDecoratorSection htmlTemplateDecoratorSection) {
+    public void visit(HtmlTemplateDecoratorSection htmlTemplateDecoratorSection) throws Exception {
     }
 
     @Override
-    public void visit(IterateSectionWidget iterateSectionWidget) {
+    public void visit(IterateSectionWidget iterateSectionWidget) throws Exception {
         for (Section section : iterateSectionWidget.getSectionList()) {
             section.accept(this);
         }
     }
 
     @Override
-    public void visit(ModelForm modelForm) {
+    public void visit(ModelForm modelForm) throws Exception {
         if (modelForm.getActions() != null) {
             for (ModelWidgetAction action : modelForm.getActions()) {
                 action.accept(this);
@@ -280,7 +280,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelMenu modelMenu) {
+    public void visit(ModelMenu modelMenu) throws Exception {
     }
 
     @Override
@@ -288,18 +288,18 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelMenuItem modelMenuItem) {
+    public void visit(ModelMenuItem modelMenuItem) throws Exception {
     }
 
     @Override
-    public void visit(ModelScreen modelScreen) {
+    public void visit(ModelScreen modelScreen) throws Exception {
         String screenLocation = modelScreen.getSourceLocation().concat("#").concat(modelScreen.getName());
         infoContext.addScreenLocation(screenLocation);
         modelScreen.getSection().accept(this);
     }
 
     @Override
-    public void visit(ColumnContainer columnContainer) {
+    public void visit(ColumnContainer columnContainer) throws Exception {
         for (Column column : columnContainer.getColumns()) {
             for (ModelScreenWidget widget : column.getSubWidgets()) {
                 widget.accept(this);
@@ -308,14 +308,14 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(Container container) {
+    public void visit(Container container) throws Exception {
         for (ModelScreenWidget widget : container.getSubWidgets()) {
             widget.accept(this);
         }
     }
 
     @Override
-    public void visit(Content content) {
+    public void visit(Content content) throws Exception {
         infoContext.addEntityName("Content");
         if (!content.getDataResourceId().isEmpty()) {
             infoContext.addEntityName("DataResource");
@@ -323,47 +323,47 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(DecoratorScreen decoratorScreen) {
+    public void visit(DecoratorScreen decoratorScreen) throws Exception {
         for (DecoratorSection section : decoratorScreen.getSectionMap().values()) {
             section.accept(this);
         }
     }
 
     @Override
-    public void visit(DecoratorSection decoratorSection) {
+    public void visit(DecoratorSection decoratorSection) throws Exception {
         for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
             widget.accept(this);
         }
     }
 
     @Override
-    public void visit(DecoratorSectionInclude decoratorSectionInclude) {
+    public void visit(DecoratorSectionInclude decoratorSectionInclude) throws Exception {
     }
 
     @Override
-    public void visit(Form form) {
+    public void visit(Form form) throws Exception {
         String formLocation = form.getLocation().concat("#").concat(form.getName());
         infoContext.addFormLocation(formLocation);
     }
 
     @Override
-    public void visit(HorizontalSeparator horizontalSeparator) {
+    public void visit(HorizontalSeparator horizontalSeparator) throws Exception {
     }
 
     @Override
-    public void visit(Image image) {
+    public void visit(Image image) throws Exception {
     }
 
     @Override
-    public void visit(IncludeScreen includeScreen) {
+    public void visit(IncludeScreen includeScreen) throws Exception {
     }
 
     @Override
-    public void visit(Label label) {
+    public void visit(Label label) throws Exception {
     }
 
     @Override
-    public void visit(Link link) {
+    public void visit(Link link) throws Exception {
         String target = link.getTarget(null);
         String urlMode = link.getUrlMode();
         try {
@@ -379,26 +379,26 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(Menu menu) {
+    public void visit(Menu menu) throws Exception {
     }
 
     @Override
-    public void visit(PlatformSpecific platformSpecific) {
+    public void visit(PlatformSpecific platformSpecific) throws Exception {
     }
 
     @Override
-    public void visit(PortalPage portalPage) {
+    public void visit(PortalPage portalPage) throws Exception {
     }
 
     @Override
-    public void visit(Screenlet screenlet) {
+    public void visit(Screenlet screenlet) throws Exception {
         for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
             widget.accept(this);
         }
     }
 
     @Override
-    public void visit(Section section) {
+    public void visit(Section section) throws Exception {
         for (ModelWidgetAction action : section.getActions()) {
             action.accept(this);
         }
@@ -411,19 +411,19 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(Tree tree) {
+    public void visit(Tree tree) throws Exception {
     }
 
     @Override
-    public void visit(ModelTree modelTree) {
+    public void visit(ModelTree modelTree) throws Exception {
     }
 
     @Override
-    public void visit(ModelNode modelNode) {
+    public void visit(ModelNode modelNode) throws Exception {
     }
 
     @Override
-    public void visit(ModelSubNode modelSubNode) {
+    public void visit(ModelSubNode modelSubNode) throws Exception {
     }
 
     @Override

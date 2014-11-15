@@ -203,7 +203,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -248,7 +248,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -272,13 +272,13 @@ public class HtmlWidget extends ModelScreenWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
 
     @Override
-    public void accept(ModelWidgetVisitor visitor) {
+    public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
     }
 }

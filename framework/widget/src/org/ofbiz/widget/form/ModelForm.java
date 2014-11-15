@@ -861,7 +861,7 @@ public class ModelForm extends ModelWidget {
     }
 
     @Override
-    public void accept(ModelWidgetVisitor visitor) {
+    public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
     }
 

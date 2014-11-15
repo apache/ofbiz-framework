@@ -243,7 +243,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -338,7 +338,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -451,7 +451,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -613,7 +613,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -643,7 +643,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -714,7 +714,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -778,7 +778,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -805,7 +805,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -840,7 +840,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -895,7 +895,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -976,7 +976,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1058,7 +1058,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1102,7 +1102,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1249,7 +1249,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1315,7 +1315,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             // TODO Auto-generated method stub
             
         }
@@ -1367,7 +1367,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1545,7 +1545,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1626,7 +1626,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
@@ -1796,7 +1796,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
         }
 
         @Override
-        public void accept(ModelWidgetVisitor visitor) {
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
     }
