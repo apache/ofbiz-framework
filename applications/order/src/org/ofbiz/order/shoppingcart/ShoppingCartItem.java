@@ -2021,6 +2021,10 @@ public class ShoppingCartItem implements java.io.Serializable {
         return listPrice;
     }
 
+    public void setListPrice(BigDecimal listPrice) {
+    	this.listPrice = listPrice;
+    }
+
     /** Returns isModifiedPrice */
     public boolean getIsModifiedPrice() {
         return isModifiedPrice;
