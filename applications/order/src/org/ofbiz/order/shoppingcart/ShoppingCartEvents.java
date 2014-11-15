@@ -645,7 +645,12 @@ public class ShoppingCartEvents {
         if (UtilValidate.isNotEmpty(itemId)) {
             request.setAttribute("itemId", itemId);
         }
-
+        for (int shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupIndex++) {
+            String shipContactMechId = cart.getShippingContactMechId(shipGroupIndex);
+            if (UtilValidate.isNotEmpty(shipContactMechId)) {
+                cart.setShipmentMethodTypeId(shipGroupIndex, null);
+            }
+        }
         // Determine where to send the browser
         if (controlDirective.equals(ERROR)) {
             return "error";
