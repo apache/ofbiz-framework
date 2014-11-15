@@ -47,6 +47,5 @@ context.lowIndex = result.lowIndex;
 context.highIndex = result.highIndex;
 context.paging = result.paging;
 context.previousViewSize = result.previousViewSize;
-context.searchCategory = result.searchCategory;
 context.searchConstraintStrings = result.searchConstraintStrings;
 context.searchSortOrderString = result.searchSortOrderString;
