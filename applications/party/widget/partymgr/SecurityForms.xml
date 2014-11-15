@@ -114,6 +114,7 @@ under the License.
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
@@ -153,6 +154,7 @@ under the License.
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" value="${nowTimestamp}"/>
             </hyperlink>
         </field>
     </form>

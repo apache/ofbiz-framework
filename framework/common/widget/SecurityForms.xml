@@ -203,6 +203,7 @@ under the License.
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
@@ -245,7 +246,7 @@ under the License.
         </field>
         <field name="userLoginId"><hidden/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}" red-when="before-now"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonRemove}" target="${removeUserLoginSecurityGroupURI}" also-hidden="false">
@@ -253,6 +254,7 @@ under the License.
                 <parameter param-name="userLoginId"/>
                 <parameter param-name="groupId"/>
                 <parameter param-name="fromDate"/>
+                <parameter param-name="thruDate" from-field="date:nowTimestamp()"/>
             </hyperlink>
         </field>
     </form>
