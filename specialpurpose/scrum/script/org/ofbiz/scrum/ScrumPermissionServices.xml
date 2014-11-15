@@ -519,7 +519,6 @@
                 </if-not-empty>
             </if-not-empty>
         </if-has-permission>
-        <log level="verbose"></log>
         <field-to-result field="hasPermission"/>
     </simple-method>
     <simple-method method-name="sprintUpdatePermission" short-description="Check Update Sprint Permission">
