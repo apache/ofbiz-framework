@@ -51,6 +51,7 @@ under the License.
                 <parameter param-name="MASTER_caContentIdTo" from-field="caContentIdTo"/>
                 <parameter param-name="MASTER_caContentAssocTypeId" from-field="caContentAssocTypeId"/>
                 <parameter param-name="MASTER_caFromDate" from-field="caFromDate"/>
+                <parameter param-name="MASTER_caMapKey" from-field="caMapKey"/>
             </hyperlink>
 <!--
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditContent">
@@ -406,7 +407,7 @@ under the License.
         </field>
         <field name="caMapKey" position="2"
             use-when="&quot;${caMapKey}&quot;.length()>0" >
-            <display />
+            <text />
         </field>
         <field name="caContentAssocTypeId" position="1"
             use-when="&quot;${caContentAssocTypeId}&quot;.length()>0" >
@@ -423,8 +424,18 @@ under the License.
                 <entity-options description="${description}" entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
             </drop-down>
         </field>
-        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1"><date-time default-value="${nowTimestamp}"/></field>
-        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2"><date-time/></field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()>0">
+            <display default-value="${nowTimestamp}"/>
+        </field>
+        <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()==0">
+            <date-time default-value="${nowTimestamp}"/>
+        </field>
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2" use-when="&quot;${caThruDate}&quot;.length()>0">
+            <date-time/>
+        </field>
+        <field name="caThruDate" title="${uiLabelMap.CommonThruDate}" widget-style="buttontext" position="2" use-when="&quot;${caThruDate}&quot;.length()==0">
+            <date-time/>
+        </field>
         <field name="contentTitle" title="${uiLabelMap.ContentContent}" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>

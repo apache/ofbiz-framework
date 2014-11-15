@@ -103,7 +103,9 @@ under the License.
                 <set field="MASTER_caContentIdTo" from-field="parameters.MASTER_caContentIdTo" default-value="${parameters.caContentIdTo}"/>
                 <set field="MASTER_caContentId" from-field="parameters.MASTER_caContentId" default-value="${parameters.caContentIdFrom}"/>
                 <set field="MASTER_caContentAssocTypeId" from-field="parameters.MASTER_caContentAssocTypeId" default-value="${parameters.caContentAssocTypeId}"/>
+                <set field="MASTER_caMapKey" from-field="parameters.MASTER_caMapKey" default-value="${parameters.caMapKey}"/>
                 <set field="MASTER_caFromDate" from-field="parameters.MASTER_caFromDate" default-value="${parameters.caFromDate}" type="Timestamp"/>
+                <set field="MASTER_caThruDate" from-field="parameters.MASTER_caThruDate" default-value="${parameters.caThruDate}" type="Timestamp"/>
 
                 <set field="contentId" from-field="MASTER_contentId"/>
                 <set field="drDataResourceId" from-field="MASTER_drDataResourceId"/>
@@ -111,6 +113,8 @@ under the License.
                 <set field="caContentId" from-field="MASTER_caContentId"/>
                 <set field="caContentAssocTypeId" from-field="MASTER_caContentAssocTypeId"/>
                 <set field="caFromDate" from-field="MASTER_caFromDate"/>
+                <set field="caThruDate" from-field="MASTER_caThruDate"/>
+                <set field="caMapKey" from-field="MASTER_caMapKey"/>
 
 
                 <script location="component://content/webapp/content/WEB-INF/actions/cms/CmsEditAddPrep.groovy"/>
@@ -123,7 +127,7 @@ under the License.
                         <screenlet title="${uiLabelMap.ContentCMSEditPage}">
                             <link  text="${uiLabelMap.ContentGoToFind}" target="CMSContentFind?VIEW_INDEX=${CMSContentFindViewIndex}&amp;${CMSContentFindQueryString}"/>
                             <include-form name="EditAddContentStuff" location="component://content/widget/cms/CMSForms.xml"/>
-                            <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
+                            <content content-id="${contentId}" enable-edit-name="notfound"  edit-request="EditAddSubContent?MASTER_caMapKey=${MASTER_caMapKey}&amp;MASTER_contentId=${MASTER_contentId}&amp;MASTER_caContentIdTo=${MASTER_caContentIdTo}&amp;MASTER_caContentAssocTypeId=${MASTER_caContentAssocTypeId}&amp;MASTER_caFromDate=${MASTER_caFromDate}&amp;MASTER_caThruDate=${MASTER_caThruDate}&amp;MASTER_drDataResourceId=${MASTER_drDataResourceId}&amp;caContentIdTo=${caContentIdTo}"/>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
