@@ -802,11 +802,11 @@ public class ProductServices {
         Map<String, Object> successResult = ServiceUtil.returnSuccess();
 
         try {
-            // Generate new virtual productId, prefix with "VP", put in successResult
+            // Generate new virtual productId, put in successResult
             String productId = (String) context.get("productId");
 
             if (UtilValidate.isEmpty(productId)) {
-                productId = "VP" + delegator.getNextSeqId("Product");
+                productId = delegator.getNextSeqId("Product");
                 // Create new virtual product...
                 GenericValue product = delegator.makeValue("Product");
                 product.set("productId", productId);
