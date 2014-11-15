@@ -741,7 +741,7 @@ under the License.
         <!-- defined in an extend in content component to avoid dependencies between common and content
         <field name="helpContentId" type="id"><description>Used to give contentId which will be shown when help on this page will be called</description></field>
          -->
-        <field name="ownerUserLoginId" type="id"></field>
+        <field name="ownerUserLoginId" type="id-vlong-ne"></field>
         <field name="originalPortalPageId" type="id"><description>The system portal page this page is derived from</description></field>
         <field name="parentPortalPageId" type="id"><description>the parent this page is belonging to, normally the startpage of the portal page group</description></field>
         <field name="sequenceNum" type="numeric"></field>
