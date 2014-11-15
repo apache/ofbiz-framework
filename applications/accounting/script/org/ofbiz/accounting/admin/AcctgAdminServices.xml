@@ -122,7 +122,12 @@ under the License.
 
         <!-- expire all of them -->
         <iterate list="uomConversions" entry="uomConversion">
-            <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
+            <if-empty field="parameters.fromDate">
+                <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
+            <else>
+                <set from-field="parameters.fromDate" field="uomConversion.thruDate"/>
+            </else>
+            </if-empty>
         </iterate>
         <store-list list="uomConversions"/>
 
