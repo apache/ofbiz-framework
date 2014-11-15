@@ -81,7 +81,7 @@ under the License.
         <description>Verify a user is logged in.</description>
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="storeCheckLogin"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="view-last" value="main"/>
         <response name="error" type="view" value="login"/>
     </request-map>
     <request-map uri="login">
@@ -857,7 +857,7 @@ under the License.
     </request-map>
     <request-map uri="category">
         <security https="false" auth="false"/>
-        <response name="success" type="view" value="category"/>
+        <response name="success" type="view" value="category" save-current-view="true"/>
     </request-map>
     <request-map uri="product">
         <security https="false" auth="false"/>
