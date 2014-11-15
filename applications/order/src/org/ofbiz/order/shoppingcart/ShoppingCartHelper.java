@@ -806,6 +806,10 @@ public class ShoppingCartHelper {
                                         }
                                     } else {
                                         BigDecimal minQuantity = ShoppingCart.getMinimumOrderQuantity(delegator, item.getBasePrice(), item.getProductId());
+                                        oldQuantity = item.getQuantity();
+                                        if (oldQuantity.compareTo(quantity) != 0) {
+                                            cart.setShipmentMethodTypeId(index, null);
+                                        }
                                         if (quantity.compareTo(minQuantity) < 0) {
                                             quantity = minQuantity;
                                         }
@@ -879,6 +883,7 @@ public class ShoppingCartHelper {
                 Debug.logInfo("Removing item index: " + itemIndex, module);
             try {
                 this.cart.removeCartItem(itemIndex, dispatcher);
+                cart.setShipmentMethodTypeId(itemIndex, null);
             } catch (CartItemModifyException e) {
                 result = ServiceUtil.returnError(new ArrayList<String>());
                 errorMsgs.add(e.getMessage());
