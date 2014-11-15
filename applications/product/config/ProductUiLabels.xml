@@ -8360,6 +8360,9 @@
         <value xml:lang="zh">欢迎使用图片管理</value>
         <value xml:lang="zh_TW">歡迎使用圖片管理</value>
     </property>
+    <property key="InventoryFacilityIdRequired">
+        <value xml:lang="en">"Inventory Facility Id Required"</value>
+    </property>
     <property key="MetaDescription">
         <value xml:lang="en">Meta Description</value>
         <value xml:lang="ja">メタ詳細</value>
