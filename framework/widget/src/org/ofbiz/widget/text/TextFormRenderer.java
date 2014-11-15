@@ -36,6 +36,7 @@ import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
+import org.ofbiz.widget.form.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.form.ModelFormField.FileField;
 import org.ofbiz.widget.form.ModelFormField.HiddenField;
 import org.ofbiz.widget.form.ModelFormField.HyperlinkField;
@@ -116,7 +117,7 @@ public class TextFormRenderer implements FormStringRenderer {
             if (UtilValidate.isNotEmpty(explicitDescription)) {
                 this.makeTextString(writer, modelFormField.getWidgetStyle(), explicitDescription);
             } else {
-                this.makeTextString(writer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                this.makeTextString(writer, modelFormField.getWidgetStyle(), FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
             for (ModelFormField.OptionValue optionValue: allOptionValues) {

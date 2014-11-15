@@ -122,12 +122,12 @@ public class FormRenderer {
             if (position != -1 && modelFormField.getPosition() != position) {
                 continue;
             }
-            ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+            FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget
             switch (fieldInfo.getFieldType()) {
-            case ModelFormField.FieldInfo.HIDDEN:
-            case ModelFormField.FieldInfo.IGNORED:
+            case FieldInfo.HIDDEN:
+            case FieldInfo.IGNORED:
                 if (modelFormField.shouldUse(context)) {
                     hiddenIgnoredFieldList.add(modelFormField);
                     if (alreadyRendered != null)
@@ -135,8 +135,8 @@ public class FormRenderer {
                 }
                 break;
 
-            case ModelFormField.FieldInfo.DISPLAY:
-            case ModelFormField.FieldInfo.DISPLAY_ENTITY:
+            case FieldInfo.DISPLAY:
+            case FieldInfo.DISPLAY_ENTITY:
                 ModelFormField.DisplayField displayField = (ModelFormField.DisplayField) fieldInfo;
                 if (displayField.getAlsoHidden() && modelFormField.shouldUse(context)) {
                     hiddenIgnoredFieldList.add(modelFormField);
@@ -144,7 +144,7 @@ public class FormRenderer {
                 }
                 break;
 
-            case ModelFormField.FieldInfo.HYPERLINK:
+            case FieldInfo.HYPERLINK:
                 ModelFormField.HyperlinkField hyperlinkField = (ModelFormField.HyperlinkField) fieldInfo;
                 if (hyperlinkField.getAlsoHidden() && modelFormField.shouldUse(context)) {
                     hiddenIgnoredFieldList.add(modelFormField);
@@ -236,7 +236,7 @@ public class FormRenderer {
             if (curPos > positions) {
                 positions = curPos;
             }
-            ModelFormField.FieldInfo currentFieldInfo = modelFormField.getFieldInfo();
+            FieldInfo currentFieldInfo = modelFormField.getFieldInfo();
             if (currentFieldInfo != null) {
                 ModelFormField fieldInfoFormField = currentFieldInfo.getModelFormField();
                 if (fieldInfoFormField != null) {
@@ -317,7 +317,7 @@ public class FormRenderer {
             // will be rendered as columns after it
             boolean inputFieldFound = false;
             for (ModelFormField modelFormField : mainFieldList) {
-                ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                 // if the field's title is explicitly set to "" (title="") then
                 // the header is not created for it; this is useful for position list
@@ -328,14 +328,14 @@ public class FormRenderer {
                     continue;
                 }
                 // don't do any header for hidden or ignored fields
-                if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                        || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                        || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                     continue;
                 }
 
-                if (fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY
-                        && fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY_ENTITY
-                        && fieldInfo.getFieldType() != ModelFormField.FieldInfo.HYPERLINK) {
+                if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
+                        && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
+                        && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
                     inputFieldFound = true;
                     continue;
                 }
@@ -351,18 +351,18 @@ public class FormRenderer {
 
             // prepare the combined title for the column that will contain the form/input fields
             for (ModelFormField modelFormField : mainFieldList) {
-                ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                 // don't do any header for hidden or ignored fields
-                if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                        || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                        || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                     continue;
                 }
 
                 // skip all of the display/hyperlink fields
-                if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.DISPLAY
-                        || fieldInfo.getFieldType() == ModelFormField.FieldInfo.DISPLAY_ENTITY
-                        || fieldInfo.getFieldType() == ModelFormField.FieldInfo.HYPERLINK) {
+                if (fieldInfo.getFieldType() == FieldInfo.DISPLAY
+                        || fieldInfo.getFieldType() == FieldInfo.DISPLAY_ENTITY
+                        || fieldInfo.getFieldType() == FieldInfo.HYPERLINK) {
                     continue;
                 }
 
@@ -461,9 +461,9 @@ public class FormRenderer {
                         ModelFormField modelFormField = mainFieldListIter.next();
 
                         // don't do any header for hidden or ignored fields
-                        ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
-                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                        FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                        if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                                || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                             continue;
                         }
 
@@ -489,18 +489,18 @@ public class FormRenderer {
     private void renderHiddenIgnoredFields(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer,
             List<ModelFormField> fieldList) throws IOException {
         for (ModelFormField modelFormField : fieldList) {
-            ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+            FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
             // render hidden/ignored field widget
             switch (fieldInfo.getFieldType()) {
-            case ModelFormField.FieldInfo.HIDDEN:
-            case ModelFormField.FieldInfo.IGNORED:
+            case FieldInfo.HIDDEN:
+            case FieldInfo.IGNORED:
                 modelFormField.renderFieldString(writer, context, formStringRenderer);
                 break;
 
-            case ModelFormField.FieldInfo.DISPLAY:
-            case ModelFormField.FieldInfo.DISPLAY_ENTITY:
-            case ModelFormField.FieldInfo.HYPERLINK:
+            case FieldInfo.DISPLAY:
+            case FieldInfo.DISPLAY_ENTITY:
+            case FieldInfo.HYPERLINK:
                 formStringRenderer.renderHiddenField(writer, context, modelFormField, modelFormField.getEntry(context));
                 break;
             }
@@ -631,9 +631,9 @@ public class FormRenderer {
                 ModelFormField modelFormField = mainFieldIter.next();
 
                 // don't do any header for hidden or ignored fields inside this loop
-                ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
-                if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                        || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                        || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                     continue;
                 }
 
@@ -795,17 +795,17 @@ public class FormRenderer {
                     int currentPosition = 1;
                     while (innerDisplayHyperlinkFieldIter.hasNext()) {
                         ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
-                        ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                        FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
-                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                        if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                                || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                             continue;
                         }
 
-                        if (fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY
-                                && fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY_ENTITY
-                                && fieldInfo.getFieldType() != ModelFormField.FieldInfo.HYPERLINK) {
+                        if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
+                                && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
+                                && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
                             // okay, now do the form cell
                             break;
                         }
@@ -821,18 +821,18 @@ public class FormRenderer {
                     Iterator<ModelFormField> innerFormFieldIter = fieldListByPosition.iterator();
                     while (innerFormFieldIter.hasNext()) {
                         ModelFormField modelFormField = innerFormFieldIter.next();
-                        ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                        FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
-                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                        if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                                || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                             continue;
                         }
 
                         // skip all of the display/hyperlink fields
-                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.DISPLAY
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.DISPLAY_ENTITY
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.HYPERLINK) {
+                        if (fieldInfo.getFieldType() == FieldInfo.DISPLAY
+                                || fieldInfo.getFieldType() == FieldInfo.DISPLAY_ENTITY
+                                || fieldInfo.getFieldType() == FieldInfo.HYPERLINK) {
                             continue;
                         }
 
@@ -846,18 +846,18 @@ public class FormRenderer {
                     }
                     while (innerDisplayHyperlinkFieldIter.hasNext()) {
                         ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
-                        ModelFormField.FieldInfo fieldInfo = modelFormField.getFieldInfo();
+                        FieldInfo fieldInfo = modelFormField.getFieldInfo();
 
                         // don't do any header for hidden or ignored fields
-                        if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                                || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+                        if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                                || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                             continue;
                         }
 
                         // skip all non-display and non-hyperlink fields
-                        if (fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY
-                                && fieldInfo.getFieldType() != ModelFormField.FieldInfo.DISPLAY_ENTITY
-                                && fieldInfo.getFieldType() != ModelFormField.FieldInfo.HYPERLINK) {
+                        if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
+                                && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
+                                && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
                             continue;
                         }
 
@@ -1087,9 +1087,9 @@ public class FormRenderer {
                 }
             }
 
-            ModelFormField.FieldInfo fieldInfo = currentFormField.getFieldInfo();
-            if (fieldInfo.getFieldType() == ModelFormField.FieldInfo.HIDDEN
-                    || fieldInfo.getFieldType() == ModelFormField.FieldInfo.IGNORED) {
+            FieldInfo fieldInfo = currentFormField.getFieldInfo();
+            if (fieldInfo.getFieldType() == FieldInfo.HIDDEN
+                    || fieldInfo.getFieldType() == FieldInfo.IGNORED) {
                 continue;
             }
             if (alreadyRendered.contains(currentFormField.getName())) {
@@ -1158,8 +1158,8 @@ public class FormRenderer {
             formStringRenderer.renderFormatFieldRowTitleCellOpen(writer, context, currentFormField);
 
             // render title (unless this is a submit or a reset field)
-            if (fieldInfo.getFieldType() != ModelFormField.FieldInfo.SUBMIT
-                    && fieldInfo.getFieldType() != ModelFormField.FieldInfo.RESET) {
+            if (fieldInfo.getFieldType() != FieldInfo.SUBMIT
+                    && fieldInfo.getFieldType() != FieldInfo.RESET) {
                 formStringRenderer.renderFieldTitle(writer, context, currentFormField);
             } else {
                 formStringRenderer.renderFormatEmptySpace(writer, context, modelForm);

@@ -57,6 +57,7 @@ import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
+import org.ofbiz.widget.form.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.form.ModelFormField.FileField;
 import org.ofbiz.widget.form.ModelFormField.HiddenField;
 import org.ofbiz.widget.form.ModelFormField.HyperlinkField;
@@ -596,7 +597,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                     explicitDescription = dropDownField.getCurrentDescription(context);
                 }
                 if (UtilValidate.isEmpty(explicitDescription)) {
-                    explicitDescription = ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues);
+                    explicitDescription = FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues);
                 }
                 explicitDescription = encode(explicitDescription, modelFormField, context);
                 writer.append(explicitDescription);
@@ -691,7 +692,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 if (UtilValidate.isNotEmpty(explicitDescription)) {
                     writer.append(encode(explicitDescription, modelFormField, context));
                 } else {
-                    String description = ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues);
+                    String description = FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues);
                     writer.append(encode(description, modelFormField, context));
                 }
                 writer.append("</option>");

@@ -60,6 +60,7 @@ import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
+import org.ofbiz.widget.form.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.form.ModelFormField.FileField;
 import org.ofbiz.widget.form.ModelFormField.HiddenField;
 import org.ofbiz.widget.form.ModelFormField.HyperlinkField;
@@ -779,7 +780,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         explicitDescription = (currentDescription != null ? currentDescription : dropDownField.getCurrentDescription(context));
         if (UtilValidate.isEmpty(explicitDescription)) {
-            explicitDescription = (ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+            explicitDescription = (FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
         }
         if (textSize > 0 && UtilValidate.isNotEmpty(explicitDescription) && explicitDescription.length() > textSize) {
             explicitDescription = explicitDescription.substring(0, textSize - 8) + "..." + explicitDescription.substring(explicitDescription.length() - 5);
@@ -1418,7 +1419,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         List<String> fieldNameList = new LinkedList<String>();
         for (ModelFormField childField : childFieldList) {
             int childFieldType = childField.getFieldInfo().getFieldType();
-            if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
+            if (childFieldType == FieldInfo.HIDDEN || childFieldType == FieldInfo.IGNORED) {
                 continue;
             }
             String areaStyle = childField.getTitleAreaStyle();
