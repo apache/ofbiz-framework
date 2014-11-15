@@ -120,7 +120,7 @@ under the License.
     </request-map>
     <request-map uri="removeUserLoginFromSecurityGroup">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeUserLoginFromSecurityGroup"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
         <response name="success" type="view" value="EditSecurityGroupUserLogins"/>
         <response name="error" type="view" value="EditSecurityGroupUserLogins"/>
     </request-map>
@@ -162,7 +162,7 @@ under the License.
     </request-map>
     <request-map uri="userLogin_removeUserLoginFromSecurityGroup">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="removeUserLoginFromSecurityGroup"/>
+        <event type="service" path="" invoke="updateUserLoginToSecurityGroup"/>
         <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
         <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
     </request-map>
