@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.form.FieldInfo;
 import org.ofbiz.widget.form.FormStringRenderer;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelFormField;
@@ -38,6 +39,7 @@ import org.ofbiz.widget.form.ModelFormField.DateFindField;
 import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
+import org.ofbiz.widget.form.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.form.ModelFormField.FileField;
 import org.ofbiz.widget.form.ModelFormField.HiddenField;
 import org.ofbiz.widget.form.ModelFormField.HyperlinkField;
@@ -124,7 +126,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
             if (UtilValidate.isNotEmpty(explicitDescription)) {
                 this.makeBlockString(writer, modelFormField.getWidgetStyle(), explicitDescription);
             } else {
-                this.makeBlockString(writer, modelFormField.getWidgetStyle(), ModelFormField.FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
+                this.makeBlockString(writer, modelFormField.getWidgetStyle(), FieldInfoWithOptions.getDescriptionForOptionKey(currentValue, allOptionValues));
             }
         } else {
             boolean optionSelected = false;
@@ -196,7 +198,7 @@ public class FoFormRenderer extends HtmlWidgetRenderer implements FormStringRend
         List<ModelFormField> childFieldList = modelForm.getFieldList();
         for (ModelFormField childField : childFieldList) {
             int childFieldType = childField.getFieldInfo().getFieldType();
-            if (childFieldType == ModelFormField.FieldInfo.HIDDEN || childFieldType == ModelFormField.FieldInfo.IGNORED) {
+            if (childFieldType == FieldInfo.HIDDEN || childFieldType == FieldInfo.IGNORED) {
                 continue;
             }
             writer.append("<fo:table-column");

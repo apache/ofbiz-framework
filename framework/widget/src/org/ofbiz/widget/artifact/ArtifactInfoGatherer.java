@@ -37,6 +37,7 @@ import org.ofbiz.widget.ModelWidgetAction.Script;
 import org.ofbiz.widget.ModelWidgetAction.Service;
 import org.ofbiz.widget.ModelWidgetAction.SetField;
 import org.ofbiz.widget.ModelWidgetVisitor;
+import org.ofbiz.widget.form.FieldInfo;
 import org.ofbiz.widget.form.ModelForm;
 import org.ofbiz.widget.form.ModelForm.AltTarget;
 import org.ofbiz.widget.form.ModelForm.AutoFieldsEntity;
@@ -51,7 +52,7 @@ import org.ofbiz.widget.form.ModelFormField.DateTimeField;
 import org.ofbiz.widget.form.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.form.ModelFormField.DisplayField;
 import org.ofbiz.widget.form.ModelFormField.DropDownField;
-import org.ofbiz.widget.form.ModelFormField.FieldInfo;
+import org.ofbiz.widget.form.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.form.ModelFormField.FileField;
 import org.ofbiz.widget.form.ModelFormField.HiddenField;
 import org.ofbiz.widget.form.ModelFormField.HyperlinkField;
@@ -245,8 +246,8 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
             if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
                 infoContext.addEntityName(((ModelFormField.DisplayEntityField) modelFormField.getFieldInfo()).getEntityName());
             }
-            if (modelFormField.getFieldInfo() instanceof ModelFormField.FieldInfoWithOptions) {
-                for (ModelFormField.OptionSource optionSource : ((ModelFormField.FieldInfoWithOptions) modelFormField
+            if (modelFormField.getFieldInfo() instanceof FieldInfoWithOptions) {
+                for (ModelFormField.OptionSource optionSource : ((FieldInfoWithOptions) modelFormField
                         .getFieldInfo()).getOptionSources()) {
                     if (optionSource instanceof ModelFormField.EntityOptions) {
                         infoContext.addEntityName(((ModelFormField.EntityOptions) optionSource).getEntityName());
