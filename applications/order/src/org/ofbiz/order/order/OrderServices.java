@@ -2014,6 +2014,10 @@ public class OrderServices {
 
                 if (changeToApprove) {
                     newStatus = "ORDER_APPROVED";
+                    if ("ORDER_HOLD".equals(orderHeaderStatusId)) {
+                        // Don't let the system to auto approve order if the order was put on hold.
+                        return ServiceUtil.returnSuccess();
+                    }
                 }
             }
 
