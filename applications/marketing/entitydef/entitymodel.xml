@@ -276,7 +276,7 @@ under the License.
         <field name="fromDate" type="date-time"></field>
         <field name="statusDate" type="date-time"></field>
         <field name="statusId" type="id"></field>
-        <field name="setByUserLoginId" type="description"></field>
+        <field name="setByUserLoginId" type="id-vlong"></field>
         <field name="optInVerifyCode" type="short-varchar"><!-- if statusId is CLPT_PENDING, set optInVerifyCode; else if statusId is CLPT_ACCEPTED, make sure optInVerifyCode is the same as the last CLPT_PENDING --></field>
         <prim-key field="contactListId"/>
         <prim-key field="partyId"/>

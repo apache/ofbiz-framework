@@ -83,7 +83,7 @@ under the License.
         <field name="itemId" type="id-long"/>
         <field name="productStoreId" type="id-ne"/>
         <field name="productId" type="id-ne"/>
-        <field name="userLoginId" type="id-long"/>
+        <field name="userLoginId" type="id-vlong"/>
         <field name="statusId" type="id-ne"/>
         <field name="listingXml" type="very-long"/>
         <field name="startDateTime" type="date-time"/>

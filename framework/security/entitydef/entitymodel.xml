@@ -226,7 +226,7 @@ under the License.
           title="Security Component - Protected View Entity">
       <description>Login View couple currently tarpitted : any access to the view for the login is denied</description>
       <field name="viewNameId" type="id-long-ne"><description>name of view protected from data theft</description></field>
-      <field name="userLoginId" type="id-ne"/>
+      <field name="userLoginId" type="id-vlong-ne"/>
       <field name="tarpitReleaseDateTime" type="numeric"><description>Date/Time at which the login will gain anew access to the view (in milliseconds from midnight, January 1, 1970 UTC , 0 meaning no tarpit to allow the admin to free a view and to keep history</description></field>
       <prim-key field="viewNameId"/>
       <prim-key field="userLoginId"/>
