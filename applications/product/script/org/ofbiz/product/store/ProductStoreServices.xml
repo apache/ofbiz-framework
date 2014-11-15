@@ -25,6 +25,15 @@ under the License.
             <fail-property resource="ProductUiLabels" property="ProductCatalogCreatePermissionError"/>
         </check-permission>
         <check-errors/>
+        
+        <if-compare field="parameters.oneInventoryFacility" operator="equals" value="Y">
+            <if-empty field="parameters.inventoryFacilityId">
+                <add-error>
+                    <fail-property property="InventoryFacilityIdRequired" resource="ProductUiLabels"/>
+                </add-error>
+            </if-empty>
+            <check-errors/>
+        </if-compare>
 
         <if-compare field="parameters.showPricesWithVatTax" operator="equals" value="Y">
             <if-empty field="parameters.vatTaxAuthGeoId">
@@ -65,6 +74,15 @@ under the License.
             <fail-property resource="ProductUiLabels" property="ProductCatalogUpdatePermissionError"/>
         </check-permission>
         <check-errors/>
+        
+         <if-compare field="parameters.oneInventoryFacility" operator="equals" value="Y">
+            <if-empty field="parameters.inventoryFacilityId">
+                <add-error>
+                    <fail-property property="InventoryFacilityIdRequired" resource="ProductUiLabels"/>
+                </add-error>
+            </if-empty>
+            <check-errors/>
+        </if-compare>
 
         <set from-field="parameters.productStoreId" field="lookupPKMap.productStoreId"/>
         <find-by-primary-key entity-name="ProductStore" map="lookupPKMap" value-field="store"/>
