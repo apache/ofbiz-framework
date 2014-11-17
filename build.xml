@@ -345,7 +345,7 @@ under the License.
                 <include name="*/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="build"/>
+        <!--antcall target="build"/--><!-- you can chain if you don't use build-dev  see MVP-256-->
     </target>
     
     <target name="build-qa" 
@@ -356,7 +356,7 @@ under the License.
                 <include name="*/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="build"/>
+      <!--antcall target="build"/--><!-- you can chain if you don't use build-dev  see MVP-256-->
     </target>
 
     <target name="build-production" 
@@ -367,7 +367,7 @@ under the License.
                 <include name="*/build.xml"/>
             </fileset>
         </subant>
-        <antcall target="build"/>
+      <!--antcall target="build"/--><!-- you can chain if you don't use build-dev  see MVP-256-->
     </target>    
     
     <!-- ================================================================== -->
