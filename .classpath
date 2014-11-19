@@ -92,15 +92,15 @@
     <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.birt.runtime_4.3.1.v20130918-1142.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/viewservlets.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/ecj-4.4.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-catalina-ha.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-catalina-tribes.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-catalina.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-jasper.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-tomcat-api.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-tomcat-coyote.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.55-tomcat-util.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.55-tomcat-juli.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.55-tomcat-juli-adapters.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina-ha.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina-tribes.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-jasper.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-api.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-coyote.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-util.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.57-tomcat-juli.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.57-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
