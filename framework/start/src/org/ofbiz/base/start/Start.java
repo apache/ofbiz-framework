@@ -74,19 +74,20 @@ public final class Start {
     }
 
     private static void help(PrintStream out) {
+        // Currently some commands have no dash, see OFBIZ-5872
         out.println("");
         out.println("Usage: java -jar ofbiz.jar [command] [arguments]");
-        out.println("-both    -----> Run simultaneously the POS (Point of Sales) application and OFBiz standard");
+        out.println("both    -----> Runs simultaneously the POS (Point of Sales) application and OFBiz standard");
         out.println("-help, -? ----> This screen");
-        out.println("-install -----> Run install (create tables/load data)");
-        out.println("-pos     -----> Run the POS (Point of Sales) application");
-        out.println("-setup -------> Run external application server setup");
-        out.println("-start -------> Start the server");
-        out.println("-status ------> Status of the server");
-        out.println("-shutdown ----> Shutdown the server");
-        out.println("-test --------> Run the JUnit test script");
-        out.println("[no config] --> Use default config");
-        out.println("[no command] -> Start the server w/ default config");
+        out.println("load-data -----> Creates tables/load data, eg: load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz. Or: load-data -file=/tmp/dataload.xml");
+        out.println("pos     -----> Runs the POS (Point of Sales) application");
+        //out.println("-setup -------> Run external application server setup");
+        out.println("start -------> Starts the server");
+        out.println("-status ------> Gives the status of the server");
+        out.println("-shutdown ----> Shutdowns the server");
+        out.println("test --------> Runs the JUnit test script");
+        out.println("[no config] --> Uses default config");
+        out.println("[no command] -> Starts the server with default config");
     }
 
     public static void main(String[] args) throws StartupException {

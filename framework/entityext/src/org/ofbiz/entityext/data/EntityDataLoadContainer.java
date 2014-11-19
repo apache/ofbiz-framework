@@ -94,7 +94,7 @@ public class EntityDataLoadContainer implements Container {
         ServiceDispatcher.enableSvcs(false);
 
         /*
-           install arguments:
+           load-data arguments:
            readers (none, all, seed, demo, ext, etc - configured in entityengine.xml and associated via ofbiz-component.xml)
            timeout (transaction timeout default 7200)
            delegator (overrides the delegator name configured for the container)
@@ -103,8 +103,11 @@ public class EntityDataLoadContainer implements Container {
            file (import a specific XML file)
 
            Example:
-           $ java -jar ofbiz.jar -install -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz
-           $ java -jar ofbiz.jar -install -file=/tmp/dataload.xml
+           $ java -jar ofbiz.jar -load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz
+           $ java -jar ofbiz.jar -load-data -file=/tmp/dataload.xml
+           Currently no dashes before load-data, see OFBIZ-5872
+               $ java -jar ofbiz.jar load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz
+               $ java -jar ofbiz.jar load-data -file=/tmp/dataload.xml
         */
         if (args != null) {
             for (String argument: args) {
@@ -174,8 +177,10 @@ public class EntityDataLoadContainer implements Container {
                         createConstraints = true;
                     }
                 } else if ("help".equalsIgnoreCase(argumentName)) {
+                    //"java -jar ofbiz.jar -load-data [options]\n" +
+                    // Currently no dashes before load-data, see OFBIZ-5872
                     String helpStr = "\n--------------------------------------\n" +
-                    "java -jar ofbiz.jar -install [options]\n" +
+                    "java -jar ofbiz.jar load-data [options]\n" +
                     "-component=[name] .... only load from a specific component\n" +
                     "-delegator=[name] .... use the defined delegator (default-no-eca)\n" +
                     "-group=[name] ........ override the entity group (org.ofbiz)\n" +
@@ -203,6 +208,7 @@ public class EntityDataLoadContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#start()
      */
+    @Override
     public boolean start() throws ContainerException {
         if("all-tenants".equals(this.overrideDelegator)) {
             if (!EntityUtil.isMultiTenantEnabled()) {
@@ -577,9 +583,11 @@ public class EntityDataLoadContainer implements Container {
     /**
      * @see org.ofbiz.base.container.Container#stop()
      */
+    @Override
     public void stop() throws ContainerException {
     }
 
+    @Override
     public String getName() {
         return name;
     }

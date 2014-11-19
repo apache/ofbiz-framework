@@ -237,7 +237,7 @@ public class EntityDataLoader {
             return 0;
         }
 
-        Debug.logVerbose("[install.loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", module);
+        Debug.logVerbose("[loadData] Loading XML Resource: \"" + dataUrl.toExternalForm() + "\"", module);
 
         try {
             /* The OLD way
@@ -256,7 +256,7 @@ public class EntityDataLoader {
             reader.setMaintainTxStamps(maintainTxs);
             rowsChanged += reader.parse(dataUrl);
         } catch (Exception e) {
-            String xmlError = "[install.loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
+            String xmlError = "[loadData]: Error loading XML Resource \"" + dataUrl.toExternalForm() + "\"; Error was: " + e.getMessage();
             errorMessages.add(xmlError);
             Debug.logError(e, xmlError, module);
         }
@@ -287,7 +287,7 @@ public class EntityDataLoader {
                     toBeStored.add(delegator.makeValue("SecurityGroupPermission", "groupId", "FULLADMIN", "permissionId", baseName + "_ADMIN"));
                     rowsChanged += delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
-                    errorMessages.add("[install.generateData] ERROR: Failed Security Generation for entity \"" + baseName + "\"");
+                    errorMessages.add("[generateData] ERROR: Failed Security Generation for entity \"" + baseName + "\"");
                 }
 
                 /*
