@@ -45,18 +45,6 @@ abstract class GroovyBaseScript extends Script {
         return result = binding.getVariable('delegator').makeValue(entityName);
     }
 
-    Map findOne(String entityName, Map inputMap) {
-        Map genericValue = binding.getVariable('delegator').findOne(entityName, inputMap, true);
-        // TODO: get the list of pk fields from the map and use them only
-        return genericValue;
-    }
-
-    List findList(String entityName, Map inputMap) {
-        List genericValues = binding.getVariable('delegator').findByAnd(entityName, inputMap, null, false);
-        // TODO: get the list of entity fields from the map and use them only
-        return genericValues;
-    }
-
     EntityQuery from(def entity) {
         return EntityQuery.use(binding.getVariable('delegator')).from(entity);
     }
