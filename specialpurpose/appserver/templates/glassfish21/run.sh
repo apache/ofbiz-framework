@@ -54,7 +54,7 @@ echo "Started JavaDB server"
 
  # Load the seed and demo data.
  cd ${ofbizHome} 
- ./ant run-install
+ ./ant load-demo
 echo "Loaded seed and demo data"
 
  # Restore entityengine.xml

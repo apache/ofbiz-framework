@@ -643,7 +643,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
         </java>
     </target>
     <target name="load-demo-multitenant" depends="build"
@@ -652,20 +652,20 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
         </java>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#DEMO1"/>
         </java>
         <java jar="ofbiz.jar" fork="true">
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#DEMO2"/>
         </java>
     </target>
@@ -675,7 +675,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=seed"/>
         </java>
     </target>
@@ -685,7 +685,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=seed,seed-initial,ext"/>
         </java>
     </target>
@@ -695,7 +695,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=seed,seed-initial,ext,ext-test"/>
         </java>
     </target>
@@ -705,7 +705,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=${data-readers}"/>
         </java>
     </target>
@@ -716,7 +716,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=${delegator}"/>
             <arg value="file=${data-file}"/>
         </java>
@@ -732,7 +732,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=tenant"/>
         </java>
         <condition property="hasTenant">
@@ -773,7 +773,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#${tenantId}"/>
         </java>
     </target>
@@ -782,7 +782,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#${tenantId}"/>
             <arg value="readers=${data-readers}"/>
         </java>
@@ -807,7 +807,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#${tenantId}"/>
             <arg value="component=${component}"/>
         </java>
@@ -817,7 +817,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=default#${tenantId}"/>
             <arg value="readers=${data-readers}"/>
             <arg value="component=${component}"/>
@@ -835,7 +835,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=tenant"/>
         </java>
         <condition property="hasReader">
@@ -856,7 +856,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="delegator=${delegator}"/>
         </java>
     </target>
@@ -865,7 +865,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=${data-readers}"/>
             <arg value="delegator=${delegator}"/>
         </java>
@@ -1044,7 +1044,7 @@ under the License.
             <jvmarg value="${memory.initial.param}"/>
             <jvmarg value="${memory.max.param}"/>
             <jvmarg value="${memory.maxpermsize.param}"/>
-            <arg value="install"/>
+            <arg value="load-data"/>
             <arg value="readers=${data-readers}"/>
             <arg value="delegator=default#${tenantId}"/>
         </java>

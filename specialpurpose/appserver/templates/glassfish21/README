@@ -67,7 +67,7 @@ if (you are using JavaDB && want seed and demo data loaded) {
    Refer [4]. If you want to use JavaDB with default settings, you can use entityengine.xml_patch
    readily available under 'OFBIZ_HOME/setup/glassfish21'.
 4. Load seed and demo data (optional, but highly recommended) by using
-   './ant run-install' command under OFBIZ_HOME. Refer [5].
+   './ant load-demo' command under OFBIZ_HOME. Refer [5].
 5. Copy OFBIZ_HOME/setup/glassfish21/deploy.sh to <work-folder>.
 6. Run deploy.sh.
    (without quotes) './deploy.sh <glassfish-home> <glassfish-domain-path>'.
