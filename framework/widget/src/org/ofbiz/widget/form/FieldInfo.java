@@ -116,6 +116,11 @@ public abstract class FieldInfo {
 
     public abstract void accept(ModelFieldVisitor visitor);
 
+    /**
+     * Returns a new instance of this object.
+     * 
+     * @param modelFormField
+     */
     public abstract FieldInfo copy(ModelFormField modelFormField);
 
     public int getFieldSource() {

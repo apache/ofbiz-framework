@@ -1362,6 +1362,13 @@ public class ModelFormField {
             super(fieldSource, fieldType, modelFormField);
         }
 
+        // Copy constructor.
+        protected FieldInfoWithOptions(FieldInfoWithOptions original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.noCurrentSelectedKey = original.noCurrentSelectedKey;
+            this.optionSources.addAll(original.optionSources);
+        }
+
         public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
 
@@ -3301,7 +3308,7 @@ public class ModelFormField {
         }
 
         private DropDownField(DropDownField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            super(original, modelFormField);
             this.current = original.current;
             this.size = original.size;
             this.textSize = original.textSize;
@@ -3430,7 +3437,7 @@ public class ModelFormField {
         }
 
         private RadioField(RadioField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            super(original, modelFormField);
         }
 
         @Override
@@ -3468,7 +3475,7 @@ public class ModelFormField {
         }
 
         private CheckField(CheckField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            super(original, modelFormField);
         }
 
         @Override
