@@ -129,6 +129,7 @@ under the License.
             <#-- The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 0 -->
             if (initDate.indexOf('.') != -1) {
               initDate = initDate.substring(0, initDate.indexOf('.'));
+              jQuery("#${id}").val(initDate);
             }
             var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
             var dateObj = Date.parseExact(initDate, ofbizTime);
