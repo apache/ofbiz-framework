@@ -140,71 +140,181 @@ under the License.
             </link>
         </menu-item>
     </menu>
-    <menu name="Day"  extends="Calendar">
-        <menu-item name="next" title="${uiLabelMap.WorkEffortNextDay}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${nextMillis}${urlParam}"/>
+    <menu name="Day" extends="Calendar">
+        <menu-item name="next">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextDay}">
+                <parameter param-name="period" value="day"/>
+                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="toDay" title="${uiLabelMap.CommonToday}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day${urlParam}"/>
+        <menu-item name="toDay">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.CommonToday}">
+                <parameter param-name="period" value="day"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousDay}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day&amp;start=${prevMillis}${urlParam}"/>
+        <menu-item name="prev">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousDay}">
+                <parameter param-name="period" value="day"/>
+                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="Week" extends="Calendar">
-        <menu-item name="next" title="${uiLabelMap.WorkEffortNextWeek}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${nextMillis}${urlParam}"/>
+        <menu-item name="next">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextWeek}">
+                <parameter param-name="period" value="week"/>
+                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="thisWeek" title="${uiLabelMap.WorkEffortThisWeek}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week${urlParam}"/>
+        <menu-item name="thisWeek">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortThisWeek}">
+                <parameter param-name="period" value="week"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousWeek}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week&amp;start=${prevMillis}${urlParam}"/>
+        <menu-item name="prev">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousWeek}">
+                <parameter param-name="period" value="week"/>
+                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="Month" extends="Calendar">
-        <menu-item name="next" title="${uiLabelMap.WorkEffortNextMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${nextMillis}${urlParam}"/>
+        <menu-item name="next">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortNextMonth}">
+                <parameter param-name="period" value="month"/>
+                <parameter param-name="start" value="${nextMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="thisMonth" title="${uiLabelMap.WorkEffortThisMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month${urlParam}"/>
+        <menu-item name="thisMonth">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortThisMonth}">
+                <parameter param-name="period" value="month"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="prev" title="${uiLabelMap.WorkEffortPreviousMonth}">
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month&amp;start=${prevMillis}${urlParam}"/>
+        <menu-item name="prev">
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortPreviousMonth}">
+                <parameter param-name="period" value="month"/>
+                <parameter param-name="start" value="${prevMillis}"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
     </menu>
     <menu name="Upcoming" extends="Calendar">
     </menu>
     <menu name="Calendar">
-        <menu-item name="upcoming" title="${uiLabelMap.WorkEffortUpcomingEvents}">
+        <menu-item name="upcoming">
             <condition>
                 <and>
                     <if-compare field="parameters.period" operator="not-equals" value="upcoming"/>
                     <if-empty field="parameters.fixedAssetId"/>
                 </and>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=upcoming${urlParam}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortUpcomingEvents}">
+                <parameter param-name="period" value="upcoming"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="month" title="${uiLabelMap.WorkEffortMonthView}">
+        <menu-item name="month">
             <condition>
                 <if-compare field="parameters.period" operator="not-equals" value="month"/>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=month${urlParam}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortMonthView}">
+                <parameter param-name="period" value="month"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="week" title="${uiLabelMap.WorkEffortWeekView}">
+        <menu-item name="week">
             <condition>
                 <and>
                     <if-compare field="parameters.period" operator="not-equals" value="week"/>
                     <not><if-empty field="parameters.period"/></not>
                 </and>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=week${urlParam}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortWeekView}">
+                <parameter param-name="period" value="week"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
-        <menu-item name="day" title="${uiLabelMap.WorkEffortDayView}">
+        <menu-item name="day">
             <condition>
                 <if-compare field="parameters.period" operator="not-equals" value="day"/>
             </condition>
-            <link target="${parameters._LAST_VIEW_NAME_}?period=day${urlParam}"/>
+            <link target="${parameters._LAST_VIEW_NAME_}" text="${uiLabelMap.WorkEffortDayView}">
+                <parameter param-name="period" value="day"/>
+                <parameter param-name="partyId" from-field="parameters.partyId"/>
+                <parameter param-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
+                <parameter param-name="workEffortTypeId" from-field="parameters.workEffortTypeId"/>
+                <parameter param-name="calendarType" from-field="parameters.calendarType"/>
+                <parameter param-name="facilityId" from-field="parameters.facilityId"/>
+                <parameter param-name="hideEvents" from-field="parameters.hideEvents"/>
+            </link>
         </menu-item>
         <menu-item name="dummy" title="--------">
             <condition>
