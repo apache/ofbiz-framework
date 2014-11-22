@@ -45,7 +45,6 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -73,10 +72,8 @@ public class OrderManagerEvents {
             List<GenericValue> paymentPrefs = null;
             GenericValue placingCustomer = null;
             try {
-                paymentPrefs = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId), null, false);
-                List<GenericValue> pRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"), null, false);
-                if (UtilValidate.isNotEmpty(pRoles))
-                    placingCustomer = EntityUtil.getFirst(pRoles);
+                paymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryList();
+                placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems looking up order payment preferences", module);
                 request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderErrorProcessingOfflinePayments", locale));
@@ -136,10 +133,8 @@ public class OrderManagerEvents {
 
         // get the order header & payment preferences
         GenericValue orderHeader = null;
-        List<GenericValue> orderRoles = null;
         try {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
-            orderRoles = delegator.findList("OrderRole", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems reading order header from datasource.", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsReadingOrderHeaderInformation", locale));
@@ -155,8 +150,7 @@ public class OrderManagerEvents {
         List<GenericValue> paymentMethodTypes = null;
 
         try {
-            EntityExpr ee = EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE");
-            paymentMethodTypes = delegator.findList("PaymentMethodType", ee, null, null, null, false);
+            paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
@@ -171,8 +165,7 @@ public class OrderManagerEvents {
         // get the payment methods to receive
         List<GenericValue> paymentMethods = null;
         try {
-            EntityExpr ee = EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId);
-            paymentMethods = delegator.findList("PaymentMethod", ee, null, null, null, false);
+            paymentMethods = EntityQuery.use(delegator).from("PaymentMethod").where("partyId", partyId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment methods", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentMethodLookup", locale));
@@ -181,9 +174,7 @@ public class OrderManagerEvents {
 
         GenericValue placingCustomer = null;
         try {
-            List<GenericValue> pRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER"), null, false);
-            if (UtilValidate.isNotEmpty(pRoles))
-                placingCustomer = EntityUtil.getFirst(pRoles);
+            placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up order payment preferences", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderErrorProcessingOfflinePayments", locale));

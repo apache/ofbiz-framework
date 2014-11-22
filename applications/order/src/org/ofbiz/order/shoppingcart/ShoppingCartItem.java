@@ -901,8 +901,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         List<GenericValue> selFixedAssetProduct = null;
         GenericValue fixedAssetProduct = null;
         try {
-            List<GenericValue> allFixedAssetProduct = delegator.findByAnd("FixedAssetProduct", UtilMisc.toMap("productId", productId, "fixedAssetProductTypeId", "FAPT_USE"), null, false);
-            selFixedAssetProduct = EntityUtil.filterByDate(allFixedAssetProduct, UtilDateTime.nowTimestamp(), "fromDate", "thruDate", true);
+            selFixedAssetProduct = EntityQuery.use(delegator).from("FixedAssetProduct").where("productId", productId, "fixedAssetProductTypeId", "FAPT_USE").filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate").queryList();
         } catch (GenericEntityException e) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
             String msg = UtilProperties.getMessage(resource_error, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());
@@ -962,8 +961,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             // find an existing Day exception record
             Timestamp exceptionDateStartTime = new Timestamp((reservStart.getTime() + (dayCount++ * 86400000)));
             try {
-                techDataCalendarExcDay = delegator.findOne("TechDataCalendarExcDay",
-                        UtilMisc.toMap("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime), false);
+                techDataCalendarExcDay = EntityQuery.use(delegator).from("TechDataCalendarExcDay").where("calendarId", fixedAsset.get("calendarId"), "exceptionDateStartTime", exceptionDateStartTime).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }

@@ -573,8 +573,7 @@ public class ShoppingCartEvents {
                     EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
-                    productAssocs = delegator.findList("ProductAssoc", cond, null, null, null, false);
-                    productAssocs = EntityUtil.filterByDate(productAssocs);
+                    productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(cond).filterByDate().queryList();
                     List<String> productList = FastList.newInstance();
                     for (GenericValue productAssoc : productAssocs) {
                         if (productId.equals(productAssoc.getString("productId"))) {
@@ -598,10 +597,7 @@ public class ShoppingCartEvents {
                 }
                 if ("Y".equals(addToCartReplaceUpsell)) {
                     List<GenericValue> productList = null;
-                    EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(
-                            EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId),
-                            EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_UPGRADE")), EntityOperator.AND);
-                    productList = delegator.findList("ProductAssoc", cond, UtilMisc.toSet("productId"), null, null, false);
+                    productList = EntityQuery.use(delegator).select("productId").from("ProductAssoc").where("productIdTo", productId, "productAssocTypeId", "PRODUCT_UPGRADE").queryList();
                     if (productList != null) {
                         for (ShoppingCartItem sci : cart) {
                             if (productList.contains(sci.getProductId())) {
@@ -1468,7 +1464,7 @@ public class ShoppingCartEvents {
             List<GenericValue> orderAdjustments = new ArrayList<GenericValue>();
             orderAdjustments = cart.getAdjustments();
             try {
-                orderAdjustmentList = delegator.findList("OrderAdjustment", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId), null, null, null, false);
+                orderAdjustmentList = EntityQuery.use(delegator).from("OrderAdjustment").where("orderId", orderId).queryList();
             } catch (Exception e) {
                 Debug.logError(e, module);
             }
@@ -1620,12 +1616,13 @@ public class ShoppingCartEvents {
                         // if the user is a rep of the store, then he also has permission
                         List<GenericValue> storeReps = null;
                         try {
-                            storeReps = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"),
-                                                            "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP"), null, false);
+                            storeReps = EntityQuery.use(delegator).from("ProductStoreRole")
+                                    .where("productStoreId", productStore.getString("productStoreId"), "partyId", userLogin.getString("partyId"), "roleTypeId", "SALES_REP")
+                                    .filterByDate()
+                                    .queryList();
                         } catch (GenericEntityException gee) {
                             //
                         }
-                        storeReps = EntityUtil.filterByDate(storeReps);
                         if (UtilValidate.isNotEmpty(storeReps)) {
                             hasPermission = true;
                         }

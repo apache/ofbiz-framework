@@ -215,10 +215,10 @@ public class ShoppingCartHelper {
             if (UtilValidate.isNotEmpty(selectedFeatureValue)) {
                 GenericValue productFeatureAndAppl = null;
                 try {
-                    productFeatureAndAppl = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl",
-                                                                                    UtilMisc.toMap("productId", productId,
-                                                                                                   "productFeatureTypeId", selectedFeatureType,
-                                                                                                   "productFeatureId", selectedFeatureValue), null, false)));
+                    productFeatureAndAppl = EntityQuery.use(delegator).from("ProductFeatureAndAppl")
+                            .where("productId", productId, "productFeatureTypeId", selectedFeatureType, "productFeatureId", selectedFeatureValue)
+                            .filterByDate()
+                            .queryFirst();
                 } catch (GenericEntityException gee) {
                     Debug.logError(gee, module);
                 }
@@ -572,7 +572,7 @@ public class ShoppingCartHelper {
         Collection<GenericValue> prodCatMemberCol = null;
 
         try {
-            prodCatMemberCol = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", categoryId), null, true);
+            prodCatMemberCol = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", categoryId).cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("categoryId", categoryId);
@@ -936,7 +936,7 @@ public class ShoppingCartHelper {
         GenericValue productFeatureAppl = null;
         List<GenericValue> features = null;
         try {
-            features = delegator.findByAnd("ProductFeatureAndAppl", fields, UtilMisc.toList("-fromDate"), false);
+            features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(fields).orderBy("-fromDate").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return null;
@@ -982,7 +982,7 @@ public class ShoppingCartHelper {
         }
 
         try {
-            agreement = this.delegator.findOne("Agreement",UtilMisc.toMap("agreementId", agreementId), true);
+            agreement = EntityQuery.use(this.delegator).from("Agreement").where("agreementId", agreementId).cache(true).queryOne();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.toString(), module);
             result = ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotGetAgreement",UtilMisc.toMap("agreementId",agreementId),this.cart.getLocale()) + UtilProperties.getMessage(resource_error,"OrderError",this.cart.getLocale()) + e.getMessage());

@@ -42,7 +42,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -74,12 +74,10 @@ public class ProductDisplayWorker {
             while (cartiter != null && cartiter.hasNext()) {
                 ShoppingCartItem item = cartiter.next();
                 // Collection upgradeProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_UPGRADE"), null, true);
-                List<GenericValue> complementProducts = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT"), null, true);
                 // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
-                complementProducts = EntityUtil.filterByDate(complementProducts);
+                List<GenericValue> complementProducts = EntityQuery.use(delegator).from("ProductAssoc").where("productId", item.getProductId(), "productAssocTypeId", "PRODUCT_COMPLEMENT").cache(true).filterByDate().queryList();
 
-                List<GenericValue> productsCategories = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", item.getProductId()), null, true);
-                productsCategories = EntityUtil.filterByDate(productsCategories, true);
+                List<GenericValue> productsCategories = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", item.getProductId()).cache(true).filterByDate().queryList();
                 if (productsCategories != null) {
                     for (GenericValue productsCategoryMember : productsCategories) {
                         GenericValue productsCategory = productsCategoryMember.getRelatedOne("ProductCategory", true);
@@ -169,7 +167,7 @@ public class ProductDisplayWorker {
                 productOccurances = new HashMap<String, Integer>();
                 
                 // get all order role entities for user by customer role type : PLACING_CUSTOMER
-                List<GenericValue> orderRoles = delegator.findByAnd("OrderRole", UtilMisc.toMap("partyId", userLogin.get("partyId"), "roleTypeId", "PLACING_CUSTOMER"), null, false);
+                List<GenericValue> orderRoles = EntityQuery.use(delegator).from("OrderRole").where("partyId", userLogin.get("partyId"), "roleTypeId", "PLACING_CUSTOMER").queryList();
                 Iterator<GenericValue> ordersIter = UtilMisc.toIterator(orderRoles);
 
                 while (ordersIter != null && ordersIter.hasNext()) {

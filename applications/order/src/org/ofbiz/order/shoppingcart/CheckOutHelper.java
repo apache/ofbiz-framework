@@ -43,7 +43,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -264,7 +263,7 @@ public class CheckOutHelper {
                 cart.setBillingAccount(billingAccountId, (billingAccountAmt != null ? billingAccountAmt: BigDecimal.ZERO));
                 // copy the billing account terms as order terms
                 try {
-                    List<GenericValue> billingAccountTerms = delegator.findByAnd("BillingAccountTerm", UtilMisc.toMap("billingAccountId", billingAccountId), null, false);
+                    List<GenericValue> billingAccountTerms = EntityQuery.use(delegator).from("BillingAccountTerm").where("billingAccountId", billingAccountId).queryList();
                     if (UtilValidate.isNotEmpty(billingAccountTerms)) {
                         for (GenericValue billingAccountTerm : billingAccountTerms) {
                             // the term is not copied if in the cart a term of the same type is already set
@@ -858,8 +857,7 @@ public class CheckOutHelper {
                 GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, originFacilityId, UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
                 if (facilityContactMech != null) {
                     try {
-                        shipAddress = delegator.findOne("PostalAddress",
-                                UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
+                        shipAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.getString("contactMechId")).queryOne();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, module);
                     }
@@ -932,7 +930,7 @@ public class CheckOutHelper {
 
         List<GenericValue> allPaymentPreferences = null;
         try {
-            allPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId), null, false);
+            allPaymentPreferences = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId).queryList();
         } catch (GenericEntityException e) {
             throw new GeneralException("Problems getting payment preferences", e);
         }
@@ -1055,7 +1053,9 @@ public class CheckOutHelper {
 
                     // set the order and item status to approved
                     if (autoApproveOrder) {
-                        List<GenericValue> productStorePaymentSettingList = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth"), null, false);
+                        List<GenericValue> productStorePaymentSettingList = EntityQuery.use(delegator).from("ProductStorePaymentSetting")
+                                .where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "CREDIT_CARD", "paymentService", "cyberSourceCCAuth")
+                                .queryList();
                         if (productStorePaymentSettingList.size() > 0) {
                             String decision = (String) paymentResult.get("authCode");
                             if (UtilValidate.isNotEmpty(decision)) {
@@ -1235,8 +1235,7 @@ public class CheckOutHelper {
         List<GenericValue> blacklistFound = null;
         if (exprs.size() > 0) {
             try {
-                EntityConditionList<EntityExpr> ecl = EntityCondition.makeCondition(exprs, EntityOperator.AND);
-                blacklistFound = this.delegator.findList("OrderBlacklist", ecl, null, null, null, false);
+                blacklistFound = EntityQuery.use(this.delegator).from("OrderBlacklist").where(exprs).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems with OrderBlacklist lookup.", module);
                 errMsg = UtilProperties.getMessage(resource_error,"checkhelper.problems_reading_database", (cart != null ? cart.getLocale() : Locale.getDefault()));

@@ -155,18 +155,17 @@ public class OrderReturnServices {
             if (orderItemSeqId != null && orderId != null) {
                 Debug.logInfo("Found order item reference", module);
                 // locate the item issuance(s) for this order item
-                List<GenericValue> itemIssue = null;
+                GenericValue issue = null;
                 try {
-                    itemIssue = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+                    issue = EntityQuery.use(delegator).from("ItemIssuance").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     throw new GeneralRuntimeException(e.getMessage());
                 }
-                if (UtilValidate.isNotEmpty(itemIssue)) {
+                if (UtilValidate.isNotEmpty(issue)) {
                     Debug.logInfo("Found item issuance reference", module);
                     // just use the first one for now; maybe later we can find a better way to determine which was the
                     // actual item being returned; maybe by serial number
-                    GenericValue issue = EntityUtil.getFirst(itemIssue);
                     GenericValue inventoryItem = null;
                     try {
                         inventoryItem = issue.getRelatedOne("InventoryItem", false);
@@ -213,9 +212,11 @@ public class OrderReturnServices {
         List<GenericValue> returnAdjustments = FastList.newInstance();
         try {
             returnItems = returnHeader.getRelated("ReturnItem", null, null, false);
-            returnAdjustments = delegator.findList("ReturnAdjustment", EntityCondition.makeCondition(
-                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND,
-                                EntityCondition.makeCondition("returnItemSeqId", EntityOperator.EQUALS, "_NA_")), null, UtilMisc.toList("returnAdjustmentTypeId"), null, true);
+            returnAdjustments = EntityQuery.use(delegator).from("ReturnAdjustment")
+                    .where("returnId", returnId, "returnItemSeqId", "_NA_")
+                    .orderBy("returnAdjustmentTypeId")
+                    .cache(true)
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, 
@@ -323,9 +324,10 @@ public class OrderReturnServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         List<GenericValue> returnHeaders = null;
         try {
-            returnHeaders = delegator.findList("ReturnHeader", EntityCondition.makeCondition(
-                    EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "RETURN_ACCEPTED"), EntityOperator.AND,
-                    EntityCondition.makeCondition("returnHeaderTypeId", EntityOperator.EQUALS, "CUSTOMER_RETURN")), null, UtilMisc.toList("entryDate"), null, false);
+            returnHeaders = EntityQuery.use(delegator).from("ReturnHeader")
+                    .where("statusId", "RETURN_ACCEPTED", "returnHeaderTypeId", "CUSTOMER_RETURN")
+                    .orderBy("entryDate")
+                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem getting Return headers", module);
         }
@@ -347,9 +349,10 @@ public class OrderReturnServices {
                 Date nowDate = new Date();
                 if (cancelDate.equals(nowDate) || nowDate.after(cancelDate)) {
                     try {
-                        List<GenericValue> returnItems = delegator.findList("ReturnItem", EntityCondition.makeCondition(
-                                EntityCondition.makeCondition("returnId", EntityOperator.EQUALS, returnId), EntityOperator.AND,
-                                EntityCondition.makeCondition("returnTypeId", EntityOperator.EQUALS, "RTN_WAIT_REPLACE_RES")), null, UtilMisc.toList("createdStamp"), null, false);
+                        List<GenericValue> returnItems = EntityQuery.use(delegator).from("ReturnItem")
+                                .where("returnId", returnId, "returnTypeId", "RTN_WAIT_REPLACE_RES")
+                                .orderBy("createdStamp")
+                                .queryList();
                         for (GenericValue returnItem : returnItems) {
                             GenericValue returnItemResponse = returnItem.getRelatedOne("ReturnItemResponse", false);
                             if (returnItemResponse != null) {
@@ -483,7 +486,7 @@ public class OrderReturnServices {
              */
             List<GenericValue> orderItemQuantitiesIssued = null;
             try {
-                orderItemQuantitiesIssued = delegator.findList("OrderItemQuantityReportGroupByItem", whereConditions, UtilMisc.toSet("orderId", "orderItemSeqId", "quantityIssued"), UtilMisc.toList("orderItemSeqId"), null, false);
+                orderItemQuantitiesIssued = EntityQuery.use(delegator).select("orderId", "orderItemSeqId", "quantityIssued").from("OrderItemQuantityReportGroupByItem").where(whereConditions).orderBy("orderItemSeqId").queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
@@ -764,12 +767,14 @@ public class OrderReturnServices {
                 // First find a Billing Account with negative balance, and if found store credit to that
                 List<GenericValue> billingAccounts = FastList.newInstance();
                 try {
-                    billingAccounts = delegator.findByAnd("BillingAccountRoleAndAddress", UtilMisc.toMap("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER"), null, false);
+                    billingAccounts = EntityQuery.use(delegator).from("BillingAccountRoleAndAddress")
+                            .where("partyId", fromPartyId, "roleTypeId", "BILL_TO_CUSTOMER")
+                            .filterByDate()
+                            .orderBy("-fromDate")
+                            .queryList();
                 } catch (GenericEntityException e) {
                     return ServiceUtil.returnError(e.getMessage());
                 }
-                billingAccounts = EntityUtil.filterByDate(billingAccounts);
-                billingAccounts = EntityUtil.orderBy(billingAccounts, UtilMisc.toList("-fromDate"));
                 if (UtilValidate.isNotEmpty(billingAccounts)) {
                     ListIterator<GenericValue> billingAccountItr = billingAccounts.listIterator();
                     while (billingAccountItr.hasNext() && billingAccountId == null) {
@@ -810,16 +815,18 @@ public class OrderReturnServices {
                             }
                         }
                     } else {
-                        List<GenericValue> finAccounts = null;
+                        GenericValue finAccount = null;
                         try {
-                            finAccounts = delegator.findByAnd("FinAccountAndRole", UtilMisc.toMap("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE"), null, false);
+                            finAccount = EntityQuery.use(delegator).from("FinAccountAndRole")
+                                    .where("partyId", fromPartyId, "finAccountTypeId", "STORE_CREDIT_ACCT", "roleTypeId", "OWNER", "statusId", "FNACT_ACTIVE")
+                                    .filterByDate()
+                                    .orderBy("-fromDate")
+                                    .queryFirst();
                         } catch (GenericEntityException e) {
                             return ServiceUtil.returnError(e.getMessage());
                         }
-                        finAccounts = EntityUtil.filterByDate(finAccounts);
-                        finAccounts = EntityUtil.orderBy(finAccounts, UtilMisc.toList("-fromDate"));
-                        if (UtilValidate.isNotEmpty(finAccounts)) {
-                            finAccountId = EntityUtil.getFirst(finAccounts).getString("finAccountId");
+                        if (UtilValidate.isNotEmpty(finAccount)) {
+                            finAccountId = finAccount.getString("finAccountId");
                         }
 
                         if (finAccountId == null) {
@@ -1194,9 +1201,11 @@ public class OrderReturnServices {
 
                     // Check for replacement order
                     if (UtilValidate.isEmpty(orderPayPrefs)) {
-                        List<GenericValue> orderItemAssocs = delegator.findByAnd("OrderItemAssoc", UtilMisc.toMap("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT"), null, false);
-                        if (UtilValidate.isNotEmpty(orderItemAssocs)) {
-                            String originalOrderId = EntityUtil.getFirst(orderItemAssocs).getString("orderId");
+                        GenericValue orderItemAssoc = EntityQuery.use(delegator).from("OrderItemAssoc")
+                                                          .where("toOrderId", orderId, "orderItemAssocTypeId", "REPLACEMENT")
+                                                          .queryFirst();
+                        if (UtilValidate.isNotEmpty(orderItemAssoc)) {
+                            String originalOrderId = orderItemAssoc.getString("orderId");
                             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", originalOrderId).queryOne();
                             orderPayPrefs = orderHeader.getRelated("OrderPaymentPreference", null, UtilMisc.toList("-maxAmount"), false);
                             orderPayPrefs = EntityUtil.filterByOr(orderPayPrefs, exprs);
@@ -1308,10 +1317,11 @@ public class OrderReturnServices {
                 orderedRefundPaymentMethodTypes.add("EFT_ACCOUNT");
 
                 // Add all the other paymentMethodTypes, in no particular order
-                EntityConditionList<EntityExpr> pmtConditionList = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes)), EntityOperator.AND);
                 List<GenericValue> otherPaymentMethodTypes = FastList.newInstance();
                 try {
-                    otherPaymentMethodTypes = delegator.findList("PaymentMethodType", pmtConditionList, null, null, null, true);
+                    otherPaymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType")
+                            .where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_IN, orderedRefundPaymentMethodTypes))
+                            .cache(true).queryList();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Cannot get PaymentMethodTypes", module);
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource,
@@ -2174,7 +2184,7 @@ public class OrderReturnServices {
                 // lookup subscriptions
                 List<GenericValue> subscriptions;
                 try {
-                    subscriptions = delegator.findByAnd("Subscription", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+                    subscriptions = EntityQuery.use(delegator).from("Subscription").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                     return ServiceUtil.returnError(e.getMessage());
@@ -2273,7 +2283,7 @@ public class OrderReturnServices {
         List<GenericValue> returnItems = null;
         Map<String, Object> returnAmountByOrder = FastMap.newInstance();
         try {
-            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
+            returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId).queryList();
 
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up return information", module);
@@ -2378,15 +2388,13 @@ public class OrderReturnServices {
                 // get returnHeaderTypeId from ReturnHeader and then use it to figure out return item type mapping
                 returnHeader = EntityQuery.use(delegator).from("ReturnHeader").where("returnId", returnId).queryOne();
                 String returnHeaderTypeId = ((returnHeader != null) && (returnHeader.getString("returnHeaderTypeId") != null)) ? returnHeader.getString("returnHeaderTypeId") : "CUSTOMER_RETURN";
-                returnItemTypeMap = delegator.findOne("ReturnItemTypeMap",
-                        UtilMisc.toMap("returnHeaderTypeId", returnHeaderTypeId, "returnItemMapKey", orderAdjustment.get("orderAdjustmentTypeId")), false);
+                returnItemTypeMap = EntityQuery.use(delegator).from("ReturnItemTypeMap").where("returnHeaderTypeId", returnHeaderTypeId, "returnItemMapKey", orderAdjustment.get("orderAdjustmentTypeId")).queryOne();
                 returnAdjustmentType = returnItemTypeMap.getRelatedOne("ReturnAdjustmentType", false);
                 if (returnAdjustmentType != null && UtilValidate.isEmpty(description)) {
                     description = returnAdjustmentType.getString("description");
                 }
                 if ((returnItemSeqId != null) && !("_NA_".equals(returnItemSeqId))) {
-                    returnItem = delegator.findOne("ReturnItem",
-                            UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId), false);
+                    returnItem = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId, "returnItemSeqId", returnItemSeqId).queryOne();
                     Debug.logInfo("returnId:" + returnId + ",returnItemSeqId:" + returnItemSeqId, module);
                     orderItem = returnItem.getRelatedOne("OrderItem", false);
                 } else {
@@ -2395,10 +2403,9 @@ public class OrderReturnServices {
                     // associated to the same order item to which the adjustments refers (if any)
                     if (UtilValidate.isNotEmpty(orderAdjustment.getString("orderItemSeqId")) &&
                             !"_NA_".equals(orderAdjustment.getString("orderItemSeqId"))) {
-                        returnItem = EntityUtil.getFirst(delegator.findByAnd("ReturnItem",
-                                                                             UtilMisc.toMap("returnId", returnId,
-                                                                                            "orderId", orderAdjustment.getString("orderId"),
-                                                                                            "orderItemSeqId", orderAdjustment.getString("orderItemSeqId")), null, false));
+                        returnItem = EntityQuery.use(delegator).from("ReturnItem")
+                                .where("returnId", returnId, "orderId", orderAdjustment.getString("orderId"), "orderItemSeqId", orderAdjustment.getString("orderItemSeqId"))
+                                .queryFirst();
                         if (UtilValidate.isNotEmpty(returnItem)) {
                             orderItem = returnItem.getRelatedOne("OrderItem", false);
                         }
@@ -2473,8 +2480,7 @@ public class OrderReturnServices {
         try {
             returnAdjustment = EntityQuery.use(delegator).from("ReturnAdjustment").where("returnAdjustmentId", context.get("returnAdjustmentId")).queryOne();
             if (returnAdjustment != null) {
-                returnItem = delegator.findOne("ReturnItem",
-                        UtilMisc.toMap("returnId", returnAdjustment.get("returnId"), "returnItemSeqId", returnAdjustment.get("returnItemSeqId")), false);
+                returnItem = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnAdjustment.get("returnId"), "returnItemSeqId", returnAdjustment.get("returnItemSeqId")).queryOne();
                 returnAdjustmentTypeId = returnAdjustment.getString("returnAdjustmentTypeId");
             }
 
@@ -2577,7 +2583,7 @@ public class OrderReturnServices {
         List<GenericValue> adjustments;
         try {
             // TODO: find on a view-entity with a sum is probably more efficient
-            adjustments = delegator.findByAnd("ReturnAdjustment", condition, null, false);
+            adjustments = EntityQuery.use(delegator).from("ReturnAdjustment").where(condition).queryList();
             if (adjustments != null) {
                 for (GenericValue returnAdjustment : adjustments) {
                     if ((returnAdjustment != null) && (returnAdjustment.get("amount") != null)) {
