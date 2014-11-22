@@ -33,6 +33,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 public class ProductStoreEvents {
@@ -51,18 +52,16 @@ public class ProductStoreEvents {
         List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum");
 
         try {
-            GenericValue productStoreGroup = delegator.findOne("ProductStoreGroup" ,UtilMisc.toMap("productStoreGroupId", parentGroupId), true);
+            GenericValue productStoreGroup = EntityQuery.use(delegator).from("ProductStoreGroup").where("productStoreGroupId", parentGroupId).cache(true).queryOne();
             if (UtilValidate.isNotEmpty(productStoreGroup)) {
-                children = EntityUtil.filterByDate(delegator.findList("ProductStoreGroupRollupAndChild",
-                        EntityCondition.makeCondition("parentGroupId", parentGroupId), null, null, null, true));
+                children = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", parentGroupId).cache(true).filterByDate().queryList();
                 if (UtilValidate.isNotEmpty(children)) {
                     for (GenericValue child : children ) {
                         String productStoreGroupId = child.getString("productStoreGroupId");
                         Map josonMap = FastMap.newInstance();
                         List<GenericValue> childList = null;
                         // Get the child list of chosen category
-                        childList = EntityUtil.filterByDate(delegator.findList("ProductStoreGroupRollupAndChild",
-                                EntityCondition.makeCondition("parentGroupId", productStoreGroupId), null, null, null, true));
+                        childList = EntityQuery.use(delegator).from("ProductStoreGroupRollupAndChild").where("parentGroupId", productStoreGroupId).cache(true).filterByDate().queryList();
 
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");

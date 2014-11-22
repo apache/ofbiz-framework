@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Enumeration;
+
 import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastList;
@@ -35,6 +36,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigItem;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
@@ -210,7 +212,7 @@ public class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
-                    List<GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum), null, false);
+                    List<GenericValue> configs = EntityQuery.use(delegator).from("ProductConfigConfig").where("configItemId",configItemId,"sequenceNum", sequenceNum).queryList();
                     for (GenericValue productConfigConfig: configs) {
                         for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");
@@ -233,9 +235,9 @@ public class ProductConfigWorker {
             for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
-                    List<GenericValue> tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId), null, false);
+                    List<GenericValue> tempResult = EntityQuery.use(delegator).from("ProductConfigConfig").where("configId",tempConfigId).queryList();
                     if (tempResult.size() == selectedOptionSize && configsToCheck.containsAll(tempResult)) {
-                        List<GenericValue> configOptionProductOptions = delegator.findByAnd("ConfigOptionProductOption", UtilMisc.toMap("configId",tempConfigId), null, false);
+                        List<GenericValue> configOptionProductOptions = EntityQuery.use(delegator).from("ConfigOptionProductOption").where("configId",tempConfigId).queryList();
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
 
                             //  check for variant product equality

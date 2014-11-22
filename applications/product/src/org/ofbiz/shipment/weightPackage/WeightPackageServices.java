@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -64,7 +65,7 @@ public class WeightPackageServices {
         }
         try {
             // Checked no of packages, it should not be greater than ordered quantity
-            List<GenericValue> orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", orderId, "statusId", "ITEM_APPROVED"), null, false);
+            List<GenericValue> orderItems = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "statusId", "ITEM_APPROVED").queryList();
             BigDecimal orderedItemQty = ZERO;
             for (GenericValue orderItem : orderItems) {
                 orderedItemQty = orderedItemQty.add(orderItem.getBigDecimal("quantity"));

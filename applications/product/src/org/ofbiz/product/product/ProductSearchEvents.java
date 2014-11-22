@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductSearch.ProductSearchContext;
 import org.ofbiz.product.product.ProductSearch.ResultSortOrder;
@@ -143,7 +144,7 @@ public class ProductSearchEvents {
                while ((searchResultView = eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
                    //get all tuples that match product and category
-                   List<GenericValue> pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId), null, false);
+                   List<GenericValue> pcmList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId, "productId", productId).queryList();
 
                    //set those thrudate to that specificed maybe remove then add new one
                    for (GenericValue pcm: pcmList) {
@@ -413,15 +414,11 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
 
-                    List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT"), null, false);
-                    List<GenericValue> productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
-                    productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
+                    productMap.put("productFeatureCustom", EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureTypeId", "HAZMAT").filterByDate().queryFirst());
 
-                    List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId), null, false);
-                    List<GenericValue> productCategories = EntityUtil.filterByDate(productCategoriesRaw);
+                    List<GenericValue> productCategories = EntityQuery.use(delegator).from("ProductCategoryAndMember").where("productId", productId).filterByDate().queryList();
                     productMap.put("productCategories", productCategories);
-                    List<GenericValue> productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId), null, false);
-                    List<GenericValue> productFeatures = EntityUtil.filterByDate(productFeaturesRaw);
+                    List<GenericValue> productFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).filterByDate().queryList();
                     productMap.put("productFeatures", productFeatures);
                     productExportList.add(productMap);
                 }

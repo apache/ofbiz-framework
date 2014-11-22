@@ -64,11 +64,11 @@ public class ParametricSearch {
     public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, Delegator delegator, int perTypeMaxSize) {
         Map<String, Map<String, GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
-            List<GenericValue> productFeatureCategoryAppls = delegator.findByAnd("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId), null, true);
+            List<GenericValue> productFeatureCategoryAppls = EntityQuery.use(delegator).from("ProductFeatureCategoryAppl").where("productCategoryId", productCategoryId).cache(true).queryList();
             productFeatureCategoryAppls = EntityUtil.filterByDate(productFeatureCategoryAppls, true);
             if (productFeatureCategoryAppls != null) {
                 for (GenericValue productFeatureCategoryAppl: productFeatureCategoryAppls) {
-                    List<GenericValue> productFeatures = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")), null, true);
+                    List<GenericValue> productFeatures = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")).cache(true).queryList();
                     for (GenericValue productFeature: productFeatures) {
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
@@ -87,11 +87,11 @@ public class ParametricSearch {
         }
 
         try {
-            List<GenericValue> productFeatureCatGrpAppls = delegator.findByAnd("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId), null, true);
+            List<GenericValue> productFeatureCatGrpAppls = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where("productCategoryId", productCategoryId).cache(true).queryList();
             productFeatureCatGrpAppls = EntityUtil.filterByDate(productFeatureCatGrpAppls, true);
             if (productFeatureCatGrpAppls != null) {
                 for (GenericValue productFeatureCatGrpAppl: productFeatureCatGrpAppls) {
-                    List<GenericValue> productFeatureGroupAppls = delegator.findByAnd("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")), null, true);
+                    List<GenericValue> productFeatureGroupAppls = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")).cache(true).queryList();
                     for (GenericValue productFeatureGroupAppl: productFeatureGroupAppls) {
                         GenericValue productFeature = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureId", productFeatureGroupAppl.get("productFeatureId")).cache().queryOne();
 
@@ -128,7 +128,7 @@ public class ParametricSearch {
         Map<String, List<GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
             Set<String> typesWithOverflowMessages = FastSet.newInstance();
-            EntityListIterator productFeatureEli = delegator.find("ProductFeature", null, null, null, UtilMisc.toList("description"), null);
+            EntityListIterator productFeatureEli = EntityQuery.use(delegator).from("ProductFeature").orderBy("description").queryIterator();
             GenericValue productFeature = null;
             while ((productFeature = productFeatureEli.next()) != null) {
                 String productFeatureTypeId = productFeature.getString("productFeatureTypeId");

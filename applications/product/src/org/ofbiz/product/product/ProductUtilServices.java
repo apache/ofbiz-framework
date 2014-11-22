@@ -74,7 +74,7 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
                    ), EntityOperator.AND);
-            EntityListIterator eliOne = delegator.find("Product", conditionOne, null, null, null, null);
+            EntityListIterator eliOne = EntityQuery.use(delegator).from("Product").where(conditionOne).queryIterator();
             GenericValue productOne = null;
             int numSoFarOne = 0;
             while ((productOne = eliOne.next()) != null) {
@@ -83,8 +83,10 @@ public class ProductUtilServices {
                 if (virtualProduct == null) {
                     continue;
                 }
-                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-                passocList = EntityUtil.filterByDate(passocList);
+                List<GenericValue> passocList = EntityQuery.use(delegator).from("ProductAssoc")
+                        .where("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT")
+                        .filterByDate()
+                        .queryList();
                 if (passocList.size() > 0) {
                     for (GenericValue passoc: passocList) {
                         passoc.set("thruDate", nowTimestamp);
@@ -104,12 +106,11 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "Y"),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                    ), EntityOperator.AND);
-            EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).from("Product").where(condition).queryIterator();
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
-                List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-                passocList = EntityUtil.filterByDate(passocList);
+                List<GenericValue> passocList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                 if (passocList.size() == 0) {
                     product.set("salesDiscontinuationDate", nowTimestamp);
                     delegator.store(product);
@@ -143,12 +144,12 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.NOT_EQUAL, null),
                     EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp)
                    ), EntityOperator.AND);
-            EntityListIterator eli = delegator.find("Product", condition, null, null, null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).from("Product").where(condition).queryIterator();
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
                 String productId = product.getString("productId");
-                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", productId), null, false);
+                List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", productId).queryList();
                 if (productCategoryMemberList.size() > 0) {
                     for (GenericValue productCategoryMember: productCategoryMemberList) {
                         // coded this way rather than a removeByAnd so it can be easily changed...
@@ -192,11 +193,11 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
                    ), EntityOperator.AND);
             EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, Long.valueOf(1));
-            EntityListIterator eli = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productCategoryId", "productIdCount"), null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).select("productId", "productCategoryId", "productIdCount").from(dve).where(condition).having(havingCond).queryIterator();
             GenericValue pcm = null;
             int numSoFar = 0;
             while ((pcm = eli.next()) != null) {
-                List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")), null, false);
+                List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", pcm.get("productId"), "productCategoryId", pcm.get("productCategoryId")).queryList();
                 if (productCategoryMemberList.size() > 1) {
                     // remove all except the first...
                     productCategoryMemberList.remove(0);
@@ -251,7 +252,10 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))
                    ), EntityOperator.AND);
             EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, Long.valueOf(1));
-            EntityListIterator eliOne = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productIdToCount"), null, null);
+            EntityListIterator eliOne = EntityQuery.use(delegator).select("productId", "productIdToCount").from(dve)
+                                            .where(condition)
+                                            .having(havingCond)
+                                            .queryIterator();
             List<GenericValue> valueList = eliOne.getCompleteList();
             eliOne.close();
 
@@ -261,8 +265,7 @@ public class ProductUtilServices {
             for (GenericValue value: valueList) {
                 // has only one variant period, is it valid? should already be discontinued if not
                 String productId = value.getString("productId");
-                List<GenericValue> paList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-                paList = EntityUtil.filterByDate(paList);
+                List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
                     Debug.logInfo("Virtual product with ID " + productId + " should have 1 assoc, has " + paList.size(), module);
@@ -286,7 +289,10 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                    ), EntityOperator.AND);
-            EntityListIterator eliMulti = delegator.findListIteratorByCondition(dve, conditionWithDates, havingCond, UtilMisc.toList("productId", "productIdToCount"), null, null);
+            EntityListIterator eliMulti = EntityQuery.use(delegator).select("productId", "productIdToCount").from(dve)
+                                              .where(conditionWithDates)
+                                              .having(havingCond)
+                                              .queryIterator();
             List<GenericValue> valueMultiList = eliMulti.getCompleteList();
             eliMulti.close();
 
@@ -297,7 +303,7 @@ public class ProductUtilServices {
                 // has only one valid variant
                 String productId = value.getString("productId");
 
-                List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
+                List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
 
                 // verify the query; tested on a bunch, looks good
                 if (paList.size() != 1) {
@@ -349,7 +355,7 @@ public class ProductUtilServices {
             GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             Debug.logInfo("Processing virtual product with one variant with ID: " + productId + " and name: " + product.getString("internalName"), module);
 
-            List<GenericValue> paList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
+            List<GenericValue> paList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
             if (paList.size() > 1) {
                 Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resourceError,"productutilservices.found_more_than_one_valid_variant_for_virtual_ID", messageMap, locale);
@@ -457,7 +463,7 @@ public class ProductUtilServices {
                 // can't just set to null, need to remove the value so it isn't a constraint in the query
                 //findValue.set("fromDate", null);
                 findValue.remove("fromDate");
-                List<GenericValue> existingValueList = EntityUtil.filterByDate(delegator.findByAnd(relatedEntityName, findValue, null, false), nowTimestamp);
+                List<GenericValue> existingValueList = EntityQuery.use(delegator).from(relatedEntityName).where(findValue).filterByDate(nowTimestamp).queryList();
                 if (existingValueList.size() > 0) {
                     if (test) {
                         Debug.logInfo("Found " + existingValueList.size() + " existing values for related entity name: " + relatedEntityName + ", not copying, findValue is: " + findValue, module);
@@ -467,7 +473,7 @@ public class ProductUtilServices {
                 newRelatedValue.set("fromDate", nowTimestamp);
             }
 
-            if (delegator.findCountByCondition(relatedEntityName, EntityCondition.makeCondition(newRelatedValue.getPrimaryKey(), EntityOperator.AND), null, null) == 0) {
+            if (EntityQuery.use(delegator).from(relatedEntityName).where(EntityCondition.makeCondition(newRelatedValue.getPrimaryKey(), EntityOperator.AND)).queryCount() == 0) {
                 if (test) {
                     Debug.logInfo("Test mode, would create: " + newRelatedValue, module);
                 } else {
@@ -501,7 +507,7 @@ public class ProductUtilServices {
         }
 
         try {
-            EntityListIterator eli = delegator.find("Product", null, null, null, null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).from("Product").queryIterator();
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
@@ -513,7 +519,7 @@ public class ProductUtilServices {
 
                 if ("Y".equals(product.getString("isVirtual"))) {
                     // find the first variant, use it's ID for the names...
-                    List<GenericValue> productAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false));
+                    List<GenericValue> productAssocList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                     if (productAssocList.size() > 0) {
                         GenericValue productAssoc = EntityUtil.getFirst(productAssocList);
                         smallMap.put("productId", productAssoc.getString("productIdTo"));
@@ -557,7 +563,7 @@ public class ProductUtilServices {
         String errMsg = null;
 
         try {
-            EntityListIterator eli = delegator.find("Product", EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, "Y"), null, null, null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).from("Product").where("isVirtual", "Y").queryIterator();
             GenericValue product = null;
             int numSoFar = 0;
             while ((product = eli.next()) != null) {
@@ -654,7 +660,7 @@ while (allCatIter.hasNext()) {
         }
 
         // do sub-categories first so all feature groups will be in place
-        List<GenericValue> subCategoryList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId), null, false);
+        List<GenericValue> subCategoryList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", productCategoryId).queryList();
         if (doSubCategories) {
             for (GenericValue productCategoryRollup: subCategoryList) {
                 attachProductFeaturesToCategory(productCategoryRollup.getString("productCategoryId"), productFeatureTypeIdsToInclude, productFeatureTypeIdsToExclude, delegator, true, nowTimestamp);
@@ -663,7 +669,7 @@ while (allCatIter.hasNext()) {
 
         // now get all features for this category and make associated feature groups
         Map<String, Set<String>> productFeatureIdByTypeIdSetMap = FastMap.newInstance();
-        List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId), null, false);
+        List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId).queryList();
         for (GenericValue productCategoryMember: productCategoryMemberList) {
             String productId = productCategoryMember.getString("productId");
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
@@ -671,7 +677,7 @@ while (allCatIter.hasNext()) {
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
            ), EntityOperator.AND);
-            EntityListIterator productFeatureAndApplEli = delegator.find("ProductFeatureAndAppl", condition, null, null, null, null);
+            EntityListIterator productFeatureAndApplEli = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(condition).queryIterator();
             GenericValue productFeatureAndAppl = null;
             while ((productFeatureAndAppl = productFeatureAndApplEli.next()) != null) {
                 String productFeatureId = productFeatureAndAppl.getString("productFeatureId");
@@ -721,7 +727,7 @@ while (allCatIter.hasNext()) {
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                ), EntityOperator.AND);
-                if (delegator.findCountByCondition("ProductFeatureGroupAppl", condition, null, null) == 0) {
+                if (EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where(condition).queryCount() == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productFeatureId", productFeatureId, "fromDate", nowTimestamp));
                     productFeatureGroupAppl.create();
@@ -737,7 +743,7 @@ while (allCatIter.hasNext()) {
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
            ), EntityOperator.AND);
-            EntityListIterator productFeatureCatGrpApplEli = delegator.find("ProductFeatureCatGrpAppl", condition, null, null, null, null);
+            EntityListIterator productFeatureCatGrpApplEli = EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(condition).queryIterator();
             GenericValue productFeatureCatGrpAppl = null;
             while ((productFeatureCatGrpAppl = productFeatureCatGrpApplEli.next()) != null) {
                 String productFeatureGroupId = productFeatureCatGrpAppl.getString("productFeatureGroupId");
@@ -747,7 +753,7 @@ while (allCatIter.hasNext()) {
                         EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp),
                         EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp))
                ), EntityOperator.AND);
-                if (delegator.findCountByCondition("ProductFeatureCatGrpAppl", checkCondition, null, null) == 0) {
+                if (EntityQuery.use(delegator).from("ProductFeatureCatGrpAppl").where(checkCondition).queryCount() == 0) {
                     // if no valid ones, create one
                     GenericValue productFeatureGroupAppl = delegator.makeValue("ProductFeatureCatGrpAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureGroupId, "productCategoryId", productCategoryId, "fromDate", nowTimestamp));
                     productFeatureGroupAppl.create();

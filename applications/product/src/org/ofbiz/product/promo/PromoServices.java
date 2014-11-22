@@ -138,10 +138,9 @@ public class PromoServices {
         condList.add(EntityCondition.makeCondition("userEntered", EntityOperator.EQUALS, "Y"));
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.NOT_EQUAL, null));
         condList.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN, nowTimestamp));
-        EntityCondition cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
 
         try {
-            EntityListIterator eli = delegator.find("ProductStorePromoAndAppl", cond, null, null, null, null);
+            EntityListIterator eli = EntityQuery.use(delegator).from("ProductStorePromoAndAppl").where(condList).queryIterator();
             GenericValue productStorePromoAndAppl = null;
             while ((productStorePromoAndAppl = eli.next()) != null) {
                 GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl");

@@ -95,7 +95,7 @@ public class VariantEvents {
                 }
 
                 // check if product exists
-                GenericValue variantProduct = delegator.findOne("Product",UtilMisc.toMap("productId", variantProductId), false);
+                GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
                 if (variantProduct == null) {
                     //if product does not exist
                     variantProduct = GenericValue.create(product);
