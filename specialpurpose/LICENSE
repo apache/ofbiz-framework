@@ -12,6 +12,7 @@ For additional details, see the NOTICE file.
 The following libraries are licensed under the Apache License Version 2.0:
 specialpurpose/birt/lib/axis-ant-1.4.jar
 specialpurpose/birt/lib/axis-1.4.jar
+specialpurpose/birt/lib/commons-discovery-0.5.jar
 specialpurpose/cmssite/template/docbook/extensions/tagsoup-1.2.1.jar
 specialpurpose/cmssite/template/docbook/extensions/xalan27.jar
 specialpurpose/cmssite/template/docbook/extensions/webhelpindexer.jar
