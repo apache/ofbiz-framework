@@ -56,9 +56,6 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
@@ -1739,7 +1736,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         String orderId = this.getOrderId();
         if (UtilValidate.isNotEmpty(orderId)) {
             try {
-                List<GenericValue> declinedPaymentMethods = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_DECLINED"), null, false);
+                List<GenericValue> declinedPaymentMethods = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_DECLINED").queryList();
                 if (!UtilValidate.isEmpty(declinedPaymentMethods)) {
                     List<String> paymentMethodIdsToRemove = new ArrayList<String>();
                     for (GenericValue opp : declinedPaymentMethods) {
@@ -3472,8 +3469,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
 
             //create a new WorkEffortGoodStandard based on existing one of AGGREGATED product .
             //Another approach could be to get WorkEffortGoodStandard of the AGGREGATED product while creating production run.
-            List<GenericValue> productionRunTemplates = delegator.findByAnd("WorkEffortGoodStandard", UtilMisc.toMap("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED"), null, false);
-            GenericValue productionRunTemplate = EntityUtil.getFirst(EntityUtil.filterByDate(productionRunTemplates));
+            GenericValue productionRunTemplate = EntityQuery.use(delegator).from("WorkEffortGoodStandard").where("productId", item.getProductId(), "workEffortGoodStdTypeId", "ROU_PROD_TEMPLATE", "statusId", "WEGS_CREATED").filterByDate().queryFirst();
             if (productionRunTemplate != null) {
                 serviceContext.clear();
                 serviceContext.put("workEffortId", productionRunTemplate.getString("workEffortId"));
@@ -4036,9 +4032,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 String requirementId = item.getRequirementId();
                 if (requirementId != null) {
                     try {
-                        List<GenericValue> commitments = getDelegator().findByAnd("OrderRequirementCommitment", UtilMisc.toMap("requirementId", requirementId), null, false);
                         // TODO: multiple commitments for the same requirement are still not supported
-                        GenericValue commitment = EntityUtil.getFirst(commitments);
+                        GenericValue commitment = EntityQuery.use(getDelegator())
+                                                         .from("OrderRequirementCommitment")
+                                                         .where("requirementId", requirementId)
+                                                         .queryFirst();
                         if (commitment != null) {
                             GenericValue orderItemAssociation = getDelegator().makeValue("OrderItemAssoc");
                             orderItemAssociation.set("orderId", commitment.getString("orderId"));
@@ -4771,7 +4769,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
 
             try {
-                return delegator.findOne(entityName, lookupFields, true);
+                return EntityQuery.use(delegator).from(entityName).where(lookupFields).cache(true).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
@@ -4786,21 +4784,20 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if ("PaymentMethod".equals(valueObj.getEntityName())) {
                 String paymentMethodTypeId = valueObj.getString("paymentMethodTypeId");
                 String paymentMethodId = valueObj.getString("paymentMethodId");
-                Map<String, Object> lookupFields = UtilMisc.<String, Object>toMap("paymentMethodId", paymentMethodId);
 
                 // billing account, credit card, gift card, eft account all have postal address
                 try {
                     GenericValue pmObj = null;
                     if ("CREDIT_CARD".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findOne("CreditCard", lookupFields, false);
+                        pmObj = EntityQuery.use(delegator).from("CreditCard").where("paymentMethodId", paymentMethodId).queryOne();
                     } else if ("GIFT_CARD".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findOne("GiftCard", lookupFields, false);
+                        pmObj = EntityQuery.use(delegator).from("GiftCard").where("paymentMethodId", paymentMethodId).queryOne();
                     } else if ("EFT_ACCOUNT".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findOne("EftAccount", lookupFields, false);
+                        pmObj = EntityQuery.use(delegator).from("EftAccount").where("paymentMethodId", paymentMethodId).queryOne();
                     } else if ("EXT_BILLACT".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findOne("BillingAccount", lookupFields, false);
+                        pmObj = EntityQuery.use(delegator).from("BillingAccount").where("paymentMethodId", paymentMethodId).queryOne();
                     } else if ("EXT_PAYPAL".equals(paymentMethodTypeId)) {
-                        pmObj = delegator.findOne("PayPalPaymentMethod", lookupFields, false);
+                        pmObj = EntityQuery.use(delegator).from("PayPalPaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
                     }
                     if (pmObj != null) {
                         postalAddress = pmObj.getRelatedOne("PostalAddress", false);
@@ -5041,16 +5038,15 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         BigDecimal minQuantity = BigDecimal.ZERO;
         BigDecimal minimumOrderPrice = BigDecimal.ZERO; 
 
-        List<EntityExpr> exprs = new ArrayList<EntityExpr>();
-        exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, itemProductId));
-        exprs.add(EntityCondition.makeCondition("productPriceTypeId", EntityOperator.EQUALS, "MINIMUM_ORDER_PRICE"));
-
-        List<GenericValue> minimumOrderPriceList =  delegator.findList("ProductPrice", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, false);
-        if (minimumOrderPriceList != null) {
-            minimumOrderPriceList = EntityUtil.filterByDate(minimumOrderPriceList);
-        }
+        List<GenericValue> minimumOrderPriceList =  EntityQuery.use(delegator).from("ProductPrice")
+                                                        .where("productId", itemProductId, "productPriceTypeId", "MINIMUM_ORDER_PRICE")
+                                                        .filterByDate()
+                                                        .queryList();
         if (itemBasePrice == null) {
-            List<GenericValue> productPriceList = EntityUtil.filterByDate(delegator.findList("ProductPrice", EntityCondition.makeCondition("productId", itemProductId), null, null, null, false));
+            List<GenericValue> productPriceList = EntityQuery.use(delegator).from("ProductPrice")
+                                                      .where("productId", itemProductId)
+                                                      .filterByDate()
+                                                      .queryList();
             Map<String, BigDecimal> productPriceMap = FastMap.newInstance();
             for (GenericValue productPrice : productPriceList) {
                 productPriceMap.put(productPrice.getString("productPriceTypeId"), productPrice.getBigDecimal("price"));

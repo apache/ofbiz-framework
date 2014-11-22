@@ -40,7 +40,6 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -259,8 +258,7 @@ public class ProductPromoWorker {
         }
         GenericValue agreementItem = null;
         try {
-            List<GenericValue> agreementItems = delegator.findByAnd("AgreementItem", UtilMisc.toMap("agreementId", agreementId, "agreementItemTypeId", "AGREEMENT_PRICING_PR", "currencyUomId", cart.getCurrency()), null, true);
-            agreementItem = EntityUtil.getFirst(agreementItems);
+            agreementItem = EntityQuery.use(delegator).from("AgreementItem").where("agreementId", agreementId, "agreementItemTypeId", "AGREEMENT_PRICING_PR", "currencyUomId", cart.getCurrency()).cache(true).queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error looking up agreement items for agreement with id " + agreementId, module);
         }
@@ -359,7 +357,6 @@ public class ProductPromoWorker {
             }
 
             for (GenericValue productPromo : productPromoList) {
-                Map<Object, Object> productPromoDiscountMap = UtilGenerics.checkMap(UtilMisc.toMap("productPromo", productPromo, "totalDiscountAmount", cart.getProductPromoUseTotalDiscount(productPromo.getString("productPromoId"))));
                 if (hasOrderTotalCondition(productPromo, delegator)) {
                     if (!usesPerPromo.containsKey(productPromo.getString("productPromoId"))) {
                         sortedExplodedProductPromoList.add(productPromo);
@@ -389,7 +386,10 @@ public class ProductPromoWorker {
 
     protected static boolean hasOrderTotalCondition(GenericValue productPromo, Delegator delegator) throws GenericEntityException {
         boolean hasOtCond = false;
-        List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
+        List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond")
+                .where("productPromoId", productPromo.get("productPromoId"))
+                .orderBy("productPromoCondSeqId")
+                .cache(true).queryList();
         for (GenericValue productPromoCond : productPromoConds) {
             String inputParamEnumId = productPromoCond.getString("inputParamEnumId");
             if ("PPIP_ORDER_TOTAL".equals(inputParamEnumId)) {
@@ -439,7 +439,7 @@ public class ProductPromoWorker {
                             Set<String> enteredCodes = cart.getProductPromoCodesEntered();
                             // Check whether any promotion code is applied on order.
                             if (cart.getOrderId() != null) {
-                                List<GenericValue> orderproductPromoCodes =  delegator.findList("OrderProductPromoCode", EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, cart.getOrderId()), null, null, null, false);
+                                List<GenericValue> orderproductPromoCodes =  EntityQuery.use(delegator).from("OrderProductPromoCode").where("orderId", cart.getOrderId()).queryList();
                                 Iterator<GenericValue> orderproductPromoCodesItr = UtilMisc.toIterator(orderproductPromoCodes);
                                 while (orderproductPromoCodesItr != null && orderproductPromoCodesItr.hasNext()) {
                                     GenericValue orderproductPromoCode = orderproductPromoCodesItr.next();
@@ -450,7 +450,7 @@ public class ProductPromoWorker {
                                 // get all promo codes entered, do a query with an IN condition to see if any of those are related
                                 EntityCondition codeCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId), EntityOperator.AND, EntityCondition.makeCondition("productPromoCodeId", EntityOperator.IN, enteredCodes));
                                 // may want to sort by something else to decide which code to use if there is more than one candidate
-                                List<GenericValue> productPromoCodeList = delegator.findList("ProductPromoCode", codeCondition, null, UtilMisc.toList("productPromoCodeId"), null, false);
+                                List<GenericValue> productPromoCodeList = EntityQuery.use(delegator).from("ProductPromoCode").where(codeCondition).orderBy("productPromoCodeId").queryList();
                                 Iterator<GenericValue> productPromoCodeIter = productPromoCodeList.iterator();
                                 // support multiple promo codes for a single promo, ie if we run into a use limit for one code see if we can find another for this promo
                                 // check the use limit before each pass so if the promo use limit has been hit we don't keep on trying for the promo code use limit, if there is one of course
@@ -522,7 +522,7 @@ public class ProductPromoWorker {
                         EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
+                productPromoCustomerUseSize = EntityQuery.use(delegator).from("ProductPromoUseCheck").where(checkCondition).queryCount();
             }
             long perCustomerThisOrder = useLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perCustomerThisOrder) {
@@ -539,7 +539,7 @@ public class ProductPromoWorker {
                     EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-            long productPromoUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
+            long productPromoUseSize = EntityQuery.use(delegator).from("ProductPromoUseCheck").where(checkCondition).queryCount();
             long perPromotionThisOrder = useLimitPerPromotion.longValue() - productPromoUseSize;
             if (candidateUseLimit == null || candidateUseLimit.longValue() > perPromotionThisOrder) {
                 candidateUseLimit = Long.valueOf(perPromotionThisOrder);
@@ -566,7 +566,7 @@ public class ProductPromoWorker {
                         EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-                productPromoCustomerUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
+                productPromoCustomerUseSize = EntityQuery.use(delegator).from("ProductPromoUseCheck").where(checkCondition).queryCount();
             }
             long perCustomerThisOrder = codeUseLimitPerCustomer.longValue() - productPromoCustomerUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCustomerThisOrder) {
@@ -581,7 +581,7 @@ public class ProductPromoWorker {
                     EntityCondition.makeCondition("productPromoCodeId", EntityOperator.EQUALS, productPromoCodeId),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityOperator.AND);
-            long productPromoCodeUseSize = delegator.findCountByCondition("ProductPromoUseCheck", checkCondition, null, null);
+            long productPromoCodeUseSize = EntityQuery.use(delegator).from("ProductPromoUseCheck").where(checkCondition).queryCount();
             long perCodeThisOrder = codeUseLimitPerCode.longValue() - productPromoCodeUseSize;
             if (codeUseLimit == null || codeUseLimit.longValue() > perCodeThisOrder) {
                 codeUseLimit = Long.valueOf(perCodeThisOrder);
@@ -638,8 +638,7 @@ public class ProductPromoWorker {
                     validEmailCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
                     validEmailCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp),
                             EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)));
-                    EntityCondition validEmailCondition = EntityCondition.makeCondition(validEmailCondList, EntityOperator.AND);
-                    long validEmailCount = delegator.findCountByCondition("ProductPromoCodeEmailParty", validEmailCondition, null, null);
+                    long validEmailCount = EntityQuery.use(delegator).from("ProductPromoCodeEmailParty").where(validEmailCondList).queryCount();
                     if (validEmailCount > 0) {
                         // there was an email in the list, looks good...
                         return null;
@@ -674,7 +673,7 @@ public class ProductPromoWorker {
         while (promoRulesIter != null && promoRulesIter.hasNext()) {
             GenericValue productPromoRule = promoRulesIter.next();
 
-            List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
+            List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", productPromo.get("productPromoId")).orderBy("productPromoCondSeqId").cache(true).queryList();
             productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
             // using the other method to consolodate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
             Iterator<GenericValue> productPromoCondIter = UtilMisc.toIterator(productPromoConds);
@@ -777,7 +776,7 @@ public class ProductPromoWorker {
                 boolean performActions = true;
 
                 // loop through conditions for rule, if any false, set allConditionsTrue to false
-                List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromo.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
+                List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", productPromo.get("productPromoId")).orderBy("productPromoCondSeqId").cache(true).queryList();
                 productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
                 // using the other method to consolidate cache entries because the same cache is used elsewhere: List productPromoConds = productPromoRule.getRelated("ProductPromoCond", null, UtilMisc.toList("productPromoCondSeqId"), true);
                 if (Debug.verboseOn()) Debug.logVerbose("Checking " + productPromoConds.size() + " conditions for rule " + productPromoRule, module);
@@ -1106,9 +1105,8 @@ public class ProductPromoWorker {
                     compareBase = Integer.valueOf(0);
                 } else {
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
-                    List<GenericValue> partyRelationshipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true);
                     // and from/thru date within range
-                    partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
+                    List<GenericValue>  partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate().queryList();
 
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
                         compareBase = Integer.valueOf(0);
@@ -1123,9 +1121,8 @@ public class ProductPromoWorker {
             } else {
                 String partyClassificationGroupId = condValue;
                 // find any PartyClassification
-                List<GenericValue> partyClassificationList = delegator.findByAnd("PartyClassification", UtilMisc.toMap("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId), null, true);
                 // and from/thru date within range
-                partyClassificationList = EntityUtil.filterByDate(partyClassificationList, true);
+                List<GenericValue> partyClassificationList = EntityQuery.use(delegator).from("PartyClassification").where("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId).cache(true).filterByDate().queryList();
                 // then 0 (equals), otherwise 1 (not equals)
                 if (UtilValidate.isNotEmpty(partyClassificationList)) {
                     compareBase = Integer.valueOf(0);
@@ -1136,8 +1133,7 @@ public class ProductPromoWorker {
         } else if ("PPIP_ROLE_TYPE".equals(inputParamEnumId)) {
             if (partyId != null && UtilValidate.isNotEmpty(condValue)) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
-                GenericValue partyRole = delegator.findOne("PartyRole",
-                        UtilMisc.toMap("partyId", partyId, "roleTypeId", condValue), true);
+                GenericValue partyRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId, "roleTypeId", condValue).cache(true).queryOne();
 
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {
@@ -1312,7 +1308,7 @@ public class ProductPromoWorker {
     protected static boolean checkConditionsForItem(GenericValue productPromoActionOrCond, ShoppingCart cart, ShoppingCartItem cartItem, Delegator delegator, LocalDispatcher dispatcher, Timestamp nowTimestamp) throws GenericEntityException {
         GenericValue productPromoRule = productPromoActionOrCond.getRelatedOne("ProductPromoRule", true);
 
-        List<GenericValue> productPromoConds = delegator.findByAnd("ProductPromoCond", UtilMisc.toMap("productPromoId", productPromoRule.get("productPromoId")), UtilMisc.toList("productPromoCondSeqId"), true);
+        List<GenericValue> productPromoConds = EntityQuery.use(delegator).from("ProductPromoCond").where("productPromoId", productPromoRule.get("productPromoId")).orderBy("productPromoCondSeqId").cache(true).queryList();
         productPromoConds = EntityUtil.filterByAnd(productPromoConds, UtilMisc.toMap("productPromoRuleId", productPromoRule.get("productPromoRuleId")));
         for (GenericValue productPromoCond: productPromoConds) {
             boolean passed = checkConditionForItem(productPromoCond, cart, cartItem, delegator, dispatcher, nowTimestamp);
@@ -1328,10 +1324,11 @@ public class ProductPromoWorker {
         String operatorEnumId = productPromoCond.getString("operatorEnumId");
 
         // don't get list price from cart because it may have tax included whereas the base price does not: BigDecimal listPrice = cartItem.getListPrice();
-        Map<String, String> priceFindMap = UtilMisc.toMap("productId", cartItem.getProductId(),
-                "productPriceTypeId", "LIST_PRICE", "productPricePurposeId", "PURCHASE");
-        List<GenericValue> listProductPriceList = delegator.findByAnd("ProductPrice", priceFindMap, UtilMisc.toList("-fromDate"), false);
-        listProductPriceList = EntityUtil.filterByDate(listProductPriceList, true);
+        List<GenericValue> listProductPriceList = EntityQuery.use(delegator).from("ProductPrice")
+                .where("productId", cartItem.getProductId(), "productPriceTypeId", "LIST_PRICE", "productPricePurposeId", "PURCHASE")
+                .orderBy("-fromDate")
+                .filterByDate()
+                .queryList();
         GenericValue listProductPrice = (listProductPriceList != null && listProductPriceList.size() > 0) ? listProductPriceList.get(0): null;
         BigDecimal listPrice = (listProductPrice != null) ? listProductPrice.getBigDecimal("price") : null;
 
@@ -1388,8 +1385,7 @@ public class ProductPromoWorker {
     }
 
     private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
-        List<GenericValue> partyRelationshipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true);
-        partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
+        List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
             String partyIdFrom = (String)genericValue.get("partyIdFrom");
             if (partyIdFrom.equals(groupPartyId)) {
@@ -1971,11 +1967,11 @@ public class ProductPromoWorker {
 
     public static Set<String> getPromoRuleCondProductIds(GenericValue productPromoCond, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         // get a cached list for the whole promo and filter it as needed, this for better efficiency in caching
-        List<GenericValue> productPromoCategoriesAll = delegator.findByAnd("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoCond.get("productPromoId")), null, true);
+        List<GenericValue> productPromoCategoriesAll = EntityQuery.use(delegator).from("ProductPromoCategory").where("productPromoId", productPromoCond.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoCategories = EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoCondSeqId", "_NA_"));
         productPromoCategories.addAll(EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", productPromoCond.get("productPromoRuleId"), "productPromoCondSeqId", productPromoCond.get("productPromoCondSeqId"))));
 
-        List<GenericValue> productPromoProductsAll = delegator.findByAnd("ProductPromoProduct", UtilMisc.toMap("productPromoId", productPromoCond.get("productPromoId")), null, true);
+        List<GenericValue> productPromoProductsAll = EntityQuery.use(delegator).from("ProductPromoProduct").where("productPromoId", productPromoCond.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoProducts = EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoCondSeqId", "_NA_"));
         productPromoProducts.addAll(EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", productPromoCond.get("productPromoRuleId"), "productPromoCondSeqId", productPromoCond.get("productPromoCondSeqId"))));
 
@@ -1986,11 +1982,11 @@ public class ProductPromoWorker {
 
     public static Set<String> getPromoRuleActionProductIds(GenericValue productPromoAction, Delegator delegator, Timestamp nowTimestamp) throws GenericEntityException {
         // get a cached list for the whole promo and filter it as needed, this for better efficiency in caching
-        List<GenericValue> productPromoCategoriesAll = delegator.findByAnd("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoAction.get("productPromoId")), null, true);
+        List<GenericValue> productPromoCategoriesAll = EntityQuery.use(delegator).from("ProductPromoCategory").where("productPromoId", productPromoAction.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoCategories = EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoActionSeqId", "_NA_"));
         productPromoCategories.addAll(EntityUtil.filterByAnd(productPromoCategoriesAll, UtilMisc.toMap("productPromoRuleId", productPromoAction.get("productPromoRuleId"), "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"))));
 
-        List<GenericValue> productPromoProductsAll = delegator.findByAnd("ProductPromoProduct", UtilMisc.toMap("productPromoId", productPromoAction.get("productPromoId")), null, true);
+        List<GenericValue> productPromoProductsAll = EntityQuery.use(delegator).from("ProductPromoProduct").where("productPromoId", productPromoAction.get("productPromoId")).cache(true).queryList();
         List<GenericValue> productPromoProducts = EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", "_NA_", "productPromoActionSeqId", "_NA_"));
         productPromoProducts.addAll(EntityUtil.filterByAnd(productPromoProductsAll, UtilMisc.toMap("productPromoRuleId", productPromoAction.get("productPromoRuleId"), "productPromoActionSeqId", productPromoAction.get("productPromoActionSeqId"))));
 
@@ -2022,8 +2018,8 @@ public class ProductPromoWorker {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
 
-        List<GenericValue> productPromoCategoriesAll = delegator.findByAnd("ProductPromoCategory", UtilMisc.toMap("productPromoId", productPromoId), null, true);
-        List<GenericValue> productPromoProductsAll = delegator.findByAnd("ProductPromoProduct", UtilMisc.toMap("productPromoId", productPromoId), null, true);
+        List<GenericValue> productPromoCategoriesAll = EntityQuery.use(delegator).from("ProductPromoCategory").where("productPromoId", productPromoId).cache(true).queryList();
+        List<GenericValue> productPromoProductsAll = EntityQuery.use(delegator).from("ProductPromoProduct").where("productPromoId", productPromoId).cache(true).queryList();
 
         List<GenericValue> productPromoProductsCond = FastList.newInstance();
         List<GenericValue> productPromoCategoriesCond = FastList.newInstance();
@@ -2187,8 +2183,7 @@ public class ProductPromoWorker {
     protected static void getAllProductIds(Set<String> productCategoryIdSet, Set<String> productIdSet, Delegator delegator, Timestamp nowTimestamp, boolean include) throws GenericEntityException {
         for (String productCategoryId : productCategoryIdSet) {
             // get all product category memebers, filter by date
-            List<GenericValue> productCategoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId), null, true);
-            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp);
+            List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId).cache(true).filterByDate(nowTimestamp).queryList();
             for (GenericValue productCategoryMember : productCategoryMembers) {
                 String productId = productCategoryMember.getString("productId");
                 if (include) {

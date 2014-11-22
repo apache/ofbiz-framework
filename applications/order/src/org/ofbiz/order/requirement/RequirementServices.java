@@ -59,7 +59,6 @@ public class RequirementServices {
         //TODO currencyUomId still not used
         //String currencyUomId = (String) context.get("currencyUomId");
         try {
-            List<String> orderBy = UtilMisc.toList("partyId", "requirementId");
             List<EntityCondition> conditions = UtilMisc.toList(
                     EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                     EntityUtil.getFilterByDateExpr()
@@ -81,8 +80,10 @@ public class RequirementServices {
                 conditions.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"));
             }
 
-            EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
-            List<GenericValue> requirementAndRoles = delegator.findList("RequirementAndRole", ecl, null, orderBy, null, false);
+            List<GenericValue> requirementAndRoles = EntityQuery.use(delegator).from("RequirementAndRole")
+                    .where(conditions)
+                    .orderBy("partyId", "requirementId")
+                    .queryList();
 
             // maps to cache the associated suppliers and products data, so we don't do redundant DB and service requests
             Map<String, GenericValue> suppliers = FastMap.newInstance();
@@ -111,16 +112,12 @@ public class RequirementServices {
                 String supplierKey =  partyId + "^" + productId;
                 GenericValue supplierProduct = suppliers.get(supplierKey);
                 if (supplierProduct == null) {
-                    conditions = UtilMisc.toList(
-                            // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped
-                            EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
-                            EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
-                            EntityUtil.getFilterByDateExpr("availableFromDate", "availableThruDate")
-                           );
-                    ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
-                    List<GenericValue> supplierProducts = delegator.findList("SupplierProduct", ecl, null, UtilMisc.toList("minimumOrderQuantity", "lastPrice"), null, false);
-
-                    supplierProduct = EntityUtil.getFirst(supplierProducts);
+                    // TODO: it is possible to restrict to quantity > minimumOrderQuantity, but then the entire requirement must be skipped
+                    supplierProduct = EntityQuery.use(delegator).from("SupplierProduct")
+                            .where("partyId", partyId, "productId", productId)
+                            .orderBy("minimumOrderQuantity", "lastPrice")
+                            .filterByDate("availableFromDate", "availableThruDate")
+                            .queryFirst();
                     suppliers.put(supplierKey, supplierProduct);
                 }
 
@@ -166,7 +163,7 @@ public class RequirementServices {
                                 EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_IN, UtilMisc.toList("ITEM_REJECTED", "ITEM_CANCELLED")),
                                 EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, timePeriodStart)
                                ), EntityOperator.AND);
-                    GenericValue count = EntityUtil.getFirst(delegator.findList("OrderItemQuantityReportGroupByProduct", prodConditions, UtilMisc.toSet("quantityOrdered"), null, null, false));
+                    GenericValue count = EntityQuery.use(delegator).select("quantityOrdered").from("OrderItemQuantityReportGroupByProduct").where(prodConditions).queryFirst();
                     if (count != null) {
                         sold = count.getBigDecimal("quantityOrdered");
                         if (sold != null) productsSold.put(productId, sold);
@@ -309,7 +306,7 @@ public class RequirementServices {
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_ORDERED"),
                         EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "REQ_REJECTED")),
                         EntityOperator.AND);
-                List<GenericValue> requirements = delegator.findList("Requirement", ecl, null, null, null, false);
+                List<GenericValue> requirements = EntityQuery.use(delegator).from("Requirement").where(ecl).queryList();
                 for (GenericValue requirement : requirements) {
                     pendingRequirements = pendingRequirements.add(requirement.get("quantity") == null ? BigDecimal.ZERO : requirement.getBigDecimal("quantity"));
                 }

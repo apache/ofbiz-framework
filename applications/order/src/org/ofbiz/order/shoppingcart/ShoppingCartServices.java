@@ -249,7 +249,7 @@ public class ShoppingCartServices {
         // load order attributes
         List<GenericValue> orderAttributesList = null;
         try {
-            orderAttributesList = delegator.findByAnd("OrderAttribute", UtilMisc.toMap("orderId", orderId), null, false);
+            orderAttributesList = EntityQuery.use(delegator).from("OrderAttribute").where("orderId", orderId).queryList();
             if (UtilValidate.isNotEmpty(orderAttributesList)) {
                 for (GenericValue orderAttr : orderAttributesList) {
                     String name = orderAttr.getString("attrName");
@@ -270,8 +270,7 @@ public class ShoppingCartServices {
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED"));
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_DECLINED"));
             exprs.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_SETTLED"));
-            EntityCondition cond = EntityCondition.makeCondition(exprs, EntityOperator.AND);
-            orderPaymentPrefs = delegator.findList("OrderPaymentPreference", cond, null, null, null, false);
+            orderPaymentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(exprs).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -367,7 +366,7 @@ public class ShoppingCartServices {
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
                         Map<String, Object> surveyResponseMap = FastMap.newInstance();
                         Map<String, Object> answers = FastMap.newInstance();
-                        List<GenericValue> surveyResponseAndAnswers = delegator.findByAnd("SurveyResponseAndAnswer", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+                        List<GenericValue> surveyResponseAndAnswers = EntityQuery.use(delegator).from("SurveyResponseAndAnswer").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                         if (UtilValidate.isNotEmpty(surveyResponseAndAnswers)) {
                             String surveyId = EntityUtil.getFirst(surveyResponseAndAnswers).getString("surveyId");
                             for (GenericValue surveyResponseAndAnswer : surveyResponseAndAnswers) {
@@ -453,10 +452,12 @@ public class ShoppingCartServices {
                     try {
                         product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                         if (EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "AGGREGATED")) {
-                            List<GenericValue>productAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId")), null, false);
-                            productAssocs = EntityUtil.filterByDate(productAssocs);
-                            if (UtilValidate.isNotEmpty(productAssocs)) {
-                                productId = EntityUtil.getFirst(productAssocs).getString("productId");
+                            GenericValue productAssoc = EntityQuery.use(delegator).from("ProductAssoc")
+                                                                  .where("productAssocTypeId", "PRODUCT_CONF", "productIdTo", product.getString("productId"))
+                                                                  .filterByDate()
+                                                                  .queryFirst();
+                            if (UtilValidate.isNotEmpty(productAssoc)) {
+                                productId = productAssoc.getString("productId");
                                 configId = product.getString("configId");
                             }
                         }
@@ -512,7 +513,7 @@ public class ShoppingCartServices {
                 // load order item attributes
                 List<GenericValue> orderItemAttributesList = null;
                 try {
-                    orderItemAttributesList = delegator.findByAnd("OrderItemAttribute", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+                    orderItemAttributesList = EntityQuery.use(delegator).from("OrderItemAttribute").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                     if (UtilValidate.isNotEmpty(orderItemAttributesList)) {
                         for (GenericValue orderItemAttr : orderItemAttributesList) {
                             String name = orderItemAttr.getString("attrName");
@@ -528,7 +529,7 @@ public class ShoppingCartServices {
                 // load order item contact mechs
                 List<GenericValue> orderItemContactMechList = null;
                 try {
-                    orderItemContactMechList = delegator.findByAnd("OrderItemContactMech", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), null, false);
+                    orderItemContactMechList = EntityQuery.use(delegator).from("OrderItemContactMech").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                     if (UtilValidate.isNotEmpty(orderItemContactMechList)) {
                         for (GenericValue orderItemContactMech : orderItemContactMechList) {
                             String contactMechPurposeTypeId = orderItemContactMech.getString("contactMechPurposeTypeId");
@@ -1171,7 +1172,7 @@ public class ShoppingCartServices {
             }
             int index = 0;
             try {
-                vendorProduct = EntityUtil.getFirst(delegator.findByAnd("VendorProduct", UtilMisc.toMap("productId", productId, "productStoreGroupId", "_NA_"), null, false));
+                vendorProduct = EntityQuery.use(delegator).from("VendorProduct").where("productId", productId, "productStoreGroupId", "_NA_").queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e.toString(), module);
             }

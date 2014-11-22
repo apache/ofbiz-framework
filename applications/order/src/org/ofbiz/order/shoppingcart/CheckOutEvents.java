@@ -44,7 +44,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.marketing.tracking.TrackingCodeEvents;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
@@ -651,10 +650,8 @@ public class CheckOutEvents {
         GenericValue productStore = ProductStoreWorker.getProductStore(cart.getProductStoreId(), delegator);
         String paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
         if ("EXT_PAYPAL".equals(paymentMethodTypeId) || cart.getPaymentMethodTypeIds().contains("EXT_PAYPAL")) {
-            List<GenericValue> payPalProdStorePaySettings = null;
             try {
-                payPalProdStorePaySettings = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL"), null, false);
-                GenericValue payPalProdStorePaySetting = EntityUtil.getFirst(payPalProdStorePaySettings);
+                GenericValue payPalProdStorePaySetting = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStore.getString("productStoreId"), "paymentMethodTypeId", "EXT_PAYPAL").queryFirst();
                 if (payPalProdStorePaySetting != null) {
                     GenericValue gatewayConfig = payPalProdStorePaySetting.getRelatedOne("PaymentGatewayConfig", false);
                     if (gatewayConfig != null && "PAYFLOWPRO".equals(gatewayConfig.getString("paymentGatewayConfigTypeId"))) {
@@ -1156,12 +1153,10 @@ public class CheckOutEvents {
         for (ShoppingCartItem sci : cartLines) {
             int index = cart.getItemIndex(sci);
             try {
-                Map<String, Object> orderItemMap = FastMap.newInstance();
-                orderItemMap.put("orderId", originalOrderId);
-                orderItemMap.put("isPromo", sci.getIsPromo() ? "Y" : "N");
-                orderItemMap.put("productId", sci.getProductId());
-                orderItemMap.put("orderItemTypeId", sci.getItemType());
-                GenericValue orderItem = EntityUtil.getFirst(delegator.findByAnd("OrderItem", orderItemMap, null, false));
+                GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem")
+                                             .where("orderId", originalOrderId, "isPromo", sci.getIsPromo() ? "Y" : "N",
+                                                     "productId", sci.getProductId(), "orderItemTypeId", sci.getItemType())
+                                             .queryFirst();
                 if (UtilValidate.isNotEmpty(orderItem)) {
                     sci.setAssociatedOrderId(orderItem.getString("orderId"));
                     sci.setAssociatedOrderItemSeqId(orderItem.getString("orderItemSeqId"));
