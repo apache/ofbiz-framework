@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 public class ImportProductHelper {
 
@@ -65,8 +66,7 @@ public class ImportProductHelper {
         GenericValue tmpProductGV;
         boolean productExists = false;
         try {
-            tmpProductGV = delegator.findOne("Product", UtilMisc
-                .toMap("productId", productId), false);
+            tmpProductGV = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
             if (tmpProductGV != null
                     && productId.equals(tmpProductGV.getString("productId")))
                 productExists = true;

@@ -175,8 +175,7 @@ public class ProductStoreWorker {
         if (anyServiceType) {
             if (storePayment == null) {
                 try {
-                    List<GenericValue> storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId), null, false);
-                    storePayment = EntityUtil.getFirst(storePayments);
+                    storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId).queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems looking up store payment settings", module);
                 }
@@ -184,8 +183,7 @@ public class ProductStoreWorker {
 
             if (storePayment == null) {
                 try {
-                    List<GenericValue> storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId), null, false);
-                    storePayment = EntityUtil.getFirst(storePayments);
+                    storePayment = EntityQuery.use(delegator).from("ProductStorePaymentSetting").where("productStoreId", productStoreId).queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems looking up store payment settings", module);
                 }
@@ -198,12 +196,14 @@ public class ProductStoreWorker {
     public static List<GenericValue> getProductStoreShipmentMethods(Delegator delegator, String productStoreId,
                                                              String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId) {
         // check for an external service call
-        Map<String, String> storeFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
-                "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId);
 
         List<GenericValue> storeShipMethods = null;
         try {
-            storeShipMethods = delegator.findByAnd("ProductStoreShipmentMeth", storeFields, null, true);
+            storeShipMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMeth")
+                                   .where("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
+                                           "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId)
+                                   .cache(true)
+                                   .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -224,7 +224,7 @@ public class ProductStoreWorker {
         }
         List<GenericValue> shippingMethods = null;
         try {
-            shippingMethods = delegator.findByAnd("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"), true);
+            shippingMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).orderBy("sequenceNumber").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStore shipping methods", module);
             return null;
@@ -380,7 +380,7 @@ public class ProductStoreWorker {
                 if (UtilValidate.isNotEmpty(includeFeatures)) {
                     List<GenericValue> includedFeatures = null;
                     try {
-                        includedFeatures = delegator.findByAnd("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", includeFeatures), null, true);
+                        includedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", includeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + includeFeatures, module);
                     }
@@ -402,7 +402,7 @@ public class ProductStoreWorker {
                 if (UtilValidate.isNotEmpty(excludeFeatures)) {
                     List<GenericValue> excludedFeatures = null;
                     try {
-                        excludedFeatures = delegator.findByAnd("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", excludeFeatures), null, true);
+                        excludedFeatures = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureGroupId", excludeFeatures).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, module);
                     }
@@ -465,7 +465,7 @@ public class ProductStoreWorker {
         List<GenericValue> surveys = FastList.newInstance();
         List<GenericValue> storeSurveys = null;
         try {
-            storeSurveys = delegator.findByAnd("ProductStoreSurveyAppl", UtilMisc.toMap("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId), UtilMisc.toList("sequenceNum"), true);
+            storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get ProductStoreSurveyAppl for store : " + productStoreId, module);
             return surveys;
@@ -512,7 +512,7 @@ public class ProductStoreWorker {
                 } else if (surveyAppl.get("productCategoryId") != null) {
                     List<GenericValue> categoryMembers = null;
                     try {
-                        categoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", surveyAppl.get("productCategoryId")), null, true);
+                        categoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", surveyAppl.get("productCategoryId")).cache(true).queryList();
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductCategoryMember records for survey application : " + surveyAppl, module);
                     }
@@ -556,7 +556,7 @@ public class ProductStoreWorker {
 
         List<GenericValue> surveyResponse = null;
         try {
-            surveyResponse = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId, "partyId", partyId), null, false);
+            surveyResponse = EntityQuery.use(delegator).from("SurveyResponse").where("surveyId", surveyId, "partyId", partyId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return -1;

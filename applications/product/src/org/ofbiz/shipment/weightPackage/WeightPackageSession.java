@@ -353,7 +353,7 @@ public class WeightPackageSession implements Serializable {
     protected BigDecimal upsShipmentConfirm() throws GeneralException {
         Delegator delegator = this.getDelegator();
         BigDecimal actualCost = ZERO;
-        List<GenericValue> shipmentRouteSegments = delegator.findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+        List<GenericValue> shipmentRouteSegments = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId).queryList();
         if (UtilValidate.isNotEmpty(shipmentRouteSegments)) {
             for (GenericValue shipmentRouteSegment : shipmentRouteSegments) {
                 Map<String, Object> shipmentRouteSegmentMap = FastMap.newInstance();

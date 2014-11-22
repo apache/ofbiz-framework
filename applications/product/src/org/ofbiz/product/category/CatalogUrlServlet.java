@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * ControlServlet.java - Master servlet for the web application.
@@ -84,7 +85,7 @@ public class CatalogUrlServlet extends HttpServlet {
         String productId = null;
         try {
             String lastPathElement = pathElements.get(pathElements.size() - 1);
-            if (lastPathElement.startsWith("p_") || delegator.findOne("Product", UtilMisc.toMap("productId", lastPathElement), true) != null) {
+            if (lastPathElement.startsWith("p_") || EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache(true).queryOne() != null) {
                 if (lastPathElement.startsWith("p_")) {
                     productId = lastPathElement.substring(2);
                 } else {

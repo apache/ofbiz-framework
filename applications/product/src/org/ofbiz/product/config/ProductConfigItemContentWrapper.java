@@ -162,9 +162,12 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
             }
         }
 
-        List<GenericValue> productConfigItemContentList = delegator.findByAnd("ProdConfItemContent", UtilMisc.toMap("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId), UtilMisc.toList("-fromDate"), true);
-        productConfigItemContentList = EntityUtil.filterByDate(productConfigItemContentList);
-        GenericValue productConfigItemContent = EntityUtil.getFirst(productConfigItemContentList);
+        GenericValue productConfigItemContent = EntityQuery.use(delegator).from("ProdConfItemContent")
+                .where("configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId)
+                .orderBy("-fromDate")
+                .cache(true)
+                .filterByDate()
+                .queryFirst();
         if (productConfigItemContent != null) {
             // when rendering the product config item content, always include the ProductConfigItem and ProdConfItemContent records that this comes from
             Map<String, Object> inContext = FastMap.newInstance();

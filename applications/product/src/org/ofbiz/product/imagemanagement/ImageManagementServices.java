@@ -131,7 +131,7 @@ public class ImageManagementServices {
             
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
-                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType ), null, false);
+                fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", fileContentType).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -543,7 +543,7 @@ public class ImageManagementServices {
         
         List<GenericValue> fileExtensionThumb = FastList.newInstance();
         try {
-            fileExtensionThumb = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", fileContentType), null, false);
+            fileExtensionThumb = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", fileContentType).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -795,8 +795,7 @@ public class ImageManagementServices {
         String imageUrl = imageServerUrl + "/" + productId + "/" + filenameToUse;
         
         try {
-            List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE"), null, false);
-            GenericValue productContent = EntityUtil.getFirst(productContentList);
+            GenericValue productContent = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "contentId", contentId, "productContentTypeId", "IMAGE").queryFirst();
             String dataResourceName = (String) productContent.get("drDataResourceName");
             String mimeType = filenameToUse.substring(filenameToUse.lastIndexOf("."));
             
@@ -848,12 +847,12 @@ public class ImageManagementServices {
                     }
                 }
                 
-                List<GenericValue> contentAssocList = delegator.findByAnd("ContentAssoc", UtilMisc.toMap("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL"), null, false);
+                List<GenericValue> contentAssocList = EntityQuery.use(delegator).from("ContentAssoc").where("contentId", contentId, "contentAssocTypeId", "IMAGE_THUMBNAIL").queryList();
                 if (contentAssocList.size() > 0) {
                     for (int i = 0; i < contentAssocList.size(); i++) {
                         GenericValue contentAssoc = contentAssocList.get(i);
                         
-                        List<GenericValue> dataResourceAssocList = delegator.findByAnd("ContentDataResourceView", UtilMisc.toMap("contentId", contentAssoc.get("contentIdTo")), null, false);
+                        List<GenericValue> dataResourceAssocList = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", contentAssoc.get("contentIdTo")).queryList();
                         GenericValue dataResourceAssoc = EntityUtil.getFirst(dataResourceAssocList);
                         
                         String drDataResourceNameAssoc = (String) dataResourceAssoc.get("drDataResourceName");

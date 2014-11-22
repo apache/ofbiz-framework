@@ -78,7 +78,7 @@ public class SubscriptionServices {
             Map<String, String> subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
             // if this subscription is attached to something the customer owns, filter by that too
             if (UtilValidate.isNotEmpty(inventoryItemId)) subscriptionFindMap.put("inventoryItemId", inventoryItemId);
-            List<GenericValue> subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap, null, false);
+            List<GenericValue> subscriptionList = EntityQuery.use(delegator).from("Subscription").where(subscriptionFindMap).queryList();
             // DEJ20070718 DON'T filter by date, we want to consider all subscriptions: List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
             List<GenericValue> listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
             if (listOrdered.size() > 0) {
@@ -198,9 +198,11 @@ public class SubscriptionServices {
             orderCreatedDate = UtilDateTime.nowTimestamp();
         }
         try {
-            List<GenericValue> productSubscriptionResourceList = delegator.findByAnd("ProductSubscriptionResource", UtilMisc.toMap("productId", productId), null, true);
-            productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, null, null, true);
-            productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
+            List<GenericValue> productSubscriptionResourceList = EntityQuery.use(delegator).from("ProductSubscriptionResource")
+                    .where("productId", productId)
+                    .cache(true)
+                    .filterByDate(orderCreatedDate, "fromDate", "thruDate", "purchaseFromDate", "purchaseThruDate")
+                    .queryList();
 
             if (productSubscriptionResourceList.size() == 0) {
                 Debug.logError("No ProductSubscriptionResource found for productId: " + productId, module);
@@ -254,7 +256,7 @@ public class SubscriptionServices {
 
         GenericValue orderHeader = null;
         try {
-            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"), null, false);
+            List<GenericValue> orderRoleList = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER").queryList();
             if (orderRoleList.size() > 0) {
                 GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
@@ -279,8 +281,7 @@ public class SubscriptionServices {
                 if (UtilValidate.isEmpty(productId)) {
                     continue;
                 }
-                List<GenericValue> productSubscriptionResourceList = delegator.findByAnd("ProductSubscriptionResource", UtilMisc.toMap("productId", productId), null, true);
-                List<GenericValue> productSubscriptionResourceListFiltered = EntityUtil.filterByDate(productSubscriptionResourceList, true);
+                List<GenericValue> productSubscriptionResourceListFiltered = EntityQuery.use(delegator).from("ProductSubscriptionResource").where("productId", productId).cache(true).filterByDate().queryList();
                 if (productSubscriptionResourceListFiltered.size() > 0) {
                     subContext.put("subscriptionTypeId", "PRODUCT_SUBSCR");
                     subContext.put("productId", productId);
@@ -322,7 +323,7 @@ public class SubscriptionServices {
             EntityCondition cond2 = EntityCondition.makeCondition("automaticExtend", EntityOperator.EQUALS, null);
             EntityCondition cond = EntityCondition.makeCondition(UtilMisc.toList(cond1, cond2), EntityOperator.OR);
             List<GenericValue> subscriptionList = null;
-            subscriptionList = delegator.findList("Subscription", cond, null,null, null, false);
+            subscriptionList = EntityQuery.use(delegator).from("Subscription").where(cond).queryList();
             
             if (subscriptionList != null) {
                 for (GenericValue subscription : subscriptionList) {

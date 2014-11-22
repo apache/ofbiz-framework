@@ -123,7 +123,7 @@ public class PriceServices {
                         productStoreGroupId = productStore.getString("primaryStoreGroupId");
                     } else {
                         // no ProductStore.primaryStoreGroupId, try ProductStoreGroupMember
-                        List<GenericValue> productStoreGroupMemberList = delegator.findByAnd("ProductStoreGroupMember", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum", "-fromDate"), true);
+                        List<GenericValue> productStoreGroupMemberList = EntityQuery.use(delegator).from("ProductStoreGroupMember").where("productStoreId", productStoreId).orderBy("sequenceNum", "-fromDate").cache(true).queryList();
                         productStoreGroupMemberList = EntityUtil.filterByDate(productStoreGroupMemberList, true);
                         if (productStoreGroupMemberList.size() > 0) {
                             GenericValue productStoreGroupMember = EntityUtil.getFirst(productStoreGroupMemberList);
@@ -176,7 +176,7 @@ public class PriceServices {
         List<GenericValue> virtualProductPrices = null;
         if (virtualProductId != null) {
             try {
-                virtualProductPrices = delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", virtualProductId, "currencyUomId", currencyDefaultUomId, "productStoreGroupId", productStoreGroupId), UtilMisc.toList("-fromDate"), true);
+                virtualProductPrices = EntityQuery.use(delegator).from("ProductPrice").where("productId", virtualProductId, "currencyUomId", currencyDefaultUomId, "productStoreGroupId", productStoreGroupId).orderBy("-fromDate").cache(true).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "An error occurred while getting the product prices", module);
             }
@@ -222,7 +222,7 @@ public class PriceServices {
         // for prices, get all ProductPrice entities for this productId and currencyUomId
         List<GenericValue> productPrices = null;
         try {
-            productPrices = delegator.findList("ProductPrice", productPriceEc, null, UtilMisc.toList("-fromDate"), null, true);
+            productPrices = EntityQuery.use(delegator).from("ProductPrice").where(productPriceEc).orderBy("-fromDate").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "An error occurred while getting the product prices", module);
         }
@@ -238,8 +238,7 @@ public class PriceServices {
         // ProductPrice entity.
         if (UtilValidate.isNotEmpty(agreementId)) {
             try {
-                List<GenericValue> agreementPrices = delegator.findByAnd("AgreementItemAndProductAppl", UtilMisc.toMap("agreementId", agreementId, "productId", productId, "currencyUomId", currencyDefaultUomId), null, false);
-                GenericValue agreementPriceValue = EntityUtil.getFirst(agreementPrices);
+                GenericValue agreementPriceValue = EntityQuery.use(delegator).from("AgreementItemAndProductAppl").where("agreementId", agreementId, "productId", productId, "currencyUomId", currencyDefaultUomId).queryFirst();
                 if (agreementPriceValue != null && agreementPriceValue.get("price") != null) {
                     defaultPriceValue = agreementPriceValue;
                 }
@@ -266,12 +265,12 @@ public class PriceServices {
 
                 //use the cache to find the variant with the lowest default price
                 try {
-                    List<GenericValue> variantAssocList = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"), true));
+                    List<GenericValue> variantAssocList = EntityQuery.use(delegator).from("ProductAssoc").where("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT").orderBy("-fromDate").cache(true).filterByDate().queryList();
                     BigDecimal minDefaultPrice = null;
                     List<GenericValue> variantProductPrices = null;
                     for (GenericValue variantAssoc: variantAssocList) {
                         String curVariantProductId = variantAssoc.getString("productIdTo");
-                        List<GenericValue> curVariantPriceList = EntityUtil.filterByDate(delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", curVariantProductId), UtilMisc.toList("-fromDate"), true), nowTimestamp);
+                        List<GenericValue> curVariantPriceList = EntityQuery.use(delegator).from("ProductPrice").where("productId", curVariantProductId).orderBy("-fromDate").cache(true).filterByDate(nowTimestamp).queryList();
                         List<GenericValue> tempDefaultPriceList = EntityUtil.filterByAnd(curVariantPriceList, UtilMisc.toMap("productPriceTypeId", "DEFAULT_PRICE"));
                         GenericValue curDefaultPriceValue = EntityUtil.getFirst(tempDefaultPriceList);
                         if (curDefaultPriceValue != null) {
@@ -430,7 +429,7 @@ public class PriceServices {
                     quantityProductPriceRules = FastList.newInstance();
                     nonQuantityProductPriceRules = FastList.newInstance();
                     for (GenericValue productPriceRule: allProductPriceRules) {
-                        List<GenericValue> productPriceCondList = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRule.get("productPriceRuleId")), null, true);
+                        List<GenericValue> productPriceCondList = EntityQuery.use(delegator).from("ProductPriceCond").where("productPriceRuleId", productPriceRule.get("productPriceRuleId")).cache(true).queryList();
 
                         boolean foundQuantityInputParam = false;
                         // only consider a rule if all conditions except the quantity condition are true
@@ -655,7 +654,7 @@ public class PriceServices {
             // by productCategoryId
             // for we will always include any rules that go by category, shouldn't be too many to iterate through each time and will save on cache entries
             // note that we always want to put the category, quantity, etc ones that find all rules with these conditions in separate cache lists so that they can be easily cleared
-            Collection<GenericValue> productCategoryIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CAT_ID"), null, true);
+            Collection<GenericValue> productCategoryIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PROD_CAT_ID").cache(true).queryList();
             if (UtilValidate.isNotEmpty(productCategoryIdConds)) {
                 for (GenericValue productCategoryIdCond: productCategoryIdConds) {
                     productPriceRuleIds.add(productCategoryIdCond.getString("productPriceRuleId"));
@@ -663,7 +662,7 @@ public class PriceServices {
             }
 
             // by productFeatureId
-            Collection<GenericValue> productFeatureIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_FEAT_ID"), null, true);
+            Collection<GenericValue> productFeatureIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PROD_FEAT_ID").cache(true).queryList();
             if (UtilValidate.isNotEmpty(productFeatureIdConds)) {
                 for (GenericValue productFeatureIdCond: productFeatureIdConds) {
                     productPriceRuleIds.add(productFeatureIdCond.getString("productPriceRuleId"));
@@ -673,7 +672,7 @@ public class PriceServices {
             // by quantity -- should we really do this one, ie is it necessary?
             // we could say that all rules with quantity on them must have one of these other values
             // but, no we'll do it the other way, any that have a quantity will always get compared
-            Collection<GenericValue> quantityConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_QUANTITY"), null, true);
+            Collection<GenericValue> quantityConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_QUANTITY").cache(true).queryList();
             if (UtilValidate.isNotEmpty(quantityConds)) {
                 for (GenericValue quantityCond: quantityConds) {
                     productPriceRuleIds.add(quantityCond.getString("productPriceRuleId"));
@@ -681,7 +680,7 @@ public class PriceServices {
             }
 
             // by roleTypeId
-            Collection<GenericValue> roleTypeIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_ROLE_TYPE"), null, true);
+            Collection<GenericValue> roleTypeIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_ROLE_TYPE").cache(true).queryList();
             if (UtilValidate.isNotEmpty(roleTypeIdConds)) {
                 for (GenericValue roleTypeIdCond: roleTypeIdConds) {
                     productPriceRuleIds.add(roleTypeIdCond.getString("productPriceRuleId"));
@@ -693,7 +692,7 @@ public class PriceServices {
             // later: (by partyClassificationTypeId)
 
             // by listPrice
-            Collection<GenericValue> listPriceConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_LIST_PRICE"), null, true);
+            Collection<GenericValue> listPriceConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_LIST_PRICE").cache(true).queryList();
             if (UtilValidate.isNotEmpty(listPriceConds)) {
                 for (GenericValue listPriceCond: listPriceConds) {
                     productPriceRuleIds.add(listPriceCond.getString("productPriceRuleId"));
@@ -703,7 +702,7 @@ public class PriceServices {
             // ------- These are all of them that DO depend on the current inputs -------
 
             // by productId
-            Collection<GenericValue> productIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId), null, true);
+            Collection<GenericValue> productIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId).cache(true).queryList();
             if (UtilValidate.isNotEmpty(productIdConds)) {
                 for (GenericValue productIdCond: productIdConds) {
                     productPriceRuleIds.add(productIdCond.getString("productPriceRuleId"));
@@ -712,7 +711,7 @@ public class PriceServices {
 
             // by virtualProductId, if not null
             if (virtualProductId != null) {
-                Collection<GenericValue> virtualProductIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId), null, true);
+                Collection<GenericValue> virtualProductIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId).cache(true).queryList();
                 if (UtilValidate.isNotEmpty(virtualProductIdConds)) {
                     for (GenericValue virtualProductIdCond: virtualProductIdConds) {
                         productPriceRuleIds.add(virtualProductIdCond.getString("productPriceRuleId"));
@@ -722,7 +721,7 @@ public class PriceServices {
 
             // by prodCatalogId - which is optional in certain cases
             if (UtilValidate.isNotEmpty(prodCatalogId)) {
-                Collection<GenericValue> prodCatalogIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId), null, true);
+                Collection<GenericValue> prodCatalogIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId).cache(true).queryList();
                 if (UtilValidate.isNotEmpty(prodCatalogIdConds)) {
                     for (GenericValue prodCatalogIdCond: prodCatalogIdConds) {
                         productPriceRuleIds.add(prodCatalogIdCond.getString("productPriceRuleId"));
@@ -732,7 +731,7 @@ public class PriceServices {
 
             // by productStoreGroupId
             if (UtilValidate.isNotEmpty(productStoreGroupId)) {
-                Collection<GenericValue> storeGroupConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId), null, true);
+                Collection<GenericValue> storeGroupConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId).cache(true).queryList();
                 if (UtilValidate.isNotEmpty(storeGroupConds)) {
                     for (GenericValue storeGroupCond: storeGroupConds) {
                         productPriceRuleIds.add(storeGroupCond.getString("productPriceRuleId"));
@@ -742,7 +741,7 @@ public class PriceServices {
 
             // by webSiteId
             if (UtilValidate.isNotEmpty(webSiteId)) {
-                Collection<GenericValue> webSiteIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId), null, true);
+                Collection<GenericValue> webSiteIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId).cache(true).queryList();
                 if (UtilValidate.isNotEmpty(webSiteIdConds)) {
                     for (GenericValue webSiteIdCond: webSiteIdConds) {
                         productPriceRuleIds.add(webSiteIdCond.getString("productPriceRuleId"));
@@ -752,7 +751,7 @@ public class PriceServices {
 
             // by partyId
             if (UtilValidate.isNotEmpty(partyId)) {
-                Collection<GenericValue> partyIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId), null, true);
+                Collection<GenericValue> partyIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId).cache(true).queryList();
                 if (UtilValidate.isNotEmpty(partyIdConds)) {
                     for (GenericValue partyIdCond: partyIdConds) {
                         productPriceRuleIds.add(partyIdCond.getString("productPriceRuleId"));
@@ -761,7 +760,7 @@ public class PriceServices {
             }
 
             // by currencyUomId
-            Collection<GenericValue> currencyUomIdConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId), null, true);
+            Collection<GenericValue> currencyUomIdConds = EntityQuery.use(delegator).from("ProductPriceCond").where("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId).cache(true).queryList();
             if (UtilValidate.isNotEmpty(currencyUomIdConds)) {
                 for (GenericValue currencyUomIdCond: currencyUomIdConds) {
                     productPriceRuleIds.add(currencyUomIdCond.getString("productPriceRuleId"));
@@ -780,7 +779,7 @@ public class PriceServices {
             // EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, UtilDateTime.nowTimestamp()));
             // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
 
-            productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, true);
+            productPriceRules = EntityQuery.use(delegator).from("ProductPriceRule").cache(true).queryList();
             if (productPriceRules == null) productPriceRules = FastList.newInstance();
         }
 
@@ -830,7 +829,7 @@ public class PriceServices {
             // check all conditions
             boolean allTrue = true;
             StringBuilder condsDescription = new StringBuilder();
-            List<GenericValue> productPriceConds = delegator.findByAnd("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRuleId), null, true);
+            List<GenericValue> productPriceConds = EntityQuery.use(delegator).from("ProductPriceCond").where("productPriceRuleId", productPriceRuleId).cache(true).queryList();
             for (GenericValue productPriceCond: productPriceConds) {
 
                 totalConds++;
@@ -872,7 +871,7 @@ public class PriceServices {
                     isSale = true;
                 }
 
-                List<GenericValue> productPriceActions = delegator.findByAnd("ProductPriceAction", UtilMisc.toMap("productPriceRuleId", productPriceRuleId), null, true);
+                List<GenericValue> productPriceActions = EntityQuery.use(delegator).from("ProductPriceAction").where("productPriceRuleId", productPriceRuleId).cache(true).queryList();
                 for (GenericValue productPriceAction: productPriceActions) {
 
                     totalActions++;
@@ -1052,10 +1051,12 @@ public class PriceServices {
         } else if ("PRIP_PROD_CAT_ID".equals(productPriceCond.getString("inputParamEnumId"))) {
             // if a ProductCategoryMember exists for this productId and the specified productCategoryId
             String productCategoryId = productPriceCond.getString("condValue");
-            List<GenericValue> productCategoryMembers = delegator.findByAnd("ProductCategoryMember",
-                    UtilMisc.toMap("productId", productId, "productCategoryId", productCategoryId), null, true);
             // and from/thru date within range
-            productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp, null, null, true);
+            List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember")
+                    .where("productId", productId, "productCategoryId", productCategoryId)
+                    .cache(true)
+                    .filterByDate(nowTimestamp)
+                    .queryList();
             // then 0 (equals), otherwise 1 (not equals)
             if (UtilValidate.isNotEmpty(productCategoryMembers)) {
                 compare = 0;
@@ -1067,10 +1068,8 @@ public class PriceServices {
             // NOTE: this is important becuase of the common scenario where a virtual product is a member of a category but the variants will typically NOT be
             // NOTE: we may want to parameterize this in the future, ie with an indicator on the ProductPriceCond entity
             if (compare == 1 && UtilValidate.isNotEmpty(virtualProductId)) {
-                List<GenericValue> virtualProductCategoryMembers = delegator.findByAnd("ProductCategoryMember",
-                        UtilMisc.toMap("productId", virtualProductId, "productCategoryId", productCategoryId), null, true);
                 // and from/thru date within range
-                virtualProductCategoryMembers = EntityUtil.filterByDate(virtualProductCategoryMembers, nowTimestamp, null, null, true);
+                List<GenericValue> virtualProductCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productId", virtualProductId, "productCategoryId", productCategoryId).cache(true).filterByDate(nowTimestamp).queryList();
                 if (UtilValidate.isNotEmpty(virtualProductCategoryMembers)) {
                     // we found a member record? great, then this condition is satisfied
                     compare = 0;
@@ -1081,10 +1080,8 @@ public class PriceServices {
 
             // if a ProductFeatureAppl exists for this productId and the specified productFeatureId
             String productFeatureId = productPriceCond.getString("condValue");
-            List<GenericValue> productFeatureAppls = delegator.findByAnd("ProductFeatureAppl",
-                    UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId), null, true);
             // and from/thru date within range
-            productFeatureAppls = EntityUtil.filterByDate(productFeatureAppls, nowTimestamp, null, null, true);
+            List<GenericValue> productFeatureAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeatureId).cache(true).filterByDate(nowTimestamp).queryList();
             // then 0 (equals), otherwise 1 (not equals)
             if (UtilValidate.isNotEmpty(productFeatureAppls)) {
                 compare = 0;
@@ -1135,9 +1132,8 @@ public class PriceServices {
                     // look for PartyRelationship with
                     // partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is
                     // the group member, so the partyIdFrom is the groupPartyId
-                    List<GenericValue> partyRelationshipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true);
                     // and from/thru date within range
-                    partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
+                    List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdFrom", groupPartyId, "partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
                     // then 0 (equals), otherwise 1 (not equals)
                     if (UtilValidate.isNotEmpty(partyRelationshipList)) {
                         compare = 0;
@@ -1152,9 +1148,8 @@ public class PriceServices {
             } else {
                 String partyClassificationGroupId = productPriceCond.getString("condValue");
                 // find any PartyClassification
-                List<GenericValue> partyClassificationList = delegator.findByAnd("PartyClassification", UtilMisc.toMap("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId), null, true);
                 // and from/thru date within range
-                partyClassificationList = EntityUtil.filterByDate(partyClassificationList, nowTimestamp, null, null, true);
+                List<GenericValue> partyClassificationList = EntityQuery.use(delegator).from("PartyClassification").where("partyId", partyId, "partyClassificationGroupId", partyClassificationGroupId).cache(true).filterByDate(nowTimestamp).queryList();
                 // then 0 (equals), otherwise 1 (not equals)
                 if (UtilValidate.isNotEmpty(partyClassificationList)) {
                     compare = 0;
@@ -1165,8 +1160,7 @@ public class PriceServices {
         } else if ("PRIP_ROLE_TYPE".equals(productPriceCond.getString("inputParamEnumId"))) {
             if (partyId != null) {
                 // if a PartyRole exists for this partyId and the specified roleTypeId
-                GenericValue partyRole = delegator.findOne("PartyRole",
-                        UtilMisc.toMap("partyId", partyId, "roleTypeId", productPriceCond.getString("condValue")), true);
+                GenericValue partyRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId, "roleTypeId", productPriceCond.getString("condValue")).cache(true).queryOne();
 
                 // then 0 (equals), otherwise 1 (not equals)
                 if (partyRole != null) {
@@ -1210,8 +1204,7 @@ public class PriceServices {
     }
 
     private static int checkConditionPartyHierarchy(Delegator delegator, Timestamp nowTimestamp, String groupPartyId, String partyId) throws GenericEntityException{
-        List<GenericValue> partyRelationshipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP"), null, true);
-        partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
+        List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdTo", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").cache(true).filterByDate(nowTimestamp).queryList();
         for (GenericValue genericValue : partyRelationshipList) {
             String partyIdFrom = (String)genericValue.get("partyIdFrom");
             if (partyIdFrom.equals(groupPartyId)) {
@@ -1297,16 +1290,14 @@ public class PriceServices {
         if (!validPriceFound) {
             List<GenericValue> prices = null;
             try {
-                prices = delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", productId,
-                        "productPricePurposeId", "PURCHASE"), UtilMisc.toList("-fromDate"), false);
+                prices = EntityQuery.use(delegator).from("ProductPrice").where("productId", productId, "productPricePurposeId", "PURCHASE").orderBy("-fromDate").queryList();
 
                 // if no prices are found; find the prices of the parent product
                 if (UtilValidate.isEmpty(prices)) {
                     GenericValue parentProduct = ProductWorker.getParentProduct(productId, delegator);
                     if (parentProduct != null) {
                         String parentProductId = parentProduct.getString("productId");
-                        prices = delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", parentProductId,
-                                "productPricePurposeId", "PURCHASE"), UtilMisc.toList("-fromDate"), false);
+                        prices = EntityQuery.use(delegator).from("ProductPrice").where("productId", parentProductId, "productPricePurposeId", "PURCHASE").orderBy("-fromDate").queryList();
                     }
                 }
             } catch (GenericEntityException e) {

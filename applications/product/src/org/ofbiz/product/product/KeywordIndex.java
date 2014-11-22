@@ -38,6 +38,7 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -117,7 +118,7 @@ public class KeywordIndex {
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
             // get strings from attributes and features
-            List<GenericValue> productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId), null, false);
+            List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).queryList();
             for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                 addWeightedKeywordSourceString(productFeatureAndAppl, "description", strings);
                 addWeightedKeywordSourceString(productFeatureAndAppl, "abbrev", strings);
@@ -128,7 +129,7 @@ public class KeywordIndex {
         // ProductAttribute
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
                 !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
-            List<GenericValue> productAttributes = delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId), null, false);
+            List<GenericValue> productAttributes = EntityQuery.use(delegator).from("ProductAttribute").where("productId", productId).queryList();
             for (GenericValue productAttribute: productAttributes) {
                 addWeightedKeywordSourceString(productAttribute, "attrName", strings);
                 addWeightedKeywordSourceString(productAttribute, "attrValue", strings);
@@ -137,7 +138,7 @@ public class KeywordIndex {
 
         // GoodIdentification
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
-            List<GenericValue> goodIdentifications = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId), null, false);
+            List<GenericValue> goodIdentifications = EntityQuery.use(delegator).from("GoodIdentification").where("productId", productId).queryList();
             for (GenericValue goodIdentification: goodIdentifications) {
                 addWeightedKeywordSourceString(goodIdentification, "idValue", strings);
             }
@@ -146,8 +147,7 @@ public class KeywordIndex {
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
             if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
-                List<GenericValue> variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
-                variantProductAssocs = EntityUtil.filterByDate(variantProductAssocs);
+                List<GenericValue> variantProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                 for (GenericValue variantProductAssoc: variantProductAssocs) {
                     int weight = 1;
                     try {
@@ -172,7 +172,7 @@ public class KeywordIndex {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
 
-            List<GenericValue> productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null, false);
+            List<GenericValue> productContentAndInfos = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", productContentTypeId).queryList();
             for (GenericValue productContentAndInfo: productContentAndInfos) {
                 addWeightedDataResourceString(productContentAndInfo, weight, strings, delegator, product);
 

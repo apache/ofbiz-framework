@@ -106,8 +106,7 @@ public class UspsServices {
             GenericValue facilityContactMech = ContactMechWorker.getFacilityContactMechByPurpose(delegator, productStore.getString("inventoryFacilityId"), UtilMisc.toList("SHIP_ORIG_LOCATION", "PRIMARY_LOCATION"));
             if (facilityContactMech != null) {
                 try {
-                    GenericValue shipFromAddress = delegator.findOne("PostalAddress",
-                            UtilMisc.toMap("contactMechId", facilityContactMech.getString("contactMechId")), false);
+                    GenericValue shipFromAddress = EntityQuery.use(delegator).from("PostalAddress").where("contactMechId", facilityContactMech.getString("contactMechId")).queryOne();
                     if (shipFromAddress != null) {
                         originationZip = shipFromAddress.getString("postalCode");
                     }
@@ -146,9 +145,9 @@ public class UspsServices {
         // get the service code
         String serviceCode = null;
         try {
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod",
-                    UtilMisc.toMap("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"),
-                            "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId")), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
+                    .where("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"), "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId"))
+                    .queryOne();
             if (carrierShipmentMethod != null) {
                 serviceCode = carrierShipmentMethod.getString("carrierServiceCode").toUpperCase();
             }
@@ -315,9 +314,9 @@ public class UspsServices {
         // get the service code
         String serviceCode = null;
         try {
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod",
-                    UtilMisc.toMap("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"),
-                            "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId")), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
+                    .where("shipmentMethodTypeId", (String) context.get("shipmentMethodTypeId"), "partyId", (String) context.get("carrierPartyId"), "roleTypeId", (String) context.get("carrierRoleTypeId"))
+                    .queryOne();
             if (carrierShipmentMethod != null) {
                 serviceCode = carrierShipmentMethod.getString("carrierServiceCode");
             }
@@ -934,8 +933,7 @@ public class UspsServices {
         }
 
         try {
-            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment",
-                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentRouteSegmentNotFound", 
@@ -991,8 +989,7 @@ public class UspsServices {
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String partyId = shipmentRouteSegment.getString("carrierPartyId");
            
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod",
-                    UtilMisc.toMap("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsNoCarrierShipmentMethod", 
@@ -1241,8 +1238,7 @@ public class UspsServices {
                         "ProductShipmentNotFoundId", locale) + shipmentId);
             }
 
-            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment",
-                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
             if (shipmentRouteSegment == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "ProductShipmentRouteSegmentNotFound", 
@@ -1286,8 +1282,7 @@ public class UspsServices {
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String partyId = shipmentRouteSegment.getString("carrierPartyId");
 
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod",
-                    UtilMisc.toMap("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", partyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).queryOne();
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentUspsNoCarrierShipmentMethod", 
@@ -1369,8 +1364,7 @@ public class UspsServices {
                 }
                 if (!"WT_oz".equals(weightUomId)) {
                     // attempt a conversion to pounds
-                    GenericValue uomConversion = delegator.findOne("UomConversion",
-                            UtilMisc.toMap("uomId", weightUomId, "uomIdTo", "WT_oz"), false);
+                    GenericValue uomConversion = EntityQuery.use(delegator).from("UomConversion").where("uomId", weightUomId, "uomIdTo", "WT_oz").queryOne();
                     if (uomConversion == null || UtilValidate.isEmpty(uomConversion.getString("conversionFactor"))) {
                         return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                                 "FacilityShipmentUspsWeightUnsupported", 
@@ -1443,8 +1437,7 @@ public class UspsServices {
             String shipmentId = (String) context.get("shipmentId");
             String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
 
-            GenericValue shipmentRouteSegment = delegator.findOne("ShipmentRouteSegment",
-                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId), false);
+            GenericValue shipmentRouteSegment = EntityQuery.use(delegator).from("ShipmentRouteSegment").where("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId).queryOne();
 
             List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"), false);
 

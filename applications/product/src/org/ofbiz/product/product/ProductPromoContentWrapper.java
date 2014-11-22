@@ -172,9 +172,8 @@ public class ProductPromoContentWrapper implements ContentWrapper {
         List<EntityExpr> exprs = new ArrayList<EntityExpr>();
         exprs.add(EntityCondition.makeCondition("productPromoId", EntityOperator.EQUALS, productPromoId));
         exprs.add(EntityCondition.makeCondition("productPromoContentTypeId", EntityOperator.EQUALS, productPromoContentTypeId));
-        List<String> orderBy = UtilMisc.toList("-fromDate");
 
-        List<GenericValue> productPromoContentList = delegator.findList("ProductPromoContent", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, orderBy, null, true);
+        List<GenericValue> productPromoContentList = EntityQuery.use(delegator).from("ProductPromoContent").where(EntityCondition.makeCondition(exprs, EntityOperator.AND)).orderBy("-fromDate").cache(true).queryList();
         GenericValue productPromoContent = null;
         if (UtilValidate.isNotEmpty(productPromoContentList)) {
             productPromoContent = EntityUtil.getFirst(EntityUtil.filterByDate(productPromoContentList));

@@ -120,10 +120,10 @@ public class ProductEvents {
             beganTx = TransactionUtil.begin(7200);
             try {
                 if (Debug.infoOn()) {
-                    long count = delegator.findCountByCondition("Product", condition, null, null);
+                    long count = EntityQuery.use(delegator).from("Product").where(condition).queryCount();
                     Debug.logInfo("========== Found " + count + " products to index ==========", module);
                 }
-                entityListIterator = delegator.find("Product", condition, null, null, null, null);
+                entityListIterator = EntityQuery.use(delegator).from("Product").where(condition).queryIterator();
             } catch (GenericEntityException gee) {
                 Debug.logWarning(gee, gee.getMessage(), module);
                 Map<String, String> messageMap = UtilMisc.toMap("gee", gee.toString());
@@ -281,7 +281,7 @@ public class ProductEvents {
             GenericValue productAssoc = null;
 
             try {
-                productAssoc = delegator.findOne(tempProductAssoc.getEntityName(), tempProductAssoc.getPrimaryKey(), false);
+                productAssoc = EntityQuery.use(delegator).from(tempProductAssoc.getEntityName()).where(tempProductAssoc.getPrimaryKey()).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 productAssoc = null;
@@ -354,7 +354,7 @@ public class ProductEvents {
             GenericValue productAssoc = null;
 
             try {
-                productAssoc = delegator.findOne(tempProductAssoc.getEntityName(), tempProductAssoc.getPrimaryKey(), false);
+                productAssoc = EntityQuery.use(delegator).from(tempProductAssoc.getEntityName()).where(tempProductAssoc.getPrimaryKey()).queryOne();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e.getMessage(), module);
                 productAssoc = null;
@@ -454,7 +454,7 @@ public class ProductEvents {
                         BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt"));
                         BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams"));
 
-                        List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false), true);
+                        List<GenericValue> currentProductFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE").filterByDate().queryList();
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
                         setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_g", "AMOUNT", grams);
@@ -484,7 +484,7 @@ public class ProductEvents {
                             BigDecimal ntwt = parseBigDecimalForEntity(request.getParameter("~ntwt" + attribIdx));
                             BigDecimal grams = parseBigDecimalForEntity(request.getParameter("~grams" + attribIdx));
 
-                            List<GenericValue> currentProductFeatureAndAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null, false), true);
+                            List<GenericValue> currentProductFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE").filterByDate().queryList();
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ozUS", "AMOUNT", floz);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "VLIQ_ml", "AMOUNT", ml);
                             setOrCreateProdFeature(delegator, productId, currentProductFeatureAndAppls, "WT_g", "AMOUNT", grams);
@@ -557,7 +557,7 @@ public class ProductEvents {
         // NOTE: if numberSpecified is null then foundOneEqual will always be false, so need to check both
         if (numberSpecified != null && !foundOneEqual) {
             String productFeatureId = null;
-            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "numberSpecified", numberSpecified, "uomId", uomId), null, false);
+            List<GenericValue> existingProductFeatureList = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureTypeId", productFeatureTypeId, "numberSpecified", numberSpecified, "uomId", uomId).queryList();
             if (existingProductFeatureList.size() > 0) {
                 GenericValue existingProductFeature = existingProductFeatureList.get(0);
                 productFeatureId = existingProductFeature.getString("productFeatureId");
@@ -670,8 +670,7 @@ public class ProductEvents {
         GenericValue productFeatureAndAppl = null;
 
         Set<String> descriptionsForThisType = FastSet.newInstance();
-        List<GenericValue> productFeatureAndApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId,
-                "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId), null, false), true);
+        List<GenericValue> productFeatureAndApplList = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureTypeId", productFeatureTypeId).filterByDate().queryList();
         if (productFeatureAndApplList.size() > 0) {
             Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndApplList.iterator();
             while (productFeatureAndApplIter.hasNext()) {
@@ -723,7 +722,7 @@ public class ProductEvents {
 
             // see if a feature exists with the type and description specified (if doesn't exist will create later)
             String productFeatureId = null;
-            List<GenericValue> existingProductFeatureList = delegator.findByAnd("ProductFeature", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "description", description), null, false);
+            List<GenericValue> existingProductFeatureList = EntityQuery.use(delegator).from("ProductFeature").where("productFeatureTypeId", productFeatureTypeId, "description", description).queryList();
             if (existingProductFeatureList.size() > 0) {
                 GenericValue existingProductFeature = existingProductFeatureList.get(0);
                 productFeatureId = existingProductFeature.getString("productFeatureId");
@@ -748,8 +747,7 @@ public class ProductEvents {
             }
 
             // check to see if the productFeatureId is already attached to the virtual or variant, if not attach them...
-            List<GenericValue> specificProductFeatureApplList = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId,
-                    "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureId", productFeatureId), null, false), true);
+            List<GenericValue> specificProductFeatureApplList = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId, "productFeatureId", productFeatureId).filterByDate().queryList();
 
             if (specificProductFeatureApplList.size() == 0) {
                 delegator.create("ProductFeatureAppl",
@@ -831,10 +829,7 @@ public class ProductEvents {
         if (categoryIds != null) {
             for (String categoryId: categoryIds) {
                 try {
-                    List<GenericValue> catMembs = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap(
-                            "productCategoryId", categoryId,
-                            "productId", productId), null, false);
-                    catMembs = EntityUtil.filterByDate(catMembs);
+                    List<GenericValue> catMembs = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", categoryId, "productId", productId).filterByDate().queryList();
                     if (catMembs.size() == 0) {
                         delegator.create("ProductCategoryMember",
                                 UtilMisc.toMap("productCategoryId", categoryId, "productId", productId, "fromDate", fromDate));
@@ -859,9 +854,7 @@ public class ProductEvents {
             thruDate = UtilDateTime.nowTimestamp().toString();
         }
         try {
-            List<GenericValue> prodCatMembs = delegator.findByAnd("ProductCategoryMember",
-                    UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId), null, false);
-            prodCatMembs = EntityUtil.filterByDate(prodCatMembs);
+            List<GenericValue> prodCatMembs = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId, "productId", productId).filterByDate().queryList();
             if (prodCatMembs.size() > 0) {
                 // there is one to modify
                 GenericValue prodCatMemb = prodCatMembs.get(0);
@@ -890,10 +883,7 @@ public class ProductEvents {
             try {
                 for (String productFeatureId: productFeatureIdArray) {
                     if (!productFeatureId.equals("~~any~~")) {
-                        List<GenericValue> featureAppls = delegator.findByAnd("ProductFeatureAppl",
-                                UtilMisc.toMap("productId", productId,
-                                        "productFeatureId", productFeatureId,
-                                        "productFeatureApplTypeId", productFeatureApplTypeId), null, false);
+                        List<GenericValue> featureAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeatureId, "productFeatureApplTypeId", productFeatureApplTypeId).queryList();
                         if (featureAppls.size() == 0) {
                             // no existing application for this
                             delegator.create("ProductFeatureAppl",
@@ -963,9 +953,7 @@ public class ProductEvents {
             if ("Y".equals(productStore.getString("requireCustomerRole"))) {
                 List<GenericValue> productStoreRoleList = null;
                 try {
-                    productStoreRoleList = delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStore.get("productStoreId"),
-                            "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER"), null, false);
-                    productStoreRoleList = EntityUtil.filterByDate(productStoreRoleList, true);
+                    productStoreRoleList = EntityQuery.use(delegator).from("ProductStoreRole").where("productStoreId", productStore.get("productStoreId"), "partyId", userLogin.get("partyId"), "roleTypeId", "CUSTOMER").filterByDate().queryList();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Database error finding CUSTOMER ProductStoreRole records, required by the ProductStore with ID [" + productStore.getString("productStoreId") + "]", module);
                 }
@@ -1000,8 +988,7 @@ public class ProductEvents {
 
         GenericValue productStoreEmail = null;
         try {
-            productStoreEmail = delegator.findOne("ProductStoreEmailSetting",
-                    UtilMisc.toMap("productStoreId", productStoreId, "emailType", emailType), false);
+            productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", emailType).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Unable to get product store email setting for tell-a-friend: " + e.toString();
             Debug.logError(e, errMsg, module);

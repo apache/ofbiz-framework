@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 
@@ -212,7 +213,10 @@ public class PackingSessionLine implements java.io.Serializable {
             itemLookup.put("orderItemSeqId", this.getOrderItemSeqId());
             itemLookup.put("shipGroupSeqId", this.getShipGroupSeqId());
             itemLookup.put("inventoryItemId", this.getInventoryItemId());
-            GenericValue plItem = delegator.findOne("PicklistItem", itemLookup, false);
+            GenericValue plItem = EntityQuery.use(delegator)
+                                      .from("PicklistItem")
+                                      .where(itemLookup)
+                                      .queryOne();
             if (plItem != null) {
                 Debug.logInfo("Found picklist bin: " + plItem, module);
                 BigDecimal itemQty = plItem.getBigDecimal("quantity");

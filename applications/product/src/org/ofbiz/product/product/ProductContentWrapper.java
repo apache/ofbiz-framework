@@ -33,7 +33,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -178,13 +177,11 @@ public class ProductContentWrapper implements ContentWrapper {
                 }
         }
 
-        List<GenericValue> productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"), true);
-        productContentList = EntityUtil.filterByDate(productContentList);
+        List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", productId, "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(true).filterByDate().queryList();
         if (UtilValidate.isEmpty(productContentList) && ("Y".equals(product.getString("isVariant")))) {
             GenericValue parent = ProductWorker.getParentProduct(productId, delegator);
             if (UtilValidate.isNotEmpty(parent)) {
-                productContentList = delegator.findByAnd("ProductContent", UtilMisc.toMap("productId", parent.get("productId"), "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"), true);
-                productContentList = EntityUtil.filterByDate(productContentList);
+                productContentList = EntityQuery.use(delegator).from("ProductContent").where("productId", parent.get("productId"), "productContentTypeId", productContentTypeId).orderBy("-fromDate").cache(true).filterByDate().queryList();
             }
         }
         GenericValue productContent = EntityUtil.getFirst(productContentList);

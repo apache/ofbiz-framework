@@ -122,7 +122,7 @@ public class ProductSearch {
 
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
-            List<GenericValue> productCategoryRollupList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId), null, true);
+            List<GenericValue> productCategoryRollupList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", productCategoryId).cache(true).queryList();
             for (GenericValue productCategoryRollup: productCategoryRollupList) {
                 String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                 if (productCategoryIdSet.contains(subProductCategoryId)) {
@@ -662,21 +662,23 @@ public class ProductSearch {
             }
 
             dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, Boolean.valueOf(productIdGroupBy), null);
-            EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
-            EntityFindOptions efo = new EntityFindOptions();
-            efo.setDistinct(true);
-            efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-            if (maxResults != null) {
-                int queryMaxResults = maxResults;
-                if (resultOffset != null) {
-                    queryMaxResults += resultOffset - 1;
-                }
-                efo.setMaxRows(queryMaxResults);
-            }
 
             EntityListIterator eli = null;
             try {
-                eli = delegator.findListIteratorByCondition(dynamicViewEntity, whereCondition, null, fieldsToSelect, orderByList, efo);
+                int queryMaxResults = 0;
+                if (maxResults != null) {
+                    queryMaxResults = maxResults;
+                    if (resultOffset != null) {
+                        queryMaxResults += resultOffset - 1;
+                    }
+                }
+                eli = EntityQuery.use(delegator).select(UtilMisc.toSet(fieldsToSelect))
+                        .from(dynamicViewEntity).where(entityConditionList)
+                        .orderBy(orderByList)
+                        .distinct(true)
+                        .maxRows(queryMaxResults)
+                        .cursorScrollInsensitive()
+                        .queryIterator();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error in product search", module);
                 return null;

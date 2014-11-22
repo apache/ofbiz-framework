@@ -170,8 +170,9 @@ public class DhlServices {
         // translate shipmentMethodTypeId to DHL service code
         String dhlShipmentDetailCode = null;
         try {
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
-                    "partyId", carrierPartyId, "roleTypeId", "CARRIER"), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
+                    .where("shipmentMethodTypeId", shipmentMethodTypeId, "partyId", carrierPartyId, "roleTypeId", "CARRIER")
+                    .queryOne();
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentDhlNoCarrierShipmentMethod",
@@ -711,8 +712,9 @@ public class DhlServices {
             // translate shipmentMethodTypeId to DHL service code
             String shipmentMethodTypeId = shipmentRouteSegment.getString("shipmentMethodTypeId");
             String dhlShipmentDetailCode = null;
-            GenericValue carrierShipmentMethod = delegator.findOne("CarrierShipmentMethod", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId,
-                    "partyId", "DHL", "roleTypeId", "CARRIER"), false);
+            GenericValue carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
+                    .where("shipmentMethodTypeId", shipmentMethodTypeId, "partyId", "DHL", "roleTypeId", "CARRIER")
+                    .queryOne();
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                         "FacilityShipmentDhlNoCarrierShipmentMethod", 

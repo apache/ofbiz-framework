@@ -29,6 +29,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 public class ImageManagementHelper {
@@ -40,14 +41,14 @@ public class ImageManagementHelper {
         if (request == null) return internalImageUrl; 
         try {
             Delegator delegator = (Delegator) request.getAttribute("delegator");
-            List<GenericValue> defaultImageList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"), false);
+            List<GenericValue> defaultImageList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "DEFAULT_IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
             if (UtilValidate.isNotEmpty(defaultImageList)) {
                 GenericValue productContent = EntityUtil.getFirst(defaultImageList);
                 if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {
                     internalImageUrl = (String) productContent.get("drObjectInfo");
                 }
             } else {
-                List<GenericValue> productContentList = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N"), UtilMisc.toList("sequenceNum"), false);
+                List<GenericValue> productContentList = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "IMAGE", "statusId", "IM_APPROVED", "drIsPublic", "N").orderBy("sequenceNum").queryList();
                 if (UtilValidate.isNotEmpty(productContentList)) {
                     GenericValue productContent = EntityUtil.getFirst(productContentList);
                     if (UtilValidate.isNotEmpty(productContent.get("drObjectInfo"))) {

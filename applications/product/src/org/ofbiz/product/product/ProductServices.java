@@ -165,9 +165,7 @@ public class ProductServices {
         Set<String> featureSet = new LinkedHashSet<String>();
 
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId);
-            List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
-            List<GenericValue> features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
+            List<GenericValue> features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", productFeatureApplTypeId).orderBy("sequenceNum", "productFeatureTypeId").cache(true).queryList();
             for (GenericValue v: features) {
                 featureSet.add(v.getString("productFeatureTypeId"));
             }
@@ -297,11 +295,7 @@ public class ProductServices {
         // Make the selectable feature list
         List<GenericValue> selectableFeatures = null;
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-            List<String> sort = UtilMisc.toList("sequenceNum");
-
-            selectableFeatures = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
-            selectableFeatures = EntityUtil.filterByDate(selectableFeatures, true);
+            selectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").orderBy("sequenceNum").cache(true).filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -374,11 +368,10 @@ public class ProductServices {
 
         try {
             Map<String, String> fields = UtilMisc.toMap("productId", productId);
-            List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
 
             if (distinct != null) fields.put("productFeatureTypeId", distinct);
             if (type != null) fields.put("productFeatureApplTypeId", type);
-            features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
+            features = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where(fields).orderBy("sequenceNum", "productFeatureTypeId").cache(true).queryList();
             result.put("productFeatures", features);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
@@ -517,8 +510,7 @@ public class ProductServices {
                                 EntityCondition.makeCondition("productId", productId),
                                 EntityCondition.makeCondition("productIdTo", productId)
                        ), EntityJoinOperator.OR);
-                cond = EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type));
-                productAssocs = delegator.findList("ProductAssoc", cond, null, orderBy, null, true);
+                productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(EntityCondition.makeCondition(cond, EntityCondition.makeCondition("productAssocTypeId", type))).orderBy(orderBy).cache(true).queryList();
             } else {
                 if (productIdTo == null) {
                     productAssocs = product.getRelated("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), orderBy, true);
@@ -584,13 +576,13 @@ public class ProductServices {
             List<GenericValue> features = null;
 
             try {
-                Map<String, String> fields = UtilMisc.toMap("productId", thisItem, "productFeatureTypeId", orderKey,
-                        "productFeatureApplTypeId", "STANDARD_FEATURE");
-                List<String> sort = UtilMisc.toList("sequenceNum");
-
                 // get the features and filter out expired dates
-                features = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
-                features = EntityUtil.filterByDate(features, true);
+                features = EntityQuery.use(delegator).from("ProductFeatureAndAppl")
+                        .where("productId", thisItem, "productFeatureTypeId", orderKey, "productFeatureApplTypeId", "STANDARD_FEATURE")
+                        .orderBy("sequenceNum")
+                        .cache(true)
+                        .filterByDate()
+                        .queryList();
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
             }
@@ -661,20 +653,19 @@ public class ProductServices {
             List<GenericValue> features = null;
 
             try {
-                Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureTypeId", feature,
-                        "productFeatureApplTypeId", "STANDARD_FEATURE");
-                List<String> sort = UtilMisc.toList("sequenceNum", "description");
-
                 // get the features and filter out expired dates
-                features = delegator.findByAnd("ProductFeatureAndAppl", fields, sort, true);
-                features = EntityUtil.filterByDate(features, true);
+                features = EntityQuery.use(delegator).from("ProductFeatureAndAppl")
+                               .where("productId", productId, "productFeatureTypeId", feature, "productFeatureApplTypeId", "STANDARD_FEATURE")
+                               .orderBy("sequenceNum", "description")
+                               .cache(true)
+                               .filterByDate()
+                               .queryList();
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
             }
             for (GenericValue featureAppl: features) {
                 try {
-                    GenericValue product = delegator.findOne("Product",
-                            UtilMisc.toMap("productId", productId), true);
+                    GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).cache(true).queryOne();
 
                     tempSample.put(featureAppl.getString("description"), product);
                 } catch (GenericEntityException e) {
@@ -715,7 +706,7 @@ public class ProductServices {
                 return result;
             }
             // check if product exists
-            GenericValue variantProduct = delegator.findOne("Product",UtilMisc.toMap("productId", variantProductId), false);
+            GenericValue variantProduct = EntityQuery.use(delegator).from("Product").where("productId", variantProductId).queryOne();
             boolean variantProductExists = (variantProduct != null);
             if (variantProduct == null) {
                 //if product does not exist
@@ -847,7 +838,7 @@ public class ProductServices {
                     variantProductsById.put(variantProductId, variantProduct);
                 } else {
                     // is a GoodIdentification.idValue?
-                    List<GenericValue> goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId), null, false);
+                    List<GenericValue> goodIdentificationList = EntityQuery.use(delegator).from("GoodIdentification").where("idValue", variantProductId).queryList();
                     if (UtilValidate.isEmpty(goodIdentificationList)) {
                         // whoops, nothing found... return error
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -950,7 +941,7 @@ public class ProductServices {
                             // refresh the product so we can update it
                             GenericValue productToUpdate = null;
                             try {
-                                productToUpdate = delegator.findOne("Product", product.getPrimaryKey(), false);
+                                productToUpdate = EntityQuery.use(delegator).from("Product").where(product.getPrimaryKey()).queryOne();
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());
@@ -1006,7 +997,7 @@ public class ProductServices {
 
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
-                fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")), null, false);
+                fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -1294,7 +1285,7 @@ public class ProductServices {
 
             List<GenericValue> fileExtension = FastList.newInstance();
             try {
-                fileExtension = delegator.findList("FileExtension", EntityCondition.makeCondition("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")), null, null, null, false);
+                fileExtension = EntityQuery.use(delegator).from("FileExtension").where("mimeTypeId", EntityOperator.EQUALS, (String) context.get("_uploadedFile_contentType")).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());

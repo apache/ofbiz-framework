@@ -203,9 +203,10 @@ public class FedexServices {
             }
 
             // Get the contact information for the company
-            List<GenericValue> partyContactDetails = delegator.findByAnd("PartyContactDetailByPurpose", UtilMisc.toMap("partyId", companyPartyId), null, false);
-            partyContactDetails = EntityUtil.filterByDate(partyContactDetails);
-            partyContactDetails = EntityUtil.filterByDate(partyContactDetails, UtilDateTime.nowTimestamp(), "purposeFromDate", "purposeThruDate", true);
+            List<GenericValue> partyContactDetails = EntityQuery.use(delegator).from("PartyContactDetailByPurpose")
+                    .where("partyId", companyPartyId)
+                    .filterByDate(UtilDateTime.nowTimestamp(), "fromDate", "thruDate", "purposeFromDate", "purposeThruDate")
+                    .queryList();
 
             // Get the first valid postal address (address1, city, postalCode and countryGeoId are required by Fedex)
             List<EntityCondition> postalAddressConditions = FastList.newInstance();
