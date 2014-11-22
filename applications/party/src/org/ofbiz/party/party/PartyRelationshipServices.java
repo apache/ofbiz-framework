@@ -79,7 +79,7 @@ public class PartyRelationshipServices {
         partyRelationshipType.set("partyRelationshipName", context.get("partyRelationshipName"), false);
 
         try {
-            if (delegator.findOne(partyRelationshipType.getEntityName(), partyRelationshipType.getPrimaryKey(), false) != null) {
+            if ((EntityQuery.use(delegator).from(partyRelationshipType.getEntityName()).where(partyRelationshipType.getPrimaryKey()).queryOne()) != null) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
                         "PartyRelationshipTypeAlreadyExists", locale));
             }
@@ -142,13 +142,11 @@ public class PartyRelationshipServices {
 
                 // Check if there is already a partyRelationship of that type with another party from the side indicated
                 String sideChecked = partyIdFrom.equals(partyId)? "partyIdFrom" : "partyIdTo";
-                partyRelationShipList = delegator.findByAnd("PartyRelationship", UtilMisc.toMap(sideChecked, partyId,
-                        "roleTypeIdFrom", roleTypeIdFrom,
-                        "roleTypeIdTo", roleTypeIdTo,
-                        "partyRelationshipTypeId", partyRelationshipTypeId), null, false);
                 // We consider the last one (in time) as sole active (we try to maintain a unique relationship and keep changes history)
-                partyRelationShipList = EntityUtil.filterByDate(partyRelationShipList);
-                GenericValue oldPartyRelationShip = EntityUtil.getFirst(partyRelationShipList);
+                GenericValue oldPartyRelationShip = EntityQuery.use(delegator).from("PartyRelationship")
+                        .where(sideChecked, partyId, "roleTypeIdFrom", roleTypeIdFrom, "roleTypeIdTo", roleTypeIdTo, "partyRelationshipTypeId", partyRelationshipTypeId)
+                        .filterByDate()
+                        .queryFirst();
                 if (UtilValidate.isNotEmpty(oldPartyRelationShip)) {
                         oldPartyRelationShip.setFields(UtilMisc.toMap("thruDate", UtilDateTime.nowTimestamp())); // Current becomes inactive
                         oldPartyRelationShip.store();

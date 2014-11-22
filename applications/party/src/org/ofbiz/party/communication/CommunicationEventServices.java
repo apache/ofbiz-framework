@@ -58,9 +58,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
@@ -303,15 +301,14 @@ public class CommunicationEventServices {
                         EntityCondition.makeCondition("preferredContactMechId", EntityOperator.NOT_EQUAL, null),
                         EntityUtil.getFilterByDateExpr(), EntityUtil.getFilterByDateExpr("contactFromDate", "contactThruDate"));
 
-            EntityConditionList<EntityCondition> conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
-            Set<String> fieldsToSelect = UtilMisc.toSet("partyId", "preferredContactMechId", "fromDate", "infoString");
-
-            eli = delegator.find("ContactListPartyAndContactMech", conditions, null, fieldsToSelect, null,
-                    new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true));
+            eli = EntityQuery.use(delegator).select("partyId", "preferredContactMechId", "fromDate", "infoString")
+                    .from("ContactListPartyAndContactMech")
+                    .where(EntityCondition.makeCondition(conditionList, EntityOperator.AND))
+                    .cursorScrollInsensitive()
+                    .distinct()
+                    .queryIterator();
 
             // Send an email to each contact list member
-            List<String> orderBy = UtilMisc.toList("-fromDate");
-
             // loop through the list iterator
             for (GenericValue contactListPartyAndContactMech; (contactListPartyAndContactMech = eli.next()) != null;) {
                 Debug.logInfo("Contact info: " + contactListPartyAndContactMech, module);
@@ -336,10 +333,12 @@ public class CommunicationEventServices {
                     //      only the most recent valid one via ContactListPartyAndContactMech.
                     List<EntityCondition> clpConditionList = UtilMisc.makeListWritable(conditionList);
                     clpConditionList.add(EntityCondition.makeCondition("infoString", EntityOperator.EQUALS, emailAddress));
-                    EntityConditionList<EntityCondition> clpConditions = EntityCondition.makeCondition(clpConditionList, EntityOperator.AND);
 
-                    List<GenericValue> emailCLPaCMs = delegator.findList("ContactListPartyAndContactMech", clpConditions, null, orderBy, null, true);
-                    GenericValue lastContactListPartyACM = EntityUtil.getFirst(emailCLPaCMs);
+                    GenericValue lastContactListPartyACM = EntityQuery.use(delegator).from("ContactListPartyAndContactMech")
+                            .where(EntityCondition.makeCondition(clpConditionList, EntityOperator.AND))
+                            .orderBy("-fromDate")
+                            .cache(true)
+                            .queryFirst();
                     if (lastContactListPartyACM == null) continue;
 
                     String partyId = lastContactListPartyACM.getString("partyId");
@@ -356,7 +355,9 @@ public class CommunicationEventServices {
 
                     // Retrieve a record for this contactMechId from ContactListCommStatus
                     Map<String, String> contactListCommStatusRecordMap = UtilMisc.toMap("contactListId", contactListId, "communicationEventId", communicationEventId, "contactMechId", lastContactListPartyACM.getString("preferredContactMechId"));
-                    GenericValue contactListCommStatusRecord = delegator.findOne("ContactListCommStatus", contactListCommStatusRecordMap, false);
+                    GenericValue contactListCommStatusRecord = EntityQuery.use(delegator).from("ContactListCommStatus")
+                            .where(contactListCommStatusRecordMap)
+                            .queryOne();
                     if (contactListCommStatusRecord == null) {
 
                         // No attempt has been made previously to send to this address, so create a record to reflect
@@ -378,8 +379,9 @@ public class CommunicationEventServices {
                     Map<String, Object> tmpResult = null;
 
                     // Retrieve a contact list party status
-                    List<GenericValue> contactListPartyStatuses = delegator.findByAnd("ContactListPartyStatus", UtilMisc.toMap("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED"), null, false);
-                    GenericValue contactListPartyStatus = EntityUtil.getFirst(contactListPartyStatuses);
+                    GenericValue contactListPartyStatus = EntityQuery.use(delegator).from("ContactListPartyStatus")
+                            .where("contactListId", contactListId, "partyId", contactListPartyAndContactMech.getString("partyId"), "fromDate", contactListPartyAndContactMech.getTimestamp("fromDate"), "statusId", "CLPT_ACCEPTED")
+                            .queryFirst();
                     if (UtilValidate.isNotEmpty(contactListPartyStatus)) {
                         // prepare body parameters
                         Map<String, Object> bodyParameters = new HashMap<String, Object>();
@@ -546,9 +548,7 @@ public class CommunicationEventServices {
         String partyIdFrom = null;
         GenericValue fromCm;
         try {
-            List<GenericValue> fromCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendFrom), UtilMisc.toList("-fromDate"), false);
-            fromCms = EntityUtil.filterByDate(fromCms);
-            fromCm = EntityUtil.getFirst(fromCms);
+            fromCm = EntityQuery.use(delegator).from("PartyAndContactMech").where("infoString", sendFrom).orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -562,9 +562,7 @@ public class CommunicationEventServices {
         String contactMechIdTo = null;
         GenericValue toCm;
         try {
-            List<GenericValue> toCms = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("infoString", sendTo, "partyId", partyId), UtilMisc.toList("-fromDate"), false);
-            toCms = EntityUtil.filterByDate(toCms);
-            toCm = EntityUtil.getFirst(toCms);
+            toCm = EntityQuery.use(delegator).from("PartyAndContactMech").where("infoString", sendTo, "partyId", partyId).orderBy("-fromDate").filterByDate().queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
@@ -739,7 +737,7 @@ public class CommunicationEventServices {
             // make sure this isn't a duplicate
             List<GenericValue> commEvents;
             try {
-                commEvents = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId), null, false);
+                commEvents = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", messageId).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
                 return ServiceUtil.returnError(e.getMessage());
@@ -835,8 +833,7 @@ public class CommunicationEventServices {
             if (inReplyTo != null && inReplyTo[0] != null) {
                 GenericValue parentCommEvent = null;
                 try {
-                    List<GenericValue> events = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", inReplyTo[0].replaceAll("[<>]", "")), null, false);
-                    parentCommEvent = EntityUtil.getFirst(events);
+                    parentCommEvent = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", inReplyTo[0].replaceAll("[<>]", "")).queryFirst();
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
@@ -1030,8 +1027,9 @@ public class CommunicationEventServices {
         try {
             for (Map<String, Object> result : parties) {
                 String partyId = (String) result.get("partyId");
-                GenericValue commEventRole = delegator.findOne("CommunicationEventRole",
-                        UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId), false);
+                GenericValue commEventRole = EntityQuery.use(delegator).from("CommunicationEventRole")
+                        .where("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId)
+                        .queryOne();
                 if (commEventRole == null) {
                     Map<String, Object> input = UtilMisc.toMap("communicationEventId", communicationEventId,
                             "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin,
@@ -1215,7 +1213,7 @@ public class CommunicationEventServices {
                     if (messageId != null) {
                         List<GenericValue> values;
                         try {
-                            values = delegator.findByAnd("CommunicationEvent", UtilMisc.toMap("messageId", messageId), null, false);
+                            values = EntityQuery.use(delegator).from("CommunicationEvent").where("messageId", messageId).queryList();
                         } catch (GenericEntityException e) {
                             Debug.logError(e, module);
                             return ServiceUtil.returnError(e.getMessage());
@@ -1246,8 +1244,7 @@ public class CommunicationEventServices {
 
                             // no communication events found for that message ID; possible this is a NEWSLETTER
                             try {
-                                values = delegator.findByAnd("ContactListCommStatus", UtilMisc.toMap("messageId",
-                                        messageId), null, false);
+                                values = EntityQuery.use(delegator).from("ContactListCommStatus").where("messageId", messageId).queryList();
                             } catch (GenericEntityException e) {
                                 Debug.logError(e, module);
                                 return ServiceUtil.returnError(e.getMessage());

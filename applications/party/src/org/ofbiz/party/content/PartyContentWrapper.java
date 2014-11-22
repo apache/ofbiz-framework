@@ -232,8 +232,12 @@ public class PartyContentWrapper implements ContentWrapper {
     }
 
     public static List<String> getPartyContentTextList(GenericValue party, String partyContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
-        List<GenericValue> partyContentList = delegator.findByAnd("PartyContent", UtilMisc.toMap("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"), true);
-        partyContentList = EntityUtil.filterByDate(partyContentList);
+        List<GenericValue> partyContentList = EntityQuery.use(delegator).from("PartyContent")
+                .where("partyId", party.getString("partyId"), "partyContentTypeId", partyContentTypeId)
+                .orderBy("-fromDate")
+                .cache(true)
+                .filterByDate()
+                .queryList();
 
         List<String> contentList = FastList.newInstance();
         if (partyContentList != null) {
@@ -265,7 +269,11 @@ public class PartyContentWrapper implements ContentWrapper {
 
         List<GenericValue> partyContentList = null;
         try {
-            partyContentList = delegator.findByAnd("PartyContent", UtilMisc.toMap("partyId", partyId, "partyContentTypeId", partyContentTypeId), UtilMisc.toList("-fromDate"), true);
+            partyContentList = EntityQuery.use(delegator).from("PartyContent")
+                    .where("partyId", partyId, "partyContentTypeId", partyContentTypeId)
+                    .orderBy("-fromDate")
+                    .cache(true)
+                    .queryList();
         } catch (GeneralException e) {
             Debug.logError(e, module);
         }

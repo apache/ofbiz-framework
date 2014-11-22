@@ -111,9 +111,11 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestContactMech(String partyId, String contactMechTypeId, Delegator delegator) {
         try {
-            List<GenericValue> cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"), false);
-            cmList = EntityUtil.filterByDate(cmList);
-            return EntityUtil.getFirst(cmList);
+            return EntityQuery.use(delegator).from("PartyAndContactMech")
+                    .where("partyId", partyId, "contactMechTypeId", contactMechTypeId)
+                    .orderBy("-fromDate")
+                    .filterByDate()
+                    .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error while finding latest ContactMech for party with ID [" + partyId + "] TYPE [" + contactMechTypeId + "]: " + e.toString(), module);
             return null;
@@ -162,8 +164,7 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestUserLogin(String partyId, Delegator delegator) {
         try {
-            List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD), false);
-            return EntityUtil.getFirst(userLoginList);
+            return EntityQuery.use(delegator).from("UserLogin").where("partyId", partyId).orderBy("-" + ModelEntity.STAMP_FIELD).queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error while finding latest UserLogin for party with ID [" + partyId + "]: " + e.toString(), module);
             return null;
@@ -172,8 +173,7 @@ public class PartyWorker {
 
     public static Timestamp findPartyLastLoginTime(String partyId, Delegator delegator) {
         try {
-            List<GenericValue> loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"), false);
-            GenericValue v = EntityUtil.getFirst(loginHistory);
+            GenericValue v = EntityQuery.use(delegator).from("UserLoginHistory").where("partyId", partyId).orderBy("-fromDate").queryFirst();
             if (v != null) {
                 return v.getTimestamp("fromDate");
             } else {
@@ -357,9 +357,11 @@ public class PartyWorker {
             addrExprs.add(EntityCondition.makeCondition("partyTypeId", EntityOperator.EQUALS, partyTypeId));
         }
 
-        List<String> sort = UtilMisc.toList("-fromDate");
-        EntityCondition addrCond = EntityCondition.makeCondition(addrExprs, EntityOperator.AND);
-        List<GenericValue> addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
+        List<GenericValue> addresses = EntityQuery.use(delegator).from("PartyAndPostalAddress")
+                .where(EntityCondition.makeCondition(addrExprs, EntityOperator.AND))
+                .orderBy("-fromDate")
+                .filterByDate()
+                .queryList();
         //Debug.logInfo("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 
         if (UtilValidate.isEmpty(addresses)) {
@@ -425,7 +427,7 @@ public class PartyWorker {
         // replace mapped words
         List<GenericValue> addressMap = null;
         try {
-            addressMap = delegator.findList("AddressMatchMap", null, null, UtilMisc.toList("sequenceNum"), null, false);
+            addressMap = EntityQuery.use(delegator).from("AddressMatchMap").orderBy("sequenceNum").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -447,7 +449,7 @@ public class PartyWorker {
             EntityConditionList<EntityExpr> baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("partyIdFrom", partyIdFrom),
                     EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
-            List<GenericValue> associatedParties = delegator.findList("PartyRelationship", baseExprs, null, null, null, true);
+            List<GenericValue> associatedParties = EntityQuery.use(delegator).from("PartyRelationship").where(baseExprs).cache(true).queryList();
             partyList.addAll(associatedParties);
             while (UtilValidate.isNotEmpty(associatedParties)) {
                 List<GenericValue> currentAssociatedParties = FastList.newInstance();
@@ -455,7 +457,7 @@ public class PartyWorker {
                     EntityConditionList<EntityExpr> innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),
                             EntityCondition.makeCondition("partyRelationshipTypeId", partyRelationshipTypeId)), EntityOperator.AND);
-                    List<GenericValue> associatedPartiesChilds = delegator.findList("PartyRelationship", innerExprs, null, null, null, true);
+                    List<GenericValue> associatedPartiesChilds = EntityQuery.use(delegator).from("PartyRelationship").where(innerExprs).cache(true).queryList();
                     if (UtilValidate.isNotEmpty(associatedPartiesChilds)) {
                         currentAssociatedParties.addAll(associatedPartiesChilds);
                     }
@@ -503,7 +505,7 @@ public class PartyWorker {
             if (UtilValidate.isNotEmpty(partyIdentificationTypeId)) {
                 conditions.put("partyIdentificationTypeId", partyIdentificationTypeId);
             }
-            partiesFound = delegator.findByAnd("PartyIdentificationAndParty", conditions, UtilMisc.toList("partyId"), true);
+            partiesFound = EntityQuery.use(delegator).from("PartyIdentificationAndParty").where(conditions).orderBy("partyId").cache(true).queryList();
         }
 
         if (! searchPartyFirst) {
