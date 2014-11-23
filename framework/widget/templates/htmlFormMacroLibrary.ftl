@@ -126,11 +126,11 @@ under the License.
           var initDate = <#if value?has_content>jQuery("#${id}").val()<#else>""</#if>;
           if (initDate != "") {
             var dateFormat = Date.CultureInfo.formatPatterns.shortDate<#if shortDateInput?? && !shortDateInput> + " " + Date.CultureInfo.formatPatterns.longTime</#if>;
-            <#-- The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 0 -->
+            <#-- The JS date parser doesn't understand the dot before ms in the date/time string. The ms here should be always 000 -->
             if (initDate.indexOf('.') != -1) {
               initDate = initDate.substring(0, initDate.indexOf('.'));
-              jQuery("#${id}").val(initDate);
             }
+            jQuery("#${id}").val(initDate);
             var ofbizTime = "<#if shortDateInput?? && shortDateInput>yyyy-MM-dd<#else>yyyy-MM-dd HH:mm:ss</#if>";
             var dateObj = Date.parseExact(initDate, ofbizTime);
             var formatedObj = dateObj.toString(dateFormat);
