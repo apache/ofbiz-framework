@@ -150,7 +150,7 @@ public class OrderManagerEvents {
         List<GenericValue> paymentMethodTypes = null;
 
         try {
-            paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE").queryList();
+            paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", module);
             request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
