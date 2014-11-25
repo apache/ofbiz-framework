@@ -336,7 +336,47 @@ under the License.
     </target>
     
     <target name="patch" depends="patch-via-svn,patch-via-patch"/>
+
+    <target name="revert-dev"
+      description="Revert patch files present in runtime/patches applied by build-dev.">
+      <!-- Ant patch task can't handle a fileset => create a global patch -->
+      <concat destfile="${basedir}/runtime/patches/dev.patch" encoding="UTF-8" outputencoding="UTF-8">
+        <fileset dir="${basedir}/runtime/patches" casesensitive="no">
+          <exclude name="dev.patch"/> <!-- exclude the patch itself in case it's still there -->
+          <include name="*.patch"/>
+        </fileset>
+      </concat>
+      <if>
+        <available file="${basedir}/runtime/patches/dev.patch"/>
+        <then>
+            <antcall target="revert-patch">
+                <param name="dir-name" value="${basedir}"/>
+                <param name="diff-file" value="${basedir}/runtime/patches/dev.patch"/>
+            </antcall>
+            <delete file="${basedir}/runtime/patches/dev.patch"/>
+        </then>
+      </if>
+    </target>
+
+    <target name="revert-via-svn" depends="check-svn-patch-available" if="svn-version-ok">
+        <exec dir="${basedir}" executable="svn" failonerror="true">
+            <arg value="patch" />
+            <arg value="${diff-file}" />
+            <arg value="${dir-name}" />
+            <arg value="--reverse-diff" />
+        </exec>
+    </target>
     
+    <target name="revert-via-patch" depends="check-patch-available" if="patch-ok">
+        <exec dir="${basedir}" executable="patch" input="${diff-file}" failonerror="true">
+            <arg value="--binary" /><!-- To prevent EOL issues which comes when using mixed development platforms (ie Unix and Win) -->
+            <arg value="-p0" />
+            <arg value="-R" />
+        </exec>
+    </target>
+    
+    <target name="revert-patch" depends="revert-via-svn,revert-via-patch"/>
+
     <target name="build-test" 
         description="Patch and build all sources for use in a test environment. On Windows you need to have patch.exe in the path and patch files must all be in dos format (CR+LF)">
         <subant inheritall="false" target="prepare-to-build-test" failonerror="true">
