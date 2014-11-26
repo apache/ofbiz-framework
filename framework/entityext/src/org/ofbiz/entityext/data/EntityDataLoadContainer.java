@@ -325,33 +325,24 @@ public class EntityDataLoadContainer implements Container {
         List<String> loadComponents = new LinkedList<String>();
         if (UtilValidate.isNotEmpty(delegator.getDelegatorTenantId()) && EntityUtil.isMultiTenantEnabled()) {
             try {
-                List<EntityExpr> exprs = new ArrayList<EntityExpr>();
-                exprs.add(EntityCondition.makeCondition("rootLocation", EntityOperator.NOT_LIKE, "%hot-deploy%"));
-                EntityCondition cond = EntityCondition.makeCondition(exprs);
-                List<GenericValue> components = baseDelegator.findList("Component", cond , null, UtilMisc.toList("lastUpdatedStamp"), null, false);
-                Debug.logInfo("===== Begin load specify components", module);
                 if (UtilValidate.isEmpty(this.component)) {
-                    for (GenericValue component : components) {
-                        loadComponents.add(component.getString("componentName"));
-                        //Debug.logInfo("- loaded default component : " + component.getString("componentName"), module);
+                    for (ComponentConfig config : allComponents) {
+                        loadComponents.add(config.getComponentName());
                     }
-                    Debug.logInfo("- Loaded components by default : " + components.size() + " components", module);
                     List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
-                        //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
                     }
-                    Debug.logInfo("- Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
+                    Debug.logInfo("Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
                 } else {
                     List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
                             UtilMisc.toList("sequenceNum"), false);
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
-                        //Debug.logInfo("- loaded component by tenantId : " + tenantComponent.getString("tenantId") +", component : " + tenantComponent.getString("componentName"), module);
                     }
-                    Debug.logInfo("- Loaded tenantId : " + delegator.getDelegatorTenantId() + " and component : " + this.component, module);
+                    Debug.logInfo("Loaded tenantId : " + delegator.getDelegatorTenantId() + " and component : " + this.component, module);
                 }
-                Debug.logInfo("===== Loaded : " + loadComponents.size() + " components", module);
+                Debug.logInfo("Loaded : " + loadComponents.size() + " components", module);
             } catch (GenericEntityException e) {
                 Debug.logError(e.getMessage(), module);
             }
