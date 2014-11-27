@@ -38,6 +38,7 @@
         pos/build.xml,
         projectmgr/build.xml,
         scrum/build.xml,
+        bi/build.xml,
         webpos/build.xml
     "/>
 </project>

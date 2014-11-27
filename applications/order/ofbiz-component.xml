@@ -28,8 +28,6 @@ under the License.
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_old.xml"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_view.xml"/>
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_olap.xml"/>
-    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_olap.xml"/>
     <entity-resource type="eca" reader-name="main" loader="main" location="entitydef/eecas.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/OrderPortletData.xml"/>
@@ -49,7 +47,6 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services_return.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_upgrade.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_checkout.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_olap.xml"/>
     <service-resource type="eca" loader="main" location="servicedef/secas.xml"/>
 
     <test-suite loader="main" location="testdef/FinAccountTests.xml"/>

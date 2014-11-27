@@ -25,8 +25,6 @@ under the License.
     <classpath type="jar" location="build/lib/*"/>
     <classpath type="dir" location="config"/>
     <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel.xml"/>
-    <entity-resource type="model" reader-name="main" loader="main" location="entitydef/entitymodel_olap.xml"/>
-    <entity-resource type="group" reader-name="main" loader="main" location="entitydef/entitygroup_olap.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSecurityPermissionSeedData.xml"/>
     <entity-resource type="data" reader-name="demo" loader="main" location="data/CommonSecurityGroupDemoData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonSystemPropertyData.xml"/>
@@ -62,13 +60,11 @@ under the License.
     <entity-resource type="data" reader-name="seed" loader="main" location="data/LanguageData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/UnitData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/PeriodData.xml"/>
-    <entity-resource type="data" reader-name="seed" loader="main" location="data/DimensionTypeData.xml"/>
     <entity-resource type="data" reader-name="seed" loader="main" location="data/CommonPortletData.xml"/>
 
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_cdyne.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_email.xml"/>
-    <service-resource type="model" loader="main" location="servicedef/services_olap.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_security.xml"/>
     <service-resource type="model" loader="main" location="servicedef/services_test.xml"/>
     <service-resource type="group" loader="main" location="servicedef/groups_test.xml"/>
