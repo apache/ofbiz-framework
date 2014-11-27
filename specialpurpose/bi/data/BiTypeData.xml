@@ -18,17 +18,13 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<project name="OFBiz Framework Build" default="build" basedir=".">
-    <filelist id="framework-builds" dir="framework"
-        files="start/build.xml,base/build.xml,sql/build.xml,
-               entity/build.xml,geronimo/build.xml,
-               catalina/build.xml,
-               security/build.xml,service/build.xml,entityext/build.xml,
-               minilang/build.xml,
-               webapp/build.xml,widget/build.xml,
-               common/build.xml,datafile/build.xml,
-               testtools/build.xml,
-               webtools/build.xml"/>
+<entity-engine-xml>
+    <CurrencyDimension dimensionId="_NF_" description="Currency Not Found."/>
+    <CurrencyDimension dimensionId="_NA_" description="Currency Not Set."/>
 
-    <filelist id="test-builds" dir="framework" files="base/build.xml,sql/build.xml,entity/build.xml"/>
-</project>
+    <DateDimension dimensionId="_NF_" description="Date Not Found."/>
+    <DateDimension dimensionId="_NA_" description="Date Not Set."/>
+
+    <ProductDimension dimensionId="_NF_"/>
+    <ProductDimension dimensionId="_NA_"/>
+</entity-engine-xml>

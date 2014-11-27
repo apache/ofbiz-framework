@@ -436,17 +436,10 @@ under the License.
         <action service="createReturnStatus" mode="sync"/>
     </eca>
     
-    <!-- fact entities -->
-    <!-- Load data into the SalesOrderItemFact olap entity when a sales order is set to ready -->
-    <eca service="changeOrderItemStatus" event="commit">
-        <condition field-name="statusId" operator="equals" value="ITEM_APPROVED"/>
-        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="loadSalesOrderFact" mode="sync" run-as-user="system"/>
-    </eca>
     <eca service="createUpdateCustomerAndShippingAddress" event="invoke">
         <action service="setAnonUserLogin" mode="sync"/>
     </eca>
-    
+
     <!-- Use for link the payment and the invoice When Received Payment -->
     <eca service="createPaymentFromPreference" event="commit">
         <condition field-name="paymentId" operator="is-not-empty"/>
