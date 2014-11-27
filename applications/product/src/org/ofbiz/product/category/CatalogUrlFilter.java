@@ -94,7 +94,7 @@ public class CatalogUrlFilter extends ContextFilter {
                     if (UtilValidate.isNotEmpty(productContentInfos)) {
                         for (GenericValue productContentInfo : productContentInfos) {
                             String contentId = (String) productContentInfo.get("contentId");
-                            List<GenericValue> ContentAssocDataResourceViewTos = EntityQuery.use(delegator).where("ContentAssocDataResourceViewTo").where("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT").cache(true).queryList();
+                            List<GenericValue> ContentAssocDataResourceViewTos = EntityQuery.use(delegator).from("ContentAssocDataResourceViewTo").where("contentIdStart", contentId, "caContentAssocTypeId", "ALTERNATE_LOCALE", "drDataResourceTypeId", "ELECTRONIC_TEXT").cache(true).queryList();
                             if (UtilValidate.isNotEmpty(ContentAssocDataResourceViewTos)) {
                                 for (GenericValue ContentAssocDataResourceViewTo : ContentAssocDataResourceViewTos) {
                                     GenericValue ElectronicText = ContentAssocDataResourceViewTo.getRelatedOne("ElectronicText", true);
@@ -115,7 +115,7 @@ public class CatalogUrlFilter extends ContextFilter {
                                 }
                             }
                             if (UtilValidate.isEmpty(productId)) {
-                                List<GenericValue> contentDataResourceViews = EntityQuery.use(delegator).where("ContentDataResourceView").where("contentId", contentId, "drDataResourceTypeId", "ELECTRONIC_TEXT").cache(true).queryList();
+                                List<GenericValue> contentDataResourceViews = EntityQuery.use(delegator).from("ContentDataResourceView").where("contentId", contentId, "drDataResourceTypeId", "ELECTRONIC_TEXT").cache(true).queryList();
                                 for (GenericValue contentDataResourceView : contentDataResourceViews) {
                                     GenericValue ElectronicText = contentDataResourceView.getRelatedOne("ElectronicText", true);
                                     if (UtilValidate.isNotEmpty(ElectronicText)) {
