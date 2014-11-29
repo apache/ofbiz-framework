@@ -37,6 +37,7 @@ import org.ofbiz.content.data.DataResourceWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 public class WorkEffortKeywordIndex {
@@ -68,15 +69,15 @@ public class WorkEffortKeywordIndex {
         addWeightedKeywordSourceString(workEffort, "currentStatusId", strings);
 
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortNoteAndData.noteInfo", "1"))) {
-            List<GenericValue> workEffortNotes = delegator.findByAnd("WorkEffortNoteAndData", UtilMisc.toMap("workEffortId", workEffortId), null, false);
+            List<GenericValue> workEffortNotes = EntityQuery.use(delegator).from("WorkEffortNoteAndData").where("workEffortId", workEffortId).queryList();
             for (GenericValue workEffortNote : workEffortNotes) {
                 addWeightedKeywordSourceString(workEffortNote, "noteInfo", strings);
-                }
+            }
         }
         //WorkEffortAttribute
         if (!"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortAttribute.attrName", "1")) ||
                 !"0".equals(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortAttribute.attrValue", "1"))) {
-            List<GenericValue> workEffortAttributes = delegator.findByAnd("WorkEffortAttribute", UtilMisc.toMap("workEffortId", workEffortId), null, false);
+            List<GenericValue> workEffortAttributes = EntityQuery.use(delegator).from("WorkEffortAttribute").where("workEffortId", workEffortId).queryList();
             for (GenericValue workEffortAttribute : workEffortAttributes) {
                 addWeightedKeywordSourceString(workEffortAttribute, "attrName", strings);
                 addWeightedKeywordSourceString(workEffortAttribute, "attrValue", strings);
@@ -92,7 +93,7 @@ public class WorkEffortKeywordIndex {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
 
-            List<GenericValue> workEffortContentAndInfos = delegator.findByAnd("WorkEffortContentAndInfo", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), null, false);
+            List<GenericValue> workEffortContentAndInfos = EntityQuery.use(delegator).from("WorkEffortContentAndInfo").where("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId).queryList();
             for (GenericValue workEffortContentAndInfo: workEffortContentAndInfos) {
                 addWeightedDataResourceString(workEffortContentAndInfo, weight, strings, delegator, workEffort);
                 List<GenericValue> alternateViews = workEffortContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"), false);

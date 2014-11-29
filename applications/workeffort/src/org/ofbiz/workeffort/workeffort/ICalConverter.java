@@ -88,10 +88,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelParam;
@@ -329,7 +326,7 @@ public class ICalConverter {
         Summary summary = new Summary(UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", Locale.getDefault()));
         Delegator delegator = workEffort.getDelegator();
         String workEffortId = workEffort.getString("workEffortId");
-        List<GenericValue> reminderList = delegator.findList("WorkEffortEventReminder", EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffort.get("workEffortId")), null, null, null, false);
+        List<GenericValue> reminderList = EntityQuery.use(delegator).from("WorkEffortEventReminder").where("workEffortId", workEffort.get("workEffortId")).queryList();
         for (GenericValue reminder : reminderList) {
             String reminderId = workEffortId + "-" + reminder.getString("sequenceId");
             VAlarm alarm = null;
@@ -740,7 +737,7 @@ public class ICalConverter {
                 if (workEffortId == null) {
                     Property uid = component.getProperty(Uid.UID);
                     if (uid != null) {
-                        GenericValue workEffort = EntityUtil.getFirst(delegator.findByAnd("WorkEffort", UtilMisc.toMap("universalId", uid.getValue()), null, false));
+                        GenericValue workEffort = EntityQuery.use(delegator).from("WorkEffort").where("universalId", uid.getValue()).queryFirst();
                         if (workEffort != null) {
                             workEffortId = workEffort.getString("workEffortId");
                         }
@@ -807,7 +804,7 @@ public class ICalConverter {
             Delegator delegator = (Delegator) context.get("delegator");
             List<GenericValue> assignments = null;
             try {
-                assignments = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortPartyAssignment", serviceMap, null, false));
+                assignments = EntityQuery.use(delegator).from("WorkEffortPartyAssignment").where(serviceMap).filterByDate().queryList();
                 if (assignments.size() == 0) {
                     serviceMap.put("statusId", "PRTYASGN_OFFERED");
                     serviceMap.put("fromDate", new Timestamp(System.currentTimeMillis()));
@@ -905,7 +902,7 @@ public class ICalConverter {
         if (workEffort.get("estimatedCompletionDate") == null) {
             replaceProperty(componentProps, toDuration(workEffort.getDouble("estimatedMilliSeconds")));
         }
-        List<GenericValue> relatedParties = EntityUtil.filterByDate(delegator.findList("WorkEffortPartyAssignView", EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, workEffortId), null, null, null, true));
+        List<GenericValue> relatedParties = EntityQuery.use(delegator).from("WorkEffortPartyAssignView").where("workEffortId", workEffortId).cache(true).filterByDate().queryList();
         if (relatedParties.size() > 0) {
             loadRelatedParties(relatedParties, componentProps, context);
         }
