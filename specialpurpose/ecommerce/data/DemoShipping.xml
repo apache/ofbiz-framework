@@ -32,54 +32,143 @@ under the License.
     <PartyRole partyId="USPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="UPS" roleTypeId="CARRIER"/>
     <PartyRole partyId="DHL" roleTypeId="CARRIER"/>
+    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
+
     <PartyRole partyId="Company" roleTypeId="CARRIER"/>
     <PartyRole partyId="_NA_" roleTypeId="CARRIER"/>
-    <PartyRole partyId="FEDEX" roleTypeId="CARRIER"/>
 
     <ShipmentMethodType description="No Shipping" shipmentMethodTypeId="NO_SHIPPING"/>
     <ShipmentMethodType description="Local Delivery" shipmentMethodTypeId="LOCAL_DELIVERY"/>
-    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
-    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
-    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+
+    <ShipmentMethodType description="Next Morning" shipmentMethodTypeId="NEXT_AM"/>
+    <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
+    <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
+    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
     <ShipmentMethodType description="Air" shipmentMethodTypeId="AIR"/>
     <ShipmentMethodType description="Third Day" shipmentMethodTypeId="THIRD_DAY"/>
-    <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
-    <ShipmentMethodType description="Guaranteed Next Day" shipmentMethodTypeId="NEXT_DAY"/>
-    <ShipmentMethodType description="Next Afternoon" shipmentMethodTypeId="NEXT_PM"/>
-    <ShipmentMethodType description="Next Morning" shipmentMethodTypeId="NEXT_AM"/>
-    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
-    <ShipmentMethodType description="Standard Overnight" shipmentMethodTypeId="ST_OVERNIGHT"/>
-    <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
-    <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
-    <ShipmentMethodType description="Same Day" shipmentMethodTypeId="SAME_DAY"/>
     <ShipmentMethodType description="International Express" shipmentMethodTypeId="INT_EXPRESS"/>
 
+    <ShipmentMethodType description="Priority Overnight" shipmentMethodTypeId="PR_OVERNIGHT"/>
+    <ShipmentMethodType description="Standard Overnight" shipmentMethodTypeId="ST_OVERNIGHT"/>
+    <ShipmentMethodType description="First Overnight" shipmentMethodTypeId="FI_OVERNIGHT"/>
+    <ShipmentMethodType description="Second Day" shipmentMethodTypeId="SECOND_DAY"/>
+    <ShipmentMethodType description="Express Saver" shipmentMethodTypeId="EXPRESS_SAVER"/>
+    <ShipmentMethodType description="International Priority" shipmentMethodTypeId="INTERNAT_PRI"/>
+    <ShipmentMethodType description="International Economy" shipmentMethodTypeId="INTERNAT_ECON"/>
+    <ShipmentMethodType description="International First" shipmentMethodTypeId="INTERNAT_FI"/>
+    <ShipmentMethodType description="1Day Freight" shipmentMethodTypeId="FIRST_DAY_FR"/>
+    <ShipmentMethodType description="2Day Freight" shipmentMethodTypeId="SECOND_DAY_FR"/>
+    <ShipmentMethodType description="3Day Freight" shipmentMethodTypeId="THIRD_DAY_FR"/>
+    <ShipmentMethodType description="Ground" shipmentMethodTypeId="GROUND"/>
+    <ShipmentMethodType description="Ground Home Delivery" shipmentMethodTypeId="GROUND_HOME"/>
+    <ShipmentMethodType description="International Economy Freight" shipmentMethodTypeId="INTERNAT_ECON_FR"/>
+    <ShipmentMethodType description="International Priority Freight" shipmentMethodTypeId="INTERNAT_PRI_FR"/>
+    <ShipmentMethodType description="2Day AM" shipmentMethodTypeId="SECOND_DAY_AM"/>
+    <ShipmentMethodType description="Europe First Priority" shipmentMethodTypeId="EUROPE_FI_PRIORITY"/>
+    <ShipmentMethodType description="Smart Post" shipmentMethodTypeId="SMART_POST"/>
+    <ShipmentMethodType description="Fedex National Freight" shipmentMethodTypeId="FEDEX_NATIONAL_FR"/>
+    <ShipmentMethodType description="Fedex International Ground " shipmentMethodTypeId="FEDEX_INT_GROUND"/>
+    <ShipmentMethodType description="Fedex Freight" shipmentMethodTypeId="FEDEX_FREIGHT"/>
+
+    <ShipmentMethodType description="Standard" shipmentMethodTypeId="STANDARD"/>
+    <ShipmentMethodType description="Three-Day Select" shipmentMethodTypeId="THIRD_DAY_AIR_SEL"/>
+    <ShipmentMethodType description="Second Day Air" shipmentMethodTypeId="SECOND_DAY_AIR"/>
+    <ShipmentMethodType description="Second Day Air Early A.M.  " shipmentMethodTypeId="SECOND_DAY_AIR_AM"/>
+    <ShipmentMethodType description="Next Day Air Saver" shipmentMethodTypeId="NEXT_DAY_AIR_SA"/>
+    <ShipmentMethodType description="Next Day Air" shipmentMethodTypeId="NEXT_DAY_AIR"/>
+    <ShipmentMethodType description="Next Day Air Early A.M." shipmentMethodTypeId="NEXT_DAY_AIR_AM"/>
+    <ShipmentMethodType description="Worldwide ExpressSM" shipmentMethodTypeId="WORLDWIDE_EXPRESS"/>
+    <ShipmentMethodType description="Worldwide Express Plus" shipmentMethodTypeId="WORLDWIDE_EXPR_PLUS"/>
+    <ShipmentMethodType description="Worldwide ExpeditedSM" shipmentMethodTypeId="WORLDWIDE_EXPEDITED"/>
+    <ShipmentMethodType description="Saver" shipmentMethodTypeId="SAVER"/>
+
+    <ShipmentMethodType description="First Class" shipmentMethodTypeId="FIRST_CLASS"/>
+    <ShipmentMethodType description="First Class International" shipmentMethodTypeId="FC_INTERNATIONAL"/>
+    <ShipmentMethodType description="Priority" shipmentMethodTypeId="PRIORITY"/>
+    <ShipmentMethodType description="Priority International" shipmentMethodTypeId="PR_INTERNATIONAL"/>
+    <ShipmentMethodType description="Express" shipmentMethodTypeId="EXPRESS"/>
+    <ShipmentMethodType description="Express International" shipmentMethodTypeId="EXP_INTERNATIONAL"/>
+    <ShipmentMethodType description="Media Mail" shipmentMethodTypeId="MEDIA_MAIL"/>
+    <ShipmentMethodType description="Standard Post" shipmentMethodTypeId="STANDARD_POST"/>
+    <ShipmentMethodType description="Library" shipmentMethodTypeId="LIBRARY"/>
+
+    <ShipmentMethodType description="Express Saturday" shipmentMethodTypeId="EXP_SATURDAY"/>
+    <ShipmentMethodType description="Express 10.30 AM" shipmentMethodTypeId="EXP_10_30_AM"/>
+
+    <!-- Local options -->
     <CarrierShipmentMethod partyId="Company" roleTypeId="CARRIER" shipmentMethodTypeId="LOCAL_DELIVERY" sequenceNumber="4"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
+    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="5"/>
+
+    <!-- Fedex shipping options -->
+    <CarrierShipmentMethod shipmentMethodTypeId="PR_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="01" carrierServiceCode="PRIORITYOVERNIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="ST_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="02" carrierServiceCode="STANDARDOVERNIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FI_OVERNIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="03" carrierServiceCode="FIRSTOVERNIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="04" carrierServiceCode="FEDEX2DAY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="EXPRESS_SAVER" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="05" carrierServiceCode="FEDEXEXPRESSSAVER"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FIRST_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="06" carrierServiceCode="FEDEX1DAYFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="07" carrierServiceCode="FEDEX2DAYFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="THIRD_DAY_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="08" carrierServiceCode="FEDEX3DAYFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="GROUND" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="09" carrierServiceCode="FEDEXGROUND"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="GROUND_HOME" partyId="FEDEX" roleTypeId="CARRIER"  sequenceNumber="10" carrierServiceCode="GROUNDHOMEDELIVERY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="SECOND_DAY_AM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="11" carrierServiceCode="SECONDDAYAM"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="SMART_POST" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="12" carrierServiceCode="SMARTPOST"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_NATIONAL_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="13" carrierServiceCode="FEDEXNATIONALFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_FREIGHT" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="14" carrierServiceCode="FEDEXFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FEDEX_INT_GROUND" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="15" carrierServiceCode="INTERNATIONALGROUND"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_PRI" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="16" carrierServiceCode="INTERNATIONALPRIORITY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_ECON" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="17" carrierServiceCode="INTERNATIONALECONOMY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_FI" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="18" carrierServiceCode="INTERNATIONALFIRST"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_ECON_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="19" carrierServiceCode="INTERNATIONALECONOMYFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INTERNAT_PRI_FR" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="20" carrierServiceCode="INTERNATIONALPRIORITYFREIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="EUROPE_FI_PRIORITY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="21" carrierServiceCode="EUROPEFIRSTINTERNATIONALPRIORITY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="NEXT_AM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="22" carrierServiceCode="FIRSTOVERNIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="NEXT_PM" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="23" carrierServiceCode="STANDARDOVERNIGHT"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="SAME_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="24" carrierServiceCode="SAMEDAY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="NEXT_DAY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="25" carrierServiceCode="PRIORITYOVERNIGHT"/>
+
+    <!-- UPS shipping options -->
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="01" carrierServiceCode="11"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="THIRD_DAY_AIR_SEL" sequenceNumber="02" carrierServiceCode="12"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY_AIR" sequenceNumber="03" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY_AIR_AM" sequenceNumber="04" carrierServiceCode="59"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY_AIR_SA" sequenceNumber="05" carrierServiceCode="13"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY_AIR" sequenceNumber="06" carrierServiceCode="01"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY_AIR_AM" sequenceNumber="07" carrierServiceCode="14"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="WORLDWIDE_EXPRESS" sequenceNumber="08" carrierServiceCode="07"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="WORLDWIDE_EXPR_PLUS" sequenceNumber="09" carrierServiceCode="54"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="WORLDWIDE_EXPEDITED" sequenceNumber="10" carrierServiceCode="08"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SAVER" sequenceNumber="11" carrierServiceCode="65"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="12" carrierServiceCode="03"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="AIR" sequenceNumber="13" carrierServiceCode="02"/>
+    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="THIRD_DAY" sequenceNumber="14" carrierServiceCode="THIRDDAY"/>
+    <!-- End of UPS Data -->
+
+    <!-- USPS Data -->
     <!-- For USPS, only certain container types are allowed for rate estimates of Priority or Express service codes -->
     <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="7" carrierServiceCode="Parcel"/>
-    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="6" carrierServiceCode="Express"/>
-    <CarrierShipmentMethod partyId="USPS" roleTypeId="CARRIER" shipmentMethodTypeId="INT_EXPRESS" sequenceNumber="8" carrierServiceCode="INTEXPRESS"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="4" carrierServiceCode="03"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="THIRD_DAY" sequenceNumber="3" carrierServiceCode="THIRDDAY"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="2" carrierServiceCode="02"/>
-    <CarrierShipmentMethod partyId="UPS" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="1" carrierServiceCode="01"/>
-    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="STANDARD" sequenceNumber="5"/>
-    <CarrierShipmentMethod partyId="_NA_" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="8"/>
-    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="9" carrierServiceCode="E"/>
-    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="10" carrierServiceCode="N"/>
-    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="11" carrierServiceCode="S"/>
-    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="12" carrierServiceCode="G"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SAME_DAY" sequenceNumber="12" carrierServiceCode="SAMEDAY"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_AM" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="FI_OVERNIGHT" sequenceNumber="13" carrierServiceCode="FIRSTOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="PR_OVERNIGHT" sequenceNumber="14" carrierServiceCode="PRIORITYOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="ST_OVERNIGHT" sequenceNumber="15" carrierServiceCode="STANDARDOVERNIGHT"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="16" carrierServiceCode="FEDEX2DAY"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="17" carrierServiceCode="FEDEXEXPRESSSAVER"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="18" carrierServiceCode="FEDEXGROUND"/>
-    <CarrierShipmentMethod partyId="FEDEX" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND_HOME" sequenceNumber="19" carrierServiceCode="GROUNDHOMEDELIVERY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FIRST_CLASS" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="01" carrierServiceCode="FIRST CLASS"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="FC_INTERNATIONAL" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="02" carrierServiceCode="FIRST CLASS"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="PRIORITY" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="03" carrierServiceCode="PRIORITY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="PR_INTERNATIONAL" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="04" carrierServiceCode="PRIORITY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="EXPRESS" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="05" carrierServiceCode="EXPRESS"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="EXP_INTERNATIONAL" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="06" carrierServiceCode="EXPRESS"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="MEDIA_MAIL" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="07" carrierServiceCode="MEDIA"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="STANDARD_POST" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="08" carrierServiceCode="STANDARD POST"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="LIBRARY" partyId="FEDEX" roleTypeId="CARRIER" sequenceNumber="09" carrierServiceCode="LIBRARY"/>
+    <CarrierShipmentMethod shipmentMethodTypeId="INT_EXPRESS" partyId="USPS" roleTypeId="CARRIER" sequenceNumber="10" carrierServiceCode="INTEXPRESS"/>
+
+    <!-- End of USPS Data-->
+
+    <!-- DHL shipping options -->
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="INT_EXPRESS" sequenceNumber="1" carrierServiceCode="IE"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="EXP_SATURDAY" sequenceNumber="2" carrierServiceCode="E SAT"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="EXP_10_30_AM" sequenceNumber="3" carrierServiceCode="E 10.30 AM"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="4" carrierServiceCode="E"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="5" carrierServiceCode="N"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="6" carrierServiceCode="S"/>
+    <CarrierShipmentMethod partyId="DHL" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="7" carrierServiceCode="G"/>
+    <!-- End of DHL Data-->
 
     <ProductStoreShipmentMeth productStoreShipMethId="9000" productStoreId="9000" partyId="_NA_" includeNoChargeItems="Y" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NO_SHIPPING" sequenceNumber="6"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9001" productStoreId="9000" partyId="UPS" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="3"/>
@@ -95,7 +184,7 @@ under the License.
     <ProductStoreShipmentMeth productStoreShipMethId="9011" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="12"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9012" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="13"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9013" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="14"/>
-    <ProductStoreShipmentMeth productStoreShipMethId="9014" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="15"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9014" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS_SAVER" sequenceNumber="15"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9015" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="16"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9016" productStoreId="9000" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND_HOME" sequenceNumber="17"/>
 
@@ -124,7 +213,7 @@ under the License.
     <ShipmentCostEstimate productStoreShipMethId="9011" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9204" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9012" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9205" shipmentMethodTypeId="NEXT_PM" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9013" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9206" shipmentMethodTypeId="SECOND_DAY" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
-    <ShipmentCostEstimate productStoreShipMethId="9014" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9207" shipmentMethodTypeId="EXPRESS" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
+    <ShipmentCostEstimate productStoreShipMethId="9014" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9207" shipmentMethodTypeId="EXPRESS_SAVER" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9015" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9208" shipmentMethodTypeId="GROUND" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9016" productStoreId="9000" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentCostEstimateId="9209" shipmentMethodTypeId="GROUND_HOME" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
                           
