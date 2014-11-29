@@ -178,8 +178,7 @@ public class EbayHelper {
                 shipmentMethodTypeId = ebayShippingMethod.getString("shipmentMethodTypeId");
             } else {
                 //Find ebay shipping method on the basis of shipmentMethodName so that we can create new record with productStorId, EbayShippingMethod data is required for atleast one productStore
-                List<GenericValue> ebayShippingMethods = delegator.findByAnd("EbayShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingService), null, false);
-                ebayShippingMethod = EntityUtil.getFirst(ebayShippingMethods);
+                ebayShippingMethod = EntityQuery.use(delegator).from("EbayShippingMethod").where("shipmentMethodName", shippingService).queryFirst();
                 ebayShippingMethod.put("productStoreId", productStoreId);
                 delegator.create(ebayShippingMethod);
                 partyId = ebayShippingMethod.getString("carrierPartyId");
@@ -196,9 +195,7 @@ public class EbayHelper {
         String orderId, String externalId, Timestamp orderDate, BigDecimal amount, String partyIdFrom) {
         List<GenericValue> paymentPreferences = null;
         try {
-            Map<String, String> paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_RECEIVED",
-                    "paymentMethodTypeId", "EXT_EBAY");
-            paymentPreferences = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
+            paymentPreferences = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_RECEIVED", "paymentMethodTypeId", "EXT_EBAY").queryList();
 
             if (UtilValidate.isNotEmpty(paymentPreferences)) {
                 Iterator<GenericValue> i = paymentPreferences.iterator();
@@ -209,9 +206,7 @@ public class EbayHelper {
                         return false;
                 }
             } else {
-                paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED",
-                    "paymentMethodTypeId", "EXT_EBAY");
-                paymentPreferences = delegator.findByAnd("OrderPaymentPreference", paymentFields, null, false);
+                paymentPreferences = EntityQuery.use(delegator).from("OrderPaymentPreference").where("orderId", orderId, "statusId", "PAYMENT_NOT_RECEIVED", "paymentMethodTypeId", "EXT_EBAY").queryList();
                 if (UtilValidate.isNotEmpty(paymentPreferences)) {
                     Iterator<GenericValue> i = paymentPreferences.iterator();
                     while (i.hasNext()) {
@@ -476,8 +471,7 @@ public class EbayHelper {
         try {
             Debug.logInfo("geocode: " + geoCode, module);
 
-            geo = EntityUtil.getFirst(delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode.toUpperCase(),
-                    "geoTypeId", "COUNTRY"), null, false));
+            geo = EntityQuery.use(delegator).from("Geo").where("geoCode", geoCode.toUpperCase(), "geoTypeId", "COUNTRY").queryFirst();
             Debug.logInfo("Found a geo entity " + geo, module);
             if (UtilValidate.isEmpty(geo)) {
                 geo = delegator.makeValue("Geo");
@@ -589,8 +583,7 @@ public class EbayHelper {
             GenericValue phoneNumber;
             try {
                 // get the phone number for this contact mech
-                phoneNumber = delegator.findOne("TelecomNumber", UtilMisc
-                        .toMap("contactMechId", contactMechId), false);
+                phoneNumber = EntityQuery.use(delegator).from("TelecomNumber").where("contactMechId", contactMechId).queryOne();
 
                 // now compare values. If one matches, that's our phone number.
                 // Return the related contact mech id.
@@ -612,7 +605,7 @@ public class EbayHelper {
         String productId = "";
         try {
             // First try to get an exact match: title == internalName
-            List<GenericValue> products = delegator.findByAnd("Product", UtilMisc.toMap("internalName", title), null, false);
+            List<GenericValue> products = EntityQuery.use(delegator).from("Product").where("internalName", title).queryList();
             if (UtilValidate.isNotEmpty(products) && products.size() == 1) {
                 productId = (String) (products.get(0)).get("productId");
             }

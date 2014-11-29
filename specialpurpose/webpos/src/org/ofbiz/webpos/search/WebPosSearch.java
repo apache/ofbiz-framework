@@ -34,6 +34,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.DynamicViewEntity;
 import org.ofbiz.entity.model.ModelKeyMap;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -52,15 +53,7 @@ public class WebPosSearch {
         
         List<EntityCondition> andExprs = FastList.newInstance();
         EntityCondition mainCond = null;
-        List<String> orderBy = FastList.newInstance();
-        List<String> fieldsToSelect = FastList.newInstance();
         String entityName = "Product";
-        
-        fieldsToSelect.add("productId");
-        fieldsToSelect.add("productName");
-        fieldsToSelect.add("description");
-        orderBy.add("productName");
-        orderBy.add("description");
         
         // search by product name
         if (UtilValidate.isNotEmpty(searchByProductName)) {
@@ -84,7 +77,7 @@ public class WebPosSearch {
         mainCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
         List<GenericValue> products = null;
         try {
-            products = delegator.findList(entityName, mainCond, null, orderBy, null, false);
+            products = EntityQuery.use(delegator).from(entityName).where(mainCond).orderBy("productName", "description").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

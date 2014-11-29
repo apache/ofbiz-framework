@@ -45,6 +45,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.pos.PosTransaction;
 import org.ofbiz.pos.adaptor.SyncCallbackAdaptor;
@@ -485,12 +486,10 @@ public class ManagerEvents {
             beganTransaction = TransactionUtil.begin();
 
             Delegator delegator = pos.getSession().getDelegator();
-            List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, trans.getFacilityId()),
-                    EntityCondition.makeCondition("terminalId", EntityOperator.EQUALS, trans.getTerminalId()));
             EntityListIterator eli = null;
 
             try {
-                eli = delegator.find("OrderHeaderAndPaymentPref", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, null);
+                eli = EntityQuery.use(delegator).from("OrderHeaderAndPaymentPref").where("originFacilityId", trans.getFacilityId(), "terminalId", trans.getTerminalId()).queryIterator();
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }

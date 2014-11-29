@@ -397,7 +397,7 @@ public class EbayStoreAutoPreferences {
             Map<String, Object> serviceMap = FastMap.newInstance();
             serviceMap.put("userLogin", userLogin);
             //ProductStore
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
+            List<GenericValue> productStores = EntityQuery.use(delegator).from("EbayProductStorePref").where("autoPrefJobId", jobId).queryList();
             if (productStores.size() != 0) {
                 // get auto preference setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -429,7 +429,7 @@ public class EbayStoreAutoPreferences {
                                     inMap.put("userLogin", userLogin);
                                     dispatcher.runSync("createProduct", inMap);
                                     // ProductRole (VENDOR)
-                                    List<GenericValue> productRole = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "productId", soldItemMap.get("itemId"), "roleTypeId", "VENDOR"), null, false);
+                                    List<GenericValue> productRole = EntityQuery.use(delegator).from("ProductRole").where("partyId", partyId, "productId", soldItemMap.get("itemId"), "roleTypeId", "VENDOR").queryList();
                                     if (productRole.size() == 0) {
                                         Map<String, Object> addRole = FastMap.newInstance();
                                         addRole.put("productId", soldItemMap.get("itemId"));
@@ -459,7 +459,7 @@ public class EbayStoreAutoPreferences {
                         }
                     }
                     //check product role
-                    List<GenericValue> productRoles = delegator.findByAnd("ProductRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", "VENDOR"), null, false);
+                    List<GenericValue> productRoles = EntityQuery.use(delegator).from("ProductRole").where("partyId", partyId, "roleTypeId", "VENDOR").queryList();
                     List<String> productRoleIds = FastList.newInstance();
                     if (productRoles.size() != 0) {
                         for (int itemCount = 0; itemCount < productRoles.size(); itemCount++) {
@@ -476,8 +476,7 @@ public class EbayStoreAutoPreferences {
                     andExpr.add(isVirtualCond);
                     EntityCondition productRole = EntityCondition.makeCondition("productId", EntityOperator.IN, productRoleIds);
                     andExpr.add(productRole);
-                    EntityCondition andCond = EntityCondition.makeCondition(andExpr, EntityOperator.AND);
-                    List<GenericValue> itemsToRelist = delegator.findList("Product", andCond, null, null, null, false);
+                    List<GenericValue> itemsToRelist = EntityQuery.use(delegator).from("Product").where(andExpr).queryList();
                     if (itemsToRelist.size() != 0) {
                         //re-list sold items and not active
                         ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
@@ -509,7 +508,7 @@ public class EbayStoreAutoPreferences {
         String jobId = (String) context.get("jobId");
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
+            List<GenericValue> productStores = EntityQuery.use(delegator).from("EbayProductStorePref").where("autoPrefJobId", jobId).queryList();
             if (productStores.size() != 0) {
                 // get automatic setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -580,7 +579,7 @@ public class EbayStoreAutoPreferences {
         String jobId = (String) context.get("jobId");
         try {
             GenericValue userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
-            List<GenericValue> productStores = delegator.findByAnd("EbayProductStorePref", UtilMisc.toMap("autoPrefJobId", jobId), null, false);
+            List<GenericValue> productStores = EntityQuery.use(delegator).from("EbayProductStorePref").where("autoPrefJobId", jobId).queryList();
             if (productStores.size() != 0) {
                 // get automatic setting
                 String productStoreId = productStores.get(0).getString("productStoreId");
@@ -1113,7 +1112,7 @@ public class EbayStoreAutoPreferences {
             expressions.add(expression2);
             expressions.add(expression3);
             EntityCondition cond = EntityCondition.makeCondition(expressions, EntityOperator.AND);
-            List<GenericValue> ebayProductListings = delegator.findList("EbayProductListing", cond , null, null, null, false);
+            List<GenericValue> ebayProductListings = EntityQuery.use(delegator).from("EbayProductListing").where(expressions).queryList();
             for (int index = 0; index < ebayProductListings.size(); index++) {
                 Map<String, Object> inMap = FastMap.newInstance();
                 AddItemCall addItemCall = new AddItemCall(EbayStoreHelper.getApiContext((String)context.get("productStoreId"), locale, delegator));
@@ -1150,7 +1149,7 @@ public class EbayStoreAutoPreferences {
             String productStoreId = (String) context.get("productStoreId");
             GenericValue ebayProductStorePref = EntityQuery.use(delegator).from("EbayProductStorePref").where("productStoreId", productStoreId, "autoPrefEnumId", "EBAY_AUTO_BEST_OFFER").queryOne();
             String parentPrefCondId = ebayProductStorePref.getString("parentPrefCondId");
-            List<GenericValue> ebayProductStorePrefCond = delegator.findByAnd("EbayProductStorePrefCond", UtilMisc.toMap("parentPrefCondId", parentPrefCondId), null, false);
+            List<GenericValue> ebayProductStorePrefCond = EntityQuery.use(delegator).from("EbayProductStorePrefCond").where("parentPrefCondId", parentPrefCondId).queryList();
             //Parameters
             String priceType = ebayProductStorePrefCond.get(0).getString("acceptanceCondition");
             String acceptBestOfferValue = ebayProductStorePrefCond.get(1).getString("acceptanceCondition");
@@ -1240,7 +1239,7 @@ public class EbayStoreAutoPreferences {
                         } else if (priceType.equals("RETAIL_PRICE")) {
                             //ignore
                         } else if (priceType.equals("SELLER_COST")) {
-                            List<GenericValue> supplierProduct = delegator.findByAnd("SupplierProduct", UtilMisc.toMap("productId", SKUItem), UtilMisc.toList("availableFromDate DESC"), false);
+                            List<GenericValue> supplierProduct = EntityQuery.use(delegator).from("SupplierProduct").where("productId", SKUItem).orderBy("availableFromDate DESC").queryList();
                             String lastPrice = supplierProduct.get(0).getString("lastPrice");
                             doBasePrice = Double.parseDouble(lastPrice);
                         } else if (priceType.equals("SECOND_CHANCE_PRICE")) {

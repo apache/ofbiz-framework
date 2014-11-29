@@ -29,7 +29,6 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -131,7 +130,7 @@ public class GoogleRequestServices {
         // setup shipping options support
         List<GenericValue> shippingOptions = null;
         try {
-            shippingOptions = delegator.findByAnd("GoogleCoShippingMethod", UtilMisc.toMap("productStoreId", productStoreId), null, false);
+            shippingOptions = EntityQuery.use(delegator).from("GoogleCoShippingMethod").where("productStoreId", productStoreId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -303,7 +302,7 @@ public class GoogleRequestServices {
 
         List<GenericValue> returnItems = null;
         try {
-            returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
+            returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -512,7 +511,7 @@ public class GoogleRequestServices {
     }
 
     private static void sendItemsShipped(Delegator delegator, String shipmentId) throws GeneralException {
-        List<GenericValue> issued = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+        List<GenericValue> issued = EntityQuery.use(delegator).from("ItemIssuance").where("shipmentId", shipmentId).queryList();
         if (UtilValidate.isNotEmpty(issued)) {
             try {
                 GenericValue googleOrder = null;
@@ -534,9 +533,7 @@ public class GoogleRequestServices {
                             isr = new ShipItemsRequest(mInfo, externalId);
                         }
                         // locate the shipment package content record
-                        Map<String, ? extends Object> spcLup = UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId);
-                        List<GenericValue> spc = delegator.findByAnd("ShipmentPackageContent", spcLup, null, false);
-                        GenericValue packageContent = EntityUtil.getFirst(spc);
+                        GenericValue packageContent = EntityQuery.use(delegator).from("ShipmentPackageContent").where("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId).queryFirst();
                         String carrier = null;
                         if (UtilValidate.isNotEmpty(packageContent)) {
                             GenericValue shipPackage = packageContent.getRelatedOne("ShipmentPackage", false);

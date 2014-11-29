@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -75,8 +76,7 @@ public class FacilityServices {
         // todo: change this to a select from inv_items where productId and facilityId matches distinct (locationSeqId).
         List<GenericValue> invItemList = null;
         try {
-            invItemList = delegator.findByAnd("InventoryItem",
-                UtilMisc.toMap("productId", productId, "facilityId", facilityId), null, false);
+            invItemList = EntityQuery.use(delegator).from("InventoryItem").where("productId", productId, "facilityId", facilityId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralRuntimeException(e.getMessage());
@@ -138,7 +138,7 @@ public class FacilityServices {
         // Now get the inventory items that are found for that location, facility and product
         List<GenericValue> invItemList = null;
         try {
-            invItemList = delegator.findByAnd("InventoryItem", UtilMisc.toMap("productId", productId, "facilityId", facilityId, "locationSeqId", locationSeqId), null, false);
+            invItemList = EntityQuery.use(delegator).from("InventoryItem").where("productId", productId, "facilityId", facilityId, "locationSeqId", locationSeqId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "updateProductStocktake failed getting inventory items", module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "ProductErrorFailedProductStockTake", locale));

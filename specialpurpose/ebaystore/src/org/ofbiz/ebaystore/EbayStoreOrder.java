@@ -35,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.ebay.EbayHelper;
@@ -213,7 +212,7 @@ public class EbayStoreOrder {
                 String contactMechId = "";
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer").toString())) {
-                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", context.get("eiasTokenBuyer").toString()), null, false));
+                    partyAttribute = EntityQuery.use(delegator).from("PartyAttribute").where("attrValue", context.get("eiasTokenBuyer").toString()).queryFirst();
                 }
 
                 // if we get a party, check its contact information.
@@ -444,7 +443,7 @@ public class EbayStoreOrder {
             // If matching party not found then try to find partyId from PartyAttribute entity.
             GenericValue partyAttribute = null;
             if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
-                partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer")), null, false));
+                partyAttribute = EntityQuery.use(delegator).from("PartyAttribute").where("attrValue", (String) context.get("eiasTokenBuyer")).queryFirst();
                 if (UtilValidate.isNotEmpty(partyAttribute)) {
                     partyId = (String) partyAttribute.get("partyId");
                 }

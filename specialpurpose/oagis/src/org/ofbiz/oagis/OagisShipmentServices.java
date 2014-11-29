@@ -138,7 +138,7 @@ public class OagisShipmentServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
+            previousOagisMessageInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(omiPkMap).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for shipment ID [" + shipmentId + "] message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -310,7 +310,7 @@ public class OagisShipmentServices {
                                 }
 
                                 if (UtilValidate.isEmpty(shipmentItemList)) {
-                                    shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId, "productId",productId), null, false);
+                                    shipmentItemList = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId, "productId",productId).queryList();
                                     if (UtilValidate.isEmpty(shipmentItemList)) {
                                         String errMsg = "Could not find Shipment Item for Shipment with ID [" + shipmentId + "] and Product with ID [" + productId + "].";
                                         errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "ShipmentItemForProductNotFound", "description", errMsg));
@@ -324,8 +324,7 @@ public class OagisShipmentServices {
                                         if (messageQuantity.intValue() == shipmentItem.getDouble("quantity").intValue()) {
                                             // see if there is an ItemIssuance for this ShipmentItem, ie has already had inventory issued to it
                                             //if so then move on, this isn't the ShipmentItem you want
-                                            List<GenericValue> itemIssuanceList = delegator.findByAnd("ItemIssuance",
-                                                    UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId")), null, false);
+                                            List<GenericValue> itemIssuanceList = EntityQuery.use(delegator).from("ItemIssuance").where("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId")).queryList();
                                             if (itemIssuanceList.size() == 0) {
                                                 // found a match, set the list to be a new list with just this item and then break
                                                 shipmentItemList = UtilMisc.toList(shipmentItem);
@@ -346,7 +345,7 @@ public class OagisShipmentServices {
                                 GenericValue shipmentItem = shipmentItemList.get(0);
 
                                 String shipmentItemSeqId = shipmentItem.getString("shipmentItemSeqId");
-                                GenericValue orderShipment = EntityUtil.getFirst(delegator.findByAnd("OrderShipment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId), null, false));
+                                GenericValue orderShipment = EntityQuery.use(delegator).from("OrderShipment").where("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItemSeqId).queryFirst();
                                 if (orderShipment == null) {
                                     String errMsg = "Could not find Order-Shipment record for ShipmentItem with ID [" + shipmentId + "] and Item Seq-ID [" + shipmentItemSeqId + "].";
                                     errorMapList.add(UtilMisc.<String, String>toMap("reasonCode", "OrderShipmentNotFound", "description", errMsg));
@@ -356,15 +355,13 @@ public class OagisShipmentServices {
 
                                 String orderId = orderShipment.getString("orderId");
                                 String orderItemSeqId = orderShipment.getString("orderItemSeqId");
-                                GenericValue product = delegator.findOne("Product",UtilMisc.toMap("productId", productId), false);
-                                String requireInventory = product.getString("requireInventory");
+                                String requireInventory = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne().getString("requireInventory");
                                 if (requireInventory == null) {
                                     requireInventory = "N";
                                 }
 
                                 // NOTE: there could be more than one reservation record for a given shipment item? for example if there wasn't enough quantity in one inventory item and reservations on two were needed
-                                List<GenericValue> orderItemShipGrpInvReservationList = delegator.findByAnd("OrderItemShipGrpInvRes",
-                                        UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId), null, false);
+                                List<GenericValue> orderItemShipGrpInvReservationList = EntityQuery.use(delegator).from("OrderItemShipGrpInvRes").where("orderId", orderId, "orderItemSeqId", orderItemSeqId,"shipGroupSeqId",shipGroupSeqId).queryList();
 
                                 // find the total quantity for all reservations
                                 int totalReserved = 0;
@@ -451,9 +448,8 @@ public class OagisShipmentServices {
                                                 Set<String> productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                                 productIdSet.add(productId);
 
-                                                EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNumber),
-                                                        EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
-                                                List<GenericValue> inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
+                                                List<GenericValue> inventoryItemsBySerialNumber = EntityQuery.use(delegator).from("InventoryItem").where(EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNumber),
+                                                        EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet))).queryList();
                                                 if (OagisServices.requireSerialNumberExist.booleanValue()) {
                                                     if (inventoryItemsBySerialNumber.size() == 0) {
                                                         String errMsg = "Referenced serial numbers must already exist, but serial number [" + serialNumber + "] was not found. Product ID(s) considered are: " + productIdSet;
@@ -503,13 +499,12 @@ public class OagisShipmentServices {
                     // NOTE ON THIS DEJ20070906: this is actually really bad because it implies the shipment
                     //has been split and that isn't really allowed; maybe better to return an error!
 
-                    List<GenericValue> shipmentItemList = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+                    List<GenericValue> shipmentItemList = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId).queryList();
                     for (GenericValue shipmentItem : shipmentItemList) {
                         int shipmentItemQuantity = shipmentItem.getDouble("quantity").intValue();
 
                         int totalItemIssuanceQuantity = 0;
-                        List<GenericValue> itemIssuanceList = delegator.findByAnd("ItemIssuance", UtilMisc.toMap("shipmentId", shipmentId, "shipmentItemSeqId",
-                                shipmentItem.get("shipmentItemSeqId")), null, false);
+                        List<GenericValue> itemIssuanceList = EntityQuery.use(delegator).from("ItemIssuance").where("shipmentId", shipmentId, "shipmentItemSeqId", shipmentItem.get("shipmentItemSeqId")).queryList();
                         for (GenericValue itemIssuance : itemIssuanceList) {
                             totalItemIssuanceQuantity += itemIssuance.getDouble("quantity").intValue();
                         }
@@ -704,8 +699,7 @@ public class OagisShipmentServices {
 
         try {
             // see if there are any OagisMessageInfo for this order that are in the OAGMP_OGEN_SUCCESS or OAGMP_SENT statuses, if so don't send again; these need to be manually reviewed before resending to avoid accidental duplicate messages
-            List<GenericValue> previousOagisMessageInfoList = delegator.findByAnd("OagisMessageInfo",
-                    UtilMisc.toMap("orderId", orderId, "task", task, "component", component), null, false);
+            List<GenericValue> previousOagisMessageInfoList = EntityQuery.use(delegator).from("OagisMessageInfo").where("orderId", orderId, "task", task, "component", component).queryList();
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessage", UtilMisc.toMap("orderId", orderId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
@@ -792,8 +786,7 @@ public class OagisShipmentServices {
                     EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, orderId),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "SHIPMENT_CANCELLED")
                    ), EntityOperator.AND);
-            List<GenericValue> shipmentList = delegator.findList("Shipment", findShipmentCondition, null, null, null, false);
-            GenericValue shipment = EntityUtil.getFirst(shipmentList);
+            GenericValue shipment = EntityQuery.use(delegator).from("Shipment").where(findShipmentCondition).queryFirst();
 
             if (shipment != null) {
                 // if picked, packed, shipped, delivered then complain, no reason to process the shipment!
@@ -809,7 +802,7 @@ public class OagisShipmentServices {
             }
 
             bodyParameters.put("shipment", shipment);
-            List<GenericValue> shipmentItems = delegator.findByAnd("ShipmentItem", UtilMisc.toMap("shipmentId", shipmentId), null, false);
+            List<GenericValue> shipmentItems = EntityQuery.use(delegator).from("ShipmentItem").where("shipmentId", shipmentId).queryList();
             bodyParameters.put("shipmentItems", shipmentItems);
 
             GenericValue  address = EntityUtil.getFirst(orderReadHelper.getShippingLocations());
@@ -824,7 +817,7 @@ public class OagisShipmentServices {
             }
             bodyParameters.put("telecomNumber", telecomNumber);
 
-            orderItemShipGroup = EntityUtil.getFirst(delegator.findByAnd("OrderItemShipGroup", UtilMisc.toMap("orderId", orderId), null, false));
+            orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId).queryFirst();
             bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
             Set<String> correspondingPoIdSet = FastSet.newInstance();
 
@@ -842,13 +835,13 @@ public class OagisShipmentServices {
                 bodyParameters.put("externalIdSet", externalIdSet);
             }
             // Check if order was a return replacement order (associated with return)
-            GenericValue returnItemResponse = EntityUtil.getFirst(delegator.findByAnd("ReturnItemResponse", UtilMisc.toMap("replacementOrderId", orderId), null, false));
+            GenericValue returnItemResponse = EntityQuery.use(delegator).from("ReturnItemResponse").where("replacementOrderId", orderId).queryFirst();
             if (returnItemResponse != null) {
                 boolean includeReturnLabel = false;
 
                 // Get the associated return Id (replaceReturnId)
                 String returnItemResponseId = returnItemResponse.getString("returnItemResponseId");
-                List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnItemResponseId", returnItemResponseId), null, false);
+                List<GenericValue> returnItemList = EntityQuery.use(delegator).from("ReturnItem").where("returnItemResponseId", returnItemResponseId).queryList();
                 GenericValue firstReturnItem = EntityUtil.getFirst(returnItemList);
                 if (firstReturnItem != null) {
                     bodyParameters.put("replacementReturnId", firstReturnItem.getString("returnId"));
@@ -873,8 +866,7 @@ public class OagisShipmentServices {
             // tracking shipper account, other Party info
             String partyId = shipment.getString("partyIdTo");
             bodyParameters.put("partyNameView", EntityQuery.use(delegator).from("PartyNameView").where("partyId", partyId).queryOne());
-            List<GenericValue> partyCarrierAccounts = delegator.findByAnd("PartyCarrierAccount", UtilMisc.toMap("partyId", partyId), null, false);
-            partyCarrierAccounts = EntityUtil.filterByDate(partyCarrierAccounts);
+            List<GenericValue> partyCarrierAccounts = EntityQuery.use(delegator).from("PartyCarrierAccount").where("partyId", partyId).filterByDate().queryList();
             if (partyCarrierAccounts != null) {
                 for (GenericValue partyCarrierAccount : partyCarrierAccounts) {
                     String carrierPartyId = partyCarrierAccount.getString("carrierPartyId");
@@ -947,7 +939,7 @@ public class OagisShipmentServices {
             if (omiPkMap != null) {
                 try {
                     // only do this if there is a record already in place
-                    if (delegator.findOne("OagisMessageInfo", omiPkMap, false) == null) {
+                    if (EntityQuery.use(delegator).from("OagisMessageInfo").where(omiPkMap).queryOne() == null) {
                         return ServiceUtil.returnError(errMsg);
                     }
 
@@ -1021,8 +1013,7 @@ public class OagisShipmentServices {
 
         try {
             // see if there are any OagisMessageInfo for this order that are in the OAGMP_OGEN_SUCCESS or OAGMP_SENT statuses, if so don't send again; these need to be manually reviewed before resending to avoid accidental duplicate messages
-            List<GenericValue> previousOagisMessageInfoList = delegator.findByAnd("OagisMessageInfo",
-                    UtilMisc.toMap("returnId", returnId, "task", task, "component", component), null, false);
+            List<GenericValue> previousOagisMessageInfoList = EntityQuery.use(delegator).from("OagisMessageInfo").where("returnId", returnId, "task", task, "component", component).queryList();
             if (EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")).size() > 0) {
                 // this isn't really an error, just a failed constraint so return success
                 return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisFoundExistingMessageForReturn", UtilMisc.toMap("returnId", returnId), locale) + EntityUtil.filterByAnd(previousOagisMessageInfoList, UtilMisc.toMap("processingStatusId", "OAGMP_OGEN_SUCCESS")));
@@ -1041,7 +1032,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisReturnIdNotInAcceptedStatus", UtilMisc.toMap("returnId", returnId), locale));
             }
 
-            List<GenericValue> returnItems = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
+            List<GenericValue> returnItems = EntityQuery.use(delegator).from("ReturnItem").where("returnId", returnId).queryList();
             bodyParameters.put("returnItems", returnItems);
 
             orderId = EntityUtil.getFirst(returnItems).getString("orderId");
@@ -1103,9 +1094,9 @@ public class OagisShipmentServices {
                 GenericValue orderItem = returnItem.getRelatedOne("OrderItem", false);
                 if (orderItem != null) {
                     if (orderItem.getDouble("quantity").doubleValue() == itemQty) {
-                        List<GenericValue> itemIssuanceAndInventoryItemList = delegator.findByAnd("ItemIssuanceAndInventoryItem",
-                                UtilMisc.toMap("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"),
-                                        "inventoryItemTypeId", "SERIALIZED_INV_ITEM"), null, false);
+                        List<GenericValue> itemIssuanceAndInventoryItemList = EntityQuery.use(delegator).from("ItemIssuanceAndInventoryItem")
+                                .where("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"), "inventoryItemTypeId", "SERIALIZED_INV_ITEM")
+                                .queryList();
                         if (itemIssuanceAndInventoryItemList.size() == itemQty) {
                             List<String> serialNumberList = FastList.newInstance();
                             serialNumberListByReturnItemSeqIdMap.put(returnItem.getString("returnItemSeqId"), serialNumberList);
@@ -1190,7 +1181,7 @@ public class OagisShipmentServices {
             if (omiPkMap != null) {
                 try {
                     // only do this if there is a record already in place
-                    if (delegator.findOne("OagisMessageInfo", omiPkMap, false) == null) {
+                    if (EntityQuery.use(delegator).from("OagisMessageInfo").where(omiPkMap).queryOne() == null) {
                         return ServiceUtil.returnError(errMsg);
                     }
 

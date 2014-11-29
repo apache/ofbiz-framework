@@ -43,7 +43,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 
@@ -865,7 +864,7 @@ public class EbayEvents {
                         attributeMapList.put("Currency", "USD");
 
                         if (UtilValidate.isNotEmpty(requestParams.get("requireEbayInventory")) && "Y".equals(requestParams.get("requireEbayInventory").toString())) {
-                            GenericValue ebayProductStore = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("EbayProductStoreInventory", UtilMisc.toMap("productStoreId", productStoreId, "productId", productId), null, false)));
+                            GenericValue ebayProductStore = EntityQuery.use(delegator).from("EbayProductStoreInventory").where("productStoreId", productStoreId, "productId", productId).filterByDate().queryFirst();
                             if (UtilValidate.isNotEmpty(ebayProductStore)) {
                                 String facilityId = ebayProductStore.getString("facilityId");
                                 BigDecimal atp = ebayProductStore.getBigDecimal("availableToPromiseListing");
@@ -901,14 +900,13 @@ public class EbayEvents {
                             itemObj.put("isAutoRelist", "Y");
                         }
                         try {
-                            GenericValue storeRole = EntityUtil.getFirst(delegator.findByAnd("ProductStoreRole", UtilMisc.toMap("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT"), null, false));
+                            GenericValue storeRole = EntityQuery.use(delegator).from("ProductStoreRole").where("productStoreId", productStoreId, "roleTypeId", "EBAY_ACCOUNT").queryFirst();
                             if (UtilValidate.isNotEmpty(storeRole)) {
-                                List<GenericValue> ebayUserLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", storeRole.get("partyId")), null, false);
-                                if (ebayUserLoginList.size() > 0) {
-                                    GenericValue eBayUserLogin = EntityUtil.getFirst(ebayUserLoginList);
-                                    if (UtilValidate.isNotEmpty(eBayUserLogin)) {
-                                        prodMap.put("userLoginId", eBayUserLogin.get("userLoginId").toString());
-                                    }
+                                GenericValue eBayUserLogin = EntityQuery.use(delegator).from("UserLogin")
+                                                                           .where("partyId", storeRole.get("partyId"))
+                                                                           .queryFirst();
+                                if (UtilValidate.isNotEmpty(eBayUserLogin)) {
+                                    prodMap.put("userLoginId", eBayUserLogin.get("userLoginId").toString());
                                 }
                             }
                         } catch (GenericEntityException ex) {

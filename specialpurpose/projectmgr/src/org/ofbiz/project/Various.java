@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 public class Various {
 
@@ -92,7 +93,7 @@ public class Various {
         double actualHours = 0.00;
         if (timesheetId != null) {
             try {
-                List<GenericValue> actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId), null, false);
+                List<GenericValue> actuals = EntityQuery.use(delegator).from("TimeEntry").where("timesheetId", timesheetId).queryList();
                 if (actuals.size() > 0) {
                     for (GenericValue actual : actuals) {
                         Double hour = (Double) actual.get("hours");

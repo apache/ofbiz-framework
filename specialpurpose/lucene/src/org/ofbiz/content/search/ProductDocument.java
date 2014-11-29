@@ -99,7 +99,7 @@ public class ProductDocument implements LuceneDocument {
                         !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
                         !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
 
-                    List<GenericValue> productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId), null, false);
+                    List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).queryList();
                     productFeatureAndAppls = this.filterByThruDate(productFeatureAndAppls);
 
                     for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
@@ -119,7 +119,7 @@ public class ProductDocument implements LuceneDocument {
                         this.addTextFieldByWeight(doc, "featureAbbreviation", productFeatureAndAppl.getString("abbrev"), "index.weight.ProductFeatureAndAppl.abbrev", 0, false, "fullText");
                         this.addTextFieldByWeight(doc, "featureCode", productFeatureAndAppl.getString("idCode"), "index.weight.ProductFeatureAndAppl.idCode", 0, false, "fullText");
                         // Get the ProductFeatureGroupIds
-                        List<GenericValue> productFeatureGroupAppls = delegator.findByAnd("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureId", productFeatureAndAppl.get("productFeatureId")), null, false);
+                        List<GenericValue> productFeatureGroupAppls = EntityQuery.use(delegator).from("ProductFeatureGroupAppl").where("productFeatureId", productFeatureAndAppl.get("productFeatureId")).queryList();
                         productFeatureGroupAppls = this.filterByThruDate(productFeatureGroupAppls);
                         for (GenericValue productFeatureGroupAppl : productFeatureGroupAppls) {
                             fromDate = productFeatureGroupAppl.getTimestamp("fromDate");
@@ -140,7 +140,7 @@ public class ProductDocument implements LuceneDocument {
                 if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
                         !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
 
-                    List<GenericValue> productAttributes = delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId), null, false);
+                    List<GenericValue> productAttributes = EntityQuery.use(delegator).from("ProductAttribute").where("productId", productId).queryList();
                     for (GenericValue productAttribute: productAttributes) {
                         this.addTextFieldByWeight(doc, "attributeName", productAttribute.getString("attrName"), "index.weight.ProductAttribute.attrName", 0, false, "fullText");
                         this.addTextFieldByWeight(doc, "attributeValue", productAttribute.getString("attrValue"), "index.weight.ProductAttribute.attrValue", 0, false, "fullText");
@@ -149,7 +149,7 @@ public class ProductDocument implements LuceneDocument {
 
                 // GoodIdentification
                 if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
-                    List<GenericValue> goodIdentifications = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId), null, false);
+                    List<GenericValue> goodIdentifications = EntityQuery.use(delegator).from("GoodIdentification").where("productId", productId).queryList();
                     for (GenericValue goodIdentification: goodIdentifications) {
                         String goodIdentificationTypeId = goodIdentification.getString("goodIdentificationTypeId");
                         String idValue = goodIdentification.getString("idValue");
@@ -162,7 +162,7 @@ public class ProductDocument implements LuceneDocument {
                 // Virtual ProductIds
                 if ("Y".equals(product.getString("isVirtual"))) {
                     if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
-                        List<GenericValue> variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"), null, false);
+                        List<GenericValue> variantProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").queryList();
                         variantProductAssocs = this.filterByThruDate(variantProductAssocs);
                         for (GenericValue variantProductAssoc: variantProductAssocs) {
                             Timestamp fromDate = variantProductAssoc.getTimestamp("fromDate");
@@ -190,7 +190,7 @@ public class ProductDocument implements LuceneDocument {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }
 
-                    List<GenericValue> productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null, false);
+                    List<GenericValue> productContentAndInfos = EntityQuery.use(delegator).from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", productContentTypeId).queryList();
                     productContentAndInfos = this.filterByThruDate(productContentAndInfos);
                     for (GenericValue productContentAndInfo: productContentAndInfos) {
                         Timestamp fromDate = productContentAndInfo.getTimestamp("fromDate");

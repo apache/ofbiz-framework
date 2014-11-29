@@ -79,8 +79,7 @@ public class ScrumServices {
                                     communicationEventProduct.create();
                                 }
                                 try {
-                                    List<GenericValue> productRoleList = delegator.findByAnd("ProductRole", UtilMisc.toMap("productId",productId, "partyId", communicationEvent.getString("partyIdFrom"), "roleTypeId","PRODUCT_OWNER"), null, false);
-                                    GenericValue productRoleMap = EntityUtil.getFirst(productRoleList);
+                                    GenericValue productRoleMap = EntityQuery.use(delegator).from("ProductRole").where("productId",productId, "partyId", communicationEvent.getString("partyIdFrom"), "roleTypeId","PRODUCT_OWNER").queryFirst();
                                     GenericValue userLogin = (GenericValue) context.get("userLogin");
                                     // also close the incoming communication event
                                     if (UtilValidate.isNotEmpty(productRoleMap)) {
@@ -206,7 +205,7 @@ public class ScrumServices {
                         Debug.logInfo("Revision Link ============== >>>>>>>>>>> "+ revisionLink, module);
                         if (UtilValidate.isNotEmpty(taskId)) {
                             String version = "R" + i;
-                            List <GenericValue> workeffContentList = delegator.findByAnd("WorkEffortAndContentDataResource", UtilMisc.toMap("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()), null, false);
+                            List <GenericValue> workeffContentList = EntityQuery.use(delegator).from("WorkEffortAndContentDataResource").where("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()).queryList();
                             List<EntityCondition> exprsAnd = FastList.newInstance();
                             exprsAnd.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, taskId));
 
@@ -217,7 +216,7 @@ public class ScrumServices {
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_INST"));
                             exprsAnd.add(EntityCondition.makeCondition(exprsOr, EntityOperator.OR));
 
-                            List<GenericValue> workEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition(exprsAnd, EntityOperator.AND), null, null, null, false);
+                            List<GenericValue> workEffortList = EntityQuery.use(delegator).from("WorkEffort").where(exprsAnd).queryList();
                             if (UtilValidate.isEmpty(workeffContentList) && UtilValidate.isNotEmpty(workEffortList)) {
                                 Map<String, Object> inputMap = FastMap.newInstance();
                                 inputMap.put("taskId", taskId);
@@ -267,7 +266,7 @@ public class ScrumServices {
             exprsAnd.add(EntityCondition.makeCondition("workEffortContentTypeId", EntityOperator.EQUALS, "TASK_SUB_INFO"));
             exprsAnd.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "DOCUMENT"));
             exprsAnd.add(EntityCondition.makeCondition("drObjectInfo", EntityOperator.LIKE, revisionLink + "%"));
-            List<GenericValue> workEffortDataResourceList = delegator.findList("WorkEffortAndContentDataResource", EntityCondition.makeCondition(exprsAnd, EntityOperator.AND), null, null, null, false);
+            List<GenericValue> workEffortDataResourceList = EntityQuery.use(delegator).from("WorkEffortAndContentDataResource").where(exprsAnd).queryList();
             if (UtilValidate.isNotEmpty(workEffortDataResourceList)) {
                 Debug.logInfo("Total Content Size ============== >>>>>>>>>>> "+ workEffortDataResourceList.size(), module);
                 Set<String> keys = FastSet.newInstance();

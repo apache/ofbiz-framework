@@ -182,7 +182,7 @@ public class OagisInventoryServices {
                                 EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
                                 EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "NON_SERIAL_INV_ITEM"),
                                 EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
-                        List<GenericValue> invItemAndDetails = delegator.findList("InventoryItemDetailForSum", condition, UtilMisc.toSet("quantityOnHandSum"), null, null, false);
+                        List<GenericValue> invItemAndDetails = EntityQuery.use(delegator).select("quantityOnHandSum").from("InventoryItemDetailForSum").where(condition).queryList();
                         for (GenericValue inventoryItemDetailForSum : invItemAndDetails) {
                             quantityOnHandTotal += inventoryItemDetailForSum.getDouble("quantityOnHandSum").doubleValue();
                         }
@@ -196,7 +196,7 @@ public class OagisInventoryServices {
                             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId),
                             EntityCondition.makeCondition("inventoryItemTypeId", EntityOperator.EQUALS, "SERIALIZED_INV_ITEM"),
                             EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, syncInventoryFacilityId)), EntityOperator.AND);
-                    long invItemQuantCount = delegator.findCountByCondition("InventoryItemStatusForCount", serInvCondition, null, null);
+                    long invItemQuantCount = EntityQuery.use(delegator).from("InventoryItemStatusForCount").where(serInvCondition).queryCount();
                     quantityOnHandTotal += invItemQuantCount;
 
                     // check for mismatch in quantity
@@ -400,7 +400,7 @@ public class OagisInventoryServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
+            previousOagisMessageInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(omiPkMap).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -700,7 +700,7 @@ public class OagisInventoryServices {
         // before getting into this check to see if we've tried once and had an error, if so set isErrorRetry even if it wasn't passed in
         GenericValue previousOagisMessageInfo = null;
         try {
-            previousOagisMessageInfo = delegator.findOne("OagisMessageInfo", omiPkMap, false);
+            previousOagisMessageInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(omiPkMap).queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error getting OagisMessageInfo from database for message ID [" + omiPkMap + "]: " + e.toString();
             Debug.logInfo(e, errMsg, module);
@@ -898,9 +898,8 @@ public class OagisInventoryServices {
                                     Set<String> productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                                     productIdSet.add(productId);
 
-                                    EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum),
-                                            EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
-                                    List<GenericValue> inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
+                                    List<GenericValue> inventoryItemsBySerialNumber = EntityQuery.use(delegator).from("InventoryItem").where(EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum),
+                                            EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet))).queryList();
 
                                     if (OagisServices.requireSerialNumberExist != null) {
                                         // according to requireSerialNumberExist make sure serialNumber does or does not exist in database, add an error message as needed
@@ -1354,9 +1353,8 @@ public class OagisInventoryServices {
                             Set<String> productIdSet = ProductWorker.getRefurbishedProductIdSet(productId, delegator);
                             productIdSet.add(productId);
 
-                            EntityCondition bySerialNumberCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum),
-                                    EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
-                            List<GenericValue> inventoryItemsBySerialNumber = delegator.findList("InventoryItem", bySerialNumberCondition, null, null, null, false);
+                            List<GenericValue> inventoryItemsBySerialNumber = EntityQuery.use(delegator).from("InventoryItem").where(EntityCondition.makeCondition(EntityCondition.makeCondition("serialNumber", EntityOperator.EQUALS, serialNum),
+                                    EntityOperator.AND, EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet))).queryList();
 
                             // this is a status update, so referenced serial number MUST already exist
                             if (inventoryItemsBySerialNumber.size() == 0) {

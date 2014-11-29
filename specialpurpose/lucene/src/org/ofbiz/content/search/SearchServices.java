@@ -31,6 +31,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -72,9 +73,8 @@ public class SearchServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
-            List<GenericValue> productFeatureAppls = delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productFeatureId", context.get("productFeatureId")), null, false);
-            // Only re-index the active appls, future dated ones will get picked up on that product's re-index date
-            productFeatureAppls = EntityUtil.filterByDate(productFeatureAppls);
+             // Only re-index the active appls, future dated ones will get picked up on that product's re-index date
+             List<GenericValue> productFeatureAppls = EntityQuery.use(delegator).from("ProductFeatureAppl").where("productFeatureId", context.get("productFeatureId")).filterByDate().queryList();
 
             for (GenericValue productFeatureAppl : productFeatureAppls) {
                 try {
@@ -105,7 +105,7 @@ public class SearchServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
-            List<GenericValue> contents = delegator.findByAnd("Content", UtilMisc.toMap("dataResourceId", context.get("dataResourceId")), null, false);
+            List<GenericValue> contents = EntityQuery.use(delegator).from("Content").where("dataResourceId", context.get("dataResourceId")).queryList();
             for (GenericValue content : contents) {
                 dispatcher.runSync("indexProductsFromContent",
                         UtilMisc.toMap(
@@ -123,7 +123,7 @@ public class SearchServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
-            List<GenericValue> productContents = delegator.findByAnd("ProductContent", UtilMisc.toMap("contentId", context.get("contentId")), null, false);
+            List<GenericValue> productContents = EntityQuery.use(delegator).from("ProductContent").where("contentId", context.get("contentId")).queryList();
             for (GenericValue productContent : productContents) {
                 try {
                     dispatcher.runSync("indexProduct", UtilMisc.toMap("productId", productContent.get("productId")));
@@ -149,7 +149,7 @@ public class SearchServices {
         return ServiceUtil.returnSuccess();
     }
     private static void indexProductCategoryRollup(String parentProductCategoryId, Delegator delegator, LocalDispatcher dispatcher, Set<String> excludeProductCategoryIds) throws GenericEntityException {
-        List<GenericValue> productCategoryRollups = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", parentProductCategoryId), null, false);
+        List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", parentProductCategoryId).queryList();
         for (GenericValue productCategoryRollup : productCategoryRollups) {
             String productCategoryId = productCategoryRollup.getString("productCategoryId");
             // Avoid infinite recursion
@@ -162,7 +162,7 @@ public class SearchServices {
     }
 
     private static void indexProductCategoryMembers(String productCategoryId, Delegator delegator, LocalDispatcher dispatcher) throws GenericEntityException {
-        List<GenericValue> productCategoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId), null, false);
+        List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId).queryList();
         for (GenericValue productCategoryMember : productCategoryMembers) {
             try {
                 dispatcher.runSync("indexProduct", UtilMisc.toMap("productId", productCategoryMember.get("productId")));

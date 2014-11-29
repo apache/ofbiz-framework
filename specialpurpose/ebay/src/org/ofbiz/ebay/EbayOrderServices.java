@@ -1142,7 +1142,7 @@ public class EbayOrderServices {
                 // If matching party not found then try to find partyId from PartyAttribute entity.
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(context.get("eiasTokenBuyer"))) {
-                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String) context.get("eiasTokenBuyer")), null, false));
+                    partyAttribute = EntityQuery.use(delegator).from("PartyAttribute").where("attrValue", (String) context.get("eiasTokenBuyer")).queryFirst();
                     if (UtilValidate.isNotEmpty(partyAttribute)) {
                         partyId = (String) partyAttribute.get("partyId");
                     }
@@ -1251,12 +1251,10 @@ public class EbayOrderServices {
     // Made some changes transactionId removed.
     private static GenericValue externalOrderExists(Delegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
-        GenericValue orderHeader = null;
         EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("externalId", EntityComparisonOperator.EQUALS, externalId), EntityCondition.makeCondition("statusId", EntityComparisonOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityComparisonOperator.AND);
-        List<GenericValue> orderHeaderList = delegator.findList("OrderHeader", condition, null, null, null, true);
-        if (UtilValidate.isNotEmpty(orderHeaderList)) {
-            orderHeader = EntityUtil.getFirst(orderHeaderList);
-        }
+        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader")
+                .where(condition)
+                .cache(true).queryFirst();
         return orderHeader;
     }
 

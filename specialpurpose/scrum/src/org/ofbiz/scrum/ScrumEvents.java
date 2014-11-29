@@ -44,6 +44,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * ScrumEvents - Check The Warning Message. 
@@ -69,9 +70,9 @@ public class ScrumEvents {
             // should be scrum team or scrum master.
             EntityConditionList<EntityExpr> exprOrs = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_TEAM"), EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SCRUM_MASTER")), EntityOperator.OR);
             EntityConditionList<EntityCondition> exprAnds = EntityCondition.makeCondition(UtilMisc.toList(exprOrs, EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId)), EntityOperator.AND);
-            List<GenericValue> partyRoleList = delegator.findList("PartyRole", exprAnds, null, null, null, false);
+            List<GenericValue> partyRoleList = EntityQuery.use(delegator).from("PartyRole").where(exprAnds).queryList();
             if (UtilValidate.isNotEmpty(partyRoleList)) {
-                List<GenericValue> timesheetList = delegator.findByAnd("Timesheet", UtilMisc.toMap("partyId", partyId, "statusId", "TIMESHEET_IN_PROCESS"), null, true);
+                List<GenericValue> timesheetList = EntityQuery.use(delegator).from("Timesheet").where("partyId", partyId, "statusId", "TIMESHEET_IN_PROCESS").cache(true).queryList();
                 if (UtilValidate.isNotEmpty(timesheetList)) {
                     for (GenericValue timesheetMap : timesheetList) {
                         String timesheetId = timesheetMap.getString("timesheetId");
@@ -85,7 +86,7 @@ public class ScrumEvents {
                                 //check time entry
                                 List<GenericValue> timeEntryList = timesheetMap.getRelated("TimeEntry", UtilMisc.toMap("partyId", partyId, "timesheetId",timesheetId, "fromDate",realTimeDate), null, false);
                                 //check EmplLeave
-                                List<GenericValue> emplLeaveList = delegator.findByAnd("EmplLeave", UtilMisc.toMap("partyId", partyId, "fromDate", realTimeDate), null, true);
+                                List<GenericValue> emplLeaveList = EntityQuery.use(delegator).from("EmplLeave").where("partyId", partyId, "fromDate", realTimeDate).cache(true).queryList();
                                 if (UtilValidate.isEmpty(timeEntryList) && UtilValidate.isEmpty(emplLeaveList)) {
                                     Map<String, Object> noEntryMap = FastMap.newInstance();
                                     noEntryMap.put("timesheetId", timesheetId);

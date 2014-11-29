@@ -97,8 +97,7 @@ public class GoogleCheckoutHelper {
         String externalId = info.getGoogleOrderNumber();
         GenericValue order = null;
         try {
-            List<GenericValue> orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId" , SALES_CHANNEL), null, false);
-            order = EntityUtil.getFirst(orders);
+            order = EntityQuery.use(delegator).from("OrderHeader").where("externalId", externalId, "salesChannelEnumId" , SALES_CHANNEL).queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -140,15 +139,16 @@ public class GoogleCheckoutHelper {
 
     public void processAuthNotification(AuthorizationAmountNotification info) throws GeneralException {
         String externalId = info.getGoogleOrderNumber();
-        List<GenericValue> orders = null;
+        GenericValue order = null;
         GenericValue orderPaymentPreference = null;
         try {
-            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL), null, false);
+            order = EntityQuery.use(delegator).from("OrderHeader")
+                         .where("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL)
+                         .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        if (UtilValidate.isNotEmpty(orders)) {
-            GenericValue order = EntityUtil.getFirst(orders);
+        if (UtilValidate.isNotEmpty(order)) {
             List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
@@ -169,15 +169,16 @@ public class GoogleCheckoutHelper {
 
     public void processChargeNotification(ChargeAmountNotification info) throws GeneralException {
         String externalId = info.getGoogleOrderNumber();
-        List<GenericValue> orders = null;
+        GenericValue order = null;
         GenericValue orderPaymentPreference = null;
         try {
-            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL), null, false);
+            order = EntityQuery.use(delegator).from("OrderHeader")
+                         .where("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL)
+                         .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        if (UtilValidate.isNotEmpty(orders)) {
-            GenericValue order = EntityUtil.getFirst(orders);
+        if (UtilValidate.isNotEmpty(order)) {
             List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
@@ -199,15 +200,16 @@ public class GoogleCheckoutHelper {
 
     public void processRefundNotification(RefundAmountNotification info) throws GeneralException {
         String externalId = info.getGoogleOrderNumber();
-        List<GenericValue> orders = null;
+        GenericValue order = null;
         GenericValue orderPaymentPreference = null;
         try {
-            orders = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL), null, false);
+            order = EntityQuery.use(delegator).from("OrderHeader")
+                        .where("externalId", externalId, "salesChannelEnumId", SALES_CHANNEL)
+                        .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        if (UtilValidate.isNotEmpty(orders)) {
-            GenericValue order = EntityUtil.getFirst(orders);
+        if (UtilValidate.isNotEmpty(order)) {
             List<GenericValue> orderPaymentPreferences = order.getRelated("OrderPaymentPreference", null, null, false);
             if (UtilValidate.isNotEmpty(orderPaymentPreferences)) {
                 orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
@@ -237,7 +239,7 @@ public class GoogleCheckoutHelper {
         String externalId = info.getGoogleOrderNumber();
 
         // check and make sure this order doesn't already exist
-        List<GenericValue> existingOrder = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId), null, false);
+        List<GenericValue> existingOrder = EntityQuery.use(delegator).from("OrderHeader").where("externalId", externalId).queryList();
         if (UtilValidate.isNotEmpty(existingOrder)) {
             //throw new GeneralException("Google order #" + externalId + " already exists.");
             Debug.logWarning("Google order #" + externalId + " already exists.", module);
@@ -409,8 +411,7 @@ public class GoogleCheckoutHelper {
         String shippingName = shipping.getShippingName();
         GenericValue googleShipping = null;
         try {
-            googleShipping = delegator.findOne("GoogleCoShippingMethod", UtilMisc.toMap("shipmentMethodName", shippingName,
-                    "productStoreId", cart.getProductStoreId()), false);
+            googleShipping = EntityQuery.use(delegator).from("GoogleCoShippingMethod").where("shipmentMethodName", shippingName, "productStoreId", cart.getProductStoreId()).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
@@ -556,10 +557,10 @@ public class GoogleCheckoutHelper {
         String contactMechPurposeTypeId = getAddressType(addrType);
 
         // check to make sure the purpose doesn't already exist
-        List<GenericValue> values = delegator.findByAnd("PartyContactWithPurpose", UtilMisc.toMap("partyId", partyId,
-                "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId), null, false);
-        values = EntityUtil.filterByDate(values, null, "contactFromDate", "contactThruDate", true);
-        values = EntityUtil.filterByDate(values, null, "purposeFromDate", "purposeThruDate", true);
+        List<GenericValue> values = EntityQuery.use(delegator).from("PartyContactWithPurpose")
+                .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId)
+                .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                .queryList();
 
         if (UtilValidate.isEmpty(values)) {
             Map<String, Object> addPurposeMap = FastMap.newInstance();
@@ -606,8 +607,7 @@ public class GoogleCheckoutHelper {
 
         List<GenericValue> cmLookup;
         try {
-            cmLookup = delegator.findByAnd(entityName, lookupMap, UtilMisc.toList("-fromDate"), false);
-            cmLookup = EntityUtil.filterByDate(cmLookup);
+            cmLookup = EntityQuery.use(delegator).from(entityName).where(lookupMap).orderBy("-fromDate").filterByDate().queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw e;
@@ -657,14 +657,14 @@ public class GoogleCheckoutHelper {
         if (geoCode != null && geoCode.length() == 3) {
             return geoCode;
         }
-        List<GenericValue> geos = null;
+        GenericValue geo = null;
         try {
-            geos = delegator.findByAnd("Geo", UtilMisc.toMap("geoCode", geoCode, "geoTypeId", "COUNTRY"), null, false);
+            geo = EntityQuery.use(delegator).from("Geo").where("geoCode", geoCode, "geoTypeId", "COUNTRY").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        if (UtilValidate.isNotEmpty(geos)) {
-            return EntityUtil.getFirst(geos).getString("geoId");
+        if (UtilValidate.isNotEmpty(geo)) {
+            return geo.getString("geoId");
         } else {
             return "_NA_";
         }
@@ -673,10 +673,9 @@ public class GoogleCheckoutHelper {
     protected boolean hasHoldOrderNotes(String orderId) {
         EntityCondition idCond = EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId);
         EntityCondition content = EntityCondition.makeCondition("noteInfo", EntityOperator.LIKE, "%Order is held%");
-        EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(idCond, content), EntityOperator.AND);
         List<GenericValue> holdOrderNotes = null;
         try {
-            holdOrderNotes = delegator.findList("OrderHeaderNoteView", mainCond, null, null, null, false);
+            holdOrderNotes = EntityQuery.use(delegator).from("OrderHeaderNoteView").where(idCond, content).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
