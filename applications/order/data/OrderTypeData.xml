@@ -301,6 +301,8 @@ under the License.
 
     <ReturnItemType description="Return Work-Effort Item" returnItemTypeId="RET_WE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
     <ReturnItemType description="Return Time-Entry Item" returnItemTypeId="RET_TE_ITEM" parentTypeId="RET_NPROD_ITEM"/>
+    
+    <ReturnItemType description="Return Raw Material Item" returnItemTypeId="RET_MPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
 
     <!-- maps product types to return item types for product order items, order item types to return item types for other order items
          and order adjustment types to return adjustment types. Separate mappings for different types of returns (customer vs. vendor) -->
@@ -325,6 +327,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RENTAL_ORDER_ITEM" returnItemTypeId="RET_FPROD_ITEM" />
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="ASSET_USAGE_OUT_IN" returnItemTypeId="RET_FPROD_ITEM" />
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="SERVICE_PRODUCT" returnItemTypeId="RET_SPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_MPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINISHED_GOOD" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_AUTO" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="MARKETING_PKG_PICK" returnItemTypeId="RET_FPROD_ITEM"/>
@@ -343,7 +346,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="SURCHARGE_ADJUSTMENT" returnItemTypeId="RET_SURCHARGE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="ADDITIONAL_FEATURE" returnItemTypeId="RET_ADD_FEATURE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="WARRANTY_ADJUSTMENT" returnItemTypeId="RET_WARRANTY_ADJ"/>
-
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_MPROD_ITEM"/>
     <!-- Return Reasons -->
     <ReturnReason sequenceId="01" returnReasonId="RTN_NOT_WANT" description="Did Not Want Item"/>
     <ReturnReason sequenceId="02" returnReasonId="RTN_DEFECTIVE_ITEM" description="Defective Item"/>
