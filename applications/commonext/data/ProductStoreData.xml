@@ -57,7 +57,7 @@
     <ProductStoreShipmentMeth productStoreShipMethId="9011" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_DAY" sequenceNumber="12"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9012" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="NEXT_PM" sequenceNumber="13"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9013" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="SECOND_DAY" sequenceNumber="14"/>
-    <ProductStoreShipmentMeth productStoreShipMethId="9014" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS" sequenceNumber="15"/>
+    <ProductStoreShipmentMeth productStoreShipMethId="9014" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="EXPRESS_SAVER" sequenceNumber="15"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9015" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND" sequenceNumber="16"/>
     <ProductStoreShipmentMeth productStoreShipMethId="9016" productStoreId="PRODUCTSTOREID" partyId="FEDEX" includeNoChargeItems="N" allowUspsAddr="N" requireUspsAddr="N" roleTypeId="CARRIER" shipmentMethodTypeId="GROUND_HOME" sequenceNumber="17"/>
     
@@ -77,7 +77,7 @@
     <ShipmentCostEstimate productStoreShipMethId="9011" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="NEXT_DAY" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9012" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="NEXT_PM" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9013" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="SECOND_DAY" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
-    <ShipmentCostEstimate productStoreShipMethId="9014" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="EXPRESS" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
+    <ShipmentCostEstimate productStoreShipMethId="9014" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="EXPRESS_SAVER" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9015" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="GROUND" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
     <ShipmentCostEstimate productStoreShipMethId="9016" productStoreId="PRODUCTSTOREID" orderFlatPrice="0.0" orderItemFlatPrice="0.0" orderPricePercent="0.0" shipmentMethodTypeId="GROUND_HOME" carrierPartyId="FEDEX" carrierRoleTypeId="CARRIER"/>
 </entity-engine-xml>
