@@ -11071,6 +11071,9 @@
         <value xml:lang="zh">角色类型来自</value>
         <value xml:lang="zh_TW">角色類型來自</value>
     </property>
+    <property key="PartyRoleTypeNotFoundForTheParty">
+        <value xml:lang="en">Role Type ${roleTypeId} not found for the party.</value>
+    </property>
     <property key="PartyRoleTypeId">
         <value xml:lang="de">Rolle Typ ID</value>
         <value xml:lang="en">RoleType ID</value>
