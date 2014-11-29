@@ -30,14 +30,12 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.model.ModelUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -314,8 +312,12 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     }
 
     public static List<String> getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
-        List<GenericValue> partyContentList = delegator.findByAnd("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"), true);
-        partyContentList = EntityUtil.filterByDate(partyContentList);
+        List<GenericValue> partyContentList = EntityQuery.use(delegator).from("WorkEffortContent")
+                .where("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId)
+                .orderBy("-fromDate")
+                .cache(true)
+                .filterByDate()
+                .queryList();
 
         List<String> contentList = FastList.newInstance();
         if (partyContentList != null) {
@@ -345,19 +347,18 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             throw new IllegalArgumentException("Delegator missing");
         }
 
-        List<GenericValue> workEffortContentList = null;
+        GenericValue workEffortContent = null;
         try {
-                workEffortContentList = delegator.findByAnd("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"), true);
+            workEffortContent = EntityQuery.use(delegator).from("WorkEffortContent")
+                                    .where("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId)
+                                    .orderBy("-fromDate")
+                                    .filterByDate()
+                                    .cache(true)
+                                    .queryFirst();
         } catch (GeneralException e) {
             Debug.logError(e, module);
         }
-
-        if (workEffortContentList != null) {
-            workEffortContentList = EntityUtil.filterByDate(workEffortContentList);
-            return EntityUtil.getFirst(workEffortContentList);
-        } else {
-            return null;
-        }
+        return workEffortContent;
     }
 
     public static WorkEffortContentWrapper makeWorkEffortContentWrapper(GenericValue workEffort, HttpServletRequest request) {
