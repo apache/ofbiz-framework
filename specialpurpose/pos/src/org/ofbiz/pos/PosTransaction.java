@@ -1167,14 +1167,13 @@ public class PosTransaction implements Serializable {
 
     public GenericValue getTerminalState() {
         Delegator delegator = session.getDelegator();
-        List<GenericValue> states = null;
+        GenericValue state = null;
         try {
-            states = delegator.findByAnd("PosTerminalState", UtilMisc.toMap("posTerminalId", this.getTerminalId()), null, false);
+            state = EntityQuery.use(delegator).from("PosTerminalState").where("posTerminalId", this.getTerminalId()).filterByDate(UtilDateTime.nowTimestamp(), "openedDate", "closedDate").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
-        states = EntityUtil.filterByDate(states, UtilDateTime.nowTimestamp(), "openedDate", "closedDate", true);
-        return EntityUtil.getFirst(states);
+        return state;
     }
 
     public void setPrintWriter(PrintWriter writer) {
@@ -1306,7 +1305,7 @@ public class PosTransaction implements Serializable {
         List<GenericValue> shoppingLists = null;
         Delegator delegator = this.session.getDelegator();
         try {
-            shoppingLists = delegator.findList("ShoppingList", null, null, null, null, false);
+            shoppingLists = EntityQuery.use(delegator).from("ShoppingList").queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return null;
@@ -1656,9 +1655,14 @@ public class PosTransaction implements Serializable {
 
                 try {
                     // set distinct on so we only get one row per person
-                    EntityFindOptions findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, -1, maxRows, true);
                     // using list iterator
-                    EntityListIterator pli = delegator.findListIteratorByCondition(dynamicView, mainCond, null, fieldsToSelect, orderBy, findOpts);
+                     EntityListIterator pli = EntityQuery.use(delegator).select(UtilMisc.toSet(fieldsToSelect))
+                            .from(dynamicView).where(mainCond)
+                            .cursorScrollInsensitive()
+                            .fetchSize(-1)
+                            .maxRows(maxRows)
+                            .cache(true)
+                            .queryIterator();
 
                     // get the partial list for this page
                     partyList = pli.getPartialList(1, maxRows);

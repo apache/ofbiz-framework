@@ -32,6 +32,7 @@ import org.ofbiz.webapp.control.LoginWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -160,7 +161,7 @@ public class XuiSession {
         String partyId = userLogin.getString("partyId");
         GenericValue partyRole = null;
         try {
-            partyRole = delegator.findOne("PartyRole", false, "partyId", partyId, "roleTypeId", roleTypeId);
+            partyRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId, "roleTypeId", roleTypeId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return false;

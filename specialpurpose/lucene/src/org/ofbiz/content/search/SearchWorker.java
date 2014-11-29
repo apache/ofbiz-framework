@@ -31,8 +31,8 @@ import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
-
 import org.apache.lucene.util.Version;
 
 /**
@@ -75,7 +75,7 @@ public class SearchWorker {
         List<GenericValue> contentList = new ArrayList<GenericValue>();
         for (String id : idList) {
             try {
-                GenericValue content = delegator.findOne("Content", UtilMisc .toMap("contentId", id), true);
+                GenericValue content = EntityQuery.use(delegator).from("Content").where("contentId", id).cache(true).queryOne();
                 if (content != null) {
                     contentList.add(content);
                 }

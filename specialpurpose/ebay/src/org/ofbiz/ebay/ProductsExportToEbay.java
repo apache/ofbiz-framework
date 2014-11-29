@@ -43,6 +43,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
@@ -71,7 +72,7 @@ public class ProductsExportToEbay {
         Map<String, Object> response = null;
         try {
             List<String> selectResult = UtilGenerics.checkList(context.get("selectResult"), String.class);
-            List<GenericValue> productsList  = delegator.findList("Product", EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult), null, null, null, false);
+            List<GenericValue> productsList  = EntityQuery.use(delegator).from("Product").where(EntityCondition.makeCondition("productId", EntityOperator.IN, selectResult)).queryList();
             if (UtilValidate.isNotEmpty(productsList)) {
                 for (GenericValue product : productsList) {
                     GenericValue startPriceValue = EntityUtil.getFirst(EntityUtil.filterByDate(product.getRelated("ProductPrice", UtilMisc.toMap("productPricePurposeId", "EBAY", "productPriceTypeId", "MINIMUM_PRICE"), null, false)));
@@ -302,7 +303,10 @@ public class ProductsExportToEbay {
                         primaryCategoryId = categoryCode;
                     }
                 } else {
-                    GenericValue productCategoryValue = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId")), null, false)));
+                    GenericValue productCategoryValue = EntityQuery.use(delegator).from("ProductCategoryAndMember")
+                            .where("productCategoryTypeId", "EBAY_CATEGORY", "productId", prod.getString("productId"))
+                            .filterByDate()
+                            .queryFirst();
                     if (UtilValidate.isNotEmpty(productCategoryValue)) {
                         primaryCategoryId = productCategoryValue.getString("categoryName");
                     }

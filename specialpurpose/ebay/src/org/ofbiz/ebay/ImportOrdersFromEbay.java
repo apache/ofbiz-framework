@@ -40,7 +40,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityComparisonOperator;
 import org.ofbiz.order.order.OrderChangeHelper;
@@ -729,7 +728,7 @@ public class ImportOrdersFromEbay {
                 String contactMechId = "";
                 GenericValue partyAttribute = null;
                 if (UtilValidate.isNotEmpty(parameters.get("eiasTokenBuyer"))) {
-                    partyAttribute = EntityUtil.getFirst(delegator.findByAnd("PartyAttribute", UtilMisc.toMap("attrValue", (String)parameters.get("eiasTokenBuyer")), null, false));
+                    partyAttribute = EntityQuery.use(delegator).from("PartyAttribute").where("attrValue", (String)parameters.get("eiasTokenBuyer")).queryFirst();
                 }
 
                 // if we get a party, check its contact information.
@@ -823,12 +822,11 @@ public class ImportOrdersFromEbay {
 
     private static GenericValue externalOrderExists(Delegator delegator, String externalId) throws GenericEntityException {
         Debug.logInfo("Checking for existing externalId: " + externalId, module);
-        GenericValue orderHeader = null;
         EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("externalId", EntityComparisonOperator.EQUALS, externalId), EntityCondition.makeCondition("statusId", EntityComparisonOperator.NOT_EQUAL, "ORDER_CANCELLED")), EntityComparisonOperator.AND);
-        List<GenericValue> orderHeaderList = delegator.findList("OrderHeader", condition, null, null, null, true);
-        if (UtilValidate.isNotEmpty(orderHeaderList)) {
-            orderHeader = EntityUtil.getFirst(orderHeaderList);
-        }
+        GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader")
+                .where(condition)
+                .cache(true)
+                .queryFirst();
         return orderHeader;
     }
 }

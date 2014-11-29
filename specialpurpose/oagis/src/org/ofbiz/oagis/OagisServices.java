@@ -242,7 +242,7 @@ public class OagisServices {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
-            userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId", "system"), false);
+            userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();
         } catch (GenericEntityException e) {
             String errMsg = "Error Getting UserLogin with userLoginId 'system':" + e.toString();
             Debug.logError(e, errMsg, module);
@@ -325,7 +325,7 @@ public class OagisServices {
             } else {
                 Map<String, Object> originalOmiPkMap = UtilMisc.toMap("logicalId", (Object) dataAreaLogicalId, "component", dataAreaComponent,
                         "task", dataAreaTask, "referenceId", dataAreaReferenceId);
-                GenericValue originalOagisMsgInfo = delegator.findOne("OagisMessageInfo", originalOmiPkMap, false);
+                GenericValue originalOagisMsgInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(originalOmiPkMap).queryOne();
                 if (originalOagisMsgInfo != null) {
                     for (Element dataAreaConfirmMsgElement : dataAreaConfirmMsgList) {
                         String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
@@ -445,7 +445,7 @@ public class OagisServices {
 
             if (UtilValidate.isNotEmpty(referenceId) && (UtilValidate.isEmpty(component) || UtilValidate.isEmpty(task) || UtilValidate.isEmpty(referenceId))) {
                 // try looking up by just the referenceId, those alone are often unique, return error if there is more than one result
-                List<GenericValue> oagisMessageInfoList = delegator.findByAnd("OagisMessageInfo", UtilMisc.toMap("referenceId", referenceId), null, false);
+                List<GenericValue> oagisMessageInfoList = EntityQuery.use(delegator).from("OagisMessageInfo").where("referenceId", referenceId).queryList();
                 if (oagisMessageInfoList.size() == 1) {
                     oagisMessageInfo = oagisMessageInfoList.get(0);
                 } else if (oagisMessageInfoList.size() > 1) {
@@ -453,7 +453,7 @@ public class OagisServices {
                     return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorLookupByReferenceError", UtilMisc.toMap("messageSize", messageSize.toString(), "referenceId", referenceId), locale));
                 }
             } else {
-                oagisMessageInfo = delegator.findOne("OagisMessageInfo", oagisMessageInfoKey, false);
+                oagisMessageInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(oagisMessageInfoKey).queryOne();
             }
 
             if (oagisMessageInfo == null) {
@@ -548,7 +548,7 @@ public class OagisServices {
         GenericValue oagisMessageInfo = null;
         Map<String, Object> oagisMessageInfoKey = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
         try {
-            oagisMessageInfo = delegator.findOne("OagisMessageInfo", oagisMessageInfoKey, false);
+            oagisMessageInfo = EntityQuery.use(delegator).from("OagisMessageInfo").where(oagisMessageInfoKey).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error Getting Entity OagisMessageInfo: " + e.toString(), module);
         }
