@@ -35,6 +35,7 @@ import javax.imageio.ImageIO;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -160,7 +161,7 @@ public class ImageManagementServices {
             file = checkExistsImage(file);
             if (UtilValidate.isNotEmpty(file)) {
                 imageName = file.getPath();
-                imageName = imageName.substring(imageName.lastIndexOf("/") + 1);
+                imageName = imageName.substring(imageName.lastIndexOf(File.separator) + 1);
             }
             
             if (UtilValidate.isEmpty(imageResize)) {
