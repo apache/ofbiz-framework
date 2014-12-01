@@ -76,7 +76,7 @@ public class OrderManagerEvents {
                 placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Problems looking up order payment preferences", module);
-                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderErrorProcessingOfflinePayments", locale));
+                request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderErrorProcessingOfflinePayments", locale));
                 return "error";
             }
             if (paymentPrefs != null) {
@@ -110,7 +110,7 @@ public class OrderManagerEvents {
                     delegator.storeAll(toBeStored);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems storing payment information", module);
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemStoringReceivedPaymentInformation", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemStoringReceivedPaymentInformation", locale));
                     return "error";
                 }
 
@@ -137,7 +137,7 @@ public class OrderManagerEvents {
             orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems reading order header from datasource.", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsReadingOrderHeaderInformation", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsReadingOrderHeaderInformation", locale));
             return "error";
         }
 
@@ -153,12 +153,12 @@ public class OrderManagerEvents {
             paymentMethodTypes = EntityQuery.use(delegator).from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment types", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsWithPaymentTypeLookup", locale));
             return "error";
         }
 
         if (paymentMethodTypes == null) {
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentTypeLookup", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsWithPaymentTypeLookup", locale));
             return "error";
         }
 
@@ -168,7 +168,7 @@ public class OrderManagerEvents {
             paymentMethods = EntityQuery.use(delegator).from("PaymentMethod").where("partyId", partyId).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems getting payment methods", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsWithPaymentMethodLookup", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsWithPaymentMethodLookup", locale));
             return "error";
         }
 
@@ -177,7 +177,7 @@ public class OrderManagerEvents {
             placingCustomer = EntityQuery.use(delegator).from("OrderRole").where("orderId", orderId, "roleTypeId", "PLACING_CUSTOMER").queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up order payment preferences", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderErrorProcessingOfflinePayments", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderErrorProcessingOfflinePayments", locale));
             return "error";
         }
 
@@ -188,9 +188,9 @@ public class OrderManagerEvents {
             if (!UtilValidate.isEmpty(paymentMethodAmountStr)) {
                 BigDecimal paymentMethodAmount = BigDecimal.ZERO;
                 try {
-                	paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
+                    paymentMethodAmount = (BigDecimal) ObjectType.simpleTypeConvert(paymentMethodAmountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";
                 }
                 if (paymentMethodAmount.compareTo(BigDecimal.ZERO) > 0) {
@@ -199,8 +199,8 @@ public class OrderManagerEvents {
                     try {
                         results = dispatcher.runSync("createPaymentFromOrder", 
                             UtilMisc.toMap("orderId", orderId,
-                            		"paymentMethodId", paymentMethodId,
-                            		"paymentRefNum", paymentMethodReference, 
+                                    "paymentMethodId", paymentMethodId,
+                                    "paymentRefNum", paymentMethodReference, 
                                     "comments", "Payment received offline and manually entered.",
                                     "userLogin", userLogin));
                     } catch (GenericServiceException e) {
@@ -214,14 +214,12 @@ public class OrderManagerEvents {
                         request.setAttribute("_ERROR_MESSAGE_", results.get(ModelService.ERROR_MESSAGE));
                         return "error";
                     }
-                	
                 }
                 OrderChangeHelper.approveOrder(dispatcher, userLogin, orderId);
                 return "success";
             }
         }
-        
-        
+
         List<GenericValue> toBeStored = FastList.newInstance();
         for (GenericValue paymentMethodType : paymentMethodTypes) {
             String paymentMethodTypeId = paymentMethodType.getString("paymentMethodTypeId");
@@ -232,13 +230,13 @@ public class OrderManagerEvents {
                 try {
                     paymentTypeAmount = (BigDecimal) ObjectType.simpleTypeConvert(amountStr, "BigDecimal", null, locale);
                 } catch (GeneralException e) {
-                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemsPaymentParsingAmount", locale));
+                    request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemsPaymentParsingAmount", locale));
                     return "error";
                 }
                 if (paymentTypeAmount.compareTo(BigDecimal.ZERO) > 0) {
                     // create the OrderPaymentPreference
                     // TODO: this should be done with a service
-                    Map<String, String> prefFields = UtilMisc.<String, String>toMap("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
+                    Map<String, String> prefFields = UtilMisc.<String, String> toMap("orderPaymentPreferenceId", delegator.getNextSeqId("OrderPaymentPreference"));
                     GenericValue paymentPreference = delegator.makeValue("OrderPaymentPreference", prefFields);
                     paymentPreference.set("paymentMethodTypeId", paymentMethodType.getString("paymentMethodTypeId"));
                     paymentPreference.set("maxAmount", paymentTypeAmount);
@@ -287,7 +285,7 @@ public class OrderManagerEvents {
                     EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
                     EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")),
                     EntityOperator.AND);
-            currentPrefs = delegator.findList("OrderPaymentPreference", ecl, null, null, null, false);
+            currentPrefs = EntityQuery.use(delegator).from("OrderPaymentPreference").where(ecl).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
         }
@@ -322,7 +320,7 @@ public class OrderManagerEvents {
             delegator.storeAll(toBeStored);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems storing payment information", module);
-            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderProblemStoringReceivedPaymentInformation", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error, "OrderProblemStoringReceivedPaymentInformation", locale));
             return "error";
         }
 
