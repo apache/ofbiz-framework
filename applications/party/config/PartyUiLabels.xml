@@ -11073,7 +11073,7 @@
     </property>
     <property key="PartyRoleTypeNotFoundForTheParty">
         <value xml:lang="en">Role Type ${roleTypeId} not found for the party.</value>
-        <value xml:lang="fr">Le role ${roleTypeId} n'est pas présent sur cet acteur.</value>
+        <value xml:lang="fr">Le rôle ${roleTypeId} n'est pas présent pour cet acteur.</value>
     </property>
     <property key="PartyRoleTypeId">
         <value xml:lang="de">Rolle Typ ID</value>
