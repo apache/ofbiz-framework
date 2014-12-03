@@ -2209,6 +2209,39 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         }
     }
 
+    public int getShipInfoIndex (String shipGroupSeqId) {
+        int idx = -1;
+        for (int i=0; i<shipInfo.size(); i++) {
+            CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
+            if (csi.shipGroupSeqId.equals(shipGroupSeqId)) {
+                idx = i;
+                break;
+            }
+        }
+        return idx;
+    }
+
+    /**
+    * Return index of the ship group where the item is located
+    * @return
+    */
+    public int getItemShipGroupIndex(int itemId) {
+    int shipGroupIndex = this.getShipGroupSize() - 1;
+    ShoppingCartItem item = this.findCartItem(itemId);
+    int result=0;
+    for (int i = 0; i <(shipGroupIndex + 1); i++) {
+       CartShipInfo csi = this.getShipInfo(i);
+       Iterator it = csi.shipItemInfo.keySet().iterator();
+        while (it.hasNext()) {
+            ShoppingCartItem item2 = (ShoppingCartItem) it.next();
+            if (item.equals(item2) ) {
+                result = i;
+            }
+        }
+    }
+    return result;
+    }
+
     /** Sets the shipping contact mech id. */
     public void setShippingContactMechId(int idx, String shippingContactMechId) {
         CartShipInfo csi = this.getShipInfo(idx);
@@ -3922,7 +3955,12 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
         List<GenericValue> groups = new LinkedList<GenericValue>();
         long seqId = 1;
         for (CartShipInfo csi : this.shipInfo) {
-            groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, seqId));
+            String shipGroupSeqId = csi.shipGroupSeqId;
+            if (shipGroupSeqId != null) {
+                groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, shipGroupSeqId));
+            } else {
+                groups.addAll(csi.makeItemShipGroupAndAssoc(this.getDelegator(), this, UtilFormatOut.formatPaddedNumber(seqId, 5), true));
+            }
             seqId++;
         }
         return groups;
@@ -4505,8 +4543,11 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
-        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, long groupIndex) {
-            shipGroupSeqId = UtilFormatOut.formatPaddedNumber(groupIndex, 5);
+        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, String shipGroupSeqId) {
+            return makeItemShipGroupAndAssoc(delegator, cart, shipGroupSeqId, false);
+        }
+
+        public List<GenericValue> makeItemShipGroupAndAssoc(Delegator delegator, ShoppingCart cart, String shipGroupSeqId, boolean newShipGroup) {
             List<GenericValue> values = new LinkedList<GenericValue>();
 
             // create order contact mech for shipping address

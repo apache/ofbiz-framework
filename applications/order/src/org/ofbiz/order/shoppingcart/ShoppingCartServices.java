@@ -30,7 +30,6 @@ import java.util.Map;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-import org.apache.commons.lang.math.NumberUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -312,6 +311,7 @@ public class ShoppingCartServices {
             int newShipInfoIndex = cart.addShipInfo();
 
             // shouldn't be gaps in it but allow for that just in case
+            /*
             String cartShipGroupIndexStr = orderItemShipGroup.getString("shipGroupSeqId");
             int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
 
@@ -321,6 +321,7 @@ public class ShoppingCartServices {
                     newShipInfoIndex = cart.addShipInfo();
                 }
             }
+            */
 
             CartShipInfo cartShipInfo = cart.getShipInfo(newShipInfoIndex);
 
@@ -337,6 +338,7 @@ public class ShoppingCartServices {
             cartShipInfo.setVendorPartyId(orderItemShipGroup.getString("vendorPartyId"));
             cartShipInfo.setShipGroupSeqId(orderItemShipGroup.getString("shipGroupSeqId"));
             cartShipInfo.shipTaxAdj.addAll(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
+            cart.setShipGroupSeqId(newShipInfoIndex - 1, orderItemShipGroup.getString("shipGroupSeqId"));
         }
 
         List<GenericValue> orderItems = orh.getOrderItems();
@@ -564,6 +566,9 @@ public class ShoppingCartServices {
                     List<GenericValue> orderItemAdjustments = orh.getOrderItemAdjustments(item);
                     // set the item's ship group info
                     List<GenericValue> shipGroupAssocs = orh.getOrderItemShipGroupAssocs(item);
+                    if (UtilValidate.isNotEmpty(shipGroupAssocs)) {
+                        shipGroupAssocs = EntityUtil.orderBy(shipGroupAssocs, UtilMisc.toList("-shipGroupSeqId"));
+                    }
                     for (int g = 0; g < shipGroupAssocs.size(); g++) {
                         GenericValue sgAssoc = shipGroupAssocs.get(g);
                         BigDecimal shipGroupQty = OrderReadHelper.getOrderItemShipGroupQuantity(sgAssoc);
@@ -572,9 +577,7 @@ public class ShoppingCartServices {
                         }
 
                         String cartShipGroupIndexStr = sgAssoc.getString("shipGroupSeqId");
-                        int cartShipGroupIndex = NumberUtils.toInt(cartShipGroupIndexStr);
-                        cartShipGroupIndex = cartShipGroupIndex - 1;
-
+                        int cartShipGroupIndex = cart.getShipInfoIndex(cartShipGroupIndexStr);
                         if (cartShipGroupIndex > 0) {
                             cart.positionItemToGroup(itemIndex, shipGroupQty, 0, cartShipGroupIndex, false);
                         }

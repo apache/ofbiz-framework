@@ -1073,6 +1073,11 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         // set the item ship group
         if (resetShipGroup) {
+            int itemId = cart.getItemIndex(this);
+            int shipGroupIndex = 0;
+            if (itemId != -1) {
+                shipGroupIndex = cart.getItemShipGroupIndex(itemId);
+            }
             cart.clearItemShipInfo(this);
 
             /*
@@ -1132,7 +1137,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             }
             cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
             */
-            cart.setItemShipGroupQty(this, quantity, 0);
+            cart.setItemShipGroupQty(this, quantity, shipGroupIndex);
         }
     }
 

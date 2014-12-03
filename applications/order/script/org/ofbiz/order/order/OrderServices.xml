@@ -1459,4 +1459,49 @@ under the License.
             <call-service service-name="createPaymentApplication" in-map-name="createCtx"/>
         </if-not-empty>
     </simple-method>
+    
+    <simple-method method-name="MoveItemBetweenShipGroups" short-description="Move order items between ship groups">
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc">
+            <field-map field-name="orderId" from-field="parameters.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+            <field-map field-name="shipGroupSeqId" from-field="parameters.toGroupIndex"/>
+        </entity-one>
+        <if-empty field="orderItemShipGroupAssoc">
+            <set-service-fields service-name="addOrderItemShipGroupAssoc" map="parameters" to-map="map"/>
+            <set field="map.quantity" value="0" type="BigDecimal"/>
+            <set field="map.shipGroupSeqId" from="parameters.toGroupIndex"/>
+            <call-service service-name="addOrderItemShipGroupAssoc" in-map-name="map"/>
+            <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc">
+                <field-map field-name="orderId" from-field="parameters.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+                <field-map field-name="shipGroupSeqId" from-field="parameters.toGroupIndex"/>
+            </entity-one>
+        </if-empty>
+        <clear-field field="map"/>
+        <set field="map.orderId" from-field="parameters.orderId"/>
+        <set field="map.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+        <set field="map.shipGroupSeqId" from-field="parameters.toGroupIndex"/>
+        <set field="map.quantity" value="${orderItemShipGroupAssoc.quantity + parameters.quantity}" type="BigDecimal"/>
+        <call-service service-name="updateOrderItemShipGroupAssoc" in-map-name="map"/>
+        
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc">
+            <field-map field-name="orderId" from-field="parameters.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+            <field-map field-name="shipGroupSeqId" from-field="parameters.fromGroupIndex"/>
+        </entity-one>
+        <if-empty field="orderItemShipGroupAssoc">
+            <add-error>
+                <fail-message message="The orderItemShipGroupAssoc qualified by orderId=${parameters.orderId} orderItemSeqId=${parameters.orderItemSeqId} shipGroupSeqId=${parameters.fromGroupIndex} does not exist"/>
+            </add-error>
+        </if-empty>
+        <check-errors/>
+        
+        <clear-field field="map"/>
+        <set field="map.orderId" from-field="parameters.orderId"/>
+        <set field="map.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
+        <set field="map.shipGroupSeqId" from-field="parameters.fromGroupIndex"/>
+        <set field="map.quantity" value="${orderItemShipGroupAssoc.quantity - parameters.quantity}" type="BigDecimal"/>
+        <call-service service-name="updateOrderItemShipGroupAssoc" in-map-name="map"/>
+    </simple-method>
+    
 </simple-methods>

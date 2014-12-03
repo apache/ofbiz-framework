@@ -211,11 +211,15 @@
         <value xml:lang="zh">无法更新；设置OrderShipmentPreference时出现问题</value>
         <value xml:lang="zh_TW">無法更新；設置OrderShipmentPreference時出現問題</value>
     </property>
+    <property key="OrderCartShipGroupAssocNotFound">
+        <value xml:lang="en">Cart ship group association not found</value>
+        <value xml:lang="fr">Association avec le groupe d'expédition non trouvée</value>
+    </property>
     <property key="OrderCartShipGroupNotFound">
         <value xml:lang="de">Warenkorb-Versandgruppe nicht gefunden [ ${groupIndex} ]</value>
         <value xml:lang="en">Cart ship group not found [ ${groupIndex} ]</value>
         <value xml:lang="es">Grupo de envío del carro no encontrado [ ${groupIndex} ]</value>
-        <value xml:lang="fr">Groupe de chariots non trouvé [ ${groupIndex} ]</value>
+        <value xml:lang="fr">Groupe d'expédition non trouvé [ ${groupIndex} ]</value>
         <value xml:lang="it">Gruppo Spedizione Carrello non trovato [ ${groupIndex} ]</value>
         <value xml:lang="ja">買い物かご発送グループが見つかりません [ ${groupIndex} ]</value>
         <value xml:lang="nl">Winkelwagen verzendgroep niet gevinden [ ${groupIndex} ]</value>
@@ -226,6 +230,18 @@
         <value xml:lang="vi">Không thấy nhóm chuyển hàng [ ${groupIndex} ]</value>
         <value xml:lang="zh">没有找到购物车运输组 [ ${groupIndex} ]</value>
         <value xml:lang="zh_TW">沒有找到購物車運輸組 [ ${groupIndex} ]</value>
+    </property>
+    <property key="OrderCartShipGroupSeqIdIsMandatory">
+        <value xml:lang="en">Cart shipGroupSeqId is mandatory</value>
+        <value xml:lang="fr">La reference du groupe d'expédition est obligatoire</value>
+    </property>
+    <property key="OrderCartShipGroupPartyCarrierNotFound">
+        <value xml:lang="en">No Party Carrier found for [${partyId}]</value>
+        <value xml:lang="fr">Aucun transporteur trouvé pour la reference [${partyId}]</value>
+    </property>
+    <property key="OrderCartShipGroupShipmentMethodNotFound">
+        <value xml:lang="en">No Shipment Method found for [${shipmentMethodTypeId}]</value>
+        <value xml:lang="fr">Aucun mode d'expedition trouvé pour la reference [${shipmentMethodTypeId}]</value>
     </property>
     <property key="OrderCaughtExceptionOnCartUpdate">
         <value xml:lang="de">Fehler bei Änderung des Warenkorbes. </value>
@@ -323,7 +339,7 @@
     </property>
     <property key="OrderCouldNotFindRelatedFixedAssetForTheProduct">
         <value xml:lang="de">Zugehörige Anlage zu Produkt ${productId} konnte nicht gefunden werden</value>
-        <value xml:lang="en">Could not find related Fixed Asset for the product : ${productId}</value>
+        <value xml:lang="en">Could not find related Fixed Asset for the product: ${productId}</value>
         <value xml:lang="es">No se puede encontrar el activo fijo relacionado para el producto: ${productId}</value>
         <value xml:lang="fr">Vous ne pouvez pas trouver le Fixed Asset pour l'article : ${productId}</value>
         <value xml:lang="it">Non è possibile trovare Cespite per il prodotto : ${productId}</value>
@@ -1166,6 +1182,10 @@
         <value xml:lang="vi">Lỗi xảy ra : hạng mục hàng hóa trong đơn hàng và/hoặc phần đầu đơn hàng không tồn tại</value>
         <value xml:lang="zh">错误：订单明细和/或订单头不存在</value>
         <value xml:lang="zh_TW">錯誤：訂單明細和/或訂單頭不存在</value>
+    </property>
+    <property key="OrderErrorOrderItemAlreadyRelatedToShipGroup">
+        <value xml:lang="en">Order Item is already related To This OISG</value>
+        <value xml:lang="fr">La ligne de commande est déja associée au groupe d'expédition</value>
     </property>
     <property key="OrderErrorOrderItemCantBeModified">
         <value xml:lang="de">FEHLER : Auftragsposition kann nicht geändert werden</value>
@@ -2886,6 +2906,18 @@
         <value xml:lang="zh">产品店铺不存在</value>
         <value xml:lang="zh_TW">產品店鋪不存在</value>
     </property>
+    <property key="OrderQuantityAssociatedCannotBeNullOrNegative">
+        <value xml:lang="en">Quantity associated can not be null or negative.</value>
+        <value xml:lang="fr">La quantité associée ne peut être négative ou nulle.</value>
+    </property>
+    <property key="OrderQuantityAssociatedIsBiggerThanOrderItemQuantity">
+        <value xml:lang="en">Quantity associated is bigger than order item quantity.</value>
+        <value xml:lang="fr">La quantité associée est plus grande que celle commandée.</value>
+    </property>
+    <property key="OrderQuantityAssociatedIsLessThanOrderItemQuantity">
+        <value xml:lang="en">Quantity associated is less than order item quantity.</value>
+        <value xml:lang="fr">La quantité totale associée aux groupe(s) d'expédition(s) est plus petite que celle commandée.</value>
+    </property>
     <property key="OrderQuickAddOrderItemError">
         <value xml:lang="de">Schnelles Hinzufügen von Auftragspositionen</value>
         <value xml:lang="en">Quick  Add  Order  Item</value>
@@ -4178,6 +4210,10 @@
         <value xml:lang="zh">获得订单明细的运输组相关资源列表时出现问题</value>
         <value xml:lang="zh_TW">獲得訂單明細的運輸組相關資源列表時出現問題</value>
     </property>
+    <property key="OrderUnableToAddItemToOISG">
+        <value xml:lang="en">Unable to add order item to ship group: </value>
+        <value xml:lang="fr">Impossible d'ajouter la ligne de commande au groupe d'expédition : </value>
+    </property>
     <property key="OrderUnableToAddItemToShoppingList">
         <value xml:lang="de">Fehler beim Hinzufügen einer Position zur Einkaufsliste - ${shoppingListId}</value>
         <value xml:lang="en">Unable to add item to shopping list - ${shoppingListId}</value>
@@ -4192,6 +4228,10 @@
         <value xml:lang="vi">Không thể thêm hàng hóa vào danh sách mua sắm - ${shoppingListId}</value>
         <value xml:lang="zh">无法把明细添加到购物列表 - ${shoppingListId}</value>
         <value xml:lang="zh_TW">無法把明細添加到購物列表 - ${shoppingListId}</value>
+    </property>
+    <property key="OrderUnableToAddOISGToOrder">
+        <value xml:lang="en">Unable to add ship group to order: </value>
+        <value xml:lang="fr">Impossible d'ajouter le groupe d'expédition : </value>
     </property>
     <property key="OrderUnableToCancelItemInventoryReservation">
         <value xml:lang="de">Fehler beim Stornieren einer Bestandsreservierung</value>
@@ -4476,6 +4516,10 @@
         <value xml:lang="vi">Không thể cập nhật diễn giải của hàng hóa</value>
         <value xml:lang="zh">不能更新明细的评论</value>
         <value xml:lang="zh_TW">不能更新明細的評論</value>
+    </property>
+    <property key="OrderUnableToUpdateOrderItemFromOISG">
+        <value xml:lang="en">Unable to update order item from the ship group: </value>
+        <value xml:lang="fr">Impossible de mettre à jour la ligne de commande depuis le groupe d'expédition : </value>
     </property>
     <property key="OrderUnableToUpdateInventoryReservations">
         <value xml:lang="de">Bestandsreservierungen können nicht aktualisiert werden: ${itemMsgInfo}</value>

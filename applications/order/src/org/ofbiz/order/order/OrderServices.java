@@ -44,7 +44,6 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -96,6 +95,7 @@ public class OrderServices {
     public static final String resource = "OrderUiLabels";
     public static final String resource_error = "OrderErrorUiLabels";
     public static final String resourceProduct = "ProductUiLabels";
+    public static final String resourceCommon = "CommonUiLabels";
 
     public static Map<String, String> salesAttributeRoleMap = FastMap.newInstance();
     public static Map<String, String> purchaseAttributeRoleMap = FastMap.newInstance();
@@ -572,7 +572,7 @@ public class OrderServices {
         // before processing orderItems process orderItemGroups so that they'll be in place for the foreign keys and what not
         List<GenericValue> orderItemGroups = UtilGenerics.checkList(context.get("orderItemGroups"));
         if (UtilValidate.isNotEmpty(orderItemGroups)) {
-            for (GenericValue orderItemGroup : orderItemGroups){
+            for (GenericValue orderItemGroup : orderItemGroups) {
                 orderItemGroup.set("orderId", orderId);
                 toBeStored.add(orderItemGroup);
             }
@@ -1196,7 +1196,7 @@ public class OrderServices {
             countProductQuantityOrdered(ctx, context);
         }
         return ServiceUtil.returnSuccess();
-    }            
+    }
 
     public static void reserveInventory(Delegator delegator, LocalDispatcher dispatcher, GenericValue userLogin, Locale locale, List<GenericValue> orderItemShipGroupInfo, List<String> dropShipGroupIds, Map<String, GenericValue> itemValuesBySeqId, String orderTypeId, String productStoreId, List<String> resErrorMessages) throws GeneralException {
         boolean isImmediatelyFulfilled = false;
@@ -2126,6 +2126,17 @@ public class OrderServices {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,
                                 "OrderUnableToSetCancelQuantity", UtilMisc.toMap("itemMsgInfo",itemMsgInfo), locale));
+                    }
+
+                    Map<String, Object> localCtx = UtilMisc.toMap("userLogin", userLogin,
+                            "orderId", orderItem.getString("orderId"),
+                            "orderItemSeqId", orderItem.getString("orderItemSeqId"),
+                            "shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                    try {
+                        dispatcher.runSync("deleteOrderItemShipGroupAssoc", localCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        return ServiceUtil.returnError(e.getMessage());
                     }
 
                     //  create order item change record
@@ -3577,6 +3588,8 @@ public class OrderServices {
                     "OrderShoppingCartEmpty", locale));
         }
 
+        shipGroupIdx = cart.getShipInfoIndex(shipGroupSeqId);
+
         // add in the new product
         try {
             if ("PURCHASE_ORDER".equals(cart.getOrderType())) {
@@ -3611,6 +3624,9 @@ public class OrderServices {
 
                 // set the item in the selected ship group
                 item.setDesiredDeliveryDate(itemDesiredDeliveryDate);
+                shipGroupIdx = cart.getShipInfoIndex(shipGroupSeqId);
+                int itemId = cart.getItemIndex(item);
+                cart.positionItemToGroup(itemId, quantity, cart.getItemShipGroupIndex(itemId), shipGroupIdx, false);
                 cart.clearItemShipInfo(item);
                 cart.setItemShipGroupQty(item, item.getQuantity(), shipGroupIdx);
             }
@@ -3845,10 +3861,13 @@ public class OrderServices {
             // set the group qty
             ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
             if (cartItem != null) {
-            Debug.logInfo("Shipping info (before) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
-            cart.setItemShipGroupQty(cartItem, groupQty, groupIdx - 1);
-            Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (groupIdx-1) + ")] " + groupQty, module);
-            Debug.logInfo("Shipping info (after) for group #" + (groupIdx-1) + " [" + cart.getShipmentMethodTypeId(groupIdx-1) + " / " + cart.getCarrierPartyId(groupIdx-1) + "]", module);
+                int shipGroupIndex = cart.getShipInfoIndex(itemInfo[1]);
+                if (Debug.infoOn()) Debug.logInfo("Shipping info (before) for group #" + (shipGroupIndex) + " [" + cart.getShipmentMethodTypeId(shipGroupIndex) + " / " + cart.getCarrierPartyId(shipGroupIndex) + "]", module);
+                cart.setItemShipGroupQty(cartItem, groupQty, shipGroupIndex);
+                if (Debug.infoOn()) {
+                    Debug.logInfo("Set ship group qty: [" + itemInfo[0] + " / " + itemInfo[1] + " (" + (shipGroupIndex) + ")] " + groupQty, module);
+                    Debug.logInfo("Shipping info (after) for group #" + (shipGroupIndex) + " [" + cart.getShipmentMethodTypeId(shipGroupIndex) + " / " + cart.getCarrierPartyId(shipGroupIndex) + "]", module);
+                }
             }
         }
 
@@ -4049,7 +4068,33 @@ public class OrderServices {
             exprs.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "VAT_PRICE_CORRECT"));
             adjExprs.add(EntityCondition.makeCondition(exprs, EntityOperator.OR));
             EntityCondition cond = EntityCondition.makeCondition(adjExprs, EntityOperator.AND);
-            delegator.removeByCondition("OrderAdjustment", cond);
+            List<GenericValue> orderAdjustmentsToDelete = EntityQuery.use(delegator).from("OrderAdjustment").where(cond).queryList();
+            List<GenericValue> orderAdjustmentsToStore = new LinkedList<GenericValue>();
+            List<GenericValue> orderAdjustmentsToRemove = new LinkedList<GenericValue>();
+            if (UtilValidate.isNotEmpty(orderAdjustmentsToDelete)) {
+                for (GenericValue orderAdjustment : orderAdjustmentsToDelete) {
+                    //check if the adjustment has a related entry in entity OrderAdjustmentBilling
+                    List<GenericValue> oaBilling = orderAdjustment.getRelated("OrderAdjustmentBilling", null, null, false);
+                    if (UtilValidate.isNotEmpty(oaBilling)) {
+                        orderAdjustmentsToRemove.add(orderAdjustment);
+                        if ("SALES_TAX".equals(orderAdjustment.get("orderAdjustmentTypeId"))) {
+                            //if the orderAdjustment is  a sale tax, set the amount to 0 to avoid amount addition
+                            orderAdjustmentsToStore.add(orderAdjustment);
+                        }
+                    }
+                }
+            }
+            //then remove order Adjustment of the list
+            if (UtilValidate.isNotEmpty(orderAdjustmentsToDelete)) {
+                orderAdjustmentsToDelete.removeAll(orderAdjustmentsToRemove);
+                delegator.removeAll(orderAdjustmentsToDelete);
+            }
+            if (UtilValidate.isNotEmpty(orderAdjustmentsToStore)) {
+                for (GenericValue orderAdjustment : orderAdjustmentsToStore) {
+                    orderAdjustment.set("amount", BigDecimal.ZERO);
+                }
+                delegator.storeAll(orderAdjustmentsToStore);
+            }
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralException(e.getMessage());
@@ -4152,18 +4197,15 @@ public class OrderServices {
         toStore.addAll(cart.makeOrderItems());
         toStore.addAll(cart.makeAllAdjustments());
 
-        String shipGroupSeqId = null;
         long groupIndex = cart.getShipInfoSize();
         if (!deleteItems) {
             for (long itr = 1; itr <= groupIndex; itr++) {
-                shipGroupSeqId = UtilFormatOut.formatPaddedNumber(itr, 5);
                 List<GenericValue> removeList = new ArrayList<GenericValue>();
                 for (GenericValue stored: toStore) {
                     if ("OrderAdjustment".equals(stored.getEntityName())) {
                         if (("SHIPPING_CHARGES".equals(stored.get("orderAdjustmentTypeId")) ||
                                "SALES_TAX".equals(stored.get("orderAdjustmentTypeId"))) &&
-                                stored.get("orderId").equals(orderId) &&
-                                stored.get("shipGroupSeqId").equals(shipGroupSeqId)) {
+                                stored.get("orderId").equals(orderId)) {
                             // Removing objects from toStore list for old Shipping and Handling Charges Adjustment and Sales Tax Adjustment.
                             removeList.add(stored);
                         }
@@ -5635,6 +5677,442 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, 
                 "OrderRunSubscriptionAutoReorders", UtilMisc.toMap("count", count), locale));
+    }
+
+    /**
+     * Create an OrderItemShipGroup record
+     * @param ctx
+     * @param context
+     * @return
+     * @throws GenericEntityException 
+     */
+    public static Map<String, Object> addOrderItemShipGroup(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale" );
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String orderId = (String) context.get("orderId");
+
+        //main message error 
+        String mainErrorMessage = UtilProperties.getMessage(resource_error, "OrderUnableToAddOISGToOrder", locale);
+        Map<String, Object> createOrderItemShipGroupMap = null;
+        try {
+            createOrderItemShipGroupMap = dctx.makeValidContext("createOrderItemShipGroup", "IN", context);
+        } catch (GenericServiceException gse) {
+            String errMsg = mainErrorMessage + gse.toString();
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        try {
+            //test if party is a valid carrier
+            String carrierPartyId = (String) context.get("carrierPartyId");
+            GenericValue carrierRole = EntityQuery.use(delegator).from("PartyRole").where("partyId", carrierPartyId, "roleTypeId", "CARRIER").cache().queryOne();
+            if (UtilValidate.isNotEmpty(carrierPartyId) && UtilValidate.isEmpty(carrierRole)) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderCartShipGroupPartyCarrierNotFound", UtilMisc.toMap("partyId", carrierPartyId), locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+
+            //test if shipmentMethodTypeId is available for carrier party
+            String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
+            if (UtilValidate.isNotEmpty(shipmentMethodTypeId)) {
+                // carrierPartyId is not in shipmentMethodTypeId
+                if (shipmentMethodTypeId.indexOf("_o_" ) == -1) {
+                    GenericValue shipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod").where("partyId", carrierPartyId, "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentMethodTypeId).cache().queryOne();
+                    if (UtilValidate.isEmpty(shipmentMethod)) {
+                        String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderCartShipGroupShipmentMethodNotFound", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), locale);
+                        return ServiceUtil.returnError(errMsg); 
+                    }
+                } else {
+                    // carrierPartyId is in shipmentMethodTypeId
+                    String[] carrierShipmentMethod = shipmentMethodTypeId.split("_o_");
+                    if (carrierShipmentMethod.length == 2) {
+                        shipmentMethodTypeId = carrierShipmentMethod[0];
+                        carrierPartyId = carrierShipmentMethod[1];
+                    }
+                    context.put("carrierPartyId", carrierPartyId);
+                    context.put("shipmentMethodTypeId", shipmentMethodTypeId);
+                }
+            }
+
+            List<GenericValue> oisgs = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId).orderBy("shipGroupSeqId DESC").queryList();
+            if (UtilValidate.isNotEmpty(oisgs)) {
+                GenericValue oisg = EntityUtil.getFirst(oisgs);
+                // set shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, contactMechId when shipmentMethodTypeId and carrierPartyId are empty
+                if (UtilValidate.isEmpty(carrierPartyId) && UtilValidate.isEmpty(shipmentMethodTypeId)) {
+                    createOrderItemShipGroupMap.put("shipmentMethodTypeId", oisg.get("shipmentMethodTypeId"));
+                    createOrderItemShipGroupMap.put("carrierPartyId", oisg.get("carrierPartyId"));
+                    createOrderItemShipGroupMap.put("carrierRoleTypeId", oisg.get("carrierRoleTypeId"));
+                    createOrderItemShipGroupMap.put("contactMechId", oisg.get("contactMechId"));
+                }
+            }
+        } catch (GenericEntityException gee) {
+            String errMsg = mainErrorMessage + gee.toString();
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // set maySplit and isGift for the new oisg to No if they are not present
+        if (UtilValidate.isEmpty(createOrderItemShipGroupMap.get("maySplit"))) {
+            createOrderItemShipGroupMap.put("maySplit", "N");
+        }
+        if (UtilValidate.isEmpty(createOrderItemShipGroupMap.get("isGift"))) {
+            createOrderItemShipGroupMap.put("isGift", "N");
+        }
+
+        //create new oisg
+        try {
+            result = dctx.getDispatcher().runSync("createOrderItemShipGroup", createOrderItemShipGroupMap);
+        } catch (GenericServiceException gse) {
+            String errMsg = mainErrorMessage + gse.toString();
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        if (ServiceUtil.isError(result)) {
+            String errMsg = UtilProperties.getMessage(resource, mainErrorMessage + result.get("errorMessage"), locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+        return result;
+    }
+
+    /**
+     * Remove an OrderItemShipGroup record
+     * @param ctx
+     * @param context: a map containing in paramaters 
+     * @return result: a map containing out parameters
+     * @throws GenericEntityException 
+     */
+    public static Map deleteOrderItemShipGroup(DispatchContext ctx, Map context) throws GenericEntityException {
+        Delegator delegator = ctx.getDelegator();
+        Map<String, Object> result = new HashMap<String, Object>();
+        
+        GenericValue orderItemShipGroup = (GenericValue) context.get("orderItemShipGroup");
+        if (UtilValidate.isEmpty(orderItemShipGroup)) {
+            String orderId= (String) context.get("orderId");
+            GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
+            String shipGroupSeqId= (String) context.get("shipGroupSeqId");
+            if (UtilValidate.isNotEmpty(orderHeader) && UtilValidate.isNotEmpty(shipGroupSeqId)) {
+                orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
+                if (UtilValidate.isEmpty(orderItemShipGroup)) {
+                    return ServiceUtil.returnError("OrderItemShipGroup Does Not Exist");
+                }
+            }
+        }
+        if (UtilValidate.isNotEmpty(orderItemShipGroup)) {
+            orderItemShipGroup.remove();
+            result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
+        }
+        return result;
+    }
+
+    /**
+     * Create orderItem and shipGroup association
+     * @param dctx
+     * @param context
+     * @return
+     * @throws GenericEntityException 
+     */
+    public static Map addOrderItemShipGroupAssoc(DispatchContext dctx, Map<String, Object> context) throws GenericEntityException {
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale" );
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+
+        //main message error 
+        String mainErrorMessage = UtilProperties.getMessage(resource_error, "OrderUnableToAddItemToOISG", locale); 
+        //test orderItem and check status
+        GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
+        if (orderItem == null) {
+            String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+        String statusId = orderItem.getString("statusId");
+        // add OISG only if orderItem is not already prepared
+        if ("ITEM_CREATED".equals(statusId) || "ITEM_APPROVED".equals(statusId)) {
+            //find OISG
+            //by default create a new orderItemShipGroup if null with default carrier and contact from the first OISG
+            if ("new".equals(shipGroupSeqId)) {
+                try {
+                    Map<String, Object> addOrderItemShipGroupMap = dctx.makeValidContext("addOrderItemShipGroup", "IN", context);
+                    addOrderItemShipGroupMap.remove("shipGroupSeqId");
+                    //get default OrderItemShipGroup value for carrier and contact data  
+                    List<GenericValue> oisgas = orderItem.getRelated("OrderItemShipGroupAssoc", null, null, false);
+                    if (UtilValidate.isNotEmpty(oisgas)) {
+                        GenericValue oisga = EntityUtil.getFirst(oisgas);
+                        GenericValue oisg = oisga.getRelatedOne("OrderItemShipGroup", false);
+                        if (UtilValidate.isNotEmpty(oisg)) {
+                            addOrderItemShipGroupMap.put("shipmentMethodTypeId", oisg.get("shipmentMethodTypeId"));
+                            addOrderItemShipGroupMap.put("carrierPartyId", oisg.get("carrierPartyId"));
+                            addOrderItemShipGroupMap.put("carrierRoleTypeId", oisg.get("carrierRoleTypeId"));
+                            addOrderItemShipGroupMap.put("contactMechId", oisg.get("contactMechId"));
+                        }
+                    }
+                    //call  service to create new oisg
+                    Map<String, Object> result = null;
+                    result = dispatcher.runSync("addOrderItemShipGroup", addOrderItemShipGroupMap);
+                    if (result.containsKey("shipGroupSeqId")) {
+                        shipGroupSeqId = (String) result.get("shipGroupSeqId");
+                    }
+                } catch (GenericServiceException e) {
+                    String errMsg = UtilProperties.getMessage(resource, mainErrorMessage, locale);
+                    return ServiceUtil.returnError(errMsg);
+                }
+            }
+            GenericValue orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
+            if (UtilValidate.isEmpty(orderItemShipGroup)) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderCartShipGroupNotFound", UtilMisc.toMap("groupIndex", shipGroupSeqId), locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+            //now test quantity parameter
+            //if quantity is null or negative then display error 
+            if (quantity == null || quantity.compareTo(BigDecimal.ZERO) == -1) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedCannotBeNullOrNegative", locale);
+                return ServiceUtil.returnError(errMsg); 
+            }
+            //test if this association already exist if yes display error
+            GenericValue oisgAssoc = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId).queryOne();
+            if (UtilValidate.isNotEmpty(oisgAssoc)) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderErrorOrderItemAlreadyRelatedToShipGroup", locale);
+                return ServiceUtil.returnError(errMsg);
+            }
+            //no error, create OISGA
+            oisgAssoc = delegator.makeValue("OrderItemShipGroupAssoc", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItem.get("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId));
+            oisgAssoc.set("quantity", quantity);
+            oisgAssoc.create();
+            return ServiceUtil.returnSuccess();
+        } else {
+            String errMsg = UtilProperties.getMessage(resource, mainErrorMessage + orderItem, locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+    }
+
+    /**
+     * Update orderItem and shipgroup association
+     * @param ctx
+     * @param context
+     * @return
+     * @throws GeneralException 
+     */
+    public static Map updateOrderItemShipGroupAssoc(DispatchContext dctx, Map context) throws GeneralException{
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        String message = null;
+        Delegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Locale locale = (Locale) context.get("locale" );
+        GenericValue userLogin = (GenericValue) context.get("userLogin" );
+
+        String orderId = (String) context.get("orderId");
+        String orderItemSeqId = (String) context.get("orderItemSeqId");
+        String shipGroupSeqId = (String) context.get("shipGroupSeqId");
+        BigDecimal quantity = (BigDecimal) context.get("quantity");
+        if (UtilValidate.isEmpty(quantity)) {
+            quantity = BigDecimal.ZERO;
+        }
+        BigDecimal totalQuantity = (BigDecimal) context.get("totalQuantity");
+        if (UtilValidate.isEmpty(totalQuantity)) {
+            totalQuantity = BigDecimal.ZERO;
+        }
+
+        //main message error 
+        String mainErrorMessage = UtilProperties.getMessage(resource_error, "OrderUnableToUpdateOrderItemFromOISG", locale);
+        Integer rowCount = (Integer) context.get("rowCount");
+        Integer rowNumber = (Integer) context.get("rowNumber"); //total row number
+
+        if (rowNumber == null) {
+            Long count = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryCount();
+            if (count != null) {
+                rowNumber = new Integer(count.intValue());
+                result.put("rowNumber", rowNumber);
+            }
+        }
+
+        //find OISG Assoc
+        GenericValue oisga = EntityQuery.use(delegator).from("OrderItemShipGroupAssoc").where("orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId).queryOne();
+        if (UtilValidate.isEmpty(oisga)) {
+            String errMsg = mainErrorMessage + " : Order Item Ship Group Assoc Does Not Exist";
+            Debug.logError(errMsg, module);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // find OISG associated with oisga
+        GenericValue oisg = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
+        //find OrderItem
+        GenericValue orderItem = EntityQuery.use(delegator).from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
+        if (UtilValidate.isEmpty(orderItem)) {
+            String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderErrorOrderItemNotFound", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId), locale);
+            return ServiceUtil.returnError(errMsg);
+        }
+
+        // update OISGA  
+        if (oisg != null) {
+            //if quantity is 0, delete this association only if there is several oisgaoc
+            if (ZERO.compareTo(quantity) == 0) {
+                // test if  there is only one oisgaoc then display errror
+                if (rowNumber.intValue() == 1) {
+                    String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedCannotBeNullOrNegative", locale);
+                    Debug.logError(errMsg, module);
+                    return ServiceUtil.returnError(errMsg);
+                }
+                try {
+                    Map<String, Object> cancelOrderInventoryReservationMap = dctx.makeValidContext("cancelOrderInventoryReservation", "IN", context);
+                    Map<String, Object> localResult = dispatcher.runSync("cancelOrderInventoryReservation", cancelOrderInventoryReservationMap);
+                    if (ServiceUtil.isError(localResult)) return localResult;
+                    Map<String, Object> deleteOrderItemShipGroupAssocMap = dctx.makeValidContext("deleteOrderItemShipGroupAssoc", "IN", context);
+                    localResult = dispatcher.runSync("deleteOrderItemShipGroupAssoc", deleteOrderItemShipGroupAssocMap);
+                    if (ServiceUtil.isError(localResult)) return localResult;
+                } catch (GenericServiceException e) {
+                    return ServiceUtil.returnError(e.toString());
+                }
+                //Only for multi service calling and the last row : test if orderItem quantity equals OrderItemShipGroupAssocs quantitys
+                if (rowCount != null && rowNumber != null ) {
+                    int rowCountInt = rowCount .intValue();
+                    int rowNumberInt = rowNumber .intValue();
+                    if (rowCountInt == rowNumberInt - 1) {
+                        try {
+                            message = validateOrderItemShipGroupAssoc(delegator, dispatcher, orderItem, totalQuantity, oisga, userLogin, locale);
+                        }
+                        catch (Exception e) {
+                            String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedIsLessThanOrderItemQuantity", locale);
+                            Debug.logError(errMsg, module);
+                            return ServiceUtil.returnError(errMsg);
+                        }
+                    }
+                }
+                result.put("totalQuantity", totalQuantity);
+                if (UtilValidate.isNotEmpty(message)) {
+                    result.put("successMessage", message);
+                }
+                return result;
+           }
+
+           BigDecimal actualQuantity = totalQuantity.add(quantity);
+           BigDecimal qty = (BigDecimal) orderItem.get("quantity");
+           if (UtilValidate.isEmpty(qty)) {
+               qty = BigDecimal.ZERO;
+           }
+           BigDecimal cancelQty = (BigDecimal) orderItem.get("cancelQuantity");
+           if (UtilValidate.isEmpty(cancelQty)) {
+               cancelQty = BigDecimal.ZERO;
+           }
+           BigDecimal orderItemQuantity = qty.subtract(cancelQty);
+            if (actualQuantity.compareTo(orderItemQuantity ) > 0) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedIsBiggerThanOrderItemQuantity", locale);
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+
+            //if quantity is bigger than OI then display error
+            if (quantity.compareTo(orderItemQuantity) > 0) {
+                String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedIsBiggerThanOrderItemQuantity", locale);
+                Debug.logError(errMsg, module);
+                return ServiceUtil.returnError(errMsg);
+            }
+            oisga.set("quantity", quantity);
+            //store new values
+            oisga.store();
+            // reserve the inventory
+            GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
+            if (UtilValidate.isNotEmpty(orderHeader)) {
+                Map<String, Object> cancelResp = dispatcher.runSync("cancelOrderInventoryReservation", UtilMisc.toMap("userLogin", userLogin, "orderId", orderId, "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId ));
+                if (ServiceUtil.isError(cancelResp)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(cancelResp));
+                }
+                String productStoreId = orderHeader.getString("productStoreId");
+                String orderTypeId = orderHeader.getString("orderTypeId");
+                List<String> resErrorMessages = new LinkedList<String>();
+                if (Debug.infoOn()) Debug.logInfo("Calling reserve inventory...", module);
+                reserveInventory(delegator, dispatcher, userLogin, locale, UtilMisc.toList(oisga), null, UtilMisc.<String, GenericValue>toMap(orderItemSeqId, orderItem), orderTypeId, productStoreId, resErrorMessages);
+            }
+
+            //update totalQuantity
+            totalQuantity = totalQuantity.add(quantity);
+            result.put("totalQuantity", totalQuantity);
+
+            //Only for multi service calling and the last row : test if orderItem quantity equals OrderItemShipGroupAssocs quantitys
+            if (rowCount != null && rowNumber != null ) {
+                int rowCountInt = rowCount .intValue();
+                int rowNumberInt = rowNumber .intValue();
+                if (rowCountInt == rowNumberInt - 1) {
+                    try {
+                        message = validateOrderItemShipGroupAssoc(delegator, dispatcher, orderItem, totalQuantity,  oisga, userLogin, locale);
+                    }
+                    catch (GeneralException e) {
+                        String errMsg = mainErrorMessage + UtilProperties.getMessage(resource_error, "OrderQuantityAssociatedIsLessThanOrderItemQuantity", locale);
+                        Debug.logError(errMsg, module);
+                        return ServiceUtil.returnError(errMsg);
+                    }
+                }
+                if (UtilValidate.isNotEmpty(message)) {
+                    result.put("successMessage", message);
+                }
+            }
+        } else {
+            //update totalQuantity
+            totalQuantity = totalQuantity.add(quantity);
+            result.put("totalQuantity", totalQuantity);
+        }
+        return result;
+    }
+
+    /**
+     * Validate OrderItemShipGroupAssoc quantity
+     * This service should be called after updateOrderItemShipGroupAssoc
+     * test if orderItem quantity equals OrderItemShipGroupAssocs quantities
+     * if not then get the last orderItemShipgroupAssoc estimated shipDate and add quantity to this OrderItemShipGroupAssoc
+     * @param ctx
+     * @param context
+     * @return
+     * @throws GeneralException 
+     */
+    private static String validateOrderItemShipGroupAssoc(Delegator delegator, LocalDispatcher dispatcher, GenericValue orderItem, BigDecimal totalQuantity, GenericValue lastOISGAssoc, GenericValue userLogin, Locale locale)
+           throws GeneralException {
+        String result = null;
+        BigDecimal qty = (BigDecimal) orderItem.get("quantity");
+        if (UtilValidate.isEmpty(qty)) {
+            qty = BigDecimal.ZERO;
+        }
+        BigDecimal cancelQty = (BigDecimal) orderItem.get("cancelQuantity");
+        if (UtilValidate.isEmpty(cancelQty)) {
+            cancelQty = BigDecimal.ZERO;
+        }
+
+        BigDecimal orderItemQuantity = qty.subtract(cancelQty);
+        if (totalQuantity.compareTo(orderItemQuantity) < 0) {
+            //if quantity in orderItem is bigger than in totalQUantity then added missing quantity in ShipGroupAssoc
+            BigDecimal adjustementQuantity = orderItemQuantity.subtract( totalQuantity);
+            BigDecimal lastOISGAssocQuantity = (BigDecimal) lastOISGAssoc.get("quantity");
+            if (UtilValidate.isEmpty(lastOISGAssocQuantity)) {
+                lastOISGAssocQuantity = BigDecimal.ZERO;
+            }
+            BigDecimal oisgaQty = lastOISGAssocQuantity.add(adjustementQuantity);
+            lastOISGAssoc.set("quantity", oisgaQty);
+            lastOISGAssoc.store();
+
+            // reserve the inventory
+            GenericValue orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", lastOISGAssoc.get("orderId")).queryOne();
+            if (UtilValidate.isNotEmpty(orderHeader)) {
+                Map<String, Object> cancelOrderInventoryReservationMap = UtilMisc.toMap("userLogin", userLogin, "locale", locale);
+                cancelOrderInventoryReservationMap.put("orderId", lastOISGAssoc.get("orderId"));
+                cancelOrderInventoryReservationMap.put("orderItemSeqId", lastOISGAssoc.get("orderItemSeqId"));
+                cancelOrderInventoryReservationMap.put("shipGroupSeqId", lastOISGAssoc.get("shipGroupSeqId"));
+                Map<String, Object> cancelResp = dispatcher.runSync("cancelOrderInventoryReservation", cancelOrderInventoryReservationMap);
+                if (ServiceUtil.isError(cancelResp)) {
+                    throw new GeneralException(ServiceUtil.getErrorMessage(cancelResp));
+                }
+                String productStoreId = orderHeader.getString("productStoreId");
+                String orderTypeId = orderHeader.getString("orderTypeId");
+                List<String> resErrorMessages = new LinkedList<String>();
+                if (Debug.infoOn()) Debug.logInfo("Calling reserve inventory...", module);
+                reserveInventory(delegator, dispatcher, userLogin, locale, UtilMisc.toList(lastOISGAssoc), null, UtilMisc.<String, GenericValue>toMap(lastOISGAssoc.getString("orderItemSeqId"), orderItem), orderTypeId, productStoreId, resErrorMessages);
+            }
+
+            //return warning message
+            Map<String, Object> messageParameters = new HashMap<String, Object>();
+            messageParameters.put("shipByDate", lastOISGAssoc.getRelatedOne("OrderItemShipGroup", false).getString("shipByDate"));
+            messageParameters.put("adjustementQuantity", adjustementQuantity);
+            return "Order OISG Assoc Quantity Auto Completed";
+        }
+        return result; 
     }
 
     public static Map<String, Object> setShippingInstructions(DispatchContext dctx, Map<String, ? extends Object> context) {

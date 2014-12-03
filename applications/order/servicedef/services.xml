@@ -1069,6 +1069,42 @@ under the License.
         <attribute name="availabalityList" type="List" mode="OUT"/>
     </service>
     
+    <service name="addOrderItemShipGroup" engine="java" auth="true" default-entity-name="OrderItemShipGroup"
+             location="org.ofbiz.order.order.OrderServices" invoke="addOrderItemShipGroup">
+        <description>Creates a new OrderItemShipGroup with maySplit and isGift filled.</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="shipGroupSeqId" mode="INOUT" optional="true"/>
+    </service>
+    <service name="deleteOrderItemShipGroup" engine="java" auth="true" default-entity-name="OrderItemShipGroup"
+             location="org.ofbiz.order.order.OrderServices"
+             invoke="deleteOrderItemShipGroup">
+        <description>delete Order Item Ship Group </description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="addOrderItemShipGroupAssoc" engine="java" auth="true" default-entity-name="OrderItemShipGroupAssoc"
+             location="org.ofbiz.order.order.OrderServices"
+             invoke="addOrderItemShipGroupAssoc">
+        <description>add Order Item Ship Group Assoc and if order item ship group not exit, create it before</description>
+        <implements service="addOrderItemShipGroup" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updateOrderItemShipGroupAssoc" engine="java" auth="true" default-entity-name="OrderItemShipGroupAssoc"
+             location="org.ofbiz.order.order.OrderServices"
+             invoke="updateOrderItemShipGroupAssoc">
+        <description>update OrderItem from OISG, totalQuantity is used only if controller is a multi services </description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <attribute name="totalQuantity" type="BigDecimal"  mode="INOUT"  optional="true"/>
+        <attribute name="rowCount" type="Integer" mode="IN" optional="true"/>
+        <attribute name="rowNumber" type="Integer" mode="INOUT" optional="true"/>
+    </service>
+    <service name="deleteOrderItemShipGroupAssoc" engine="entity-auto" auth="true" default-entity-name="OrderItemShipGroupAssoc" invoke="delete">
+        <description>delete Order Item Ship Group Assoc</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
     <service name="createQuoteTerm" engine="simple" default-entity-name="QuoteTerm"
         location="component://order/script/org/ofbiz/order/quote/QuoteServices.xml" invoke="createQuoteTerm">
         <description>
@@ -1102,8 +1138,14 @@ under the License.
     </service>
     
     <service name="createTestOrderRentalProduct" engine="simple" auth="true"
-         location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
-         <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
+        location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateOrderRentalProduct">
+        <description>Create Test Order Rental of an asset which is shipped from and returned to inventory</description>
+    </service>
+    
+    <service name="testCreateShoppinCartAndOrder" engine="simple" auth="true"
+        location="component://order/script/org/ofbiz/order/test/ShoppingCartTests.xml" invoke="testCreateShoppinCartAndOrder">
+        <description>Create an order using a shopping cart - only used internally in ShoppingCartTests.xml for test purpose</description>
+        <attribute name="orderMap" type="Map" mode="OUT"/>
     </service>
     
     <!-- Order Item Attribute -->
@@ -1133,6 +1175,16 @@ under the License.
         <description>count Product Quantity Ordered</description>
         <attribute name="productId" type="String" mode="IN" optional="false"/>
         <attribute name="quantity" type="BigDecimal" mode="IN" optional="false"/>
+    </service>
+    
+    <service name="MoveItemBetweenShipGroups" engine="simple" 
+        location="component://order/script/org/ofbiz/order/order/OrderServices.xml" invoke="MoveItemBetweenShipGroups">
+        <description>Move order items between ship groups</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+        <attribute name="orderItemSeqId" type="String" mode="IN"/>
+        <attribute name="fromGroupIndex" type="String" mode="IN"/>
+        <attribute name="toGroupIndex" type="String" mode="IN"/>
+        <attribute name="quantity" type="BigDecimal" mode="IN"/>
     </service>
     
 </services>

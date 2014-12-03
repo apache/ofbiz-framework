@@ -32,3 +32,136 @@ jQuery(document).ready( function() {
         getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
     }
 });
+
+function showEdit(edit, index) {
+    var sufix = index;
+    if (sufix == '-1') {
+       sufix = "";
+    }
+
+    //display / hide edit element
+    var element = document.getElementById("edit" + sufix);
+    if (element != null) {
+       var objBranch = element.style;
+       if ("edit" == edit) {
+         objBranch.display = "block";
+       } else {
+         objBranch.display = "none";
+       }
+    }
+    var element = document.getElementById("display" + sufix);
+    if (element != null) { 
+       var objBranch = element.style;
+       if (edit == "display") {
+          objBranch.display = "block";
+       } else {
+          objBranch.display = "none";
+       }
+    }
+
+    var next = true;
+    for(var i = 0; next ; i++) {
+      //hide / show display quantity
+      var element = document.getElementById("displayQuantity" + sufix + i);
+      if (element != null) { 
+        var objBranch = element.style;
+        if (edit == "display") {
+          objBranch.display = "block";
+        } else {
+          objBranch.display = "none";
+        }
+      }
+
+      //hide / show edit quantity
+      var element = document.getElementById("editQuantity" + sufix + i);
+      if (element != null) { 
+        var objBranch = element.style;
+        if (edit == "edit") {
+          objBranch.display = "block";
+        } else {
+          objBranch.display = "none";
+        }
+      }
+      if (element == null) {
+         next = false;
+      }
+    }
+
+    //Hide display OISG edit view
+    var element = document.getElementById("OISGEdit" + sufix);
+    if (element != null) {
+      var objBranch = element.style;
+      if (edit == "edit") {
+        objBranch.display = "block";
+      }
+      else {
+        objBranch.display = "none";
+      }
+    }
+}
+
+function restoreEditField(index) {
+    var sufix = index;
+    if (sufix == '-1')
+      sufix = "";
+
+    //display / hide edit element
+    var next = true;
+    for(var i = 0; next ; i++) {
+      var editElement = document.getElementById("edit" + index + "_o_" + i);
+      if (editElement == null) {
+         next = false;
+      } else {
+         editElement.value = editElement.title;
+      }
+    }
+}
+
+function showShipByDate(e, id) {
+    var element = document.getElementById(id);
+    if (e.value == "new") {
+       element.style.display = "block"; 
+    } else {
+       element.style.display = "none";
+    }
+}
+
+function showView(view, index) {
+    var sufix = index;
+    if (sufix == '-1') {
+       sufix = "";
+    }
+    //display / hide buttonDisplay element
+    var element = document.getElementById("display" + sufix);
+    if (element != null) {  
+      var objBranch = element.style;
+      if ("view" == view) {
+        objBranch.display = "none";
+      } else {
+        objBranch.display = "block";
+      }
+
+      //display / hide buttonEdit element
+      var element = document.getElementById("view" + sufix);
+      if (element != null) {  
+        var objBranch = element.style;
+        if ("view" == view) {
+          objBranch.display = "block";
+        } else {
+          objBranch.display = "none";
+        }
+      }
+
+      //Hide display OISG show view
+      var element = document.getElementById("OISGView" + sufix);
+      if (element != null) {
+        var objBranch = element.style;
+        if (view == "view") {
+          objBranch.display = "block";
+        }
+        else {
+          objBranch.display = "none";
+        }
+      }
+    }
+}
