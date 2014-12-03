@@ -564,7 +564,7 @@ public class ContentManagementWorker {
             List<String> contentTypes = null;
             // String fromDate = null;
             // String thruDate = null;
-            Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null);
+            Map<String, Object> results =  ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, null, "To", null, null, assocTypes, contentTypes, Boolean.TRUE, null, null);
             List<GenericValue> valueList = UtilGenerics.checkList(results.get("entityList"));
             if (valueList.size() > 0) {
                 GenericValue value = valueList.get(0);

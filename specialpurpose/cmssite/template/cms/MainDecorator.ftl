@@ -16,11 +16,10 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<#if decoratedContent??>
+
 ${(decoratedContent.subcontent.htmlHead)?default((thisContent.subcontent.htmlHead)!)}
 ${(decoratedContent.subcontent.header)?default((thisContent.subcontent.header)!)}
 
 ${decoratedContent}
 
 ${(decoratedContent.subcontent.footer)?default((thisContent.subcontent.footer)!)}
-</#if>

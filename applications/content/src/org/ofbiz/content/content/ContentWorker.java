@@ -691,7 +691,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         Boolean nullThruDatesOnly = Boolean.TRUE;
         Map<String, Object> results = null;
         try {
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId);
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, parentContentId, mapKey, direction, null, null, assocTypeList, contentTypeList, nullThruDatesOnly, contentAssocPredicateId, null);
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         } catch (MiniLangException e2) {
@@ -1110,7 +1110,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         try {
             // NOTE DEJ20060610: Changed "From" to "To" because it makes the most sense for sub-content renderings using a root-contentId and mapKey to determine the sub-contentId to have the ContentAssoc go from the root to the sub, ie try to determine the contentIdTo from the contentId and mapKey
             // This shouldn't be changed from "To" to "From", but if desired could be parameterized to make this selectable in higher up calling methods
-            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, "To", fromDate, null, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId);
+            results = ContentServicesComplex.getAssocAndContentAndDataResourceCacheMethod(delegator, contentId, mapKey, "To", fromDate, null, assocTypes, contentTypes, nullThruDatesOnly, contentAssocPredicateId, null);
         } catch (MiniLangException e) {
             throw new RuntimeException(e.getMessage());
         }
