@@ -914,9 +914,13 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                 mimeContext.put("textData", textData);
 
                 String mimeString = DataResourceWorker.renderMimeTypeTemplate(mimeTypeTemplate, mimeContext);
-                out.append(mimeString);
+                if (mimeString != null) {
+                    out.append(mimeString);
+                }
             } else {
-                out.append(textData);
+                if (textData != null) {
+                    out.append(textData);
+                }
             }
         } else {
             out.append(textData);
