@@ -180,7 +180,7 @@ public class FreeMarkerWorker {
      * @param useCache try to get template from cache
      */
     public static void renderTemplate(String templateLocation, String templateString, Map<String, Object> context, Appendable outWriter, boolean useCache) throws TemplateException, IOException {
-        if (UtilValidate.isEmpty(templateString)) {
+        if (templateString == null) {
             renderTemplate(templateLocation, context, outWriter);
         } else {
             renderTemplateFromString(templateString, templateLocation, context, outWriter, useCache);
