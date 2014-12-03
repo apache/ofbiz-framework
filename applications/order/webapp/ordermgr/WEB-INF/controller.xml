@@ -1731,6 +1731,38 @@ under the License.
         <response name="success" type="view" value="product"/>
     </request-map>
 
+    <request-map uri="AddOrderItemShipGroup">
+        <security auth="true" https="true"/>
+        <event type="service" path="" invoke="addOrderItemShipGroup"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="DeleteOrderItemShipGroup">
+        <security auth="true" https="true"/>
+        <event type="service" path="" invoke="deleteOrderItemShipGroup"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+
+    <request-map uri="AddOrderItemShipGroupAssoc">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="addOrderItemShipGroupAssoc"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="UpdateOrderItemShipGroupAssoc">
+        <security auth="true" https="true"/>
+        <event type="service-multi" invoke="updateOrderItemShipGroupAssoc"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+    <request-map uri="DeleteOrderItemShipGroupAssoc">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteOrderItemShipGroupAssoc"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
+    </request-map>
+
     <!-- Lookup request mappings -->
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>

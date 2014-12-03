@@ -25,7 +25,24 @@ under the License.
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
+        
+        <set field="map.userLogin" from="userLogin"/>
+        
+        <call-service service-name="testCreateShoppinCartAndOrder" in-map-name="map">
+            <result-to-field result-name="orderMap"/>
+        </call-service>
+        
+        <if-not-empty field="orderMap">
+            <log level="info" message="------------ ORDERID : [${orderMap.orderId}] ------------"/>
+        </if-not-empty>
 
+        <assert><not><if-empty field="orderMap.orderId"/></not></assert>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="testCreateShoppinCartAndOrder" short-description="Create an order using a shopping cart">
+        <set field="userLogin" from="parameters.userLogin"/>
+        
         <!-- Shopping Cart new Instance -->
         <set field="delegator" from-field="parameters.delegator" type="Object"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
@@ -80,7 +97,7 @@ under the License.
         <set field="prodCatalogId" value="DemoCatalog" type="String"/>
         <set field="index" value="0" type="Integer"/>
         <set field="productId" value="GZ-2644" type="String"/>
-        <set field="quantity" value="1" type="BigDecimal"/>
+        <set field="quantity" value="5" type="BigDecimal"/>
         <set field="selectedAmount" value="0" type="BigDecimal"/>
         <set field="unitPrice" value="38.4" type="BigDecimal"/>
         <set field="itemType" value="PRODUCT_ORDER_ITEM" type="String"/>
@@ -245,20 +262,15 @@ under the License.
         <!-- Shopping Cart checkout and create order -->
         <call-bsh><![CDATA[
             checkOutHelper = new org.ofbiz.order.shoppingcart.CheckOutHelper(dispatcher, delegator, shoppingCart);
-            java.util.Map orderCreate = checkOutHelper.createOrder(userLogin);
-            parameters.put("orderMap", orderCreate);
-        ]]></call-bsh>
-
+            java.util.Map orderMap = checkOutHelper.createOrder(userLogin);
+            parameters.put("orderMap", orderMap);]]>
+        </call-bsh>
+        
         <!-- Clear Shopping Cart -->
         <call-object-method method-name="clear" obj-field="shoppingCart"/>
-
-        <set field="orderMap" from-field="parameters.orderMap"/>
-        <if-not-empty field="orderMap">
-            <log level="info" message="------------ ORDERID : [${orderMap.orderId}] ------------"/>
-        </if-not-empty>
-
-        <assert><not><if-empty field="orderMap.orderId"/></not></assert>
-        <check-errors/>
+        
+        <field-to-result field="parameters.orderMap" result-name="orderMap"/>
+        
     </simple-method>
 
     <simple-method method-name="testCreateOrderRentalProduct" short-description="Test create order rental of product" login-required="false">
@@ -671,5 +683,76 @@ under the License.
         <assert><not><if-empty field="orderId"/></not></assert>
         <check-errors/>
     </simple-method>
+    
+    
+    <simple-method method-name="testOrderMoveItemBetweenShipGoups" login-required="false" 
+        short-description="Create an order with 2 ship groups and 3 items and move items between ship groups">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
+            <field-map field-name="userLoginId" value="system"/>
+        </entity-one>
+                
+        <set field="map.userLogin" from="userLogin"/>
+        <call-service service-name="testCreateShoppinCartAndOrder" in-map-name="map">
+            <result-to-field result-name="orderMap"/>
+        </call-service>
 
+        <assert><not><if-empty field="orderMap.orderId"/></not></assert>
+        <check-errors/>
+        
+        <entity-and entity-name="OrderItem" list="orderItems">
+            <field-map field-name="orderId" from-field="orderMap.orderId"/>
+            <field-map field-name="productId" value="GZ-2644"/>
+        </entity-and>
+        <first-from-list entry="orderItem" list="orderItems"/>
+        
+        <set field="map.orderId" from="orderMap.orderId"/>
+        <set field="map.contactMechId" value="9015"/>
+        <set field="map.carrierPartyId" value="UPS"/>
+        <set field="map.shipmentMethodTypeId" value="NEXT_DAY"/>
+        <call-service service-name="createOrderItemShipGroup" in-map-name="map"/>
+        
+        <clear-field field="map"/>
+        <set field="map.userLogin" from="userLogin" type="GenericValue"/>
+        <set field="map.orderId" from="orderMap.orderId"/>
+        <set field="map.orderItemSeqId" from="orderItem.orderItemSeqId"/>
+        <set field="map.fromGroupIndex" value="00001"/>
+        <set field="map.toGroupIndex" value="00002"/>
+        <set field="map.quantity" value="2" type="BigDecimal"/>
+        <call-service service-name="MoveItemBetweenShipGroups" in-map-name="map"/>
+        
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc1">
+            <field-map field-name="orderId" from-field="orderMap.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+            <field-map field-name="shipGroupSeqId" value="00001"/>
+        </entity-one>
+        <assert><if-compare field="orderItemShipGroupAssoc1.quantity" operator="equals" value="3"></if-compare></assert>
+        <check-errors/>
+
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc2">
+            <field-map field-name="orderId" from-field="orderMap.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+            <field-map field-name="shipGroupSeqId" value="00002"/>
+        </entity-one>
+        <assert><if-compare field="orderItemShipGroupAssoc2.quantity" operator="equals" value="2"></if-compare></assert>
+        <check-errors/>
+        
+        <clear-field field="map"/>
+        <set field="map.userLogin" from="userLogin" type="GenericValue"/>
+        <set field="map.orderId" from="orderMap.orderId"/>
+        <set field="map.orderItemSeqId" from="orderItem.orderItemSeqId"/>
+        <set field="map.shipGroupSeqId" value="00002"/>
+        <call-service service-name="deleteOrderItemShipGroupAssoc" in-map-name="map"/>
+        
+        <clear-field field="map"/>
+        <set field="map.userLogin" from="userLogin" type="GenericValue"/>
+        <set field="map.orderId" from="orderMap.orderId"/>
+        <set field="map.shipGroupSeqId" value="00002"/>
+        <call-service service-name="deleteOrderItemShipGroup" in-map-name="map"/>
+        <entity-count entity-name="OrderItemShipGroup" count-field="orderItemShipGroupCount">
+            <condition-expr field-name="orderId" from-field="orderMap.orderId"/>
+        </entity-count>
+        <assert><if-compare field="orderItemShipGroupCount" operator="equals" value="1"></if-compare></assert>
+        <check-errors/>
+    </simple-method>
+    
 </simple-methods>

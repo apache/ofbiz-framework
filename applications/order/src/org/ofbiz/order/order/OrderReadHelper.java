@@ -1391,15 +1391,12 @@ public class OrderReadHelper {
         try {
             orderDeliverySchedule = EntityQuery.use(delegator).from("OrderDeliverySchedule").where("orderId", orderId, "orderItemSeqId", "_NA_").queryOne();
         } catch (GenericEntityException e) {
+            if (Debug.infoOn()) Debug.logInfo(" OrderDeliverySchedule not found for order " + orderId, module);
+            return false;
         }
-        Timestamp estimatedShipDate = null;
-        if (orderDeliverySchedule != null && orderDeliverySchedule.get("estimatedReadyDate") != null) {
-            estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
-        }
-        if (estimatedShipDate != null && UtilDateTime.nowTimestamp().after(estimatedShipDate)) {
-            return true;
-        }
-        return false;
+        if (orderDeliverySchedule == null) return false;
+        Timestamp estimatedShipDate = orderDeliverySchedule.getTimestamp("estimatedReadyDate");
+        return estimatedShipDate != null && UtilDateTime.nowTimestamp().after(estimatedShipDate);
     }
 
     public boolean getRejectedOrderItems() {
@@ -1982,6 +1979,38 @@ public class OrderReadHelper {
         List<GenericValue> issuance = getOrderItemIssuances(orderItem);
         if (issuance != null) {
             for (GenericValue issue : issuance) {
+                BigDecimal issueQty = issue.getBigDecimal("quantity");
+                BigDecimal cancelQty = issue.getBigDecimal("cancelQuantity");
+                if (cancelQty == null) {
+                    cancelQty = ZERO;
+                }
+                if (issueQty == null) {
+                    issueQty = ZERO;
+                }
+                quantityShipped = quantityShipped.add(issueQty.subtract(cancelQty)).setScale(scale, rounding);
+            }
+        }
+        return quantityShipped.setScale(scale, rounding);
+    }
+
+    public BigDecimal getItemShipGroupAssocShippedQuantity(GenericValue orderItem, String shipGroupSeqId) {
+        BigDecimal quantityShipped = ZERO;
+
+        if (orderItem == null) return null;
+        if (this.orderItemIssuances == null) {
+            Delegator delegator = orderItem.getDelegator();
+            try {
+                orderItemIssuances = EntityQuery.use(delegator).from("ItemIssuance").where("orderId", orderItem.get("orderId"), "shipGroupSeqId", shipGroupSeqId).queryList();                
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, "Trouble getting ItemIssuance(s)", module);
+            }
+        }
+
+        // filter the issuance
+        Map<String, Object> filter = UtilMisc.toMap("orderItemSeqId", orderItem.get("orderItemSeqId"), "shipGroupSeqId", shipGroupSeqId);
+        List<GenericValue> issuances = EntityUtil.filterByAnd(orderItemIssuances, filter);
+        if (UtilValidate.isNotEmpty(issuances)) {
+            for (GenericValue issue : issuances) {
                 BigDecimal issueQty = issue.getBigDecimal("quantity");
                 BigDecimal cancelQty = issue.getBigDecimal("cancelQuantity");
                 if (cancelQty == null) {

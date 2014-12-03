@@ -13230,6 +13230,26 @@
         <value xml:lang="zh">请稍候，正在处理订单...</value>
         <value xml:lang="zh_TW">請稍候,正在處理訂單...</value>
     </property>
+    <property key="DeleteOrderItemShipGroup">
+        <value xml:lang="en">Delete this ship group</value>
+        <value xml:lang="fr">Supprimer le groupe d'expédition</value>
+    </property>
+    <property key="OrderAddToshipGroup">
+        <value xml:lang="en">Add to ship group</value>
+        <value xml:lang="fr">Ajouter au groupe d'expédition</value>
+    </property>
+    <property key="OrderItemId">
+        <value xml:lang="en">Ref</value>
+        <value xml:lang="fr">N° ligne</value>
+    </property>
+    <property key="OrderShipmentInformationByOISG">
+        <value xml:lang="en">View by ship group</value>
+        <value xml:lang="fr">Voir par groupe d'expédition</value>
+    </property>
+    <property key="OrderShipmentInformationByOrderItem">
+        <value xml:lang="en">View ship group by order item</value>
+        <value xml:lang="fr">Voir les groupes d'expédition par ligne de commandes</value>
+    </property>
     <property key="OrderSupplierData">
         <value xml:lang="de">Daten Lieferant</value>
         <value xml:lang="en">Supplier Data</value>
