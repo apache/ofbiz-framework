@@ -25,39 +25,39 @@ under the License.
     <WebSiteContent webSiteId="WebStore" contentId="WebStoreCONTENT" webSiteContentTypeId="PUBLISH_POINT" fromDate="2001-01-01 00:00:00"/>
 
     <Content contentId="CNTGIZMOS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Gizmos" description="Gizmos" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTGIZMOS" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTGIZMOS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAttribute contentId="CNTGIZMOS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
 
     <Content contentId="CNTGIZMOSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Large Gizmos" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSLRG" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="CNTGIZMOSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Small Gizmos" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSSML" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="CNTGIZMOSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="GIZMOSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTGIZMOS" contentName="Advocacy" description="Advocacy" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSLRG" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="GIZMOSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Case Studies" description="Case Studies" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSSML" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTGIZMOS" contentIdTo="GIZMOSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="CNTWIDGETS" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Widgets" description="Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAttribute contentId="CNTWIDGETS" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTWIDGETS" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="CNTWIDGETS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="WIDGETSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Sightings" description="Sightings of Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="WIDGETSSML" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="WIDGETSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <Content contentId="WIDGETSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Care &amp; Groom" description="Care and Grooming" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="WIDGETSLRG" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="WIDGETSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="CNTWIDGETSLRG" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTWIDGETS" contentName="Large Widgets" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNTWIDGETSLRG" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNTWIDGETSLRG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
     <Content contentId="CNTWIDGETSSML" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="CNTWIDGETS" contentName="Small Widgets" description="Large Widgets" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNTWIDGETSSML" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="CNTWIDGETS" contentIdTo="CNTWIDGETSSML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 
 
     <Content contentId="POLICY" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="WebStoreCONTENT" contentName="Policies" description="Policies" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="POLICY" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="POLICY" contentAssocTypeId="SUB_CONTENT" fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <ContentAttribute contentId="POLICY" attrName="publishOperation" attrValue="HAS_USER_ROLE"/>
 
     <Content contentId="WebStoreFACTOID" contentTypeId="WEB_SITE_PUB_PT" ownerContentId="" contentName="Factoids" description="Factoids" createdDate="2004-07-05 12:00:00.000" createdByUserLogin="admin"/>
@@ -79,7 +79,7 @@ under the License.
     </ElectronicText>
     <Content contentId="STORE_POLICIES" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES"
         contentName="Store Policies 1" description="Store Policies 1 Description" mimeTypeId="text/html" localeString="en_US" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES" mapKey="policies" contentAssocTypeId="PUBLISH_LINK"
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES" mapKey="policies" contentAssocTypeId="SUB_CONTENT"
         fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
     <DataResource dataResourceId="STORE_POLICIES2" dataResourceTypeId="ELECTRONIC_TEXT" mimeTypeId="text/html" localeString="en_US" isPublic="Y" dataResourceName="Store Policies"/>
     <ElectronicText dataResourceId="STORE_POLICIES2">
@@ -96,6 +96,6 @@ under the License.
     </ElectronicText>
     <Content contentId="STORE_POLICIES2" contentTypeId="DOCUMENT" ownerContentId="WebStoreCONTENT" dataResourceId="STORE_POLICIES2"
         contentName="Store Policies 2" description="Store Policies 2 Description" mimeTypeId="text/html" localeString="en_US" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
-    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES2" mapKey="policies2" contentAssocTypeId="PUBLISH_LINK"
+    <ContentAssoc contentId="WebStoreCONTENT" contentIdTo="STORE_POLICIES2" mapKey="policies2" contentAssocTypeId="SUB_CONTENT"
         fromDate="2001-05-13 12:00:00.000" createdDate="2001-05-13 12:00:00.000" createdByUserLogin="admin"/>
 </entity-engine-xml>

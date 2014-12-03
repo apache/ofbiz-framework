@@ -101,7 +101,7 @@ under the License.
     <Content contentId="CMSS_DEMO_HOME" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC"
         contentName="CMS Site Demo Home Page" dataResourceId="CMSS_DEMO_HOME"/>
     <ContentPurpose contentId="CMSS_DEMO_HOME" contentPurposeTypeId="SECTION"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
     <WebSiteContent webSiteId="CmsSite" contentId="CMSS_DEMO_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
 
     <!-- yet another demo page -->
@@ -114,7 +114,7 @@ under the License.
     </ElectronicText>
     <Content contentId="CMSS_DEMO_PAGE1" contentTypeId="DOCUMENT" decoratorContentId="CMSS_DEC" contentName="CMS Site Demo Page 1" dataResourceId="CMSS_DEMO_PAGE1"/>
     <ContentPurpose contentId="CMSS_DEMO_PAGE1" contentPurposeTypeId="SECTION"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00" mapKey="demoPage1"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_PAGE1" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoPage1"/>
     <DataResource dataResourceId="CMSS_DEMO_PAGE1_1" dataResourceTypeId="SHORT_TEXT" objectInfo="Sub-content 1"/>
     <Content contentId="CMSS_DEMO_PAGE1_1" contentTypeId="DOCUMENT" contentName="CMS Site Demo Page 1_1" dataResourceId="CMSS_DEMO_PAGE1_1"/>
     <ContentPurpose contentId="CMSS_DEMO_PAGE1_1" contentPurposeTypeId="SECTION"/>
@@ -130,16 +130,16 @@ under the License.
 
     <DataResource dataResourceId="CMSS_DEMO_SCREEN" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#testScreen"/>
     <Content contentId="CMSS_DEMO_SCREEN" contentTypeId="DOCUMENT" contentName="CMS Site Demo screen/decorator example" dataResourceId="CMSS_DEMO_SCREEN"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_SCREEN" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_SCREEN" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
 
     <DataResource dataResourceId="CMSS_DEMO_BLOG" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED" objectInfo="component://cmssite/widget/CmssiteScreens.xml#blogScreen"/>
     <Content contentId="CMSS_DEMO_BLOG" contentTypeId="DOCUMENT" contentName="CMS Site Demo blog screen example" dataResourceId="CMSS_DEMO_BLOG"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_BLOG" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_BLOG" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
 
     <DataResource dataResourceId="CMSS_DEMO_TPL_DATA" localeString="en" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="NONE" statusId="CTNT_IN_PROGRESS" dataResourceName="data xml file" mimeTypeId="text/xml" isPublic="Y"/>
     <DataResource dataResourceId="CMSS_DEMO_TPL_TEMPL" dataResourceTypeId="ELECTRONIC_TEXT" dataTemplateTypeId="FTL" statusId="CTNT_IN_PROGRESS" dataResourceName="demo xml templ" mimeTypeId="text/html" isPublic="Y" />
     <Content contentId="CMSS_DEMO_TPL_DATA" contentTypeId="DOCUMENT" templateDataResourceId="CMSS_DEMO_TPL_TEMPL" dataResourceId="CMSS_DEMO_TPL_DATA" statusId="CTNT_IN_PROGRESS" contentName="Demo xml data + ftl template file" mimeTypeId="text/html"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_TPL_DATA" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="CMSS_DEMO_TPL_DATA" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
     <ElectronicText dataResourceId="CMSS_DEMO_TPL_DATA">
         <textData><![CDATA[
             <root>
@@ -194,7 +194,7 @@ under the License.
     <DataResource dataResourceId="OFBIZ_HOME" dataResourceTypeId="URL_RESOURCE" dataTemplateTypeId="SCREEN_COMBINED"
         objectInfo="component://cmssite/widget/OfbizsiteScreens.xml#main"/>
     <Content contentId="OFBIZ_HOME" contentTypeId="DOCUMENT" contentName="OFBiz Site Home Page" dataResourceId="OFBIZ_HOME"/>
-    <ContentAssoc contentId="OFBIZ_PPOINT" contentIdTo="OFBIZ_HOME" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
+    <ContentAssoc contentId="OFBIZ_PPOINT" contentIdTo="OFBIZ_HOME" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="demoHome"/>
     <WebSiteContent webSiteId="OfbizSite" contentId="OFBIZ_HOME" webSiteContentTypeId="DEFAULT_PAGE" fromDate="2001-01-01 00:00:00"/>
 
     <!-- documents website -->
@@ -219,8 +219,8 @@ under the License.
     <ContentAssoc contentId="DOCUMENTS" contentIdTo="APACHE_OFBIZ_U_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2006-01-12 01:01:01" sequenceNum=""/>
 
 
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
-    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="PUBLISH_LINK" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="PUBLIC_DOCS" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_HTML" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
+    <ContentAssoc contentId="CMSS_PPOINT" contentIdTo="APACHE_OFBIZ_PDF" contentAssocTypeId="SUB_CONTENT" fromDate="2001-01-01 00:00:00" mapKey="documents"/>
     
 </entity-engine-xml>
