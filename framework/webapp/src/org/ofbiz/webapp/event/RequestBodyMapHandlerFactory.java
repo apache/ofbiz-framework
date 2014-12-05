@@ -31,7 +31,11 @@ public class RequestBodyMapHandlerFactory {
     }
 
     public static RequestBodyMapHandler getRequestBodyMapHandler(ServletRequest request) {
-        return requestBodyMapHandlers.get(request.getContentType());
+        String contentType = request.getContentType();
+        if (contentType != null && contentType.indexOf(";") != -1) {
+            contentType = contentType.substring(0, contentType.indexOf(";"));
+        }
+        return requestBodyMapHandlers.get(contentType);
     }
 
     public static Map<String, Object> extractMapFromRequestBody(ServletRequest request) throws IOException {
