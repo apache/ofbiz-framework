@@ -93,8 +93,7 @@ under the License.
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deletePartyQual" also-hidden="false" description="${uiLabelMap.CommonDelete}">
-                <parameter param-name="partyId"/>
-                <parameter param-name="partyQualTypeId"/>
+                <auto-parameters-service service-name="deletePartyQual"/>
             </hyperlink>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
