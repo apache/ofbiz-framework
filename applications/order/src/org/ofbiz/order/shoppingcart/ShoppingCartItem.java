@@ -191,8 +191,7 @@ public class ShoppingCartItem implements java.io.Serializable {
         if (product == null) {
             Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", productId);
 
-            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found",
-                                          messageMap , cart.getLocale());
+            String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_found", messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new ItemNotFoundException(excMsg);
@@ -201,11 +200,9 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         // check to see if product is virtual
         if ("Y".equals(product.getString("isVirtual"))) {
-            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                            "productId", product.getString("productId"));
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId", product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
-                                          messageMap , cart.getLocale());
+            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual", messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new CartItemModifyException(excMsg);
@@ -216,11 +213,9 @@ public class ShoppingCartItem implements java.io.Serializable {
         // check to see if the product is fully configured
         if ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
             if (configWrapper == null || !configWrapper.isCompleted()) {
-                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                                "productId", product.getString("productId"));
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId", product.getString("productId"));
 
-                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly",
-                                              messageMap , cart.getLocale());
+                String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_not_configured_correctly", messageMap , cart.getLocale());
 
                 Debug.logWarning(excMsg, module);
                 throw new CartItemModifyException(excMsg);
@@ -403,11 +398,9 @@ public class ShoppingCartItem implements java.io.Serializable {
 
         // check to see if product is virtual
         if ("Y".equals(product.getString("isVirtual"))) {
-            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"),
-                                            "productId", product.getString("productId"));
+            Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productName", product.getString("productName"), "productId", product.getString("productId"));
 
-            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual",
-                                          messageMap , cart.getLocale());
+            String excMsg = UtilProperties.getMessage(resource_error, "item.cannot_add_product_virtual", messageMap , cart.getLocale());
 
             Debug.logWarning(excMsg, module);
             throw new CartItemModifyException(excMsg);
@@ -422,21 +415,18 @@ public class ShoppingCartItem implements java.io.Serializable {
         // check to see if the product is a rental item
         if ("ASSET_USAGE".equals(product.getString("productTypeId")) || "ASSET_USAGE_OUT_IN".equals(product.getString("productTypeId"))) {
             if (reservStart == null)    {
-                String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date",
-                                              cart.getLocale());
+                String excMsg = UtilProperties.getMessage(resource_error, "item.missing_reservation_starting_date", cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
 
             if (reservStart.before(UtilDateTime.nowTimestamp()))    {
-                String excMsg = UtilProperties.getMessage(resource_error, "item.reservation_from_tomorrow",
-                                              cart.getLocale());
+                String excMsg = UtilProperties.getMessage(resource_error, "item.reservation_from_tomorrow", cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservStart(reservStart);
 
             if (reservLength.compareTo(BigDecimal.ONE) < 0)    {
-                String excMsg = UtilProperties.getMessage(resource_error, "item.number_of_days",
-                                              cart.getLocale());
+                String excMsg = UtilProperties.getMessage(resource_error, "item.number_of_days", cart.getLocale());
                 throw new CartItemModifyException(excMsg);
             }
             newItem.setReservLength(reservLength);
@@ -444,10 +434,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             if (product.get("reservMaxPersons") != null) {
                 BigDecimal reservMaxPersons = product.getBigDecimal("reservMaxPersons");
                  if (reservMaxPersons.compareTo(reservPersons) < 0)    {
-                     Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("reservMaxPersons", product.getString("reservMaxPersons"),
-                                                     "reservPersons", reservPersons);
-                     String excMsg = UtilProperties.getMessage(resource_error, "item.maximum_number_of_person_renting",
-                                                   messageMap, cart.getLocale());
+                     Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("reservMaxPersons", product.getString("reservMaxPersons"), "reservPersons", reservPersons);
+                     String excMsg = UtilProperties.getMessage(resource_error, "item.maximum_number_of_person_renting", messageMap, cart.getLocale());
 
                      Debug.logInfo(excMsg,module);
                      throw new CartItemModifyException(excMsg);
@@ -468,10 +456,8 @@ public class ShoppingCartItem implements java.io.Serializable {
             // check to see if the related fixed asset is available for rent
             String isAvailable = checkAvailability(product.getString("productId"), quantity, reservStart, reservLength, cart);
             if (isAvailable.compareTo("OK") != 0) {
-                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"),
-                                                "availableMessage", isAvailable);
-                String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available",
-                                              messageMap, cart.getLocale());
+                Map<String, Object> messageMap = UtilMisc.<String, Object>toMap("productId", product.getString("productId"), "availableMessage", isAvailable);
+                String excMsg = UtilProperties.getMessage(resource_error, "item.product_not_available", messageMap, cart.getLocale());
                 Debug.logInfo(excMsg, module);
                 throw new CartItemModifyException(isAvailable);
             }
@@ -2025,7 +2011,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     }
 
     public void setListPrice(BigDecimal listPrice) {
-    	this.listPrice = listPrice;
+        this.listPrice = listPrice;
     }
 
     /** Returns isModifiedPrice */
