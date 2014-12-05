@@ -90,13 +90,20 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
         try {
             boolean allPksInOnly = true;
             LinkedList<String> pkFieldNameOutOnly = null;
+            /* Check for each pk if it's :
+             * 1. part IN 
+             * 2. or part IN and OUT, but without value but present on parameters map
+             * Help the engine to determinate the operation to realize for a create call or validate that
+             * any pk is present for update/delete call.
+             */
             for (ModelField pkField: modelEntity.getPkFieldsUnmodifiable()) {
                 ModelParam pkParam = modelService.getParam(pkField.getName());
-                if (pkParam.isOut()) {
-                    allPksInOnly = false;
-                }
-                if (pkParam.isOut() && !pkParam.isIn()) {
-                    if (pkFieldNameOutOnly == null) pkFieldNameOutOnly = new LinkedList();
+                boolean pkValueInParameters = pkParam.isIn() && UtilValidate.isNotEmpty(parameters.get(pkParam.getFieldName()));
+                if (pkParam.isOut() && !pkValueInParameters) {
+                    if (pkFieldNameOutOnly == null) {
+                        pkFieldNameOutOnly = new LinkedList();
+                        allPksInOnly = false;
+                    }
                     pkFieldNameOutOnly.add(pkField.getName());
                 }
             }
