@@ -338,7 +338,6 @@ public class ShoppingCartServices {
             cartShipInfo.setVendorPartyId(orderItemShipGroup.getString("vendorPartyId"));
             cartShipInfo.setShipGroupSeqId(orderItemShipGroup.getString("shipGroupSeqId"));
             cartShipInfo.shipTaxAdj.addAll(orh.getOrderHeaderAdjustmentsTax(orderItemShipGroup.getString("shipGroupSeqId")));
-            cart.setShipGroupSeqId(newShipInfoIndex - 1, orderItemShipGroup.getString("shipGroupSeqId"));
         }
 
         List<GenericValue> orderItems = orh.getOrderItems();
@@ -596,13 +595,13 @@ public class ShoppingCartServices {
                                     "] to ship group with index [" + itemIndex + "]; group quantity is [" + shipGroupQty +
                                     "] item quantity is [" + (cartItem != null ? cartItem.getQuantity() : "no cart item") +
                                     "] cartShipGroupIndex is [" + cartShipGroupIndex + "], csi.shipItemInfo.size(): " +
-                                    csi.shipItemInfo.size(), module);
+                                    (cartShipGroupIndex < 0 ? 0 : csi.shipItemInfo.size()), module);
                         } else {
                             cart.setItemShipGroupQty(itemIndex, shipGroupQty, cartShipGroupIndex);
                         }
 
                         List<GenericValue> shipGroupItemAdjustments = EntityUtil.filterByAnd(orderItemAdjustments, UtilMisc.toMap("shipGroupSeqId", cartShipGroupIndexStr));
-                        if (cartItem == null) {
+                        if (cartItem == null || cartShipGroupIndex < 0) {
                             Debug.logWarning("In loadCartFromOrder could not find cart item for itemIndex=" + itemIndex + ", for orderId=" + orderId, module);
                         } else {
                             CartShipItemInfo cartShipItemInfo = csi.getShipItemInfo(cartItem);
