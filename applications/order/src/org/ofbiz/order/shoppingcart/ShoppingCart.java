@@ -960,6 +960,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     }
 
     /** Returns an iterator of cart items. */
+    @Override
     public Iterator<ShoppingCartItem> iterator() {
         return cartLines.iterator();
     }
@@ -2212,8 +2213,8 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     public int getShipInfoIndex (String shipGroupSeqId) {
         int idx = -1;
         for (int i=0; i<shipInfo.size(); i++) {
-            CartShipInfo csi = (CartShipInfo) shipInfo.get(i);
-            if (csi.shipGroupSeqId.equals(shipGroupSeqId)) {
+            CartShipInfo csi = shipInfo.get(i);
+            if (shipGroupSeqId.equals(csi.shipGroupSeqId)) {
                 idx = i;
                 break;
             }
@@ -4327,6 +4328,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             this.ascending = ascending;
         }
 
+        @Override
         public int compare(java.lang.Object obj, java.lang.Object obj1) {
             ShoppingCartItem cartItem = (ShoppingCartItem) obj;
             ShoppingCartItem cartItem1 = (ShoppingCartItem) obj1;
@@ -4456,6 +4458,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             }
         }
 
+        @Override
         public int compareTo(ProductPromoUseInfo other) {
             return other.getUsageWeight().compareTo(getUsageWeight());
         }
@@ -4978,6 +4981,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             return values;
         }
 
+        @Override
         public int compareTo(Object o) {
             CartPaymentInfo that = (CartPaymentInfo) o;
             Debug.logInfo("Compare [" + this.toString() + "] to [" + that.toString() + "]", module);
