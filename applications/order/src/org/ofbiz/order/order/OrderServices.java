@@ -4136,9 +4136,13 @@ public class OrderServices {
     private static void saveUpdatedCartToOrder(LocalDispatcher dispatcher, Delegator delegator, ShoppingCart cart,
             Locale locale, GenericValue userLogin, String orderId, Map<String, Object> changeMap, boolean calcTax,
             boolean deleteItems) throws GeneralException {
-        // get/set the shipping estimates.  if it's a SALES ORDER, then return an error if there are no ship estimates
-        int shipGroups = cart.getShipGroupSize();
-        for (int gi = 0; gi < shipGroups; gi++) {
+        // get/set the shipping estimates. If it's a SALES ORDER, then return an error if there are no ship estimates
+        int shipGroupsSize = cart.getShipGroupSize();
+        int realShipGroupsSize = (new OrderReadHelper(delegator, orderId)).getOrderItemShipGroups().size();
+        // If an empty csi has initially been added to cart.shipInfo by ShoppingCart.setItemShipGroupQty() (called indirectly by ShoppingCart.setUserLogin() and then ProductPromoWorker.doPromotions(), etc.)
+        //  shipGroupsSize > realShipGroupsSize are different (+1 for shipGroupsSize), then simply bypass the 1st empty csi!
+        int origin = realShipGroupsSize == shipGroupsSize ? 0 : 1; 
+        for (int gi = origin; gi < shipGroupsSize; gi++) {
             String shipmentMethodTypeId = cart.getShipmentMethodTypeId(gi);
             String carrierPartyId = cart.getCarrierPartyId(gi);
             Debug.logInfo("Getting ship estimate for group #" + gi + " [" + shipmentMethodTypeId + " / " + carrierPartyId + "]", module);
