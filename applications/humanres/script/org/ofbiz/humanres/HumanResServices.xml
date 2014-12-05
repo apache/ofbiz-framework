@@ -21,52 +21,6 @@
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
-    <!-- Party Qualification -->
-    <simple-method method-name="createPartyQual" short-description="Create a Party Qualification">
-        <make-value entity-name="PartyQual" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <field-to-result field="newEntity.partyId" result-name="partyId"/>
-        <field-to-result field="newEntity.partyQualTypeId" result-name="partyQualTypeId"/>
-        <field-to-result field="newEntity.fromDate" result-name="fromDate"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <!-- Ability Group -->
-     <simple-method method-name="updatePartyQual" short-description="Update Qualification of a Party">
-        <entity-one entity-name="PartyQual" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartyQual" short-description="Delete Qualification of a Party">
-        <entity-one entity-name="PartyQual" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPartyResume" short-description="Create Resume for Party">
-        <make-value entity-name="PartyResume" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="PartyResume" field="newEntity.resumeId"/>
-        <field-to-result field="resumeId" result-name="newEntity.resumeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePartyResume" short-description="Update a Resume of a Party">
-        <entity-one entity-name="PartyResume" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartyResume" short-description="Delete a Resume of a Party">
-        <entity-one entity-name="PartyResume" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="createPartySkill" short-description="Create Party Skills">
         <make-value entity-name="PartySkill" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -91,86 +45,8 @@
         </if>
     </simple-method>
 
-    <simple-method method-name="updatePartySkill" short-description="Update Party Skills">
-        <entity-one entity-name="PartySkill" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartySkill" short-description="Delete a Skill of Party">
-        <entity-one entity-name="PartySkill" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPerfReview" short-description="Create a Performance Review">
-        <make-value entity-name="PerfReview" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="PerfReview" field="newEntity.perfReviewId"/>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="newEntity.perfReviewId" result-name="perfReviewId"/>
-        <field-to-result field="newEntity.employeePartyId" result-name="employeePartyId"/>
-        <field-to-result field="newEntity.employeeRoleTypeId" result-name="employeeRoleTypeId"/>
-    </simple-method>
-
-    <simple-method method-name="updatePerfReview" short-description="Update Performance Review">
-        <entity-one entity-name="PerfReview" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-        <field-to-result field="lookedUpValue.perfReviewId" result-name="perfReviewId"/>
-        <field-to-result field="lookedUpValue.employeePartyId" result-name="employeePartyId"/>
-        <field-to-result field="lookedUpValue.employeeRoleTypeId" result-name="employeeRoleTypeId"/>
-    </simple-method>
-
-    <simple-method method-name="deletePerfReview" short-description="Delete Performance Review">
-        <entity-one entity-name="PerfReview" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPerfReviewItem" short-description="Create Performance Review Items">
-        <make-value entity-name="PerfReviewItem" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-field="newEntity" seq-field-name="perfReviewItemSeqId"/>
-        <field-to-result field="perfReviewItemSeqId" result-name="perfReviewItemSeqId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePerfReviewItem" short-description="Update Performance Review Items">
-        <entity-one entity-name="PerfReviewItem" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePerfReviewItem" short-description="Delete Performance Review Items">
-        <entity-one entity-name="PerfReviewItem" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPerformanceNote" short-description="Create Performance Note">
-        <make-value entity-name="PerformanceNote" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePerformanceNote" short-description="Update Performance Note">
-        <entity-one entity-name="PerformanceNote" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePerformanceNote" short-description="Delete Performance Note">
-        <entity-one entity-name="PerformanceNote" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <!-- Employment Group -->
-    <simple-method method-name="createEmployment" short-description="Create Employment">
+    <simple-method method-name="createEmployment" short-description="Create Employment"><!--entity-auto-->
         <make-value entity-name="Employment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -180,104 +56,8 @@
         </if-empty>
         <create-value value-field="newEntity"/>
 
-        <set-service-fields service-name="createPayHistory" map="newEntity" to-map="createPayHistoryMap"/>
+        <set-service-fields service-name="createPayHistory" map="newEntity" to-map="createPayHistoryMap"/><!--create by seca-->
         <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmployment" short-description="Update Employment">
-        <entity-one entity-name="Employment" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmployment" short-description="Delete Employment">
-        <entity-one entity-name="Employment" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createEmploymentApp" short-description="Create an Employment Application">
-        <make-value entity-name="EmploymentApp" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="EmploymentApp" field="newEntity.applicationId"/>
-        <field-to-result field="newEntity.applicationId" result-name="applicationId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmploymentApp" short-description="Update EmploymentApp">
-        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmploymentApp" short-description="Delete EmploymentApp">
-        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPartyBenefit" short-description="Create Party Benefit">
-        <make-value entity-name="PartyBenefit" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePartyBenefit" short-description="Update Party Benefit">
-        <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartyBenefit" short-description="Delete Party Benefit">
-        <now-timestamp field="nowTimeStamp"/>
-        <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>
-        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
-        <store-value value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
-        <make-value entity-name="PayGrade" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-not-empty field="parameters.payGradeId">
-            <set field="newEntity.payGradeId" from-field="parameters.payGradeId"/>
-        <else>
-            <sequenced-id sequence-name="PayGrade" field="newEntity.payGradeId"/>
-        </else>
-        </if-not-empty>
-        <field-to-result field="newEntity.payGradeId" result-name="payGradeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePayGrade" short-description="Update Pay Grade">
-        <entity-one entity-name="PayGrade" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePayGrade" short-description="Delete Pay Grade">
-        <entity-one entity-name="PayGrade" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPayHistory" short-description="Create Pay History">
-        <make-value entity-name="PayHistory" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePayHistory" short-description="Update Pay History">
-        <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="deletePayHistory" short-description="Delete Pay History">
@@ -285,131 +65,6 @@
         <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">
-        <make-value entity-name="PayrollPreference" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="PayrollPreference" field="newEntity.payrollPreferenceSeqId"/>
-        <field-to-result field="payrollPreferenceSeqId" result-name="payrollPreferenceSeqId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePayrollPreference" short-description="Update Payroll Preference">
-        <entity-one entity-name="PayrollPreference" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deletePayrollPreference" short-description="Delete Payroll Preference">
-        <entity-one entity-name="PayrollPreference" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createSalaryStep" short-description="Create a Salary Step">
-        <make-value entity-name="SalaryStep" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="SalaryStep" field="newEntity.salaryStepSeqId"/>
-        <field-to-result field="salaryStepSeqId" result-name="salaryStepSeqId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateSalaryStep" short-description="Update Salary Step">
-        <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteSalaryStep" short-description="Delete Salary Step">
-        <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createTerminationReason" short-description="Create a Termination Reason">
-        <make-value entity-name="TerminationReason" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.terminationReasonId">
-            <sequenced-id sequence-name="TerminationReason" field="newEntity.terminationReasonId"/>
-        </if-empty>
-        <field-to-result field="newEntity.terminationReasonId" result-name="terminationReasonId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateTerminationReason" short-description="Update Termination Reason">
-        <entity-one entity-name="TerminationReason" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteTerminationReason" short-description="Delete Termination Reason">
-        <entity-one entity-name="TerminationReason" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createUnemploymentClaim" short-description="Create a Unemployment Claim">
-        <make-value entity-name="UnemploymentClaim" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="UnemploymentClaim" field="newEntity.unemploymentClaimId"/>
-        <field-to-result field="newEntity.unemploymentClaimId" result-name="unemploymentClaimId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateUnemploymentClaim" short-description="Update Unemployment Claim">
-        <entity-one entity-name="UnemploymentClaim" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteUnemploymentClaim" short-description="Delete Unemployment Claim">
-        <now-timestamp field="nowTimeStamp"/>
-        <entity-one entity-name="UnemploymentClaim" value-field="lookedUpValue"/>
-        <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- Employee Position Group -->
-    <simple-method method-name="createEmplPosition" short-description="Create a Employee Position">
-        <make-value entity-name="EmplPosition" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="EmplPosition" field="newEntity.emplPositionId"/>
-        <field-to-result field="newEntity.emplPositionId" result-name="emplPositionId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplPosition" short-description="Update Employee Position">
-        <entity-one entity-name="EmplPosition" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplPosition" short-description="Delete Employee Position">
-        <entity-one entity-name="EmplPosition" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createEmplPositionFulfillment" short-description="Create a Emplyoee Position Fulfillment">
-        <make-value entity-name="EmplPositionFulfillment" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplPositionFulfillment" short-description="Update Employee Position Fulfillment">
-        <entity-one entity-name="EmplPositionFulfillment" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplPositionFulfillment" short-description="Delete Employee Position Fulfillment">
-        <entity-one entity-name="EmplPositionFulfillment" value-field="lookedUpValue"/>
         <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
@@ -437,83 +92,6 @@
         </if>
     </simple-method>
 
-    <simple-method method-name="updateEmplPositionReportingStruct" short-description="Update Employee Position Reporting Structure">
-        <entity-one entity-name="EmplPositionReportingStruct" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplPositionReportingStruct" short-description="Delete Employee Position Reporting Structure">
-        <entity-one entity-name="EmplPositionReportingStruct" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createEmplPositionResponsibility" short-description="Create a Employee Position Responsibility">
-        <make-value entity-name="EmplPositionResponsibility" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplPositionResponsibility" short-description="Update Employee Position Responsibility">
-        <entity-one entity-name="EmplPositionResponsibility" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplPositionResponsibility" short-description="Delete Employee Position Responsibility">
-        <entity-one entity-name="EmplPositionResponsibility" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createValidResponsibility" short-description="Create a Valid Responsibility">
-        <make-value entity-name="ValidResponsibility" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimeStamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateValidResponsibility" short-description="Update Valid Responsibility">
-        <entity-one entity-name="ValidResponsibility" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteValidResponsibility" short-description="Delete Valid Responsibility">
-        <entity-one entity-name="ValidResponsibility" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    <!-- Skill Types -->
-    <simple-method method-name="createSkillType" short-description="Create a SkillType">
-        <make-value entity-name="SkillType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.skillTypeId">
-            <sequenced-id sequence-name="SkillType" field="newEntity.skillTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.skillTypeId" result-name="skillTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateSkillType" short-description="Update SkillType">
-        <entity-one entity-name="SkillType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteSkillType" short-description="Delete SkillType">
-        <entity-one entity-name="SkillType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
     <simple-method method-name="createEmployee" short-description="Create New Employee">
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
         <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml"/>
@@ -532,72 +110,6 @@
             <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
         </if-not-empty>
         <field-to-result field="partyId"/>
-    </simple-method>
-
-    <!-- Responsibility Types -->
-    <simple-method method-name="createResponsibilityType" short-description="Create a ResponsibilityType">
-        <make-value entity-name="ResponsibilityType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.responsibilityTypeId">
-            <sequenced-id sequence-name="ResponsibilityType" field="newEntity.responsibilityTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.responsibilityTypeId" result-name="responsibilityTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateResponsibilityType" short-description="Update ResponsibilityType">
-        <entity-one entity-name="ResponsibilityType" value-field="lookedUpValue"/>
-        <set-nonpk-fields  map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteResponsibilityType" short-description="Delete ResponsibilityType">
-        <entity-one entity-name="ResponsibilityType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
-        <make-value entity-name="TerminationType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.terminationTypeId">
-            <sequenced-id sequence-name="TerminationType" field="newEntity.terminationTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.terminationTypeId" result-name="terminationTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateTerminationType" short-description="Update TerminationType">
-        <entity-one entity-name="TerminationType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteTerminationType" short-description="Delete TerminationType">
-        <entity-one entity-name="TerminationType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="createEmplPositionType" short-description="Create a PositionType">
-        <make-value entity-name="EmplPositionType" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.emplPositionTypeId">
-            <sequenced-id sequence-name="EmplPositionType" field="newEntity.emplPositionTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.emplPositionTypeId" result-name="emplPositionTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplPositionType" short-description="Update PositionType">
-        <entity-one entity-name="EmplPositionType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteEmplPositionType" short-description="Delete EmplPositionType">
-        <entity-one entity-name="EmplPositionType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="updateEmplPositionTypeRate" short-description="Update/create EmplPositionTypeRate">
@@ -635,25 +147,6 @@
         <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
     </simple-method>
 
-    <simple-method method-name="createAgreementEmploymentAppl" short-description="Create Agreement Employment Appl">
-        <make-value entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
-        <set-pk-fields value-field="agreementEmploymentAppl" map="parameters"/>
-        <set-nonpk-fields value-field="agreementEmploymentAppl" map="parameters"/>
-        <create-value value-field="agreementEmploymentAppl"/>
-        <check-errors/>
-    </simple-method>
-
-    <simple-method method-name="updateAgreementEmploymentAppl" short-description="update an Agreement Employment Appl">
-        <entity-one entity-name="AgreementEmploymentAppl" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteAgreementEmploymentAppl" short-description="Delete Agreement Employment Appl">
-        <entity-one entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
-        <remove-value value-field="agreementEmploymentAppl"/>
-    </simple-method>
-    
     <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
@@ -662,39 +155,6 @@
         <check-errors/>
         <property-to-field resource="HumanResUiLabels" property="HumanResLeaveCreationSuccess" field="successMessage"/>
         <field-to-result field="responseMessage" result-name="successMessage"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplLeave" short-description="Update Employee Leave">
-        <entity-one entity-name="EmplLeave" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplLeave" short-description="Delete Employee Leave">
-        <entity-one entity-name="EmplLeave" value-field="emplLeave"/>
-        <remove-value value-field="emplLeave"/>
-    </simple-method>
-
-    <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
-        <make-value entity-name="EmplLeaveType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.leaveTypeId">
-            <sequenced-id sequence-name="EmplLeaveType" field="newEntity.leaveTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.leaveTypeId" result-name="leaveTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updateEmplLeaveType" short-description="Update leaveType">
-        <entity-one entity-name="EmplLeaveType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <simple-method method-name="deleteEmplLeaveType" short-description="Delete leaveType">
-        <entity-one entity-name="EmplLeaveType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="getCurrentPartyEmploymentData" short-description="Get all current employment information for a certain partyId">
@@ -732,104 +192,7 @@
         <first-from-list entry="rateAmount" list="rateAmounts"/>
         <field-to-result field="rateAmount" result-name="emplPositionRateAmount"/>
     </simple-method>
-    
-    <simple-method method-name="createJobRequisition" short-description="Create Job Requisition">
-        <make-value entity-name="JobRequisition" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="JobRequisition" field="newEntity.jobRequisitionId"/>
-        <field-to-result field="newEntity.jobRequisitionId" result-name="jobRequisitionId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateJobRequisition" short-description="Update Job Requisition">
-        <entity-one entity-name="JobRequisition" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteJobRequisition" short-description="Delete Job Requisition">
-        <entity-one entity-name="JobRequisition" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="createInternalJobPosting" short-description="Create Internal Job Posting">
-        <make-value entity-name="EmploymentApp" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="EmploymentApp" field="newEntity.applicationId"/>
-        <field-to-result field="newEntity.applicationId" result-name="applicationId"/>
-        <if-empty field="newEntity.applicationDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set from-field="nowTimestamp" field="newEntity.applicationDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateInternalJobPosting" short-description="Update Internal Job Posting">
-        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteInternalJobPosting" short-description="Delete Internal Job Posting">
-        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="createJobInterview" short-description="Create Job Interview">
-        <make-value entity-name="JobInterview" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id sequence-name="JobInterview" field="newEntity.jobInterviewId"/>
-        <field-to-result field="newEntity.jobInterviewId" result-name="jobInterviewId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateJobInterview" short-description="Update Job Interview">
-        <entity-one entity-name="JobInterview" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteJobInterview" short-description="Delete Job Interview">
-        <entity-one entity-name="JobInterview" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="createJobInterviewType" short-description="Create Job Interview Type">
-        <make-value entity-name="JobInterviewType" value-field="newEntity" />
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="parameters.jobInterviewTypeId">
-            <sequenced-id sequence-name="JobInterviewType" field="newEntity.jobInterviewTypeId"/>
-        <else>
-            <set from-field="parameters.jobInterviewTypeId" field="newEntity.jobInterviewTypeId"/>
-        </else>
-        </if-empty>
-        <field-to-result field="newEntity.jobInterviewTypeId" result-name="jobInterviewTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateJobInterviewType" short-description="Update Interview Type">
-        <entity-one entity-name="JobInterviewType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteJobInterviewType" short-description="Delete Interview Type">
-        <entity-one entity-name="JobInterviewType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-        
-    <simple-method method-name="updateApprovalStatus" short-description="Update Approval Status">
-        <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="updateTrainingStatus" short-description="Update Training Status">
-        <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
+
     <simple-method method-name="applyTraining" short-description="Apply Training">
         <make-value entity-name="TrainingRequest" value-field="trainingRequest"/>
         <make-next-seq-id value-field="trainingRequest" seq-field-name="trainingRequestId"/>
@@ -844,6 +207,7 @@
         <create-value value-field="personTraining"/>
         <check-errors/>
     </simple-method>
+
     <simple-method method-name="assignTraining" short-description="Assign Training">
         <make-value entity-name="TrainingRequest" value-field="trainingRequest"/>
         <make-next-seq-id value-field="trainingRequest" seq-field-name="trainingRequestId"/>
@@ -857,51 +221,5 @@
         <create-value value-field="personTraining"/>
         <check-errors/>
     </simple-method>
-    
-    <simple-method method-name="createTrainingTypes" short-description="Create Training Types">
-        <make-value entity-name="TrainingClassType" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateTrainingTypes" short-description="Update Training Types">
-        <entity-one entity-name="TrainingClassType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteTrainingTypes" short-description="Delete Training Types">
-        <entity-one entity-name="TrainingClassType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="createEmplLeaveReasonType" short-description="Create a Leave Reason Type">
-        <make-value entity-name="EmplLeaveReasonType" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.emplLeaveReasonTypeId">
-            <sequenced-id sequence-name="EmplLeaveReasonType" field="newEntity.emplLeaveReasonTypeId"/>
-        </if-empty>
-        <field-to-result field="newEntity.emplLeaveReasonTypeId" result-name="emplLeaveReasonTypeId"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="updateEmplLeaveReasonType" short-description="Update leave Reason Type">
-        <entity-one entity-name="EmplLeaveReasonType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="deleteEmplLeaveReasonType" short-description="Delete leave Reason Type">
-        <entity-one entity-name="EmplLeaveReasonType" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
-    <simple-method method-name="updateEmplLeaveStatus" short-description="Update Leave Approval Status">
-        <entity-one entity-name="EmplLeave" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    
+
 </simple-methods>
