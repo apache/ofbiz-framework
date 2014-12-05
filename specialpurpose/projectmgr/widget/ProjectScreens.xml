@@ -915,12 +915,13 @@ under the License.
                 <entity-one entity-name="Content" value-field="content"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <entity-one entity-name="WorkEffortContent" value-field="workEffortContent"/>
                 <entity-and entity-name="WorkEffortAndContentDataResource" list="workEffortAndContentDataResources">
                     <field-map field-name="workEffortId" from-field="projectId"/>
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="CommonProjectDecorator"  location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                             <section>
                                 <condition>
