@@ -478,9 +478,12 @@ public class GenericDelegator implements Delegator {
         if (helperBaseName == null) {
             return null;
         }
-        GenericHelperInfo helperInfo = new GenericHelperInfo(entityGroupName, helperBaseName);
+        if (UtilValidate.isNotEmpty(this.delegatorTenantId) && "org.ofbiz.tenant".equals(entityGroupName)) {
+            Debug.logInfo("Can't access entity of entityGroup = " + entityGroupName + " using tenant delegator "+ this.getDelegatorName()+", use base delegator instead", module);
+            return null;
+        }
 
-        // to avoid infinite recursion, and to behave right for shared org.ofbiz.tenant entities, do nothing with the tenantId if the entityGroupName=org.ofbiz.tenant
+        GenericHelperInfo helperInfo = new GenericHelperInfo(entityGroupName, helperBaseName);
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             // get the JDBC parameters from the DB for the entityGroupName and tenantId
             try {
@@ -500,7 +503,6 @@ public class GenericDelegator implements Delegator {
                 // don't complain about this too much, just log the error if there is one
                 Debug.logInfo(e, "Error getting TenantDataSource info for tenantId=" + this.delegatorTenantId + ", entityGroupName=" + entityGroupName, module);
             }
-
         }
         return helperInfo;
     }
