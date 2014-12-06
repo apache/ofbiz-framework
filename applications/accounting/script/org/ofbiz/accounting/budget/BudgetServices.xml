@@ -32,23 +32,12 @@ under the License.
 
         <!-- finally create the record (should not exist already)-->
         <create-value value-field="newEntity"/>
-        
         <set field="setStatus.budgetId" from-field="newEntity.budgetId"/>
         <set field="setStatus.statusId" value="BG_CREATED"/>
         <call-service service-name="updateBudgetStatus" in-map-name="setStatus"/>
         <field-to-result field="newEntity.budgetId" result-name="budgetId"/>
     </simple-method>
-    
-    <!-- update an existing Budget header Record -->
-    <simple-method method-name="updateBudget" short-description="Update an existing Budget">
-        <entity-one entity-name="Budget" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-        
-        <field-to-result field="parameters.budgetId" result-name="budgetId"/>
-    </simple-method>
-    
+
     <!-- update Budget Status -->
     <simple-method method-name="updateBudgetStatus" short-description="Update Budget Status">
         <now-timestamp field="nowDate"/>
@@ -78,75 +67,20 @@ under the License.
             </else>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="createBudgetItem" short-description="Create a new Budget Item">
-        <set field="budgetId" from-field="parameters.budgetId"/>
-        <make-value value-field="newEntity" entity-name="BudgetItem"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.budgetItemSeqId">
-            <make-next-seq-id value-field="newEntity" seq-field-name="budgetItemSeqId"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="budgetId"/>
-    </simple-method>
-    
-    <simple-method method-name="updateBudgetItem"
-        short-description="Update an existing Budget Item">
-        <make-value value-field="lookedUpValue" entity-name="BudgetItem"/>
-        <set-pk-fields map="parameters" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
-        <store-value value-field="lookedUpValue"/>
-        <field-to-result field="lookedUpValue.budgetItemSeqId" result-name="budgetItemSeqId"/>
-        <field-to-result field="lookedUpValue.budgetId" result-name="budgetId"/>
-    </simple-method>
-    
-    <simple-method method-name="removeBudgetItem" short-description="Remove an existing Budget Item">
-        <entity-one entity-name="BudgetItem" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-    
     <simple-method method-name="createBudgetRole" short-description="Create a Budget Role">
-        <entity-one value-field="partyRole" entity-name="PartyRole">
-            <field-map field-name="partyId" from-field="parameters.partyId"/>
-            <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
-        </entity-one>
+        <entity-one value-field="partyRole" entity-name="PartyRole"/>
         <if-empty field="partyRole">
             <set field="createPartyRole.partyId" from-field="parameters.partyId"/>
             <set field="createPartyRole.roleTypeId" from-field="parameters.roleTypeId"/>
             <call-service service-name="createPartyRole" in-map-name="createPartyRole"/>
             <check-errors/>
         </if-empty>
-        
         <make-value value-field="newEntity" entity-name="BudgetRole"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field="parameters.budgetId" result-name="budgetId"/>
     </simple-method>
 
-    <simple-method method-name="removeBudgetRole" short-description="Remove existing Budget Role">
-        <entity-one entity-name="BudgetRole" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-        <field-to-result field="parameters.budgetId" result-name="budgetId"/>
-    </simple-method>
-    
-    <simple-method method-name="createBudgetReview" short-description="Create a Budget Review">
-        <make-value value-field="newEntity" entity-name="BudgetReview"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.budgetReviewId">
-            <make-next-seq-id value-field="newEntity" seq-field-name="budgetReviewId"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-        <field-to-result field="parameters.budgetId" result-name="budgetId"/>
-    </simple-method>
-    
-    <simple-method method-name="removeBudgetReview" short-description="Remove existing Budget Review">
-        <entity-one entity-name="BudgetReview" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-        <field-to-result field="parameters.budgetId" result-name="budgetId"/>
-    </simple-method>
 </simple-methods>
 
