@@ -924,6 +924,7 @@ under the License.
     <target name="get-tenant-data">
         <input addproperty="tenantId" message="Enter Id for the tenant: "/>
         <input addproperty="tenantName" message="Enter name for tenant: "/>
+        <input addproperty="domainName" message="Enter domain name for tenant (Optional): "/>
         <input addproperty="data-readers" message="Enter data to install.
         Choices are e.g. seed,seed-initial,ext,demo.
         Multipe datasets must be separated with a comma: "/>
@@ -955,6 +956,7 @@ under the License.
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
+                <filter token="domainName" value="${domainName}"/>
             </filterset>
         </copy>
         <antcall target="load-file">
@@ -975,6 +977,7 @@ under the License.
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
+                <filter token="domainName" value="${domainName}"/>
                 <filter token="db-IP" value="${db-IP}"/>
                 <filter token="db-User" value="${db-User}"/>
                 <filter token="db-Password" value="${db-Password}"/>
@@ -998,6 +1001,7 @@ under the License.
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
+                <filter token="domainName" value="${domainName}"/>
                 <filter token="db-IP" value="${db-IP}"/>
                 <filter token="db-User" value="${db-User}"/>
                 <filter token="db-Password" value="${db-Password}"/>
@@ -1021,6 +1025,7 @@ under the License.
             <filterset>
                 <filter token="tenantId" value="${tenantId}"/>
                 <filter token="tenantName" value="${tenantName}"/>
+                <filter token="domainName" value="${domainName}"/>
                 <filter token="db-IP" value="${db-IP}"/>
                 <filter token="db-User" value="${db-User}"/>
                 <filter token="db-Password" value="${db-Password}"/>
@@ -1041,6 +1046,7 @@ under the License.
         <echo>------------------------------------</echo>
         <echo message="tenantId = ${tenantId}"/>
         <echo>tenantName = ${tenantName}</echo>
+        <echo>domainName = ${domainName}</echo>
         <echo>db-Platform = ${db-Platform}</echo>
         <echo>db-IP = ${db-IP}</echo>
         <echo>db-User = ${db-User}</echo>

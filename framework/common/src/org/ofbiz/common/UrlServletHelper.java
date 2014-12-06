@@ -57,15 +57,17 @@ public class UrlServletHelper extends ContextFilter {
             try {
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 delegator = getDelegator(servletContext);
-                List<GenericValue> tenants = delegator.findList("Tenant", EntityCondition.makeCondition("domainName", serverName), null, UtilMisc.toList("-createdStamp"), null, false);
-                if (UtilValidate.isNotEmpty(tenants)) {
-                    GenericValue tenant = EntityUtil.getFirst(tenants);
-                    String tenantId = tenant.getString("tenantId");
-                    
+
+                //Use base delegator for fetching data from entity of entityGroup org.ofbiz.tenant 
+                Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
+                GenericValue tenantDomainName = baseDelegator.findOne("TenantDomainName", UtilMisc.toMap("domainName", serverName), false);
+
+                if (UtilValidate.isNotEmpty(tenantDomainName)) {
+                    String tenantId = tenantDomainName.getString("tenantId");
                     // make that tenant active, setup a new delegator and a new dispatcher
                     String tenantDelegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
                     httpRequest.getSession().setAttribute("delegatorName", tenantDelegatorName);
-                
+
                     // after this line the delegator is replaced with the new per-tenant delegator
                     delegator = DelegatorFactory.getDelegator(tenantDelegatorName);
                     servletContext.setAttribute("delegator", delegator);

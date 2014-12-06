@@ -394,9 +394,13 @@ public class LoginWorker {
 
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         Delegator delegator = (Delegator) request.getAttribute("delegator");
+        ServletContext servletContext = session.getServletContext();
 
         // if a tenantId was passed in, see if the userLoginId is associated with that tenantId (can use any delegator for this, entity is not tenant-specific)
         String tenantId = request.getParameter("tenantId");
+        if (UtilValidate.isEmpty(tenantId)) {
+            tenantId = (String) request.getAttribute("tenantId");
+        }
         if (UtilValidate.isNotEmpty(tenantId)) {
             // see if we need to activate a tenant delegator, only do if the current delegatorName has a hash symbol in it, and if the passed in tenantId doesn't match the one in the delegatorName
             String oldDelegatorName = delegator.getDelegatorName();
@@ -438,7 +442,6 @@ public class LoginWorker {
                 }
                 */
 
-                ServletContext servletContext = session.getServletContext();
 
                 // make that tenant active, setup a new delegator and a new dispatcher
                 String delegatorName = delegator.getDelegatorBaseName() + "#" + tenantId;
@@ -458,6 +461,22 @@ public class LoginWorker {
                 // NOTE: these will be local for now and set in the request and session later, after we've verified that the user
                 setupNewDelegatorEtc = true;
             }
+        } else {
+            // Set default delegator
+            Debug.logInfo("Setting default delegator", module);
+            String delegatorName = delegator.getDelegatorBaseName();
+            try {
+                // after this line the delegator is replaced with default delegator
+                delegator = DelegatorFactory.getDelegator(delegatorName);
+                dispatcher = ContextFilter.makeWebappDispatcher(servletContext, delegator);
+            } catch (NullPointerException e) {
+                Debug.logError(e, "Error getting default delegator", module);
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", "Error getting default delegator");
+                String errMsg = UtilProperties.getMessage(resourceWebapp, "loginevents.following_error_occurred_during_login", messageMap, UtilHttp.getLocale(request));
+                request.setAttribute("_ERROR_MESSAGE_", errMsg);
+                return "error";
+            }
+            setupNewDelegatorEtc = true;
         }
 
         Map<String, Object> result = null;
@@ -514,7 +533,6 @@ public class LoginWorker {
                     }
                 }
             }
-
             if (setupNewDelegatorEtc) {
                 // now set the delegator and dispatcher in a bunch of places just in case they were changed
                 setWebContextObjects(request, response, delegator, dispatcher);
@@ -696,10 +714,11 @@ public class LoginWorker {
 
         if (currCatalog != null) session.setAttribute("CURRENT_CATALOG_ID", currCatalog);
         if (delegatorName != null) {
+            //Commented it as multi tenancy support is now available for front-store application as well.
             // if there is a tenantId in the delegatorName remove it now so that tenant selection doesn't last beyond logout
-            if (delegatorName.indexOf('#') > 0) {
+            /*if (delegatorName.indexOf('#') > 0) {
                 delegatorName = delegatorName.substring(0, delegatorName.indexOf('#'));
-            }
+            }*/
             session.setAttribute("delegatorName", delegatorName);
 
             delegator = DelegatorFactory.getDelegator(delegatorName);

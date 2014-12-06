@@ -66,7 +66,6 @@ under the License.
     <entity entity-name="Tenant" package-name="org.ofbiz.entity.tenant">
         <field name="tenantId" type="id-ne"/>
         <field name="tenantName" type="name"/>
-        <field name="domainName" type="long-varchar"/>
         <field name="initialPath" type="value"/>
         <field name="disabled" type="indicator"><description>Disabled if 'Y', defaults to 'N' (not disabled).</description></field>
         <prim-key field="tenantId"/>
@@ -151,6 +150,15 @@ under the License.
         </relation>
         <relation type="one" fk-name="COMP_CNT" rel-entity-name="Component">
             <key-map field-name="componentName"/>
+        </relation>
+    </entity>
+    <entity entity-name="TenantDomainName" package-name="org.ofbiz.entity.tenant" 
+            title="Tenant and its Domain Name">
+        <field name="tenantId" type="id-ne"></field>
+        <field name="domainName" type="long-varchar"></field>
+        <prim-key field="domainName"/>
+        <relation type="one" fk-name="TNNT_DMNAM" rel-entity-name="Tenant">
+            <key-map field-name="tenantId"/>
         </relation>
     </entity>
 </entitymodel>
