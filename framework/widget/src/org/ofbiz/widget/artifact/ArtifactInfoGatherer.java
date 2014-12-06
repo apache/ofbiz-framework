@@ -325,7 +325,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(DecoratorScreen decoratorScreen) throws Exception {
-        for (DecoratorSection section : decoratorScreen.getSectionMap().values()) {
+        for (ModelScreenWidget section : decoratorScreen.getSectionMap().values()) {
             section.accept(this);
         }
     }
