@@ -210,7 +210,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = new HashMap<String, HtmlTemplateDecoratorSection>();
+        protected Map<String, ModelScreenWidget> sectionMap = new HashMap<String, ModelScreenWidget>();
 
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);

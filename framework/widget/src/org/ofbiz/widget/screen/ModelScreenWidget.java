@@ -108,15 +108,15 @@ public abstract class ModelScreenWidget extends ModelWidget {
         return this.modelScreen;
     }
 
-    public static final class SectionsRenderer implements Map<String, Object> {
-        private final Map<String, Object> sectionMap;
+    public static final class SectionsRenderer implements Map<String, ModelScreenWidget> {
+        private final Map<String, ModelScreenWidget> sectionMap;
         private final ScreenStringRenderer screenStringRenderer;
         private final Map<String, Object> context;
         private final Appendable writer;
 
-        public SectionsRenderer(Map<String, ? extends Object> sectionMap, Map<String, Object> context, Appendable writer,
+        public SectionsRenderer(Map<String, ModelScreenWidget> sectionMap, Map<String, Object> context, Appendable writer,
                 ScreenStringRenderer screenStringRenderer) {
-            Map<String, Object> localMap = new HashMap<String, Object>();
+            Map<String, ModelScreenWidget> localMap = new HashMap<String, ModelScreenWidget>();
             localMap.putAll(sectionMap);
             this.sectionMap = Collections.unmodifiableMap(localMap);
             this.context = context;
@@ -126,7 +126,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         /** This is a lot like the ScreenRenderer class and returns an empty String so it can be used more easily with FreeMarker */
         public String render(String sectionName) throws GeneralException, IOException {
-            ModelScreenWidget section = (ModelScreenWidget) this.get(sectionName);
+            ModelScreenWidget section = sectionMap.get(sectionName);
             // if no section by that name, write nothing
             if (section != null) {
                 section.renderWidgetString(this.writer, this.context, this.screenStringRenderer);
@@ -134,60 +134,74 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return "";
         }
 
+        @Override
         public int size() {
             return sectionMap.size();
         }
 
+        @Override
         public boolean isEmpty() {
             return sectionMap.isEmpty();
         }
 
+        @Override
         public boolean containsKey(Object key) {
             return sectionMap.containsKey(key);
         }
 
+        @Override
         public boolean containsValue(Object value) {
             return sectionMap.containsValue(value);
         }
 
-        public Object get(Object key) {
+        @Override
+        public ModelScreenWidget get(Object key) {
             return sectionMap.get(key);
         }
 
-        public Object put(String key, Object value) {
+        @Override
+        public ModelScreenWidget put(String key, ModelScreenWidget value) {
             return sectionMap.put(key, value);
         }
 
-        public Object remove(Object key) {
+        @Override
+        public ModelScreenWidget remove(Object key) {
             return sectionMap.remove(key);
         }
 
-        public void putAll(Map<? extends String, ? extends Object> m) {
-            sectionMap.putAll(m);
-        }
-
+        @Override
         public void clear() {
             sectionMap.clear();
         }
 
+        @Override
         public Set<String> keySet() {
             return sectionMap.keySet();
         }
 
-        public Collection<Object> values() {
+        @Override
+        public Collection<ModelScreenWidget> values() {
             return sectionMap.values();
         }
 
-        public Set<java.util.Map.Entry<String, Object>> entrySet() {
+        @Override
+        public Set<java.util.Map.Entry<String, ModelScreenWidget>> entrySet() {
             return sectionMap.entrySet();
         }
 
+        @Override
         public boolean equals(Object o) {
             return sectionMap.equals(o);
         }
 
+        @Override
         public int hashCode() {
             return sectionMap.hashCode();
+        }
+
+        @Override
+        public void putAll(Map<? extends String, ? extends ModelScreenWidget> m) {
+            sectionMap.putAll(m);
         }
     }
 
@@ -723,13 +737,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public static final String TAG_NAME = "decorator-screen";
         private final FlexibleStringExpander nameExdr;
         private final FlexibleStringExpander locationExdr;
-        private final Map<String, DecoratorSection> sectionMap;
+        private final Map<String, ModelScreenWidget> sectionMap;
 
         public DecoratorScreen(ModelScreen modelScreen, Element decoratorScreenElement) {
             super(modelScreen, decoratorScreenElement);
             this.nameExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("location"));
-            Map<String, DecoratorSection> sectionMap = new HashMap<String, DecoratorSection>();
+            Map<String, ModelScreenWidget> sectionMap = new HashMap<String, ModelScreenWidget>();
             List<? extends Element> decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
             for (Element decoratorSectionElement: decoratorSectionElementList) {
                 DecoratorSection decoratorSection = new DecoratorSection(modelScreen, decoratorSectionElement);
@@ -773,7 +787,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             return this.locationExdr.expandString(context);
         }
 
-        public Map<String, DecoratorSection> getSectionMap() {
+        public Map<String, ModelScreenWidget> getSectionMap() {
             return sectionMap;
         }
 
