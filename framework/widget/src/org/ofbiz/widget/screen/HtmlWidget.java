@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,7 +68,6 @@ public class HtmlWidget extends ModelScreenWidget {
             super(version);
         }
 
-        @SuppressWarnings("unchecked")
         @Override
         public TemplateModel wrap(Object object) throws TemplateModelException {
             // This StringHtmlWrapperForFtl option seems to be the best option
@@ -76,7 +76,7 @@ public class HtmlWidget extends ModelScreenWidget {
                 return new StringHtmlWrapperForFtl((String) object, this);
             } else if (object instanceof Collection && !(object instanceof Map)) {
                 // An additional wrapper to ensure ${aCollection} is properly encoded for html
-                return new CollectionHtmlWrapperForFtl((Collection) object, this);
+                return new CollectionHtmlWrapperForFtl((Collection<?>) object, this);
             }
             return super.wrap(object);
         }
@@ -94,8 +94,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class CollectionHtmlWrapperForFtl extends CollectionModel {
 
-        @SuppressWarnings("unchecked")
-        public CollectionHtmlWrapperForFtl(Collection collection, BeansWrapper wrapper) {
+        public CollectionHtmlWrapperForFtl(Collection<?> collection, BeansWrapper wrapper) {
             super(collection, wrapper);
         }
 
@@ -108,20 +107,31 @@ public class HtmlWidget extends ModelScreenWidget {
 
     // End Static, begin class section
 
-    protected List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>();
+    private final List<ModelScreenWidget> subWidgets;
 
     public HtmlWidget(ModelScreen modelScreen, Element htmlElement) {
         super(modelScreen, htmlElement);
         List<? extends Element> childElementList = UtilXml.childElementList(htmlElement);
-        for (Element childElement : childElementList) {
-            if ("html-template".equals(childElement.getNodeName())) {
-                this.subWidgets.add(new HtmlTemplate(modelScreen, childElement));
-            } else if ("html-template-decorator".equals(childElement.getNodeName())) {
-                this.subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
-            } else {
-                throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: " + childElement.getNodeName());
+        if (childElementList.isEmpty()) {
+            this.subWidgets = Collections.emptyList();
+        } else {
+            List<ModelScreenWidget> subWidgets = new ArrayList<ModelScreenWidget>(childElementList.size());
+            for (Element childElement : childElementList) {
+                if ("html-template".equals(childElement.getNodeName())) {
+                    subWidgets.add(new HtmlTemplate(modelScreen, childElement));
+                } else if ("html-template-decorator".equals(childElement.getNodeName())) {
+                    subWidgets.add(new HtmlTemplateDecorator(modelScreen, childElement));
+                } else {
+                    throw new IllegalArgumentException("Tag not supported under the platform-specific -> html tag with name: "
+                            + childElement.getNodeName());
+                }
             }
+            this.subWidgets = Collections.unmodifiableList(subWidgets);
         }
+    }
+
+    public List<ModelScreenWidget> getSubWidgets() {
+        return subWidgets;
     }
 
     @Override
@@ -195,6 +205,10 @@ public class HtmlWidget extends ModelScreenWidget {
         public HtmlTemplate(ModelScreen modelScreen, Element htmlTemplateElement) {
             super(modelScreen, htmlTemplateElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateElement.getAttribute("location"));
+        }
+
+        public String getLocation(Map<String, Object> context) {
+            return locationExdr.expandString(context);
         }
 
         @Override

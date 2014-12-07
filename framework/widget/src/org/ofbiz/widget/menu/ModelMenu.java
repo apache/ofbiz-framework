@@ -288,6 +288,10 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
+    public void runActions(Map<String, Object> context) {
+        ModelWidgetAction.runSubActions(this.actions, context);
+    }
+
     public int renderedMenuItemCount(Map<String, Object> context)
     {
         int count = 0;
