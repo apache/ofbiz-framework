@@ -1119,6 +1119,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public Map<String, ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
+        }
     }
 
     public static final class Content extends ModelScreenWidget {
