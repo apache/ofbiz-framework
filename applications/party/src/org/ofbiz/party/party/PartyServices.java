@@ -1472,6 +1472,7 @@ public class PartyServices {
                     // using list iterator
                     EntityListIterator pli = EntityQuery.use(delegator).select(UtilMisc.toSet(fieldsToSelect))
                             .from(dynamicView)
+                            .where(mainCond)
                             .orderBy(orderBy)
                             .cursorScrollInsensitive()
                             .fetchSize(highIndex)
