@@ -676,10 +676,6 @@ public class CCPaymentServices {
             UtilXml.addChildElementValue(consumerElement, "Email", billToEmail.getString("infoString"), requestDocument);
         }
 
-        // payment mech
-        GenericValue creditCard = (GenericValue) context.get("creditCard");
-        Delegator delegator = creditCard.getDelegator();
-
         boolean enableCVM = EntityUtilProperties.propertyValueEqualsIgnoreCase(paymentConfig, "payment.clearcommerce.enableCVM", "Y", delegator);
         String cardSecurityCode = enableCVM ? (String) context.get("cardSecurityCode") : null;
 
