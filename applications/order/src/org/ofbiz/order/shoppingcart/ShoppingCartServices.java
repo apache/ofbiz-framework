@@ -46,6 +46,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo;
 import org.ofbiz.order.shoppingcart.ShoppingCart.CartShipInfo.CartShipItemInfo;
@@ -988,7 +989,7 @@ public class ShoppingCartServices {
         }
         // If we still have no currency, use the default from general.properties.  Failing that, use USD
         if (currency == null) {
-                currency = UtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD");
+                currency = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
         }
 
         // create the cart

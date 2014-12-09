@@ -72,6 +72,7 @@ public class LoginEvents {
     public static String saveEntryParams(HttpServletRequest request, HttpServletResponse response) {
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         HttpSession session = request.getSession();
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
         // save entry login parameters if we don't have a valid login object
         if (userLogin == null) {
@@ -79,10 +80,10 @@ public class LoginEvents {
             String username = request.getParameter("USERNAME");
             String password = request.getParameter("PASSWORD");
 
-            if ((username != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
+            if ((username != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
                 username = username.toLowerCase();
             }
-            if ((password != null) && ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "password.lowercase")))) {
+            if ((password != null) && ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "password.lowercase", delegator)))) {
                 password = password.toLowerCase();
             }
 
@@ -128,7 +129,7 @@ public class LoginEvents {
         String userLoginId = request.getParameter("USERNAME");
         String errMsg = null;
 
-        if ((userLoginId != null) && ("true".equals(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
+        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase();
         }
 
@@ -184,11 +185,11 @@ public class LoginEvents {
 
         String errMsg = null;
 
-        boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
+        boolean useEncryption = "true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.encrypt", delegator));
 
         String userLoginId = request.getParameter("USERNAME");
 
-        if ((userLoginId != null) && ("true".equals(UtilProperties.getPropertyValue("security.properties", "username.lowercase")))) {
+        if ((userLoginId != null) && ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "username.lowercase", delegator)))) {
             userLoginId = userLoginId.toLowerCase();
         }
 
@@ -212,13 +213,13 @@ public class LoginEvents {
             }
             if (useEncryption) {
                 // password encrypted, can't send, generate new password and email to user
-                passwordToSend = RandomStringUtils.randomAlphanumeric(Integer.parseInt(UtilProperties.getPropertyValue("security", "password.length.min", "5")));
-                if ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.lowercase"))){
+                passwordToSend = RandomStringUtils.randomAlphanumeric(Integer.parseInt(EntityUtilProperties.getPropertyValue("security", "password.length.min", "5", delegator)));
+                if ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.lowercase", delegator))){
                     passwordToSend=passwordToSend.toLowerCase();
                 }
                 supposedUserLogin.set("currentPassword", HashCrypt.cryptUTF8(LoginServices.getHashType(), null, passwordToSend));
                 supposedUserLogin.set("passwordHint", "Auto-Generated Password");
-                if ("true".equals(UtilProperties.getPropertyValue("security.properties", "password.email_password.require_password_change"))){
+                if ("true".equals(EntityUtilProperties.getPropertyValue("security.properties", "password.email_password.require_password_change", delegator))){
                     supposedUserLogin.set("requirePasswordChange", "Y");
                 }
             } else {
@@ -386,7 +387,8 @@ public class LoginEvents {
 
     public static void setUsername(HttpServletRequest request, HttpServletResponse response) {
         HttpSession session = request.getSession();
-        String domain = UtilProperties.getPropertyValue("url.properties", "cookie.domain");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String domain = EntityUtilProperties.getPropertyValue("url.properties", "cookie.domain", delegator);
         // first try to get the username from the cookie
         synchronized (session) {
             if (UtilValidate.isEmpty(getUsername(request))) {

@@ -311,8 +311,9 @@ under the License.
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
+            <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <call-bsh><![CDATA[
-                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
+                boolean useEncryption = "true".equals(org.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             ]]></call-bsh>
 
@@ -322,7 +323,6 @@ under the License.
             <set-current-user-login value-field="newUserLogin"/>
             
             <!-- On successful user creation, create password history record if configured -->
-            <set field="delegator" from-field="parameters.delegator" type="Object"/>
             <call-class-method method-name="getPropertyValue" class-name="org.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
                 <string value="security"/>
                 <string value="user.auto.change.password.enable"/>

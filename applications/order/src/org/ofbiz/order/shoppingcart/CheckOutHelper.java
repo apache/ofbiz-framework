@@ -49,6 +49,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.finaccount.FinAccountHelper;
 import org.ofbiz.order.order.OrderChangeHelper;
 import org.ofbiz.order.order.OrderReadHelper;
@@ -1608,7 +1609,7 @@ public class CheckOutHelper {
 
         // get the payment config
         String paymentConfig = ProductStoreWorker.getProductStorePaymentProperties(delegator, cart.getProductStoreId(), "GIFT_CARD", null, true);
-        String giftCardType = UtilProperties.getPropertyValue(paymentConfig, "", "ofbiz");
+        String giftCardType = EntityUtilProperties.getPropertyValue(paymentConfig, "", "ofbiz", delegator);
         String balanceField = null;
 
         // get the gift card objects to check

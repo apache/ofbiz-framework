@@ -40,6 +40,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  *  Does indexing in preparation for a keyword search.
@@ -59,22 +60,21 @@ public class KeywordIndex {
     public static void indexKeywords(GenericValue product, boolean doAll) throws GenericEntityException {
         if (product == null) return;
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-
+        Delegator delegator = product.getDelegator();
         if (!doAll) {
             if ("N".equals(product.getString("autoCreateKeywords"))) {
                 return;
             }
-            if ("Y".equals(product.getString("isVariant")) && "true".equals(UtilProperties.getPropertyValue("prodsearch", "index.ignore.variants"))) {
+            if ("Y".equals(product.getString("isVariant")) && "true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.variants", delegator))) {
                 return;
             }
             Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
             if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(nowTimestamp) &&
-                    "true".equals(UtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales"))) {
+                    "true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales", delegator))) {
                 return;
             }
         }
-
-        Delegator delegator = product.getDelegator();
+        
         if (delegator == null) return;
         String productId = product.getString("productId");
 
@@ -90,33 +90,33 @@ public class KeywordIndex {
 
         int pidWeight = 1;
         try {
-            pidWeight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productId", "0"));
+            pidWeight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productId", "0", delegator));
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
         keywords.put(product.getString("productId").toLowerCase(), Long.valueOf(pidWeight));
 
         // Product fields - default is 0 if not found in the properties file
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0", delegator))) {
             addWeightedKeywordSourceString(product, "productName", strings);
         }
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.internalName", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.internalName", "0", delegator))) {
             addWeightedKeywordSourceString(product, "internalName", strings);
         }
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.brandName", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.brandName", "0", delegator))) {
             addWeightedKeywordSourceString(product, "brandName", strings);
         }
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.description", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.description", "0", delegator))) {
             addWeightedKeywordSourceString(product, "description", strings);
         }
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.longDescription", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Product.longDescription", "0", delegator))) {
             addWeightedKeywordSourceString(product, "longDescription", strings);
         }
 
         // ProductFeatureAppl
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0")) ||
-            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
-            !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0", delegator)) ||
+            !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0", delegator)) ||
+            !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0", delegator))) {
             // get strings from attributes and features
             List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).queryList();
             for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
@@ -127,8 +127,8 @@ public class KeywordIndex {
         }
 
         // ProductAttribute
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
-                !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0", delegator)) ||
+                !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0", delegator))) {
             List<GenericValue> productAttributes = EntityQuery.use(delegator).from("ProductAttribute").where("productId", productId).queryList();
             for (GenericValue productAttribute: productAttributes) {
                 addWeightedKeywordSourceString(productAttribute, "attrName", strings);
@@ -137,7 +137,7 @@ public class KeywordIndex {
         }
 
         // GoodIdentification
-        if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
+        if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0", delegator))) {
             List<GenericValue> goodIdentifications = EntityQuery.use(delegator).from("GoodIdentification").where("productId", productId).queryList();
             for (GenericValue goodIdentification: goodIdentifications) {
                 addWeightedKeywordSourceString(goodIdentification, "idValue", strings);
@@ -146,12 +146,12 @@ public class KeywordIndex {
 
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
-            if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
+            if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0", delegator))) {
                 List<GenericValue> variantProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").filterByDate().queryList();
                 for (GenericValue variantProductAssoc: variantProductAssocs) {
                     int weight = 1;
                     try {
-                        weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"));
+                        weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0", delegator));
                     } catch (Exception e) {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }
@@ -162,12 +162,12 @@ public class KeywordIndex {
             }
         }
 
-        String productContentTypes = UtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes");
+        String productContentTypes = EntityUtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes", delegator);
         for (String productContentTypeId: productContentTypes.split(",")) {
             int weight = 1;
             try {
                 // this is defaulting to a weight of 1 because you specified you wanted to index this type
-                weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1"));
+                weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1", delegator));
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
@@ -191,7 +191,7 @@ public class KeywordIndex {
         }
 
         List<GenericValue> toBeStored = FastList.newInstance();
-        int keywordMaxLength = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "product.keyword.max.length"));
+        int keywordMaxLength = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "product.keyword.max.length", delegator));
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
                 GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "keywordTypeId", "KWT_KEYWORD", "relevancyWeight", entry.getValue()));
@@ -201,7 +201,7 @@ public class KeywordIndex {
         if (toBeStored.size() > 0) {
             if (Debug.verboseOn()) Debug.logVerbose("[KeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for productId " + product.getString("productId"), module);
 
-            if ("true".equals(UtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false"))) {
+            if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.delete.on_index", "false", delegator))) {
                 // delete all keywords if the properties file says to
                 delegator.removeByAnd("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId")));
             }
@@ -229,7 +229,8 @@ public class KeywordIndex {
             int weight = 1;
 
             try {
-                weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, "1"));
+            	Delegator delegator = value.getDelegator();
+                weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight." + value.getEntityName() + "." + fieldName, "1", delegator));
             } catch (Exception e) {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }

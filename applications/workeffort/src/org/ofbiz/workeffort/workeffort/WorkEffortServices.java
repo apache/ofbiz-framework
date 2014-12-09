@@ -53,6 +53,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -1049,8 +1050,8 @@ public class WorkEffortServices {
                 }
             } else {
                 // TODO: Remove this block after the next release 2010-11-29
-                String screenLocation = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation");
-                String fromAddress = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress");
+                String screenLocation = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation", delegator);
+                String fromAddress = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress", delegator);
                 String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
                 Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);
                 try {
@@ -1069,10 +1070,11 @@ public class WorkEffortServices {
     @Deprecated
     protected static void processEventReminder(DispatchContext ctx, GenericValue reminder, Map<String, Object> parameters) throws GenericEntityException {
         LocalDispatcher dispatcher = ctx.getDispatcher();
+        Delegator delegator = ctx.getDelegator();
         GenericValue contactMech = reminder.getRelatedOne("ContactMech", false);
         if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
-            String screenLocation = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation");
-            String fromAddress = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress");
+            String screenLocation = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation", delegator);
+            String fromAddress = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress", delegator);
             String toAddress = contactMech.getString("infoString");
             String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
             Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);

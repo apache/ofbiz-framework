@@ -55,6 +55,7 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.product.category.CategoryWorker;
 import org.ofbiz.product.feature.ParametricSearch;
@@ -913,7 +914,7 @@ public class ProductSearchSession {
         List<ProductSearchConstraint> productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
         String noConditionFind = (String) requestParams.get("noConditionFind");
         if (UtilValidate.isEmpty(noConditionFind)) {
-            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
+            noConditionFind = EntityUtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind", delegator);
         }
         // if noConditionFind to Y then find without conditions otherwise search according to constraints.
         if ("Y".equals(noConditionFind) || UtilValidate.isNotEmpty(productSearchConstraintList)) {

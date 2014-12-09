@@ -20,7 +20,7 @@
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.base.util.UtilProperties ;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 productId = parameters.productId;
 
@@ -69,7 +69,7 @@ context.paramList = paramList;
 
 // set the page parameters
 viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20"));
+viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator));
 listSize = 0;
 if (inventoryList)
     listSize = inventoryList.size();

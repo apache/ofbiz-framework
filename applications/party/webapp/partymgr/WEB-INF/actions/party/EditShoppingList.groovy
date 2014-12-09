@@ -21,7 +21,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.base.util.UtilProperties ;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
@@ -105,7 +105,7 @@ if (shoppingListId) {
             context.shoppingListItemDatas = shoppingListItemDatas;
             // pagination for the shopping list
             viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 0);
-            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20"));
+            viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator));
             listSize = shoppingListItemDatas ? shoppingListItemDatas.size() : 0;
 
             lowIndex = (viewIndex * viewSize) + 1;

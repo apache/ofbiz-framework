@@ -57,7 +57,7 @@ public class CommonWorkers {
         }
 
         List<EntityExpr> exprs = UtilMisc.toList(EntityCondition.makeCondition("geoTypeId", EntityOperator.EQUALS, "COUNTRY"));
-        List<String> countriesAvailable = StringUtil.split(UtilProperties.getPropertyValue("general.properties", "countries.geo.id.available"), ",");
+        List<String> countriesAvailable = StringUtil.split(EntityUtilProperties.getPropertyValue("general.properties", "countries.geo.id.available", delegator), ",");
         if (UtilValidate.isNotEmpty(countriesAvailable)) {
             // only available countries (we don't verify the list of geoId in countries.geo.id.available)
             exprs.add(EntityCondition.makeCondition("geoId", EntityOperator.IN, countriesAvailable));

@@ -2838,6 +2838,7 @@ public class PaymentGatewayServices {
     }
 
     public static boolean checkAuthValidity(GenericValue orderPaymentPreference, String paymentConfig) {
+    	Delegator delegator = orderPaymentPreference.getDelegator();
         Timestamp authTime = PaymentGatewayServices.getAuthTime(orderPaymentPreference);
         if (authTime == null) {
             return false;
@@ -2863,20 +2864,20 @@ public class PaymentGatewayServices {
                 String cardType = creditCard.getString("cardType");
                 // add more types as necessary -- maybe we should create seed data for credit card types??
                 if ("CCT_DISCOVER".equals(cardType)) {
-                    reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.disc.days", "90");
+                    reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.disc.days", "90", delegator);
                 } else if ("CCT_AMERICANEXPRESS".equals(cardType)) {
-                    reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.amex.days", "30");
+                    reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.amex.days", "30", delegator);
                 } else if ("CCT_MASTERCARD".equals(cardType)) {
-                    reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.mc.days", "30");
+                    reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.mc.days", "30", delegator);
                 } else if ("CCT_VISA".equals(cardType)) {
-                    reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.visa.days", "7");
+                    reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.visa.days", "7", delegator);
                 } else {
-                    reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.other.days", "7");
+                    reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.other.days", "7", delegator);
                 }
 
             }
         } else if (paymentMethod != null && "EXT_PAYPAL".equals(paymentMethod.get("paymentMethodTypeId"))) {
-            reauthDays = UtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.paypal.days", "3");
+            reauthDays = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.general.reauth.paypal.days", "3", delegator);
         }
 
         if (reauthDays != null) {
@@ -3316,9 +3317,9 @@ public class PaymentGatewayServices {
 
         String amount = null;
         if (mode.equalsIgnoreCase("CREATE")) {
-            amount = UtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_create.auth");
+            amount = EntityUtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_create.auth", delegator);
         } else if (mode.equalsIgnoreCase("UPDATE")) {
-            amount = UtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_update.auth");
+            amount = EntityUtilProperties.getPropertyValue(productStorePaymentProperties, "payment.general.cc_update.auth", delegator);
         }
         if (Debug.infoOn()) Debug.logInfo("Running credit card verification [" + paymentMethodId + "] (" + amount + ") : " + productStorePaymentProperties + " : " + mode, module);
 

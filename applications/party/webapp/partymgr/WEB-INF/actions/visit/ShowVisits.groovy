@@ -21,6 +21,7 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.base.util.*
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 module = "showvisits.groovy";
 
@@ -42,7 +43,7 @@ try {
     beganTransaction = TransactionUtil.begin();
 
     viewIndex = Integer.valueOf(parameters.VIEW_INDEX  ?: 1);
-    viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20"));
+    viewSize = Integer.valueOf(parameters.VIEW_SIZE ?: EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator));
     context.viewIndex = viewIndex;
     context.viewSize = viewSize;
 

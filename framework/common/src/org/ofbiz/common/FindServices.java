@@ -54,6 +54,7 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -462,13 +463,14 @@ public class FindServices {
         List<String> fieldList =  UtilGenerics.<String>checkList(context.get("fieldList"));
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         if (UtilValidate.isEmpty(noConditionFind)) {
             // try finding in inputFields Map
             noConditionFind = (String) inputFields.get("noConditionFind");
         }
         if (UtilValidate.isEmpty(noConditionFind)) {
             // Use configured default
-            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
+            noConditionFind = EntityUtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind", delegator);
         }
         String filterByDate = (String) context.get("filterByDate");
         if (UtilValidate.isEmpty(filterByDate)) {
@@ -529,6 +531,7 @@ public class FindServices {
      */
     public static Map<String, Object> prepareFind(DispatchContext dctx, Map<String, ?> context) {
         String entityName = (String) context.get("entityName");
+        Delegator delegator = dctx.getDelegator();
         String orderBy = (String) context.get("orderBy");
         Map<String, ?> inputFields = checkMap(context.get("inputFields"), String.class, Object.class); // Input
         String noConditionFind = (String) context.get("noConditionFind");
@@ -538,7 +541,7 @@ public class FindServices {
         }
         if (UtilValidate.isEmpty(noConditionFind)) {
             // Use configured default
-            noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
+            noConditionFind = EntityUtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind", delegator);
         }
         String filterByDate = (String) context.get("filterByDate");
         if (UtilValidate.isEmpty(filterByDate)) {
@@ -548,7 +551,6 @@ public class FindServices {
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
 
         Map<String, Object> queryStringMap = new LinkedHashMap<String, Object>();
-        Delegator delegator = dctx.getDelegator();
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
         List<EntityCondition> tmpList = createConditionList(inputFields, modelEntity.getFieldsUnmodifiable(), queryStringMap, delegator, context);
 

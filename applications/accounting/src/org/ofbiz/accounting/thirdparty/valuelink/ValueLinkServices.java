@@ -1122,7 +1122,7 @@ public class ValueLinkServices {
         }
 
         // survey information
-        String surveyId = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.surveyId");
+        String surveyId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.surveyId", delegator);
 
         // get the survey response
         GenericValue surveyResponse = null;
@@ -1169,11 +1169,11 @@ public class ValueLinkServices {
         }
 
         // get the send to email address - key defined in properties file
-        String sendToKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.sendToEmail");
+        String sendToKey = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.sendToEmail", delegator);
         String sendToEmail = (String) answerMap.get(sendToKey);
         // get the copyMe flag and set the order email address
         String orderEmails = orh.getOrderEmailString();
-        String copyMeField = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.copyMe");
+        String copyMeField = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.purchase.survey.copyMe", delegator);
         String copyMeResp = copyMeField != null ? (String) answerMap.get(copyMeField) : null;
         boolean copyMe = (UtilValidate.isNotEmpty(copyMeField)
                 && UtilValidate.isNotEmpty(copyMeResp) && "true".equalsIgnoreCase(copyMeResp)) ? true : false;
@@ -1217,7 +1217,7 @@ public class ValueLinkServices {
             // create the fulfillment record
             Map<String, Object> vlFulFill = FastMap.newInstance();
             vlFulFill.put("typeEnumId", "GC_ACTIVATE");
-            vlFulFill.put("merchantId", UtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId"));
+            vlFulFill.put("merchantId", EntityUtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId", delegator));
             vlFulFill.put("partyId", partyId);
             vlFulFill.put("orderId", orderId);
             vlFulFill.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
@@ -1367,7 +1367,7 @@ public class ValueLinkServices {
         BigDecimal amount = orderItem.getBigDecimal("unitPrice");
 
         // survey information
-        String surveyId = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId");
+        String surveyId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId", delegator);
 
         // get the survey response
         GenericValue surveyResponse = null;
@@ -1413,8 +1413,8 @@ public class ValueLinkServices {
             }
         }
 
-        String cardNumberKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.cardNumber");
-        String pinNumberKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.pinNumber");
+        String cardNumberKey = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.cardNumber", delegator);
+        String pinNumberKey = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.pinNumber", delegator);
         String cardNumber = (String) answerMap.get(cardNumberKey);
         String pinNumber = (String) answerMap.get(pinNumberKey);
 
@@ -1441,7 +1441,7 @@ public class ValueLinkServices {
         // create the fulfillment record
         Map<String, Object> vlFulFill = FastMap.newInstance();
         vlFulFill.put("typeEnumId", "GC_RELOAD");
-        vlFulFill.put("merchantId", UtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId"));
+        vlFulFill.put("merchantId", EntityUtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId", delegator));
         vlFulFill.put("partyId", partyId);
         vlFulFill.put("orderId", orderId);
         vlFulFill.put("orderItemSeqId", orderItem.get("orderItemSeqId"));

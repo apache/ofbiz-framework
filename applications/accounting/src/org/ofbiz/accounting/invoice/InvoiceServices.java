@@ -57,6 +57,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
@@ -1098,7 +1099,7 @@ public class InvoiceServices {
         // Either no orderShipment exists, or there's a null invoicePerShipment in the OrderHeader.
         // In either case, use the default value from the properties
         if (invoicePerShipment == null) {
-            invoicePerShipment = UtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment");
+            invoicePerShipment = EntityUtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment", delegator);
         }
 
         if ("Y".equals(invoicePerShipment)) {
@@ -2426,7 +2427,7 @@ public class InvoiceServices {
             context.put("useHighestAmount","Y");
         }
 
-        String defaultInvoiceProcessing = UtilProperties.getPropertyValue("AccountingConfig","invoiceProcessing");
+        String defaultInvoiceProcessing = EntityUtilProperties.getPropertyValue("AccountingConfig","invoiceProcessing", delegator);
 
         boolean debug = true; // show processing messages in the log..or not....
 

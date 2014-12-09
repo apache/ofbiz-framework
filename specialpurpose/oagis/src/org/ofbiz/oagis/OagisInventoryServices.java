@@ -44,6 +44,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -219,7 +220,7 @@ public class OagisInventoryServices {
                 // prepare information to send mail
                 Map<String, Object> sendMap = FastMap.newInstance();
 
-                String sendToEmail = UtilProperties.getPropertyValue("oagis.properties", "oagis.notification.email.sendTo");
+                String sendToEmail = EntityUtilProperties.getPropertyValue("oagis.properties", "oagis.notification.email.sendTo", delegator);
 
                 /* DEJ20070802 changed to get email address from properties file, should be way easier to manage
                 // get facility email address
@@ -253,7 +254,7 @@ public class OagisInventoryServices {
                 */
 
                 if (UtilValidate.isNotEmpty(sendToEmail)) {
-                    String productStoreId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId");
+                    String productStoreId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId", delegator);
                     GenericValue productStoreEmail = EntityQuery.use(delegator).from("ProductStoreEmailSetting").where("productStoreId", productStoreId, "emailType", "PRDS_OAGIS_CONFIRM").queryOne();
                     if (productStoreEmail != null) {
                         String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
@@ -451,7 +452,7 @@ public class OagisInventoryServices {
         Element dataAreaElement = UtilXml.firstChildElement(receivePoElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
+        String facilityId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId", delegator);
         String orderId = null;
         // get RECEIPTLN elements from message
         List<? extends Element> acknowledgeElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
@@ -503,7 +504,7 @@ public class OagisInventoryServices {
                             // Case : New record entry when PO not exists in the Database
                             orderHeader =  delegator.makeValue("OrderHeader", UtilMisc.toMap("orderId", orderId, "orderTypeId",orderTypeId ,
                                     "orderDate", timestampItemReceived, "statusId", "ORDER_CREATED", "entryDate", UtilDateTime.nowTimestamp(),
-                                    "productStoreId", UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId","9001")));
+                                    "productStoreId", EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryProductStoreId","9001", delegator)));
                             toStore.add(orderHeader);
                             GenericValue orderItem = delegator.makeValue("OrderItem", UtilMisc.toMap("orderId", orderId,
                                     "orderItemSeqId", UtilFormatOut.formatPaddedNumber(1L, 5),
@@ -686,8 +687,8 @@ public class OagisInventoryServices {
         Element firstDocRefElement = UtilXml.firstChildElement(firstReceiptlnElement, "os:DOCUMNTREF");
         String firstReturnId = UtilXml.childElementValue(firstDocRefElement, "of:DOCUMENTID");
 
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
-        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
+        String facilityId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId", delegator);
+        String locationSeqId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId", delegator);
 
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map<String, Object> comiCtx = FastMap.newInstance();
@@ -1196,8 +1197,8 @@ public class OagisInventoryServices {
         Element dataAreaElement = UtilXml.firstChildElement(receiveStatusElement, "ns:DATAAREA");
         Element acknowledgeDeliveryElement = UtilXml.firstChildElement(dataAreaElement, "ns:ACKNOWLEDGE_DELIVERY");
 
-        String facilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId");
-        String locationSeqId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId");
+        String facilityId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.PoReceiptFacilityId", delegator);
+        String locationSeqId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId", delegator);
 
         Timestamp timestamp = UtilDateTime.nowTimestamp();
         Map<String, Object> comiCtx = FastMap.newInstance();

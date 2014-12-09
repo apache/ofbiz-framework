@@ -33,7 +33,7 @@ import org.ofbiz.product.image.ScaleImage;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
-imageManagementPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+imageManagementPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
 
 String fileType = "original";
 String productId = request.getParameter("productId");
@@ -44,7 +44,7 @@ if (productContentList) {
 }
 
 // make the image file formats
-imageFilenameFormat = UtilProperties.getPropertyValue('catalog', 'image.filename.format');
+imageFilenameFormat = EntityUtilProperties.getPropertyValue('catalog', 'image.filename.format', delegator);
 imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context);
 imageUrlPrefix = EntityUtilProperties.getPropertyValue('catalog', 'image.url.prefix',delegator);
 context.imageFilenameFormat = imageFilenameFormat;

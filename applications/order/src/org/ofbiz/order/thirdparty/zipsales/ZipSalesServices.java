@@ -46,6 +46,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -229,7 +230,7 @@ public class ZipSalesServices {
         List<List<GenericValue>> itemAdjustments = FastList.newInstance();
 
         // check for a valid state/province geo
-        String validStates = UtilProperties.getPropertyValue("zipsales.properties", "zipsales.valid.states");
+        String validStates = EntityUtilProperties.getPropertyValue("zipsales.properties", "zipsales.valid.states", delegator);
         if (UtilValidate.isNotEmpty(validStates)) {
             List<String> stateSplit = StringUtil.split(validStates, "|");
             if (!stateSplit.contains(stateProvince)) {

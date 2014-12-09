@@ -22,6 +22,7 @@ import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.*
 import org.ofbiz.product.product.*
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();
 
@@ -303,7 +304,7 @@ context.featureThruDate = featureThruDate;
 context.selFeatureDesc = selFeatureDesc;
 
 // get "all" category id
-String allCategoryId = UtilProperties.getPropertyValue("catalog", "all.product.category");
+String allCategoryId = EntityUtilProperties.getPropertyValue("catalog", "all.product.category", delegator);
 context.allCategoryId = allCategoryId;
 
 // show the publish or unpublish section

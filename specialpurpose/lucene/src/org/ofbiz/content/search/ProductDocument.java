@@ -32,6 +32,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.DoubleField;
@@ -74,7 +75,7 @@ public class ProductDocument implements LuceneDocument {
                 // Return a null document (we will remove the document from the index)
                 return null;
             } else {
-                if ("Y".equals(product.getString("isVariant")) && "true".equals(UtilProperties.getPropertyValue("prodsearch", "index.ignore.variants"))) {
+                if ("Y".equals(product.getString("isVariant")) && "true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.variants", delegator))) {
                     return null;
                 }
                 Document doc = new Document();
@@ -95,9 +96,9 @@ public class ProductDocument implements LuceneDocument {
                 doc.add(new StringField("isVariant", product.get("isVariant") != null && product.getBoolean("isVariant") ? "true" : "false", Field.Store.NO));
 
                 // ProductFeature Fields, check that at least one of the fields is set to be indexed
-                if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0")) ||
-                        !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
-                        !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
+                if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.description", "0", delegator)) ||
+                        !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0", delegator)) ||
+                        !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0", delegator))) {
 
                     List<GenericValue> productFeatureAndAppls = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", productId).queryList();
                     productFeatureAndAppls = this.filterByThruDate(productFeatureAndAppls);
@@ -137,8 +138,8 @@ public class ProductDocument implements LuceneDocument {
                 }
 
                 // ProductAttribute Fields
-                if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
-                        !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
+                if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0", delegator)) ||
+                        !"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0", delegator))) {
 
                     List<GenericValue> productAttributes = EntityQuery.use(delegator).from("ProductAttribute").where("productId", productId).queryList();
                     for (GenericValue productAttribute: productAttributes) {
@@ -148,7 +149,7 @@ public class ProductDocument implements LuceneDocument {
                 }
 
                 // GoodIdentification
-                if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
+                if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0", delegator))) {
                     List<GenericValue> goodIdentifications = EntityQuery.use(delegator).from("GoodIdentification").where("productId", productId).queryList();
                     for (GenericValue goodIdentification: goodIdentifications) {
                         String goodIdentificationTypeId = goodIdentification.getString("goodIdentificationTypeId");
@@ -161,7 +162,7 @@ public class ProductDocument implements LuceneDocument {
 
                 // Virtual ProductIds
                 if ("Y".equals(product.getString("isVirtual"))) {
-                    if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
+                    if (!"0".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0", delegator))) {
                         List<GenericValue> variantProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT").queryList();
                         variantProductAssocs = this.filterByThruDate(variantProductAssocs);
                         for (GenericValue variantProductAssoc: variantProductAssocs) {
@@ -180,12 +181,12 @@ public class ProductDocument implements LuceneDocument {
                 }
 
                 // Index product content
-                String productContentTypes = UtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes");
+                String productContentTypes = EntityUtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes", delegator);
                 for (String productContentTypeId: productContentTypes.split(",")) {
                     int weight = 1;
                     try {
                         // this is defaulting to a weight of 1 because you specified you wanted to index this type
-                        weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1"));
+                        weight = Integer.parseInt(EntityUtilProperties.getPropertyValue("prodsearch", "index.weight.ProductContent." + productContentTypeId, "1", delegator));
                     } catch (Exception e) {
                         Debug.logWarning("Could not parse weight number: " + e.toString(), module);
                     }

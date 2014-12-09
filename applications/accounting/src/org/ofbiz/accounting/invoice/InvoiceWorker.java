@@ -33,7 +33,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -44,6 +43,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * InvoiceWorker - Worker methods of invoices
@@ -505,7 +505,7 @@ public class InvoiceWorker {
             if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
                 otherCurrencyUomId = party.getString("baseCurrencyUomId");
             } else {
-                otherCurrencyUomId = UtilProperties.getPropertyValue("general", "currency.uom.id.default");
+                otherCurrencyUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", delegator);
             }
             if (otherCurrencyUomId == null) {
                 otherCurrencyUomId = "USD"; // final default

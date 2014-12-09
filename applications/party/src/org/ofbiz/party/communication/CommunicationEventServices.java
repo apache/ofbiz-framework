@@ -62,6 +62,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -715,8 +716,8 @@ public class CommunicationEventServices {
             if (Debug.verboseOn()) Debug.logVerbose("Processing Incoming Email " + aboutThisEmail, module);
 
             // ignore the message when the spam status = yes
-            String spamHeaderName = UtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N");
-            String configHeaderValue = UtilProperties.getPropertyValue("general.properties", "mail.spam.value");
+            String spamHeaderName = EntityUtilProperties.getPropertyValue("general.properties", "mail.spam.name", "N", delegator);
+            String configHeaderValue = EntityUtilProperties.getPropertyValue("general.properties", "mail.spam.value", delegator);
             //          only execute when config file has been set && header variable found
             if (!spamHeaderName.equals("N") && wrapper.getHeader(spamHeaderName) != null && wrapper.getHeader(spamHeaderName).length > 0) {
                 String msgHeaderValue = wrapper.getHeader(spamHeaderName)[0];
@@ -1120,8 +1121,9 @@ public class CommunicationEventServices {
     private static List<Map<String, Object>> buildListOfWorkEffortInfoFromEmailAddresses(Address [] addresses, GenericValue userLogin, LocalDispatcher dispatcher) throws GenericServiceException {
         InternetAddress emailAddress = null;
         Map<String, Object> result = null;
+        Delegator delegator = dispatcher.getDelegator();
         List<Map<String, Object>> tempResults = new LinkedList<Map<String,Object>>();
-        String caseInsensitiveEmail = org.ofbiz.base.util.UtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N");
+        String caseInsensitiveEmail = EntityUtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N", delegator);
 
         if (addresses != null) {
             for (Address addr: addresses) {

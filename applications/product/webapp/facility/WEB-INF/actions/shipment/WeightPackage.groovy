@@ -21,6 +21,7 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.shipment.weightPackage.WeightPackageSession;
 
@@ -189,7 +190,7 @@ if (facility) {
     defaultDimensionUomId = facility.defaultDimensionUomId;
 }
 if (!defaultDimensionUomId) {
-    defaultDimensionUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.dimension.uom", "LEN_in");
+    defaultDimensionUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.dimension.uom", "LEN_in", delegator);
 }
 context.defaultDimensionUomId = defaultDimensionUomId;
 
@@ -198,6 +199,6 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId;
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg");
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg", delegator);
 }
 context.defaultWeightUomId = defaultWeightUomId;

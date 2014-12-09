@@ -57,6 +57,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 
 /**
@@ -392,8 +393,9 @@ public class CommonEvents {
 
     public static String getCaptcha(HttpServletRequest request, HttpServletResponse response) {
         try {
+        	Delegator delegator = (Delegator) request.getAttribute("delegator");
             final String captchaSizeConfigName = StringUtils.defaultIfEmpty(request.getParameter("captchaSize"), "default");
-            final String captchaSizeConfig = UtilProperties.getPropertyValue("captcha.properties", "captcha." + captchaSizeConfigName);
+            final String captchaSizeConfig = EntityUtilProperties.getPropertyValue("captcha.properties", "captcha." + captchaSizeConfigName, delegator);
             final String[] captchaSizeConfigs = captchaSizeConfig.split("\\|");
             final String captchaCodeId = StringUtils.defaultIfEmpty(request.getParameter("captchaCodeId"), ""); // this is used to uniquely identify in the user session the attribute where the captcha code for the last captcha for the form is stored
 
@@ -401,7 +403,7 @@ public class CommonEvents {
             final int height = Integer.parseInt(captchaSizeConfigs[1]);
             final int width = Integer.parseInt(captchaSizeConfigs[2]);
             final int charsToPrint = UtilProperties.getPropertyAsInteger("captcha.properties", "captcha.code_length", 6);
-            final char[] availableChars = UtilProperties.getPropertyValue("captcha.properties", "captcha.characters").toCharArray();
+            final char[] availableChars = EntityUtilProperties.getPropertyValue("captcha.properties", "captcha.characters", delegator).toCharArray();
 
             //It is possible to pass the font size, image width and height with the request as well
             Color backgroundColor = Color.gray;

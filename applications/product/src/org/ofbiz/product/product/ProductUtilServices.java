@@ -501,7 +501,7 @@ public class ProductUtilServices {
         String errMsg = null;
 
         if (UtilValidate.isEmpty(pattern)) {
-            String imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
+            String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
             String imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator);
             pattern = imageUrlPrefix + "/" + imageFilenameFormat;
         }
@@ -624,14 +624,14 @@ while (allCatIter.hasNext()) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         Set<String> productFeatureTypeIdsToExclude = FastSet.newInstance();
-        String excludeProp = UtilProperties.getPropertyValue("prodsearch", "attach.feature.type.exclude");
+        String excludeProp = EntityUtilProperties.getPropertyValue("prodsearch", "attach.feature.type.exclude", delegator);
         if (UtilValidate.isNotEmpty(excludeProp)) {
             List<String> typeList = StringUtil.split(excludeProp, ",");
             productFeatureTypeIdsToExclude.addAll(typeList);
         }
 
         Set<String> productFeatureTypeIdsToInclude = null;
-        String includeProp = UtilProperties.getPropertyValue("prodsearch", "attach.feature.type.include");
+        String includeProp = EntityUtilProperties.getPropertyValue("prodsearch", "attach.feature.type.include", delegator);
         if (UtilValidate.isNotEmpty(includeProp)) {
             List<String> typeList = StringUtil.split(includeProp, ",");
             if (typeList.size() > 0) {

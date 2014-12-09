@@ -37,6 +37,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  *  Does indexing in preparation for a keyword search.
@@ -199,7 +200,7 @@ public class ContentKeywordIndex {
         }
 
         List<GenericValue> toBeStored = FastList.newInstance();
-        int keywordMaxLength = Integer.parseInt(UtilProperties.getPropertyValue("contentsearch", "content.keyword.max.length"));
+        int keywordMaxLength = Integer.parseInt(EntityUtilProperties.getPropertyValue("contentsearch", "content.keyword.max.length", delegator));
         for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             if (entry.getKey().length() <= keywordMaxLength) {
                 GenericValue contentKeyword = delegator.makeValue("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
@@ -209,7 +210,7 @@ public class ContentKeywordIndex {
         if (toBeStored.size() > 0) {
             if (Debug.verboseOn()) Debug.logVerbose("[ContentKeywordIndex.indexKeywords] Storing " + toBeStored.size() + " keywords for contentId " + content.getString("contentId"), module);
 
-            if ("true".equals(UtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false"))) {
+            if ("true".equals(EntityUtilProperties.getPropertyValue("contentsearch", "index.delete.on_index", "false", delegator))) {
                 // delete all keywords if the properties file says to
                 delegator.removeByAnd("ContentKeyword", UtilMisc.toMap("contentId", content.getString("contentId")));
             }

@@ -41,6 +41,7 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
@@ -588,7 +589,7 @@ public class ShoppingListServices {
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
         }
-        String maxDaysStr = UtilProperties.getPropertyValue("order.properties", "autosave.max.age", "30");
+        String maxDaysStr = EntityUtilProperties.getPropertyValue("order.properties", "autosave.max.age", "30", delegator);
         int maxDays = 0;
         try {
             maxDays = Integer.parseInt(maxDaysStr);

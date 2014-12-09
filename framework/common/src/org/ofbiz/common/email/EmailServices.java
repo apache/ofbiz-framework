@@ -135,7 +135,7 @@ public class EmailServices {
         String sendBcc = (String) context.get("sendBcc");
 
         // check to see if we should redirect all mail for testing
-        String redirectAddress = UtilProperties.getPropertyValue("general.properties", "mail.notifications.redirectTo");
+        String redirectAddress = EntityUtilProperties.getPropertyValue("general.properties", "mail.notifications.redirectTo", delegator);
         if (UtilValidate.isNotEmpty(redirectAddress)) {
             String originalRecipients = " [To: " + sendTo + ", Cc: " + sendCc + ", Bcc: " + sendBcc + "]";
             subject += originalRecipients;
