@@ -61,13 +61,14 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, Object> context) {
         String ccAction = (String) context.get("ccAction");
+        Delegator delegator = dctx.getDelegator();
         if (ccAction == null) ccAction = "PreAuth";
         Document authRequestDoc = buildPrimaryTxRequest(context, ccAction, (BigDecimal) context.get("processAmount"),
                 (String) context.get("orderId"));
 
         Document authResponseDoc = null;
         try {
-            authResponseDoc = sendRequest(authRequestDoc, (String) context.get("paymentConfig"));
+            authResponseDoc = sendRequest(authRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -89,6 +90,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccCredit(DispatchContext dctx, Map<String, Object> context) {
         String action = "Credit";
+        Delegator delegator = dctx.getDelegator();
         if (context.get("pbOrder") != null) {
             action = "Auth";  // required for periodic billing....
         }
@@ -97,7 +99,7 @@ public class CCPaymentServices {
                 (String) context.get("referenceCode"));
         Document creditResponseDoc = null;
         try {
-            creditResponseDoc = sendRequest(creditRequestDoc, (String) context.get("paymentConfig"));
+            creditResponseDoc = sendRequest(creditRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -119,6 +121,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -127,11 +130,11 @@ public class CCPaymentServices {
         }
 
         Document captureRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "PostAuth", (BigDecimal) context.get("captureAmount"));
+                "PostAuth", (BigDecimal) context.get("captureAmount"), delegator);
 
         Document captureResponseDoc = null;
         try {
-            captureResponseDoc = sendRequest(captureRequestDoc, (String) context.get("paymentConfig"));
+            captureResponseDoc = sendRequest(captureRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -153,6 +156,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccRelease(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -160,11 +164,11 @@ public class CCPaymentServices {
                     "AccountingPaymentTransactionAuthorizationNotFoundCannotRelease", locale));
         }
 
-        Document releaseRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"), "Void", null);
+        Document releaseRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"), "Void", null, delegator);
 
         Document releaseResponseDoc = null;
         try {
-            releaseResponseDoc = sendRequest(releaseRequestDoc, (String) context.get("paymentConfig"));
+            releaseResponseDoc = sendRequest(releaseRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -206,6 +210,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -216,11 +221,11 @@ public class CCPaymentServices {
         // Although refunds are applied to captured transactions, using the auth reference number is ok here
         // Related auth and capture transactions will always have the same reference number
         Document refundRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "Credit", (BigDecimal) context.get("refundAmount"));
+                "Credit", (BigDecimal) context.get("refundAmount"), delegator);
 
         Document refundResponseDoc = null;
         try {
-            refundResponseDoc = sendRequest(refundRequestDoc, (String) context.get("paymentConfig"));
+            refundResponseDoc = sendRequest(refundRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -242,6 +247,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccReAuth(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         GenericValue authTransaction = PaymentGatewayServices.getAuthTransaction(orderPaymentPreference);
         if (authTransaction == null) {
@@ -250,11 +256,11 @@ public class CCPaymentServices {
         }
 
         Document reauthRequestDoc = buildSecondaryTxRequest(context, authTransaction.getString("referenceNum"),
-                "RePreAuth", (BigDecimal) context.get("reauthAmount"));
+                "RePreAuth", (BigDecimal) context.get("reauthAmount"), delegator);
 
         Document reauthResponseDoc = null;
         try {
-            reauthResponseDoc = sendRequest(reauthRequestDoc, (String) context.get("paymentConfig"));
+            reauthResponseDoc = sendRequest(reauthRequestDoc, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -361,7 +367,7 @@ public class CCPaymentServices {
         //Document reportResponseDoc = null;
         try {
             //reportResponseDoc =
-            sendRequest(requestDocument, (String) context.get("paymentConfig"));
+            sendRequest(requestDocument, (String) context.get("paymentConfig"), delegator);
         } catch (ClearCommerceException cce) {
             return ServiceUtil.returnError(cce.getMessage());
         }
@@ -651,8 +657,10 @@ public class CCPaymentServices {
         if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
-
-        Document requestDocument = createRequestDocument(paymentConfig);
+        // payment mech
+        GenericValue creditCard = (GenericValue) context.get("creditCard");
+        Delegator delegator = creditCard.getDelegator();
+        Document requestDocument = createRequestDocument(paymentConfig, delegator);
 
         Element engineDocElement = UtilXml.firstChildElement(requestDocument.getDocumentElement(), "EngineDoc");
         Element orderFormDocElement = UtilXml.firstChildElement(engineDocElement, "OrderFormDoc");
@@ -726,21 +734,21 @@ public class CCPaymentServices {
         return requestDocument;
     }
 
-    private static Document buildSecondaryTxRequest(Map<String, Object> context, String id, String type, BigDecimal amount) {
+    private static Document buildSecondaryTxRequest(Map<String, Object> context, String id, String type, BigDecimal amount, Delegator delegator) {
 
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
 
-        Document requestDocument = createRequestDocument(paymentConfig);
+        Document requestDocument = createRequestDocument(paymentConfig, delegator);
 
         Element engineDocElement = UtilXml.firstChildElement(requestDocument.getDocumentElement(), "EngineDoc");
         Element orderFormDocElement = UtilXml.firstChildElement(engineDocElement, "OrderFormDoc");
         UtilXml.addChildElementValue(orderFormDocElement, "Id", id, requestDocument);
 
         // Default to currency code 840 (USD)
-        String currencyCode = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.currencyCode", "840");
+        String currencyCode = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.currencyCode", "840", delegator);
 
         appendTransactionNode(orderFormDocElement, type, amount, currencyCode);
 
@@ -822,7 +830,7 @@ public class CCPaymentServices {
         }
     }
 
-    private static Document createRequestDocument(String paymentConfig) {
+    private static Document createRequestDocument(String paymentConfig, Delegator delegator) {
 
         // EngineDocList
         Document requestDocument = UtilXml.makeEmptyXmlDocument("EngineDocList");
@@ -833,12 +841,12 @@ public class CCPaymentServices {
         Element engineDocElement = UtilXml.addChildElement(engineDocListElement, "EngineDoc", requestDocument);
         UtilXml.addChildElementValue(engineDocElement, "ContentType", "OrderFormDoc", requestDocument);
 
-        String sourceId = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.sourceId");
+        String sourceId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.sourceId", delegator);
         if (UtilValidate.isNotEmpty(sourceId)) {
             UtilXml.addChildElementValue(engineDocElement, "SourceId", sourceId, requestDocument);
         }
 
-        String groupId = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.groupId");
+        String groupId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.groupId", delegator);
         if (UtilValidate.isNotEmpty(groupId)) {
             UtilXml.addChildElementValue(engineDocElement, "GroupId", groupId, requestDocument);
         }
@@ -846,13 +854,13 @@ public class CCPaymentServices {
         // EngineDocList.EngineDoc.User
         Element userElement = UtilXml.addChildElement(engineDocElement, "User", requestDocument);
         UtilXml.addChildElementValue(userElement, "Name",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.username", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.username", "", delegator), requestDocument);
         UtilXml.addChildElementValue(userElement, "Password",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.password", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.password", "", delegator), requestDocument);
         UtilXml.addChildElementValue(userElement, "Alias",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.alias", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.alias", "", delegator), requestDocument);
 
-        String effectiveAlias = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.effectiveAlias");
+        String effectiveAlias = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.effectiveAlias", delegator);
         if (UtilValidate.isNotEmpty(effectiveAlias)) {
             UtilXml.addChildElementValue(userElement, "EffectiveAlias", effectiveAlias, requestDocument);
         }
@@ -870,17 +878,17 @@ public class CCPaymentServices {
         Element orderFormDocElement = UtilXml.addChildElement(engineDocElement, "OrderFormDoc", requestDocument);
 
         // default to "P" for Production Mode
-        String mode = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.processMode", "P");
+        String mode = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.processMode", "P", delegator);
         UtilXml.addChildElementValue(orderFormDocElement, "Mode", mode, requestDocument);
 
         return requestDocument;
     }
 
-    private static Document sendRequest(Document requestDocument, String paymentConfig) throws ClearCommerceException {
+    private static Document sendRequest(Document requestDocument, String paymentConfig, Delegator delegator) throws ClearCommerceException {
         if (UtilValidate.isEmpty(paymentConfig)) {
             paymentConfig = "payment.properties";
         }
-        String serverURL = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.serverURL");
+        String serverURL = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.serverURL", delegator);
         if (UtilValidate.isEmpty(serverURL)) {
             throw new ClearCommerceException("Missing server URL; check your ClearCommerce configuration");
         }

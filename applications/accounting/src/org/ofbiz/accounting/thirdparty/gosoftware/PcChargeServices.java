@@ -33,7 +33,9 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -47,7 +49,8 @@ public class PcChargeServices {
 
     public static Map<String, Object> ccAuth(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
-        Properties props = buildPccProperties(context);
+        Delegator delegator = dctx.getDelegator();
+        Properties props = buildPccProperties(context, delegator);
         PcChargeApi api = getApi(props);
         if (api == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -137,7 +140,7 @@ public class PcChargeServices {
     public static Map<String, Object> ccCapture(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
         Locale locale = (Locale) context.get("locale");
-
+        Delegator delegator = dctx.getDelegator();
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
 
@@ -151,7 +154,7 @@ public class PcChargeServices {
         }
 
         // setup the PCCharge Interface
-        Properties props = buildPccProperties(context);
+        Properties props = buildPccProperties(context, delegator);
         PcChargeApi api = getApi(props);
         if (api == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -196,7 +199,7 @@ public class PcChargeServices {
 
     public static Map<String, Object> ccRelease(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
-
+        Delegator delegator = dctx.getDelegator();
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
         Locale locale = (Locale) context.get("locale");
@@ -211,7 +214,7 @@ public class PcChargeServices {
         }
 
         // setup the PCCharge Interface
-        Properties props = buildPccProperties(context);
+        Properties props = buildPccProperties(context, delegator);
         PcChargeApi api = getApi(props);
         if (api == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -262,7 +265,7 @@ public class PcChargeServices {
 
     public static Map<String, Object> ccRefund(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericValue orderPaymentPreference = (GenericValue) context.get("orderPaymentPreference");
-
+        Delegator delegator = dctx.getDelegator();
         //lets see if there is a auth transaction already in context
         GenericValue authTransaction = (GenericValue) context.get("authTrans");
         Locale locale = (Locale) context.get("locale");
@@ -277,7 +280,7 @@ public class PcChargeServices {
         }
 
         // setup the PCCharge Interface
-        Properties props = buildPccProperties(context);
+        Properties props = buildPccProperties(context, delegator);
         PcChargeApi api = getApi(props);
         if (api == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
@@ -403,18 +406,18 @@ public class PcChargeServices {
         return api;
     }
 
-    private static Properties buildPccProperties(Map<String, ? extends Object> context) {
+    private static Properties buildPccProperties(Map<String, ? extends Object> context, Delegator delegator) {
         String configString = (String) context.get("paymentConfig");
         if (configString == null) {
             configString = "payment.properties";
         }
 
-        String processorId = UtilProperties.getPropertyValue(configString, "payment.pccharge.processorID");
-        String merchantId = UtilProperties.getPropertyValue(configString, "payment.pccharge.merchantID");
-        String userId = UtilProperties.getPropertyValue(configString, "payment.pccharge.userID");
-        String host = UtilProperties.getPropertyValue(configString, "payment.pccharge.host");
-        String port = UtilProperties.getPropertyValue(configString, "payment.pccharge.port");
-        String autoBill = UtilProperties.getPropertyValue(configString, "payment.pccharge.autoBill", "true");
+        String processorId = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.processorID", delegator);
+        String merchantId = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.merchantID", delegator);
+        String userId = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.userID", delegator);
+        String host = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.host", delegator);
+        String port = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.port", delegator);
+        String autoBill = EntityUtilProperties.getPropertyValue(configString, "payment.pccharge.autoBill", "true", delegator);
 
         // some property checking
         if (UtilValidate.isEmpty(processorId)) {
