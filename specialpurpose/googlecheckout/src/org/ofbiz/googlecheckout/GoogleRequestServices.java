@@ -37,6 +37,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.service.DispatchContext;
@@ -114,8 +115,8 @@ public class GoogleRequestServices {
         }
 
         // flow support URLs
-        String contShoppingUrl = UtilProperties.getPropertyValue("googleCheckout.properties", "continueShoppingUrl");
-        String editCartUrl = UtilProperties.getPropertyValue("googleCheckout.properties", "editCartUrl");
+        String contShoppingUrl = EntityUtilProperties.getPropertyValue("googleCheckout.properties", "continueShoppingUrl", delegator);
+        String editCartUrl = EntityUtilProperties.getPropertyValue("googleCheckout.properties", "editCartUrl", delegator);
         req.setContinueShoppingUrl(contShoppingUrl);
         req.setEditCartUrl(editCartUrl);
 
@@ -640,13 +641,13 @@ public class GoogleRequestServices {
         }
 
         // base URLs
-        String productionRoot = UtilProperties.getPropertyValue("google-checkout.properties", "production.root.url");
-        String sandboxRoot = UtilProperties.getPropertyValue("google-checkout.properties", "sandbox.root.url");
+        String productionRoot = EntityUtilProperties.getPropertyValue("google-checkout.properties", "production.root.url", delegator);
+        String sandboxRoot = EntityUtilProperties.getPropertyValue("google-checkout.properties", "sandbox.root.url", delegator);
 
         // command strings
-        String merchantCheckoutCommand = UtilProperties.getPropertyValue("google-checkout.properties", "merchant.checkout.command", "merchantCheckout");
-        String checkoutCommand = UtilProperties.getPropertyValue("google-checkout.properties", "checkout.command", "checkout");
-        String requestCommand = UtilProperties.getPropertyValue("google-checkout.properties", "request.command", "request");
+        String merchantCheckoutCommand = EntityUtilProperties.getPropertyValue("google-checkout.properties", "merchant.checkout.command", "merchantCheckout", delegator);
+        String checkoutCommand = EntityUtilProperties.getPropertyValue("google-checkout.properties", "checkout.command", "checkout", delegator);
+        String requestCommand = EntityUtilProperties.getPropertyValue("google-checkout.properties", "request.command", "request", delegator);
 
         String environment = null;
         String checkoutUrl = "";

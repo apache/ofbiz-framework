@@ -220,7 +220,7 @@ public class TrackingCodeEvents {
         }
 
         if (cookieDomain == null) {
-            cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
+            cookieDomain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", "", delegator);
         }
 
         // if trackingCode.trackableLifetime not null and is > 0 write a trackable cookie with name in the form: TKCDT_{trackingCode.trackingCodeTypeId} and timeout will be trackingCode.trackableLifetime

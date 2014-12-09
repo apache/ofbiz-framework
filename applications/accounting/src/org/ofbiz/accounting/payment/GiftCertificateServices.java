@@ -1005,7 +1005,7 @@ public class GiftCertificateServices {
         BigDecimal amount = orderItem.getBigDecimal("unitPrice");
 
         // survey information
-        String surveyId = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId");
+        String surveyId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.surveyId", delegator);
 
         // get the survey response
         GenericValue surveyResponse = null;
@@ -1050,8 +1050,8 @@ public class GiftCertificateServices {
             }
         }
 
-        String cardNumberKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.cardNumber");
-        String pinNumberKey = UtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.pinNumber");
+        String cardNumberKey = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.cardNumber", delegator);
+        String pinNumberKey = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.giftcert.reload.survey.pinNumber", delegator);
         String cardNumber = (String) answerMap.get(cardNumberKey);
         String pinNumber = (String) answerMap.get(pinNumberKey);
 

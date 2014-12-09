@@ -64,6 +64,7 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ItemNotFoundException;
@@ -546,7 +547,7 @@ public class OrderServices {
             orderHeader.set("createdBy", userLogin.getString("userLoginId"));
         }
 
-        String invoicePerShipment = UtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment");
+        String invoicePerShipment = EntityUtilProperties.getPropertyValue("AccountingConfig","create.invoice.per.shipment", delegator);
         if (UtilValidate.isNotEmpty(invoicePerShipment)) {
             orderHeader.set("invoicePerShipment", invoicePerShipment);
         }

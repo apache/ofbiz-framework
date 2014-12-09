@@ -53,6 +53,7 @@ import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.product.ProductWorker;
@@ -655,19 +656,19 @@ public class OagisShipmentServices {
 
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
-            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.processShipment");
+            sendToUrl = EntityUtilProperties.getPropertyValue("oagis.properties", "url.send.processShipment", delegator);
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
-            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            String saveToFilenameBase = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "", delegator);
             if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
                 saveToFilename = saveToFilenameBase + "ProcessShipment" + orderId + ".xml";
             }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
-            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+            saveToDirectory = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory", delegator);
         }
 
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -689,7 +690,7 @@ public class OagisShipmentServices {
         GenericValue orderHeader = null;
         GenericValue orderItemShipGroup = null;
 
-        String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
+        String logicalId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID", delegator);
         String referenceId = null;
         String task = "SHIPREQUEST"; // Actual value of task is "SHIPREQUEST" which is more than 10 char, need this in the db so it will match Confirm BODs, etc
         String component = "INVENTORY";
@@ -714,7 +715,7 @@ public class OagisShipmentServices {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisOrderIdNotFound", UtilMisc.toMap("orderId", orderId), locale));
             }
 
-            List<String> validStores = StringUtil.split(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Order.ValidProductStores"), ",");
+            List<String> validStores = StringUtil.split(EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Order.ValidProductStores", delegator), ",");
             if (UtilValidate.isNotEmpty(validStores)) {
                 if (!validStores.contains(orderHeader.getString("productStoreId"))) {
                     return ServiceUtil.returnSuccess(UtilProperties.getMessage(resource, "OagisOrderIdNotValidStore", UtilMisc.toMap("orderId", orderId), locale));
@@ -752,7 +753,7 @@ public class OagisShipmentServices {
             referenceId = delegator.getNextSeqId("OagisMessageInfo");
             omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
 
-            String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+            String authId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID", delegator);
             Timestamp timestamp = UtilDateTime.nowTimestamp();
             String sentDate = OagisServices.isoDateFormat.format(timestamp);
 
@@ -881,7 +882,7 @@ public class OagisShipmentServices {
             bodyParameters.put("orderId", orderId);
             bodyParameters.put("userLogin", userLogin);
 
-            String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment");
+            String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ProcessShipment", delegator);
             String outText = null;
             Writer writer = new StringWriter();
             ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
@@ -977,19 +978,19 @@ public class OagisShipmentServices {
         Locale locale = (Locale) context.get("locale");
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
-            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.receiveDelivery");
+            sendToUrl = EntityUtilProperties.getPropertyValue("oagis.properties", "url.send.receiveDelivery", delegator);
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
-            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            String saveToFilenameBase = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "", delegator);
             if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
                 saveToFilename = saveToFilenameBase + "ReceiveDelivery" + returnId + ".xml";
             }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
-            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+            saveToDirectory = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory", delegator);
         }
 
         GenericValue userLogin = null;
@@ -1037,8 +1038,8 @@ public class OagisShipmentServices {
 
             orderId = EntityUtil.getFirst(returnItems).getString("orderId");
 
-            String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
-            String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+            String logicalId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID", delegator);
+            String authId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID", delegator);
 
             referenceId = delegator.getNextSeqId("OagisMessageInfo");
             omiPkMap = UtilMisc.toMap("logicalId", logicalId, "component", component, "task", task, "referenceId", referenceId);
@@ -1127,7 +1128,7 @@ public class OagisShipmentServices {
 
             bodyParameters.put("returnId", returnId);
 
-            String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ReceiveDelivery");
+            String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ReceiveDelivery", delegator);
             Writer writer = new StringWriter();
             ScreenRenderer screens = new ScreenRenderer(writer, bodyParameters, htmlScreenRenderer);
             screens.render(bodyScreenUri);

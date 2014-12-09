@@ -37,6 +37,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -99,7 +100,7 @@ public class OpenOfficeServices {
              //OpenOfficeByteArrayOutputStream baos = OpenOfficeWorker.convertOODocByteStreamToByteStream(xmulticomponentfactory, oobais, inputMimeType, outputMimeType);
 
 
-            String tempDir = UtilProperties.getPropertyValue("content", "content.temp.dir");
+            String tempDir = EntityUtilProperties.getPropertyValue("content", "content.temp.dir", delegator);
             fileIn = new File(tempDir + fileInName);
             FileOutputStream fos = new FileOutputStream(fileIn);
             fos.write(inByteArray);

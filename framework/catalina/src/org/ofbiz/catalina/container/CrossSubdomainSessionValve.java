@@ -33,6 +33,8 @@ import org.apache.tomcat.util.http.ServerCookie;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 public class CrossSubdomainSessionValve extends ValveBase {
 
@@ -63,9 +65,10 @@ public class CrossSubdomainSessionValve extends ValveBase {
 
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
 
+    	Delegator delegator = (Delegator) request.getAttribute("delegator");
         // copy the existing session cookie, but use a different domain (only if domain is valid)
         String cookieDomain = null;
-        cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
+        cookieDomain = EntityUtilProperties.getPropertyValue("url", "cookie.domain", "", delegator);
 
         if (UtilValidate.isEmpty(cookieDomain)) {
             String serverName = request.getServerName();

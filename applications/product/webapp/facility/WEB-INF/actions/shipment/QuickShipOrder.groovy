@@ -19,6 +19,7 @@
 
 import org.ofbiz.base.util.*
 import org.ofbiz.order.order.*
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 facilityId = parameters.facilityId;
 if (facilityId) {
@@ -65,7 +66,7 @@ if (shipmentId) {
         context.shipmentId = shipmentId;
 
         weightUoms = delegator.findList("Uom", EntityCondition.makeCondition(['uomTypeId' : 'WEIGHT_MEASURE']), null, ['description'], null, false);
-        defaultWeightUom = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom");
+        defaultWeightUom = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", delegator);
         if (defaultWeightUom) {
             defaultWeight = delegator.findOne("Uom", [uomId : defaultWeightUom], false);
             if (defaultWeight) {

@@ -35,7 +35,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.content.content.ContentWorker;
@@ -44,6 +43,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.website.WebSiteWorker;
@@ -266,7 +266,7 @@ public class CmsEvents {
                 try {
                     Writer writer = response.getWriter();
                     // TODO: replace "screen" to support dynamic rendering of different output
-                    FormStringRenderer formStringRenderer = new MacroFormRenderer(UtilProperties.getPropertyValue("widget", "screen.formrenderer"), request, response);
+                    FormStringRenderer formStringRenderer = new MacroFormRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.formrenderer", delegator), request, response);
                     templateMap.put("formStringRenderer", formStringRenderer);
                     
                     // if use web analytics

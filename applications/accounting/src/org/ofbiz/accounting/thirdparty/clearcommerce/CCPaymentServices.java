@@ -39,8 +39,10 @@ import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.w3c.dom.Document;
@@ -275,7 +277,7 @@ public class CCPaymentServices {
 
     public static Map<String, Object> ccReport(DispatchContext dctx, Map<String, Object> context) {
         Locale locale = (Locale) context.get("locale");
-         
+        Delegator delegator = dctx.getDelegator();
         // configuration file
         String paymentConfig = (String) context.get("paymentConfig");
         if (UtilValidate.isEmpty(paymentConfig)) {
@@ -299,12 +301,12 @@ public class CCPaymentServices {
         Element engineDocElement = UtilXml.addChildElement(engineDocListElement, "EngineDoc", requestDocument);
         UtilXml.addChildElementValue(engineDocElement, "ContentType", "ReportDoc", requestDocument);
 
-        String sourceId = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.sourceId");
+        String sourceId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.sourceId", delegator);
         if (UtilValidate.isNotEmpty(sourceId)) {
             UtilXml.addChildElementValue(engineDocElement, "SourceId", sourceId, requestDocument);
         }
 
-        String groupId = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.groupId");
+        String groupId = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.groupId", delegator);
         if (UtilValidate.isNotEmpty(groupId)) {
             UtilXml.addChildElementValue(engineDocElement, "GroupId", groupId, requestDocument);
         }
@@ -315,13 +317,13 @@ public class CCPaymentServices {
         // EngineDocList.EngineDoc.User
         Element userElement = UtilXml.addChildElement(engineDocElement, "User", requestDocument);
         UtilXml.addChildElementValue(userElement, "Name",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.username", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.username", "", delegator), requestDocument);
         UtilXml.addChildElementValue(userElement, "Password",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.password", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.password", "", delegator), requestDocument);
         UtilXml.addChildElementValue(userElement, "Alias",
-                UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.alias", ""), requestDocument);
+                EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.alias", "", delegator), requestDocument);
 
-        String effectiveAlias = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.effectiveAlias");
+        String effectiveAlias = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.effectiveAlias", delegator);
         if (UtilValidate.isNotEmpty(effectiveAlias)) {
             UtilXml.addChildElementValue(userElement, "EffectiveAlias", effectiveAlias, requestDocument);
         }
@@ -348,7 +350,7 @@ public class CCPaymentServices {
         // EngineDocList.EngineDoc.ReportDoc.ReportActionList.ReportAction.ValueList
         Element valueList = UtilXml.addChildElement(action, "ValueList",requestDocument);
         Element value = UtilXml.addChildElement(valueList, "Value",requestDocument);
-        String clientIdConfig = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.clientId");
+        String clientIdConfig = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.clientId", delegator);
         if (UtilValidate.isNotEmpty(clientIdConfig)) {
             Element clientId = UtilXml.addChildElementValue(value,"ClientId", clientIdConfig, requestDocument);
             clientId.setAttribute("DataType", "S32");
@@ -668,12 +670,13 @@ public class CCPaymentServices {
 
         // payment mech
         GenericValue creditCard = (GenericValue) context.get("creditCard");
+        Delegator delegator = creditCard.getDelegator();
 
-        boolean enableCVM = UtilProperties.propertyValueEqualsIgnoreCase(paymentConfig, "payment.clearcommerce.enableCVM", "Y");
+        boolean enableCVM = EntityUtilProperties.propertyValueEqualsIgnoreCase(paymentConfig, "payment.clearcommerce.enableCVM", "Y", delegator);
         String cardSecurityCode = enableCVM ? (String) context.get("cardSecurityCode") : null;
 
         // Default to locale code 840 (United States)
-        String localCode = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.localeCode", "840");
+        String localCode = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.localeCode", "840", delegator);
 
         appendPaymentMechNode(consumerElement, creditCard, cardSecurityCode, localCode);
 
@@ -694,7 +697,7 @@ public class CCPaymentServices {
         }
 
         // Default to currency code 840 (USD)
-        String currencyCode = UtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.currencyCode", "840");
+        String currencyCode = EntityUtilProperties.getPropertyValue(paymentConfig, "payment.clearcommerce.currencyCode", "840", delegator);
 
         // transaction
         appendTransactionNode(orderFormDocElement, type, amount, currencyCode);

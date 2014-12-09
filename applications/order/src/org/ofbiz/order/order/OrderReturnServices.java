@@ -50,6 +50,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.thirdparty.paypal.ExpressCheckoutEvents;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.product.ProductWorker;
@@ -334,7 +335,7 @@ public class OrderReturnServices {
         for (GenericValue returnHeader : returnHeaders) {
             String returnId = returnHeader.getString("returnId");
             Timestamp entryDate = returnHeader.getTimestamp("entryDate");
-            String daysTillCancelStr = UtilProperties.getPropertyValue("order.properties", "daysTillCancelReplacementOrder", "30");
+            String daysTillCancelStr = EntityUtilProperties.getPropertyValue("order.properties", "daysTillCancelReplacementOrder", "30", delegator);
             int daysTillCancel = 0;
             try {
                 daysTillCancel = Integer.parseInt(daysTillCancelStr);

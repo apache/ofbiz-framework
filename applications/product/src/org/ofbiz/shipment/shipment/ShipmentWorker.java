@@ -28,10 +28,11 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -161,8 +162,9 @@ public class ShipmentWorker {
     public static BigDecimal calcPackageWeight(DispatchContext dctx, Map<String, BigDecimal> packageMap, List<Map<String, Object>> shippableItemInfo, BigDecimal additionalWeight) {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
         BigDecimal totalWeight = BigDecimal.ZERO;
-        String defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom");
+        String defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", delegator);
 
         for (Map.Entry<String, BigDecimal> entry: packageMap.entrySet()) {
             String productId = entry.getKey();

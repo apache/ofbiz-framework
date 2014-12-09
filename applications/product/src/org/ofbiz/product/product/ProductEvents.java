@@ -54,6 +54,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.GenericServiceException;
@@ -98,10 +99,10 @@ public class ProductEvents {
         if (!"Y".equals(doAll)) {
             List<EntityCondition> condList = FastList.newInstance();
             condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("autoCreateKeywords", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("autoCreateKeywords", EntityOperator.NOT_EQUAL, "N")));
-            if ("true".equals(UtilProperties.getPropertyValue("prodsearch", "index.ignore.variants"))) {
+            if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.variants", delegator))) {
                 condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("isVariant", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("isVariant", EntityOperator.NOT_EQUAL, "Y")));
             }
-            if ("true".equals(UtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales"))) {
+            if ("true".equals(EntityUtilProperties.getPropertyValue("prodsearch", "index.ignore.discontinued.sales", delegator))) {
                 condList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowTimestamp)));
             }
             condition = EntityCondition.makeCondition(condList, EntityOperator.AND);

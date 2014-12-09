@@ -41,6 +41,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
@@ -292,6 +293,7 @@ public class ShippingEvents {
 
     public static BigDecimal getExternalShipEstimate(LocalDispatcher dispatcher, GenericValue storeShipMeth, Map<String, Object> context) throws GeneralException {
         String shipmentCustomMethodId = storeShipMeth.getString("shipmentCustomMethodId");
+        Delegator delegator = dispatcher.getDelegator();
         String serviceName = "";
         if (UtilValidate.isNotEmpty(shipmentCustomMethodId)) {
             serviceName = getShipmentCustomMethod(dispatcher.getDelegator(), shipmentCustomMethodId);
@@ -302,10 +304,10 @@ public class ShippingEvents {
         // invoke the external shipping estimate service
         BigDecimal externalShipAmt = null;
         if (serviceName != null) {
-            String doEstimates = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true");
+            String doEstimates = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck", "true", delegator);
             //If all estimates are not turned off, check for the individual one
             if ("true".equals(doEstimates)) {
-                String dothisEstimate = UtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck." + serviceName, "true");
+                String dothisEstimate = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.doratecheck." + serviceName, "true", delegator);
                 if ("false".equals(dothisEstimate))
                  serviceName = null;
             } else {

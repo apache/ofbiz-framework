@@ -58,6 +58,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.entity.Delegator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
@@ -190,6 +192,7 @@ public class OutputServices {
 
     public static Map<String, Object> createFileFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
         Locale locale = (Locale) serviceContext.get("locale");
+        Delegator delegator = dctx.getDelegator();
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map<String, Object> screenContext = UtilGenerics.checkMap(serviceContext.remove("screenContext"));
         String contentType = (String) serviceContext.remove("contentType");
@@ -237,7 +240,7 @@ public class OutputServices {
                 fileName += ".txt";
             }
             if (UtilValidate.isEmpty(filePath)) {
-                filePath = UtilProperties.getPropertyValue("content.properties", "content.output.path", "/output");
+                filePath = EntityUtilProperties.getPropertyValue("content.properties", "content.output.path", "/output", delegator);
             }
             File file = new File(filePath, fileName);
 

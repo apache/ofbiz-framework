@@ -27,10 +27,11 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.string.*;
 import org.ofbiz.content.content.*;
 import org.apache.commons.lang.StringEscapeUtils;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
-int minFontSize = Integer.parseInt(UtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.min.fontsize"));
-int maxFontSize = Integer.parseInt(UtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.max.fontsize"));
-int limitTagCloud = Integer.parseInt(UtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.limit"));
+int minFontSize = Integer.parseInt(EntityUtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.min.fontsize", delegator));
+int maxFontSize = Integer.parseInt(EntityUtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.max.fontsize", delegator));
+int limitTagCloud = Integer.parseInt(EntityUtilProperties.getPropertyValue("ecommerce.properties", "tagcloud.limit", delegator));
 
 tagCloudList = [] as LinkedList;
 tagList = [] as LinkedList;

@@ -42,7 +42,9 @@ import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.birt.BirtFactory;
 import org.ofbiz.birt.BirtWorker;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.xml.sax.SAXException;
@@ -112,7 +114,8 @@ public class BirtViewHandler implements ViewHandler {
             }
             
             context.put(BirtWorker.BIRT_LOCALE, locale);
-            String birtImageDirectory = UtilProperties.getPropertyValue("birt", "birt.html.image.directory");
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            String birtImageDirectory = EntityUtilProperties.getPropertyValue("birt", "birt.html.image.directory", delegator);
             context.put(BirtWorker.BIRT_IMAGE_DIRECTORY, birtImageDirectory);
             BirtWorker.exportReport(design, context, contentType, response.getOutputStream());
         } catch (BirtException e) {

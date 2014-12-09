@@ -150,7 +150,7 @@ viewIndex = request.getParameter("viewIndex") ? Integer.valueOf(request.getParam
 context.viewIndex = viewIndex;
 
 viewSize = request.getParameter("viewSize") ? Integer.valueOf(request.getParameter("viewSize")) : 
-                                                                UtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20");
+                                                                EntityUtilProperties.getPropertyValue("widget", "widget.form.defaultViewSize", "20", delegator);
 context.viewSize = viewSize;
 
 // get the lookup flag

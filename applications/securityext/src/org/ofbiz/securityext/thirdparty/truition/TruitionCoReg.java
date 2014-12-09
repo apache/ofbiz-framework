@@ -33,8 +33,10 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.contact.ContactHelper;
 
 public class TruitionCoReg {
@@ -43,6 +45,7 @@ public class TruitionCoReg {
     public static final String logPrefix = "Truition Cookie Info: ";
 
     public static String truitionReg(HttpServletRequest req, HttpServletResponse resp) {
+    	Delegator delegator = (Delegator) req.getAttribute("delegator");
         HttpSession session = req.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         StringBuffer cookieNameB = new StringBuffer();
@@ -57,9 +60,9 @@ public class TruitionCoReg {
         }
 
         // locate the domain/cookie name setting
-        String domainName = UtilProperties.getPropertyValue("truition.properties", "truition.domain.name");
-        String cookiePath = UtilProperties.getPropertyValue("truition.properties", "truition.cookie.path");
-        String cookieName = UtilProperties.getPropertyValue("truition.properties", "truition.cookie.name");
+        String domainName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.domain.name", delegator);
+        String cookiePath = EntityUtilProperties.getPropertyValue("truition.properties", "truition.cookie.path", delegator);
+        String cookieName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.cookie.name", delegator);
         int time = (int) UtilProperties.getPropertyNumber("truition.properties", "truition.cookie.time");
         if (UtilValidate.isEmpty(domainName)) {
             Debug.logError("Truition is not properly configured; domainName missing; see truition.properties", module);
@@ -101,9 +104,10 @@ public class TruitionCoReg {
     }
 
     public static String truitionLogoff(HttpServletRequest req, HttpServletResponse resp) {
+    	Delegator delegator = (Delegator) req.getAttribute("delegator");
         // locate the domain/cookie name setting
-        String domainName = UtilProperties.getPropertyValue("truition.properties", "truition.domain.name");
-        String cookieName = UtilProperties.getPropertyValue("truition.properties", "truition.cookie.name");
+        String domainName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.domain.name", delegator);
+        String cookieName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.cookie.name", delegator);
         if (UtilValidate.isEmpty(domainName)) {
             Debug.logError("Truition is not properly configured; domainName missing; see truition.properties", module);
             return "error";
@@ -128,8 +132,9 @@ public class TruitionCoReg {
     }
 
     public static String truitionRedirect(HttpServletRequest req, HttpServletResponse resp) {
+    	Delegator delegator = (Delegator) req.getAttribute("delegator");
         // redirect URL form field
-        String redirectUrlName = UtilProperties.getPropertyValue("truition.properties", "truition.redirect.urlName");
+        String redirectUrlName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.redirect.urlName", delegator);
         String redirectUrl = req.getParameter(redirectUrlName);
         Debug.logInfo("Redirect to : " + redirectUrl, module);
         if (truitionEnabled() && redirectUrl != null) {
@@ -148,8 +153,9 @@ public class TruitionCoReg {
     }
 
     public static boolean makeTruitionCookie(GenericValue userLogin, StringBuffer cookieName, StringBuffer cookieValue) {
-        String domainName = UtilProperties.getPropertyValue("truition.properties", "truition.domain.name");
-        String siteId = UtilProperties.getPropertyValue("truition.properties", "truition.siteId");
+    	Delegator delegator = userLogin.getDelegator();
+        String domainName = EntityUtilProperties.getPropertyValue("truition.properties", "truition.domain.name", delegator);
+        String siteId = EntityUtilProperties.getPropertyValue("truition.properties", "truition.siteId", delegator);
 
         if (UtilValidate.isEmpty(domainName)) {
             Debug.logError("Truition is not properly configured; domainName missing; see truition.properties!", module);

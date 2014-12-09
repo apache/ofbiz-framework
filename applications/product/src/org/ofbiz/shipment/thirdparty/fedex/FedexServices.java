@@ -432,7 +432,7 @@ public class FedexServices {
         }
 
         // Get the weight units to be used in the request
-        String weightUomId = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.uom");
+        String weightUomId = EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.uom", delegator);
         if (UtilValidate.isEmpty(weightUomId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentDefaultWeightUomIdNotFound", locale));
@@ -442,7 +442,7 @@ public class FedexServices {
         }
 
         // Get the dimension units to be used in the request
-        String dimensionsUomId = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.dimension.uom");
+        String dimensionsUomId = EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.dimension.uom", delegator);
         if (UtilValidate.isEmpty(dimensionsUomId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
                     "FacilityShipmentDefaultDimensionUomIdNotFound", locale));
@@ -875,7 +875,7 @@ public class FedexServices {
 
                         // Use default weight if available
                         try {
-                            packageWeight = new BigDecimal(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
+                            packageWeight = new BigDecimal(EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value", delegator));
                         } catch (NumberFormatException ne) {
                             Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , module);
                             packageWeight = BigDecimal.ONE;
@@ -1076,7 +1076,7 @@ public class FedexServices {
                 Debug.logError(e, module);
             }
         } else {
-            String value = UtilProperties.getPropertyValue(resource, parameterName);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

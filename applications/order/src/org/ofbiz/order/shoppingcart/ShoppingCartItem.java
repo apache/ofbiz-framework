@@ -54,6 +54,7 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.order.shoppinglist.ShoppingListEvents;
@@ -1188,7 +1189,7 @@ public class ShoppingCartItem implements java.io.Serializable {
                             }
                         }
                     }
-                    if ("true".equals(UtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency"))){
+                    if ("true".equals(EntityUtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency", delegator))){
                         priceContext.put("currencyUomIdTo", cart.getCurrency());
                     } else {
                         priceContext.put("currencyUomId", cart.getCurrency());

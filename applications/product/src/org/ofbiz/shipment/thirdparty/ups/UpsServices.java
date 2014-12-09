@@ -2618,7 +2618,7 @@ public class UpsServices {
             Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", shipmentConfirmRequestDoc);
             Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
             UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", "LBS", shipmentConfirmRequestDoc);
-            UtilXml.addChildElementValue(packageWeightElement, "Weight", UtilProperties.getPropertyValue("shipment", "shipment.default.weight.value"), shipmentConfirmRequestDoc);
+            UtilXml.addChildElementValue(packageWeightElement, "Weight", EntityUtilProperties.getPropertyValue("shipment", "shipment.default.weight.value", delegator), shipmentConfirmRequestDoc);
 
             String shipmentConfirmRequestString = null;
             try {
@@ -2912,7 +2912,7 @@ public class UpsServices {
             UtilXml.addChildElementValue(shipperElement, "Name", UtilValidate.isNotEmpty(originPostalAddress.getString("toName")) ? originPostalAddress.getString("toName") : "", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "AttentionName", UtilValidate.isNotEmpty(originPostalAddress.getString("attnName")) ? originPostalAddress.getString("attnName") : "", rateRequestDoc);
             UtilXml.addChildElementValue(shipperElement, "PhoneNumber", originPhoneNumber, rateRequestDoc);
-            UtilXml.addChildElementValue(shipperElement, "ShipperNumber", UtilProperties.getPropertyValue("shipment", "shipment.ups.shipper.number"), rateRequestDoc);
+            UtilXml.addChildElementValue(shipperElement, "ShipperNumber", EntityUtilProperties.getPropertyValue("shipment", "shipment.ups.shipper.number", delegator), rateRequestDoc);
 
             Element shipperAddressElement = UtilXml.addChildElement(shipperElement, "Address", rateRequestDoc);
             UtilXml.addChildElementValue(shipperAddressElement, "AddressLine1", originPostalAddress.getString("address1"), rateRequestDoc);
@@ -3198,7 +3198,7 @@ public class UpsServices {
                 Debug.logError(e, module);
             }
         } else {
-            String value = UtilProperties.getPropertyValue(resource, parameterName);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

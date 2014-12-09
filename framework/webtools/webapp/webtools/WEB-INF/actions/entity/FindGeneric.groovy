@@ -39,6 +39,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.base.util.Debug;
 import java.sql.Timestamp;
 import java.sql.Date;
@@ -46,6 +47,7 @@ import java.sql.Time;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
+
 
 entityName = parameters.entityName;
 
@@ -125,7 +127,7 @@ context.viewIndexNext = viewIndex+1;
 try {
     viewSize = Integer.valueOf((String)parameters.get("VIEW_SIZE")).intValue();
 } catch (NumberFormatException nfe) {
-    viewSize = Integer.valueOf(UtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize")).intValue();
+    viewSize = Integer.valueOf(EntityUtilProperties.getPropertyValue("widget.properties", "widget.form.defaultViewSize", delegator)).intValue();
 }
 
 context.viewSize = viewSize;

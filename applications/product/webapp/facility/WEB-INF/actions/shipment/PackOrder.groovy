@@ -20,6 +20,7 @@
 import org.ofbiz.base.util.*;
 import org.ofbiz.order.order.*;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.entity.condition.EntityCondition;
 
 
@@ -179,6 +180,6 @@ if (facility) {
     defaultWeightUomId = facility.defaultWeightUomId;
 }
 if (!defaultWeightUomId) {
-    defaultWeightUomId = UtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg");
+    defaultWeightUomId = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.default.weight.uom", "WT_kg", delegator);
 }
 context.defaultWeightUomId = defaultWeightUomId;

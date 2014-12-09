@@ -47,6 +47,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.product.ProductPromoWorker;
 import org.ofbiz.product.config.ProductConfigWorker;
@@ -231,7 +232,7 @@ public class ShoppingCartHelper {
 
         // get order item attributes
         Map<String, String> orderItemAttributes = FastMap.newInstance();
-        String orderItemAttributePrefix = UtilProperties.getPropertyValue("order.properties", "order.item.attr.prefix");
+        String orderItemAttributePrefix = EntityUtilProperties.getPropertyValue("order.properties", "order.item.attr.prefix", delegator);
         for (Entry<String, ? extends Object> entry : context.entrySet()) {
             if (entry.getKey().toString().contains(orderItemAttributePrefix) && UtilValidate.isNotEmpty(entry.getValue())) {
                 orderItemAttributes.put(entry.getKey().replaceAll(orderItemAttributePrefix, ""), entry.getValue().toString());

@@ -20,6 +20,7 @@
 import org.ofbiz.base.util.*
 import org.ofbiz.entity.*
 import org.ofbiz.product.category.*
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 state = request.getParameter("BrowseCategoriesState");
 isOpen = true;
@@ -35,7 +36,7 @@ if (state) {
 context.isOpen = isOpen;
 
 requestParameters = UtilHttp.getParameterMap(request);
-defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : UtilProperties.getPropertyValue("catalog", "top.category.default");
+defaultTopCategoryId = requestParameters.TOP_CATEGORY ? requestParameters.TOP_CATEGORY : EntityUtilProperties.getPropertyValue("catalog", "top.category.default", delegator);
 currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopCategoryId);
 currentTopCategory = null;
 if (isOpen) {

@@ -46,6 +46,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -212,7 +213,7 @@ public class DhlServices {
         }
 
         if ((shippableWeight == null) || (shippableWeight.compareTo(BigDecimal.ZERO) <= 0)) {
-            String tmpValue = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value");
+            String tmpValue = EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value", delegator);
             if (tmpValue != null) {
                 try {
                     shippableWeight = new BigDecimal(tmpValue);
@@ -678,7 +679,7 @@ public class DhlServices {
                 } else {
                     // use default weight if available
                     try {
-                        packageWeight = new BigDecimal(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
+                        packageWeight = new BigDecimal(EntityUtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value", delegator));
                     } catch (NumberFormatException ne) {
                         Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value)", module);
                         packageWeight = BigDecimal.ONE;
@@ -970,7 +971,7 @@ public class DhlServices {
                 Debug.logError(e, module);
             }
         } else {
-            String value = UtilProperties.getPropertyValue(resource, parameterName);
+            String value = EntityUtilProperties.getPropertyValue(resource, parameterName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

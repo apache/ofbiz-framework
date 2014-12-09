@@ -60,6 +60,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.party.party.PartyHelper;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.service.DispatchContext;
@@ -263,7 +264,7 @@ public class VCard {
             }
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactMarshaller marshaller = ciof.createContactMarshaller();
-            String saveToDirectory = UtilProperties.getPropertyValue("sfa.properties", "save.outgoing.directory", "");
+            String saveToDirectory = EntityUtilProperties.getPropertyValue("sfa.properties", "save.outgoing.directory", "", delegator);
             if (UtilValidate.isEmpty(saveToDirectory)) {
                 saveToDirectory = System.getProperty("ofbiz.home");
             }

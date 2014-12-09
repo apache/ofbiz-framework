@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
 import org.ofbiz.party.contact.ContactHelper;
 import org.ofbiz.service.GenericServiceException;
@@ -86,14 +87,14 @@ public class EbayHelper {
                 buildEbayConfigContext.put("apiServerUrl", eBayConfig.getString("apiServerUrl"));
             }
         } else {
-            buildEbayConfigContext.put("devID", UtilProperties.getPropertyValue(configFileName, "eBayExport.devID"));
-            buildEbayConfigContext.put("appID", UtilProperties.getPropertyValue(configFileName, "eBayExport.appID"));
-            buildEbayConfigContext.put("certID", UtilProperties.getPropertyValue(configFileName, "eBayExport.certID"));
-            buildEbayConfigContext.put("token", UtilProperties.getPropertyValue(configFileName, "eBayExport.token"));
-            buildEbayConfigContext.put("compatibilityLevel", UtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel"));
-            buildEbayConfigContext.put("siteID", UtilProperties.getPropertyValue(configFileName, "eBayExport.siteID"));
-            buildEbayConfigContext.put("xmlGatewayUri", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
-            buildEbayConfigContext.put("apiServerUrl", UtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri"));
+            buildEbayConfigContext.put("devID", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.devID", delegator));
+            buildEbayConfigContext.put("appID", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.appID", delegator));
+            buildEbayConfigContext.put("certID", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.certID", delegator));
+            buildEbayConfigContext.put("token", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.token", delegator));
+            buildEbayConfigContext.put("compatibilityLevel", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.compatibilityLevel", delegator));
+            buildEbayConfigContext.put("siteID", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.siteID", delegator));
+            buildEbayConfigContext.put("xmlGatewayUri", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri", delegator));
+            buildEbayConfigContext.put("apiServerUrl", EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.xmlGatewayUri", delegator));
         }
         return buildEbayConfigContext;
     }

@@ -492,7 +492,7 @@ public class ProductsExportToEbay {
         if (UtilValidate.isNotEmpty(customXmlFromUI)) {
             customXml = customXmlFromUI;
         } else {
-            customXml = UtilProperties.getPropertyValue(configFileName, "eBayExport.customXml");
+            customXml = EntityUtilProperties.getPropertyValue(configFileName, "eBayExport.customXml", delegator);
         }
         if (UtilValidate.isNotEmpty(customXml)) {
             Document customXmlDoc = UtilXml.readXmlDocument(customXml);

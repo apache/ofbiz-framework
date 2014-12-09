@@ -58,6 +58,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -110,19 +111,19 @@ public class OagisServices {
 
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
-            sendToUrl = UtilProperties.getPropertyValue("oagis.properties", "url.send.confirmBod");
+            sendToUrl = EntityUtilProperties.getPropertyValue("oagis.properties", "url.send.confirmBod", delegator);
         }
 
         String saveToFilename = (String) context.get("saveToFilename");
         if (UtilValidate.isEmpty(saveToFilename)) {
-            String saveToFilenameBase = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "");
+            String saveToFilenameBase = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.filename.base", "", delegator);
             if (UtilValidate.isNotEmpty(saveToFilenameBase)) {
                 saveToFilename = saveToFilenameBase + "ConfirmBod" + errorReferenceId + ".xml";
             }
         }
         String saveToDirectory = (String) context.get("saveToDirectory");
         if (UtilValidate.isEmpty(saveToDirectory)) {
-            saveToDirectory = UtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory");
+            saveToDirectory = EntityUtilProperties.getPropertyValue("oagis.properties", "test.save.outgoing.directory", delegator);
         }
 
         OutputStream out = (OutputStream) context.get("outputStream");
@@ -134,8 +135,8 @@ public class OagisServices {
             Debug.logError(e, "Error getting userLogin", module);
         }
 
-        String logicalId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID");
-        String authId = UtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID");
+        String logicalId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.LOGICALID", delegator);
+        String authId = EntityUtilProperties.getPropertyValue("oagis.properties", "CNTROLAREA.SENDER.AUTHID", delegator);
 
         MapStack<String> bodyParameters =  MapStack.create();
         bodyParameters.put("logicalId", logicalId);
@@ -189,7 +190,7 @@ public class OagisServices {
         bodyParameters.put("errorReferenceId", errorReferenceId);
         bodyParameters.put("errorMapList", errorMapList);
         bodyParameters.put("origRef", context.get("origRefId"));
-        String bodyScreenUri = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod");
+        String bodyScreenUri = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Template.ConfirmBod", delegator);
 
         String outText = null;
         try {

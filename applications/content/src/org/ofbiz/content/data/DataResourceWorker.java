@@ -623,7 +623,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
         // check for a cached template
         if (cache) {
-            String disableCache = UtilProperties.getPropertyValue("content", "disable.ftl.template.cache");
+            String disableCache = EntityUtilProperties.getPropertyValue("content", "disable.ftl.template.cache", delegator);
             if (disableCache == null || !disableCache.equalsIgnoreCase("true")) {
                 try {
                     Template cachedTemplate = FreeMarkerWorker.getTemplate("DataResource:" + dataResourceId);
@@ -743,7 +743,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
                     ScreenRenderer screens = (ScreenRenderer) context.get("screens");
                     if (screens == null) {
                      // TODO: replace "screen" to support dynamic rendering of different output
-                        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", "screen.name"), UtilProperties.getPropertyValue("widget", "screen.screenrenderer"));
+                        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", "screen.name", delegator), EntityUtilProperties.getPropertyValue("widget", "screen.screenrenderer", delegator));
                         screens = new ScreenRenderer(out, context, screenStringRenderer);
                         screens.getContext().put("screens", screens);
                     }

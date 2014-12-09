@@ -39,6 +39,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -76,7 +77,7 @@ public class DataEvents {
         }
 
         // get the permission service required for streaming data; default is always the genericContentPermission
-        String permissionService = UtilProperties.getPropertyValue("content.properties", "stream.permission.service", "genericContentPermission");
+        String permissionService = EntityUtilProperties.getPropertyValue("content.properties", "stream.permission.service", "genericContentPermission", delegator);
 
         // get the content record
         GenericValue content;

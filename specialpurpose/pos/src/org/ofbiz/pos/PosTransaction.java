@@ -58,6 +58,7 @@ import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.guiapp.xui.XuiSession;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
@@ -1732,6 +1733,7 @@ public class PosTransaction implements Serializable {
         // We suppose only one email address (should be ok anyway because of the contactMechPurposeTypeId == "PRIMARY_EMAIL")
         // we suppose only one phone number (should be ok anyway because of the contactMechPurposeTypeId == "PHONE_HOME")
         LocalDispatcher dispatcher = session.getDispatcher();
+        Delegator delegator = dispatcher.getDelegator();
         GenericValue userLogin = session.getUserLogin();
         GenericValue partyUserLogin = null;
         String result = null;
@@ -1937,7 +1939,8 @@ public class PosTransaction implements Serializable {
                             trace("updatePassword");
                             String passwordAcceptEncryptedAndPlain = null;
                             try {
-                                passwordAcceptEncryptedAndPlain = UtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain");
+                            	
+                                passwordAcceptEncryptedAndPlain = EntityUtilProperties.getPropertyValue("security.properties", "password.accept.encrypted.and.plain", delegator);
                                 UtilProperties.setPropertyValueInMemory("security.properties", "password.accept.encrypted.and.plain", "true");
                                 svcRes = dispatcher.runSync("updatePassword",
                                         UtilMisc.toMap("userLogin", userLogin,

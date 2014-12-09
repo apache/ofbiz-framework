@@ -522,7 +522,7 @@ public class PriceServices {
         }
 
         // Convert the value to the price currency, if required
-        if ("true".equals(UtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency"))) {
+        if ("true".equals(EntityUtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency", delegator))) {
             if (UtilValidate.isNotEmpty(currencyDefaultUomId) && UtilValidate.isNotEmpty(currencyUomIdTo) && !currencyDefaultUomId.equals(currencyUomIdTo)) {
                 if (UtilValidate.isNotEmpty(result)) {
                     Map<String, Object> convertPriceMap = FastMap.newInstance();

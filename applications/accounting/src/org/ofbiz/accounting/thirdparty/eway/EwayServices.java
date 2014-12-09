@@ -31,6 +31,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -280,7 +281,7 @@ public class EwayServices {
                 Debug.logError(e, module);
             }
         } else {
-            String value = UtilProperties.getPropertyValue(resource, resParamName);
+            String value = EntityUtilProperties.getPropertyValue(resource, resParamName, delegator);
             if (value != null) {
                 returnValue = value.trim();
             }

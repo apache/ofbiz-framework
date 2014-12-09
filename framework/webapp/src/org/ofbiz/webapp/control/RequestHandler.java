@@ -51,6 +51,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.webapp.OfbizUrlBuilder;
 import org.ofbiz.webapp.event.EventFactory;
 import org.ofbiz.webapp.event.EventHandler;
@@ -62,6 +63,7 @@ import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteProperties;
 import org.ofbiz.webapp.website.WebSiteWorker;
 import org.owasp.esapi.errors.EncodingException;
+import org.python.modules.re;
 
 /**
  * RequestHandler - Request Processor Object
@@ -395,7 +397,7 @@ public class RequestHandler {
                                     if (protectView != null) {
                                         overrideViewUri = protectView;
                                     } else {
-                                        overrideViewUri = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                        overrideViewUri = EntityUtilProperties.getPropertyValue("security.properties", "default.error.response.view", delegator);
                                         overrideViewUri = overrideViewUri.replace("view:", "");
                                         if ("none:".equals(overrideViewUri)) {
                                             interruptRequest = true;
@@ -1021,6 +1023,7 @@ public class RequestHandler {
      */
     @Deprecated
     public static String getDefaultServerRootUrl(HttpServletRequest request, boolean secure) {
+    	Delegator delegator = (Delegator) request.getAttribute("delegator");
         String httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https", "443");
         String httpsServer = UtilProperties.getPropertyValue("url.properties", "force.https.host");
         String httpPort = UtilProperties.getPropertyValue("url.properties", "port.http", "80");

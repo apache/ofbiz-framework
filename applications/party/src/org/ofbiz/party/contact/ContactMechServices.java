@@ -43,6 +43,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ModelService;
@@ -1050,7 +1051,7 @@ public class ContactMechServices {
         String emailAddress = (String) context.get("emailAddress");
         String verifyHash = null;
 
-        String expireTime = UtilProperties.getPropertyValue("security", "email_verification.expire.hours");
+        String expireTime = EntityUtilProperties.getPropertyValue("security", "email_verification.expire.hours", delegator);
         Integer expTime = Integer.valueOf(expireTime);
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.HOUR, expTime.intValue());

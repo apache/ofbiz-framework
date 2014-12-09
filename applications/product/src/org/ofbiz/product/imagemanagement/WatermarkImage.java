@@ -49,6 +49,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -65,9 +66,10 @@ public class WatermarkImage{
     
     public static String createWatermarkImage(HttpServletRequest request, HttpServletResponse response) throws WatermarkerException, IOException {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
-        String imageServerUrl = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.url"), context);
-        String nameOfThumb = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail"), context);
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
+        String imageServerUrl = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.url", delegator), context);
+        String nameOfThumb = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.nameofthumbnail", delegator), context);
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String watermarkText = null;
@@ -311,7 +313,8 @@ public class WatermarkImage{
     
     public static String setPreviewWaterMark(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String productId = request.getParameter("productId");
         String imageName = request.getParameter("imageName");
         String text = request.getParameter("text");
@@ -372,7 +375,8 @@ public class WatermarkImage{
     
     public static String deletePreviewWatermarkImage(HttpServletRequest request, HttpServletResponse response) {
         Map<String, ? extends Object> context = UtilGenerics.checkMap(request.getParameterMap());
-        String imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.management.path"), context);
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
+        String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
         String count = request.getParameter("count");
         File file = new File(imageServerPath + "/preview/" + "/previewImage" + count  + ".jpg");
         file.delete();

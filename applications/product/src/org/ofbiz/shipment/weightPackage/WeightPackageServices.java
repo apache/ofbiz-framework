@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -130,6 +131,7 @@ public class WeightPackageServices {
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
         Locale locale = (Locale) context.get("locale");
 
+        Delegator delegator = dctx.getDelegator();
         String orderId = (String) context.get("orderId");
         String shipmentId = (String) context.get("shipmentId");
         String invoiceId = (String) context.get("invoiceId");
@@ -151,7 +153,7 @@ public class WeightPackageServices {
 
         Map<String, Object> response = FastMap.newInstance();
         try {
-            String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+            String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N", delegator);
             String result = weightPackageSession.complete(orderId, locale, getActualShippingQuoteFromUps);
             if ("showWarningForm".equals(result)) {
                 response.put("showWarningForm", true);
@@ -168,6 +170,7 @@ public class WeightPackageServices {
 
     public static Map<String, Object> completeShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
 
         String shipmentId = (String) context.get("shipmentId");
@@ -175,7 +178,7 @@ public class WeightPackageServices {
 
         Map<String, Object> response = FastMap.newInstance();
         try {
-            String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+            String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N", delegator);
             if (weightPackageSession.completeShipment(orderId, getActualShippingQuoteFromUps)) {
                 response.put("shipmentId", shipmentId);
             } else {
@@ -189,11 +192,12 @@ public class WeightPackageServices {
 
     public static Map<String, Object> savePackagesInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         Locale locale = (Locale) context.get("locale");
+        Delegator delegator = dctx.getDelegator();
         WeightPackageSession weightPackageSession = (WeightPackageSession) context.get("weightPackageSession");
 
         String orderId = (String) context.get("orderId");
 
-        String getActualShippingQuoteFromUps = UtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N");
+        String getActualShippingQuoteFromUps = EntityUtilProperties.getPropertyValue("shipment.properties", "shipment.ups.shipping", "N", delegator);
         try {
             weightPackageSession.savePackagesInfo(orderId, getActualShippingQuoteFromUps);
         } catch (GeneralException e) {
