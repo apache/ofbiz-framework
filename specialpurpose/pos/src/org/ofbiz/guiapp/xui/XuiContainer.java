@@ -31,6 +31,7 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
+import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.service.ServiceContainer;
@@ -103,7 +104,7 @@ public abstract class XuiContainer implements Container {
         jframe.setUndecorated(true);
         new XuiScreen(
                 new String[] { this.startupDir + this.startupFile,
-                classPackageName}, jframe);
+                classPackageName}, jframe, delegator);
         return true;
     }
 
@@ -136,12 +137,12 @@ public abstract class XuiContainer implements Container {
     class XuiScreen extends XApplet {
         protected String startupProperties = "";
 
-        public XuiScreen(String[] args, JFrame frame) {
+        public XuiScreen(String[] args, JFrame frame, Delegator delegator) {
             super(args, frame);
             if (args.length > 0) {
                 startupProperties = args[0];
             }
-            String languageSuffix = UtilProperties.getPropertyValue("xui.properties", "languageSuffix", "");
+            String languageSuffix = EntityUtilProperties.getPropertyValue("xui.properties", "languageSuffix", "", delegator);
             String suffix = null;
             if(UtilValidate.isEmpty(languageSuffix)) {
                 suffix = Locale.getDefault().getLanguage();
@@ -153,7 +154,7 @@ public abstract class XuiContainer implements Container {
             } else {
                 suffix = "_" + suffix;
             }
-            String language = UtilProperties.getPropertyValue(startupProperties, "Language");
+            String language = EntityUtilProperties.getPropertyValue(startupProperties, "Language", delegator);
             if (language.compareTo("XuiLabels" + suffix) != 0) {
                 UtilProperties.setPropertyValue(startupProperties, "Language", "XuiLabels" + suffix);
             }
