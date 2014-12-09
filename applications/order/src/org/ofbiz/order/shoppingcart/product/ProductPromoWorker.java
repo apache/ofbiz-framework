@@ -411,6 +411,7 @@ public class ProductPromoWorker {
         // set a max limit on how many times each promo can be run, for cases where there is no use limit this will be the use limit
         //default to 2 times the number of items in the cart
         long maxUseLimit = cart.getTotalQuantity().multiply(BigDecimal.valueOf(2)).setScale(0, BigDecimal.ROUND_CEILING).longValue();
+        maxUseLimit = Math.max(1, maxUseLimit);
 
         try {
             // repeat until no more rules to run: either all rules are run, or no changes to the cart in a loop
