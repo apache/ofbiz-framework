@@ -22,7 +22,6 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/component-loader.xsd">
     <load-component component-location="base"/>
     <load-component component-location="geronimo"/>
-    <load-component component-location="sql"/>
     <load-component component-location="entity"/>
     <load-component component-location="security"/>
     <load-component component-location="datafile"/>

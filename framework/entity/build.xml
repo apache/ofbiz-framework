@@ -37,7 +37,6 @@ under the License.
         <fileset dir="../base/lib/j2eespecs" includes="*.jar"/>
         <fileset dir="../base/lib/scripting" includes="*.jar"/>
         <fileset dir="../base/build/lib" includes="*.jar"/>
-        <fileset dir="../sql/build/lib" includes="*.jar"/>
     </path>
 
     <patternset id="src.exc.set">
