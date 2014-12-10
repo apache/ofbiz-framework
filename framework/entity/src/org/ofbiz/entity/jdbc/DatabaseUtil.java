@@ -1152,14 +1152,14 @@ public class DatabaseUtil {
                         ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, null);
                         pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                     } catch (Exception e1) {
-                        Debug.logWarning("Error getting primary key info from database with null tableName, will try other means: " + e1.toString(), module);
+                        Debug.logInfo("Error getting primary key info from database with null tableName, will try other means: " + e1.toString(), module);
                     }
                     if (pkCount == 0) {
                         try {
                             ResultSet rsPks = dbData.getPrimaryKeys(null, lookupSchemaName, "%");
                             pkCount += checkPrimaryKeyInfo(rsPks, lookupSchemaName, needsUpperCase, colInfo, messages);
                         } catch (Exception e1) {
-                            Debug.logWarning("Error getting primary key info from database with % tableName, will try other means: " + e1.toString(), module);
+                            Debug.logInfo("Error getting primary key info from database with % tableName, will try other means: " + e1.toString(), module);
                         }
                     }
                     if (pkCount == 0) {
