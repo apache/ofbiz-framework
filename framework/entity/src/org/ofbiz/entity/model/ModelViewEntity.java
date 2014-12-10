@@ -55,7 +55,8 @@ import org.w3c.dom.NodeList;
 public class ModelViewEntity extends ModelEntity {
     public static final String module = ModelViewEntity.class.getName();
 
-    public static Map<String, String> functionPrefixMap = new HashMap<String, String>();
+    private static final Map<String, String> functionPrefixMap = new HashMap<String, String>();
+    private static final Set<String> numericFunctionsSet = new HashSet<String>(); // names of functions that return a numeric type
     static {
         functionPrefixMap.put("min", "MIN(");
         functionPrefixMap.put("max", "MAX(");
@@ -65,6 +66,14 @@ public class ModelViewEntity extends ModelEntity {
         functionPrefixMap.put("count-distinct", "COUNT(DISTINCT ");
         functionPrefixMap.put("upper", "UPPER(");
         functionPrefixMap.put("lower", "LOWER(");
+        functionPrefixMap.put("extract-year", "EXTRACT(YEAR FROM ");
+        functionPrefixMap.put("extract-month", "EXTRACT(MONTH FROM ");
+        functionPrefixMap.put("extract-day", "EXTRACT(DAY FROM ");
+        numericFunctionsSet.add("count");
+        numericFunctionsSet.add("count-distinct");
+        numericFunctionsSet.add("extract-year");
+        numericFunctionsSet.add("extract-month");
+        numericFunctionsSet.add("extract-day");
     }
 
     /** Contains member-entity alias name definitions: key is alias, value is ModelMemberEntity */
@@ -480,8 +489,8 @@ public class ModelViewEntity extends ModelEntity {
                     fieldSet = alias.getFieldSet();
                 }
             }
-            if ("count".equals(alias.function) || "count-distinct".equals(alias.function)) {
-                // if we have a "count" function we have to change the type
+            if (numericFunctionsSet.contains(alias.function)) {
+                // if we have a numeric function we have to change the type
                 type = "numeric";
             }
             if (UtilValidate.isNotEmpty(alias.function)) {
