@@ -39,6 +39,9 @@ under the License.
             <xs:enumeration value="count-distinct"/>
             <xs:enumeration value="upper"/>
             <xs:enumeration value="lower"/>
+            <xs:enumeration value="extract-year"/>
+            <xs:enumeration value="extract-month"/>
+            <xs:enumeration value="extract-day"/>
         </xs:restriction>
     </xs:simpleType>
 
