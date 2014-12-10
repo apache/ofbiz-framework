@@ -20,7 +20,7 @@ under the License.
 
 <project name="OFBiz Framework Build" default="build" basedir=".">
     <filelist id="framework-builds" dir="framework"
-        files="start/build.xml,base/build.xml,sql/build.xml,
+        files="start/build.xml,base/build.xml,
                entity/build.xml,geronimo/build.xml,
                catalina/build.xml,
                security/build.xml,service/build.xml,entityext/build.xml,
@@ -30,5 +30,5 @@ under the License.
                testtools/build.xml,
                webtools/build.xml"/>
 
-    <filelist id="test-builds" dir="framework" files="base/build.xml,sql/build.xml,entity/build.xml"/>
+    <filelist id="test-builds" dir="framework" files="base/build.xml,entity/build.xml"/>
 </project>

@@ -1312,7 +1312,7 @@ under the License.
         <property name="sonar.sources" value="specialpurpose/appserver/src, framework/base/src, framework/bi/src,
             framework/catalina/src, framework/common/src, framework/datafile/src, framework/entity/src, framework/entityext/src,
             framework/example/src, framework/geronimo/src, framework/jetty/src,
-            framework/minilang/src, framework/security/src, framework/service/src, framework/sql/src, framework/start/src,
+            framework/minilang/src, framework/security/src, framework/service/src, framework/start/src,
             framework/testtools/src, framework/webapp/src, framework/webtools/src, framework/widget/src,
             applications/accounting/src, applications/commonext/src, applications/content/src, applications/humanres/src,
             applications/manufacturing/src, applications/marketing/src, applications/order/src, applications/party/src,
@@ -1321,7 +1321,7 @@ under the License.
             specialpurpose/googlecheckout/src, specialpurpose/hhfacility/src, specialpurpose/oagis/src, specialpurpose/pos/src,
             specialpurpose/scrum/src, specialpurpose/birt/src" />
         <property name="sonar.tests" value="framework/base/src/org/ofbiz/base/test, framework/entity/src/org/ofbiz/entity/test,
-            framework/service/src/org/ofbiz/service/test, framework/sql/src/org/ofbiz/sql/test,
+            framework/service/src/org/ofbiz/service/test,
             applications/accounting/src/org/ofbiz/accounting/test, applications/content/src/org/ofbiz/content/test,
             applications/product/src/org/ofbiz/product/test, applications/product/src/org/ofbiz/shipment/test,
             applications/securityext/src/org/ofbiz/securityext/test" />
