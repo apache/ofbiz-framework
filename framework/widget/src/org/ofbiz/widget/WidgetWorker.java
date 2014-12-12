@@ -20,7 +20,6 @@ package org.ofbiz.widget;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -145,8 +144,8 @@ public class WidgetWorker {
                 externalWriter.append(parameter.getKey());
                 externalWriter.append('=');
                 StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
-                if (simpleEncoder != null) {
-                    externalWriter.append(simpleEncoder.encode(parameterValue));
+                if (simpleEncoder != null && parameterValue != null) {
+                    externalWriter.append(simpleEncoder.encode(URLEncoder.encode(parameterValue, Charset.forName("UTF-8").displayName())));
                 } else {
                     externalWriter.append(parameterValue);
                 }
@@ -298,15 +297,10 @@ public class WidgetWorker {
 
         for (Map.Entry<String, String> parameter: parameterMap.entrySet()) {
             if (parameter.getValue() != null) {
-                String key = parameter.getKey();
-
                 writer.append("<input name=\"");
-                writer.append(key);
+                writer.append(parameter.getKey());
                 writer.append("\" value=\"");
-
-                String valueFromContext = context.containsKey(key) && context.get(key)!= null ?
-                        context.get(key).toString() : parameter.getValue();
-                writer.append(valueFromContext);
+                writer.append(StringUtil.htmlEncoder.encode(parameter.getValue()));
                 writer.append("\" type=\"hidden\"/>");
             }
         }
@@ -362,12 +356,7 @@ public class WidgetWorker {
 
         public String getValue(Map<String, Object> context) {
             if (this.value != null) {
-                try {
-                    return URLEncoder.encode(this.value.expandString(context), Charset.forName("UTF-8").displayName());
-                } catch (UnsupportedEncodingException e) {
-                    Debug.logError(e, module);
-                    return this.value.expandString(context);
-                }
+                return this.value.expandString(context);
             }
 
             Object retVal = null;
@@ -398,11 +387,7 @@ public class WidgetWorker {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
                     returnValue = df.format((java.util.Date) retVal);
                 } else {
-                    try {
-                        returnValue = URLEncoder.encode(retVal.toString(), Charset.forName("UTF-8").displayName());
-                    } catch (UnsupportedEncodingException e) {
-                        Debug.logError(e, module);
-                    }
+                    returnValue = retVal.toString();
                 }
                 return returnValue;
             } else {
