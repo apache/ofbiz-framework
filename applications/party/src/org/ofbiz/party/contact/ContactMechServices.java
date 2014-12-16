@@ -821,7 +821,7 @@ public class ContactMechServices {
         try {
             tempVal = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                     .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId)
-                    .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                    .filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -881,7 +881,7 @@ public class ContactMechServices {
         try {
             tempVal = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                     .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId)
-                    .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                    .filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
