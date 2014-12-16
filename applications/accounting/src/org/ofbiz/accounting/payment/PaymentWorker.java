@@ -29,6 +29,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
@@ -161,7 +162,7 @@ public class PaymentWorker {
         try {
             purpose = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                     .where("partyId", partyId, "contactMechPurposeTypeId", "PAYMENT_LOCATION")
-                    .orderBy("-purposeFromDate").filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                    .orderBy("-purposeFromDate").filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                     .queryFirst();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting PartyContactWithPurpose view entity list", module);

@@ -296,6 +296,7 @@ public class InvoiceWorker {
         if (UtilValidate.isEmpty(locations))    {
             // if no locations found get it from the PartyAndContactMech using the from and to party on the invoice
             String destinationPartyId = null;
+            Timestamp now = UtilDateTime.nowTimestamp();
             if (invoice.getString("invoiceTypeId").equals("SALES_INVOICE"))
                 destinationPartyId = invoice.getString("partyId");
             if (invoice.getString("invoiceTypeId").equals("PURCHASE_INVOICE"))
@@ -303,8 +304,8 @@ public class InvoiceWorker {
             try {
                 locations = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                         .where("partyId", destinationPartyId, "contactMechPurposeTypeId", contactMechPurposeTypeId).queryList();
-                locations = EntityUtil.filterByDate(locations, null, "contactFromDate", "contactThruDate", true);
-                locations = EntityUtil.filterByDate(locations, null, "purposeFromDate", "purposeThruDate", true);
+                locations = EntityUtil.filterByDate(locations, now, "contactFromDate", "contactThruDate", true);
+                locations = EntityUtil.filterByDate(locations, now, "purposeFromDate", "purposeThruDate", true);
             } catch (GenericEntityException e) {
                 Debug.logError("Trouble getting contact party purpose list", module);
             }
@@ -313,8 +314,8 @@ public class InvoiceWorker {
                 try {
                     locations = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                             .where("partyId", destinationPartyId, "contactMechPurposeTypeId", "GENERAL_LOCATION").queryList();
-                    locations = EntityUtil.filterByDate(locations, null, "contactFromDate", "contactThruDate", true);
-                    locations = EntityUtil.filterByDate(locations, null, "purposeFromDate", "purposeThruDate", true);
+                    locations = EntityUtil.filterByDate(locations, now, "contactFromDate", "contactThruDate", true);
+                    locations = EntityUtil.filterByDate(locations, now, "purposeFromDate", "purposeThruDate", true);
                 } catch (GenericEntityException e) {
                     Debug.logError("Trouble getting contact party purpose list", module);
                 }

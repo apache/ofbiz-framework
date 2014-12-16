@@ -144,8 +144,8 @@ context.companyName = companyName;
 
 // the address
 addresses = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "GENERAL_LOCATION"], null, false);
-addresses = EntityUtil.filterByDate(addresses, null, "contactFromDate", "contactThruDate", true);
-addresses = EntityUtil.filterByDate(addresses, null, "purposeFromDate", "purposeThruDate", true);
+addresses = EntityUtil.filterByDate(addresses, nowTimestamp, "contactFromDate", "contactThruDate", true);
+addresses = EntityUtil.filterByDate(addresses, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
 address = null;
 if (addresses) {
     address = delegator.findOne("PostalAddress", [contactMechId : addresses[0].contactMechId], false);
@@ -165,24 +165,24 @@ context.postalAddress = address;
 
 //telephone
 phones = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_PHONE"], null, false);
-phones = EntityUtil.filterByDate(phones, null, "contactFromDate", "contactThruDate", true);
-phones = EntityUtil.filterByDate(phones, null, "purposeFromDate", "purposeThruDate", true);
+phones = EntityUtil.filterByDate(phones, nowTimestamp, "contactFromDate", "contactThruDate", true);
+phones = EntityUtil.filterByDate(phones, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
 if (phones) {
     context.phone = delegator.findOne("TelecomNumber", [contactMechId : phones[0].contactMechId], false);
 }
 
 // Fax
 faxNumbers = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"], null, false);
-faxNumbers = EntityUtil.filterByDate(faxNumbers, null, "contactFromDate", "contactThruDate", true);
-faxNumbers = EntityUtil.filterByDate(faxNumbers, null, "purposeFromDate", "purposeThruDate", true);
+faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, "contactFromDate", "contactThruDate", true);
+faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
 if (faxNumbers) {
     context.fax = delegator.findOne("TelecomNumber", [contactMechId : faxNumbers[0].contactMechId], false);
 }
 
 //Email
 emails = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"], null, false);
-emails = EntityUtil.filterByDate(emails, null, "contactFromDate", "contactThruDate", true);
-emails = EntityUtil.filterByDate(emails, null, "purposeFromDate", "purposeThruDate", true);
+emails = EntityUtil.filterByDate(emails, nowTimestamp, "contactFromDate", "contactThruDate", true);
+emails = EntityUtil.filterByDate(emails, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
 if (emails) {
     context.email = delegator.findOne("ContactMech", [contactMechId : emails[0].contactMechId], false);
 } else {    //get email address from party contact mech
@@ -202,8 +202,8 @@ if (emails) {
 
 // website
 websiteUrls = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_WEB_URLs"], null, false);
-websiteUrls = EntityUtil.filterByDate(websiteUrls, null, "contactFromDate", "contactThruDate", true);
-websiteUrls = EntityUtil.filterByDate(websiteUrls, null, "purposeFromDate", "purposeThruDate", true);
+websiteUrls = EntityUtil.filterByDate(websiteUrls, nowTimestamp, "contactFromDate", "contactThruDate", true);
+websiteUrls = EntityUtil.filterByDate(websiteUrls, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
 if (websiteUrls) {
     websiteUrl = EntityUtil.getFirst(websiteUrls);
     context.website = delegator.findOne("ContactMech", [contactMechId : websiteUrl.contactMechId], false);

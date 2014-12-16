@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -559,7 +560,7 @@ public class GoogleCheckoutHelper {
         // check to make sure the purpose doesn't already exist
         List<GenericValue> values = EntityQuery.use(delegator).from("PartyContactWithPurpose")
                 .where("partyId", partyId, "contactMechId", contactMechId, "contactMechPurposeTypeId", contactMechPurposeTypeId)
-                .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                .filterByDate(UtilDateTime.nowTimestamp(), "contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
                 .queryList();
 
         if (UtilValidate.isEmpty(values)) {
