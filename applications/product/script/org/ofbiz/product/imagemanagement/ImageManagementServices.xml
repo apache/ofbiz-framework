@@ -251,8 +251,19 @@ under the License.
         if (statusId) return statusId[0];
         }"/>
         
-        <property-to-field resource="catalog.properties" property="image.management.autoApproveImage" field="autoApproveImage"/>
-        <property-to-field resource="catalog.properties" property="image.management.multipleApproval" field="multipleApproval"/>
+        <call-class-method method-name="getMessage" ret-field="autoApproveImage" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="catalog.properties"/>
+            <string value="image.management.autoApproveImage"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <call-class-method method-name="getMessage" ret-field="multipleApproval" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="catalog.properties"/>
+            <string value="image.management.multipleApproval"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        
         <if-compare field="autoApproveImage" operator="equals" value="Y">
             <entity-and entity-name="ContentApproval" list="contentApprovals">
                 <field-map field-name="contentId" from-field="parameters.contentId"/>

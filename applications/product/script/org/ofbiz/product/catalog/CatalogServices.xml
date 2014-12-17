@@ -25,7 +25,12 @@ under the License.
         <if-not-empty field="parameters.topCategory">
             <set field="defaultTopCategoryId" from-field="parameters.topCategory"/>
         <else>
-            <property-to-field property="top.category.default" field="defaultTopCategoryId" resource="catalog"/>
+            <call-class-method method-name="getMessage" ret-field="defaultTopCategoryId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="catalog"/>
+                <string value="top.category.default"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
         </else>
         </if-not-empty>
         <!--  set field="productCategoryContext.productCategoryId"  from-field="defaultTopCategoryId"/>

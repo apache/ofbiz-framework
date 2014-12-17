@@ -555,8 +555,20 @@ under the License.
             
             <set field="oldProductQuantity" value="${quantityOnHandTotal - parameters.quantityAccepted}" type="BigDecimal"/>
             <set field="productAverageCostMap.averageCost" value="${((productAverageCost.averageCost * oldProductQuantity) + (inventoryItem.unitCost * parameters.quantityAccepted))/(quantityOnHandTotal)}" type="BigDecimal"/>
-            <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
-            <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
+            <call-class-method method-name="getPropertyValue" ret-field="roundingDecimals" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="arithmetic"/>
+                <string value="finaccount.decimals"/>
+                <string value="2"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
+            <call-class-method method-name="getPropertyValue" ret-field="roundingMode" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="arithmetic"/>
+                <string value="finaccount.roundingSimpleMethod"/>
+                <string value="HalfUp"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
             <calculate field="productAverageCostMap.averageCost" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="get" field="productAverageCostMap.averageCost"/>
             </calculate>

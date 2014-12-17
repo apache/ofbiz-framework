@@ -36,8 +36,19 @@ under the License.
 
         <set field="parameters.roleTypeId" value="CUSTOMER"/>
 
-        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
-        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
+        <call-class-method method-name="getPropertyValue" ret-field="username_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="security"/>
+            <string value="username.lowercase"/>
+            <string value="false"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <call-class-method method-name="getPropertyValue" ret-field="password_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="security"/>
+            <string value="password.lowercase"/>
+            <string value="false"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>        
         <set field="default_user_password" value="ungssblepsswd"/>
         <now-timestamp field="nowStamp"/>
 
@@ -345,11 +356,12 @@ under the License.
         <set field="faxPhoneContext.partyId" from-field="partyId"/>
         <set field="mobilePhoneContext.partyId" from-field="partyId"/>
         <set field="emailContext.partyId" from-field="partyId"/>
+        <set field="delegator" type="org.ofbiz.entity.Delegator"/>
 
         <if-not-empty field="newUserLogin">
             <!-- If password encryption is enabled, encrpyt it now -->
             <call-bsh><![CDATA[
-                boolean useEncryption = "true".equals(org.ofbiz.base.util.UtilProperties.getPropertyValue("security", "password.encrypt"));
+                boolean useEncryption = "true".equals(org.ofbiz.entity.util.EntityUtilProperties.getPropertyValue("security", "password.encrypt", delegator));
                 if (useEncryption) { newUserLogin.set("currentPassword", org.ofbiz.base.crypto.HashCrypt.getDigestHash((String) newUserLogin.get("currentPassword"))); }
             ]]></call-bsh>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
