@@ -94,7 +94,7 @@ under the License.
     </div>
     <div class="screenlet-body">
 <!-- if we're called with loadOrderItems or createReturn, then orderId would exist -->
-<#if !requestParameters.orderId??>
+<#if !requestParameters.orderId?? && returnHeader?has_content>
           <form method="post" action="<@ofbizUrl>updateReturnItems</@ofbizUrl>">
           <input type="hidden" name="_useRowSubmit" value="Y" />
         <table cellspacing="0" class="basic-table">
@@ -386,13 +386,14 @@ under the License.
         </form>
         </#if>
 <!-- if no requestParameters.orderId??, then show list of items -->
-<#else>
-        <#assign selectAllFormName = "returnItems"/>
+<#elseif returnHeader?has_content>
         <form name="returnItems" method="post" action="<@ofbizUrl>createReturnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}" />
           <input type="hidden" name="_useRowSubmit" value="Y" />
           <#include "returnItemInc.ftl"/>
         </form>
+<#else>
+  ${uiLabelMap.CommonErrorMessage2} : ${uiLabelMap.CommonPleaseSelect}. ${uiLabelMap.CommonUseBackButton}
 </#if>
     </div>
 </div>
