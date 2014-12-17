@@ -238,7 +238,7 @@ public class EmailServices {
             }
 
             session = Session.getInstance(props);
-            boolean debug = UtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y");
+            boolean debug = EntityUtilProperties.propertyValueEqualsIgnoreCase("general.properties", "mail.debug.on", "Y", delegator);
             session.setDebug(debug);
 
             mail = new MimeMessage(session);
