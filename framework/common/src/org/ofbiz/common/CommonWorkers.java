@@ -65,7 +65,7 @@ public class CommonWorkers {
 
         List<GenericValue> countriesList = new LinkedList<GenericValue>();
         try {
-            countriesList = delegator.findList("Geo", EntityCondition.makeCondition(exprs), null, UtilMisc.toList("geoName"), null, true);
+            countriesList = EntityQuery.use(delegator).from("Geo").where(exprs).orderBy("geoName").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup Geo", module);
         }
@@ -93,9 +93,8 @@ public class CommonWorkers {
         List<GenericValue> geoList = new LinkedList<GenericValue>();
         EntityCondition condition = EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "TERRITORY"),
                 EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"));
-        List<String> sortList = UtilMisc.toList("geoName");
         try {
-            geoList = delegator.findList("Geo", condition, null, sortList, null, true);
+            geoList = EntityQuery.use(delegator).from("Geo").where(condition).orderBy("geoName").cache(true).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot lookup State Geos: " + e.toString(), module);
         }
@@ -124,11 +123,20 @@ public class CommonWorkers {
         try {
             // Check if the country is a country group and get recursively the
             // states
-            EntityCondition stateRegionFindCond = EntityCondition.makeCondition(EntityCondition.makeCondition("geoIdFrom", country), EntityCondition.makeCondition("geoAssocTypeId", "GROUP_MEMBER"), EntityCondition.makeCondition("geoTypeId", "GROUP"));
-            List<GenericValue> regionList = delegator.findList("GeoAssocAndGeoToWithState", stateRegionFindCond, null, sortList, null, true);
+            List<GenericValue> regionList = EntityQuery.use(delegator)
+                                                       .from("GeoAssocAndGeoToWithState")
+                                                       .where("geoIdFrom", country, "geoAssocTypeId", "GROUP_MEMBER", "geoTypeId", "GROUP")
+                                                       .orderBy(sortList)
+                                                       .cache(true)
+                                                       .queryList();
             if (regionList.size() == 1) {
                 for (GenericValue region : regionList) {
-                    List<GenericValue> tmpState = delegator.findList("GeoAssocAndGeoTo", EntityCondition.makeCondition("geoId", region.getString("geoIdFrom")), null, sortList, null, true);
+                    List<GenericValue> tmpState = EntityQuery.use(delegator)
+                                                             .from("GeoAssocAndGeoTo")
+                                                             .where("geoId", region.getString("geoIdFrom"))
+                                                             .orderBy(sortList)
+                                                             .cache(true)
+                                                             .queryList();
                     for (GenericValue state : tmpState) {
                         geoList.addAll(getAssociatedStateList(delegator, state.getString("geoIdFrom"), listOrderBy));
                     }
@@ -141,8 +149,14 @@ public class CommonWorkers {
                     EntityCondition.makeCondition("geoAssocTypeId", "REGIONS"),
                     EntityCondition.makeCondition(EntityOperator.OR, EntityCondition.makeCondition("geoTypeId", "STATE"), EntityCondition.makeCondition("geoTypeId", "PROVINCE"), EntityCondition.makeCondition("geoTypeId", "MUNICIPALITY"),
                             EntityCondition.makeCondition("geoTypeId", "COUNTY")));
-            geoList.addAll(delegator.findList("GeoAssocAndGeoToWithState", stateProvinceFindCond, null, sortList, null, true));
-        } catch (GenericEntityException e) {
+            geoList.addAll(EntityQuery.use(delegator)
+                                      .from("GeoAssocAndGeoToWithState")
+                                      .where(stateProvinceFindCond)
+                                      .orderBy(sortList)
+                                      .cache(true)
+                                      .queryList()
+                          );
+        } catch (GenericEntityException e){
             Debug.logError(e, "Cannot lookup Geo", module);
         }
 

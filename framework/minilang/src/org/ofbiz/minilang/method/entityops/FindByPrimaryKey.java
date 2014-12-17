@@ -29,6 +29,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangRuntimeException;
 import org.ofbiz.minilang.MiniLangValidate;
@@ -88,7 +89,7 @@ public final class FindByPrimaryKey extends EntityOperation {
             if (fieldsToSelectList != null) {
                 valueFma.put(methodContext.getEnvMap(), delegator.findByPrimaryKeyPartial(delegator.makePK(entityName, inMap), UtilMisc.toSet(fieldsToSelectList)));
             } else {
-                valueFma.put(methodContext.getEnvMap(), delegator.findOne(entityName, inMap, useCache));
+                valueFma.put(methodContext.getEnvMap(), EntityQuery.use(delegator).from(entityName).where(inMap).cache(useCache).queryOne());
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();

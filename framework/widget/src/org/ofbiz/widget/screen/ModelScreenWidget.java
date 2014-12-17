@@ -1671,8 +1671,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     portalPage = PortalPageWorker.getPortalPage(expandedPortalPageId, context);
                 } else {
                     try {
-                        portalPage = EntityQuery.use(delegator).from("PortalPage").where("portalPageId", expandedPortalPageId)
-                                .cache().queryOne();
+                        portalPage = EntityQuery.use(delegator)
+                                                .from("PortalPage")
+                                                .where("portalPageId", expandedPortalPageId)
+                                                .cache().queryOne();
                     } catch (GenericEntityException e) {
                         throw new RuntimeException(e);
                     }
@@ -1695,9 +1697,13 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 List<GenericValue> portletAttributes = null;
                 GenericValue portalPage = getPortalPageValue(context);
                 String actualPortalPageId = portalPage.getString("portalPageId");
-                portalPageColumns = delegator.findByAnd("PortalPageColumn", UtilMisc.toMap("portalPageId", actualPortalPageId),
-                        UtilMisc.toList("columnSeqId"), true);
-
+                portalPageColumns = EntityQuery.use(delegator)
+                                               .from("PortalPageColumn")
+                                               .where("portalPageId", actualPortalPageId)
+                                               .orderBy("columnSeqId")
+                                               .cache(true)
+                                               .queryList();
+                
                 // Renders the portalPage header
                 screenStringRenderer.renderPortalPageBegin(writer, context, this);
                 
@@ -1714,8 +1720,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                     screenStringRenderer.renderPortalPageColumnBegin(writer, context, this, columnValue);
 
                     // Get the Portlets located in the current column
-                    portalPagePortlets = delegator.findByAnd("PortalPagePortletView", UtilMisc.toMap("portalPageId", portalPage.getString("portalPageId"), "columnSeqId", columnSeqId), UtilMisc.toList("sequenceNum"), false);
-                    
+                    portalPagePortlets = EntityQuery.use(delegator)
+                                                    .from("PortalPagePortletView")
+                                                    .where("portalPageId", portalPage.getString("portalPageId"), "columnSeqId", columnSeqId)
+                                                    .orderBy("sequenceNum")
+                                                    .queryList();
                     // First Portlet in a Column has no previous Portlet
                     String prevPortletId = "";
                     String prevPortletSeqId = "";
@@ -1748,9 +1757,11 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         context.put("nextColumnSeqId", nextColumnSeqId);
                        
                         // Get portlet's attributes
-                        portletAttributes = delegator.findList("PortletAttribute",
-                            EntityCondition.makeCondition(UtilMisc.toMap("portalPageId", portletValue.get("portalPageId"), "portalPortletId", portletValue.get("portalPortletId"), "portletSeqId", portletValue.get("portletSeqId"))),
-                            null, null, null, false);
+                        portletAttributes = EntityQuery.use(delegator)
+                                                       .from("PortletAttribute")
+                                                       .where("portalPageId", portletValue.get("portalPageId"), "portalPortletId", portletValue.get("portalPortletId"), "portletSeqId", portletValue.get("portletSeqId"))
+                                                       .queryList();
+                        
                         ListIterator <GenericValue>attributesIterator = portletAttributes.listIterator();
                         while (attributesIterator.hasNext()) {
                             GenericValue attribute = attributesIterator.next();

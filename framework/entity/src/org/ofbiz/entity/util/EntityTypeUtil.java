@@ -133,7 +133,7 @@ public class EntityTypeUtil {
     public static boolean hasParentType(Delegator delegator, String entityName, String primaryKey, String childType, String parentTypeField, String parentType) {
         GenericValue childTypeValue = null;
         try {
-            childTypeValue = delegator.findOne(entityName, UtilMisc.toMap(primaryKey, childType), true);
+            childTypeValue = EntityQuery.use(delegator).from(entityName).where(primaryKey, childType).cache(true).queryOne();
         } catch (GenericEntityException e) {
             Debug.logError("Error finding "+entityName+" record for type "+childType, module);
         }

@@ -56,6 +56,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -506,7 +507,7 @@ public class CommonServices {
 
         long count = -1;
         try {
-            count = delegator.findCountByCondition("SequenceValueItem", null, null, null);
+            count = EntityQuery.use(delegator).from("SequenceValueItem").queryCount();
         } catch (GenericEntityException e) {
             Debug.logError(e.getMessage(), module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonPingDatasourceCannotConnect", locale));

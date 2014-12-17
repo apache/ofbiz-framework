@@ -55,7 +55,11 @@ public class EntityUtilProperties implements Serializable {
         
         // find system property
         try {
-            GenericValue systemProperty = EntityQuery.use(delegator).from("SystemProperty").where("systemResourceId", resource, "systemPropertyId", name).cache().queryOne();
+            GenericValue systemProperty = EntityQuery.use(delegator)
+                                                     .from("SystemProperty")
+                                                     .where("systemResourceId", resource, "systemPropertyId", name)
+                                                     .cache()
+                                                     .queryOne();
             if (systemProperty != null) {
                 String systemPropertyValue = systemProperty.getString("systemPropertyValue");
                 if (UtilValidate.isNotEmpty(systemPropertyValue)) {

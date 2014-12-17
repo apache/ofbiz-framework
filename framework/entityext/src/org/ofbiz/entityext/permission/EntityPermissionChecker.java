@@ -265,9 +265,12 @@ public class EntityPermissionChecker {
         //}
         //EntityCondition opCond = EntityCondition.makeCondition(condList, EntityOperator.OR);
 
-        EntityCondition opCond = EntityCondition.makeCondition(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList);
 
-        List<GenericValue> targetOperationEntityList = delegator.findList(modelOperationEntity.getEntityName(), opCond, null, null, null, true);
+        List<GenericValue> targetOperationEntityList = EntityQuery.use(delegator)
+                                                                  .from(modelOperationEntity.getEntityName())
+                                                                  .where(EntityCondition.makeCondition(lcEntityName + "OperationId", EntityOperator.IN, targetOperationList))
+                                                                  .cache(true)
+                                                                  .queryList();
         Map<String, GenericValue> entities = new HashMap<String, GenericValue>();
         String pkFieldName = modelEntity.getFirstPkFieldName();
 
@@ -609,7 +612,7 @@ public class EntityPermissionChecker {
             String entityId  = (String)obj;
             if (entities != null) entity = entities.get(entityId);
 
-            if (entity == null) entity = delegator.findOne(entityName,UtilMisc.toMap(pkFieldName, entityId), true);
+            if (entity == null) entity = EntityQuery.use(delegator).from(entityName).where(pkFieldName, entityId).cache(true).queryOne();
         } else if (obj instanceof GenericValue) {
             entity = (GenericValue)obj;
         }
@@ -648,7 +651,7 @@ public class EntityPermissionChecker {
         if (hasNeed) {
             try {
                 if (UtilValidate.isNotEmpty(partyId)) {
-                    List<GenericValue> partyRoleList = delegator.findByAnd("PartyRole", UtilMisc.toMap("partyId", partyId), null, true);
+                    List<GenericValue> partyRoleList = EntityQuery.use(delegator).from("PartyRole").where("partyId", partyId).cache(true).queryList();
                     for (GenericValue partyRole: partyRoleList) {
                         String roleTypeId = partyRole.getString("roleTypeId");
                         for (String thisRole: newHasRoleList) {
@@ -884,9 +887,6 @@ public class EntityPermissionChecker {
         //    thruDate = (Timestamp)partyRelationshipValues.get("thruDate") ;
         //}
 
-        EntityExpr partyFromExpr = EntityCondition.makeCondition("partyIdFrom", partyIdFrom);
-        EntityExpr partyToExpr = EntityCondition.makeCondition("partyIdTo", partyIdTo);
-
         //EntityExpr relationExpr = EntityCondition.makeCondition("partyRelationshipTypeId", "CONTENT_PERMISSION");
         //EntityExpr roleTypeIdFromExpr = EntityCondition.makeCondition("roleTypeIdFrom", "CONTENT_PERMISSION_GROUP_MEMBER");
         //EntityExpr roleTypeIdToExpr = EntityCondition.makeCondition("roleTypeIdTo", "CONTENT_PERMISSION_GROUP");
@@ -896,12 +896,10 @@ public class EntityPermissionChecker {
 
         // This method is simplified to make it work, these conditions need to be added back in.
         //List joinList = UtilMisc.toList(fromExpr, thruCond, partyFromExpr, partyToExpr, relationExpr);
-        List<? extends EntityCondition> joinList = UtilMisc.toList(partyFromExpr, partyToExpr);
-        EntityCondition condition = EntityCondition.makeCondition(joinList);
 
         List<GenericValue> partyRelationships = null;
         try {
-            partyRelationships = delegator.findList("PartyRelationship", condition, null, null, null, false);
+            partyRelationships = EntityQuery.use(delegator).from("PartyRelationship").where("partyIdFrom", partyIdFrom, "partyIdTo", partyIdTo).queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problem finding PartyRelationships. ", module);
             return false;
@@ -1041,8 +1039,11 @@ public class EntityPermissionChecker {
         }
 
         public void init(Delegator delegator) throws GenericEntityException {
-            EntityCondition opCond = EntityCondition.makeCondition(operationFieldName, EntityOperator.IN, this.operationList);
-            this.entityList = delegator.findList(this.entityName, opCond, null, null, null, true);
+            this.entityList = EntityQuery.use(delegator)
+                                         .from(this.entityName)
+                                         .where(EntityCondition.makeCondition(operationFieldName, EntityOperator.IN, this.operationList))
+                                         .cache(true)
+                                         .queryList();
         }
 
         public void restart() {
@@ -1180,7 +1181,7 @@ public class EntityPermissionChecker {
             if (UtilValidate.isEmpty(this.entityName)) {
                 return;
             }
-            List<GenericValue> values = delegator.findByAnd(this.entityName, UtilMisc.toMap(this.entityIdName, entityId), null, true);
+            List<GenericValue> values = EntityQuery.use(delegator).from(this.entityName).where(this.entityIdName, entityId).cache(true).queryList();
             for (GenericValue entity: values) {
                 this.entityList.add(entity.getString(this.auxiliaryFieldName));
             }
@@ -1328,8 +1329,11 @@ public class EntityPermissionChecker {
 
         EntityExpr expr = EntityCondition.makeCondition(entityIdFieldName, EntityOperator.IN, idList);
         EntityExpr expr2 = EntityCondition.makeCondition(partyIdFieldName, partyId);
-        EntityConditionList<EntityExpr> condList = EntityCondition.makeCondition(UtilMisc.toList(expr, expr2));
-        List<GenericValue> roleList = delegator.findList(entityName, condList, null, null, null, true);
+        List<GenericValue> roleList = EntityQuery.use(delegator)
+                                                 .from(entityName)
+                                                 .where(EntityCondition.makeCondition(UtilMisc.toList(expr, expr2)))
+                                                 .cache(true)
+                                                 .queryList();
         List<GenericValue> roleListFiltered = EntityUtil.filterByDate(roleList);
         Set<String> distinctSet = new HashSet<String>();
         for (GenericValue contentRole: roleListFiltered) {
@@ -1347,7 +1351,7 @@ public class EntityPermissionChecker {
             contentOwnerList.add(ownerContentId);
             ModelEntity modelEntity = delegator.getModelEntity(entityName);
             String pkFieldName = modelEntity.getFirstPkFieldName();
-            GenericValue ownerContent = delegator.findOne(entityName, UtilMisc.toMap(pkFieldName, ownerContentId), true);
+            GenericValue ownerContent = EntityQuery.use(delegator).from(entityName).where(pkFieldName, ownerContentId).cache(true).queryOne();
             if (ownerContent != null) {
                 getEntityOwners(delegator, ownerContent, contentOwnerList, entityName, ownerIdFieldName);
             }

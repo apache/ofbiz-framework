@@ -60,6 +60,7 @@ import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * Generic Entity Data Access Object - Handles persistence for any defined entity.
@@ -418,7 +419,7 @@ public class GenericDAO {
             List<GenericValue> meResult = null;
 
             try {
-                meResult = delegator.findByAnd(meName, findByMap, null, false);
+                meResult = EntityQuery.use(delegator).from(meName).where(findByMap).queryList();
             } catch (GenericEntityException e) {
                 throw new GenericEntityException("Error while retrieving partial results for entity member: " + meName, e);
             }

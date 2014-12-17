@@ -45,7 +45,6 @@ import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
@@ -399,12 +398,6 @@ public class ServiceUtil {
         EntityCondition finished = EntityCondition.makeCondition(finExp);
 
         EntityCondition doneCond = EntityCondition.makeCondition(UtilMisc.toList(cancelled, finished), EntityOperator.OR);
-        EntityCondition mainCond = EntityCondition.makeCondition(UtilMisc.toList(doneCond, pool));
-
-        // configure the find options
-        EntityFindOptions findOptions = new EntityFindOptions();
-        findOptions.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-        findOptions.setMaxRows(1000);
 
         // always suspend the current transaction; use the one internally
         Transaction parent = null;
@@ -426,7 +419,13 @@ public class ServiceUtil {
 
                     EntityListIterator foundJobs = null;
                     try {
-                        foundJobs = delegator.find("JobSandbox", mainCond, null, UtilMisc.toSet("jobId"), null, findOptions);
+                        foundJobs = EntityQuery.use(delegator)
+                                               .select("jobId")
+                                               .from("JobSandbox")
+                                               .where(EntityCondition.makeCondition(UtilMisc.toList(doneCond, pool)))
+                                               .cursorScrollInsensitive()
+                                               .maxRows(1000)
+                                               .queryIterator();
                         curList = foundJobs.getPartialList(1, 1000);
                     } finally {
                         if (foundJobs != null) {
@@ -486,12 +485,12 @@ public class ServiceUtil {
                 // begin this transaction
                 beganTx3 = TransactionUtil.begin();
 
-                runTimeDataIt = delegator.find("RuntimeData", null, null, UtilMisc.toSet("runtimeDataId"), null, null);
+                runTimeDataIt = EntityQuery.use(delegator).select("runtimeDataId").from("RuntimeData").queryIterator();
                 try {
                     while ((runtimeData = runTimeDataIt.next()) != null) {
                         EntityCondition whereCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runtimeDataId", EntityOperator.NOT_EQUAL, null),
                                 EntityCondition.makeCondition("runtimeDataId", EntityOperator.EQUALS, runtimeData.getString("runtimeDataId"))), EntityOperator.AND);
-                        jobsandBoxCount = delegator.findCountByCondition("JobSandbox", whereCondition, null, null);
+                        jobsandBoxCount = EntityQuery.use(delegator).from("JobSandbox").where(whereCondition).queryCount();
                         if (BigDecimal.ZERO.compareTo(BigDecimal.valueOf(jobsandBoxCount)) == 0) {
                             runtimeDataToDelete.add(runtimeData);
                         }
@@ -548,7 +547,7 @@ public class ServiceUtil {
 
         GenericValue job = null;
         try {
-            job = delegator.findOne("JobSandbox", fields, false);
+            job = EntityQuery.use(delegator).from("JobSandbox").where("jobId", jobId).queryOne();
             if (job != null) {
                 job.set("cancelDateTime", UtilDateTime.nowTimestamp());
                 job.set("statusId", "SERVICE_CANCELLED");
@@ -587,7 +586,7 @@ public class ServiceUtil {
 
         GenericValue job = null;
         try {
-            job = delegator.findOne("JobSandbox", fields, false);
+            job = EntityQuery.use(delegator).from("JobSandbox").where("jobId", jobId).queryOne();
             if (job != null) {
                 job.set("maxRetry", Long.valueOf(0));
                 job.store();
@@ -666,10 +665,9 @@ public class ServiceUtil {
         }
 
         String jobId = (String) context.get("jobId");
-        Map<String, ? extends Object> fields = UtilMisc.toMap("jobId", jobId);
         GenericValue job;
         try {
-            job = delegator.findOne("JobSandbox", fields, false);
+            job = EntityQuery.use(delegator).from("JobSandbox").where("jobId", jobId).cache().queryOne();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());

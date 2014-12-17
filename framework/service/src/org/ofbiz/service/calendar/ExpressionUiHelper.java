@@ -32,6 +32,7 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 
 import com.ibm.icu.util.Calendar;
 
@@ -140,13 +141,17 @@ public class ExpressionUiHelper {
      * @return Set of candidate tempExprId Strings
      */
     public static Set<String> getCandidateIncludeIds(Delegator delegator, String tempExprId) throws GenericEntityException {
-        List<GenericValue> findList = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
+        List<GenericValue> findList = EntityQuery.use(delegator)
+                                                 .from("TemporalExpressionAssoc")
+                                                 .where("fromTempExprId", tempExprId)
+                                                 .cache(true)
+                                                 .queryList();
         Set<String> excludedIds = new HashSet<String>();
         for (GenericValue value : findList) {
             excludedIds.add(value.getString("toTempExprId"));
         }
         excludedIds.add(tempExprId);
-        findList = delegator.findList("TemporalExpression", null, null, null, null, true);
+        findList = EntityQuery.use(delegator).from("TemporalExpression").cache(true).queryList();
         Set<String> candidateIds = new HashSet<String>();
         for (GenericValue value : findList) {
             candidateIds.add(value.getString("tempExprId"));

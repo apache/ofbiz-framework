@@ -29,6 +29,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -76,7 +77,6 @@ public final class FindByAnd extends EntityOperation {
         boolean useCache = "true".equals(useCacheFse.expandString(methodContext.getEnvMap()));
         boolean useIterator = "true".equals(useIteratorFse.expandString(methodContext.getEnvMap()));
         List<String> orderByNames = orderByListFma.get(methodContext.getEnvMap());
-        Collection<String> fieldsToSelectList = fieldsToSelectListFma.get(methodContext.getEnvMap());
         Delegator delegator = getDelegator(methodContext);
         try {
             EntityCondition whereCond = null;
@@ -85,9 +85,20 @@ public final class FindByAnd extends EntityOperation {
                 whereCond = EntityCondition.makeCondition(fieldMap);
             }
             if (useIterator) {
-                listFma.put(methodContext.getEnvMap(), delegator.find(entityName, whereCond, null, UtilMisc.toSet(fieldsToSelectList), orderByNames, null));
+                listFma.put(methodContext.getEnvMap(), EntityQuery.use(delegator)
+                                                                  .select(UtilMisc.toSet(fieldsToSelectListFma.get(methodContext.getEnvMap())))
+                                                                  .from(entityName)
+                                                                  .where(whereCond)
+                                                                  .orderBy(orderByNames)
+                                                                  .queryList());
             } else {
-                listFma.put(methodContext.getEnvMap(), delegator.findList(entityName, whereCond, UtilMisc.toSet(fieldsToSelectList), orderByNames, null, useCache));
+                listFma.put(methodContext.getEnvMap(), EntityQuery.use(delegator)
+                                                                  .select(UtilMisc.toSet(fieldsToSelectListFma.get(methodContext.getEnvMap())))
+                                                                  .from(entityName)
+                                                                  .where(whereCond)
+                                                                  .orderBy(orderByNames)
+                                                                  .cache(useCache)
+                                                                  .queryList());
             }
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while performing entity find: " + e.getMessage();

@@ -33,6 +33,7 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * A few utility methods related to Keyword Search.
@@ -217,7 +218,7 @@ public class KeywordSearchUtil {
         boolean replaceEnteredKeyword = false;
 
         try {
-            List<GenericValue> thesaurusList = delegator.findByAnd("KeywordThesaurus", UtilMisc.toMap("enteredKeyword", enteredKeyword), null, true);
+            List<GenericValue> thesaurusList = EntityQuery.use(delegator).from("KeywordThesaurus").where("enteredKeyword", enteredKeyword).cache(true).queryList();
             for (GenericValue keywordThesaurus: thesaurusList) {
                 String relationshipEnumId = (String) keywordThesaurus.get("relationshipEnumId");
                 if (thesaurusRelsToInclude.contains(relationshipEnumId)) {

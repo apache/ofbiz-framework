@@ -94,7 +94,7 @@ public class TemporalExpressionWorker {
         } else if (DayOfWeekRange.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.DayOfWeekRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
         } else if (Difference.equals(tempExprTypeId)) {
-            List<GenericValue> childExpressions = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
+            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
             GenericValue inclAssoc = null;
             GenericValue exclAssoc = null;
             for (GenericValue childExpression : childExpressions) {
@@ -118,7 +118,7 @@ public class TemporalExpressionWorker {
         } else if (MonthRange.equals(tempExprTypeId)) {
             return setExpressionId(exprValue, new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue()));
         } else if (Substitution.equals(tempExprTypeId)) {
-            List<GenericValue> childExpressions = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
+            List<GenericValue> childExpressions = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
             GenericValue inclAssoc = null;
             GenericValue exclAssoc = null;
             GenericValue substAssoc = null;
@@ -141,7 +141,7 @@ public class TemporalExpressionWorker {
     }
 
     protected static Set<TemporalExpression> getChildExpressions(Delegator delegator, String tempExprId) throws GenericEntityException {
-        List<GenericValue> valueList = delegator.findList("TemporalExpressionAssoc", EntityCondition.makeCondition("fromTempExprId", tempExprId), null, null, null, true);
+        List<GenericValue> valueList = EntityQuery.use(delegator).from("TemporalExpressionAssoc").where("fromTempExprId", tempExprId).cache(true).queryList();
         if (UtilValidate.isEmpty(valueList)) {
             throw new IllegalArgumentException("tempExprId argument invalid - no child expressions found");
         }

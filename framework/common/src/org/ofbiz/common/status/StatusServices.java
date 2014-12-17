@@ -34,6 +34,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 
@@ -56,7 +57,12 @@ public class StatusServices {
         List<GenericValue> statusItems = new LinkedList<GenericValue>();
         for (String statusTypeId: statusTypes) {
             try {
-                List<GenericValue> myStatusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"), true);
+                List<GenericValue> myStatusItems = EntityQuery.use(delegator)
+                                                              .from("StatusItem")
+                                                              .where("statusTypeId", statusTypeId)
+                                                              .orderBy("sequenceId")
+                                                              .cache(true)
+                                                              .queryList();
                 statusItems.addAll(myStatusItems);
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
@@ -72,7 +78,12 @@ public class StatusServices {
         List<GenericValue> statusValidChangeToDetails = null;
         String statusId = (String) context.get("statusId");
         try {
-            statusValidChangeToDetails = delegator.findByAnd("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"), true);
+            statusValidChangeToDetails = EntityQuery.use(delegator)
+                                                    .from("StatusValidChangeToDetail")
+                                                    .where("statusId", statusId)
+                                                    .orderBy("sequenceId")
+                                                    .cache(true)
+                                                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

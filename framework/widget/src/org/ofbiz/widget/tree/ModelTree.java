@@ -49,6 +49,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
@@ -519,7 +520,7 @@ public class ModelTree extends ModelWidget {
                 }
                 try {
                     if (id != null && modelEntity.getPksSize() == 1) {
-                        GenericValue entity = delegator.findOne(entName, UtilMisc.toMap(pkName, id), false);
+                        GenericValue entity = EntityQuery.use(delegator).from(entName).where(pkName, id).queryOne();
                         if (modelEntity.isField("childBranchCount")) {
                             entity.put("childBranchCount", nodeCount);
                             entity.store();
