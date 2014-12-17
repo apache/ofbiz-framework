@@ -82,10 +82,6 @@ public class OagisServices {
 
     public static final String resource = "OagisUiLabels";
 
-    public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
-    public static final String basicAuthUsername = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.username");
-    public static final String basicAuthPassword = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.password");
-
     public static final boolean debugSaveXmlOut = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.Out"));
     public static final boolean debugSaveXmlIn = "true".equals(UtilProperties.getPropertyValue("oagis.properties", "Oagis.Debug.Save.Xml.In"));
 
@@ -108,7 +104,7 @@ public class OagisServices {
         Locale locale = (Locale) context.get("locale");
         String errorReferenceId = (String) context.get("referenceId");
         List<Map<String, String>> errorMapList = UtilGenerics.checkList(context.get("errorMapList"));
-
+        
         String sendToUrl = (String) context.get("sendToUrl");
         if (UtilValidate.isEmpty(sendToUrl)) {
             sendToUrl = EntityUtilProperties.getPropertyValue("oagis.properties", "url.send.confirmBod", delegator);
@@ -219,7 +215,7 @@ public class OagisServices {
             Debug.logError(e, errMsg, module);
         }
 
-        Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
+        Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale, delegator);
         if (sendMessageReturn != null) {
             return sendMessageReturn;
         }
@@ -679,8 +675,11 @@ public class OagisServices {
         return result;
     }
 
-    public static Map<String, Object> sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename, Locale locale) {
-        if (out != null) {
+    public static Map<String, Object> sendMessageText(String outText, OutputStream out, String sendToUrl, String saveToDirectory, String saveToFilename, Locale locale, Delegator delegator) {
+        final String certAlias = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias", delegator);
+        final String basicAuthUsername = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.basic.username", delegator);
+        final String basicAuthPassword = EntityUtilProperties.getPropertyValue("oagis.properties", "auth.basic.password", delegator);
+    	if (out != null) {
             Writer outWriter = new OutputStreamWriter(out);
             try {
                 outWriter.write(outText);

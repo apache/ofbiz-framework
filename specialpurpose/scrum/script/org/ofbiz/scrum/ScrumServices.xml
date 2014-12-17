@@ -1432,7 +1432,12 @@
             <field-map field-name="partyId" value="${invoice.partyId}"/>
         </entity-one>
         <if-empty field="party.preferredCurrencyUomId">
-            <property-to-field resource="general" property="currency.uom.id.default" field="party.preferredCurrencyUomId"/>
+            <call-class-method method-name="getMessage" ret-field="party.preferredCurrencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="general"/>
+                <string value="currency.uom.id.default"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
         </if-empty>
         <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
         <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
@@ -1443,7 +1448,13 @@
             </else>
         </if-not-empty>
         <if-empty field="updateInvoiceMap.currencyUomId">
-            <property-to-field field="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <call-class-method method-name="getPropertyValue" ret-field="invoice.currencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="general"/>
+                <string value="currency.uom.id.default"/>
+                <string value="USD"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
         </if-empty>
         <call-service service-name="updateInvoice" in-map-name="updateInvoiceMap"/>
         <entity-one entity-name="Invoice" value-field="invoice"/>

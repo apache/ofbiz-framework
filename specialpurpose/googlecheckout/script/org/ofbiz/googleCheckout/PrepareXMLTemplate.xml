@@ -66,17 +66,42 @@
     </simple-method>
     <simple-method method-name="createRequestUrl" short-description="" login-required="false">
         <!-- Setup Url spec -->
-        <property-to-field resource="googleCheckout" property="basePostUrl" field="basePostUrl"/>
-        <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
-        <property-to-field resource="googleCheckout" property="request" field="request"/>
+        <call-class-method method-name="getMessage" ret-field="basePostUrl" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="basePostUrl"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <call-class-method method-name="getMessage" ret-field="merchantId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="merchantId"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <call-class-method method-name="getMessage" ret-field="request" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="request"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
         <set field="urlSpec" value="${basePostUrl}${merchantId}"/>
         <create-object class-name="java.net.URL" field="url">
             <field field="urlSpec"/>
         </create-object>
     </simple-method>
     <simple-method method-name="getHttpAuth" short-description="" login-required="false">
-        <property-to-field resource="googleCheckout" property="merchantId" field="merchantId"/>
-        <property-to-field resource="googleCheckout" property="merchantKey" field="merchantKey"/>
+        <call-class-method method-name="getMessage" ret-field="merchantId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="merchantId"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
+        <call-class-method method-name="getMessage" ret-field="merchantKey" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="merchantKey"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
         <set field="userNameAndPass" value="${merchantId}:${merchantKey}"/>
         <call-class-method method-name="base64Encode" class-name="org.ofbiz.base.util.Base64" ret-field="encodedValue">
             <field field="userNameAndPass"/>
@@ -116,7 +141,12 @@
             <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
         </create-object>
         <!-- get uri -->
-        <property-to-field resource="googleCheckout" property="xmlTemplateUri" field="screenUri"/>
+        <call-class-method method-name="getMessage" ret-field="screenUri" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="googleCheckout"/>
+            <string value="xmlTemplateUri"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
         <call-object-method method-name="render" obj-field="xscreens">
             <field field="screenUri" type="String"/>
         </call-object-method>

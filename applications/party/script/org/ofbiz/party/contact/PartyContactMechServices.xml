@@ -321,7 +321,13 @@ under the License.
         <set field="input.inputFields.infoString" from-field="parameters.address"/>
         <set field="caseInsensitive" from-field="parameters.caseInsensitive"/>
         <if-empty field="caseInsensitive">
-            <property-to-field resource="general.properties" property="mail.address.caseInsensitive" field="caseInsensitive" default="N"/>
+            <call-class-method method-name="getPropertyValue" ret-field="caseInsensitive" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="general.properties"/>
+                <string value="mail.address.caseInsensitive"/>
+                <string value="N"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
         </if-empty>
         <set field="input.inputFields.infoString_ic" from-field="caseInsensitive"/>
         <if-empty field="parameters.fromDate">

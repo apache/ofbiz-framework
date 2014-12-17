@@ -603,7 +603,12 @@ under the License.
         </call-service>
         <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
         <if-empty field="currencyUomId">
-            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
+            <call-class-method method-name="getMessage" ret-field="currencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="general"/>
+                <string value="currency.uom.id.default"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
         </if-empty>
         <set field="paymentRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <field-to-result field="paymentRunningTotal"/>
@@ -897,7 +902,13 @@ under the License.
         <entity-one value-field="orderHeader" entity-name="OrderHeader"/>
 
         <if-compare operator="equals" value="PURCHASE_ORDER" field="orderHeader.orderTypeId">
-            <property-to-field resource="AccountingConfig" property="accounting.payment.purchaseorder.autocreate" field="purchaseAutoCreate" default="Y"/>
+            <call-class-method method-name="getPropertyValue" ret-field="purchaseAutoCreate" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="AccountingConfig"/>
+                <string value="accounting.payment.purchaseorder.autocreate"/>
+                <string value="Y"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
             <if-compare operator="not-equals" value="Y" field="purchaseAutoCreate">
                 <log level="info" message="payment not created from approved order because config (accounting.payment.purchaseorder.autocreate) is not set to Y (AccountingConfig.properties)"/>
                 <return/>
@@ -905,7 +916,13 @@ under the License.
         </if-compare>
 
         <if-compare operator="equals" value="SALES_ORDER" field="orderHeader.orderTypeId">
-            <property-to-field resource="AccountingConfig" property="accounting.payment.salesorder.autocreate" field="salesAutoCreate" default="Y"/>
+            <call-class-method method-name="getPropertyValue" ret-field="salesAutoCreate" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+                <string value="AccountingConfig"/>
+                <string value="accounting.payment.salesorder.autocreate"/>
+                <string value="Y"/>
+                <field field="locale" type="java.util.Locale"/>
+                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+            </call-class-method>
             <if-compare operator="not-equals" value="Y" field="salesAutoCreate">
                 <log level="info" message="payment not created from approved order because config (accounting.payment.salesorder.autocreate) is not set to Y (AccountingConfig.properties)"/>
                 <return/>
@@ -1039,7 +1056,13 @@ under the License.
     
     <simple-method method-name="createMatchingPaymentApplication" short-description="Create a payment application if either the invoice of payment could be found">
     
-        <property-to-field resource="AccountingConfig" property="accounting.payment.application.autocreate" field="autoCreate" default="Y"/>
+        <call-class-method method-name="getPropertyValue" ret-field="autoCreate" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="AccountingConfig"/>
+            <string value="accounting.payment.application.autocreate"/>
+            <string value="Y"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
         <if-compare operator="not-equals" value="Y" field="autoCreate">
             <log level="info" message="payment application not automatically created because config is not set to Y"/>
             <return/>

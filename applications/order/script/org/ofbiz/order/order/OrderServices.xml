@@ -1392,7 +1392,12 @@ under the License.
         ]]></call-bsh>
         <set field="newAmount" from-field="parameters.amount" type="BigDecimal"/>
         <set field="shippingAmount" from-field="parameters.shippingAmount" type="BigDecimal"/>
-        <property-to-field field="percentAllowed" resource="shipment" property="shipment.default.cost_actual_over_estimated_percent_allowed"/>
+        <call-class-method method-name="getMessage" ret-field="percentAllowed" class-name="org.ofbiz.entity.util.EntityUtilProperties">
+            <string value="shipment"/>
+            <string value="shipment.default.cost_actual_over_estimated_percent_allowed"/>
+            <field field="locale" type="java.util.Locale"/>
+            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
+        </call-class-method>
         <if-compare-field field="newAmount" operator="greater" to-field="shippingAmount" type="BigDecimal">
             <set field="diffPercentage" value="${(newAmount - shippingAmount/shippingAmount)*100}" type="BigDecimal"/>
         <else>
