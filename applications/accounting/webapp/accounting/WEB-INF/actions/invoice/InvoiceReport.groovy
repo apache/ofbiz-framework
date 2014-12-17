@@ -45,7 +45,7 @@ if (invoiceTypeId) {
     PastDueInvoices = delegator.findList("Invoice", expr, null, ["dueDate DESC"], null, false);
     if (PastDueInvoices) {
         invoiceIds = PastDueInvoices.invoiceId;
-        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId, userLogin: userLogin]);
+        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId]);
         if (totalAmount) {
             context.PastDueInvoicestotalAmount = totalAmount.invoiceRunningTotal;
         }
@@ -61,7 +61,7 @@ if (invoiceTypeId) {
     InvoicesDueSoon = delegator.findList("Invoice", invoicesCond, null, ["dueDate ASC"], findOptions, false);
     if (InvoicesDueSoon) {
         invoiceIds = InvoicesDueSoon.invoiceId;
-        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId, userLogin: userLogin]);
+        totalAmount = runService('getInvoiceRunningTotal', [invoiceIds: invoiceIds, organizationPartyId: organizationPartyId]);
         if (totalAmount) {
             context.InvoicesDueSoonTotalAmount = totalAmount.invoiceRunningTotal;
         }
