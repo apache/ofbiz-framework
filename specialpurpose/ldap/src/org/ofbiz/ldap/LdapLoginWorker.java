@@ -94,7 +94,7 @@ public class LdapLoginWorker extends LoginWorker {
                 }
             }
 
-            if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin, userLogin.getDelegator()) || hasLdapLoggedOut) {
+            if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin) || hasLdapLoggedOut) {
                 Debug.logInfo("User does not have permission or is flagged as logged out", module);
                 doBasicLogout(userLogin, request, response);
                 userLogin = null;

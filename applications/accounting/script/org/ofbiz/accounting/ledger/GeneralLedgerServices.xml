@@ -2849,20 +2849,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getGlArithmeticSettingsInline" short-description="getGlArithmeticSettingsInline">
-        <call-class-method method-name="getPropertyValue" ret-field="ledgerDecimals" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="arithmetic"/>
-            <string value="ledger.decimals"/>
-            <string value="4"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="roundingMode" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="arithmetic"/>
-            <string value="ledger.rounding"/>
-            <string value="HalfUp"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="arithmetic" property="ledger.decimals" field="ledgerDecimals" default="4"/>
+        <property-to-field resource="arithmetic" property="ledger.rounding" field="roundingMode" default="HalfUp"/>
         <log level="info" message="Got settings from arithmetic.properties: ledgerDecimals=${ledgerDecimals}, roundingMode=${roundingMode}"/>
     </simple-method>
 

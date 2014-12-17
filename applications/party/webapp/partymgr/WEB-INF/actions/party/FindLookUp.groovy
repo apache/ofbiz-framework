@@ -19,13 +19,12 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.EntityUtilProperties;
 
 if (context.noConditionFind == null) {
     context.noConditionFind = parameters.noConditionFind;
 }
 if (context.noConditionFind == null) {
-    context.noConditionFind = EntityUtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind", delegator);
+    context.noConditionFind = UtilProperties.getPropertyValue("widget", "widget.defaultNoConditionFind");
 }
 if (context.filterByDate == null) {
     context.filterByDate = parameters.filterByDate;

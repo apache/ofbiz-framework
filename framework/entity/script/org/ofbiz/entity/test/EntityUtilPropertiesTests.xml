@@ -36,20 +36,10 @@ under the License.
         </call-class-method>
         <assert><if-compare field="defaultFromEmailAddress" operator="equals" value="propertytest@example.com"></if-compare></assert>
         
-        <call-class-method method-name="getMessage" ret-field="currencyUomIdDefault" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="general"/>
-            <string value="currency.uom.id.default"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomIdDefault"/>
         <assert><if-compare field="currencyUomIdDefault" operator="equals" value="THB"></if-compare></assert>
         
-        <call-class-method method-name="getMessage" ret-field="defaultFromEmailAddress" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="general"/>
-            <string value="defaultFromEmailAddress"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="general" property="defaultFromEmailAddress" field="defaultFromEmailAddress"/>
         <assert><if-compare field="defaultFromEmailAddress" operator="equals" value="propertytest@example.com"></if-compare></assert>
     </simple-method>
 </simple-methods>

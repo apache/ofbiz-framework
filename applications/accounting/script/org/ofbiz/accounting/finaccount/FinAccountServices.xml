@@ -22,20 +22,8 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
     <simple-method method-name="getArithmeticSettingsInline" short-description="getArithmeticSettingsInline">
-        <call-class-method method-name="getPropertyValue" ret-field="roundingDecimals" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="arithmetic"/>
-            <string value="finaccount.decimals"/>
-            <string value="2"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="roundingMode"  class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="arithmetic"/>
-            <string value="finaccount.roundingSimpleMethod"/>
-            <string value="HalfUp"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="arithmetic" property="finaccount.decimals" field="roundingDecimals" default="2"/>
+        <property-to-field resource="arithmetic" property="finaccount.roundingSimpleMethod" field="roundingMode" default="HalfUp"/>
         <log level="verbose" message="Got settings from arithmetic.properties: roundingDecimals=${roundingDecimals}, roundingMode=${roundingMode}"/>
     </simple-method>
 
@@ -59,12 +47,8 @@ under the License.
 
         <!-- set the currency if none is already set -->
         <if-empty field="newEntity.currencyUomId">
-            <call-class-method method-name="getMessage" ret-field="defaultCurrency" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+
+            <property-to-field resource="general" property="currency.uom.id.default" field="defaultCurrency"/>
             <set field="newEntity.currencyUomId" from-field="defaultCurrency"/>
         </if-empty>
 
@@ -710,13 +694,7 @@ under the License.
         </call-service>
         <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
         <if-empty field="currencyUomId">
-            
-            <call-class-method method-name="getMessage" ret-field="currencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
         <set field="finAccountTransRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <set field="endingBalance" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(endingBalance, currencyUomId, parameters.locale)}"/>

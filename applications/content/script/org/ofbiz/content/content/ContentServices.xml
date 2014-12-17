@@ -977,12 +977,7 @@
         <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>
         <call-object-method method-name="length" obj-field="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
-        <call-class-method method-name="getMessage" ret-field="descriptLen" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="forum"/>
-            <string value="descriptLen"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="forum" property="descriptLen" field="descriptLen"/>
         <set field="descriptLen" from-field="descriptLen" type="Integer"/>
         <log level="info" message="descriptLen:${descriptLen}"/>
         <call-class-method method-name="min" class-name="java.lang.Math" ret-field="subStringLen">

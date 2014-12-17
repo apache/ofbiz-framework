@@ -35,20 +35,8 @@ under the License.
         <set field="require_login" value="false"/>
         <set field="create_allow_password" value="true"/>
 
-        <call-class-method method-name="getPropertyValue" ret-field="username_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="username.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="password_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="password.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="PROSPECT"/>
@@ -61,20 +49,8 @@ under the License.
         <set field="require_login" value="true"/>
         <set field="create_allow_password" value="true"/>
 
-        <call-class-method method-name="getPropertyValue" ret-field="username_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="username.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="password_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="password.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
 
         <now-timestamp field="nowStamp"/>
         <set field="parameters.roleTypeId" value="EMPLOYEE"/>
@@ -82,20 +58,8 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createUser" short-description="Create User" login-required="false">
-        <call-class-method method-name="getPropertyValue" ret-field="username_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="username.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="password_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="password.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
         <set field="default_user_password" value="ungssblepsswd"/>
         <now-timestamp field="nowStamp"/>
 
@@ -359,11 +323,9 @@ under the License.
             <set-current-user-login value-field="newUserLogin"/>
             
             <!-- On successful user creation, create password history record if configured -->
-            <call-class-method method-name="getMessage" class-name="org.ofbiz.base.util.EntityUtilProperties" ret-field="autoPasswordChangeEnabled">
+            <call-class-method method-name="getPropertyValue" class-name="org.ofbiz.base.util.UtilProperties" ret-field="autoPasswordChangeEnabled">
                 <string value="security"/>
                 <string value="user.auto.change.password.enable"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
             </call-class-method>
             <if-compare-field field="autoPasswordChangeEnabled" operator="equals" to-field="true">
                 <call-class-method method-name="createUserLoginPasswordHistory" class-name="org.ofbiz.common.login.LoginServices">

@@ -80,6 +80,10 @@ public class OagisShipmentServices {
 
     public static final String resource = "OagisUiLabels";
 
+    public static final String certAlias = UtilProperties.getPropertyValue("oagis.properties", "auth.client.certificate.alias");
+    public static final String basicAuthUsername = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.username");
+    public static final String basicAuthPassword = UtilProperties.getPropertyValue("oagis.properties", "auth.basic.password");
+
     public static final String oagisMainNamespacePrefix = "n";
     public static final String oagisSegmentsNamespacePrefix = "os";
     public static final String oagisFieldsNamespacePrefix = "of";
@@ -902,7 +906,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale, delegator);
+            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
                     Map<String, Object> uomiCtx = FastMap.newInstance();
@@ -1145,7 +1149,7 @@ public class OagisShipmentServices {
                 Debug.logError(e, errMsg, module);
             }
 
-            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale, delegator);
+            Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
                     Map<String, Object> uomiCtx = FastMap.newInstance();

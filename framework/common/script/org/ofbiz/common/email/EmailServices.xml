@@ -51,13 +51,7 @@ under the License.
             <if-not-empty field="emailTemplateSetting.fromAddress">
                 <set field="emailParams.sendFrom" from-field="emailTemplateSetting.fromAddress"/>
                 <else>
-	                <call-class-method method-name="getPropertyValue" ret-field="emailParams.sendFrom" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-	                    <string value="general"/>
-	                    <string value="defaultFromEmailAddress"/>
-	                    <string value="ofbiztest@example.com"/>
-	                    <field field="locale" type="java.util.Locale"/>
-	                    <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-	                </call-class-method>
+                    <property-to-field resource="general" property="defaultFromEmailAddress" field="emailParams.sendFrom" default="ofbiztest@example.com"/>                    
                 </else>
             </if-not-empty>
             <set field="emailParams.sendCc" from-field="emailTemplateSetting.ccAddress"/>
