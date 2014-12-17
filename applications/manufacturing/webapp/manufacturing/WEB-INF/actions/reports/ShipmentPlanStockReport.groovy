@@ -49,7 +49,7 @@ if (shipment) {
                                      userLogin: userLogin];
 
         result = [:];
-        result = dispatcher.runSync("getNotAssembledComponents",inputPar);
+        result = runService('getNotAssembledComponents',inputPar);
         if (result) {
             components = (List)result.get("notAssembledComponents");
         }
@@ -63,7 +63,7 @@ if (shipment) {
             if (facilityId) {
                 if (!inventoryStock.containsKey(oneComponent.getProduct().productId)) {
                     serviceInput = [productId : oneComponent.getProduct().productId , facilityId : facilityId];
-                    serviceOutput = dispatcher.runSync("getInventoryAvailableByFacility",serviceInput);
+                    serviceOutput = runService('getInventoryAvailableByFacility',serviceInput);
                     qha = serviceOutput.quantityOnHandTotal ?: 0.0;
                     inventoryStock.put(oneComponent.getProduct().productId, qha);
                 }
@@ -75,7 +75,7 @@ if (shipment) {
             // Now we get the products qty already reserved by production runs
             serviceInput = [productId : oneComponent.getProduct().productId,
                                           userLogin : userLogin];
-            serviceOutput = dispatcher.runSync("getProductionRunTotResQty", serviceInput);
+            serviceOutput = runSevice('getProductionRunTotResQty', serviceInput);
             resQty = serviceOutput.reservedQuantity;
             record.reservedQuantity = resQty;
             records.add(record);

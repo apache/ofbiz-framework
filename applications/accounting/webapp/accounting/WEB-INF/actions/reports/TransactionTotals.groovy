@@ -43,7 +43,7 @@ if (!glFiscalTypeId) {
 }
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = dispatcher.runSync("findLastClosedDate", UtilMisc.toMap("organizationPartyId", organizationPartyId, "findDate", new Date(fromDate.getTime()),"userLogin", userLogin));
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": new Date(fromDate.getTime()),"userLogin": userLogin]);
 Timestamp lastClosedDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 GenericValue lastClosedTimePeriod = null; 
 if (lastClosedDate) {

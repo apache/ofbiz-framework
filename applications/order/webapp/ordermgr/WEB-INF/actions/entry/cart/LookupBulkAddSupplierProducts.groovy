@@ -115,7 +115,7 @@ for (supplierProduct in supplierProducts) {
         }
         product = delegator.findOne("Product", ["productId" : productId], true);
         productFacilityList.each { productFacility ->
-            result = dispatcher.runSync("getInventoryAvailableByFacility", ["productId" : productId, "facilityId" : productFacility.facilityId]);
+            result = runService('getInventoryAvailableByFacility', ["productId" : productId, "facilityId" : productFacility.facilityId]);
             qohAtp = result.quantityOnHandTotal.toPlainString() + "/" + result.availableToPromiseTotal.toPlainString();
             productInfoMap = [:];
             

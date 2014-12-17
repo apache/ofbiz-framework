@@ -34,7 +34,7 @@ paramInMap.viewIndexString = parameters.get("VIEW_INDEX");
 paramInMap.viewSizeString = parameters.get("VIEW_SIZE");
 
 // Returns: viewIndex, viewSize, lowIndex, highIndex, listSize, productCategory, productCategoryMembers
-outMap = dispatcher.runSync("getProductCategoryAndLimitedMembers", paramInMap);
+outMap = runService('getProductCategoryAndLimitedMembers', paramInMap);
 context.viewIndex = outMap.viewIndex;
 context.viewSize = outMap.viewSize;
 context.lowIndex = outMap.lowIndex;

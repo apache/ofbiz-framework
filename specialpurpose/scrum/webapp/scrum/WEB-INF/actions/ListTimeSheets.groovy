@@ -25,17 +25,13 @@ import org.ofbiz.base.util.UtilDateTime;
 
 // get all timesheets of all user, including the planned hours
 timesheets = [];
-performFindInMap = [:];
 inputFields = [:];
-performFindInMap.entityName = "Timesheet";
 
 if (!parameters.noConditionFind) {
     parameters.noConditionFind = "N"
 }
 inputFields.putAll(parameters);
-performFindInMap.inputFields = inputFields;
-performFindInMap.orderBy = "fromDate DESC";
-performFindResults = dispatcher.runSync("performFind", performFindInMap);
+performFindResults = runService('performFind', ["entityName": "Timesheet", "inputFields": inputFields, "orderBy": "fromDate DESC"]);
 if (performFindResults.listSize > 0) {
     timesheetsDb = performFindResults.listIt.getCompleteList();
     performFindResults.listIt.close();
@@ -52,12 +48,8 @@ if (performFindResults.listSize > 0) {
         
         while ((emplLeaveMap = emplLeaveList.next())) {
             emplLeaveEntry = emplLeaveMap;
-            inputData = [:];
-            inputData.userLogin = parameters.userLogin;
-            inputData.partyId = emplLeaveEntry.partyId;
-            inputData.leaveTypeId = emplLeaveEntry.leaveTypeId;
-            inputData.fromDate = emplLeaveEntry.fromDate;
-            resultHour = dispatcher.runSync("getPartyLeaveHoursForDate", inputData);
+            resultHour = runService('getPartyLeaveHoursForDate', 
+                ["userLogin": parameters.userLogin, "partyId": emplLeaveEntry.partyId, "leaveTypeId": emplLeaveEntry.leaveTypeId, "fromDate": emplLeaveEntry.fromDate]);
             if (resultHour) {
                 leaveActualHours = resultHour.hours.doubleValue();
                 leaveHours += leaveActualHours;

@@ -41,7 +41,7 @@ ownerAcctgPref = null;
 if (facility) {
     owner = facility.getRelatedOne("OwnerParty", false);
     if (owner) {
-        result = dispatcher.runSync("getPartyAccountingPreferences", [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")]);
+        result = runService('getPartyAccountingPreferences', [organizationPartyId : owner.partyId, userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result) && result.partyAccountingPreference) {
             ownerAcctgPref = result.partyAccountingPreference;
         }
@@ -141,7 +141,7 @@ if (purchaseOrder && facility) {
         if (!orderCurrencyUomId.equals(ownerCurrencyUomId)) {
             purchaseOrderItems.each { item ->
             orderCurrencyUnitPriceMap.(item.orderItemSeqId) = item.unitPrice;
-                serviceResults = dispatcher.runSync("convertUom",
+                serviceResults = runService('convertUom',
                         [uomId : orderCurrencyUomId, uomIdTo : ownerCurrencyUomId, originalValue : item.unitPrice]);
                 if (ServiceUtil.isError(serviceResults)) {
                     request.setAttribute("_ERROR_MESSAGE_", ServiceUtil.getErrorMessage(serviceResults));
@@ -229,7 +229,7 @@ if (ownerAcctgPref) {
         purchaseOrderItems.each { orderItem ->
             productId = orderItem.productId;
             if (productId) {
-                result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
+                result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                                costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
                 if (!ServiceUtil.isError(result)) {
                     standardCosts.put(productId, result.productCost);
@@ -240,7 +240,7 @@ if (ownerAcctgPref) {
 
     // get the unit cost of a single product
     if (productId) {
-        result = dispatcher.runSync("getProductCost", [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
+        result = runService('getProductCost', [productId : productId, currencyUomId : ownerAcctgPref.baseCurrencyUomId,
                                                        costComponentTypePrefix : 'EST_STD', userLogin : request.getAttribute("userLogin")]);
         if (!ServiceUtil.isError(result)) {
             standardCosts.put(productId, result.productCost);

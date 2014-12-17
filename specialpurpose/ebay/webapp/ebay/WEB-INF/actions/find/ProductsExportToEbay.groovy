@@ -51,7 +51,7 @@ if (parameters.productStoreId) {
         userLogin = parameters.userLogin;
         
         if (productStoreId) {
-            results = dispatcher.runSync("getEbayCategories", [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
+            results = runService('getEbayCategories', [categoryCode : categoryCode, userLogin : userLogin, productStoreId : productStoreId]);
         }
         
         if (results.categories) {

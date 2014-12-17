@@ -31,7 +31,7 @@ if (productId) {
     context.product = product;
 
     facilityId = request.getParameter("facilityId");
-    resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : productId, facilityId : facilityId]);
+    resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId]);
     quantitySummary = FastMap.newInstance();
     quantitySummary.facilityId = facilityId;
     quantitySummary.atp_qoh = ((Double)resultOutput.availableToPromiseTotal).intValue() + " / " +
@@ -80,7 +80,7 @@ if (productId) {
     locationsIter = locations.keySet().iterator();
     while (locationsIter.hasNext()) {
         location = locationsIter.next();
-        resultOutput = dispatcher.runSync("getInventoryAvailableByLocation", [productId : productId, facilityId : facilityId, locationSeqId : location]);
+        resultOutput = runService('getInventoryAvailableByLocation', [productId : productId, facilityId : facilityId, locationSeqId : location]);
         quantitySummary = FastMap.newInstance();
         quantitySummary.productId = productId;
         quantitySummary.facilityId = facilityId;

@@ -71,7 +71,7 @@ if (UtilValidate.isNotEmpty(productIds) && ("Y".equals(active) || "Y".equals(not
 def notDiscontProdList = []
 if(parameters.DISCONTINUED_PRODUCT == 'Y'){
     productIds.each { value ->
-        def stockIsZero = dispatcher.runSync("isStoreInventoryAvailable", ["productId": value, "productStoreId": parameters.productStoreId, "quantity": BigDecimal.valueOf(1.00)]);
+        def stockIsZero = runService('isStoreInventoryAvailable', ["productId": value, "productStoreId": parameters.productStoreId, "quantity": BigDecimal.valueOf(1.00)]);
         def thisProduct = delegator.findOne("Product", [productId : value], false);
         if (stockIsZero.get("available") == 'Y'){
             notDiscontProdList.add(value);

@@ -75,7 +75,7 @@ if (!product && productId) {
 if (product) {
     //if order is purchase then don't calculate available inventory for product.
     if (cart.isSalesOrder()) {
-        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", [productId : product.productId, facilityId : facilityId, useCache : true]);
+        resultOutput = runService('getInventoryAvailableByFacility', [productId : product.productId, facilityId : facilityId, useCache : true]);
         totalAvailableToPromise = resultOutput.availableToPromiseTotal;
         if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
             productFacility = delegator.findOne("ProductFacility", [productId : product.productId, facilityId : facilityId], true);
@@ -113,14 +113,14 @@ if (product) {
         priceContext.agreementId = cart.getAgreementId();
         priceContext.partyId = cart.getPartyId();  // IMPORTANT: otherwise it'll be calculating prices using the logged in user which could be a CSR instead of the customer
         priceContext.checkIncludeVat = "Y";
-        priceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+        priceMap = runService('calculateProductPrice', priceContext);
 
         context.price = priceMap;
     } else {
         // purchase order: run the "calculatePurchasePrice" service
         priceContext = [product : product, currencyUomId : cart.getCurrency(),
                 partyId : cart.getPartyId(), userLogin : userLogin];
-        priceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+        priceMap = runService('calculatePurchasePrice', priceContext);
 
         context.price = priceMap;
     }
@@ -160,7 +160,7 @@ if (product) {
         jsBuf.append("<script language=\"JavaScript\" type=\"text/javascript\">");
         
         // make a list of variant sku with requireAmount
-        virtualVariantsRes = dispatcher.runSync("getAssociatedProducts", [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId]);
+        virtualVariantsRes = runService('getAssociatedProducts', [productIdTo : productId, type : "ALTERNATIVE_PACKAGE", checkViewAllow : true, prodCatalogId : categoryId]);
         virtualVariants = virtualVariantsRes.assocProducts;
         // Format to apply the currency code to the variant price in the javascript
         if (productStore) {
@@ -184,12 +184,12 @@ if (product) {
                 priceContext.product = virtual;
                 if (cart.isSalesOrder()) {
                     // sales order: run the "calculateProductPrice" service
-                    virtualPriceMap = dispatcher.runSync("calculateProductPrice", priceContext);
+                    virtualPriceMap = runService('calculateProductPrice', priceContext);
                     BigDecimal calculatedPrice = (BigDecimal)virtualPriceMap.get("price");
                     // Get the minimum quantity for variants if MINIMUM_ORDER_PRICE is set for variants.
                     variantPriceList.add(virtualPriceMap);
                 } else {
-                    virtualPriceMap = dispatcher.runSync("calculatePurchasePrice", priceContext);
+                    virtualPriceMap = runService('calculatePurchasePrice', priceContext);
                 }
                 variantPriceJS.append("  if (sku == \"" + virtual.productId + "\") return \"" + numberFormat.format(virtualPriceMap.basePrice) + "\"; ");
             }

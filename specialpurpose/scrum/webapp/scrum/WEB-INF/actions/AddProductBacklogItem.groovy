@@ -28,8 +28,6 @@ import sun.util.calendar.LocalGregorianCalendar.Date;
 def module = "AddProductBacklogItem.groovy";
 
 // find cust request and items
-def performFindInMap = [:];
-performFindInMap.entityName = "CustRequestAndCustRequestItem";
 def inputFields = [:];
 
 if(parameters.statusId == null){
@@ -39,9 +37,7 @@ if(parameters.statusId == null){
 }
 inputFields.putAll(parameters);
 inputFields.custRequestTypeId = "RF_PROD_BACKLOG";
-performFindInMap.inputFields = inputFields;
-performFindInMap.orderBy = "custSequenceNum";
-def performFindResults = dispatcher.runSync("performFind", performFindInMap);
+def performFindResults = runService('performFind', ["entityName": "CustRequestAndCustRequestItem", "inputFields": inputFields, "orderBy": "custSequenceNum"]);
 def custRequestAndItems = performFindResults.listIt.getCompleteList();
 performFindResults.listIt.close();
 
@@ -58,7 +54,7 @@ custRequestAndItems.each() { custRequestAndItem ->
     if (custWorkEffortList) {
         actualHours = 0.00;
         custWorkEffortList.each() { custWorkEffortMap ->
-            result = dispatcher.runSync("getScrumActualHour", ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
+            result = runService('getScrumActualHour', ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
             actualHours += result.actualHours;
         }
         if(actualHours) {
@@ -117,7 +113,7 @@ unplannedList.each() { unplannedItem ->
     if (unplanCustWorkEffortList) {
         actualHours = 0.00;
         unplanCustWorkEffortList.each() { custWorkEffortMap ->
-            result = dispatcher.runSync("getScrumActualHour", ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
+            result = runService('getScrumActualHour', ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
             actualHours += result.actualHours;
         }
         if(actualHours) {

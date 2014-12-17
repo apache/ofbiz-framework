@@ -26,7 +26,7 @@ import com.ibm.icu.util.Calendar;
 if (organizationPartyId) {
     onlyIncludePeriodTypeIdList = [];
     onlyIncludePeriodTypeIdList.add("FISCAL_YEAR");
-    customTimePeriodResults = dispatcher.runSync("findCustomTimePeriods", [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
+    customTimePeriodResults = runService('findCustomTimePeriods', [findDate : UtilDateTime.nowTimestamp(), organizationPartyId : organizationPartyId, onlyIncludePeriodTypeIdList : onlyIncludePeriodTypeIdList, userLogin : userLogin]);
     customTimePeriodList = customTimePeriodResults.customTimePeriodList;
     if (UtilValidate.isNotEmpty(customTimePeriodList)) {
         context.timePeriod = customTimePeriodList.first().customTimePeriodId;
@@ -46,8 +46,7 @@ if (organizationPartyId) {
 
     if (parameters.timePeriod) {
         currentTimePeriod = delegator.findOne("CustomTimePeriod", [customTimePeriodId : parameters.timePeriod], false);
-        previousTimePeriodResult = dispatcher.runSync("getPreviousTimePeriod", 
-                [customTimePeriodId : parameters.timePeriod, userLogin : userLogin]);
+        previousTimePeriodResult = runService('getPreviousTimePeriod', [customTimePeriodId : parameters.timePeriod, userLogin : userLogin]);
         previousTimePeriod = previousTimePeriodResult.previousTimePeriod;
         if (UtilValidate.isNotEmpty(previousTimePeriod)) {
             glAccountHistory = delegator.findOne("GlAccountHistory", 
@@ -76,7 +75,7 @@ if (organizationPartyId) {
             if ("ALL".equals(isPosted)) {
                 isPosted = "";
             }
-            acctgTransEntriesAndTransTotal = dispatcher.runSync("getAcctgTransEntriesAndTransTotal", 
+            acctgTransEntriesAndTransTotal = runService('getAcctgTransEntriesAndTransTotal', 
                     [customTimePeriodStartDate : customTimePeriodStartDate, customTimePeriodEndDate : customTimePeriodEndDate, organizationPartyId : organizationPartyId, glAccountId : parameters.glAccountId, isPosted : isPosted, userLogin : userLogin]);
             totalOfYearToDateDebit = totalOfYearToDateDebit + acctgTransEntriesAndTransTotal.debitTotal;
             acctgTransEntriesAndTransTotal.totalOfYearToDateDebit = totalOfYearToDateDebit.setScale(decimals, rounding);

@@ -51,12 +51,12 @@ if (miniProduct && productStoreId && prodCatalogId ) {
                    autoUserLogin : autoUserLogin,
                    productStoreId : productStoreId];
     if (userLogin) priceParams.partyId = userLogin.partyId;
-    priceResult = dispatcher.runSync("calculateProductPrice", priceParams);
+    priceResult = runService('calculateProductPrice', priceParams);
     // returns: isSale, price, orderItemPriceInfos
     context.priceResult = priceResult;
     // Check if Price has to be displayed with tax
     if (productStore.get("showPricesWithVatTax").equals("Y")) {
-        Map priceMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", priceResult.get("price"), "locale", locale, "productId", optProductId, "productStoreId", productStoreId));
+        Map priceMap = runServic('calcTaxForDisplay', ["basePrice": priceResult.get("price"), "locale": locale, "productId": optProductId, "productStoreId": productStoreId]);
         context.price = priceMap.get("priceWithTax");
     } else {
         context.price = priceResult.get("price");
@@ -70,7 +70,7 @@ if (miniProduct && productStoreId && prodCatalogId ) {
             // Check if Config Price has to be displayed with tax
             if (productStore.get("showPricesWithVatTax").equals("Y")) {
                 BigDecimal totalPriceNoTax = configWrapper.getTotalPrice();
-                Map totalPriceMap = dispatcher.runSync("calcTaxForDisplay", UtilMisc.toMap("basePrice", totalPriceNoTax, "locale", locale, "productId", optProductId, "productStoreId", productStoreId));
+                Map totalPriceMap = runService('calcTaxForDisplay', ["basePrice": totalPriceNoTax, "locale": locale, "productId": optProductId, "productStoreId": productStoreId]);
                 context.totalPrice = totalPriceMap.get("priceWithTax");
             } else {
                 context.totalPrice = configWrapper.getTotalPrice();

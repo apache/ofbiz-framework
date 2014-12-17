@@ -25,10 +25,7 @@ import java.util.Map;
 import javolution.util.FastMap;
 
 partyId = null
-inMap = FastMap.newInstance();
-inMap.put("productStoreId", parameters.productStoreId);
-inMap.put("userLogin", context.get("userLogin"));
-resultUser = dispatcher.runSync("getEbayStoreUser", inMap);
+resultUser = runService('getEbayStoreUser', ["productStoreId": parameters.productStoreId, "userLogin": context.get("userLogin")]);
 ownerUser = resultUser.get("userLoginId");
 userLogin = delegator.findOne("UserLogin", UtilMisc.toMap("userLoginId", ownerUser), false);
 if (userLogin) {

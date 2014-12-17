@@ -77,8 +77,7 @@ if (userLogin) {
 
     // call the getOrderedSummaryInformation service to get the sub-total of valid orders in last X months
     monthsToInclude = 12;
-    serviceIn = [partyId : partyId, roleTypeId : "PLACING_CUSTOMER", orderTypeId : "SALES_ORDER", statusId : "ORDER_COMPLETED", monthsToInclude : monthsToInclude, userLogin : userLogin];
-    result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+    result = runService('getOrderedSummaryInformation', [partyId : partyId, roleTypeId : "PLACING_CUSTOMER", orderTypeId : "SALES_ORDER", statusId : "ORDER_COMPLETED", monthsToInclude : monthsToInclude, userLogin : userLogin]);
     context.monthsToInclude = monthsToInclude;
     context.totalSubRemainingAmount = result.totalSubRemainingAmount;
     context.totalOrders = result.totalOrders;

@@ -93,11 +93,8 @@ if (shoppingListId) {
 
                 product = shoppingListItem.getRelatedOne("Product", true);
 
-                calcPriceInMap = [product : product, quantity : shoppingListItem.quantity, currencyUomId : currencyUomId, userLogin : userLogin];
-                calcPriceInMap.webSiteId = webSiteId;
-                calcPriceInMap.prodCatalogId = prodCatalogId;
-                calcPriceInMap.productStoreId = productStoreId;
-                calcPriceOutMap = dispatcher.runSync("calculateProductPrice", calcPriceInMap);
+                calcPriceOutMap = runService('calculateProductPrice', [product : product, quantity : shoppingListItem.quantity, currencyUomId : currencyUomId, userLogin : userLogin,
+                    webSiteId: webSiteId, prodCatalogId: prodCatalogId, productStoreId: productStoreId]);
                 price = calcPriceOutMap.price;
                 totalPrice = price * shoppingListItem.quantity;
                 // similar code at ShoppingCartItem.java getRentalAdjustment
@@ -171,8 +168,7 @@ if (shoppingListId) {
             childShoppingLists.each { childShoppingList ->
                 childShoppingListData = [:];
 
-                calcListPriceInMap = [shoppingListId : childShoppingList.shoppingListId, prodCatalogId : prodCatalogId, webSiteId : webSiteId, userLogin : userLogin, currencyUomId : currencyUomId];
-                childShoppingListPriceMap = dispatcher.runSync("calculateShoppingListDeepTotalPrice", calcListPriceInMap);
+                childShoppingListPriceMap = runService('calculateShoppingListDeepTotalPrice', [shoppingListId : childShoppingList.shoppingListId, prodCatalogId : prodCatalogId, webSiteId : webSiteId, userLogin : userLogin, currencyUomId : currencyUomId]);
                 totalPrice = childShoppingListPriceMap.totalPrice;
                 shoppingListChildTotal += totalPrice;
 

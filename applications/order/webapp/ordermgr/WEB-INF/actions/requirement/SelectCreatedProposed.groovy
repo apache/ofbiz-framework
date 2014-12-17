@@ -24,7 +24,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
-prepare = dispatcher.runSync("prepareFind", [inputFields : parameters, entityName : "Requirement"]);
+prepare = runService('prepareFind', [inputFields : parameters, entityName : "Requirement"]);
 statusCondition = EntityCondition.makeCondition([
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_CREATED"),
                                               EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_PROPOSED")],
@@ -35,5 +35,5 @@ if (prepare.entityConditionList) {
 } else {
     ecl = statusCondition;
 }
-results = dispatcher.runSync("executeFind", [entityConditionList : ecl, entityName : "Requirement"]);
+results = runService('executeFind', [entityConditionList : ecl, entityName : "Requirement"]);
 context.requirements = results.listIt;

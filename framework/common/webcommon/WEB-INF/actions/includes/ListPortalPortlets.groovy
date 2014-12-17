@@ -33,7 +33,7 @@ portalPortlets = [];
         if (listPortalPortlet.securityServiceName && listPortalPortlet.securityMainAction) {
             inMap.mainAction = listPortalPortlet.securityMainAction;
             inMap.userLogin = context.userLogin;
-            result = dispatcher.runSync(listPortalPortlet.securityServiceName, inMap)
+            result = runService(listPortalPortlet.securityServiceName, inMap)
             hasPermission = result.hasPermission;
         } else {
             hasPermission = true;

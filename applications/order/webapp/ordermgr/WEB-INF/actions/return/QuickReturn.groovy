@@ -92,7 +92,7 @@ returnItemTypeMap.each { value ->
 context.returnItemTypeMap = typeMap;
 
 if (orderId) {
-    returnRes = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
+    returnRes = runService('getReturnableItems', [orderId : orderId]);
     context.returnableItems = returnRes.returnableItems;
     orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
     context.orderHeader = orderHeader;

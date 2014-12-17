@@ -51,14 +51,14 @@ try{
             } else {
                 context.partyIdFrom = parentCom.partyIdTo;
             }
-            resultsIdFrom = dispatcher.runSync("getPartyEmail", ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
+            resultsIdFrom = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
             if (resultsIdFrom.contactMechId != null) {
                 context.contactMechIdFrom = resultsIdFrom.contactMechId;
                 communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
             }
             // for team
             defaultPartyIdTo = organizationPartyId;
-            resultsIdTo = dispatcher.runSync("getPartyEmail", ["partyId" : defaultPartyIdTo,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
+            resultsIdTo = runService('getPartyEmail', ["partyId" : defaultPartyIdTo,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
             if (resultsIdTo.contactMechId != null) {
                 context.contactMechIdTo = resultsIdTo.contactMechId;
                 communicationEvent.contactMechIdTo = resultsIdTo.contactMechId;
@@ -72,7 +72,7 @@ try{
             // for team
             defaultPartyIdFrom = organizationPartyId;
             context.partyIdFrom = defaultPartyIdFrom;
-            resultsIdFrom = dispatcher.runSync("getPartyEmail", ["partyId" : defaultPartyIdFrom,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
+            resultsIdFrom = runService('getPartyEmail', ["partyId" : defaultPartyIdFrom,"contactMechPurposeTypeId" :"SUPPORT_EMAIL", "userLogin" : userLogin]);
             if (resultsIdFrom.contactMechId != null) {
                 context.contactMechIdFrom = resultsIdFrom.contactMechId;
                 communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
@@ -86,7 +86,7 @@ try{
             } else {
                  context.partyIdTo = parentCom.partyIdFrom;
             }
-           resultsIdTo = dispatcher.runSync("getPartyEmail", ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
+           resultsIdTo = runService('getPartyEmail', ["partyId" : productRole[0].partyId, "userLogin" : userLogin]);
            if (resultsIdTo.contactMechId != null) {
               context.contactMechIdTo = resultsIdTo.contactMechId;
               communicationEvent.contactMechIdTo = resultsIdTo.contactMechId;

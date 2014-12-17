@@ -109,7 +109,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
         if (backlogCustWorkEffortList) {
             actualHours = 0.00;
             backlogCustWorkEffortList.each() { custWorkEffortMap ->
-                result = dispatcher.runSync("getScrumActualHour", ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
+                result = runService('getScrumActualHour', ["taskId" : custWorkEffortMap.workEffortId,"partyId" : null, "userLogin" : userLogin]);
                 actualHours += result.actualHours;
             }
             if(actualHours) {

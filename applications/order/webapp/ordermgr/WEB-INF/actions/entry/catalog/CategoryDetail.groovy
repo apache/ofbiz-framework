@@ -64,7 +64,7 @@ if (context.orderByFields) {
 } else {
     andMap.put("orderByFields", ["sequenceNum", "productId"]);
 }
-catResult = dispatcher.runSync("getProductCategoryAndLimitedMembers", andMap);
+catResult = runService('getProductCategoryAndLimitedMembers', andMap);
 productCategory = catResult.productCategory;
 productCategoryMembers = catResult.productCategoryMembers;
 context.productCategoryMembers = productCategoryMembers;
