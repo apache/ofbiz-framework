@@ -59,7 +59,7 @@ public class OagisInventoryServices {
     public static final String resource = "OagisUiLabels";
     public static final Double doubleZero = new Double(0.0);
     public static final Double doubleOne = new Double(1.0);
-    
+    public static final String syncInventoryFacilityId = UtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId");
 
     public static Map<String, Object> oagisReceiveSyncInventory(DispatchContext ctx, Map<String, Object> context) {
         Document doc = (Document) context.get("document");
@@ -69,7 +69,7 @@ public class OagisInventoryServices {
         Locale locale = (Locale) context.get("locale");
         List<Map<String, String>> errorMapList = FastList.newInstance();
         List<Map<String, Object>> inventoryMapList = FastList.newInstance();
-        final String syncInventoryFacilityId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId", delegator);
+
         GenericValue userLogin = null;
         try {
             userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", "system").queryOne();

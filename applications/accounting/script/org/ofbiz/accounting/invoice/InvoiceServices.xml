@@ -692,12 +692,7 @@ under the License.
         </call-service>
         <set field="currencyUomId" from-field="partyAccountingPreference.baseCurrencyUomId"/>
         <if-empty field="currencyUomId">
-            <call-class-method method-name="getMessage" ret-field="currencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general" property="currency.uom.id.default" field="currencyUomId"/>
         </if-empty>
         <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <field-to-result field="invoiceRunningTotal"/>
@@ -928,12 +923,7 @@ under the License.
         </entity-one>
         <set field="invoicePerShipment" from-field="orderHeader.invoicePerShipment"/>
         <if-empty field="invoicePerShipment">
-            <call-class-method method-name="getMessage" ret-field="invoicePerShipment" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="AccountingConfig"/>
-                <string value="create.invoice.per.shipment"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="AccountingConfig" property="create.invoice.per.shipment" field="invoicePerShipment"/>
         </if-empty>
         <if-compare operator="equals" value="N" field="invoicePerShipment">
             <entity-and list="orderItemBilling" entity-name="OrderItemBilling">

@@ -35,20 +35,9 @@ under the License.
             <set field="defaultPassword" value="ungssblepswd"/>
         </if-empty>
 
-        <call-class-method method-name="getPropertyValue" ret-field="username_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="username.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getPropertyValue" ret-field="password_lowercase" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="security"/>
-            <string value="password.lowercase"/>
-            <string value="false"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="security" property="username.lowercase" default="false" field="username_lowercase"/>
+        <property-to-field resource="security" property="password.lowercase" default="false" field="password_lowercase"/>
+
         <now-timestamp field="nowStamp"/>
         <set value="CUSTOMER" field="parameters.roleTypeId"/>
 

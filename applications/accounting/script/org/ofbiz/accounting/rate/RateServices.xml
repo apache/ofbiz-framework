@@ -30,12 +30,7 @@ under the License.
 
         <!-- set defaults -->
         <if-empty field="parameters.rateCurrencyUomId">
-            <call-class-method method-name="getMessage" ret-field="parameters.rateCurrencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general.properties"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
         </if-empty>
         <if-empty field="parameters.periodTypeId">
             <set field="parameters.periodTypeId" value="RATE_HOUR"/>
@@ -86,12 +81,7 @@ under the License.
 
         <!-- set defaults -->
         <if-empty field="parameters.rateCurrencyUomId">
-            <call-class-method method-name="getMessage" ret-field="parameters.rateCurrencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general.properties"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.Locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
         </if-empty>
         <if-empty field="parameters.periodTypeId">
             <set field="parameters.periodTypeId" value="RATE_HOUR"/>
@@ -140,12 +130,7 @@ under the License.
                Then will be checked if the requested periodTypeId and currency can be found, if not isue an error message
         -->
         <if-empty field="parameters.rateCurrencyUomId">
-            <call-class-method method-name="getMessage" ret-field="parameters.rateCurrencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                 <string value="general.properties"/>
-                 <string value="currency.uom.id.default"/>
-                 <field field="locale" type="java.util.Locale"/>
-                 <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="parameters.rateCurrencyUomId"/>
         </if-empty>
         <if-empty field="parameters.periodTypeId">
             <set field="parameters.periodTypeId" value="RATE_HOUR"/>
@@ -394,12 +379,7 @@ under the License.
             <set-nonpk-fields value-field="posRate" map="rateAmount"/>
             <set field="rateAmount.workeffortId" value="_NA_"/>
             <set field="rateAmount.partyId" value="_NA_"/>
-            <call-class-method method-name="getMessage" ret-field="rateAmount.rateCurrencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                <string value="general.properties"/>
-                <string value="currency.uom.id.default"/>
-                <field field="locale" type="java.util.locale"/>
-                <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-            </call-class-method>
+            <property-to-field resource="general.properties" property="currency.uom.id.default" field="rateAmount.rateCurrencyUomId"/>
             <create-value value-field="rateAmount"/>
         </iterate>
         <entity-condition entity-name="OldPartyRate" list="partyRates"/>

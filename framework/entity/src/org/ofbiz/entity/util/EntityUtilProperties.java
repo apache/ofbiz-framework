@@ -88,19 +88,6 @@ public class EntityUtilProperties implements Serializable {
         }
         return value;
     }
-    
-    public static String getPropertyValue(String resource, String name, String defaultValue, Locale locale, Delegator delegator) {
-        String value = getSystemPropertyValue(resource, name, delegator);
-        if (UtilValidate.isEmpty(value)) {
-        	if (UtilValidate.isNotEmpty(locale)) {
-                value = UtilProperties.getMessage(resource, name, locale);
-        	} 
-        	if (UtilValidate.isEmpty(value)) {
-        	    value = UtilProperties.getPropertyValue(resource, name, defaultValue);
-        	}
-        }
-        return value;
-    }
 
     public static double getPropertyNumber(String resource, String name, double defaultValue) {
         return UtilProperties.getPropertyNumber(resource, name, defaultValue);

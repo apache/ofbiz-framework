@@ -37,7 +37,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtilProperties;
 
 import com.ibm.icu.util.Calendar;
 
@@ -214,7 +213,7 @@ public class ServerHitBin {
             // put the copy at the first of the list, then put this object back on
             if (bin.getNumberHits() > 0) {
                 // persist each bin when time ends if option turned on
-                if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true", delegator)) {
+                if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".bin", "true")) {
                     GenericValue serverHitBin = delegator.makeValue("ServerHitBin");
                     serverHitBin.set("contentId", bin.id);
                     serverHitBin.set("hitTypeId", ServerHitBin.typeIds[bin.type]);
@@ -466,8 +465,7 @@ public class ServerHitBin {
 
     private void saveHit(HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin) throws GenericEntityException {
         // persist record of hit in ServerHit entity if option turned on
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".hit", "true", delegator)) {
+        if (UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist." + ServerHitBin.typeIds[type] + ".hit", "true")) {
             // if the hit type is ENTITY and the name contains "ServerHit" don't
             // persist; avoids the infinite loop and a bunch of annoying data
             if (this.type == ENTITY && this.id.indexOf("ServerHit") > 0) {

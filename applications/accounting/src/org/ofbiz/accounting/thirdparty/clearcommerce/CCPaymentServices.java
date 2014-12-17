@@ -865,7 +865,7 @@ public class CCPaymentServices {
         Element instructionsElement = UtilXml.addChildElement(engineDocElement, "Instructions", requestDocument);
 
         String pipeline = "PaymentNoFraud";
-        if (EntityUtilProperties.propertyValueEqualsIgnoreCase(paymentConfig, "payment.clearcommerce.enableFraudShield", "Y", delegator)) {
+        if (UtilProperties.propertyValueEqualsIgnoreCase(paymentConfig, "payment.clearcommerce.enableFraudShield", "Y")) {
             pipeline = "Payment";
         }
         UtilXml.addChildElementValue(instructionsElement, "Pipeline", pipeline, requestDocument);

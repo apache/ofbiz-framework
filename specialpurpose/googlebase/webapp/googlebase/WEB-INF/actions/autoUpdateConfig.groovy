@@ -17,30 +17,30 @@
  * under the License.
  */
 import javolution.util.FastList
-import org.ofbiz.entity.util.EntityUtilProperties
+import org.ofbiz.base.util.UtilProperties
 
 configList = []
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStoreId", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStoreId")
 productStoreIds = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.option.outOfStock", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.option.outOfStock")
 outOfStock = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.option.backInStock", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.option.backInStock")
 backInStock = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.webSiteUrl", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.webSiteUrl")
 webSiteUrl = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.actionType", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.actionType")
 actionType = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.statusId", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.statusId")
 statusId = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.testMode", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.testMode")
 testMode = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.webSiteMountPoint", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.webSiteMountPoint")
 webSiteMountPoint = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.countryCode", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.countryCode")
 countryCode = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.trackingCodeId", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.trackingCodeId")
 trackingCodeId = str.split(",")
-str = EntityUtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.allowRecommended", delegator)
+str = UtilProperties.getPropertyValue("autoUpdateToGoogleBase.properties", "autoUpdateGoogleBase.productStore.allowRecommended")
 allowRecommended = str.split(",")
 
 productStoreIds.eachWithIndex{ productStoreId, i ->

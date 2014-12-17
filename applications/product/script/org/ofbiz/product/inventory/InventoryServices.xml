@@ -239,12 +239,7 @@ under the License.
             </call-service>
             <set field="inventoryItem.currencyUomId" from-field="accPref.baseCurrencyUomId"/>
             <if-empty field="inventoryItem.currencyUomId">
-                <call-class-method method-name="getMessage" ret-field="inventoryItem.currencyUomId" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-                    <string value="general"/>
-                    <string value="currency.uom.id.default"/>
-                    <field field="locale" type="java.util.Locale"/>
-                    <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-                </call-class-method>
+                <property-to-field resource="general" property="currency.uom.id.default" field="inventoryItem.currencyUomId"/>
             </if-empty>
             <!-- if inventoryItem's currencyUomId is still empty, return an error message -->
             <if-empty field="inventoryItem.currencyUomId">

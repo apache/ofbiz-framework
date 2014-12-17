@@ -237,7 +237,7 @@ public class LoginWorker {
         // check if they have permission for this login attempt; if not log them out
         if (userLogin != null) {
             List<Object> errorMessageList = UtilGenerics.checkList(request.getAttribute("_ERROR_MESSAGE_LIST"));
-            if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin, userLogin.getDelegator())) {
+            if (!hasBasePermission(userLogin, request) || isFlaggedLoggedOut(userLogin)) {
                 if (errorMessageList == null) {
                     errorMessageList = new LinkedList<Object>();
                     request.setAttribute("_ERROR_MESSAGE_LIST", errorMessageList);
@@ -1066,8 +1066,8 @@ public class LoginWorker {
         return "success";
     }
 
-    public static boolean isFlaggedLoggedOut(GenericValue userLogin, Delegator delegator) {
-        if ("true".equalsIgnoreCase(EntityUtilProperties.getPropertyValue("security.properties", "login.disable.global.logout", delegator))) {
+    public static boolean isFlaggedLoggedOut(GenericValue userLogin) {
+        if ("true".equalsIgnoreCase(UtilProperties.getPropertyValue("security.properties", "login.disable.global.logout"))) {
             return false;
         }
         if (userLogin == null || userLogin.get("userLoginId") == null) {

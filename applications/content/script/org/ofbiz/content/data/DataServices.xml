@@ -561,12 +561,7 @@ under the License.
 
     <simple-method method-name="attachUploadToDataResource" short-description="Attach an uploaded file to a data resource">
         <set field="isUpdate" value="false"/>
-        <call-class-method method-name="getMessage" ret-field="forceLocal" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="content.properties"/>
-            <string value="content.upload.always.local.file"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="content.properties" property="content.upload.always.local.file" field="forceLocal"/>
         <if>
             <condition>
             <!-- if (forceLocal && !("LOCAL_FILE".equals(parameters.dataResourceTypeId) || "OFBIZ_FILE".equals(parameters.dataResourceTypeId)) -->

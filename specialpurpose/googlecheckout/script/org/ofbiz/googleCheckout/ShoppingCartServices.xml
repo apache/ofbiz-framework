@@ -45,24 +45,9 @@
 
     </simple-method>
     <simple-method method-name="createCheckoutFlowSupport" short-description="" login-required="false">
-        <call-class-method method-name="getMessage" ret-field="flowSupport.editCartUrl" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="googleCheckout"/>
-            <string value="editCartUrl"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getMessage" ret-field="flowSupport.continueShoppingUrl" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="googleCheckout"/>
-            <string value="continueShoppingUrl"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
-        <call-class-method method-name="getMessage" ret-field="flowSupport.requestPhone" class-name="org.ofbiz.entity.util.EntityUtilProperties">
-            <string value="googleCheckout"/>
-            <string value="requestPhone"/>
-            <field field="locale" type="java.util.Locale"/>
-            <field field="delegator" type="org.ofbiz.entity.Delegator"/>
-        </call-class-method>
+        <property-to-field resource="googleCheckout" property="editCartUrl" field="flowSupport.editCartUrl"/>
+        <property-to-field resource="googleCheckout" property="continueShoppingUrl" field="flowSupport.continueShoppingUrl"/>
+        <property-to-field resource="googleCheckout" property="requestPhone" field="flowSupport.requestPhone"/>
 
         <call-simple-method method-name="getTaxTables"/>
         <set field="flowSupport.taxTables" from-field="taxTables"/>

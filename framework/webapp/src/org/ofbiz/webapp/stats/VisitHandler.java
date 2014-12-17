@@ -36,7 +36,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * Handles saving and maintaining visit information
@@ -205,8 +204,7 @@ public class VisitHandler {
 
     public static GenericValue getVisitor(HttpServletRequest request, HttpServletResponse response) {
         // this defaults to true: ie if anything but "false" it will be true
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
-        if (!EntityUtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visitor", "false", delegator)) {
+        if (!UtilProperties.propertyValueEqualsIgnoreCase("serverstats", "stats.persist.visitor", "false")) {
             HttpSession session = request.getSession();
 
             GenericValue visitor = (GenericValue) session.getAttribute("visitor");
@@ -214,6 +212,7 @@ public class VisitHandler {
                 synchronized (session) {
                     visitor = (GenericValue) session.getAttribute("visitor");
                     if (visitor == null) {
+                        Delegator delegator = (Delegator) request.getAttribute("delegator");
 
                         String delegatorName = (String) session.getAttribute("delegatorName");
                         if (delegator == null && UtilValidate.isNotEmpty(delegatorName)) {
