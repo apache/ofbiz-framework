@@ -83,8 +83,7 @@ if (shoppingListId) {
                 product = shoppingListItem.getRelatedOne("Product", true);
 
                 // DEJ20050704 not sure about calculating price here, will have some bogus data when not in a store webapp
-                calcPriceInMap = [product : product, quantity : shoppingListItem.quantity , currencyUomId : currencyUomId, userLogin : userLogin, productStoreId : shoppingList.productStoreId];
-                calcPriceOutMap = dispatcher.runSync("calculateProductPrice", calcPriceInMap);
+                calcPriceOutMap = runService('calculateProductPrice', [product : product, quantity : shoppingListItem.quantity , currencyUomId : currencyUomId, userLogin : userLogin, productStoreId : shoppingList.productStoreId]);
                 price = calcPriceOutMap.price;
                 totalPrice = price * shoppingListItem.getDouble("quantity");
                 shoppingListItemTotal += totalPrice;

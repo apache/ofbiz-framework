@@ -35,7 +35,7 @@ inventoryAverageCosts = FastList.newInstance();
 inventoryItemProducts.each { productId ->
     productFacility = delegator.findOne("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId), false);
     if (UtilValidate.isNotEmpty(productFacility)) {
-        result = dispatcher.runSync("calculateProductAverageCost", UtilMisc.toMap("productId", productId, "facilityId", facilityId, "userLogin", userLogin));
+        result = runService('calculateProductAverageCost', UtilMisc.toMap("productId": productId, "facilityId": facilityId, "userLogin": userLogin));
         totalQuantityOnHand = result.get("totalQuantityOnHand");
 
         totalInventoryCost = result.get("totalInventoryCost");

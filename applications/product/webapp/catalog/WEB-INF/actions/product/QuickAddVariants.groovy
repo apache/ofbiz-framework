@@ -17,8 +17,8 @@
  * under the License.
  */
 
-result = dispatcher.runSync("getProductFeaturesByType", [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE']);
+result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : 'SELECTABLE_FEATURE']);
 context.featureTypes = result.productFeatureTypes;
 
-result = dispatcher.runSync("getVariantCombinations", [productId : productId]);
+result = runService('getVariantCombinations', [productId : productId]);
 context.featureCombinationInfos = result.featureCombinations;

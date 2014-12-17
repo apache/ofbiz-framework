@@ -41,7 +41,7 @@ if (parameters.customTimePeriodId) {
     postedCreditsTotal = 0
     organizationGlAccounts.each { organizationGlAccount ->
         accountBalance = [:]
-        accountBalance = dispatcher.runSync('computeGlAccountBalanceForTimePeriod', [organizationPartyId: organizationGlAccount.organizationPartyId, customTimePeriodId: customTimePeriod.customTimePeriodId, glAccountId: organizationGlAccount.glAccountId, userLogin: userLogin]);
+        accountBalance = runService('computeGlAccountBalanceForTimePeriod', [organizationPartyId: organizationGlAccount.organizationPartyId, customTimePeriodId: customTimePeriod.customTimePeriodId, glAccountId: organizationGlAccount.glAccountId, userLogin: userLogin]);
         if (accountBalance.postedDebits != 0 || accountBalance.postedCredits != 0) {
             accountBalance.glAccountId = organizationGlAccount.glAccountId
             accountBalance.accountCode = organizationGlAccount.accountCode

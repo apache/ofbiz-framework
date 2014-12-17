@@ -94,7 +94,7 @@ if (productStore) {
     productStoreFacilityId = productStore.inventoryFacilityId;
 }
 context.facilityId = productStoreFacilityId;
-inventorySummary = dispatcher.runSync("getProductInventorySummaryForItems", [orderItems : shoppingCart.makeOrderItems(), facilityId : productStoreFacilityId]);
+inventorySummary = runService('getProductInventorySummaryForItems', [orderItems : shoppingCart.makeOrderItems(), facilityId : productStoreFacilityId]);
 context.availableToPromiseMap = inventorySummary.availableToPromiseMap;
 context.quantityOnHandMap = inventorySummary.quantityOnHandMap;
 context.mktgPkgATPMap = inventorySummary.mktgPkgATPMap;

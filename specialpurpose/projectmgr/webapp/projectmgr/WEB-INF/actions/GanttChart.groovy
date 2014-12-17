@@ -32,7 +32,7 @@ projectId = parameters.projectId;
 userLogin = parameters.userLogin;
 
 //project info
-result = dispatcher.runSync("getProject", [projectId : projectId, userLogin : userLogin]);
+result = runService('getProject', [projectId : projectId, userLogin : userLogin]);
 project = result.projectInfo;
 if (project && project.startDate)
     context.chartStart = project.startDate;
@@ -46,7 +46,7 @@ else
 if (project == null) return;
 
 ganttList = new LinkedList();
-result = dispatcher.runSync("getProjectPhaseList", [userLogin : userLogin , projectId : projectId]);
+result = runService('getProjectPhaseList', [userLogin : userLogin , projectId : projectId]);
 phases = result.phaseList;
 if (phases) {
     phases.each { phase ->
@@ -74,7 +74,7 @@ if (phases) {
         tasks = delegator.findList("WorkEffort", cond, null, ["sequenceNum","workEffortName"], null, false);
         if (tasks) {
             tasks.each { task ->
-                resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
+                resultTaskInfo = runService('getProjectTask', [userLogin : userLogin , taskId : task.workEffortId]);
                 taskInfo = resultTaskInfo.taskInfo;
                 taskInfo.taskNr = task.workEffortId;
                 taskInfo.phaseNr = phase.phaseId;

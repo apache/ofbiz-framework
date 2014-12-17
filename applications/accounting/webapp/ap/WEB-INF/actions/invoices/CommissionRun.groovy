@@ -39,7 +39,7 @@ if (fromDate) {
 
     List invoices = [];
     if (invoiceList) {
-        resultMap = dispatcher.runSync("getInvoicesFilterByAssocType", [invoiceItemAssocTypeId : "COMMISSION_INVOICE", invoiceList : invoiceList, userLogin : userLogin]);
+        resultMap = runService('getInvoicesFilterByAssocType', [invoiceItemAssocTypeId : "COMMISSION_INVOICE", invoiceList : invoiceList, userLogin : userLogin]);
         invoices = resultMap.filteredInvoiceList; 
         context.invoices = invoices;
     }

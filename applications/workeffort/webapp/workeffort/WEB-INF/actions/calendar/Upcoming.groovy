@@ -43,7 +43,7 @@ if (workEffortTypeId != null) {
 Map serviceCtx = UtilMisc.toMap("userLogin", userLogin, "start", start, "numPeriods", 7, "periodType", Calendar.DATE);
 serviceCtx.putAll(UtilMisc.toMap("partyId", partyId, "facilityId", facilityId, "fixedAssetId", fixedAssetId, "workEffortTypeId", workEffortTypeId, "calendarType", calendarType, "locale", locale, "timeZone", timeZone));
 
-Map result = dispatcher.runSync("getWorkEffortEventsByPeriod",serviceCtx);
+Map result = runService('getWorkEffortEventsByPeriod',serviceCtx);
 context.put("days", result.get("periods"));
 context.put("start", start);
 context.put("eventsParam", eventsParam);

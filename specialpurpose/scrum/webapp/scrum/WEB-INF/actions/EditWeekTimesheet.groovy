@@ -53,7 +53,7 @@ if (timesheetId) {
     timesheet = entryIterator.next();
     entryIterator.close();
     if (timesheet == null) {
-        result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
+        result = runService('createProjectTimesheet', ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
             timesheet = delegator.findOne("Timesheet", ["timesheetId" : result.timesheetId], false);
         }
@@ -114,7 +114,7 @@ void retrieveWorkEffortData() {
             // get project/phase information
             entry.workEffortId = entryWorkEffort.workEffortId;
             entry.workEffortName = entryWorkEffort.workEffortName;
-            result = dispatcher.runSync("getProjectIdAndNameFromTask", ["userLogin" : parameters.userLogin,"taskId" : entryWorkEffort.workEffortId]);
+            result = runService('getProjectIdAndNameFromTask', ["userLogin" : parameters.userLogin,"taskId" : entryWorkEffort.workEffortId]);
                 entry.sprintId = result.phaseId;
                 entry.sprintName = result.phaseName;
                 entry.projectId = result.projectId;

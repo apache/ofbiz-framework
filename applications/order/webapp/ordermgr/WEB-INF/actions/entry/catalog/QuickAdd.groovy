@@ -39,7 +39,7 @@ context.categoryId = categoryId;
 if (categoryId) {
     fields = [productCategoryId : categoryId, defaultViewSize : 10,
             limitView : false, prodCatalogId : currentCatalogId, checkViewAllow : true];
-    result = dispatcher.runSync("getProductCategoryAndLimitedMembers", fields);
+    result = runService('getProductCategoryAndLimitedMembers', fields);
     if (result) {
         result.each { key, value ->
             context[key] = value;

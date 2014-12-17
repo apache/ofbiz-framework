@@ -53,7 +53,7 @@ if (conditions.size() > 2) {
 
     // for each product, call the inventory counting service
     productIds.each { productId ->
-        result = dispatcher.runSync("getInventoryAvailableByFacility", [facilityId : facilityId, productId : productId]);
+        result = runService('getInventoryAvailableByFacility', [facilityId : facilityId, productId : productId]);
         if (!ServiceUtil.isError(result)) {
             atpMap.put(productId, result.availableToPromiseTotal);
             qohMap.put(productId, result.quantityOnHandTotal);

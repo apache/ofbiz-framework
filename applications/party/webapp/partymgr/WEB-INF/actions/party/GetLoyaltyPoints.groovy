@@ -27,9 +27,8 @@ if (partyId) {
 
     monthsToInclude = 12;
 
-    Map serviceIn = UtilMisc.toMap("partyId", partyId, "roleTypeId", "PLACING_CUSTOMER", "orderTypeId", "SALES_ORDER",
-            "statusId", "ORDER_COMPLETED", "monthsToInclude", monthsToInclude, "userLogin", system);
-    Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+    Map result = runService('getOrderedSummaryInformation', ["partyId": partyId, "roleTypeId": "PLACING_CUSTOMER", "orderTypeId": "SALES_ORDER",
+            "statusId": "ORDER_COMPLETED", "monthsToInclude": monthsToInclude, "userLogin": system]);
 
     context.monthsToInclude = monthsToInclude;
     context.totalSubRemainingAmount = result.totalSubRemainingAmount;

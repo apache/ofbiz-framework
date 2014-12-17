@@ -24,7 +24,7 @@ productVariantId = productId + "_";
 productFeatureIds = "";
 product = delegator.findOne("Product", [productId : productId], false);
 
-result = dispatcher.runSync("getProductFeaturesByType", [productId : productId, productFeatureApplTypeId : "SELECTABLE_FEATURE"]);
+result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : "SELECTABLE_FEATURE"]);
 featureTypes = result.productFeatureTypes;
 featuresByTypes = result.productFeaturesByType;
 searchFeatures = [];
@@ -48,7 +48,7 @@ if (featureTypes) {
 
 variants = [];
 //if (selectedFeatureTypeValues) {
-    result = dispatcher.runSync("getAllExistingVariants", [productId : productId, productFeatureAppls : selectedFeatureTypeValues]);
+    result = runService('getAllExistingVariants', [productId : productId, productFeatureAppls : selectedFeatureTypeValues]);
     variants = result.variantProductIds;
 //}
 
@@ -56,7 +56,7 @@ variants = [];
 productFeatureIdsPar = request.getParameter("productFeatureIds");
 productVariantIdPar = request.getParameter("productVariantId");
 if (productVariantIdPar && productFeatureIdsPar) {
-    result = dispatcher.runSync("quickAddVariant", [productId : productId, productFeatureIds : productFeatureIdsPar, productVariantId : productVariantIdPar]);
+    result = runService('quickAddVariant', [productId : productId, productFeatureIds : productFeatureIdsPar, productVariantId : productVariantIdPar]);
 }
 
 context.product = product;

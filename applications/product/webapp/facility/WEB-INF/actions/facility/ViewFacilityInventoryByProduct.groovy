@@ -173,7 +173,7 @@ if (action) {
         oneInventory.reorderQuantity = oneProd.reorderQuantity;
         oneInventory.daysToShip = oneProd.daysToShip;
 
-        resultMap = dispatcher.runSync("getProductInventoryAndFacilitySummary", [productId : oneProd.productId, minimumStock : minimumStock, facilityId : oneProd.facilityId, checkTime : checkTime, statusId : statusId]);
+        resultMap =runService('getProductInventoryAndFacilitySummary', [productId : oneProd.productId, minimumStock : minimumStock, facilityId : oneProd.facilityId, checkTime : checkTime, statusId : statusId]);
         if (resultMap) {
             oneInventory.totalAvailableToPromise = resultMap.totalAvailableToPromise;
             oneInventory.totalQuantityOnHand = resultMap.totalQuantityOnHand;

@@ -27,7 +27,7 @@ allProjects = delegator.findList("WorkEffort", cond, (HashSet) ["workEffortId"],
 
 projects = [];
 allProjects.each { project ->
-    result = dispatcher.runSync("getProject", ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
+    result = runService('getProject', ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
     if (result.projectInfo) {
         resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId], null, false)
         if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)

@@ -41,7 +41,7 @@ performFindInMap.orderBy = parameters.sortField;
 if (parameters.sortField) {
 	performFindInMap.orderBy = "lastName";
 }
-performFindResults = dispatcher.runSync("performFind", performFindInMap);
+performFindResults = runService('performFind', performFindInMap);
 resultList = performFindResults.listIt.getCompleteList();
 performFindResults.listIt.close();
 

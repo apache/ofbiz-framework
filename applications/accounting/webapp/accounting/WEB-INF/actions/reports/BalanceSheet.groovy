@@ -65,7 +65,7 @@ GenericValue accumAmortizationGlAccountClass = delegator.findOne("GlAccountClass
 List accumAmortizationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(accumAmortizationGlAccountClass);
 
 // Find the last closed time period to get the fromDate for the transactions in the current period and the ending balances of the last closed period
-Map lastClosedTimePeriodResult = dispatcher.runSync("findLastClosedDate", UtilMisc.toMap("organizationPartyId", organizationPartyId, "findDate", new Date(thruDate.getTime()),"userLogin", userLogin));
+Map lastClosedTimePeriodResult = runService('findLastClosedDate', ["organizationPartyId": organizationPartyId, "findDate": new Date(thruDate.getTime()),"userLogin": userLogin]);
 Timestamp fromDate = (Timestamp)lastClosedTimePeriodResult.lastClosedDate;
 if (!fromDate) {
     return;
@@ -410,7 +410,7 @@ transactionTotals.each { transactionTotal ->
     transactionTotalsMap.put(transactionTotal.glAccountId, accountMap);
 }
 // Add the "retained earnings" account
-Map netIncomeResult = dispatcher.runSync("prepareIncomeStatement", UtilMisc.toMap("organizationPartyId", organizationPartyId, "glFiscalTypeId", glFiscalTypeId, "fromDate", fromDate, "thruDate", thruDate,"userLogin", userLogin));
+Map netIncomeResult = runService('prepareIncomeStatement', ["organizationPartyId": organizationPartyId, "glFiscalTypeId": glFiscalTypeId, "fromDate": fromDate, "thruDate": thruDate, "userLogin": userLogin]);
 BigDecimal netIncome = (BigDecimal)netIncomeResult.totalNetIncome;
 GenericValue retainedEarningsAccount = delegator.findOne("GlAccountTypeDefault", UtilMisc.toMap("glAccountTypeId", "RETAINED_EARNINGS", "organizationPartyId", organizationPartyId), true);
 if (retainedEarningsAccount) {

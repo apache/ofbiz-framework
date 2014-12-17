@@ -65,7 +65,7 @@ context.returnItemTypeMap = typeMap;
 
 if (orderId) {
     order = delegator.findOne("OrderHeader", [orderId : orderId], false);
-    returnRes = dispatcher.runSync("getReturnableItems", [orderId : orderId]);
+    returnRes = runService('getReturnableItems', [orderId : orderId]);
     context.returnableItems = returnRes.returnableItems;
 
     orh = new OrderReadHelper(order);
@@ -73,7 +73,7 @@ if (orderId) {
     context.orderHeaderAdjustments = orh.getAvailableOrderHeaderAdjustments();
 
     // get the order shipping amount
-    shipRes = dispatcher.runSync("getOrderShippingAmount", [orderId : orderId]);
+    shipRes = runService('getOrderShippingAmount', [orderId : orderId]);
     shippingAmount = shipRes.shippingAmount;
     context.shippingAmount = shippingAmount;
 }

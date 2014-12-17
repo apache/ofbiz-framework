@@ -26,7 +26,7 @@ if (parameters.ebayStore) {
 if (productStoreId != null) {
     flag = null;
     storeBasicThemes = null;
-    resultsBasicThemes = dispatcher.runSync("retrieveBasicThemeArray",["productStoreId":productStoreId, "userLogin": userLogin]);
+    resultsBasicThemes = runService('retrieveBasicThemeArray',["productStoreId":productStoreId, "userLogin": userLogin]);
     if(resultsBasicThemes){
         storeBasicThemes = resultsBasicThemes.get("storeThemeList");
         //check what kind of theme?
@@ -41,7 +41,7 @@ if (productStoreId != null) {
     }
     storeAdvanceThemes = null;
     storeAdvancedThemeColorOptList = null;
-    resultsAdvanceThemes = dispatcher.runSync("retrieveAdvancedThemeArray",["productStoreId":productStoreId, "userLogin": userLogin]);
+    resultsAdvanceThemes = runService('retrieveAdvancedThemeArray',["productStoreId":productStoreId, "userLogin": userLogin]);
     if (resultsAdvanceThemes) {
         storeAdvanceThemes = resultsAdvanceThemes.get("storeThemeList");
         storeAdvancedThemeColorOptList = resultsAdvanceThemes.get("storeAdvancedThemeColorOptList");
@@ -56,7 +56,7 @@ if (productStoreId != null) {
             }
         }
     }
-    resultsFontTheme = dispatcher.runSync("retrieveStoreFontTheme",["productStoreId":productStoreId, "userLogin": userLogin]);
+    resultsFontTheme = runService('retrieveStoreFontTheme',["productStoreId":productStoreId, "userLogin": userLogin]);
     if (resultsFontTheme) {
         storeFontTheme = resultsFontTheme.get("advanceFontTheme");
         context.put("storeFontTheme",storeFontTheme);

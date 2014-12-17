@@ -36,7 +36,7 @@ allProjects = delegator.findList("WorkEffortAndPartyAssign", cond, (HashSet) ["w
 
 projects = [];
 allProjects.each { project ->
-    result = dispatcher.runSync("getProject", ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId, partyId : parameters.partyId]);
+    result = runService('getProject', ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId, partyId : parameters.partyId]);
     projects.add(result.projectInfo);
 }
 if (projects) {

@@ -49,7 +49,7 @@ prodCatalogList.each { prodCatalogList ->
     prodCatalogCategoryList = delegator.findByAnd("ProdCatalogCategory",["prodCatalogId":currentCatalogId, "prodCatalogCategoryTypeId":"PCCT_BROWSE_ROOT"], null, false);
     topCategory = prodCatalogCategoryList.productCategoryId[0];
     if (topCategory){
-        relatedCategories = dispatcher.runSync("getRelatedCategories", [parentProductCategoryId: topCategory, userLogin: userLogin]);
+        relatedCategories = runService('getRelatedCategories', [parentProductCategoryId: topCategory, userLogin: userLogin]);
         categoryList = relatedCategories.categories
     } else {
         categoryIdsTemp.clear()

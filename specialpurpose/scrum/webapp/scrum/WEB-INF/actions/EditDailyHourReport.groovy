@@ -54,7 +54,7 @@ if (timesheetId) {
     timesheet = entryIterator.next();
     entryIterator.close();
     if (timesheet == null) {
-        result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
+        result = runService('createProjectTimesheet', ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
             timesheet = delegator.findOne("Timesheet", ["timesheetId" : result.timesheetId], false);
         }
@@ -141,7 +141,7 @@ void retrieveWorkEffortData() {
             // get project/phase information
             entry.workEffortId = entryWorkEffort.workEffortId;
             entry.workEffortName = entryWorkEffort.workEffortName;
-            result = dispatcher.runSync("getProjectInfoFromTask", ["userLogin" : parameters.userLogin,"taskId" : entryWorkEffort.workEffortId]);
+            result = runService('getProjectInfoFromTask', ["userLogin" : parameters.userLogin,"taskId" : entryWorkEffort.workEffortId]);
                 entry.phaseId = result.phaseId;
                 entry.phaseName = result.phaseName;
                 entry.projectId = result.projectId;
@@ -211,12 +211,8 @@ while (te.hasNext()) {
 void retrieveEmplLeaveData() {
         if (lastEmplLeaveEntry) {
             //service get Hours
-            inputMap = [:];
-            inputMap.userLogin = parameters.userLogin;
-            inputMap.partyId = lastEmplLeaveEntry.partyId;
-            inputMap.leaveTypeId = lastEmplLeaveEntry.leaveTypeId;
-            inputMap.fromDate = lastEmplLeaveEntry.fromDate;
-            result = dispatcher.runSync("getPartyLeaveHoursForDate", inputMap);
+            result = runService('getPartyLeaveHoursForDate', 
+                ["userLogin": parameters.userLogin, "partyId": lastEmplLeaveEntry.partyId, "leaveTypeId": lastEmplLeaveEntry.leaveTypeId, "fromDate": lastEmplLeaveEntry.fromDate]);
             if (result.hours) {
                 leaveEntry.plannedHours = result.hours;
                 leaveEntry.planHours =  result.hours;
@@ -261,21 +257,13 @@ while ((emplLeaveMap = emplLeave.next())) {
             !lastEmplLeaveEntry.partyId.equals(emplLeaveEntry.partyId))) {
             retrieveEmplLeaveData();
         }
-    input = [:];
-    input.userLogin = parameters.userLogin;
-    input.partyId = emplLeaveEntry.partyId;
-    input.leaveTypeId = emplLeaveEntry.leaveTypeId;
-    input.fromDate = emplLeaveEntry.fromDate;
-    resultHours = dispatcher.runSync("getPartyLeaveHoursForDate", input);
+    resultHours = runService('getPartyLeaveHoursForDate', 
+        ["userLogin": parameters.userLogin, "partyId": emplLeaveEntry.partyId, "leaveTypeId": emplLeaveEntry.leaveTypeId, "fromDate": emplLeaveEntry.fromDate]);
     
     if (resultHours.hours) {
         leaveDayNumber = "d" + (emplLeaveEntry.fromDate.getTime() - timesheet.fromDate.getTime()) / (24*60*60*1000);
-        inputMap = [:];
-        inputMap.userLogin = parameters.userLogin;
-        inputMap.partyId = emplLeaveEntry.partyId;
-        inputMap.leaveTypeId = emplLeaveEntry.leaveTypeId;
-        inputMap.fromDate = emplLeaveEntry.fromDate;
-        resultHours = dispatcher.runSync("getPartyLeaveHoursForDate", inputMap);
+        resultHours = runService('getPartyLeaveHoursForDate', 
+            ["userLogin": parameters.userLogin, "partyId": emplLeaveEntry.partyId, "leaveTypeId": emplLeaveEntry.leaveTypeId, "fromDate": emplLeaveEntry.fromDate]);
         leaveHours = resultHours.hours.doubleValue();
         leaveEntry.put(String.valueOf(leaveDayNumber), leaveHours);
         if (leaveDayNumber.equals("d0")) day0Total += leaveHours;
@@ -289,12 +277,8 @@ while ((emplLeaveMap = emplLeave.next())) {
     }
     if (resultHours.hours) {
         leavePlanDay = "pd" + (emplLeaveEntry.fromDate.getTime() - timesheet.fromDate.getTime()) / (24*60*60*1000);
-        inputMap = [:];
-        inputMap.userLogin = parameters.userLogin;
-        inputMap.partyId = emplLeaveEntry.partyId;
-        inputMap.leaveTypeId = emplLeaveEntry.leaveTypeId;
-        inputMap.fromDate = emplLeaveEntry.fromDate;
-        resultPlanHours = dispatcher.runSync("getPartyLeaveHoursForDate", inputMap);
+        resultPlanHours = runService('getPartyLeaveHoursForDate', 
+            ["userLogin": parameters.userLogin, "partyId": emplLeaveEntry.partyId, "leaveTypeId": emplLeaveEntry.leaveTypeId, "fromDate": emplLeaveEntry.fromDate]);
         leavePlanHours = resultPlanHours.hours.doubleValue();
         leaveEntry.put(String.valueOf(leavePlanDay), leavePlanHours);
         if (leavePlanDay.equals("pd0")) pDay0Total += leavePlanHours;
@@ -364,12 +348,8 @@ timesheetsDb.each { timesheetDb ->
     
     while ((emplLeaveMap = emplLeaveList.next())) {
         emplLeaveEntry = emplLeaveMap;
-        inputData = [:];
-        inputData.userLogin = parameters.userLogin;
-        inputData.partyId = emplLeaveEntry.partyId;
-        inputData.leaveTypeId = emplLeaveEntry.leaveTypeId;
-        inputData.fromDate = emplLeaveEntry.fromDate;
-        resultHour = dispatcher.runSync("getPartyLeaveHoursForDate", inputData);
+        resultHour = runService('getPartyLeaveHoursForDate', 
+            ["userLogin": parameters.userLogin, "partyId": emplLeaveEntry.partyId, "leaveTypeId": emplLeaveEntry.leaveTypeId, "fromDate": emplLeaveEntry.fromDate]);
         if (resultHour) {
             leaveActualHours = resultHour.hours.doubleValue();
             leaveHours += leaveActualHours;

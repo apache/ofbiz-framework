@@ -32,8 +32,7 @@ if (orderHeader) {
 schedule = delegator.findOne("OrderDeliverySchedule", [orderId : orderId, orderItemSeqId : "_NA_"], false);
 
 // Determine whether the current user can VIEW the order
-checkMap = [orderId : orderId, userLogin : session.getAttribute("userLogin"), checkAction : "VIEW"];
-checkResult = dispatcher.runSync("checkSupplierRelatedOrderPermission", checkMap);
+checkResult = runService('checkSupplierRelatedOrderPermission', [orderId : orderId, userLogin : session.getAttribute("userLogin"), checkAction : "VIEW"]);
 hasSupplierRelatedPermissionStr = checkResult.hasSupplierRelatedPermission;
 
 // Determine what the reuslt is, no result is FALSE

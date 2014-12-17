@@ -40,7 +40,7 @@ serviceCtx.putAll(UtilMisc.toMap("userLogin", userLogin, "start", start, "numPer
 if (context.entityExprList) {
     serviceCtx.entityExprList = entityExprList;
 }
-Map result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
+Map result = runService('getWorkEffortEventsByPeriod', serviceCtx);
 context.put("periods", result.get("periods"));
 context.put("maxConcurrentEntries", result.get("maxConcurrentEntries"));
 context.put("start", start);
