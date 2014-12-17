@@ -38,6 +38,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
@@ -86,12 +87,12 @@ public final class ScriptHelperImpl implements ScriptHelper {
         if (entityPK.containsPrimaryKey(true)) {
             try {
                 if (useCache) {
-                    valueOut = delegator.findOne(entityPK.getEntityName(), entityPK, true);
+                    valueOut = EntityQuery.use(delegator).from(entityPK.getEntityName()).where(entityPK).cache(true).queryOne();
                 } else {
                     if (fieldsToSelect != null) {
                         valueOut = delegator.findByPrimaryKeyPartial(entityPK, fieldsToSelect);
                     } else {
-                        valueOut = delegator.findOne(entityPK.getEntityName(), entityPK, false);
+                        valueOut = EntityQuery.use(delegator).from(entityPK.getEntityName()).where(entityPK).queryOne();
                     }
                 }
             } catch (GenericEntityException e) {

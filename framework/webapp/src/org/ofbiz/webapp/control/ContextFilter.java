@@ -47,6 +47,7 @@ import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
@@ -258,14 +259,14 @@ public class ContextFilter implements Filter {
 
                 //Use base delegator for fetching data from entity of entityGroup org.ofbiz.tenant 
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
-                GenericValue tenantDomainName = baseDelegator.findOne("TenantDomainName", UtilMisc.toMap("domainName", serverName), false);
+                GenericValue tenantDomainName = EntityQuery.use(baseDelegator).from("TenantDomainName").where("domainName", serverName).queryOne();
 
                 if (UtilValidate.isNotEmpty(tenantDomainName)) {
                     String tenantId = tenantDomainName.getString("tenantId");
 
                     // if the request path is a root mount then redirect to the initial path
                     if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
-                        GenericValue tenant = baseDelegator.findOne("Tenant", UtilMisc.toMap("tenantId", tenantId), false);
+                        GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
                         String initialPath = tenant.getString("initialPath");
                         if (UtilValidate.isNotEmpty(initialPath) && !"/".equals(initialPath)) {
                             ((HttpServletResponse)response).sendRedirect(initialPath);

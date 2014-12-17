@@ -45,6 +45,7 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -419,7 +420,7 @@ public class EntityDataServices {
         Locale locale = (Locale) context.get("locale");
         EntityListIterator eli = null;
         try {
-            eli = delegator.find(entityName, null, null, null, null, null);
+            eli = EntityQuery.use(delegator).from(entityName).queryIterator();
             GenericValue currentValue;
             while ((currentValue = eli.next()) != null) {
                 byte[] bytes = currentValue.getBytes(fieldName);

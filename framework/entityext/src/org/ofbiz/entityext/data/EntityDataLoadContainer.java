@@ -49,6 +49,7 @@ import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityDataLoader;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.ServiceDispatcher;
 
@@ -232,7 +233,7 @@ public class EntityDataLoadContainer implements Container {
             expr.add(EntityCondition.makeCondition("disabled", EntityOperator.EQUALS, null));
             List<GenericValue> tenantList;
             try {
-                tenantList = delegator.findList("Tenant", EntityCondition.makeCondition(expr, EntityOperator.OR), null, null, null, false);
+                tenantList = EntityQuery.use(delegator).from("Tenant").where(expr, EntityOperator.OR).queryList();
             } catch (GenericEntityException e) {
                 throw new ContainerException(e.getMessage());
             }
@@ -311,7 +312,7 @@ public class EntityDataLoadContainer implements Container {
             componentEntry.set("componentName", config.getComponentName());
             componentEntry.set("rootLocation", config.getRootLocation());
             try {
-                GenericValue componentCheck = baseDelegator.findOne("Component", UtilMisc.toMap("componentName", config.getComponentName()), false);
+                GenericValue componentCheck = EntityQuery.use(baseDelegator).from("Component").where("componentName", config.getComponentName()).queryOne();
                 if (UtilValidate.isEmpty(componentCheck)) {
                     componentEntry.create();
                 } else {
@@ -329,14 +330,13 @@ public class EntityDataLoadContainer implements Container {
                     for (ComponentConfig config : allComponents) {
                         loadComponents.add(config.getComponentName());
                     }
-                    List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId()), UtilMisc.toList("sequenceNum"), false);
+                    List<GenericValue> tenantComponents = EntityQuery.use(baseDelegator).from("TenantComponent").where("tenantId", delegator.getDelegatorTenantId()).orderBy("sequenceNum").queryList();
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
                     }
                     Debug.logInfo("Loaded components by tenantId : " + delegator.getDelegatorTenantId() + ", " + tenantComponents.size() + " components", module);
                 } else {
-                    List<GenericValue> tenantComponents = baseDelegator.findByAnd("TenantComponent", UtilMisc.toMap("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component),
-                            UtilMisc.toList("sequenceNum"), false);
+                    List<GenericValue> tenantComponents = EntityQuery.use(baseDelegator).from("TenantComponent").where("tenantId", delegator.getDelegatorTenantId(), "componentName", this.component).orderBy("sequenceNum").queryList();
                     for (GenericValue tenantComponent : tenantComponents) {
                         loadComponents.add(tenantComponent.getString("componentName"));
                     }

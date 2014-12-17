@@ -45,6 +45,7 @@ import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
@@ -191,7 +192,7 @@ public final class JobManager {
                 Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                 return poll;
             }
-            jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("runTime"), null);
+            jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("runTime").queryIterator();
             GenericValue jobValue = jobsIterator.next();
             while (jobValue != null) {
                 // Claim ownership of this value. Using storeByCondition to avoid a race condition.
@@ -247,7 +248,7 @@ public final class JobManager {
                     Debug.logWarning("Unable to poll JobSandbox for jobs; unable to begin transaction.", module);
                     return Collections.emptyList();
                 }
-                jobsIterator = delegator.find("JobSandbox", mainCondition, null, null, UtilMisc.toList("jobId"), null);
+                jobsIterator = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("jobId").queryIterator();
                 GenericValue jobValue = jobsIterator.next();
                 while (jobValue != null) {
                     poll.add(new PurgeJob(jobValue));
@@ -291,7 +292,7 @@ public final class JobManager {
         EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition));
         try {
-            crashed = delegator.findList("JobSandbox", mainCondition, null, UtilMisc.toList("startDateTime"), null, false);
+            crashed = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("startDateTime").queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Unable to load crashed jobs", module);
         }

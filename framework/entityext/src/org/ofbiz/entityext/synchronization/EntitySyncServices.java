@@ -51,6 +51,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entityext.synchronization.EntitySyncContext.SyncAbortException;
 import org.ofbiz.entityext.synchronization.EntitySyncContext.SyncErrorException;
 import org.ofbiz.service.DispatchContext;
@@ -172,7 +173,10 @@ public class EntitySyncServices {
                 // check to make sure all foreign keys are created; if not create dummy values as place holders
                 valueToCreate.checkFks(true);
 
-                GenericValue existingValue = delegator.findOne(valueToCreate.getEntityName(), valueToCreate.getPrimaryKey(), false);
+                GenericValue existingValue = EntityQuery.use(delegator)
+                                                        .from(valueToCreate.getEntityName())
+                                                        .where(valueToCreate.getPrimaryKey())
+                                                        .queryOne();
                 if (existingValue == null) {
                     delegator.create(valueToCreate);
                     toCreateInserted++;
@@ -197,7 +201,10 @@ public class EntitySyncServices {
                 // check to make sure all foreign keys are created; if not create dummy values as place holders
                 valueToStore.checkFks(true);
 
-                GenericValue existingValue = delegator.findOne(valueToStore.getEntityName(), valueToStore.getPrimaryKey(), false);
+                GenericValue existingValue = EntityQuery.use(delegator)
+                                                        .from(valueToStore.getEntityName())
+                                                        .where(valueToStore.getPrimaryKey())
+                                                        .queryOne();
                 if (existingValue == null) {
                     delegator.create(valueToStore);
                     toStoreInserted++;
@@ -596,7 +603,7 @@ public class EntitySyncServices {
             // find the largest keepRemoveInfoHours value on an EntitySyncRemove and kill everything before that, if none found default to 10 days (240 hours)
             double keepRemoveInfoHours = 24;
 
-            List<GenericValue> entitySyncRemoveList = delegator.findList("EntitySync", null, null, null, null, false);
+            List<GenericValue> entitySyncRemoveList = EntityQuery.use(delegator).from("EntitySync").queryList();
             for (GenericValue entitySyncRemove: entitySyncRemoveList) {
                 Double curKrih = entitySyncRemove.getDouble("keepRemoveInfoHours");
                 if (curKrih != null) {

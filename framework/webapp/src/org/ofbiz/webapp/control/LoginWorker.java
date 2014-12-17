@@ -1020,7 +1020,7 @@ public class LoginWorker {
 
         EntityConditionList<EntityCondition> condition = EntityCondition.makeCondition(conds);
         Debug.logInfo("Doing issuer lookup: " + condition.toString(), module);
-        long count = delegator.findCountByCondition("X509IssuerProvision", condition, null, null);
+        long count = EntityQuery.use(delegator).from("X509IssuerProvision").where(condition).queryCount();
         return count > 0;
     }
 
@@ -1180,7 +1180,7 @@ public class LoginWorker {
         if (reqToChangePwdInDays > 0) {
             List<GenericValue> passwordHistories = null;
             try {
-                passwordHistories = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userName), null, false);
+                passwordHistories = EntityQuery.use(delegator).from("UserLoginPasswordHistory").where("userLoginId", userName).queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Cannot get user's password history record: " + e.getMessage(), module);
             }

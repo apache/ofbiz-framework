@@ -77,6 +77,7 @@ import org.ofbiz.entity.util.DistributedCacheClear;
 import org.ofbiz.entity.util.EntityCrypto;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.SequenceUtil;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -196,13 +197,13 @@ public class GenericDelegator implements Delegator {
         // before continuing, if there is a tenantId use the base delegator to see if it is valid
         if (UtilValidate.isNotEmpty(this.delegatorTenantId)) {
             Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
-            GenericValue tenant = baseDelegator.findOne("Tenant", true, "tenantId", this.delegatorTenantId);
+            GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", this.delegatorTenantId).cache(true).queryOne();
             if (tenant == null) {
                 throw new GenericEntityException("No Tenant record found for delegator [" + this.delegatorFullName + "] with tenantId [" + this.delegatorTenantId + "]");
             } else if ("Y".equals(tenant.getString("disabled"))) {
                 throw new GenericEntityException("No Tenant record found for delegator [" + this.delegatorFullName + "] with tenantId [" + this.delegatorTenantId + "]");
             }
-            GenericValue kekValue = baseDelegator.findOne("TenantKeyEncryptingKey", true, "tenantId", getDelegatorTenantId());
+            GenericValue kekValue = EntityQuery.use(baseDelegator).from("TenantKeyEncryptingKey").where("tenantId", getDelegatorTenantId()).cache(true).queryOne();
             if (kekValue != null) {
                 kekText = kekValue.getString("kekText");
             } else {
@@ -490,7 +491,7 @@ public class GenericDelegator implements Delegator {
                 // NOTE: instead of caching the GenericHelpInfo object do a cached query here and create a new object each time, will avoid issues when the database data changes during run time
                 // NOTE: always use the base delegator for this to avoid problems when this is being initialized
                 Delegator baseDelegator = DelegatorFactory.getDelegator(this.delegatorBaseName);
-                GenericValue tenantDataSource = baseDelegator.findOne("TenantDataSource", true, "tenantId", this.delegatorTenantId, "entityGroupName", entityGroupName);
+                GenericValue tenantDataSource = EntityQuery.use(baseDelegator).from("TenantDataSource").where("tenantId", this.delegatorTenantId, "entityGroupName", entityGroupName).cache(true).queryOne();
                 if (tenantDataSource != null) {
                     helperInfo.setTenantId(this.delegatorTenantId);
                     helperInfo.setOverrideJdbcUri(tenantDataSource.getString("jdbcUri"));

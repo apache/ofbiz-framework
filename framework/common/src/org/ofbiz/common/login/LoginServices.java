@@ -133,7 +133,7 @@ public class LoginServices {
 
                 try {
                     // only get userLogin from cache for service calls; for web and other manual logins there is less time sensitivity
-                    userLogin = delegator.findOne("UserLogin", isServiceAuth, "userLoginId", username);
+                    userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
                 } catch (GenericEntityException e) {
                     Debug.logWarning(e, "", module);
                 }
@@ -149,7 +149,7 @@ public class LoginServices {
 
                     // check the user login object again
                     try {
-                        userLogin = delegator.findOne("UserLogin", isServiceAuth, "userLoginId", username);
+                    	userLogin = EntityQuery.use(delegator).from("UserLogin").where("userLoginId", username).cache(isServiceAuth).queryOne();
                     } catch (GenericEntityException e) {
                         Debug.logWarning(e, "", module);
                     }
@@ -436,9 +436,12 @@ public class LoginServices {
             return;
         }
 
-        EntityFindOptions efo = new EntityFindOptions();
-        efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-        EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeConditionMap("userLoginId", userLoginId), null, null, UtilMisc.toList("-fromDate"), efo);
+        EntityListIterator eli = EntityQuery.use(delegator)
+                                            .from("UserLoginPasswordHistory")
+                                            .where("userLoginId", userLoginId)
+                                            .orderBy("-fromDate")
+                                            .cursorScrollInsensitive()
+                                            .queryIterator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue pwdHist;
         if ((pwdHist = eli.next()) != null) {
@@ -532,7 +535,7 @@ public class LoginServices {
 
         try {
             EntityCondition condition = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD("userLoginId"), EntityOperator.EQUALS, EntityFunction.UPPER(userLoginId));
-            if (UtilValidate.isNotEmpty(delegator.findList("UserLogin", condition, null, null, null, false))) {
+            if (UtilValidate.isNotEmpty(EntityQuery.use(delegator).from("UserLogin").where(condition).queryList())) {
                 Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
                 errMsg = UtilProperties.getMessage(resource,"loginservices.could_not_create_login_user_with_ID_exists", messageMap, locale);
                 errorMessageList.add(errMsg);
@@ -925,7 +928,11 @@ public class LoginServices {
         if (passwordChangeHistoryLimit > 0 && userLogin != null) {
             Debug.logInfo(" checkNewPassword Checking if user is tyring to use old password " + passwordChangeHistoryLimit, module);
             try {
-                List<GenericValue> pwdHistList = delegator.findByAnd("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId",userLogin.getString("userLoginId")), UtilMisc.toList("-fromDate"), false);
+                List<GenericValue> pwdHistList = EntityQuery.use(delegator)
+                                                            .from("UserLoginPasswordHistory")
+                                                            .where("userLoginId",userLogin.getString("userLoginId"))
+                                                            .orderBy("-fromDate")
+                                                            .queryList();
                 for (GenericValue pwdHistValue : pwdHistList) {
                     if (checkPassword(pwdHistValue.getString("currentPassword"), useEncryption, newPassword)) {
                         Map<String, Integer> messageMap = UtilMisc.toMap("passwordChangeHistoryLimit", passwordChangeHistoryLimit);

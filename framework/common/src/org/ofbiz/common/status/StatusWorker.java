@@ -28,6 +28,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * StatusWorker
@@ -40,8 +41,12 @@ public class StatusWorker {
         Delegator delegator = (Delegator) pageContext.getRequest().getAttribute("delegator");
 
         try {
-            List<GenericValue> statusItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeId), UtilMisc.toList("sequenceId"), true);
-
+            List<GenericValue> statusItems = EntityQuery.use(delegator)
+                                                        .from("StatusItem")
+                                                        .where("statusTypeId", statusTypeId)
+                                                        .orderBy("sequenceId")
+                                                        .cache(true)
+                                                        .queryList();
             if (statusItems != null)
                 pageContext.setAttribute(attributeName, statusItems);
         } catch (GenericEntityException e) {
@@ -54,16 +59,24 @@ public class StatusWorker {
         List<GenericValue> statusItems = new LinkedList<GenericValue>();
 
         try {
-            List<GenericValue> calItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdOne), UtilMisc.toList("sequenceId"), true);
-
+             List<GenericValue> calItems = EntityQuery.use(delegator)
+                                                      .from("StatusItem")
+                                                      .where("statusTypeId", statusTypeIdOne)
+                                                      .orderBy("sequenceId")
+                                                      .cache(true)
+                                                      .queryList();
             if (calItems != null)
                 statusItems.addAll(calItems);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }
         try {
-            List<GenericValue> taskItems = delegator.findByAnd("StatusItem", UtilMisc.toMap("statusTypeId", statusTypeIdTwo), UtilMisc.toList("sequenceId"), true);
-
+            List<GenericValue> taskItems = EntityQuery.use(delegator)
+                                                      .from("StatusItem")
+                                                      .where("statusTypeId", statusTypeIdTwo)
+                                                      .orderBy("sequenceId")
+                                                      .cache(true)
+                                                      .queryList();
             if (taskItems != null)
                 statusItems.addAll(taskItems);
         } catch (GenericEntityException e) {
@@ -79,7 +92,12 @@ public class StatusWorker {
         List<GenericValue> statusValidChangeToDetails = null;
 
         try {
-            statusValidChangeToDetails = delegator.findByAnd("StatusValidChangeToDetail", UtilMisc.toMap("statusId", statusId), UtilMisc.toList("sequenceId"), true);
+            statusValidChangeToDetails = EntityQuery.use(delegator)
+                                                    .from("StatusValidChangeToDetail")
+                                                    .where("statusId", statusId)
+                                                    .orderBy("sequenceId")
+                                                    .cache(true)
+                                                    .queryList();
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
         }

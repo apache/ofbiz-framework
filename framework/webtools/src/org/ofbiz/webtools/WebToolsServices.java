@@ -79,6 +79,7 @@ import org.ofbiz.entity.transaction.TransactionUtil;
 import org.ofbiz.entity.util.EntityDataAssert;
 import org.ofbiz.entity.util.EntityDataLoader;
 import org.ofbiz.entity.util.EntityListIterator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntitySaxReader;
 import org.ofbiz.entityext.EntityGroupUtil;
 import org.ofbiz.security.Security;
@@ -512,7 +513,7 @@ public class WebToolsServices {
                             if (UtilValidate.isNotEmpty(fromDate)) {
                                 conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
                             }
-                            values = delegator.find(curEntityName, EntityCondition.makeCondition(conds), null, null, me.getPkFieldNames(), null);
+                            values = EntityQuery.use(delegator).from(curEntityName).where(conds).orderBy(me.getPkFieldNames()).queryIterator();
                         } catch (Exception entityEx) {
                             results.add("["+fileNumber +"] [xxx] Error when writing " + curEntityName + ": " + entityEx);
                             continue;

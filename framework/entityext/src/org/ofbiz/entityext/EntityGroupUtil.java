@@ -30,6 +30,7 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * EntityEcaUtil
@@ -41,8 +42,7 @@ public class EntityGroupUtil {
     public static Set<String> getEntityNamesByGroup(String entityGroupId, Delegator delegator, boolean requireStampFields) throws GenericEntityException {
         Set<String> entityNames = new HashSet<String>();
 
-        List<GenericValue> entitySyncGroupIncludes = delegator.findByAnd("EntityGroupEntry", UtilMisc.toMap("entityGroupId", entityGroupId), null, false);
-
+        List<GenericValue> entitySyncGroupIncludes = EntityQuery.use(delegator).from("EntityGroupEntry").where("entityGroupId", entityGroupId).queryList();
         List<ModelEntity> modelEntities = getModelEntitiesFromRecords(entitySyncGroupIncludes, delegator, requireStampFields);
         for (ModelEntity modelEntity: modelEntities) {
             entityNames.add(modelEntity.getEntityName());

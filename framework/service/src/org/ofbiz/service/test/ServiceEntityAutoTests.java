@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.testtools.OFBizTestCase;
 
@@ -50,7 +51,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         testingPkPresentMap.put("testingName", "entity auto testing");
         Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingPkPresent", testingPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        GenericValue testing = delegator.findOne("Testing", false, "testingId", "TESTING_1");
+        GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_1").queryOne();
         assertNotNull(testing);
 
         //test create with auto sequence
@@ -58,7 +59,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         testingPkPresentMap.put("testingName", "entity auto testing without pk part in");
         results = dispatcher.runSync("testEntityAutoCreateTestingPkMissing", testingPkMissingMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        testing = delegator.findOne("Testing", false, "testingId", results.get("testingId"));
+        testing = EntityQuery.use(delegator).from("Testing").where("testingId", results.get("testingId")).queryOne();
         assertNotNull(testing);
 
         //test collision
@@ -73,14 +74,20 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         Map<String, Object> testingItemPkPresentMap = UtilMisc.toMap("testingId", "TESTING_2", "testingSeqId", "00001");
         Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingItemPkPresent", testingItemPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        GenericValue testingItem = delegator.findOne("TestingItem", false, "testingId", "TESTING_2", "testingSeqId", "00001");
+        GenericValue testingItem = EntityQuery.use(delegator)
+                                              .from("TestingItem")
+                                              .where("testingId", "TESTING_2", "testingSeqId", "00001")
+                                              .queryOne();
         assertNotNull(testingItem);
 
         //test create with auto sub-sequence
         Map<String, Object> testingItemPkMissingMap = UtilMisc.toMap("testingId", "TESTING_2");
         results = dispatcher.runSync("testEntityAutoCreateTestingItemPkMissing", testingItemPkMissingMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        testingItem = delegator.findOne("TestingItem", false, "testingId", "TESTING_2", "testingSeqId", results.get("testingSeqId"));
+        testingItem = EntityQuery.use(delegator)
+                                 .from("TestingItem")
+                                 .where("testingId", "TESTING_2", "testingSeqId", results.get("testingSeqId"))
+                                 .queryOne();
         assertNotNull(testingItem);
         assertEquals("00002", testingItem.get("testingSeqId"));
 
@@ -99,7 +106,10 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
                 "testingNodeId", "NODE_1", "fromDate", UtilDateTime.toTimestamp("01/01/2010 00:00:00"));
         Map<String, Object> results = dispatcher.runSync("testEntityAutoCreateTestingNodeMemberPkPresent", testingNodeMemberPkPresentMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        GenericValue testingNodeMember = delegator.findOne("TestingNodeMember", false, testingNodeMemberPkPresentMap);
+        GenericValue testingNodeMember = EntityQuery.use(delegator)
+                                                    .from("TestingNodeMember")
+                                                    .where(testingNodeMemberPkPresentMap)
+                                                    .queryOne();
         assertNotNull(testingNodeMember);
         testingNodeMember.remove();
 
@@ -117,7 +127,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         Map<String, Object> testingUpdateMap = UtilMisc.toMap("testingId", "TESTING_4", "testingName", "entity auto testing updated");
         Map<String, Object> results = dispatcher.runSync("testEntityAutoUpdateTesting", testingUpdateMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        GenericValue testing = delegator.findOne("Testing", false, "testingId", "TESTING_4");
+        GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_4").queryOne();
         assertEquals("entity auto testing updated", testing.getString("testingName"));
 
         //test update with bad pk
@@ -134,7 +144,7 @@ public class ServiceEntityAutoTests extends OFBizTestCase {
         Map<String, Object> testingDeleteMap = UtilMisc.toMap("testingId", "TESTING_5");
         Map<String, Object> results = dispatcher.runSync("testEntityAutoRemoveTesting", testingDeleteMap);
         assertTrue(ServiceUtil.isSuccess(results));
-        GenericValue testing = delegator.findOne("Testing", false, "testingId", "TESTING_5");
+        GenericValue testing = EntityQuery.use(delegator).from("Testing").where("testingId", "TESTING_5").queryOne();
         assertNull(testing);
 
         //test create with bad pk

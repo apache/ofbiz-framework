@@ -26,6 +26,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 
 /**
  * WebSiteWorker - Worker class for web site related functionality
@@ -72,7 +73,7 @@ public class WebSiteWorker {
     public static GenericValue findWebSite(Delegator delegator, String webSiteId, boolean useCache) {
         GenericValue result = null;
         try {
-            result = delegator.findOne("WebSite", useCache, UtilMisc.toMap("webSiteId", webSiteId));
+            result = EntityQuery.use(delegator).from("WebSite").where("webSiteId", webSiteId).cache(useCache).queryOne();
         }
         catch (GenericEntityException e) {
             Debug.logError("Error looking up website with id " + webSiteId, module);

@@ -60,6 +60,7 @@ import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelReader;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
@@ -1614,8 +1615,7 @@ public class ModelFormField {
                 Locale locale = UtilMisc.ensureLocale(context.get("locale"));
 
                 List<GenericValue> values = null;
-                values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
-
+                values = EntityQuery.use(delegator).from(this.entityName).where(findCondition).orderBy(this.orderByList).cache(this.cache).queryList();
                 // filter-by-date if requested
                 if ("true".equals(this.filterByDate)) {
                     values = EntityUtil.filterByDate(values, true);
@@ -2228,7 +2228,7 @@ public class ModelFormField {
             Delegator delegator = WidgetWorker.getDelegator(context);
             String fieldValue = getModelFormField().getEntry(context);
             try {
-                value = delegator.findOne(this.entityName, this.cache, fieldKey, fieldValue);
+                value = EntityQuery.use(delegator).from(this.entityName).where(fieldKey, fieldValue).cache(this.cache).queryOne();
             } catch (GenericEntityException e) {
                 String errMsg = "Error getting value from the database for display of field [" + getModelFormField().getName()
                         + "] on form [" + getModelFormField().modelForm.getName() + "]: " + e.toString();

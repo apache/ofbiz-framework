@@ -91,7 +91,11 @@ public class GeoWorker {
         }
         Map<String, String> geoIdByTypeMapTemp =  new LinkedHashMap<String, String>();
         for (Map.Entry<String, String> geoIdByTypeEntry: geoIdByTypeMapOrig.entrySet()) {
-            List<GenericValue> geoAssocList = delegator.findByAnd("GeoAssoc", UtilMisc.toMap("geoIdTo", geoIdByTypeEntry.getValue(), "geoAssocTypeId", "REGIONS"), null, true);
+            List<GenericValue> geoAssocList = EntityQuery.use(delegator)
+                                                         .from("GeoAssoc")
+                                                         .where("geoIdTo", geoIdByTypeEntry.getValue(), "geoAssocTypeId", "REGIONS")
+                                                         .cache(true)
+                                                         .queryList();
             for (GenericValue geoAssoc: geoAssocList) {
                 GenericValue newGeo = EntityQuery.use(delegator).from("Geo").where("geoId", geoAssoc.get("geoId")).cache().queryOne();
                 geoIdByTypeMapTemp.put(newGeo.getString("geoTypeId"), newGeo.getString("geoId"));
@@ -127,13 +131,17 @@ public class GeoWorker {
         List<GenericValue> gptList = null;
         if (UtilValidate.isNotEmpty(secondId) && UtilValidate.isNotEmpty(secondValueId)) {
             try {
-                gptList = delegator.findByAnd(entityName, UtilMisc.toMap(mainId, mainValueId, secondId, secondValueId), UtilMisc.toList("-fromDate"), false);
+                gptList = EntityQuery.use(delegator)
+                                     .from(entityName)
+                                     .where(mainId, mainValueId, secondId, secondValueId)
+                                     .orderBy("-fromDate")
+                                     .queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] and " + secondId + " Id [" + secondValueId + "] " + e.toString(), module);
             }
         } else {
             try {
-                gptList = delegator.findByAnd(entityName, UtilMisc.toMap(mainId, mainValueId), UtilMisc.toList("-fromDate"), false);
+                gptList = EntityQuery.use(delegator).from(entityName).where(mainId, mainValueId).orderBy("-fromDate").queryList();
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error while finding latest GeoPoint for " + mainId + " with Id [" + mainValueId + "] " + e.toString(), module);
             }

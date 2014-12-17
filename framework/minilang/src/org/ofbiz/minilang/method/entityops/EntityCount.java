@@ -30,6 +30,7 @@ import org.ofbiz.entity.finder.EntityFinderUtil.ConditionExpr;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionList;
 import org.ofbiz.entity.finder.EntityFinderUtil.ConditionObject;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.minilang.MiniLangException;
 import org.ofbiz.minilang.MiniLangValidate;
 import org.ofbiz.minilang.SimpleMethod;
@@ -103,7 +104,7 @@ public final class EntityCount extends EntityOperation {
             if (this.havingCondition != null) {
                 havingEntityCondition = this.havingCondition.createCondition(methodContext.getEnvMap(), modelEntity, delegator.getModelFieldTypeReader(modelEntity));
             }
-            long count = delegator.findCountByCondition(entityName, whereEntityCondition, havingEntityCondition, null);
+            long count = EntityQuery.use(delegator).from(entityName).where(whereEntityCondition).having(havingEntityCondition).queryCount();
             this.countFma.put(methodContext.getEnvMap(), count);
         } catch (GeneralException e) {
             String errMsg = "Exception thrown while performing entity count: " + e.getMessage();

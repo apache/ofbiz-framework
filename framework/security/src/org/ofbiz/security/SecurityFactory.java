@@ -38,6 +38,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -104,7 +105,7 @@ public final class SecurityFactory {
         @Override
         public Iterator<GenericValue> findUserLoginSecurityGroupByUserLoginId(String userLoginId) {
             try {
-                List<GenericValue> collection = EntityUtil.filterByDate(delegator.findByAnd("UserLoginSecurityGroup", UtilMisc.toMap("userLoginId", userLoginId), null, true));
+                List<GenericValue> collection = EntityUtil.filterByDate(EntityQuery.use(delegator).from("UserLoginSecurityGroup").where("userLoginId", userLoginId).cache(true).queryList());
                 return collection.iterator();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
@@ -197,7 +198,7 @@ public final class SecurityFactory {
             if (hasEntityPermission(application + "_ROLE", action, userLogin)) {
                 // we have the permission now, we check to make sure we are allowed access
                 try {
-                    List<GenericValue> roleTest = delegator.findList(entityName, condition, null, null, null, false);
+                    List<GenericValue> roleTest = EntityQuery.use(delegator).from(entityName).where(condition).queryList();
                     if (!roleTest.isEmpty()) {
                         return true;
                     }
@@ -263,7 +264,7 @@ public final class SecurityFactory {
         @Override
         public boolean securityGroupPermissionExists(String groupId, String permission) {
             try {
-                return delegator.findOne("SecurityGroupPermission",  UtilMisc.toMap("groupId", groupId, "permissionId", permission), true) != null;
+                return EntityQuery.use(delegator).from("SecurityGroupPermission").where("groupId", groupId, "permissionId", permission).cache(true).queryOne() != null;
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
                 return false;

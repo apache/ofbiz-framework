@@ -430,7 +430,7 @@ public class EntityUtil {
     public static List<GenericValue> findDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search, Timestamp now) throws GenericEntityException {
         EntityCondition searchCondition = EntityCondition.makeCondition(UtilMisc.toList(
                 EntityCondition.makeCondition(search), EntityUtil.getFilterByDateExpr(now)));
-        return delegator.findList(entityName, searchCondition, null, UtilMisc.toList("-fromDate"), null, false);
+        return EntityQuery.use(delegator).from(entityName).where(searchCondition).orderBy("-fromDate").queryList();
     }
 
     public static GenericValue newDatedInclusionEntity(Delegator delegator, String entityName, Map<String, ? extends Object> search) throws GenericEntityException {
@@ -466,7 +466,7 @@ public class EntityUtil {
             search.putAll(find);
         }
         if (now.equals(search.get("fromDate"))) {
-            return EntityUtil.getOnly(delegator.findByAnd(entityName, search, null, false));
+            return EntityUtil.getOnly(EntityQuery.use(delegator).from(entityName).where(search).queryList());
         } else {
             search.put("fromDate",now);
             search.remove("thruDate");
