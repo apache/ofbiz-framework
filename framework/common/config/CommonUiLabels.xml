@@ -8291,7 +8291,7 @@
         <value xml:lang="de">Bitte wählen</value>
         <value xml:lang="en">please select</value>
         <value xml:lang="es">Por favor, seleccione</value>
-        <value xml:lang="fr">SVP, séléctionnez</value>
+        <value xml:lang="fr">SVP, sélectionnez</value>
         <value xml:lang="ja">選択してください</value>
         <value xml:lang="pt_BR">Por favor, selecione</value>
         <value xml:lang="ru">Пожалуйста выберите</value>
@@ -11796,6 +11796,10 @@
         <value xml:lang="zh">上传</value>
         <value xml:lang="zh_CN">上传</value>
         <value xml:lang="zh_TW">上傳</value>
+    </property>
+    <property key="CommonUseBackButton">
+        <value xml:lang="en">Use the browser Back button for that</value>
+        <value xml:lang="fr">Utilisez le bouton de retour de votre navigateur pour cela</value>
     </property>
     <property key="CommonUsed">
         <value xml:lang="ar">مستعمل</value>
