@@ -152,7 +152,7 @@ public class PrimaryKeyFinder extends Finder {
                     if (fieldsToSelect != null) {
                         valueOut = delegator.findByPrimaryKeyPartial(entityPK, fieldsToSelect);
                     } else {
-                        valueOut = EntityQuery.use(delegator).from(entityPK.getEntityName()).where(entityPK).cache(true).queryOne();
+                        valueOut = EntityQuery.use(delegator).from(entityPK.getEntityName()).where(entityPK).cache(false).queryOne();
                     }
                 }
             } else {
