@@ -643,7 +643,7 @@ if (product) {
     context.downloadProductContentAndInfoList = downloadProductContentAndInfoList;
 
     // not the best to save info in an action, but this is probably the best place to count a view; it is done async
-    runService('countProductView', [productId : productId, weight : new Long(1)], false);
+    dispatcher.runAsync("countProductView", [productId : productId, weight : new Long(1)], false);
 
     //get product image from image management
     productImageList = [];
