@@ -57,6 +57,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#init(javax.servlet.ServletContext)
      */
+    @Override
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
     }
@@ -64,9 +65,10 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
     /**
      * @see org.ofbiz.webapp.view.ViewHandler#render(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
      */
+    @Override
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
 
-    	Delegator delegator = (Delegator) request.getAttribute("delegator");
+        Delegator delegator = (Delegator) request.getAttribute("delegator");
         // render and obtain the XSL-FO
         Writer writer = new StringWriter();
         try {
