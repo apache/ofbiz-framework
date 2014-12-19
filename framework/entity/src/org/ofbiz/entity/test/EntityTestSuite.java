@@ -461,7 +461,7 @@ public class EntityTestSuite extends EntityTestCase {
                 Debug.logInfo(field.toString() + " = " + ((value == null) ? "[null]" : value), module);
             }
         }
-        long testingcount = EntityQuery.use(delegator).from("Testing").where("testingTypeId", EntityOperator.EQUALS, "TEST-COUNT-VIEW").queryCount();
+        long testingcount = EntityQuery.use(delegator).from("Testing").where("testingTypeId", "TEST-COUNT-VIEW").queryCount();
         assertEquals("Number of views should equal number of created entities in the test.", testingcount, nodeWithMembers.size());
     }
 
@@ -472,7 +472,7 @@ public class EntityTestSuite extends EntityTestCase {
         delegator.removeByCondition("Testing", EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"));
         List<GenericValue> testingDistinctList = EntityQuery.use(delegator)
                                                             .from("Testing")
-                                                            .where("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%")
+                                                            .where(EntityCondition.makeCondition("testingTypeId", EntityOperator.LIKE, "TEST-DISTINCT-%"))
                                                             .queryList();
         
         assertEquals("No existing Testing entities for distinct", 0, testingDistinctList.size());
@@ -1157,9 +1157,9 @@ public class EntityTestSuite extends EntityTestCase {
         assertNull("Delete Testing(T1)", t1);
         assertNull("Delete Testing(T2)", t2);
         assertNull("Delete Testing(T3)", t3);
-        GenericValue testType = EntityQuery.use(delegator).from("TestingType").where("testingId", "JUNIT-TEST").queryOne();
+        GenericValue testType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "JUNIT-TEST").queryOne();
         assertNull("Delete TestingType 1", testType);
-        testType = EntityQuery.use(delegator).from("TestingType").where("testingId", "JUNIT-TEST2").queryOne();
+        testType = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "JUNIT-TEST2").queryOne();
         assertNull("Delete TestingType 2", testType);
     }
 
