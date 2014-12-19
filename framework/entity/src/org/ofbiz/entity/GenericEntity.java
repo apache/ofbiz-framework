@@ -370,8 +370,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
 
     public Object get(String name) {
         if (getModelEntity().getField(name) == null) {
-            Debug.logWarning("The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
-            return null;
+            throw new IllegalArgumentException("The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "].");
         }
         return fields.get(name);
     }
@@ -784,18 +783,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      *    property value is returned; otherwise returns the field value
      */
     public Object get(String name, String resource, Locale locale) {
-        Object fieldValue = null;
-        try {
-            fieldValue = get(name);
-        } catch (IllegalArgumentException e) {
-            if (Debug.verboseOn()) {
-                Debug.logVerbose(e, "The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
-            } else {
-                Debug.logWarning("The field name (or key) [" + name + "] is not valid for entity [" + this.getEntityName() + "], printing IllegalArgumentException instead of throwing it because Map interface specification does not allow throwing that exception.", module);
-            }
-            return null;
-        }
-
+        Object fieldValue = get(name);
         // In case of view entity first try to retrieve with View field names
         ModelEntity modelEntityToUse = this.getModelEntity();
         Object resourceValue = get(this.getModelEntity(), modelEntityToUse, name, resource, locale);
