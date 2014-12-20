@@ -54,7 +54,7 @@ if (cart.isSalesOrder()) {
 }
 
 if (!facilityId) {
-    productStoreFacility = EntityQuery.use(delegator).select("facilityId").from("ProductStoreFacility").where(UtilMisc.toList(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId))).queryFirst();
+    productStoreFacility = EntityQuery.use(delegator).select("facilityId").from("ProductStoreFacility").where("productStoreId", productStoreId).queryFirst();
     if (productStoreFacility) {
         facilityId = productStoreFacility.facilityId;
     }
