@@ -603,6 +603,7 @@ public class FindServices {
         EntityConditionList<EntityCondition> entityConditionList = UtilGenerics.cast(context.get("entityConditionList"));
         List<String> orderByList = checkList(context.get("orderByList"), String.class);
         boolean noConditionFind = "Y".equals(context.get("noConditionFind"));
+        boolean distinct = "Y".equals(context.get("distinct"))? true : false;
         List<String> fieldList =  UtilGenerics.checkList(context.get("fieldList"));
         Locale locale = (Locale) context.get("locale");
         Set<String> fieldSet = null;
@@ -624,7 +625,7 @@ public class FindServices {
                                     .orderBy(orderByList)
                                     .cursorScrollInsensitive()
                                     .maxRows(maxRows)
-                                    .distinct()
+                                    .distinct(distinct)
                                     .queryIterator();
                 listSize = listIt.getResultsSizeAfterPartialList();
             }
