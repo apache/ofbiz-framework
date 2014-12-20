@@ -475,6 +475,9 @@ under the License.
     </screen>
     <screen name="LayeredNavBar">
         <section>
+            <actions>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://ecommerce/webapp/ecommerce/catalog/LayeredNavBar.ftl"/></html></platform-specific>
             </widgets>

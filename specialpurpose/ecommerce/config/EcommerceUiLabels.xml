@@ -1759,6 +1759,9 @@
         <value xml:lang="zh">最近浏览</value>
         <value xml:lang="zh_TW">最近看過</value>
     </property>
+    <property key="EcommerceLayeredNavigation">
+        <value xml:lang="en">Layered Navigation</value>
+    </property>
     <property key="EcommerceLength">
         <value xml:lang="da">Længde</value>
         <value xml:lang="de">Länge</value>
