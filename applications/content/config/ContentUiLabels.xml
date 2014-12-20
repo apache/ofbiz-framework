@@ -1031,6 +1031,10 @@
         <value xml:lang="zh">内容设置</value>
         <value xml:lang="zh_TW">內容設定</value>
     </property>
+    <property key="ContentContentShow">
+        <value xml:lang="en">Show Content (if visible else simply Id)</value>
+        <value xml:lang="fr">Montre le contenu (si visible sinon uniquement la référence</value>
+    </property>
     <property key="ContentContentToOrFromErrorRetriving">
         <value xml:lang="en">Error in retrieving content To or From.</value>
         <value xml:lang="fr">Erreur dans la récupération du document de destination ou d'origine.</value>
@@ -1236,6 +1240,10 @@
         <value xml:lang="pt">HTML</value>
         <value xml:lang="vi">HTML</value>
         <value xml:lang="zh_TW">HTML</value>
+    </property>
+    <property key="ContentDataResourceId">
+        <value xml:lang="en">Data Resource Id</value>
+        <value xml:lang="fr">Ressource de données</value>
     </property>
     <property key="ContentDataResourceImage">
         <value xml:lang="ar">صورة</value>
@@ -7514,8 +7522,8 @@
         <value xml:lang="ar">إشحن علويا الصورة</value>
         <value xml:lang="da">Upload billede</value>
         <value xml:lang="de">Bild hochladen</value>
-        <value xml:lang="en">Upload Image</value>
-        <value xml:lang="fr">Télécharger une image vers le serveur</value>
+        <value xml:lang="en">Upload File</value>
+        <value xml:lang="fr">Télécharger un fichier vers le serveur</value>
         <value xml:lang="it">Carica Immagine</value>
         <value xml:lang="ja">画像をアップロード</value>
         <value xml:lang="pt">Enviar imagem</value>

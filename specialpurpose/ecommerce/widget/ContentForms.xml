@@ -37,7 +37,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="contentId"><display/></field>
-        <field name="dataResourceId"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
         <field name="contentName"><display/></field>
     </form>
 </forms>

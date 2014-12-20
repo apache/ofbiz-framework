@@ -38,7 +38,7 @@ under the License.
 
     <form name="lookupDataResourceContent" default-entity-name="DataResourceContentView" target="LookupSubContent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="dataResourceId">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
             <text-find/>
         </field>
         <field name="coContentId">

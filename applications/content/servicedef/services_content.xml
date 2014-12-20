@@ -88,6 +88,7 @@
         <attribute name="dataResourceTypeId" type="String" mode="IN" optional="true"/>
         <!-- mimetype is set from the uploaded file (contentType) when empty -->
         <attribute name="mimeTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute mode="IN" name="rootDir" optional="true" type="String"/>
     </service>
 
     <service name="createContentFromUploadedFile" engine="group" transaction-timeout="300">
