@@ -199,7 +199,11 @@ var rawdata = [
 
 
 <div id="quickadd" class="screenlet">
-    <h3>${uiLabelMap.ProductCategories}</h3>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="h3">${uiLabelMap.ProductCategories}</li>
+        </ul>
+    </div>
     <div class="screenlet-body" id="tree">
     </div>
 </div>

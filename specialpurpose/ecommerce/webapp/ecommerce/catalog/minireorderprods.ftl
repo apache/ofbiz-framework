@@ -18,7 +18,11 @@ under the License.
 -->
 <#if reorderProducts?has_content>
 <div id ="minireorderprods" class="screenlet">
-    <h3>${uiLabelMap.ProductQuickReorder}...</h3>
+    <div class="screenlet-title-bar">
+        <ul>
+            <li class="h3">${uiLabelMap.ProductQuickReorder}...</li>
+        </ul>
+    </div>
     <div class="screenlet-body">
         <#list reorderProducts as miniProduct>
           <div>
