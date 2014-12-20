@@ -25,10 +25,12 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -42,6 +44,10 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
+import org.ofbiz.service.GenericServiceException;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteWorker;
@@ -66,6 +72,9 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
      */
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
 
+        LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
+        HttpSession session = request.getSession();
+        GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         String contentId = request.getParameter("contentId");
         String rootContentId = request.getParameter("rootContentId");
         String mapKey = request.getParameter("mapKey");
@@ -135,6 +144,43 @@ public class SimpleContentViewHandler extends AbstractViewHandler {
                 String fileName = null;
                 if (!UtilValidate.isEmpty(dataResource.getString("dataResourceName"))) {
                     fileName = dataResource.getString("dataResourceName").replace(" ", "_"); // spaces in filenames can be a problem
+                }
+
+                // see if data resource is public or not
+                String isPublic = dataResource.getString("isPublic");
+                if (UtilValidate.isEmpty(isPublic)) {
+                    isPublic = "N";
+                }
+                // get the permission service required for streaming data; default is always the genericContentPermission
+                String permissionService = EntityUtilProperties.getPropertyValue("content.properties", "stream.permission.service", "genericContentPermission", delegator);
+
+                // not public check security
+                if (!"Y".equalsIgnoreCase(isPublic)) {
+                    // do security check
+                    Map<String, ? extends Object> permSvcCtx = UtilMisc.toMap("userLogin", userLogin, "locale", locale, "mainAction", "VIEW", "contentId", contentId);
+                    Map<String, Object> permSvcResp;
+                    try {
+                        permSvcResp = dispatcher.runSync(permissionService, permSvcCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, module);
+                        request.setAttribute("_ERROR_MESSAGE_", e.getMessage());
+                        throw new ViewHandlerException(e.getMessage());
+                    }
+                    if (ServiceUtil.isError(permSvcResp)) {
+                        String errorMsg = ServiceUtil.getErrorMessage(permSvcResp);
+                        Debug.logError(errorMsg, module);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+                        throw new ViewHandlerException(errorMsg);
+                    }
+
+                    // no service errors; now check the actual response
+                    Boolean hasPermission = (Boolean) permSvcResp.get("hasPermission");
+                    if (!hasPermission.booleanValue()) {
+                        String errorMsg = (String) permSvcResp.get("failMessage");
+                        Debug.logError(errorMsg, module);
+                        request.setAttribute("_ERROR_MESSAGE_", errorMsg);
+                        throw new ViewHandlerException(errorMsg);
+                    }
                 }
                 UtilHttp.streamContentToBrowser(response, bais, byteBuffer.limit(), contentType2, fileName);
             }
