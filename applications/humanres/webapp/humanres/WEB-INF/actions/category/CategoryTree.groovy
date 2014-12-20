@@ -23,6 +23,7 @@
  */
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
+import org.ofbiz.party.party.PartyHelper;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
 import javolution.util.FastMap;
@@ -51,10 +52,9 @@ if (partyRelationships) {
 
     //child
     for(partyRelationship in partyRelationships) {
-        partyGroup = from("PartyGroup").where("partyId", partyRelationship.getString("partyIdTo")).queryOne();
-        partyGroupMap = FastMap.newInstance();
-        partyGroupMap.put("partyId", partyGroup.getString("partyId"));
-        partyGroupMap.put("groupName", partyGroup.getString("groupName"));
+        partyGroupMap = [:];
+        partyGroupMap.put("partyId", partyRelationship.getString("partyIdTo"));
+        partyGroupMap.put("groupName", PartyHelper.getPartyName(delegator, partyRelationship.getString("partyIdTo"), false));
         completedTreeContext.add(partyGroupMap);
 
         subtopLists.addAll(partyRelationship.getString("partyIdTo"));
