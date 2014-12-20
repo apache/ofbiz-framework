@@ -162,9 +162,19 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         }
         boolean hasChildren = node.hasChildren(context);
 
-        ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
+        ModelTree.ModelNode.Link expandCollapseLink;
+        if (node.link == null) {
+            expandCollapseLink = new ModelTree.ModelNode.Link();
+        } else {
+            expandCollapseLink = new ModelTree.ModelNode.Link(node.link);
+        }
+        if (expandCollapseLink.getName(context).isEmpty()) {
+            String linkName = currentNodeTrail.get(currentNodeTrail.size()-1);
+            expandCollapseLink.setName(linkName);
+            expandCollapseLink.setText(linkName);
+        }
         // check to see if this node needs to be expanded.
-        if (hasChildren && node.isExpandCollapse()) {
+        if (hasChildren) {
             String targetEntityId = null;
             List<String> targetNodeTrail = UtilGenerics.toList(context.get("targetNodeTrail"));
             if (depth < targetNodeTrail.size()) {
