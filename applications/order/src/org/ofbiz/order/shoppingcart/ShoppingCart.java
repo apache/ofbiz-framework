@@ -3542,7 +3542,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             for (ShoppingCartItem item : cartLineItems) {
                 //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
-                    item.explodeItem(this, dispatcher);
+                    int thisIndex = items().indexOf(item);
+                    List<ShoppingCartItem> explodedItems = item.explodeItem(this, dispatcher);
+
+                    // Add exploded items into cart with order item sequence id and item ship group quantity
+                    for (ShoppingCartItem explodedItem : explodedItems) {
+                        String orderItemSeqId = UtilFormatOut.formatPaddedNumber(nextItemSeq, 5);
+                        explodedItem.setOrderItemSeqId(orderItemSeqId);
+                        addItemToEnd(explodedItem);
+                        setItemShipGroupQty(explodedItem, BigDecimal.ONE, thisIndex);
+                        nextItemSeq++;
+                    }
                 } catch (CartItemModifyException e) {
                     Debug.logError(e, "Problem exploding item! Item not exploded.", module);
                 }
@@ -3563,7 +3573,17 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             for (ShoppingCartItem item : shoppingCartItems) {
                 //Debug.logInfo("Item qty: " + item.getQuantity(), module);
                 try {
-                    item.explodeItem(this, dispatcher);
+                    int thisIndex = items().indexOf(item);
+                    List<ShoppingCartItem> explodedItems = item.explodeItem(this, dispatcher);
+
+                    // Add exploded items into cart with order item sequence id and item ship group quantity
+                    for (ShoppingCartItem explodedItem : explodedItems) {
+                        String orderItemSeqId = UtilFormatOut.formatPaddedNumber(nextItemSeq, 5);
+                        explodedItem.setOrderItemSeqId(orderItemSeqId);
+                        addItemToEnd(explodedItem);
+                        setItemShipGroupQty(explodedItem, BigDecimal.ONE, thisIndex);
+                        nextItemSeq++;
+                    }
                 } catch (CartItemModifyException e) {
                     Debug.logError(e, "Problem exploding (unitizing) item! Item not exploded.", module);
                 }
