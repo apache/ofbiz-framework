@@ -4459,7 +4459,7 @@ public class OrderServices {
                 itemStatus.put("orderId", newItem.get("orderId"));
                 itemStatus.put("orderItemSeqId", newItem.get("orderItemSeqId"));
                 itemStatus.put("statusDatetime", UtilDateTime.nowTimestamp());
-                itemStatus.set("statusUserLogin", userLogin.get("userLogin"));
+                itemStatus.set("statusUserLogin", userLogin.get("userLoginId"));
                 delegator.create(itemStatus);
             }
         }
