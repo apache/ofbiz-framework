@@ -51,7 +51,7 @@ if (partyRelationships) {
 
     //child
     for(partyRelationship in partyRelationships) {
-        partyGroup = from("PartyGroup").where("partyId", partyRelationship.getString("partyIdTo"))
+        partyGroup = from("PartyGroup").where("partyId", partyRelationship.getString("partyIdTo")).queryOne();
         partyGroupMap = FastMap.newInstance();
         partyGroupMap.put("partyId", partyGroup.getString("partyId"));
         partyGroupMap.put("groupName", partyGroup.getString("groupName"));
