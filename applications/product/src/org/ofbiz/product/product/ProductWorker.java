@@ -1117,14 +1117,14 @@ nextProd:
                 Debug.logInfo("set the productId to: " + product.getString("productId"), module);
 
                 // copy the supplier
-                List<GenericValue> supplierProducts = EntityQuery.use(delegator).from("SupplierProduct").where("productId", productId).cache(true).queryList();
+                List<GenericValue> supplierProducts = EntityQuery.use(delegator).from("SupplierProduct").where("productId", productId).queryList();
                 for (GenericValue supplierProduct: supplierProducts) {
                     supplierProduct.set("productId",  product.getString("productId"));
                     supplierProduct.create();
                 }
 
                 // copy the content
-                List<GenericValue> productContents = EntityQuery.use(delegator).from("ProductContent").where("productId", productId).cache(true).queryList();
+                List<GenericValue> productContents = EntityQuery.use(delegator).from("ProductContent").where("productId", productId).queryList();
                 for (GenericValue productContent: productContents) {
                     productContent.set("productId",  product.getString("productId"));
                     productContent.create();
