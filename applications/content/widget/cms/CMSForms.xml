@@ -27,7 +27,7 @@ under the License.
         <field name="caContentAssocTypeId"><text-find/></field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="contentId"><text-find/></field>
-        <field name="dataResourceId"><text-find/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><text-find/></field>
         <field name="contentName"><text-find/></field>
         <field name="submitButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -68,7 +68,7 @@ under the License.
         <field name="caMapKey"><display/></field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="contentId"><display/></field>
-        <field name="dataResourceId"><display/></field>
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
         <field name="contentName"><display/></field>
     </form>
 
@@ -77,7 +77,7 @@ under the License.
         <field name="imageData" >
             <file />
         </field>
-        <field name="dataResourceId" >
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" >
             <drop-down allow-empty="false" no-current-selected-key="TEMPLATE_TEXT_ONLY">
                 <option key="TEMPLATE_TEXT_ONLY" description="${uiLabelMap.ContentTemplateTextOnly}"/>
                 <option key="TEMPLATE_IMAGE_CENTERED" description="${uiLabelMap.ContentTemplateImageCentered}"/>
@@ -498,7 +498,7 @@ under the License.
         <field name="dataResourceTitle" title-style="h1" map-name="dummy">
             <display description=""/>
         </field>
-        <field name="dataResourceId">
+        <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
             <lookup target-form-name="LookupDataResource">
             <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="gotoDataResource" description="${uiLabelMap.ContentGoToDataResource}">
                 <parameter param-name="dataResourceId" from-field="currentValue.dataResourceId"/>

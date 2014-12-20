@@ -146,7 +146,6 @@ public class ContentManagementServices {
         Map<String, Object> context = UtilMisc.makeMapWritable(rcontext);
         Locale locale = (Locale) context.get("locale");
 
-        Debug.logInfo("=========== type:" + (String)context.get("dataresourceTypeId") , module);
         // Knowing why a request fails permission check is one of the more difficult
         // aspects of content management. Setting "displayFailCond" to true will
         // put an html table in result.errorMessage that will show what tests were performed
@@ -638,7 +637,7 @@ public class ContentManagementServices {
           newDrContext.put("mimeTypeId", mimeTypeId);
       }
 
-      if (!dataResourceExists) {
+      if (!dataResourceExists) { // Create
           Map<String, Object> thisResult = dispatcher.runSync("createDataResource", newDrContext);
           String errorMsg = ServiceUtil.getErrorMessage(thisResult);
           if (UtilValidate.isNotEmpty(errorMsg)) {
@@ -651,29 +650,7 @@ public class ContentManagementServices {
           dataResource = (GenericValue)thisResult.get("dataResource");
           Map<String, Object> fileContext = FastMap.newInstance();
           fileContext.put("userLogin", userLogin);
-          if (dataResourceTypeId.indexOf("_FILE") >=0) {
-              boolean hasData = false;
-              if (textData != null) {
-                  fileContext.put("textData", textData);
-                  hasData = true;
-              }
-              if (imageDataBytes != null) {
-                  fileContext.put("binData", imageDataBytes);
-                  hasData = true;
-              }
-              if (hasData) {
-                  fileContext.put("rootDir", context.get("rootDir"));
-                  fileContext.put("dataResourceTypeId", dataResourceTypeId);
-                  if (UtilValidate.isNotEmpty(dataResource) && UtilValidate.isNotEmpty(dataResource.get("objectInfo"))) {
-                      fileContext.put("objectInfo", dataResource.get("objectInfo"));
-                  }
-                  thisResult = dispatcher.runSync("createFile", fileContext);
-                  errorMsg = ServiceUtil.getErrorMessage(thisResult);
-                  if (UtilValidate.isNotEmpty(errorMsg)) {
-                      return ServiceUtil.returnError(errorMsg);
-                  }
-              }
-          } else if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
               if (imageDataBytes != null) {
                   fileContext.put("dataResourceId", dataResourceId);
                   fileContext.put("imageData", imageDataBytes);
@@ -697,46 +674,19 @@ public class ContentManagementServices {
                   }
               }
           }
-      } else {
+      } else { // Update
           Map<String, Object> thisResult = dispatcher.runSync("updateDataResource", newDrContext);
           String errorMsg = ServiceUtil.getErrorMessage(thisResult);
           if (UtilValidate.isNotEmpty(errorMsg)) {
               return ServiceUtil.returnError(errorMsg);
           }
-          //Map thisResult = DataServices.updateDataResourceMethod(dctx, context);
-          if (Debug.infoOn()) {
-              Debug.logInfo("====in persist... thisResult.permissionStatus(0):" + thisResult.get("permissionStatus"), null);
-          }
-          //thisResult = DataServices.updateElectronicTextMethod(dctx, context);
           Map<String, Object> fileContext = FastMap.newInstance();
           fileContext.put("userLogin", userLogin);
           String forceElectronicText = (String)context.get("forceElectronicText");
-          Debug.logInfo("====dataResourceType" + dataResourceTypeId , module);
-          if (dataResourceTypeId.indexOf("_FILE") >=0) {
-              boolean hasData = false;
-              if (textData != null) {
-                  fileContext.put("textData", textData);
-                  hasData = true;
-              }
-              if (imageDataBytes != null) {
-                  fileContext.put("binData", imageDataBytes);
-                  hasData = true;
-              }
-              if (hasData || "true".equalsIgnoreCase(forceElectronicText)) {
-                  fileContext.put("rootDir", context.get("rootDir"));
-                  fileContext.put("dataResourceTypeId", dataResourceTypeId);
-                  fileContext.put("objectInfo", dataResource.get("objectInfo"));
-                  thisResult = dispatcher.runSync("updateFile", fileContext);
-                  errorMsg = ServiceUtil.getErrorMessage(thisResult);
-                  if (UtilValidate.isNotEmpty(errorMsg)) {
-                      return ServiceUtil.returnError(errorMsg);
-                  }
-              }
-          } else if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
+          if (dataResourceTypeId.equals("IMAGE_OBJECT")) {
               if (imageDataBytes != null || "true".equalsIgnoreCase(forceElectronicText)) {
                   fileContext.put("dataResourceId", dataResourceId);
                   fileContext.put("imageData", imageDataBytes);
-                  Debug.logInfo("====trying to update image", module);
                   thisResult = dispatcher.runSync("updateImage", fileContext);
                   errorMsg = ServiceUtil.getErrorMessage(thisResult);
                   if (UtilValidate.isNotEmpty(errorMsg)) {
@@ -756,6 +706,17 @@ public class ContentManagementServices {
                   }
               }
           }
+      }
+      if (dataResourceTypeId.indexOf("_FILE") >=0) {
+          Map<String, Object> uploadImage = FastMap.newInstance();
+          uploadImage.put("userLogin", userLogin);
+          uploadImage.put("dataResourceId", dataResourceId);
+          uploadImage.put("dataResourceTypeId", dataResourceTypeId);
+          uploadImage.put("rootDir", context.get("objectInfo"));
+          uploadImage.put("uploadedFile", imageDataBytes);
+          uploadImage.put("_uploadedFile_fileName", (String) context.get("_imageData_fileName"));
+          uploadImage.put("_uploadedFile_contentType", (String) context.get("_imageData_contentType"));
+          dispatcher.runSync("attachUploadToDataResource", uploadImage);
       }
       result.put("dataResourceId", dataResourceId);
       result.put("drDataResourceId", dataResourceId);

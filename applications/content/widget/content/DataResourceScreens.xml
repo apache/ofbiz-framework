@@ -214,8 +214,15 @@ under the License.
                 <decorator-screen name="commonDataResourceDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="ImageUpload" location="component://content/widget/content/DataResourceForms.xml"/>
-                        <content dataresource-id="${currentValue.dataResourceId}" border="false"/>
-                    </decorator-section>
+                        <!-- Commented out the following snippet because the behaviour is too random (does not depend on browser)-->
+<!--                        <content dataresource-id="${currentValue.dataResourceId}" border="false"/>
+                        <horizontal-separator></horizontal-separator>
+                        <label>${uiLabelMap.ContentContentShow}:</label>
+                        <container>
+                            <content dataresource-id="${currentValue.dataResourceId}" border="false"/>
+                            <horizontal-separator></horizontal-separator>
+                        </container>
+-->                    </decorator-section>
                 </decorator-screen>
             </widgets>
         </section>
