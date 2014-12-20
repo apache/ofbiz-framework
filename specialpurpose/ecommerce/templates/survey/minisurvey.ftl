@@ -61,8 +61,8 @@ under the License.
               <#if surveyQuestionAndAppl.requiredField?default("N") != "Y">
                 <option value=""></option>
               </#if>
-              <option <#if "Y" == selectedOption>selected="selected"</#if>>Y</option>
-              <option <#if "N" == selectedOption>selected="selected"</#if>>N</option>
+              <option value="Y" <#if "Y" == selectedOption>selected="selected"</#if>>Y</option>
+              <option value="N" <#if "N" == selectedOption>selected="selected"</#if>>N</option>
             </select>
           <#elseif surveyQuestionAndAppl.surveyQuestionTypeId == "TEXTAREA">
             <textarea class="textAreaBox" cols="40" rows="5" name="answers_${surveyQuestionAndAppl.surveyQuestionId}">${(answer.textResponse)!}</textarea>
