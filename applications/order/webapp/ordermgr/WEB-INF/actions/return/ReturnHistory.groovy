@@ -26,7 +26,7 @@ commonReturnHistoryCond = [EntityCondition.makeCondition("changedEntityName", En
                            EntityCondition.makeCondition("newValueText", EntityOperator.NOT_EQUAL, null),
                            EntityCondition.makeCondition("oldValueText", EntityOperator.NOT_EQUAL, null)];
 
-returnHistoryList = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(commonReturnHistoryCond, EntityOperator.AND), null, null, null, false);
+returnHistoryList = from("EntityAuditLog").where(commonReturnHistoryCond).queryList();
 
 orderReturnItemHistories = [];
 returnHistoryList.each { returnHistory ->

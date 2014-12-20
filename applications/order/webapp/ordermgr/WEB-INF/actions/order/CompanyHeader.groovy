@@ -41,22 +41,22 @@ quoteId = parameters.quoteId;
 fromPartyId = parameters.fromPartyId;
 
 if (!orderHeader && orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
 } else if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
 }
 
 if (!invoice && invoiceId)    {
-    invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
+    invoice = from("Invoice").where("invoiceId", invoiceId).queryOne();
 }
 
 if (!returnHeader && returnId) {
-    returnHeader = delegator.findOne("ReturnHeader", [returnId : returnId], false);
+    returnHeader = from("ReturnHeader").where("returnId", returnId).queryOne();
 }
 
 if (quoteId) {
-    quote = delegator.findOne("Quote", [quoteId : quoteId], false);
+    quote = from("Quote").where("quoteId", quoteId).queryOne();
 }
 
 // defaults:
@@ -118,7 +118,7 @@ if (!partyId) {
 }
 
 // the logo
-partyGroup = delegator.findOne("PartyGroup", [partyId : partyId], false);
+partyGroup = from("PartyGroup").where("partyId", partyId).queryOne();
 if (partyGroup) {
     partyContentWrapper = new PartyContentWrapper(dispatcher, partyGroup, locale, "text/html");
     partyContent = partyContentWrapper.getFirstPartyContentByType(partyGroup.partyId , partyGroup, "LGOIMGURL", delegator);
@@ -143,12 +143,13 @@ if (partyGroup?.groupName) {
 context.companyName = companyName;
 
 // the address
-addresses = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "GENERAL_LOCATION"], null, false);
-addresses = EntityUtil.filterByDate(addresses, nowTimestamp, "contactFromDate", "contactThruDate", true);
-addresses = EntityUtil.filterByDate(addresses, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
+addresses = from("PartyContactWithPurpose")
+                .where("partyId", partyId, "contactMechPurposeTypeId", "GENERAL_LOCATION")
+                .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                .queryList();
 address = null;
 if (addresses) {
-    address = delegator.findOne("PostalAddress", [contactMechId : addresses[0].contactMechId], false);
+    address = from("PostalAddress").where("contactMechId", addresses[0].contactMechId).queryOne();
 }
 if (address)    {
    // get the country name and state/province abbreviation
@@ -164,30 +165,34 @@ if (address)    {
 context.postalAddress = address;
 
 //telephone
-phones = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_PHONE"], null, false);
-phones = EntityUtil.filterByDate(phones, nowTimestamp, "contactFromDate", "contactThruDate", true);
-phones = EntityUtil.filterByDate(phones, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
+phones = from("PartyContactWithPurpose")
+             .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_PHONE")
+             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+             .queryList();
 if (phones) {
-    context.phone = delegator.findOne("TelecomNumber", [contactMechId : phones[0].contactMechId], false);
+    context.phone = from("TelecomNumber").where("contactMechId", phones[0].contactMechId).queryOne();
 }
 
 // Fax
-faxNumbers = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "FAX_NUMBER"], null, false);
-faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, "contactFromDate", "contactThruDate", true);
-faxNumbers = EntityUtil.filterByDate(faxNumbers, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
+faxNumbers = from("PartyContactWithPurpose")
+                 .where("partyId", partyId, "contactMechPurposeTypeId", "FAX_NUMBER")
+                 .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                 .queryList();
 if (faxNumbers) {
-    context.fax = delegator.findOne("TelecomNumber", [contactMechId : faxNumbers[0].contactMechId], false);
+    context.fax = from("TelecomNumber").where("contactMechId", faxNumbers[0].contactMechId).queryOne();
 }
 
 //Email
-emails = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"], null, false);
-emails = EntityUtil.filterByDate(emails, nowTimestamp, "contactFromDate", "contactThruDate", true);
-emails = EntityUtil.filterByDate(emails, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
+emails = from("PartyContactWithPurpose")
+             .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL")
+             .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+             .queryList();
 if (emails) {
-    context.email = delegator.findOne("ContactMech", [contactMechId : emails[0].contactMechId], false);
+    context.email = from("ContactMech").where("contactMechId", emails[0].contactMechId).queryOne();
 } else {    //get email address from party contact mech
-    contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId], null, false);
-    selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
+    selContacts = from("PartyContactMech")
+                      .where("partyId", partyId).filterByDate(nowTimestamp, "fromDate", "thruDate")
+                      .queryList();
     if (selContacts) {
         i = selContacts.iterator();
         while (i.hasNext())    {
@@ -201,15 +206,18 @@ if (emails) {
 }
 
 // website
-websiteUrls = delegator.findByAnd("PartyContactWithPurpose", [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_WEB_URLs"], null, false);
-websiteUrls = EntityUtil.filterByDate(websiteUrls, nowTimestamp, "contactFromDate", "contactThruDate", true);
-websiteUrls = EntityUtil.filterByDate(websiteUrls, nowTimestamp, "purposeFromDate", "purposeThruDate", true);
+websiteUrls = from("PartyContactWithPurpose")
+                  .where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_WEB_URLs")
+                  .filterByDate("contactFromDate", "contactThruDate", "purposeFromDate", "purposeThruDate")
+                  .queryList();
 if (websiteUrls) {
     websiteUrl = EntityUtil.getFirst(websiteUrls);
-    context.website = delegator.findOne("ContactMech", [contactMechId : websiteUrl.contactMechId], false);
+    context.website = from("ContactMech").where("contactMechId", websiteUrl.contactMechId).queryOne();
 } else { //get web address from party contact mech
-contacts = delegator.findByAnd("PartyContactMech", [partyId : partyId], null, false);
-selContacts = EntityUtil.filterByDate(contacts, nowTimestamp, "fromDate", "thruDate", true);
+selContacts = from("PartyContactMech")
+                  .where("partyId", partyId)
+                  .filterByDate(nowTimestamp, "fromDate", "thruDate")
+                  .queryList();
 if (selContacts) {
     Iterator i = selContacts.iterator();
     while (i.hasNext())    {
@@ -223,14 +231,16 @@ if (selContacts) {
 }
 
 //Bank account
-paymentMethods = delegator.findByAnd("PaymentMethod", [partyId : partyId, paymentMethodTypeId : "EFT_ACCOUNT"], null, false);
-selPayments = EntityUtil.filterByDate(paymentMethods, nowTimestamp, "fromDate", "thruDate", true);
+selPayments = from("PaymentMethod")
+              .where("partyId", partyId, "paymentMethodTypeId", "EFT_ACCOUNT")
+              .filterByDate(nowTimestamp, "fromDate", "thruDate")
+              .queryList();
 if (selPayments) {
-    context.eftAccount = delegator.findOne("EftAccount", [paymentMethodId : selPayments[0].paymentMethodId], false);
+    context.eftAccount = from("EftAccount").where("paymentMethodId", selPayments[0].paymentMethodId).queryOne();
 }
 
 // Tax ID Info
-partyTaxAuthInfoList = delegator.findByAnd("PartyTaxAuthInfo", [partyId : partyId], null, false);
+partyTaxAuthInfoList = from("PartyTaxAuthInfo").where("partyId", partyId).queryList();
 if (partyTaxAuthInfoList) {
     if (address.countryGeoId) {
         // if we have an address with country filter by that

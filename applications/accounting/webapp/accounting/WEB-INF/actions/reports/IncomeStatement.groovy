@@ -42,19 +42,19 @@ List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, o
 partyIds.add(organizationPartyId);
 
 // Get the group of account classes that will be used to position accounts in the proper section of the financial statement
-GenericValue revenueGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "REVENUE"), true);
+GenericValue revenueGlAccountClass = from("GlAccountClass").where("glAccountClassId", "REVENUE").cache(true).queryOne();
 List revenueAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(revenueGlAccountClass);
-GenericValue contraRevenueGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CONTRA_REVENUE"), true);
+GenericValue contraRevenueGlAccountClass = from("GlAccountClass").where("glAccountClassId", "CONTRA_REVENUE").cache(true).queryOne();
 List contraRevenueAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(contraRevenueGlAccountClass);
-GenericValue incomeGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "INCOME"), true);
+GenericValue incomeGlAccountClass = from("GlAccountClass").where("glAccountClassId", "INCOME").cache(true).queryOne();
 List incomeAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(incomeGlAccountClass);
-GenericValue expenseGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "EXPENSE"), true);
+GenericValue expenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "EXPENSE").cache(true).queryOne();
 List expenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(expenseGlAccountClass);
-GenericValue cogsExpenseGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "COGS_EXPENSE"), true);
+GenericValue cogsExpenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "COGS_EXPENSE").cache(true).queryOne();
 List cogsExpenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(cogsExpenseGlAccountClass);
-GenericValue sgaExpenseGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "SGA_EXPENSE"), true);
+GenericValue sgaExpenseGlAccountClass = from("GlAccountClass").where("glAccountClassId", "SGA_EXPENSE").cache(true).queryList();
 List sgaExpenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(sgaExpenseGlAccountClass);
-GenericValue depreciationGlAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "DEPRECIATION"), true);
+GenericValue depreciationGlAccountClass = from("GlAccountClass").where("glAccountClassId", "DEPRECIATION").cache(true).queryOne();
 List depreciationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(depreciationGlAccountClass);
 
 List mainAndExprs = FastList.newInstance();
@@ -74,7 +74,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List revenueAndExprs = FastList.newInstance(mainAndExprs);
 revenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, revenueAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(revenueAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(revenueAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -117,7 +117,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List contraRevenueAndExprs = FastList.newInstance(mainAndExprs);
 contraRevenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraRevenueAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(contraRevenueAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(contraRevenueAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -159,7 +159,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List expenseAndExprs = FastList.newInstance(mainAndExprs);
 expenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, expenseAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(expenseAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(expenseAndExprs).queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -202,7 +202,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List cogsExpenseAndExprs = FastList.newInstance(mainAndExprs);
 cogsExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, cogsExpenseAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(cogsExpenseAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(cogsExpenseAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -244,7 +244,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List sgaExpenseAndExprs = FastList.newInstance(mainAndExprs);
 sgaExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, sgaExpenseAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(sgaExpenseAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(sgaExpenseAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -285,7 +285,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List depreciationAndExprs = FastList.newInstance(mainAndExprs);
 depreciationAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, depreciationAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(depreciationAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(depreciationAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
 Map transactionTotalsMap = [:];
 balanceTotalCredit = BigDecimal.ZERO;
@@ -326,7 +326,7 @@ transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
 List incomeAndExprs = FastList.newInstance(mainAndExprs);
 incomeAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, incomeAccountClassIds));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(incomeAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(incomeAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;

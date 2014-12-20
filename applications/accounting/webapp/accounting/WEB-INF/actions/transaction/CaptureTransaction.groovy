@@ -29,12 +29,12 @@ orderPaymentPreferenceId = context.orderPaymentPreferenceId;
 if ((!orderId) || (!orderPaymentPreferenceId)) return;
 
 if (orderId) {
-   orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+   orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
    context.orderHeader = orderHeader;
 }
 
 if (orderPaymentPreferenceId) {
-   orderPaymentPreference = delegator.findOne("OrderPaymentPreference", [orderPaymentPreferenceId : orderPaymentPreferenceId], false);
+   orderPaymentPreference = from("OrderPaymentPreference").where("orderPaymentPreferenceId", orderPaymentPreferenceId).queryOne();
    context.orderPaymentPreference = orderPaymentPreference;
 }
 

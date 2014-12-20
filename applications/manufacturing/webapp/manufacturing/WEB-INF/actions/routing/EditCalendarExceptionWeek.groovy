@@ -31,7 +31,7 @@ calendarExceptionWeeks = [];
 
 calendarId = parameters.calendarId ?: request.getAttribute("calendarId");;
 if (calendarId) {
-    techDataCalendar = delegator.findOne("TechDataCalendar", [calendarId : calendarId], false);
+    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
 }
 if (techDataCalendar) {
     calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek", null, null, false);
@@ -56,7 +56,7 @@ exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exce
 exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "java.sql.Date", null, null);
 
 if (exceptionDateStart) {
-    calendarExceptionWeek = delegator.findOne("TechDataCalendarExcWeek", [calendarId : calendarId , exceptionDateStart : exceptionDateStart], false);
+    calendarExceptionWeek = from("TechDataCalendarExcWeek").where("calendarId", calendarId , "exceptionDateStart", exceptionDateStart).queryOne();
     if (calendarExceptionWeek) {
         HtmlFormWrapper updateCalendarExceptionWeekWrapper = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/CalendarForms.xml", "UpdateCalendarExceptionWeek", request, response);
         updateCalendarExceptionWeekWrapper.putInContext("calendarExceptionWeek", calendarExceptionWeek);

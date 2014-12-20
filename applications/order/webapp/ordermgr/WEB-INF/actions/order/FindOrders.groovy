@@ -26,72 +26,72 @@ import org.ofbiz.entity.util.*;
 module = "FindOrders.groovy";
 
 // get the order types
-orderTypes = delegator.findList("OrderType", null, null, ["description"], null, false);
+orderTypes = from("OrderType").orderBy("description").queryList();
 context.orderTypes = orderTypes;
 
 // get the role types
-roleTypes = delegator.findList("RoleType", null, null, ["description"], null, false);
+roleTypes = from("RoleType").orderBy("description").queryList();
 context.roleTypes = roleTypes;
 
 // get the order statuses
-orderStatuses = delegator.findByAnd("StatusItem", [statusTypeId : "ORDER_STATUS"], ["sequenceId", "description"], false);
+orderStatuses = from("StatusItem").where("statusTypeId", "ORDER_STATUS").orderBy("sequenceId", "description").queryList();
 context.orderStatuses = orderStatuses;
 
 // get websites
-websites = delegator.findList("WebSite", null, null, ["siteName"], null, false);
+websites = from("WebSite").orderBy("siteName").queryList();
 context.webSites = websites;
 
 // get the stores
-stores = delegator.findList("ProductStore", null, null, ["storeName"], null, false);
+stores = from("ProductStore").orderBy("storeName").queryList();
 context.productStores = stores;
 
 // get the channels
-channels = delegator.findByAnd("Enumeration", [enumTypeId : "ORDER_SALES_CHANNEL"], ["sequenceId"], false);
+channels = from("Enumeration").where("enumTypeId", "ORDER_SALES_CHANNEL").orderBy("sequenceId").queryList();
 context.salesChannels = channels;
 
 // get the Shipping Methods
-carrierShipmentMethods = delegator.findList("CarrierShipmentMethod", null, null, null, null, false);
+carrierShipmentMethods = from("CarrierShipmentMethod").queryList();
 context.carrierShipmentMethods = carrierShipmentMethods;
 
 // get the Payment Status
-paymentStatusList = delegator.findByAnd("StatusItem", [statusTypeId : "PAYMENT_PREF_STATUS"], ["description"], false);
+paymentStatusList = from("StatusItem").where("statusTypeId", "PAYMENT_PREF_STATUS").orderBy("description").queryList();
 context.paymentStatusList = paymentStatusList;
 
 // get the good identification types
-goodIdentificationTypes = delegator.findList("GoodIdentificationType", null, null, ["goodIdentificationTypeId", "description"], null, false);
+goodIdentificationTypes = from("GoodIdentificationType").orderBy("goodIdentificationTypeId", "description").queryList();
 context.goodIdentificationTypes = goodIdentificationTypes;
 
 // current role type
 currentRoleTypeId = request.getParameter("roleTypeId");
 if (currentRoleTypeId) {
-    currentRole = delegator.findOne("RoleType", [roleTypeId : currentRoleTypeId], true);
+    currentRole = from("RoleType").where("roleTypeId", currentRoleTypeId).cache(true).queryOne();
     context.currentRole = currentRole;
 }
 
 // current selected type
 currentTypeId = request.getParameter("orderTypeId");
 if (currentTypeId) {
-    currentType = delegator.findOne("OrderType", [orderTypeId : currentTypeId], true);
+    currentType = from("OrderType").where("orderTypeId", currentTypeId).cache(true).queryOne();
     context.currentType = currentType;
 }
 // current selected status
 currentStatusId = request.getParameter("orderStatusId");
 if (currentStatusId) {
-    currentStatus = delegator.findOne("StatusItem", [statusId : currentStatusId], true);
+    currentStatus = from("StatusItem").where("statusId", currentStatusId).cache(true).queryOne();
     context.currentStatus = currentStatus;
 }
 
 // current website
 currentWebSiteId = request.getParameter("orderWebSiteId");
 if (currentWebSiteId) {
-    currentWebSite = delegator.findOne("WebSite", [webSiteId : currentWebSiteId], true);
+    currentWebSite = from("WebSite").where("webSiteId", currentWebSiteId).cache(true).queryOne();
     context.currentWebSite = currentWebSite;
 }
 
 // current store
 currentProductStoreId = request.getParameter("productStoreId");
 if (currentProductStoreId) {
-    currentProductStore = delegator.findOne("ProductStore", [productStoreId : currentProductStoreId], true);
+    currentProductStore = from("ProductStore").where("productStoreId", currentProductStoreId).cache(true).queryOne();
     context.currentProductStore = currentProductStore;
 }
 
@@ -101,7 +101,7 @@ if (shipmentMethod) {
     carrierPartyId = shipmentMethod.substring(0, shipmentMethod.indexOf("@"));
     shipmentMethodTypeId = shipmentMethod.substring(shipmentMethod.indexOf("@")+1);
     if (carrierPartyId && shipmentMethodTypeId) {
-        currentCarrierShipmentMethod = EntityUtil.getFirst(delegator.findByAnd("CarrierShipmentMethod", [partyId : carrierPartyId, shipmentMethodTypeId : shipmentMethodTypeId], null, false));
+        currentCarrierShipmentMethod = from("CarrierShipmentMethod").where("partyId", carrierPartyId, "shipmentMethodTypeId", shipmentMethodTypeId).queryFirst();
         context.currentCarrierShipmentMethod = currentCarrierShipmentMethod;
     }
 }
@@ -109,14 +109,14 @@ if (shipmentMethod) {
 // current channel
 currentSalesChannelId = request.getParameter("salesChannelEnumId");
 if (currentSalesChannelId) {
-    currentSalesChannel = delegator.findOne("Enumeration", [enumId : currentSalesChannelId], false);
+    currentSalesChannel = from("Enumeration").where("enumId", currentSalesChannelId).queryOne();
     context.currentSalesChannel = currentSalesChannel;
 }
 
 // current good identification type
 currentGoodIdentificationTypeId = request.getParameter("goodIdentificationTypeId");
 if (currentGoodIdentificationTypeId) {
-    currentGoodIdentificationType = delegator.findByPrimaryKey("GoodIdentificationType", ["goodIdentificationTypeId" : currentGoodIdentificationTypeId]);
+    currentGoodIdentificationType = from("GoodIdentificationType").where("goodIdentificationTypeId", currentGoodIdentificationTypeId).queryOne();
     context.currentGoodIdentificationType = currentGoodIdentificationType;
 }
 

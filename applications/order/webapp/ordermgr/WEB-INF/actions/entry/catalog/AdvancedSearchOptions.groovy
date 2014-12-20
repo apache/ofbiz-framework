@@ -34,12 +34,12 @@ if (!searchCategoryId) {
     currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
     searchCategoryId = CatalogWorker.getCatalogSearchCategoryId(request, currentCatalogId);
 }
-searchCategory = delegator.findOne("ProductCategory", [productCategoryId : searchCategoryId], false);
+searchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne();
 
 productFeaturesByTypeMap = ParametricSearch.makeCategoryFeatureLists(searchCategoryId, delegator);
 productFeatureTypeIdsOrdered = new TreeSet(productFeaturesByTypeMap.keySet()) as List;
 if(productFeatureTypeIdsOrdered) {
-    context.productFeatureTypes = delegator.findList("ProductFeatureType", EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered), null, null, null, false);
+    context.productFeatureTypes = from("ProductFeatureType").where(EntityCondition.makeCondition("productFeatureTypeId", EntityOperator.IN, productFeatureTypeIdsOrdered)).queryList();
 }
 
 searchOperator = parameters.SEARCH_OPERATOR;

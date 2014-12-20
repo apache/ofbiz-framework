@@ -27,7 +27,7 @@ partyIdTo = parameters.partyIdTo;
 if (partyIdFrom && partyIdTo) {
     partyList = [partyIdTo, partyIdFrom];
     partyList.each { partyId ->
-        party = delegator.findOne("Party", [partyId : partyId], false);
+        party = from("Party").where("partyId", partyId).queryOne();
         person =  party.getRelatedOne("Person", false);
         contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName];
 
@@ -42,10 +42,10 @@ if (partyIdFrom && partyIdTo) {
                 if (address2) {
                     contactDetailMap.address2 = address2;
                 }
-                geo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
+                geo = sfrom("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
                 contactDetailMap.state = geo.geoName;
 
-                geo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
+                geo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
                 contactDetailMap.country = geo.geoName;
             }
         }

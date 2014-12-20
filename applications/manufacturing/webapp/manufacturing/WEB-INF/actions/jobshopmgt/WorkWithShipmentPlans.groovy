@@ -25,7 +25,7 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 shipmentPlans = [];
 rows = [];
 if (shipment && shipment.shipmentId) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipment.shipmentId], null, false);
+    shipmentPlans = from("OrderShipment").where("shipmentId", shipment.shipmentId).queryList();
 }
 if (shipmentPlans) {
     workInProgress = "false";
@@ -67,7 +67,7 @@ if (shipmentPlans) {
         // Total quantity planned not issued
         plannedQuantity = 0.0;
         qtyPlannedInShipment = [:];
-        plans = delegator.findByAnd("OrderShipment", [orderId : orderItem.orderId ,orderItemSeqId : orderItem.orderItemSeqId], null, false);
+        plans = from("OrderShipment").where("orderId", orderItem.orderId ,"orderItemSeqId", orderItem.orderItemSeqId).queryList();
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.quantity;
@@ -120,7 +120,7 @@ if (shipmentPlans) {
         }
         oneRow.weight = weight;
         if (product.weightUomId) {
-            weightUom = delegator.findOne("Uom", [uomId : product.weightUomId], true);
+            weightUom = from("Uom").where("uomId", product.weightUomId).cache(true).queryOne();
             oneRow.weightUom = weightUom.abbreviation;
         }
         volume = 0.0;
@@ -138,16 +138,16 @@ if (shipmentPlans) {
             product.widthUomId &&
             product.depthUomId) {
 
-            heightUom = delegator.findOne("Uom", [uomId : product.heightUomId], true);
-            widthUom = delegator.findOne("Uom", [uomId : product.widthUomId], true);
-            depthUom = delegator.findOne("Uom", [uomId : product.depthUomId], true);
+            heightUom = from("Uom").where("uomId", product.heightUomId).cache(true).queryOne();
+            widthUom = from("Uom").where("uomId", product.widthUomId).cache(true).queryOne();
+            depthUom = from("Uom").where("uomId", product.depthUomId).cache(true).queryOne();
             oneRow.volumeUom = heightUom.abbreviation + "x" +
                                     widthUom.abbreviation + "x" +
                                     depthUom.abbreviation;
         }
         rows.add(oneRow);
         // Select the production runs, if available
-        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId, shipGroupSeqId : shipmentPlan.shipGroupSeqId],["workEffortId"], null, false); // TODO: add shipmentId
+        productionRuns = from("WorkOrderItemFulfillment").where("orderId", shipmentPlan.orderId, "orderItemSeqId", shipmentPlan.orderItemSeqId, "shipGroupSeqId", shipmentPlan.shipGroupSeqId).orderBy("workEffortId").queryList();
         if (productionRuns) {
             workInProgress = "true";
             productionRunsId = "";

@@ -31,8 +31,8 @@ import org.ofbiz.entity.util.*;
 //TODO:
 
 // get products and categories under the root category
-productMemberList = delegator.findByAnd("ProductCategoryMember", [productCategoryId : rootProductCategoryId], ["sequenceNum"], false);
-categoryRollupList = delegator.findByAnd("ProductCategoryRollup", [parentProductCategoryId : rootProductCategoryId], ["sequenceNum"], false);
+productMemberList = from("ProductCategoryMember").where("productCategoryId", rootProductCategoryId).orderBy("sequenceNum").queryList();
+categoryRollupList = from("ProductCategoryRollup").where("parentProductCategoryId", rootProductCategoryId).orderBy("sequenceNum").queryList();
 
 // for use in the queries
 productIdSet = FastSet.newInstance();
@@ -55,8 +55,6 @@ categoryRollupList.each { categoryRollup ->
     productCategoryIdSet.add(categoryRollup.productCategoryId);
 }
 
-productFieldsToSelect = UtilMisc.toSet("productId", "quantityTotal", "amountTotal");
-
 //NOTE: tax, etc also have productId on them, so restrict by type INV_PROD_ITEM, INV_FPROD_ITEM, INV_DPROD_ITEM, others?
 baseProductAndExprs = FastList.newInstance();
 baseProductAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
@@ -64,8 +62,6 @@ baseProductAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", Entit
 baseProductAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["INVOICE_READY", "INVOICE_PAID"]));
 if (organizationPartyId) baseProductAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
 if (currencyUomId) baseProductAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
-
-categoryFieldsToSelect = UtilMisc.toSet("productCategoryId", "quantityTotal", "amountTotal");
 
 baseCategoryAndExprs = FastList.newInstance();
 baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
@@ -104,8 +100,6 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     currentDayCal.add(Calendar.DAY_OF_MONTH, 1);
     nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
 
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-
     // do the product find
     productAndExprs = FastList.newInstance();
     productAndExprs.addAll(baseProductAndExprs);
@@ -113,7 +107,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
 
-    productResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    productResultListIterator = select("productId", "quantityTotal", "amountTotal").from("InvoiceItemProductSummary").where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
     productResultMap = FastMap.newInstance();
     while ((productResult = productResultListIterator.next())) {
         productResultMap[productResult.productId] = productResult;
@@ -130,7 +124,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
 
-    categoryResultListIterator = delegator.find("InvoiceItemCategorySummary", EntityCondition.makeCondition(categoryAndExprs, EntityOperator.AND), null, categoryFieldsToSelect, null, findOpts);
+    categoryResultListIterator = select("productCategoryId", "quantityTotal", "amountTotal").from(InvoiceItemCategorySummary).where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
     categoryResultMap = FastMap.newInstance();
     while ((categoryResult = categoryResultListIterator.next())) {
         categoryResultMap[categoryResult.productCategoryId] = categoryResult;
@@ -147,7 +141,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productNullAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, null));
     productNullAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productNullAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
-    productNullResultListIterator = delegator.find("InvoiceItemProductSummary", EntityCondition.makeCondition(productNullAndExprs, EntityOperator.AND), null, productFieldsToSelect, null, findOpts);
+    productNullResultListIterator = select("productId", "quantityTotal", "amountTotal").from("InvoiceItemProductSummary").where(productNullAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
     // should just be 1 result
     productNullResult = productNullResultListIterator.next();
     productNullResultListIterator.close();

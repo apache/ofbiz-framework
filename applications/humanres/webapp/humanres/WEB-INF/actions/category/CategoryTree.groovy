@@ -41,17 +41,17 @@ existParties =  FastList.newInstance();
 subtopLists =  FastList.newInstance();
 
 //internalOrg list
-partyRelationships = EntityUtil.filterByDate(delegator.findByAnd("PartyRelationship", [partyIdFrom : partyId, partyRelationshipTypeId : "GROUP_ROLLUP"], null, false));
+partyRelationships = from("PartyRelationship").where("partyIdFrom", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").filterByDate().queryList();
 if (partyRelationships) {
     //root
-    partyRoot = delegator.findOne("PartyGroup", [partyId : partyId], false);
+    partyRoot = from("PartyGroup").where("partyId", partyId).queryOne();
     partyRootMap = FastMap.newInstance();
     partyRootMap.put("partyId", partyId);
     partyRootMap.put("groupName", partyRoot.getString("groupName"));
 
     //child
     for(partyRelationship in partyRelationships) {
-        partyGroup = delegator.findOne("PartyGroup", [partyId : partyRelationship.getString("partyIdTo")], false);
+        partyGroup = from("PartyGroup").where("partyId", partyRelationship.getString("partyIdTo"))
         partyGroupMap = FastMap.newInstance();
         partyGroupMap.put("partyId", partyGroup.getString("partyId"));
         partyGroupMap.put("groupName", partyGroup.getString("groupName"));

@@ -20,9 +20,6 @@
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 
-fieldToSelect = ["productId", "internalName", "productAssocTypeId"] as Set;
-orderBy = ["productId", "productAssocTypeId"];
-
 condList = [];
 if (parameters.productId) {
     cond = EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId);
@@ -41,8 +38,12 @@ if (parameters.productAssocTypeId) {
                                           ], EntityOperator.OR);
     condList.add(cond);
 }
-cond =  EntityCondition.makeCondition(condList, EntityOperator.AND);
-findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-bomListIterator = delegator.find("ProductAndAssoc", cond, null, fieldToSelect, orderBy, findOpts);
+bomListIterator = select("productId", "internalName", "productAssocTypeId")
+                    .from("ProductAndAssoc")
+                    .where(condList)
+                    .orderBy("productId", "productAssocTypeId")
+                    .cursorScrollInsensitive()
+                    .cache(true)
+                    .queryIterator();
 
 context.ListProductBom = bomListIterator;

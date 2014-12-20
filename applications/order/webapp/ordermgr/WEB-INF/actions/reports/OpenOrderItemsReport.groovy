@@ -46,7 +46,7 @@ if (thruOrderDate) {
 if (productStoreId) {
     conditions.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
     // for generating a title (given product store)
-    context.productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], true);
+    context.productStore = from("ProductStore").where("productStoreId", productStoreId).cache(true).queryOne();
 } else {
     // for generating a title (all stores)  TODO: use UtilProperties to internationalize
     context.productStore = [storeName : "All Stores"];
@@ -70,13 +70,13 @@ conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator
 conditions.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
 
 // get the results as an entity list iterator
-allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
-fieldsToSelect = ["orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen"] as Set;
-fieldsToSelect.add("shipBeforeDate");
-fieldsToSelect.add("shipAfterDate");
-fieldsToSelect.add("itemDescription");
-findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-listIt = delegator.find("OrderItemQuantityReportGroupByItem", allConditions, null, fieldsToSelect, ["orderDate DESC"], findOptions);
+listIt = select("orderId", "orderDate", "productId", "quantityOrdered", "quantityIssued", "quantityOpen", "shipBeforeDate", "shipAfterDate", "itemDescription")
+            .from("OrderItemQuantityReportGroupByItem")
+            .where(conditions)
+            .orderBy("orderDate DESC")
+            .cursorScrollInsensitive()
+            .distinct()
+            .queryIterator();
 orderItemList = [];
 totalCostPrice = 0.0;
 totalListPrice = 0.0;
@@ -96,10 +96,8 @@ listIt.each { listValue ->
     itemDescription = listValue.itemDescription;
     shipAfterDate = listValue.shipAfterDate;
     shipBeforeDate = listValue.shipBeforeDate;
-    fieldsToSelect = ["price","productPriceTypeId"] as Set;
     productIdCondExpr =  [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId)];
-    prodPriceCond = EntityCondition.makeCondition(productIdCondExpr, EntityOperator.AND);
-    productPrices = delegator.findList("ProductPrice", prodPriceCond, fieldsToSelect, null, null, false);
+    productPrices = select("price","productPriceTypeId").from("ProductPrice").where(productIdCondExpr).queryList();
     costPrice = 0.0;
     retailPrice = 0.0;
     listPrice = 0.0;

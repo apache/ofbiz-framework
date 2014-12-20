@@ -25,9 +25,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 if ("Y".equals(parameters.noConditionFind)) {
     List exprListForParameters = [];
     
-    finAcctCond = EntityCondition.makeCondition([EntityCondition.makeCondition("finAccountId", EntityOperator.EQUALS, finAccountId),
-                                                 EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "DIVISION")], EntityOperator.AND);
-    finAccountRoles = EntityUtil.filterByDate(delegator.findList("FinAccountRole", finAcctCond, null, null, null, false));
+    finAccountRoles = from("FinAccountRole").where("finAccountId", finAccountId, "roleTypeId", "DIVISION").filterByDate().queryList();
     finAccountPartyIds = EntityUtil.getFieldListFromEntityList(finAccountRoles, "partyId", true);
     finAccountPartyIds.add(organizationPartyId);
     partyCond = EntityCondition.makeCondition([EntityCondition.makeCondition("partyIdTo", EntityOperator.IN, finAccountPartyIds),
@@ -50,12 +48,12 @@ if ("Y".equals(parameters.noConditionFind)) {
     exprListForParameters.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
     paramCond = EntityCondition.makeCondition(exprListForParameters, EntityOperator.AND);
     combinedPaymentCond = EntityCondition.makeCondition([partyCond, statusCond, paramCond], EntityOperator.AND);
-    payments = delegator.findList("PaymentAndTypePartyNameView", combinedPaymentCond, null, null, null, false);
+    payments = from("PaymentAndTypePartyNameView").where(combinedPaymentCond).queryList();
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
     payments.each { payment ->
         if (cardType && payment.paymentMethodId) {
-            creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
+            creditCard = from("CreditCard").where('paymentMethodId', payment.paymentMethodId).queryOne();
             if (creditCard.cardType == cardType) {
                 paymentListWithCreditCard.add(payment);
             }

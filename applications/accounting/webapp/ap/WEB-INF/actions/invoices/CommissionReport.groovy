@@ -41,7 +41,7 @@ if ("Y".equals(parameters.isSearch)) {
         invoiceItemAndAssocProductCond.add(EntityCondition.makeCondition("thruDate", EntityOperator.LESS_THAN_EQUAL_TO, Timestamp.valueOf(thruDate)));
     }
     invoiceItemAndAssocProductList = [];
-    invoiceItemAndAssocProductList = delegator.findList("InvoiceItemAndAssocProduct", EntityCondition.makeCondition(invoiceItemAndAssocProductCond, EntityOperator.AND), null, null, null, false);
+    invoiceItemAndAssocProductList = from("InvoiceItemAndAssocProduct").where(invoiceItemAndAssocProductCond).queryList();
 
     //filtering invoiceItemAndAssocProductList for each productId with updating quantity, commission amount and number of order which generated sales invoices.
     totalQuantity = BigDecimal.ZERO;

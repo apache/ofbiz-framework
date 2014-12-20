@@ -58,7 +58,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, dayBegin),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, dayEnd)],
                     EntityOperator.AND);
-dayList = delegator.findList("OrderStatus", ecl, null, null, null, false);
+dayList = from("OrderStatus").where(ecl).queryList();
 context.dayOrder = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_CREATED"]);
 context.dayApprove = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_APPROVED"]);
 context.dayComplete = EntityUtil.filterByAnd(dayList, [statusId : "ORDER_COMPLETED"]);
@@ -71,7 +71,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, weekBegin),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, weekEnd)],
                     EntityOperator.AND);
-weekList = delegator.findList("OrderStatus", ecl, null, null, null, false);
+weekList = from("OrderStatus").where(ecl).queryList();
 context.weekOrder = EntityUtil.filterByAnd(weekList, [statusId : "ORDER_CREATED"]);
 context.weekApprove = EntityUtil.filterByAnd(weekList, [statusId: "ORDER_APPROVED"]);
 context.weekComplete = EntityUtil.filterByAnd(weekList, [statusId : "ORDER_COMPLETED"]);
@@ -84,7 +84,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, monthBegin),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, monthEnd)],
                     EntityOperator.AND);
-monthList = delegator.findList("OrderStatus", ecl, null, null, null, false);
+monthList = from("OrderStatus").where(ecl).queryList();
 context.monthOrder = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_CREATED"]);
 context.monthApprove = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_APPROVED"]);
 context.monthComplete = EntityUtil.filterByAnd(monthList, [statusId : "ORDER_COMPLETED"]);
@@ -97,7 +97,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.GREATER_THAN_EQUAL_TO, yearBegin),
                         EntityCondition.makeCondition("statusDatetime", EntityOperator.LESS_THAN_EQUAL_TO, yearEnd)],
                     EntityOperator.AND);
-yearList = delegator.findList("OrderStatus", ecl, null, null, null, false);
+yearList = from("OrderStatus").where(ecl).queryList();
 context.yearOrder = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_CREATED"]);
 context.yearApprove = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_APPROVED"]);
 context.yearComplete = EntityUtil.filterByAnd(yearList, [statusId : "ORDER_COMPLETED"]);
@@ -112,7 +112,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, dayEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-dayItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
+dayItems = from("OrderHeaderAndItems").where(ecl).queryList();
 dayItemsPending = EntityUtil.filterByAnd(dayItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
@@ -122,7 +122,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, dayEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-dayHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
+dayHeaders = from("OrderHeader").where(ecl).queryList();
 dayHeadersPending = EntityUtil.filterByAnd(dayHeaders, [statusId : "ORDER_CREATED"]);
 
 dayItemTotal = calcItemTotal(dayHeaders);
@@ -145,7 +145,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, weekEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-weekItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
+weekItems = from("OrderHeaderAndItems").where(ecl).queryList();
 weekItemsPending = EntityUtil.filterByAnd(weekItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
@@ -155,7 +155,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, weekEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-weekHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
+weekHeaders = from("OrderHeader").where(ecl).queryList();
 weekHeadersPending = EntityUtil.filterByAnd(weekHeaders, [statusId : "ORDER_CREATED"]);
 
 weekItemTotal = calcItemTotal(weekHeaders);
@@ -178,7 +178,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, monthEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-monthItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
+monthItems = from("OrderHeaderAndItems").where(ecl).queryList()
 monthItemsPending = EntityUtil.filterByAnd(monthItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
@@ -188,7 +188,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, monthEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-monthHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
+monthHeaders = from("OrderHeader").where(ecl).queryList();
 monthHeadersPending = EntityUtil.filterByAnd(monthHeaders, [statusId : "ORDER_CREATED"]);
 
 monthItemTotal = calcItemTotal(monthHeaders);
@@ -211,7 +211,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, yearEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-yearItems = delegator.findList("OrderHeaderAndItems", ecl, null, null, null, false);
+yearItems = from("OrderHeaderAndItems").where(ecl).queryList();
 yearItemsPending = EntityUtil.filterByAnd(yearItems, [itemStatusId : "ITEM_ORDERED"]);
 
 ecl = EntityCondition.makeCondition([
@@ -221,7 +221,7 @@ ecl = EntityCondition.makeCondition([
                         EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, yearEnd),
                         EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER")],
                     EntityOperator.AND);
-yearHeaders = delegator.findList("OrderHeader", ecl, null, null, null, false);
+yearHeaders = from("OrderHeader").where(ecl).queryList();
 yearHeadersPending = EntityUtil.filterByAnd(yearHeaders, [statusId : "ORDER_CREATED"]);
 
 yearItemTotal = calcItemTotal(yearHeaders);
@@ -238,11 +238,11 @@ context.yearItemTotalPaid = yearItemTotalPaid;
 context.yearItemCountPaid = yearItemCountPaid;
 
 // order state report
-waitingPayment = delegator.findByAnd("OrderHeader", [statusId : "ORDER_CREATED", orderTypeId : "SALES_ORDER"], null, false);
+waitingPayment = from("OrderHeader").where("statusId", "ORDER_CREATED", "orderTypeId", "SALES_ORDER").queryList();
 context.waitingPayment = waitingPayment.size();
 
-waitingApproval = delegator.findByAnd("OrderHeader", [statusId : "ORDER_PROCESSING", orderTypeId : "SALES_ORDER"], null, false);
+waitingApproval = from("OrderHeader").where("statusId", "ORDER_PROCESSING", "orderTypeId", "SALES_ORDER").queryList();
 context.waitingApproval = waitingApproval.size();
 
-waitingComplete = delegator.findByAnd("OrderHeader", [statusId : "ORDER_APPROVED", orderTypeId : "SALES_ORDER"], null, false);
+waitingComplete = from("OrderHeader").where("statusId", "ORDER_APPROVED", "orderTypeId", "SALES_ORDER").queryList();
 context.waitingComplete = waitingComplete.size();

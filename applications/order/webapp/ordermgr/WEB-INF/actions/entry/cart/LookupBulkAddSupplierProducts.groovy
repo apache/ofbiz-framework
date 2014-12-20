@@ -48,11 +48,9 @@ supplierPartyId = null;
 
 orderId = parameters.orderId;
 if (orderId) {
-    orderItemShipGroup = EntityUtil.getFirst(delegator.findList("OrderItemShipGroup", null, null, ["orderId" , "orderId"], null, false));
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
-    EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition("orderId", orderId),
-            EntityCondition.makeCondition("roleTypeId", "BILL_FROM_VENDOR")], EntityOperator.AND);
-    supplier = EntityUtil.getFirst(delegator.findList("OrderHeaderAndRoles", cond, null, null, null, false));
+    orderItemShipGroup = from("OrderItemShipGroup").orderBy("orderId").queryFirst();
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
+    supplier = from("OrderHeaderAndRoles").where("orderId", orderId, "roleTypeId", "BILL_FROM_VENDOR").queryFirst();
     context.shipGroupSeqId =  orderItemShipGroup.shipGroupSeqId ;
     context.orderHeader = orderHeader;
 }
@@ -75,10 +73,11 @@ conditionList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS
 
 conditionList.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, shoppingCart.getCurrency()));
 conditionList.add(EntityCondition.makeConditionDate("availableFromDate", "availableThruDate"));
-conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
-selectedFields = ["productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity", "orderQtyIncrements"] as Set;
-supplierProducts = delegator.findList("SupplierProduct", conditions, selectedFields, ["productId"], null, false);
+supplierProducts = select("productId", "supplierProductId", "supplierProductName", "lastPrice", "minimumOrderQuantity", "orderQtyIncrements").from("SupplierProduct")
+                    .where(conditionList)
+                    .orderBy("productId")
+                    .queryList();
 
 newProductList = [];
 for (supplierProduct in supplierProducts) {
@@ -86,9 +85,9 @@ for (supplierProduct in supplierProducts) {
 
     String facilityId = parameters.facilityId;
     if (facilityId) {
-        productFacilityList = delegator.findByAnd("ProductFacility", ["productId": productId, "facilityId" : facilityId], null, true);
+        productFacilityList = from("ProductFacility").where("productId", productId, "facilityId", facilityId).cache(true).queryList();
     } else {
-        productFacilityList = delegator.findByAnd("ProductFacility", ["productId": productId], null, true);
+        productFacilityList = from("ProductFacility").where("productId", productId).cache(true).queryList();
     }
     if (newProductList.size() >= maxRows) {
         // We've got enough results to display, keep going to get the result size but skip the heavy stuff
@@ -96,10 +95,7 @@ for (supplierProduct in supplierProducts) {
     } else {
         quantityOnOrder = 0.0;
         // find approved purchase orders
-        condition = EntityCondition.makeCondition(EntityCondition.makeCondition("orderTypeId", "PURCHASE_ORDER"), EntityOperator.AND,
-                EntityCondition.makeCondition("statusId", "ORDER_APPROVED"));
-    
-        orderHeaders = delegator.findList("OrderHeader", condition, null, ["orderId DESC"], null, false);
+        orderHeaders = from("OrderHeader").where("orderTypeId", "PURCHASE_ORDER", "statusId", "ORDER_APPROVED").orderBy("orderId DESC").queryList();
         orderHeaders.each { orderHeader ->
             orderReadHelper = new OrderReadHelper(orderHeader);
             orderItems = orderReadHelper.getOrderItems();
@@ -113,7 +109,7 @@ for (supplierProduct in supplierProducts) {
                 }
             }
         }
-        product = delegator.findOne("Product", ["productId" : productId], true);
+        product = from("Product").where("productId", productId).cache(true).queryOne();
         productFacilityList.each { productFacility ->
             result = runService('getInventoryAvailableByFacility', ["productId" : productId, "facilityId" : productFacility.facilityId]);
             qohAtp = result.quantityOnHandTotal.toPlainString() + "/" + result.availableToPromiseTotal.toPlainString();

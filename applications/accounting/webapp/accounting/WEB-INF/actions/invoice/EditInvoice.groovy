@@ -35,7 +35,7 @@ import javolution.util.FastMap;
 
 invoiceId = parameters.get("invoiceId");
 
-invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
+invoice = from('Invoice').where('invoiceId', invoiceId).queryOne();
 context.invoice = invoice;
 
 currency = parameters.currency;        // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
@@ -77,13 +77,17 @@ if (invoice) {
         // also create a map with tax grand total amount by VAT tax: it is also required in invoices by UE
         taxRate = invoiceItem.getRelatedOne("TaxAuthorityRateProduct", false);
         if (taxRate && "VAT_TAX".equals(taxRate.taxAuthorityRateTypeId)) {
-            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : billToParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
-            taxInfo = EntityUtil.getFirst(taxInfos);
+            taxInfo = from("PartyTaxAuthInfo")
+                .where('partyId', billToParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
+                .filterByDate(invoice.invoiceDate)
+                .queryFirst();
             if (taxInfo) {
                 context.billToPartyTaxId = taxInfo.partyTaxId;
             }
-            taxInfos = EntityUtil.filterByDate(delegator.findByAnd("PartyTaxAuthInfo", [partyId : sendingParty.partyId, taxAuthGeoId : taxRate.taxAuthGeoId, taxAuthPartyId : taxRate.taxAuthPartyId], null, false), invoice.invoiceDate);
-            taxInfo = EntityUtil.getFirst(taxInfos);
+            taxInfo = from("PartyTaxAuthInfo")
+                .where('partyId', sendingParty.partyId, 'taxAuthGeoId', taxRate.taxAuthGeoId, 'taxAuthPartyId', taxRate.taxAuthPartyId)
+                .filterByDate(invoice.invoiceDate)
+                .queryFirst();
             if (taxInfo) {
                 context.sendingPartyTaxId = taxInfo.partyTaxId;
             }
@@ -135,10 +139,10 @@ if (invoice) {
     terms = invoice.getRelated("InvoiceTerm", null, null, false);
     context.terms = terms;
 
-    paymentAppls = delegator.findByAnd("PaymentApplication", [invoiceId : invoiceId], null, false);
+    paymentAppls = from("PaymentApplication").where('invoiceId', invoiceId).queryList();
     context.payments = paymentAppls;
 
-    orderItemBillings = delegator.findByAnd("OrderItemBilling", [invoiceId : invoiceId], ['orderId'], false);
+    orderItemBillings = from("OrderItemBilling").where('invoiceId', invoiceId).orderBy('orderId').queryList();
     orders = new LinkedHashSet();
     orderItemBillings.each { orderIb ->
         orders.add(orderIb.orderId);
@@ -150,7 +154,7 @@ if (invoice) {
 
     edit = parameters.editInvoice;
     if ("true".equalsIgnoreCase(edit)) {
-        invoiceItemTypes = delegator.findList("InvoiceItemType", null, null, null, null, false);
+        invoiceItemTypes = from("InvoiceItemType").queryList();
         context.invoiceItemTypes = invoiceItemTypes;
         context.editInvoice = true;
     }

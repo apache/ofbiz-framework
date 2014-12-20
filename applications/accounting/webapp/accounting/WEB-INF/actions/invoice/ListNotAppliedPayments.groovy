@@ -32,7 +32,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import java.math.*;
 
 invoiceId = parameters.invoiceId;
-invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
+invoice = from("Invoice").where(invoiceId : invoiceId).queryOne();
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
@@ -52,9 +52,9 @@ topCondActual = exprBldr.AND(preCurrencyCond) {
     EQUALS(actualCurrencyUomId: invoice.currencyUomId)
 }
 
-payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
+payments = from("Payment").where(topCond).orderBy("effectiveDate").queryList();
 context.payments = getPayments(payments, false);
-payments = delegator.findList("Payment", topCondActual, null, ["effectiveDate"], null, false);
+payments = from("Payment").where(topCondActual).orderBy("effectiveDate").queryList();
 context.paymentsActualCurrency = getPayments(payments, true);
 
 List getPayments(List payments, boolean actual) {

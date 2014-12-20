@@ -25,11 +25,11 @@ import org.ofbiz.manufacturing.jobshopmgt.ProductionRunHelper;
 import org.ofbiz.order.order.OrderReadHelper;
 
 if (productCategoryIdPar) {
-    category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryIdPar], false);
+    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();
     context.category = category;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUN_PROD_DELIV"], ["productId"], false);
+allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUN_PROD_DELIV").orderBy("productId").queryList();
 productionRuns = [];
 
 if (allProductionRuns) {
@@ -41,16 +41,14 @@ if (allProductionRuns) {
                 return;
             }
         }
-        productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);
+        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne();
         String rootProductionRunId = ProductionRunHelper.getRootProductionRun(delegator, productionRun.workEffortId);
 
-        productionRunOrders = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : rootProductionRunId], null, false);
-        productionRunOrder = EntityUtil.getFirst(productionRunOrders);
+        productionRunOrder = from("WorkOrderItemFulfillment").where("workEffortId", rootProductionRunId).queryFirst();
         OrderReadHelper orh = new OrderReadHelper(delegator, productionRunOrder.orderId);
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar], null, false);
-        productionRunTask = EntityUtil.getFirst(productionRunTasks);
+        productionRunTask = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortName", taskNamePar).queryFirst();
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             return;
@@ -62,12 +60,13 @@ if (allProductionRuns) {
                                           productionRunOrder : productionRunOrder,
                                           customer : orh.getPlacingParty(),
                                           address : orh.getShippingAddress()];
-        allProductionComponents = delegator.findByAnd("WorkEffortAndGoods", [workEffortId : productionRunTask.workEffortId, statusId : "WEGS_CREATED", workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"], ["productId"], false);
+        allProductionComponents = from("WorkEffortAndGoods").where("workEffortId", productionRunTask.workEffortId, "statusId", "WEGS_CREATED", "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED").orderBy("productId").queryList();
+        
         componentList = [];
 
         if (allProductionComponents) {
             allProductionComponents.each { productionComponent ->
-                productionRunProductComp = delegator.findOne("Product", [productId : productionComponent.productId], false);
+                productionRunProductComp = from("Product").where("productId", productionComponent.productId).queryOne();
                 productionRunProductMap = [component : productionComponent,componentProduct : productionRunProductComp];
                 componentList.add(productionRunProductMap);
             }

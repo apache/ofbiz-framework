@@ -40,11 +40,8 @@ if (marketingCampaignId) {
     orderConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
 }
 
-visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
-orderConditions = EntityCondition.makeCondition(orderConditionList, EntityOperator.AND);
-
-visits = delegator.findList("MarketingCampaignAndVisit", visitConditions, ['marketingCampaignId', 'visitId'] as Set, ['marketingCampaignId'], null, false);
-orders = delegator.findList("MarketingCampaignAndOrderHeader", orderConditions, ['marketingCampaignId', 'orderId', 'grandTotal'] as Set, ['marketingCampaignId'], null, false);
+visits = select("marketingCampaignId", "visitId").from("MarketingCampaignAndVisit").where(visitConditionList).orderBy("marketingCampaignId").queryList();
+orders = select("marketingCampaignId", "orderId", "grandTotal").from("MarketingCampaignAndOrderHeader").where(orderConditionList).orderBy("marketingCampaignId").queryList();
 
 //use this helper to build a List of visits, orders, order totals, and conversion rates
 marketingCampaignVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "marketingCampaignId");

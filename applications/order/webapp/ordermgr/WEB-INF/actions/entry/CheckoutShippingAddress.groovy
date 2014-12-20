@@ -44,11 +44,7 @@ for (shipGroupIndex = 0; shipGroupIndex < cart.getShipGroupSize(); shipGroupInde
     supplierPartyId = cart.getSupplierPartyId(shipGroupIndex);
     context[shipGroupIndex + "_supplierPartyId"] = supplierPartyId;
 }
-exprs = FastList.newInstance();
-exprs.add(EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, payToPartyId));
-exprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyId));
-agreements = delegator.findList("Agreement", EntityCondition.makeCondition(exprs, EntityOperator.AND), null, null, null, true);
-agreements = EntityUtil.filterByDate(agreements);
+agreements = from("Agreement").where("partyIdTo", payToPartyId, "partyIdFrom", partyId).filterByDate().cache(true).queryList();
 context.agreements = agreements;
 
 context.shoppingCart = cart;

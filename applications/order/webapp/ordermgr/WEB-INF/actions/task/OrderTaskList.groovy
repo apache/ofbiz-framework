@@ -42,8 +42,7 @@ if (sort) {
 partyBase = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CAL_ACCEPTED"), EntityCondition.makeCondition("wepaPartyId", EntityOperator.EQUALS, userLogin.partyId)];
 partyRole = [EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "PLACING_CUSTOMER"), EntityCondition.makeCondition("orderRoleTypeId", EntityOperator.EQUALS, "SUPPLIER_AGENT")];
 partyExpr = [EntityCondition.makeCondition(partyBase, EntityOperator.AND), EntityCondition.makeCondition(partyRole, EntityOperator.OR)];
-partyCond = EntityCondition.makeCondition(partyExpr, EntityOperator.AND);
-partyTasks = delegator.findList("OrderTaskList", partyCond, null, sortOrder, null, false);
+partyTasks = from("OrderTaskList").where(partyExpr).orderBy(sortOrder).queryList();
 
 if (partyTasks) partyTasks = EntityUtil.filterByDate(partyTasks);
 context.partyTasks = partyTasks;
@@ -51,12 +50,12 @@ context.partyTasks = partyTasks;
 // Build a map of orderId and currency
 orderCurrencyMap = [:];
 partyTasks.each { ptItem ->
-    orderHeader = delegator.findOne("OrderHeader", [orderId : ptItem.orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", ptItem.orderId).queryOne();
     orderCurrencyMap[ptItem.orderId] = orderHeader.currencyUom;
 }
 
 // get this user's roles
-partyRoles = delegator.findByAnd("PartyRole", [partyId : userLogin.partyId], null, false);
+partyRoles = from("PartyRole").where("partyId", userLogin.partyId).queryList();
 
 // build the role list
 pRolesList = [];
@@ -71,17 +70,16 @@ expressions = [];
 expressions.add(EntityCondition.makeCondition(custList, EntityOperator.OR));
 if (pRolesList) expressions.add(EntityCondition.makeCondition(pRolesList, EntityOperator.OR));
 expressions.add(EntityCondition.makeCondition(baseList, EntityOperator.AND));
-conditions = EntityCondition.makeCondition(expressions, EntityOperator.AND);
 
 // invoke the query
-roleTasks = delegator.findList("OrderTaskList", conditions, null, sortOrder, null, false);
+roleTasks = from("OrderTaskList").where(expressions).orderBy(sortOrder).queryList();
 roleTasks = EntityUtil.filterByAnd(roleTasks, baseList);
 roleTasks = EntityUtil.filterByDate(roleTasks);
 context.roleTasks = roleTasks;
 
 // Add to the map of orderId and currency
 roleTasks.each { rtItem ->
-    orderHeader = delegator.findOne("OrderHeader", [orderId : rtItem.orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", rtItem.orderId).queryOne();
     orderCurrencyMap[rtItem.orderId] = orderHeader.currencyUom;
 }
 context.orderCurrencyMap = orderCurrencyMap;
@@ -89,7 +87,7 @@ context.orderCurrencyMap = orderCurrencyMap;
 context.now = nowTimestamp;
 
 // purchase order schedule
-poList = delegator.findByAnd("OrderHeaderAndRoles", [partyId : userLogin.partyId, orderTypeId : "PURCHASE_ORDER"], null, false);
+poList = from("OrderHeaderAndRoles").where("partyId", userLogin.partyId, "orderTypeId", "PURCHASE_ORDER").queryList();
 poIter = poList.iterator();
 listedPoIds = new HashSet();
 while (poIter.hasNext()) {

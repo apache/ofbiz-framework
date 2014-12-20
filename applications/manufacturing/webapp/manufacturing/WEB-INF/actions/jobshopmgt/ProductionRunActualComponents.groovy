@@ -22,9 +22,9 @@ import org.ofbiz.widget.html.HtmlFormWrapper;
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 
 taskInfos = [];
-tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRunId, workEffortTypeId : "PROD_ORDER_TASK"], ["workEffortId"], false);
+tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
 tasks.each { task ->
-    records = delegator.findByAnd("InventoryItemDetail", [workEffortId : task.workEffortId], null, false);
+    records = from("InventoryItemDetail").where("workEffortId", task.workEffortId).queryList();
     HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskActualComponents", request, response);
     taskForm.putInContext("records", records);
     taskInfos.add([task : task, taskForm : taskForm]);

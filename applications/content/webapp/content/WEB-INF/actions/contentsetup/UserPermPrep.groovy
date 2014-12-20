@@ -27,15 +27,14 @@ import org.ofbiz.content.ContentManagementWorker;
 
 paramMap = UtilHttp.getParameterMap(request);
 forumId = ContentManagementWorker.getFromSomewhere("webSitePublishPoint", paramMap, request, context);
-blogRoles = delegator.findList("RoleType", EntityCondition.makeCondition([parentTypeId : 'BLOG']), null, null, null, true);
+blogRoles = from("RoleType").where("parentTypeId", "BLOG").cache(true).queryList();
 
 if (forumId) {
     siteRoleMap = [:];
     for (int i=0; i < blogRoles.size(); i++) {
         roleType = blogRoles.get(i);
         roleTypeId = roleType.roleTypeId;
-        contentRoleList = delegator.findList("ContentRole", EntityCondition.makeCondition([contentId : forumId, roleTypeId : roleTypeId]), null, null, null, false);
-        filteredRoleList = EntityUtil.filterByDate(contentRoleList);
+        filteredRoleList = from("ContentRole").where("contentId", forumId, "roleTypeId", roleTypeId).filterByDate().queryList();
         cappedBlogRoleName = ModelUtil.dbNameToVarName(roleTypeId);
 
         filteredRoleList.each { contentRole ->

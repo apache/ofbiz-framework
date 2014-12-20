@@ -21,16 +21,16 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.order.OrderReadHelper;
 
 shipmentId = parameters.shipmentId;
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 
 context.shipmentIdPar = shipment.shipmentId;
 
 if (shipment) {
-    shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipmentId], null, false);
+    shipmentPackages = from("ShipmentPackage").where("shipmentId", shipmentId).queryList();
     records = [];
     orderReaders = [:];
     shipmentPackages.each { shipmentPackage ->
-        shipmentPackageComponents = delegator.findByAnd("ShipmentPackageContent", [shipmentId : shipmentId, shipmentPackageSeqId : shipmentPackage.shipmentPackageSeqId], null, false);
+        shipmentPackageComponents = from("ShipmentPackageContent").where("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.shipmentPackageSeqId).queryList();;
         shipmentPackageComponents.each { shipmentPackageComponent ->
             shipmentItem = shipmentPackageComponent.getRelatedOne("ShipmentItem", false);
             orderShipments = shipmentItem.getRelated("OrderShipment", null, null, false);
@@ -54,7 +54,7 @@ if (shipment) {
             record.shipmentPackageSeqId = shipmentPackageComponent.shipmentPackageSeqId;
             record.orderId = orderId;
             record.orderItemSeqId = orderItemSeqId;
-            product = delegator.findOne("Product", [productId : record.productId], false);
+            product = from("Product").where("productId", record.productId).queryOne();
             record.productName = product.internalName;
             record.shipDate = shipment.estimatedShipDate;
             // ---
@@ -62,7 +62,7 @@ if (shipment) {
             if (orderReaders.containsKey(orderId)) {
                 orderReadHelper = (OrderReadHelper)orderReaders.get(orderId);
             } else {
-                orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+                orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
                 orderReadHelper = new OrderReadHelper(orderHeader);
                 orderReaders.put(orderId, orderReadHelper);
             }

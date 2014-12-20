@@ -80,7 +80,6 @@ int highIndex = (viewIndex+1)*viewSize;
 context.lowIndex = lowIndex;
 int arraySize = 0;
 List resultPartialList = null;
-    conditions = [EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS,(String)parameters.get("contentId"))];
 
 if ((highIndex - lowIndex + 1) > 0) {
     // get the results as an entity list iterator
@@ -88,9 +87,7 @@ if ((highIndex - lowIndex + 1) > 0) {
     if(resultPartialList==null){
     try {
         beganTransaction = TransactionUtil.begin();
-        allConditions = EntityCondition.makeCondition( conditions, EntityOperator.AND );
-        findOptions = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-        EntityListIterator listIt = delegator.find("ContentAssocViewTo", allConditions, null, null, ["contentId ASC"], findOptions);
+        EntityListIterator listIt = from("ContentAssocViewTo").where("contentIdStart", (String)parameters.get("contentId")).orderBy("contentId ASC").cursorScrollInsensitive().cache(true).queryIterator();
         resultPartialList = listIt.getPartialList(lowIndex, highIndex - lowIndex + 1);
         
         arraySize = listIt.getResultsSizeAfterPartialList();

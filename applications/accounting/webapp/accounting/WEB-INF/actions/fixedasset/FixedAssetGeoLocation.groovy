@@ -38,7 +38,7 @@ if (fixedAsset) {
             context.geoChart = geoChart;
         }
         if (latestGeoPoint.elevationUomId) {
-            elevationUom = delegator.findOne("Uom", [uomId : latestGeoPoint.elevationUomId], false);
+            elevationUom = from('Uom').where('uomId', atestGeoPoint.elevationUomId).queryOne()
             context.elevationUomAbbr = elevationUom.abbreviation;
         }
     }

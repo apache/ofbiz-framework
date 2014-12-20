@@ -35,9 +35,9 @@ donePage = request.getParameter("DONE_PAGE") ?: "orderview";
 context.donePage = donePage;
 
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
-orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = delegator.findOne("ProductStoreEmailSetting", [productStoreId : orderHeader.productStoreId, emailType : emailType], true);
+    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType)context.queryOne();
     if (productStoreEmailSetting) {
         context.productStoreEmailSetting = productStoreEmailSetting;
     }

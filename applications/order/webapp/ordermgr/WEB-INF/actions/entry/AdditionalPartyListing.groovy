@@ -29,12 +29,12 @@ roleData = [:];
 partyData = [:];
 
 additionalPartyRole.each { roleTypeId, partyList ->
-    roleData[roleTypeId] = delegator.findOne("RoleType", [roleTypeId : roleTypeId], true);
+    roleData[roleTypeId] = from("RoleType").where("roleTypeId", roleTypeId).queryOne();
 
     partyList.each { partyId ->
         partyMap = [:];
         partyMap.partyId = partyId;
-        party = delegator.findOne("Party", [partyId : partyId], true);
+        party = from("Party").where("partyId", partyId).cache(true).queryOne();
         if (party.partyTypeId.equals("PERSON")) {
             party = party.getRelatedOne("Person", true);
             partyMap.type = "person";

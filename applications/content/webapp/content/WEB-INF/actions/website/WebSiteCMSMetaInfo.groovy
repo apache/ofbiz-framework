@@ -23,36 +23,28 @@ import org.ofbiz.entity.util.*
 
 if (content) {
     // lookup assoc content
-    titles = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentId, mapKey : 'title']), null, ['-fromDate'], null, false);
-    titles = EntityUtil.filterByDate(titles);
-    title = EntityUtil.getFirst(titles);
+    title = from("ContentAssoc").where("contentId", contentId, "mapKey", "title").orderBy("-fromDate").filterByDate().queryFirst();
     if (title) {
         tc = title.getRelatedOne("ToContent", false);
         tcdr = tc.getRelatedOne("DataResource", false);
         context.title = tcdr;
     }
 
-    titleProps = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentId, mapKey : 'titleProperty']), null, ['-fromDate'], null, false);
-    titleProps = EntityUtil.filterByDate(titleProps);
-    titleProp = EntityUtil.getFirst(titleProps);
+    titleProp = from("ContentAssoc").where("contentId", contentId, "mapKey", "titleProperty").orderBy("-fromDate").filterByDate().queryFirst();
     if (titleProp) {
         tpc = titleProp.getRelatedOne("ToContent", false);
         tpcdr = tpc.getRelatedOne("DataResource", false);
         context.titleProperty = tpcdr;
     }
 
-    metaDescs = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentId, mapKey : 'metaDescription']), null, ['-fromDate'], null, false);
-    metaDescs = EntityUtil.filterByDate(metaDescs);
-    metaDesc = EntityUtil.getFirst(metaDescs);
+    metaDesc = from("ContentAssoc").where("contentId", contentId, "mapKey", "metaDescription").orderBy("-fromDate").filterByDate().queryFirst();
     if (metaDesc) {
         mdc = metaDesc.getRelatedOne("ToContent", false);
         mdcdr = mdc.getRelatedOne("DataResource", false);
         context.metaDescription = mdcdr;
     }
 
-    metaKeys = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentId, mapKey : 'metaKeywords']), null, ['-fromDate'], null, false);
-    metaKeys = EntityUtil.filterByDate(metaKeys);
-    metaKey = EntityUtil.getFirst(metaKeys);
+    metaKey = from("ContentAssoc").where("contentId", contentId, "mapKey", "metaKeywords").orderBy("-fromDate").filterByDate().queryFirst();
     if (metaKey) {
         mkc = metaKey.getRelatedOne("ToContent", false);
         mkcdr = mkc.getRelatedOne("DataResource", false);

@@ -41,7 +41,7 @@ if (newPaymentMethodId) {
 }
 
 if (orderPartyId && !orderPartyId.equals("_NA_")) {
-    orderParty = delegator.findOne("Party", [partyId : orderPartyId], false);
+    orderParty = from("Party").where("partyId", orderPartyId).queryOne();
     orderPerson = orderParty.getRelatedOne("Person", false);
     context.orderParty = orderParty;
     context.orderPerson = orderPerson;
@@ -58,7 +58,7 @@ if (orderPartyId && !orderPartyId.equals("_NA_")) {
 
 if (request.getParameter("useShipAddr") && cart.getShippingContactMechId()) {
     shippingContactMech = cart.getShippingContactMechId();
-    postalAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMech], false);
+    postalAddress = from("PostalAddress").where("contactMechId", shippingContactMech).queryOne();
     context.postalFields = postalAddress;
 } else {
     context.postalFields = UtilHttp.getParameterMap(request);
@@ -69,7 +69,7 @@ if (cart) {
         checkOutPaymentId = cart.getPaymentMethodIds().get(0);
         context.checkOutPaymentId = checkOutPaymentId;
         if (!orderParty) {
-            paymentMethod = delegator.findOne("PaymentMethod", [paymentMethodId : checkOutPaymentId], false);
+            paymentMethod = from("PaymentMethod").where("paymentMethodId", checkOutPaymentId).queryOne();
             if ("CREDIT_CARD".equals(paymentMethod?.paymentMethodTypeId)) {
                 paymentMethodType = "CC";
                 account = paymentMethod.getRelatedOne("CreditCard", false);

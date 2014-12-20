@@ -22,11 +22,11 @@ import org.ofbiz.content.survey.SurveyWrapper;
 if (!survey) {
     surveyResponseId = parameters.surveyResponseId;
     if (surveyResponseId) {
-        surveyResponse = delegator.findOne("SurveyResponse", [surveyResponseId : surveyResponseId], false);
+        surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
         if (surveyResponse) {
             surveyId = surveyResponse.surveyId;
             if (surveyId) {
-                survey = delegator.findOne("Survey", [surveyId : surveyId], false);
+                survey = from("Survey").where("surveyId", surveyId).queryOne();
                 context.survey = survey;
                 context.surveyId = surveyId;
             }

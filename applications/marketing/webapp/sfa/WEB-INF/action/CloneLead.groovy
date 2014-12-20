@@ -23,15 +23,17 @@ import org.ofbiz.party.contact.ContactHelper
 
 partyId = parameters.partyId;
 if (partyId) {
-    party =  delegator.findOne("Party", [partyId : partyId], false);
+    party =  from("Party").where("partyId", partyId).queryOne();
     person = party.getRelatedOne("Person", false);
     contactDetailMap = [partyId : partyId, firstName : person.firstName, lastName : person.lastName, suffix : person.suffix];
-    partyRelationship = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PartyRelationship",
-                                EntityCondition.makeCondition([partyIdTo : partyId, roleTypeIdTo : 'EMPLOYEE', roleTypeIdFrom : 'LEAD', partyRelationshipTypeId : 'EMPLOYMENT']),
-                                null, ['-fromDate'], null, false)));
+    partyRelationship = from("PartyRelationship")
+                            .where("partyIdTo", partyId, "roleTypeIdTo", "EMPLOYEE", "roleTypeIdFrom", "LEAD", "partyRelationshipTypeId", "EMPLOYMENT")
+                            .orderBy("-fromDate")
+                            .filterByDate()
+                            .queryFirst();
     if (partyRelationship) {
         contactDetailMap.title = partyRelationship.positionTitle;
-        partyGroup = delegator.findOne("PartyGroup", [partyId : partyRelationship.partyIdFrom], false);
+        partyGroup = from("PartyGroup").where("partyId", partyRelationship.partyIdFrom).queryOne();
         if (partyGroup) {
             if (partyGroup.groupName) {
                 contactDetailMap.groupName = partyGroup.groupName;

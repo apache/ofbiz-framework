@@ -52,4 +52,4 @@ if (request.getParameter('createNew') == 'Y') {
 
 }
 
-context.termTypes = delegator.findList('TermType', null, null, null, null, false);
+context.termTypes = from("TermType").queryList();

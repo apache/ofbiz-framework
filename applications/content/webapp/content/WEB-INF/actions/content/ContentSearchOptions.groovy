@@ -53,8 +53,8 @@ context.put("thruDateStr", toStr);
 
 searchConstraintStrings = ContentSearchSession.searchGetConstraintStrings(false, session, delegator);
 searchSortOrderString = ContentSearchSession.searchGetSortOrderString(false, request);
-contentAssocTypes=delegator.findList("ContentAssocType", null, null, null, null, false);
-roleTypes=delegator.findList("RoleType", null, null, null, null, false);
+contentAssocTypes = from("ContentAssocType").queryList();
+roleTypes = from("RoleType").queryList();
 
 context.put("searchOperator", searchOperator);
 context.put("searchConstraintStrings", searchConstraintStrings);

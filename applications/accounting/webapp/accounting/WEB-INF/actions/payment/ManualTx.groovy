@@ -20,18 +20,18 @@
 import org.ofbiz.base.util.*;
 
 // stores
-productStores = delegator.findList("ProductStore", null, null, ["storeName"], null, true);
+productStores = from("ProductStore").orderBy("storeName").cache(true).queryList();
 context.productStores = productStores;
 
 // current store
 productStoreId = parameters.productStoreId;
 if (productStoreId) {
-    productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], false);
+    productStore = from("ProductStore").where("productStoreId", productStoreId).queryOne();
     context.currentStore = productStore;
 }
 
 // payment settings
-paymentSettings = delegator.findByAnd("Enumeration", [enumTypeId : "PRDS_PAYSVC"], ["sequenceId"], false);
+paymentSettings = from("Enumeration").where("enumTypeId", "PRDS_PAYSVC").orderBy("sequenceId").queryList();
 context.paymentSettings = paymentSettings;
 
 // payment method (for auto-fill)
@@ -46,12 +46,12 @@ context.paymentMethodTypeId = paymentMethodTypeId;
 txType = parameters.transactionType;
 context.txType = txType;
 if (txType) {
-    currentTx = delegator.findOne("Enumeration", [enumId : txType], false);
+    currentTx = from("Enumeration").where("enumId", txType).queryOne();
     context.currentTx = currentTx;
 }
 
 if (paymentMethodId) {
-    paymentMethod = delegator.findOne("PaymentMethod", [paymentMethodId : paymentMethodId], false);
+    paymentMethod = from("PaymentMethod").where("paymentMethodId", paymentMethodId).queryOne();
     if (paymentMethod) {
         // payment method type
         paymentMethodTypeId = paymentMethod.paymentMethodTypeId;
@@ -82,7 +82,7 @@ if (paymentMethodId) {
 }
 
 if (paymentMethodTypeId) {
-    paymentMethodType = delegator.findOne("PaymentMethodType", [paymentMethodTypeId : paymentMethodTypeId], false);
+    paymentMethodType = from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeId).queryOne();
     context.paymentMethodType = paymentMethodType;
     context.paymentMethodTypeId = paymentMethodTypeId;
 }

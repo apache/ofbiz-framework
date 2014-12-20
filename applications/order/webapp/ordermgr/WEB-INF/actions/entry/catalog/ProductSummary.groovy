@@ -70,7 +70,7 @@ context.remove("totalPrice");
 
 // get the product entity
 if (!product && productId) {
-    product = delegator.findOne("Product", [productId : productId], true);
+    product = from("Product").where("productId", productId).cache(true).queryOne();
 }
 if (product) {
     //if order is purchase then don't calculate available inventory for product.
@@ -78,14 +78,13 @@ if (product) {
         resultOutput = runService('getInventoryAvailableByFacility', [productId : product.productId, facilityId : facilityId, useCache : true]);
         totalAvailableToPromise = resultOutput.availableToPromiseTotal;
         if (totalAvailableToPromise && totalAvailableToPromise.doubleValue() > 0) {
-            productFacility = delegator.findOne("ProductFacility", [productId : product.productId, facilityId : facilityId], true);
+            productFacility = from("ProductFacility").where("productId", product.productId, "facilityId", facilityId).cache(true).queryOne();
             if (productFacility?.daysToShip != null) {
                 context.daysToShip = productFacility.daysToShip;
             }
         }
     } else {
-       supplierProducts = delegator.findByAnd("SupplierProduct", [productId : product.productId], ["-availableFromDate"], true);
-       supplierProduct = EntityUtil.getFirst(supplierProducts);
+       supplierProduct = from("SupplierProduct").where("productId", product.productId).orderBy("-availableFromDate").cache(true).queryFirst();
        if (supplierProduct?.standardLeadTimeDays != null) {
            standardLeadTimeDays = supplierProduct.standardLeadTimeDays;
            daysToShip = standardLeadTimeDays + 1;
@@ -142,7 +141,7 @@ if (product) {
     boolean isAlternativePacking = ProductWorker.isAlternativePacking(delegator, product.productId, null);
     mainProducts = [];
     if(isAlternativePacking){
-        productVirtualVariants = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"), null, true);
+        productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList();
         if(productVirtualVariants){
             productVirtualVariants.each { virtualVariantKey ->
                 mainProductMap = [:];
@@ -223,7 +222,7 @@ if (reviews) {
 }
 
 // an example of getting features of a certain type to show
-sizeProductFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", [productId : productId, productFeatureTypeId : "SIZE"], ["sequenceNum", "defaultSequenceNum"], true);
+sizeProductFeatureAndAppls = from("ProductFeatureAndAppl").where("productId", productId, "productFeatureTypeId", "SIZE").orderBy("sequenceNum", "defaultSequenceNum").cache(true).queryList();
 
 context.product = product;
 context.categoryId = categoryId;
