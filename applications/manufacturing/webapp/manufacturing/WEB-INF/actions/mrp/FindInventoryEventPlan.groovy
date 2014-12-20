@@ -60,7 +60,7 @@ if (lookupFlag) {
 
     if ( mainCond) {
     // do the lookup
-        inventoryList = delegator.findList("MrpEvent", mainCond, null, ["productId", "eventDate"], null, false);
+        inventoryList = from("MrpEvent").where(mainCond).orderBy("productId", "eventDate").queryList();
     }
 
     context.inventoryList = inventoryList;

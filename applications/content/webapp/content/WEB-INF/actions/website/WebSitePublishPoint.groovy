@@ -20,10 +20,7 @@
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.util.*
 
-pplookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'PUBLISH_POINT'];
-webSiteContents = delegator.findList("WebSiteContent", EntityCondition.makeCondition(pplookupMap), null, ['-fromDate'], null, false);
-webSiteContents = EntityUtil.filterByDate(webSiteContents);
-webSiteContent = EntityUtil.getFirst(webSiteContents);
+webSiteContent = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "PUBLISH_POINT").orderBy("-fromDate").filterByDate().queryFirst();
 if (webSiteContent) {
     content = webSiteContent.getRelatedOne("Content", false);
     contentRoot = content.contentId;
@@ -31,13 +28,11 @@ if (webSiteContent) {
     context.contentRoot = contentRoot;
 
     // get all sub content for the publish point
-    subsites = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : contentRoot]), null, null, null, false);
+    subsites = from("ContentAssoc").where("contentId", contentRoot).queryList();
     context.subsites = subsites;
 }
 
-mnlookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'MENU_ROOT'];
-webSiteMenus = delegator.findList("WebSiteContent", EntityCondition.makeCondition(mnlookupMap), null, ['-fromDate'], null, false);
-webSiteMenu = EntityUtil.getFirst(webSiteMenus);
+webSiteMenu = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "MENU_ROOT").orderBy("-fromDate").queryFirst();
 if (webSiteMenu) {
     menu = webSiteMenu.getRelatedOne("Content", false);
     menuRoot = menu.contentId;
@@ -45,13 +40,11 @@ if (webSiteMenu) {
     context.menuRoot = menuRoot;
 
     // get all sub content for the menu root
-    menus = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : menuRoot]), null, null, null, false);
+    menus = from("ContentAssoc").where("contentId", menuRoot).queryList();
     context.menus = menus;
 }
 
-erlookupMap = [webSiteId : webSiteId, webSiteContentTypeId : 'ERROR_ROOT'];
-webSiteErrors = delegator.findList("WebSiteContent", EntityCondition.makeCondition(erlookupMap), null, ['-fromDate'], null, false);
-webSiteError = EntityUtil.getFirst(webSiteErrors);
+webSiteError = from("WebSiteContent").where("webSiteId", webSiteId, "webSiteContentTypeId", "ERROR_ROOT").orderBy("-fromDate").queryFirst();
 if (webSiteError) {
     error = webSiteError.getRelatedOne("Content", false);
     errorRoot = error.contentId;
@@ -59,6 +52,6 @@ if (webSiteError) {
     context.errorRoot = errorRoot;
 
     // get all sub content for the error root
-    errors = delegator.findList("ContentAssoc", EntityCondition.makeCondition([contentId : errorRoot]), null, null, null, false);
+    errors = from("ContentAssoc").where("contentId", errorRoot).queryList();
     context.errors = errors;
 }

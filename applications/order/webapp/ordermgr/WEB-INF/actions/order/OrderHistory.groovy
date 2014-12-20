@@ -25,25 +25,25 @@ context.orderId = orderId;
 
 orderHeader = null;
 if (orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    orderHeader = from("OrderHeader").where(orderId : orderId).queryOne();
 }
 
 if (orderHeader) {
     shipmentMethodCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItemShipGroup"),
                           EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "shipmentMethodTypeId"),
                           EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")];
-    shipmentMethodHistories = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(shipmentMethodCond, EntityOperator.AND), null, ["-changedDate"], null, false);
+    shipmentMethodHistories = from("EntityAuditLog").where(shipmentMethodCond).orderBy("-changedDate").queryList();
 
     carrierPartyCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItemShipGroup"),
                         EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "carrierPartyId"),
                         EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")];
-    carrierPartyHistories = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(carrierPartyCond, EntityOperator.AND), null, null, null, false);
+    carrierPartyHistories = from("EntityAuditLog").where(carrierPartyCond).queryList();
 
     orderShipmentHistories = [];
     shipmentMethodHistories.each { shipmentMethodHistory ->
         orderShipmentHistory = [:];
         if ("shipmentMethodTypeId".equals(shipmentMethodHistory.changedFieldName)) {
-            shipmentMethodType = delegator.findOne("ShipmentMethodType", ["shipmentMethodTypeId" : shipmentMethodHistory.newValueText], false);
+            shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", shipmentMethodHistory.newValueText).queryOne();
             if (shipmentMethodType != null){
                 carrierPartyHistories.each { carrierPartyHistory ->
                     if (carrierPartyHistory.lastUpdatedTxStamp == shipmentMethodHistory.lastUpdatedTxStamp) {
@@ -66,13 +66,13 @@ if (orderHeader) {
     changedByInfoCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
                          EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "changeByUserLoginId"),
                          EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")];
-    changedByInfoHistories = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(changedByInfoCond, EntityOperator.AND), null, ["-changedDate"], null, false);
+    changedByInfoHistories = from("EntityAuditLog").where(changedByInfoCond).orderBy("-changedDate").queryList();
 
     orderUnitPriceHistories = [];
     unitPriceCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
                      EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "unitPrice"),
                      EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")];
-    unitPriceHistories = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(unitPriceCond, EntityOperator.AND), null, ["-changedDate"], null, false);
+    unitPriceHistories = from("EntityAuditLog").where(unitPriceCond).orderBy("-changedDate").queryList();
     unitPriceHistories.each { unitPriceHistory ->
         orderUnitPriceHistory = [:];
         if  ((unitPriceHistory.oldValueText) && (unitPriceHistory.newValueText)) {
@@ -81,7 +81,7 @@ if (orderHeader) {
                 orderUnitPriceHistory.newValue = unitPriceHistory.newValueText;
                 orderUnitPriceHistory.changedDate = unitPriceHistory.changedDate;
                 orderItemSeqId = (unitPriceHistory.pkCombinedValueText).substring((unitPriceHistory.pkCombinedValueText).indexOf("::") + 2, (unitPriceHistory.pkCombinedValueText).length());
-                orderItem = delegator.findOne("OrderItem", [orderId : orderId, orderItemSeqId : orderItemSeqId], false);
+                orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
                 orderUnitPriceHistory.productId = orderItem.productId;
                 changedByInfoHistories.each { changedByInfoHistory ->
                     if (changedByInfoHistory.lastUpdatedTxStamp == unitPriceHistory.lastUpdatedTxStamp) {
@@ -102,7 +102,7 @@ if (orderHeader) {
     quantityCond = [EntityCondition.makeCondition("changedEntityName", EntityOperator.EQUALS, "OrderItem"),
                     EntityCondition.makeCondition("changedFieldName", EntityOperator.EQUALS, "quantity"),
                     EntityCondition.makeCondition("pkCombinedValueText", EntityOperator.LIKE, orderId + "%")];
-    quantityHistories = delegator.findList("EntityAuditLog", EntityCondition.makeCondition(quantityCond, EntityOperator.AND), null, ["-changedDate"], null, false);
+    quantityHistories = from("EntityAuditLog").where(quantityCond).orderBy("-changedDate").queryList();
     quantityHistories.each { quantityHistory ->
         orderQuantityHistory = [:];
         if ((quantityHistory.oldValueText) && (quantityHistory.newValueText)) {
@@ -111,7 +111,7 @@ if (orderHeader) {
                 orderQuantityHistory.newValue = quantityHistory.newValueText;
                 orderQuantityHistory.changedDate = quantityHistory.changedDate;
                 orderItemSeqId = (quantityHistory.pkCombinedValueText).substring((quantityHistory.pkCombinedValueText).indexOf("::") + 2, (quantityHistory.pkCombinedValueText).length());
-                orderItem = delegator.findOne("OrderItem", [orderId : orderId, orderItemSeqId : orderItemSeqId], false);
+                orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryOne();
                 orderQuantityHistory.productId = orderItem.productId;
                 changedByInfoHistories.each { changedByInfoHistory ->
                     if (changedByInfoHistory.lastUpdatedTxStamp == quantityHistory.lastUpdatedTxStamp) {

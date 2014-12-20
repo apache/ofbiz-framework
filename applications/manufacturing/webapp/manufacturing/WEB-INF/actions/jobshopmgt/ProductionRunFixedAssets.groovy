@@ -22,7 +22,7 @@ import org.ofbiz.widget.html.HtmlFormWrapper;
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 
 taskInfos = [];
-tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRunId, workEffortTypeId : "PROD_ORDER_TASK"], ["workEffortId"], false);
+tasks = from("WorkEffort").where("workEffortParentId", productionRunId, "workEffortTypeId", "PROD_ORDER_TASK").orderBy("workEffortId").queryList();
 tasks.each { task ->
     records = task.getRelated("WorkEffortFixedAssetAssign", null, null, false);
     HtmlFormWrapper taskForm = new HtmlFormWrapper("component://manufacturing/widget/manufacturing/ProductionRunForms.xml", "ProductionRunTaskFixedAssets", request, response);

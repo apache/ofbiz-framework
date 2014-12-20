@@ -50,7 +50,7 @@ orderHeaderList = state.getOrders(facilityId, filterDate, delegator);
 context.orderHeaderList = orderHeaderList;
 
 // a list of order type descriptions
-ordertypes = delegator.findList("OrderType", null, null, null, null, true);
+ordertypes = from("OrderType").cache(true).queryList();
 ordertypes.each { type ->
     context["descr_" + type.orderTypeId] = type.get("description",locale);
 }

@@ -42,11 +42,8 @@ if (trackingCodeId) {
      orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeId));
 }
 
-visitConditions = EntityCondition.makeCondition(visitConditionList, EntityOperator.AND);
-orderConditions = EntityCondition.makeCondition(orderConditionList, EntityOperator.AND);
-
-visits = delegator.findList("TrackingCodeAndVisit", visitConditions, ['trackingCodeId', 'visitId'] as Set, ['trackingCodeId'], null, false);
-orders = delegator.findList("TrackingCodeAndOrderHeader", orderConditions, ['trackingCodeId', 'orderId', 'grandTotal'] as Set, ['trackingCodeId'], null, false);
+visits = select("trackingCodeId", "visitId").from("TrackingCodeAndVisit").where(visitConditionList).orderBy("trackingCodeId").queryList();
+orders = select("trackingCodeId", "orderId", "grandTotal").from("TrackingCodeAndOrderHeader").where(orderConditionList).orderBy("trackingCodeId").queryList();
 
 // use this helper to build a List of visits, orders, order totals, and conversion rates
 trackingCodeVisitAndOrders = ReportHelper.calcConversionRates(visits, orders, "trackingCodeId");

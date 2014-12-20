@@ -24,7 +24,8 @@ surveyResponseId = parameters.surveyResponseId;
 partyId = null;
 
 if (!surveyId && surveyResponseId) {
-   surveyResponse = delegator.findOne("SurveyResponse", [surveyResponseId : surveyResponseId], false);
+   surveyResponse = from("SurveyResponse").where("surveyResponseId", surveyResponseId).queryOne();
+   
    surveyId = surveyResponse.surveyId;
    context.surveyId = surveyId;
 }

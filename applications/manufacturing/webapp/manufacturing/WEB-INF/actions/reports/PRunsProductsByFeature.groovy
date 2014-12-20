@@ -23,15 +23,15 @@
 import org.ofbiz.entity.util.EntityUtil;
 
 if (productCategoryIdPar) {
-    category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryIdPar], false);
+    category = from("ProductCategory").where("productCategoryId", productCategoryIdPar).queryOne();
     context.category = category;
 }
 if (productFeatureTypeIdPar) {
-    featureType = delegator.findOne("ProductFeatureType", [productFeatureTypeId : productFeatureTypeIdPar], false);
+    featureType = from("ProductFeatureType").where("productFeatureTypeId", productFeatureTypeIdPar).queryOne();
     context.featureType = featureType;
 }
 
-allProductionRuns = delegator.findByAnd("WorkEffortAndGoods", [workEffortName : planName], ["productId"], false);
+allProductionRuns = from("WorkEffortAndGoods").where("workEffortName", planName).orderBy("productId").queryList();
 productionRuns = [:];
 features = [];
 if (!productFeatureTypeIdPar) {
@@ -47,13 +47,11 @@ if (allProductionRuns) {
                 return;
             }
         }
-        productionRunProduct = delegator.findOne("Product", [productId : productionRun.productId], false);
+        productionRunProduct = from("Product").where("productId", productionRun.productId).queryOne();
 
         // group by standard feature of type productFeatureTypeIdPar
         if (productFeatureTypeIdPar) {
-            standardFeatures = delegator.findByAnd("ProductFeatureAndAppl", [productFeatureTypeId : productFeatureTypeIdPar, productId : productionRun.productId, productFeatureApplTypeId : "STANDARD_FEATURE"], null, false);
-            standardFeatures = EntityUtil.filterByDate(standardFeatures);
-            standardFeature = EntityUtil.getFirst(standardFeatures);
+            standardFeature = from("ProductFeatureAndAppl").where("productFeatureTypeId", productFeatureTypeIdPar, "productId", productionRun.productId, "productFeatureApplTypeId", "STANDARD_FEATURE").filterByDate().queryFirst();
             standardFeatureId = null;
             if (standardFeature) {
                 standardFeatureId = standardFeature.productFeatureId;
@@ -66,8 +64,7 @@ if (allProductionRuns) {
         }
 
         // select the production run's task of a given name (i.e. type) if any (based on the report's parameter)
-        productionRunTasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortName : taskNamePar], null, false);
-        productionRunTask = EntityUtil.getFirst(productionRunTasks);
+        productionRunTask = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortName", taskNamePar).queryFirst();
         if (!productionRunTask) {
             // the production run doesn't include the given task, skip it
             return;

@@ -43,15 +43,15 @@ if ("Y".equals(parameters.noConditionFind)) {
         paymentCond.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, partyIdFrom));
     }
     if (finAccountId) {
-        finAccountTransList = delegator.findList("FinAccountTrans", EntityCondition.makeCondition([finAccountId : finAccountId]), null, null, null, false);
+        finAccountTransList = from("FinAccountTrans").where("finAccountId", finAccountId).queryList();
         if (finAccountTransList) {
             finAccountTransIds = EntityUtil.getFieldListFromEntityList(finAccountTransList, "finAccountTransId", true);
             paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.IN, finAccountTransIds));
-            payments = delegator.findList("PaymentAndTypePartyNameView", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
+            payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList();
         }
     } else {
         paymentCond.add(EntityCondition.makeCondition("finAccountTransId", EntityOperator.EQUALS, null));
-        payments = delegator.findList("PaymentAndTypePartyNameView", EntityCondition.makeCondition(paymentCond, EntityOperator.AND), null, null, null, false);
+        payments = from("PaymentAndTypePartyNameView").where(paymentCond).queryList();
     }
     paymentListWithCreditCard = [];
     paymentListWithoutCreditCard = [];
@@ -59,10 +59,10 @@ if ("Y".equals(parameters.noConditionFind)) {
         payments.each { payment ->
             isReceipt = UtilAccounting.isReceipt(payment);
             if (isReceipt) {
-                paymentGroupMembers = EntityUtil.filterByDate(delegator.findList("PaymentGroupMember", EntityCondition.makeCondition([paymentId : payment.paymentId]), null, null, null, false));
+                paymentGroupMembers = from("PaymentGroupMember").where("paymentId", payment.paymentId).filterByDate().queryList();
                 if (!paymentGroupMembers) {
                     if (cardType && payment.paymentMethodId) {
-                        creditCard = delegator.findOne("CreditCard", [paymentMethodId : payment.paymentMethodId], false);
+                        creditCard = from("CreditCard").where("paymentMethodId", payment.paymentMethodId).queryOne();
                         if (creditCard.cardType == cardType) {
                             paymentListWithCreditCard.add(payment);
                         }

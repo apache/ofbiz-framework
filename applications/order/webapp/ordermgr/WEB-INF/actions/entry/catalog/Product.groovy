@@ -42,12 +42,11 @@ metaKeywords = null;
 
 // get the product entity
 if (productId) {
-    product = delegator.findOne("Product", [productId : productId], true);
+    product = from("Product").where("productId", productId).cache(true).queryOne();
     if (product) {
         // first make sure this isn't a virtual-variant that has an associated virtual product, if it does show that instead of the variant
         if("Y".equals(product.isVirtual) && "Y".equals(product.isVariant)){
-            virtualVariantProductAssocs = delegator.findByAnd("ProductAssoc", ["productId": productId, "productAssocTypeId": "ALTERNATIVE_PACKAGE"], ["-fromDate"], true);
-            virtualVariantProductAssocs = EntityUtil.filterByDate(virtualVariantProductAssocs);
+            virtualVariantProductAssocs = from("ProductAssoc").where("productId", productId, "productAssocTypeId", "ALTERNATIVE_PACKAGE").orderBy("-fromDate").filterByDate().cache(true).queryList();
             if (virtualVariantProductAssocs) {
                 productAssoc = EntityUtil.getFirst(virtualVariantProductAssocs);
                 product = productAssoc.getRelatedOne("AssocProduct", true);
@@ -59,20 +58,20 @@ if (productId) {
     virtualProductId = ProductWorker.getVariantVirtualId(product);
     if (virtualProductId) {
         productId = virtualProductId;
-        product = delegator.findOne("Product", [productId : productId], true);
+        product = from("Product").where("productId", productId).cache(true).queryOne();
     }
 
-    productPageTitle = delegator.findByAnd("ProductContentAndInfo", [productId : productId, productContentTypeId : "PAGE_TITLE"], null, true);
+    productPageTitle = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "PAGE_TITLE").cache(true).queryList();
     if (productPageTitle) {
-        pageTitle = delegator.findOne("ElectronicText", [dataResourceId : productPageTitle.get(0).dataResourceId], true);
+        pageTitle = from("ElectronicText").where("dataResourceId", productPageTitle.get(0).dataResourceId).cache(true).queryOne();
     }
-    productMetaDescription = delegator.findByAnd("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_DESCRIPTION"], null, true);
+    productMetaDescription = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "META_DESCRIPTION").cache(true).queryList();
     if (productMetaDescription) {
-        metaDescription = delegator.findOne("ElectronicText", [dataResourceId : productMetaDescription.get(0).dataResourceId], true);
+        metaDescription = from("ElectronicText").where("dataResourceId", productMetaDescription.get(0).dataResourceId).cache(true).queryOne();
     }
-    productMetaKeywords = delegator.findByAnd("ProductContentAndInfo", [productId : productId, productContentTypeId : "META_KEYWORD"], null, true);
+    productMetaKeywords = from("ProductContentAndInfo").where("productId", productId, "productContentTypeId", "META_KEYWORD").cache(true).queryList();
     if (productMetaKeywords) {
-        metaKeywords = delegator.findOne("ElectronicText", [dataResourceId : productMetaKeywords.get(0).dataResourceId], true);
+        metaKeywords = from("ElectronicText").where("dataResourceId", productMetaKeywords.get(0).dataResourceId).cache(true).queryOne();
     }
 
     context.productId = productId;
@@ -110,7 +109,7 @@ if (productId) {
             keywords = [];
             keywords.add(contentWrapper.get("PRODUCT_NAME"));
             keywords.add(catalogName);
-            members = delegator.findByAnd("ProductCategoryMember", [productId : productId], null, true);
+            members = from("ProductCategoryMember").where("productId", productId).cache(true).queryList();
             members.each { member ->
                 category = member.getRelatedOne("ProductCategory", true);
                 if (category.description) {

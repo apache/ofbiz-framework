@@ -30,7 +30,7 @@ invItemTypePrefix += "_%";
 
 organizationPartyId = parameters.organizationPartyId;
 exprBldr = new EntityConditionBuilder();
-invoiceItemTypes = delegator.findList("InvoiceItemType", exprBldr.LIKE(invoiceItemTypeId: invItemTypePrefix), null, null, null, false);
+invoiceItemTypes = from('InvoiceItemType').where(exprBldr.LIKE(invoiceItemTypeId: invItemTypePrefix)).queryList();
 
 context.invoiceItemTypes = invoiceItemTypes.collect { invoiceItemType ->
     defaultAccount = true

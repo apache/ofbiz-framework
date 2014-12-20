@@ -19,9 +19,9 @@
 
 import org.ofbiz.base.util.*;
 
-product = delegator.findOne("Product", UtilMisc.toMap("productId", parameters.productId), false);
+product = from("Product").where("productId", parameters.productId).queryOne();
 if (product) {
-    productVirtualVariants = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE"), null, true);
+    productVirtualVariants = from("ProductAssoc").where("productIdTo", product.productId , "productAssocTypeId", "ALTERNATIVE_PACKAGE").cache(true).queryList();
     if(productVirtualVariants){
         def mainProducts = [];
         productVirtualVariants.each { virtualVariantKey ->

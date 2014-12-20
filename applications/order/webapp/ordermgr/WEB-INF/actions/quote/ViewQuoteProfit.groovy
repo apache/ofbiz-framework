@@ -53,11 +53,7 @@ quoteItems.each { quoteItem ->
 
     try {
         if (currency && quoteItem.productId) {
-            productPrices = delegator.findByAnd("ProductPrice", [productId : quoteItem.productId,
-                                                                 currencyUomId : currency,
-                                                                 productPriceTypeId : "AVERAGE_COST"], null, false);
-            productPrices = EntityUtil.filterByDate(productPrices, issueDate);
-            productPrice = EntityUtil.getFirst(productPrices);
+            productPrice = from("ProductPrice").where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST").filteryDate(issueDate).queryFirst();
             if (productPrice?.price != null) {
                 averageCost = productPrice.price * selectedAmount;
             }

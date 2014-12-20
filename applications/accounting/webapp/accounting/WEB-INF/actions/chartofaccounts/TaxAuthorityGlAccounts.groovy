@@ -20,7 +20,7 @@
 import org.ofbiz.base.util.UtilMisc;
 import javolution.util.FastList;
 
-taxAuthorities = delegator.findList("TaxAuthority", null, null, ["taxAuthGeoId", "taxAuthPartyId"], null, false);
+taxAuthorities = from('TaxAuthority').orderBy("taxAuthGeoId", "taxAuthPartyId").queryList();
 
 context.taxAuthorityHavingNoGlAccountList = taxAuthorities.findAll { taxAuthority ->
     !taxAuthority.getRelated('TaxAuthorityGlAccount', [organizationPartyId : organizationPartyId], null, false)

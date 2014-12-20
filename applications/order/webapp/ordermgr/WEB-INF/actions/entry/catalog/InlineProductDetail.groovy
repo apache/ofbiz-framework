@@ -47,7 +47,7 @@ catalogName = CatalogWorker.getCatalogName(request);
 currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
 
 if (inlineProductId) {
-    inlineProduct = delegator.findOne("Product", [productId : inlineProductId], true);
+    inlineProduct = from("Product").where("productId", inlineProductId).cache(true).queryOne();
     if (inlineProduct) {
         context.product = inlineProduct;
         contentWrapper = new ProductContentWrapper(inlineProduct, request);
@@ -176,7 +176,7 @@ if (inlineProduct) {
                 if (variantTree) {
                     featureOrder = new LinkedList(featureSet);
                     featureOrder.each { featureKey ->
-                        featureValue = delegator.findOne("ProductFeatureType", [productFeatureTypeId : featureKey], true);
+                        featureValue = from("ProductFeatureType").where("productFeatureTypeId", featureKey).cache(true).queryOne();
                         fValue = featureValue.get("description") ?: featureValue.productFeatureTypeId;
                         featureTypes[featureKey] = fValue;
                     }

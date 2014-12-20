@@ -48,9 +48,9 @@ andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUA
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 andExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 andCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-List postedTransactionTotals = delegator.findList("AcctgTransEntrySums", andCond, UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+List postedTransactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(andCond).orderBy("glAccountId").queryList();
 if (postedTransactionTotals) {
-    glAccountCategories = delegator.findByAnd("GlAccountCategory", [glAccountCategoryTypeId : 'COST_CENTER'], ['glAccountCategoryId'], false);
+    glAccountCategories = from("GlAccountCategory").where("glAccountCategoryTypeId", "COST_CENTER").orderBy("glAccountCategoryId").queryList();
     context.glAccountCategories = glAccountCategories;
     Map postedTransactionTotalsMap = [:]
     postedTransactionTotals.each { postedTransactionTotal ->
@@ -67,7 +67,7 @@ if (postedTransactionTotals) {
         BigDecimal balance = debitAmount.subtract(creditAmount);
         accountMap.put("balance", balance);
         glAccountCategories.each { glAccountCategory ->
-            glAccountCategoryMember = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("GlAccountCategoryMember", [glAccountCategoryId : glAccountCategory.glAccountCategoryId, glAccountId: postedTransactionTotal.glAccountId], ['glAccountCategoryId'], false)));
+            glAccountCategoryMember = from("GlAccountCategoryMember").where("glAccountCategoryId", glAccountCategory.glAccountCategoryId, "glAccountId", postedTransactionTotal.glAccountId).orderBy("glAccountCategoryId").filterByDate().queryFirst();
             if (glAccountCategoryMember) {
                 BigDecimal glAccountCategorySharePercentage = glAccountCategoryMember.amountPercentage;
                 if (glAccountCategorySharePercentage && glAccountCategorySharePercentage != BigDecimal.ZERO ) {

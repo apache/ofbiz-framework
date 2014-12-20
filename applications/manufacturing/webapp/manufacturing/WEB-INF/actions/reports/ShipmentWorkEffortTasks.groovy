@@ -20,24 +20,24 @@
 import org.ofbiz.entity.GenericValue;
 
 shipmentId = parameters.shipmentId;
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 
 context.shipmentIdPar = shipment.shipmentId;
 context.date = new Date();
 Double fixedAssetTime = new Double(0);
 
 if (shipment) {
-    shipmentPlans = delegator.findByAnd("OrderShipment", [shipmentId : shipmentId], null, false);
+    shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList();
     shipmentPlans.each { shipmentPlan ->
-        productionRuns = delegator.findByAnd("WorkOrderItemFulfillment", [orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId] , ["workEffortId"], false); // TODO: add shipmentId
+        productionRuns = from("WorkOrderItemFulfillment").where("orderId", shipmentPlan.orderId, "orderItemSeqId", shipmentPlan.orderItemSeqId).orderBy("workEffortId").queryList();
         if (productionRuns) {
             productionRuns.each { productionRun ->
                 productionRunProduct = [:];
-                productionRunProducts = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : productionRun.workEffortId , workEffortGoodStdTypeId : "PRUN_PROD_DELIV", statusId : "WEGS_CREATED"], null, false);
+                productionRunProducts = from("WorkEffortGoodStandard").where("workEffortId", productionRun.workEffortId , "workEffortGoodStdTypeId", "PRUN_PROD_DELIV", "statusId", "WEGS_CREATED").queryList();
                 if (productionRunProducts) {
                     productionRunProduct = ((GenericValue)productionRunProducts.get(0)).getRelatedOne("Product", false);
                 }
-                tasks = delegator.findByAnd("WorkEffort", [workEffortParentId : productionRun.workEffortId, workEffortTypeId : "PROD_ORDER_TASK"], null, false);
+                tasks = from("WorkEffort").where("workEffortParentId", productionRun.workEffortId, "workEffortTypeId", "PROD_ORDER_TASK").queryList();
                 tasks.each { task ->
                     record = [:];
                     record.productId = productionRunProduct.productId;

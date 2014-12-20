@@ -60,22 +60,22 @@ if (productCategoryId) {
 }
  */
 
-category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryId], true);
+category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne();
 if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen;
     }
-    categoryPageTitle = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "PAGE_TITLE"], null, true);
+    categoryPageTitle = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "PAGE_TITLE").cache(true).queryList();
     if (categoryPageTitle) {
-        pageTitle = delegator.findOne("ElectronicText", [dataResourceId : categoryPageTitle.get(0).dataResourceId], true);
+        pageTitle = from("ElectronicText").where("dataResourceId", categoryPageTitle.get(0).dataResourceId).cache(true).queryOne();
     }
-    categoryMetaDescription = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_DESCRIPTION"], null, true);
+    categoryMetaDescription = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_DESCRIPTION").cache(true).queryList();
     if (categoryMetaDescription) {
-        metaDescription = delegator.findOne("ElectronicText", [dataResourceId : categoryMetaDescription.get(0).dataResourceId], true);
+        metaDescription = from("ElectronicText").where("dataResourceId", categoryMetaDescription.get(0).dataResourceId).cache(true).queryOne();
     }
-    categoryMetaKeywords = delegator.findByAnd("ProductCategoryContentAndInfo", [productCategoryId : productCategoryId, prodCatContentTypeId : "META_KEYWORD"], null, true);
+    categoryMetaKeywords = from("ProductCategoryContentAndInfo").where("productCategoryId", productCategoryId, "prodCatContentTypeId", "META_KEYWORD").cache(true).queryList();
     if (categoryMetaKeywords) {
-        metaKeywords = delegator.findOne("ElectronicText", [dataResourceId : categoryMetaKeywords.get(0).dataResourceId], true);
+        metaKeywords = from("ElectronicText").where("dataResourceId", categoryMetaKeywords.get(0).dataResourceId).cache(true).queryOne();
     }
     categoryContentWrapper = new CategoryContentWrapper(category, request);
     

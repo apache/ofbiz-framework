@@ -42,7 +42,6 @@ if (roleStatusId) {
     conditionList.add(EntityCondition.makeCondition("roleStatusId", EntityOperator.EQUALS, roleStatusId));
 }
 conditionList.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "ADDRESSEE"));
-conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
-commStatausList = delegator.findList("CommunicationEventAndRole", conditions, null, null, null, false);
+commStatausList = from("CommunicationEventAndRole").where(conditionList).queryList();
 context.commStatausList = commStatausList;

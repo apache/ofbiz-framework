@@ -22,7 +22,7 @@ import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 
 orderId = request.getParameter("orderId");
-paymentMethodTypes = delegator.findList("PaymentMethodType", EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE"), null, null, null, false);
+paymentMethodTypes = from("PaymentMethodType").where(EntityCondition.makeCondition("paymentMethodTypeId", EntityOperator.NOT_EQUAL, "EXT_OFFLINE")).queryList();
 context.paymentMethodTypes = paymentMethodTypes;
 
 workEffortId = request.getParameter("workEffortId");

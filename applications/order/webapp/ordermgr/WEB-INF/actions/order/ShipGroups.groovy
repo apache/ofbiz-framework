@@ -33,7 +33,7 @@ shipGroupSeqId = parameters.shipGroupSeqId;
 findMap = [orderId: orderId];
 if (shipGroupSeqId) findMap.shipGroupSeqId = shipGroupSeqId;
 
-shipGroups = delegator.findByAnd("OrderItemShipGroup", findMap, ["shipGroupSeqId"], false);
+shipGroups = from("OrderItemShipGroup").where(findMap).orderBy("shipGroupSeqId").queryList();
 context.shipGroups = shipGroups;
 
 // method to expand the marketing packages
@@ -90,7 +90,7 @@ shipGroups.each { shipGroup ->
 
         // the quantity shipped
         quantityShipped = 0.0;
-        issuances = delegator.findByAnd("ItemIssuance", [orderId : orderItem.orderId, orderItemSeqId : orderItem.orderItemSeqId, shipGroupSeqId : orderItemAssoc.shipGroupSeqId], null, false);
+        issuances = from("ItemIssuance").where("orderId", orderItem.orderId, "orderItemSeqId", orderItem.orderItemSeqId, "shipGroupSeqId", orderItemAssoc.shipGroupSeqId).queryList();
         issuances.each { issuance ->
             quantityShipped += issuance.quantity;
         }

@@ -35,7 +35,7 @@ if (fromDate) {
     if (context.salesRepPartyList) {
         invoiceCond.add(EntityCondition.makeCondition("invoiceRolePartyId", EntityOperator.IN, context.salesRepPartyList));
     }
-    invoiceList = delegator.findList("InvoiceAndRole", EntityCondition.makeCondition(invoiceCond, EntityOperator.AND), null, null, null, false);
+    invoiceList = from("InvoiceAndRole").where(invoiceCond).queryList();
 
     List invoices = [];
     if (invoiceList) {

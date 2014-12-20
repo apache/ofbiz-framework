@@ -30,14 +30,14 @@ if (productStoreId == null) {
 
 // Get Gift cards availbale in data
 
-giftCardCategories = delegator.findList("ProductCategory", EntityCondition.makeCondition("productCategoryTypeId", EntityOperator.EQUALS, "GIFT_CARD_CATEGORY"), null, null, null, false);
+giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList();
 giftCardProductList = FastList.newInstance();
 if (UtilValidate.isNotEmpty(giftCardCategories)) {
     giftCardCategories.each { giftCardCategory -> 
-        giftCardCategoryMembers = delegator.findList("ProductCategoryMember", EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, giftCardCategory.productCategoryId), null, null, null, false);
+        giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList();
         if (UtilValidate.isNotEmpty(giftCardCategoryMembers)) {
             giftCardCategoryMembers.each { giftCardCategoryMember -> 
-                giftCardProducts = delegator.findList("ProductAndPriceView", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, giftCardCategoryMember.productId), null, null, null, false);
+                giftCardProducts = from("ProductAndPriceView").where("productId", giftCardCategoryMember.productId).queryList();
                 if (UtilValidate.isNotEmpty(giftCardProducts)) {
                     giftCardProducts.each { giftCardProduct ->
                         giftCardProductList.add(giftCardProduct);
@@ -51,6 +51,6 @@ context.giftCardProductList = giftCardProductList;
 
 // Get Survey Id for Gift Certificates
 
-productStoreFinActSetting = delegator.findOne("ProductStoreFinActSetting", [productStoreId : productStoreId, finAccountTypeId : "GIFTCERT_ACCOUNT"], false);
+productStoreFinActSetting = from("ProductStoreFinActSetting").where("productStoreId", productStoreId, "finAccountTypeId", "GIFTCERT_ACCOUNT").queryOne();
 context.surveyId = productStoreFinActSetting.purchaseSurveyId;
 

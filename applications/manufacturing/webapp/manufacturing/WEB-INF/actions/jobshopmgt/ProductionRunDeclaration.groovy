@@ -36,7 +36,7 @@ if (productionRunId) {
         context.productionRun = productionRun.getGenericValue();
 
         // Find all the order items to which this production run is linked.
-        orderItems = delegator.findByAnd("WorkOrderItemFulfillment", [workEffortId : productionRunId], null, false);
+        orderItems = from("WorkOrderItemFulfillment").where("workEffortId", productionRunId).queryList();
         if (orderItems) {
             context.orderItems = orderItems;
         }
@@ -44,7 +44,7 @@ if (productionRunId) {
         quantityToProduce = productionRun.getGenericValue().get("quantityToProduce") ?: 0.0;
 
         // Find the inventory items produced
-        inventoryItems = delegator.findByAnd("WorkEffortInventoryProduced", [workEffortId : productionRunId], null, false);
+        inventoryItems = from("WorkEffortInventoryProduced").where("workEffortId", productionRunId).queryList();
         context.inventoryItems = inventoryItems;
         if (inventoryItems) {
             lastWorkEffortInventoryProduced = (GenericValue)inventoryItems.get(inventoryItems.size() - 1);
@@ -95,7 +95,7 @@ if (productionRunId) {
         // routingTask update sub-screen
         routingTaskId = parameters.routingTaskId;
         if (routingTaskId && (actionForm.equals("UpdateRoutingTask") || actionForm.equals("EditRoutingTask"))) {
-            routingTask = delegator.findOne("WorkEffort", [workEffortId : routingTaskId], false);
+            routingTask = from("WorkEffort").where("workEffortId", routingTaskId).queryOne();
             Map routingTaskData = routingTask.getAllFields();
             routingTaskData.estimatedSetupMillis = routingTask.getDouble("estimatedSetupMillis");
             routingTaskData.estimatedMilliSeconds = routingTask.getDouble("estimatedMilliSeconds");
@@ -105,7 +105,7 @@ if (productionRunId) {
             // Get the list of deliverable products, i.e. the WorkEffortGoodStandard entries
             // with workEffortGoodStdTypeId = "PRUNT_PROD_DELIV":
             // first of all we get the template task (the routing task)
-            templateTaskAssoc = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("WorkEffortAssoc", [workEffortIdTo : routingTask.workEffortId, workEffortAssocTypeId : "WORK_EFF_TEMPLATE"], null, false)));
+            templateTaskAssoc = from("WorkEffortAssoc").where("workEffortIdTo", routingTask.workEffortId, "workEffortAssocTypeId", "WORK_EFF_TEMPLATE").filterByDate().queryFirst();
             templateTask = [:];
             if (templateTaskAssoc) {
                 templateTask = templateTaskAssoc.getRelatedOne("FromWorkEffort", false);
@@ -116,7 +116,7 @@ if (productionRunId) {
             }
             context.delivProducts = delivProducts;
             // Get the list of delivered products, i.e. inventory items
-            prunInventoryProduced = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : routingTaskId], null, false);
+            prunInventoryProduced = from("WorkEffortAndInventoryProduced").where("workEffortId", routingTaskId).queryList();
             context.prunInventoryProduced = prunInventoryProduced;
         }
 
@@ -130,9 +130,8 @@ if (productionRunId) {
             if ("PRUN_RUNNING".equals(task.currentStatusId)) {
                 // Use WorkEffortGoodStandard to figure out if there are products which are needed for this task (PRUNT_PRODNEEDED) and which have not been issued (ie, WEGS_CREATED).
                 // If so this task should have products issued
-                components = delegator.findByAnd("WorkEffortGoodStandard", [workEffortId : task.workEffortId, workEffortGoodStdTypeId : "PRUNT_PROD_NEEDED"], null, false);
-                List notIssued = EntityUtil.filterByAnd(components, [statusId : "WEGS_CREATED"]);
-                if (components && notIssued) {
+                components = from("WorkEffortGoodStandard").where("workEffortId", task.workEffortId, "workEffortGoodStdTypeId", "PRUNT_PROD_NEEDED", "statusId", "WEGS_CREATED").queryList();
+                if (components) {
                     issueTaskId = task.workEffortId;
                 }
                 if (!issueTaskId) {
@@ -170,7 +169,7 @@ if (productionRunId) {
                 componentData.internalName = componentName;
                 componentData.workEffortName = workEffortName;
                 componentData.facilityId = productionRunTask.facilityId;
-                issuances = delegator.findByAnd("WorkEffortAndInventoryAssign", [workEffortId : component.workEffortId, productId : product.productId], null, false);
+                issuances = from("WorkEffortAndInventoryAssign").where("workEffortId", component.workEffortId, "productId", product.productId).queryList();
                 totalIssued = 0.0;
                 issuances.each { issuance ->
                     issued = issuance.quantity;
@@ -178,10 +177,10 @@ if (productionRunId) {
                         totalIssued += issued;
                     }
                 }
-                returns = delegator.findByAnd("WorkEffortAndInventoryProduced", [workEffortId : component.workEffortId , productId : product.productId], null, false);
+                returns = from("WorkEffortAndInventoryProduced").where("workEffortId", component.workEffortId , "productId", product.productId).queryList();
                 totalReturned = 0.0;
                 returns.each { returned ->
-                    returnDetail = EntityUtil.getFirst(delegator.findByAnd("InventoryItemDetail", [inventoryItemId : returned.inventoryItemId], ["inventoryItemDetailSeqId"], false));
+                    returnDetail = from("InventoryItemDetail").where("inventoryItemId", returned.inventoryItemId).orderBy("inventoryItemDetailSeqId").queryFirst();
                     if (returnDetail) {
                         qtyReturned = returnDetail.quantityOnHandDiff;
                         if (qtyReturned) {
@@ -206,7 +205,7 @@ if (productionRunId) {
             }
         }
         // Content
-        productionRunContents = EntityUtil.filterByDate(delegator.findByAnd("WorkEffortContentAndInfo", [workEffortId : productionRunId], ["-fromDate"], false));
+        productionRunContents = from("WorkEffortContentAndInfo").where("workEffortId", productionRunId).orderBy("-fromDate").filterByDate().queryList();
         context.productionRunContents = productionRunContents;
         context.productionRunComponentsData = productionRunComponentsData;
         context.productionRunComponentsDataReadyForIssuance = productionRunComponentsDataReadyForIssuance;

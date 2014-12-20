@@ -24,7 +24,7 @@ partyId = parameters.partyId;
 currencyUomId = null;
 billingAccounts = [];
 if (partyId) {
-    billingAccountAndRoles = delegator.findByAnd("BillingAccountAndRole", [partyId : partyId], null, false);
+    billingAccountAndRoles = from("BillingAccountAndRole").where('partyId', partyId).queryList()
     if (billingAccountAndRoles) currencyUomId = billingAccountAndRoles.first().accountCurrencyUomId;
     if (currencyUomId) billingAccounts = BillingAccountWorker.makePartyBillingAccountList(userLogin, currencyUomId, partyId, delegator, dispatcher);
 }

@@ -34,7 +34,7 @@ import org.ofbiz.entity.model.*;
 import java.text.NumberFormat;
 
 basePaymentId = parameters.paymentId;
-basePayment = delegator.findOne("Payment", [paymentId : basePaymentId], false);
+basePayment = from("Payment").where("paymentId", basePaymentId).queryOne();
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
@@ -62,7 +62,7 @@ exprList.add(orCond);
 
 topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
-payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
+payments = from("Payment").where(topCond).orderBy("effectiveDate").queryList()
 
 if (payments)    {
     basePaymentApplied = PaymentWorker.getPaymentApplied(basePayment);

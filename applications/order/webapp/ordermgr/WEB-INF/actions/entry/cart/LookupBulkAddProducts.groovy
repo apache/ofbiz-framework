@@ -50,6 +50,5 @@ conditions = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 
 mainConditionList.add(orConditions);
 mainConditionList.add(conditions);
-mainConditions = EntityCondition.makeCondition(mainConditionList, EntityOperator.AND);
 
-context.productList = delegator.findList("Product", mainConditions, ["productId", "brandName", "internalName"] as Set, ["productId"], null, false);
+context.productList = select("productId", "brandName", "internalName").from("Product").where(mainConditionList).orderBy("productId").queryList();

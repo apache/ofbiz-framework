@@ -25,7 +25,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 invoiceDetailList = [];
 invoiceIds.each { invoiceId ->
     invoicesMap = [:];
-    invoice = delegator.findOne("Invoice", [invoiceId : invoiceId], false);
+    invoice = from("Invoice").where('invoiceId', invoiceId).queryOne();
     invoicesMap.invoice = invoice;
     
     currency = parameters.currency;  // allow the display of the invoice in the original currency, the default is to display the invoice in the default currency
@@ -98,10 +98,10 @@ invoiceIds.each { invoiceId ->
         terms = invoice.getRelated("InvoiceTerm", null, null, false);
         invoicesMap.terms = terms;
     
-        paymentAppls = delegator.findList("PaymentApplication", EntityCondition.makeCondition([invoiceId : invoiceId]), null, null, null, false);
+        paymentAppls = from("PaymentApplication").where('invoiceId', invoiceId).queryList();
         invoicesMap.payments = paymentAppls;
     
-        orderItemBillings = delegator.findList("OrderItemBilling", EntityCondition.makeCondition([invoiceId : invoiceId]), null, ['orderId'], null, false);
+        orderItemBillings = from("OrderItemBilling").where('invoiceId', invoiceId).orderBy("orderId").queryList();
         orders = new LinkedHashSet();
         orderItemBillings.each { orderIb ->
             orders.add(orderIb.orderId);
@@ -113,7 +113,7 @@ invoiceIds.each { invoiceId ->
     
         edit = parameters.editInvoice;
         if ("true".equalsIgnoreCase(edit)) {
-            invoiceItemTypes = delegator.findList("InvoiceItemType", null, null, null, null, false);
+            invoiceItemTypes = from("InvoiceItemType").queryList();
             invoicesMap.invoiceItemTypes = invoiceItemTypes;
             invoicesMap.editInvoice = true;
         }

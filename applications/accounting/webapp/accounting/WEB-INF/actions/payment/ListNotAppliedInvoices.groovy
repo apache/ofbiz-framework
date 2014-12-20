@@ -31,7 +31,7 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import java.math.*;
 
 paymentId = parameters.paymentId;
-payment = delegator.findOne("Payment", [paymentId : paymentId], false);
+payment = from("Payment").where("paymentId", paymentId).queryOne();
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
@@ -51,13 +51,20 @@ actualCurrCond = EntityCondition.makeCondition("currencyUomId", EntityOperator.E
 
 topCond = EntityCondition.makeCondition([partyCond, statusCond, currCond], EntityOperator.AND);
 topCondActual = EntityCondition.makeCondition([partyCond, statusCond, actualCurrCond], EntityOperator.AND);
-fields = new HashSet(["invoiceId", "invoiceTypeId", "currencyUomId", "description", "invoiceDate"]);
 
 //retrieve invoices for the related parties which have not been (fully) applied yet and which have the same currency as the payment
-invoices = delegator.findList("Invoice", topCond, fields, ["invoiceDate"], null, false);
+invoices = select("invoiceId", "invoiceTypeId", "currencyUomId", "description", "invoiceDate")
+                .from("Invoice")
+                .where(topCond)
+                .orderBy("invoiceDate")
+                .queryList();
 context.invoices = getInvoices(invoices, false);
 //retrieve invoices for the related parties which have not been (fully) applied yet and which have the same originalCurrency as the payment
-invoices = delegator.findList("Invoice", topCondActual, fields, ["invoiceDate"], null, false);
+invoices = select("invoiceId", "invoiceTypeId", "currencyUomId", "description", "invoiceDate")
+                .from("Invoice")
+                .where(topCondActual)
+                .orderBy("invoiceDate")
+                .queryList();
 context.invoicesOtherCurrency = getInvoices(invoices, true);
 
 List getInvoices(List invoices, boolean actual) {

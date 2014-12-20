@@ -38,7 +38,7 @@ if (forumId) {
     contentIdToExpr = EntityCondition.makeCondition("caContentId", EntityOperator.EQUALS, forumId);
     exprList.add(contentIdToExpr);
     expr = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-    entityList = delegator.findList("ContentAssocViewFrom", expr, null, ['-caFromDate'], null, false);
+    entityList = from("ContentAssocViewFrom").where(exprList).orderBy("-caFromDate").queryList();
 
     Debug.logInfo("in mostrecentprep(1), entityList.size():" + entityList.size(),"");
     Debug.logInfo("in mostrecentprep(1), entityList:" + entityList,"");

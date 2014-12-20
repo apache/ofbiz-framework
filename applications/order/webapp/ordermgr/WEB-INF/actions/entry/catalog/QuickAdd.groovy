@@ -45,6 +45,6 @@ if (categoryId) {
             context[key] = value;
         }
     }
-    productCategory = delegator.findOne("ProductCategory", ["productCategoryId" : categoryId], false);
+    productCategory = from("ProductCategory").where("productCategoryId", categoryId).queryOne();
     context.productCategory = productCategory;
 }

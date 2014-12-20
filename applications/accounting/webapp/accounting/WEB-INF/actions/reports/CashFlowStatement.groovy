@@ -50,7 +50,7 @@ List partyIds = PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, o
 partyIds.add(organizationPartyId);
 
 // Get the group of account classes that will be used to position accounts in the proper section of the  Cash Flow statement
-GenericValue glAccountClass = delegator.findOne("GlAccountClass", UtilMisc.toMap("glAccountClassId", "CASH_EQUIVALENT"), true);
+GenericValue glAccountClass = from("GlAccountClass").where("glAccountClassId", "CASH_EQUIVALENT").cache(true).queryOne();
 List glAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(glAccountClass);
 
 List cashFlowBalanceTotalList = [];
@@ -70,7 +70,7 @@ if (lastClosedTimePeriod) {
     timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, glAccountClassIds));
     timePeriodAndExprs.add(EntityCondition.makeCondition("endingBalance", EntityOperator.NOT_EQUAL, BigDecimal.ZERO));
     timePeriodAndExprs.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, lastClosedTimePeriod.customTimePeriodId));
-    List lastTimePeriodHistories = delegator.findList("GlAccountAndHistory", EntityCondition.makeCondition(timePeriodAndExprs, EntityOperator.AND), null, null, null, false);
+    List lastTimePeriodHistories = from("GlAccountAndHistory").where(timePeriodAndExprs).queryList();
     lastTimePeriodHistories.each { lastTimePeriodHistory ->
         Map accountMap = ["glAccountId":lastTimePeriodHistory.glAccountId, "accountCode":lastTimePeriodHistory.accountCode, "accountName":lastTimePeriodHistory.accountName, "balance":lastTimePeriodHistory.getBigDecimal("endingBalance"), "D":lastTimePeriodHistory.getBigDecimal("postedDebits"), "C":lastTimePeriodHistory.getBigDecimal("postedCredits")];
         openingCashBalances.(lastTimePeriodHistory.glAccountId) = accountMap;
@@ -90,7 +90,7 @@ balanceTotal = BigDecimal.ZERO;
 List openingCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, periodClosingFromDate));
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, parametersFromDate));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(openingCashBalanceAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(openingCashBalanceAndExprs).orderBy("glAccountId").queryList();
 transactionTotalsMap = [:];
 transactionTotalsMap.putAll(openingCashBalances);
 transactionTotals.each { transactionTotal ->
@@ -135,7 +135,7 @@ balanceTotal = BigDecimal.ZERO;
 List periodCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, parametersFromDate));
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
-transactionTotals = delegator.findList("AcctgTransEntrySums", EntityCondition.makeCondition(periodCashBalanceAndExprs, EntityOperator.AND), UtilMisc.toSet("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount"), UtilMisc.toList("glAccountId"), null, false);
+transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(periodCashBalanceAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
     Map transactionTotalsMap = [:];
     balanceTotalCredit = BigDecimal.ZERO;
@@ -214,7 +214,7 @@ context.closingCashBalanceList.add("accountName":uiLabelMap.AccountingTotalClosi
 if (closingTransactionKeySet) {
     closingTransactionKeySet.removeAll(openingTransactionKeySet);
     closingTransactionKeySet.each { closingTransactionKey ->
-        glAccount = delegator.findOne("GlAccount", UtilMisc.toMap("glAccountId", closingTransactionKey), true);
+        glAccount = from("GlAccount").where("glAccountId", closingTransactionKey).cache(true).queryOne();
         context.openingCashBalanceList.add(["glAccountId":glAccount.glAccountId, "accountName":glAccount.accountName, accountCode:glAccount.accountCode, balance:BigDecimal.ZERO, D:BigDecimal.ZERO, C:BigDecimal.ZERO]);
     }
 }

@@ -29,14 +29,11 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 
-fields = ["partyId", "productId"] as Set;
-options = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
-orderBy = ["partyId"];
 conditions = EntityCondition.makeCondition([
             EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SUPPLIER"),
             EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED"),
             EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
             EntityUtil.getFilterByDateExpr()
             ], EntityOperator.AND);
-requirements = delegator.find("RequirementPartyProductCount", conditions, null, fields, orderBy, options);
+requirements = select("partyId", "productId").from("RequirementPartyProductCount").where(conditions).orderBy("partyId").cursorScrollInsensitive().distinct().queryIterator();
 context.requirements = requirements;

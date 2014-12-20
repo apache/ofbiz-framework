@@ -35,7 +35,7 @@ Debug.logInfo("in cmseditaddprep, contentAssocPK:" + contentAssocPK,"");
 
 contentAssoc = null;
 if (contentAssocPK.isPrimaryKey()) {
-    contentAssoc = delegator.findOne("ContentAssoc", contentAssocPK, false);
+    contentAssoc = from("ContentAssoc").where(contentAssocPK).queryOne();
 }
 
 if (contentAssoc) {
@@ -50,7 +50,7 @@ dataResourceId = "";
 textData = "";
 content = null;
 if (contentId) {
-    content = delegator.findOne("Content", [contentId : contentId], true);
+    content = from("Content").where("contentId", contentId).cache(true).queryOne();
     if (content) {
         contentAssocDataResourceViewFrom.setAllFields(content, false, null, null);
     }
@@ -68,7 +68,7 @@ if (!dataResourceId) {
     }
 }
 if (dataResourceId) {
-    dataResource = delegator.findOne("DataResource", [dataResourceId : dataResourceId], true);
+    dataResource = from("DataResource").where("dataResourceId", dataResourceId).cache(true).queryOne();
     SimpleMapProcessor.runSimpleMapProcessor("component://content/script/org/ofbiz/content/ContentManagementMapProcessors.xml", "dataResourceOut", dataResource, contentAssocDataResourceViewFrom, new ArrayList(), Locale.getDefault());
     templateRoot = [:];
     FreeMarkerViewHandler.prepOfbizRoot(templateRoot, request, response);

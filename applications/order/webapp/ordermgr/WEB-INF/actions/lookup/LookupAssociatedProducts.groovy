@@ -26,7 +26,7 @@ import org.ofbiz.entity.util.EntityUtil;
 productId = request.getParameter("productId");
 
 if (productId != null) {
-    product = delegator.findOne("Product", [productId : productId], false);
+    product = from("Product").where("productId", productId).queryOne();
     prodAssocs = product.getRelated("MainProductAssoc", null, null, false);
     if (UtilValidate.isNotEmpty(prodAssocs)) {
         products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")]);
@@ -36,8 +36,7 @@ if (productId != null) {
             products.each { product ->
                 if (product != null) {
                     String productIdTo = product.getString("productIdTo");
-                    prodAssocRecord = delegator.findByAnd("Product", [productId : productIdTo], null, false);
-                    productList.add(EntityUtil.getFirst(prodAssocRecord));
+                    productList.add(from("Product").where("productId", productIdTo).queryFirst());
                 }
             }
             context.put("productList",productList);

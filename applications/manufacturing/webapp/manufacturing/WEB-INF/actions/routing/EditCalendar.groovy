@@ -22,7 +22,7 @@ import org.ofbiz.base.util.UtilHttp;
 requestParams = UtilHttp.getParameterMap(request);
 calendarId = requestParams.get("calendarId") ?: request.getAttribute("calendarId");
 if (calendarId != null) {
-    techDataCalendar = delegator.findOne("TechDataCalendar", [calendarId : calendarId], false);
+    techDataCalendar = from("TechDataCalendar").where("calendarId", calendarId).queryOne();
     context.techDataCalendar = techDataCalendar;
 }
 
@@ -41,5 +41,5 @@ if (!calendarData) {
 }
 context.calendarData = calendarData;
 
-allCalendarWeek = delegator.findList("TechDataCalendarWeek", null, null, null, null, false);
+allCalendarWeek = from("TechDataCalendarWeek").queryList();
 context.calendarWeeks = allCalendarWeek;
