@@ -946,6 +946,7 @@ public class ShoppingCartEvents {
             session.setAttribute("shoppingCart", cart);
         }
 
+        if (currencyUom == null) currencyUom = UtilHttp.getCurrencyUom(request);
         if (cart == null) {
             cart = new WebShoppingCart(request, locale, currencyUom);
             session.setAttribute("shoppingCart", cart);
