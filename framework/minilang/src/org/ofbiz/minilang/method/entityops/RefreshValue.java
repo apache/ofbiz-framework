@@ -20,7 +20,6 @@ package org.ofbiz.minilang.method.entityops;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.minilang.MiniLangException;
@@ -40,8 +39,6 @@ public final class RefreshValue extends MethodOperation {
 
     public static final String module = RemoveValue.class.getName();
 
-    @Deprecated
-    private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
     public RefreshValue(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -53,7 +50,6 @@ public final class RefreshValue extends MethodOperation {
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
-        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
@@ -62,7 +58,6 @@ public final class RefreshValue extends MethodOperation {
         if (value == null) {
             throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
-        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             value.getDelegator().refresh(value);
         } catch (GenericEntityException e) {
@@ -78,9 +73,6 @@ public final class RefreshValue extends MethodOperation {
     public String toString() {
         StringBuilder sb = new StringBuilder("<refresh-value ");
         sb.append("value-field=\"").append(this.valueFma).append("\" ");
-        if (!doCacheClearFse.isEmpty()) {
-            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
-        }
         sb.append("/>");
         return sb.toString();
     }

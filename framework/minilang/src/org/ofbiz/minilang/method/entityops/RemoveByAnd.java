@@ -41,8 +41,6 @@ import org.w3c.dom.Element;
 public final class RemoveByAnd extends EntityOperation {
 
     public static final String module = RemoveByAnd.class.getName();
-    @Deprecated
-    private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleStringExpander entityNameFse;
     private final FlexibleMapAccessor<Map<String, ? extends Object>> mapFma;
 
@@ -56,20 +54,18 @@ public final class RemoveByAnd extends EntityOperation {
         }
         entityNameFse = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         mapFma = FlexibleMapAccessor.getInstance(element.getAttribute("map"));
-        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
     public boolean exec(MethodContext methodContext) throws MiniLangException {
         @Deprecated
-        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         String entityName = entityNameFse.expandString(methodContext.getEnvMap());
         if (entityName.isEmpty()) {
             throw new MiniLangRuntimeException("Entity name not found.", this);
         }
         try {
             Delegator delegator = getDelegator(methodContext);
-            delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()), doCacheClear);
+            delegator.removeByAnd(entityName, mapFma.get(methodContext.getEnvMap()));
         } catch (GenericEntityException e) {
             String errMsg = "Exception thrown while removing entities: " + e.getMessage();
             Debug.logWarning(e, errMsg, module);
@@ -89,9 +85,6 @@ public final class RemoveByAnd extends EntityOperation {
         StringBuilder sb = new StringBuilder("<remove-by-and ");
         sb.append("entity-name=\"").append(this.entityNameFse).append("\" ");
         sb.append("map=\"").append(this.mapFma).append("\" ");
-        if (!doCacheClearFse.isEmpty()) {
-            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
-        }
         sb.append("/>");
         return sb.toString();
     }
