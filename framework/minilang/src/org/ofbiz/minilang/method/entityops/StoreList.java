@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -41,8 +40,6 @@ import org.w3c.dom.Element;
 public final class StoreList extends EntityOperation {
 
     public static final String module = StoreList.class.getName();
-    @Deprecated
-    private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleMapAccessor<List<GenericValue>> listFma;
 
     public StoreList(Element element, SimpleMethod simpleMethod) throws MiniLangException {
@@ -54,7 +51,6 @@ public final class StoreList extends EntityOperation {
             MiniLangValidate.noChildElements(simpleMethod, element);
         }
         listFma = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
-        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
@@ -63,8 +59,6 @@ public final class StoreList extends EntityOperation {
         if (values == null) {
             throw new MiniLangRuntimeException("Entity value list not found with name: " + listFma, this);
         }
-        @Deprecated
-        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             Delegator delegator = getDelegator(methodContext);
             delegator.storeAll(values);
@@ -81,9 +75,6 @@ public final class StoreList extends EntityOperation {
     public String toString() {
         StringBuilder sb = new StringBuilder("<store-list ");
         sb.append("list=\"").append(this.listFma).append("\" ");
-        if (!doCacheClearFse.isEmpty()) {
-            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
-        }
         sb.append("/>");
         return sb.toString();
     }

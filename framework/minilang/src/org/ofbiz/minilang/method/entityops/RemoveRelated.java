@@ -40,8 +40,6 @@ import org.w3c.dom.Element;
 public final class RemoveRelated extends MethodOperation {
 
     public static final String module = RemoveRelated.class.getName();
-    @Deprecated
-    private final FlexibleStringExpander doCacheClearFse;
     private final FlexibleStringExpander relationNameFse;
     private final FlexibleMapAccessor<GenericValue> valueFma;
 
@@ -55,7 +53,6 @@ public final class RemoveRelated extends MethodOperation {
         }
         valueFma = FlexibleMapAccessor.getInstance(element.getAttribute("value-field"));
         relationNameFse = FlexibleStringExpander.getInstance(element.getAttribute("relation-name"));
-        doCacheClearFse = FlexibleStringExpander.getInstance(element.getAttribute("do-cache-clear"));
     }
 
     @Override
@@ -65,8 +62,6 @@ public final class RemoveRelated extends MethodOperation {
             throw new MiniLangRuntimeException("Entity value not found with name: " + valueFma, this);
         }
         String relationName = relationNameFse.expandString(methodContext.getEnvMap());
-        @Deprecated
-        boolean doCacheClear = !"false".equals(doCacheClearFse.expandString(methodContext.getEnvMap()));
         try {
             value.getDelegator().removeRelated(relationName, value);
         } catch (GenericEntityException e) {
@@ -88,9 +83,6 @@ public final class RemoveRelated extends MethodOperation {
         StringBuilder sb = new StringBuilder("<remove-related ");
         sb.append("value-field=\"").append(this.valueFma).append("\" ");
         sb.append("relation-name=\"").append(this.relationNameFse).append("\" ");
-        if (!doCacheClearFse.isEmpty()) {
-            sb.append("do-cache-clear=\"").append(this.doCacheClearFse).append("\" ");
-        }
         sb.append("/>");
         return sb.toString();
     }
