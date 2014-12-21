@@ -1306,7 +1306,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="PickMoveStockSimple">
+    <screen name="PickMoveStockSimple.fo">
         <section>
             <actions>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
@@ -1333,7 +1333,7 @@ under the License.
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
                         <platform-specific>
-                            <html><html-template location="component://product/webapp/facility/facility/PickMoveStock.ftl"/></html>
+                            <xsl-fo><html-template location="component://product/webapp/facility/facility/PickMoveStockSimple.fo.ftl"/></xsl-fo>
                         </platform-specific>
                     </decorator-section>
                 </decorator-screen>

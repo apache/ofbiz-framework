@@ -1378,7 +1378,7 @@ under the License.
     <view-map name="PicklistOptions" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistOptions"/>
     <view-map name="PicklistManage" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PicklistManage"/>
     <view-map name="PickMoveStock" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStock"/>
-    <view-map name="PickMoveStockSimple" type="screen" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStockSimple"/>
+    <view-map name="PickMoveStockSimple" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PickMoveStockSimple.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="PicklistReport.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PicklistReport.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="PrintPickSheets.pdf" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#PrintPickSheets.fo" content-type="application/pdf" encoding="none"/>
     <view-map name="ReviewOrdersNotPickedOrPacked" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ReviewOrdersNotPickedOrPacked"/>
