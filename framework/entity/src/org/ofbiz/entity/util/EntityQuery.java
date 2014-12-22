@@ -423,7 +423,15 @@ public class EntityQuery {
      */
     public long queryCount() throws GenericEntityException {
         if (dynamicViewEntity != null) {
-            return queryIterator().getResultsSizeAfterPartialList();
+            EntityListIterator iterator = null;
+            try {
+                iterator = queryIterator();
+                return iterator.getResultsSizeAfterPartialList();
+            } finally {
+                if (iterator != null) {
+                    iterator.close();
+                }
+            }
         }
         return delegator.findCountByCondition(entityName, makeWhereCondition(false), havingEntityCondition, makeEntityFindOptions());
     }
