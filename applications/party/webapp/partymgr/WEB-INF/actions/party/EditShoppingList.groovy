@@ -32,7 +32,7 @@ context.currencyUomId = currencyUomId;
 
 partyId = parameters.partyId ?:request.getAttribute("partyId");
 
-party = delegator.findOne("Party", [partyId : partyId], false);
+party = from("Party").where("partyId", partyId).queryOne();
 context.party = party;
 if (party) {
     context.lookupPerson = party.getRelatedOne("Person", false);
@@ -43,18 +43,18 @@ shoppingListId = parameters.shoppingListId ?: request.getAttribute("shoppingList
 
 //get the party for listid if it exists
 if (!partyId && shoppingListId) {
-    partyId = delegator.findOne("ShoppingList", [shoppingListId : shoppingListId], false).partyId;
+    partyId = from("ShoppingList").where("shoppingListId", shoppingListId).queryOne().partyId;
 }
 context.partyId = partyId;
 
 // get the top level shopping lists for the party
-allShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId], ["listName"], false);
+allShoppingLists = from("ShoppingList").where("partyId", partyId).queryList();
 shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId : null]);
 context.allShoppingLists = allShoppingLists;
 context.shoppingLists = shoppingLists;
 
 // get all shoppingListTypes
-shoppingListTypes = delegator.findList("ShoppingListType", null, null, ["description"], null, true);
+shoppingListTypes = from("ShoppingListType").orderBy("description").cache(true).queryList();
 context.shoppingListTypes = shoppingListTypes;
 
 // no passed shopping list id default to first list
@@ -67,7 +67,7 @@ if (!shoppingListId) {
 
 // if we passed a shoppingListId get the shopping list info
 if (shoppingListId) {
-    shoppingList = delegator.findOne("ShoppingList", [shoppingListId : shoppingListId], false);
+    shoppingList = from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
     context.shoppingList = shoppingList;
     context.shoppingListId = shoppingListId;
 
@@ -123,7 +123,7 @@ if (shoppingListId) {
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = delegator.findByAnd("ShoppingList", [partyId : partyId, parentShoppingListId : shoppingListId], ["listName"], true);
+        childShoppingLists = from("ShoppingList").where("partyId", partyId, "parentShoppingListId", shoppingListId).orderBy("listName").cache(true).queryList();
         // now get prices for each child shopping list...
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());

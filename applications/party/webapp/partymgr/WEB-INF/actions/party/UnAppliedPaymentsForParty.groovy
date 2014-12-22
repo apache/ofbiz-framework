@@ -50,7 +50,7 @@ payExprs =
         ], EntityOperator.AND);
 
 paymentList = [];
-payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findOpts);
+payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator();
 
 while (payment = payIterator.next()) {
     unAppliedAmount = PaymentWorker.getPaymentNotApplied(payment, actualCurrency).setScale(2,BigDecimal.ROUND_HALF_UP);

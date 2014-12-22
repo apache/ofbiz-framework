@@ -23,7 +23,7 @@ partyId = parameters.partyId ? parameters.partyId : userLogin.partyId ;
 
 if (partyId) {
     // get the system user
-    system = delegator.findOne("UserLogin", [userLoginId : "system"], false);
+    system = from("UserLogin").where("userLoginId", "system").queryOne();
 
     monthsToInclude = 12;
 
