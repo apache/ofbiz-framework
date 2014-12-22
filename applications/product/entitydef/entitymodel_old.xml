@@ -85,9 +85,6 @@ under the License.
       <field name="removeStems" type="indicator"></field>
       <field name="numResults" type="numeric"></field>
       <prim-key field="productKeywordResultId"/>
-      <relation type="one" fk-name="PROD_KWDRES_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
       <relation type="one-nofk" rel-entity-name="ProductCategory">
         <key-map field-name="productCategoryId"/>
       </relation>

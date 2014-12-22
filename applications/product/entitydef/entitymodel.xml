@@ -2159,9 +2159,6 @@ under the License.
       <prim-key field="visitId"/>
       <prim-key field="productId"/>
       <prim-key field="productStoreId"/>
-      <relation type="one" fk-name="INV_ITEM_TR_VIS" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
       <relation type="one" fk-name="INV_ITEM_TR_PROD" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
@@ -3244,9 +3241,6 @@ under the License.
       <field name="secondsTotal" type="floating-point"></field>
       <field name="searchDate" type="date-time"></field>
       <prim-key field="productSearchResultId"/>
-      <relation type="one" fk-name="PROD_SCHRES_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
     </entity>
     <entity entity-name="ProductType"
             package-name="org.ofbiz.product.product"

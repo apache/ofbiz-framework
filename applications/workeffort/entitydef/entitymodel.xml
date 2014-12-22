@@ -787,9 +787,6 @@ under the License.
         <field name="secondsTotal" type="floating-point"></field>
         <field name="searchDate" type="date-time"></field>
         <prim-key field="workEffortSearchResultId"/>
-        <relation type="one" fk-name="WEFF_SCHRES_VST" rel-entity-name="Visit">
-            <key-map field-name="visitId"/>
-        </relation>
     </entity>
     <entity entity-name="WorkEffortSkillStandard"
             package-name="org.ofbiz.workeffort.workeffort"

@@ -1689,9 +1689,6 @@ under the License.
       <field name="secondsTotal" type="floating-point"></field>
       <field name="searchDate" type="date-time"></field>
       <prim-key field="contentSearchResultId"/>
-      <relation type="one" fk-name="CNT_SCHRES_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
     </entity>
     
     <entity entity-name="WebAnalyticsConfig"

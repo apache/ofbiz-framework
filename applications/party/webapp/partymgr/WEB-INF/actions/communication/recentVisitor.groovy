@@ -17,12 +17,13 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*
 import org.ofbiz.base.util.*;
 
 lastDate = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), -21); // should be there the last 3 weeks.
 searchCondition = EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN, lastDate);
-options = new EntityFindOptions(false, 0, 0,, true);
-context.recentParties = delegator.findList("PartyNameVisitView", searchCondition, (Set)["partyId", "firstName", "middleName", "lastName", "groupName"], null, options, true);
+partyIds = EntityUtil.getFieldListFromEntityList(select('partyId').distinct().from('Visit').where(searchCondition).queryList(), 'partyId', false)
+searchCondition = EntityCondition.makeCondition('partyId', EntityOperator.IN, partyIds);
+options = new EntityFindOptions(false, 0, 0, true);
+context.recentParties = delegator.findList("PartyNameView", searchCondition, (Set)["partyId", "firstName", "middleName", "lastName", "groupName"], null, options, true);

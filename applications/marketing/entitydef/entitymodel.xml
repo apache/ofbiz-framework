@@ -532,9 +532,6 @@ under the License.
       <relation type="one" fk-name="TKNG_CODVST_TKCD" rel-entity-name="TrackingCode">
         <key-map field-name="trackingCodeId"/>
       </relation>
-      <relation type="one" fk-name="TKNG_CODVST_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
       <relation type="one" fk-name="TKNG_CODVST_SRCEM" rel-entity-name="Enumeration">
         <key-map field-name="sourceEnumId" rel-field-name="enumId"/>
       </relation>
