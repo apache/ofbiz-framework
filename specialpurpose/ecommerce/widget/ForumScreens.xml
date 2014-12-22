@@ -85,7 +85,7 @@ under the License.
                                 <label style="head1" text="${uiLabelMap.EcommerceMessageListForForum} ${forum.description}"/>
                                 <section>
                                     <condition>
-                                        <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                                        <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
                                     </condition>
                                     <widgets>
                                         <!-- old link converted during URLs securing, seems busted... no time to look at detail...-->
@@ -137,7 +137,7 @@ under the License.
                         </container>
                         <section>
                             <condition>
-                                <if-has-permission permission="CONTENTMGR" action="CREATE"/>
+                                <if-has-permission permission="CONTENTMGR" action="_CREATE"/>
                             </condition>
                             <widgets>
                                 <label style="blogheader">${uiLabelMap.EcommerceBlogAddResponse}</label>

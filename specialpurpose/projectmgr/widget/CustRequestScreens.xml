@@ -24,7 +24,7 @@ under the License.
     <screen name="ProjectRequestList">
         <section>
             <condition>
-                <if-has-permission permission="PROJECTMGR" action="ADMIN"/>
+                <if-has-permission permission="PROJECTMGR" action="_ADMIN"/>
             </condition>
             <actions>
                 <entity-and list="custRequests" entity-name="CustRequest">
