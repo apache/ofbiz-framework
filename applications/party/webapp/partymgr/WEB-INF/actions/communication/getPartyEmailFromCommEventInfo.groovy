@@ -21,7 +21,7 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
 import javolution.util.FastList;
 
-communicationEvent = delegator.findOne("CommunicationEvent", [communicationEventId : parameters.communicationEventId], true);
+communicationEvent = from("CommunicationEvent").where("communicationEventId", parameters.communicationEventId).cache(true).queryOne();
 
 if (!communicationEvent.note) return;
 nameString = "Sent from: ";

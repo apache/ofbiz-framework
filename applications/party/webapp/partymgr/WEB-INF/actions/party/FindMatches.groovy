@@ -33,7 +33,7 @@ if (match) {
     postalCode = parameters.postalCode ?: null;
 
     if (state) {
-        context.currentStateGeo = delegator.findOne("Geo", [geoId : state], false);
+        context.currentStateGeo = from("Geo").where("geoId", state).queryOne();
     }
 
     if (!firstName || !lastName || !address1 || !city || !postalCode) {

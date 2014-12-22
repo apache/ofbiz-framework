@@ -35,7 +35,6 @@ actualCurrencyUomId = context.actualCurrencyUomId;
 if (!actualCurrencyUomId) {
     actualCurrencyUomId = context.defaultOrganizationPartyCurrencyUomId;
 }
-findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
 //get total/unapplied/applied invoices separated by sales/purch amount:
 totalInvSaApplied = BigDecimal.ZERO;
 totalInvSaNotApplied = BigDecimal.ZERO;
@@ -59,7 +58,7 @@ invExprs =
             ],EntityOperator.OR)
         ],EntityOperator.AND);
 
-invIterator = delegator.find("InvoiceAndType", invExprs, null, null, null, findOpts);
+invIterator = from("InvoiceAndType").where(invExprs).cursorScrollInsensitive().distinct().queryIterator();
 
 while (invoice = invIterator.next()) {
     if ("PURCHASE_INVOICE".equals(invoice.parentTypeId)) {
@@ -99,7 +98,7 @@ payExprs =
             ], EntityOperator.OR)
         ], EntityOperator.AND);
 
-payIterator = delegator.find("PaymentAndType", payExprs, null, null, null, findOpts);
+payIterator = from("PaymentAndType").where(payExprs).cursorScrollInsensitive().distinct().queryIterator();
 
 while (payment = payIterator.next()) {
     if ("DISBURSEMENT".equals(payment.parentTypeId) || "TAX_PAYMENT".equals(payment.parentTypeId)) {

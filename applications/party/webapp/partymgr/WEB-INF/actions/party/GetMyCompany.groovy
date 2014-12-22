@@ -18,10 +18,7 @@
  */
 
 if (userLogin) {
-    companies = delegator.findByAnd("PartyRelationship",
-            [partyIdTo: userLogin.partyId,
-             roleTypeIdTo: "CONTACT",
-             roleTypeIdFrom: "ACCOUNT"], null, false);
+    companies = from("PartyRelationship").where(partyIdTo: userLogin.partyId, roleTypeIdTo: "CONTACT", roleTypeIdFrom: "ACCOUNT").queryList();
     if (companies) {
         company = companies[0];
         context.myCompanyId = company.partyIdFrom;
