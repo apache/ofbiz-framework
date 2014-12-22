@@ -1482,9 +1482,6 @@ under the License.
       <relation type="one" fk-name="PARTY_NEED_PCAT" rel-entity-name="ProductCategory">
         <key-map field-name="productCategoryId"/>
       </relation>
-      <relation type="one" fk-name="PARTY_NEED_VSIT" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
     </entity>
 
   <!-- ========================================================= -->
@@ -2013,9 +2010,6 @@ under the License.
       <relation type="one" fk-name="PARTY_DATSRC_DSC" rel-entity-name="DataSource">
         <key-map field-name="dataSourceId"/>
       </relation>
-      <relation type="one" fk-name="PARTY_DATSRC_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
     </entity>
     <entity entity-name="PartyGroup"
             package-name="org.ofbiz.party.party"
@@ -2183,39 +2177,6 @@ under the License.
         <key-map field-name="partyId"/>
       </relation>
     </view-entity>
-  <view-entity entity-name="PartyNameVisitView"
-    package-name="org.ofbiz.party.party"
-    title="Party Name visit View Entity">
-    <member-entity entity-alias="PTY" entity-name="Party"/>
-    <member-entity entity-alias="PER" entity-name="Person"/>
-    <member-entity entity-alias="PTYGRP" entity-name="PartyGroup"/>
-    <member-entity entity-alias="VISIT" entity-name="Visit"/>
-    <alias entity-alias="PTY" name="partyId"/>
-    <alias entity-alias="PTY" name="partyTypeId"/>
-    <alias entity-alias="PER" name="firstName"/>
-    <alias entity-alias="PER" name="middleName"/>
-    <alias entity-alias="PER" name="lastName"/>
-    <alias entity-alias="PER" name="firstNameLocal"/>
-    <alias entity-alias="PER" name="lastNameLocal"/>
-    <alias entity-alias="PER" name="personalTitle"/>
-    <alias entity-alias="PER" name="suffix"/>
-    <alias entity-alias="PTYGRP" name="groupName"/>
-    <alias entity-alias="PTYGRP" name="groupNameLocal"/>
-    <alias entity-alias="VISIT" name="webappName"/>
-    <alias entity-alias="VISIT" name="fromDate"/>
-    <view-link entity-alias="PTY" rel-entity-alias="PER" rel-optional="true">
-      <key-map field-name="partyId"/>
-    </view-link>
-    <view-link entity-alias="PTY" rel-entity-alias="PTYGRP" rel-optional="true">
-      <key-map field-name="partyId"/>
-    </view-link>
-    <view-link entity-alias="PTY" rel-entity-alias="VISIT" rel-optional="false">
-      <key-map field-name="partyId"/>
-    </view-link>
-    <relation type="one-nofk" rel-entity-name="Party">
-      <key-map field-name="partyId"/>
-    </relation>
-  </view-entity>
   <entity entity-name="PartyNote"
             package-name="org.ofbiz.party.party"
             title="Party Note Entity">
@@ -2899,25 +2860,9 @@ under the License.
         <field name="contactMechId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
-        <relation type="one" fk-name="VISIT_CONT_MECH" rel-entity-name="ContactMech">
-            <key-map field-name="contactMechId"/>
-        </relation>
-        <relation type="one" fk-name="VISIT_PARTY" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
-        <relation type="one" fk-name="VISIT_ROLE_TYPE" rel-entity-name="RoleType">
-            <key-map field-name="roleTypeId"/>
-        </relation>
-        <relation type="one" fk-name="VISIT_PARTY_ROLE" rel-entity-name="PartyRole">
-            <key-map field-name="partyId"/>
-            <key-map field-name="roleTypeId"/>
-        </relation>
     </extend-entity>
     <extend-entity entity-name="Visitor">
         <field name="partyId" type="id"></field>
-        <relation type="one" fk-name="VISITOR_PARTY" rel-entity-name="Party">
-            <key-map field-name="partyId"/>
-        </relation>
     </extend-entity>
     <extend-entity entity-name="UserLogin">
         <field name="partyId" type="id"></field>

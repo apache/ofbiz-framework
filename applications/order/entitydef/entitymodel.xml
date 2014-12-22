@@ -2756,9 +2756,6 @@ under the License.
       <field name="wasReserved" type="indicator"></field>
       <prim-key field="visitId"/>
       <prim-key field="cartAbandonedLineSeqId"/>
-      <relation type="one" fk-name="CART_ABLN_VST" rel-entity-name="Visit">
-        <key-map field-name="visitId"/>
-      </relation>
       <relation type="one" fk-name="CART_ABLN_PRD" rel-entity-name="Product">
         <key-map field-name="productId"/>
       </relation>
@@ -2809,9 +2806,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="SHLIST_PTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="SHLIST_VSTR" rel-entity-name="Visitor">
-        <key-map field-name="visitorId"/>
       </relation>
       <relation type="many" fk-name="SHLIST_PSSM" rel-entity-name="ProductStoreShipmentMeth">
         <key-map field-name="productStoreId"/>
