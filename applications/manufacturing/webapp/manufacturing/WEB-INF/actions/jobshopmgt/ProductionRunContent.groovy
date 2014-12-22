@@ -19,6 +19,7 @@
 
 import org.ofbiz.content.content.ContentWorker;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.GenericValue;
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 context.productionRunId = productionRunId;
