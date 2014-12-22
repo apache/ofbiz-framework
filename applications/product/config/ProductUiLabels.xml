@@ -13616,7 +13616,7 @@
         <value xml:lang="zh_TW">型錄管理</value>
     </property>
     <property key="ProductCatalogEmptyWarning">
-        <value xml:lang="en">If you don't populate a Catalog with Categories, it will not shown in the Browse Catalogs/Categories tree</value>
+        <value xml:lang="en">If you don't populate a Catalog with Categories, it will not be shown in the Browse Catalogs/Categories tree</value>
         <value xml:lang="fr">Si vous ne créez pas de catégories pour un catalogue, il n'apparaitra pas dans l'arbre des Catalogues/catégories</value>
         <value xml:lang="it">Se un catalogo non viene valorizzato con delle categorie, questo non verrà mostrato nell'albero Sfoglia cataloghi/categorie</value>
         <value xml:lang="ja">カタログがカテゴリに属していない場合、カタログ/カテゴリツリーは表示されません</value>
