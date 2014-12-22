@@ -155,10 +155,6 @@ public class UtilHttp {
         return canonicalizeParameterMap(paramMap);
     }
 
-    public static Map<String, Object> getQueryStringOnlyParameterMap(HttpServletRequest request) {
-        return getQueryStringOnlyParameterMap(request.getQueryString());
-    }
-
     public static Map<String, Object> getQueryStringOnlyParameterMap(String queryString) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         if (UtilValidate.isNotEmpty(queryString)) {
@@ -232,13 +228,9 @@ public class UtilHttp {
     }
 
     public static Map<String, Object> getUrlOnlyParameterMap(HttpServletRequest request) {
-        return getUrlOnlyParameterMap(request.getQueryString(), request.getPathInfo());
-    }
-
-    public static Map<String, Object> getUrlOnlyParameterMap(String queryString, String pathInfo) {
         // NOTE: these have already been through canonicalizeParameterMap, so not doing it again here
-        Map<String, Object> paramMap = getQueryStringOnlyParameterMap(queryString);
-        paramMap.putAll(getPathInfoOnlyParameterMap(pathInfo, null, null));
+        Map<String, Object> paramMap = getQueryStringOnlyParameterMap(request.getQueryString());
+        paramMap.putAll(getPathInfoOnlyParameterMap(request.getPathInfo(), null, null));
         return paramMap;
     }
 
