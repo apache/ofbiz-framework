@@ -1630,7 +1630,7 @@
         <value xml:lang="de">Abhängige Produktionsaufträge</value>
         <value xml:lang="en">Succeeding Production Run(s)</value>
         <value xml:lang="es">Esfuerzos de trabajo dependientes</value>
-        <value xml:lang="fr">Exécution de production dépendantes</value>
+        <value xml:lang="fr">Exécution d'ordre de fabrication/s suivant/s</value>
         <value xml:lang="it">Ordini di produzione successivi</value>
         <value xml:lang="ja">依存する生産実行</value>
         <value xml:lang="nl">Opvolgende productierun(s)</value>
@@ -2675,7 +2675,7 @@
         <value xml:lang="de">Erforderliche Produktionsaufträge</value>
         <value xml:lang="en">Preceding Production Run(s)</value>
         <value xml:lang="es">Órdenes de producción obligatorias</value>
-        <value xml:lang="fr">Cadences de production obligatoires</value>
+        <value xml:lang="fr">Exécution d'ordre de fabrication/s précédent/s</value>
         <value xml:lang="it">Cicli Produzione Precedenti</value>
         <value xml:lang="ja">生産強制実行</value>
         <value xml:lang="nl">Voorafgaande productierun(s)</value>
