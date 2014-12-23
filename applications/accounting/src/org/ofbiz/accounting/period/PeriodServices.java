@@ -71,7 +71,7 @@ public class PeriodServices {
                 // if a periodTypeId was supplied, use it
                 findClosedConditions.add(EntityCondition.makeConditionMap("periodTypeId", periodTypeId));
             }
-            GenericValue closedTimePeriod = EntityQuery.use(delegator).select("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate")
+            GenericValue closedTimePeriod = EntityQuery.use(delegator).from("CustomTimePeriod").select("customTimePeriodId", "periodTypeId", "isClosed", "fromDate", "thruDate")
                     .where(findClosedConditions).orderBy("thruDate DESC").queryFirst();
 
             if (closedTimePeriod != null && closedTimePeriod.get("thruDate") != null) {
@@ -88,8 +88,7 @@ public class PeriodServices {
                 if (timePeriod != null && timePeriod.get("fromDate") != null) {
                     lastClosedDate = UtilDateTime.toTimestamp(timePeriod.getDate("fromDate"));
                 } else {
-                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, 
-                            "AccountingPeriodCannotGet", locale));
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource, "AccountingPeriodCannotGet", locale));
                 }
             }
 
