@@ -824,7 +824,8 @@ public class AIMPaymentServices {
     private static BigDecimal getXAmount(Map<String, Object> request) {
         BigDecimal amt = BigDecimal.ZERO;
         if (request.get("x_Amount") != null) {
-            BigDecimal amount = (BigDecimal) request.get("x_Amount");
+            String newAmt = request.get("x_Amount").toString();
+            BigDecimal amount = new BigDecimal(newAmt);
             try {
                 amt = amount;
             } catch (NumberFormatException e) {
