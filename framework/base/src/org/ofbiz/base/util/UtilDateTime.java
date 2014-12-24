@@ -25,8 +25,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -1045,30 +1045,34 @@ public class UtilDateTime {
         return dateFormat.format(stamp);
     }
 
-    protected static List<TimeZone> availableTimeZoneList = null;
+    // Private lazy-initializer class 
+    private static class TimeZoneHolder {
+        private static final List<TimeZone> availableTimeZoneList = getTimeZones();
+
+        private static List<TimeZone> getTimeZones() {
+            ArrayList<TimeZone> availableTimeZoneList = new ArrayList<TimeZone>();
+            List<String> idList = null;
+            String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
+            if (UtilValidate.isNotEmpty(tzString)) {
+                idList = StringUtil.split(tzString, ",");
+            } else {
+                idList = Arrays.asList(TimeZone.getAvailableIDs());
+            }
+            for (String id : idList) {
+                TimeZone curTz = TimeZone.getTimeZone(id);
+                availableTimeZoneList.add(curTz);
+            }
+            availableTimeZoneList.trimToSize();
+            return Collections.unmodifiableList(availableTimeZoneList);
+        }
+
+    }
+
     /** Returns a List of available TimeZone objects.
      * @see java.util.TimeZone
      */
     public static List<TimeZone> availableTimeZones() {
-        if (availableTimeZoneList == null) {
-            synchronized(UtilDateTime.class) {
-                if (availableTimeZoneList == null) {
-                    availableTimeZoneList = new LinkedList<TimeZone>();
-                    List<String> idList = null;
-                    String tzString = UtilProperties.getPropertyValue("general", "timeZones.available");
-                    if (UtilValidate.isNotEmpty(tzString)) {
-                        idList = StringUtil.split(tzString, ",");
-                    } else {
-                        idList = Arrays.asList(TimeZone.getAvailableIDs());
-                    }
-                    for (String id: idList) {
-                        TimeZone curTz = TimeZone.getTimeZone(id);
-                        availableTimeZoneList.add(curTz);
-                    }
-                }
-            }
-        }
-        return availableTimeZoneList;
+        return TimeZoneHolder.availableTimeZoneList;
     }
 
     /** Returns a TimeZone object based upon a time zone ID. Method defaults to
@@ -1095,47 +1099,47 @@ public class UtilDateTime {
     }
 
     public static int getSecond(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.SECOND);
     }
 
     public static int getMinute(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.MINUTE);
     }
 
     public static int getHour(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.HOUR_OF_DAY);
     }
 
     public static int getDayOfWeek(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.DAY_OF_WEEK);
     }
 
     public static int getDayOfMonth(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.DAY_OF_MONTH);
     }
 
     public static int getDayOfYear(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.DAY_OF_YEAR);
     }
 
     public static int getWeek(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.WEEK_OF_YEAR);
     }
 
     public static int getMonth(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.MONTH);
     }
 
     public static int getYear(Timestamp stamp, TimeZone timeZone, Locale locale) {
-        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        Calendar cal = toCalendar(stamp, timeZone, locale);
         return cal.get(Calendar.YEAR);
     }
 
