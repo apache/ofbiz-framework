@@ -30,9 +30,9 @@ import org.ofbiz.base.lang.ComparableRange;
 @SuppressWarnings("serial")
 public class DateRange extends ComparableRange<Date> implements Serializable {
     /** A <code>Date</code> instance initialized to the earliest possible date.*/
-    public static final Date MIN_DATE = UtilDateTime.getEarliestDate();
+    public static final Date MIN_DATE = UtilDateTime.unmodifiableDate(UtilDateTime.getEarliestDate());
     /** A <code>Date</code> instance initialized to the latest possible date.*/
-    public static final Date MAX_DATE = UtilDateTime.getLatestDate();
+    public static final Date MAX_DATE = UtilDateTime.unmodifiableDate(UtilDateTime.getLatestDate());
     /** A <code>DateRange</code> instance initialized to the widest possible range of dates.*/
     public static final DateRange FullRange = new DateRange(MIN_DATE, MAX_DATE);
 
@@ -50,7 +50,8 @@ public class DateRange extends ComparableRange<Date> implements Serializable {
      * @param end If null, defaults to <a href="#MAX_DATE">MAX_DATE</a>
      */
     public DateRange(Date start, Date end) {
-        super(start == null ? MIN_DATE : timestampToDate(start), end == null ? MAX_DATE : timestampToDate(end));
+        super(start == null ? MIN_DATE : UtilDateTime.unmodifiableDate(timestampToDate(start)), end == null ? MAX_DATE
+                : UtilDateTime.unmodifiableDate(timestampToDate(end)));
     }
 
     @Override

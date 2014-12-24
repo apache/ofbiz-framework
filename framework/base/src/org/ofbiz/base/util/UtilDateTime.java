@@ -1162,4 +1162,67 @@ public class UtilDateTime {
         cal.set(Calendar.MILLISECOND, 999);
         return cal.getTime();
     }
+
+    /**
+     * Returns a copy of <code>date</code> that cannot be modified.
+     * Attempts to modify the returned date will result in an
+     * <tt>UnsupportedOperationException</tt>.
+     * 
+     * @param date
+     */
+    public static Date unmodifiableDate(Date date) {
+        if (date instanceof ImmutableDate) {
+            return date;
+        }
+        return new ImmutableDate(date.getTime());
+    }
+
+    @SuppressWarnings("serial")
+    private static class ImmutableDate extends Date {
+        private ImmutableDate(long date) {
+            super(date);
+        }
+
+        @Override
+        public Object clone() {
+            // No need to clone an immutable object.
+            return this;
+        }
+
+        @Override
+        public void setYear(int year) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setMonth(int month) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setDate(int date) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setHours(int hours) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setMinutes(int minutes) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setSeconds(int seconds) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public void setTime(long time) {
+            throw new UnsupportedOperationException();
+        }
+
+    }
 }
