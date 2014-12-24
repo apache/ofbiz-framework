@@ -479,5 +479,6 @@ OFBiz additional allowed tags:
         <!-- rsaquo is proposed but not yet ISO standardized -->
         <entity name="euro" cdata="&amp;#8364;"/> <!--euro sign, U+20AC NEW -->
         <entity name="rupee" cdata="&amp;#8377;"/> <!--rupee sign, U+20B9 NEW -->
+        <entity name="rupee" cdata="&amp;#8377;"/> <!--rupee sign, U+20B9 NEW -->
     </html-entities>
 </anti-samy-rules>
