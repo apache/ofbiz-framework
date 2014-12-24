@@ -95,6 +95,8 @@ the location of this file.
           <font-triplet name="ArialMT" style="normal" weight="bold"/>
         </font>
         -->
+          <auto-detect/>
+          <directory>framework/resources/fonts/NotoSans</directory>
       </fonts>
 
       <!-- This option lets you specify additional options on an XML handler -->

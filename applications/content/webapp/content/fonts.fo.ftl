@@ -1302,17 +1302,281 @@ Courier
 </fo:table-body>
 </fo:table>
   </fo:block>
+  
+  
+  <fo:block font-family="Helvetica"  font-size="14pt">
+NotoSans
+  </fo:block>
+  <fo:block space-after.optimum="10pt" font-family="NotoSans" font-size="10pt">
+<fo:table>
+<fo:table-column column-width="65pt"/>
+<fo:table-column column-width="30pt"/>
+<fo:table-column column-width="65pt"/>
+<fo:table-column column-width="30pt"/>
+<fo:table-column column-width="65pt"/>
+<fo:table-column column-width="30pt"/>
+<fo:table-column column-width="65pt"/>
+<fo:table-body>
+<fo:table-row>
+<fo:table-cell>
+  <fo:block>
+&amp;#x21; : &#x21;
+&amp;#x22; : &#x22;
+&amp;#x23; : &#x23;
+&amp;#x24; : &#x24;
+&amp;#x25; : &#x25;
+&amp;#x26; : &#x26;
+&amp;#x27; : &#x27;
+&amp;#x28; : &#x28;
+&amp;#x29; : &#x29;
+&amp;#x2A; : &#x2A;
+&amp;#x2B; : &#x2B;
+&amp;#x2C; : &#x2C;
+&amp;#x2D; : &#x2D;
+&amp;#x2E; : &#x2E;
+&amp;#x2F; : &#x2F;
+&amp;#x30; : &#x30;
+&amp;#x31; : &#x31;
+&amp;#x32; : &#x32;
+&amp;#x33; : &#x33;
+&amp;#x34; : &#x34;
+&amp;#x35; : &#x35;
+&amp;#x36; : &#x36;
+&amp;#x37; : &#x37;
+&amp;#x38; : &#x38;
+&amp;#x39; : &#x39;
+&amp;#x3A; : &#x3A;
+&amp;#x3B; : &#x3B;
+&amp;#x3C; : &#x3C;
+&amp;#x3D; : &#x3D;
+&amp;#x3E; : &#x3E;
+&amp;#x3F; : &#x3F;
+&amp;#x40; : &#x40;
+&amp;#x41; : &#x41;
+&amp;#x42; : &#x42;
+&amp;#x43; : &#x43;
+&amp;#x44; : &#x44;
+&amp;#x45; : &#x45;
+&amp;#x46; : &#x46;
+&amp;#x47; : &#x47;
+&amp;#x48; : &#x48;
+&amp;#x49; : &#x49;
+&amp;#x4A; : &#x4A;
+&amp;#x4B; : &#x4B;
+&amp;#x4C; : &#x4C;
+&amp;#x4D; : &#x4D;
+&amp;#x4E; : &#x4E;
+&amp;#x4F; : &#x4F;
+&amp;#x50; : &#x50;
+&amp;#x51; : &#x51;
+&amp;#x52; : &#x52;
+&amp;#x53; : &#x53;
+&amp;#x54; : &#x54;
+&amp;#x55; : &#x55;
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+&amp;#x56; : &#x56;
+&amp;#x57; : &#x57;
+&amp;#x58; : &#x58;
+&amp;#x59; : &#x59;
+&amp;#x5A; : &#x5A;
+&amp;#x5B; : &#x5B;
+&amp;#x5C; : &#x5C;
+&amp;#x5D; : &#x5D;
+&amp;#x5E; : &#x5E;
+&amp;#x5F; : &#x5F;
+&amp;#x60; : &#x60;
+&amp;#x61; : &#x61;
+&amp;#x62; : &#x62;
+&amp;#x63; : &#x63;
+&amp;#x64; : &#x64;
+&amp;#x65; : &#x65;
+&amp;#x66; : &#x66;
+&amp;#x67; : &#x67;
+&amp;#x68; : &#x68;
+&amp;#x69; : &#x69;
+&amp;#x6A; : &#x6A;
+&amp;#x6B; : &#x6B;
+&amp;#x6C; : &#x6C;
+&amp;#x6D; : &#x6D;
+&amp;#x6E; : &#x6E;
+&amp;#x6F; : &#x6F;
+&amp;#x70; : &#x70;
+&amp;#x71; : &#x71;
+&amp;#x72; : &#x72;
+&amp;#x73; : &#x73;
+&amp;#x74; : &#x74;
+&amp;#x75; : &#x75;
+&amp;#x76; : &#x76;
+&amp;#x77; : &#x77;
+&amp;#x78; : &#x78;
+&amp;#x79; : &#x79;
+&amp;#x7A; : &#x7A;
+&amp;#x7B; : &#x7B;
+&amp;#x7C; : &#x7C;
+&amp;#x7D; : &#x7D;
+&amp;#x7E; : &#x7E;
+&amp;#xA1; : &#xA1;
+&amp;#xA2; : &#xA2;
+&amp;#xA3; : &#xA3;
+&amp;#xA4; : &#xA4;
+&amp;#xA5; : &#xA5;
+&amp;#xA6; : &#xA6;
+&amp;#xA7; : &#xA7;
+&amp;#xA8; : &#xA8;
+&amp;#xA9; : &#xA9;
+&amp;#xAA; : &#xAA;
+&amp;#xAB; : &#xAB;
+&amp;#xAC; : &#xAC;
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+&amp;#xAE; : &#xAE;
+&amp;#xAF; : &#xAF;
+&amp;#xB0; : &#xB0;
+&amp;#xB1; : &#xB1;
+&amp;#xB2; : &#xB2;
+&amp;#xB3; : &#xB3;
+&amp;#xB4; : &#xB4;
+&amp;#xB5; : &#xB5;
+&amp;#xB6; : &#xB6;
+&amp;#xB7; : &#xB7;
+&amp;#xB8; : &#xB8;
+&amp;#xB9; : &#xB9;
+&amp;#xBA; : &#xBA;
+&amp;#xBB; : &#xBB;
+&amp;#xBC; : &#xBC;
+&amp;#xBD; : &#xBD;
+&amp;#xBE; : &#xBE;
+&amp;#xBF; : &#xBF;
+&amp;#xC0; : &#xC0;
+&amp;#xC1; : &#xC1;
+&amp;#xC2; : &#xC2;
+&amp;#xC3; : &#xC3;
+&amp;#xC4; : &#xC4;
+&amp;#xC5; : &#xC5;
+&amp;#xC6; : &#xC6;
+&amp;#xC7; : &#xC7;
+&amp;#xC8; : &#xC8;
+&amp;#xC9; : &#xC9;
+&amp;#xCA; : &#xCA;
+&amp;#xCB; : &#xCB;
+&amp;#xCC; : &#xCC;
+&amp;#xCD; : &#xCD;
+&amp;#xCE; : &#xCE;
+&amp;#xCF; : &#xCF;
+&amp;#xD0; : &#xD0;
+&amp;#xD1; : &#xD1;
+&amp;#xD2; : &#xD2;
+&amp;#xD3; : &#xD3;
+&amp;#xD4; : &#xD4;
+&amp;#xD5; : &#xD5;
+&amp;#xD6; : &#xD6;
+&amp;#xD7; : &#xD7;
+&amp;#xD8; : &#xD8;
+&amp;#xD9; : &#xD9;
+&amp;#xDA; : &#xDA;
+&amp;#xDB; : &#xDB;
+&amp;#xDC; : &#xDC;
+&amp;#xDD; : &#xDD;
+&amp;#xDE; : &#xDE;
+&amp;#xDF; : &#xDF;
+&amp;#xE0; : &#xE0;
+&amp;#xE1; : &#xE1;
+&amp;#xE2; : &#xE2;
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+  </fo:block>
+</fo:table-cell>
+<fo:table-cell>
+  <fo:block>
+&amp;#xE3; : &#xE3;
+&amp;#xE4; : &#xE4;
+&amp;#xE5; : &#xE5;
+&amp;#xE6; : &#xE6;
+&amp;#xE7; : &#xE7;
+&amp;#xE8; : &#xE8;
+&amp;#xE9; : &#xE9;
+&amp;#xEA; : &#xEA;
+&amp;#xEB; : &#xEB;
+&amp;#xEC; : &#xEC;
+&amp;#xED; : &#xED;
+&amp;#xEE; : &#xEE;
+&amp;#xEF; : &#xEF;
+&amp;#xF0; : &#xF0;
+&amp;#xF1; : &#xF1;
+&amp;#xF2; : &#xF2;
+&amp;#xF3; : &#xF3;
+&amp;#xF4; : &#xF4;
+&amp;#xF5; : &#xF5;
+&amp;#xF6; : &#xF6;
+&amp;#xF7; : &#xF7;
+&amp;#xF8; : &#xF8;
+&amp;#xF9; : &#xF9;
+&amp;#xFA; : &#xFA;
+&amp;#xFB; : &#xFB;
+&amp;#xFC; : &#xFC;
+&amp;#xFD; : &#xFD;
+&amp;#xFE; : &#xFE;
+&amp;#xFF; : &#xFF;
+&amp;#x0152; : &#x0152;
+&amp;#x0153; : &#x0153;
+&amp;#x0160; : &#x0160;
+&amp;#x0161; : &#x0161;
+&amp;#x0178; : &#x0178;
+&amp;#x017D; : &#x017D;
+&amp;#x017E; : &#x017E;
+&amp;#x0192; : &#x0192;
+&amp;#x02DC; : &#x02DC;
+&amp;#x2013; : &#x2013;
+&amp;#x2014; : &#x2014;
+&amp;#x2018; : &#x2018;
+&amp;#x2019; : &#x2019;
+&amp;#x201A; : &#x201A;
+&amp;#x201C; : &#x201C;
+&amp;#x201D; : &#x201D;
+&amp;#x201E; : &#x201E;
+&amp;#x2020; : &#x2020;
+&amp;#x2021; : &#x2021;
+&amp;#x2022; : &#x2022;
+&amp;#x2026; : &#x2026;
+&amp;#x2030; : &#x2030;
+&amp;#x2039; : &#x2039;
+&amp;#x203A; : &#x203A;
+&amp;#x2122; : &#x2122;
+  </fo:block>
+</fo:table-cell>
+</fo:table-row>
+</fo:table-body>
+</fo:table>
+  </fo:block>
 
+  
+
+  <fo:block font-family="Helvetica" font-size="12pt">
+Some special characters:
+  </fo:block>
   <fo:block font-family="Helvetica"  font-size="12pt">
- Some special characters:
+Euro symbol in Helvetica 12 ( dec 8364, hex 20AC): &#x20AC;
   </fo:block>
-  <fo:block space-after.optimum="10pt" font-family="Helvetica">
-Euro ( dec 8364, hex 20AC): &#x20AC;
+  <fo:block font-family="NotoSans"  font-size="12pt">
+Ruppe symbol in NotoSans 12 (dec 8377, hex 20B9): &#x20B9;
   </fo:block>
-
-
-  <fo:block space-after.optimum="10pt" font-family="Helvetica">
-
+  <fo:block font-family="NotoSans"  font-size="12pt">
+I &#x2665; NotoSans!
   </fo:block>
 
 </fo:flow>
