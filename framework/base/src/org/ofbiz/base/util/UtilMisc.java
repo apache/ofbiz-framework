@@ -722,46 +722,40 @@ public class UtilMisc {
      * @param localeObject An Object representing the locale
      */
     public static Locale ensureLocale(Object localeObject) {
-        if (localeObject != null && localeObject instanceof String) {
-            localeObject = UtilMisc.parseLocale((String) localeObject);
-        }
-        if (localeObject != null && localeObject instanceof Locale) {
+        if (localeObject instanceof String) {
+            return parseLocale((String) localeObject);
+        } else if (localeObject instanceof Locale) {
             return (Locale) localeObject;
         }
         return Locale.getDefault();
     }
 
-    public static List<Locale> availableLocaleList = null;
-    /** Returns a List of available locales sorted by display name */
-    public static List<Locale> availableLocales() {
-        if (availableLocaleList == null) {
-            synchronized(UtilMisc.class) {
-                if (availableLocaleList == null) {
-                    TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
-                    String localesString = UtilProperties.getPropertyValue("general", "locales.available");
-                    if (UtilValidate.isNotEmpty(localesString)) { // check if available locales need to be limited according general.properties file
-                        int end = -1;
-                        int start = 0;
-                        for (int i=0; start < localesString.length(); i++) {
-                            end = localesString.indexOf(",", start);
-                            if (end == -1) {
-                                end = localesString.length();
-                            }
-                            Locale curLocale = UtilMisc.ensureLocale(localesString.substring(start, end));
-                            localeMap.put(curLocale.getDisplayName(), curLocale);
-                            start = end + 1;
-                        }
-                    } else {
-                        Locale[] locales = Locale.getAvailableLocales();
-                        for (int i = 0; i < locales.length && locales[i] != null; i++) {
-                            localeMap.put(locales[i].getDisplayName(), locales[i]);
-                        }
-                    }
-                    availableLocaleList = new LinkedList<Locale>(localeMap.values());
+    // Private lazy-initializer class
+    private static class LocaleHolder {
+        private static final List<Locale> availableLocaleList = getAvailableLocaleList();
+
+        private static List<Locale> getAvailableLocaleList() {
+            TreeMap<String, Locale> localeMap = new TreeMap<String, Locale>();
+            String localesString = UtilProperties.getPropertyValue("general", "locales.available");
+            if (UtilValidate.isNotEmpty(localesString)) {
+                List<String> idList = StringUtil.split(localesString, ",");
+                for (String id : idList) {
+                    Locale curLocale = parseLocale(id);
+                    localeMap.put(curLocale.getDisplayName(), curLocale);
+                }
+            } else {
+                Locale[] locales = Locale.getAvailableLocales();
+                for (int i = 0; i < locales.length && locales[i] != null; i++) {
+                    localeMap.put(locales[i].getDisplayName(), locales[i]);
                 }
             }
+            return Collections.unmodifiableList(new ArrayList<Locale>(localeMap.values()));
         }
-        return availableLocaleList;
+    }
+
+    /** Returns a List of available locales sorted by display name */
+    public static List<Locale> availableLocales() {
+        return LocaleHolder.availableLocaleList;
     }
 
     /** @deprecated use Thread.sleep() */
