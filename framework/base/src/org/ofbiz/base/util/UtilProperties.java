@@ -30,6 +30,7 @@ import java.math.BigInteger;
 import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.InvalidPropertiesFormatException;
@@ -77,8 +78,6 @@ public class UtilProperties implements Serializable {
      */
     private static final UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
 
-    protected static Locale fallbackLocale = null;
-    protected static Set<Locale> defaultCandidateLocales = null;
     protected static Set<String> propertiesNotFound = new HashSet<String>();
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
@@ -746,29 +745,31 @@ public class UtilProperties implements Serializable {
 
     // ========= Classes and Methods for expanded Properties file support ========== //
 
+    // Private lazy-initializer class
+    private static class FallbackLocaleHolder {
+        private static final Locale fallbackLocale = getFallbackLocale();
+
+        private static Locale getFallbackLocale() {
+            Locale fallbackLocale = null;
+            String locale = getPropertyValue("general", "locale.properties.fallback");
+            if (UtilValidate.isNotEmpty(locale)) {
+                fallbackLocale = UtilMisc.parseLocale(locale);
+            }
+            if (fallbackLocale == null) {
+                fallbackLocale = Locale.ENGLISH;
+            }
+            return fallbackLocale;
+        }
+    }
+
     /** Returns the configured fallback locale. UtilProperties uses this locale
      * to resolve locale-specific XML properties.<p>The fallback locale can be
      * configured using the <code>locale.properties.fallback</code> property in
      * <code>general.properties</code>.
      * @return The configured fallback locale
-     * @deprecated Use <code>java.util.ResourceBundle.Control.getFallbackLocale(...)</code>
      */
-    @Deprecated
     public static Locale getFallbackLocale() {
-        if (fallbackLocale == null) {
-            synchronized (UtilProperties.class) {
-                if (fallbackLocale == null) {
-                    String locale = getPropertyValue("general", "locale.properties.fallback");
-                    if (UtilValidate.isNotEmpty(locale)) {
-                        fallbackLocale = UtilMisc.parseLocale(locale);
-                    }
-                    if (fallbackLocale == null) {
-                        fallbackLocale = UtilMisc.parseLocale("en");
-                    }
-                }
-            }
-        }
-        return fallbackLocale;
+        return FallbackLocaleHolder.fallbackLocale;
     }
 
     /** Converts a Locale instance to a candidate Locale list. The list
@@ -790,23 +791,26 @@ public class UtilProperties implements Serializable {
         return localeList;
     }
 
+    // Private lazy-initializer class
+    private static class CandidateLocalesHolder {
+        private static Set<Locale> defaultCandidateLocales = getDefaultCandidateLocales();
+
+        private static Set<Locale> getDefaultCandidateLocales() {
+            Set<Locale> defaultCandidateLocales = new LinkedHashSet<Locale>();
+            defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
+            defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
+            defaultCandidateLocales.add(Locale.ROOT);
+            return Collections.unmodifiableSet(defaultCandidateLocales);
+        }
+    }
+
     /** Returns the default candidate Locale list. The list is populated
      * with the JVM's default locale, the OFBiz fallback locale, and
      * the <code>LOCALE_ROOT</code> (empty) locale - in that order.
      * @return A list of default candidate locales.
      */
     public static Set<Locale> getDefaultCandidateLocales() {
-        if (defaultCandidateLocales == null) {
-            synchronized (UtilProperties.class) {
-                if (defaultCandidateLocales == null) {
-                    defaultCandidateLocales = new LinkedHashSet<Locale>();
-                    defaultCandidateLocales.addAll(localeToCandidateList(Locale.getDefault()));
-                    defaultCandidateLocales.addAll(localeToCandidateList(getFallbackLocale()));
-                    defaultCandidateLocales.add(Locale.ROOT);
-                }
-            }
-        }
-        return defaultCandidateLocales;
+        return CandidateLocalesHolder.defaultCandidateLocales;
     }
 
     /** Returns a list of candidate locales based on a supplied locale.
@@ -815,9 +819,7 @@ public class UtilProperties implements Serializable {
      * - in that order.
      * @param locale The desired locale
      * @return A list of candidate locales
-     * @deprecated Use <code>java.util.ResourceBundle.Control.getCandidateLocales(...)</code>
      */
-    @Deprecated
     public static List<Locale> getCandidateLocales(Locale locale) {
         // Java 6 conformance
         if (Locale.ROOT.equals(locale)) {
@@ -855,7 +857,7 @@ public class UtilProperties implements Serializable {
     }
 
     public static boolean isPropertiesResourceNotFound(String resource, Locale locale, boolean removeExtension) {
-        return propertiesNotFound.contains(UtilProperties.createResourceName(resource, locale, removeExtension));
+        return propertiesNotFound.contains(createResourceName(resource, locale, removeExtension));
     }
 
     /** Resolve a properties file URL.
