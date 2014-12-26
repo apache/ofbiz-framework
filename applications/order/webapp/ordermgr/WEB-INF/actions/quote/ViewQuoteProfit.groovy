@@ -22,6 +22,7 @@ import java.sql.Timestamp;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.Debug;
 
 costMult = 0.0;
 quoteCoefficients.each { quoteCoefficient ->
@@ -53,7 +54,10 @@ quoteItems.each { quoteItem ->
 
     try {
         if (currency && quoteItem.productId) {
-            productPrice = from("ProductPrice").where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST").filteryDate(issueDate).queryFirst();
+            productPrice = from("ProductPrice")
+                              .where(productId : quoteItem.productId, currencyUomId : currency, productPriceTypeId : "AVERAGE_COST")
+                              .filterByDate(issueDate)
+                              .queryFirst();
             if (productPrice?.price != null) {
                 averageCost = productPrice.price * selectedAmount;
             }
