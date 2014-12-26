@@ -206,10 +206,6 @@ public class FormRenderer {
      *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
      *   formName (String, optional alternate name for form, defaults to the
      *   value of the name attribute)
-     * @param formStringRenderer An implementation of the FormStringRenderer
-     *   interface that is responsible for the actual text generation for
-     *   different form elements; implementing your own makes it possible to
-     *   use the same form definitions for many types of form UIs
      */
     public void render(Appendable writer, Map<String, Object> context)
             throws Exception {
@@ -237,13 +233,7 @@ public class FormRenderer {
                 positions = curPos;
             }
             FieldInfo currentFieldInfo = modelFormField.getFieldInfo();
-            if (currentFieldInfo != null) {
-                ModelFormField fieldInfoFormField = currentFieldInfo.getModelFormField();
-                if (fieldInfoFormField != null) {
-                    // FIXME
-                    //fieldInfoFormField.setModelForm(this);
-                }
-            } else {
+            if (currentFieldInfo == null) {
                 throw new IllegalArgumentException(
                         "Error rendering form, a field has no FieldInfo, ie no sub-element for the type of field for field named: "
                                 + modelFormField.getName());

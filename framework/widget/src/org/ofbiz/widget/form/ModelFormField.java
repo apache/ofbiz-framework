@@ -24,6 +24,7 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -58,14 +59,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
-import org.ofbiz.entity.model.ModelReader;
-import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.ModelParam;
-import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.ModelFieldVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
@@ -75,534 +69,129 @@ import bsh.EvalError;
 import bsh.Interpreter;
 
 /**
- * Widget Library - Form model class
+ * Models the &lt;field&gt; element.
+ * 
+ * @see <code>widget-form.xsd</code>
  */
 public class ModelFormField {
 
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors. All behavior should be contained in model visitors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
+
     public static final String module = ModelFormField.class.getName();
 
-    protected ModelForm modelForm;
-
-    protected String name;
-    protected FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
-    protected String entityName;
-    protected String serviceName;
-    protected FlexibleMapAccessor<Object> entryAcsr;
-    protected String parameterName;
-    protected String fieldName;
-    protected String attributeName;
-    protected FlexibleStringExpander title;
-    protected FlexibleStringExpander tooltip;
-    protected String titleAreaStyle;
-    protected String widgetAreaStyle;
-    protected String titleStyle;
-    protected String widgetStyle;
-    protected String tooltipStyle;
-    protected String requiredFieldStyle;
-    protected String sortFieldStyle;
-    protected String sortFieldAscStyle;
-    protected String sortFieldDescStyle;
-    protected Integer position = null;
-    protected String redWhen;
-    protected FlexibleStringExpander useWhen;
-    protected boolean encodeOutput = true;
-    protected String event;
-    protected FlexibleStringExpander action;
-
-    protected FieldInfo fieldInfo = null;
-    protected String idName;
-    protected boolean separateColumn = false;
-    protected Boolean requiredField = null;
-    protected Boolean sortField = null;
-    protected String sortFieldHelpText = "";
-    protected String headerLink;
-    protected String headerLinkStyle;
-
-    /** On Change Event areas to be updated. */
-    protected List<UpdateArea> onChangeUpdateAreas;
-    /** On Click Event areas to be updated. */
-    protected List<UpdateArea> onClickUpdateAreas;
-
-    // ===== CONSTRUCTORS =====
-    /** Default Constructor */
-    public ModelFormField(ModelForm modelForm) {
-        this.modelForm = modelForm;
+    public static ModelFormField from(ModelFormFieldBuilder builder) {
+        return new ModelFormField(builder);
     }
 
-    /** XML Constructor */
-    public ModelFormField(Element fieldElement, ModelForm modelForm, ModelReader entityModelReader,
-            DispatchContext dispatchContext) {
-        this.modelForm = modelForm;
-        this.name = fieldElement.getAttribute("name");
-        this.setMapName(fieldElement.getAttribute("map-name"));
-        this.entityName = fieldElement.getAttribute("entity-name");
-        this.serviceName = fieldElement.getAttribute("service-name");
-        this.setEntryName(UtilXml.checkEmpty(fieldElement.getAttribute("entry-name"), this.name));
-        this.parameterName = UtilXml.checkEmpty(fieldElement.getAttribute("parameter-name"), this.name);
-        this.fieldName = UtilXml.checkEmpty(fieldElement.getAttribute("field-name"), this.name);
-        this.attributeName = UtilXml.checkEmpty(fieldElement.getAttribute("attribute-name"), this.name);
-        this.setTitle(fieldElement.hasAttribute("title") ? fieldElement.getAttribute("title") : null);
-        this.setTooltip(fieldElement.getAttribute("tooltip"));
-        this.titleAreaStyle = fieldElement.getAttribute("title-area-style");
-        this.widgetAreaStyle = fieldElement.getAttribute("widget-area-style");
-        this.titleStyle = fieldElement.getAttribute("title-style");
-        this.widgetStyle = fieldElement.getAttribute("widget-style");
-        this.tooltipStyle = fieldElement.getAttribute("tooltip-style");
-        this.requiredFieldStyle = fieldElement.getAttribute("required-field-style");
-        this.sortFieldStyle = fieldElement.getAttribute("sort-field-style");
-        this.sortFieldAscStyle = fieldElement.getAttribute("sort-field-asc-style");
-        this.sortFieldDescStyle = fieldElement.getAttribute("sort-field-desc-style");
-        this.redWhen = fieldElement.getAttribute("red-when");
-        this.setUseWhen(fieldElement.getAttribute("use-when"));
-        this.encodeOutput = !"false".equals(fieldElement.getAttribute("encode-output"));
-        this.event = fieldElement.getAttribute("event");
-        this.setAction(fieldElement.hasAttribute("action") ? fieldElement.getAttribute("action") : null);
-        this.idName = fieldElement.getAttribute("id-name");
-        this.separateColumn = "true".equals(fieldElement.getAttribute("separate-column"));
-        this.requiredField = fieldElement.hasAttribute("required-field") ? "true".equals(fieldElement
-                .getAttribute("required-field")) : null;
-        this.sortField = fieldElement.hasAttribute("sort-field") ? "true".equals(fieldElement.getAttribute("sort-field")) : null;
-        this.sortFieldHelpText = fieldElement.getAttribute("sort-field-help-text");
-        this.headerLink = fieldElement.getAttribute("header-link");
-        this.headerLinkStyle = fieldElement.getAttribute("header-link-style");
+    private final FlexibleStringExpander action;
+    private final String attributeName;
+    private final boolean encodeOutput;
+    private final String entityName;
+    private final FlexibleMapAccessor<Object> entryAcsr;
+    private final String event;
+    private final FieldInfo fieldInfo;
+    private final String fieldName;
+    private final String headerLink;
+    private final String headerLinkStyle;
+    private final String idName;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> mapAcsr;
+    private final ModelForm modelForm;
+    private final String name;
+    private final List<UpdateArea> onChangeUpdateAreas;
+    private final List<UpdateArea> onClickUpdateAreas;
+    private final String parameterName;
+    private final Integer position;
+    private final String redWhen;
+    private final Boolean requiredField;
+    private final String requiredFieldStyle;
+    private final boolean separateColumn;
+    private final String serviceName;
+    private final Boolean sortField;
+    private final String sortFieldAscStyle;
+    private final String sortFieldDescStyle;
+    private final String sortFieldHelpText;
+    private final String sortFieldStyle;
+    private final FlexibleStringExpander title;
+    private final String titleAreaStyle;
+    private final String titleStyle;
+    private final FlexibleStringExpander tooltip;
+    private final String tooltipStyle;
+    private final FlexibleStringExpander useWhen;
+    private final String widgetAreaStyle;
+    private final String widgetStyle;
 
-        String positionStr = fieldElement.getAttribute("position");
-        try {
-            if (UtilValidate.isNotEmpty(positionStr))
-                position = Integer.valueOf(positionStr);
-        } catch (Exception e) {
-            Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" + positionStr
-                    + "], using the default of the form renderer", module);
-        }
-
-        // get sub-element and set fieldInfo
-        List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
-        for (Element subElement : subElements) {
-            String subElementName = subElement.getTagName();
-            if (Debug.verboseOn())
-                Debug.logVerbose("Processing field " + this.name + " with type info tag " + subElementName, module);
-
-            if (UtilValidate.isEmpty(subElementName)) {
-                this.fieldInfo = null;
-                this.induceFieldInfo(null, entityModelReader, dispatchContext); //no defaultFieldType specified here, will default to edit
-            } else if ("display".equals(subElementName))
-                this.fieldInfo = new DisplayField(subElement, this);
-            else if ("display-entity".equals(subElementName))
-                this.fieldInfo = new DisplayEntityField(subElement, this);
-            else if ("hyperlink".equals(subElementName))
-                this.fieldInfo = new HyperlinkField(subElement, this);
-            else if ("text".equals(subElementName))
-                this.fieldInfo = new TextField(subElement, this);
-            else if ("textarea".equals(subElementName))
-                this.fieldInfo = new TextareaField(subElement, this);
-            else if ("date-time".equals(subElementName))
-                this.fieldInfo = new DateTimeField(subElement, this);
-            else if ("drop-down".equals(subElementName))
-                this.fieldInfo = new DropDownField(subElement, this);
-            else if ("check".equals(subElementName))
-                this.fieldInfo = new CheckField(subElement, this);
-            else if ("radio".equals(subElementName))
-                this.fieldInfo = new RadioField(subElement, this);
-            else if ("submit".equals(subElementName))
-                this.fieldInfo = new SubmitField(subElement, this);
-            else if ("reset".equals(subElementName))
-                this.fieldInfo = new ResetField(subElement, this);
-            else if ("hidden".equals(subElementName))
-                this.fieldInfo = new HiddenField(subElement, this);
-            else if ("ignored".equals(subElementName))
-                this.fieldInfo = new IgnoredField(subElement, this);
-            else if ("text-find".equals(subElementName))
-                this.fieldInfo = new TextFindField(subElement, this);
-            else if ("date-find".equals(subElementName))
-                this.fieldInfo = new DateFindField(subElement, this);
-            else if ("range-find".equals(subElementName))
-                this.fieldInfo = new RangeFindField(subElement, this);
-            else if ("lookup".equals(subElementName))
-                this.fieldInfo = new LookupField(subElement, this);
-            else if ("file".equals(subElementName))
-                this.fieldInfo = new FileField(subElement, this);
-            else if ("password".equals(subElementName))
-                this.fieldInfo = new PasswordField(subElement, this);
-            else if ("image".equals(subElementName))
-                this.fieldInfo = new ImageField(subElement, this);
-            else if ("container".equals(subElementName))
-                this.fieldInfo = new ContainerField(subElement, this);
-            else if ("on-field-event-update-area".equals(subElementName))
-                addOnEventUpdateArea(new UpdateArea(subElement));
-            else
-                throw new IllegalArgumentException("The field sub-element with name " + subElementName + " is not supported");
-        }
-    }
-
-    private void addOnEventUpdateArea(UpdateArea updateArea) {
-        // Event types are sorted as a convenience for the rendering classes
-        Debug.logInfo(this.modelForm.getName() + ":" + this.name + " adding UpdateArea type " + updateArea.getEventType(), module);
-        if ("change".equals(updateArea.getEventType()))
-            addOnChangeUpdateArea(updateArea);
-        else if ("click".equals(updateArea.getEventType()))
-            addOnClickUpdateArea(updateArea);
-    }
-
-    private void addOnChangeUpdateArea(UpdateArea updateArea) {
-        if (onChangeUpdateAreas == null)
-            onChangeUpdateAreas = new ArrayList<UpdateArea>();
-        onChangeUpdateAreas.add(updateArea);
-        Debug.logInfo(this.modelForm.getName() + ":" + this.name + " onChangeUpdateAreas size = " + onChangeUpdateAreas.size(),
-                module);
-    }
-
-    private void addOnClickUpdateArea(UpdateArea updateArea) {
-        if (onClickUpdateAreas == null)
-            onClickUpdateAreas = new ArrayList<UpdateArea>();
-        onClickUpdateAreas.add(updateArea);
-    }
-
-    public void mergeOverrideModelFormField(ModelFormField overrideFormField) {
-        if (overrideFormField == null)
-            return;
-
-        // incorporate updates for values that are not empty in the overrideFormField
-        if (UtilValidate.isNotEmpty(overrideFormField.name))
-            this.name = overrideFormField.name;
-        if (UtilValidate.isNotEmpty(overrideFormField.mapAcsr))
-            this.mapAcsr = overrideFormField.mapAcsr; //Debug.logInfo("overriding mapAcsr, old=" + (this.mapAcsr==null?"null":this.mapAcsr.getOriginalName()) + ", new=" + overrideFormField.mapAcsr.getOriginalName(), module);
-        if (UtilValidate.isNotEmpty(overrideFormField.entityName))
-            this.entityName = overrideFormField.entityName;
-        if (UtilValidate.isNotEmpty(overrideFormField.serviceName))
-            this.serviceName = overrideFormField.serviceName;
-        if (UtilValidate.isNotEmpty(overrideFormField.entryAcsr))
-            this.entryAcsr = overrideFormField.entryAcsr;
-        if (UtilValidate.isNotEmpty(overrideFormField.parameterName))
-            this.parameterName = overrideFormField.parameterName;
-        if (UtilValidate.isNotEmpty(overrideFormField.fieldName))
-            this.fieldName = overrideFormField.fieldName;
-        if (UtilValidate.isNotEmpty(overrideFormField.attributeName))
-            this.attributeName = overrideFormField.attributeName;
-        if (UtilValidate.isNotEmpty(overrideFormField.title))
-            this.title = overrideFormField.title; // title="" can be used to override the original value
-        if (UtilValidate.isNotEmpty(overrideFormField.tooltip))
-            this.tooltip = overrideFormField.tooltip;
-        if (overrideFormField.requiredField != null)
-            this.requiredField = overrideFormField.requiredField;
-        if (overrideFormField.sortField != null)
-            this.sortField = overrideFormField.sortField;
-        if (UtilValidate.isNotEmpty(overrideFormField.sortFieldHelpText))
-            this.sortFieldHelpText = overrideFormField.sortFieldHelpText;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle))
-            this.titleAreaStyle = overrideFormField.titleAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle))
-            this.widgetAreaStyle = overrideFormField.widgetAreaStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.titleStyle))
-            this.titleStyle = overrideFormField.titleStyle;
-        if (UtilValidate.isNotEmpty(overrideFormField.widgetStyle))
-            this.widgetStyle = overrideFormField.widgetStyle;
-        if (overrideFormField.position != null)
-            this.position = overrideFormField.position;
-        if (UtilValidate.isNotEmpty(overrideFormField.redWhen))
-            this.redWhen = overrideFormField.redWhen;
-        if (UtilValidate.isNotEmpty(overrideFormField.event))
-            this.event = overrideFormField.event;
-        if (UtilValidate.isNotEmpty(overrideFormField.action))
-            this.action = overrideFormField.action;
-        if (UtilValidate.isNotEmpty(overrideFormField.useWhen))
-            this.useWhen = overrideFormField.useWhen;
-        if (overrideFormField.fieldInfo != null)
-            this.setFieldInfo(overrideFormField.fieldInfo);
-        if (overrideFormField.headerLink != null)
-            this.setHeaderLink(overrideFormField.headerLink);
-        if (UtilValidate.isNotEmpty(overrideFormField.idName))
-            this.idName = overrideFormField.idName;
-        if (overrideFormField.onChangeUpdateAreas != null)
-            this.onChangeUpdateAreas = overrideFormField.onChangeUpdateAreas;
-        if (overrideFormField.onClickUpdateAreas != null)
-            this.onClickUpdateAreas = overrideFormField.onClickUpdateAreas;
-        this.encodeOutput = overrideFormField.encodeOutput;
-    }
-
-    private boolean induceFieldInfo(String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
-        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader))
-            return true;
-        if (this.induceFieldInfoFromServiceParam(defaultFieldType, entityModelReader, dispatchContext))
-            return true;
-        return false;
-    }
-
-    private boolean induceFieldInfoFromServiceParam(String defaultFieldType, ModelReader entityModelReader,
-            DispatchContext dispatchContext) {
-        if (UtilValidate.isEmpty(this.getServiceName()) || UtilValidate.isEmpty(this.getAttributeName()))
-            return false;
-        try {
-            ModelService modelService = dispatchContext.getModelService(this.getServiceName());
-            if (modelService != null) {
-                ModelParam modelParam = modelService.getParam(this.getAttributeName());
-                if (modelParam != null) {
-                    if (UtilValidate.isNotEmpty(modelParam.entityName) && UtilValidate.isNotEmpty(modelParam.fieldName)) {
-                        this.entityName = modelParam.entityName;
-                        this.fieldName = modelParam.fieldName;
-                        if (this.induceFieldInfoFromEntityField(defaultFieldType, entityModelReader)) {
-                            return true;
-                        }
-                    }
-
-                    this.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
-                    return true;
-                }
-            }
-        } catch (GenericServiceException e) {
-            Debug.logError(e,
-                    "error getting service parameter definition for auto-field with serviceName: " + this.getServiceName()
-                            + ", and attributeName: " + this.getAttributeName(), module);
-        }
-        return false;
-    }
-
-    public boolean induceFieldInfoFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType) {
-        if (modelService == null || modelParam == null)
-            return false;
-
-        this.serviceName = modelService.name;
-        this.attributeName = modelParam.name;
-
-        if ("find".equals(defaultFieldType)) {
-            if (modelParam.type.indexOf("Double") != -1 || modelParam.type.indexOf("Float") != -1
-                    || modelParam.type.indexOf("Long") != -1 || modelParam.type.indexOf("Integer") != -1) {
-                ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                textField.setSize(6);
-                this.setFieldInfo(textField);
-            } else if (modelParam.type.indexOf("Timestamp") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("timestamp");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Date") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("date");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Time") != -1) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("time");
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                this.setFieldInfo(textField);
-            }
-        } else if ("display".equals(defaultFieldType)) {
-            ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-            this.setFieldInfo(displayField);
+    private ModelFormField(ModelFormFieldBuilder builder) {
+        this.action = builder.getAction();
+        this.attributeName = builder.getAttributeName();
+        this.encodeOutput = builder.getEncodeOutput();
+        this.entityName = builder.getEntityName();
+        this.entryAcsr = builder.getEntryAcsr();
+        this.event = builder.getEvent();
+        if (builder.getFieldInfo() != null) {
+            this.fieldInfo = builder.getFieldInfo().copy(this);
         } else {
-            // default to "edit"
-            if (modelParam.type.indexOf("Double") != -1 || modelParam.type.indexOf("Float") != -1
-                    || modelParam.type.indexOf("Long") != -1 || modelParam.type.indexOf("Integer") != -1) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                textField.setSize(6);
-                this.setFieldInfo(textField);
-            } else if (modelParam.type.indexOf("Timestamp") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("timestamp");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Date") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("date");
-                this.setFieldInfo(dateTimeField);
-            } else if (modelParam.type.indexOf("Time") != -1) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                dateTimeField.setType("time");
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-                this.setFieldInfo(textField);
-            }
+            this.fieldInfo = null;
         }
-
-        return true;
-    }
-
-    private boolean induceFieldInfoFromEntityField(String defaultFieldType, ModelReader entityModelReader) {
-        if (UtilValidate.isEmpty(this.getEntityName()) || UtilValidate.isEmpty(this.getFieldName()))
-            return false;
-        try {
-            ModelEntity modelEntity = entityModelReader.getModelEntity(this.getEntityName());
-            if (modelEntity != null) {
-                ModelField modelField = modelEntity.getField(this.getFieldName());
-                if (modelField != null) {
-                    // okay, populate using the entity field info...
-                    this.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-                    return true;
-                }
-            }
-        } catch (GenericEntityException e) {
-            Debug.logError(e, module);
-        }
-        return false;
-    }
-
-    public boolean induceFieldInfoFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType) {
-        if (modelEntity == null || modelField == null)
-            return false;
-
-        this.entityName = modelEntity.getEntityName();
-        this.fieldName = modelField.getName();
-
-        if ("find".equals(defaultFieldType)) {
-            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(20);
-                textField.setMaxlength(Integer.valueOf(20));
-                this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(40);
-                textField.setMaxlength(Integer.valueOf(60));
-                this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(60);
-                textField.setMaxlength(Integer.valueOf(250));
-                this.setFieldInfo(textField);
-            } else if ("very-short".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(6);
-                textField.setMaxlength(Integer.valueOf(10));
-                this.setFieldInfo(textField);
-            } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(40);
-                textField.setMaxlength(Integer.valueOf(60));
-                this.setFieldInfo(textField);
-            } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
-                    || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
-                    || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(60);
-                textField.setMaxlength(Integer.valueOf(250));
-                this.setFieldInfo(textField);
-            } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
-                    || "numeric".equals(modelField.getType())) {
-                ModelFormField.RangeFindField textField = new ModelFormField.RangeFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(6);
-                this.setFieldInfo(textField);
-            } else if ("date-time".equals(modelField.getType()) || "date".equals(modelField.getType())
-                    || "time".equals(modelField.getType())) {
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                if ("date-time".equals(modelField.getType())) {
-                    dateTimeField.setType("timestamp");
-                } else if ("date".equals(modelField.getType())) {
-                    dateTimeField.setType("date");
-                } else if ("time".equals(modelField.getType())) {
-                    dateTimeField.setType("time");
-                }
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextFindField textField = new ModelFormField.TextFindField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                this.setFieldInfo(textField);
-            }
-        } else if ("display".equals(defaultFieldType)) {
-            ModelFormField.DisplayField displayField = new ModelFormField.DisplayField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-            this.setFieldInfo(displayField);
-        } else if ("hidden".equals(defaultFieldType)) {
-            ModelFormField.HiddenField hiddenField = new ModelFormField.HiddenField(FieldInfo.SOURCE_AUTO_SERVICE, this);
-            this.setFieldInfo(hiddenField);
+        this.fieldName = builder.getFieldName();
+        this.headerLink = builder.getHeaderLink();
+        this.headerLinkStyle = builder.getHeaderLinkStyle();
+        this.idName = builder.getIdName();
+        this.mapAcsr = builder.getMapAcsr();
+        this.modelForm = builder.getModelForm();
+        this.name = builder.getName();
+        Debug.logInfo("name = " + name + ", fieldInfo = " + fieldInfo, module);
+        if (builder.getOnChangeUpdateAreas().isEmpty()) {
+            this.onChangeUpdateAreas = Collections.emptyList();
         } else {
-            if ("id".equals(modelField.getType()) || "id-ne".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(20);
-                textField.setMaxlength(Integer.valueOf(20));
-                this.setFieldInfo(textField);
-            } else if ("id-long".equals(modelField.getType()) || "id-long-ne".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(40);
-                textField.setMaxlength(Integer.valueOf(60));
-                this.setFieldInfo(textField);
-            } else if ("id-vlong".equals(modelField.getType()) || "id-vlong-ne".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(60);
-                textField.setMaxlength(Integer.valueOf(250));
-                this.setFieldInfo(textField);
-            } else if ("indicator".equals(modelField.getType())) {
-                ModelFormField.DropDownField dropDownField = new ModelFormField.DropDownField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                dropDownField.setAllowEmpty(false);
-                dropDownField.addOptionSource(new ModelFormField.SingleOption("Y", null, dropDownField));
-                dropDownField.addOptionSource(new ModelFormField.SingleOption("N", null, dropDownField));
-                this.setFieldInfo(dropDownField);
-                //ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                //textField.setSize(1);
-                //textField.setMaxlength(Integer.valueOf(1));
-                //this.setFieldInfo(textField);
-            } else if ("very-short".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(6);
-                textField.setMaxlength(Integer.valueOf(10));
-                this.setFieldInfo(textField);
-            } else if ("very-long".equals(modelField.getType())) {
-                ModelFormField.TextareaField textareaField = new ModelFormField.TextareaField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textareaField.setCols(60);
-                textareaField.setRows(2);
-                this.setFieldInfo(textareaField);
-            } else if ("name".equals(modelField.getType()) || "short-varchar".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(40);
-                textField.setMaxlength(Integer.valueOf(60));
-                this.setFieldInfo(textField);
-            } else if ("value".equals(modelField.getType()) || "comment".equals(modelField.getType())
-                    || "description".equals(modelField.getType()) || "long-varchar".equals(modelField.getType())
-                    || "url".equals(modelField.getType()) || "email".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(60);
-                textField.setMaxlength(Integer.valueOf(250));
-                this.setFieldInfo(textField);
-            } else if ("floating-point".equals(modelField.getType()) || "currency-amount".equals(modelField.getType())
-                    || "numeric".equals(modelField.getType())) {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                textField.setSize(6);
-                this.setFieldInfo(textField);
-            } else if ("date-time".equals(modelField.getType()) || "date".equals(modelField.getType())
-                    || "time".equals(modelField.getType())) {
-                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                if ("date-time".equals(modelField.getType())) {
-                    dateTimeField.setType("timestamp");
-                } else if ("date".equals(modelField.getType())) {
-                    dateTimeField.setType("date");
-                } else if ("time".equals(modelField.getType())) {
-                    dateTimeField.setType("time");
-                }
-                this.setFieldInfo(dateTimeField);
-            } else {
-                ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, this);
-                this.setFieldInfo(textField);
-            }
+            this.onChangeUpdateAreas = Collections.unmodifiableList(new ArrayList<UpdateArea>(builder.getOnChangeUpdateAreas()));
         }
-
-        return true;
-    }
-
-    public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-            throws IOException {
-        this.fieldInfo.renderFieldString(writer, context, formStringRenderer);
-    }
-
-    public List<UpdateArea> getOnChangeUpdateAreas() {
-        return onChangeUpdateAreas;
-    }
-
-    public List<UpdateArea> getOnClickUpdateAreas() {
-        return onClickUpdateAreas;
-    }
-
-    public FieldInfo getFieldInfo() {
-        return fieldInfo;
-    }
-
-    public ModelForm getModelForm() {
-        return modelForm;
-    }
-
-    /**
-     * @param fieldInfo
-     */
-    public void setFieldInfo(FieldInfo fieldInfo) {
-        // field info is a little different, check source for priority
-        if (fieldInfo != null && (this.fieldInfo == null || (fieldInfo.getFieldSource() <= this.fieldInfo.getFieldSource()))) {
-            this.fieldInfo = fieldInfo.copy(this);
+        if (builder.getOnClickUpdateAreas().isEmpty()) {
+            this.onClickUpdateAreas = Collections.emptyList();
+        } else {
+            this.onClickUpdateAreas = Collections.unmodifiableList(new ArrayList<UpdateArea>(builder.getOnClickUpdateAreas()));
         }
+        this.parameterName = builder.getParameterName();
+        this.position = builder.getPosition();
+        this.redWhen = builder.getRedWhen();
+        this.requiredField = builder.getRequiredField();
+        this.requiredFieldStyle = builder.getRequiredFieldStyle();
+        this.separateColumn = builder.getSeparateColumn();
+        this.serviceName = builder.getServiceName();
+        this.sortField = builder.getSortField();
+        this.sortFieldAscStyle = builder.getSortFieldAscStyle();
+        this.sortFieldDescStyle = builder.getSortFieldDescStyle();
+        this.sortFieldHelpText = builder.getSortFieldHelpText();
+        this.sortFieldStyle = builder.getSortFieldStyle();
+        this.title = builder.getTitle();
+        this.titleAreaStyle = builder.getTitleAreaStyle();
+        this.titleStyle = builder.getTitleStyle();
+        this.tooltip = builder.getTooltip();
+        this.tooltipStyle = builder.getTooltipStyle();
+        this.useWhen = builder.getUseWhen();
+        this.widgetAreaStyle = builder.getWidgetAreaStyle();
+        this.widgetStyle = builder.getWidgetStyle();
+    }
+
+    public FlexibleStringExpander getAction() {
+        return action;
+    }
+
+    public String getAction(Map<String, ? extends Object> context) {
+        if (UtilValidate.isNotEmpty(this.action))
+            return action.expandString(context);
+        return null;
     }
 
     /**
@@ -618,22 +207,35 @@ public class ModelFormField {
         return this.name;
     }
 
+    public String getCurrentContainerId(Map<String, Object> context) {
+        ModelForm modelForm = this.getModelForm();
+        String idName = FlexibleStringExpander.expandString(this.getIdName(), context);
+
+        if (modelForm != null) {
+            Integer itemIndex = (Integer) context.get("itemIndex");
+            if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType())) {
+                if (itemIndex != null) {
+                    return idName + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+                }
+            }
+        }
+        return idName;
+    }
+
+    public boolean getEncodeOutput() {
+        return this.encodeOutput;
+    }
+
     public String getEntityName() {
         if (UtilValidate.isNotEmpty(this.entityName))
             return this.entityName;
         return this.modelForm.getDefaultEntityName();
     }
 
-    public String getEntryName() {
-        if (UtilValidate.isNotEmpty(this.entryAcsr))
-            return this.entryAcsr.getOriginalName();
-        return this.name;
-    }
-
     /**
      * Gets the entry from the context that corresponds to this field; if this
      * form is being rendered in an error condition (ie isError in the context
-     * is true) then the value will be retreived from the parameters Map in
+     * is true) then the value will be retrieved from the parameters Map in
      * the context.
      *
      * @param context the context
@@ -749,6 +351,51 @@ public class ModelFormField {
         return returnValue;
     }
 
+    public FlexibleMapAccessor<Object> getEntryAcsr() {
+        return entryAcsr;
+    }
+
+    public String getEntryName() {
+        if (UtilValidate.isNotEmpty(this.entryAcsr))
+            return this.entryAcsr.getOriginalName();
+        return this.name;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public FieldInfo getFieldInfo() {
+        return fieldInfo;
+    }
+
+    /**
+     * Gets the name of the Entity Field that corresponds
+     * with this field. This can be used to get additional information about the field.
+     * Use the getEntityName() method to get the Entity name that the field is in.
+     *
+     * @return return the name of the Entity Field that corresponds with this field
+     */
+    public String getFieldName() {
+        if (UtilValidate.isNotEmpty(this.fieldName))
+            return this.fieldName;
+        return this.name;
+    }
+
+    public String getHeaderLink() {
+        return headerLink;
+    }
+
+    public String getHeaderLinkStyle() {
+        return headerLinkStyle;
+    }
+
+    public String getIdName() {
+        if (UtilValidate.isNotEmpty(idName))
+            return idName;
+        return this.modelForm.getName() + "_" + this.getFieldName();
+    }
+
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
         if (UtilValidate.isEmpty(this.mapAcsr))
             return this.modelForm.getDefaultMap(context); //Debug.logInfo("Getting Map from default of the form because of no mapAcsr for field " + this.getName(), module);
@@ -766,17 +413,8 @@ public class ModelFormField {
         return result;
     }
 
-    /**
-     * Gets the name of the Entity Field that corresponds
-     * with this field. This can be used to get additional information about the field.
-     * Use the getEntityName() method to get the Entity name that the field is in.
-     *
-     * @return return the name of the Entity Field that corresponds with this field
-     */
-    public String getFieldName() {
-        if (UtilValidate.isNotEmpty(this.fieldName))
-            return this.fieldName;
-        return this.name;
+    public FlexibleMapAccessor<Map<String, ? extends Object>> getMapAcsr() {
+        return mapAcsr;
     }
 
     /** Get the name of the Map in the form context that contains the entry,
@@ -793,8 +431,24 @@ public class ModelFormField {
         return this.modelForm.getDefaultMapName();
     }
 
+    public ModelForm getModelForm() {
+        return modelForm;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public List<UpdateArea> getOnChangeUpdateAreas() {
+        return onChangeUpdateAreas;
+    }
+
+    public List<UpdateArea> getOnClickUpdateAreas() {
+        return onClickUpdateAreas;
+    }
+
+    public String getParameterName() {
+        return parameterName;
     }
 
     /**
@@ -828,14 +482,190 @@ public class ModelFormField {
         return redWhen;
     }
 
-    public String getEvent() {
-        return event;
+    public boolean getRequiredField() {
+        return this.requiredField != null ? this.requiredField : false;
     }
 
-    public String getAction(Map<String, ? extends Object> context) {
-        if (UtilValidate.isNotEmpty(this.action))
-            return action.expandString(context);
-        return null;
+    public String getRequiredFieldStyle() {
+        if (UtilValidate.isNotEmpty(this.requiredFieldStyle))
+            return this.requiredFieldStyle;
+        return this.modelForm.getDefaultRequiredFieldStyle();
+    }
+
+    public boolean getSeparateColumn() {
+        return this.separateColumn;
+    }
+
+    public String getServiceName() {
+        if (UtilValidate.isNotEmpty(this.serviceName))
+            return this.serviceName;
+        return this.modelForm.getDefaultServiceName();
+    }
+
+    public Boolean getSortField() {
+        return sortField;
+    }
+
+    public String getSortFieldAscStyle() {
+        return sortFieldAscStyle;
+    }
+
+    public String getSortFieldDescStyle() {
+        return sortFieldDescStyle;
+    }
+
+    public String getSortFieldHelpText() {
+        return sortFieldHelpText;
+    }
+
+    public String getSortFieldHelpText(Map<String, Object> context) {
+        return FlexibleStringExpander.expandString(this.sortFieldHelpText, context);
+    }
+
+    public String getSortFieldStyle() {
+        if (UtilValidate.isNotEmpty(this.sortFieldStyle))
+            return this.sortFieldStyle;
+        return this.modelForm.getDefaultSortFieldStyle();
+    }
+
+    public String getSortFieldStyleAsc() {
+        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle))
+            return this.sortFieldAscStyle;
+        return this.modelForm.getDefaultSortFieldAscStyle();
+    }
+
+    public String getSortFieldStyleDesc() {
+        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle))
+            return this.sortFieldDescStyle;
+        return this.modelForm.getDefaultSortFieldDescStyle();
+    }
+
+    public FlexibleStringExpander getTitle() {
+        return title;
+    }
+
+    public String getTitle(Map<String, Object> context) {
+        if (UtilValidate.isNotEmpty(this.title))
+            return title.expandString(context);
+
+        // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
+        if (UtilValidate.isEmpty(this.name))
+            return ""; // this should never happen, ie name is required
+
+        // search for a localized label for the field's name
+        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+        if (uiLabelMap != null) {
+            String titleFieldName = "FormFieldTitle_" + this.name;
+            String localizedName = uiLabelMap.get(titleFieldName);
+            if (!localizedName.equals(titleFieldName)) {
+                return localizedName;
+            }
+        } else {
+            Debug.logWarning("Could not find uiLabelMap in context while rendering form " + this.modelForm.getName(), module);
+        }
+
+        // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
+        StringBuilder autoTitlewriter = new StringBuilder();
+
+        // always use upper case first letter...
+        autoTitlewriter.append(Character.toUpperCase(this.name.charAt(0)));
+
+        // just put spaces before the upper case letters
+        for (int i = 1; i < this.name.length(); i++) {
+            char curChar = this.name.charAt(i);
+            if (Character.isUpperCase(curChar)) {
+                autoTitlewriter.append(' ');
+            }
+            autoTitlewriter.append(curChar);
+        }
+
+        return autoTitlewriter.toString();
+    }
+
+    public String getTitleAreaStyle() {
+        if (UtilValidate.isNotEmpty(this.titleAreaStyle))
+            return this.titleAreaStyle;
+        return this.modelForm.getDefaultTitleAreaStyle();
+    }
+
+    public String getTitleStyle() {
+        if (UtilValidate.isNotEmpty(this.titleStyle))
+            return this.titleStyle;
+        return this.modelForm.getDefaultTitleStyle();
+    }
+
+    public FlexibleStringExpander getTooltip() {
+        return tooltip;
+    }
+
+    public String getTooltip(Map<String, Object> context) {
+        String tooltipString = "";
+        if (UtilValidate.isNotEmpty(tooltip))
+            tooltipString = tooltip.expandString(context);
+        if (this.getEncodeOutput()) {
+            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null)
+                tooltipString = simpleEncoder.encode(tooltipString);
+        }
+        return tooltipString;
+    }
+
+    public String getTooltipStyle() {
+        if (UtilValidate.isNotEmpty(this.tooltipStyle))
+            return this.tooltipStyle;
+        return this.modelForm.getDefaultTooltipStyle();
+    }
+
+    public FlexibleStringExpander getUseWhen() {
+        return useWhen;
+    }
+
+    public String getUseWhen(Map<String, Object> context) {
+        if (UtilValidate.isNotEmpty(this.useWhen))
+            return this.useWhen.expandString(context);
+        return "";
+    }
+
+    public String getWidgetAreaStyle() {
+        if (UtilValidate.isNotEmpty(this.widgetAreaStyle))
+            return this.widgetAreaStyle;
+        return this.modelForm.getDefaultWidgetAreaStyle();
+    }
+
+    public String getWidgetStyle() {
+        if (UtilValidate.isNotEmpty(this.widgetStyle))
+            return this.widgetStyle;
+        return this.modelForm.getDefaultWidgetStyle();
+    }
+
+    /**
+     * Checks if field is a row submit field.
+     */
+    public boolean isRowSubmit() {
+        if (!"multi".equals(getModelForm().getType()))
+            return false;
+        if (getFieldInfo().getFieldType() != FieldInfo.CHECK)
+            return false;
+        if (!CheckField.ROW_SUBMIT_FIELD_NAME.equals(getName()))
+            return false;
+        return true;
+    }
+
+    public boolean isSortField() {
+        return this.sortField != null && this.sortField.booleanValue();
+    }
+
+    public boolean isUseWhenEmpty() {
+        if (this.useWhen == null) {
+            return true;
+        }
+
+        return this.useWhen.isEmpty();
+    }
+
+    public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+            throws IOException {
+        this.fieldInfo.renderFieldString(writer, context, formStringRenderer);
     }
 
     /**
@@ -953,152 +783,6 @@ public class ModelFormField {
         return false;
     }
 
-    public String getServiceName() {
-        if (UtilValidate.isNotEmpty(this.serviceName))
-            return this.serviceName;
-        return this.modelForm.getDefaultServiceName();
-    }
-
-    public String getTitle(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.title))
-            return title.expandString(context);
-
-        // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-        if (UtilValidate.isEmpty(this.name))
-            return ""; // this should never happen, ie name is required
-
-        // search for a localized label for the field's name
-        Map<String, String> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
-        if (uiLabelMap != null) {
-            String titleFieldName = "FormFieldTitle_" + this.name;
-            String localizedName = uiLabelMap.get(titleFieldName);
-            if (!localizedName.equals(titleFieldName)) {
-                return localizedName;
-            }
-        } else {
-            Debug.logWarning("Could not find uiLabelMap in context while rendering form " + this.modelForm.getName(), module);
-        }
-
-        // create a title from the name of this field; expecting a Java method/field style name, ie productName or productCategoryId
-        StringBuilder autoTitlewriter = new StringBuilder();
-
-        // always use upper case first letter...
-        autoTitlewriter.append(Character.toUpperCase(this.name.charAt(0)));
-
-        // just put spaces before the upper case letters
-        for (int i = 1; i < this.name.length(); i++) {
-            char curChar = this.name.charAt(i);
-            if (Character.isUpperCase(curChar)) {
-                autoTitlewriter.append(' ');
-            }
-            autoTitlewriter.append(curChar);
-        }
-
-        return autoTitlewriter.toString();
-    }
-
-    public String getTitleAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.titleAreaStyle))
-            return this.titleAreaStyle;
-        return this.modelForm.getDefaultTitleAreaStyle();
-    }
-
-    public String getTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.titleStyle))
-            return this.titleStyle;
-        return this.modelForm.getDefaultTitleStyle();
-    }
-
-    public String getRequiredFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.requiredFieldStyle))
-            return this.requiredFieldStyle;
-        return this.modelForm.getDefaultRequiredFieldStyle();
-    }
-
-    public String getSortFieldStyle() {
-        if (UtilValidate.isNotEmpty(this.sortFieldStyle))
-            return this.sortFieldStyle;
-        return this.modelForm.getDefaultSortFieldStyle();
-    }
-
-    public String getSortFieldStyleAsc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle))
-            return this.sortFieldAscStyle;
-        return this.modelForm.getDefaultSortFieldAscStyle();
-    }
-
-    public String getSortFieldStyleDesc() {
-        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle))
-            return this.sortFieldDescStyle;
-        return this.modelForm.getDefaultSortFieldDescStyle();
-    }
-
-    public String getTooltip(Map<String, Object> context) {
-        String tooltipString = "";
-        if (UtilValidate.isNotEmpty(tooltip))
-            tooltipString = tooltip.expandString(context);
-        if (this.getEncodeOutput()) {
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null)
-                tooltipString = simpleEncoder.encode(tooltipString);
-        }
-        return tooltipString;
-    }
-
-    public String getUseWhen(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(this.useWhen))
-            return this.useWhen.expandString(context);
-        return "";
-    }
-
-    public boolean getEncodeOutput() {
-        return this.encodeOutput;
-    }
-
-    public String getIdName() {
-        if (UtilValidate.isNotEmpty(idName))
-            return idName;
-        return this.modelForm.getName() + "_" + this.getFieldName();
-    }
-
-    public String getCurrentContainerId(Map<String, Object> context) {
-        ModelForm modelForm = this.getModelForm();
-        String idName = FlexibleStringExpander.expandString(this.getIdName(), context);
-
-        if (modelForm != null) {
-            Integer itemIndex = (Integer) context.get("itemIndex");
-            if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType())) {
-                if (itemIndex != null) {
-                    return idName + modelForm.getItemIndexSeparator() + itemIndex.intValue();
-                }
-            }
-        }
-        return idName;
-    }
-
-    public String getHeaderLink() {
-        return headerLink;
-    }
-
-    public String getHeaderLinkStyle() {
-        return headerLinkStyle;
-    }
-
-    /**
-     * @param string
-     */
-    public void setIdName(String string) {
-        idName = string;
-    }
-
-    public boolean isUseWhenEmpty() {
-        if (this.useWhen == null) {
-            return true;
-        }
-
-        return this.useWhen.isEmpty();
-    }
-
     public boolean shouldUse(Map<String, Object> context) {
         String useWhenStr = this.getUseWhen(context);
         if (UtilValidate.isEmpty(useWhenStr))
@@ -1129,455 +813,455 @@ public class ModelFormField {
     }
 
     /**
-     * Checks if field is a row submit field.
+     * Models the &lt;auto-complete&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
      */
-    public boolean isRowSubmit() {
-        if (!"multi".equals(getModelForm().getType()))
-            return false;
-        if (getFieldInfo().getFieldType() != FieldInfo.CHECK)
-            return false;
-        if (!CheckField.ROW_SUBMIT_FIELD_NAME.equals(getName()))
-            return false;
-        return true;
-    }
+    public static class AutoComplete {
+        private final String autoSelect;
+        private final String choices;
+        private final String frequency;
+        private final String fullSearch;
+        private final String ignoreCase;
+        private final String minChars;
+        private final String partialChars;
+        private final String partialSearch;
 
-    public String getWidgetAreaStyle() {
-        if (UtilValidate.isNotEmpty(this.widgetAreaStyle))
-            return this.widgetAreaStyle;
-        return this.modelForm.getDefaultWidgetAreaStyle();
-    }
+        public AutoComplete(Element element) {
+            this.autoSelect = element.getAttribute("auto-select");
+            this.frequency = element.getAttribute("frequency");
+            this.minChars = element.getAttribute("min-chars");
+            this.choices = element.getAttribute("choices");
+            this.partialSearch = element.getAttribute("partial-search");
+            this.partialChars = element.getAttribute("partial-chars");
+            this.ignoreCase = element.getAttribute("ignore-case");
+            this.fullSearch = element.getAttribute("full-search");
+        }
 
-    public String getWidgetStyle() {
-        if (UtilValidate.isNotEmpty(this.widgetStyle))
-            return this.widgetStyle;
-        return this.modelForm.getDefaultWidgetStyle();
-    }
+        public String getAutoSelect() {
+            return this.autoSelect;
+        }
 
-    public String getTooltipStyle() {
-        if (UtilValidate.isNotEmpty(this.tooltipStyle))
-            return this.tooltipStyle;
-        return this.modelForm.getDefaultTooltipStyle();
+        public String getChoices() {
+            return this.choices;
+        }
+
+        public String getFrequency() {
+            return this.frequency;
+        }
+
+        public String getFullSearch() {
+            return this.fullSearch;
+        }
+
+        public String getIgnoreCase() {
+            return this.ignoreCase;
+        }
+
+        public String getMinChars() {
+            return this.minChars;
+        }
+
+        public String getPartialChars() {
+            return this.partialChars;
+        }
+
+        public String getPartialSearch() {
+            return this.partialSearch;
+        }
     }
 
     /**
-     * @param string
+     * Models the &lt;check&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
      */
-    public void setAttributeName(String string) {
-        attributeName = string;
+    public static class CheckField extends FieldInfoWithOptions {
+        public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
+        private final FlexibleStringExpander allChecked;
+
+        private CheckField(CheckField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.allChecked = original.allChecked;
+        }
+
+        public CheckField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
+        }
+
+        public CheckField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.CHECK, modelFormField);
+            this.allChecked = FlexibleStringExpander.getInstance("");
+        }
+
+        public CheckField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.CHECK, modelFormField);
+            this.allChecked = FlexibleStringExpander.getInstance("");
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new CheckField(this, modelFormField);
+        }
+
+        public FlexibleStringExpander getAllChecked() {
+            return allChecked;
+        }
+
+        public Boolean isAllChecked(Map<String, Object> context) {
+            String allCheckedStr = this.allChecked.expandString(context);
+            if (!allCheckedStr.isEmpty())
+                return Boolean.valueOf("true".equals(allCheckedStr));
+            else
+                return null;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderCheckField(writer, context, this);
+        }
     }
 
     /**
-     * @param string
+     * Models the &lt;container&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
      */
-    public void setEntityName(String string) {
-        entityName = string;
-    }
+    public static class ContainerField extends FieldInfo {
 
-    /**
-     * @param string
-     */
-    public void setEntryName(String string) {
-        entryAcsr = FlexibleMapAccessor.getInstance(string);
-    }
+        private ContainerField(ContainerField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+        }
 
-    /**
-     * @param string
-     */
-    public void setFieldName(String string) {
-        fieldName = string;
-    }
+        public ContainerField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+        }
 
-    /**
-     * @param string
-     */
-    public void setMapName(String string) {
-        this.mapAcsr = FlexibleMapAccessor.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setName(String string) {
-        name = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setParameterName(String string) {
-        parameterName = string;
-    }
-
-    /**
-     * @param i
-     */
-    public void setPosition(int i) {
-        position = Integer.valueOf(i);
-    }
-
-    /**
-     * @param string
-     */
-    public void setRedWhen(String string) {
-        redWhen = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setEvent(String string) {
-        event = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setAction(String string) {
-        this.action = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setServiceName(String string) {
-        serviceName = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTitle(String string) {
-        this.title = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setTitleAreaStyle(String string) {
-        this.titleAreaStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTitleStyle(String string) {
-        this.titleStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTooltip(String string) {
-        this.tooltip = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setUseWhen(String string) {
-        this.useWhen = FlexibleStringExpander.getInstance(string);
-    }
-
-    public void setEncodeOutput(boolean encodeOutput) {
-        this.encodeOutput = encodeOutput;
-    }
-
-    /**
-     * @param string
-     */
-    public void setWidgetAreaStyle(String string) {
-        this.widgetAreaStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setWidgetStyle(String string) {
-        this.widgetStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTooltipStyle(String string) {
-        this.tooltipStyle = string;
-    }
-
-    public boolean getSeparateColumn() {
-        return this.separateColumn;
-    }
-
-    /**
-     * @param string
-     */
-    public void setHeaderLink(String string) {
-        this.headerLink = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setHeaderLinkStyle(String string) {
-        this.headerLinkStyle = string;
-    }
-
-    public boolean getRequiredField() {
-        return this.requiredField != null ? this.requiredField : false;
-    }
-
-    /**
-     * @param required the field is required 
-     */
-    public void setRequiredField(boolean required) {
-        this.requiredField = required;
-    }
-
-    public String getSortFieldHelpText(Map<String, Object> context) {
-        return FlexibleStringExpander.expandString(this.sortFieldHelpText, context);
-    }
-
-    public boolean isSortField() {
-        return this.sortField != null && this.sortField.booleanValue();
-    }
-
-    /**
-     * @param sort set as sort field
-     */
-    public void setSortField(boolean sort) {
-        this.sortField = Boolean.valueOf(sort);
-    }
-
-    /**
-     * @param modelForm the model form
-     */
-    public void setModelForm(ModelForm modelForm) {
-        this.modelForm = modelForm;
-    }
-
-    public static abstract class FieldInfoWithOptions extends FieldInfo {
-
-        protected FlexibleStringExpander noCurrentSelectedKey = null;
-        protected List<OptionSource> optionSources = new LinkedList<OptionSource>();
-
-        public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
+        public ContainerField(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
         }
 
-        // Copy constructor.
-        protected FieldInfoWithOptions(FieldInfoWithOptions original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.noCurrentSelectedKey = original.noCurrentSelectedKey;
-            this.optionSources.addAll(original.optionSources);
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
-        public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new ContainerField(this, modelFormField);
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderContainerFindField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;date-find&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class DateFindField extends DateTimeField {
+        private final String defaultOptionFrom;
+        private final String defaultOptionThru;
+
+        private DateFindField(DateFindField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.defaultOptionFrom = original.defaultOptionFrom;
+            this.defaultOptionThru = original.defaultOptionThru;
+        }
+
+        public DateFindField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+            this.defaultOptionFrom = element.getAttribute("default-option-from");
+            this.defaultOptionThru = element.getAttribute("default-option-thru");
+        }
 
-            noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
+        public DateFindField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, modelFormField);
+            this.defaultOptionFrom = "greaterThanEqualTo";
+            this.defaultOptionThru = "lessThanEqualTo";
+        }
 
-            // read all option and entity-options sub-elements, maintaining order
-            List<? extends Element> childElements = UtilXml.childElementList(element);
-            if (childElements.size() > 0) {
-                for (Element childElement : childElements) {
-                    if ("option".equals(childElement.getTagName())) {
-                        this.addOptionSource(new SingleOption(childElement, this));
-                    } else if ("list-options".equals(childElement.getTagName())) {
-                        this.addOptionSource(new ListOptions(childElement, this));
-                    } else if ("entity-options".equals(childElement.getTagName())) {
-                        this.addOptionSource(new EntityOptions(childElement, this));
-                    }
-                }
+        public DateFindField(int fieldSource, String type) {
+            super(fieldSource, type);
+            this.defaultOptionFrom = "greaterThanEqualTo";
+            this.defaultOptionThru = "lessThanEqualTo";
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new DateFindField(this, modelFormField);
+        }
+
+        public String getDefaultOptionFrom() {
+            return this.defaultOptionFrom;
+        }
+
+        public String getDefaultOptionThru() {
+            return this.defaultOptionThru;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderDateFindField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;date-time&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class DateTimeField extends FieldInfo {
+        private final String clock;
+        private final FlexibleStringExpander defaultValue;
+        private final String inputMethod;
+        private final String mask;
+        private final String step;
+        private final String type;
+
+        protected DateTimeField(DateTimeField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.defaultValue = original.defaultValue;
+            this.type = original.type;
+            this.inputMethod = original.inputMethod;
+            this.clock = original.clock;
+            this.mask = original.mask;
+            this.step = original.step;
+        }
+
+        public DateTimeField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.type = element.getAttribute("type");
+            this.inputMethod = element.getAttribute("input-method");
+            this.clock = element.getAttribute("clock");
+            this.mask = element.getAttribute("mask");
+            String step = element.getAttribute("step");
+            if (step.isEmpty()) {
+                step = "1";
+            }
+            this.step = step;
+        }
+
+        public DateTimeField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.DATE_TIME, modelFormField);
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.type = "";
+            this.inputMethod = "";
+            this.clock = "";
+            this.mask = "";
+            this.step = "1";
+        }
+
+        public DateTimeField(int fieldSource, String type) {
+            super(fieldSource, FieldInfo.DATE_TIME, null);
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.type = type;
+            this.inputMethod = "";
+            this.clock = "";
+            this.mask = "";
+            this.step = "1";
+        }
+
+        public DateTimeField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DATE_TIME, modelFormField);
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.type = "";
+            this.inputMethod = "";
+            this.clock = "";
+            this.mask = "";
+            this.step = "1";
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new DateTimeField(this, modelFormField);
+        }
+
+        public String getClock() {
+            return this.clock;
+        }
+
+        /**
+         * Returns the default-value if specified, otherwise the current date, time or timestamp
+         *
+         * @param context Context Map
+         * @return Default value string for date-time
+         */
+        public String getDefaultDateTimeString(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.defaultValue))
+                return this.getDefaultValue(context);
+
+            if ("date".equals(this.type))
+                return (new java.sql.Date(System.currentTimeMillis())).toString();
+            else if ("time".equals(this.type))
+                return (new java.sql.Time(System.currentTimeMillis())).toString();
+            else
+                return UtilDateTime.nowTimestamp().toString();
+        }
+
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
+        }
+
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
             } else {
-                // this must be added or the multi-form select box options would not show up
-                this.addOptionSource(new SingleOption("Y", " ", this));
-            }
-        }
-
-        public List<OptionSource> getOptionSources() {
-            return optionSources;
-        }
-
-        public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
-            List<OptionValue> optionValues = new LinkedList<OptionValue>();
-            for (OptionSource optionSource : this.optionSources) {
-                optionSource.addOptionValues(optionValues, context, delegator);
-            }
-            return optionValues;
-        }
-
-        public static String getDescriptionForOptionKey(String key, List<OptionValue> allOptionValues) {
-            if (UtilValidate.isEmpty(key))
                 return "";
-
-            if (UtilValidate.isEmpty(allOptionValues))
-                return key;
-
-            for (OptionValue optionValue : allOptionValues) {
-                if (key.equals(optionValue.getKey())) {
-                    return optionValue.getDescription();
-                }
             }
-
-            // if we get here we didn't find a match, just return the key
-            return key;
         }
 
-        public String getNoCurrentSelectedKey(Map<String, Object> context) {
-            if (this.noCurrentSelectedKey == null) {
-                return null;
-            }
-            return this.noCurrentSelectedKey.expandString(context);
+        public String getInputMethod() {
+            return this.inputMethod;
         }
 
-        public void setNoCurrentSelectedKey(String string) {
-            this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(string);
+        public String getMask() {
+            return this.mask;
         }
 
-        public void addOptionSource(OptionSource optionSource) {
-            this.optionSources.add(optionSource);
-        }
-    }
-
-    public static class OptionValue {
-        protected String key;
-        protected String description;
-
-        public OptionValue(String key, String description) {
-            this.key = key;
-            this.description = description;
+        public String getStep() {
+            return this.step;
         }
 
-        public String getKey() {
-            return key;
-        }
-
-        public String getDescription() {
-            return description;
-        }
-    }
-
-    public static abstract class OptionSource {
-        protected FieldInfo fieldInfo;
-
-        public abstract void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator);
-    }
-
-    public static class SingleOption extends OptionSource {
-        protected FlexibleStringExpander key;
-        protected FlexibleStringExpander description;
-
-        public SingleOption(String key, String description, FieldInfo fieldInfo) {
-            this.key = FlexibleStringExpander.getInstance(key);
-            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(description, key));
-            this.fieldInfo = fieldInfo;
-        }
-
-        public SingleOption(Element optionElement, FieldInfo fieldInfo) {
-            this.key = FlexibleStringExpander.getInstance(optionElement.getAttribute("key"));
-            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(optionElement.getAttribute("description"),
-                    optionElement.getAttribute("key")));
-            this.fieldInfo = fieldInfo;
+        public String getType() {
+            return type;
         }
 
         @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
-            optionValues.add(new OptionValue(key.expandString(context), description.expandString(context)));
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderDateTimeField(writer, context, this);
         }
     }
 
-    public static class ListOptions extends OptionSource {
-        protected FlexibleMapAccessor<List<? extends Object>> listAcsr;
-        protected String listEntryName;
-        protected FlexibleMapAccessor<Object> keyAcsr;
-        protected FlexibleStringExpander description;
+    /**
+     * Models the &lt;display-entity&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class DisplayEntityField extends DisplayField {
+        private final boolean cache;
+        private final String entityName;
+        private final String keyFieldName;
+        private final SubHyperlink subHyperlink;
 
-        public ListOptions(String listName, String listEntryName, String keyName, String description, FieldInfo fieldInfo) {
-            this.listAcsr = FlexibleMapAccessor.getInstance(listName);
-            this.listEntryName = listEntryName;
-            this.keyAcsr = FlexibleMapAccessor.getInstance(keyName);
-            this.description = FlexibleStringExpander.getInstance(description);
-            this.fieldInfo = fieldInfo;
+        private DisplayEntityField(DisplayEntityField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.cache = original.cache;
+            this.entityName = original.entityName;
+            this.keyFieldName = original.keyFieldName;
+            if (original.subHyperlink != null) {
+                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
+            } else {
+                this.subHyperlink = null;
+            }
         }
 
-        public ListOptions(Element optionElement, FieldInfo fieldInfo) {
-            this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.keyAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("key-name"));
-            this.listAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("list-name"));
-            this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.description = FlexibleStringExpander.getInstance(optionElement.getAttribute("description"));
-            this.fieldInfo = fieldInfo;
+        public DisplayEntityField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.cache = !"false".equals(element.getAttribute("cache"));
+            this.entityName = element.getAttribute("entity-name");
+            this.keyFieldName = element.getAttribute("key-field-name");
+            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
+            if (subHyperlinkElement != null) {
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, modelFormField);
+            } else {
+                this.subHyperlink = null;
+            }
+        }
+
+        public DisplayEntityField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.DISPLAY_ENTITY, modelFormField);
+            this.cache = true;
+            this.entityName = "";
+            this.keyFieldName = "";
+            this.subHyperlink = null;
+        }
+
+        public DisplayEntityField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DISPLAY_ENTITY, modelFormField);
+            this.cache = true;
+            this.entityName = "";
+            this.keyFieldName = "";
+            this.subHyperlink = null;
         }
 
         @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
-            List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
-            if (dataList != null && dataList.size() != 0) {
-                for (Object data : dataList) {
-                    Map<String, Object> localContext = new HashMap<String, Object>();
-                    localContext.putAll(context);
-                    if (UtilValidate.isNotEmpty(this.listEntryName)) {
-                        localContext.put(this.listEntryName, data);
-                    } else {
-                        Map<String, Object> dataMap = UtilGenerics.checkMap(data);
-                        localContext.putAll(dataMap);
-                    }
-                    Object keyObj = keyAcsr.get(localContext);
-                    String key = null;
-                    if (keyObj instanceof String) {
-                        key = (String) keyObj;
-                    } else {
-                        try {
-                            key = (String) ObjectType.simpleTypeConvert(keyObj, "String", null, null);
-                        } catch (GeneralException e) {
-                            String errMsg = "Could not convert field value for the field: [" + this.keyAcsr.toString()
-                                    + "] to String for the value [" + keyObj + "]: " + e.toString();
-                            Debug.logError(e, errMsg, module);
-                        }
-                    }
-                    optionValues.add(new OptionValue(key, description.expandString(localContext)));
-                }
-            }
-        }
-    }
-
-    public static class EntityOptions extends OptionSource {
-        protected String entityName;
-        protected String keyFieldName;
-        protected FlexibleStringExpander description;
-        protected boolean cache = true;
-        protected String filterByDate;
-
-        protected List<EntityFinderUtil.ConditionExpr> constraintList = null;
-        protected List<String> orderByList = null;
-
-        public EntityOptions(FieldInfo fieldInfo) {
-            this.fieldInfo = fieldInfo;
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
         }
 
-        public EntityOptions(Element entityOptionsElement, FieldInfo fieldInfo) {
-            this.entityName = entityOptionsElement.getAttribute("entity-name");
-            this.keyFieldName = entityOptionsElement.getAttribute("key-field-name");
-            this.description = FlexibleStringExpander.getInstance(entityOptionsElement.getAttribute("description"));
-            this.cache = !"false".equals(entityOptionsElement.getAttribute("cache"));
-            this.filterByDate = entityOptionsElement.getAttribute("filter-by-date");
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new DisplayEntityField(this, modelFormField);
+        }
 
-            List<? extends Element> constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
-            if (UtilValidate.isNotEmpty(constraintElements)) {
-                this.constraintList = new LinkedList<EntityFinderUtil.ConditionExpr>();
-                for (Element constraintElement : constraintElements) {
-                    constraintList.add(new EntityFinderUtil.ConditionExpr(constraintElement));
-                }
+        public boolean getCache() {
+            return cache;
+        }
+
+        @Override
+        public String getDescription(Map<String, Object> context) {
+            Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+
+            // rather than using the context to expand the string, lookup the given entity and use it to expand the string
+            GenericValue value = null;
+            String fieldKey = this.keyFieldName;
+            if (UtilValidate.isEmpty(fieldKey))
+                fieldKey = getModelFormField().fieldName;
+
+            Delegator delegator = WidgetWorker.getDelegator(context);
+            String fieldValue = getModelFormField().getEntry(context);
+            try {
+                value = delegator.findOne(this.entityName, this.cache, fieldKey, fieldValue);
+            } catch (GenericEntityException e) {
+                String errMsg = "Error getting value from the database for display of field [" + getModelFormField().getName()
+                        + "] on form [" + getModelFormField().modelForm.getName() + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new IllegalArgumentException(errMsg);
             }
 
-            List<? extends Element> orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
-            if (UtilValidate.isNotEmpty(orderByElements)) {
-                this.orderByList = new LinkedList<String>();
-                for (Element orderByElement : orderByElements) {
-                    orderByList.add(orderByElement.getAttribute("field-name"));
-                }
-            }
+            String retVal = null;
+            if (value != null) {
+                // expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
+                MapStack<String> localContext = MapStack.create(context);
+                // Rendering code might try to modify the GenericEntity instance,
+                // so we make a copy of it.
+                Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
+                localContext.push(genericEntityClone);
 
-            this.fieldInfo = fieldInfo;
+                // expand with the new localContext, which is locale aware
+                retVal = this.getDescription().expandString(localContext, locale);
+            }
+            // try to get the entry for the field if description doesn't expand to anything
+            if (UtilValidate.isEmpty(retVal))
+                retVal = fieldValue;
+            if (UtilValidate.isEmpty(retVal))
+                retVal = "";
+            return retVal;
         }
 
         public String getEntityName() {
@@ -1585,418 +1269,136 @@ public class ModelFormField {
         }
 
         public String getKeyFieldName() {
-            if (UtilValidate.isNotEmpty(this.keyFieldName))
-                return this.keyFieldName;
-            return this.fieldInfo.getModelFormField().getFieldName(); // get the modelFormField fieldName
+            return keyFieldName;
         }
 
-        @Override
-        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
-            // first expand any conditions that need expanding based on the current context
-            EntityCondition findCondition = null;
-            if (UtilValidate.isNotEmpty(this.constraintList)) {
-                List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
-                for (EntityFinderUtil.Condition condition : constraintList) {
-                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
-                    if (modelEntity == null) {
-                        throw new IllegalArgumentException("Error in entity-options: could not find entity [" + this.entityName
-                                + "]");
-                    }
-                    EntityCondition createdCondition = condition.createCondition(context, modelEntity,
-                            delegator.getModelFieldTypeReader(modelEntity));
-                    if (createdCondition != null) {
-                        expandedConditionList.add(createdCondition);
-                    }
-                }
-                findCondition = EntityCondition.makeCondition(expandedConditionList);
-            }
-
-            try {
-                Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-
-                List<GenericValue> values = null;
-                values = EntityQuery.use(delegator).from(this.entityName).where(findCondition).orderBy(this.orderByList).cache(this.cache).queryList();
-                // filter-by-date if requested
-                if ("true".equals(this.filterByDate)) {
-                    values = EntityUtil.filterByDate(values, true);
-                } else if (!"false".equals(this.filterByDate)) {
-                    // not explicitly true or false, check to see if has fromDate and thruDate, if so do the filter
-                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
-                    if (modelEntity != null && modelEntity.isField("fromDate") && modelEntity.isField("thruDate")) {
-                        values = EntityUtil.filterByDate(values, true);
-                    }
-                }
-
-                for (GenericValue value : values) {
-                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
-                    MapStack<String> localContext = MapStack.create(context);
-                    // Rendering code might try to modify the GenericEntity instance,
-                    // so we make a copy of it.
-                    Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
-                    localContext.push(genericEntityClone);
-
-                    // expand with the new localContext, which is locale aware
-                    String optionDesc = this.description.expandString(localContext, locale);
-
-                    Object keyFieldObject = value.get(this.getKeyFieldName());
-                    if (keyFieldObject == null) {
-                        throw new IllegalArgumentException(
-                                "The entity-options identifier (from key-name attribute, or default to the field name) ["
-                                        + this.getKeyFieldName() + "], may not be a valid key field name for the entity ["
-                                        + this.entityName + "].");
-                    }
-                    String keyFieldValue = keyFieldObject.toString();
-                    optionValues.add(new OptionValue(keyFieldValue, optionDesc));
-                }
-            } catch (GenericEntityException e) {
-                Debug.logError(e, "Error getting entity options in form", module);
-            }
+        public SubHyperlink getSubHyperlink() {
+            return this.subHyperlink;
         }
     }
 
-    public static class InPlaceEditor {
-        protected FlexibleStringExpander url;
-        protected String cancelControl;
-        protected String cancelText;
-        protected String clickToEditText;
-        protected String fieldPostCreation;
-        protected String formClassName;
-        protected String highlightColor;
-        protected String highlightEndColor;
-        protected String hoverClassName;
-        protected String htmlResponse;
-        protected String loadingClassName;
-        protected String loadingText;
-        protected String okControl;
-        protected String okText;
-        protected String paramName;
-        protected String savingClassName;
-        protected String savingText;
-        protected String submitOnBlur;
-        protected String textBeforeControls;
-        protected String textAfterControls;
-        protected String textBetweenControls;
-        protected String updateAfterRequestCall;
-        protected String rows;
-        protected String cols;
-        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
-
-        public InPlaceEditor(Element element) {
-            this.setUrl(element.getAttribute("url"));
-            this.cancelControl = element.getAttribute("cancel-control");
-            this.cancelText = element.getAttribute("cancel-text");
-            this.clickToEditText = element.getAttribute("click-to-edit-text");
-            this.fieldPostCreation = element.getAttribute("field-post-creation");
-            this.formClassName = element.getAttribute("form-class-name");
-            this.highlightColor = element.getAttribute("highlight-color");
-            this.highlightEndColor = element.getAttribute("highlight-end-color");
-            this.hoverClassName = element.getAttribute("hover-class-name");
-            this.htmlResponse = element.getAttribute("html-response");
-            this.loadingClassName = element.getAttribute("loading-class-name");
-            this.loadingText = element.getAttribute("loading-text");
-            this.okControl = element.getAttribute("ok-control");
-            this.okText = element.getAttribute("ok-text");
-            this.paramName = element.getAttribute("param-name");
-            this.savingClassName = element.getAttribute("saving-class-name");
-            this.savingText = element.getAttribute("saving-text");
-            this.submitOnBlur = element.getAttribute("submit-on-blur");
-            this.textBeforeControls = element.getAttribute("text-before-controls");
-            this.textAfterControls = element.getAttribute("text-after-controls");
-            this.textBetweenControls = element.getAttribute("text-between-controls");
-            this.updateAfterRequestCall = element.getAttribute("update-after-request-call");
-
-            Element simpleElement = UtilXml.firstChildElement(element, "simple-editor");
-            this.rows = simpleElement.getAttribute("rows");
-            this.cols = simpleElement.getAttribute("cols");
-
-            this.fieldMap = EntityFinderUtil.makeFieldMap(element);
-        }
-
-        public String getUrl(Map<String, Object> context) {
-            if (this.url != null) {
-                return this.url.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getCancelControl() {
-            return this.cancelControl;
-        }
-
-        public String getCancelText() {
-            return this.cancelText;
-        }
-
-        public String getClickToEditText() {
-            return this.clickToEditText;
-        }
-
-        public String getFieldPostCreation() {
-            return this.fieldPostCreation;
-        }
-
-        public String getFormClassName() {
-            return this.formClassName;
-        }
-
-        public String getHighlightColor() {
-            return this.highlightColor;
-        }
-
-        public String getHighlightEndColor() {
-            return this.highlightEndColor;
-        }
-
-        public String getHoverClassName() {
-            return this.hoverClassName;
-        }
-
-        public String getHtmlResponse() {
-            return this.htmlResponse;
-        }
-
-        public String getLoadingClassName() {
-            return this.loadingClassName;
-        }
-
-        public String getLoadingText() {
-            return this.loadingText;
-        }
-
-        public String getOkControl() {
-            return this.okControl;
-        }
-
-        public String getOkText() {
-            return this.okText;
-        }
-
-        public String getParamName() {
-            return this.paramName;
-        }
-
-        public String getSavingClassName() {
-            return this.savingClassName;
-        }
-
-        public String getSavingText() {
-            return this.savingText;
-        }
-
-        public String getSubmitOnBlur() {
-            return this.submitOnBlur;
-        }
-
-        public String getTextBeforeControls() {
-            return this.textBeforeControls;
-        }
-
-        public String getTextAfterControls() {
-            return this.textAfterControls;
-        }
-
-        public String getTextBetweenControls() {
-            return this.textBetweenControls;
-        }
-
-        public String getUpdateAfterRequestCall() {
-            return this.updateAfterRequestCall;
-        }
-
-        public String getRows() {
-            return this.rows;
-        }
-
-        public String getCols() {
-            return this.cols;
-        }
-
-        public Map<String, Object> getFieldMap(Map<String, Object> context) {
-            Map<String, Object> inPlaceEditorContext = new HashMap<String, Object>();
-            EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, inPlaceEditorContext);
-            return inPlaceEditorContext;
-        }
-
-        public void setUrl(String url) {
-            this.url = FlexibleStringExpander.getInstance(url);
-        }
-
-        public void setCancelControl(String string) {
-            this.cancelControl = string;
-        }
-
-        public void setCancelText(String string) {
-            this.cancelText = string;
-        }
-
-        public void setClickToEditText(String string) {
-            this.clickToEditText = string;
-        }
-
-        public void setFieldPostCreation(String string) {
-            this.fieldPostCreation = string;
-        }
-
-        public void setFormClassName(String string) {
-            this.formClassName = string;
-        }
-
-        public void setHighlightColor(String string) {
-            this.highlightColor = string;
-        }
-
-        public void setHighlightEndColor(String string) {
-            this.highlightEndColor = string;
-        }
-
-        public void setHoverClassName(String string) {
-            this.hoverClassName = string;
-        }
-
-        public void setHtmlResponse(String string) {
-            this.htmlResponse = string;
-        }
-
-        public void setLoadingClassName(String string) {
-            this.loadingClassName = string;
-        }
-
-        public void setLoadingText(String string) {
-            this.loadingText = string;
-        }
-
-        public void setOkControl(String string) {
-            this.okControl = string;
-        }
-
-        public void setOkText(String string) {
-            this.okText = string;
-        }
-
-        public void setParamName(String string) {
-            this.paramName = string;
-        }
-
-        public void setSavingClassName(String string) {
-            this.savingClassName = string;
-        }
-
-        public void setSavingText(String string) {
-            this.savingText = string;
-        }
-
-        public void setSubmitOnBlur(String string) {
-            this.submitOnBlur = string;
-        }
-
-        public void setTextBeforeControls(String string) {
-            this.textBeforeControls = string;
-        }
-
-        public void setTextAfterControls(String string) {
-            this.textAfterControls = string;
-        }
-
-        public void setTextBetweenControls(String string) {
-            this.textBetweenControls = string;
-        }
-
-        public void setUpdateAfterRequestCall(String string) {
-            this.updateAfterRequestCall = string;
-        }
-
-        public void setRows(String string) {
-            this.rows = string;
-        }
-
-        public void setCols(String string) {
-            this.cols = string;
-        }
-
-        public void setFieldMap(Map<FlexibleMapAccessor<Object>, Object> fieldMap) {
-            this.fieldMap = fieldMap;
-        }
-    }
-
+    /**
+     * Models the &lt;display&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
     public static class DisplayField extends FieldInfo {
-        protected boolean alsoHidden = true;
-        protected FlexibleStringExpander description;
-        protected String type; // matches type of field, currently text or currency
-        protected String size; // maximum number of characters to display
-        protected FlexibleStringExpander imageLocation;
-        protected FlexibleStringExpander currency;
-        protected FlexibleStringExpander date;
-        protected InPlaceEditor inPlaceEditor;
-        protected FlexibleStringExpander defaultValue;
+        private final boolean alsoHidden;
+        private final FlexibleStringExpander currency;
+        private final FlexibleStringExpander date;
+        private final FlexibleStringExpander defaultValue;
+        private final FlexibleStringExpander description;
+        private final FlexibleStringExpander imageLocation;
+        private final InPlaceEditor inPlaceEditor;
+        private final String size; // maximum number of characters to display
+        private final String type; // matches type of field, currently text or currency
 
-        public DisplayField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DISPLAY, modelFormField);
-        }
-
-        public DisplayField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.DISPLAY, modelFormField);
-        }
-
-        public DisplayField(int fieldSource, int fieldType, ModelFormField modelFormField) {
-            super(fieldSource, fieldType, modelFormField);
+        protected DisplayField(DisplayField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.alsoHidden = original.alsoHidden;
+            this.currency = original.currency;
+            this.date = original.date;
+            this.defaultValue = original.defaultValue;
+            this.description = original.description;
+            this.imageLocation = original.imageLocation;
+            this.inPlaceEditor = original.inPlaceEditor;
+            this.size = original.size;
+            this.type = original.type;
         }
 
         public DisplayField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            this.type = element.getAttribute("type");
-            this.size = element.getAttribute("size");
-            this.setImageLocation(element.getAttribute("image-location"));
-            this.setCurrency(element.getAttribute("currency"));
-            this.setDescription(element.getAttribute("description"));
-            this.setDate(element.getAttribute("date"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
-            this.setDefaultValue(element.getAttribute("default-value"));
+            this.currency = FlexibleStringExpander.getInstance(element.getAttribute("currency"));
+            this.date = FlexibleStringExpander.getInstance(element.getAttribute("date"));
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
+            this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
             Element inPlaceEditorElement = UtilXml.firstChildElement(element, "in-place-editor");
             if (inPlaceEditorElement != null) {
                 this.inPlaceEditor = new InPlaceEditor(inPlaceEditorElement);
+            } else {
+                this.inPlaceEditor = null;
             }
+            this.size = element.getAttribute("size");
+            this.type = element.getAttribute("type");
         }
 
-        protected DisplayField(DisplayField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.type = original.type;
-            this.size = original.size;
-            this.imageLocation = original.imageLocation;
-            this.currency = original.currency;
-            this.description = original.description;
-            this.date = original.date;
-            this.alsoHidden = original.alsoHidden;
-            this.defaultValue = original.defaultValue;
-            this.inPlaceEditor = original.inPlaceEditor;
+        public DisplayField(int fieldSource, int fieldType, ModelFormField modelFormField) {
+            super(fieldSource, fieldType, modelFormField);
+            this.alsoHidden = true;
+            this.currency = FlexibleStringExpander.getInstance("");
+            this.date = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.description = FlexibleStringExpander.getInstance("");
+            this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.inPlaceEditor = null;
+            this.size = "";
+            this.type = "";
+        }
+
+        public DisplayField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.DISPLAY, modelFormField);
+            this.alsoHidden = true;
+            this.currency = FlexibleStringExpander.getInstance("");
+            this.date = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.description = FlexibleStringExpander.getInstance("");
+            this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.inPlaceEditor = null;
+            this.size = "";
+            this.type = "";
+        }
+
+        public DisplayField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DISPLAY, modelFormField);
+            this.alsoHidden = true;
+            this.currency = FlexibleStringExpander.getInstance("");
+            this.date = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.description = FlexibleStringExpander.getInstance("");
+            this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.inPlaceEditor = null;
+            this.size = "";
+            this.type = "";
         }
 
         @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderDisplayField(writer, context, this);
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new DisplayField(this, modelFormField);
         }
 
         public boolean getAlsoHidden() {
             return alsoHidden;
         }
 
-        public String getType() {
-            return this.type;
+        public FlexibleStringExpander getCurrency() {
+            return currency;
         }
 
-        public String getSize() {
-            return this.size;
+        public FlexibleStringExpander getDate() {
+            return date;
         }
 
-        public String setSize(String size) {
-            return this.size = size;
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
         }
 
-        public String getImageLocation(Map<String, Object> context) {
-            if (this.imageLocation != null)
-                return this.imageLocation.expandString(context);
-            return "";
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
         }
 
         public String getDescription(Map<String, Object> context) {
@@ -2096,1230 +1498,146 @@ public class ModelFormField {
             return retVal;
         }
 
-        public InPlaceEditor getInPlaceEditor() {
-            return this.inPlaceEditor;
-        }
-
-        /**
-         * @param b the field is also hidden true/false
-         */
-        public void setAlsoHidden(boolean b) {
-            alsoHidden = b;
-        }
-
-        /**
-         * @param value the value of the image location
-         */
-        public void setImageLocation(String value) {
-            this.imageLocation = FlexibleStringExpander.getInstance(value);
-        }
-
-        /**
-         * @param string the description of the field
-         */
-        public void setDescription(String string) {
-            description = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string the currency of the field
-         */
-        public void setCurrency(String string) {
-            currency = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string the date of the field
-         */
-        public void setDate(String string) {
-            date = FlexibleStringExpander.getInstance(string);
-        }
-
-        public void setInPlaceEditor(InPlaceEditor newInPlaceEditor) {
-            this.inPlaceEditor = newInPlaceEditor;
-        }
-
-        /**
-         * @param str the default value
-         */
-        public void setDefaultValue(String str) {
-            this.defaultValue = FlexibleStringExpander.getInstance(str);
-        }
-
-        public String getDefaultValue(Map<String, Object> context) {
-            if (this.defaultValue != null) {
-                return this.defaultValue.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new DisplayField(this, modelFormField);
-        }
-    }
-
-    public static class DisplayEntityField extends DisplayField {
-        protected String entityName;
-        protected String keyFieldName;
-        protected boolean cache = true;
-        protected SubHyperlink subHyperlink;
-
-        public DisplayEntityField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DISPLAY_ENTITY, modelFormField);
-        }
-
-        public DisplayEntityField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.DISPLAY_ENTITY, modelFormField);
-        }
-
-        public DisplayEntityField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.entityName = element.getAttribute("entity-name");
-            this.keyFieldName = element.getAttribute("key-field-name");
-            this.cache = !"false".equals(element.getAttribute("cache"));
-            this.size = element.getAttribute("size");
-            if (UtilValidate.isEmpty(this.description))
-                this.setDescription("${description}");
-            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
-            if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, modelFormField);
-            }
-        }
-
-        private DisplayEntityField(DisplayEntityField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.entityName = original.entityName;
-            this.keyFieldName = original.keyFieldName;
-            this.cache = original.cache;
-            this.size = original.size;
-            this.description = original.description;
-            if (original.subHyperlink != null) {
-                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
-            }
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new DisplayEntityField(this, modelFormField);
-        }
-
-        @Override
-        public String getDescription(Map<String, Object> context) {
-            Locale locale = UtilMisc.ensureLocale(context.get("locale"));
-
-            // rather than using the context to expand the string, lookup the given entity and use it to expand the string
-            GenericValue value = null;
-            String fieldKey = this.keyFieldName;
-            if (UtilValidate.isEmpty(fieldKey))
-                fieldKey = getModelFormField().fieldName;
-
-            Delegator delegator = WidgetWorker.getDelegator(context);
-            String fieldValue = getModelFormField().getEntry(context);
-            try {
-                value = EntityQuery.use(delegator).from(this.entityName).where(fieldKey, fieldValue).cache(this.cache).queryOne();
-            } catch (GenericEntityException e) {
-                String errMsg = "Error getting value from the database for display of field [" + getModelFormField().getName()
-                        + "] on form [" + getModelFormField().modelForm.getName() + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new IllegalArgumentException(errMsg);
-            }
-
-            String retVal = null;
-            if (value != null) {
-                // expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
-                MapStack<String> localContext = MapStack.create(context);
-                // Rendering code might try to modify the GenericEntity instance,
-                // so we make a copy of it.
-                Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
-                localContext.push(genericEntityClone);
-
-                // expand with the new localContext, which is locale aware
-                retVal = this.description.expandString(localContext, locale);
-            }
-            // try to get the entry for the field if description doesn't expand to anything
-            if (UtilValidate.isEmpty(retVal))
-                retVal = fieldValue;
-            if (UtilValidate.isEmpty(retVal))
-                retVal = "";
-            return retVal;
-        }
-
-        public String getEntityName() {
-            return entityName;
-        }
-
-        public SubHyperlink getSubHyperlink() {
-            return this.subHyperlink;
-        }
-
-        public void setSubHyperlink(SubHyperlink newSubHyperlink) {
-            this.subHyperlink = newSubHyperlink;
-        }
-    }
-
-    public static class HyperlinkField extends FieldInfo {
-        public static String DEFAULT_TARGET_TYPE = "intra-app";
-
-        protected boolean alsoHidden = true;
-        protected String linkType;
-        protected String targetType;
-        protected String size;
-        protected FlexibleStringExpander target;
-        protected FlexibleStringExpander description;
-        protected FlexibleStringExpander alternate;
-        protected FlexibleStringExpander imageLocation;
-        protected FlexibleStringExpander imageTitle;
-        protected FlexibleStringExpander targetWindowExdr;
-        protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
-        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
-        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
-        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
-
-        protected boolean requestConfirmation = false;
-        protected FlexibleStringExpander confirmationMsgExdr;
-
-        public HyperlinkField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.HYPERLINK, modelFormField);
-        }
-
-        public HyperlinkField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.HYPERLINK, modelFormField);
-        }
-
-        public HyperlinkField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.setDescription(element.getAttribute("description"));
-            this.setAlternate(element.getAttribute("alternate"));
-            this.setImageLocation(element.getAttribute("image-location"));
-            this.setImageTitle(element.getAttribute("image-title"));
-            this.setTarget(element.getAttribute("target"));
-            this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
-            this.linkType = element.getAttribute("link-type");
-            this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
-            this.size = element.getAttribute("size");
-            this.setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
-            this.setConfirmationMsg(element.getAttribute("confirmation-message"));
-            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
-            for (Element parameterElement : parameterElementList) {
-                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
-            }
-            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            }
-            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
-            }
-        }
-
-        private HyperlinkField(HyperlinkField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.description = original.description;
-            this.alternate = original.alternate;
-            this.imageLocation = original.imageLocation;
-            this.imageTitle = original.imageTitle;
-            this.target = original.target;
-            this.alsoHidden = original.alsoHidden;
-            this.linkType = original.linkType;
-            this.targetType = original.targetType;
-            this.targetWindowExdr = original.targetWindowExdr;
-            this.parametersMapAcsr = original.parametersMapAcsr;
-            this.size = original.size;
-            this.requestConfirmation = original.requestConfirmation;
-            this.confirmationMsgExdr = original.confirmationMsgExdr;
-            this.parameterList.addAll(original.parameterList);
-            this.autoEntityParameters = original.autoEntityParameters;
-            this.autoServiceParameters = original.autoServiceParameters;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new HyperlinkField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderHyperlinkField(writer, context, this);
-        }
-
-        public boolean getAlsoHidden() {
-            return this.alsoHidden;
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
-                return message;
-
-            if (getRequestConfirmation()) {
-                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
-                        "${uiLabelMap.CommonConfirm}");
-                setConfirmationMsg(defaultMessage);
-                return getConfirmationMsg(context);
-            }
-            return "";
-        }
-
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public String getTargetType() {
-            if (UtilValidate.isNotEmpty(this.targetType))
-                return this.targetType;
-            return HyperlinkField.DEFAULT_TARGET_TYPE;
-        }
-
-        public String getTargetWindow(Map<String, Object> context) {
-            String targetWindow = this.targetWindowExdr.expandString(context);
-            return targetWindow;
-        }
-
-        public String getDescription(Map<String, Object> context) {
-            return this.description.expandString(context);
-        }
-
-        public String getAlternate(Map<String, Object> context) {
-            return this.alternate.expandString(context);
+        public FlexibleStringExpander getImageLocation() {
+            return imageLocation;
         }
 
         public String getImageLocation(Map<String, Object> context) {
-            return this.imageLocation.expandString(context);
+            if (this.imageLocation != null)
+                return this.imageLocation.expandString(context);
+            return "";
         }
 
-        public String getImageTitle(Map<String, Object> context) {
-            return this.imageTitle.expandString(context);
-        }
-
-        public String getTarget(Map<String, Object> context) {
-            return this.target.expandString(context);
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
-            }
-
-            for (WidgetWorker.Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultServiceName()));
-            }
-
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultEntityName()));
-            }
-
-            return fullParameterMap;
+        public InPlaceEditor getInPlaceEditor() {
+            return this.inPlaceEditor;
         }
 
         public String getSize() {
             return this.size;
         }
 
-        public String setSize(String size) {
-            return this.size = size;
+        public String getType() {
+            return this.type;
         }
 
-        /**
-         * @param b
-         */
-        public void setAlsoHidden(boolean b) {
-            this.alsoHidden = b;
-        }
-
-        /**
-         * @param string
-         */
-        public void setTargetType(String string) {
-            this.targetType = string;
-        }
-
-        /**
-         * @param string
-         */
-        public void setDescription(String string) {
-            this.description = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setImageLocation(String string) {
-            this.imageLocation = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setImageTitle(String string) {
-            this.imageTitle = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setAlternate(String string) {
-            this.alternate = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setTarget(String string) {
-            this.target = FlexibleStringExpander.getInstance(string);
-        }
-
-        public void setRequestConfirmation(boolean val) {
-            this.requestConfirmation = val;
-        }
-
-        public void setConfirmationMsg(String val) {
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderDisplayField(writer, context, this);
         }
     }
 
-    public static class SubHyperlink {
-        protected FlexibleStringExpander useWhen;
-        protected String linkType;
-        protected String linkStyle;
-        protected String targetType;
-        protected FlexibleStringExpander target;
-        protected FlexibleStringExpander description;
-        protected FlexibleStringExpander targetWindowExdr;
-        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
-        protected boolean requestConfirmation = false;
-        protected FlexibleStringExpander confirmationMsgExdr;
-        protected ModelFormField modelFormField;
-        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
-        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
+    /**
+     * Models the &lt;drop-down&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class DropDownField extends FieldInfoWithOptions {
+        private final boolean allowEmpty;
+        private final boolean allowMulti;
+        private final AutoComplete autoComplete;
+        private final String current;
+        private final FlexibleStringExpander currentDescription;
+        private final int otherFieldSize;
+        private final String size;
+        private final SubHyperlink subHyperlink;
+        private final String textSize;
 
-        public SubHyperlink(Element element, ModelFormField modelFormField) {
-            this.setDescription(element.getAttribute("description"));
-            this.setTarget(element.getAttribute("target"));
-            this.setUseWhen(element.getAttribute("use-when"));
-            this.linkType = element.getAttribute("link-type");
-            this.linkStyle = element.getAttribute("link-style");
-            this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
-            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
-            for (Element parameterElement : parameterElementList) {
-                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
-            }
-            setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
-            setConfirmationMsg(element.getAttribute("confirmation-message"));
-            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            }
-            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
-            }
-            this.modelFormField = modelFormField;
-        }
-
-        public SubHyperlink(SubHyperlink original, ModelFormField modelFormField) {
-            this.description = original.description;
-            this.target = original.target;
-            this.useWhen = original.useWhen;
-            this.linkType = original.linkType;
-            this.linkStyle = original.linkStyle;
-            this.targetType = original.targetType;
-            this.targetWindowExdr = original.targetWindowExdr;
-            this.parameterList.addAll(original.parameterList);
-            this.requestConfirmation = original.requestConfirmation;
-            this.confirmationMsgExdr = original.confirmationMsgExdr;
-            this.autoEntityParameters = original.autoEntityParameters;
-            this.autoServiceParameters = original.autoServiceParameters;
-            this.modelFormField = modelFormField;
-        }
-
-        public String getLinkStyle() {
-            return this.linkStyle;
-        }
-
-        public String getTargetType() {
-            if (UtilValidate.isNotEmpty(this.targetType))
-                return this.targetType;
-            return HyperlinkField.DEFAULT_TARGET_TYPE;
-        }
-
-        public String getDescription(Map<String, Object> context) {
-            if (this.description != null) {
-                return this.description.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getTargetWindow(Map<String, Object> context) {
-            String targetWindow = this.targetWindowExdr.expandString(context);
-            return targetWindow;
-        }
-
-        public String getTarget(Map<String, Object> context) {
-            if (this.target != null) {
-                return this.target.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            /* leaving this here... may want to add it at some point like the hyperlink element:
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
-            }
-            */
-
-            for (WidgetWorker.Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, getModelFormField().getModelForm()
-                        .getDefaultServiceName()));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultEntityName()));
-            }
-
-            return fullParameterMap;
-        }
-
-        public String getUseWhen(Map<String, Object> context) {
-            if (this.useWhen != null) {
-                return this.useWhen.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
-        }
-
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
-                return message;
-
-            if (getRequestConfirmation()) {
-                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
-                        "${uiLabelMap.CommonConfirm}");
-                setConfirmationMsg(defaultMessage);
-                return getConfirmationMsg(context);
-            }
-            return "";
-        }
-
-        public ModelFormField getModelFormField() {
-            return this.modelFormField;
-        }
-
-        public boolean shouldUse(Map<String, Object> context) {
-            boolean shouldUse = true;
-            String useWhen = this.getUseWhen(context);
-            if (UtilValidate.isNotEmpty(useWhen)) {
-                try {
-                    Interpreter bsh = (Interpreter) context.get("bshInterpreter");
-                    if (bsh == null) {
-                        bsh = BshUtil.makeInterpreter(context);
-                        context.put("bshInterpreter", bsh);
-                    }
-
-                    Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
-
-                    // retVal should be a Boolean, if not something weird is up...
-                    if (retVal instanceof Boolean) {
-                        Boolean boolVal = (Boolean) retVal;
-                        shouldUse = boolVal.booleanValue();
-                    } else {
-                        throw new IllegalArgumentException("Return value from target condition eval was not a Boolean: "
-                                + retVal.getClass().getName() + " [" + retVal + "]");
-                    }
-                } catch (EvalError e) {
-                    String errmsg = "Error evaluating BeanShell target conditions";
-                    Debug.logError(e, errmsg, module);
-                    throw new IllegalArgumentException(errmsg);
-                }
-            }
-            return shouldUse;
-        }
-
-        /**
-         * @param string
-         */
-        public void setLinkStyle(String string) {
-            this.linkStyle = string;
-        }
-
-        /**
-         * @param string
-         */
-        public void setTargetType(String string) {
-            this.targetType = string;
-        }
-
-        /**
-         * @param string
-         */
-        public void setDescription(String string) {
-            this.description = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setTarget(String string) {
-            this.target = FlexibleStringExpander.getInstance(string);
-        }
-
-        /**
-         * @param string
-         */
-        public void setUseWhen(String string) {
-            this.useWhen = FlexibleStringExpander.getInstance(string);
-        }
-
-        public void setRequestConfirmation(boolean val) {
-            this.requestConfirmation = val;
-        }
-
-        public void setConfirmationMsg(String val) {
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
-        }
-    }
-
-    public static class AutoComplete {
-        protected String autoSelect;
-        protected String frequency;
-        protected String minChars;
-        protected String choices;
-        protected String partialSearch;
-        protected String partialChars;
-        protected String ignoreCase;
-        protected String fullSearch;
-
-        public AutoComplete(Element element) {
-            this.autoSelect = element.getAttribute("auto-select");
-            this.frequency = element.getAttribute("frequency");
-            this.minChars = element.getAttribute("min-chars");
-            this.choices = element.getAttribute("choices");
-            this.partialSearch = element.getAttribute("partial-search");
-            this.partialChars = element.getAttribute("partial-chars");
-            this.ignoreCase = element.getAttribute("ignore-case");
-            this.fullSearch = element.getAttribute("full-search");
-        }
-
-        public String getAutoSelect() {
-            return this.autoSelect;
-        }
-
-        public String getFrequency() {
-            return this.frequency;
-        }
-
-        public String getMinChars() {
-            return this.minChars;
-        }
-
-        public String getChoices() {
-            return this.choices;
-        }
-
-        public String getPartialSearch() {
-            return this.partialSearch;
-        }
-
-        public String getPartialChars() {
-            return this.partialChars;
-        }
-
-        public String getIgnoreCase() {
-            return this.ignoreCase;
-        }
-
-        public String getFullSearch() {
-            return this.fullSearch;
-        }
-
-        public void setAutoSelect(String string) {
-            this.autoSelect = string;
-        }
-
-        public void setFrequency(String string) {
-            this.frequency = string;
-        }
-
-        public void setMinChars(String string) {
-            this.minChars = string;
-        }
-
-        public void setChoices(String string) {
-            this.choices = string;
-        }
-
-        public void setPartialSearch(String string) {
-            this.partialSearch = string;
-        }
-
-        public void setPartialChars(String string) {
-            this.partialChars = string;
-        }
-
-        public void setIgnoreCase(String string) {
-            this.ignoreCase = string;
-        }
-
-        public void setFullSearch(String string) {
-            this.fullSearch = string;
-        }
-    }
-
-    public static class TextField extends FieldInfo {
-        protected int size = 25;
-        protected Integer maxlength;
-        protected FlexibleStringExpander defaultValue;
-        protected SubHyperlink subHyperlink;
-        protected boolean disabled;
-        protected boolean readonly;
-        protected boolean clientAutocompleteField;
-        protected String mask;
-        protected FlexibleStringExpander placeholder = FlexibleStringExpander.getInstance(null);
-
-        public TextField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.TEXT, modelFormField);
-        }
-
-        public TextField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.TEXT, modelFormField);
-        }
-
-        public TextField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.setDefaultValue(element.getAttribute("default-value"));
-            this.mask = element.getAttribute("mask");
-            this.placeholder = FlexibleStringExpander.getInstance(element.getAttribute("placeholder"));
-            String sizeStr = element.getAttribute("size");
-            try {
-                size = Integer.parseInt(sizeStr);
-            } catch (Exception e) {
-                if (UtilValidate.isNotEmpty(sizeStr)) {
-                    Debug.logError("Could not parse the size value of the text element: [" + sizeStr
-                            + "], setting to the default of " + size, module);
-                }
-            }
-            String maxlengthStr = element.getAttribute("maxlength");
-            try {
-                maxlength = Integer.valueOf(maxlengthStr);
-            } catch (Exception e) {
-                maxlength = null;
-                if (UtilValidate.isNotEmpty(maxlengthStr)) {
-                    Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr
-                            + "], setting to null; default of no maxlength will be used", module);
-                }
-            }
-            this.disabled = "true".equals(element.getAttribute("disabled"));
-            this.readonly = "true".equals(element.getAttribute("read-only"));
-            this.clientAutocompleteField = !"false".equals(element.getAttribute("client-autocomplete-field"));
-            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
-            if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
-            }
-        }
-
-        protected TextField(TextField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.defaultValue = original.defaultValue;
-            this.mask = original.mask;
-            this.placeholder = original.placeholder;
+        private DropDownField(DropDownField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.allowEmpty = original.allowEmpty;
+            this.allowMulti = original.allowMulti;
+            this.autoComplete = original.autoComplete;
+            this.current = original.current;
+            this.currentDescription = original.currentDescription;
+            this.otherFieldSize = original.otherFieldSize;
             this.size = original.size;
-            this.maxlength = original.maxlength;
-            this.disabled = original.disabled;
-            this.readonly = original.readonly;
-            this.clientAutocompleteField = original.clientAutocompleteField;
             if (original.subHyperlink != null) {
                 this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
-            }
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderTextField(writer, context, this);
-        }
-
-        public Integer getMaxlength() {
-            return maxlength;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public boolean getDisabled() {
-            return this.disabled;
-        }
-
-        public void setDisabled(boolean b) {
-            this.disabled = b;
-        }
-
-        public boolean getReadonly() {
-            return this.readonly;
-        }
-
-        public void setReadonly(boolean b) {
-            this.readonly = b;
-        }
-
-        public boolean getClientAutocompleteField() {
-            return this.clientAutocompleteField;
-        }
-
-        public void setClientAutocompleteField(boolean b) {
-            this.clientAutocompleteField = b;
-        }
-
-        public String getDefaultValue(Map<String, Object> context) {
-            if (this.defaultValue != null) {
-                return this.defaultValue.expandString(context);
             } else {
-                return "";
+                this.subHyperlink = null;
             }
-        }
-
-        /**
-         * @param integer
-         */
-        public void setMaxlength(Integer integer) {
-            maxlength = integer;
-        }
-
-        /**
-         * @param i
-         */
-        public void setSize(int i) {
-            size = i;
-        }
-
-        /**
-         * @param str
-         */
-        public void setDefaultValue(String str) {
-            this.defaultValue = FlexibleStringExpander.getInstance(str);
-        }
-
-        public SubHyperlink getSubHyperlink() {
-            return this.subHyperlink;
-        }
-
-        public void setSubHyperlink(SubHyperlink newSubHyperlink) {
-            this.subHyperlink = newSubHyperlink;
-        }
-
-        public String getMask() {
-            return this.mask;
-        }
-
-        public String getPlaceholder(Map<String, Object> context) {
-            return this.placeholder.expandString(context);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new TextField(this, modelFormField);
-        }
-    }
-
-    public static class TextareaField extends FieldInfo {
-        protected int cols = 60;
-        protected int rows = 2;
-        protected FlexibleStringExpander defaultValue;
-        protected boolean visualEditorEnable = false;
-        protected boolean readOnly = false;
-        protected FlexibleStringExpander visualEditorButtons;
-
-        public TextareaField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.TEXTAREA, modelFormField);
-        }
-
-        public TextareaField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.TEXTAREA, modelFormField);
-        }
-
-        public TextareaField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.setDefaultValue(element.getAttribute("default-value"));
-            visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
-            visualEditorButtons = FlexibleStringExpander.getInstance(element.getAttribute("visual-editor-buttons"));
-            readOnly = "true".equals(element.getAttribute("read-only"));
-            String colsStr = element.getAttribute("cols");
-            try {
-                cols = Integer.parseInt(colsStr);
-            } catch (Exception e) {
-                if (UtilValidate.isNotEmpty(colsStr)) {
-                    Debug.logError("Could not parse the size value of the text element: [" + colsStr
-                            + "], setting to default of " + cols, module);
-                }
-            }
-            String rowsStr = element.getAttribute("rows");
-            try {
-                rows = Integer.parseInt(rowsStr);
-            } catch (Exception e) {
-                if (UtilValidate.isNotEmpty(rowsStr)) {
-                    Debug.logError("Could not parse the size value of the text element: [" + rowsStr
-                            + "], setting to default of " + rows, module);
-                }
-            }
-        }
-
-        private TextareaField(TextareaField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.defaultValue = original.defaultValue;
-            this.visualEditorEnable = original.visualEditorEnable;
-            this.visualEditorButtons = original.visualEditorButtons;
-            this.readOnly = original.readOnly;
-            this.cols = original.cols;
-            this.rows = original.rows;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new TextareaField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderTextareaField(writer, context, this);
-        }
-
-        public int getCols() {
-            return cols;
-        }
-
-        public int getRows() {
-            return rows;
-        }
-
-        public String getDefaultValue(Map<String, Object> context) {
-            if (this.defaultValue != null) {
-                return this.defaultValue.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public boolean getVisualEditorEnable() {
-            return this.visualEditorEnable;
-        }
-
-        public String getVisualEditorButtons(Map<String, Object> context) {
-            return this.visualEditorButtons.expandString(context);
-        }
-
-        public boolean isReadOnly() {
-            return readOnly;
-        }
-
-        /**
-         * @param r
-         */
-        public void setReadOnly(boolean r) {
-            readOnly = r;
-        }
-
-        /**
-         * @param i
-         */
-        public void setCols(int i) {
-            cols = i;
-        }
-
-        /**
-         * @param i
-         */
-        public void setRows(int i) {
-            rows = i;
-        }
-
-        /**
-         * @param str the default value of the field
-         */
-        public void setDefaultValue(String str) {
-            this.defaultValue = FlexibleStringExpander.getInstance(str);
-        }
-
-        /**
-         * @param visualEditorEnable is visualEditor enabled
-         */
-        public void setVisualEditorEnable(boolean visualEditorEnable) {
-            this.visualEditorEnable = visualEditorEnable;
-        }
-
-        /**
-         * @param eb set the visualEditor Buttons
-         */
-        public void setVisualEditorButtons(String eb) {
-            this.visualEditorButtons = FlexibleStringExpander.getInstance(eb);
-        }
-    }
-
-    public static class DateTimeField extends FieldInfo {
-        protected String type;
-        protected FlexibleStringExpander defaultValue;
-        protected String inputMethod;
-        protected String clock;
-        protected String step;
-        protected String mask;
-
-        public DateTimeField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DATE_TIME, modelFormField);
-        }
-
-        public DateTimeField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.DATE_TIME, modelFormField);
-        }
-
-        public DateTimeField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.setDefaultValue(element.getAttribute("default-value"));
-            type = element.getAttribute("type");
-            inputMethod = element.getAttribute("input-method");
-            clock = element.getAttribute("clock");
-            mask = element.getAttribute("mask");
-            if (UtilValidate.isNotEmpty(element.getAttribute("step")))
-                this.setStep(element.getAttribute("step"));
-            else
-                this.setStep("1");
-        }
-
-        protected DateTimeField(DateTimeField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.defaultValue = original.defaultValue;
-            this.type = original.type;
-            this.inputMethod = original.inputMethod;
-            this.clock = original.clock;
-            this.mask = original.mask;
-            this.step = original.step;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new DateTimeField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderDateTimeField(writer, context, this);
-        }
-
-        public String getType() {
-            return type;
-        }
-
-        public String getDefaultValue(Map<String, Object> context) {
-            if (this.defaultValue != null) {
-                return this.defaultValue.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getInputMethod() {
-            return this.inputMethod;
-        }
-
-        public String getClock() {
-            return this.clock;
-        }
-
-        public String getMask() {
-            return this.mask;
-        }
-
-        public String getStep() {
-            return this.step;
-        }
-
-        public void setStep(String step) {
-            this.step = step;
-        }
-
-        /**
-         * @param string
-         */
-        public void setType(String string) {
-            type = string;
-        }
-
-        /**
-         * @param str
-         */
-        public void setDefaultValue(String str) {
-            this.defaultValue = FlexibleStringExpander.getInstance(str);
-        }
-
-        public void setInputMethod(String str) {
-            this.inputMethod = str;
-        }
-
-        public void setClock(String str) {
-            this.clock = str;
-        }
-
-        /**
-         * Returns the default-value if specified, otherwise the current date, time or timestamp
-         *
-         * @param context Context Map
-         * @return Default value string for date-time
-         */
-        public String getDefaultDateTimeString(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.defaultValue))
-                return this.getDefaultValue(context);
-
-            if ("date".equals(this.type))
-                return (new java.sql.Date(System.currentTimeMillis())).toString();
-            else if ("time".equals(this.type))
-                return (new java.sql.Time(System.currentTimeMillis())).toString();
-            else
-                return UtilDateTime.nowTimestamp().toString();
-        }
-    }
-
-    public static class DropDownField extends FieldInfoWithOptions {
-        protected boolean allowEmpty = false;
-        protected boolean allowMulti = false;
-        protected String current;
-        protected String size;
-        protected String textSize;
-        protected FlexibleStringExpander currentDescription;
-        protected SubHyperlink subHyperlink;
-        protected int otherFieldSize = 0;
-        protected AutoComplete autoComplete;
-
-        public DropDownField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DROP_DOWN, modelFormField);
-        }
-
-        public DropDownField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.DROP_DOWN, modelFormField);
+            this.textSize = original.textSize;
         }
 
         public DropDownField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            this.current = element.getAttribute("current");
-            this.size = element.getAttribute("size");
-            this.textSize = element.getAttribute("text-size");
             this.allowEmpty = "true".equals(element.getAttribute("allow-empty"));
             this.allowMulti = "true".equals(element.getAttribute("allow-multiple"));
-            this.currentDescription = FlexibleStringExpander.getInstance(element.getAttribute("current-description"));
-            // set the default size
-            if (size == null) {
-                size = "1";
-            }
-            if (textSize == null) {
-                textSize = "0";
-            }
-            String sizeStr = element.getAttribute("other-field-size");
-            try {
-                this.otherFieldSize = Integer.parseInt(sizeStr);
-            } catch (Exception e) {
-                if (UtilValidate.isNotEmpty(sizeStr)) {
-                    Debug.logError("Could not parse the size value of the text element: [" + sizeStr
-                            + "], setting to the default of " + this.otherFieldSize, module);
-                }
-            }
-            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
-            if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
-            }
             Element autoCompleteElement = UtilXml.firstChildElement(element, "auto-complete");
             if (autoCompleteElement != null) {
                 this.autoComplete = new AutoComplete(autoCompleteElement);
+            } else {
+                this.autoComplete = null;
             }
+            this.current = element.getAttribute("current");
+            this.currentDescription = FlexibleStringExpander.getInstance(element.getAttribute("current-description"));
+            int otherFieldSize = 0;
+            String sizeStr = element.getAttribute("other-field-size");
+            if (!sizeStr.isEmpty()) {
+                try {
+                    otherFieldSize = Integer.parseInt(sizeStr);
+                } catch (Exception e) {
+                    Debug.logError("Could not parse the size value of the text element: [" + sizeStr
+                            + "], setting to the default of 0", module);
+                }
+            }
+            this.otherFieldSize = otherFieldSize;
+            String size = element.getAttribute("size");
+            if (size.isEmpty()) {
+                size = "1";
+            }
+            this.size = size;
+            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
+            if (subHyperlinkElement != null) {
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
+            } else {
+                this.subHyperlink = null;
+            }
+            String textSize = element.getAttribute("text-size");
+            if (textSize.isEmpty()) {
+                textSize = "0";
+            }
+            this.textSize = textSize;
         }
 
-        private DropDownField(DropDownField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.current = original.current;
-            this.size = original.size;
-            this.textSize = original.textSize;
-            this.allowEmpty = original.allowEmpty;
-            this.allowMulti = original.allowMulti;
-            this.currentDescription = original.currentDescription;
-            this.otherFieldSize = original.otherFieldSize;
-            if (original.subHyperlink != null) {
-                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
-            }
-            this.autoComplete = original.autoComplete;
+        public DropDownField(int fieldSource, List<OptionSource> optionSources) {
+            super(fieldSource, FieldInfo.DROP_DOWN, optionSources);
+            this.allowEmpty = false;
+            this.allowMulti = false;
+            this.autoComplete = null;
+            this.current = "";
+            this.currentDescription = FlexibleStringExpander.getInstance("");
+            this.otherFieldSize = 0;
+            this.size = "1";
+            this.subHyperlink = null;
+            this.textSize = "0";
+        }
+
+        public DropDownField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.DROP_DOWN, modelFormField);
+            this.allowEmpty = false;
+            this.allowMulti = false;
+            this.autoComplete = null;
+            this.current = "";
+            this.currentDescription = FlexibleStringExpander.getInstance("");
+            this.otherFieldSize = 0;
+            this.size = "1";
+            this.subHyperlink = null;
+            this.textSize = "0";
+        }
+
+        public DropDownField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.DROP_DOWN, modelFormField);
+            this.allowEmpty = false;
+            this.allowMulti = false;
+            this.autoComplete = null;
+            this.current = "";
+            this.currentDescription = FlexibleStringExpander.getInstance("");
+            this.otherFieldSize = 0;
+            this.size = "1";
+            this.subHyperlink = null;
+            this.textSize = "0";
         }
 
         @Override
@@ -3332,18 +1650,12 @@ public class ModelFormField {
             return new DropDownField(this, modelFormField);
         }
 
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderDropDownField(writer, context, this);
+        public boolean getAllowMulti() {
+            return allowMulti;
         }
 
-        public boolean isAllowEmpty() {
-            return this.allowEmpty;
-        }
-
-        public boolean isAllowMultiple() {
-            return this.allowMulti;
+        public AutoComplete getAutoComplete() {
+            return this.autoComplete;
         }
 
         public String getCurrent() {
@@ -3352,50 +1664,18 @@ public class ModelFormField {
             return this.current;
         }
 
+        public FlexibleStringExpander getCurrentDescription() {
+            return currentDescription;
+        }
+
         public String getCurrentDescription(Map<String, Object> context) {
             if (this.currentDescription == null)
                 return null;
             return this.currentDescription.expandString(context);
         }
 
-        public void setAllowEmpty(boolean b) {
-            this.allowEmpty = b;
-        }
-
-        public void setCurrent(String string) {
-            this.current = string;
-        }
-
-        public void setCurrentDescription(String string) {
-            this.currentDescription = FlexibleStringExpander.getInstance(string);
-        }
-
-        public SubHyperlink getSubHyperlink() {
-            return this.subHyperlink;
-        }
-
-        public void setSubHyperlink(SubHyperlink newSubHyperlink) {
-            this.subHyperlink = newSubHyperlink;
-        }
-
-        public AutoComplete getAutoComplete() {
-            return this.autoComplete;
-        }
-
-        public void setAutoComplete(AutoComplete newAutoComplete) {
-            this.autoComplete = newAutoComplete;
-        }
-
         public int getOtherFieldSize() {
             return this.otherFieldSize;
-        }
-
-        public String getSize() {
-            return this.size;
-        }
-
-        public String getTextSize() {
-            return this.textSize;
         }
 
         /**
@@ -3420,630 +1700,299 @@ public class ModelFormField {
             }
         }
 
-    }
-
-    public static class RadioField extends FieldInfoWithOptions {
-
-        public RadioField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.RADIO, modelFormField);
-        }
-
-        public RadioField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.RADIO, modelFormField);
-        }
-
-        public RadioField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-        }
-
-        private RadioField(RadioField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new RadioField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderRadioField(writer, context, this);
-        }
-    }
-
-    public static class CheckField extends FieldInfoWithOptions {
-        public final static String ROW_SUBMIT_FIELD_NAME = "_rowSubmit";
-        protected FlexibleStringExpander allChecked = null;
-
-        public CheckField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.CHECK, modelFormField);
-        }
-
-        public CheckField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.CHECK, modelFormField);
-        }
-
-        public CheckField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
-        }
-
-        private CheckField(CheckField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new CheckField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderCheckField(writer, context, this);
-        }
-
-        public Boolean isAllChecked(Map<String, Object> context) {
-            String allCheckedStr = this.allChecked.expandString(context);
-            if (UtilValidate.isNotEmpty(allCheckedStr))
-                return Boolean.valueOf("true".equals(allCheckedStr));
-            else
-                return null;
-        }
-    }
-
-    public static class SubmitField extends FieldInfo {
-        protected String buttonType;
-        protected FlexibleStringExpander imageLocation;
-        protected FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
-        protected boolean requestConfirmation = false;
-        protected FlexibleStringExpander confirmationMsgExdr;
-
-        public SubmitField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.SUBMIT, modelFormField);
-        }
-
-        public SubmitField(int fieldInfo, ModelFormField modelFormField) {
-            super(fieldInfo, FieldInfo.SUBMIT, modelFormField);
-        }
-
-        public SubmitField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.buttonType = element.getAttribute("button-type");
-            setImageLocation(element.getAttribute("image-location"));
-            this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element
-                    .getAttribute("background-submit-refresh-target"));
-            setRequestConfirmation("true".equals(element.getAttribute("request-confirmation")));
-            setConfirmationMsg(element.getAttribute("confirmation-message"));
-        }
-
-        private SubmitField(SubmitField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.buttonType = original.buttonType;
-            this.imageLocation = original.imageLocation;
-            this.backgroundSubmitRefreshTargetExdr = original.backgroundSubmitRefreshTargetExdr;
-            this.requestConfirmation = original.requestConfirmation;
-            this.confirmationMsgExdr = original.confirmationMsgExdr;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new SubmitField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderSubmitField(writer, context, this);
-        }
-
-        public String getButtonType() {
-            return buttonType;
-        }
-
-        public String getImageLocation(Map<String, Object> context) {
-            return this.imageLocation.expandString(context);
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
-        }
-
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
-                return message;
-            else if (getRequestConfirmation()) {
-                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
-                        "${uiLabelMap.CommonConfirm}");
-                setConfirmationMsg(defaultMessage);
-                return getConfirmationMsg(context);
-            }
-            return "";
-        }
-
-        /**
-         * @param string
-         */
-        public void setButtonType(String string) {
-            buttonType = string;
-        }
-
-        /**
-         * @param val the value of the image location
-         */
-        public void setImageLocation(String val) {
-            imageLocation = FlexibleStringExpander.getInstance(val);
-        }
-
-        public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
-            return this.backgroundSubmitRefreshTargetExdr.expandString(context);
-        }
-
-        public void setRequestConfirmation(boolean val) {
-            this.requestConfirmation = val;
-        }
-
-        public void setConfirmationMsg(String val) {
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-    }
-
-    public static class ResetField extends FieldInfo {
-
-        public ResetField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.RESET, modelFormField);
-        }
-
-        public ResetField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.RESET, modelFormField);
-        }
-
-        public ResetField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-        }
-
-        private ResetField(ResetField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new ResetField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderResetField(writer, context, this);
-        }
-    }
-
-    public static class HiddenField extends FieldInfo {
-        protected FlexibleStringExpander value;
-
-        public HiddenField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.HIDDEN, modelFormField);
-        }
-
-        public HiddenField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.HIDDEN, modelFormField);
-        }
-
-        public HiddenField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.setValue(element.getAttribute("value"));
-        }
-
-        private HiddenField(HiddenField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.value = original.value;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new HiddenField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderHiddenField(writer, context, this);
-        }
-
-        public String getValue(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.value)) {
-                String valueEnc = this.value.expandString(context);
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
-                if (simpleEncoder != null) {
-                    valueEnc = simpleEncoder.encode(valueEnc);
-                }
-                return valueEnc;
-            } else {
-                return getModelFormField().getEntry(context);
-            }
-        }
-
-        public void setValue(String string) {
-            this.value = FlexibleStringExpander.getInstance(string);
-        }
-    }
-
-    public static class IgnoredField extends FieldInfo {
-
-        public IgnoredField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.IGNORED, modelFormField);
-        }
-
-        public IgnoredField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.IGNORED, modelFormField);
-        }
-
-        public IgnoredField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-        }
-
-        private IgnoredField(IgnoredField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new IgnoredField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderIgnoredField(writer, context, this);
-        }
-    }
-
-    public static class TextFindField extends TextField {
-        protected boolean ignoreCase = true;
-        protected boolean hideIgnoreCase = false;
-        protected String defaultOption = "contains";
-        protected boolean hideOptions = false;
-
-        public TextFindField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
-            this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options"))
-                    || "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
-            if (element.hasAttribute("default-option")) {
-                this.defaultOption = element.getAttribute("default-option");
-            } else {
-                this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
-            }
-            this.hideOptions = "true".equals(element.getAttribute("hide-options"))
-                    || "options".equals(element.getAttribute("hide-options")) ? true : false;
-        }
-
-        private TextFindField(TextFindField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.ignoreCase = original.ignoreCase;
-            this.hideIgnoreCase = original.hideIgnoreCase;
-            this.defaultOption = original.defaultOption;
-            this.hideOptions = original.hideOptions;
-        }
-
-        public TextFindField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
-        }
-
-        public boolean getIgnoreCase() {
-            return this.ignoreCase;
-        }
-
-        public String getDefaultOption() {
-            return this.defaultOption;
-        }
-
-        public boolean getHideIgnoreCase() {
-            return this.hideIgnoreCase;
-        }
-
-        public boolean getHideOptions() {
-            return this.hideOptions;
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new TextFindField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderTextFindField(writer, context, this);
-        }
-    }
-
-    public static class DateFindField extends DateTimeField {
-        protected String defaultOptionFrom = "greaterThanEqualTo";
-        protected String defaultOptionThru = "lessThanEqualTo";
-
-        public DateFindField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.defaultOptionFrom = element.getAttribute("default-option-from");
-            this.defaultOptionThru = element.getAttribute("default-option-thru");
-        }
-
-        private DateFindField(DateFindField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.defaultOptionFrom = original.defaultOptionFrom;
-            this.defaultOptionThru = original.defaultOptionThru;
-        }
-
-        public DateFindField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new DateFindField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderDateFindField(writer, context, this);
-        }
-
-        public String getDefaultOptionFrom() {
-            return this.defaultOptionFrom;
-        }
-
-        public String getDefaultOptionThru() {
-            return this.defaultOptionThru;
-        }
-    }
-
-    public static class RangeFindField extends TextField {
-        protected String defaultOptionFrom = "greaterThanEqualTo";
-        protected String defaultOptionThru = "lessThanEqualTo";
-
-        public RangeFindField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.defaultOptionFrom = element.getAttribute("default-option-from");
-            this.defaultOptionThru = element.getAttribute("default-option-thru");
-        }
-
-        private RangeFindField(RangeFindField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.defaultOptionFrom = original.defaultOptionFrom;
-            this.defaultOptionThru = original.defaultOptionThru;
-        }
-
-        public RangeFindField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new RangeFindField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderRangeFindField(writer, context, this);
-        }
-
-        public String getDefaultOptionFrom() {
-            return this.defaultOptionFrom;
-        }
-
-        public String getDefaultOptionThru() {
-            return this.defaultOptionThru;
-        }
-    }
-
-    public static class LookupField extends TextField {
-        protected FlexibleStringExpander formName;
-        protected String descriptionFieldName;
-        protected String targetParameter;
-        protected String lookupPresentation;
-        protected String lookupWidth;
-        protected String lookupHeight;
-        protected String lookupPosition;
-        protected String fadeBackground;
-        protected String initiallyCollapsed;
-        protected String showDescription;
-
-        public LookupField(Element element, ModelFormField modelFormField) {
-            super(element, modelFormField);
-            this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
-            this.descriptionFieldName = element.getAttribute("description-field-name");
-            this.targetParameter = element.getAttribute("target-parameter");
-            this.lookupPresentation = element.getAttribute("presentation");
-            this.lookupHeight = element.getAttribute("height");
-            this.lookupWidth = element.getAttribute("width");
-            this.lookupPosition = element.getAttribute("position");
-            this.fadeBackground = element.getAttribute("fade-background");
-            this.initiallyCollapsed = element.getAttribute("initially-collapsed");
-            this.showDescription = element.getAttribute("show-description");
-
-            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
-            if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
-            }
-        }
-
-        public LookupField(LookupField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-            this.formName = original.formName;
-            this.descriptionFieldName = original.descriptionFieldName;
-            this.targetParameter = original.targetParameter;
-            this.lookupPresentation = original.lookupPresentation;
-            this.lookupHeight = original.lookupHeight;
-            this.lookupWidth = original.lookupWidth;
-            this.lookupPosition = original.lookupPosition;
-            this.fadeBackground = original.fadeBackground;
-            this.initiallyCollapsed = original.initiallyCollapsed;
-            this.showDescription = original.showDescription;
-            if (original.subHyperlink != null) {
-                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
-            }
-        }
-
-        public LookupField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, modelFormField);
-        }
-
-        @Override
-        public void accept(ModelFieldVisitor visitor) {
-            visitor.visit(this);
-        }
-
-        @Override
-        public FieldInfo copy(ModelFormField modelFormField) {
-            return new LookupField(this, modelFormField);
-        }
-
-        @Override
-        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
-                throws IOException {
-            formStringRenderer.renderLookupField(writer, context, this);
-        }
-
-        public String getFormName(Map<String, Object> context) {
-            return this.formName.expandString(context);
-        }
-
-        public List<String> getTargetParameterList() {
-            List<String> paramList = new LinkedList<String>();
-            if (UtilValidate.isNotEmpty(this.targetParameter)) {
-                StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
-                while (stk.hasMoreTokens()) {
-                    paramList.add(stk.nextToken());
-                }
-            }
-            return paramList;
-        }
-
-        public void setFormName(String str) {
-            this.formName = FlexibleStringExpander.getInstance(str);
-        }
-
-        public String getDescriptionFieldName() {
-            return this.descriptionFieldName;
-        }
-
-        public void setDescriptionFieldName(String str) {
-            this.descriptionFieldName = str;
+        public String getSize() {
+            return this.size;
         }
 
-        @Override
         public SubHyperlink getSubHyperlink() {
             return this.subHyperlink;
         }
 
-        public String getLookupPresentation() {
-            return this.lookupPresentation;
+        public String getTextSize() {
+            return this.textSize;
         }
 
-        public void setLookupPresentation(String str) {
-            this.lookupPresentation = str;
+        public boolean isAllowEmpty() {
+            return this.allowEmpty;
         }
 
-        public String getLookupWidth() {
-            return this.lookupWidth;
+        public boolean isAllowMultiple() {
+            return this.allowMulti;
         }
 
-        public void setLookupWidth(String str) {
-            this.lookupWidth = str;
-        }
-
-        public String getLookupHeight() {
-            return this.lookupHeight;
-        }
-
-        public void setLookupHeight(String str) {
-            this.lookupHeight = str;
-        }
-
-        public String getLookupPosition() {
-            return this.lookupPosition;
-        }
-
-        public void setLookupPosition(String str) {
-            this.lookupPosition = str;
-        }
-
-        public String getFadeBackground() {
-            return this.fadeBackground;
-        }
-
-        public void setFadeBackground(String str) {
-            this.fadeBackground = str;
-        }
-
-        public Boolean getShowDescription() {
-            return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
-        }
-
-        public void setShowDescription(String str) {
-            this.showDescription = str;
-        }
-
-        //initially-collapsed status
-        public boolean getInitiallyCollapsed() {
-            return "true".equals(this.initiallyCollapsed);
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            Debug.logInfo("Rendering drop-down " + this + " for " + getModelFormField().getName(), module);
+            formStringRenderer.renderDropDownField(writer, context, this);
         }
     }
 
+    /**
+     * Models the &lt;entity-options&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class EntityOptions extends OptionSource {
+        private final boolean cache;
+        private final List<EntityFinderUtil.ConditionExpr> constraintList;
+        private final FlexibleStringExpander description;
+        private final String entityName;
+        private final String filterByDate;
+        private final String keyFieldName;
+        private final List<String> orderByList;
+
+        public EntityOptions(Element entityOptionsElement, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.cache = !"false".equals(entityOptionsElement.getAttribute("cache"));
+            List<? extends Element> constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
+            if (!constraintElements.isEmpty()) {
+                List<EntityFinderUtil.ConditionExpr> constraintList = new ArrayList<EntityFinderUtil.ConditionExpr>(
+                        constraintElements.size());
+                for (Element constraintElement : constraintElements) {
+                    constraintList.add(new EntityFinderUtil.ConditionExpr(constraintElement));
+                }
+                this.constraintList = Collections.unmodifiableList(constraintList);
+            } else {
+                this.constraintList = Collections.emptyList();
+            }
+            this.description = FlexibleStringExpander.getInstance(entityOptionsElement.getAttribute("description"));
+            this.entityName = entityOptionsElement.getAttribute("entity-name");
+            this.filterByDate = entityOptionsElement.getAttribute("filter-by-date");
+            this.keyFieldName = entityOptionsElement.getAttribute("key-field-name");
+            List<? extends Element> orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
+            if (!orderByElements.isEmpty()) {
+                List<String> orderByList = new ArrayList<String>(orderByElements.size());
+                for (Element orderByElement : orderByElements) {
+                    orderByList.add(orderByElement.getAttribute("field-name"));
+                }
+                this.orderByList = Collections.unmodifiableList(orderByList);
+            } else {
+                this.orderByList = Collections.emptyList();
+            }
+        }
+
+        private EntityOptions(EntityOptions original, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.cache = original.cache;
+            this.constraintList = original.constraintList;
+            this.description = original.description;
+            this.entityName = original.entityName;
+            this.filterByDate = original.filterByDate;
+            this.keyFieldName = original.keyFieldName;
+            this.orderByList = original.orderByList;
+        }
+
+        public EntityOptions(ModelFormField modelFormField) {
+            super(modelFormField);
+            this.cache = true;
+            this.constraintList = Collections.emptyList();
+            this.description = FlexibleStringExpander.getInstance("");
+            this.entityName = "";
+            this.filterByDate = "";
+            this.keyFieldName = "";
+            this.orderByList = Collections.emptyList();
+        }
+
+        @Override
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
+            // first expand any conditions that need expanding based on the current context
+            EntityCondition findCondition = null;
+            if (UtilValidate.isNotEmpty(this.constraintList)) {
+                List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
+                for (EntityFinderUtil.Condition condition : constraintList) {
+                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
+                    if (modelEntity == null) {
+                        throw new IllegalArgumentException("Error in entity-options: could not find entity [" + this.entityName
+                                + "]");
+                    }
+                    EntityCondition createdCondition = condition.createCondition(context, modelEntity,
+                            delegator.getModelFieldTypeReader(modelEntity));
+                    if (createdCondition != null) {
+                        expandedConditionList.add(createdCondition);
+                    }
+                }
+                findCondition = EntityCondition.makeCondition(expandedConditionList);
+            }
+
+            try {
+                Locale locale = UtilMisc.ensureLocale(context.get("locale"));
+
+                List<GenericValue> values = null;
+                values = delegator.findList(this.entityName, findCondition, null, this.orderByList, null, this.cache);
+
+                // filter-by-date if requested
+                if ("true".equals(this.filterByDate)) {
+                    values = EntityUtil.filterByDate(values, true);
+                } else if (!"false".equals(this.filterByDate)) {
+                    // not explicitly true or false, check to see if has fromDate and thruDate, if so do the filter
+                    ModelEntity modelEntity = delegator.getModelEntity(this.entityName);
+                    if (modelEntity != null && modelEntity.isField("fromDate") && modelEntity.isField("thruDate")) {
+                        values = EntityUtil.filterByDate(values, true);
+                    }
+                }
+
+                for (GenericValue value : values) {
+                    // add key and description with string expansion, ie expanding ${} stuff, passing locale explicitly to expand value string because it won't be found in the Entity
+                    MapStack<String> localContext = MapStack.create(context);
+                    // Rendering code might try to modify the GenericEntity instance,
+                    // so we make a copy of it.
+                    Map<String, Object> genericEntityClone = UtilGenerics.cast(value.clone());
+                    localContext.push(genericEntityClone);
+
+                    // expand with the new localContext, which is locale aware
+                    String optionDesc = this.description.expandString(localContext, locale);
+
+                    Object keyFieldObject = value.get(this.getKeyFieldName());
+                    if (keyFieldObject == null) {
+                        throw new IllegalArgumentException(
+                                "The entity-options identifier (from key-name attribute, or default to the field name) ["
+                                        + this.getKeyFieldName() + "], may not be a valid key field name for the entity ["
+                                        + this.entityName + "].");
+                    }
+                    String keyFieldValue = keyFieldObject.toString();
+                    optionValues.add(new OptionValue(keyFieldValue, optionDesc));
+                }
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Error getting entity options in form", module);
+            }
+        }
+
+        @Override
+        public OptionSource copy(ModelFormField modelFormField) {
+            return new EntityOptions(this, modelFormField);
+        }
+
+        public boolean getCache() {
+            return cache;
+        }
+
+        public List<EntityFinderUtil.ConditionExpr> getConstraintList() {
+            return constraintList;
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public String getEntityName() {
+            return entityName;
+        }
+
+        public String getFilterByDate() {
+            return filterByDate;
+        }
+
+        public String getKeyFieldName() {
+            if (UtilValidate.isNotEmpty(this.keyFieldName))
+                return this.keyFieldName;
+            return getModelFormField().getFieldName(); // get the modelFormField fieldName
+        }
+
+        public List<String> getOrderByList() {
+            return orderByList;
+        }
+    }
+
+    public static abstract class FieldInfoWithOptions extends FieldInfo {
+
+        public static String getDescriptionForOptionKey(String key, List<OptionValue> allOptionValues) {
+            if (UtilValidate.isEmpty(key))
+                return "";
+
+            if (UtilValidate.isEmpty(allOptionValues))
+                return key;
+
+            for (OptionValue optionValue : allOptionValues) {
+                if (key.equals(optionValue.getKey())) {
+                    return optionValue.getDescription();
+                }
+            }
+
+            // if we get here we didn't find a match, just return the key
+            return key;
+        }
+
+        private final FlexibleStringExpander noCurrentSelectedKey;
+        private final List<OptionSource> optionSources;
+
+        public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
+            // read all option and entity-options sub-elements, maintaining order
+            ArrayList<OptionSource> optionSources = new ArrayList<OptionSource>();
+            List<? extends Element> childElements = UtilXml.childElementList(element);
+            if (childElements.size() > 0) {
+                for (Element childElement : childElements) {
+                    if ("option".equals(childElement.getTagName())) {
+                        optionSources.add(new SingleOption(childElement, modelFormField));
+                    } else if ("list-options".equals(childElement.getTagName())) {
+                        optionSources.add(new ListOptions(childElement, modelFormField));
+                    } else if ("entity-options".equals(childElement.getTagName())) {
+                        optionSources.add(new EntityOptions(childElement, modelFormField));
+                    }
+                }
+            } else {
+                // this must be added or the multi-form select box options would not show up
+                optionSources.add(new SingleOption("Y", " ", modelFormField));
+            }
+            optionSources.trimToSize();
+            this.optionSources = Collections.unmodifiableList(optionSources);
+        }
+
+        // Copy constructor.
+        protected FieldInfoWithOptions(FieldInfoWithOptions original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.noCurrentSelectedKey = original.noCurrentSelectedKey;
+            if (original.optionSources.isEmpty()) {
+                this.optionSources = original.optionSources;
+            } else {
+                List<OptionSource> optionSources = new ArrayList<OptionSource>(original.optionSources.size());
+                for (OptionSource source : original.optionSources) {
+                    optionSources.add(source.copy(modelFormField));
+                }
+                this.optionSources = Collections.unmodifiableList(optionSources);
+            }
+        }
+
+        protected FieldInfoWithOptions(int fieldSource, int fieldType, List<OptionSource> optionSources) {
+            super(fieldSource, fieldType, null);
+            this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
+            this.optionSources = Collections.unmodifiableList(new ArrayList<OptionSource>(optionSources));
+        }
+
+        public FieldInfoWithOptions(int fieldSource, int fieldType, ModelFormField modelFormField) {
+            super(fieldSource, fieldType, modelFormField);
+            this.noCurrentSelectedKey = FlexibleStringExpander.getInstance("");
+            this.optionSources = Collections.emptyList();
+        }
+
+        public List<OptionValue> getAllOptionValues(Map<String, Object> context, Delegator delegator) {
+            List<OptionValue> optionValues = new LinkedList<OptionValue>();
+            for (OptionSource optionSource : this.optionSources) {
+                optionSource.addOptionValues(optionValues, context, delegator);
+            }
+            return optionValues;
+        }
+
+        public FlexibleStringExpander getNoCurrentSelectedKey() {
+            return noCurrentSelectedKey;
+        }
+
+        public String getNoCurrentSelectedKey(Map<String, Object> context) {
+            return this.noCurrentSelectedKey.expandString(context);
+        }
+
+        public List<OptionSource> getOptionSources() {
+            return optionSources;
+        }
+    }
+
+    /**
+     * Models the &lt;file&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
     public static class FileField extends TextField {
 
         public FileField(Element element, ModelFormField modelFormField) {
@@ -4075,18 +2024,948 @@ public class ModelFormField {
         }
     }
 
+    /**
+     * Models the &lt;hidden&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class HiddenField extends FieldInfo {
+        private final FlexibleStringExpander value;
+
+        public HiddenField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.value = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        }
+
+        private HiddenField(HiddenField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.value = original.value;
+        }
+
+        public HiddenField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.HIDDEN, modelFormField);
+            this.value = FlexibleStringExpander.getInstance("");
+        }
+
+        public HiddenField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.HIDDEN, modelFormField);
+            this.value = FlexibleStringExpander.getInstance("");
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new HiddenField(this, modelFormField);
+        }
+
+        public FlexibleStringExpander getValue() {
+            return value;
+        }
+
+        public String getValue(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.value)) {
+                String valueEnc = this.value.expandString(context);
+                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                if (simpleEncoder != null) {
+                    valueEnc = simpleEncoder.encode(valueEnc);
+                }
+                return valueEnc;
+            } else {
+                return getModelFormField().getEntry(context);
+            }
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderHiddenField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;hyperlink&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class HyperlinkField extends FieldInfo {
+        public static String DEFAULT_TARGET_TYPE = "intra-app";
+
+        private final boolean alsoHidden;
+        private final FlexibleStringExpander alternate;
+        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
+        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
+        private final FlexibleStringExpander confirmationMsgExdr;
+        private final FlexibleStringExpander description;
+        private final FlexibleStringExpander imageLocation;
+        private final FlexibleStringExpander imageTitle;
+        private final String linkType;
+        private final List<WidgetWorker.Parameter> parameterList;
+        private final FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
+        private final boolean requestConfirmation;
+        private final String size;
+        private final FlexibleStringExpander target;
+        private final String targetType;
+        private final FlexibleStringExpander targetWindowExdr;
+
+        public HyperlinkField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
+            this.alternate = FlexibleStringExpander.getInstance(element.getAttribute("alternate"));
+            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            } else {
+                this.autoEntityParameters = null;
+            }
+            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            } else {
+                this.autoServiceParameters = null;
+            }
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
+            this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
+            this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
+            this.imageTitle = FlexibleStringExpander.getInstance(element.getAttribute("image-title"));
+            this.linkType = element.getAttribute("link-type");
+            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
+            if (!parameterElementList.isEmpty()) {
+                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
+            } else {
+                this.parameterList = Collections.emptyList();
+            }
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
+            this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
+            this.size = element.getAttribute("size");
+            this.target = FlexibleStringExpander.getInstance(element.getAttribute("target"));
+            this.targetType = element.getAttribute("target-type");
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+        }
+
+        private HyperlinkField(HyperlinkField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.description = original.description;
+            this.alternate = original.alternate;
+            this.imageLocation = original.imageLocation;
+            this.imageTitle = original.imageTitle;
+            this.target = original.target;
+            this.alsoHidden = original.alsoHidden;
+            this.linkType = original.linkType;
+            this.targetType = original.targetType;
+            this.targetWindowExdr = original.targetWindowExdr;
+            this.parametersMapAcsr = original.parametersMapAcsr;
+            this.size = original.size;
+            this.requestConfirmation = original.requestConfirmation;
+            this.confirmationMsgExdr = original.confirmationMsgExdr;
+            this.parameterList = original.parameterList;
+            this.autoEntityParameters = original.autoEntityParameters;
+            this.autoServiceParameters = original.autoServiceParameters;
+        }
+
+        public HyperlinkField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.HYPERLINK, modelFormField);
+            this.alsoHidden = true;
+            this.alternate = FlexibleStringExpander.getInstance("");
+            this.autoEntityParameters = null;
+            this.autoServiceParameters = null;
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
+            this.description = FlexibleStringExpander.getInstance("");
+            this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.imageTitle = FlexibleStringExpander.getInstance("");
+            this.linkType = "";
+            this.parameterList = Collections.emptyList();
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance("");
+            this.requestConfirmation = false;
+            this.size = "";
+            this.target = FlexibleStringExpander.getInstance("");
+            this.targetType = "";
+            this.targetWindowExdr = FlexibleStringExpander.getInstance("");
+        }
+
+        public HyperlinkField(ModelFormField modelFormField) {
+            this(FieldInfo.SOURCE_EXPLICIT, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new HyperlinkField(this, modelFormField);
+        }
+
+        public boolean getAlsoHidden() {
+            return this.alsoHidden;
+        }
+
+        public FlexibleStringExpander getAlternate() {
+            return alternate;
+        }
+
+        public String getAlternate(Map<String, Object> context) {
+            return this.alternate.expandString(context);
+        }
+
+        public WidgetWorker.AutoEntityParameters getAutoEntityParameters() {
+            return autoEntityParameters;
+        }
+
+        public WidgetWorker.AutoServiceParameters getAutoServiceParameters() {
+            return autoServiceParameters;
+        }
+
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message))
+                return message;
+            if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                        "${uiLabelMap.CommonConfirm}");
+                return FlexibleStringExpander.expandString(defaultMessage, context);
+            }
+            return "";
+        }
+
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getConfirmationMsgExdr() {
+            return confirmationMsgExdr;
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public String getDescription(Map<String, Object> context) {
+            return this.description.expandString(context);
+        }
+
+        public FlexibleStringExpander getImageLocation() {
+            return imageLocation;
+        }
+
+        public String getImageLocation(Map<String, Object> context) {
+            return this.imageLocation.expandString(context);
+        }
+
+        public FlexibleStringExpander getImageTitle() {
+            return imageTitle;
+        }
+
+        public String getImageTitle(Map<String, Object> context) {
+            return this.imageTitle.expandString(context);
+        }
+
+        public String getLinkType() {
+            return this.linkType;
+        }
+
+        public List<WidgetWorker.Parameter> getParameterList() {
+            return parameterList;
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
+
+            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+            if (addlParamMap != null) {
+                fullParameterMap.putAll(addlParamMap);
+            }
+
+            for (WidgetWorker.Parameter parameter : this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, this.getModelFormField().getModelForm()
+                        .getDefaultServiceName()));
+            }
+
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
+                        .getDefaultEntityName()));
+            }
+
+            return fullParameterMap;
+        }
+
+        public FlexibleMapAccessor<Map<String, String>> getParametersMapAcsr() {
+            return parametersMapAcsr;
+        }
+
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+
+        public String getSize() {
+            return this.size;
+        }
+
+        public FlexibleStringExpander getTarget() {
+            return target;
+        }
+
+        public String getTarget(Map<String, Object> context) {
+            return this.target.expandString(context);
+        }
+
+        public String getTargetType() {
+            if (UtilValidate.isNotEmpty(this.targetType))
+                return this.targetType;
+            return HyperlinkField.DEFAULT_TARGET_TYPE;
+        }
+
+        public String getTargetWindow(Map<String, Object> context) {
+            String targetWindow = this.targetWindowExdr.expandString(context);
+            return targetWindow;
+        }
+
+        public FlexibleStringExpander getTargetWindowExdr() {
+            return targetWindowExdr;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderHyperlinkField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;ignored&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class IgnoredField extends FieldInfo {
+
+        public IgnoredField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+        }
+
+        private IgnoredField(IgnoredField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+        }
+
+        public IgnoredField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.IGNORED, modelFormField);
+        }
+
+        public IgnoredField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.IGNORED, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new IgnoredField(this, modelFormField);
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderIgnoredField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;image&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class ImageField extends FieldInfo {
+        private final FlexibleStringExpander alternate;
+        private final FlexibleStringExpander defaultValue;
+        private final FlexibleStringExpander description;
+        private final FlexibleStringExpander style;
+        private final SubHyperlink subHyperlink;
+        private final FlexibleStringExpander value;
+
+        public ImageField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.alternate = FlexibleStringExpander.getInstance(element.getAttribute("alternate"));
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
+            this.style = FlexibleStringExpander.getInstance(element.getAttribute("style"));
+            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
+            if (subHyperlinkElement != null) {
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, modelFormField);
+            } else {
+                this.subHyperlink = null;
+            }
+            this.value = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        }
+
+        public ImageField(ImageField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.alternate = original.alternate;
+            this.defaultValue = original.defaultValue;
+            this.description = original.description;
+            this.style = original.style;
+            if (original.subHyperlink != null) {
+                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
+            } else {
+                this.subHyperlink = null;
+            }
+            this.value = original.value;
+        }
+
+        public ImageField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.IMAGE, modelFormField);
+            this.alternate = FlexibleStringExpander.getInstance("");
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.description = FlexibleStringExpander.getInstance("");
+            this.style = FlexibleStringExpander.getInstance("");
+            this.subHyperlink = null;
+            this.value = FlexibleStringExpander.getInstance("");
+        }
+
+        public ImageField(ModelFormField modelFormField) {
+            this(FieldInfo.SOURCE_EXPLICIT, modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new ImageField(this, modelFormField);
+        }
+
+        public FlexibleStringExpander getAlternate() {
+            return alternate;
+        }
+
+        public String getAlternate(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.alternate))
+                return this.alternate.expandString(context);
+            return "";
+        }
+
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
+        }
+
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public String getDescription(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.description))
+                return this.description.expandString(context);
+            return "";
+        }
+
+        public FlexibleStringExpander getStyle() {
+            return style;
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.style))
+                return this.style.expandString(context);
+            return "";
+        }
+
+        public SubHyperlink getSubHyperlink() {
+            return this.subHyperlink;
+        }
+
+        public FlexibleStringExpander getValue() {
+            return value;
+        }
+
+        public String getValue(Map<String, Object> context) {
+            if (UtilValidate.isNotEmpty(this.value))
+                return this.value.expandString(context);
+            return getModelFormField().getEntry(context);
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderImageField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;in-place-editor&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class InPlaceEditor {
+        private final String cancelControl;
+        private final String cancelText;
+        private final String clickToEditText;
+        private final String cols;
+        private final Map<FlexibleMapAccessor<Object>, Object> fieldMap;
+        private final String fieldPostCreation;
+        private final String formClassName;
+        private final String highlightColor;
+        private final String highlightEndColor;
+        private final String hoverClassName;
+        private final String htmlResponse;
+        private final String loadingClassName;
+        private final String loadingText;
+        private final String okControl;
+        private final String okText;
+        private final String paramName;
+        private final String rows;
+        private final String savingClassName;
+        private final String savingText;
+        private final String submitOnBlur;
+        private final String textAfterControls;
+        private final String textBeforeControls;
+        private final String textBetweenControls;
+        private final String updateAfterRequestCall;
+        private final FlexibleStringExpander url;
+
+        public InPlaceEditor(Element element) {
+            this.cancelControl = element.getAttribute("cancel-control");
+            this.cancelText = element.getAttribute("cancel-text");
+            this.clickToEditText = element.getAttribute("click-to-edit-text");
+            this.fieldPostCreation = element.getAttribute("field-post-creation");
+            this.formClassName = element.getAttribute("form-class-name");
+            this.highlightColor = element.getAttribute("highlight-color");
+            this.highlightEndColor = element.getAttribute("highlight-end-color");
+            this.hoverClassName = element.getAttribute("hover-class-name");
+            this.htmlResponse = element.getAttribute("html-response");
+            this.loadingClassName = element.getAttribute("loading-class-name");
+            this.loadingText = element.getAttribute("loading-text");
+            this.okControl = element.getAttribute("ok-control");
+            this.okText = element.getAttribute("ok-text");
+            this.paramName = element.getAttribute("param-name");
+            this.savingClassName = element.getAttribute("saving-class-name");
+            this.savingText = element.getAttribute("saving-text");
+            this.submitOnBlur = element.getAttribute("submit-on-blur");
+            this.textBeforeControls = element.getAttribute("text-before-controls");
+            this.textAfterControls = element.getAttribute("text-after-controls");
+            this.textBetweenControls = element.getAttribute("text-between-controls");
+            this.updateAfterRequestCall = element.getAttribute("update-after-request-call");
+            Element simpleElement = UtilXml.firstChildElement(element, "simple-editor");
+            if (simpleElement != null) {
+                this.rows = simpleElement.getAttribute("rows");
+                this.cols = simpleElement.getAttribute("cols");
+            } else {
+                this.rows = "";
+                this.cols = "";
+            }
+            this.fieldMap = EntityFinderUtil.makeFieldMap(element);
+            this.url = FlexibleStringExpander.getInstance(element.getAttribute("url"));
+        }
+
+        public String getCancelControl() {
+            return this.cancelControl;
+        }
+
+        public String getCancelText() {
+            return this.cancelText;
+        }
+
+        public String getClickToEditText() {
+            return this.clickToEditText;
+        }
+
+        public String getCols() {
+            return this.cols;
+        }
+
+        public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
+            return fieldMap;
+        }
+
+        public Map<String, Object> getFieldMap(Map<String, Object> context) {
+            Map<String, Object> inPlaceEditorContext = new HashMap<String, Object>();
+            EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, inPlaceEditorContext);
+            return inPlaceEditorContext;
+        }
+
+        public String getFieldPostCreation() {
+            return this.fieldPostCreation;
+        }
+
+        public String getFormClassName() {
+            return this.formClassName;
+        }
+
+        public String getHighlightColor() {
+            return this.highlightColor;
+        }
+
+        public String getHighlightEndColor() {
+            return this.highlightEndColor;
+        }
+
+        public String getHoverClassName() {
+            return this.hoverClassName;
+        }
+
+        public String getHtmlResponse() {
+            return this.htmlResponse;
+        }
+
+        public String getLoadingClassName() {
+            return this.loadingClassName;
+        }
+
+        public String getLoadingText() {
+            return this.loadingText;
+        }
+
+        public String getOkControl() {
+            return this.okControl;
+        }
+
+        public String getOkText() {
+            return this.okText;
+        }
+
+        public String getParamName() {
+            return this.paramName;
+        }
+
+        public String getRows() {
+            return this.rows;
+        }
+
+        public String getSavingClassName() {
+            return this.savingClassName;
+        }
+
+        public String getSavingText() {
+            return this.savingText;
+        }
+
+        public String getSubmitOnBlur() {
+            return this.submitOnBlur;
+        }
+
+        public String getTextAfterControls() {
+            return this.textAfterControls;
+        }
+
+        public String getTextBeforeControls() {
+            return this.textBeforeControls;
+        }
+
+        public String getTextBetweenControls() {
+            return this.textBetweenControls;
+        }
+
+        public String getUpdateAfterRequestCall() {
+            return this.updateAfterRequestCall;
+        }
+
+        public FlexibleStringExpander getUrl() {
+            return url;
+        }
+
+        public String getUrl(Map<String, Object> context) {
+            if (this.url != null) {
+                return this.url.expandString(context);
+            } else {
+                return "";
+            }
+        }
+    }
+
+    /**
+     * Models the &lt;list-options&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class ListOptions extends OptionSource {
+        private final FlexibleStringExpander description;
+        private final FlexibleMapAccessor<Object> keyAcsr;
+        private final FlexibleMapAccessor<List<? extends Object>> listAcsr;
+        private final String listEntryName;
+
+        public ListOptions(Element optionElement, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.listEntryName = optionElement.getAttribute("list-entry-name");
+            this.keyAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("key-name"));
+            this.listAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("list-name"));
+            this.description = FlexibleStringExpander.getInstance(optionElement.getAttribute("description"));
+        }
+
+        private ListOptions(ListOptions original, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.listAcsr = original.listAcsr;
+            this.listEntryName = original.listEntryName;
+            this.keyAcsr = original.keyAcsr;
+            this.description = original.description;
+        }
+
+        public ListOptions(String listName, String listEntryName, String keyName, String description,
+                ModelFormField modelFormField) {
+            super(modelFormField);
+            this.listAcsr = FlexibleMapAccessor.getInstance(listName);
+            this.listEntryName = listEntryName;
+            this.keyAcsr = FlexibleMapAccessor.getInstance(keyName);
+            this.description = FlexibleStringExpander.getInstance(description);
+        }
+
+        @Override
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
+            List<? extends Object> dataList = UtilGenerics.checkList(this.listAcsr.get(context));
+            if (dataList != null && dataList.size() != 0) {
+                for (Object data : dataList) {
+                    Map<String, Object> localContext = new HashMap<String, Object>();
+                    localContext.putAll(context);
+                    if (UtilValidate.isNotEmpty(this.listEntryName)) {
+                        localContext.put(this.listEntryName, data);
+                    } else {
+                        Map<String, Object> dataMap = UtilGenerics.checkMap(data);
+                        localContext.putAll(dataMap);
+                    }
+                    Object keyObj = keyAcsr.get(localContext);
+                    String key = null;
+                    if (keyObj instanceof String) {
+                        key = (String) keyObj;
+                    } else {
+                        try {
+                            key = (String) ObjectType.simpleTypeConvert(keyObj, "String", null, null);
+                        } catch (GeneralException e) {
+                            String errMsg = "Could not convert field value for the field: [" + this.keyAcsr.toString()
+                                    + "] to String for the value [" + keyObj + "]: " + e.toString();
+                            Debug.logError(e, errMsg, module);
+                        }
+                    }
+                    optionValues.add(new OptionValue(key, description.expandString(localContext)));
+                }
+            }
+        }
+
+        @Override
+        public OptionSource copy(ModelFormField modelFormField) {
+            return new ListOptions(this, modelFormField);
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public FlexibleMapAccessor<Object> getKeyAcsr() {
+            return keyAcsr;
+        }
+
+        public FlexibleMapAccessor<List<? extends Object>> getListAcsr() {
+            return listAcsr;
+        }
+
+        public String getListEntryName() {
+            return listEntryName;
+        }
+    }
+
+    /**
+     * Models the &lt;lookup&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class LookupField extends TextField {
+        private final String descriptionFieldName;
+        private final String fadeBackground;
+        private final FlexibleStringExpander formName;
+        private final String initiallyCollapsed;
+        private final String lookupHeight;
+        private final String lookupPosition;
+        private final String lookupPresentation;
+        private final String lookupWidth;
+        private final String showDescription;
+        private final String targetParameter;
+
+        public LookupField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.descriptionFieldName = element.getAttribute("description-field-name");
+            this.fadeBackground = element.getAttribute("fade-background");
+            this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
+            this.initiallyCollapsed = element.getAttribute("initially-collapsed");
+            this.lookupHeight = element.getAttribute("height");
+            this.lookupPosition = element.getAttribute("position");
+            this.lookupPresentation = element.getAttribute("presentation");
+            this.lookupWidth = element.getAttribute("width");
+            this.showDescription = element.getAttribute("show-description");
+            this.targetParameter = element.getAttribute("target-parameter");
+        }
+
+        public LookupField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, modelFormField);
+            this.descriptionFieldName = "";
+            this.fadeBackground = "";
+            this.formName = FlexibleStringExpander.getInstance("");
+            this.initiallyCollapsed = "";
+            this.lookupHeight = "";
+            this.lookupPosition = "";
+            this.lookupPresentation = "";
+            this.lookupWidth = "";
+            this.showDescription = "";
+            this.targetParameter = "";
+        }
+
+        public LookupField(LookupField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.descriptionFieldName = original.descriptionFieldName;
+            this.fadeBackground = original.fadeBackground;
+            this.formName = original.formName;
+            this.initiallyCollapsed = original.initiallyCollapsed;
+            this.lookupHeight = original.lookupHeight;
+            this.lookupPosition = original.lookupPosition;
+            this.lookupPresentation = original.lookupPresentation;
+            this.lookupWidth = original.lookupWidth;
+            this.showDescription = original.showDescription;
+            this.targetParameter = original.targetParameter;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new LookupField(this, modelFormField);
+        }
+
+        public String getDescriptionFieldName() {
+            return this.descriptionFieldName;
+        }
+
+        public String getFadeBackground() {
+            return this.fadeBackground;
+        }
+
+        public FlexibleStringExpander getFormName() {
+            return formName;
+        }
+
+        public String getFormName(Map<String, Object> context) {
+            return this.formName.expandString(context);
+        }
+
+        //initially-collapsed status
+        public boolean getInitiallyCollapsed() {
+            return "true".equals(this.initiallyCollapsed);
+        }
+
+        public String getLookupHeight() {
+            return this.lookupHeight;
+        }
+
+        public String getLookupPosition() {
+            return this.lookupPosition;
+        }
+
+        public String getLookupPresentation() {
+            return this.lookupPresentation;
+        }
+
+        public String getLookupWidth() {
+            return this.lookupWidth;
+        }
+
+        public Boolean getShowDescription() {
+            return UtilValidate.isEmpty(this.showDescription) ? null : "true".equals(this.showDescription);
+        }
+
+        public String getTargetParameter() {
+            return targetParameter;
+        }
+
+        public List<String> getTargetParameterList() {
+            List<String> paramList = new LinkedList<String>();
+            if (UtilValidate.isNotEmpty(this.targetParameter)) {
+                StringTokenizer stk = new StringTokenizer(this.targetParameter, ", ");
+                while (stk.hasMoreTokens()) {
+                    paramList.add(stk.nextToken());
+                }
+            }
+            return paramList;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderLookupField(writer, context, this);
+        }
+    }
+
+    public static abstract class OptionSource {
+
+        private final ModelFormField modelFormField;
+
+        protected OptionSource(ModelFormField modelFormField) {
+            this.modelFormField = modelFormField;
+        }
+
+        public abstract void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator);
+
+        public abstract OptionSource copy(ModelFormField modelFormField);
+
+        public ModelFormField getModelFormField() {
+            return modelFormField;
+        }
+    }
+
+    public static class OptionValue {
+        private final String description;
+        private final String key;
+
+        public OptionValue(String key, String description) {
+            this.key = key;
+            this.description = description;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getKey() {
+            return key;
+        }
+    }
+
+    /**
+     * Models the &lt;password&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
     public static class PasswordField extends TextField {
 
         public PasswordField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
         }
 
-        private PasswordField(PasswordField original, ModelFormField modelFormField) {
-            super(original, modelFormField);
-        }
-
         public PasswordField(int fieldSource, ModelFormField modelFormField) {
             super(fieldSource, modelFormField);
+        }
+
+        private PasswordField(PasswordField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
         }
 
         @Override
@@ -4106,43 +2985,27 @@ public class ModelFormField {
         }
     }
 
-    public static class ImageField extends FieldInfo {
-        protected FlexibleStringExpander defaultValue;
-        protected FlexibleStringExpander value;
-        protected SubHyperlink subHyperlink;
-        protected FlexibleStringExpander description;
-        protected FlexibleStringExpander alternate;
-        protected FlexibleStringExpander style;
+    /**
+     * Models the &lt;radio&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class RadioField extends FieldInfoWithOptions {
 
-        public ImageField(ModelFormField modelFormField) {
-            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.IMAGE, modelFormField);
-        }
-
-        public ImageField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.IMAGE, modelFormField);
-        }
-
-        public ImageField(Element element, ModelFormField modelFormField) {
+        public RadioField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            this.setValue(element.getAttribute("value"));
-            this.setDescription(element.getAttribute("description"));
-            this.setAlternate(element.getAttribute("alternate"));
-            this.setStyle(element.getAttribute("style"));
-            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
-            if (subHyperlinkElement != null) {
-                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
-            }
         }
 
-        public ImageField(ImageField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.value = original.value;
-            this.description = original.description;
-            this.alternate = original.alternate;
-            this.style = original.style;
-            if (original.subHyperlink != null) {
-                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
-            }
+        public RadioField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.RADIO, modelFormField);
+        }
+
+        public RadioField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.RADIO, modelFormField);
+        }
+
+        private RadioField(RadioField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
         }
 
         @Override
@@ -4152,28 +3015,576 @@ public class ModelFormField {
 
         @Override
         public FieldInfo copy(ModelFormField modelFormField) {
-            return new ImageField(this, modelFormField);
+            return new RadioField(this, modelFormField);
         }
 
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
-            formStringRenderer.renderImageField(writer, context, this);
+            formStringRenderer.renderRadioField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;range-find&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class RangeFindField extends TextField {
+        private final String defaultOptionFrom;
+        private final String defaultOptionThru;
+
+        public RangeFindField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.defaultOptionFrom = element.getAttribute("default-option-from");
+            this.defaultOptionThru = element.getAttribute("default-option-thru");
         }
 
-        /**
-         * @param str
-         */
-        public void setDefaultValue(String str) {
-            this.defaultValue = FlexibleStringExpander.getInstance(str);
+        public RangeFindField(int fieldSource, int size, ModelFormField modelFormField) {
+            super(fieldSource, size, null, modelFormField);
+            this.defaultOptionFrom = "greaterThanEqualTo";
+            this.defaultOptionThru = "lessThanEqualTo";
         }
 
-        public SubHyperlink getSubHyperlink() {
-            return this.subHyperlink;
+        private RangeFindField(RangeFindField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.defaultOptionFrom = original.defaultOptionFrom;
+            this.defaultOptionThru = original.defaultOptionThru;
         }
 
-        public void setSubHyperlink(SubHyperlink newSubHyperlink) {
-            this.subHyperlink = newSubHyperlink;
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new RangeFindField(this, modelFormField);
+        }
+
+        public String getDefaultOptionFrom() {
+            return this.defaultOptionFrom;
+        }
+
+        public String getDefaultOptionThru() {
+            return this.defaultOptionThru;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderRangeFindField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;reset&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class ResetField extends FieldInfo {
+
+        public ResetField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+        }
+
+        public ResetField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.RESET, modelFormField);
+        }
+
+        public ResetField(ModelFormField modelFormField) {
+            super(FieldInfo.SOURCE_EXPLICIT, FieldInfo.RESET, modelFormField);
+        }
+
+        private ResetField(ResetField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new ResetField(this, modelFormField);
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderResetField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;option&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class SingleOption extends OptionSource {
+        private final FlexibleStringExpander description;
+        private final FlexibleStringExpander key;
+
+        public SingleOption(Element optionElement, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.key = FlexibleStringExpander.getInstance(optionElement.getAttribute("key"));
+            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(optionElement.getAttribute("description"),
+                    optionElement.getAttribute("key")));
+        }
+
+        private SingleOption(SingleOption original, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.key = original.key;
+            this.description = original.description;
+        }
+
+        public SingleOption(String key, String description, ModelFormField modelFormField) {
+            super(modelFormField);
+            this.key = FlexibleStringExpander.getInstance(key);
+            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(description, key));
+        }
+
+        @Override
+        public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, Delegator delegator) {
+            optionValues.add(new OptionValue(key.expandString(context), description.expandString(context)));
+        }
+
+        @Override
+        public OptionSource copy(ModelFormField modelFormField) {
+            return new SingleOption(this, modelFormField);
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public FlexibleStringExpander getKey() {
+            return key;
+        }
+    }
+
+    /**
+     * Models the &lt;sub-hyperlink&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class SubHyperlink {
+        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
+        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
+        private final FlexibleStringExpander confirmationMsgExdr;
+        private final FlexibleStringExpander description;
+        private final String linkStyle;
+        private final String linkType;
+        private final ModelFormField modelFormField;
+        private final List<WidgetWorker.Parameter> parameterList;
+        private final boolean requestConfirmation;
+        private final FlexibleStringExpander target;
+        private final String targetType;
+        private final FlexibleStringExpander targetWindowExdr;
+        private final FlexibleStringExpander useWhen;
+
+        public SubHyperlink(Element element, ModelFormField modelFormField) {
+            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+            } else {
+                this.autoEntityParameters = null;
+            }
+            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
+            } else {
+                this.autoServiceParameters = null;
+            }
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
+            this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
+            this.linkStyle = element.getAttribute("link-style");
+            this.linkType = element.getAttribute("link-type");
+            this.modelFormField = modelFormField;
+            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
+            if (!parameterElementList.isEmpty()) {
+                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
+            } else {
+                this.parameterList = Collections.emptyList();
+
+            }
+            this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
+            this.target = FlexibleStringExpander.getInstance(element.getAttribute("target"));
+            this.targetType = element.getAttribute("target-type");
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+            this.useWhen = FlexibleStringExpander.getInstance(element.getAttribute("use-when"));
+        }
+
+        public SubHyperlink(SubHyperlink original, ModelFormField modelFormField) {
+            this.autoEntityParameters = original.autoEntityParameters;
+            this.autoServiceParameters = original.autoServiceParameters;
+            this.confirmationMsgExdr = original.confirmationMsgExdr;
+            this.description = original.description;
+            this.linkStyle = original.linkStyle;
+            this.linkType = original.linkType;
+            this.modelFormField = modelFormField;
+            this.parameterList = original.parameterList;
+            this.requestConfirmation = original.requestConfirmation;
+            this.target = original.target;
+            this.targetType = original.targetType;
+            this.targetWindowExdr = original.targetWindowExdr;
+            this.useWhen = original.useWhen;
+        }
+
+        public WidgetWorker.AutoEntityParameters getAutoEntityParameters() {
+            return autoEntityParameters;
+        }
+
+        public WidgetWorker.AutoServiceParameters getAutoServiceParameters() {
+            return autoServiceParameters;
+        }
+
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message))
+                return message;
+
+            if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                        "${uiLabelMap.CommonConfirm}");
+                return FlexibleStringExpander.expandString(defaultMessage, context);
+            }
+            return "";
+        }
+
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getConfirmationMsgExdr() {
+            return confirmationMsgExdr;
+        }
+
+        public FlexibleStringExpander getDescription() {
+            return description;
+        }
+
+        public String getDescription(Map<String, Object> context) {
+            if (this.description != null) {
+                return this.description.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public String getLinkStyle() {
+            return this.linkStyle;
+        }
+
+        public String getLinkType() {
+            return this.linkType;
+        }
+
+        public ModelFormField getModelFormField() {
+            return this.modelFormField;
+        }
+
+        public List<WidgetWorker.Parameter> getParameterList() {
+            return parameterList;
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
+
+            /* leaving this here... may want to add it at some point like the hyperlink element:
+            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+            if (addlParamMap != null) {
+                fullParameterMap.putAll(addlParamMap);
+            }
+            */
+
+            for (WidgetWorker.Parameter parameter : this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, getModelFormField().getModelForm()
+                        .getDefaultServiceName()));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
+                        .getDefaultEntityName()));
+            }
+
+            return fullParameterMap;
+        }
+
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+
+        public FlexibleStringExpander getTarget() {
+            return target;
+        }
+
+        public String getTarget(Map<String, Object> context) {
+            if (this.target != null) {
+                return this.target.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public String getTargetType() {
+            if (UtilValidate.isNotEmpty(this.targetType))
+                return this.targetType;
+            return HyperlinkField.DEFAULT_TARGET_TYPE;
+        }
+
+        public String getTargetWindow(Map<String, Object> context) {
+            String targetWindow = this.targetWindowExdr.expandString(context);
+            return targetWindow;
+        }
+
+        public FlexibleStringExpander getTargetWindowExdr() {
+            return targetWindowExdr;
+        }
+
+        public FlexibleStringExpander getUseWhen() {
+            return useWhen;
+        }
+
+        public String getUseWhen(Map<String, Object> context) {
+            if (this.useWhen != null) {
+                return this.useWhen.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public boolean shouldUse(Map<String, Object> context) {
+            boolean shouldUse = true;
+            String useWhen = this.getUseWhen(context);
+            if (UtilValidate.isNotEmpty(useWhen)) {
+                try {
+                    Interpreter bsh = (Interpreter) context.get("bshInterpreter");
+                    if (bsh == null) {
+                        bsh = BshUtil.makeInterpreter(context);
+                        context.put("bshInterpreter", bsh);
+                    }
+
+                    Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(useWhen));
+
+                    // retVal should be a Boolean, if not something weird is up...
+                    if (retVal instanceof Boolean) {
+                        Boolean boolVal = (Boolean) retVal;
+                        shouldUse = boolVal.booleanValue();
+                    } else {
+                        throw new IllegalArgumentException("Return value from target condition eval was not a Boolean: "
+                                + retVal.getClass().getName() + " [" + retVal + "]");
+                    }
+                } catch (EvalError e) {
+                    String errmsg = "Error evaluating BeanShell target conditions";
+                    Debug.logError(e, errmsg, module);
+                    throw new IllegalArgumentException(errmsg);
+                }
+            }
+            return shouldUse;
+        }
+    }
+
+    /**
+     * Models the &lt;submit&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class SubmitField extends FieldInfo {
+        private final FlexibleStringExpander backgroundSubmitRefreshTargetExdr;
+        private final String buttonType;
+        private final FlexibleStringExpander confirmationMsgExdr;
+        private final FlexibleStringExpander imageLocation;
+        private final boolean requestConfirmation;
+
+        public SubmitField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element
+                    .getAttribute("background-submit-refresh-target"));
+            this.buttonType = element.getAttribute("button-type");
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
+            this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
+            this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
+        }
+
+        public SubmitField(int fieldInfo, ModelFormField modelFormField) {
+            super(fieldInfo, FieldInfo.SUBMIT, modelFormField);
+            this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance("");
+            this.buttonType = "";
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
+            this.imageLocation = FlexibleStringExpander.getInstance("");
+            this.requestConfirmation = false;
+        }
+
+        public SubmitField(ModelFormField modelFormField) {
+            this(FieldInfo.SOURCE_EXPLICIT, modelFormField);
+        }
+
+        private SubmitField(SubmitField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.buttonType = original.buttonType;
+            this.imageLocation = original.imageLocation;
+            this.backgroundSubmitRefreshTargetExdr = original.backgroundSubmitRefreshTargetExdr;
+            this.requestConfirmation = original.requestConfirmation;
+            this.confirmationMsgExdr = original.confirmationMsgExdr;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new SubmitField(this, modelFormField);
+        }
+
+        public String getBackgroundSubmitRefreshTarget(Map<String, Object> context) {
+            return this.backgroundSubmitRefreshTargetExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getBackgroundSubmitRefreshTargetExdr() {
+            return backgroundSubmitRefreshTargetExdr;
+        }
+
+        public String getButtonType() {
+            return buttonType;
+        }
+
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message))
+                return message;
+            else if (getRequestConfirmation()) {
+                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
+                        "${uiLabelMap.CommonConfirm}");
+                return FlexibleStringExpander.expandString(defaultMessage, context);
+            }
+            return "";
+        }
+
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getConfirmationMsgExdr() {
+            return confirmationMsgExdr;
+        }
+
+        public FlexibleStringExpander getImageLocation() {
+            return imageLocation;
+        }
+
+        public String getImageLocation(Map<String, Object> context) {
+            return this.imageLocation.expandString(context);
+        }
+
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderSubmitField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;textarea&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class TextareaField extends FieldInfo {
+        private final int cols;
+        private final FlexibleStringExpander defaultValue;
+        private final boolean readOnly;
+        private final int rows;
+        private final FlexibleStringExpander visualEditorButtons;
+        private final boolean visualEditorEnable;
+
+        public TextareaField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            int cols = 60;
+            String colsStr = element.getAttribute("cols");
+            if (!colsStr.isEmpty()) {
+                try {
+                    cols = Integer.parseInt(colsStr);
+                } catch (Exception e) {
+                    if (UtilValidate.isNotEmpty(colsStr)) {
+                        Debug.logError("Could not parse the size value of the text element: [" + colsStr
+                                + "], setting to default of " + cols, module);
+                    }
+                }
+            }
+            this.cols = cols;
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.readOnly = "true".equals(element.getAttribute("read-only"));
+            int rows = 2;
+            String rowsStr = element.getAttribute("rows");
+            if (!rowsStr.isEmpty()) {
+                try {
+                    rows = Integer.parseInt(rowsStr);
+                } catch (Exception e) {
+                    if (UtilValidate.isNotEmpty(rowsStr)) {
+                        Debug.logError("Could not parse the size value of the text element: [" + rowsStr
+                                + "], setting to default of " + rows, module);
+                    }
+                }
+            }
+            this.rows = rows;
+            this.visualEditorButtons = FlexibleStringExpander.getInstance(element.getAttribute("visual-editor-buttons"));
+            this.visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
+        }
+
+        public TextareaField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.TEXTAREA, modelFormField);
+            this.cols = 60;
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.readOnly = false;
+            this.rows = 2;
+            this.visualEditorButtons = FlexibleStringExpander.getInstance("");
+            this.visualEditorEnable = false;
+        }
+
+        public TextareaField(ModelFormField modelFormField) {
+            this(FieldInfo.SOURCE_EXPLICIT, modelFormField);
+        }
+
+        private TextareaField(TextareaField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.defaultValue = original.defaultValue;
+            this.visualEditorEnable = original.visualEditorEnable;
+            this.visualEditorButtons = original.visualEditorButtons;
+            this.readOnly = original.readOnly;
+            this.cols = original.cols;
+            this.rows = original.rows;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new TextareaField(this, modelFormField);
+        }
+
+        public int getCols() {
+            return cols;
+        }
+
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
         }
 
         public String getDefaultValue(Map<String, Object> context) {
@@ -4184,61 +3595,136 @@ public class ModelFormField {
             }
         }
 
-        public String getValue(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.value))
-                return this.value.expandString(context);
-            return getModelFormField().getEntry(context);
+        public int getRows() {
+            return rows;
         }
 
-        public void setValue(String string) {
-            this.value = FlexibleStringExpander.getInstance(string);
+        public FlexibleStringExpander getVisualEditorButtons() {
+            return visualEditorButtons;
         }
 
-        public String getDescription(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.description))
-                return this.description.expandString(context);
-            return "";
+        public String getVisualEditorButtons(Map<String, Object> context) {
+            return this.visualEditorButtons.expandString(context);
         }
 
-        public void setDescription(String description) {
-            this.description = FlexibleStringExpander.getInstance(description);
+        public boolean getVisualEditorEnable() {
+            return this.visualEditorEnable;
         }
 
-        public String getAlternate(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.alternate))
-                return this.alternate.expandString(context);
-            return "";
+        public boolean isReadOnly() {
+            return readOnly;
         }
 
-        public void setAlternate(String alternate) {
-            this.alternate = FlexibleStringExpander.getInstance(alternate);
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            if (UtilValidate.isNotEmpty(this.style))
-                return this.style.expandString(context);
-            return "";
-        }
-
-        public void setStyle(String style) {
-            this.style = FlexibleStringExpander.getInstance(style);
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderTextareaField(writer, context, this);
         }
     }
 
-    public static class ContainerField extends FieldInfo {
-        @Deprecated
-        protected String id;
+    /**
+     * Models the &lt;text&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class TextField extends FieldInfo {
+        private final boolean clientAutocompleteField;
+        private final FlexibleStringExpander defaultValue;
+        private final boolean disabled;
+        private final String mask;
+        private final Integer maxlength;
+        private final FlexibleStringExpander placeholder;
+        private final boolean readonly;
+        private final int size;
+        private final SubHyperlink subHyperlink;
 
-        public ContainerField(Element element, ModelFormField modelFormField) {
+        public TextField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
+            this.clientAutocompleteField = !"false".equals(element.getAttribute("client-autocomplete-field"));
+            this.defaultValue = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+            this.disabled = "true".equals(element.getAttribute("disabled"));
+            this.mask = element.getAttribute("mask");
+            Integer maxlength = null;
+            String maxlengthStr = element.getAttribute("maxlength");
+            if (!maxlengthStr.isEmpty()) {
+                try {
+                    maxlength = Integer.valueOf(maxlengthStr);
+                } catch (Exception e) {
+                    Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr
+                            + "], setting to null; default of no maxlength will be used", module);
+                }
+            }
+            this.maxlength = maxlength;
+            this.placeholder = FlexibleStringExpander.getInstance(element.getAttribute("placeholder"));
+            this.readonly = "true".equals(element.getAttribute("read-only"));
+            int size = 25;
+            String sizeStr = element.getAttribute("size");
+            if (!sizeStr.isEmpty()) {
+                try {
+                    size = Integer.parseInt(sizeStr);
+                } catch (Exception e) {
+                    Debug.logError("Could not parse the size value of the text element: [" + sizeStr
+                            + "], setting to the default of " + size, module);
+                }
+            }
+            this.size = size;
+            Element subHyperlinkElement = UtilXml.firstChildElement(element, "sub-hyperlink");
+            if (subHyperlinkElement != null) {
+                this.subHyperlink = new SubHyperlink(subHyperlinkElement, this.getModelFormField());
+            } else {
+                this.subHyperlink = null;
+            }
         }
 
-        private ContainerField(ContainerField original, ModelFormField modelFormField) {
-            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+        protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
+            super(fieldSource, FieldInfo.TEXT, modelFormField);
+            this.clientAutocompleteField = true;
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.disabled = false;
+            this.mask = "";
+            this.maxlength = maxlength;
+            this.placeholder = FlexibleStringExpander.getInstance("");
+            this.readonly = false;
+            this.size = size;
+            this.subHyperlink = null;
         }
 
-        public ContainerField(int fieldSource, int fieldType, ModelFormField modelFormField) {
+        private TextField(int fieldSource, int fieldType, ModelFormField modelFormField) {
             super(fieldSource, fieldType, modelFormField);
+            this.clientAutocompleteField = true;
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.disabled = false;
+            this.mask = "";
+            this.maxlength = null;
+            this.placeholder = FlexibleStringExpander.getInstance("");
+            this.readonly = false;
+            this.size = 25;
+            this.subHyperlink = null;
+        }
+
+        public TextField(int fieldSource, ModelFormField modelFormField) {
+            this(fieldSource, FieldInfo.TEXT, modelFormField);
+        }
+
+        public TextField(ModelFormField modelFormField) {
+            this(FieldInfo.SOURCE_EXPLICIT, FieldInfo.TEXT, modelFormField);
+        }
+
+        protected TextField(TextField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.clientAutocompleteField = original.clientAutocompleteField;
+            this.defaultValue = original.defaultValue;
+            this.mask = original.mask;
+            this.placeholder = original.placeholder;
+            this.size = original.size;
+            this.maxlength = original.maxlength;
+            this.disabled = original.disabled;
+            this.readonly = original.readonly;
+            if (original.subHyperlink != null) {
+                this.subHyperlink = new SubHyperlink(original.subHyperlink, modelFormField);
+            } else {
+                this.subHyperlink = null;
+            }
         }
 
         @Override
@@ -4248,23 +3734,143 @@ public class ModelFormField {
 
         @Override
         public FieldInfo copy(ModelFormField modelFormField) {
-            return new ContainerField(this, modelFormField);
+            return new TextField(this, modelFormField);
+        }
+
+        public boolean getClientAutocompleteField() {
+            return this.clientAutocompleteField;
+        }
+
+        public FlexibleStringExpander getDefaultValue() {
+            return defaultValue;
+        }
+
+        public String getDefaultValue(Map<String, Object> context) {
+            if (this.defaultValue != null) {
+                return this.defaultValue.expandString(context);
+            } else {
+                return "";
+            }
+        }
+
+        public boolean getDisabled() {
+            return this.disabled;
+        }
+
+        public String getMask() {
+            return this.mask;
+        }
+
+        public Integer getMaxlength() {
+            return maxlength;
+        }
+
+        public FlexibleStringExpander getPlaceholder() {
+            return placeholder;
+        }
+
+        public String getPlaceholder(Map<String, Object> context) {
+            return this.placeholder.expandString(context);
+        }
+
+        public boolean getReadonly() {
+            return this.readonly;
+        }
+
+        public int getSize() {
+            return size;
+        }
+
+        public SubHyperlink getSubHyperlink() {
+            return this.subHyperlink;
         }
 
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
-            formStringRenderer.renderContainerFindField(writer, context, this);
+            formStringRenderer.renderTextField(writer, context, this);
+        }
+    }
+
+    /**
+     * Models the &lt;text-find&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class TextFindField extends TextField {
+        private final String defaultOption;
+        private final boolean hideIgnoreCase;
+        private final boolean hideOptions;
+        private final boolean ignoreCase;
+
+        public TextFindField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            if (element.hasAttribute("default-option")) {
+                this.defaultOption = element.getAttribute("default-option");
+            } else {
+                this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
+            }
+            this.hideIgnoreCase = "true".equals(element.getAttribute("hide-options"))
+                    || "ignore-case".equals(element.getAttribute("hide-options")) ? true : false;
+            this.hideOptions = "true".equals(element.getAttribute("hide-options"))
+                    || "options".equals(element.getAttribute("hide-options")) ? true : false;
+            this.ignoreCase = "true".equals(element.getAttribute("ignore-case"));
         }
 
-        @Deprecated
-        public String getId() {
-            return id;
+        public TextFindField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
+            super(fieldSource, size, maxlength, modelFormField);
+            this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
+            this.hideIgnoreCase = false;
+            this.hideOptions = false;
+            this.ignoreCase = true;
         }
 
-        @Deprecated
-        public void setId(String id) {
-            this.id = id;
+        public TextFindField(int fieldSource, ModelFormField modelFormField) {
+            super(fieldSource, modelFormField);
+            this.defaultOption = UtilProperties.getPropertyValue("widget", "widget.form.defaultTextFindOption", "contains");
+            this.hideIgnoreCase = false;
+            this.hideOptions = false;
+            this.ignoreCase = true;
+        }
+
+        private TextFindField(TextFindField original, ModelFormField modelFormField) {
+            super(original, modelFormField);
+            this.ignoreCase = original.ignoreCase;
+            this.hideIgnoreCase = original.hideIgnoreCase;
+            this.defaultOption = original.defaultOption;
+            this.hideOptions = original.hideOptions;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new TextFindField(this, modelFormField);
+        }
+
+        public String getDefaultOption() {
+            return this.defaultOption;
+        }
+
+        public boolean getHideIgnoreCase() {
+            return this.hideIgnoreCase;
+        }
+
+        public boolean getHideOptions() {
+            return this.hideOptions;
+        }
+
+        public boolean getIgnoreCase() {
+            return this.ignoreCase;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            formStringRenderer.renderTextFindField(writer, context, this);
         }
     }
 }

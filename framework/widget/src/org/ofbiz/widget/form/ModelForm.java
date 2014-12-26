@@ -560,15 +560,15 @@ public class ModelForm extends ModelWidget {
         if (parentModelForm != null) {
             useWhenFields.addAll(parentModelForm.useWhenFields);
         }
-        ArrayList<ModelFormField> fieldList = new ArrayList<ModelFormField>();
-        Map<String, ModelFormField> fieldMap = new HashMap<String, ModelFormField>();
+        ArrayList<ModelFormFieldBuilder> fieldBuilderList = new ArrayList<ModelFormFieldBuilder>();
+        Map<String, ModelFormFieldBuilder> fieldBuilderMap = new HashMap<String, ModelFormFieldBuilder>();
         if (parentModelForm != null) {
             // Create this fieldList/Map from clones of parentModelForm's
             for (ModelFormField parentChildField : parentModelForm.fieldList) {
-                ModelFormField childField = new ModelFormField(this);
-                childField.mergeOverrideModelFormField(parentChildField);
-                fieldList.add(childField);
-                fieldMap.put(childField.getName(), childField);
+                ModelFormFieldBuilder builder = new ModelFormFieldBuilder(parentChildField);
+                builder.setModelForm(this);
+                fieldBuilderList.add(builder);
+                fieldBuilderMap.put(builder.getName(), builder);
             }
         }
         Map<String, FieldGroupBase> fieldGroupMap = new HashMap<String, FieldGroupBase>();
@@ -731,7 +731,7 @@ public class ModelForm extends ModelWidget {
             rowCountExdr = parentModelForm.rowCountExdr;
         }
         this.rowCountExdr = paginate;
-        ArrayList<ModelFormField> multiSubmitFields = new ArrayList<ModelFormField>();
+        ArrayList<ModelFormFieldBuilder> multiSubmitBuilders = new ArrayList<ModelFormFieldBuilder>();
         ArrayList<AutoFieldsService> autoFieldsServices = new ArrayList<AutoFieldsService>();
         ArrayList<AutoFieldsEntity> autoFieldsEntities = new ArrayList<AutoFieldsEntity>();
         ArrayList<SortField> sortOrderFields = new ArrayList<SortField>();
@@ -739,21 +739,21 @@ public class ModelForm extends ModelWidget {
         for (Element autoFieldsServiceElement : UtilXml.childElementList(formElement, "auto-fields-service")) {
             AutoFieldsService autoFieldsService = new AutoFieldsService(autoFieldsServiceElement);
             autoFieldsServices.add(autoFieldsService);
-            addAutoFieldsFromService(autoFieldsService, entityModelReader, dispatchContext, useWhenFields, fieldList, fieldMap);
+            addAutoFieldsFromService(autoFieldsService, entityModelReader, dispatchContext, useWhenFields, fieldBuilderList, fieldBuilderMap);
         }
         for (Element autoFieldsEntityElement : UtilXml.childElementList(formElement, "auto-fields-entity")) {
             AutoFieldsEntity autoFieldsEntity = new AutoFieldsEntity(autoFieldsEntityElement);
             autoFieldsEntities.add(autoFieldsEntity);
-            addAutoFieldsFromEntity(autoFieldsEntity, entityModelReader, useWhenFields, fieldList, fieldMap);
+            addAutoFieldsFromEntity(autoFieldsEntity, entityModelReader, useWhenFields, fieldBuilderList, fieldBuilderMap);
         }
         String thisType = this.getType();
         for (Element fieldElement : UtilXml.childElementList(formElement, "field")) {
-            ModelFormField modelFormField = new ModelFormField(fieldElement, this, entityModelReader, dispatchContext);
-            FieldInfo fieldInfo = modelFormField.getFieldInfo();
+            ModelFormFieldBuilder builder = new ModelFormFieldBuilder(fieldElement, this, entityModelReader, dispatchContext);
+            FieldInfo fieldInfo = builder.getFieldInfo();
             if (thisType.equals("multi") && fieldInfo instanceof ModelFormField.SubmitField) {
-                multiSubmitFields.add(modelFormField);
+                multiSubmitBuilders.add(builder);
             } else {
-                modelFormField = addUpdateField(modelFormField, useWhenFields, fieldList, fieldMap);
+                addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
             }
         }
         // get the sort-order
@@ -787,61 +787,67 @@ public class ModelForm extends ModelWidget {
             }
         }
         if (sortOrderFields.size() > 0) {
-            ArrayList<ModelFormField> sortedFields = new ArrayList<ModelFormField>();
+            ArrayList<ModelFormFieldBuilder> sortedFields = new ArrayList<ModelFormFieldBuilder>();
             for (SortField sortField : sortOrderFields) {
                 String fieldName = sortField.getFieldName();
                 if (UtilValidate.isEmpty(fieldName)) {
                     continue;
                 }
                 // get all fields with the given name from the existing list and put them in the sorted list
-                Iterator<ModelFormField> fieldIter = fieldList.iterator();
+                Iterator<ModelFormFieldBuilder> fieldIter = fieldBuilderList.iterator();
                 while (fieldIter.hasNext()) {
-                    ModelFormField modelFormField = fieldIter.next();
-                    if (fieldName.equals(modelFormField.getName())) {
+                    ModelFormFieldBuilder builder = fieldIter.next();
+                    if (fieldName.equals(builder.getName())) {
                         // matched the name; remove from the original last and add to the sorted list
                         if (UtilValidate.isNotEmpty(sortField.getPosition())) {
-                            modelFormField.setPosition(sortField.getPosition());
+                            builder.setPosition(sortField.getPosition());
                         }
                         fieldIter.remove();
-                        sortedFields.add(modelFormField);
+                        sortedFields.add(builder);
                     }
                 }
             }
             // now add all of the rest of the fields from fieldList, ie those that were not explicitly listed in the sort order
-            sortedFields.addAll(fieldList);
+            sortedFields.addAll(fieldBuilderList);
             // sortedFields all done, set fieldList
-            fieldList = sortedFields;
+            fieldBuilderList = sortedFields;
         }
         if (UtilValidate.isNotEmpty(lastOrderFields)) {
-            List<ModelFormField> lastedFields = new LinkedList<ModelFormField>();
+            List<ModelFormFieldBuilder> lastedFields = new LinkedList<ModelFormFieldBuilder>();
             for (String fieldName : lastOrderFields) {
                 if (UtilValidate.isEmpty(fieldName)) {
                     continue;
                 }
                 // get all fields with the given name from the existing list and put them in the lasted list
-                Iterator<ModelFormField> fieldIter = fieldList.iterator();
+                Iterator<ModelFormFieldBuilder> fieldIter = fieldBuilderList.iterator();
                 while (fieldIter.hasNext()) {
-                    ModelFormField modelFormField = fieldIter.next();
-                    if (fieldName.equals(modelFormField.getName())) {
+                    ModelFormFieldBuilder builder = fieldIter.next();
+                    if (fieldName.equals(builder.getName())) {
                         // matched the name; remove from the original last and add to the lasted list
                         fieldIter.remove();
-                        lastedFields.add(modelFormField);
+                        lastedFields.add(builder);
                     }
                 }
             }
             //now put all lastedFields at the field list end
-            fieldList.addAll(lastedFields);
+            fieldBuilderList.addAll(lastedFields);
         }
-        this.useWhenFields = Collections.unmodifiableSet(useWhenFields);
-        fieldList.trimToSize();
+        List<ModelFormField> fieldList = new ArrayList<ModelFormField>(fieldBuilderList.size());
+        for (ModelFormFieldBuilder builder : fieldBuilderList) {
+            fieldList.add(builder.build());
+        }
         this.fieldList = Collections.unmodifiableList(fieldList);
+        List<ModelFormField> multiSubmitFields = new ArrayList<ModelFormField>(multiSubmitBuilders.size());
+        for (ModelFormFieldBuilder builder : multiSubmitBuilders) {
+            multiSubmitFields.add(builder.build());
+        }
+        this.multiSubmitFields = Collections.unmodifiableList(multiSubmitFields);
+        this.useWhenFields = Collections.unmodifiableSet(useWhenFields);
         this.fieldGroupMap = Collections.unmodifiableMap(fieldGroupMap);
         fieldGroupList.trimToSize();
         this.fieldGroupList = Collections.unmodifiableList(fieldGroupList);
         lastOrderFields.trimToSize();
         this.lastOrderFields = Collections.unmodifiableList(lastOrderFields);
-        multiSubmitFields.trimToSize();
-        this.multiSubmitFields = Collections.unmodifiableList(multiSubmitFields);
         autoFieldsServices.trimToSize();
         this.autoFieldsServices = Collections.unmodifiableList(autoFieldsServices);
         autoFieldsEntities.trimToSize();
@@ -866,7 +872,7 @@ public class ModelForm extends ModelWidget {
     }
 
     private void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity, ModelReader entityModelReader,
-            Set<String> useWhenFields, List<ModelFormField> fieldList, Map<String, ModelFormField> fieldMap) {
+            Set<String> useWhenFields, List<ModelFormFieldBuilder> fieldBuilderList, Map<String, ModelFormFieldBuilder> fieldBuilderMap) {
         // read entity def and auto-create fields
         ModelEntity modelEntity = null;
         try {
@@ -878,7 +884,6 @@ public class ModelForm extends ModelWidget {
             throw new IllegalArgumentException("Error finding Entity with name " + autoFieldsEntity.entityName
                     + " for auto-fields-entity in a form widget");
         }
-
         Iterator<ModelField> modelFieldIter = modelEntity.getFieldsIterator();
         while (modelFieldIter.hasNext()) {
             ModelField modelField = modelFieldIter.next();
@@ -886,18 +891,23 @@ public class ModelForm extends ModelWidget {
                 // don't ever auto-add these, should only be added if explicitly referenced
                 continue;
             }
-            ModelFormField modelFormField = this.addFieldFromEntityField(modelEntity, modelField,
-                    autoFieldsEntity.defaultFieldType, autoFieldsEntity.defaultPosition, useWhenFields, fieldList, fieldMap);
+            ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
+            builder.setModelForm(this);
+            builder.setName(modelField.getName());
+            builder.setEntityName(modelEntity.getEntityName());
+            builder.setFieldName(modelField.getName());
+            builder.induceFieldInfoFromEntityField(modelEntity, modelField, autoFieldsEntity.defaultFieldType);
+            builder.setPosition(autoFieldsEntity.defaultPosition);
             if (UtilValidate.isNotEmpty(autoFieldsEntity.mapName)) {
-                modelFormField.setMapName(autoFieldsEntity.mapName);
+                builder.setMapName(autoFieldsEntity.mapName);
             }
+            addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
         }
     }
 
     private void addAutoFieldsFromService(AutoFieldsService autoFieldsService, ModelReader entityModelReader,
-            DispatchContext dispatchContext, Set<String> useWhenFields, List<ModelFormField> fieldList,
-            Map<String, ModelFormField> fieldMap) {
-
+            DispatchContext dispatchContext, Set<String> useWhenFields, List<ModelFormFieldBuilder> fieldBuilderList,
+            Map<String, ModelFormFieldBuilder> fieldBuilderMap) {
         // read service def and auto-create fields
         ModelService modelService = null;
         try {
@@ -908,11 +918,9 @@ public class ModelForm extends ModelWidget {
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
-
         for (ModelParam modelParam : modelService.getInModelParamList()) {
-            // skip auto params that the service engine populates...
-            if ("userLogin".equals(modelParam.name) || "locale".equals(modelParam.name) || "timeZone".equals(modelParam.name)
-                    || "login.username".equals(modelParam.name) || "login.password".equals(modelParam.name)) {
+            if (modelParam.internal) {
+                // skip auto params that the service engine populates...
                 continue;
             }
             if (modelParam.formDisplay) {
@@ -924,13 +932,17 @@ public class ModelForm extends ModelWidget {
                             ModelField modelField = modelEntity.getField(modelParam.fieldName);
                             if (modelField != null) {
                                 // okay, populate using the entity field info...
-                                ModelFormField modelFormField = addFieldFromEntityField(modelEntity, modelField,
-                                        autoFieldsService.defaultFieldType, autoFieldsService.defaultPosition, useWhenFields,
-                                        fieldList, fieldMap);
+                                ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
+                                builder.setModelForm(this);
+                                builder.setName(modelField.getName());
+                                builder.setEntityName(modelEntity.getEntityName());
+                                builder.setFieldName(modelField.getName());
+                                builder.induceFieldInfoFromEntityField(modelEntity, modelField, autoFieldsService.defaultFieldType);
                                 if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
-                                    modelFormField.setMapName(autoFieldsService.mapName);
+                                    builder.setMapName(autoFieldsService.mapName);
                                 }
-                                modelFormField.setRequiredField(!modelParam.optional);
+                                builder.setRequiredField(!modelParam.optional);
+                                addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
                                 // continue to skip creating based on service param
                                 continue;
                             }
@@ -939,79 +951,52 @@ public class ModelForm extends ModelWidget {
                         Debug.logError(e, module);
                     }
                 }
-
-                ModelFormField modelFormField = this
-                        .addFieldFromServiceParam(modelService, modelParam, autoFieldsService.defaultFieldType,
-                                autoFieldsService.defaultPosition, useWhenFields, fieldList, fieldMap);
+                ModelFormFieldBuilder builder = new ModelFormFieldBuilder();
+                builder.setModelForm(this);
+                builder.setName(modelParam.name);
+                builder.setServiceName(modelService.name);
+                builder.setAttributeName(modelParam.name);
+                builder.setTitle(modelParam.formLabel);
+                builder.setRequiredField(!modelParam.optional);
+                builder.induceFieldInfoFromServiceParam(modelService, modelParam, autoFieldsService.defaultFieldType);
+                builder.setPosition(autoFieldsService.defaultPosition);
                 if (UtilValidate.isNotEmpty(autoFieldsService.mapName)) {
-                    modelFormField.setMapName(autoFieldsService.mapName);
+                    builder.setMapName(autoFieldsService.mapName);
                 }
+                addUpdateField(builder, useWhenFields, fieldBuilderList, fieldBuilderMap);
             }
         }
     }
 
-    private ModelFormField addFieldFromEntityField(ModelEntity modelEntity, ModelField modelField, String defaultFieldType,
-            int defaultPosition, Set<String> useWhenFields, List<ModelFormField> fieldList, Map<String, ModelFormField> fieldMap) {
-        // create field def from entity field def
-        ModelFormField newFormField = new ModelFormField(this);
-        newFormField.setName(modelField.getName());
-        newFormField.setEntityName(modelEntity.getEntityName());
-        newFormField.setFieldName(modelField.getName());
-        newFormField.induceFieldInfoFromEntityField(modelEntity, modelField, defaultFieldType);
-        newFormField.setPosition(defaultPosition);
-        return this.addUpdateField(newFormField, useWhenFields, fieldList, fieldMap);
-    }
-
-    private ModelFormField addFieldFromServiceParam(ModelService modelService, ModelParam modelParam, String defaultFieldType,
-            int defaultPosition, Set<String> useWhenFields, List<ModelFormField> fieldList, Map<String, ModelFormField> fieldMap) {
-        // create field def from service param def
-        ModelFormField newFormField = new ModelFormField(this);
-        newFormField.setName(modelParam.name);
-        newFormField.setServiceName(modelService.name);
-        newFormField.setAttributeName(modelParam.name);
-        newFormField.setTitle(modelParam.formLabel);
-        newFormField.setRequiredField(!modelParam.optional);
-        newFormField.induceFieldInfoFromServiceParam(modelService, modelParam, defaultFieldType);
-        newFormField.setPosition(defaultPosition);
-        return this.addUpdateField(newFormField, useWhenFields, fieldList, fieldMap);
-    }
-
-    /**
-     * add/override modelFormField using the fieldList and fieldMap
-     *
-     * @return The same ModelFormField, or if merged with an existing field, the existing field.
-     */
-    private ModelFormField addUpdateField(ModelFormField modelFormField, Set<String> useWhenFields,
-            List<ModelFormField> fieldList, Map<String, ModelFormField> fieldMap) {
-        if (!modelFormField.isUseWhenEmpty() || useWhenFields.contains(modelFormField.getName())) {
-            useWhenFields.add(modelFormField.getName());
+    private void addUpdateField(ModelFormFieldBuilder builder, Set<String> useWhenFields,
+            List<ModelFormFieldBuilder> fieldBuilderList, Map<String, ModelFormFieldBuilder> fieldBuilderMap) {
+        if (!builder.getUseWhen().isEmpty() || useWhenFields.contains(builder.getName())) {
+            useWhenFields.add(builder.getName());
             // is a conditional field, add to the List but don't worry about the Map
             //for adding to list, see if there is another field with that name in the list and if so, put it before that one
             boolean inserted = false;
-            for (int i = 0; i < fieldList.size(); i++) {
-                ModelFormField curField = fieldList.get(i);
-                if (curField.getName() != null && curField.getName().equals(modelFormField.getName())) {
-                    fieldList.add(i, modelFormField);
+            for (int i = 0; i < fieldBuilderList.size(); i++) {
+                ModelFormFieldBuilder curField = fieldBuilderList.get(i);
+                if (curField.getName() != null && curField.getName().equals(builder.getName())) {
+                    fieldBuilderList.add(i, builder);
                     inserted = true;
                     break;
                 }
             }
             if (!inserted) {
-                fieldList.add(modelFormField);
+                fieldBuilderList.add(builder);
             }
-            return modelFormField;
+            return;
         } else {
             // not a conditional field, see if a named field exists in Map
-            ModelFormField existingField = fieldMap.get(modelFormField.getName());
+            ModelFormFieldBuilder existingField = fieldBuilderMap.get(builder.getName());
             if (existingField != null) {
                 // does exist, update the field by doing a merge/override
-                existingField.mergeOverrideModelFormField(modelFormField);
-                return existingField;
+                existingField.mergeOverrideModelFormField(builder);
             } else {
                 // does not exist, add to List and Map
-                fieldList.add(modelFormField);
-                fieldMap.put(modelFormField.getName(), modelFormField);
-                return modelFormField;
+                fieldBuilderList.add(builder);
+                fieldBuilderMap.put(builder.getName(), builder);
             }
         }
     }
@@ -1518,7 +1503,6 @@ public class ModelForm extends ModelWidget {
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
-
         return styles;
     }
 
@@ -1535,7 +1519,6 @@ public class ModelForm extends ModelWidget {
         if (simpleEncoder != null) {
             expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
         }
-
         try {
             // use the same Interpreter (ie with the same context setup) for all evals
             Interpreter bsh = this.getBshInterpreter(context);
@@ -1561,7 +1544,6 @@ public class ModelForm extends ModelWidget {
             Debug.logError(e, errmsg, module);
             throw new IllegalArgumentException(errmsg);
         }
-
         return target.expandString(expanderContext);
     }
 
