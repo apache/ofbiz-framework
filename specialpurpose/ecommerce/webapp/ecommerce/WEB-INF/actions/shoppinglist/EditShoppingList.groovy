@@ -53,13 +53,13 @@ context.currencyUomId = currencyUomId;
 exprList = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, userLogin.partyId),
         EntityCondition.makeCondition("listName", EntityOperator.NOT_EQUAL, "auto-save")];
 condition = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-allShoppingLists = delegator.findList("ShoppingList", condition, null, ["listName"], null, false);
+allShoppingLists = from("ShoppingList").where(exprList).orderBy("listName").queryList();
 shoppingLists = EntityUtil.filterByAnd(allShoppingLists, [parentShoppingListId : null]);
 context.allShoppingLists = allShoppingLists;
 context.shoppingLists = shoppingLists;
 
 // get all shoppingListTypes
-shoppingListTypes = delegator.findList("ShoppingListType", null, null, ["description"], null, true);
+shoppingListTypes = from("ShoppingListType").orderBy("description").cache(true).queryList();
 context.shoppingListTypes = shoppingListTypes;
 
 // get the shoppingListId for this reqest
@@ -78,7 +78,7 @@ session.setAttribute("currentShoppingListId", shoppingListId);
 
 // if we passed a shoppingListId get the shopping list info
 if (shoppingListId) {
-    shoppingList = delegator.findOne("ShoppingList", [shoppingListId : shoppingListId], false);
+    shoppingList = from("ShoppingList").where("shoppingListId", shoppingListId).queryOne();
     context.shoppingList = shoppingList;
 
     if (shoppingList) {
@@ -161,7 +161,7 @@ if (shoppingListId) {
         context.shoppingListType = shoppingListType;
 
         // get the child shopping lists of the current list for the logged in user
-        childShoppingLists = delegator.findByAnd("ShoppingList", [partyId : userLogin.partyId, parentShoppingListId : shoppingListId], ["listName"], true);
+        childShoppingLists = from("ShoppingList").where("partyId", userLogin.partyId, "parentShoppingListId", shoppingListId).orderBy("listName").cache(true).queryList();
         // now get prices for each child shopping list...
         if (childShoppingLists) {
             childShoppingListDatas = new ArrayList(childShoppingLists.size());
@@ -201,7 +201,7 @@ if (shoppingListId) {
                 context.shippingContactMechList = ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
                 context.paymentMethodList = EntityUtil.filterByDate(party.getRelated("PaymentMethod", null, ["paymentMethodTypeId"], false));
 
-                shipAddress = delegator.findOne("PostalAddress", ["contactMechId" : shoppingList.contactMechId], false);
+                shipAddress = from("PostalAddress").where("contactMechId", shoppingList.contactMechId).queryOne();
                 Debug.log("SL - address : " + shipAddress);
                 if (shipAddress) {
                     listCart = ShoppingListServices.makeShoppingListCart(dispatcher, shoppingListId, locale);

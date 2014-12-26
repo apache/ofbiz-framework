@@ -42,8 +42,8 @@ if (productStore) {
     facilityId = productStore.getString("inventoryFacilityId");
 
     if (facilityId) {
-        context.posTerminals = delegator.findList("PosTerminal", EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), null, ["posTerminalId"], null, false);
+        context.posTerminals = from("PosTerminal").where("facilityId", facilityId).orderBy("posTerminalId").queryList();
     } else {
-        context.posTerminals = delegator.findList("PosTerminal", null, null, ["posTerminalId"], null, false);
+        context.posTerminals = from("PosTerminal").orderBy("posTerminalId").queryList();
     }
 }

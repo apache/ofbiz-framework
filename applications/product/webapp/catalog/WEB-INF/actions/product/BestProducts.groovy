@@ -28,14 +28,10 @@ exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_T
 exprList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, UtilDateTime.getDayEnd(filterDate)));
 exprList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
 
-orderHeaderList = delegator.findList("OrderHeader", EntityCondition.makeCondition(exprList, EntityOperator.AND), null, null, null, false);
+orderHeaderList = from("OrderHeader").where(exprList).queryList();
 
 orderHeaderList.each { orderHeader ->
-    exprList = [];
-    exprList.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderHeader.orderId));
-    exprList.add(EntityCondition.makeCondition("orderItemTypeId", EntityOperator.EQUALS, "PRODUCT_ORDER_ITEM"));
-    exprList.add(EntityCondition.makeCondition("isPromo", EntityOperator.EQUALS, "N"));
-    orderItemList = delegator.findList("OrderItem", EntityCondition.makeCondition(exprList, EntityOperator.AND), null, null, null, false);
+    orderItemList = from("OrderItem").where("orderId", orderHeader.orderId, "orderItemTypeId", "PRODUCT_ORDER_ITEM", "isPromo", "N").queryList();
     
     orderItemList.each { orderItem ->
         orderItemDetail = [:];
@@ -58,7 +54,7 @@ orderHeaderList.each { orderHeader ->
         
         if (inListFlag == false) {
             orderItemDetail.productId = orderItem.productId;
-            product = delegator.findOne("Product", [productId : orderItem.productId], false);
+            product = from("Product").where("productId", orderItem.productId).queryOne()
             contentWrapper = new ProductContentWrapper(product, request);
             orderItemDetail.productName = contentWrapper.get("PRODUCT_NAME");
             orderItemDetail.amount = amount;

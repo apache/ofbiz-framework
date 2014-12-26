@@ -23,7 +23,7 @@ import org.ofbiz.party.contact.*
 context.nowStr = UtilDateTime.nowTimestamp();
 
 facilityId = parameters.facilityId;
-facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+facility = from("Facility").where("facilityId", facilityId).queryOne();
 facilityType = null;
 if (!facility) {
   context.facility = delegator.makeValue("Facility", null);

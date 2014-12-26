@@ -59,21 +59,21 @@ if (shipmentTypeId) {
     paramListBuffer.append("&shipmentTypeId=");
     paramListBuffer.append(shipmentTypeId);
     findShipmentExprs.add(EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, shipmentTypeId));
-    currentShipmentType = delegator.findOne("ShipmentType", [shipmentTypeId : shipmentTypeId], true);
+    currentShipmentType = from("ShipmentType").where("shipmentTypeId", shipmentTypeId).cache(true).queryOne();
     context.currentShipmentType = currentShipmentType;
 }
 if (originFacilityId) {
     paramListBuffer.append("&originFacilityId=");
     paramListBuffer.append(originFacilityId);
     findShipmentExprs.add(EntityCondition.makeCondition("originFacilityId", EntityOperator.EQUALS, originFacilityId));
-    currentOriginFacility = delegator.findOne("Facility", [facilityId : originFacilityId], true);
+    currentOriginFacility = from("Facility").where("facilityId", originFacilityId).cache(true).queryOne();
     context.currentOriginFacility = currentOriginFacility;
 }
 if (destinationFacilityId) {
     paramListBuffer.append("&destinationFacilityId=");
     paramListBuffer.append(destinationFacilityId);
     findShipmentExprs.add(EntityCondition.makeCondition("destinationFacilityId", EntityOperator.EQUALS, destinationFacilityId));
-    currentDestinationFacility = delegator.findOne("Facility", [facilityId : destinationFacilityId], true);
+    currentDestinationFacility = from("Facility").where("facilityId", destinationFacilityId).cache(true).queryOne();
     context.currentDestinationFacility = currentDestinationFacility;
 }
 if (statusId) {
@@ -82,7 +82,7 @@ if (statusId) {
     if (!orderReturnValue) {
         findShipmentExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, statusId));
     }
-    currentStatus = delegator.findOne("StatusItem", [statusId : statusId], true);
+    currentStatus = from("StatusItem").where("statusId", statusId).cache(true).queryOne();
     context.currentStatus = currentStatus;
 }
 if (minDate && minDate.length() > 8) {
@@ -117,12 +117,10 @@ if (maxDate && maxDate.length() > 8) {
 if ("Y".equals(lookupFlag)) {
     context.paramList = paramListBuffer.toString();
 
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     mainCond = null;
     if (findShipmentExprs.size() > 0) {
         mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
     }
-    orderBy = ['-estimatedShipDate'];
 
     beganTransaction = false;
     try {
@@ -131,11 +129,10 @@ if ("Y".equals(lookupFlag)) {
         // get the indexes for the partial list
         lowIndex = viewIndex * viewSize + 1;
         highIndex = (viewIndex + 1) * viewSize;
-        findOpts.setMaxRows(highIndex);
         
         if (!orderReturnValue) {
             // using list iterator
-            orli = delegator.find("Shipment", mainCond, null, null, orderBy, findOpts);
+            orli = from("Shipment").where(mainCond).orderBy("-estimatedShipDate").cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator();
     
             shipmentListSize = orli.getResultsSizeAfterPartialList();
             if (highIndex > shipmentListSize) {
@@ -172,7 +169,7 @@ if ("Y".equals(lookupFlag)) {
             OrderReturnViewEntity.addAlias("RH", "entryDate");
             OrderReturnViewEntity.addAlias("RH", "returnStatusId", "statusId", null, null, null, null);
             
-            orderReturnIt = delegator.findListIteratorByCondition(OrderReturnViewEntity, returnCond, null, null, null, null);
+            orderReturnIt = from(OrderReturnViewEntity).where(returnCond).queryList();
             shipmentListSize = orderReturnIt.getResultsSizeAfterPartialList();
             
             if (highIndex > shipmentListSize) {
@@ -211,16 +208,16 @@ if ("Y".equals(lookupFlag)) {
 
 // =============== Prepare the Option Data for the Find Form =================
 
-context.shipmentTypes = delegator.findList("ShipmentType", null, null, ['description'], null, false);
+context.shipmentTypes = from("ShipmentType").orderBy("description").queryList();
 
-context.facilities = delegator.findList("Facility", null, null, ['facilityName'], null, false);
+context.facilities = from("Facility").orderBy("facilityName").queryList();
 
 // since purchase and sales shipments have different status codes, we'll need to make two separate lists
-context.shipmentStatuses = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'SHIPMENT_STATUS']), null, ['sequenceId'], null, false);
-context.purchaseShipmentStatuses = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'PURCH_SHIP_STATUS']), null, ['sequenceId'], null, false);
+context.shipmentStatuses = from("StatusItem").where("statusTypeId", "SHIPMENT_STATUS").orderBy("sequenceId").queryList();
+context.purchaseShipmentStatuses = from("StatusItem").where("statusTypeId", "PURCH_SHIP_STATUS").orderBy("sequenceId").queryList();
 
 /// Get return status lists
-context.returnStatuses = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'ORDER_RETURN_STTS']), null, ['sequenceId'], null, false);
+context.returnStatuses = from("StatusItem").where("statusTypeId", "ORDER_RETURN_STTS").orderBy("sequenceId").queryList();
 
 // create the fromDate for calendar
 fromCal = Calendar.getInstance();

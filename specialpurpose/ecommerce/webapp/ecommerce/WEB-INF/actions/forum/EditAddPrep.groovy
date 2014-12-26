@@ -68,7 +68,7 @@ currentValue = ContentWorker.getSubContentCache(delegator, contentIdTo, mapKey, 
 //Debug.logInfo("in editaddprep, currentValue:" + currentValue,"");
 
 if (!currentValue) {
-    parentValue = delegator.findOne("Content", [contentId : contentIdTo], true);
+    parentValue = from("Content").where("contentId", contentIdTo).cache(true).queryOne();
     currentValue = delegator.makeValue("Content");
     subject =  parentValue.contentName;
     if ("SUMMARY".equals(mapKey)) {

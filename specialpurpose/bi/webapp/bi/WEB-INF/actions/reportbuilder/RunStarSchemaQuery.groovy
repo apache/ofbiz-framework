@@ -41,21 +41,7 @@ selectedFieldList.each { selectedField ->
   columnNames.add(selectedField.selectedFieldName);
 }
 context.columnNames = columnNames;
-List conditionList = null;
-EntityConditionList condition =  null;
-List orderByFields = null;
-EntityFindOptions findOptions = null;
-
 List records = FastList.newInstance();
-
-//conditionList.add(...);
-//condition =  EntityCondition.makeCondition(conditionList, EntityOperator.AND);
-
-orderByFields = null;
-
-findOptions = new EntityFindOptions();
-findOptions.setDistinct(false);
-
-records = delegator.findList(starSchemaName, condition, context.columnNames, orderByFields, findOptions, false);
+records = select(context.columnNames).from(starSchemaName).distinct(false).queryList();
 
 context.records = records;

@@ -36,7 +36,7 @@ if (!(productCategoryId) && request.getAttribute("topCategoryId")) {
     productCategoryId = request.getAttribute("topCategoryId");
 }
 
-category = delegator.findOne("ProductCategory", [productCategoryId : productCategoryId], true);
+category = from("ProductCategory").where("productCategoryId", productCategoryId).cache(true).queryOne();
 if (category) {
     if (category.detailScreen) {
         detailScreen = category.detailScreen;

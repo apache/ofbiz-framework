@@ -27,12 +27,11 @@ condList = [];
 condList.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
 condList.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
 condList.add(EntityCondition.makeCondition("pickSheetPrintedDate", EntityOperator.NOT_EQUAL, null));
-cond = EntityCondition.makeCondition(condList, EntityOperator.AND);
-orderHeaders = delegator.findList("OrderHeader", cond, null, null, null, false);
+orderHeaders = from("OrderHeader").where(condList).queryList();
 orders = [];
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd'/'K:mm a");
-orderHeaders.each { orderHeader ->
-    itemIssuanceList = delegator.findByAnd("ItemIssuance", [orderId : orderHeader.orderId], null, false);
+orderHeaders.each { orderHeader ->k
+    itemIssuanceList = from("ItemIssuance").where("orderId", orderHeader.orderId).queryList();
     if (itemIssuanceList) {
         orders.add([orderId : orderHeader.orderId, pickSheetPrintedDate : dateFormat.format(orderHeader.pickSheetPrintedDate), isVerified : "Y"]);
     } else {

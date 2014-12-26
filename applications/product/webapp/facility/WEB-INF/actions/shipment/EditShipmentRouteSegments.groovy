@@ -27,7 +27,7 @@ if (!shipmentId) {
 
 shipment = null;
 if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 }
 
 if (shipment) {
@@ -51,21 +51,21 @@ if (shipment) {
             shipmentRouteSegmentData.currencyUom = shipmentRouteSegment.getRelatedOne("CurrencyUom", false);
             shipmentRouteSegmentData.billingWeightUom = shipmentRouteSegment.getRelatedOne("BillingWeightUom", false);
             if (shipmentRouteSegment.carrierServiceStatusId) {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = delegator.findList("StatusValidChangeToDetail", EntityCondition.makeCondition([statusId : shipmentRouteSegment.carrierServiceStatusId]), null, ['sequenceId'], null, false);
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", shipmentRouteSegment.carrierServiceStatusId).orderBy("sequenceId").queryList();
             } else {
-                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = delegator.findList("StatusValidChangeToDetail", EntityCondition.makeCondition([statusId : 'SHRSCS_NOT_STARTED']), null, ['sequenceId'], null, false);
+                shipmentRouteSegmentData.carrierServiceStatusValidChangeToDetails = from("StatusValidChangeToDetail").where("statusId", "SHRSCS_NOT_STARTED").orderBy("sequenceId").queryList();
             }
             shipmentRouteSegmentDatas.add(shipmentRouteSegmentData);
         }
     }
 
     shipmentPackages = shipment.getRelated("ShipmentPackage", null, ['shipmentPackageSeqId'], false);
-    facilities = delegator.findList("Facility", null, null, ['facilityName'], null, false);
-    shipmentMethodTypes = delegator.findList("ShipmentMethodType", null, null, ['description'], null, false);
-    weightUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, null, null, false);
-    currencyUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'CURRENCY_MEASURE']), null, null, null, false);
+    facilities = from("Facility").orderBy("facilityName").queryList();
+    shipmentMethodTypes = from("ShipmentMethodType").orderBy("description").queryList();
+    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").queryList();
+    currencyUoms = from("Uom").where("uomTypeId", "CURRENCY_MEASURE").queryList();
 
-    carrierPartyRoles = delegator.findList("PartyRole", EntityCondition.makeCondition([roleTypeId : 'CARRIER']), null, null, null, false);
+    carrierPartyRoles = from("PartyRole").where("roleTypeId", "CARRIER").queryList();
     carrierPartyDatas = [] as LinkedList;
     carrierPartyRoles.each { carrierPartyRole ->
         party = carrierPartyRole.getRelatedOne("Party", false);

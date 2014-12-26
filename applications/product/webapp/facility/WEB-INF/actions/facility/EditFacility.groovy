@@ -23,7 +23,7 @@ facilityId = parameters.facilityId;
 if (!facilityId && request.getAttribute("facilityId")) {
   facilityId = request.getAttribute("facilityId");
 }
-facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+facility = from("Facility").where("facilityId", facilityId).queryOne();
 if (!facility) {
   facility = delegator.makeValue("Facility");
   facilityType = delegator.makeValue("FacilityType");
@@ -35,16 +35,16 @@ context.facilityType = facilityType;
 context.facilityId = facilityId;
 
 //Facility types
-facilityTypes = delegator.findList("FacilityType", null, null, null, null, false);
+facilityTypes = from("FacilityType").queryList();
 if (facilityTypes) {
   context.facilityTypes = facilityTypes;
 }
 
 // all possible inventory item types
-context.inventoryItemTypes = delegator.findList("InventoryItemType", null, null, ['description'], null, true);
+context.inventoryItemTypes = from("InventoryItemType").orderBy("description").cache(true).queryList();
 
 // weight unit of measures
-context.weightUomList = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, null, null, true);
+context.weightUomList = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").cache(true).queryList();
 
 // area unit of measures
-context.areaUomList = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'AREA_MEASURE']), null, null, null, true);
+context.areaUomList = from("Uom").where("uomTypeId", "AREA_MEASURE").cache(true).queryList();

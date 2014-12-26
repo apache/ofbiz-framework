@@ -37,11 +37,11 @@ if (action) {
     conditionList = EntityCondition.makeCondition(conditions, EntityOperator.OR);
     try {
         beganTransaction = TransactionUtil.begin();
-        invItemListItr = delegator.find("InventoryItem", conditionList, null, null, ['productId'], null);
+        invItemListItr = from("InventoryItem").where(conditionList).orderBy("productId").queryIterator();
         while ((inventoryItem = invItemListItr.next()) != null) {
             productId = inventoryItem.productId;
-            product = delegator.findOne("Product", [productId : productId], false);
-            productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId], false);
+            product = from("Product").where("productId", productId).queryOne();
+            productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne();
             if (productFacility) {
                 quantityOnHandTotal = inventoryItem.getDouble("quantityOnHandTotal");
                 availableToPromiseTotal = inventoryItem.getDouble("availableToPromiseTotal");

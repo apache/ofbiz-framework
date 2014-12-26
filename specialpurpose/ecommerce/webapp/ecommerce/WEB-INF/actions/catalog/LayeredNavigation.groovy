@@ -30,7 +30,7 @@ if (!searchCategoryId) {
     searchCategoryId = context.productCategoryId;
 }
 if (searchCategoryId) {
-    currentSearchCategory = delegator.findOne("ProductCategory", [productCategoryId: searchCategoryId], false);
+    currentSearchCategory = from("ProductCategory").where("productCategoryId", searchCategoryId).queryOne();
     CategoryWorker.getRelatedCategories(request, "subCategoryList", searchCategoryId, false);
     subCategoryList = request.getAttribute("subCategoryList");
     CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(currentSearchCategory, request);
@@ -39,7 +39,7 @@ if (searchCategoryId) {
 }
 productCategoryId = context.productCategoryId;
 if (productCategoryId)  {
-   context.productCategory = delegator.findOne("ProductCategory", [productCategoryId: productCategoryId], false);
+   context.productCategory = from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
    parameters.SEARCH_CATEGORY_ID = productCategoryId;
 }
 
@@ -56,8 +56,7 @@ context.index = ProductSearchSession.getCategoryCostraintIndex(session);
 searchConstraintList = ProductSearchSession.getProductSearchOptions(session).getConstraintList();
 
 if (searchCategoryId) {
-    productCategoryRollups = delegator.findByAnd("ProductCategoryRollup", [productCategoryId: searchCategoryId], null, false);
-    productCategoryRollups = EntityUtil.filterByDate(productCategoryRollups);
+    productCategoryRollups = from("ProductCategoryRollup").where("productCategoryId", searchCategoryId).filterByDate().queryList();
     previousCategoryId = null;
     if (productCategoryRollups) {
         for (GenericValue categoryRollup : productCategoryRollups) {
@@ -91,7 +90,7 @@ if (subCategoryList) {
 
 context.showColors = true;
 colors = ProductSearchSession.listCountByFeatureForType("COLOR", session, delegator);
-colorFeatureType = delegator.findOne("ProductFeatureType", [productFeatureTypeId: "COLOR"], false);
+colorFeatureType = from("ProductFeatureType").where("productFeatureTypeId", "COLOR").queryOne();
 if (colors) {
     colors.each { color ->
         featureConstraint = new ProductSearch.FeatureConstraint(color.productFeatureId, false);

@@ -21,7 +21,7 @@ productPromoCodeId = request.getParameter("productPromoCodeId");
 if (!productPromoCodeId) {
     productPromoCodeId = request.getAttribute("productPromoCodeId");
 }
-productPromoCode = delegator.findOne("ProductPromoCode", [productPromoCodeId : productPromoCodeId], false);
+productPromoCode = from("ProductPromoCode").where("productPromoCodeId", productPromoCodeId).queryOne();
 
 productPromoId = null;
 if (productPromoCode) {
@@ -32,7 +32,7 @@ if (productPromoCode) {
 
 productPromo = null;
 if (productPromoId) {
-    productPromo = delegator.findOne("ProductPromo", [productPromoId : productPromoId], false);
+    productPromo = from("ProductPromo").where("productPromoId", productPromoId).queryOne();
 }
 
 productPromoCodeEmails = null;

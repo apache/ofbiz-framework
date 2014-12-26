@@ -25,7 +25,7 @@ productId = parameters.productId
 personAndCompanyList = [];
 
 if (productId) {
-    productRoleList = delegator.findByAnd("ProductRole", ["productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP"], null, false);
+    productRoleList = from("ProductRole").where("productId" : productId, "roleTypeId" : "PRODUCT_OWNER_COMP").queryList();
     if (productRoleList) {
         personAndComCond = EntityCondition.makeCondition([
             EntityCondition.makeCondition ("roleTypeId", EntityOperator.EQUALS, "PRODUCT_OWNER"),
@@ -33,7 +33,7 @@ if (productId) {
             EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"),
             EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
             ], EntityJoinOperator.AND);
-        personAndCompanyList = delegator.findList("ScrumRolesPersonAndCompany", personAndComCond, null, ["groupName"], null, false);
+        personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComCond).orderBy("groupName").queryList();
     }
 }
 if (personAndCompanyList) {
@@ -50,7 +50,7 @@ personAndComConds = EntityCondition.makeCondition([
     EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED"),
     EntityCondition.makeCondition ("thruDate", EntityOperator.EQUALS, null)
     ], EntityJoinOperator.AND);
-personAndCompanyList = delegator.findList("ScrumRolesPersonAndCompany", personAndComConds, null, ["groupName"], null, false);
+personAndCompanyList = from("ScrumRolesPersonAndCompany").where(personAndComConds).orderBy("groupName").queryList();
 if (personAndCompanyList) {
     personAndCompanyList.each { personAndCompanyMap ->
         partyId = personAndCompanyMap.partyId;
@@ -58,7 +58,7 @@ if (personAndCompanyList) {
             EntityCondition.makeCondition ("partyId", EntityOperator.EQUALS, partyId),
             EntityCondition.makeCondition ("partyStatusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")
             ], EntityJoinOperator.AND);
-        securityGroupList = delegator.findList("ScrumMemberUserLoginAndSecurityGroup", securityGroupCond, null, null, null, false);
+        securityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(securityGroupCond).queryList();
         if (securityGroupList) {
             scrumRolesPersonAndCompanyList.add(personAndCompanyMap);
             }

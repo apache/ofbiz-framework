@@ -36,17 +36,17 @@ if (userLogin) {
         context.billToPostalCode = postalAddress.postalCode;
         context.billToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
         context.billToCountryGeoId = postalAddress.countryGeoId;
-        billToStateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
+        billToStateProvinceGeo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
         if (billToStateProvinceGeo) {
             context.billToStateProvinceGeo = billToStateProvinceGeo.geoName;
         }
-        billToCountryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
+        billToCountryProvinceGeo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
         if (billToCountryProvinceGeo) {
             context.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
         }
 
         creditCards = [];
-        paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId, paymentMethodTypeId : "CREDIT_CARD"]), null, ["fromDate"], null, false)));
+        paymentMethod = from("PaymentMethod").where("partyId", party.partyId, "paymentMethodTypeId", "CREDIT_CARD").orderBy("fromDate").filterByDate().queryFirst();
         if (paymentMethod) {
             creditCard = paymentMethod.getRelatedOne("CreditCard", false);
             context.paymentMethodTypeId = "CREDIT_CARD";

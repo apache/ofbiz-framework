@@ -22,8 +22,7 @@ import org.ofbiz.entity.condition.EntityCondition
 
 // get the product review(s) for the given user
 if (userLogin) {
-  condition = EntityCondition.makeCondition("userLoginId", EntityOperator.EQUALS, userLogin.userLoginId);
-  reviews = delegator.findList("ProductReview", condition, null, null, null, true);
+  reviews = from("ProductReview").where("userLoginId", userLogin.userLoginId).cache(true).queryList();
 
   context.reviews = reviews;
 }

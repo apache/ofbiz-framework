@@ -38,14 +38,14 @@ taskListDropdown = [];
 
 //${projectId} - ${projectName} - ${sprintName} - ${groovy:description.substring(0,Math.min(description.length(),30))}[${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
 
-taskUnplanList = delegator.findByAnd("ProjectSprintBacklogTaskAndParty", ["partyId" : partyId,"taskCurrentStatusId": "STS_CREATED","custRequestTypeId":"RF_UNPLAN_BACKLOG"],["taskTypeId"], false);
+taskUnplanList = from("ProjectSprintBacklogTaskAndParty").where("partyId", partyId,"taskCurrentStatusId", "STS_CREATED","custRequestTypeId","RF_UNPLAN_BACKLOG").orderBy("taskTypeId").queryList();
 taskUnplanList.each { taskUnplanMap ->
 	unplanMap=[:];
 	custRequestId = taskUnplanMap.custRequestId;
-	productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"], false);
+	productlist = from("CustRequestItem").where("custRequestId", custRequestId).orderBy("productId").queryList();
 	productlist.each { productMap ->
 		productId = productMap.productId;
-		product = delegator.findOne("Product",["productId":productId], false);
+		product = from("Product").where("productId", productId).queryOne();
 			productName = product.internalName;
 			unplanMap.taskId = taskUnplanMap.taskId;
 			unplanMap.taskName = taskUnplanMap.taskName;
@@ -72,11 +72,11 @@ andExprs.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, par
 andExprs.add(EntityCondition.makeCondition(exprBldr, EntityOperator.OR));
 custRequestTypeCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
 
-taskPlanList = delegator.findList("ProjectSprintBacklogTaskAndParty", custRequestTypeCond, null,["taskTypeId","projectId","sprintId"] ,null, false);
+taskPlanList = from("ProjectSprintBacklogTaskAndParty").where(custRequestTypeCond).orderBy("taskTypeId","projectId","sprintId").queryList();
 taskPlanList.each { taskPlanMap ->
     planMap=[:];
     if ("RF_SCRUM_MEETINGS".equals(taskPlanMap.custRequestTypeId)) {
-        workEffPartyAssignedList = delegator.findByAnd("WorkEffortPartyAssignment",["partyId" : partyId, "workEffortId" : taskPlanMap.taskId], null, false);
+        workEffPartyAssignedList = from("WorkEffortPartyAssignment").where("partyId", partyId, "workEffortId", taskPlanMap.taskId).queryList();
         workEffPartyAssignedMap = workEffPartyAssignedList[0];
         if (!"SCAS_COMPLETED".equals(workEffPartyAssignedMap.statusId)) {
             taskPartyList.add(taskPlanMap);
@@ -88,8 +88,8 @@ taskPlanList.each { taskPlanMap ->
             taskListDropdown.add(taskPlanMap);
         } else {
             custRequestId = taskPlanMap.custRequestId;
-            productlist = delegator.findByAnd("CustRequestItem", ["custRequestId" : custRequestId],["productId"], false);
-            product = delegator.findOne("Product",["productId":productlist[0].productId], false);
+            productlist = from("CustRequestItem").where("custRequestId", custRequestId).orderBy("productId").queryList();
+            product = from("Product").where("productId", productlist[0].productId).queryOne();
             productName = product.internalName;
             planMap.taskId = taskPlanMap.taskId;
             planMap.taskTypeId = taskPlanMap.taskTypeId;

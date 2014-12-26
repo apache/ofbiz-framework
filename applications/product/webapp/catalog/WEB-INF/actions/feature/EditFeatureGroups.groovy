@@ -19,4 +19,4 @@
 
 context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session)
 
-context.productFeatureGroups = delegator.findList("ProductFeatureGroup", null, null, null, null, false);
+context.productFeatureGroups = from("ProductFeatureGroup").queryList();

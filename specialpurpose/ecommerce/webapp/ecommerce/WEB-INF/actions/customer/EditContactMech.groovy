@@ -46,7 +46,7 @@ if (paymentMethodId) context.paymentMethodId = paymentMethodId;
 
 cmNewPurposeTypeId = parameters.contactMechPurposeTypeId;
 if (cmNewPurposeTypeId) {
-    contactMechPurposeType = delegator.findOne("ContactMechPurposeType", [contactMechPurposeTypeId : cmNewPurposeTypeId], false);
+    contactMechPurposeType = from("ContactMechPurposeType").where("contactMechPurposeTypeId", cmNewPurposeTypeId).queryOne();
     if (contactMechPurposeType) {
         context.contactMechPurposeType = contactMechPurposeType;
     } else {
@@ -79,24 +79,24 @@ if (telecomNumberData) context.telecomNumberData = telecomNumberData;
 
 // load the geo names for selected countries and states/regions
 if (parameters.countryGeoId) {
-    geoValue = delegator.findOne("Geo", [geoId : parameters.countryGeoId], true);
+    geoValue = from("Geo").where("geoId", parameters.countryGeoId).cache(true).queryOne();
     if (geoValue) {
         context.selectedCountryName = geoValue.geoName;
     }
 } else if (postalAddressData?.countryGeoId) {
-    geoValue = delegator.findOne("Geo", [geoId : postalAddressData.countryGeoId], true);
+    geoValue = from("Geo").where("geoId", postalAddressData.countryGeoId).cache(true).queryOne();
     if (geoValue) {
         context.selectedCountryName = geoValue.geoName;
     }
 }
 
 if (parameters.stateProvinceGeoId) {
-    geoValue = delegator.findOne("Geo", [geoId : parameters.stateProvinceGeoId], true);
+    geoValue = from("Geo").where("geoId", parameters.stateProvinceGeoId).cache(true).queryOne();
     if (geoValue) {
         context.selectedStateName = geoValue.geoId;
     }
 } else if (postalAddressData?.stateProvinceGeoId) {
-    geoValue = delegator.findOne("Geo", [geoId : postalAddressData.stateProvinceGeoId], true);
+    geoValue = from("Geo").where("geoId", postalAddressData.stateProvinceGeoId).cache(true).queryOne();
     if (geoValue) {
         context.selectedStateName = geoValue.geoId;
     }

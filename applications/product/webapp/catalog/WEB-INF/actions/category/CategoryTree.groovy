@@ -47,7 +47,7 @@ List separateRootType(roots) {
 
 completedTree =  [];
 // Get the Catalogs
-prodCatalogs = delegator.findList("ProdCatalog", null, null, null, null, false);
+prodCatalogs = from("ProdCatalog").queryList();
 if (prodCatalogs) {
     prodCatalogs.each { prodCatalog ->
         prodCatalogMap = [:];
@@ -55,7 +55,7 @@ if (prodCatalogs) {
         prodCatalogMap.categoryName = prodCatalog.getString("catalogName");
         prodCatalogMap.isCatalog = true;
         prodCatalogMap.isCategoryType = false;
-        prodCatalogCategories = EntityUtil.filterByDate(delegator.findByAnd("ProdCatalogCategory", ["prodCatalogId" : prodCatalog.prodCatalogId], null, false));
+        prodCatalogCategories = from("ProdCatalogCategory").where("prodCatalogId", prodCatalog.prodCatalogId).filterByDate().queryList();
         if (prodCatalogCategories) {
             prodCatalogMap.child = separateRootType(prodCatalogCategories);
         }

@@ -17,14 +17,14 @@
  * under the License.
  */
 
-person = delegator.findOne("Person", [partyId : parameters.partyId], false);
+person = from("Person").where("partyId", parameters.partyId).queryOne();
 if (person) {
     request.setAttribute("lastName", person.lastName);
     request.setAttribute("firstName", person.firstName);
     request.setAttribute("partyId", parameters.partyId);
 }
 
-contactMech = delegator.findOne("ContactMech", [contactMechId : parameters.contactMechId], false);
+contactMech = from("ContactMech").where("contactMechId", parameters.contactMechId).queryOne();
 if (contactMech) {
     postalAddress = contactMech.getRelatedOne("PostalAddress", false);
     if (postalAddress) {
@@ -37,11 +37,11 @@ if (contactMech) {
         request.setAttribute("postalCode", postalAddress.postalCode);
         request.setAttribute("stateProvinceGeoId", postalAddress.stateProvinceGeoId);
         request.setAttribute("countryGeoId", postalAddress.countryGeoId);
-        stateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
+        stateProvinceGeo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
         if (stateProvinceGeo) {
             request.setAttribute("stateProvinceGeo", stateProvinceGeo.get("geoName", locale));
         }
-        countryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
+        countryProvinceGeo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
         if (countryProvinceGeo) {
             request.setAttribute("countryProvinceGeo", countryProvinceGeo.get("geoName", locale));
         }

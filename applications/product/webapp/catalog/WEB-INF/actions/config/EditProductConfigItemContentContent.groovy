@@ -28,7 +28,7 @@ confItemContentTypeId = request.getParameter("confItemContentTypeId");
 
 description = request.getParameter("description") ?: null;
 
-productContent = delegator.findOne("ProdConfItemContent", [contentId : contentId, configItemId : configItemId, confItemContentTypeId : confItemContentTypeId, fromDate : fromDate], false);
+productContent = from("ProdConfItemContent").where("contentId", contentId, "configItemId", configItemId, "confItemContentTypeId", confItemContentTypeId, "fromDate", fromDate).queryOne();
 if (!productContent) {
     productContent = [:];
     productContent.configItemId = configItemId;
@@ -45,7 +45,7 @@ Map content = null;
 
 context.contentId = contentId;
 if (contentId) {
-    content = delegator.findOne("Content", [contentId : contentId], false);
+    content = from("Content").where("contentId", contentId).queryOne();
     context.content = content;
 } else {
     content = [:];

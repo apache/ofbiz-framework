@@ -43,7 +43,7 @@ if (itemQuantitiesToReceive) {
     }
 }
 
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 context.shipment = shipment;
 if (!shipment) {
     return;
@@ -72,7 +72,7 @@ if (!orderId) {
     return;
 }
 
-orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
 context.orderHeader = orderHeader;
 if (!orderHeader) {
     return;
@@ -99,7 +99,7 @@ if (facility) {
     }
 }
 
-inventoryItemTypes = delegator.findList("InventoryItemType", null, null, null, null, false);
+inventoryItemTypes = from("InventoryItemType").queryList();
 context.inventoryItemTypes = inventoryItemTypes;
 
 // Populate the tracking map with shipment and order IDs
@@ -121,7 +121,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     product = orderItemAndShipGroupAssoc.getRelatedOne("Product", false);
 
     // Get the order item, since the orderItemAndShipGroupAssoc's quantity field is manipulated in some cases
-    orderItem = delegator.findOne("OrderItem", [orderId : orderId, orderItemSeqId : orderItemAndShipGroupAssoc.orderItemSeqId], false);
+    orderItem = from("OrderItem").where("orderId", orderId, "orderItemSeqId", orderItemAndShipGroupAssoc.orderItemSeqId).queryOne();
     orderItemData = [:];
 
     // Get the item's ordered quantity
@@ -137,7 +137,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
 
     // Get the item quantity received from all shipments via the ShipmentReceipt entity
     totalReceived = 0.0;
-    receipts = delegator.findList("ShipmentReceipt", EntityCondition.makeCondition([orderId : orderId, orderItemSeqId : orderItem.orderItemSeqId]), null, null, null, false);
+    receipts = from("ShipmentReceipt").where("orderId", orderId, "orderItemSeqId", orderItem.orderItemSeqId).queryList();
     fulfilledReservations = [] as ArrayList;
     if (receipts) {
         receipts.each { rec ->
@@ -150,7 +150,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
                 totalReceived += rejected.doubleValue();
             }
             // Get the reservations related to this receipt
-            oisgirs = delegator.findList("OrderItemShipGrpInvRes", EntityCondition.makeCondition([inventoryItemId : rec.inventoryItemId]), null, null, null, false);
+            oisgirs = from("OrderItemShipGrpInvRes").where("inventoryItemId", rec.inventoryItemId).queryList();
             if (oisgirs) {
                 fulfilledReservations.addAll(oisgirs);
             }
@@ -172,7 +172,7 @@ orderItems.each { orderItemAndShipGroupAssoc ->
     // TODO: limit to a facility? The shipment destination facility is not necessarily the same facility as the inventory
     conditions = [EntityCondition.makeCondition("productId", EntityOperator.EQUALS, product.productId),
                   EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, BigDecimal.ZERO)];
-    negativeInventoryItems = delegator.findList("InventoryItem",  EntityCondition.makeCondition(conditions, EntityOperator.AND), null, null, null, false);
+    negativeInventoryItems = from("InventoryItem").where(conditions).queryList();
     backOrderedQuantity = 0;
     negativeInventoryItems.each { negativeInventoryItem ->
         backOrderedQuantity += negativeInventoryItem.getDouble("availableToPromiseTotal").doubleValue();
@@ -201,7 +201,7 @@ if (productIdToReceive) {
 
     // If the productId as given isn't found in the order, try any goodIdentifications and use the first match
     if (!candidateOrderItems) {
-        goodIdentifications = delegator.findList("GoodIdentification", EntityCondition.makeCondition([idValue : productIdToReceive]), null, null, null, false);
+        goodIdentifications = from("GoodIdentification").where("idValue", productIdToReceive).queryList();
         if (goodIdentifications) {
             giit = goodIdentifications.iterator();
             while (giit.hasNext()) {

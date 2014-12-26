@@ -29,7 +29,7 @@ inventoryItemId = request.getParameter("inventoryItemId");
 inventoryTransfer = null;
 
 if (inventoryTransferId) {
-    inventoryTransfer = delegator.findOne("InventoryTransfer", [inventoryTransferId : inventoryTransferId], false);
+    inventoryTransfer = from("InventoryTransfer").where("inventoryTransferId", inventoryTransferId).queryOne();
     if (inventoryTransfer) {
         context.inventoryTransfer = inventoryTransfer;
         if (!facilityId) {
@@ -42,18 +42,18 @@ if (inventoryTransferId) {
     }
 }
 
-facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+facility = from("Facility").where("facilityId", facilityId).queryOne();
 context.facilityId = facilityId;
 context.facility = facility;
 context.inventoryItemId = inventoryItemId;
 
 if (facilityId) {
-    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    facility = from("Facility").where("facilityId", facilityId).queryOne();
 }
 
 String illegalInventoryItem = null;
 if (inventoryItemId) {
-    inventoryItem = delegator.findOne("InventoryItem", [inventoryItemId : inventoryItemId], false);
+    inventoryItem = from("InventoryItem").where("inventoryItemId", inventoryItemId).queryOne();
     if (facilityId && inventoryItem && inventoryItem.facilityId && !inventoryItem.facilityId.equals(facilityId)) {
         illegalInventoryItem = "Inventory item not found for this facility.";
         inventoryItem = null;
@@ -75,15 +75,15 @@ if (inventoryItemId) {
 }
 
 // facilities
-context.facilities = delegator.findList("Facility", null, null, null, null, false);
+context.facilities = from("Facility").queryList();
 
 // status items
 if (inventoryTransfer && inventoryTransfer.statusId) {
-    statusChange = delegator.findList("StatusValidChange", EntityCondition.makeCondition([statusId : inventoryTransfer.statusId]), null, null, null, false);
+    statusChange = from("StatusValidChange").where("statusId", inventoryTransfer.statusId).queryList();
     if (statusChange) {
         statusItems = [] as ArrayList;
         statusChange.each { curStatusChange ->
-            curStatusItem = delegator.findOne("StatusItem", [statusId : curStatusChange.statusIdTo], false);
+            curStatusItem = from("StatusItem").where("statusId", curStatusChange.statusIdTo).queryOne();
             if (curStatusItem) {
                 statusItems.add(curStatusItem);
             }
@@ -92,7 +92,7 @@ if (inventoryTransfer && inventoryTransfer.statusId) {
         context.statusItems = statusItems;
     }
 } else {
-    statusItems = delegator.findList("StatusItem", EntityCondition.makeCondition([statusTypeId : 'INVENTORY_XFER_STTS']), null, ['sequenceId'], null, false);
+    statusItems = from("StatusItem").where("statusTypeId", "INVENTORY_XFER_STTS").orderBy("sequenceId").queryList();
     if (statusItems) {
         context.statusItems = statusItems;
     }

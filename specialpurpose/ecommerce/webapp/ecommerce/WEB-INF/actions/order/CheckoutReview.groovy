@@ -64,7 +64,7 @@ paymentMethodType = null;
 paymentMethodTypeId = null;
 if (paymentMethodTypeIds) {
     paymentMethodTypeId = paymentMethodTypeIds[0];
-    paymentMethodType = delegator.findOne("PaymentMethodType", [paymentMethodTypeId : paymentMethodTypeId], false);
+    paymentMethodType = from("PaymentMethodType").where("paymentMethodTypeId", paymentMethodTypeId).queryOne();
     context.paymentMethodType = paymentMethodType;
 }
 
@@ -97,7 +97,7 @@ context.giftMessage = cart.getGiftMessage();
 context.isGift = cart.getIsGift();
 context.currencyUomId = cart.getCurrency();
 
-shipmentMethodType = delegator.findOne("ShipmentMethodType", [shipmentMethodTypeId : cart.getShipmentMethodTypeId()], false);
+shipmentMethodType = from("ShipmentMethodType").where("shipmentMethodTypeId", cart.getShipmentMethodTypeId()).queryOne();
 if (shipmentMethodType) context.shipMethDescription = shipmentMethodType.description;
 
 orh = new OrderReadHelper(orderAdjustments, orderItems);

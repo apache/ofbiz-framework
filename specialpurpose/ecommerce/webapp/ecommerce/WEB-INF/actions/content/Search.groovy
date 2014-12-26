@@ -105,7 +105,7 @@ if (searcher) {
     for (int start = 0; start < collector.getTotalHits(); start++) {
         Document doc = searcher.doc(hits[start].doc)
         contentId = doc.get("contentId");
-        content = delegator.findOne("Content", [contentId : contentId], true);
+        content = from("Content").where("contentId", contentId).cache(true).queryOne();
         if (!hitSet.contains(contentId)) {
             contentList.add(content);
             hitSet.add(contentId);

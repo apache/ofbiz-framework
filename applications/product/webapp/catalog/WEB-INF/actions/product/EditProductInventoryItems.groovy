@@ -67,9 +67,9 @@ if (product) {
         // The warehouse list is selected
         showAllFacilities = parameters.showAllFacilities;
         if (showAllFacilities && "Y".equals(showAllFacilities)) {
-            facilityList = delegator.findList("Facility", null, null, null, null, false);
+            facilityList = from("Facility").queryList();
         } else {
-            facilityList = delegator.findList("ProductFacility", EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), null, null, null, false);
+            facilityList = from("ProductFacility").where("productId", productId).queryList();
         }
         facilityIterator = facilityList.iterator();
         dispatcher = request.getAttribute("dispatcher");
@@ -97,9 +97,7 @@ if (product) {
             quantitySummaryByFacility.put(facility.facilityId, quantitySummary);
         }
         
-        productInventoryItems = delegator.findByAnd("InventoryItem",
-                [productId : productId],
-                ['facilityId', '-datetimeReceived', '-inventoryItemId'], false);
+        productInventoryItems = from("InventoryItem").where("productId", productId).orderBy("facilityId", "-datetimeReceived", "-inventoryItemId").queryList();
     
         // TODO: get all incoming shipments not yet arrived coming into each facility that this product is in, use a view entity with ShipmentAndItem
         findIncomingShipmentsConds = [];
@@ -119,7 +117,7 @@ if (product) {
         findIncomingShipmentsConds.add(EntityCondition.makeCondition(findIncomingShipmentsStatusConds, EntityOperator.AND));
     
         findIncomingShipmentsStatusCondition = EntityCondition.makeCondition(findIncomingShipmentsConds, EntityOperator.AND);
-        incomingShipmentAndItems = delegator.findList("ShipmentAndItem", findIncomingShipmentsStatusCondition, null, ['-estimatedArrivalDate'], null, false);
+        incomingShipmentAndItems = from("ShipmentAndItem").where(findIncomingShipmentsStatusCondition).orderBy("-estimatedArrivalDate").queryList();
         incomingShipmentAndItemIter = incomingShipmentAndItems.iterator();
         while (incomingShipmentAndItemIter) {
             incomingShipmentAndItem = incomingShipmentAndItemIter.next();

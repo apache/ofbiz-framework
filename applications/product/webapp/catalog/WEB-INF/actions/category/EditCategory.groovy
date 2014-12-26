@@ -30,7 +30,7 @@ primParentCatIdParam = request.getParameter("primaryParentCategoryId");
 if (productCategory) {
     primaryParentCategory = productCategory.getRelatedOne("PrimaryParentProductCategory", false);
 } else if (primParentCatIdParam) {
-    primaryParentCategory = delegator.findOne("ProductCategory", [productCategoryId : primParentCatIdParam], false);
+    primaryParentCategory = from("ProductCategory").where("productCategoryId", primParentCatIdParam).queryOne();
 }
 context.primaryParentCategory = primaryParentCategory;
 

@@ -67,7 +67,7 @@ andExprs =  FastList.newInstance();
     andExprs.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
     
 projectSprintCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-projectSprintList = delegator.findList("ProjectSprintBacklogAndTask", projectSprintCond, null,["custSequenceNum","custRequestId","taskTypeId"],null, false);
+projectSprintList = from("ProjectSprintBacklogAndTask").where(andExprs).orderBy("custSequenceNum","custRequestId","taskTypeId").queryList();
 
 context.listIt = projectSprintList;
 context.paraBacklogStatusId = paraBacklogStatusId;
@@ -79,7 +79,7 @@ if (parameters.sprintId) {
     reviewedBacklog = 0;
     totalbacklog = 0;
     allTask = [];
-    sprintList = delegator.findByAnd("CustRequestWorkEffort", ["workEffortId" : parameters.sprintId], null, false);
+    sprintList = from("CustRequestWorkEffort").where("workEffortId", parameters.sprintId).queryList();
     sprintList.each { sprintMap ->
         custMap = sprintMap.getRelatedOne("CustRequest", false);
         //if ("RF_PROD_BACKLOG".equals(custMap.custRequestTypeId)) {

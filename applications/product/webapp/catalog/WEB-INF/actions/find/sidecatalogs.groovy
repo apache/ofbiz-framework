@@ -32,7 +32,7 @@ context.isOpen = isOpen;
 
 //prodCatalogs
 if (isOpen) {
-    prodCatalogs = delegator.findList("ProdCatalog", null, null, null, null, false);
+    prodCatalogs = from("ProdCatalog").queryList();
     context.prodCatalogs = prodCatalogs;
 }
 

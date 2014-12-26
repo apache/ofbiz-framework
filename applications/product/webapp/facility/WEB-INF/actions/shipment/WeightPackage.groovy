@@ -44,26 +44,26 @@ context.showWarningForm = showWarningForm;
 orderId = parameters.orderId;
 shipGroupSeqId = parameters.shipGroupSeqId;
 
-shipment = EntityUtil.getFirst(delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"], null, false));
+shipment = from("Shipment").where("primaryOrderId", orderId, "statusId", "SHIPMENT_PICKED").queryFirst();
 context.shipment = shipment;
 if (shipment) {
-    invoice = EntityUtil.getFirst(delegator.findByAnd("ShipmentItemBilling", [shipmentId : shipment.shipmentId], null, false));
+    invoice = from("ShipmentItemBilling").where("shipmentId", shipment.shipmentId).queryFirst();
     context.invoice = invoice;
 } else {
     context.invoice = null;
 }
 actualCost = null;
 if (shipment) {
-    shipmentRouteSegment = EntityUtil.getFirst(delegator.findByAnd("ShipmentRouteSegment", [shipmentId : shipment.shipmentId], null, false));
+    shipmentRouteSegment = from("ShipmentRouteSegment").where("shipmentId", shipment.shipmentId).queryFirst();
     actualCost = shipmentRouteSegment.actualCost;
     if (actualCost) {
-        context.shipmentPackages = delegator.findByAnd("ShipmentPackage", [shipmentId : shipment.shipmentId], null, false);
+        context.shipmentPackages = from("ShipmentPackage").where("shipmentId", shipment.shipmentId).queryList();
     }
 }
 
 facilityId = parameters.facilityId;
 if (facilityId) {
-    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    facility = from("Facility").where("facilityId", facilityId).queryOne();
     context.facility = facility;
 }
 
@@ -77,7 +77,7 @@ if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
 
 picklistBinId = parameters.picklistBinId;
 if (picklistBinId) {
-    picklistBin = delegator.findOne("PicklistBin", [picklistBinId : picklistBinId], false);
+    picklistBin = from("PicklistBin").where("picklistBinId", picklistBinId).queryOne();
     if (picklistBin) {
         orderId = picklistBin.primaryOrderId;
         shipGroupSeqId = picklistBin.primaryShipGroupSeqId;
@@ -96,9 +96,9 @@ if (!shipmentId && shipment) {
 context.shipmentId = shipmentId;
 if (shipmentId) {
     // Get the primaryOrderId from the shipment
-    shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
     if (shipment && shipment.primaryOrderId) {
-        orderItemBillingList = delegator.findList("OrderItemBilling", EntityCondition.makeCondition([orderId : shipment.primaryOrderId]), null, ['invoiceId'], null, false);
+        orderItemBillingList = from("OrderItemBilling").where("orderId", shipment.primaryOrderId).orderBy("invoiceId").queryList();
         invoiceIds = EntityUtil.getFieldListFromEntityList(orderItemBillingList, "invoiceId", true);
         if (invoiceIds) {
             context.invoiceIds = invoiceIds;
@@ -108,7 +108,7 @@ if (shipmentId) {
     if (shipment.statusId && "SHIPMENT_PACKED" == shipment.statusId) {
         orderId = null;
     }
-    shipmentPackageRouteSegs = delegator.findByAnd("ShipmentPackageRouteSeg",  [shipmentId : shipmentId], null, false);
+    shipmentPackageRouteSegs = from("ShipmentPackageRouteSeg").where("shipmentId", shipmentId).queryList();
     shipmentPackageRouteSegList = [];
     shipmentPackageRouteSegs.each { shipmentPackageRouteSeg ->
         if (shipmentPackageRouteSeg.labelImage) {
@@ -127,7 +127,7 @@ context.primaryOrderId = orderId;
 
 carrierPartyId = null;
 if (orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
     if (orderHeader) {
         OrderReadHelper orderReadHelper = new OrderReadHelper(orderHeader);
         GenericValue orderItemShipGroup = orderReadHelper.getOrderItemShipGroup(shipGroupSeqId);
@@ -137,7 +137,7 @@ if (orderId) {
             if (shipment) {
                 productStoreId = orderReadHelper.getProductStoreId();
                 shippableItemInfo = orderReadHelper.getOrderItemAndShipGroupAssoc(shipGroupSeqId);
-                shippableItems = delegator.findList("OrderItemAndShipGrpInvResAndItemSum", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
+                shippableItems = from("OrderItemAndShipGrpInvResAndItemSum").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryList();
                 shippableTotal = orderReadHelper.getShippableTotal(shipGroupSeqId);
                 shippableWeight = orderReadHelper.getShippableWeight(shipGroupSeqId);
                 shippableQuantity = orderReadHelper.getShippableQuantity(shipGroupSeqId);
@@ -173,10 +173,10 @@ context.shipGroupSeqId = shipGroupSeqId;
 context.picklistBinId = picklistBinId;
 
 if (carrierPartyId) {
-    carrierShipmentBoxTypes =  delegator.findByAnd("CarrierShipmentBoxType", [partyId : carrierPartyId], null, false);
+    carrierShipmentBoxTypes = from("CarrierShipmentBoxType").where("partyId", carrierPartyId).queryList();
     shipmentBoxTypes = [];
     carrierShipmentBoxTypes.each { carrierShipmentBoxType ->
-        shipmentBoxTypes.add(delegator.findOne("ShipmentBoxType", [shipmentBoxTypeId : carrierShipmentBoxType.shipmentBoxTypeId], false));
+        shipmentBoxTypes.add(from("ShipmentBoxType").where("shipmentBoxTypeId", carrierShipmentBoxType.shipmentBoxTypeId).queryOne());
         context.shipmentBoxTypes = shipmentBoxTypes;
     }
 }

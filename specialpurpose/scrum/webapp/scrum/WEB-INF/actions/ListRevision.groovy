@@ -40,7 +40,7 @@ if ((parameters.productId != null)||(parameters.custRequestId != null)||(paramet
     }
     andList.add(EntityCondition.makeCondition(orList, EntityOperator.OR));
     custRequestCond = EntityCondition.makeCondition(andList, EntityOperator.AND);
-    custRequestList = delegator.findList("CustRequestAndCustRequestItem", custRequestCond, null,null ,null, false);
+    custRequestList = from("CustRequestAndCustRequestItem").where(custRequestCond).queryList();
     
     custRequestIds = EntityUtil.getFieldListFromEntityList(custRequestList, "custRequestId", true);
     taskOrList =  [];
@@ -52,7 +52,7 @@ if ((parameters.productId != null)||(parameters.custRequestId != null)||(paramet
     taskAndList.add(EntityCondition.makeCondition("custRequestId", EntityOperator.IN, custRequestIds));
     taskAndList.add(EntityCondition.makeCondition(taskOrList, EntityOperator.OR));
     custAndWorkEffortCond = EntityCondition.makeCondition(taskAndList, EntityOperator.AND);
-    custAndWorkEffortList = delegator.findList("CustRequestAndWorkEffort", custAndWorkEffortCond, null,null ,null, false);
+    custAndWorkEffortList = from("CustRequestAndWorkEffort").where(custAndWorkEffortCond).queryList();
     
     //for workEffortId
     workEffortIds = EntityUtil.getFieldListFromEntityList(custAndWorkEffortList, "workEffortId", true);
@@ -64,7 +64,7 @@ if ((parameters.productId != null)||(parameters.custRequestId != null)||(paramet
     }
     revisionAndList.add(EntityCondition.makeCondition("workEffortContentTypeId", EntityOperator.EQUALS, "TASK_SUB_INFO"));
     revisionCond = EntityCondition.makeCondition(revisionAndList, EntityOperator.AND);
-    revisionList = delegator.findList("WorkEffortAndContentDataResource", revisionCond, null,["-fromDate"] ,null, false);
+    revisionList = from("WorkEffortAndContentDataResource").where(revisionCond).orderBy("-fromDate").queryList();
     
     if (revisionList) {
         revisionList.each { revisionMap ->
@@ -75,10 +75,10 @@ if ((parameters.productId != null)||(parameters.custRequestId != null)||(paramet
             inputMap.contentName = revisionMap.contentName;
             inputMap.description = revisionMap.description;
             inputMap.drObjectInfo = revisionMap.drObjectInfo;
-            custAndWorkEfffList = delegator.findByAnd("CustRequestAndWorkEffort", ["workEffortId" : revisionMap.workEffortId], null, false);
+            custAndWorkEfffList = from("CustRequestAndWorkEffort").where("workEffortId", revisionMap.workEffortId).queryList();
             if (custAndWorkEfffList) {
                 custAndWorkEfffMap = custAndWorkEfffList[0];
-                custAndCustItemList = delegator.findByAnd("CustRequestAndCustRequestItem", ["custRequestId" : custAndWorkEfffMap.custRequestId], null, false);
+                custAndCustItemList = from("CustRequestAndCustRequestItem").where("custRequestId", custAndWorkEfffMap.custRequestId).queryList();
                 if (custAndCustItemList) {
                     custAndCustItemMap = custAndCustItemList[0];
                     inputMap.productId = custAndCustItemMap.productId;

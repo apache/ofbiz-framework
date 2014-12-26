@@ -17,6 +17,6 @@
  * under the License.
  */
 
-context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, true);
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").cache(true).queryList();
 
-context.featureCategory = delegator.findOne("ProductFeatureCategory", [productFeatureCategoryId : parameters.productFeatureCategoryId], false);
+context.featureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", parameters.productFeatureCategoryId).queryOne();

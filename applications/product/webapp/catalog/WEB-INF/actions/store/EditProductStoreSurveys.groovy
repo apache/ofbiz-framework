@@ -25,17 +25,17 @@ context.hasPermission = security.hasEntityPermission("CATALOG", "_VIEW", session
 
 productStoreId = request.getParameter("productStoreId");
 if (productStoreId) {
-    productStore = delegator.findOne("ProductStore", [productStoreId : productStoreId], false);
+    productStore = from("ProductStore").where("productStoreId", productStoreId).queryOne();
     context.productStoreId = productStoreId;
     context.productStore = productStore;
 }
 
-context.productStoreSurveys = EntityUtil.filterByDate(delegator.findList("ProductStoreSurveyAppl", EntityCondition.makeCondition([productStoreId : productStoreId]), null, null, null, false));
+context.productStoreSurveys = from("ProductStoreSurveyAppl").where("productStoreId", productStoreId).filterByDate().queryList();
 
-context.surveys = delegator.findList("Survey", null, null, ['description'], null, false);
+context.surveys = from("Survey").orderBy("description").queryOne();
 
-context.surveyApplTypes = delegator.findList("SurveyApplType", null, null, ['description'], null, false);
+context.surveyApplTypes = from("SurveyApplType").orderBy("description").queryFirst();
 
-context.productCategories = delegator.findList("ProductCategory", null, null, ['description'], null, false);
+context.productCategories = from("ProductCategory").orderBy("description").queryList();
 
 context.nowTimestampString = UtilDateTime.nowTimestamp().toString();

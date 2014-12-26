@@ -28,12 +28,12 @@ import org.ofbiz.entity.util.EntityUtil;
 facilityId = context.get("facilityId");
 
 EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId);
-inventoryItems = delegator.findList("InventoryItem", whereConditions, UtilMisc.toSet("productId"), UtilMisc.toList("productId"), null, false);
+inventoryItems = select("productId").from("InventoryItem").where("facilityId", facilityId).orderBy("productId").queryList();
 inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "productId", true);
 
 inventoryAverageCosts = FastList.newInstance();
 inventoryItemProducts.each { productId ->
-    productFacility = delegator.findOne("ProductFacility", UtilMisc.toMap("productId", productId, "facilityId", facilityId), false);
+    productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne();
     if (UtilValidate.isNotEmpty(productFacility)) {
         result = runService('calculateProductAverageCost', UtilMisc.toMap("productId": productId, "facilityId": facilityId, "userLogin": userLogin));
         totalQuantityOnHand = result.get("totalQuantityOnHand");

@@ -24,22 +24,22 @@ if (webPosSession) {
     shoppingCart = webPosSession.getCart();
     shipToCustomerPartyId = shoppingCart.getShipToCustomerPartyId();
     if (UtilValidate.isNotEmpty(shipToCustomerPartyId)) {
-        context.personShipTo = delegator.findOne("Person", [partyId : shipToCustomerPartyId], false);
+        context.personShipTo = from("Person").where("partyId", shipToCustomerPartyId).queryOne();
     }
     shippingContactMechId = shoppingCart.getContactMech("SHIPPING_LOCATION");
     if (UtilValidate.isNotEmpty(shippingContactMechId)) {
-        contactMech = delegator.findOne("ContactMech", [contactMechId : shippingContactMechId], false);
+        contactMech = from("ContactMech").where("contactMechId", shippingContactMechId).queryOne();
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
             context.shippingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
         }
     }
     billToCustomerPartyId = shoppingCart.getBillToCustomerPartyId();
     if (UtilValidate.isNotEmpty(billToCustomerPartyId)) {
-        context.personBillTo = delegator.findOne("Person", [partyId : billToCustomerPartyId], false);
+        context.personBillTo = from("Person").where("partyId", billToCustomerPartyId).queryOne();
     }
     billingContactMechId = shoppingCart.getContactMech("BILLING_LOCATION");
     if (UtilValidate.isNotEmpty(billingContactMechId)) {
-        contactMech = delegator.findOne("ContactMech", [contactMechId : billingContactMechId], false);
+        contactMech = from("ContactMech").where("contactMechId", billingContactMechId).queryOne();
         if (UtilValidate.isNotEmpty(contactMech) && "POSTAL_ADDRESS".equals(contactMech.contactMechTypeId)) {
             context.billingPostalAddress = contactMech.getRelatedOne("PostalAddress", false);
         }

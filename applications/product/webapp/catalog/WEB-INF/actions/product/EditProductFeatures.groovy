@@ -19,14 +19,12 @@
 
 import org.ofbiz.entity.condition.*;
 
-context.productFeatureAndAppls = delegator.findList('ProductFeatureAndAppl',
-        EntityCondition.makeCondition([productId : productId]), null,
-        ['sequenceNum', 'productFeatureApplTypeId', 'productFeatureTypeId', 'description'], null, false);
+context.productFeatureAndAppls = from("ProductFeatureAndAppl").where("productId", productId).orderBy("sequenceNum", "productFeatureApplTypeId", "productFeatureTypeId", "description").queryList();
 
-context.productFeatureCategories = delegator.findList('ProductFeatureCategory', null, null, ['description'], null, false);
+context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList();
 
-context.productFeatureApplTypes = delegator.findList('ProductFeatureApplType', null, null, ['description'], null, true);
+context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").cache(true).queryList();
 
-context.productFeatureGroups = delegator.findList('ProductFeatureGroup', null, null, ['description'], null, false);
+context.productFeatureGroups = from("ProductFeatureGroup").orderBy("description").queryList();
 
-context.productFeatureTypes = delegator.findList('ProductFeatureType', null, null, ['description'], null, true);
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList();

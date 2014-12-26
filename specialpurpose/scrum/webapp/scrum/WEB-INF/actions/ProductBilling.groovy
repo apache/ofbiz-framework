@@ -31,9 +31,8 @@ entryExprs =
         EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
         EntityCondition.makeCondition("invoiceId", EntityOperator.NOT_EQUAL, null),
         ], EntityOperator.AND);
-orderBy = ["-fromDate"];
 // check if latest invoice generated is still in process so allow re-generation to correct errors
-entryIterator = delegator.find("ProjectSprintBacklogTaskAndTimeEntryTimeSheet", entryExprs, null, null, orderBy, null);
+entryIterator = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(entryExprs).orderBy("-fromDate").queryIterator();
 while (entryItem = entryIterator.next()) {
     invoice = entryItem.getRelatedOne("Invoice", false);
     if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
@@ -73,13 +72,13 @@ if ("N".equals(includeMeeting)) {
     taskConds.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.NOT_EQUAL, "RF_SCRUM_MEETINGS"));
 }
 // get sprint task list
-def sprintTasks = delegator.findList("ProjectSprintBacklogTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
+def sprintTasks = from("ProjectSprintBacklogTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
 
 // get cancelled backlog task list
-def cancelledBacklogTasks = delegator.findList("CancelledBacklogsTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
+def cancelledBacklogTasks = from("CancelledBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
 
 // get unplanned task list
-def unplannedTasks = delegator.findList("UnPlannedBacklogsTaskAndTimeEntryTimeSheet", EntityCondition.makeCondition(taskConds), null, null, null, false);
+def unplannedTasks = from("UnPlannedBacklogsTaskAndTimeEntryTimeSheet").where(taskConds).queryList();
 
 def hoursNotYetBilledTasks = [];
 hoursNotYetBilledTasks.addAll(sprintTasks);

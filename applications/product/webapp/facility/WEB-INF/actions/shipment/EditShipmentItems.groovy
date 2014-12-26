@@ -27,7 +27,7 @@ if (!shipmentId) {
 
 shipment = null;
 if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 }
 
 if (shipment) {

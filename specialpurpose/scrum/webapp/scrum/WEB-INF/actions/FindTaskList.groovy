@@ -69,11 +69,10 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         if (statusId){
             exprBldr.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, statusId));
         }
-        unplannedCond = EntityCondition.makeCondition(exprBldr, EntityOperator.AND);
-        unplannedTaskList = delegator.findList("UnPlannedBacklogsAndTasks", unplannedCond, null,["-createdDate"] ,null, false);
+        unplannedTaskList = from("UnPlannedBacklogsAndTasks").where(exprBldr).orderBy("-createdDate").queryList();
     }
     else{
-        unplannedTaskList = delegator.findList("UnPlannedBacklogsAndTasks", null, null,["-createdDate"] ,null, false);
+        unplannedTaskList = from("UnPlannedBacklogsAndTasks").orderBy("-createdDate").queryList();
     }
     
     exprBldr2 =  FastList.newInstance();
@@ -102,8 +101,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         exprBldr2.add(EntityCondition.makeCondition("projectName", EntityOperator.LIKE, "%"+projectName+"%"));
     }
     exprBldr2.add(EntityCondition.makeCondition("sprintTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
-    plannedCond = EntityCondition.makeCondition(exprBldr2, EntityOperator.AND);
-    plannedTaskList = delegator.findList("ProjectSprintBacklogAndTask", plannedCond, null,["-taskCreatedDate"] ,null, false);
+    plannedTaskList = from("ProjectSprintBacklogAndTask").where(exprBldr2).orderBy("-taskCreatedDate").queryList();
     
     unplannedTaskList.each{ unplannedTaskMap ->
         unplannedMap = [:];
@@ -170,7 +168,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         resultList = [];
         assignedList.each { assignedMap ->
             workEffortId = assignedMap.taskId;
-            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId, "partyId" : partyId], null, false);
+            assignToList = from("WorkEffortPartyAssignment").where("workEffortId", workEffortId, "partyId", partyId).queryList();
             if (assignToList) {
                 assignedMap.partyId = assignToList[0].partyId;
                 resultList.add(assignedMap);
@@ -181,7 +179,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         resultList = [];
         assignedList.each { assignedMap ->
             workEffortId = assignedMap.taskId;
-            assignToList = delegator.findByAnd("WorkEffortPartyAssignment",["workEffortId" : workEffortId], null, false);
+            assignToList = from("WorkEffortPartyAssignment").where("workEffortId", workEffortId).queryList();
             if (assignToList) {
                 assignedMap.partyId = assignToList[0].partyId;
                 resultList.add(assignedMap);

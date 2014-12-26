@@ -39,8 +39,7 @@ exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.EQ
 exprListThruDate.add(EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, UtilDateTime.nowTimestamp()));
 orCond = EntityCondition.makeCondition(exprListThruDate, EntityOperator.OR);
 exprList.add(orCond);
-topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
-webSiteContactList = delegator.findList("WebSiteContactList", topCond, null, null, null, false);
+webSiteContactList = from("WebSiteContactList").where(exprList).queryList();
 
 publicEmailContactLists = [];
 webSiteContactList.each { webSiteContactList ->
@@ -54,8 +53,7 @@ webSiteContactList.each { webSiteContactList ->
 context.publicEmailContactLists = publicEmailContactLists;
 
 if (userLogin) {
-    partyAndContactMechList = delegator.findByAnd("PartyAndContactMech", [partyId : partyId, contactMechTypeId : "EMAIL_ADDRESS"], ["-fromDate"], false);
-    partyAndContactMechList = EntityUtil.filterByDate(partyAndContactMechList);
+    partyAndContactMechList = from("PartyAndContactMech").where("partyId", partyId, "contactMechTypeId", "EMAIL_ADDRESS").orderBy("-fromDate").filterByDate().queryList();
     context.partyAndContactMechList = partyAndContactMechList;
 }
 

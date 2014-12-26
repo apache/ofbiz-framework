@@ -61,7 +61,7 @@ if (!contentId && currentValue) {
     contentId = currentValue.contentId;
 }
 if (contentId && !currentValue) {
-    currentValue = delegator.findOne("Content", [contentId : contentId], true);
+    currentValue = from("Content").where("contentId", contentId).cache(true).queryOne();
 }
 //Debug.logInfo("in contentprep, currentValue(1):" + currentValue, "");
 //Debug.logInfo("in contentprep, contentId(4):" + contentId, "");

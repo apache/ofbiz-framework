@@ -43,7 +43,7 @@ if (performFindResults.listSize > 0) {
         leaveExprsList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, timesheetDb.fromDate));
         leaveExprsList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, timesheetDb.thruDate));
         leaveExprsList.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, timesheetDb.partyId));
-        emplLeaveList = delegator.find("EmplLeave", EntityCondition.makeCondition(leaveExprsList, EntityOperator.AND), null, null, null, findOpts);
+        emplLeaveList = from("EmplLeave").where(leaveExprsList).cursorScrollInsensitive().distinct().queryIterator();
         leaveHours = 0.00;
         
         while ((emplLeaveMap = emplLeaveList.next())) {

@@ -34,7 +34,7 @@ if (partialReceive) {
 
 facility = null;
 if (facilityId) {
-    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    facility = from("Facility").where("facilityId", facilityId).queryOne();
 }
 
 ownerAcctgPref = null;
@@ -50,7 +50,7 @@ if (facility) {
 
 purchaseOrder = null;
 if (purchaseOrderId) {
-    purchaseOrder = delegator.findOne("OrderHeader", [orderId : purchaseOrderId], false);
+    purchaseOrder = from("OrderHeader").where("orderId", purchaseOrderId).queryOne();
     if (purchaseOrder && !"PURCHASE_ORDER".equals(purchaseOrder.orderTypeId)) {
         purchaseOrder = null;
     }
@@ -58,13 +58,13 @@ if (purchaseOrderId) {
 
 product = null;
 if (productId) {
-    product = delegator.findOne("Product", [productId : productId], false);
-    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(EntityUtil.filterByDate(delegator.findList("SupplierProduct", EntityCondition.makeCondition([productId : productId]), null, ["partyId"], null, false), nowTimestamp, "availableFromDate", "availableThruDate", true), "partyId", true);
+    product = from("Product").where("productId", productId).queryOne();
+    context.supplierPartyIds = EntityUtil.getFieldListFromEntityList(from("SupplierProduct").where("productId", productId).orderBy("partyId").filterByDate(nowTimestamp, "availableFromDate", "availableThruDate").queryList(), "partyId", true);
 }
 
 shipments = null;
 if (purchaseOrder && !shipmentId) {
-    orderShipments = delegator.findList("OrderShipment", EntityCondition.makeCondition([orderId : purchaseOrderId]), null, null, null, false);
+    orderShipments = from("OrderShipment").where("orderId", purchaseOrderId).queryList();
     if (orderShipments) {
         shipments = [] as TreeSet;
         orderShipments.each { orderShipment ->
@@ -77,7 +77,7 @@ if (purchaseOrder && !shipmentId) {
         }
     }
     // This is here for backward compatibility: ItemIssuances are no more created for purchase shipments.
-    issuances = delegator.findList("ItemIssuance", EntityCondition.makeCondition([orderId : purchaseOrderId]), null, null, null, false);
+    issuances = from("ItemIssuance").where("orderId", purchaseOrderId).queryList();
     if (issuances) {
         shipments = [] as TreeSet;
         issuances.each { issuance ->
@@ -93,7 +93,7 @@ if (purchaseOrder && !shipmentId) {
 
 shipment = null;
 if (shipmentId && !shipmentId.equals("_NA_")) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 }
 
 shippedQuantities = [:];
@@ -188,10 +188,7 @@ if (purchaseOrderItems) {
         }
         receivedQuantities.put(thisItem.orderItemSeqId, new Double(totalReceived));
         //----------------------
-        salesOrderItemAssocs = delegator.findList("OrderItemAssoc", EntityCondition.makeCondition([orderItemAssocTypeId : 'PURCHASE_ORDER',
-                                                                     toOrderId : thisItem.orderId,
-                                                                     toOrderItemSeqId : thisItem.orderItemSeqId]),
-                                                                     null, null, null, false);
+        salesOrderItemAssocs = from("OrderItemAssoc").where(orderItemAssocTypeId : 'PURCHASE_ORDER', toOrderId : thisItem.orderId, toOrderItemSeqId : thisItem.orderItemSeqId).queryList();
         if (salesOrderItemAssocs) {
             salesOrderItem = EntityUtil.getFirst(salesOrderItemAssocs);
             salesOrderItems.put(thisItem.orderItemSeqId, salesOrderItem);
@@ -201,7 +198,7 @@ if (purchaseOrderItems) {
 
 receivedItems = null;
 if (purchaseOrder) {
-    receivedItems = delegator.findList("ShipmentReceiptAndItem", EntityCondition.makeCondition([orderId : purchaseOrderId, facilityId : facilityId]), null, null, null, false);
+    receivedItems = from("ShipmentReceiptAndItem").where("orderId", purchaseOrderId, "facilityId", facilityId).queryList();
     context.receivedItems = receivedItems;
 }
 
@@ -212,13 +209,13 @@ if (productId && !product) {
 }
 
 // reject reasons
-rejectReasons = delegator.findList("RejectionReason", null, null, null, null, false);
+rejectReasons = from("RejectionReason").queryList();
 
 // inv item types
-inventoryItemTypes = delegator.findList("InventoryItemType", null, null, null, null, false);
+inventoryItemTypes = from("InventoryItemType").queryList();
 
 // facilities
-facilities = delegator.findList("Facility", null, null, null, null, false);
+facilities = from("Facility").queryList();
 
 // default per unit cost for both shipment or individual product
 standardCosts = [:];

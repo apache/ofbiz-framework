@@ -32,20 +32,20 @@ now = UtilDateTime.nowTimestamp();
 try{
     if (UtilValidate.isNotEmpty(loginPartyId)) {
         if (UtilValidate.isNotEmpty(productId)) {
-        context.product = delegator.findOne("Product",["productId" : productId], false);
+        context.product = from("Product").where("productId", productId).queryOne();
         }
-        communicationEvent = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
+        communicationEvent = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
         communicationEvent.communicationEventTypeId = "EMAIL_COMMUNICATION";
         communicationEvent.contactMechTypeId = "EMAIL_ADDRESS";
         communicationEvent.datetimeStarted = now;
-        checkOwner = delegator.findByAnd("ProductRole",["productId" : productId,"partyId" : loginPartyId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
+        checkOwner = from("ProductRole").where("productId", productId,"partyId", loginPartyId,"roleTypeId", "PRODUCT_OWNER").queryList();
         if (checkOwner) {
             /* for product owner to our company */
             
             // for owner
-            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
+            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList();
             context.productOwnerId = productRole[0].partyId
-            parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
+            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
             if (parentCom) {
                 context.partyIdFrom = productRole[0].partyId;
             } else {
@@ -78,9 +78,9 @@ try{
                 communicationEvent.contactMechIdFrom = resultsIdFrom.contactMechId;
             }
             // for owner
-            productRole = delegator.findByAnd("ProductRole",["productId" : productId,"roleTypeId" : "PRODUCT_OWNER"], null, false);
+            productRole = from("ProductRole").where("productId", productId,"roleTypeId", "PRODUCT_OWNER").queryList();
             context.productOwnerId = productRole[0].partyId;
-            parentCom = delegator.findOne("CommunicationEvent",["communicationEventId" : communicationEventId], false);
+            parentCom = from("CommunicationEvent").where("communicationEventId", communicationEventId).queryOne();
             if(parentCom){
                 context.partyIdTo = productRole[0].partyId;
             } else {

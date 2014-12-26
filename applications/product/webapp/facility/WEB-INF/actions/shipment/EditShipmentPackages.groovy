@@ -26,7 +26,7 @@ if (!shipmentId) {
 
 shipment = null;
 if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 }
 
 if (shipment) {
@@ -45,8 +45,8 @@ if (shipment) {
 
     shipmentItems = shipment.getRelated("ShipmentItem", null, ['shipmentItemSeqId'], false);
     shipmentRouteSegments = shipment.getRelated("ShipmentRouteSegment", null, ['shipmentRouteSegmentId'], false);
-    weightUoms = delegator.findList("Uom", EntityCondition.makeCondition([uomTypeId : 'WEIGHT_MEASURE']), null, ['description'], null, false);
-    boxTypes = delegator.findList("ShipmentBoxType", null, null, null, null, false);
+    weightUoms = from("Uom").where("uomTypeId", "WEIGHT_MEASURE").orderBy("description").queryList();
+    boxTypes = from("ShipmentBoxType").queryList();
 
     context.shipment = shipment;
     context.shipmentPackageDatas = shipmentPackageDatas;

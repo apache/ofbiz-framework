@@ -25,16 +25,16 @@ import org.ofbiz.entity.util.*;
 
 shipmentId = parameters.shipmentId;
 if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
-    shipmentItems = delegator.findByAnd("ShipmentItem", [shipmentId : shipmentId], null, false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
+    shipmentItems = from("ShipmentItem").where("shipmentId", shipmentId).queryList();
 
     // get Shipment tracking info
-    osisCond = EntityCondition.makeCondition([shipmentId : shipmentId], EntityOperator.AND);
-    osisOrder = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId"];
-    osisFields = ["shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode"] as Set;
-    osisFindOptions = new EntityFindOptions();
-    osisFindOptions.setDistinct(true);
-    orderShipmentInfoSummaryList = delegator.findList("OrderShipmentInfoSummary", osisCond, osisFields, osisOrder, osisFindOptions, false);
+    orderShipmentInfoSummaryList = select("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId", "carrierPartyId", "trackingCode")
+                                    .from("OrderShipmentInfoSummary")
+                                    .where("shipmentId", shipmentId)
+                                    .orderBy("shipmentId", "shipmentRouteSegmentId", "shipmentPackageSeqId")
+                                    .distinct()
+                                    .queryList();
 
     context.shipment = shipment;
     context.shipmentItems = shipmentItems;

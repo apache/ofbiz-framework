@@ -27,12 +27,7 @@ import javolution.util.FastMap;
 import javolution.util.FastList;
 
 
-cond =
-    EntityCondition.makeCondition(
-            [EntityCondition.makeCondition ("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
-             EntityCondition.makeCondition ("partyId", EntityOperator.EQUALS, parameters.partyId)
-            ],EntityOperator.AND);
-allProjects = delegator.findList("WorkEffortAndPartyAssign", cond, (HashSet) ["workEffortId"], ["workEffortName"], null, true);
+allProjects = select("workEffortId").from("WorkEffortAndPartyAssign").where("workEffortTypeId", "PROJECT", "partyId", parameters.partyId).orderBy("workEffortName").cache(true).queryList();
 
 projects = [];
 allProjects.each { project ->

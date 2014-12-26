@@ -41,7 +41,7 @@ currentTopCategoryId = CategoryWorker.getCatalogTopCategory(request, defaultTopC
 currentTopCategory = null;
 if (isOpen) {
     CategoryWorker.getRelatedCategories(request, "topLevelList", currentTopCategoryId, false);
-    currentTopCategory = delegator.findOne("ProductCategory", [productCategoryId : currentTopCategoryId], true);
+    currentTopCategory = from("ProductCategory").where("productCategoryId", currentTopCategoryId).cache(true).queryOne();
     context.topLevelList = request.getAttribute("topLevelList");
 }
 curCategoryId = UtilFormatOut.checkNull(requestParameters.productCategoryId);

@@ -22,7 +22,7 @@ import org.ofbiz.base.util.*;
 productId = request.getParameter("productId");
 productVariantId = productId + "_";
 productFeatureIds = "";
-product = delegator.findOne("Product", [productId : productId], false);
+product = from("Product").where("productId", productId).queryOne();
 
 result = runService('getProductFeaturesByType', [productId : productId, productFeatureApplTypeId : "SELECTABLE_FEATURE"]);
 featureTypes = result.productFeatureTypes;
@@ -39,7 +39,7 @@ if (featureTypes) {
         if (selectedFeatureTypeValue) {
             featureTypeAndValues.selectedFeatureId = selectedFeatureTypeValue;
             selectedFeatureTypeValues.add(selectedFeatureTypeValue);
-            feature = delegator.findOne("ProductFeature", [productFeatureId : selectedFeatureTypeValue], true);
+            feature = from("ProductFeature").where("productFeatureId", selectedFeatureTypeValue).cache(true).queryOne();
             productVariantId += feature.getString("idCode") ?: "";
             productFeatureIds += "|" + selectedFeatureTypeValue;
         }
@@ -66,7 +66,7 @@ context.variants = variants;
 // also need the variant products themselves
 variantProducts = [];
 variants.each { variantId ->
-    variantProducts.add(delegator.findOne("Product", [productId : variantId], true));
+    variantProducts.add(from("Product").where("productId", variantId).cache(true).queryOne());
 }
 context.variantProducts = variantProducts;
 

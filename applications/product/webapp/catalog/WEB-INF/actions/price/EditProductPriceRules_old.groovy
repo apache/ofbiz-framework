@@ -21,11 +21,11 @@ import org.ofbiz.entity.condition.*
 
 String priceRuleId = request.getParameter("productPriceRuleId");
 if (priceRuleId) {
-    context.productPriceRule = delegator.findOne("ProductPriceRule", [productPriceRuleId : priceRuleId], false);
+    context.productPriceRule = from("ProductPriceRule").where("productPriceRuleId", priceRuleId).queryOne();
 }
 
-context.inputParamEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_IN_PARAM']), null, ['sequenceId'], null, true);
+context.inputParamEnums = from("Enumeration").where("enumTypeId", 'PROD_PRICE_IN_PARAM').orderBy("sequenceId").cache(true).queryList();
 
-context.condOperEnums = delegator.findList("Enumeration", EntityCondition.makeCondition([enumTypeId : 'PROD_PRICE_COND']), null, ['sequenceId'], null, true);
+context.condOperEnums = from("Enumeration").where("enumTypeId", "PROD_PRICE_COND").orderBy("sequenceId").cache(true).queryList();
 
-context.productPriceActionTypes = delegator.findList("ProductPriceActionType", null, null, ['description'], null, true);
+context.productPriceActionTypes = from("ProductPriceActionType").orderBy("description").cache(true).queryList();

@@ -22,17 +22,17 @@ import org.ofbiz.base.util.Debug;
 try{
     // for sprint dropdown
     workEffortList = [];
-    sprintList = delegator.findByAnd("WorkEffort",["workEffortTypeId" : "SCRUM_SPRINT","currentStatusId" : "SPRINT_ACTIVE"], null, false);
+    sprintList = from("WorkEffort").where("workEffortTypeId", "SCRUM_SPRINT","currentStatusId", "SPRINT_ACTIVE").queryList();
     if (sprintList) {
         sprintList.each{ sprintMap ->
             workEffortMap = [:];
             workEffortParentId = sprintMap.workEffortParentId;
             if (workEffortParentId) {
-               projectList = delegator.findByAnd("WorkEffortAndProduct",["workEffortId" : workEffortParentId], null, false);
+               projectList = from("WorkEffortAndProduct").where("workEffortId", workEffortParentId).queryList();
                projectMap = projectList[0];
                // make sure that project dose not closed
                if (projectMap.currentStatusId != "SPJ_CLOSED") {
-                   productMap = delegator.findOne("Product",["productId" : projectMap.productId], false);
+                   productMap = from("Product").where("productId", projectMap.productId).queryOne();
                    workEffortMap.productId = productMap.productId;
                    workEffortMap.internalName = returnNameAsString(productMap.internalName,30);
                    workEffortMap.projectId = projectMap.workEffortId;
@@ -59,16 +59,16 @@ try{
     }
     categoryList = [];
     if (productId) {
-        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG","productId" : productId], null, false);
+        sprintList = from("CustRequestAndCustRequestItem").where("custRequestTypeId", "RF_PARENT_BACKLOG","productId", productId).queryList();
     } else {
-        sprintList = delegator.findByAnd("CustRequestAndCustRequestItem",["custRequestTypeId" : "RF_PARENT_BACKLOG"], null, false);
+        sprintList = from("CustRequestAndCustRequestItem").where("custRequestTypeId", "RF_PARENT_BACKLOG").queryList();
     }
     if (sprintList) {
         sprintList.each{ categoryMap ->
             inputMap = [:];
             productIdIn = categoryMap.productId;
             if (productIdIn) {
-               productMap = delegator.findOne("Product",["productId" : productIdIn], false);
+               productMap = from("Product").where("productId", productIdIn).queryOne();
                inputMap.productId = productMap.productId;
                inputMap.internalName = productMap.internalName;
                inputMap.custRequestId = categoryMap.custRequestId;

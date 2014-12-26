@@ -27,7 +27,7 @@ import javax.servlet.http.HttpSession;
 
 defaultLocaleString = "";
 if (parameters.productStoreId) {
-    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId], null, false);
+    productStore = from("ProductStore").where("productStoreId", parameters.productStoreId).queryList();
     defaultLocaleString = productStore[0].defaultLocaleString.toString()
 }
 active = parameters.ACTIVE_PRODUCT;
@@ -37,12 +37,11 @@ productList = FastList.newInstance();
 if (UtilValidate.isNotEmpty(productIds) && ("Y".equals(active) || "Y".equals(notSynced))) {
     for (int i = 0; i < productIds.size(); i++) {
         productId = productIds[i];
-        productCategoryMembers = delegator.findByAnd("ProductCategoryMember", [productId : productId], null, false);
-        productCategoryMember = EntityUtil.getFirst(productCategoryMembers);
+        productCategoryMember = from("ProductCategoryMember").where("productId", productId).queryFirst();
         if (UtilValidate.isNotEmpty(productCategoryMember)) {
             if ("Y".equals(active) && "Y".equals(notSynced)) {
                 thruDate = productCategoryMember.get("thruDate");
-                goodIdentification = delegator.findOne("GoodIdentification", [productId : productId, goodIdentificationTypeId : "GOOGLE_ID_" + defaultLocaleString], false);
+                goodIdentification = from("GoodIdentification").where("productId", productId, "goodIdentificationTypeId", "GOOGLE_ID_" + defaultLocaleString).queryOne();
                 if (UtilValidate.isEmpty(thruDate) && UtilValidate.isEmpty(goodIdentification)) {
                     productList.add(productId);
                 }
@@ -53,7 +52,7 @@ if (UtilValidate.isNotEmpty(productIds) && ("Y".equals(active) || "Y".equals(not
                 }
                 parameters.GOOGLE_SYNCED = "N"
             } else if ("Y".equals(notSynced)) {
-                goodIdentification = delegator.findOne("GoodIdentification", [productId : productId, goodIdentificationTypeId : "GOOGLE_ID_" + defaultLocaleString], false);
+                goodIdentification = from("GoodIdentification").where("productId", productId, "goodIdentificationTypeId", "GOOGLE_ID_" + defaultLocaleString).queryOne();
                 if (UtilValidate.isEmpty(goodIdentification)) {
                     productList.add(productId);
                 }
@@ -72,7 +71,7 @@ def notDiscontProdList = []
 if(parameters.DISCONTINUED_PRODUCT == 'Y'){
     productIds.each { value ->
         def stockIsZero = runService('isStoreInventoryAvailable', ["productId": value, "productStoreId": parameters.productStoreId, "quantity": BigDecimal.valueOf(1.00)]);
-        def thisProduct = delegator.findOne("Product", [productId : value], false);
+        def thisProduct = from("Product").where("productId", value).queryOne();
         if (stockIsZero.get("available") == 'Y'){
             notDiscontProdList.add(value);
         }else {
