@@ -31,7 +31,7 @@ if (parameters.productStoreId) {
 } else {
     productStoreId = ProductStoreWorker.getProductStoreId(request);
 }
-googleBaseConfigList = delegator.findList("GoogleBaseConfig", null, null, null, null, false);
+googleBaseConfigList = from("GoogleBaseConfig").queryList();
 if (!productStoreId) {
     googleBaseProductStore = EntityUtil.getFirst(googleBaseConfigList);
     productStoreId = googleBaseProductStore.productStoreId;
@@ -40,7 +40,7 @@ if (productStoreId) {
     productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
     if (productStoreCatalogs) {
         productStoreCatalogs.each { productStoreCatalog ->
-            prodCatalog = delegator.findOne("ProdCatalog", [prodCatalogId : productStoreCatalog.prodCatalogId], true);
+            prodCatalog = from("ProdCatalog").where("prodCatalogId", productStoreCatalog.prodCatalogId).cache(true).queryOne();
             prodCatalogList.add(prodCatalog);
         }
     }

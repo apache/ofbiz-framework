@@ -47,7 +47,7 @@ combinedCondList.add(andCondList);
 
 combinedConds = EntityCondition.makeCondition(combinedCondList, EntityOperator.AND);
 
-scrumUserLoginSecurityGroupList = delegator.findList("ScrumMemberUserLoginAndSecurityGroup", combinedConds, null, null, null, false);
+scrumUserLoginSecurityGroupList = from("ScrumMemberUserLoginAndSecurityGroup").where(combinedConds).queryList();
 userPreferenceList = [];
 userPreferenceOutList = [];
 if (scrumUserLoginSecurityGroupList) {
@@ -57,13 +57,13 @@ if (scrumUserLoginSecurityGroupList) {
             ownerCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
             ownerCond.add(EntityCondition.makeCondition("enumId", EntityOperator.NOT_EQUAL, "MASTER_NOTIFY"));
             ownerConds = EntityCondition.makeCondition(ownerCond, EntityOperator.AND);
-            userPreferenceList = delegator.findList("Enumeration" , ownerConds, null, null, null, false);
+            userPreferenceList = from("Enumeration").where(ownerConds).queryList();
         } else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_MASTER") {
             masterCond = FastList.newInstance();
             masterCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
             masterCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "MASTER_NOTIFY"));
             masterConds = EntityCondition.makeCondition(masterCond, EntityOperator.AND);
-            userPreferenceList = delegator.findList("Enumeration" , masterConds, null, null, null, false);
+            userPreferenceList = from("Enumeration").where(masterConds).queryList();
         } /*else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_TEAM") {
             teamCond = FastList.newInstance();
             teamCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
@@ -80,7 +80,7 @@ if (scrumUserLoginSecurityGroupList) {
     context.userPreferenceList = userPreferenceOutList;
 } else {
     if (security.hasEntityPermission("SCRUM", "_ADMIN", session)) {
-        userPreferenceList = delegator.findByAnd("Enumeration", [enumTypeId : "SCRUM_PREFERENCE"], ["sequenceId"], false);
+        userPreferenceList = from("Enumeration").where("enumTypeId", "SCRUM_PREFERENCE").queryList();
         context.userPreferenceList = userPreferenceList;
     }
 }

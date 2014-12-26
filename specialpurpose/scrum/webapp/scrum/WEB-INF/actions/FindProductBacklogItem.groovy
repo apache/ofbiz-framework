@@ -94,9 +94,12 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
     }
     
     mainConditionBacklogList.add(conditionsBacklog);
-    mainConditionsBacklog = EntityCondition.makeCondition(mainConditionBacklogList, EntityOperator.AND);
     
-    backlogList = delegator.findList("CustRequestAndCustRequestItem", mainConditionsBacklog, ["custRequestId","custRequestTypeId", "custSequenceNum", "statusId", "description", "custEstimatedMilliSeconds", "custRequestName", "parentCustRequestId","productId","billed","custRequestDate","fromPartyId"] as Set, ["-custRequestTypeId",orderBy], null, false);
+    backlogList = select("custRequestId","custRequestTypeId", "custSequenceNum", "statusId", "description", "custEstimatedMilliSeconds", "custRequestName", "parentCustRequestId","productId","billed","custRequestDate","fromPartyId")
+                    .from("CustRequestAndCustRequestItem")
+                    .where(mainConditionBacklogList)
+                    .orderBy("-custRequestTypeId", orderBy)
+                    .queryList();
     def countSequenceBacklog = 1;
     def backlogItems = [];
     backlogList.each() { backlogItem ->
@@ -105,7 +108,7 @@ if ((parameters.billed != null)||(parameters.parentCustRequestId != null)||(para
         tempBacklog.custSequenceNum = countSequenceBacklog;
         tempBacklog.realSequenceNum = backlogItem.custSequenceNum;
         // if custRequest has task then get Actual Hours
-        backlogCustWorkEffortList = delegator.findByAnd("CustRequestWorkEffort",["custRequestId" : backlogItem.custRequestId], null, false);
+        backlogCustWorkEffortList = from("CustRequestWorkEffort").where("custRequestId", backlogItem.custRequestId).queryList();
         if (backlogCustWorkEffortList) {
             actualHours = 0.00;
             backlogCustWorkEffortList.each() { custWorkEffortMap ->

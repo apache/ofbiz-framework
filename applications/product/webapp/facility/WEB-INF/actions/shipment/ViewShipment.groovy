@@ -23,7 +23,7 @@ shipmentId = parameters.shipmentId;
 if (!shipmentId) {
     shipmentId = request.getAttribute("shipmentId");
 }
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 
 context.shipmentId = shipmentId;
 context.shipment = shipment;
@@ -50,8 +50,7 @@ if (security.hasEntityPermission("FACILITY", "_VIEW", userLogin)) {
     if (shipment) {
         if (shipment.primaryOrderId) {
             // allow if userLogin is associated with the primaryOrderId with the SUPPLIER_AGENT roleTypeId
-            orderRoleCheckMap = [orderId : shipment.primaryOrderId, partyId : userLogin.partyId, roleTypeId : 'SUPPLIER_AGENT'];
-            orderRole = delegator.findOne("OrderRole", orderRoleCheckMap, false);
+            orderRole = from("OrderRole").where("orderId", shipment.primaryOrderId, "partyId", userLogin.partyId, "roleTypeId", "SUPPLIER_AGENT").queryOne();
             if (orderRole) {
                 hasPermission = true;
             }

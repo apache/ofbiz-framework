@@ -38,8 +38,7 @@ if (internalName) {
 }
 
 if (conditions.size() > 2) {
-    ecl = EntityCondition.makeCondition(conditions, EntityOperator.AND);
-    physicalInventory = delegator.findList("ProductInventoryItem", ecl, null, ['productId'], null, false);
+    physicalInventory = from("ProductInventoryItem").where(conditions).orderBy("productId").queryList();
 
     // also need the overal product QOH and ATP for each product
     atpMap = [:];

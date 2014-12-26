@@ -20,11 +20,7 @@
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 
-List partyRoleCond = [];
-List orderBy = ["lastName", "firstName"];
-
-partyRoleCond.add(EntityCondition.makeCondition("roleTypeId", EntityOperator.EQUALS, "SALES_REP"));
-context.salesReps = delegator.findList("PartyRoleNameDetail", EntityCondition.makeCondition(partyRoleCond, EntityOperator.AND), null, orderBy, null, false);
+context.salesReps = from("PartyRoleNameDetail").where("roleTypeId", "SALES_REP").orderBy("lastName", "firstName").queryList();
 
 shoppingCart = session.getAttribute("shoppingCart");
 if (shoppingCart) {

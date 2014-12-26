@@ -26,7 +26,7 @@ orderId = request.getParameter("orderId");
 shipGroupSeqId = request.getParameter("shipGroupSeqId");
 selectFromShipmentPlan = request.getParameter("selectFromShipmentPlan");
 
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 
 if (shipment) {
     context.originFacility = shipment.getRelatedOne("OriginFacility", false);
@@ -41,7 +41,7 @@ if (!shipGroupSeqId && shipment) {
 }
 
 if (orderId && shipment) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
     context.orderHeader = orderHeader;
 
     if (orderHeader) {
@@ -53,7 +53,7 @@ if (orderId && shipment) {
 
         orderItemShipGroup = null;
         if (shipGroupSeqId) {
-            orderItemShipGroup = delegator.findOne("OrderItemShipGroup", [orderId : orderId, shipGroupSeqId : shipGroupSeqId], false);
+            orderItemShipGroup = from("OrderItemShipGroup").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
             context.orderItemShipGroup = orderItemShipGroup;
         }
 
@@ -114,7 +114,7 @@ if (orderId && shipment) {
     }
 }
 if (shipment && selectFromShipmentPlan) {
-    shipmentPlans = delegator.findList("OrderShipment", EntityCondition.makeCondition([shipmentId : shipment.shipmentId]), null, ['orderId', 'orderItemSeqId'], null, false);
+    shipmentPlans = from("OrderShipment").where("shipmentId", shipment.shipmentId).orderBy("orderId", "orderItemSeqId").queryList();
     orderItemDatas = [] as LinkedList;
 
     context.isSalesOrder = true;
@@ -124,7 +124,7 @@ if (shipment && selectFromShipmentPlan) {
 
         orderItemShipGroup = null;
         if (shipGroupSeqId) {
-            orderItemShipGroup = delegator.findOne("OrderItemShipGroup", [orderId : orderItem.orderId, shipGroupSeqId : shipGroupSeqId], false);
+            orderItemShipGroup = from("OrderItemShipGroup").where("orderId", orderItem.orderId, "shipGroupSeqId", shipGroupSeqId).queryOne();
             context.orderItemShipGroup = orderItemShipGroup;
         }
 

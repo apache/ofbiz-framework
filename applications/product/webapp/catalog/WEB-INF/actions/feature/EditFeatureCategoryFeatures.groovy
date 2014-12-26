@@ -35,18 +35,18 @@ context.productId = productId;
 productFeatureCategoryId = parameters.get("productFeatureCategoryId");
 context.productFeatureCategoryId = productFeatureCategoryId;
 
-context.curProductFeatureCategory = delegator.findOne("ProductFeatureCategory", [productFeatureCategoryId : productFeatureCategoryId], false);
+context.curProductFeatureCategory = from("ProductFeatureCategory").where("productFeatureCategoryId", productFeatureCategoryId).queryOne();
 
-context.productFeatureTypes = delegator.findList("ProductFeatureType", null, null, ['description'], null, false);
+context.productFeatureTypes = from("ProductFeatureType").orderBy("description").queryList();
 
-context.productFeatureCategories = delegator.findList("ProductFeatureCategory", null, null, ['description'], null, false);
+context.productFeatureCategories = from("ProductFeatureCategory").orderBy("description").queryList();
 
 //we only need these if we will be showing the apply feature to category forms
 if (productId) {
-    context.productFeatureApplTypes = delegator.findList("ProductFeatureApplType", null, null, ['description'], null, false);
+    context.productFeatureApplTypes = from("ProductFeatureApplType").orderBy("description").queryList();
 }
 
-productFeaturesSize = delegator.findCountByCondition("ProductFeature", EntityCondition.makeCondition("productFeatureCategoryId", EntityOperator.EQUALS, productFeatureCategoryId), null, null);
+productFeaturesSize = from("ProductFeature").where("productFeatureCategoryId", productFeatureCategoryId).queryCount();
 
 highIndex = 0;
 lowIndex = 0;
@@ -66,17 +66,17 @@ context.listSize = listSize;
 context.lowIndex = lowIndex;
 context.highIndex = highIndex;
 
-whereCondition = EntityCondition.makeCondition([productFeatureCategoryId : productFeatureCategoryId], EntityOperator.AND);
-EntityFindOptions efo = new EntityFindOptions();
-efo.setDistinct(true);
-efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-efo.setMaxRows(highIndex);
-
 boolean beganTransaction = false;
 try {
     beganTransaction = TransactionUtil.begin();
 
-    productFeaturesEli = delegator.find("ProductFeature", whereCondition, null, null, ['productFeatureTypeId', 'defaultSequenceNum', 'description'], efo);
+    productFeaturesEli = from("ProductFeature")
+                            .where("productFeatureCategoryId", productFeatureCategoryId)
+                            .orderBy("productFeatureTypeId", "defaultSequenceNum", "description")
+                            .distinct()
+                            .cursorScrollInsensitive()
+                            .maxRows(highIndex)
+                            .queryIterator();
     productFeatures = productFeaturesEli.getPartialList(lowIndex + 1, highIndex - lowIndex);
     productFeaturesEli.close();
 } catch (GenericEntityException e) {
@@ -103,7 +103,7 @@ productFeatureIter = productFeatures.iterator();
 productFeatureApplIter = null;
 while (productFeatureIter) {
     productFeature = productFeatureIter.next();
-    productFeatureAppls = delegator.findList("ProductFeatureAppl", EntityCondition.makeCondition([productId : productId, productFeatureId : productFeature.productFeatureId]), null, null, null, false);
+    productFeatureAppls = from("ProductFeatureAppl").where("productId", productId, "productFeatureId", productFeature.productFeatureId).queryList();
     productFeatureApplIter = productFeatureAppls.iterator();
     while (productFeatureApplIter) {
         productFeatureAppl = productFeatureApplIter.next();

@@ -143,4 +143,4 @@ if (fileType) {
     }
 }
 
-context.productFeatures = delegator.findList("ProductFeature", EntityCondition.makeCondition([productFeatureTypeId : "SIZE", productFeatureCategoryId : "IMAGE"]), null, null, null, false);
+context.productFeatures = from("ProductFeature").where("productFeatureTypeId", "SIZE", "productFeatureCategoryId", "IMAGE").queryList();

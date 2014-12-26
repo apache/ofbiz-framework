@@ -64,7 +64,7 @@ if (parameters.luceneQuery) {
     hits.each { hit ->
         Document doc = searcher.doc(hit.doc)
         productId = doc.productId
-        product = delegator.findOne("Product", [productId : productId], true)
+        product = from("Product").where("productId", productId).cache(true).queryOne();
         if (product) {
             productList.add(product)
         }

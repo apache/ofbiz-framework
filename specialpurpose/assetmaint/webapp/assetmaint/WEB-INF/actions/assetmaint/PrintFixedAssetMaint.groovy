@@ -23,7 +23,7 @@ import org.ofbiz.entity.condition.*;
 facility = fixedAsset.getRelatedOne("LocatedAtFacility", false);
 context.locatedAtFacility = facility;
 
-fixedAssetIdents = delegator.findList("FixedAssetIdent", EntityCondition.makeCondition([fixedAssetId : fixedAssetId]), null, null, null, false);
+fixedAssetIdents = from("FixedAssetIdent").where("fixedAssetId", fixedAssetId).queryList();
 fixedAssetIdentValue = "";
 if (fixedAssetIdents) {
     fixedAssetIdents.each { ident ->
@@ -46,13 +46,13 @@ if (intervalUom) {
 instanceOfProductId = fixedAsset.instanceOfProductId;
 productMaintSeqId = fixedAssetMaint.productMaintSeqId;
 if (productMaintSeqId) {
-    productMaint = delegator.findOne("ProductMaint", [productId : instanceOfProductId, productMaintSeqId : productMaintSeqId], false);
+    productMaint = from("ProductMaint").where("productId", instanceOfProductId, "productMaintSeqId", productMaintSeqId).queryOne();
     context.productMaintName = productMaint.maintName;
 }
 
 productMaintTypeId = fixedAssetMaint.productMaintTypeId;
 if (productMaintTypeId) {
-    productMaintType = delegator.findOne("ProductMaintType", [productMaintTypeId : productMaintTypeId], false);
+    productMaintType = from("ProductMaintType").where("productMaintTypeId", productMaintTypeId).queryOne();
     if (productMaintType) {
         productMaintTypeDesc = productMaintType.description;
         context.productMaintTypeDesc = productMaintTypeDesc;
@@ -62,7 +62,7 @@ if (productMaintTypeId) {
 intervalMeterTypeId = fixedAssetMaint.intervalMeterTypeId;
 productMeterTypeDesc = "";
 if (intervalMeterTypeId) {
-    productMeterType = delegator.findOne("ProductMeterType", [productMeterTypeId : intervalMeterTypeId], false);
+    productMeterType = from("ProductMeterType").where("productMeterTypeId", intervalMeterTypeId).queryOne();
     productMeterTypeDesc  = productMeterType.description;
 }
 context.productMeterTypeDesc = productMeterTypeDesc;

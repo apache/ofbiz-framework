@@ -33,12 +33,12 @@ categoryIdsTemp = []
 if (parameters.productStoreId) {
     productStoreId = parameters.productStoreId;
 }
-googleBaseConfigList = delegator.findByAnd("GoogleBaseConfig",["productStoreId":productStoreId], null, false);
+googleBaseConfigList = from("GoogleBaseConfig").where("productStoreId", productStoreId).queryList();
 if (productStoreId) {
     productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
     if (productStoreCatalogs) {
         productStoreCatalogs.each { productStoreCatalog ->
-            prodCatalog = delegator.findOne("ProdCatalog", [prodCatalogId : productStoreCatalog.prodCatalogId], true);
+            prodCatalog = from("ProdCatalog").where("prodCatalogId", productStoreCatalog.prodCatalogId).cache(true).queryOne();
             prodCatalogList.add(prodCatalog);
         }
     }
@@ -46,7 +46,7 @@ if (productStoreId) {
 currentCatalogId = null;
 prodCatalogList.each { prodCatalogList -> 
     currentCatalogId = prodCatalogList.prodCatalogId
-    prodCatalogCategoryList = delegator.findByAnd("ProdCatalogCategory",["prodCatalogId":currentCatalogId, "prodCatalogCategoryTypeId":"PCCT_BROWSE_ROOT"], null, false);
+    prodCatalogCategoryList = from("ProdCatalogCategory").where("prodCatalogId", currentCatalogId, "prodCatalogCategoryTypeId", "PCCT_BROWSE_ROOT").queryList();
     topCategory = prodCatalogCategoryList.productCategoryId[0];
     if (topCategory){
         relatedCategories = runService('getRelatedCategories', [parentProductCategoryId: topCategory]);

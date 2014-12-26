@@ -25,7 +25,7 @@ import javolution.util.FastMap;
 
 if (parameters.workEffortId) {
     workEffortId = parameters.workEffortId;
-    projects = delegator.findByAnd("ProjectAndPhaseAndTask", UtilMisc.toMap("workEffortId", workEffortId), null, false);
+    projects = from("ProjectAndPhaseAndTask").where("workEffortId", workEffortId).queryList();
     if (UtilValidate.isNotEmpty(projects)) {
         context.put("projectId", projects.get(0).getString("projectId"));
         context.put("projectName", projects.get(0).getString("projectName"));

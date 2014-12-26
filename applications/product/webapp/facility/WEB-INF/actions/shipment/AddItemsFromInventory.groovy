@@ -23,7 +23,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 
 shipmentId = parameters.shipmentId;
 items = [];
-shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 partyId = shipment.partyIdTo;
 shipmentItems = shipment.getRelated("ShipmentItem", null, null, false);
 shipmentItems.each { shipmentItem ->
@@ -31,7 +31,7 @@ shipmentItems.each { shipmentItem ->
     internalName = shipmentItem.getRelated("Product", null, null, false).internalName;
     EntityCondition cond = EntityCondition.makeCondition([EntityCondition.makeCondition("returnId", shipment.primaryReturnId),
                                    EntityCondition.makeCondition("productId", productId)], EntityOperator.AND);
-    returnItem = EntityUtil.getFirst(delegator.findList("ReturnItem", cond, null, null, null, true));
+    returnItem = from("ReturnItem").where("returnId", shipment.primaryReturnId, "productId", productId).cache(true).queryFirst();
     returnQuantity = Double.valueOf(returnItem.returnQuantity);
 
     shipmentItemQty = Double.valueOf(shipmentItem.quantity);

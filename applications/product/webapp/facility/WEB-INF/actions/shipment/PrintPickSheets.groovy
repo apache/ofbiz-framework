@@ -59,13 +59,13 @@ if (toPrintOrders) {
                     orderMap.orderId = orderId;
                     orderMap.orderDate = orderHeader.orderDate;
                     billingOrderContactMechs = [];
-                    billingOrderContactMechs = delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "BILLING_LOCATION"], null, false);
+                    billingOrderContactMechs = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION").queryList();
                     if (billingOrderContactMechs.size() > 0) {
                         billingContactMechId = EntityUtil.getFirst(billingOrderContactMechs).contactMechId;
-                        billingAddress = delegator.findOne("PostalAddress", [contactMechId : billingContactMechId], false);
+                        billingAddress = from("PostalAddress").where("contactMechId", billingContactMechId).queryOne();
                     }
-                    shippingContactMechId = EntityUtil.getFirst(delegator.findByAnd("OrderContactMech", [orderId : orderId, contactMechPurposeTypeId : "SHIPPING_LOCATION"], null, false)).contactMechId;
-                    shippingAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMechId], false);
+                    shippingContactMechId = from("OrderContactMech").where("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION").queryFirst().contactMechId;
+                    shippingAddress = from("PostalAddress").where("contactMechId", shippingContactMechId).queryOne();
                     orderItemShipGroups.each { orderItemShipGroup ->
                         if (orderItemShipGroup.orderId == orderId) {
                             orderMap.shipmentMethodType = EntityUtil.getFirst(orderItemShipGroup.getRelated("ShipmentMethodType", null, null, false)).description;

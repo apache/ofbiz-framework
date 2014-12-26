@@ -28,9 +28,9 @@ webSiteList = [];
 webSite = null;
 if (parameters.productStoreId) {
     productStoreId = parameters.productStoreId;
-    webSiteList = delegator.findList("WebSite", EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId), null, null, null, false);
+    webSiteList = from("WebSite").where("productStoreId", productStoreId).queryList();
     if (parameters.webSiteId) {
-        webSite = delegator.findOne("WebSite", ["webSiteId" : parameters.webSiteId], true);
+        webSite = from("WebSite").where("webSiteId", parameters.webSiteId).cache(true).queryOne();
         context.webSiteId = parameters.webSiteId;
     } else if (webSiteList) {
         webSite = EntityUtil.getFirst(webSiteList);
@@ -43,7 +43,7 @@ if (parameters.productStoreId) {
 }
 
 if (parameters.productStoreId) {
-    productStore = delegator.findByAnd("ProductStore", ["productStoreId":parameters.productStoreId], null, false);
+    productStore = from("ProductStore").where("productStoreId", parameters.productStoreId).queryList();
     str = productStore[0].defaultLocaleString.toString().toUpperCase();
     localeString = str.substring(str.length()-2, str.length());
     if(localeString.equals("US")){

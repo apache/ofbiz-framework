@@ -55,7 +55,7 @@ if (!pubPt) {
 }
 */
 
-contentToValue = delegator.findOne("Content", [contentId : contentIdTo], false);
+contentToValue = from("Content").where("contentId", contentIdTo).queryOne();
 contentToPurposeList = contentToValue.getRelated("ContentPurpose", null, null, true);
 currentValue = delegator.makeValue("Content", [contentTypeId : "DOCUMENT", statusId : "CTNT_PUBLISHED", privilegeEnumId : "_00_"]);
 

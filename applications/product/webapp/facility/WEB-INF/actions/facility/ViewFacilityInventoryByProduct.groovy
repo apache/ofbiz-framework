@@ -92,7 +92,6 @@ if (action) {
     }
 
     // set distinct on so we only get one row per product
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
     notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
                                                          EntityOperator.OR,
@@ -128,7 +127,7 @@ if (action) {
     List prods = null;
     try {
         beganTransaction = TransactionUtil.begin();
-        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, ['productId'], findOpts);
+        prodsEli = from(prodView).where(whereCondition).orderBy("productId").cursorScrollInsensitive().distinct().queryIterator();
         prods = prodsEli.getCompleteList();
         prodsEli.close();
     } catch (GenericEntityException e) {

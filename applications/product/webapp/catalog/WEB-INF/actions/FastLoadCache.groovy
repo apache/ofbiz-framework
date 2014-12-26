@@ -26,7 +26,7 @@ messageList = [];
 messageList.add("Loading Categories...");
 UtilTimer ctimer = new UtilTimer();
 messageList.add(ctimer.timerString("Before category find"));
-categories = delegator.find("ProductCategory", null, null, null, null, null);
+categories = from("ProductCategory").queryIterator();
 messageList.add(ctimer.timerString("Before load all categories into cache"));
 
 category = null;
@@ -45,7 +45,7 @@ messageList.add("&nbsp;");
 messageList.add("Loading Products...");
 UtilTimer ptimer = new UtilTimer();
 messageList.add(ptimer.timerString("Before product find"));
-products = delegator.find("Product", null, null, null, null, null);
+products = from("Product").queryIterator();
 messageList.add(ptimer.timerString("Before load all products into cache"));
 product = null;
 long numProducts = 0;

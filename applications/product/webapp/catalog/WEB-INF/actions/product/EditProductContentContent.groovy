@@ -43,7 +43,7 @@ if (!description) {
     description = null;
 }
 
-productContent = delegator.findOne("ProductContent", [contentId : contentId, productId : productId, productContentTypeId : productContentTypeId, fromDate : fromDate], false);
+productContent = from("ProductContent").where("contentId", contentId, "productId", productId, "productContentTypeId", productContentTypeId, "fromDate", fromDate).queryOne();
 if (!productContent) {
     productContent = [:];
     productContent.productId = productId;
@@ -66,7 +66,7 @@ productContentData.putAll(productContent);
 content = [:];
 context.contentId = contentId;
 if (contentId) {
-    content = delegator.findOne("Content", [contentId : contentId], false);
+    content = from("Content").where("contentId", contentId).queryOne();
     context.content = content;
 } else {
     if (description) {
@@ -134,7 +134,7 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     context.textData = textData;
 }
 if (productContentTypeId) {
-    productContentType = delegator.findOne("ProductContentType", [productContentTypeId : productContentTypeId], false);
+    productContentType = from("ProductContentType").where("productContentTypeId", productContentTypeId).queryOne();
     if (productContentType && "DIGITAL_DOWNLOAD".equals(productContentType.parentTypeId)) {
         context.contentFormName = "EditProductContentDownload";
     }

@@ -28,12 +28,12 @@ ProductSearchSession.processSearchParameters(parameters, request);
 prodCatalogId = CatalogWorker.getCurrentCatalogId(request);
 result = ProductSearchSession.getProductSearchResult(request, delegator, prodCatalogId);
 
-applicationTypes = delegator.findList("ProductFeatureApplType", null, null, ['description'], null, false);
+applicationTypes = from("ProductFeatureApplType").orderBy("description").queryList();
 
 expr = EntityCondition.makeCondition(EntityCondition.makeCondition("showInSelect", EntityOperator.EQUALS, null),
                                      EntityOperator.OR,
                                      EntityCondition.makeCondition("showInSelect", EntityOperator.NOT_EQUAL, "N"));
-productCategories = delegator.findList("ProductCategory", expr, null, ['description'], null, false);
+productCategories = from("ProductCategory").where(expr).orderBy("description").queryList();
 
 context.applicationTypes = applicationTypes;
 context.productCategories = productCategories;

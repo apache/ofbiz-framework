@@ -35,7 +35,7 @@ if (webPosSession) {
     
     context.person = null;
     if (UtilValidate.isNotEmpty(shoppingCart)) {
-        placingCustomerParty = delegator.findOne("PartyAndPerson", [partyId : shoppingCart.getPlacingCustomerPartyId()], false);
+        placingCustomerParty = from("PartyAndPerson").where("partyId", shoppingCart.getPlacingCustomerPartyId()).queryOne();
         if (UtilValidate.isNotEmpty(placingCustomerParty)) {
             context.person = placingCustomerParty.lastName + " " + placingCustomerParty.firstName;
         }
@@ -79,7 +79,7 @@ if (shoppingCart) {
     context.shoppingCartSize = 0;
 }
 
-context.paymentCash   = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "CASH"], true);
-context.paymentCheck  = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "PERSONAL_CHECK"], true);
-context.paymentGift   = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "GIFT_CARD"], true);
-context.paymentCredit = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "CREDIT_CARD"], true);
+context.paymentCash   = from("PaymentMethodType").where("paymentMethodTypeId" : "CASH").cache(true).queryOne();
+context.paymentCheck  = from("PaymentMethodType").where("paymentMethodTypeId" : "PERSONAL_CHECK").cache(true).queryOne();
+context.paymentGift   = from("PaymentMethodType").where("paymentMethodTypeId" : "GIFT_CARD").cache(true).queryOne();
+context.paymentCredit = from("PaymentMethodType").where("paymentMethodTypeId" : "CREDIT_CARD").cache(true).queryOne();

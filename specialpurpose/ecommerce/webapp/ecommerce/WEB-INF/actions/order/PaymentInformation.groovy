@@ -36,7 +36,7 @@ if (!partyId) {
 context.partyId = partyId;
 
 if (partyId && !partyId.equals("_NA_")) {
-    party = delegator.findOne("Party", [partyId : partyId], false);
+    party = from("Party").where("partyId", partyId).queryOne();
     person = party.getRelatedOne("Person", false);
     context.party = party;
     context.person = person;
@@ -47,14 +47,12 @@ request.removeAttribute("_EVENT_MESSAGE_");
 
 if (parameters.useShipAddr && cart.getShippingContactMechId()) {
     shippingContactMech = cart.getShippingContactMechId();
-    postalAddress = delegator.findOne("PostalAddress", [contactMechId : shippingContactMech], false);
+    postalAddress = from("PostalAddress").where("contactMechId", shippingContactMech).queryOne();
     context.useEntityFields = "Y";
     context.postalAddress = postalAddress;
 
     if (postalAddress && partyId) {
-        partyContactMechs = delegator.findByAnd("PartyContactMech", [partyId : partyId, contactMechId : postalAddress.contactMechId], ["-fromDate"], false);
-        partyContactMechs = EntityUtil.filterByDate(partyContactMechs);
-        partyContactMech = EntityUtil.getFirst(partyContactMechs);
+        partyContactMech = from("PartyContactMech").where("partyId", partyId, "contactMechId", postalAddress.contactMechId).orderBy("-fromDate").filterByDate().queryFirst();
         context.partyContactMech = partyContactMech;
     }
 } else {

@@ -125,7 +125,6 @@ if (action) {
     }
 
     // set distinct on so we only get one row per product
-    findOpts = new EntityFindOptions(true, EntityFindOptions.TYPE_SCROLL_INSENSITIVE, EntityFindOptions.CONCUR_READ_ONLY, true);
     searchCondition = EntityCondition.makeCondition(conditionMap, EntityOperator.AND);
     notVirtualCondition = EntityCondition.makeCondition(EntityCondition.makeCondition("isVirtual", EntityOperator.EQUALS, null),
                                                         EntityOperator.OR,
@@ -223,8 +222,7 @@ if (action) {
         // get the indexes for the partial list
         lowIndex = ((viewIndex.intValue() * viewSize.intValue()) + 1);
         highIndex = (viewIndex.intValue() + 1) * viewSize.intValue();
-        findOpts.setMaxRows(highIndex);
-        prodsEli = delegator.findListIteratorByCondition(prodView, whereCondition, null, null, orderBy, findOpts);
+        prodsEli = from(prodView).where(whereCondition).orderBy(orderBy).cursorScrollInsensitive().maxRows(highIndex).distinct().queryIterator();
 
         // get the partial list for this page
         prods = prodsEli.getPartialList(lowIndex, highIndex);
@@ -259,15 +257,13 @@ if (action) {
             if (checkTime) {
 
                 // Make a query against the sales usage view entity
-                salesUsageIt = delegator.findListIteratorByCondition(salesUsageViewEntity,
-                        EntityCondition.makeCondition(
-                            [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-                             EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
-                             EntityCondition.makeCondition("statusId", EntityOperator.IN, ['ORDER_COMPLETED', 'ORDER_APPROVED', 'ORDER_HELD']),
-                             EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
-                             EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                            ],
-                            EntityOperator.AND), null, null, null, null);
+                salesUsageIt = from(salesUsageViewEntity)
+                                    .where(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                        EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
+                                        EntityCondition.makeCondition("statusId", EntityOperator.IN, ['ORDER_COMPLETED', 'ORDER_APPROVED', 'ORDER_HELD']),
+                                        EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"),
+                                        EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime))
+                                    .queryIterator();
 
                 // Sum the sales usage quantities found
                 salesUsageQuantity = 0;
@@ -283,14 +279,12 @@ if (action) {
                 salesUsageIt.close();
 
                 // Make a query against the production usage view entity
-                productionUsageIt = delegator.findListIteratorByCondition(productionUsageViewEntity,
-                        EntityCondition.makeCondition(
-                            [EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
-                             EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
-                             EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
-                             EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime)
-                            ],
-                            EntityOperator.AND), null, null, null, null);
+                productionUsageIt = from(productionUsageViewEntity)
+                                    .where(EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId),
+                                         EntityCondition.makeCondition("productId", EntityOperator.EQUALS, oneProd.productId),
+                                         EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"),
+                                         EntityCondition.makeCondition("actualCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, checkTime))
+                                    .queryIterator();
 
                 // Sum the production usage quantities found
                 productionUsageQuantity = 0;

@@ -22,8 +22,8 @@ import org.ofbiz.entity.condition.*;
 
 def module = "BacklogNotifications.groovy";
 
-custRequest = delegator.findOne("CustRequest", ["custRequestId" : custRequestId], false);
-person = delegator.findOne("PartyNameView", ["partyId" : partyIdTo], false);
+custRequest = from("CustRequest").where("custRequestId", custRequestId).queryOne();
+person = from("PartyNameView").where("partyId", partyIdTo).queryOne();
 informationMap = [:];
 informationMap.internalName = null;
 informationMap.productId = null;
@@ -31,24 +31,19 @@ informationMap.workEffortName = null;
 informationMap.workEffortId = null;
 
 //check in sprint
-andExprs = [EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"),
-            EntityCondition.makeCondition("custRequestId", EntityOperator.EQUALS, custRequestId)];
-backlogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-backlogList = delegator.findList("ProductBacklog", backlogCond, ["productId", "workEffortId", "custRequestId"] as Set ,null ,null, false);
+backlogList = select("productId", "workEffortId", "custRequestId").from("ProductBacklog").where("workEffortTypeId", "SCRUM_SPRINT", "custRequestId", custRequestId).queryList();
 if (backlogList) {
-    product = delegator.findOne("Product", ["productId" : backlogList[0].productId], false);
-    sprint = delegator.findOne("WorkEffort", ["workEffortId" : backlogList[0].workEffortId], false);
+    product = from("Product").where("productId", backlogList[0].productId).queryOne();
+    sprint = from("WorkEffort").where("workEffortId", backlogList[0].workEffortId).queryOne();
     informationMap.internalName = product.internalName;
     informationMap.productId = product.productId;
     informationMap.workEffortName = sprint.workEffortName;
     informationMap.workEffortId = sprint.workEffortId;
 } else {
-    andExprs = [EntityCondition.makeCondition("custRequestId", EntityOperator.EQUALS, custRequestId)];
-    backlogCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-    backlogList = delegator.findList("ProductBacklog", backlogCond, ["productId", "workEffortId", "custRequestId"] as Set ,null ,null, false);
+    backlogList = select("productId", "workEffortId", "custRequestId").from("ProductBacklog").where("custRequestId", custRequestId).queryList();
     if (backlogList) {
         if (backlogList[0].productId) {
-            product = delegator.findOne("Product", ["productId" : backlogList[0].productId], false);
+            product = from("Product").where("productId", backlogList[0].productId).queryOne();
             informationMap.internalName = product.internalName;
             informationMap.productId = product.productId;
         }

@@ -18,7 +18,7 @@
  */
  import org.ofbiz.base.util.*
 
-findResult = delegator.findList("Facility", null, null, null, null, false);
+findResult = from("Facility").queryList();
 findResultSize = findResult.size();
 if (findResultSize == 1) {
     context.showScreen = "one";

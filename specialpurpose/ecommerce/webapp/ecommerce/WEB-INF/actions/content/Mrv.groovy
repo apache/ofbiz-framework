@@ -59,7 +59,7 @@ mrvList = [];
 
 lifoSet.each { pk0 ->
     pk = pk0.getPrimaryKey();
-    gv = delegator.findOne(pk.getEntityName(), pk, true);
+    gv = from(pk.getEntityName()).where(pk).cache(true).queryOne();
     if (gv) {
         arr = [gv.contentId, gv.contentName] as String[];
         mrvList.add(arr);

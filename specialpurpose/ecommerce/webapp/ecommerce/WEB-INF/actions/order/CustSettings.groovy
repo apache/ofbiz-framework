@@ -35,7 +35,7 @@ if (partyId) {
 
     // NOTE: if there was an error, then don't look up and fill in all of this data, just use the values from the previous request (which will be in the parameters Map automagically)
     if (!request.getAttribute("_ERROR_MESSAGE_") && !request.getAttribute("_ERROR_MESSAGE_LIST_")) {
-        person = delegator.findOne("Person", [partyId : partyId], false);
+        person = from("Person").where("partyId", partyId).queryOne();
         if (person) {
             context.callSubmitForm = true;
             // should never be null for the anonymous checkout, but just in case
@@ -68,8 +68,7 @@ if (partyId) {
         }
 
         // get the Email Address
-        emailPartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
-                [partyId : partyId, contactMechPurposeTypeId : "PRIMARY_EMAIL"], null, false)));
+        emailPartyContactDetail = from("PartyContactDetailByPurpose").where("partyId", partyId, "contactMechPurposeTypeId", "PRIMARY_EMAIL").filterByDate().queryFirst();
         if (emailPartyContactDetail) {
             parameters.emailContactMechId = emailPartyContactDetail.contactMechId;
             parameters.emailAddress = emailPartyContactDetail.infoString;
@@ -77,8 +76,7 @@ if (partyId) {
         }
 
         // get the Phone Numbers
-        homePhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
-                [partyId : partyId, contactMechPurposeTypeId : "PHONE_HOME"], null, false)));
+        homePhonePartyContactDetail = from("PartyContactDetailByPurpose").where("partyId", partyId, "contactMechPurposeTypeId", "PHONE_HOME").filterByDate().queryFirst();
         if (homePhonePartyContactDetail) {
             parameters.homePhoneContactMechId = homePhonePartyContactDetail.contactMechId;
             parameters.homeCountryCode = homePhonePartyContactDetail.countryCode;
@@ -88,8 +86,7 @@ if (partyId) {
             parameters.homeSol = homePhonePartyContactDetail.allowSolicitation;
         }
 
-        workPhonePartyContactDetail = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findByAnd("PartyContactDetailByPurpose",
-                [partyId : partyId, contactMechPurposeTypeId : "PHONE_WORK"], null, false)));
+        workPhonePartyContactDetail = from("PartyContactDetailByPurpose").where("partyId", partyId, "contactMechPurposeTypeId", "PHONE_WORK").filterByDate().queryFirst();
         if (workPhonePartyContactDetail) {
             parameters.workPhoneContactMechId = workPhonePartyContactDetail.contactMechId;
             parameters.workCountryCode = workPhonePartyContactDetail.countryCode;

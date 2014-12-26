@@ -40,7 +40,7 @@ request.removeAttribute("_EVENT_MESSAGE_");
 party = null;
 partyId = session.getAttribute("orderPartyId");
 if (partyId) {
-    party = delegator.findOne("Party", [partyId : partyId], false);
+    party = from("Party").where("partyId", partyId).queryOne();
     context.party = party;
 }
 

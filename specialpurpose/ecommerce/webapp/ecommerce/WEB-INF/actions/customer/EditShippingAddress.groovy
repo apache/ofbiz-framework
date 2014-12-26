@@ -24,11 +24,11 @@ if (userLogin) {
     party = userLogin.getRelatedOne("Party", false);
     context.partyId = party.partyId
     if ("PERSON".equals(party.partyTypeId)) {
-        person = delegator.findOne("Person", [partyId : party.partyId], false);
+        person = from("Person").where("partyId", party.partyId).queryOne();
         context.firstName = person.firstName;
         context.lastName = person.lastName;
     } else {
-        group = delegator.findOne("PartyGroup", [partyId : party.partyId], false);   
+        group = from("PartyGroup").where("partyId", party.partyId).queryOne();
         context.firstName = group.groupName;
         context.lastName = "";    
     }
@@ -46,11 +46,11 @@ if (userLogin) {
         context.shipToPostalCode = postalAddress.postalCode;
         context.shipToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
         context.shipToCountryGeoId = postalAddress.countryGeoId;
-        shipToStateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
+        shipToStateProvinceGeo = from("Geo").where("geoId", postalAddress.stateProvinceGeoId).queryOne();
         if (shipToStateProvinceGeo) {
             context.shipToStateProvinceGeo =  shipToStateProvinceGeo.geoName;
         }
-        shipToCountryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
+        shipToCountryProvinceGeo = from("Geo").where("geoId", postalAddress.countryGeoId).queryOne();
         if (shipToCountryProvinceGeo) {
             context.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }

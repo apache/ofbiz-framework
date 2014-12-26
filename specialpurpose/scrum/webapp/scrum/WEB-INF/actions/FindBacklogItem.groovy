@@ -32,7 +32,7 @@ import java.sql.Timestamp;
 productId =parameters.productId;
 custRequestList=[];
 backlogList=[];
-custRequestList = delegator.findByAnd("CustRequestItem", ["productId" : productId], null, false);
+custRequestList = from("CustRequestItem").where("productId", productId).queryList();
 custRequestList.each { custRequestListMap ->
     custRequestId=custRequestListMap.custRequestId;
     exprBldr = FastList.newInstance();
@@ -43,15 +43,15 @@ custRequestList.each { custRequestListMap ->
     andExprs.add(EntityCondition.makeCondition(exprBldr, EntityOperator.OR));
     custRequestTypeCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
     orderBy = ["custRequestTypeId"];
-    productBacklogList = delegator.findList("CustRequest", custRequestTypeCond, null,orderBy ,null, false);
+    productBacklogList = from("CustRequest").where(andExprs).orderBy("custRequestTypeId").queryList();
     productBacklogList.each { productBacklogMap ->
         productBackId = productBacklogMap.custRequestId;
-        taskBacklogList = delegator.findByAnd("CustRequestWorkEffort", ["custRequestId" : productBackId], null, false);
+        taskBacklogList = from("CustRequestWorkEffort").where("custRequestId", productBackId).queryList();
         int countImplTask=0, countImplTaskComplete=0, countInstallTask=0, countInstallTaskComplete=0, countErrTask=0, countErrTaskComplete=0, countTestTask=0;
         taskBacklogList.each { taskBacklogMap ->
             taskId = taskBacklogMap.workEffortId;
             
-            task = delegator.findOne("WorkEffort", ["workEffortId" : taskId], false);
+            task = from("WorkEffort").where("workEffortId", taskId).queryOne();
             if (task.workEffortTypeId == "SCRUM_TASK_IMPL") {
                 countImplTask+=1;
                 if ( task.currentStatusId == "STS_COMPLETED" || task.currentStatusId == "STS_CANCELLED") {

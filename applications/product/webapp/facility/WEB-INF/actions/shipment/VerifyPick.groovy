@@ -39,7 +39,7 @@ context.shipmentId = shipmentId;
 
 if (shipmentId) {
     context.orderId = null;
-    shipment = delegator.findOne("Shipment",  [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
     if (shipment) {
         shipmentItemBillingList = shipment.getRelated("ShipmentItemBilling", null, null, false);
         invoiceIds = EntityUtil.getFieldListFromEntityList(shipmentItemBillingList, "invoiceId", true);
@@ -52,7 +52,7 @@ if (shipmentId) {
 
 facilityId = parameters.facilityId;
 if (facilityId) {
-    facility = delegator.findOne("Facility", [facilityId : facilityId], false);
+    facility = from("Facility").where("facilityId", facilityId).queryOne();
     context.facility = facility;
 }
 verifyPickSession.setFacilityId(facilityId);
@@ -69,7 +69,7 @@ if (orderId && !shipGroupSeqId && orderId.indexOf("/") > -1) {
 
 picklistBinId = parameters.picklistBinId;
 if (picklistBinId) {
-    picklistBin = delegator.findOne("PicklistBin", [picklistBinId : picklistBinId], false);
+    picklistBin = from("PicklistBin").where("picklistBinId", picklistBinId).queryOne();
     if (picklistBin) {
         orderId = picklistBin.primaryOrderId;
         shipGroupSeqId = picklistBin.primaryShipGroupSeqId;
@@ -78,7 +78,7 @@ if (picklistBinId) {
 }
 
 if (orderId && !picklistBinId) {
-    picklistBin = EntityUtil.getFirst(delegator.findByAnd("PicklistBin", [primaryOrderId : orderId], null, false));
+    picklistBin = from("PicklistBin").where("primaryOrderId", orderId).queryFirst();
     if (picklistBin) {
         picklistBinId = picklistBin.picklistBinId;
         verifyPickSession.setPicklistBinId(picklistBinId);
@@ -91,7 +91,7 @@ context.picklistBinId = picklistBinId;
 context.isOrderStatusApproved = false;
 
 if (orderId) {
-    orderHeader = delegator.findOne("OrderHeader", [orderId : orderId], false);
+    orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
     if (orderHeader) {
         OrderReadHelper orh = new OrderReadHelper(orderHeader);
         context.orderId = orderId;
@@ -108,7 +108,7 @@ if (orderId) {
             if (shipGroupSeqId) {
                 productStoreId = orh.getProductStoreId();
                 context.productStoreId = productStoreId;
-                shipments = delegator.findByAnd("Shipment", [primaryOrderId : orderId, statusId : "SHIPMENT_PICKED"], null, false);
+                shipments = from("Shipment").where("primaryOrderId", orderId, "statusId", "SHIPMENT_PICKED").queryList();
                 if (shipments) {
                     request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage("OrderErrorUiLabels", "OrderErrorAllItemsOfOrderAreAlreadyVerified", [orderId : orderId], locale));
                 }

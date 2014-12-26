@@ -39,7 +39,7 @@ if (!partyId) {
 timesheet = null;
 timesheetId = parameters.timesheetId;
 if (timesheetId) {
-    timesheet = delegator.findOne("Timesheet", ["timesheetId" : timesheetId], false);
+    timesheet = from("Timesheet").where("timesheetId", timesheetId).queryOne();
     partyId = timesheet.partyId; // use the party from this timesheet
 } else {
     // make sure because of timezone changes, not a duplicate timesheet is created
@@ -49,13 +49,13 @@ if (timesheetId) {
         EntityCondition.makeCondition("thruDate", EntityComparisonOperator.GREATER_THAN, midweek),
         EntityCondition.makeCondition("partyId", EntityComparisonOperator.EQUALS, partyId)
         ], EntityOperator.AND);
-    entryIterator = delegator.find("Timesheet", entryExprs, null, null, null, null);
+    entryIterator = from("Timesheet").where(entryExprs).queryIterator();
     timesheet = entryIterator.next();
     entryIterator.close();
     if (timesheet == null) {
         result = runService('createProjectTimesheet', ["userLogin" : parameters.userLogin, "partyId" : partyId]);
         if (result && result.timesheetId) {
-            timesheet = delegator.findOne("Timesheet", ["timesheetId" : result.timesheetId], false);
+            timesheet = from("Timesheet").where("timesheetId", result.timesheetId).queryOne();
         }
     }
 }
@@ -64,9 +64,9 @@ context.timesheet = timesheet;
 context.weekNumber = UtilDateTime.weekNumber(timesheet.fromDate);
 
 // get the user names
-context.partyNameView = delegator.findOne("PartyNameView",["partyId" : partyId], false);
+context.partyNameView = from("PartyNameView").where("partyId", partyId).queryOne();
 // get the default rate for this person
-rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"], null, false));
+rateTypes = from("PartyRate").where("partyId", partyId, "defaultRate", "Y").filterByDate().queryList();
 if (rateTypes) {
     context.defaultRateTypeId = rateTypes[0].rateTypeId;
 }
@@ -189,7 +189,7 @@ if (timeEntry) {
 }
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
-timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"], false);
+timesheetsDb = from("Timesheet").where("partyId", partyId).orderBy("fromDate DESC").queryList();
 timesheets = new LinkedList();
 timesheetsDb.each { timesheetDb ->
     timesheet = [:];

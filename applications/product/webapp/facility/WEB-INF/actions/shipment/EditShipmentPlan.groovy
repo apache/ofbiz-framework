@@ -31,7 +31,7 @@ action = request.getParameter("action");
 
 shipment = null;
 if (shipmentId) {
-    shipment = delegator.findOne("Shipment", [shipmentId : shipmentId], false);
+    shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 }
 
 
@@ -44,9 +44,9 @@ orderItemShipGroupAssocs = null;
 // **************************************
 if (action && orderId) {
     if (shipGroupSeqId) {
-        orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId, shipGroupSeqId : shipGroupSeqId]), null, null, null, false);
+        orderItemShipGroupAssocs = from("OrderItemShipGroupAssoc").where("orderId", orderId, "shipGroupSeqId", shipGroupSeqId).queryList();
     } else {
-        orderItemShipGroupAssocs = delegator.findList("OrderItemShipGroupAssoc", EntityCondition.makeCondition([orderId : orderId]), null, null, null, false);
+        orderItemShipGroupAssocs = from("OrderItemShipGroupAssoc").where("orderId", orderId).queryList();
     }
 }
 
@@ -59,7 +59,7 @@ shipmentPlans = null;
 shipmentPlansIt = null;
 rows = [] as ArrayList;
 if (shipment) {
-    shipmentPlans = delegator.findList("OrderShipment", EntityCondition.makeCondition([shipmentId : shipment.shipmentId]), null, null, null, false);
+    shipmentPlans = from("OrderShipment").where("shipmentId", shipment.shipmentId).queryList();
 }
 if (shipmentPlans) {
     shipmentPlans.each { shipmentPlan ->
@@ -104,7 +104,7 @@ if (shipmentPlans) {
         // Total quantity planned not issued
         plannedQuantity = 0.0;
         qtyPlannedInShipment = [:];
-        plans = delegator.findList("OrderShipment", EntityCondition.makeCondition([orderId : orderItem.orderId, orderItemSeqId : orderItem.orderItemSeqId]), null, null, null, false);
+        plans = from("OrderShipment").where("orderId", orderItem.orderId, "orderItemSeqId", orderItem.orderItemSeqId).queryList();
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.getDouble("quantity");
@@ -158,7 +158,7 @@ if (shipmentPlans) {
         }
         oneRow.weight = weight;
         if (product.weightUomId) {
-            weightUom = delegator.findOne("Uom", [uomId : product.weightUomId], false);
+            weightUom = from("Uom").where("uomId", product.weightUomId).queryOne();
             oneRow.weightUom = weightUom.abbreviation;
         }
         volume = 0.0;
@@ -173,9 +173,9 @@ if (shipmentPlans) {
         }
         oneRow.volume = volume;
         if (product.heightUomId && product.widthUomId && product.depthUomId) {
-            heightUom = delegator.findOne("Uom",[uomId : product.heightUomId], true);
-            widthUom = delegator.findOne("Uom", [uomId : product.widthUomId], true);
-            depthUom = delegator.findOne("Uom", [uomId : product.depthUomId], true);
+            heightUom = from("Uom").where("uomId", product.heightUomId).cache(true).queryOne();
+            widthUom = from("Uom").where("uomId", product.widthUomId).cache(true).queryOne();
+            depthUom = from("Uom").where("uomId", product.depthUomId).cache(true).queryOne();
             oneRow.volumeUom = heightUom.abbreviation + "x" + widthUom.abbreviation + "x" + depthUom.abbreviation;
         }
         totWeight += weight;
@@ -235,7 +235,7 @@ if (orderItemShipGroupAssocs) {
         } else {
             orderShipmentCondition = EntityCondition.makeCondition([orderId : orderItemShipGroupAssoc.orderId, orderItemSeqId : orderItemShipGroupAssoc.orderItemSeqId]);
         }
-        plans = delegator.findList("OrderShipment", orderShipmentCondition, null, null, null, false);
+        plans = from("OrderShipment").where(orderShipmentCondition).queryList();
         plans.each { plan ->
             if (plan.quantity) {
                 netPlanQty = plan.getDouble("quantity");
@@ -257,7 +257,7 @@ if (orderItemShipGroupAssocs) {
         oneRow.weight = weight;
 
         if (product.weightUomId) {
-            weightUom = delegator.findOne("Uom", [uomId : product.weightUomId], true);
+            weightUom = from("Uom").where("uomId", product.weightUomId).cache(true).queryOne();
             oneRow.weightUom = weightUom.abbreviation;
         }
         volume = 0.0;
@@ -270,9 +270,9 @@ if (orderItemShipGroupAssocs) {
 
         oneRow.volume = volume;
         if (product.heightUomId && product.widthUomId && product.depthUomId) {
-            heightUom = delegator.findOne("Uom", [uomId : product.heightUomId], true);
-            widthUom = delegator.findOne("Uom", [uomId : product.widthUomId], true);
-            depthUom = delegator.findOne("Uom", [uomId : product.depthUomId], true);
+            heightUom = from("Uom").where("uomId", product.heightUomId).cache(true).queryOne();
+            widthUom = from("Uom").where("uomId", product.widthUomId).cache(true).queryOne();
+            depthUom = from("Uom").where("uomId", product.depthUomId).cache(true).queryOne();
             oneRow.volumeUom = heightUom.abbreviation + "x" + widthUom.abbreviation + "x" + depthUom.abbreviation;
         }
         addRows.add(oneRow);

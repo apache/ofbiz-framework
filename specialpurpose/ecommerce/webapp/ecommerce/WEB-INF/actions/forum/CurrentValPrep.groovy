@@ -120,7 +120,7 @@ if (!pksEqual) {
 currentEntityMap[currentEntityName] = currentPK;
 request.setAttribute("currentPK", currentPK);
 context.currentPK = currentPK;
-currentValue = delegator.findOne(currentPK.getPrimaryKey().getEntityName(), currentPK.getPrimaryKey(), false);
+currentValue = from(currentPK.getPrimaryKey().getEntityName()).where(currentPK.getPrimaryKey()).queryOne();
 context.currentValue = currentValue;
 request.setAttribute("currentValue", currentValue);
 

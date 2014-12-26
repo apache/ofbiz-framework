@@ -19,5 +19,5 @@
 
 import org.ofbiz.entity.condition.*;
 
-context.paidReasonIn  = delegator.findList("Enumeration", EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "POS_PAID_REASON_IN") , null, ["sequenceId"], null, false);
-context.paidReasonOut = delegator.findList("Enumeration", EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "POS_PAID_REASON_OUT"), null, ["sequenceId"], null, false);
+context.paidReasonIn  = from("Enumeration").where("enumTypeId", "POS_PAID_REASON_IN").orderBy("sequenceId").queryList();
+context.paidReasonOut = from("Enumeration").where("enumTypeId", "POS_PAID_REASON_OUT").orderBy("sequenceId").queryList();

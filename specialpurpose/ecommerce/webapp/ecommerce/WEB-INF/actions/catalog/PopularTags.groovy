@@ -36,16 +36,16 @@ int limitTagCloud = Integer.parseInt(EntityUtilProperties.getPropertyValue("ecom
 tagCloudList = [] as LinkedList;
 tagList = [] as LinkedList;
 
-keywordConditions = EntityCondition.makeCondition([keywordTypeId : "KWT_TAG", statusId : "KW_APPROVED"], EntityOperator.AND);
-keywordOrder = ["keyword"];
-keywordFields = ["keyword", "keywordTypeId", "statusId"] as Set;
-keywordFindOptions = new EntityFindOptions();
-keywordFindOptions.setDistinct(true);
-productKeywords = delegator.findList("ProductKeyword", keywordConditions, keywordFields, keywordOrder, keywordFindOptions, false);
+productKeywords = select("keyword", "keywordTypeId", "statusId")
+                    .from("ProductKeyword")
+                    .where(keywordTypeId : "KWT_TAG", statusId : "KW_APPROVED")
+                    .orderBy("keyword")
+                    .distinct(true)
+                    .queryList();
 
 if (UtilValidate.isNotEmpty(productKeywords)) {
     productKeywords.each { productKeyword ->
-        productTags = delegator.findByAnd("ProductKeyword", ["keyword": productKeyword.keyword, "keywordTypeId" : "KWT_TAG", "statusId" : "KW_APPROVED"], null, false);
+        productTags = from("ProductKeyword").where("keyword", productKeyword.keyword, "keywordTypeId", "KWT_TAG", "statusId", "KW_APPROVED").queryList();
         searchResult = [:];
         searchResult.tag = productKeyword.keyword;
         searchResult.countTag = productTags.size();

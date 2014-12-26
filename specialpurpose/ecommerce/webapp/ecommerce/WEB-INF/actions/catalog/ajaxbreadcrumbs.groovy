@@ -29,7 +29,7 @@ if(!UtilValidate.isEmpty(parentCategoryStr)) {
     pathTemp = '';
     for(path in pathList) {
         cateMap = FastMap.newInstance();
-        category = delegator.findOne("ProductCategory", ["productCategoryId": path], false);
+        category = from("ProductCategory").where("productCategoryId", path).queryOne();
         categoryContentWrapper = new CategoryContentWrapper(category, request);
         
         pathTemp = pathTemp + path;
@@ -44,7 +44,7 @@ if(!UtilValidate.isEmpty(parentCategoryStr)) {
 
     context.productCategoryTrail = cateList;
 }
-currentCategory = delegator.findOne("ProductCategory", ["productCategoryId": productCategoryId], false);
+currentCategory = from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
 currentCategoryContentWrapper = new CategoryContentWrapper(currentCategory, request);
 context.currentCategoryName = currentCategoryContentWrapper.CATEGORY_NAME;
 context.currentCategoryDescription = currentCategoryContentWrapper.DESCRIPTION;

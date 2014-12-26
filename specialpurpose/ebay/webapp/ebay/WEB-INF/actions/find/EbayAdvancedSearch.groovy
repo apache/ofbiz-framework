@@ -31,12 +31,12 @@ if (parameters.productStoreId) {
 } else {
     productStoreId = ProductStoreWorker.getProductStoreId(request);
 }
-ebayConfigList = delegator.findList("EbayConfig", null, null, null, null, false);
+ebayConfigList = from("EbayConfig").queryList();
 if (productStoreId) {
     productStoreCatalogs = CatalogWorker.getStoreCatalogs(delegator, productStoreId);
     if (productStoreCatalogs) {
         productStoreCatalogs.each { productStoreCatalog ->
-            prodCatalog = delegator.findOne("ProdCatalog", [prodCatalogId : productStoreCatalog.prodCatalogId], true);
+            prodCatalog = from("ProdCatalog").where("prodCatalogId", productStoreCatalog.prodCatalogId).cache(true).queryOne();
             prodCatalogList.add(prodCatalog);
         }
     }
