@@ -20,6 +20,8 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -29,10 +31,15 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityUtilProperties;
+import org.ofbiz.service.LocalDispatcher;
+import org.ofbiz.service.ModelService;
+import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.AbstractViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.widget.form.FormStringRenderer;
@@ -41,7 +48,6 @@ import org.ofbiz.widget.menu.MacroMenuRenderer;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.tree.MacroTreeRenderer;
 import org.ofbiz.widget.tree.TreeStringRenderer;
-import org.python.modules.re;
 import org.xml.sax.SAXException;
 
 import freemarker.template.TemplateException;
@@ -55,6 +61,65 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
 
     public void init(ServletContext context) throws ViewHandlerException {
         this.servletContext = context;
+    }
+
+    private ScreenStringRenderer loadRenderers(HttpServletRequest request, HttpServletResponse response,
+            Map<String, Object> context, Writer writer) throws GeneralException, TemplateException, IOException {
+        String screenMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".screenrenderer");
+        String formMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".formrenderer");
+        String treeMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".treerenderer");
+        String menuMacroLibraryPath = UtilProperties.getPropertyValue("widget", getName() + ".menurenderer");
+        Map<String, Object> userPreferences = UtilGenerics.cast(context.get("userPreferences"));
+        if (userPreferences != null) {
+            String visualThemeId = (String) userPreferences.get("VISUAL_THEME");
+            if (visualThemeId != null) {
+                LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
+                Map<String, Object> serviceCtx = dispatcher.getDispatchContext().makeValidContext("getVisualThemeResources",
+                        ModelService.IN_PARAM, context);
+                serviceCtx.put("visualThemeId", visualThemeId);
+                Map<String, Object> serviceResult = dispatcher.runSync("getVisualThemeResources", serviceCtx);
+                if (ServiceUtil.isSuccess(serviceResult)) {
+                    Map<String, List<String>> themeResources = UtilGenerics.cast(serviceResult.get("themeResources"));
+                    List<String> resourceList = UtilGenerics.cast(themeResources.get("VT_SCRN_MACRO_LIB"));
+                    if (resourceList != null && !resourceList.isEmpty()) {
+                        String macroLibraryPath = resourceList.get(0);
+                        if (macroLibraryPath != null) {
+                            screenMacroLibraryPath = macroLibraryPath;
+                        }
+                    }
+                    resourceList = UtilGenerics.cast(themeResources.get("VT_FORM_MACRO_LIB"));
+                    if (resourceList != null && !resourceList.isEmpty()) {
+                        String macroLibraryPath = resourceList.get(0);
+                        if (macroLibraryPath != null) {
+                            formMacroLibraryPath = macroLibraryPath;
+                        }
+                    }
+                    resourceList = UtilGenerics.cast(themeResources.get("VT_TREE_MACRO_LIB"));
+                    if (resourceList != null && !resourceList.isEmpty()) {
+                        String macroLibraryPath = resourceList.get(0);
+                        if (macroLibraryPath != null) {
+                            treeMacroLibraryPath = macroLibraryPath;
+                        }
+                    }
+                    resourceList = UtilGenerics.cast(themeResources.get("VT_MENU_MACRO_LIB"));
+                    if (resourceList != null && !resourceList.isEmpty()) {
+                        String macroLibraryPath = resourceList.get(0);
+                        if (macroLibraryPath != null) {
+                            menuMacroLibraryPath = macroLibraryPath;
+                        }
+                    }
+                }
+            }
+        }
+        ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName()
+                + ".name"), screenMacroLibraryPath);
+        FormStringRenderer formStringRenderer = new MacroFormRenderer(formMacroLibraryPath, request, response);
+        context.put("formStringRenderer", formStringRenderer);
+        TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(treeMacroLibraryPath, writer);
+        context.put("treeStringRenderer", treeStringRenderer);
+        MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(menuMacroLibraryPath, request, response);
+        context.put("menuStringRenderer", menuStringRenderer);
+        return screenStringRenderer;
     }
 
     public void render(String name, String page, String info, String contentType, String encoding, HttpServletRequest request, HttpServletResponse response) throws ViewHandlerException {
@@ -77,28 +142,15 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
                 // to speed up output.
                 writer = new StandardCompress().getWriter(writer, null);
             }
-            ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(EntityUtilProperties.getPropertyValue("widget", getName() + ".name", delegator), EntityUtilProperties.getPropertyValue("widget", getName() + ".screenrenderer", delegator));
-            ScreenRenderer screens = new ScreenRenderer(writer, null, screenStringRenderer);
-            screens.populateContextForRequest(request, response, servletContext);
-            String macroLibraryPath = EntityUtilProperties.getPropertyValue("widget", getName() + ".formrenderer", delegator);
-            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
-                FormStringRenderer formStringRenderer = new MacroFormRenderer(macroLibraryPath, request, response);
-                screens.getContext().put("formStringRenderer", formStringRenderer);
-            }
-            macroLibraryPath = EntityUtilProperties.getPropertyValue("widget", getName() + ".treerenderer", delegator);
-            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
-                TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(macroLibraryPath, writer);
-                screens.getContext().put("treeStringRenderer", treeStringRenderer);
-            }
-            macroLibraryPath = EntityUtilProperties.getPropertyValue("widget", getName() + ".menurenderer", delegator);
-            if (UtilValidate.isNotEmpty(macroLibraryPath)) {
-                MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(macroLibraryPath, request, response);
-                screens.getContext().put("menuStringRenderer", menuStringRenderer);
-            }
-            screens.getContext().put("simpleEncoder", StringUtil.getEncoder(EntityUtilProperties.getPropertyValue("widget", getName() + ".encoder", delegator)));
-            screenStringRenderer.renderScreenBegin(writer, screens.getContext());
+            MapStack<String> context = MapStack.create();
+            ScreenRenderer.populateContextForRequest(context, null, request, response, servletContext);
+            ScreenStringRenderer screenStringRenderer = loadRenderers(request, response, context, writer);
+            ScreenRenderer screens = new ScreenRenderer(writer, context, screenStringRenderer);
+            context.put("screens", screens);
+            context.put("simpleEncoder", StringUtil.getEncoder(UtilProperties.getPropertyValue("widget", getName() + ".encoder")));
+            screenStringRenderer.renderScreenBegin(writer, context);
             screens.render(page);
-            screenStringRenderer.renderScreenEnd(writer, screens.getContext());
+            screenStringRenderer.renderScreenEnd(writer, context);
             writer.flush();
         } catch (TemplateException e) {
             Debug.logError(e, "Error initializing screen renderer", module);
