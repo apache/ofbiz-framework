@@ -20,6 +20,7 @@ package org.ofbiz.widget.menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,34 +36,36 @@ import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
 /**
- * Widget Library - Menu model class
+ * Models the &lt;menu&gt; element.
+ * 
+ * @see <code>widget-menu.xsd</code>
  */
 @SuppressWarnings("serial")
 public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
-    protected List<ModelWidgetAction> actions;
-    protected String defaultAlign;
-    protected String defaultAlignStyle;
-    protected FlexibleStringExpander defaultAssociatedContentId;
-    protected String defaultCellWidth;
-    protected String defaultDisabledTitleStyle;
-    protected String defaultEntityName;
-    protected Boolean defaultHideIfSelected;
-    protected String defaultMenuItemName;
-    protected String defaultPermissionEntityAction;
-    protected String defaultPermissionOperation;
-    protected String defaultPermissionStatusId;
-    protected String defaultPrivilegeEnumId;
-    protected String defaultSelectedStyle;
-    protected String defaultTitleStyle;
-    protected String defaultTooltipStyle;
-    protected String defaultWidgetStyle;
-    protected FlexibleStringExpander extraIndex;
-    protected String fillStyle;
-    protected String id;
-    protected FlexibleStringExpander menuContainerStyleExdr;
+    private final List<ModelWidgetAction> actions;
+    private final String defaultAlign;
+    private final String defaultAlignStyle;
+    private final FlexibleStringExpander defaultAssociatedContentId;
+    private final String defaultCellWidth;
+    private final String defaultDisabledTitleStyle;
+    private final String defaultEntityName;
+    private final Boolean defaultHideIfSelected;
+    private final String defaultMenuItemName;
+    private final String defaultPermissionEntityAction;
+    private final String defaultPermissionOperation;
+    private final String defaultPermissionStatusId;
+    private final String defaultPrivilegeEnumId;
+    private final String defaultSelectedStyle;
+    private final String defaultTitleStyle;
+    private final String defaultTooltipStyle;
+    private final String defaultWidgetStyle;
+    private final FlexibleStringExpander extraIndex;
+    private final String fillStyle;
+    private final String id;
+    private final FlexibleStringExpander menuContainerStyleExdr;
     /** This List will contain one copy of each item for each item name in the order
      * they were encountered in the service, entity, or menu definition; item definitions
      * with constraints will also be in this list but may appear multiple times for the same
@@ -72,41 +75,69 @@ public class ModelMenu extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the menu definition to keep the
      * list clean and implement the override features for item definitions.
      */
-    protected List<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
+    private final List<ModelMenuItem> menuItemList;
     /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
      * with conditions will not be put in this Map so item definition overrides for items
      * with conditions is not possible.
      */
-    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
-    protected String menuLocation;
-    protected String menuWidth;
-    protected String orientation = "horizontal";
-    protected FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
-    protected String target;
-    protected FlexibleStringExpander title;
-    protected String tooltip;
-    protected String type;
-
-
-   // ===== CONSTRUCTORS =====
+    private final Map<String, ModelMenuItem> menuItemMap;
+    private final String menuLocation;
+    private final String menuWidth;
+    private final String orientation;
+    private final FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
+    private final String target;
+    private final FlexibleStringExpander title;
+    private final String tooltip;
+    private final String type;
 
     /** XML Constructor */
-    public ModelMenu(Element menuElement) {
+    public ModelMenu(Element menuElement, String menuLocation) {
         super(menuElement);
-
+        ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+        String defaultAlign = "";
+        String defaultAlignStyle = "";
+        FlexibleStringExpander defaultAssociatedContentId = FlexibleStringExpander.getInstance("");
+        String defaultCellWidth = "";
+        String defaultDisabledTitleStyle = "";
+        String defaultEntityName = "";
+        Boolean defaultHideIfSelected = Boolean.FALSE;
+        String defaultMenuItemName = "";
+        String defaultPermissionEntityAction = "";
+        String defaultPermissionOperation = "";
+        String defaultPermissionStatusId = "";
+        String defaultPrivilegeEnumId = "";
+        String defaultSelectedStyle = "";
+        String defaultTitleStyle = "";
+        String defaultTooltipStyle = "";
+        String defaultWidgetStyle = "";
+        FlexibleStringExpander extraIndex = FlexibleStringExpander.getInstance("");
+        String fillStyle = "";
+        String id = "";
+        FlexibleStringExpander menuContainerStyleExdr = FlexibleStringExpander.getInstance("");
+        ArrayList<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
+        Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
+        String menuWidth = "";
+        String orientation = "horizontal";
+        FlexibleMapAccessor<String> selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance("");
+        String target = "";
+        FlexibleStringExpander title = FlexibleStringExpander.getInstance("");
+        String tooltip = "";
+        String type = "";
         // check if there is a parent menu to inherit from
         String parentResource = menuElement.getAttribute("extends-resource");
         String parentMenu = menuElement.getAttribute("extends");
-        if (parentMenu.length() > 0 && !(parentMenu.equals(menuElement.getAttribute("name")) && UtilValidate.isEmpty(parentResource))) {
+        if (parentMenu.length() > 0 && !(parentMenu.equals(getName()) && parentResource.isEmpty())) {
             ModelMenu parent = null;
             // check if we have a resource name (part of the string before the ?)
             if (UtilValidate.isNotEmpty(parentResource)) {
                 try {
                     parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
                 } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource + "'", module);
+                    Debug.logError(e, "Failed to load parent menu definition '" + parentMenu + "' at resource '" + parentResource
+                            + "'", module);
                 }
             } else {
+                parentResource = menuLocation;
                 // try to find a menu definition in the same file
                 Element rootElement = menuElement.getOwnerDocument().getDocumentElement();
                 List<? extends Element> menuElements = UtilXml.childElementList(rootElement, "menu");
@@ -114,7 +145,7 @@ public class ModelMenu extends ModelWidget {
                 //menuElements.addAll(UtilXml.childElementList(rootElement, "abstract-menu"));
                 for (Element menuElementEntry : menuElements) {
                     if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
-                        parent = new ModelMenu(menuElementEntry);
+                        parent = new ModelMenu(menuElementEntry, parentResource);
                         break;
                     }
                 }
@@ -122,122 +153,145 @@ public class ModelMenu extends ModelWidget {
                     Debug.logError("Failed to find parent menu definition '" + parentMenu + "' in same document.", module);
                 }
             }
-
             if (parent != null) {
-                this.type = parent.type;
-                this.target = parent.target;
-                this.id = parent.id;
-                this.title = parent.title;
-                this.tooltip = parent.tooltip;
-                this.defaultEntityName = parent.defaultEntityName;
-                this.defaultTitleStyle = parent.defaultTitleStyle;
-                this.defaultSelectedStyle = parent.defaultSelectedStyle;
-                this.defaultWidgetStyle = parent.defaultWidgetStyle;
-                this.defaultTooltipStyle = parent.defaultTooltipStyle;
-                this.defaultMenuItemName = parent.defaultMenuItemName;
-                this.menuItemList.addAll(parent.menuItemList);
-                this.menuItemMap.putAll(parent.menuItemMap);
-                this.defaultPermissionOperation = parent.defaultPermissionOperation;
-                this.defaultPermissionEntityAction = parent.defaultPermissionEntityAction;
-                this.defaultAssociatedContentId = parent.defaultAssociatedContentId;
-                this.defaultPermissionStatusId = parent.defaultPermissionStatusId;
-                this.defaultPrivilegeEnumId = parent.defaultPrivilegeEnumId;
-                this.defaultHideIfSelected = parent.defaultHideIfSelected;
-                this.orientation = parent.orientation;
-                this.menuWidth = parent.menuWidth;
-                this.defaultCellWidth = parent.defaultCellWidth;
-                this.defaultDisabledTitleStyle = parent.defaultDisabledTitleStyle;
-                this.defaultAlign = parent.defaultAlign;
-                this.defaultAlignStyle = parent.defaultAlignStyle;
-                this.fillStyle = parent.fillStyle;
-                this.extraIndex = parent.extraIndex;
-                this.selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
-                this.menuContainerStyleExdr = parent.menuContainerStyleExdr;
+                type = parent.type;
+                target = parent.target;
+                id = parent.id;
+                title = parent.title;
+                tooltip = parent.tooltip;
+                defaultEntityName = parent.defaultEntityName;
+                defaultTitleStyle = parent.defaultTitleStyle;
+                defaultSelectedStyle = parent.defaultSelectedStyle;
+                defaultWidgetStyle = parent.defaultWidgetStyle;
+                defaultTooltipStyle = parent.defaultTooltipStyle;
+                defaultMenuItemName = parent.defaultMenuItemName;
+                menuItemList.addAll(parent.menuItemList);
+                menuItemMap.putAll(parent.menuItemMap);
+                defaultPermissionOperation = parent.defaultPermissionOperation;
+                defaultPermissionEntityAction = parent.defaultPermissionEntityAction;
+                defaultAssociatedContentId = parent.defaultAssociatedContentId;
+                defaultPermissionStatusId = parent.defaultPermissionStatusId;
+                defaultPrivilegeEnumId = parent.defaultPrivilegeEnumId;
+                defaultHideIfSelected = parent.defaultHideIfSelected;
+                orientation = parent.orientation;
+                menuWidth = parent.menuWidth;
+                defaultCellWidth = parent.defaultCellWidth;
+                defaultDisabledTitleStyle = parent.defaultDisabledTitleStyle;
+                defaultAlign = parent.defaultAlign;
+                defaultAlignStyle = parent.defaultAlignStyle;
+                fillStyle = parent.fillStyle;
+                extraIndex = parent.extraIndex;
+                selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
+                menuContainerStyleExdr = parent.menuContainerStyleExdr;
                 if (parent.actions != null) {
-                    this.actions = new ArrayList<ModelWidgetAction>();
-                    this.actions.addAll(parent.actions);
+                    actions.addAll(parent.actions);
                 }
             }
         }
-
-        if (this.type == null || menuElement.hasAttribute("type"))
-            this.type = menuElement.getAttribute("type");
-        if (this.target == null || menuElement.hasAttribute("target"))
-            this.target = menuElement.getAttribute("target");
-        if (this.id == null || menuElement.hasAttribute("id"))
-            this.id = menuElement.getAttribute("id");
-        if (this.title == null || menuElement.hasAttribute("title"))
-            this.setTitle(menuElement.getAttribute("title"));
-        if (this.tooltip == null || menuElement.hasAttribute("tooltip"))
-            this.tooltip = menuElement.getAttribute("tooltip");
-        if (this.defaultEntityName == null || menuElement.hasAttribute("default-entity-name"))
-            this.defaultEntityName = menuElement.getAttribute("default-entity-name");
-        if (this.defaultTitleStyle == null || menuElement.hasAttribute("default-title-style"))
-            this.defaultTitleStyle = menuElement.getAttribute("default-title-style");
-        if (this.defaultSelectedStyle == null || menuElement.hasAttribute("default-selected-style"))
-            this.defaultSelectedStyle = menuElement.getAttribute("default-selected-style");
-        if (this.defaultWidgetStyle == null || menuElement.hasAttribute("default-widget-style"))
-            this.defaultWidgetStyle = menuElement.getAttribute("default-widget-style");
-        if (this.defaultTooltipStyle == null || menuElement.hasAttribute("default-tooltip-style"))
-            this.defaultTooltipStyle = menuElement.getAttribute("default-tooltip-style");
-        if (this.defaultMenuItemName == null || menuElement.hasAttribute("default-menu-item-name"))
-            this.defaultMenuItemName = menuElement.getAttribute("default-menu-item-name");
-        if (this.defaultPermissionOperation == null || menuElement.hasAttribute("default-permission-operation"))
-            this.defaultPermissionOperation = menuElement.getAttribute("default-permission-operation");
-        if (this.defaultPermissionEntityAction == null || menuElement.hasAttribute("default-permission-entity-action"))
-            this.defaultPermissionEntityAction = menuElement.getAttribute("default-permission-entity-action");
-        if (this.defaultPermissionStatusId == null || menuElement.hasAttribute("defaultPermissionStatusId"))
-            this.defaultPermissionStatusId = menuElement.getAttribute("default-permission-status-id");
-        if (this.defaultPrivilegeEnumId == null || menuElement.hasAttribute("defaultPrivilegeEnumId"))
-            this.defaultPrivilegeEnumId = menuElement.getAttribute("default-privilege-enum-id");
-        if (this.defaultAssociatedContentId == null || menuElement.hasAttribute("defaultAssociatedContentId"))
-            this.setDefaultAssociatedContentId(menuElement.getAttribute("default-associated-content-id"));
-        if (this.orientation == null || menuElement.hasAttribute("orientation"))
-            this.orientation = menuElement.getAttribute("orientation");
-        if (this.menuWidth == null || menuElement.hasAttribute("menu-width"))
-            this.menuWidth = menuElement.getAttribute("menu-width");
-        if (this.defaultCellWidth == null || menuElement.hasAttribute("default-cell-width"))
-            this.defaultCellWidth = menuElement.getAttribute("default-cell-width");
-        if (menuElement.hasAttribute("default-hide-if-selected")) {
-            String val = menuElement.getAttribute("default-hide-if-selected");
-            if (val != null && val.equalsIgnoreCase("true"))
-                defaultHideIfSelected = Boolean.TRUE;
-            else
-                defaultHideIfSelected = Boolean.FALSE;
-        }
-        if (this.defaultDisabledTitleStyle == null || menuElement.hasAttribute("default-disabled-title-style"))
-            this.defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
-        if (this.selectedMenuItemContextFieldName == null || menuElement.hasAttribute("selected-menuitem-context-field-name"))
-            this.selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance(menuElement.getAttribute("selected-menuitem-context-field-name"));
-        if (this.menuContainerStyleExdr == null || menuElement.hasAttribute("menu-container-style"))
-            this.setMenuContainerStyle(menuElement.getAttribute("menu-container-style"));
-        if (this.defaultAlign == null || menuElement.hasAttribute("default-align"))
-            this.defaultAlign = menuElement.getAttribute("default-align");
-        if (this.defaultAlignStyle == null || menuElement.hasAttribute("default-align-style"))
-            this.defaultAlignStyle = menuElement.getAttribute("default-align-style");
-        if (this.fillStyle == null || menuElement.hasAttribute("fill-style"))
-            this.fillStyle = menuElement.getAttribute("fill-style");
-		if (this.extraIndex == null || menuElement.hasAttribute("extra-index"))
-            this.setExtraIndex(menuElement.getAttribute("extra-index"));
-
+        if (menuElement.hasAttribute("type"))
+            type = menuElement.getAttribute("type");
+        if (menuElement.hasAttribute("target"))
+            target = menuElement.getAttribute("target");
+        if (menuElement.hasAttribute("id"))
+            id = menuElement.getAttribute("id");
+        if (menuElement.hasAttribute("title"))
+            title = FlexibleStringExpander.getInstance(menuElement.getAttribute("title"));
+        if (menuElement.hasAttribute("tooltip"))
+            tooltip = menuElement.getAttribute("tooltip");
+        if (menuElement.hasAttribute("default-entity-name"))
+            defaultEntityName = menuElement.getAttribute("default-entity-name");
+        if (menuElement.hasAttribute("default-title-style"))
+            defaultTitleStyle = menuElement.getAttribute("default-title-style");
+        if (menuElement.hasAttribute("default-selected-style"))
+            defaultSelectedStyle = menuElement.getAttribute("default-selected-style");
+        if (menuElement.hasAttribute("default-widget-style"))
+            defaultWidgetStyle = menuElement.getAttribute("default-widget-style");
+        if (menuElement.hasAttribute("default-tooltip-style"))
+            defaultTooltipStyle = menuElement.getAttribute("default-tooltip-style");
+        if (menuElement.hasAttribute("default-menu-item-name"))
+            defaultMenuItemName = menuElement.getAttribute("default-menu-item-name");
+        if (menuElement.hasAttribute("default-permission-operation"))
+            defaultPermissionOperation = menuElement.getAttribute("default-permission-operation");
+        if (menuElement.hasAttribute("default-permission-entity-action"))
+            defaultPermissionEntityAction = menuElement.getAttribute("default-permission-entity-action");
+        if (menuElement.hasAttribute("defaultPermissionStatusId"))
+            defaultPermissionStatusId = menuElement.getAttribute("default-permission-status-id");
+        if (menuElement.hasAttribute("defaultPrivilegeEnumId"))
+            defaultPrivilegeEnumId = menuElement.getAttribute("default-privilege-enum-id");
+        if (menuElement.hasAttribute("defaultAssociatedContentId"))
+            defaultAssociatedContentId = FlexibleStringExpander.getInstance(menuElement
+                    .getAttribute("default-associated-content-id"));
+        if (menuElement.hasAttribute("orientation"))
+            orientation = menuElement.getAttribute("orientation");
+        if (menuElement.hasAttribute("menu-width"))
+            menuWidth = menuElement.getAttribute("menu-width");
+        if (menuElement.hasAttribute("default-cell-width"))
+            defaultCellWidth = menuElement.getAttribute("default-cell-width");
+        if (menuElement.hasAttribute("default-hide-if-selected"))
+            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected"));
+        if (menuElement.hasAttribute("default-disabled-title-style"))
+            defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
+        if (menuElement.hasAttribute("selected-menuitem-context-field-name"))
+            selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance(menuElement
+                    .getAttribute("selected-menuitem-context-field-name"));
+        if (menuElement.hasAttribute("menu-container-style"))
+            menuContainerStyleExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("menu-container-style"));
+        if (menuElement.hasAttribute("default-align"))
+            defaultAlign = menuElement.getAttribute("default-align");
+        if (menuElement.hasAttribute("default-align-style"))
+            defaultAlignStyle = menuElement.getAttribute("default-align-style");
+        if (menuElement.hasAttribute("fill-style"))
+            fillStyle = menuElement.getAttribute("fill-style");
+        if (menuElement.hasAttribute("extra-index"))
+            extraIndex = FlexibleStringExpander.getInstance(menuElement.getAttribute("extra-index"));
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(menuElement, "actions");
         if (actionsElement != null) {
-            if (this.actions == null) {
-                this.actions = ModelMenuAction.readSubActions(this, actionsElement);
-            } else {
-                this.actions.addAll(ModelMenuAction.readSubActions(this, actionsElement));
-                ArrayList<ModelWidgetAction> actionsList = (ArrayList<ModelWidgetAction>)this.actions;
-                actionsList.trimToSize();
-            }
+            actions.addAll(ModelMenuAction.readSubActions(this, actionsElement));
         }
-
-        // read in add item defs, add/override one by one using the menuItemList
+        actions.trimToSize();
+        this.actions = Collections.unmodifiableList(actions);
+        this.defaultAlign = defaultAlign;
+        this.defaultAlignStyle = defaultAlignStyle;
+        this.defaultAssociatedContentId = defaultAssociatedContentId;
+        this.defaultCellWidth = defaultCellWidth;
+        this.defaultDisabledTitleStyle = defaultDisabledTitleStyle;
+        this.defaultEntityName = defaultEntityName;
+        this.defaultHideIfSelected = defaultHideIfSelected;
+        this.defaultMenuItemName = defaultMenuItemName;
+        this.defaultPermissionEntityAction = defaultPermissionEntityAction;
+        this.defaultPermissionOperation = defaultPermissionOperation;
+        this.defaultPermissionStatusId = defaultPermissionStatusId;
+        this.defaultPrivilegeEnumId = defaultPrivilegeEnumId;
+        this.defaultSelectedStyle = defaultSelectedStyle;
+        this.defaultTitleStyle = defaultTitleStyle;
+        this.defaultTooltipStyle = defaultTooltipStyle;
+        this.defaultWidgetStyle = defaultWidgetStyle;
+        this.extraIndex = extraIndex;
+        this.fillStyle = fillStyle;
+        this.id = id;
+        this.menuContainerStyleExdr = menuContainerStyleExdr;
         List<? extends Element> itemElements = UtilXml.childElementList(menuElement, "menu-item");
         for (Element itemElement : itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-            modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
+            modelMenuItem = this.addUpdateMenuItem(modelMenuItem, menuItemList, menuItemMap);
         }
+        menuItemList.trimToSize();
+        this.menuItemList = Collections.unmodifiableList(menuItemList);
+        this.menuItemMap = Collections.unmodifiableMap(menuItemMap);
+        this.menuLocation = menuLocation;
+        this.menuWidth = menuWidth;
+        this.orientation = orientation;
+        this.selectedMenuItemContextFieldName = selectedMenuItemContextFieldName;
+        this.target = target;
+        this.title = title;
+        this.tooltip = tooltip;
+        this.type = type;
+    }
+
+    @Override
+    public void accept(ModelWidgetVisitor visitor) throws Exception {
+        visitor.visit(this);
     }
 
     /**
@@ -245,23 +299,194 @@ public class ModelMenu extends ModelWidget {
      *
      * @return The same ModelMenuItem, or if merged with an existing item, the existing item.
      */
-    public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
+    private ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem, List<ModelMenuItem> menuItemList,
+            Map<String, ModelMenuItem> menuItemMap) {
         // not a conditional item, see if a named item exists in Map
-        ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
+        ModelMenuItem existingMenuItem = menuItemMap.get(modelMenuItem.getName());
         if (existingMenuItem != null) {
             // does exist, update the item by doing a merge/override
             existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
             return existingMenuItem;
         } else {
             // does not exist, add to List and Map
-            this.menuItemList.add(modelMenuItem);
-            this.menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
+            menuItemList.add(modelMenuItem);
+            menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
             return modelMenuItem;
         }
     }
 
+    public List<ModelWidgetAction> getActions() {
+        return actions;
+    }
+
+    @Override
+    public String getBoundaryCommentName() {
+        return menuLocation + "#" + getName();
+    }
+
+    public String getCurrentMenuName(Map<String, Object> context) {
+        return getName();
+    }
+
+    public String getDefaultAlign() {
+        return this.defaultAlign;
+    }
+
+    public String getDefaultAlignStyle() {
+        return this.defaultAlignStyle;
+    }
+
+    public FlexibleStringExpander getDefaultAssociatedContentId() {
+        return defaultAssociatedContentId;
+    }
+
+    public String getDefaultAssociatedContentId(Map<String, Object> context) {
+        return defaultAssociatedContentId.expandString(context);
+    }
+
+    public String getDefaultCellWidth() {
+        return this.defaultCellWidth;
+    }
+
+    public String getDefaultDisabledTitleStyle() {
+        return this.defaultDisabledTitleStyle;
+    }
+
+    public String getDefaultEntityName() {
+        return this.defaultEntityName;
+    }
+
+    public Boolean getDefaultHideIfSelected() {
+        return this.defaultHideIfSelected;
+    }
+
+    public String getDefaultMenuItemName() {
+        return this.defaultMenuItemName;
+    }
+
+    public String getDefaultPermissionEntityAction() {
+        return this.defaultPermissionEntityAction;
+    }
+
+    public String getDefaultPermissionOperation() {
+        return this.defaultPermissionOperation;
+    }
+
+    public String getDefaultPermissionStatusId() {
+        return this.defaultPermissionStatusId;
+    }
+
+    public String getDefaultPrivilegeEnumId() {
+        return this.defaultPrivilegeEnumId;
+    }
+
+    public String getDefaultSelectedStyle() {
+        return this.defaultSelectedStyle;
+    }
+
+    public String getDefaultTitleStyle() {
+        return this.defaultTitleStyle;
+    }
+
+    public String getDefaultTooltipStyle() {
+        return this.defaultTooltipStyle;
+    }
+
+    public String getDefaultWidgetStyle() {
+        return this.defaultWidgetStyle;
+    }
+
+    public FlexibleStringExpander getExtraIndex() {
+        return extraIndex;
+    }
+
+    public String getExtraIndex(Map<String, Object> context) {
+        try {
+            return extraIndex.expandString(context);
+        } catch (Exception ex) {
+            return "";
+        }
+    }
+
+    public String getFillStyle() {
+        return this.fillStyle;
+    }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public String getMenuContainerStyle(Map<String, Object> context) {
+        return menuContainerStyleExdr.expandString(context);
+    }
+
+    public FlexibleStringExpander getMenuContainerStyleExdr() {
+        return menuContainerStyleExdr;
+    }
+
+    public List<ModelMenuItem> getMenuItemList() {
+        return menuItemList;
+    }
+
+    public Map<String, ModelMenuItem> getMenuItemMap() {
+        return menuItemMap;
+    }
+
+    public String getMenuLocation() {
+        return menuLocation;
+    }
+
+    public String getMenuWidth() {
+        return this.menuWidth;
+    }
+
     public ModelMenuItem getModelMenuItemByName(String name) {
         return this.menuItemMap.get(name);
+    }
+
+    public String getOrientation() {
+        return this.orientation;
+    }
+
+    public FlexibleMapAccessor<String> getSelectedMenuItemContextFieldName() {
+        return selectedMenuItemContextFieldName;
+    }
+
+    public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
+        String menuItemName = this.selectedMenuItemContextFieldName.get(context);
+        if (UtilValidate.isEmpty(menuItemName)) {
+            return this.defaultMenuItemName;
+        }
+        return menuItemName;
+    }
+
+    public String getTarget() {
+        return target;
+    }
+
+    public FlexibleStringExpander getTitle() {
+        return title;
+    }
+
+    public String getTitle(Map<String, Object> context) {
+        return title.expandString(context);
+    }
+
+    public String getTooltip() {
+        return this.tooltip;
+    }
+
+    public String getType() {
+        return this.type;
+    }
+
+    public int renderedMenuItemCount(Map<String, Object> context) {
+        int count = 0;
+        for (ModelMenuItem item : this.menuItemList) {
+            if (item.shouldBeRendered(context))
+                count++;
+        }
+        return count;
     }
 
     /**
@@ -279,30 +504,19 @@ public class ModelMenu extends ModelWidget {
      *   different menu elements; implementing you own makes it possible to
      *   use the same menu definitions for many types of menu UIs
      */
-    public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+    public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
+            throws IOException {
         ModelWidgetAction.runSubActions(this.actions, context);
         if ("simple".equals(this.type)) {
             this.renderSimpleMenuString(writer, context, menuStringRenderer);
         } else {
-            throw new IllegalArgumentException("The type " + this.getType() + " is not supported for menu with name " + this.getName());
+            throw new IllegalArgumentException("The type " + this.getType() + " is not supported for menu with name "
+                    + this.getName());
         }
     }
 
-    public void runActions(Map<String, Object> context) {
-        ModelWidgetAction.runSubActions(this.actions, context);
-    }
-
-    public int renderedMenuItemCount(Map<String, Object> context)
-    {
-        int count = 0;
-        for (ModelMenuItem item : this.menuItemList) {
-            if (item.shouldBeRendered(context))
-                count++;
-        }
-        return count;
-    }
-    
-    public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
+    public void renderSimpleMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
+            throws IOException {
         // render menu open
         menuStringRenderer.renderMenuOpen(writer, context, this);
 
@@ -320,290 +534,7 @@ public class ModelMenu extends ModelWidget {
         menuStringRenderer.renderMenuClose(writer, context, this);
     }
 
-    public String getDefaultEntityName() {
-        return this.defaultEntityName;
-    }
-
-    public String getDefaultAlign() {
-        return this.defaultAlign;
-    }
-
-    public String getDefaultAlignStyle() {
-        return this.defaultAlignStyle;
-    }
-
-    public String getDefaultTitleStyle() {
-        return this.defaultTitleStyle;
-    }
-
-    public String getDefaultDisabledTitleStyle() {
-        return this.defaultDisabledTitleStyle;
-    }
-
-    public String getDefaultSelectedStyle() {
-        return this.defaultSelectedStyle;
-    }
-
-    public String getDefaultWidgetStyle() {
-        return this.defaultWidgetStyle;
-    }
-
-    public String getDefaultTooltipStyle() {
-        return this.defaultTooltipStyle;
-    }
-
-    public String getDefaultMenuItemName() {
-        return this.defaultMenuItemName;
-    }
-
-    public String getFillStyle() {
-        return this.fillStyle;
-    }
-
-    public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
-        String menuItemName = this.selectedMenuItemContextFieldName.get(context);
-        if (UtilValidate.isEmpty(menuItemName)) {
-            return this.defaultMenuItemName;
-        }
-        return menuItemName;
-    }
-
-    public String getCurrentMenuName(Map<String, Object> context) {
-        return getName();
-    }
-
-    public String getId() {
-        return this.id;
-    }
-
-    public String getTitle(Map<String, Object> context) {
-        return title.expandString(context);
-    }
-
-    public String getTooltip() {
-        return this.tooltip;
-    }
-
-    public String getType() {
-        return this.type;
-    }
-
-    @Override
-    public String getBoundaryCommentName() {
-        return menuLocation + "#" + getName();
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultEntityName(String string) {
-        this.defaultEntityName = string;
-    }
-
-
-    /**
-     * @param string
-     */
-    public void setDefaultTitleStyle(String string) {
-        this.defaultTitleStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultSelectedStyle(String string) {
-        this.defaultSelectedStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultWidgetStyle(String string) {
-        this.defaultWidgetStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultTooltipStyle(String string) {
-        this.defaultTooltipStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultMenuItemName(String string) {
-        this.defaultMenuItemName = string;
-    }
-
-    /**
-     * @param menuLocation the menu location to set
-     */
-    public void setMenuLocation(String menuLocation) {
-        this.menuLocation = menuLocation;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTarget(String string) {
-        this.target = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setId(String string) {
-        this.id = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTitle(String string) {
-        this.title = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setTooltip(String string) {
-        this.tooltip = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setType(String string) {
-        this.type = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultAssociatedContentId(String string) {
-        this.defaultAssociatedContentId = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setMenuContainerStyle(String string) {
-        this.menuContainerStyleExdr = FlexibleStringExpander.getInstance(string);
-    }
-
-    public String getDefaultAssociatedContentId(Map<String, Object> context) {
-        return defaultAssociatedContentId.expandString(context);
-    }
-    public String getMenuContainerStyle(Map<String, Object> context) {
-        return menuContainerStyleExdr.expandString(context);
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultPermissionOperation(String string) {
-        this.defaultPermissionOperation = string;
-    }
-
-    public String getDefaultPermissionStatusId() {
-        return this.defaultPermissionStatusId;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultPermissionStatusId(String string) {
-        this.defaultPermissionStatusId = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultPrivilegeEnumId(String string) {
-        this.defaultPrivilegeEnumId = string;
-    }
-
-    public String getDefaultPrivilegeEnumId() {
-        return this.defaultPrivilegeEnumId;
-    }
-
-    /**
-     * @param string
-     */
-    public void setOrientation(String string) {
-        this.orientation = string;
-    }
-
-    public String getOrientation() {
-        return this.orientation;
-    }
-
-    /**
-     * @param string
-     */
-    public void setMenuWidth(String string) {
-        this.menuWidth = string;
-    }
-
-    public String getMenuWidth() {
-        return this.menuWidth;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultCellWidth(String string) {
-        this.defaultCellWidth = string;
-    }
-
-    public String getDefaultCellWidth() {
-        return this.defaultCellWidth;
-    }
-
-    public String getDefaultPermissionOperation() {
-        return this.defaultPermissionOperation;
-    }
-
-    /**
-     * @param string
-     */
-    public void setDefaultPermissionEntityAction(String string) {
-        this.defaultPermissionEntityAction = string;
-    }
-
-    public String getDefaultPermissionEntityAction() {
-        return this.defaultPermissionEntityAction;
-    }
-
-    /**
-     * @param val
-     */
-    public void setDefaultHideIfSelected(Boolean val) {
-        this.defaultHideIfSelected = val;
-    }
-
-    public Boolean getDefaultHideIfSelected() {
-        return this.defaultHideIfSelected;
-    }
-
-    public List<ModelMenuItem> getMenuItemList() {
-        return menuItemList;
-    }
-	public String getExtraIndex(Map<String, Object> context) {
-        try {
-            return extraIndex.expandString(context);
-        } catch (Exception ex) {
-            return "";
-        }
-    }
-
-    public void setExtraIndex(String extraIndex) {
-        this.extraIndex = FlexibleStringExpander.getInstance(extraIndex);
-    }
-
-    @Override
-    public void accept(ModelWidgetVisitor visitor) throws Exception {
-        visitor.visit(this);
+    public void runActions(Map<String, Object> context) {
+        ModelWidgetAction.runSubActions(this.actions, context);
     }
 }
