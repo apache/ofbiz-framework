@@ -84,8 +84,7 @@ public class MenuFactory {
             // read document and construct ModelMenu for each menu element
             Element rootElement = menuFileDoc.getDocumentElement();
             for (Element menuElement: UtilXml.childElementList(rootElement, "menu")){
-                ModelMenu modelMenu = new ModelMenu(menuElement);
-                modelMenu.setMenuLocation(menuLocation);
+                ModelMenu modelMenu = new ModelMenu(menuElement, menuLocation);
                 modelMenuMap.put(modelMenu.getName(), modelMenu);
             }
          }
