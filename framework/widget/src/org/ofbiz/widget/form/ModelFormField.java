@@ -151,7 +151,6 @@ public class ModelFormField {
         this.mapAcsr = builder.getMapAcsr();
         this.modelForm = builder.getModelForm();
         this.name = builder.getName();
-        Debug.logInfo("name = " + name + ", fieldInfo = " + fieldInfo, module);
         if (builder.getOnChangeUpdateAreas().isEmpty()) {
             this.onChangeUpdateAreas = Collections.emptyList();
         } else {
@@ -1723,7 +1722,6 @@ public class ModelFormField {
         @Override
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
-            Debug.logInfo("Rendering drop-down " + this + " for " + getModelFormField().getName(), module);
             formStringRenderer.renderDropDownField(writer, context, this);
         }
     }

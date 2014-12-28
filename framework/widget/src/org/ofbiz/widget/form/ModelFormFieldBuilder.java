@@ -216,7 +216,6 @@ public class ModelFormFieldBuilder {
             this.fieldInfo = new ContainerField(childElement, null);
         else
             throw new IllegalArgumentException("The field sub-element with name " + this.fieldType + " is not supported");
-        Debug.logInfo("fieldType = " + fieldType + ", fieldInfo = " + fieldInfo, module);
     }
 
     public ModelFormFieldBuilder(ModelFormField modelFormField) {
@@ -568,14 +567,13 @@ public class ModelFormFieldBuilder {
                 if ("date-time".equals(modelField.getType())) {
                     type = "timestamp";
                 }
-                ModelFormField.DateFindField dateTimeField = new ModelFormField.DateFindField(FieldInfo.SOURCE_AUTO_ENTITY, type);
+                ModelFormField.DateTimeField dateTimeField = new ModelFormField.DateTimeField(FieldInfo.SOURCE_AUTO_ENTITY, type);
                 this.setFieldInfo(dateTimeField);
             } else {
                 ModelFormField.TextField textField = new ModelFormField.TextField(FieldInfo.SOURCE_AUTO_ENTITY, null);
                 this.setFieldInfo(textField);
             }
         }
-
         return true;
     }
 
@@ -775,11 +773,9 @@ public class ModelFormFieldBuilder {
     }
 
     public ModelFormFieldBuilder setFieldInfo(FieldInfo fieldInfo) {
-        Debug.logInfo("this.fieldInfo = " + this.fieldInfo + ", fieldInfo = " + fieldInfo, module);
         if (fieldInfo != null && (this.fieldInfo == null || (fieldInfo.getFieldSource() <= this.fieldInfo.getFieldSource()))) {
             this.fieldInfo = fieldInfo;
         }
-        Debug.logInfo("this.fieldInfo = " + this.fieldInfo + ", fieldInfo = " + fieldInfo, module);
         return this;
     }
 
