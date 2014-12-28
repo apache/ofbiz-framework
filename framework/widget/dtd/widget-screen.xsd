@@ -18,10 +18,11 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:include schemaLocation="http://ofbiz.apache.org/dtds/widget-common.xsd" />
     <xs:element name="screens">
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="screen"/>
+                <xs:element maxOccurs="unbounded" ref="screen" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -57,7 +58,7 @@ under the License.
     <xs:element name="section" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="condition" />
+                <xs:element name="condition" type="ScreenConditionRootType" minOccurs="0" />
                 <xs:element minOccurs="0" ref="actions" />
                 <xs:element minOccurs="0" ref="widgets" />
                 <xs:element minOccurs="0" ref="fail-widgets" />
@@ -67,217 +68,25 @@ under the License.
     </xs:element>
 
     <!-- ================ CONDITIONS ================ -->
-    <xs:element name="AllConditionals" abstract="true"/>
-    <xs:element name="condition">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="1" maxOccurs="1" ref="AllConditionals"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="and" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="AllConditionals"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="xor" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="AllConditionals"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="or" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="AllConditionals"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="not" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element ref="AllConditionals"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-service-permission" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="service-name" use="required" />
-            <xs:attribute type="xs:string" name="resource-description" use="optional" />
-            <xs:attribute type="xs:string" name="context-map" use="optional" />
-            <xs:attribute name="main-action" use="optional">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="CREATE" />
-                        <xs:enumeration value="UPDATE" />
-                        <xs:enumeration value="DELETE" />
-                        <xs:enumeration value="VIEW" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-has-permission" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="permission" use="required" />
-            <xs:attribute type="xs:string" name="action" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-entity-permission" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:choice minOccurs="0">
-                <xs:element minOccurs="0" maxOccurs="1" ref="permission-condition-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="related-role-getter" />
-                <xs:element minOccurs="0" maxOccurs="1" ref="auxiliary-value-getter" />
-            </xs:choice>
-            <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute type="xs:string" name="entity-id" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target-operation" use="required">
-                <xs:annotation>
-                    <xs:documentation>Can have multiple pipe separated values, but don't use spaces.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="display-fail-cond" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="permission-condition-getter">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="entity-name" />
-            <xs:attribute type="xs:string" name="operation-field-name" />
-            <xs:attribute type="xs:string" name="role-field-name" />
-            <xs:attribute type="xs:string" name="auxiliary-field-name" />
-            <xs:attribute type="xs:string" name="status-field-name" />
-            <xs:attribute type="xs:string" name="privilege-field-name" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="related-role-getter">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="entity-name" />
-            <xs:attribute type="xs:string" name="role-entity-name" />
-            <xs:attribute type="xs:string" name="role-type-field-name" />
-            <xs:attribute type="xs:string" name="party-field-name" />
-            <xs:attribute type="xs:string" name="owner-entity-field-name" />
-            <xs:attribute type="xs:string" name="entity-id-name" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="auxiliary-value-getter">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="entity-name" />
-            <xs:attribute type="xs:string" name="auxiliary-field-name" />
-            <xs:attribute type="xs:string" name="entity-id-name" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-validate-method" substitutionGroup="AllConditionals">
-        <xs:annotation>
-            <xs:documentation>Calls a static Java method that takes a String and returns a boolean.</xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="method" use="required" />
-            <xs:attribute type="xs:string" name="class" default="org.ofbiz.base.util.UtilValidate" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-compare" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute name="field" type="xs:string" use="required" />
-            <xs:attribute name="operator" use="required">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="less" />
-                        <xs:enumeration value="greater" />
-                        <xs:enumeration value="less-equals" />
-                        <xs:enumeration value="greater-equals" />
-                        <xs:enumeration value="equals" />
-                        <xs:enumeration value="not-equals" />
-                        <xs:enumeration value="contains" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="value" type="xs:string" use="required" />
-            <xs:attribute name="type" default="String">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="PlainString" />
-                        <xs:enumeration value="String" />
-                        <xs:enumeration value="BigDecimal" />
-                        <xs:enumeration value="Double" />
-                        <xs:enumeration value="Float" />
-                        <xs:enumeration value="Long" />
-                        <xs:enumeration value="Integer" />
-                        <xs:enumeration value="Date" />
-                        <xs:enumeration value="Time" />
-                        <xs:enumeration value="Timestamp" />
-                        <xs:enumeration value="Boolean" />
-                        <xs:enumeration value="Object" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="format" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-compare-field" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute name="field" type="xs:string" use="required" />
-            <xs:attribute name="operator" use="required">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="less" />
-                        <xs:enumeration value="greater" />
-                        <xs:enumeration value="less-equals" />
-                        <xs:enumeration value="greater-equals" />
-                        <xs:enumeration value="equals" />
-                        <xs:enumeration value="not-equals" />
-                        <xs:enumeration value="contains" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="to-field" type="xs:string" />
-            <xs:attribute name="type" default="String">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="PlainString" />
-                        <xs:enumeration value="String" />
-                        <xs:enumeration value="BigDecimal" />
-                        <xs:enumeration value="Double" />
-                        <xs:enumeration value="Float" />
-                        <xs:enumeration value="Long" />
-                        <xs:enumeration value="Integer" />
-                        <xs:enumeration value="Date" />
-                        <xs:enumeration value="Time" />
-                        <xs:enumeration value="Timestamp" />
-                        <xs:enumeration value="Boolean" />
-                        <xs:enumeration value="Object" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="format" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-regexp" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="expr" use="required" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="if-empty" substitutionGroup="AllConditionals">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-        </xs:complexType>
-    </xs:element>
+
+    <xs:complexType name="ScreenConditionRootType">
+        <xs:choice>
+            <xs:element ref="and" />
+            <xs:element ref="or" />
+            <xs:element ref="xor" />
+            <xs:element ref="not" />
+            <xs:element ref="if-service-permission" />
+            <xs:element ref="if-has-permission" />
+            <xs:element ref="if-entity-permission" />
+            <xs:element ref="if-validate-method" />
+            <xs:element ref="if-compare" />
+            <xs:element ref="if-compare-field" />
+            <xs:element ref="if-regexp" />
+            <xs:element ref="if-empty" />
+            <xs:element ref="if-empty-section" />
+        </xs:choice>
+    </xs:complexType>
+
     <xs:element name="if-empty-section" substitutionGroup="AllConditionals">
         <xs:complexType>
             <xs:attribute type="xs:string" name="section-name" use="required" />
@@ -285,11 +94,12 @@ under the License.
     </xs:element>
 
     <!-- ================ ACTIONS ================ -->
-    <xs:element name="AllActions" abstract="true"/>
+
+    <xs:element name="AllActions" abstract="true" />
     <xs:element name="actions">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllActions"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllActions" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -623,7 +433,7 @@ under the License.
                     <xs:documentation>
                         Ignore the condition if flag is true.
                         Defaults to false.
-                </xs:documentation>
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
         </xs:complexType>
@@ -681,18 +491,19 @@ under the License.
     </xs:element>
 
     <!-- ================ WIDGETS ================ -->
-    <xs:element name="AllWidgets" abstract="true"/>
+
+    <xs:element name="AllWidgets" abstract="true" />
     <xs:element name="widgets">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="fail-widgets">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllWidgets" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -725,7 +536,8 @@ under the License.
             <xs:attribute type="xs:string" name="auto-update-target">
                 <xs:annotation>
                     <xs:documentation>The URL to be called for periodic asynchronous area updates.
-                        Some widget rendering environments support asynchronous updates.</xs:documentation>
+                        Some widget rendering environments support asynchronous updates.
+                    </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
             <xs:attribute type="xs:string" name="auto-update-interval">
@@ -772,8 +584,8 @@ under the License.
     <xs:element name="link" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="auto-parameters-service"/>
-                <xs:element minOccurs="0" ref="auto-parameters-entity"/>
+                <xs:element minOccurs="0" ref="auto-parameters-service" />
+                <xs:element minOccurs="0" ref="auto-parameters-entity" />
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
                 <xs:element minOccurs="0" ref="image" />
             </xs:sequence>
@@ -792,7 +604,7 @@ under the License.
                         <xs:enumeration value="auto">
                             <xs:annotation>
                                 <xs:documentation>
-                                    If selected the hidden-form type will be used if the url-mode is intra-app 
+                                    If selected the hidden-form type will be used if the url-mode is intra-app
                                     and the request specified has an event, otherwise the anchor type will be used,
                                     except if the ajax-window mode is specified.
                                 </xs:documentation>
@@ -850,18 +662,18 @@ under the License.
     <xs:element name="auto-parameters-service">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude" />
             </xs:sequence>
             <xs:attribute name="service-name" type="xs:string" use="required">
-                 <xs:annotation>
-                     <xs:documentation>The service name used to resolve parameters. If empty, use form defaultServiceName. Flexible string allowed.</xs:documentation>
-                 </xs:annotation>
+                <xs:annotation>
+                    <xs:documentation>The service name used to resolve parameters. If empty, use form defaultServiceName. Flexible string allowed.</xs:documentation>
+                </xs:annotation>
             </xs:attribute>
             <xs:attribute name="send-if-empty" default="true">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
-                        <xs:enumeration value="true"/>
-                        <xs:enumeration value="false"/>
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -870,27 +682,27 @@ under the License.
     <xs:element name="auto-parameters-entity">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude" />
             </xs:sequence>
             <xs:attribute name="entity-name" type="xs:string" use="required">
-                 <xs:annotation>
-                     <xs:documentation>The entity name used to resolve parameters. If empty use form defaultEntityName attribute. Flexible string allowed.</xs:documentation>
-                 </xs:annotation>
+                <xs:annotation>
+                    <xs:documentation>The entity name used to resolve parameters. If empty use form defaultEntityName attribute. Flexible string allowed.</xs:documentation>
+                </xs:annotation>
             </xs:attribute>
             <xs:attribute name="include" default="pk">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
-                        <xs:enumeration value="pk"/>
-                        <xs:enumeration value="nonpk"/>
-                        <xs:enumeration value="all"/>
+                        <xs:enumeration value="pk" />
+                        <xs:enumeration value="nonpk" />
+                        <xs:enumeration value="all" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="send-if-empty" default="true">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
-                        <xs:enumeration value="true"/>
-                        <xs:enumeration value="false"/>
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
@@ -898,7 +710,7 @@ under the License.
     </xs:element>
     <xs:element name="exclude">
         <xs:complexType>
-            <xs:attribute name="field-name" type="xs:string" use="required"/>
+            <xs:attribute name="field-name" type="xs:string" use="required" />
         </xs:complexType>
     </xs:element>
 
@@ -968,6 +780,7 @@ under the License.
     </xs:element>
 
     <!-- ================ WIDGETS - Includers ================ -->
+
     <xs:element name="content" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:attribute type="xs:string" name="content-id" />
@@ -1148,57 +961,58 @@ under the License.
     <xs:element name="platform-specific" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" ref="html"/>
-                <xs:element minOccurs="0" ref="swing"/>
-                <xs:element minOccurs="0" ref="xsl-fo"/>
-                <xs:element minOccurs="0" ref="xml"/>
+                <xs:element minOccurs="0" ref="html" />
+                <xs:element minOccurs="0" ref="swing" />
+                <xs:element minOccurs="0" ref="xsl-fo" />
+                <xs:element minOccurs="0" ref="xml" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <!-- ============== HTML Specific Elements =============== -->
-    <xs:element name="HtmlWidgets" abstract="true"/>
+    <xs:element name="HtmlWidgets" abstract="true" />
     <xs:element name="html">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="xsl-fo">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="xml">
         <xs:complexType>
             <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
     <xs:element name="html-template" substitutionGroup="HtmlWidgets">
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.html-template"/>
+            <xs:attributeGroup ref="attlist.html-template" />
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.html-template">
-        <xs:attribute type="xs:string" name="location" use="required"/>
+        <xs:attribute type="xs:string" name="location" use="required" />
     </xs:attributeGroup>
     <xs:element name="html-template-decorator" substitutionGroup="HtmlWidgets">
         <xs:annotation>
             <xs:documentation>
                 We don't really want to encourage the use of the html-template-decorator, should be done on the screen level.
                 To include the sections in the decorator template just use the "render(sectionName)" method "sections" object, FTL example: ${sections.render("main")}.
-                For more efficient use the sections.render(sectionName, writer) method should be used, in FTL this would be in a transform or something.
+                For more
+                efficient use the sections.render(sectionName, writer) method should be used, in FTL this would be in a transform or something.
             </xs:documentation>
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="html-template-decorator-section"/>
+                <xs:element maxOccurs="unbounded" ref="html-template-decorator-section" />
             </xs:sequence>
-        <xs:attribute type="xs:string" name="location" use="required"/>
+            <xs:attribute type="xs:string" name="location" use="required" />
         </xs:complexType>
     </xs:element>
     <xs:element name="html-template-decorator-section">
@@ -1211,6 +1025,6 @@ under the License.
     </xs:element>
     <!-- ============== Swing Specific Elements =============== -->
     <xs:element name="swing">
-        <xs:complexType/>
+        <xs:complexType />
     </xs:element>
 </xs:schema>
