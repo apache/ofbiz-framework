@@ -972,7 +972,7 @@ public class UtilDateTime {
         if (UtilValidate.isEmpty(dateFormat)) {
             df = DateFormat.getDateInstance(DateFormat.SHORT, locale);
         } else {
-            df = new SimpleDateFormat(dateFormat, locale);
+            df = new SimpleDateFormat(dateFormat, locale == null ? Locale.getDefault() : locale);
         }
         df.setTimeZone(tz);
         return df;
@@ -990,7 +990,7 @@ public class UtilDateTime {
         if (UtilValidate.isEmpty(dateTimeFormat)) {
             df = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, locale);
         } else {
-            df = new SimpleDateFormat(dateTimeFormat, locale);
+            df = new SimpleDateFormat(dateTimeFormat, locale == null ? Locale.getDefault() : locale);
         }
         df.setTimeZone(tz);
         return df;
@@ -1008,7 +1008,7 @@ public class UtilDateTime {
         if (UtilValidate.isEmpty(timeFormat)) {
             df = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale);
         } else {
-            df = new SimpleDateFormat(timeFormat, locale);
+            df = new SimpleDateFormat(timeFormat, locale == null ? Locale.getDefault() : locale);
         }
         df.setTimeZone(tz);
         return df;
