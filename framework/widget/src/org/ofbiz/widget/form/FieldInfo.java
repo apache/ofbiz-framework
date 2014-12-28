@@ -31,7 +31,6 @@ import org.w3c.dom.Element;
  */
 public abstract class FieldInfo {
 
-    public static final String module = FieldInfo.class.getName();
     public static final int DISPLAY = 1;
     public static final int HYPERLINK = 2;
     public static final int TEXT = 3;
