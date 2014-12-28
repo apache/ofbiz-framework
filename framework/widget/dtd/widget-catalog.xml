@@ -26,6 +26,7 @@ under the License.
 <catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
   <!-- <public publicId="-//W3C//DTD SVG 1.0//EN" uri="svg10.dtd"/> -->
 
+  <system systemId="http://ofbiz.apache.org/dtds/widget-common.xsd" uri="widget-common.xsd"/>
   <system systemId="http://ofbiz.apache.org/dtds/widget-form.xsd" uri="widget-form.xsd"/>
   <system systemId="http://ofbiz.apache.org/dtds/widget-menu.xsd" uri="widget-menu.xsd"/>
   <system systemId="http://ofbiz.apache.org/dtds/widget-screen.xsd" uri="widget-screen.xsd"/>
