@@ -36,7 +36,6 @@ under the License.
         </xs:choice>
     </xs:complexType>
     <xs:element name="AllConditionals" abstract="true" />
-    <xs:element name="condition" type="ConditionRootType" />
     <xs:element name="and" substitutionGroup="AllConditionals">
         <xs:complexType>
             <xs:sequence>
