@@ -303,9 +303,6 @@ public class StringUtilTests extends GenericTestCaseBase {
         checkStringForHtmlStrictNone_test("double-encoding", "%2%353Cscript", "%2%353Cscript", "In field [double-encoding] found character escaping (mixed or double) that is not allowed or other format consistency error: org.owasp.esapi.errors.IntrusionException: Input validation failure");
     }
 
-    public void testCheckStringForHtmlSafeOnly() {
-    }
-
     public void testCollapseNewlines() {
     }
 

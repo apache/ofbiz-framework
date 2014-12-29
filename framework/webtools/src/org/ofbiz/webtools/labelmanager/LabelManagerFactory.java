@@ -40,7 +40,6 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.owasp.esapi.errors.EncodingException;
 import org.w3c.dom.Comment;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -103,7 +102,7 @@ public class LabelManagerFactory {
         }
     }
 
-    public void findMatchingLabels(String component, String fileName, String key, String locale) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, EncodingException, GeneralException {
+    public void findMatchingLabels(String component, String fileName, String key, String locale) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GeneralException {
         if (UtilValidate.isEmpty(component) && UtilValidate.isEmpty(fileName) && UtilValidate.isEmpty(key) && UtilValidate.isEmpty(locale)) {
             // Important! Don't allow unparameterized queries - doing so will result in loading the entire project into memory
             return;
@@ -124,7 +123,7 @@ public class LabelManagerFactory {
             for (Node propertyNode : UtilXml.childNodeList(resourceElem.getFirstChild())) {
                 if (propertyNode instanceof Element) {
                     Element propertyElem = (Element) propertyNode;
-                    String labelKey = StringUtil.defaultWebEncoder.canonicalize(propertyElem.getAttribute("key"));
+                    String labelKey = StringUtil.canonicalize(propertyElem.getAttribute("key"));
                     String labelComment = "";
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                         if (valueNode instanceof Element) {
@@ -135,7 +134,7 @@ public class LabelManagerFactory {
                             if( localeName.contains("_")) {
                                 localeName = localeName.replace('_', '-');
                             }
-                            String labelValue = StringUtil.defaultWebEncoder.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
+                            String labelValue = StringUtil.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
                             LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());
 
                             if (UtilValidate.isEmpty(label)) {
@@ -149,12 +148,12 @@ public class LabelManagerFactory {
                             localesFound.add(localeName);
                             labelComment = "";
                         } else if (valueNode instanceof Comment) {
-                            labelComment = labelComment + StringUtil.defaultWebEncoder.canonicalize(valueNode.getNodeValue());
+                            labelComment = labelComment + StringUtil.canonicalize(valueNode.getNodeValue());
                         }
                     }
                     labelKeyComment = "";
                 } else if (propertyNode instanceof Comment) {
-                    labelKeyComment = labelKeyComment + StringUtil.defaultWebEncoder.canonicalize(propertyNode.getNodeValue());
+                    labelKeyComment = labelKeyComment + StringUtil.canonicalize(propertyNode.getNodeValue());
                 }
             }
         }

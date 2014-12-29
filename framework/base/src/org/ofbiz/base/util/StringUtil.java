@@ -36,14 +36,12 @@ import java.util.regex.Pattern;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Hex;
 import org.ofbiz.base.lang.Appender;
-import org.owasp.esapi.ValidationErrorList;
-import org.owasp.esapi.Validator;
 import org.owasp.esapi.codecs.Codec;
 import org.owasp.esapi.codecs.HTMLEntityCodec;
 import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.errors.EncodingException;
 import org.owasp.esapi.errors.IntrusionException;
 import org.owasp.esapi.reference.DefaultEncoder;
-import org.owasp.esapi.reference.DefaultValidator;
 
 /**
  * Misc String Utility Functions
@@ -56,15 +54,11 @@ public class StringUtil {
     // FIXME: Not thread safe
     protected static final Map<String, Pattern> substitutionPatternMap;
 
-    /** OWASP ESAPI canonicalize strict flag; setting false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
-    public static final boolean esapiCanonicalizeStrict = false;
-    public static final DefaultEncoder defaultWebEncoder;
-    public static final Validator defaultWebValidator;
+    private static final DefaultEncoder defaultWebEncoder;
     static {
         // possible codecs: CSSCodec, HTMLEntityCodec, JavaScriptCodec, MySQLCodec, OracleCodec, PercentCodec, UnixCodec, VBScriptCodec, WindowsCodec
         List<Codec> codecList = Arrays.asList(new HTMLEntityCodec(), new PercentCodec());
         defaultWebEncoder = new DefaultEncoder(codecList);
-        defaultWebValidator = new DefaultValidator();
         substitutionPatternMap = new HashMap<String, Pattern>();
         substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
         substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
@@ -74,15 +68,20 @@ public class StringUtil {
         substitutionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
     }
 
-    public static final SimpleEncoder htmlEncoder = new HtmlEncoder();
-    public static final SimpleEncoder xmlEncoder = new XmlEncoder();
-    public static final SimpleEncoder stringEncoder = new StringEncoder();
+    private static final HtmlEncoder htmlEncoder = new HtmlEncoder();
+    private static final XmlEncoder xmlEncoder = new XmlEncoder();
+    private static final StringEncoder stringEncoder = new StringEncoder();
+    private static final UrlEncoder urlEncoder = new UrlEncoder();
 
     private StringUtil() {
     }
 
     public static interface SimpleEncoder {
         public String encode(String original);
+    }
+
+    public static interface SimpleDecoder {
+        public String decode(String original);
     }
 
     public static class HtmlEncoder implements SimpleEncoder {
@@ -94,6 +93,26 @@ public class StringUtil {
     public static class XmlEncoder implements SimpleEncoder {
         public String encode(String original) {
             return StringUtil.defaultWebEncoder.encodeForXML(original);
+        }
+    }
+
+    public static class UrlEncoder implements SimpleEncoder, SimpleDecoder {
+        public String encode(String original) {
+            try {
+                return StringUtil.defaultWebEncoder.encodeForURL(original);
+            } catch (EncodingException ee) {
+                Debug.logError(ee, module);
+                return null;
+            }
+        }
+
+        public String decode(String original) {
+            try {
+                return StringUtil.defaultWebEncoder.decodeFromURL(original);
+            } catch (EncodingException ee) {
+                Debug.logError(ee, module);
+                return null;
+            }
         }
     }
 
@@ -109,12 +128,22 @@ public class StringUtil {
     // ================== Begin General Functions ==================
 
     public static SimpleEncoder getEncoder(String type) {
-        if ("xml".equals(type)) {
+        if ("url".equals(type)) {
+            return StringUtil.urlEncoder;
+        } else if ("xml".equals(type)) {
             return StringUtil.xmlEncoder;
         } else if ("html".equals(type)) {
             return StringUtil.htmlEncoder;
         } else if ("string".equals(type)) {
             return StringUtil.stringEncoder;
+        } else {
+            return null;
+        }
+    }
+
+    public static SimpleDecoder getDecoder(String type) {
+        if ("url".equals(type)) {
+            return StringUtil.urlEncoder;
         } else {
             return null;
         }
@@ -594,6 +623,13 @@ public class StringUtil {
         return result;
     }
 
+    public static String canonicalize(String value) throws IntrusionException {
+        return defaultWebEncoder.canonicalize(value);
+    }
+
+    public static String canonicalize(String value, boolean strict) throws IntrusionException {
+        return defaultWebEncoder.canonicalize(value, strict);
+    }
     /**
      * Uses a black-list approach for necessary characters for HTML.
      * Does not allow various characters (after canonicalization), including "<", ">", "&" (if not followed by a space), and "%" (if not followed by a space).
@@ -606,7 +642,7 @@ public class StringUtil {
 
         // canonicalize, strict (error on double-encoding)
         try {
-            value = defaultWebEncoder.canonicalize(value, true);
+            value = canonicalize(value, true);
         } catch (IntrusionException e) {
             // NOTE: using different log and user targeted error messages to allow the end-user message to be less technical
             Debug.logError("Canonicalization (format consistency, character escaping that is mixed or double, etc) error for attribute named [" + valueName + "], String [" + value + "]: " + e.toString(), module);
@@ -648,21 +684,6 @@ public class StringUtil {
 
         // TODO: anything else to check for that can be used to get HTML or JavaScript going without these characters?
 
-        return value;
-    }
-
-    /**
-     * Uses a white-list approach to check for safe HTML.
-     * Based on the ESAPI validator configured in the antisamy-esapi.xml file.
-     *
-     * @param value
-     * @param errorMessageList
-     * @return String with updated value if needed for safer HTML.
-     */
-    public static String checkStringForHtmlSafeOnly(String valueName, String value, List<String> errorMessageList) {
-        ValidationErrorList vel = new ValidationErrorList();
-        value = defaultWebValidator.getValidSafeHTML(valueName, value, Integer.MAX_VALUE, true, vel);
-        errorMessageList.addAll(UtilGenerics.checkList(vel.errors(), String.class));
         return value;
     }
 

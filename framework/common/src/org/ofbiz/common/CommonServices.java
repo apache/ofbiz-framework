@@ -64,7 +64,6 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceSynchronization;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
-import org.owasp.esapi.errors.EncodingException;
 
 /**
  * Common Services
@@ -539,17 +538,15 @@ public class CommonServices {
     }
 
     public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
-        String name = (String) context.get("name");
-        try {
-            name = StringUtil.defaultWebEncoder.decodeFromURL(name);
-        } catch (EncodingException e) {
-            return ServiceUtil.returnError("Exception thrown while decoding metric name \"" + name + "\"");
+        String originalName = (String) context.get("name");
+        String name = StringUtil.getDecoder("url").decode(originalName);
+        if (name == null) {
+            return ServiceUtil.returnError("Exception thrown while decoding metric name \"" + originalName + "\"");
         }
         Metrics metric = MetricsFactory.getMetric(name);
         if (metric != null) {
             metric.reset();
             return ServiceUtil.returnSuccess();
-
         }
         return ServiceUtil.returnError("Metric \"" + name + "\" not found.");
     }

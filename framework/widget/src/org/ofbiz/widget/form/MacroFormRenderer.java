@@ -3088,7 +3088,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             parameters.append(parameter.getName());
             parameters.append("'");
             parameters.append(",'value':'");
-            parameters.append(StringUtil.htmlEncoder.encode(parameter.getValue(context)));
+            parameters.append(StringUtil.getEncoder("html").encode(parameter.getValue(context)));
             parameters.append("'}");
         }
         parameters.append("]");
