@@ -250,7 +250,7 @@ public class UtilHttp {
     public static String canonicalizeParameter(String paramValue) {
         try {
             /** calling canonicalize with strict flag set to false so we only get warnings about double encoding, etc; can be set to true for exceptions and more security */
-            String cannedStr = StringUtil.canonicalize(paramValue, false);
+            String cannedStr = UtilCodec.canonicalize(paramValue, false);
             if (Debug.verboseOn()) Debug.logVerbose("Canonicalized parameter with " + (cannedStr.equals(paramValue) ? "no " : "") + "change: original [" + paramValue + "] canned [" + cannedStr + "]", module);
             return cannedStr;
         } catch (Exception e) {
@@ -790,14 +790,14 @@ public class UtilHttp {
                                 buf.append("&");
                             }
                         }
-                        buf.append(StringUtil.getEncoder("url").encode(name));
+                        buf.append(UtilCodec.getEncoder("url").encode(name));
                         /* the old way: try {
                             buf.append(URLEncoder.encode(name, "UTF-8"));
                         } catch (UnsupportedEncodingException e) {
                             Debug.logError(e, module);
                         } */
                         buf.append('=');
-                        buf.append(StringUtil.getEncoder("url").encode(valueStr));
+                        buf.append(UtilCodec.getEncoder("url").encode(valueStr));
                         /* the old way: try {
                             buf.append(URLEncoder.encode(valueStr, "UTF-8"));
                         } catch (UnsupportedEncodingException e) {

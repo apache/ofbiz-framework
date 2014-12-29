@@ -34,6 +34,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -179,7 +180,7 @@ public class ProductsExportToEbay {
             Delegator delegator = dctx.getDelegator();
             String webSiteUrl = (String)context.get("webSiteUrl");
 
-            StringUtil.SimpleEncoder encoder = StringUtil.getEncoder("xml");
+            UtilCodec.SimpleEncoder encoder = UtilCodec.getEncoder("xml");
 
             // Get the list of products to be exported to eBay
             try {

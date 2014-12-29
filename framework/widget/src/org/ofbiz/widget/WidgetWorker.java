@@ -36,7 +36,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
@@ -71,7 +71,7 @@ public class WidgetWorker {
         // We may get an encoded request like: &#47;projectmgr&#47;control&#47;EditTaskContents&#63;workEffortId&#61;10003
         // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
         // This step make sure the following appending externalLoginKey operation to work correctly
-        localRequestName = StringUtil.canonicalize(localRequestName);
+        localRequestName = UtilCodec.canonicalize(localRequestName);
         Appendable localWriter = new StringWriter();
 
         if ("intra-app".equals(targetType)) {
@@ -143,7 +143,7 @@ public class WidgetWorker {
                 }
                 externalWriter.append(parameter.getKey());
                 externalWriter.append('=');
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null && parameterValue != null) {
                     externalWriter.append(simpleEncoder.encode(URLEncoder.encode(parameterValue, Charset.forName("UTF-8").displayName())));
                 } else {
@@ -300,7 +300,7 @@ public class WidgetWorker {
                 writer.append("<input name=\"");
                 writer.append(parameter.getKey());
                 writer.append("\" value=\"");
-                writer.append(StringUtil.getEncoder("html").encode(parameter.getValue()));
+                writer.append(UtilCodec.getEncoder("html").encode(parameter.getValue()));
                 writer.append("\" type=\"hidden\"/>");
             }
         }

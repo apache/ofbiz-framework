@@ -32,7 +32,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.bsf.BSFManager;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilTimer;
@@ -217,8 +217,7 @@ public class ControlServlet extends HttpServlet {
                 if (Debug.verboseOn()) Debug.logVerbose(throwable, module);
             } else {
                 Debug.logError(throwable, "Error in request handler: ", module);
-                StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
-                request.setAttribute("_ERROR_MESSAGE_", encoder.encode(throwable.toString()));
+                request.setAttribute("_ERROR_MESSAGE_", UtilCodec.getEncoder("html").encode(throwable.toString()));
                 errorPage = requestHandler.getDefaultErrorPage(request);
             }
          } catch (RequestHandlerExceptionAllowExternalRequests e) {
@@ -226,8 +225,7 @@ public class ControlServlet extends HttpServlet {
               Debug.logInfo("Going to external page: " + request.getPathInfo(), module);
         } catch (Exception e) {
             Debug.logError(e, "Error in request handler: ", module);
-            StringUtil.HtmlEncoder encoder = new StringUtil.HtmlEncoder();
-            request.setAttribute("_ERROR_MESSAGE_", encoder.encode(e.toString()));
+            request.setAttribute("_ERROR_MESSAGE_", UtilCodec.getEncoder("html").encode(e.toString()));
             errorPage = requestHandler.getDefaultErrorPage(request);
         }
 

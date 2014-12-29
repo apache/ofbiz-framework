@@ -40,6 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
@@ -75,7 +76,6 @@ import org.ofbiz.widget.form.ModelFormField.SubmitField;
 import org.ofbiz.widget.form.ModelFormField.TextField;
 import org.ofbiz.widget.form.ModelFormField.TextFindField;
 import org.ofbiz.widget.form.ModelFormField.TextareaField;
-import org.ofbiz.widget.form.ModelFormFieldBuilder;
 import org.ofbiz.widget.screen.ModelScreenWidget;
 
 import com.ibm.icu.util.Calendar;
@@ -93,7 +93,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     public static final String module = MacroFormRenderer.class.getName();
     private final Template macroLibrary;
     private final WeakHashMap<Appendable, Environment> environments = new WeakHashMap<Appendable, Environment>();
-    private final StringUtil.SimpleEncoder internalEncoder;
+    private final UtilCodec.SimpleEncoder internalEncoder;
     private final RequestHandler rh;
     private final HttpServletRequest request;
     private final HttpServletResponse response;
@@ -108,7 +108,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
-        internalEncoder = StringUtil.getEncoder("string");
+        internalEncoder = UtilCodec.getEncoder("string");
     }
 
     @Deprecated
@@ -158,7 +158,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
-        StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
         if (modelFormField.getEncodeOutput() && encoder != null) {
             value = encoder.encode(value);
         } else {
@@ -3088,7 +3088,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             parameters.append(parameter.getName());
             parameters.append("'");
             parameters.append(",'value':'");
-            parameters.append(StringUtil.getEncoder("html").encode(parameter.getValue(context)));
+            parameters.append(UtilCodec.getEncoder("html").encode(parameter.getValue(context)));
             parameters.append("'}");
         }
         parameters.append("]");

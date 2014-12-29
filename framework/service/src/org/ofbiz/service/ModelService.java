@@ -63,7 +63,7 @@ import org.ofbiz.base.metrics.Metrics;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -584,7 +584,7 @@ public class ModelService extends AbstractMap<String, Object> implements Seriali
                 if (context.get(modelParam.name) != null && ("String".equals(modelParam.type) || "java.lang.String".equals(modelParam.type)) 
                         && !"any".equals(modelParam.allowHtml) && ("INOUT".equals(modelParam.mode) || "IN".equals(modelParam.mode))) {
                     String value = (String) context.get(modelParam.name);
-                    StringUtil.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
+                    UtilCodec.checkStringForHtmlStrictNone(modelParam.name, value, errorMessageList);
                 }
             }
             if (errorMessageList.size() > 0) {

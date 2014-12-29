@@ -30,6 +30,7 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -88,7 +89,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
         @Override
         public String getAsString() {
-            return StringUtil.getEncoder("html").encode(super.getAsString());
+            return UtilCodec.getEncoder("html").encode(super.getAsString());
         }
     }
 
@@ -100,7 +101,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
         @Override
         public String getAsString() {
-            return StringUtil.getEncoder("html").encode(super.getAsString());
+            return UtilCodec.getEncoder("html").encode(super.getAsString());
         }
 
     }
