@@ -34,15 +34,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
@@ -607,7 +606,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getTitle(Map<String, Object> context) {
             String title = this.titleExdr.expandString(context);
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 title = simpleEncoder.encode(title);
             }
@@ -893,7 +892,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getText(Map<String, Object> context) {
             String text = this.textExdr.expandString(context);
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 text = simpleEncoder.encode(text);
             }
@@ -1470,7 +1469,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getText(Map<String, Object> context) {
             String text = this.textExdr.expandString(context);
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 text = simpleEncoder.encode(text);
             }
@@ -1487,9 +1486,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getTarget(Map<String, Object> context) {
             Map<String, Object> expanderContext = context;
-            StringUtil.SimpleEncoder simpleEncoder = context == null ? null : (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = context == null ? null : (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
-                expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
+                expanderContext = UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
             }
             return this.targetExdr.expandString(expanderContext);
         }
@@ -1632,7 +1631,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getAlt(Map<String, Object> context) {
             String alt = this.alt.expandString(context);
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 alt = simpleEncoder.encode(alt);
             }

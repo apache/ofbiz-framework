@@ -23,9 +23,14 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/test-suite.xsd">
     <test-group case-name="basetests">
         <junit-test-suite class-name="org.ofbiz.base.lang.test.ComparableRangeTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.test.AssertTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.IndentingWriterTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.ObjectTypeTests"/>
+        <!--junit-test-suite class-name="org.ofbiz.base.util.test.ReferenceCleanerTests"/-->
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilObjectTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.test.StringUtilTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilHttpTests"/>
+        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilCodecTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.string.test.FlexibleStringExpanderTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.collections.test.FlexibleMapAccessorTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.TimeDurationTests"/>

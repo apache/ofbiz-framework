@@ -31,8 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
-import org.ofbiz.base.util.StringUtil.SimpleEncoder;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
@@ -90,7 +89,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     protected String lastFieldGroupId = "";
     protected boolean renderPagination = true;
     protected boolean javaScriptEnabled = false;
-    private SimpleEncoder internalEncoder;
+    private UtilCodec.SimpleEncoder internalEncoder;
 
     protected HtmlFormRenderer() {}
 
@@ -100,7 +99,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         this.rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
         this.javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
-        internalEncoder = StringUtil.getEncoder("string");
+        internalEncoder = UtilCodec.getEncoder("string");
     }
 
     public boolean getRenderPagination() {
@@ -362,7 +361,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (UtilValidate.isEmpty(value)) {
             return value;
         }
-        StringUtil.SimpleEncoder encoder = (StringUtil.SimpleEncoder)context.get("simpleEncoder");
+        UtilCodec.SimpleEncoder encoder = (UtilCodec.SimpleEncoder)context.get("simpleEncoder");
         if (modelFormField.getEncodeOutput() && encoder != null) {
             value = encoder.encode(value);
         } else {

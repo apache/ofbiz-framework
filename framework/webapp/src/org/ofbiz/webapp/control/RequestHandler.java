@@ -40,6 +40,7 @@ import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.SSLUtil;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
@@ -1115,11 +1116,11 @@ public class RequestHandler {
             if (queryString.length() > 1) {
                 queryString.append("&");
             }
-            String encodedName = StringUtil.getEncoder("url").encode(name);
+            String encodedName = UtilCodec.getEncoder("url").encode(name);
             if (encodedName != null) {
                 queryString.append(encodedName);
                 queryString.append("=");
-                queryString.append(StringUtil.getEncoder("url").encode(value));
+                queryString.append(UtilCodec.getEncoder("url").encode(value));
             }
         }
     }

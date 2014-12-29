@@ -32,7 +32,7 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.fop.apps.Fop;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -82,7 +82,7 @@ public class ScreenFopViewHandler extends AbstractViewHandler {
 
             // this is the object used to render forms from their definitions
             screens.getContext().put("formStringRenderer", formStringRenderer);
-            screens.getContext().put("simpleEncoder", StringUtil.getEncoder(EntityUtilProperties.getPropertyValue("widget", getName() + ".encoder", delegator)));
+            screens.getContext().put("simpleEncoder", UtilCodec.getEncoder(EntityUtilProperties.getPropertyValue("widget", getName() + ".encoder", delegator)));
             screens.render(page);
         } catch (Exception e) {
             renderError("Problems with the response writer/output stream", e, "[Not Yet Rendered]", request, response);

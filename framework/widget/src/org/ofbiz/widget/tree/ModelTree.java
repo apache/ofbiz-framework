@@ -35,10 +35,10 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
@@ -782,7 +782,7 @@ public class ModelTree extends ModelWidget {
 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     text = simpleEncoder.encode(text);
                 }
@@ -886,7 +886,7 @@ public class ModelTree extends ModelWidget {
 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     text = simpleEncoder.encode(text);
                 }
@@ -906,7 +906,7 @@ public class ModelTree extends ModelWidget {
             }
             public String getTitle(Map<String, Object> context) {
                 String title = this.titleExdr.expandString(context);
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     title = simpleEncoder.encode(title);
                 }
@@ -914,9 +914,9 @@ public class ModelTree extends ModelWidget {
             }
 
             public String getTarget(Map<String, Object> context) {
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
-                    return this.targetExdr.expandString(StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder));
+                    return this.targetExdr.expandString(UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder));
                 } else {
                     return this.targetExdr.expandString(context);
                 }

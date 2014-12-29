@@ -46,7 +46,7 @@ import javax.mail.internet.MimeMessage;
 import org.ofbiz.base.metrics.Metrics;
 import org.ofbiz.base.metrics.MetricsFactory;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -539,7 +539,7 @@ public class CommonServices {
 
     public static Map<String, Object> resetMetric(DispatchContext dctx, Map<String, ?> context) {
         String originalName = (String) context.get("name");
-        String name = StringUtil.getDecoder("url").decode(originalName);
+        String name = UtilCodec.getDecoder("url").decode(originalName);
         if (name == null) {
             return ServiceUtil.returnError("Exception thrown while decoding metric name \"" + originalName + "\"");
         }

@@ -47,6 +47,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -687,7 +688,7 @@ public class FreeMarkerWorker {
             te.printStackTrace(pw);
             String stackTrace = tempWriter.toString();
 
-            StringUtil.SimpleEncoder simpleEncoder = FreeMarkerWorker.getWrappedObject("simpleEncoder", env);
+            UtilCodec.SimpleEncoder simpleEncoder = FreeMarkerWorker.getWrappedObject("simpleEncoder", env);
             if (simpleEncoder != null) {
                 stackTrace = simpleEncoder.encode(stackTrace);
             }

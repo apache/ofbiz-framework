@@ -31,7 +31,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.common.UrlServletHelper;
@@ -117,7 +117,7 @@ public class ContentUrlFilter extends ContextFilter {
                     .queryFirst();
             if (contentAssocDataResource != null) {
                 url = contentAssocDataResource.getString("drObjectInfo");
-                url = StringUtil.getDecoder("url").decode(url);
+                url = UtilCodec.getDecoder("url").decode(url);
                 String mountPoint = request.getContextPath();
                 if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
                     url = mountPoint + url;

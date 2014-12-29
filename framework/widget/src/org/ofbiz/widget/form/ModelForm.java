@@ -34,6 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -1515,9 +1516,9 @@ public class ModelForm extends ModelWidget {
      */
     public String getTarget(Map<String, Object> context, String targetType) {
         Map<String, Object> expanderContext = context;
-        StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
         if (simpleEncoder != null) {
-            expanderContext = StringUtil.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
+            expanderContext = UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
         }
         try {
             // use the same Interpreter (ie with the same context setup) for all evals

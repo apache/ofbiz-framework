@@ -42,6 +42,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
@@ -343,7 +344,7 @@ public class ModelFormField {
         }
 
         if (this.getEncodeOutput() && returnValue != null) {
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null)
                 returnValue = simpleEncoder.encode(returnValue);
         }
@@ -602,7 +603,7 @@ public class ModelFormField {
         if (UtilValidate.isNotEmpty(tooltip))
             tooltipString = tooltip.expandString(context);
         if (this.getEncodeOutput()) {
-            StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null)
                 tooltipString = simpleEncoder.encode(tooltipString);
         }
@@ -1489,7 +1490,7 @@ public class ModelFormField {
                 }
             }
             if (UtilValidate.isNotEmpty(this.description) && retVal != null && this.getModelFormField().getEncodeOutput()) {
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     retVal = simpleEncoder.encode(retVal);
                 }
@@ -2067,7 +2068,7 @@ public class ModelFormField {
         public String getValue(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.value)) {
                 String valueEnc = this.value.expandString(context);
-                StringUtil.SimpleEncoder simpleEncoder = (StringUtil.SimpleEncoder) context.get("simpleEncoder");
+                UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     valueEnc = simpleEncoder.encode(valueEnc);
                 }

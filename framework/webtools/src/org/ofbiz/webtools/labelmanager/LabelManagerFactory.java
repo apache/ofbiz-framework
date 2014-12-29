@@ -37,7 +37,7 @@ import org.ofbiz.base.component.ComponentConfig.ClasspathInfo;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Comment;
@@ -123,7 +123,7 @@ public class LabelManagerFactory {
             for (Node propertyNode : UtilXml.childNodeList(resourceElem.getFirstChild())) {
                 if (propertyNode instanceof Element) {
                     Element propertyElem = (Element) propertyNode;
-                    String labelKey = StringUtil.canonicalize(propertyElem.getAttribute("key"));
+                    String labelKey = UtilCodec.canonicalize(propertyElem.getAttribute("key"));
                     String labelComment = "";
                     for (Node valueNode : UtilXml.childNodeList(propertyElem.getFirstChild())) {
                         if (valueNode instanceof Element) {
@@ -134,7 +134,7 @@ public class LabelManagerFactory {
                             if( localeName.contains("_")) {
                                 localeName = localeName.replace('_', '-');
                             }
-                            String labelValue = StringUtil.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
+                            String labelValue = UtilCodec.canonicalize(UtilXml.nodeValue(valueElem.getFirstChild()));
                             LabelInfo label = labels.get(labelKey + keySeparator + fileInfo.getFileName());
 
                             if (UtilValidate.isEmpty(label)) {
@@ -148,12 +148,12 @@ public class LabelManagerFactory {
                             localesFound.add(localeName);
                             labelComment = "";
                         } else if (valueNode instanceof Comment) {
-                            labelComment = labelComment + StringUtil.canonicalize(valueNode.getNodeValue());
+                            labelComment = labelComment + UtilCodec.canonicalize(valueNode.getNodeValue());
                         }
                     }
                     labelKeyComment = "";
                 } else if (propertyNode instanceof Comment) {
-                    labelKeyComment = labelKeyComment + StringUtil.canonicalize(propertyNode.getNodeValue());
+                    labelKeyComment = labelKeyComment + UtilCodec.canonicalize(propertyNode.getNodeValue());
                 }
             }
         }
