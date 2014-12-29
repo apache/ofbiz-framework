@@ -88,7 +88,7 @@ public class HtmlWidget extends ModelScreenWidget {
         }
         @Override
         public String getAsString() {
-            return StringUtil.htmlEncoder.encode(super.getAsString());
+            return StringUtil.getEncoder("html").encode(super.getAsString());
         }
     }
 
@@ -100,7 +100,7 @@ public class HtmlWidget extends ModelScreenWidget {
 
         @Override
         public String getAsString() {
-            return StringUtil.htmlEncoder.encode(super.getAsString());
+            return StringUtil.getEncoder("html").encode(super.getAsString());
         }
 
     }

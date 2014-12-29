@@ -39,7 +39,6 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.webapp.control.ContextFilter;
-import org.owasp.esapi.errors.EncodingException;
 
 public class ContentUrlFilter extends ContextFilter {
     public final static String module = ContentUrlFilter.class.getName();
@@ -118,14 +117,10 @@ public class ContentUrlFilter extends ContextFilter {
                     .queryFirst();
             if (contentAssocDataResource != null) {
                 url = contentAssocDataResource.getString("drObjectInfo");
-                try {
-                    url = StringUtil.defaultWebEncoder.decodeFromURL(url);
-                    String mountPoint = request.getContextPath();
-                    if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
-                        url = mountPoint + url;
-                    }
-                } catch (EncodingException e) {
-                    Debug.logError(e, module);
+                url = StringUtil.getDecoder("url").decode(url);
+                String mountPoint = request.getContextPath();
+                if (!(mountPoint.equals("/")) && !(mountPoint.equals(""))) {
+                    url = mountPoint + url;
                 }
             }
         } catch (Exception e) {

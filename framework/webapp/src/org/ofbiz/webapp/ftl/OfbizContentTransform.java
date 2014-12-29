@@ -28,7 +28,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.owasp.esapi.errors.EncodingException;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -93,11 +92,7 @@ public class OfbizContentTransform implements TemplateTransformModel {
                         return;
                     }
 
-                    try {
-                        requestUrl = StringUtil.defaultWebEncoder.decodeFromURL(requestUrl);
-                    } catch (EncodingException e) {
-                        Debug.logError(e, module);
-                    }
+                    requestUrl = StringUtil.getDecoder("url").decode(requestUrl);
 
                     // make the link
                     StringBuilder newURL = new StringBuilder();

@@ -62,7 +62,6 @@ import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteProperties;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.owasp.esapi.errors.EncodingException;
 import org.python.modules.re;
 
 /**
@@ -1116,13 +1115,11 @@ public class RequestHandler {
             if (queryString.length() > 1) {
                 queryString.append("&");
             }
-
-            try {
-                queryString.append(StringUtil.defaultWebEncoder.encodeForURL(name));
+            String encodedName = StringUtil.getEncoder("url").encode(name);
+            if (encodedName != null) {
+                queryString.append(encodedName);
                 queryString.append("=");
-                queryString.append(StringUtil.defaultWebEncoder.encodeForURL(value));
-            } catch (EncodingException e) {
-                Debug.logError(e, module);
+                queryString.append(StringUtil.getEncoder("url").encode(value));
             }
         }
     }

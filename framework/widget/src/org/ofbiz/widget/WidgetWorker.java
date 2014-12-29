@@ -71,7 +71,7 @@ public class WidgetWorker {
         // We may get an encoded request like: &#47;projectmgr&#47;control&#47;EditTaskContents&#63;workEffortId&#61;10003
         // Try to reducing a possibly encoded string down to its simplest form: /projectmgr/control/EditTaskContents?workEffortId=10003
         // This step make sure the following appending externalLoginKey operation to work correctly
-        localRequestName = StringUtil.defaultWebEncoder.canonicalize(localRequestName);
+        localRequestName = StringUtil.canonicalize(localRequestName);
         Appendable localWriter = new StringWriter();
 
         if ("intra-app".equals(targetType)) {
@@ -300,7 +300,7 @@ public class WidgetWorker {
                 writer.append("<input name=\"");
                 writer.append(parameter.getKey());
                 writer.append("\" value=\"");
-                writer.append(StringUtil.htmlEncoder.encode(parameter.getValue()));
+                writer.append(StringUtil.getEncoder("html").encode(parameter.getValue()));
                 writer.append("\" type=\"hidden\"/>");
             }
         }
