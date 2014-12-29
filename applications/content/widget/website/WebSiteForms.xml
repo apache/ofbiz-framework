@@ -153,7 +153,7 @@ under the License.
             <sort-field name="deleteLink"/>
         </sort-order>
     </form>
-    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title="" default-map-name="webSite"
+    <form name="CreateWebSiteContent" type="single" target="CreateWebSiteContent" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-service service-name="createWebSiteContent"/>
         <field name="webSiteId" map-name="webSite"><display also-hidden="true"/></field>
