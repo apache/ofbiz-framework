@@ -14,7 +14,6 @@
     <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant-junit.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant-1.9.0-ant-launcher.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ant/ant-1.9.0-ant-apache-bsf.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/antisamy-bin.1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/batik-all-1.7.jar"/>
@@ -42,7 +41,7 @@
     <classpathentry kind="lib" path="framework/base/lib/log4j-api-2.0.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mail-1.5.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/nekohtml-1.9.16.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/owasp-esapi-full-java-1.4-patched-by-OFBIZ-3135.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/resolver-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/serializer-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/slf4j-api-1.6.4.jar"/>

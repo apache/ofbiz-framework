@@ -18,24 +18,41 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-import org.owasp.esapi.errors.IntrusionException;
-import org.owasp.esapi.reference.DefaultEncoder;
+import org.owasp.esapi.codecs.Codec;
+import org.owasp.esapi.codecs.HTMLEntityCodec;
+import org.owasp.esapi.codecs.PercentCodec;
+import org.owasp.esapi.codecs.XMLEntityCodec;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 public class UtilCodec {
     private static final String module = UtilCodec.class.getName();
-    private static final DefaultEncoder defaultWebEncoder = new DefaultEncoder();
     private static final HtmlEncoder htmlEncoder = new HtmlEncoder();
     private static final XmlEncoder xmlEncoder = new XmlEncoder();
     private static final StringEncoder stringEncoder = new StringEncoder();
-    private static final UrlCodec urlEncoder = new UrlCodec();
+    private static final UrlCodec urlCodec = new UrlCodec();
+    private static final List<Codec> codecs;
+    static {
+        List<Codec> tmpCodecs = new ArrayList<Codec>();
+        tmpCodecs.add(new HTMLEntityCodec());
+        tmpCodecs.add(new PercentCodec());
+        codecs = Collections.unmodifiableList(tmpCodecs);
+    }
+
+    public static class IntrusionException extends GeneralRuntimeException {
+        public IntrusionException(String message) {
+            super(message);
+        }
+    }
 
     public static interface SimpleEncoder {
         public String encode(String original);
@@ -46,14 +63,24 @@ public class UtilCodec {
     }
 
     public static class HtmlEncoder implements SimpleEncoder {
+        private static final char[] IMMUNE_HTML = {',', '.', '-', '_', ' '};
+        private HTMLEntityCodec htmlCodec = new HTMLEntityCodec();
         public String encode(String original) {
-            return defaultWebEncoder.encodeForHTML(original);
+            if (original == null) {
+       	    	return null;
+       	    }
+       	    return htmlCodec.encode(IMMUNE_HTML, original);
         }
     }
 
     public static class XmlEncoder implements SimpleEncoder {
+        private static final char[] IMMUNE_XML = {',', '.', '-', '_', ' '};
+        private XMLEntityCodec xmlCodec = new XMLEntityCodec();
         public String encode(String original) {
-            return defaultWebEncoder.encodeForXML(original);
+            if (original == null) {
+       	    	return null;
+       	    }
+       	    return xmlCodec.encode(IMMUNE_XML, original);
         }
     }
 
@@ -91,7 +118,7 @@ public class UtilCodec {
 
     public static SimpleEncoder getEncoder(String type) {
         if ("url".equals(type)) {
-            return urlEncoder;
+            return urlCodec;
         } else if ("xml".equals(type)) {
             return xmlEncoder;
         } else if ("html".equals(type)) {
@@ -105,18 +132,73 @@ public class UtilCodec {
 
     public static SimpleDecoder getDecoder(String type) {
         if ("url".equals(type)) {
-            return urlEncoder;
+            return urlCodec;
         } else {
             return null;
         }
     }
 
     public static String canonicalize(String value) throws IntrusionException {
-        return defaultWebEncoder.canonicalize(value);
+        return canonicalize(value, true, true);
     }
 
     public static String canonicalize(String value, boolean strict) throws IntrusionException {
-        return defaultWebEncoder.canonicalize(value, strict);
+        return canonicalize(value, strict, strict);
+    }
+
+    public static String canonicalize(String input, boolean restrictMultiple, boolean restrictMixed) {
+        if (input == null) {
+            return null;
+        }
+
+        String working = input;
+        Codec codecFound = null;
+        int mixedCount = 1;
+        int foundCount = 0;
+        boolean clean = false;
+        while (!clean) {
+            clean = true;
+
+            // try each codec and keep track of which ones work
+            Iterator i = codecs.iterator();
+            while (i.hasNext()) {
+                Codec codec = (Codec) i.next();
+                String old = working;
+                working = codec.decode(working);
+                if (!old.equals(working)) {
+                    if (codecFound != null && codecFound != codec) {
+                        mixedCount++;
+                    }
+                    codecFound = codec;
+                    if (clean) {
+                        foundCount++;
+                    }
+                    clean = false;
+                }
+            }
+        }
+
+        // do strict tests and handle if any mixed, multiple, nested encoding were found
+        if (foundCount >= 2 && mixedCount > 1) {
+            if (restrictMultiple || restrictMixed) {
+                throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Multiple (" + foundCount + "x) and mixed encoding (" + mixedCount + "x) detected in " + input, module);
+            }
+        } else if (foundCount >= 2) {
+            if (restrictMultiple) {
+                throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Multiple (" + foundCount + "x) encoding detected in " + input, module);
+            }
+        } else if (mixedCount > 1) {
+            if (restrictMixed) {
+                throw new IntrusionException("Input validation failure");
+            } else {
+                Debug.logWarning("Mixed encoding (" + mixedCount + "x) detected in " + input, module);
+            }
+        }
+        return working;
     }
 
     /**
@@ -211,7 +293,7 @@ public class UtilCodec {
                 if (this.encoder != null) {
                     return encoder.encode((String) theObject);
                 } else {
-                    return defaultWebEncoder.encodeForHTML((String) theObject);
+                    return UtilCodec.getEncoder("html").encode((String) theObject);
                 }
             } else if (theObject instanceof Map<?, ?>) {
                 return HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(UtilGenerics.<K, Object>checkMap(theObject), this.encoder);
