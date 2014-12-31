@@ -437,7 +437,6 @@ The JDOM License
 The following libraries distributed with Apache OFBiz are licensed under the
 BSD License:
 applications/content/lib/dom4j-1.6.1.jar
-framework/base/lib/antisamy-bin.1.2.jar
 framework/base/lib/bsh-engine-modified.jar
 framework/base/lib/hamcrest-all-1.2.jar
 framework/base/lib/httpunit-1.7.jar
@@ -445,7 +444,7 @@ framework/base/lib/ical4j-1.0-rc2.jar
 framework/base/lib/javolution-5.4.3.jar
 framework/base/lib/xpp3-1.1.4c.jar
 framework/base/lib/xstream-1.4.6.jar
-framework/base/lib/owasp-esapi-full-java-1.4.jar
+framework/base/lib/esapi-2.1.0.jar
 framework/base/lib/scripting/antlr-2.7.6.jar
 framework/base/lib/scripting/asm-3.2.jar
 framework/base/lib/scripting/jline-0.9.94.jar
