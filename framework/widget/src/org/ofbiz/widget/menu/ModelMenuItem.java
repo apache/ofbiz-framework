@@ -20,8 +20,8 @@ package org.ofbiz.widget.menu;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,9 +29,7 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -42,115 +40,105 @@ import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.PortalPageWorker;
-import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.WidgetWorker.AutoEntityParameters;
+import org.ofbiz.widget.WidgetWorker.AutoServiceParameters;
+import org.ofbiz.widget.WidgetWorker.Parameter;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 /**
- * Widget Library - Form model class
+ * Models the &lt;menu-item&gt; element.
+ * 
+ * @see <code>widget-menu.xsd</code>
  */
 @SuppressWarnings("serial")
 public class ModelMenuItem extends ModelWidget {
 
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
+
     public static final String module = ModelMenuItem.class.getName();
 
-    protected List<ModelWidgetAction> actions;
-    protected String align;
-    protected String alignStyle;
-    protected FlexibleStringExpander associatedContentId;
-    protected String cellWidth;
-    protected ModelMenuCondition condition;
-    protected Map<String, Object> dataMap = new HashMap<String, Object>();
-    protected boolean disabled = false;
-    protected String disabledTitleStyle;
-    protected String disableIfEmpty;
-    protected String entityName;
-    protected Boolean hasPermission;
-    protected Boolean hideIfSelected;
-    protected Link link;
-    /** This List will contain one copy of each item for each item name in the order
-     * they were encountered in the service, entity, or menu definition; item definitions
-     * with constraints will also be in this list but may appear multiple times for the same
-     * item name.
-     *
-     * When rendering the menu the order in this list should be following and it should not be
-     * necessary to use the Map. The Map is used when loading the menu definition to keep the
-     * list clean and implement the override features for item definitions.
-     */
-    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
-    /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
-     * with conditions will not be put in this Map so item definition overrides for items
-     * with conditions is not possible.
-     */
-    protected Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
-    protected ModelMenu modelMenu;
-    protected String overrideName = null;
-    protected ModelMenuItem parentMenuItem;
-    protected FlexibleStringExpander parentPortalPageId;
-    protected Integer position = null;
-    protected String selectedStyle;
-    protected ModelMenu subMenu;
-    protected FlexibleStringExpander title;
-    protected String titleStyle;
-    protected FlexibleStringExpander tooltip;
-    protected String tooltipStyle;
-    protected String widgetStyle;
+    private final List<ModelWidgetAction> actions;
+    private final String align;
+    private final String alignStyle;
+    private final FlexibleStringExpander associatedContentId;
+    private final String cellWidth;
+    private final ModelMenuCondition condition;
+    private final String disabledTitleStyle;
+    private final String disableIfEmpty;
+    private final String entityName;
+    private final Boolean hideIfSelected;
+    private final Link link;
+    private final List<ModelMenuItem> menuItemList;
+    private final ModelMenu modelMenu;
+    private final String overrideName;
+    private final ModelMenuItem parentMenuItem;
+    private final FlexibleStringExpander parentPortalPageId;
+    private final Integer position;
+    private final String selectedStyle;
+    private final ModelMenu subMenu;
+    private final FlexibleStringExpander title;
+    private final String titleStyle;
+    private final FlexibleStringExpander tooltip;
+    private final String tooltipStyle;
+    private final String widgetStyle;
 
     // ===== CONSTRUCTORS =====
-    public ModelMenuItem(String name) {
-        super(name);
-    }
-
-    public ModelMenuItem(Element menuItemElement) {
-        super(menuItemElement);
-        loadMenuItem(menuItemElement);
-    }
 
     public ModelMenuItem(Element menuItemElement, ModelMenu modelMenu) {
-        super(menuItemElement);
-        loadMenuItem(menuItemElement, modelMenu);
+        this(menuItemElement, modelMenu, null);
     }
 
-    public ModelMenuItem(Element menuItemElement, ModelMenuItem modelMenuItem) {
+    private ModelMenuItem(Element menuItemElement, ModelMenu modelMenu, ModelMenuItem parentMenuItem) {
         super(menuItemElement);
-        parentMenuItem = modelMenuItem;
-        loadMenuItem(menuItemElement, modelMenuItem.getModelMenu());
-    }
-
-    private void loadMenuItem(Element menuItemElement, ModelMenu modelMenu) {
         this.modelMenu = modelMenu;
-        loadMenuItem(menuItemElement);
-    }
-
-    private void loadMenuItem(Element menuItemElement) {
+        this.parentMenuItem = parentMenuItem;
         this.entityName = menuItemElement.getAttribute("entity-name");
-        this.setTitle(menuItemElement.getAttribute("title"));
-        this.setTooltip(menuItemElement.getAttribute("tooltip"));
-        this.setParentPortalPageId(menuItemElement.getAttribute("parent-portal-page-value"));
+        this.title = FlexibleStringExpander.getInstance(menuItemElement.getAttribute("title"));
+        this.tooltip = FlexibleStringExpander.getInstance(menuItemElement.getAttribute("tooltip"));
+        this.parentPortalPageId = FlexibleStringExpander.getInstance(menuItemElement.getAttribute("parent-portal-page-value"));
         this.titleStyle = menuItemElement.getAttribute("title-style");
         this.disabledTitleStyle = menuItemElement.getAttribute("disabled-title-style");
         this.widgetStyle = menuItemElement.getAttribute("widget-style");
         this.tooltipStyle = menuItemElement.getAttribute("tooltip-style");
         this.selectedStyle = menuItemElement.getAttribute("selected-style");
-        this.setHideIfSelected(menuItemElement.getAttribute("hide-if-selected"));
+        String hideIfSelected = menuItemElement.getAttribute("hide-if-selected");
+        if (!hideIfSelected.isEmpty())
+            if (hideIfSelected.equalsIgnoreCase("true"))
+                this.hideIfSelected = Boolean.TRUE;
+            else
+                this.hideIfSelected = Boolean.FALSE;
+        else
+            this.hideIfSelected = null;
         this.disableIfEmpty = menuItemElement.getAttribute("disable-if-empty");
         this.align = menuItemElement.getAttribute("align");
         this.alignStyle = menuItemElement.getAttribute("align-style");
+        Integer position = null;
         String positionStr = menuItemElement.getAttribute("position");
-        try {
-            if (UtilValidate.isNotEmpty(positionStr)) {
+        if (!positionStr.isEmpty()) {
+            try {
                 position = Integer.valueOf(positionStr);
+            } catch (Exception e) {
+                Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" + positionStr
+                        + "], using the default of the menu renderer", module);
+                position = null;
             }
-        } catch (Exception e) {
-            Debug.logError(e, "Could not convert position attribute of the field element to an integer: [" +
-                    positionStr + "], using the default of the menu renderer", module);
         }
-
-        this.setAssociatedContentId(menuItemElement.getAttribute("associated-content-id"));
+        this.position = position;
+        this.associatedContentId = FlexibleStringExpander.getInstance(menuItemElement.getAttribute("associated-content-id"));
         this.cellWidth = menuItemElement.getAttribute("cell-width");
-
-        dataMap.put("name", getName());
-
         Element subMenuElement = UtilXml.firstChildElement(menuItemElement, "sub-menu");
         if (subMenuElement != null) {
             String subMenuLocation = subMenuElement.getAttribute("location");
@@ -170,179 +158,167 @@ public class ModelMenuItem extends ModelWidget {
                 Debug.logError(e3, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
+        } else {
+            this.subMenu = null;
         }
-
         Element linkElement = UtilXml.firstChildElement(menuItemElement, "link");
         if (linkElement != null) {
-            link = new Link(linkElement, this);
+            this.link = new Link(linkElement, this);
+        } else {
+            this.link = null;
         }
-
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
         List<? extends Element> itemElements = UtilXml.childElementList(menuItemElement, "menu-item");
-        for (Element itemElement: itemElements) {
-            ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-            modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
+        if (!itemElements.isEmpty()) {
+            ArrayList<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
+            Map<String, ModelMenuItem> menuItemMap = new HashMap<String, ModelMenuItem>();
+            for (Element itemElement : itemElements) {
+                ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, modelMenu, this);
+                addUpdateMenuItem(modelMenuItem, menuItemList, menuItemMap);
+            }
+            menuItemList.trimToSize();
+            this.menuItemList = Collections.unmodifiableList(menuItemList);
+        } else {
+            this.menuItemList = Collections.emptyList();
         }
         // read condition under the "condition" element
         Element conditionElement = UtilXml.firstChildElement(menuItemElement, "condition");
         if (conditionElement != null) {
             this.condition = new ModelMenuCondition(this, conditionElement);
+        } else {
+            this.condition = null;
         }
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(conditionElement, "actions");
         if (actionsElement != null) {
             this.actions = ModelWidgetAction.readSubActions(this, actionsElement);
-        }
-
-    }
-
-    public ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem) {
-
-        // not a conditional item, see if a named item exists in Map
-        ModelMenuItem existingMenuItem = this.menuItemMap.get(modelMenuItem.getName());
-        if (existingMenuItem != null) {
-            // does exist, update the item by doing a merge/override
-            existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
-            return existingMenuItem;
         } else {
-            // does not exist, add to List and Map
-            this.menuItemList.add(modelMenuItem);
-            this.menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
-            return modelMenuItem;
+            this.actions = Collections.emptyList();
         }
+        this.overrideName = "";
     }
 
-    public List<ModelMenuItem> getMenuItemList() {
-        return menuItemList;
+    // Portal constructor
+    private ModelMenuItem(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
+        super(portalPage.getString("portalPageId"));
+        this.actions = Collections.emptyList();
+        this.align = "";
+        this.alignStyle = "";
+        this.associatedContentId = FlexibleStringExpander.getInstance("");
+        this.cellWidth = "";
+        this.condition = null;
+        this.disabledTitleStyle = "";
+        this.disableIfEmpty = "";
+        this.entityName = "";
+        this.hideIfSelected = null;
+        this.menuItemList = Collections.emptyList();
+        this.overrideName = "";
+        this.parentMenuItem = null;
+        this.parentPortalPageId = FlexibleStringExpander.getInstance(portalPage.getString("parentPortalPageId"));
+        this.position = null;
+        this.selectedStyle = "";
+        this.subMenu = null;
+        this.title = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
+        this.titleStyle = "";
+        this.tooltip = FlexibleStringExpander.getInstance("");
+        this.tooltipStyle = "";
+        this.widgetStyle = "";
+        this.link = new Link(portalPage, parentMenuItem, locale);
+        this.modelMenu = parentMenuItem.modelMenu;
     }
 
-    public void setHideIfSelected(String val) {
-        if (UtilValidate.isNotEmpty(val))
-            if (val.equalsIgnoreCase("true"))
-                hideIfSelected = Boolean.TRUE;
-            else
-                hideIfSelected = Boolean.FALSE;
-        else
-            hideIfSelected = null;
-
-    }
-
-    public void setDisabled(boolean val) {
-         this.disabled = val;
-    }
-
-    public boolean getDisabled() {
-         return this.disabled;
+    // Merge constructor
+    private ModelMenuItem(ModelMenuItem existingMenuItem, ModelMenuItem overrideMenuItem) {
+        super(existingMenuItem.getName());
+        this.modelMenu = existingMenuItem.modelMenu;
+        if (UtilValidate.isNotEmpty(overrideMenuItem.getName())) {
+            this.overrideName = overrideMenuItem.getName();
+        } else {
+            this.overrideName = existingMenuItem.getName();
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.entityName)) {
+            this.entityName = overrideMenuItem.entityName;
+        } else {
+            this.entityName = existingMenuItem.entityName;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.parentPortalPageId)) {
+            this.parentPortalPageId = overrideMenuItem.parentPortalPageId;
+        } else {
+            this.parentPortalPageId = existingMenuItem.parentPortalPageId;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.title)) {
+            this.title = overrideMenuItem.title;
+        } else {
+            this.title = existingMenuItem.title;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.tooltip)) {
+            this.tooltip = overrideMenuItem.tooltip;
+        } else {
+            this.tooltip = existingMenuItem.tooltip;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.titleStyle)) {
+            this.titleStyle = overrideMenuItem.titleStyle;
+        } else {
+            this.titleStyle = existingMenuItem.titleStyle;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.selectedStyle)) {
+            this.selectedStyle = overrideMenuItem.selectedStyle;
+        } else {
+            this.selectedStyle = existingMenuItem.selectedStyle;
+        }
+        if (UtilValidate.isNotEmpty(overrideMenuItem.widgetStyle)) {
+            this.widgetStyle = overrideMenuItem.widgetStyle;
+        } else {
+            this.widgetStyle = existingMenuItem.widgetStyle;
+        }
+        if (overrideMenuItem.position != null) {
+            this.position = overrideMenuItem.position;
+        } else {
+            this.position = existingMenuItem.position;
+        }
+        this.actions = existingMenuItem.actions;
+        this.align = existingMenuItem.align;
+        this.alignStyle = existingMenuItem.alignStyle;
+        this.associatedContentId = existingMenuItem.associatedContentId;
+        this.cellWidth = existingMenuItem.cellWidth;
+        this.condition = existingMenuItem.condition;
+        this.disabledTitleStyle = existingMenuItem.disabledTitleStyle;
+        this.disableIfEmpty = existingMenuItem.disableIfEmpty;
+        this.hideIfSelected = existingMenuItem.hideIfSelected;
+        this.menuItemList = existingMenuItem.menuItemList;
+        this.parentMenuItem = existingMenuItem.parentMenuItem;
+        this.subMenu = existingMenuItem.subMenu;
+        this.tooltipStyle = existingMenuItem.tooltipStyle;
+        this.link = existingMenuItem.link;
     }
 
     @Override
-    public String getName() {
-        if (this.overrideName != null) {
-            return this.overrideName;
-        }
-        return super.getName();
+    public void accept(ModelWidgetVisitor visitor) throws Exception {
+        visitor.visit(this);
     }
 
-    public void mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
-        if (overrideMenuItem == null)
-            return;
-
-        // incorporate updates for values that are not empty in the overrideMenuItem
-        if (UtilValidate.isNotEmpty(overrideMenuItem.getName()))
-            this.overrideName = overrideMenuItem.getName();
-        if (UtilValidate.isNotEmpty(overrideMenuItem.entityName))
-            this.entityName = overrideMenuItem.entityName;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.parentPortalPageId))
-            this.parentPortalPageId = overrideMenuItem.parentPortalPageId;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.title))
-            this.title = overrideMenuItem.title;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.tooltip))
-            this.tooltip = overrideMenuItem.tooltip;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.titleStyle))
-            this.titleStyle = overrideMenuItem.titleStyle;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.selectedStyle))
-            this.selectedStyle = overrideMenuItem.selectedStyle;
-        if (UtilValidate.isNotEmpty(overrideMenuItem.widgetStyle))
-            this.widgetStyle = overrideMenuItem.widgetStyle;
-        if (overrideMenuItem.position != null)
-            this.position = overrideMenuItem.position;
-
-    }
-
-    public boolean shouldBeRendered(Map<String, Object> context) {
-        boolean passed = true;
-        if (this.condition != null) {
-            if (!this.condition.eval(context)) {
-                passed = false;
-            }
+    private void addUpdateMenuItem(ModelMenuItem modelMenuItem, List<ModelMenuItem> menuItemList,
+            Map<String, ModelMenuItem> menuItemMap) {
+        ModelMenuItem existingMenuItem = menuItemMap.get(modelMenuItem.getName());
+        if (existingMenuItem != null) {
+            // does exist, update the item by doing a merge/override
+            ModelMenuItem mergedMenuItem = existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
+            int existingItemIndex = menuItemList.indexOf(existingMenuItem);
+            menuItemList.set(existingItemIndex, mergedMenuItem);
+            menuItemMap.put(modelMenuItem.getName(), mergedMenuItem);
+        } else {
+            // does not exist, add to List and Map
+            menuItemList.add(modelMenuItem);
+            menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
         }
-        return passed;
-    }
-    
-    public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-
-        boolean passed = true;
-        if (this.condition != null) {
-            if (!this.condition.eval(context)) {
-                passed = false;
-            }
-        }
-        Locale locale = (Locale) context.get("locale");
-           //Debug.logInfo("in ModelMenu, name:" + this.getName(), module);
-        if (passed) {
-            ModelWidgetAction.runSubActions(this.actions, context);
-            String parentPortalPageId = this.getParentPortalPageId(context);
-            if (UtilValidate.isNotEmpty(parentPortalPageId)) {
-                List<GenericValue> portalPages = PortalPageWorker.getPortalPages(parentPortalPageId, context);
-                if (UtilValidate.isNotEmpty(portalPages)) {
-                    for (GenericValue portalPage : portalPages) {
-                        if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
-                            String itemName =  portalPage.getString("portalPageId");
-                            ModelMenuItem localItem = new ModelMenuItem(itemName);
-                            localItem.setTitle((String) portalPage.get("portalPageName", locale));
-                            localItem.link = new Link(this);
-                            List<WidgetWorker.Parameter> linkParams = localItem.link.getParameterList();
-                            linkParams.add(new WidgetWorker.Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-                            linkParams.add(new WidgetWorker.Parameter("parentPortalPageId", parentPortalPageId, false));
-                            if (link != null) {
-                                localItem.link.setTarget(link.targetExdr.getOriginal());
-                                linkParams.addAll(link.parameterList);
-                            } else {
-                                localItem.link.setTarget("showPortalPage");
-                            }
-                            localItem.link.setText((String)portalPage.get("portalPageName", locale));
-                            localItem.modelMenu = this.getModelMenu();
-                            menuStringRenderer.renderMenuItem(writer, context, localItem);
-                        }
-                    }
-                }
-            } else {
-                menuStringRenderer.renderMenuItem(writer, context, this);
-            }
-        }
-    }
-
-
-    public ModelMenu getModelMenu() {
-        return modelMenu;
     }
 
     public List<ModelWidgetAction> getActions() {
         return actions;
     }
 
-    public String getEntityName() {
-        if (UtilValidate.isNotEmpty(this.entityName)) {
-            return this.entityName;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getEntityName();
-        } else {
-            return this.modelMenu.getDefaultEntityName();
-        }
-    }
-
     public String getAlign() {
-        if (UtilValidate.isNotEmpty(this.align)) {
+        if (!this.align.isEmpty()) {
             return this.align;
         } else if (parentMenuItem != null) {
             return parentMenuItem.getAlign();
@@ -351,80 +327,8 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public int getPosition() {
-        if (this.position == null) {
-            return 1;
-        } else {
-            return position.intValue();
-        }
-    }
-
-    public String getTitle(Map<String, Object> context) {
-            return title.expandString(context);
-    }
-
-    public String getTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.titleStyle)) {
-            return this.titleStyle;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getTitleStyle();
-         } else {
-            return this.modelMenu.getDefaultTitleStyle();
-        }
-    }
-
-    public String getDisabledTitleStyle() {
-        if (UtilValidate.isNotEmpty(this.disabledTitleStyle)) {
-            return this.disabledTitleStyle;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getDisabledTitleStyle();
-        } else {
-            return this.modelMenu.getDefaultDisabledTitleStyle();
-        }
-    }
-
-    public void setDisabledTitleStyle(String style) {
-            this.disabledTitleStyle = style;
-    }
-
-    public String getSelectedStyle() {
-        if (UtilValidate.isNotEmpty(this.selectedStyle)) {
-            return this.selectedStyle;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getSelectedStyle();
-        } else {
-            return this.modelMenu.getDefaultSelectedStyle();
-        }
-    }
-
-    public String getTooltip(Map<String, Object> context) {
-        if (UtilValidate.isNotEmpty(tooltip)) {
-            return tooltip.expandString(context);
-        } else {
-            return "";
-        }
-    }
-
-    public void setParentPortalPageId(String string) {
-        this.parentPortalPageId = FlexibleStringExpander.getInstance(string);
-    }
-
-    public String getParentPortalPageId(Map<String, Object> context) {
-        return this.parentPortalPageId.expandString(context);
-    }
-
-    public String getWidgetStyle() {
-        if (UtilValidate.isNotEmpty(this.widgetStyle)) {
-            return this.widgetStyle;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getWidgetStyle();
-        } else {
-            return this.modelMenu.getDefaultWidgetStyle();
-        }
-    }
-
     public String getAlignStyle() {
-        if (UtilValidate.isNotEmpty(this.alignStyle)) {
+        if (!this.alignStyle.isEmpty()) {
             return this.alignStyle;
         } else if (parentMenuItem != null) {
             return parentMenuItem.getAlignStyle();
@@ -433,72 +337,8 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public String getTooltipStyle() {
-        if (UtilValidate.isNotEmpty(this.tooltipStyle)) {
-            return this.tooltipStyle;
-        } else if (parentMenuItem != null) {
-            return parentMenuItem.getTooltipStyle();
-        } else {
-            return this.modelMenu.getDefaultTooltipStyle();
-        }
-    }
-
-    /**
-     * @param string
-     */
-    public void setEntityName(String string) {
-        entityName = string;
-    }
-
-    /**
-     * @param i
-     */
-    public void setPosition(int i) {
-        position = Integer.valueOf(i);
-    }
-
-
-    /**
-     * @param string
-     */
-    public void setTitle(String string) {
-        this.title = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setTitleStyle(String string) {
-        this.titleStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTooltip(String string) {
-        this.tooltip = FlexibleStringExpander.getInstance(string);
-    }
-
-    /**
-     * @param string
-     */
-    public void setWidgetStyle(String string) {
-        this.widgetStyle = string;
-    }
-
-    /**
-     * @param string
-     */
-    public void setTooltipStyle(String string) {
-        this.tooltipStyle = string;
-    }
-
-
-    /**
-     * @param string
-     */
-    public void setAssociatedContentId(String string) {
-        this.associatedContentId = FlexibleStringExpander.getInstance(string);
+    public FlexibleStringExpander getAssociatedContentId() {
+        return associatedContentId;
     }
 
     public String getAssociatedContentId(Map<String, Object> context) {
@@ -506,33 +346,46 @@ public class ModelMenuItem extends ModelWidget {
         if (this.associatedContentId != null) {
             retStr = associatedContentId.expandString(context);
         }
-        if (UtilValidate.isEmpty(retStr)) {
+        if (retStr.isEmpty()) {
             retStr = this.modelMenu.getDefaultAssociatedContentId(context);
         }
         return retStr;
     }
 
-
-    /**
-     * @param string
-     */
-    public void setCellWidth(String string) {
-        this.cellWidth = string;
-    }
-
     public String getCellWidth() {
-        if (UtilValidate.isNotEmpty(this.cellWidth)) {
-            return this.cellWidth ;
+        if (!this.cellWidth.isEmpty()) {
+            return this.cellWidth;
         } else {
-            return this.modelMenu.getDefaultCellWidth ();
+            return this.modelMenu.getDefaultCellWidth();
         }
     }
 
-    /**
-     * @param val
-     */
-    public void setHideIfSelected(Boolean val) {
-        this.hideIfSelected = val;
+    public ModelMenuCondition getCondition() {
+        return condition;
+    }
+
+    public String getDisabledTitleStyle() {
+        if (!this.disabledTitleStyle.isEmpty()) {
+            return this.disabledTitleStyle;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getDisabledTitleStyle();
+        } else {
+            return this.modelMenu.getDefaultDisabledTitleStyle();
+        }
+    }
+
+    public String getDisableIfEmpty() {
+        return this.disableIfEmpty;
+    }
+
+    public String getEntityName() {
+        if (!this.entityName.isEmpty()) {
+            return this.entityName;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getEntityName();
+        } else {
+            return this.modelMenu.getDefaultEntityName();
+        }
     }
 
     public Boolean getHideIfSelected() {
@@ -543,121 +396,387 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public String getDisableIfEmpty() {
-            return this.disableIfEmpty;
-    }
-
-    /**
-     * @param val
-     */
-    public void setHasPermission(Boolean val) {
-        this.hasPermission = val;
-    }
-
-    public Boolean getHasPermission() {
-        return this.hasPermission;
-    }
-
     public Link getLink() {
-       return this.link;
+        return this.link;
+    }
+
+    public List<ModelMenuItem> getMenuItemList() {
+        return menuItemList;
+    }
+
+    public ModelMenu getModelMenu() {
+        return modelMenu;
+    }
+
+    @Override
+    public String getName() {
+        if (!this.overrideName.isEmpty()) {
+            return this.overrideName;
+        }
+        return super.getName();
+    }
+
+    public String getOverrideName() {
+        return overrideName;
+    }
+
+    public ModelMenuItem getParentMenuItem() {
+        return parentMenuItem;
+    }
+
+    public FlexibleStringExpander getParentPortalPageId() {
+        return parentPortalPageId;
+    }
+
+    public String getParentPortalPageId(Map<String, Object> context) {
+        return this.parentPortalPageId.expandString(context);
+    }
+
+    public int getPosition() {
+        if (this.position == null) {
+            return 1;
+        } else {
+            return position.intValue();
+        }
+    }
+
+    public String getSelectedStyle() {
+        if (!this.selectedStyle.isEmpty()) {
+            return this.selectedStyle;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getSelectedStyle();
+        } else {
+            return this.modelMenu.getDefaultSelectedStyle();
+        }
+    }
+
+    public ModelMenu getSubMenu() {
+        return subMenu;
+    }
+
+    public FlexibleStringExpander getTitle() {
+        return title;
+    }
+
+    public String getTitle(Map<String, Object> context) {
+        return title.expandString(context);
+    }
+
+    public String getTitleStyle() {
+        if (!this.titleStyle.isEmpty()) {
+            return this.titleStyle;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getTitleStyle();
+        } else {
+            return this.modelMenu.getDefaultTitleStyle();
+        }
+    }
+
+    public FlexibleStringExpander getTooltip() {
+        return tooltip;
+    }
+
+    public String getTooltip(Map<String, Object> context) {
+        if (UtilValidate.isNotEmpty(tooltip)) {
+            return tooltip.expandString(context);
+        } else {
+            return "";
+        }
+    }
+
+    public String getTooltipStyle() {
+        if (!this.tooltipStyle.isEmpty()) {
+            return this.tooltipStyle;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getTooltipStyle();
+        } else {
+            return this.modelMenu.getDefaultTooltipStyle();
+        }
+    }
+
+    public String getWidgetStyle() {
+        if (!this.widgetStyle.isEmpty()) {
+            return this.widgetStyle;
+        } else if (parentMenuItem != null) {
+            return parentMenuItem.getWidgetStyle();
+        } else {
+            return this.modelMenu.getDefaultWidgetStyle();
+        }
     }
 
     public boolean isSelected(Map<String, Object> context) {
         return getName().equals(modelMenu.getSelectedMenuItemContextFieldName(context));
     }
 
-    public static class Link {
-        protected ModelMenuItem linkMenuItem;
-        protected FlexibleStringExpander textExdr;
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
-        protected FlexibleStringExpander targetExdr;
-        protected FlexibleStringExpander targetWindowExdr;
-        protected FlexibleStringExpander prefixExdr;
-        protected FlexibleStringExpander nameExdr;
-        protected Image image;
-        protected String urlMode = "intra-app";
-        protected boolean fullPath = false;
-        protected boolean secure = false;
-        protected boolean encode = false;
-        protected String linkType;
-        protected WidgetWorker.AutoServiceParameters autoServiceParameters;
-        protected WidgetWorker.AutoEntityParameters autoEntityParameters;
-        protected FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
-        protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
-        protected boolean requestConfirmation = false;
-        protected FlexibleStringExpander confirmationMsgExdr;
+    public ModelMenuItem mergeOverrideModelMenuItem(ModelMenuItem overrideMenuItem) {
+        return new ModelMenuItem(this, overrideMenuItem);
+    }
 
-        public Link(Element linkElement, ModelMenuItem parentMenuItem) {
-            this.linkMenuItem = parentMenuItem;
-            setText(linkElement.getAttribute("text"));
-            setId(linkElement.getAttribute("id"));
-            setStyle(linkElement.getAttribute("style"));
-            setTarget(linkElement.getAttribute("target"));
-            setTargetWindow(linkElement.getAttribute("target-window"));
-            setPrefix(linkElement.getAttribute("prefix"));
-            setUrlMode(linkElement.getAttribute("url-mode"));
-            setFullPath(linkElement.getAttribute("full-path"));
-            setSecure(linkElement.getAttribute("secure"));
-            setEncode(linkElement.getAttribute("encode"));
-            setName(linkElement.getAttribute("name"));
-            Element imageElement = UtilXml.firstChildElement(linkElement, "image");
-            if (imageElement != null) {
-                this.image = new Image(imageElement);
-            }
-
-            this.linkType = linkElement.getAttribute("link-type");
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(linkElement.getAttribute("parameters-map"));
-            List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-            for (Element parameterElement: parameterElementList) {
-                this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
-            }
-            setRequestConfirmation("true".equals(linkElement.getAttribute("request-confirmation")));
-            setConfirmationMsg(linkElement.getAttribute("confirmation-message"));
-            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            }
-            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+    public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
+            throws IOException {
+        if (shouldBeRendered(context)) {
+            ModelWidgetAction.runSubActions(actions, context);
+            String parentPortalPageId = getParentPortalPageId(context);
+            if (UtilValidate.isNotEmpty(parentPortalPageId)) {
+                List<GenericValue> portalPages = PortalPageWorker.getPortalPages(parentPortalPageId, context);
+                if (UtilValidate.isNotEmpty(portalPages)) {
+                    Locale locale = (Locale) context.get("locale");
+                    for (GenericValue portalPage : portalPages) {
+                        if (UtilValidate.isNotEmpty(portalPage.getString("portalPageName"))) {
+                            ModelMenuItem localItem = new ModelMenuItem(portalPage, this, locale);
+                            menuStringRenderer.renderMenuItem(writer, context, localItem);
+                        }
+                    }
+                }
+            } else {
+                menuStringRenderer.renderMenuItem(writer, context, this);
             }
         }
+    }
 
-        public Link(ModelMenuItem parentMenuItem) {
-            this.linkMenuItem = parentMenuItem;
-            setText("");
-            setId("");
-            setStyle("");
-            setTarget("");
-            setTargetWindow("");
-            setPrefix("");
-            setUrlMode("");
-            setFullPath("");
-            setSecure("");
-            setEncode("");
-            setName("");
-            setConfirmationMsg("");
+    public boolean shouldBeRendered(Map<String, Object> context) {
+        if (this.condition != null) {
+            return this.condition.eval(context);
+        }
+        return true;
+    }
+
+    public static class Image {
+
+        private final FlexibleStringExpander borderExdr;
+        private final FlexibleStringExpander heightExdr;
+        private final FlexibleStringExpander idExdr;
+        private final FlexibleStringExpander srcExdr;
+        private final FlexibleStringExpander styleExdr;
+        private final String urlMode;
+        private final FlexibleStringExpander widthExdr;
+
+        public Image(Element imageElement) {
+            this.borderExdr = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(imageElement.getAttribute("border"), "0"));
+            this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
+            this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
+            this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
+            this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
+            this.urlMode = UtilXml.checkEmpty(imageElement.getAttribute("url-mode"), "content");
+            this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
         }
 
-        public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-            menuStringRenderer.renderLink(writer, context, this);
+        public String getBorder(Map<String, Object> context) {
+            return this.borderExdr.expandString(context);
         }
 
-        public String getText(Map<String, Object> context) {
-            String txt = this.textExdr.expandString(context);
-            if (UtilValidate.isEmpty(txt)) txt = linkMenuItem.getTitle(context);
-
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                txt = simpleEncoder.encode(txt);
-            }
-
-            return txt;
+        public String getHeight(Map<String, Object> context) {
+            return this.heightExdr.expandString(context);
         }
 
         public String getId(Map<String, Object> context) {
             return this.idExdr.expandString(context);
+        }
+
+        public String getSrc(Map<String, Object> context) {
+            return this.srcExdr.expandString(context);
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return this.styleExdr.expandString(context);
+        }
+
+        public String getUrlMode() {
+            return this.urlMode;
+        }
+
+        public String getWidth(Map<String, Object> context) {
+            return this.widthExdr.expandString(context);
+        }
+
+        public void renderImageString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
+                throws IOException {
+            menuStringRenderer.renderImage(writer, context, this);
+        }
+    }
+
+    public static class Link {
+        private final AutoEntityParameters autoEntityParameters;
+        private final AutoServiceParameters autoServiceParameters;
+        private final FlexibleStringExpander confirmationMsgExdr;
+        private final boolean encode;
+        private final boolean fullPath;
+        private final FlexibleStringExpander idExdr;
+        private final Image image;
+        private final ModelMenuItem linkMenuItem;
+        private final String linkType;
+        private final FlexibleStringExpander nameExdr;
+        private final List<Parameter> parameterList;
+        private final FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
+        private final FlexibleStringExpander prefixExdr;
+        private final boolean requestConfirmation;
+        private final boolean secure;
+        private final FlexibleStringExpander styleExdr;
+        private final FlexibleStringExpander targetExdr;
+        private final FlexibleStringExpander targetWindowExdr;
+        private final FlexibleStringExpander textExdr;
+        private final String urlMode;
+
+        public Link(Element linkElement, ModelMenuItem parentMenuItem) {
+            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
+            if (autoEntityParamsElement != null) {
+                this.autoEntityParameters = new AutoEntityParameters(autoEntityParamsElement);
+            } else {
+                this.autoEntityParameters = null;
+            }
+            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
+            if (autoServiceParamsElement != null) {
+                this.autoServiceParameters = new AutoServiceParameters(autoServiceParamsElement);
+            } else {
+                this.autoServiceParameters = null;
+            }
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("confirmation-message"));
+            this.encode = "true".equals(linkElement.getAttribute("encode"));
+            this.fullPath = "true".equals(linkElement.getAttribute("full-path"));
+            this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
+            Element imageElement = UtilXml.firstChildElement(linkElement, "image");
+            if (imageElement != null) {
+                this.image = new Image(imageElement);
+            } else {
+                this.image = null;
+            }
+            this.linkMenuItem = parentMenuItem;
+            this.linkType = linkElement.getAttribute("link-type");
+            this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
+            List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
+            if (!parameterElementList.isEmpty()) {
+                List<Parameter> parameterList = new ArrayList<Parameter>(parameterElementList.size());
+                for (Element parameterElement : parameterElementList) {
+                    parameterList.add(new Parameter(parameterElement));
+                }
+                this.parameterList = Collections.unmodifiableList(parameterList);
+            } else {
+                this.parameterList = Collections.emptyList();
+            }
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(linkElement.getAttribute("parameters-map"));
+            this.prefixExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("prefix"));
+            this.requestConfirmation = "true".equals(linkElement.getAttribute("request-confirmation"));
+            this.secure = "true".equals(linkElement.getAttribute("secure"));
+            this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
+            this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
+            this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
+            this.urlMode = UtilXml.checkEmpty(linkElement.getAttribute("link-type"), "intra-app");
+        }
+
+        public Link(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
+            this.autoEntityParameters = null;
+            this.autoServiceParameters = null;
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
+            this.encode = false;
+            this.fullPath = false;
+            this.idExdr = FlexibleStringExpander.getInstance("");
+            this.image = null;
+            this.linkMenuItem = parentMenuItem;
+            this.linkType = "";
+            this.nameExdr = FlexibleStringExpander.getInstance("");
+            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+            if (parentMenuItem.link != null) {
+                parameterList.addAll(parentMenuItem.link.parameterList);
+            }
+            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
+            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
+            parameterList.trimToSize();
+            this.parameterList = Collections.unmodifiableList(parameterList);
+            this.parametersMapAcsr = FlexibleMapAccessor.getInstance("");
+            this.prefixExdr = FlexibleStringExpander.getInstance("");
+            this.requestConfirmation = false;
+            this.secure = false;
+            this.styleExdr = FlexibleStringExpander.getInstance("");
+            if (parentMenuItem.link != null) {
+                this.targetExdr = FlexibleStringExpander.getInstance("");
+            } else {
+                this.targetExdr = FlexibleStringExpander.getInstance("showPortalPage");
+            }
+            this.targetWindowExdr = FlexibleStringExpander.getInstance("");
+            this.textExdr = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
+            this.urlMode = "intra-app";
+        }
+
+        public String getConfirmation(Map<String, Object> context) {
+            String message = getConfirmationMsg(context);
+            if (UtilValidate.isNotEmpty(message)) {
+                return message;
+            } else if (getRequestConfirmation()) {
+                FlexibleStringExpander defaultMessage = FlexibleStringExpander.getInstance(UtilProperties.getPropertyValue(
+                        "general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}"));
+                return defaultMessage.expandString(context);
+            }
+            return "";
+        }
+
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+
+        public boolean getEncode() {
+            return this.encode;
+        }
+
+        public boolean getFullPath() {
+            return this.fullPath;
+        }
+
+        public String getId(Map<String, Object> context) {
+            return this.idExdr.expandString(context);
+        }
+
+        public Image getImage() {
+            return this.image;
+        }
+
+        public ModelMenuItem getLinkMenuItem() {
+            return linkMenuItem;
+        }
+
+        public String getLinkType() {
+            return this.linkType;
+        }
+
+        public String getName(Map<String, Object> context) {
+            return this.nameExdr.expandString(context);
+        }
+
+        public List<Parameter> getParameterList() {
+            return this.parameterList;
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            Map<String, String> fullParameterMap = new HashMap<String, String>();
+            if (this.parametersMapAcsr != null) {
+                Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
+                if (addlParamMap != null) {
+                    fullParameterMap.putAll(addlParamMap);
+                }
+            }
+            for (Parameter parameter : this.parameterList) {
+                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            }
+            if (autoServiceParameters != null) {
+                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
+            }
+            if (autoEntityParameters != null) {
+                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, linkMenuItem.getModelMenu()
+                        .getDefaultEntityName()));
+            }
+            return fullParameterMap;
+        }
+
+        public String getPrefix(Map<String, Object> context) {
+            return this.prefixExdr.expandString(context);
+        }
+
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
+        }
+
+        public boolean getSecure() {
+            return this.secure;
         }
 
         public String getStyle(Map<String, Object> context) {
@@ -668,14 +787,11 @@ public class ModelMenuItem extends ModelWidget {
             return style;
         }
 
-        public String getName(Map<String, Object> context) {
-            return this.nameExdr.expandString(context);
-        }
-
         public String getTarget(Map<String, Object> context) {
             UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
-                return this.targetExdr.expandString(UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder));
+                return this.targetExdr.expandString(UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context,
+                        simpleEncoder));
             } else {
                 return this.targetExdr.expandString(context);
             }
@@ -685,246 +801,26 @@ public class ModelMenuItem extends ModelWidget {
             return this.targetWindowExdr.expandString(context);
         }
 
-        public String getUrlMode() {
-            return this.urlMode;
-        }
-
-        public String getPrefix(Map<String, Object> context) {
-            return this.prefixExdr.expandString(context);
-        }
-
-        public boolean getFullPath() {
-            return this.fullPath;
-        }
-
-        public boolean getSecure() {
-            return this.secure;
-        }
-
-        public boolean getEncode() {
-            return this.encode;
-        }
-
-        public Image getImage() {
-            return this.image;
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return this.parameterList;
-        }
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            if (this.parametersMapAcsr != null) {
-                Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-                if (addlParamMap != null) {
-                    fullParameterMap.putAll(addlParamMap);
-                }
+        public String getText(Map<String, Object> context) {
+            String txt = this.textExdr.expandString(context);
+            if (UtilValidate.isEmpty(txt)) {
+                txt = linkMenuItem.getTitle(context);
             }
-
-            for (WidgetWorker.Parameter parameter: this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
+            // FIXME: Encoding should be done by the renderer, not by the model.
+            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+            if (simpleEncoder != null) {
+                txt = simpleEncoder.encode(txt);
             }
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, linkMenuItem.getModelMenu().getDefaultEntityName()));
-            }
-            return fullParameterMap;
-        }
-
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message)) {
-                return message;
-            }
-            else if (getRequestConfirmation()) {
-                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}");
-                setConfirmationMsg(defaultMessage);
-                return getConfirmationMsg(context);
-            }
-            return "";
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
-        }
-
-        public void setText(String val) {
-            String textAttr = UtilFormatOut.checkNull(val);
-            this.textExdr = FlexibleStringExpander.getInstance(textAttr);
-        }
-
-        public void setId(String val) {
-            this.idExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setStyle(String val) {
-            this.styleExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setTarget(String val) {
-            this.targetExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setTargetWindow(String val) {
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setPrefix(String val) {
-            this.prefixExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setUrlMode(String val) {
-            if (UtilValidate.isNotEmpty(val))
-                this.urlMode = val;
-        }
-
-        public void setName(String val) {
-            this.nameExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setFullPath(String val) {
-            String sFullPath = val;
-            if (sFullPath != null && sFullPath.equalsIgnoreCase("true"))
-                this.fullPath = true;
-            else
-                this.fullPath = false;
-        }
-
-        public void setSecure(String val) {
-            String sSecure = val;
-            if (sSecure != null && sSecure.equalsIgnoreCase("true"))
-                this.secure = true;
-            else
-                this.secure = false;
-        }
-
-        public void setEncode(String val) {
-            String sEncode = val;
-            if (sEncode != null && sEncode.equalsIgnoreCase("true"))
-                this.encode = true;
-            else
-                this.encode = false;
-        }
-
-        public void setImage(Image img) {
-            this.image = img;
-        }
-
-        public void setRequestConfirmation(boolean val) {
-            this.requestConfirmation = val;
-        }
-
-        public void setConfirmationMsg(String val) {
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public ModelMenuItem getLinkMenuItem() {
-            return linkMenuItem;
-        }
-
-    }
-
-    public static class Image {
-
-        protected FlexibleStringExpander srcExdr;
-        protected FlexibleStringExpander idExdr;
-        protected FlexibleStringExpander styleExdr;
-        protected FlexibleStringExpander widthExdr;
-        protected FlexibleStringExpander heightExdr;
-        protected FlexibleStringExpander borderExdr;
-        protected String urlMode;
-
-        public Image(Element imageElement) {
-
-            setSrc(imageElement.getAttribute("src"));
-            setId(imageElement.getAttribute("id"));
-            setStyle(imageElement.getAttribute("style"));
-            setWidth(imageElement.getAttribute("width"));
-            setHeight(imageElement.getAttribute("height"));
-            setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
-            setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
-
-        }
-
-        public void renderImageString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer) throws IOException {
-            menuStringRenderer.renderImage(writer, context, this);
-        }
-
-        public String getSrc(Map<String, Object> context) {
-            return this.srcExdr.expandString(context);
-        }
-
-        public String getId(Map<String, Object> context) {
-            return this.idExdr.expandString(context);
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            return this.styleExdr.expandString(context);
-        }
-
-        public String getWidth(Map<String, Object> context) {
-            return this.widthExdr.expandString(context);
-        }
-
-        public String getHeight(Map<String, Object> context) {
-            return this.heightExdr.expandString(context);
-        }
-
-        public String getBorder(Map<String, Object> context) {
-            return this.borderExdr.expandString(context);
+            return txt;
         }
 
         public String getUrlMode() {
             return this.urlMode;
         }
 
-        public void setSrc(String val) {
-            String textAttr = UtilFormatOut.checkNull(val);
-            this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
+        public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
+                throws IOException {
+            menuStringRenderer.renderLink(writer, context, this);
         }
-
-        public void setId(String val) {
-            this.idExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setStyle(String val) {
-            this.styleExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setWidth(String val) {
-            this.widthExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setHeight(String val) {
-            this.heightExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setBorder(String val) {
-            this.borderExdr = FlexibleStringExpander.getInstance(val);
-        }
-
-        public void setUrlMode(String val) {
-            if (UtilValidate.isEmpty(val))
-                this.urlMode = "content";
-            else
-                this.urlMode = val;
-        }
-
-    }
-
-    @Override
-    public void accept(ModelWidgetVisitor visitor) throws Exception {
-        visitor.visit(this);
     }
 }
