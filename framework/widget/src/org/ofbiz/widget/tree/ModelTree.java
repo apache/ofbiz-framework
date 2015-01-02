@@ -50,7 +50,6 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
@@ -73,13 +72,11 @@ public class ModelTree extends ModelWidget {
     public static final String module = ModelTree.class.getName();
 
     protected String defaultEntityName;
-    protected String defaultPkName;
     protected String defaultRenderStyle;
     protected FlexibleStringExpander defaultWrapStyleExdr;
-    protected Delegator delegator;
-    protected LocalDispatcher dispatcher;
     protected FlexibleStringExpander expandCollapseRequestExdr;
     protected boolean forceChildCheck;
+    private final String location;
     protected List<ModelNode> nodeList = new ArrayList<ModelNode>();
     protected Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
     protected int openDepth;
@@ -91,8 +88,9 @@ public class ModelTree extends ModelWidget {
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
 
-    public ModelTree(Element treeElement, Delegator delegator, LocalDispatcher dispatcher) {
+    public ModelTree(Element treeElement, String location) {
         super(treeElement);
+        this.location = location;
         this.rootNodeName = treeElement.getAttribute("root-node-name");
         this.defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
@@ -105,10 +103,8 @@ public class ModelTree extends ModelWidget {
         this.expandCollapseRequestExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("expand-collapse-request"));
         this.trailNameExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(treeElement.getAttribute("trail-name"),
                 "trail"));
-        this.delegator = delegator;
-        this.dispatcher = dispatcher;
         this.forceChildCheck = !"false".equals(treeElement.getAttribute("force-child-check"));
-        setDefaultEntityName(treeElement.getAttribute("entity-name"));
+        this.defaultEntityName = treeElement.getAttribute("entity-name");
         try {
             openDepth = Integer.parseInt(treeElement.getAttribute("open-depth"));
         } catch (NumberFormatException e) {
@@ -142,18 +138,6 @@ public class ModelTree extends ModelWidget {
 
     public String getDefaultEntityName() {
         return this.defaultEntityName;
-    }
-
-    public String getDefaultPkName() {
-        return this.defaultPkName;
-    }
-
-    public Delegator getDelegator() {
-        return this.delegator;
-    }
-
-    public LocalDispatcher getDispatcher() {
-        return this.dispatcher;
     }
 
     public String getExpandCollapseRequest(Map<String, Object> context) {
@@ -240,7 +224,7 @@ public class ModelTree extends ModelWidget {
             if (UtilValidate.isEmpty(trail))
                 throw new RuntimeException("Tree 'trail' value is empty.");
             context.put("rootEntityId", trail.get(0));
-            context.put(defaultPkName, trail.get(0));
+            context.put(getDefaultPkName(context), trail.get(0));
         } else {
             trail = new LinkedList<String>();
         }
@@ -257,17 +241,13 @@ public class ModelTree extends ModelWidget {
         }
     }
 
-    public void setDefaultEntityName(String name) {
-        String nm = name;
-        if (UtilValidate.isEmpty(nm)) {
-            nm = "Content";
-        }
-        this.defaultEntityName = nm;
-        ModelEntity modelEntity = delegator.getModelEntity(this.defaultEntityName);
+    public String getDefaultPkName( Map<String, Object> context) {
+        ModelEntity modelEntity = WidgetWorker.getDelegator(context).getModelEntity(this.defaultEntityName);
         if (modelEntity.getPksSize() == 1) {
             ModelField modelField = modelEntity.getOnlyPk();
-            this.defaultPkName = modelField.getName();
+            return modelField.getName();
         }
+        return null;
     }
 
     public void setTreeLocation(String treeLocation) {
@@ -301,7 +281,7 @@ public class ModelTree extends ModelWidget {
             this.wrapStyleExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("wrap-style"));
             this.renderStyle = nodeElement.getAttribute("render-style");
             this.entryName = UtilFormatOut.checkEmpty(nodeElement.getAttribute("entry-name"), null);
-            setEntityName(nodeElement.getAttribute("entity-name"));
+            this.entityName = nodeElement.getAttribute("entity-name");
             if (this.pkName == null || nodeElement.hasAttribute("join-field-name"))
                 this.pkName = nodeElement.getAttribute("join-field-name");
             ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
@@ -409,11 +389,11 @@ public class ModelTree extends ModelWidget {
             return this.modelTree;
         }
 
-        public String getPkName() {
+        public String getPkName(Map<String, Object> context) {
             if (UtilValidate.isNotEmpty(this.pkName)) {
                 return this.pkName;
             } else {
-                return this.modelTree.getDefaultPkName();
+                return this.modelTree.getDefaultPkName(context);
             }
         }
 
@@ -452,7 +432,7 @@ public class ModelTree extends ModelWidget {
                 nodeCount = (Long) obj;
             }
             String entName = this.getEntityName();
-            Delegator delegator = modelTree.getDelegator();
+            Delegator delegator = WidgetWorker.getDelegator(context);
             ModelEntity modelEntity = delegator.getModelEntity(entName);
             ModelField modelField = null;
             if (modelEntity.isField(countFieldName)) {
@@ -476,7 +456,7 @@ public class ModelTree extends ModelWidget {
                 }
                 */
                 nodeCount = Long.valueOf(this.subNodeValues.size());
-                String pkName = this.getPkName();
+                String pkName = this.getPkName(context);
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
                     id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
@@ -542,7 +522,7 @@ public class ModelTree extends ModelWidget {
                 context.put("processChildren", Boolean.TRUE);
                 // this action will usually obtain the "current" entity
                 ModelTreeAction.runSubActions(this.actions, context);
-                String pkName = getPkName();
+                String pkName = getPkName(context);
                 String id = null;
                 if (UtilValidate.isNotEmpty(this.entryName)) {
                     id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
@@ -583,7 +563,7 @@ public class ModelTree extends ModelWidget {
                             //GenericPK pk = val.getPrimaryKey();
                             //if (Debug.infoOn()) Debug.logInfo(" pk:" + pk,
                             // module);
-                            String thisPkName = node.getPkName();
+                            String thisPkName = node.getPkName(context);
                             String thisEntityId = (String) val.get(thisPkName);
                             MapStack<String> newContext = MapStack.create(context);
                             newContext.push();
@@ -625,25 +605,6 @@ public class ModelTree extends ModelWidget {
                 int removeIdx = currentNodeTrail.size() - 1;
                 if (removeIdx >= 0)
                     currentNodeTrail.remove(removeIdx);
-            }
-        }
-
-        public void setEntityName(String name) {
-            this.entityName = name;
-            if (UtilValidate.isNotEmpty(this.entityName)) {
-                ModelEntity modelEntity = modelTree.delegator.getModelEntity(this.entityName);
-                if (modelEntity.getPksSize() == 1) {
-                    ModelField modelField = modelEntity.getOnlyPk();
-                    this.pkName = modelField.getName();
-                } else {
-                    List<String> pkFieldsName = modelEntity.getPkFieldNames();
-                    StringBuilder sb = new StringBuilder();
-                    for (String pk : pkFieldsName) {
-                        sb.append(pk);
-                        sb.append("|");
-                    }
-                    this.pkName = sb.toString();
-                }
             }
         }
 

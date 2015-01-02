@@ -151,7 +151,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" />");
         executeMacro(sr.toString());
 
-        String pkName = node.getPkName();
+        String pkName = node.getPkName(context);
         String entityId = null;
         String entryName = node.getEntryName();
         if (UtilValidate.isNotEmpty(entryName)) {
