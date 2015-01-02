@@ -186,7 +186,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
             try {
                 Map<String, Object> serviceContext = null;
                 if (autoFieldMapBool) {
-                    serviceContext = this.modelTree.getDispatcher().getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
+                    serviceContext = WidgetWorker.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, context);
                 } else {
                     serviceContext = new HashMap<String, Object>();
                 }
@@ -195,7 +195,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
 
-                Map<String, Object> result = this.modelTree.getDispatcher().runSync(serviceNameExpanded, serviceContext);
+                Map<String, Object> result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
 
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
@@ -275,7 +275,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);
-                finder.runFind(context, this.modelTree.getDelegator());
+                finder.runFind(context, WidgetWorker.getDelegator(context));
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
@@ -320,7 +320,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         public void runAction(Map<String, Object> context) {
             try {
                 context.put(this.listName, null);
-                finder.runFind(context, this.modelTree.getDelegator());
+                finder.runFind(context, WidgetWorker.getDelegator(context));
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
