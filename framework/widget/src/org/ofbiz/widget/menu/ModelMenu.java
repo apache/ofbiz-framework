@@ -43,6 +43,20 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public class ModelMenu extends ModelWidget {
 
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
+
     public static final String module = ModelMenu.class.getName();
 
     private final List<ModelWidgetAction> actions;
@@ -126,10 +140,9 @@ public class ModelMenu extends ModelWidget {
         // check if there is a parent menu to inherit from
         String parentResource = menuElement.getAttribute("extends-resource");
         String parentMenu = menuElement.getAttribute("extends");
-        if (parentMenu.length() > 0 && !(parentMenu.equals(getName()) && parentResource.isEmpty())) {
+        if (!parentMenu.isEmpty()) {
             ModelMenu parent = null;
-            // check if we have a resource name (part of the string before the ?)
-            if (UtilValidate.isNotEmpty(parentResource)) {
+            if (!parentResource.isEmpty()) {
                 try {
                     parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
                 } catch (Exception e) {
@@ -274,7 +287,7 @@ public class ModelMenu extends ModelWidget {
         List<? extends Element> itemElements = UtilXml.childElementList(menuElement, "menu-item");
         for (Element itemElement : itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
-            modelMenuItem = this.addUpdateMenuItem(modelMenuItem, menuItemList, menuItemMap);
+            addUpdateMenuItem(modelMenuItem, menuItemList, menuItemMap);
         }
         menuItemList.trimToSize();
         this.menuItemList = Collections.unmodifiableList(menuItemList);
@@ -297,21 +310,20 @@ public class ModelMenu extends ModelWidget {
     /**
      * add/override modelMenuItem using the menuItemList and menuItemMap
      *
-     * @return The same ModelMenuItem, or if merged with an existing item, the existing item.
      */
-    private ModelMenuItem addUpdateMenuItem(ModelMenuItem modelMenuItem, List<ModelMenuItem> menuItemList,
+    private void addUpdateMenuItem(ModelMenuItem modelMenuItem, List<ModelMenuItem> menuItemList,
             Map<String, ModelMenuItem> menuItemMap) {
-        // not a conditional item, see if a named item exists in Map
         ModelMenuItem existingMenuItem = menuItemMap.get(modelMenuItem.getName());
         if (existingMenuItem != null) {
             // does exist, update the item by doing a merge/override
-            existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
-            return existingMenuItem;
+            ModelMenuItem mergedMenuItem = existingMenuItem.mergeOverrideModelMenuItem(modelMenuItem);
+            int existingItemIndex = menuItemList.indexOf(existingMenuItem);
+            menuItemList.set(existingItemIndex, mergedMenuItem);
+            menuItemMap.put(modelMenuItem.getName(), mergedMenuItem);
         } else {
-            // does not exist, add to List and Map
+            // does not exist, add to Map
             menuItemList.add(modelMenuItem);
             menuItemMap.put(modelMenuItem.getName(), modelMenuItem);
-            return modelMenuItem;
         }
     }
 
