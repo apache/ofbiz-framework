@@ -71,19 +71,17 @@ public class ModelTree extends ModelWidget {
 
     public static final String module = ModelTree.class.getName();
 
-    protected String defaultEntityName;
-    protected String defaultRenderStyle;
-    protected FlexibleStringExpander defaultWrapStyleExdr;
-    protected FlexibleStringExpander expandCollapseRequestExdr;
-    protected boolean forceChildCheck;
+    private final String defaultEntityName;
+    private final String defaultRenderStyle;
+    private final FlexibleStringExpander defaultWrapStyleExdr;
+    private final FlexibleStringExpander expandCollapseRequestExdr;
+    private final boolean forceChildCheck;
     private final String location;
-    protected List<ModelNode> nodeList = new ArrayList<ModelNode>();
-    protected Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
-    protected int openDepth;
-    protected int postTrailOpenDepth;
-    protected String rootNodeName;
-    protected FlexibleStringExpander trailNameExdr;
-    protected String treeLocation;
+    private final Map<String, ModelNode> nodeMap;
+    private final int openDepth;
+    private final int postTrailOpenDepth;
+    private final String rootNodeName;
+    private final FlexibleStringExpander trailNameExdr;
 
     // ===== CONSTRUCTORS =====
     /** Default Constructor */
@@ -92,38 +90,51 @@ public class ModelTree extends ModelWidget {
         super(treeElement);
         this.location = location;
         this.rootNodeName = treeElement.getAttribute("root-node-name");
-        this.defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
+        String defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
-        if (UtilValidate.isEmpty(this.defaultRenderStyle) || this.defaultRenderStyle.equals("simple")) {
+        if (UtilValidate.isEmpty(defaultRenderStyle) || defaultRenderStyle.equals("simple")) {
             String rStyle = treeElement.getAttribute("render-style");
             if (UtilValidate.isNotEmpty(rStyle))
-                this.defaultRenderStyle = rStyle;
+                defaultRenderStyle = rStyle;
         }
+        this.defaultRenderStyle = defaultRenderStyle;
         this.defaultWrapStyleExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("default-wrap-style"));
         this.expandCollapseRequestExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("expand-collapse-request"));
         this.trailNameExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(treeElement.getAttribute("trail-name"),
                 "trail"));
         this.forceChildCheck = !"false".equals(treeElement.getAttribute("force-child-check"));
         this.defaultEntityName = treeElement.getAttribute("entity-name");
-        try {
-            openDepth = Integer.parseInt(treeElement.getAttribute("open-depth"));
-        } catch (NumberFormatException e) {
-            openDepth = 0;
+        int openDepth = 0;
+        if (treeElement.hasAttribute("open-depth")) {
+            try {
+                openDepth = Integer.parseInt(treeElement.getAttribute("open-depth"));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException("Invalid open-depth attribute value for the tree definition with name: "
+                        + getName());
+            }
         }
-        try {
-            postTrailOpenDepth = Integer.parseInt(treeElement.getAttribute("post-trail-open-depth"));
-        } catch (NumberFormatException e) {
-            postTrailOpenDepth = 999;
+        this.openDepth = openDepth;
+        int postTrailOpenDepth = 999;
+        if (treeElement.hasAttribute("post-trail-open-depth")) {
+            try {
+                postTrailOpenDepth = Integer.parseInt(treeElement.getAttribute("post-trail-open-depth"));
+            } catch (NumberFormatException e) {
+                throw new IllegalArgumentException(
+                        "Invalid post-trail-open-depth attribute value for the tree definition with name: " + getName());
+            }
         }
+        this.postTrailOpenDepth = postTrailOpenDepth;
+        List<? extends Element> nodeElements = UtilXml.childElementList(treeElement, "node");
+        if (nodeElements.size() == 0) {
+            throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
+        }
+        Map<String, ModelNode> nodeMap = new HashMap<String, ModelNode>();
         for (Element nodeElementEntry : UtilXml.childElementList(treeElement, "node")) {
             ModelNode node = new ModelNode(nodeElementEntry, this);
             String nodeName = node.getName();
-            nodeList.add(node);
             nodeMap.put(nodeName, node);
         }
-        if (nodeList.size() == 0) {
-            throw new IllegalArgumentException("No node elements found for the tree definition with name: " + getName());
-        }
+        this.nodeMap = Collections.unmodifiableMap(nodeMap);
     }
 
     @Override
@@ -133,7 +144,7 @@ public class ModelTree extends ModelWidget {
 
     @Override
     public String getBoundaryCommentName() {
-        return treeLocation + "#" + getName();
+        return location + "#" + getName();
     }
 
     public String getDefaultEntityName() {
@@ -241,17 +252,13 @@ public class ModelTree extends ModelWidget {
         }
     }
 
-    public String getDefaultPkName( Map<String, Object> context) {
+    public String getDefaultPkName(Map<String, Object> context) {
         ModelEntity modelEntity = WidgetWorker.getDelegator(context).getModelEntity(this.defaultEntityName);
         if (modelEntity.getPksSize() == 1) {
             ModelField modelField = modelEntity.getOnlyPk();
             return modelField.getName();
         }
         return null;
-    }
-
-    public void setTreeLocation(String treeLocation) {
-        this.treeLocation = treeLocation;
     }
 
     public static class ModelNode extends ModelWidget {
