@@ -856,24 +856,6 @@ public class ModelTree extends ModelWidget {
                 }
             }
 
-            public Link(ModelTree.ModelNode.Link linkElement) {
-                this.textExdr = linkElement.textExdr;
-                this.idExdr = linkElement.idExdr;
-                this.styleExdr = linkElement.styleExdr;
-                this.targetExdr = linkElement.targetExdr;
-                this.targetWindowExdr = linkElement.targetWindowExdr;
-                this.prefixExdr = linkElement.prefixExdr;
-                this.urlMode = linkElement.urlMode;
-                this.fullPath = linkElement.fullPath;
-                this.secure = linkElement.secure;
-                this.encode = linkElement.encode;
-                this.nameExdr = linkElement.nameExdr;
-                this.titleExdr = linkElement.titleExdr;
-                this.linkType = linkElement.linkType;
-                this.parameterList = new ArrayList<WidgetWorker.Parameter>(linkElement.parameterList.size());
-                Collections.copy(this.parameterList, linkElement.parameterList);
-            }
-
             public void renderLinkString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
                 try {
                     treeStringRenderer.renderLink(writer, context, this);
