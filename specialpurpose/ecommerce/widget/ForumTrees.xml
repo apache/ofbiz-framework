@@ -21,7 +21,7 @@ under the License.
 <trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
 
-    <tree name="ResponseTree" root-node-name="node-root"
+    <tree name="ResponseTree" entity-name="Content" root-node-name="node-root"
         default-render-style="simple" default-wrap-style="responseTreeWrapper">
         <node name="node-root" >
             <entity-one entity-name="Content"  use-cache="false" value-field="rsp">
