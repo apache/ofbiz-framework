@@ -78,7 +78,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             // TODO: Check for tree-specific actions
-            actions.add(ModelWidgetAction.toModelWidgetAction(modelNode, actionElement));
+            actions.add(ModelWidgetAction.newInstance(modelNode, actionElement));
         }
         return actions;
     }
