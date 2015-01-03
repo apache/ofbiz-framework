@@ -33,7 +33,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilXml;
@@ -1042,16 +1041,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
-            StringBuffer renderBuffer = new StringBuffer();
-            modelTree.renderTreeString(renderBuffer, context, treeStringRenderer);
-            try {
-                writer.append(renderBuffer.toString());
-            } catch (IOException e) {
-                String errMsg = "Error rendering included tree named [" + name + "] at location [" + location + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            }
-
+            modelTree.renderTreeString(writer, context, treeStringRenderer);
             if (protectScope) {
                 UtilGenerics.<MapStack<String>>cast(context).pop();
             }

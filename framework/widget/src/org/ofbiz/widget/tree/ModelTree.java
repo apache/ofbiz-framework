@@ -19,7 +19,6 @@
 package org.ofbiz.widget.tree;
 
 import java.io.IOException;
-import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -229,7 +228,7 @@ public class ModelTree extends ModelWidget {
      *   use the same tree definitions for many types of tree UIs
      */
     @SuppressWarnings("rawtypes")
-    public void renderTreeString(StringBuffer buf, Map<String, Object> context, TreeStringRenderer treeStringRenderer)
+    public void renderTreeString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer)
             throws GeneralException {
         Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
         ModelNode node = nodeMap.get(rootNodeName);
@@ -250,10 +249,8 @@ public class ModelTree extends ModelWidget {
         }
         context.put("targetNodeTrail", trail);
         context.put("currentNodeTrail", new LinkedList());
-        StringWriter writer = new StringWriter();
         try {
             node.renderNodeString(writer, context, treeStringRenderer, 0);
-            buf.append(writer.toString());
         } catch (IOException e2) {
             String errMsg = "Error rendering included label with name [" + getName() + "] : " + e2.toString();
             Debug.logError(e2, errMsg, module);
