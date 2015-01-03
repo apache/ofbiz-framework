@@ -122,11 +122,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
             if (this.modelSubNode != null) {
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
-                    this.modelSubNode.setListIterator(listIt);
+                    this.modelSubNode.setListIterator(listIt, context);
                 } else {
                     if (obj instanceof List<?>) {
                         List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
-                        this.modelSubNode.setListIterator(list.listIterator());
+                        this.modelSubNode.setListIterator(list.listIterator(), context);
                     }
                 }
             }
@@ -225,9 +225,9 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
                         if (lst != null) {
                             if (lst instanceof ListIterator<?>) {
                                 ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(lst);
-                                this.modelSubNode.setListIterator(listIt);
+                                this.modelSubNode.setListIterator(listIt, context);
                             } else {
-                                this.modelSubNode.setListIterator(lst.listIterator());
+                                this.modelSubNode.setListIterator(lst.listIterator(), context);
                             }
                         }
                     }
@@ -279,11 +279,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
-                    this.modelSubNode.setListIterator(listIt);
+                    this.modelSubNode.setListIterator(listIt, context);
                 } else {
                     if (obj instanceof List<?>) {
                         List<? extends Map<String, ? extends Object>> list = UtilGenerics.checkList(obj);
-                        this.modelSubNode.setListIterator(list.listIterator());
+                        this.modelSubNode.setListIterator(list.listIterator(), context);
                     }
                 }
             } catch (GeneralException e) {
@@ -324,11 +324,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
                 Object obj = context.get(this.listName);
                 if (obj != null && (obj instanceof EntityListIterator || obj instanceof ListIterator<?>)) {
                     ListIterator<? extends Map<String, ? extends Object>> listIt = UtilGenerics.cast(obj);
-                    this.modelSubNode.setListIterator(listIt);
+                    this.modelSubNode.setListIterator(listIt, context);
                 } else {
                     if (obj instanceof List<?>) {
                         List<? extends Map<String, ? extends Object>> list = UtilGenerics.cast(obj);
-                        this.modelSubNode.setListIterator(list.listIterator());
+                        this.modelSubNode.setListIterator(list.listIterator(), context);
                     }
                 }
             } catch (GeneralException e) {

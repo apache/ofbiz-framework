@@ -71,7 +71,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
         }
         boolean hasChildren = node.hasChildren(context);
 
-        ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
         // check to see if this node needs to be expanded.
         if (hasChildren && node.isExpandCollapse()) {
             String targetEntityId = null;
@@ -79,7 +78,8 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
             if (depth < targetNodeTrail.size()) {
                 targetEntityId = targetNodeTrail.get(depth);
             }
-
+            // FIXME: Using a widget model in this way is an ugly hack.
+            ModelTree.ModelNode.Link expandCollapseLink = null;
             int openDepth = node.getModelTree().getOpenDepth();
             if (depth >= openDepth && (targetEntityId == null || !targetEntityId.equals(entityId))) {
                 // Not on the trail
@@ -87,8 +87,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     context.put("processChildren", Boolean.FALSE);
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                    expandCollapseLink.setStyle("collapsed");
-                    expandCollapseLink.setText(" ");
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
                     if (target.indexOf("?") < 0) {
@@ -97,7 +95,7 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                         target.append("&");
                     }
                     target.append(trailName).append("=").append(currentNodeTrailPiped);
-                    expandCollapseLink.setTarget(target.toString());
+                    expandCollapseLink = new ModelTree.ModelNode.Link("collapsed", target.toString(), " ");
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
@@ -107,8 +105,6 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                 if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";
                 }
-                expandCollapseLink.setStyle("expanded");
-                expandCollapseLink.setText(" ");
                 StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0) {
@@ -117,15 +113,16 @@ public class HtmlTreeRenderer extends HtmlWidgetRenderer implements TreeStringRe
                     target.append("&");
                 }
                 target.append(trailName).append("=").append(currentNodeTrailPiped);
-                expandCollapseLink.setTarget(target.toString());
+                expandCollapseLink = new ModelTree.ModelNode.Link("expanded", target.toString(), " ");
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
-            renderLink(writer, context, expandCollapseLink);
+            if (expandCollapseLink != null) {
+                renderLink(writer, context, expandCollapseLink);
+            }
         } else if (!hasChildren) {
             context.put("processChildren", Boolean.FALSE);
-            expandCollapseLink.setStyle("leafnode");
-            expandCollapseLink.setText(" ");
+            ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link("leafnode", "", " ");
             renderLink(writer, context, expandCollapseLink);
         }
     }

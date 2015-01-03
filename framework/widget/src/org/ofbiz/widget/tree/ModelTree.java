@@ -36,7 +36,6 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilCodec;
-import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilValidate;
@@ -54,6 +53,7 @@ import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
+import org.ofbiz.widget.WidgetWorker.Parameter;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderException;
@@ -90,17 +90,17 @@ public class ModelTree extends ModelWidget {
         super(treeElement);
         this.location = location;
         this.rootNodeName = treeElement.getAttribute("root-node-name");
-        String defaultRenderStyle = UtilFormatOut.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
+        String defaultRenderStyle = UtilXml.checkEmpty(treeElement.getAttribute("default-render-style"), "simple");
         // A temporary hack to accommodate those who might still be using "render-style" instead of "default-render-style"
-        if (UtilValidate.isEmpty(defaultRenderStyle) || defaultRenderStyle.equals("simple")) {
+        if (defaultRenderStyle.isEmpty() || defaultRenderStyle.equals("simple")) {
             String rStyle = treeElement.getAttribute("render-style");
-            if (UtilValidate.isNotEmpty(rStyle))
+            if (!rStyle.isEmpty())
                 defaultRenderStyle = rStyle;
         }
         this.defaultRenderStyle = defaultRenderStyle;
         this.defaultWrapStyleExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("default-wrap-style"));
         this.expandCollapseRequestExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("expand-collapse-request"));
-        this.trailNameExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(treeElement.getAttribute("trail-name"),
+        this.trailNameExdr = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(treeElement.getAttribute("trail-name"),
                 "trail"));
         this.forceChildCheck = !"false".equals(treeElement.getAttribute("force-child-check"));
         this.defaultEntityName = treeElement.getAttribute("entity-name");
@@ -149,6 +149,15 @@ public class ModelTree extends ModelWidget {
 
     public String getDefaultEntityName() {
         return this.defaultEntityName;
+    }
+
+    public String getDefaultPkName(Map<String, Object> context) {
+        ModelEntity modelEntity = WidgetWorker.getDelegator(context).getModelEntity(this.defaultEntityName);
+        if (modelEntity.getPksSize() == 1) {
+            ModelField modelField = modelEntity.getOnlyPk();
+            return modelField.getName();
+        }
+        return null;
     }
 
     public String getExpandCollapseRequest(Map<String, Object> context) {
@@ -252,34 +261,23 @@ public class ModelTree extends ModelWidget {
         }
     }
 
-    public String getDefaultPkName(Map<String, Object> context) {
-        ModelEntity modelEntity = WidgetWorker.getDelegator(context).getModelEntity(this.defaultEntityName);
-        if (modelEntity.getPksSize() == 1) {
-            ModelField modelField = modelEntity.getOnlyPk();
-            return modelField.getName();
-        }
-        return null;
-    }
-
     public static class ModelNode extends ModelWidget {
 
         private final List<ModelWidgetAction> actions;
-        protected ModelTreeCondition condition;
-        protected String entityName;
-        protected String entryName;
-        protected String expandCollapseStyle;
-        protected Image image;
-        protected Label label;
-        protected Link link;
-        protected ModelTree modelTree;
-        protected String pkName;
-        protected String renderStyle;
-        protected FlexibleStringExpander screenLocationExdr;
-        protected FlexibleStringExpander screenNameExdr;
-        protected String shareScope;
-        protected List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
-        protected List<Object[]> subNodeValues;
-        protected FlexibleStringExpander wrapStyleExdr;
+        private final ModelTreeCondition condition;
+        private final String entityName;
+        private final String entryName;
+        private final String expandCollapseStyle;
+        private final Label label;
+        private final Link link;
+        private final ModelTree modelTree;
+        private final String pkName;
+        private final String renderStyle;
+        private final FlexibleStringExpander screenLocationExdr;
+        private final FlexibleStringExpander screenNameExdr;
+        private final String shareScope;
+        private final List<ModelSubNode> subNodeList;
+        private final FlexibleStringExpander wrapStyleExdr;
 
         public ModelNode(Element nodeElement, ModelTree modelTree) {
             super(nodeElement);
@@ -287,15 +285,15 @@ public class ModelTree extends ModelWidget {
             this.expandCollapseStyle = nodeElement.getAttribute("expand-collapse-style");
             this.wrapStyleExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("wrap-style"));
             this.renderStyle = nodeElement.getAttribute("render-style");
-            this.entryName = UtilFormatOut.checkEmpty(nodeElement.getAttribute("entry-name"), null);
+            this.entryName = nodeElement.getAttribute("entry-name");
             this.entityName = nodeElement.getAttribute("entity-name");
-            if (this.pkName == null || nodeElement.hasAttribute("join-field-name"))
-                this.pkName = nodeElement.getAttribute("join-field-name");
+            this.pkName = nodeElement.getAttribute("join-field-name");
             ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
             Element actionsElement = UtilXml.firstChildElement(nodeElement, "actions");
             if (actionsElement != null) {
                 actions.addAll(ModelTreeAction.readNodeActions(this, actionsElement));
             }
+            // FIXME: Validate child elements, should be only one of entity-one, service, script.
             Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-one");
             if (actionElement != null) {
                 actions.add(new ModelWidgetAction.EntityOne(this, actionElement));
@@ -315,26 +313,39 @@ public class ModelTree extends ModelWidget {
                 this.screenNameExdr = FlexibleStringExpander.getInstance(screenElement.getAttribute("name"));
                 this.screenLocationExdr = FlexibleStringExpander.getInstance(screenElement.getAttribute("location"));
                 this.shareScope = screenElement.getAttribute("share-scope");
+            } else {
+                this.screenNameExdr = FlexibleStringExpander.getInstance("");
+                this.screenLocationExdr = FlexibleStringExpander.getInstance("");
+                this.shareScope = "";
             }
             Element labelElement = UtilXml.firstChildElement(nodeElement, "label");
             if (labelElement != null) {
                 this.label = new Label(labelElement);
+            } else {
+                this.label = null;
             }
             Element linkElement = UtilXml.firstChildElement(nodeElement, "link");
             if (linkElement != null) {
                 this.link = new Link(linkElement);
-            }
-            Element imageElement = UtilXml.firstChildElement(nodeElement, "image");
-            if (imageElement != null) {
-                this.image = new Image(imageElement);
+            } else {
+                this.link = null;
             }
             Element conditionElement = UtilXml.firstChildElement(nodeElement, "condition");
             if (conditionElement != null) {
                 this.condition = new ModelTreeCondition(modelTree, conditionElement);
+            } else {
+                this.condition = null;
             }
-            for (Element subNodeElementEntry : UtilXml.childElementList(nodeElement, "sub-node")) {
-                ModelSubNode subNode = new ModelSubNode(subNodeElementEntry, this);
-                subNodeList.add(subNode);
+            List<? extends Element> nodeElements = UtilXml.childElementList(nodeElement, "sub-node");
+            if (!nodeElements.isEmpty()) {
+                List<ModelSubNode> subNodeList = new ArrayList<ModelSubNode>();
+                for (Element subNodeElementEntry : nodeElements) {
+                    ModelSubNode subNode = new ModelSubNode(subNodeElementEntry, this);
+                    subNodeList.add(subNode);
+                }
+                this.subNodeList = Collections.unmodifiableList(subNodeList);
+            } else {
+                this.subNodeList = Collections.emptyList();
             }
         }
 
@@ -343,8 +354,8 @@ public class ModelTree extends ModelWidget {
             visitor.visit(this);
         }
 
-        public void getChildren(Map<String, Object> context) {
-            this.subNodeValues = new ArrayList<Object[]>();
+        private List<Object[]> getChildren(Map<String, Object> context) {
+            List<Object[]> subNodeValues = new ArrayList<Object[]>();
             for (ModelSubNode subNode : subNodeList) {
                 String nodeName = subNode.getNodeName(context);
                 ModelNode node = modelTree.nodeMap.get(nodeName);
@@ -352,13 +363,13 @@ public class ModelTree extends ModelWidget {
                 //if (Debug.infoOn()) Debug.logInfo(" context.currentValue:" + context.get("currentValue"), module);
                 ModelWidgetAction.runSubActions(subNodeActions, context);
                 // List dataFound = (List)context.get("dataFound");
-                Iterator<? extends Map<String, ? extends Object>> dataIter = subNode.getListIterator();
+                Iterator<? extends Map<String, ? extends Object>> dataIter = subNode.getListIterator(context);
                 if (dataIter instanceof EntityListIterator) {
                     EntityListIterator eli = (EntityListIterator) dataIter;
                     Map<String, Object> val = null;
                     while ((val = eli.next()) != null) {
                         Object[] arr = { node, val };
-                        this.subNodeValues.add(arr);
+                        subNodeValues.add(arr);
                     }
                     try {
                         eli.close();
@@ -370,14 +381,15 @@ public class ModelTree extends ModelWidget {
                     while (dataIter.hasNext()) {
                         Map<String, ? extends Object> val = dataIter.next();
                         Object[] arr = { node, val };
-                        this.subNodeValues.add(arr);
+                        subNodeValues.add(arr);
                     }
                 }
             }
+            return subNodeValues;
         }
 
         public String getEntityName() {
-            if (UtilValidate.isNotEmpty(this.entityName)) {
+            if (!this.entityName.isEmpty()) {
                 return this.entityName;
             } else {
                 return this.modelTree.getDefaultEntityName();
@@ -405,26 +417,26 @@ public class ModelTree extends ModelWidget {
         }
 
         public String getRenderStyle() {
-            String rStyle = this.renderStyle;
-            if (UtilValidate.isEmpty(rStyle))
-                rStyle = modelTree.getRenderStyle();
-            return rStyle;
+            if (this.renderStyle.isEmpty())
+                return modelTree.getRenderStyle();
+            return this.renderStyle;
         }
 
         public String getWrapStyle(Map<String, Object> context) {
             String val = this.wrapStyleExdr.expandString(context);
-            if (UtilValidate.isEmpty(val)) {
+            if (val.isEmpty()) {
                 val = this.modelTree.getWrapStyle(context);
             }
             return val;
         }
 
         public boolean hasChildren(Map<String, Object> context) {
+            List<Object[]> subNodeValues = getChildren(context);
             boolean hasChildren = false;
             Long nodeCount = null;
             String countFieldName = "childBranchCount";
             Object obj = null;
-            if (UtilValidate.isNotEmpty(this.entryName)) {
+            if (!this.entryName.isEmpty()) {
                 Map<String, Object> map = UtilGenerics.cast(context.get(this.entryName));
                 if (map instanceof GenericValue) {
                     ModelEntity modelEntity = ((GenericValue) map).getModelEntity();
@@ -462,10 +474,10 @@ public class ModelTree extends ModelWidget {
                     }
                 }
                 */
-                nodeCount = Long.valueOf(this.subNodeValues.size());
+                nodeCount = Long.valueOf(subNodeValues.size());
                 String pkName = this.getPkName(context);
                 String id = null;
-                if (UtilValidate.isNotEmpty(this.entryName)) {
+                if (!this.entryName.isEmpty()) {
                     id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
@@ -531,7 +543,7 @@ public class ModelTree extends ModelWidget {
                 ModelTreeAction.runSubActions(this.actions, context);
                 String pkName = getPkName(context);
                 String id = null;
-                if (UtilValidate.isNotEmpty(this.entryName)) {
+                if (!this.entryName.isEmpty()) {
                     id = UtilGenerics.<Map<String, String>> cast(context.get(this.entryName)).get(pkName);
                 } else {
                     id = (String) context.get(pkName);
@@ -542,10 +554,10 @@ public class ModelTree extends ModelWidget {
                 // context.entrySet(), module);
                 try {
                     String screenName = null;
-                    if (screenNameExdr != null)
+                    if (!screenNameExdr.isEmpty())
                         screenName = screenNameExdr.expandString(context);
                     String screenLocation = null;
-                    if (screenLocationExdr != null)
+                    if (!screenLocationExdr.isEmpty())
                         screenLocation = screenLocationExdr.expandString(context);
                     if (screenName != null && screenLocation != null) {
                         ScreenStringRenderer screenStringRenderer = treeStringRenderer.getScreenStringRenderer(context);
@@ -562,9 +574,9 @@ public class ModelTree extends ModelWidget {
                     Boolean processChildren = (Boolean) context.get("processChildren");
                     //if (Debug.infoOn()) Debug.logInfo(" processChildren:" + processChildren, module);
                     if (processChildren.booleanValue()) {
-                        getChildren(context);
+                        List<Object[]> subNodeValues = getChildren(context);
                         int newDepth = depth + 1;
-                        for (Object[] arr : this.subNodeValues) {
+                        for (Object[] arr : subNodeValues) {
                             ModelNode node = (ModelNode) arr[0];
                             Map<String, Object> val = UtilGenerics.checkMap(arr[1]);
                             //GenericPK pk = val.getPrimaryKey();
@@ -575,7 +587,7 @@ public class ModelTree extends ModelWidget {
                             MapStack<String> newContext = MapStack.create(context);
                             newContext.push();
                             String nodeEntryName = node.getEntryName();
-                            if (UtilValidate.isNotEmpty(nodeEntryName)) {
+                            if (!nodeEntryName.isEmpty()) {
                                 newContext.put(nodeEntryName, val);
                             } else {
                                 newContext.putAll(val);
@@ -615,10 +627,6 @@ public class ModelTree extends ModelWidget {
             }
         }
 
-        public void setPkName(String pkName) {
-            this.pkName = pkName;
-        }
-
         public boolean showPeers(int currentDepth, Map<String, Object> context) {
             int trailSize = 0;
             List<?> trail = UtilGenerics.checkList(context.get("targetNodeTrail"));
@@ -648,32 +656,23 @@ public class ModelTree extends ModelWidget {
 
         public static class Image {
 
-            protected FlexibleStringExpander borderExdr;
-            protected FlexibleStringExpander heightExdr;
-            protected FlexibleStringExpander idExdr;
-            protected FlexibleStringExpander srcExdr;
-            protected FlexibleStringExpander styleExdr;
-            protected String urlMode;
-            protected FlexibleStringExpander widthExdr;
-
-            public Image() {
-                setSrc(null);
-                setId(null);
-                setStyle(null);
-                setWidth(null);
-                setHeight(null);
-                setBorder("0");
-                setUrlMode(null);
-            }
+            private final FlexibleStringExpander borderExdr;
+            private final FlexibleStringExpander heightExdr;
+            private final FlexibleStringExpander idExdr;
+            private final FlexibleStringExpander srcExdr;
+            private final FlexibleStringExpander styleExdr;
+            private final String urlMode;
+            private final FlexibleStringExpander widthExdr;
 
             public Image(Element imageElement) {
-                setSrc(imageElement.getAttribute("src"));
-                setId(imageElement.getAttribute("id"));
-                setStyle(imageElement.getAttribute("style"));
-                setWidth(imageElement.getAttribute("width"));
-                setHeight(imageElement.getAttribute("height"));
-                setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
-                setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
+                this.borderExdr = FlexibleStringExpander
+                        .getInstance(UtilXml.checkEmpty(imageElement.getAttribute("border"), "0"));
+                this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
+                this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
+                this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
+                this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
+                this.urlMode = UtilXml.checkEmpty(imageElement.getAttribute("url-mode"), "content");
+                this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
             }
 
             public String getBorder(Map<String, Object> context) {
@@ -713,50 +712,16 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
-
-            public void setBorder(String val) {
-                this.borderExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setHeight(String val) {
-                this.heightExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setId(String val) {
-                this.idExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setSrc(String val) {
-                String textAttr = UtilFormatOut.checkNull(val);
-                this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
-            }
-
-            public void setStyle(String val) {
-                this.styleExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setUrlMode(String val) {
-                if (UtilValidate.isEmpty(val)) {
-                    this.urlMode = "content";
-                } else {
-                    this.urlMode = val;
-                }
-            }
-
-            public void setWidth(String val) {
-                this.widthExdr = FlexibleStringExpander.getInstance(val);
-            }
         }
 
-        public static class Label {
-            protected FlexibleStringExpander idExdr;
-            protected FlexibleStringExpander styleExdr;
-            protected FlexibleStringExpander textExdr;
+        public static final class Label {
+            private final FlexibleStringExpander idExdr;
+            private final FlexibleStringExpander styleExdr;
+            private final FlexibleStringExpander textExdr;
 
             public Label(Element labelElement) {
-                // put the text attribute first, then the pcdata under the element, if both are there of course
-                String textAttr = UtilFormatOut.checkNull(labelElement.getAttribute("text"));
-                String pcdata = UtilFormatOut.checkNull(UtilXml.elementValue(labelElement));
+                String textAttr = labelElement.getAttribute("text");
+                String pcdata = UtilXml.checkEmpty(UtilXml.elementValue(labelElement), "");
                 this.textExdr = FlexibleStringExpander.getInstance(textAttr + pcdata);
                 this.idExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("id"));
                 this.styleExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("style"));
@@ -772,6 +737,7 @@ public class ModelTree extends ModelWidget {
 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
+                // FIXME: Encoding should be done by the renderer, not by the model.
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     text = simpleEncoder.encode(text);
@@ -791,59 +757,71 @@ public class ModelTree extends ModelWidget {
         }
 
         public static class Link {
-            protected boolean encode = false;
-            protected boolean fullPath = false;
-            protected FlexibleStringExpander idExdr;
-            protected Image image;
-            protected String linkType;
-            protected FlexibleStringExpander nameExdr;
-            protected List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>();
-            protected FlexibleStringExpander prefixExdr;
-            protected boolean secure = false;
-            protected FlexibleStringExpander styleExdr;
-            protected FlexibleStringExpander targetExdr;
-            protected FlexibleStringExpander targetWindowExdr;
-            protected FlexibleStringExpander textExdr;
-            protected FlexibleStringExpander titleExdr;
-            protected String urlMode = "intra-app";
-
-            public Link() {
-                setText(null);
-                setId(null);
-                setStyle(null);
-                setTarget(null);
-                setTargetWindow(null);
-                setPrefix(null);
-                setUrlMode(null);
-                setFullPath(null);
-                setSecure(null);
-                setEncode(null);
-                setName(null);
-                setTitle(null);
-            }
+            private final boolean encode;
+            private final boolean fullPath;
+            private final FlexibleStringExpander idExdr;
+            private final Image image;
+            private final String linkType;
+            private final FlexibleStringExpander nameExdr;
+            private final List<Parameter> parameterList;
+            private final FlexibleStringExpander prefixExdr;
+            private final boolean secure;
+            private final FlexibleStringExpander styleExdr;
+            private final FlexibleStringExpander targetExdr;
+            private final FlexibleStringExpander targetWindowExdr;
+            private final FlexibleStringExpander textExdr;
+            private final FlexibleStringExpander titleExdr;
+            private final String urlMode;
 
             public Link(Element linkElement) {
-                setText(linkElement.getAttribute("text"));
-                setId(linkElement.getAttribute("id"));
-                setStyle(linkElement.getAttribute("style"));
-                setTarget(linkElement.getAttribute("target"));
-                setTargetWindow(linkElement.getAttribute("target-window"));
-                setPrefix(linkElement.getAttribute("prefix"));
-                setUrlMode(linkElement.getAttribute("url-mode"));
-                setFullPath(linkElement.getAttribute("full-path"));
-                setSecure(linkElement.getAttribute("secure"));
-                setEncode(linkElement.getAttribute("encode"));
-                setName(linkElement.getAttribute("name"));
-                setTitle(linkElement.getAttribute("title"));
+                this.encode = "true".equals(linkElement.getAttribute("encode"));
+                this.fullPath = "true".equals(linkElement.getAttribute("full-path"));
+                this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
                 Element imageElement = UtilXml.firstChildElement(linkElement, "image");
                 if (imageElement != null) {
                     this.image = new Image(imageElement);
+                } else {
+                    this.image = null;
                 }
                 this.linkType = linkElement.getAttribute("link-type");
+                this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
                 List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-                for (Element parameterElement : parameterElementList) {
-                    this.parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                if (!parameterElementList.isEmpty()) {
+                    List<Parameter> parameterList = new ArrayList<Parameter>(parameterElementList.size());
+                    for (Element parameterElement : parameterElementList) {
+                        parameterList.add(new Parameter(parameterElement));
+                    }
+                    this.parameterList = Collections.unmodifiableList(parameterList);
+                } else {
+                    this.parameterList = Collections.emptyList();
                 }
+                this.prefixExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("prefix"));
+                this.secure = "true".equals(linkElement.getAttribute("secure"));
+                this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
+                this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
+                this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
+                this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
+                this.titleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("title"));
+                this.urlMode = UtilXml.checkEmpty(linkElement.getAttribute("link-type"), "intra-app");
+            }
+
+            // FIXME: Using a widget model in this way is an ugly hack.
+            public Link(String style, String target, String text) {
+                this.encode = false;
+                this.fullPath = false;
+                this.idExdr = FlexibleStringExpander.getInstance("");
+                this.image = null;
+                this.linkType = "";
+                this.nameExdr = FlexibleStringExpander.getInstance("");
+                this.parameterList = Collections.emptyList();
+                this.prefixExdr = FlexibleStringExpander.getInstance("");
+                this.secure = false;
+                this.styleExdr = FlexibleStringExpander.getInstance(style);
+                this.targetExdr = FlexibleStringExpander.getInstance(target);
+                this.targetWindowExdr = FlexibleStringExpander.getInstance("");
+                this.textExdr = FlexibleStringExpander.getInstance(text);
+                this.titleExdr = FlexibleStringExpander.getInstance("");
+                this.urlMode = "intra-app";
             }
 
             public boolean getEncode() {
@@ -912,6 +890,7 @@ public class ModelTree extends ModelWidget {
 
             public String getText(Map<String, Object> context) {
                 String text = this.textExdr.expandString(context);
+                // FIXME: Encoding should be done by the renderer, not by the model.
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     text = simpleEncoder.encode(text);
@@ -921,6 +900,7 @@ public class ModelTree extends ModelWidget {
 
             public String getTitle(Map<String, Object> context) {
                 String title = this.titleExdr.expandString(context);
+                // FIXME: Encoding should be done by the renderer, not by the model.
                 UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
                 if (simpleEncoder != null) {
                     title = simpleEncoder.encode(title);
@@ -941,81 +921,14 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
-
-            public void setEncode(String val) {
-                String sEncode = val;
-                if (sEncode != null && sEncode.equalsIgnoreCase("true"))
-                    this.encode = true;
-                else
-                    this.encode = false;
-            }
-
-            public void setFullPath(String val) {
-                String sFullPath = val;
-                if (sFullPath != null && sFullPath.equalsIgnoreCase("true"))
-                    this.fullPath = true;
-                else
-                    this.fullPath = false;
-            }
-
-            public void setId(String val) {
-                this.idExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setImage(Image img) {
-                this.image = img;
-            }
-
-            public void setName(String val) {
-                this.nameExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setPrefix(String val) {
-                this.prefixExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setSecure(String val) {
-                String sSecure = val;
-                if (sSecure != null && sSecure.equalsIgnoreCase("true"))
-                    this.secure = true;
-                else
-                    this.secure = false;
-            }
-
-            public void setStyle(String val) {
-                this.styleExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setTarget(String val) {
-                this.targetExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setTargetWindow(String val) {
-                this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setText(String val) {
-                String textAttr = UtilFormatOut.checkNull(val);
-                this.textExdr = FlexibleStringExpander.getInstance(textAttr);
-            }
-
-            public void setTitle(String val) {
-                this.titleExdr = FlexibleStringExpander.getInstance(val);
-            }
-
-            public void setUrlMode(String val) {
-                if (UtilValidate.isNotEmpty(val))
-                    this.urlMode = val;
-            }
-
         }
 
         public static class ModelSubNode extends ModelWidget {
 
             private final List<ModelWidgetAction> actions;
-            protected ListIterator<? extends Map<String, ? extends Object>> listIterator;
-            protected FlexibleStringExpander nodeNameExdr;
-            protected ModelNode rootNode;
+            private final FlexibleStringExpander nodeNameExdr;
+            private final ModelNode rootNode;
+            private final String iteratorKey;
 
             public ModelSubNode(Element subNodeElement, ModelNode modelNode) {
                 super(subNodeElement);
@@ -1044,6 +957,8 @@ public class ModelTree extends ModelWidget {
                 }
                 actions.trimToSize();
                 this.actions = Collections.unmodifiableList(actions);
+                this.iteratorKey = this.rootNode.getName().concat(".").concat(this.nodeNameExdr.getOriginal())
+                        .concat(".ITERATOR");
             }
 
             @Override
@@ -1055,8 +970,9 @@ public class ModelTree extends ModelWidget {
                 return actions;
             }
 
-            public ListIterator<? extends Map<String, ? extends Object>> getListIterator() {
-                return listIterator;
+            @SuppressWarnings("unchecked")
+            public ListIterator<? extends Map<String, ? extends Object>> getListIterator(Map<String, Object> context) {
+                return (ListIterator<? extends Map<String, ? extends Object>>) context.get(this.iteratorKey);
             }
 
             public ModelTree.ModelNode getNode() {
@@ -1067,8 +983,8 @@ public class ModelTree extends ModelWidget {
                 return this.nodeNameExdr.expandString(context);
             }
 
-            public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter) {
-                listIterator = iter;
+            public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter, Map<String, Object> context) {
+                context.put(this.iteratorKey, iter);
             }
         }
     }

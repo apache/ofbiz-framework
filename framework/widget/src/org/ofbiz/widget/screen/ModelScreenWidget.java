@@ -892,6 +892,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getText(Map<String, Object> context) {
             String text = this.textExdr.expandString(context);
+            // FIXME: Encoding should be done by the renderer, not by the model.
             UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 text = simpleEncoder.encode(text);
@@ -1469,6 +1470,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getText(Map<String, Object> context) {
             String text = this.textExdr.expandString(context);
+            // FIXME: Encoding should be done by the renderer, not by the model.
             UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 text = simpleEncoder.encode(text);
@@ -1631,6 +1633,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getAlt(Map<String, Object> context) {
             String alt = this.alt.expandString(context);
+            // FIXME: Encoding should be done by the renderer, not by the model.
             UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null) {
                 alt = simpleEncoder.encode(alt);
