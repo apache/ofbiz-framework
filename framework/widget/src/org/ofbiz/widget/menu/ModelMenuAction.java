@@ -56,7 +56,7 @@ public abstract class ModelMenuAction {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelMenu, actionElement));
             } else {
-                actions.add(ModelWidgetAction.toModelWidgetAction(modelMenu, actionElement));
+                actions.add(ModelWidgetAction.newInstance(modelMenu, actionElement));
             }
         }
         return Collections.unmodifiableList(actions);

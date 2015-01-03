@@ -63,7 +63,7 @@ public abstract class ModelFormAction {
             } else if ("call-parent-actions".equals(actionElement.getNodeName())) {
                 actions.add(new CallParentActions(modelForm, actionElement));
             } else {
-                actions.add(ModelWidgetAction.toModelWidgetAction(modelForm, actionElement));
+                actions.add(ModelWidgetAction.newInstance(modelForm, actionElement));
             }
         }
         return Collections.unmodifiableList(actions);

@@ -77,7 +77,7 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public abstract void accept(ModelActionVisitor visitor);
 
-    public static ModelWidgetAction toModelWidgetAction(ModelWidget modelWidget, Element actionElement) {
+    public static ModelWidgetAction newInstance(ModelWidget modelWidget, Element actionElement) {
         if ("set".equals(actionElement.getNodeName())) {
             return new SetField(modelWidget, actionElement);
         } else if ("property-map".equals(actionElement.getNodeName())) {
@@ -107,7 +107,7 @@ public abstract class ModelWidgetAction implements Serializable {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
         List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
         for (Element actionElement: actionElementList) {
-            actions.add(toModelWidgetAction(modelWidget, actionElement));
+            actions.add(newInstance(modelWidget, actionElement));
         }
         return Collections.unmodifiableList(actions);
     }
