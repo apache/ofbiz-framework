@@ -162,9 +162,10 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         }
         boolean hasChildren = node.hasChildren(context);
 
-        ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link();
         // check to see if this node needs to be expanded.
         if (hasChildren && node.isExpandCollapse()) {
+            // FIXME: Using a widget model in this way is an ugly hack.
+            ModelTree.ModelNode.Link expandCollapseLink = null;
             String targetEntityId = null;
             List<String> targetNodeTrail = UtilGenerics.toList(context.get("targetNodeTrail"));
             if (depth < targetNodeTrail.size()) {
@@ -178,7 +179,6 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     context.put("processChildren", Boolean.FALSE);
                     //expandCollapseLink.setText("&nbsp;+&nbsp;");
                     currentNodeTrailPiped = StringUtil.join(currentNodeTrail, "|");
-                    expandCollapseLink.setStyle("collapsed");
                     StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                     String trailName = node.getModelTree().getTrailName(context);
                     if (target.indexOf("?") < 0) {
@@ -187,7 +187,7 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                         target.append("&");
                     }
                     target.append(trailName).append("=").append(currentNodeTrailPiped);
-                    expandCollapseLink.setTarget(target.toString());
+                    expandCollapseLink = new ModelTree.ModelNode.Link("collapsed", target.toString(), " ");
                 }
             } else {
                 context.put("processChildren", Boolean.TRUE);
@@ -197,7 +197,6 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                 if (currentNodeTrailPiped == null) {
                     currentNodeTrailPiped = "";
                 }
-                expandCollapseLink.setStyle("expanded");
                 StringBuilder target = new StringBuilder(node.getModelTree().getExpandCollapseRequest(context));
                 String trailName = node.getModelTree().getTrailName(context);
                 if (target.indexOf("?") < 0) {
@@ -206,14 +205,16 @@ public class MacroTreeRenderer implements TreeStringRenderer {
                     target.append("&");
                 }
                 target.append(trailName).append("=").append(currentNodeTrailPiped);
-                expandCollapseLink.setTarget(target.toString());
+                expandCollapseLink = new ModelTree.ModelNode.Link("expanded", target.toString(), " ");
                 // add it so it can be remove in renderNodeEnd
                 currentNodeTrail.add(lastContentId);
             }
-            renderLink(writer, context, expandCollapseLink);
+            if (expandCollapseLink != null) {
+                renderLink(writer, context, expandCollapseLink);
+            }
         } else if (!hasChildren) {
             context.put("processChildren", Boolean.FALSE);
-            expandCollapseLink.setStyle("leafnode");
+            ModelTree.ModelNode.Link expandCollapseLink = new ModelTree.ModelNode.Link("leafnode", "", " ");
             renderLink(writer, context, expandCollapseLink);
         }
     }
