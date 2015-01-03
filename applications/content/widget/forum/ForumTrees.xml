@@ -23,7 +23,7 @@ under the License.
 
 <!--    <tree name="MessageTree" root-node-name="node-root"
         default-render-style="expand-collapse" expand-collapse-request="findForumThreads?forumId=${parameters.forumId}"> -->
-    <tree name="MessageTree" root-node-name="node-root" default-render-style="simple">
+    <tree name="MessageTree" entity-name="Content" root-node-name="node-root" default-render-style="simple">
         <node name="node-root">
             <entity-one entity-name="Content" use-cache="false" value-field="rsp">
                 <field-map field-name="contentId" from-field="parameters.forumId"/>
