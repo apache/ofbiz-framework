@@ -55,10 +55,8 @@ import freemarker.template.TemplateException;
 public class MacroTreeRenderer implements TreeStringRenderer {
 
     public static final String module = MacroTreeRenderer.class.getName();
-    ScreenStringRenderer screenStringRenderer = null;
     private Template macroLibrary;
     private Environment environment;
-    protected boolean widgetCommentsEnabled = false;
 
 
     public MacroTreeRenderer(String macroLibraryPath, Appendable writer) throws TemplateException, IOException {
@@ -67,28 +65,19 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         this.environment = FreeMarkerWorker.renderTemplate(this.macroLibrary, input, writer);
     }
 
-    private void executeMacro(Appendable writer, String macro) throws IOException {
+    private void executeMacro(String macro) throws IOException {
         try {
             Reader templateReader = new StringReader(macro);
             // FIXME: I am using a Date as an hack to provide a unique name for the template...
-            Template template = new Template((new java.util.Date()).toString(), templateReader, FreeMarkerWorker.getDefaultOfbizConfig());
+            Template template = new Template((new java.util.Date()).toString(), templateReader,
+                    FreeMarkerWorker.getDefaultOfbizConfig());
             templateReader.close();
-            if (writer != null) {
-                Map<String, Object> input = UtilMisc.toMap("key", null);
-                Environment tmpEnvironment = FreeMarkerWorker.renderTemplate(this.macroLibrary, input, writer);
-                tmpEnvironment.include(template);
-            } else {
-                this.environment.include(template);
-            }
+            this.environment.include(template);
         } catch (TemplateException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering tree thru ftl", module);
         } catch (IOException e) {
-            Debug.logError(e, "Error rendering screen thru ftl", module);
+            Debug.logError(e, "Error rendering tree thru ftl", module);
         }
-    }
-    
-    private void executeMacro(String macro) throws IOException {
-        executeMacro(null, macro);
     }
  
     /**
@@ -98,18 +87,16 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderBeginningBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (this.widgetCommentsEnabled) {
-            StringWriter sr = new StringWriter();
-            sr.append("<@formatBoundaryComment ");
-            sr.append(" boundaryType=\"");
-            sr.append("Begin");
-            sr.append("\" widgetType=\"");
-            sr.append(widgetType);
-            sr.append("\" widgetName=\"");
-            sr.append(modelWidget.getBoundaryCommentName());
-            sr.append("\" />");
-            executeMacro(sr.toString());
-        }
+        StringWriter sr = new StringWriter();
+        sr.append("<@formatBoundaryComment ");
+        sr.append(" boundaryType=\"");
+        sr.append("Begin");
+        sr.append("\" widgetType=\"");
+        sr.append(widgetType);
+        sr.append("\" widgetName=\"");
+        sr.append(modelWidget.getBoundaryCommentName());
+        sr.append("\" />");
+        executeMacro(sr.toString());
     }
     
     /**
@@ -119,28 +106,27 @@ public class MacroTreeRenderer implements TreeStringRenderer {
      * @param modelWidget The widget
      */
     public void renderEndingBoundaryComment(Appendable writer, String widgetType, ModelWidget modelWidget) throws IOException {
-        if (this.widgetCommentsEnabled) {
-            StringWriter sr = new StringWriter();
-            sr.append("<@formatBoundaryComment ");
-            sr.append(" boundaryType=\"");
-            sr.append("End");
-            sr.append("\" widgetType=\"");
-            sr.append(widgetType);
-            sr.append("\" widgetName=\"");
-            sr.append(modelWidget.getBoundaryCommentName());
-            sr.append("\" />");
-            executeMacro(sr.toString());
-        }
-    }    
+        StringWriter sr = new StringWriter();
+        sr.append("<@formatBoundaryComment ");
+        sr.append(" boundaryType=\"");
+        sr.append("End");
+        sr.append("\" widgetType=\"");
+        sr.append(widgetType);
+        sr.append("\" widgetName=\"");
+        sr.append(modelWidget.getBoundaryCommentName());
+        sr.append("\" />");
+        executeMacro(sr.toString());
+    }
     
     public void renderNodeBegin(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node, int depth) throws IOException {
         String currentNodeTrailPiped = null;
         List<String> currentNodeTrail = UtilGenerics.toList(context.get("currentNodeTrail"));
         
         String style = "";
-        if (node.isRootNode()) {           
-            this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
-            renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
+        if (node.isRootNode()) {
+            if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
+                renderBeginningBoundaryComment(writer, "Tree Widget", node.getModelTree());
+            }
             style = "basic-tree";
         }
  
@@ -221,18 +207,19 @@ public class MacroTreeRenderer implements TreeStringRenderer {
 
     public void renderNodeEnd(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
         Boolean processChildren = (Boolean) context.get("processChildren");
-        if (node.isRootNode()) {            
-            renderEndingBoundaryComment(writer, "Tree Widget", node.getModelTree());
-        }
-        
         StringWriter sr = new StringWriter();
-        sr.append("<@renderNodeEnd ");        
+        sr.append("<@renderNodeEnd ");
         sr.append(" processChildren=");
         sr.append(Boolean.toString(processChildren.booleanValue()));
         sr.append(" isRootNode=");
         sr.append(Boolean.toString(node.isRootNode()));
         sr.append(" />");
-        executeMacro(sr.toString());        
+        executeMacro(sr.toString());
+        if (node.isRootNode()) {
+            if (ModelWidget.widgetBoundaryCommentsEnabled(context)) {
+                renderEndingBoundaryComment(writer, "Tree Widget", node.getModelTree());
+            }
+        }
     }
 
     public void renderLastElement(Appendable writer, Map<String, Object> context, ModelTree.ModelNode node) throws IOException {
@@ -370,14 +357,14 @@ public class MacroTreeRenderer implements TreeStringRenderer {
         sr.append("\" urlString=\"");
         sr.append(urlString);
         sr.append("\" />");
-        executeMacro(writer, sr.toString());        
+        executeMacro(sr.toString());        
     }
 
     public ScreenStringRenderer getScreenStringRenderer(Map<String, Object> context) {
         ScreenRenderer screenRenderer = (ScreenRenderer)context.get("screens");
         if (screenRenderer != null) {
-            this.screenStringRenderer = screenRenderer.getScreenStringRenderer();
+            return screenRenderer.getScreenStringRenderer();
         } 
-        return this.screenStringRenderer;
+        return null;
     }
 }
