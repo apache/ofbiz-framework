@@ -72,6 +72,11 @@ public abstract class ModelFormAction {
         return Collections.unmodifiableList(actions);
     }
 
+    /**
+     * Models the &lt;call-parent-actions&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
     @SuppressWarnings("serial")
     public static class CallParentActions extends ModelWidgetAction {
         private final ActionsKind kind;;
@@ -117,6 +122,11 @@ public abstract class ModelFormAction {
         }
     }
 
+    /**
+     * Models the &lt;service&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
     @SuppressWarnings("serial")
     public static class Service extends ModelWidgetAction {
         private final FlexibleStringExpander autoFieldMapExdr;
