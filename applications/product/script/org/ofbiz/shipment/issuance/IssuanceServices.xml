@@ -270,6 +270,30 @@ under the License.
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
         <clear-field field="createDetailMap"/>
+        <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
+            <field-map field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
+            <field-map field-name="orderItemSeqId" from-field="orderItemShipGrpInvRes.orderItemSeqId"/>
+        </entity-and>
+        <!-- Need to Cancel and re-reserve oisgir to fix OFBIZ-5364 issue, while there are multiple ship groups for an order item associated with same inventory and you are issuing items from one ship group to another, then quantityNotAvailable will be incorrect if we do not cancel and reserve all oisgir of order item  -->
+        <iterate entry="oisgir" list="oisgirs">
+            <set field="cancelOrderItemShipGrpInvResMap.orderId" from-field="oisgir.orderId"/>
+            <set field="cancelOrderItemShipGrpInvResMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="cancelOrderItemShipGrpInvResMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <set field="cancelOrderItemShipGrpInvResMap.inventoryItemId" from-field="oisgir.inventoryItemId"/>
+            <set field="cancelOrderItemShipGrpInvResMap.cancelQuantity" from-field="oisgir.quantity"/>
+            <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
+        </iterate>
+        <!-- Re-reserve cancelled oisgirs again so that shipped quantity will be subtract from oisgir.quantity and oisgir.quantityNotAvailable will be calculated accordingly -->
+        <iterate entry="oisgir" list="oisgirs">
+            <set field="reserveProductInventoryByFacilityMap.quantity" from-field="oisgir.quantity"/>
+            <set field="reserveProductInventoryByFacilityMap.facilityId" from-field="orderHeader.originFacilityId"/>
+            <set field="reserveProductInventoryByFacilityMap.orderId" from-field="oisgir.orderId"/>
+            <set field="reserveProductInventoryByFacilityMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
+            <set field="reserveProductInventoryByFacilityMap.productId" from-field="orderItem.productId"/>
+            <set field="reserveProductInventoryByFacilityMap.shipGroupSeqId" from-field="oisgir.shipGroupSeqId"/>
+            <set field="reserveProductInventoryByFacilityMap.requireInventory" value="N"/><!-- requireInventory should be N to create backordered oisgir if ATP is negative -->
+            <call-service service-name="reserveProductInventoryByFacility" in-map-name="reserveProductInventoryByFacilityMap" />
+        </iterate>
     </simple-method>
 
     <!-- some inline methods for the issuance process -->
