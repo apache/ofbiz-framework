@@ -1052,7 +1052,9 @@ public class UtilValidate {
     public static boolean isCreditCard(String stPassed) {
         if (isEmpty(stPassed)) return defaultEmptyOK;
         String st = stripCharsInBag(stPassed, creditCardDelimiters);
-
+		
+		if (!isInteger(st)) return false;
+		
         // encoding only works on cars with less the 19 digits
         if (st.length() > 19) return false;
         return sumIsMod10(getLuhnSum(st));
