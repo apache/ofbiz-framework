@@ -18,6 +18,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:include schemaLocation="http://ofbiz.apache.org/dtds/widget-common.xsd" />
 
   <!-- ================== FORMS ==================== -->
     <xs:element name="forms">
@@ -1798,7 +1799,6 @@ under the License.
     </xs:element>
 
   <!-- ================== ACTIONS ==================== -->
-    <xs:element name="AllActions" abstract="true"/>
     <xs:element name="actions">
         <xs:complexType>
             <xs:sequence>
@@ -1811,42 +1811,6 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="AllActions"/>
             </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="property-map" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="resource" use="required" />
-            <xs:attribute type="xs:string" name="map-name" use="required" />
-            <xs:attribute name="global" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="property-to-field" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="resource" use="required" />
-            <xs:attribute type="xs:string" name="property" use="required" />
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="default" />
-            <xs:attribute name="no-locale" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="arg-list-name" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="script" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="location" use="required" />
         </xs:complexType>
     </xs:element>
     <xs:element name="service" substitutionGroup="AllActions">
@@ -1873,44 +1837,7 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="set" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="from-field" />
-            <xs:attribute type="xs:string" name="value" />
-            <xs:attribute type="xs:string" name="default-value" />
-            <xs:attribute name="global" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="type" default="String">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="PlainString" />
-                        <xs:enumeration value="String" />
-                        <xs:enumeration value="BigDecimal" />
-                        <xs:enumeration value="Double" />
-                        <xs:enumeration value="Float" />
-                        <xs:enumeration value="List" />
-                        <xs:enumeration value="Long" />
-                        <xs:enumeration value="Integer" />
-                        <xs:enumeration value="Date" />
-                        <xs:enumeration value="Time" />
-                        <xs:enumeration value="Timestamp" />
-                        <xs:enumeration value="Boolean" />
-                        <xs:enumeration value="Object" />
-                        <xs:enumeration value="NewList" />
-                        <xs:enumeration value="NewMap" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-
+    <xs:element name="call-parent-actions" substitutionGroup="AllActions" />
     <xs:element name="entity-and" substitutionGroup="AllActions">
         <xs:complexType>
             <xs:sequence>
@@ -1923,8 +1850,7 @@ under the License.
                     <xs:element ref="use-iterator" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attribute name="entity-name" type="xs:string" use="required" />
-            <xs:attribute name="list" type="xs:string" use="optional" />
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
             <xs:attribute name="use-cache" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1942,6 +1868,7 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute type="xs:string" name="list" />
             <xs:attribute name="result-set-type" default="scroll">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1969,8 +1896,7 @@ under the License.
                     <xs:element ref="use-iterator" />
                 </xs:choice>
             </xs:sequence>
-            <xs:attribute name="entity-name" type="xs:string" use="required" />
-            <xs:attribute name="list" type="xs:string" use="optional" />
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
             <xs:attribute name="use-cache" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -1996,7 +1922,8 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="delegator-name" />
+            <xs:attribute type="xs:string" name="delegator-name" />
+            <xs:attribute type="xs:string" name="list" />
             <xs:attribute name="result-set-type" default="scroll">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
@@ -2007,172 +1934,4 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="entity-one" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field-map" />
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
-            </xs:sequence>
-            <xs:attribute type="xs:string" name="entity-name" use="required" />
-            <xs:attribute type="xs:string" name="value-field" />
-            <xs:attribute name="use-cache" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="auto-field-map" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="condition-expr">
-        <xs:complexType>
-            <xs:attribute name="field-name" type="xs:string" use="required" />
-            <xs:attribute name="operator" default="equals">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="less" />
-                        <xs:enumeration value="greater" />
-                        <xs:enumeration value="less-equals" />
-                        <xs:enumeration value="greater-equals" />
-                        <xs:enumeration value="equals" />
-                        <xs:enumeration value="not-equals" />
-                        <xs:enumeration value="in" />
-                        <xs:enumeration value="between" />
-                        <xs:enumeration value="like" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="from-field" type="xs:string" />
-            <xs:attribute name="value" type="xs:string" />
-            <xs:attribute name="ignore-if-null" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="ignore-if-empty" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="ignore-case" default="false">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="ignore" default="false">
-                <xs:annotation>
-                    <xs:documentation>
-                        Ignore the condition if flag is true.
-                        Defaults to false.
-                </xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="condition-list">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr" />
-                <xs:element ref="condition-list" />
-                <xs:element ref="condition-object" />
-            </xs:choice>
-            <xs:attribute name="combine" default="and">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="and" />
-                        <xs:enumeration value="or" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="condition-object">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="field-map">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field-name" use="required" />
-            <xs:attribute type="xs:string" name="from-field" />
-            <xs:attribute type="xs:string" name="value" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="having-condition-list">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="condition-expr" />
-                <xs:element ref="condition-list" />
-                <xs:element ref="condition-object" />
-            </xs:choice>
-            <xs:attribute name="combine" default="and">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="and" />
-                        <xs:enumeration value="or" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="limit-range">
-        <xs:complexType>
-            <xs:attribute name="start" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="size" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="limit-view">
-        <xs:complexType>
-            <xs:attribute name="view-index" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>Should resolve into a non-negative integer.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="view-size" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>Should resolve into a positive integer.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="use-iterator" />
-    <xs:element name="order-by">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field-name" use="required" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="select-field">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field-name" use="required" />
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="call-parent-actions" substitutionGroup="AllActions" />
 </xs:schema>
