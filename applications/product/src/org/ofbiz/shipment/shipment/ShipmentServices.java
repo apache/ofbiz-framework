@@ -432,22 +432,26 @@ public class ShipmentServices {
         if (shippableItemInfo != null) {
             for (Map<String, Object> itemMap: shippableItemInfo) {
                 // add the item sizes
-                BigDecimal itemSize = (BigDecimal) itemMap.get("size");
-                if (itemSize != null) {
-                    shippableItemSizes.add(itemSize);
+                if (itemMap.containsKey("size")) {
+                    BigDecimal itemSize = (BigDecimal) itemMap.get("size");
+                    if (itemSize != null) {
+                        shippableItemSizes.add(itemSize);
+                    }
                 }
 
                 // add the feature quantities
                 BigDecimal quantity = (BigDecimal) itemMap.get("quantity");
-                Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
-                if (UtilValidate.isNotEmpty(featureSet)) {
-                    for (String featureId: featureSet) {
-                        BigDecimal featureQuantity = shippableFeatureMap.get(featureId);
-                        if (featureQuantity == null) {
-                            featureQuantity = BigDecimal.ZERO;
+                if (itemMap.containsKey("featureSet")) {
+                    Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
+                    if (UtilValidate.isNotEmpty(featureSet)) {
+                        for (String featureId: featureSet) {
+                            BigDecimal featureQuantity = shippableFeatureMap.get(featureId);
+                            if (featureQuantity == null) {
+                                featureQuantity = BigDecimal.ZERO;
+                            }
+                            featureQuantity = featureQuantity.add(quantity);
+                            shippableFeatureMap.put(featureId, featureQuantity);
                         }
-                        featureQuantity = featureQuantity.add(quantity);
-                        shippableFeatureMap.put(featureId, featureQuantity);
                     }
                 }
 
