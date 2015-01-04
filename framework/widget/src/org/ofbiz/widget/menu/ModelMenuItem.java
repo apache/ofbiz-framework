@@ -661,7 +661,7 @@ public class ModelMenuItem extends ModelWidget {
             this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
             this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
             this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
-            this.urlMode = UtilXml.checkEmpty(linkElement.getAttribute("link-type"), "intra-app");
+            this.urlMode = UtilXml.checkEmpty(linkElement.getAttribute("url-mode"), "intra-app");
         }
 
         public Link(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
