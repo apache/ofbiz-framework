@@ -68,6 +68,20 @@ import org.xml.sax.SAXException;
 @SuppressWarnings("serial")
 public class ModelTree extends ModelWidget {
 
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
+
     public static final String module = ModelTree.class.getName();
 
     private final String defaultEntityName;
@@ -81,9 +95,6 @@ public class ModelTree extends ModelWidget {
     private final int postTrailOpenDepth;
     private final String rootNodeName;
     private final FlexibleStringExpander trailNameExdr;
-
-    // ===== CONSTRUCTORS =====
-    /** Default Constructor */
 
     public ModelTree(Element treeElement, String location) {
         super(treeElement);
@@ -258,6 +269,11 @@ public class ModelTree extends ModelWidget {
         }
     }
 
+    /**
+     * Models the &lt;node&gt; element.
+     * 
+     * @see <code>widget-tree.xsd</code>
+     */
     public static class ModelNode extends ModelWidget {
 
         private final List<ModelWidgetAction> actions;
@@ -920,6 +936,11 @@ public class ModelTree extends ModelWidget {
             }
         }
 
+        /**
+         * Models the &lt;sub-node&gt; element.
+         * 
+         * @see <code>widget-tree.xsd</code>
+         */
         public static class ModelSubNode extends ModelWidget {
 
             private final List<ModelWidgetAction> actions;
