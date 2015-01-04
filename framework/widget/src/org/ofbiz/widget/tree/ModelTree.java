@@ -224,19 +224,11 @@ public class ModelTree extends ModelWidget {
     }
 
     /**
-     * Renders this tree to a String, i.e. in a text format, as defined with the
-     * TreeStringRenderer implementation.
+     * Renders this model.
      *
-     * @param buf the StringBuffer Object
-     * @param context Map containing the tree context; the following are
-     *   reserved words in this context: parameters (Map), isError (Boolean),
-     *   itemIndex (Integer, for lists only, otherwise null), bshInterpreter,
-     *   treeName (String, optional alternate name for tree, defaults to the
-     *   value of the name attribute)
-     * @param treeStringRenderer An implementation of the TreeStringRenderer
-     *   interface that is responsible for the actual text generation for
-     *   different tree elements; implementing your own makes it possible to
-     *   use the same tree definitions for many types of tree UIs
+     * @param writer
+     * @param context
+     * @param treeStringRenderer
      */
     @SuppressWarnings("rawtypes")
     public void renderTreeString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer)
@@ -302,11 +294,11 @@ public class ModelTree extends ModelWidget {
             this.entityName = nodeElement.getAttribute("entity-name");
             this.pkName = nodeElement.getAttribute("join-field-name");
             ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+            // FIXME: Validate child elements, should be only one of actions, entity-one, service, script.
             Element actionsElement = UtilXml.firstChildElement(nodeElement, "actions");
             if (actionsElement != null) {
                 actions.addAll(ModelTreeAction.readNodeActions(this, actionsElement));
             }
-            // FIXME: Validate child elements, should be only one of entity-one, service, script.
             Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-one");
             if (actionElement != null) {
                 actions.add(new ModelWidgetAction.EntityOne(this, actionElement));
@@ -667,6 +659,11 @@ public class ModelTree extends ModelWidget {
             return showPeers;
         }
 
+        /**
+         * Models the &lt;image&gt; element.
+         * 
+         * @see <code>widget-tree.xsd</code>
+         */
         public static class Image {
 
             private final FlexibleStringExpander borderExdr;
@@ -727,6 +724,11 @@ public class ModelTree extends ModelWidget {
             }
         }
 
+        /**
+         * Models the &lt;label&gt; element.
+         * 
+         * @see <code>widget-tree.xsd</code>
+         */
         public static final class Label {
             private final FlexibleStringExpander idExdr;
             private final FlexibleStringExpander styleExdr;
@@ -769,6 +771,11 @@ public class ModelTree extends ModelWidget {
             }
         }
 
+        /**
+         * Models the &lt;link&gt; element.
+         * 
+         * @see <code>widget-tree.xsd</code>
+         */
         public static class Link {
             private final boolean encode;
             private final boolean fullPath;
@@ -953,9 +960,10 @@ public class ModelTree extends ModelWidget {
                 this.rootNode = modelNode;
                 this.nodeNameExdr = FlexibleStringExpander.getInstance(subNodeElement.getAttribute("node-name"));
                 ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+                // FIXME: Validate child elements, should be only one of actions, entity-and, entity-condition, service, script.
                 Element actionsElement = UtilXml.firstChildElement(subNodeElement, "actions");
                 if (actionsElement != null) {
-                    actions.addAll(ModelTreeAction.readNodeActions(this, actionsElement));
+                    actions.addAll(ModelTreeAction.readSubNodeActions(this, actionsElement));
                 }
                 Element actionElement = UtilXml.firstChildElement(subNodeElement, "entity-and");
                 if (actionElement != null) {

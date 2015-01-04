@@ -45,7 +45,6 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.widget.ModelActionVisitor;
-import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.tree.ModelTree.ModelNode;
@@ -74,12 +73,36 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
 
     public static final String module = ModelTreeAction.class.getName();
 
-    public static List<ModelWidgetAction> readNodeActions(ModelWidget modelNode, Element actionsElement) {
+    public static List<ModelWidgetAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
         List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
-            // TODO: Check for tree-specific actions
-            actions.add(ModelWidgetAction.newInstance(modelNode, actionElement));
+            if ("service".equals(actionElement.getNodeName())) {
+                actions.add(new Service(modelNode, actionElement));
+            } else if ("script".equals(actionElement.getNodeName())) {
+                actions.add(new Script(modelNode, actionElement));
+            } else {
+                actions.add(ModelWidgetAction.newInstance(modelNode, actionElement));
+            }
+        }
+        return actions;
+    }
+
+    public static List<ModelWidgetAction> readSubNodeActions(ModelNode.ModelSubNode modelSubNode, Element actionsElement) {
+        List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
+        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        for (Element actionElement : actionElementList) {
+            if ("service".equals(actionElement.getNodeName())) {
+                actions.add(new Service(modelSubNode, actionElement));
+            } else if ("entity-and".equals(actionElement.getNodeName())) {
+                actions.add(new EntityAnd(modelSubNode, actionElement));
+            } else if ("entity-condition".equals(actionElement.getNodeName())) {
+                actions.add(new EntityCondition(modelSubNode, actionElement));
+            } else if ("script".equals(actionElement.getNodeName())) {
+                actions.add(new Script(modelSubNode, actionElement));
+            } else {
+                actions.add(ModelWidgetAction.newInstance(modelSubNode, actionElement));
+            }
         }
         return actions;
     }
