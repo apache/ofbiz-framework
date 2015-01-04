@@ -150,7 +150,7 @@ under the License.
         </div>
         <div class="screenlet-body">
               <#if orderItemShipGroup?has_content>
-                <#if (orderItemShipGroup.contacMechId)?has_content>
+                <#if (orderItemShipGroup.contactMechId)?has_content>
                   <#assign postalAddress = orderItemShipGroup.getRelatedOne("PostalAddress", false)>
                 </#if>
                 <#assign carrier = orderItemShipGroup.carrierPartyId?default("N/A")>
