@@ -265,16 +265,6 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelFormAction.EntityAnd entityAnd) {
-        infoContext.addEntityName(entityAnd.getFinder().getEntityName());
-    }
-
-    @Override
-    public void visit(ModelFormAction.EntityCondition entityCondition) {
-        infoContext.addEntityName(entityCondition.getFinder().getEntityName());
-    }
-
-    @Override
     public void visit(ModelFormAction.Service service) {
         infoContext.addServiceName(service.getServiceName());
         // TODO: Look for entityName in performFind service call

@@ -51,10 +51,6 @@ public interface ModelActionVisitor {
 
     void visit(ModelFormAction.Service service);
 
-    void visit(ModelFormAction.EntityAnd entityAnd);
-
-    void visit(ModelFormAction.EntityCondition entityCondition);
-
     void visit(ModelMenuAction.SetField setField);
 
     void visit(ModelTreeAction.Script script);
