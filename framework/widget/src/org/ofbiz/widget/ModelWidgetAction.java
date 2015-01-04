@@ -82,6 +82,13 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public static final String module = ModelWidgetAction.class.getName();
 
+    /**
+     * Returns a new <code>ModelWidgetAction</code> instance, built from <code>actionElement</code>.
+     * 
+     * @param modelWidget The <code>ModelWidget</code> that contains the &lt;actions&gt; element
+     * @param actionElement
+     * @return A new <code>ModelWidgetAction</code> instance
+     */
     public static ModelWidgetAction newInstance(ModelWidget modelWidget, Element actionElement) {
         if ("set".equals(actionElement.getNodeName())) {
             return new SetField(modelWidget, actionElement);
@@ -117,6 +124,12 @@ public abstract class ModelWidgetAction implements Serializable {
         return Collections.unmodifiableList(actions);
     }
 
+    /**
+     * Executes the actions contained in <code>actions</code>.
+     * 
+     * @param actions
+     * @param context
+     */
     public static void runSubActions(List<ModelWidgetAction> actions, Map<String, Object> context) {
         if (actions == null)
             return;
@@ -146,12 +159,28 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public abstract void accept(ModelActionVisitor visitor);
 
+    /**
+     * Returns the <code>ModelWidget</code> that contains the &lt;actions&gt; element.
+     * 
+     * @return The <code>ModelWidget</code> that contains the &lt;actions&gt; element
+     */
     public ModelWidget getModelWidget() {
         return modelWidget;
     }
 
+    /**
+     * Executes this action.
+     * 
+     * @param context
+     * @throws GeneralException
+     */
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
 
+    /**
+     * Models the &lt;entity-and&gt; element.
+     * 
+     * @see <code>widget-screen.xsd</code>
+     */
     public static class EntityAnd extends ModelWidgetAction {
         private final ByAndFinder finder;
 
@@ -181,6 +210,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;entity-condition&gt; element.
+     * 
+     * @see <code>widget-screen.xsd</code>
+     */
     public static class EntityCondition extends ModelWidgetAction {
         private final ByConditionFinder finder;
 
@@ -210,6 +244,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;entity-one&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class EntityOne extends ModelWidgetAction {
         private final PrimaryKeyFinder finder;
 
@@ -239,6 +278,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;get-related&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class GetRelated extends ModelWidgetAction {
         private final FlexibleMapAccessor<List<GenericValue>> listNameAcsr;
         private final FlexibleMapAccessor<Map<String, Object>> mapAcsr;
@@ -299,6 +343,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;get-related-one&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class GetRelatedOne extends ModelWidgetAction {
         private final String relationName;
         private final FlexibleMapAccessor<Object> toValueNameAcsr;
@@ -347,6 +396,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;property-map&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class PropertyMap extends ModelWidgetAction {
         private final FlexibleStringExpander globalExdr;
         private final FlexibleMapAccessor<ResourceBundleMapWrapper> mapNameAcsr;
@@ -404,6 +458,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;property-to-field&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class PropertyToField extends ModelWidgetAction {
         private final FlexibleMapAccessor<List<? extends Object>> argListAcsr;
         private final FlexibleStringExpander defaultExdr;
@@ -460,6 +519,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;script&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class Script extends ModelWidgetAction {
         private final String location;
         private final String method;
@@ -495,6 +559,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;service&gt; element.
+     * 
+     * @see <code>widget-screen.xsd</code>
+     */
     public static class Service extends ModelWidgetAction {
         private final FlexibleStringExpander autoFieldMapExdr;
         private final Map<FlexibleMapAccessor<Object>, Object> fieldMap;
@@ -576,6 +645,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
+    /**
+     * Models the &lt;set&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     public static class SetField extends ModelWidgetAction {
         private final FlexibleStringExpander defaultExdr;
         private final FlexibleMapAccessor<Object> field;

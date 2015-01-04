@@ -43,7 +43,7 @@ import org.ofbiz.widget.ModelWidgetAction;
 import org.w3c.dom.Element;
 
 /**
- * Widget Library - Screen model class
+ * Abstract menu action.
  */
 public abstract class ModelMenuAction {
 
@@ -62,6 +62,11 @@ public abstract class ModelMenuAction {
         return Collections.unmodifiableList(actions);
     }
 
+    /**
+     * Models the &lt;set&gt; element.
+     * 
+     * @see <code>widget-common.xsd</code>
+     */
     @SuppressWarnings("serial")
     public static class SetField extends ModelWidgetAction {
         private final FlexibleMapAccessor<Object> field;
