@@ -320,8 +320,6 @@ under the License.
         </xs:complexType>
     </xs:element>
 
-    <!-- ================ ACTIONS ================ -->
-    <xs:element name="AllActions" abstract="true"/>
     <xs:element name="actions">
         <xs:complexType>
             <xs:sequence>
@@ -329,11 +327,20 @@ under the License.
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-    <xs:element name="property-map" substitutionGroup="AllActions">
+    <xs:element name="entity-and" substitutionGroup="AllActions">
         <xs:complexType>
-            <xs:attribute type="xs:string" name="resource" use="required" />
-            <xs:attribute type="xs:string" name="map-name" use="required" />
-            <xs:attribute name="global" default="false">
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" ref="field-map" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
+                <xs:choice minOccurs="0">
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
+            <xs:attribute name="use-cache" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="true" />
@@ -341,15 +348,45 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="list" use="required" />
+            <xs:attribute name="result-set-type" default="scroll">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
         </xs:complexType>
     </xs:element>
-    <xs:element name="property-to-field" substitutionGroup="AllActions">
+    <xs:element name="entity-condition" substitutionGroup="AllActions">
         <xs:complexType>
-            <xs:attribute type="xs:string" name="resource" use="required" />
-            <xs:attribute type="xs:string" name="property" use="required" />
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="default" />
-            <xs:attribute name="no-locale" default="false">
+            <xs:sequence>
+                <xs:choice minOccurs="0">
+                    <xs:element ref="condition-expr" />
+                    <xs:element ref="condition-list" />
+                    <xs:element ref="condition-object" />
+                </xs:choice>
+                <xs:element minOccurs="0" ref="having-condition-list" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by" />
+                <xs:choice minOccurs="0">
+                    <xs:element ref="limit-range" />
+                    <xs:element ref="limit-view" />
+                    <xs:element ref="use-iterator" />
+                </xs:choice>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="entity-name" use="required" />
+            <xs:attribute name="use-cache" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="true" />
@@ -357,21 +394,16 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="arg-list-name" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="script" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="location" use="required" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="set" substitutionGroup="AllActions">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="field" use="required" />
-            <xs:attribute type="xs:string" name="from-field" />
-            <xs:attribute type="xs:string" name="value" />
-            <xs:attribute type="xs:string" name="default-value" />
-            <xs:attribute name="global" default="false">
+            <xs:attribute name="filter-by-date" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                        <xs:enumeration value="by-name" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="distinct" default="false">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="true" />
@@ -379,42 +411,13 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-            <xs:attribute name="type" default="String">
+            <xs:attribute type="xs:string" name="delegator-name" />
+            <xs:attribute type="xs:string" name="list" use="required" />
+            <xs:attribute name="result-set-type" default="scroll">
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
-                        <xs:enumeration value="PlainString" />
-                        <xs:enumeration value="String" />
-                        <xs:enumeration value="BigDecimal" />
-                        <xs:enumeration value="Double" />
-                        <xs:enumeration value="Float" />
-                        <xs:enumeration value="List" />
-                        <xs:enumeration value="Long" />
-                        <xs:enumeration value="Integer" />
-                        <xs:enumeration value="Date" />
-                        <xs:enumeration value="Time" />
-                        <xs:enumeration value="Timestamp" />
-                        <xs:enumeration value="Boolean" />
-                        <xs:enumeration value="Object" />
-                        <xs:enumeration value="NewList" />
-                        <xs:enumeration value="NewMap" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="to-scope" default="screen">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="screen" />
-                        <xs:enumeration value="user" />
-                        <xs:enumeration value="application" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="from-scope" default="screen">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="screen" />
-                        <xs:enumeration value="user" />
-                        <xs:enumeration value="application" />
+                        <xs:enumeration value="forward" />
+                        <xs:enumeration value="scroll" />
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
