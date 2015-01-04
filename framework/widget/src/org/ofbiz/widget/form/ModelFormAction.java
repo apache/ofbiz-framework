@@ -159,13 +159,13 @@ public abstract class ModelFormAction {
                 Object listObj = result.get(listName);
                 if (listObj != null) {
                     if (!(listObj instanceof List<?>) && !(listObj instanceof ListIterator<?>)) {
-                        throw new IllegalArgumentException("Error in form [" + this.modelWidget.getName() + "] calling service with name [" + serviceNameExpanded + "]: the result that is supposed to be a List or ListIterator and is not.");
+                        throw new IllegalArgumentException("Error in form [" + this.getModelWidget().getName() + "] calling service with name [" + serviceNameExpanded + "]: the result that is supposed to be a List or ListIterator and is not.");
                     }
                     context.put("listName", listName);
                     context.put(listName, listObj);
                 }
             } catch (GenericServiceException e) {
-                String errMsg = "Error in form [" + this.modelWidget.getName() + "] calling service with name [" + serviceNameExpanded + "]: " + e.toString();
+                String errMsg = "Error in form [" + this.getModelWidget().getName() + "] calling service with name [" + serviceNameExpanded + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 if (!this.ignoreError) {
                     throw new IllegalArgumentException(errMsg);

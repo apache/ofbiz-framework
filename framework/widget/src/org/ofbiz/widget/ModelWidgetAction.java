@@ -60,8 +60,26 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.w3c.dom.Element;
 
+/**
+ * Abstract widget action.
+ */
 @SuppressWarnings("serial")
 public abstract class ModelWidgetAction implements Serializable {
+
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
+
     public static final String module = ModelWidgetAction.class.getName();
 
     public static ModelWidgetAction newInstance(ModelWidget modelWidget, Element actionElement) {
@@ -113,9 +131,11 @@ public abstract class ModelWidgetAction implements Serializable {
         }
     }
 
-    protected ModelWidget modelWidget;
+    private final ModelWidget modelWidget;
 
     protected ModelWidgetAction() {
+        // FIXME: This should not be null.
+        this.modelWidget = null;
     }
 
     protected ModelWidgetAction(ModelWidget modelWidget, Element actionElement) {
@@ -126,10 +146,14 @@ public abstract class ModelWidgetAction implements Serializable {
 
     public abstract void accept(ModelActionVisitor visitor);
 
+    public ModelWidget getModelWidget() {
+        return modelWidget;
+    }
+
     public abstract void runAction(Map<String, Object> context) throws GeneralException;
 
     public static class EntityAnd extends ModelWidgetAction {
-        protected ByAndFinder finder;
+        private final ByAndFinder finder;
 
         public EntityAnd(ModelWidget modelWidget, Element entityAndElement) {
             super(modelWidget, entityAndElement);
@@ -158,7 +182,7 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class EntityCondition extends ModelWidgetAction {
-        ByConditionFinder finder;
+        private final ByConditionFinder finder;
 
         public EntityCondition(ModelWidget modelWidget, Element entityConditionElement) {
             super(modelWidget, entityConditionElement);
@@ -187,7 +211,7 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class EntityOne extends ModelWidgetAction {
-        protected PrimaryKeyFinder finder;
+        private final PrimaryKeyFinder finder;
 
         public EntityOne(ModelWidget modelWidget, Element entityOneElement) {
             super(modelWidget, entityOneElement);
@@ -216,28 +240,20 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class GetRelated extends ModelWidgetAction {
-        protected FlexibleMapAccessor<List<GenericValue>> listNameAcsr;
-        protected FlexibleMapAccessor<Map<String, Object>> mapAcsr;
-        protected FlexibleMapAccessor<List<String>> orderByListAcsr;
-        protected String relationName;
-        protected boolean useCache;
-        protected FlexibleMapAccessor<Object> valueNameAcsr;
+        private final FlexibleMapAccessor<List<GenericValue>> listNameAcsr;
+        private final FlexibleMapAccessor<Map<String, Object>> mapAcsr;
+        private final FlexibleMapAccessor<List<String>> orderByListAcsr;
+        private final String relationName;
+        private final boolean useCache;
+        private final FlexibleMapAccessor<Object> valueNameAcsr;
 
         public GetRelated(ModelWidget modelWidget, Element getRelatedElement) {
             super(modelWidget, getRelatedElement);
             this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("value-field"));
-            if (this.valueNameAcsr.isEmpty())
-                this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("value-name"));
             this.listNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("list"));
-            if (this.listNameAcsr.isEmpty())
-                this.listNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("list-name"));
             this.relationName = getRelatedElement.getAttribute("relation-name");
             this.mapAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("map"));
-            if (this.mapAcsr.isEmpty())
-                this.mapAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("map-name"));
             this.orderByListAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("order-by-list"));
-            if (this.orderByListAcsr.isEmpty())
-                this.orderByListAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("order-by-list-name"));
             this.useCache = "true".equals(getRelatedElement.getAttribute("use-cache"));
         }
 
@@ -284,19 +300,15 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class GetRelatedOne extends ModelWidgetAction {
-        protected String relationName;
-        protected FlexibleMapAccessor<Object> toValueNameAcsr;
-        protected boolean useCache;
-        protected FlexibleMapAccessor<Object> valueNameAcsr;
+        private final String relationName;
+        private final FlexibleMapAccessor<Object> toValueNameAcsr;
+        private final boolean useCache;
+        private final FlexibleMapAccessor<Object> valueNameAcsr;
 
         public GetRelatedOne(ModelWidget modelWidget, Element getRelatedOneElement) {
             super(modelWidget, getRelatedOneElement);
             this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("value-field"));
-            if (this.valueNameAcsr.isEmpty())
-                this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("value-name"));
             this.toValueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("to-value-field"));
-            if (this.toValueNameAcsr.isEmpty())
-                this.toValueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("to-value-name"));
             this.relationName = getRelatedOneElement.getAttribute("relation-name");
             this.useCache = "true".equals(getRelatedOneElement.getAttribute("use-cache"));
         }
@@ -336,9 +348,9 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class PropertyMap extends ModelWidgetAction {
-        protected FlexibleStringExpander globalExdr;
-        protected FlexibleMapAccessor<ResourceBundleMapWrapper> mapNameAcsr;
-        protected FlexibleStringExpander resourceExdr;
+        private final FlexibleStringExpander globalExdr;
+        private final FlexibleMapAccessor<ResourceBundleMapWrapper> mapNameAcsr;
+        private final FlexibleStringExpander resourceExdr;
 
         public PropertyMap(ModelWidget modelWidget, Element setElement) {
             super(modelWidget, setElement);
@@ -357,10 +369,8 @@ public abstract class ModelWidgetAction implements Serializable {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
-
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);
-
             ResourceBundleMapWrapper existingPropMap = this.mapNameAcsr.get(context);
             if (existingPropMap == null) {
                 this.mapNameAcsr.put(context, UtilProperties.getResourceBundleMap(resource, locale, context));
@@ -372,7 +382,6 @@ public abstract class ModelWidgetAction implements Serializable {
                     Debug.logError(e, "Error adding resource bundle [" + resource + "]: " + e.toString(), module);
                 }
             }
-
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
@@ -396,14 +405,13 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class PropertyToField extends ModelWidgetAction {
-
-        protected FlexibleMapAccessor<List<? extends Object>> argListAcsr;
-        protected FlexibleStringExpander defaultExdr;
-        protected FlexibleMapAccessor<Object> fieldAcsr;
-        protected FlexibleStringExpander globalExdr;
-        protected boolean noLocale;
-        protected FlexibleStringExpander propertyExdr;
-        protected FlexibleStringExpander resourceExdr;
+        private final FlexibleMapAccessor<List<? extends Object>> argListAcsr;
+        private final FlexibleStringExpander defaultExdr;
+        private final FlexibleMapAccessor<Object> fieldAcsr;
+        private final FlexibleStringExpander globalExdr;
+        private final boolean noLocale;
+        private final FlexibleStringExpander propertyExdr;
+        private final FlexibleStringExpander resourceExdr;
 
         public PropertyToField(ModelWidget modelWidget, Element setElement) {
             super(modelWidget, setElement);
@@ -426,11 +434,9 @@ public abstract class ModelWidgetAction implements Serializable {
             //String globalStr = this.globalExdr.expandString(context);
             // default to false
             //boolean global = "true".equals(globalStr);
-
             Locale locale = (Locale) context.get("locale");
             String resource = this.resourceExdr.expandString(context, locale);
             String property = this.propertyExdr.expandString(context, locale);
-
             String value = null;
             if (noLocale) {
                 value = EntityUtilProperties.getPropertyValue(resource, property, WidgetWorker.getDelegator(context));
@@ -440,12 +446,10 @@ public abstract class ModelWidgetAction implements Serializable {
             if (UtilValidate.isEmpty(value)) {
                 value = this.defaultExdr.expandString(context);
             }
-
             // note that expanding the value string here will handle defaultValue and the string from
             //  the properties file; if we decide later that we don't want the string from the properties
             //  file to be expanded we should just expand the defaultValue at the beginning of this method.
             value = FlexibleStringExpander.expandString(value, context);
-
             if (!argListAcsr.isEmpty()) {
                 List<? extends Object> argList = argListAcsr.get(context);
                 if (UtilValidate.isNotEmpty(argList)) {
@@ -457,8 +461,8 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class Script extends ModelWidgetAction {
-        protected String location;
-        protected String method;
+        private final String location;
+        private final String method;
 
         public Script(ModelWidget modelWidget, Element scriptElement) {
             super(modelWidget, scriptElement);
@@ -492,17 +496,15 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class Service extends ModelWidgetAction {
-        protected FlexibleStringExpander autoFieldMapExdr;
-        protected Map<FlexibleMapAccessor<Object>, Object> fieldMap;
-        protected FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
-        protected FlexibleStringExpander serviceNameExdr;
+        private final FlexibleStringExpander autoFieldMapExdr;
+        private final Map<FlexibleMapAccessor<Object>, Object> fieldMap;
+        private final FlexibleMapAccessor<Map<String, Object>> resultMapNameAcsr;
+        private final FlexibleStringExpander serviceNameExdr;
 
         public Service(ModelWidget modelWidget, Element serviceElement) {
             super(modelWidget, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map"));
-            if (this.resultMapNameAcsr.isEmpty())
-                this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
@@ -522,9 +524,7 @@ public abstract class ModelWidgetAction implements Serializable {
             if (UtilValidate.isEmpty(serviceNameExpanded)) {
                 throw new IllegalArgumentException("Service name was empty, expanded from: " + this.serviceNameExdr.getOriginal());
             }
-
             String autoFieldMapString = this.autoFieldMapExdr.expandString(context);
-
             try {
                 Map<String, Object> serviceContext = null;
                 if ("true".equals(autoFieldMapString)) {
@@ -548,13 +548,10 @@ public abstract class ModelWidgetAction implements Serializable {
                 if (serviceContext == null) {
                     serviceContext = new HashMap<String, Object>();
                 }
-
                 if (this.fieldMap != null) {
                     EntityFinderUtil.expandFieldMapToContext(this.fieldMap, context, serviceContext);
                 }
-
                 Map<String, Object> result = WidgetWorker.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
-
                 if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                     String queryString = (String) result.get("queryString");
@@ -580,14 +577,14 @@ public abstract class ModelWidgetAction implements Serializable {
     }
 
     public static class SetField extends ModelWidgetAction {
-        protected FlexibleStringExpander defaultExdr;
-        protected FlexibleMapAccessor<Object> field;
-        protected FlexibleMapAccessor<Object> fromField;
-        protected String fromScope;
-        protected FlexibleStringExpander globalExdr;
-        protected String toScope;
-        protected String type;
-        protected FlexibleStringExpander valueExdr;
+        private final FlexibleStringExpander defaultExdr;
+        private final FlexibleMapAccessor<Object> field;
+        private final FlexibleMapAccessor<Object> fromField;
+        private final String fromScope;
+        private final FlexibleStringExpander globalExdr;
+        private final String toScope;
+        private final String type;
+        private final FlexibleStringExpander valueExdr;
 
         public SetField(ModelWidget modelWidget, Element setElement) {
             super(modelWidget, setElement);
@@ -618,7 +615,6 @@ public abstract class ModelWidgetAction implements Serializable {
             if (currentWidgetTrail != null) {
                 trailList.addAll(currentWidgetTrail);
             }
-
             for (int i = trailList.size(); i >= 0; i--) {
                 List<String> subTrail = trailList.subList(0, i);
                 String newKey = null;
@@ -626,7 +622,6 @@ public abstract class ModelWidgetAction implements Serializable {
                     newKey = StringUtil.join(subTrail, "|") + "|" + originalName;
                 else
                     newKey = originalName;
-
                 if (storeAgent instanceof ServletContext) {
                     newValue = ((ServletContext) storeAgent).getAttribute(newKey);
                 } else if (storeAgent instanceof HttpSession) {
@@ -645,7 +640,6 @@ public abstract class ModelWidgetAction implements Serializable {
             String globalStr = this.globalExdr.expandString(context);
             // default to false
             boolean global = "true".equals(globalStr);
-
             Object newValue = null;
             if (this.fromScope != null && this.fromScope.equals("user")) {
                 if (!this.fromField.isEmpty()) {
@@ -677,12 +671,10 @@ public abstract class ModelWidgetAction implements Serializable {
                     newValue = this.valueExdr.expand(context);
                 }
             }
-
             // If newValue is still empty, use the default value
             if (ObjectType.isEmpty(newValue) && !this.defaultExdr.isEmpty()) {
                 newValue = this.defaultExdr.expand(context);
             }
-
             if (UtilValidate.isNotEmpty(this.type)) {
                 if ("NewMap".equals(this.type)) {
                     newValue = new HashMap();
@@ -700,7 +692,6 @@ public abstract class ModelWidgetAction implements Serializable {
                     }
                 }
             }
-
             if (this.toScope != null && this.toScope.equals("user")) {
                 String originalName = this.field.getOriginalName();
                 List<String> currentWidgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
@@ -741,7 +732,6 @@ public abstract class ModelWidgetAction implements Serializable {
                     this.field.put(context, newValue);
                 }
             }
-
             if (global) {
                 Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
                 if (globalCtx != null) {
@@ -750,7 +740,6 @@ public abstract class ModelWidgetAction implements Serializable {
                     this.field.put(context, newValue);
                 }
             }
-
             // this is a hack for backward compatibility with the JPublish page object
             Map<String, Object> page = UtilGenerics.checkMap(context.get("page"));
             if (page != null) {
