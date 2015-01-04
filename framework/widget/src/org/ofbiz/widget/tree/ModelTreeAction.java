@@ -51,11 +51,26 @@ import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.tree.ModelTree.ModelNode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 /**
  * Abstract tree action.
  */
 @SuppressWarnings("serial")
 public abstract class ModelTreeAction extends ModelWidgetAction {
+
+    /*
+     * ----------------------------------------------------------------------- *
+     *                     DEVELOPERS PLEASE READ
+     * ----------------------------------------------------------------------- *
+     * 
+     * This model is intended to be a read-only data structure that represents
+     * an XML element. Outside of object construction, the class should not
+     * have any behaviors.
+     * 
+     * Instances of this class will be shared by multiple threads - therefore
+     * it is immutable. DO NOT CHANGE THE OBJECT'S STATE AT RUN TIME!
+     * 
+     */
 
     public static final String module = ModelTreeAction.class.getName();
 
@@ -94,6 +109,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         return modelTree;
     }
 
+    /**
+     * Models the &lt;entity-and&gt; element.
+     * 
+     * @see <code>widget-tree.xsd</code>
+     */
     public static class EntityAnd extends ModelTreeAction {
         private final ByAndFinder finder;
         private final String listName;
@@ -149,6 +169,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
     }
 
+    /**
+     * Models the &lt;entity-condition&gt; element.
+     * 
+     * @see <code>widget-tree.xsd</code>
+     */
     public static class EntityCondition extends ModelTreeAction {
         private final ByConditionFinder finder;
         private final String listName;
@@ -204,6 +229,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
     }
 
+    /**
+     * Models the &lt;script&gt; element.
+     * 
+     * @see <code>widget-tree.xsd</code>
+     */
     public static class Script extends ModelTreeAction {
         private final String location;
         private final String method;
@@ -267,6 +297,11 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
     }
 
+    /**
+     * Models the &lt;service&gt; element.
+     * 
+     * @see <code>widget-tree.xsd</code>
+     */
     public static class Service extends ModelTreeAction {
         private final FlexibleStringExpander autoFieldMapExdr;
         private final Map<FlexibleMapAccessor<Object>, Object> fieldMap;
