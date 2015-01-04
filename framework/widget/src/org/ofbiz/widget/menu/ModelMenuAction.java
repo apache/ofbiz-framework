@@ -64,14 +64,14 @@ public abstract class ModelMenuAction {
 
     @SuppressWarnings("serial")
     public static class SetField extends ModelWidgetAction {
-        protected FlexibleMapAccessor<Object> field;
-        protected FlexibleMapAccessor<Object> fromField;
-        protected FlexibleStringExpander valueExdr;
-        protected FlexibleStringExpander defaultExdr;
-        protected FlexibleStringExpander globalExdr;
-        protected String type;
-        protected String toScope;
-        protected String fromScope;
+        private final FlexibleMapAccessor<Object> field;
+        private final FlexibleMapAccessor<Object> fromField;
+        private final FlexibleStringExpander valueExdr;
+        private final FlexibleStringExpander defaultExdr;
+        private final FlexibleStringExpander globalExdr;
+        private final String type;
+        private final String toScope;
+        private final String fromScope;
 
         public SetField(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
