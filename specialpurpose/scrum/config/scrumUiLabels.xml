@@ -17,7 +17,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="PageTitleAddProductTimeToNewInvoice">
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
         <value xml:lang="zh">把全部已报告的/已批准的任务时间添加到一个新的发票</value>

@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CommonErrorDublicateKey">
         <value xml:lang="de">Doppelter Primärschlüssel. Der Primärschlüssel existiert bereits.</value>
         <value xml:lang="en">Dublicate Key. The Key already exist.</value>

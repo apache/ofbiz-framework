@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="copyPreference.invalidArgument">
         <value xml:lang="de">Benutzereinstellungen konnten nicht kopiert werden: ungültige Argumente</value>
         <value xml:lang="en">Could not copy user preferences: Invalid argument(s)</value>
