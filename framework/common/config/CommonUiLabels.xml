@@ -11702,7 +11702,6 @@
         <value xml:lang="zh_CN">更新</value>
         <value xml:lang="zh_TW">更新</value>
     </property>
-  <value xml:lang="cs">Aktualizace dat</value>
     <property key="CommonUpdateLink">
         <value xml:lang="ar">ربطة التحديث</value>
         <value xml:lang="cs">Odkaz na aktualizaci</value>
