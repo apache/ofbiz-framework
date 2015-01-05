@@ -472,6 +472,8 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
                     try {
                         value = ObjectType.simpleTypeConvert(value, type.getJavaType(), null, null);
                     } catch (GeneralException e) {}
+                } else if ((value instanceof String) && "byte[]".equals(type.getJavaType())) {
+                    value = ((String) value).getBytes();
                 }
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     if (!("java.sql.Blob".equals(type.getJavaType()) && (value instanceof byte[] || ObjectType.instanceOf(value, ByteBuffer.class)))) {
