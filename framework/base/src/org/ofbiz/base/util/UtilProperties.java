@@ -19,7 +19,6 @@
 package org.ofbiz.base.util;
 
 import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -68,17 +67,12 @@ public class UtilProperties implements Serializable {
 
     public static final String module = UtilProperties.class.getName();
 
-    /** An instance of the generic cache for storing the non-locale-specific properties.
-     *  Each Properties instance is keyed by the resource String.
-     */
-    private static final UtilCache<String, Properties> resourceCache = UtilCache.createUtilCache("properties.UtilPropertiesResourceCache");
-
-    /** An instance of the generic cache for storing the non-locale-specific properties.
-     *  Each Properties instance is keyed by the file's URL.
+    /**
+     * A cache for storing Properties instances. Each Properties instance is keyed by its URL.
      */
     private static final UtilCache<String, Properties> urlCache = UtilCache.createUtilCache("properties.UtilPropertiesUrlCache");
 
-    protected static Set<String> propertiesNotFound = new HashSet<String>();
+    private static final Set<String> propertiesNotFound = new HashSet<String>();
 
     /** Compares the specified property to the compareString, returns true if they are the same, false otherwise
      * @param resource The name of the resource - if the properties file is 'webevent.properties', the resource name is 'webevent'
@@ -295,30 +289,8 @@ public class UtilProperties implements Serializable {
         if (resource == null || resource.length() <= 0) {
             return null;
         }
-        String cacheKey = resource.replace(".properties", "");
-        Properties properties = resourceCache.get(cacheKey);
-        if (properties == null) {
-            try {
-                URL url = UtilURL.fromResource(resource);
-
-                if (url == null)
-                    return null;
-                String fileName = url.getFile();
-                File file = new File(fileName);
-                if (file.isDirectory()) {
-                    Debug.logError(fileName + " is (also?) a directory! No properties assigned.", module);
-                    return null;
-                }
-                properties = resourceCache.putIfAbsentAndGet(cacheKey, getProperties(url));
-            } catch (MissingResourceException e) {
-                Debug.logInfo(e, module);
-            }
-        }
-        if (properties == null) {
-            Debug.logInfo("[UtilProperties.getProperties] could not find resource: " + resource, module);
-            return null;
-        }
-        return properties;
+        URL url = resolvePropertiesUrl(resource, null);
+        return getProperties(url);
     }
 
     /** Returns the specified resource/properties file
@@ -329,12 +301,13 @@ public class UtilProperties implements Serializable {
         if (url == null) {
             return null;
         }
-        Properties properties = urlCache.get(url.toString());
+        String cacheKey = url.toString();
+        Properties properties = urlCache.get(cacheKey);
         if (properties == null) {
             try {
                 properties = new Properties();
                 properties.load(url.openStream());
-                urlCache.put(url.toString(), properties);
+                urlCache.put(cacheKey, properties);
             } catch (Exception e) {
                 Debug.logInfo(e, module);
             }
@@ -1035,42 +1008,41 @@ public class UtilProperties implements Serializable {
             String resourceName = createResourceName(resource, locale, true);
             UtilResourceBundle bundle = bundleCache.get(resourceName);
             if (bundle == null) {
-                synchronized (bundleCache) {
-                    double startTime = System.currentTimeMillis();
-                    List<Locale> candidateLocales = (List<Locale>) getCandidateLocales(locale);
-                    UtilResourceBundle parentBundle = null;
-                    int numProperties = 0;
-                    while (candidateLocales.size() > 0) {
-                        Locale candidateLocale = candidateLocales.remove(candidateLocales.size() -1);
-                        // ResourceBundles are connected together as a singly-linked list
-                        String lookupName = createResourceName(resource, candidateLocale, true);
-                        UtilResourceBundle lookupBundle = bundleCache.get(lookupName);
-                        if (lookupBundle == null) {
-                            Properties newProps = getProperties(resource, candidateLocale);
-                            if (UtilValidate.isNotEmpty(newProps)) {
-                                // The last bundle we found becomes the parent of the new bundle
-                                parentBundle = bundle;
-                                bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                                bundleCache.put(lookupName, bundle);
-                                numProperties = newProps.size();
-                            }
-                        } else {
+                double startTime = System.currentTimeMillis();
+                List<Locale> candidateLocales = (List<Locale>) getCandidateLocales(locale);
+                UtilResourceBundle parentBundle = null;
+                int numProperties = 0;
+                while (candidateLocales.size() > 0) {
+                    Locale candidateLocale = candidateLocales.remove(candidateLocales.size() - 1);
+                    // ResourceBundles are connected together as a singly-linked list
+                    String lookupName = createResourceName(resource, candidateLocale, true);
+                    UtilResourceBundle lookupBundle = bundleCache.get(lookupName);
+                    if (lookupBundle == null) {
+                        Properties newProps = getProperties(resource, candidateLocale);
+                        if (UtilValidate.isNotEmpty(newProps)) {
+                            // The last bundle we found becomes the parent of the new bundle
                             parentBundle = bundle;
-                            bundle = lookupBundle;
+                            bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                            bundleCache.putIfAbsent(lookupName, bundle);
+                            numProperties = newProps.size();
                         }
+                    } else {
+                        parentBundle = bundle;
+                        bundle = lookupBundle;
                     }
-                    if (bundle == null) {
-                        throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
-                    } else if (!bundle.getLocale().equals(locale)) {
-                        // Create a "dummy" bundle for the requested locale
-                        bundle = new UtilResourceBundle(bundle.properties, locale, parentBundle);
-                    }
-                    double totalTime = System.currentTimeMillis() - startTime;
-                    if (Debug.infoOn()) {
-                        Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime/1000.0 + "s with " + numProperties + " properties", module);
-                    }
-                    bundleCache.put(resourceName, bundle);
                 }
+                if (bundle == null) {
+                    throw new MissingResourceException("Resource " + resource + ", locale " + locale + " not found", null, null);
+                } else if (!bundle.getLocale().equals(locale)) {
+                    // Create a "dummy" bundle for the requested locale
+                    bundle = new UtilResourceBundle(bundle.properties, locale, parentBundle);
+                }
+                double totalTime = System.currentTimeMillis() - startTime;
+                if (Debug.infoOn()) {
+                    Debug.logInfo("ResourceBundle " + resource + " (" + locale + ") created in " + totalTime / 1000.0 + "s with "
+                            + numProperties + " properties", module);
+                }
+                bundleCache.putIfAbsent(resourceName, bundle);
             }
             return bundle;
         }
