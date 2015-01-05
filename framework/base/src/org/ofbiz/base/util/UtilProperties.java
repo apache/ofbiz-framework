@@ -956,8 +956,7 @@ public class UtilProperties implements Serializable {
         }
         Document doc = null;
         try {
-            // set validation true when we have a DTD for the custom XML format
-            doc = UtilXml.readXmlDocument(in, false, "XML Properties file");
+            doc = UtilXml.readXmlDocument(in, true, "XML Properties file");
             in.close();
         } catch (Exception e) {
             Debug.logWarning(e, "XML Locale file for locale " + locale + " could not be loaded.", module);
