@@ -70,6 +70,7 @@ public class UtilURL {
             return url;
         }
         String propertiesResourceName = null;
+        /* Commenting this out for now. Calling code should check for this.
         if (!resourceName.endsWith(".properties")) {
             propertiesResourceName = resourceName.concat(".properties");
             url = loader.getResource(propertiesResourceName);
@@ -77,6 +78,7 @@ public class UtilURL {
                 return url;
             }
         }
+        */
         url = ClassLoader.getSystemResource(resourceName);
         if (url != null) {
             return url;
