@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AddNewProductFeatureToProduct">
         <value xml:lang="de">Neues Merkmal für dieses Produkt erstellen</value>
         <value xml:lang="en">Add new Product Feature to current product</value>

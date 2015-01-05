@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="commeventservices.communication_event_from_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
         <value xml:lang="en">ERROR: Communication event must have a from contact mech that is an email for comm event Id</value>

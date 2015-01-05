@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="simpleMethod.error_begin_transaction">
         <value xml:lang="de">Fehler beim Starten der Transaktion, Methode konnte nicht verarbeitet werden</value>
         <value xml:lang="en">Error trying to begin transaction, could not process method</value>

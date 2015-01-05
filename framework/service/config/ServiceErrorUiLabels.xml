@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="ModelService.following_required_parameter_missing">
         <value xml:lang="de">Der folgende benötigte Parameter fehlt:</value>
         <value xml:lang="en">The following required parameter is missing:</value>

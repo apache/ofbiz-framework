@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CustomMethod.description.6000">
         <value xml:lang="de">Beispiel Formel für Aufgabe (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="en">Example task formula (qty * estimatedMilliSeconds * 10)</value>

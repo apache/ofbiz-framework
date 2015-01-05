@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="XuiUnableToLogIn">
         <value xml:lang="en">Unable to log in; XUI not configured properly</value>
         <value xml:lang="fr">Impossible de continuer : XUI n'est pas configuré correctement</value>

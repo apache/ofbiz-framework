@@ -18,7 +18,7 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="EntityExtCannotDoEntitySyncPush">
         <value xml:lang="en">Cannot do Entity Sync Push because entitySyncId [] is set for Pull Only.</value>
         <value xml:lang="fr">Impossible d'effectuer la synchro (push) avec un configuration en mode esclave seulement (pull only).</value>
