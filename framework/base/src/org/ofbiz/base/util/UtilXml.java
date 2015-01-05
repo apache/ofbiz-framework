@@ -437,7 +437,7 @@ public class UtilXml {
         */
 
         /* Standard JAXP (mostly), but doesn't seem to be doing XML Schema validation, so making sure that is on... */
-        DocumentBuilderFactory factory = new org.apache.xerces.jaxp.DocumentBuilderFactoryImpl();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         factory.setValidating(validate);
         factory.setNamespaceAware(true);
 
