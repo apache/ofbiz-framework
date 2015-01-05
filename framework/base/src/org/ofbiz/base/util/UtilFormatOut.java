@@ -354,10 +354,17 @@ public class UtilFormatOut {
      * @return The toString() of the passed Object if not null, otherwise an empty non-null String
      */
     public static String makeString(Object obj1) {
-        if (obj1 != null)
+        if (obj1 != null) {
+            if (obj1 instanceof byte[]) {
+                byte[] data = (byte[]) obj1;
+                if (data.length > 5120) {
+                    return "[...binary data]";
+                }
+                return new String(Base64.base64Encode(data));
+            }
             return obj1.toString();
-        else
-            return "";
+        }
+        return "";
     }
 
     /** Checks to see if the passed string is null, if it is returns an empty but non-null string.
