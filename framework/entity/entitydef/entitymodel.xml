@@ -58,6 +58,11 @@ under the License.
       <field name="seqId" type="numeric"></field>
       <prim-key field="seqName"/>
     </entity>
+    <entity entity-name="JavaResource" package-name="org.ofbiz.entity" title="Java Resource">
+        <field name="resourceName" type="id-vlong-ne" />
+        <field name="resourceValue" type="byte-array" />
+        <prim-key field="resourceName" />
+    </entity>
 
     <!-- ========================================================= -->
     <!-- org.ofbiz.entity.tenant -->
