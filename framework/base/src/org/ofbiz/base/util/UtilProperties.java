@@ -1093,18 +1093,27 @@ public class UtilProperties implements Serializable {
             super(defaults);
         }
         public ExtendedProperties(URL url, Locale locale) throws IOException, InvalidPropertiesFormatException {
-            InputStream in = new BufferedInputStream(url.openStream());
-            if (url.getFile().endsWith(".xml")) {
-                xmlToProperties(in, locale, this);
-            } else {
-                load(in);
+            InputStream in = null;
+            try {
+                in = new BufferedInputStream(url.openStream());
+                if (url.getFile().endsWith(".xml")) {
+                    xmlToProperties(in, locale, this);
+                } else {
+                    load(in);
+                }
+            } finally {
+                if (in != null) {
+                    in.close();
+                }
             }
-            in.close();
         }
         @Override
         public void loadFromXML(InputStream in) throws IOException, InvalidPropertiesFormatException {
-            xmlToProperties(in, null, this);
-            in.close();
+            try {
+                xmlToProperties(in, null, this);
+            } finally {
+                in.close();
+            }
         }
     }
 }
