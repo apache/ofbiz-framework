@@ -281,6 +281,41 @@ public class UtilProperties implements Serializable {
         return value == null ? "" : value.trim();
     }
 
+    /**
+     * Returns a new <code>Properties</code> instance created from <code>fileName</code>.
+     * <p>This method is intended for low-level framework classes that need to read
+     * properties files before OFBiz has been fully initialized.</p>
+     * 
+     * @param fileName The full name of the properties file ("foo.properties")
+     * @return A new <code>Properties</code> instance created from <code>fileName</code>
+     * @throws IllegalArgumentException if <code>fileName</code> is empty
+     * @throws IllegalStateException if there were any problems reading the file
+     */
+    public static Properties createProperties(String fileName) {
+        Assert.notEmpty("fileName", fileName);
+        InputStream inStream = null;
+        try {
+            URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
+            if (url == null) {
+                throw new IllegalStateException(fileName + " not found");
+            }
+            inStream = url.openStream();
+            Properties properties = new Properties();
+            properties.load(inStream);
+            return properties;
+        } catch (Exception e) {
+            throw new IllegalStateException("Exception thrown while reading debug.properties: " + e);
+        } finally {
+            if (inStream != null) {
+                try {
+                    inStream.close();
+                } catch (IOException e) {
+                    System.out.println("Exception thrown while closing InputStream: " + e);
+                }
+            }
+        }
+    }
+
     /** Returns the specified resource/properties file
      * @param resource The name of the resource - can be a file, class, or URL
      * @return The properties file
@@ -305,8 +340,7 @@ public class UtilProperties implements Serializable {
         Properties properties = urlCache.get(cacheKey);
         if (properties == null) {
             try {
-                properties = new Properties();
-                properties.load(url.openStream());
+                properties = new ExtendedProperties(url, null);
                 urlCache.put(cacheKey, properties);
             } catch (Exception e) {
                 Debug.logInfo(e, module);
@@ -915,7 +949,7 @@ public class UtilProperties implements Serializable {
      * &nbsp;&nbsp;...<br />
      * &nbsp;&lt;/property&gt;<br />
      * &nbsp;...<br />
-     * &lt;/resource&gt;<br /><br /></code> where <em>"locale 1", "locale 2"</em> are valid Locale strings.
+     * &lt;/resource&gt;<br /><br /></code> where <em>"locale 1", "locale 2"</em> are valid xml:lang values..
      * </p>
      *
      * @param in XML file InputStream
@@ -932,7 +966,7 @@ public class UtilProperties implements Serializable {
             doc = UtilXml.readXmlDocument(in, true, "XML Properties file");
             in.close();
         } catch (Exception e) {
-            Debug.logWarning(e, "XML Locale file for locale " + locale + " could not be loaded.", module);
+            Debug.logWarning(e, "XML file for locale " + locale + " could not be loaded.", module);
             in.close();
             return null;
         }
