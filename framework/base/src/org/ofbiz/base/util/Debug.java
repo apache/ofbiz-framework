@@ -21,8 +21,11 @@ package org.ofbiz.base.util;
 import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Configurable Debug logging wrapper class
@@ -62,8 +65,9 @@ public final class Debug {
         levelStringMap.put("always", Debug.ALWAYS);
 
         // initialize levelOnCache
+        Properties properties = UtilProperties.createProperties("debug.properties");
         for (int i = 0; i < levelOnCache.length; i++) {
-            levelOnCache[i] = (i == Debug.ALWAYS || UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", levelProps[i], "true"));
+            levelOnCache[i] = (i == Debug.ALWAYS || "true".equalsIgnoreCase(properties.getProperty(levelProps[i])));
         }
     }
 
