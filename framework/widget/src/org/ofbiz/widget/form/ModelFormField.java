@@ -289,7 +289,6 @@ public class ModelFormField {
             }
             Object retVal = null;
             if (UtilValidate.isNotEmpty(this.entryAcsr)) {
-                //Debug.logInfo("Getting entry, using entryAcsr for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 if (dataMap instanceof GenericEntity) {
                     GenericEntity genEnt = (GenericEntity) dataMap;
                     if (genEnt.getModelEntity().isField(this.entryAcsr.getOriginalName())) {
@@ -301,9 +300,10 @@ public class ModelFormField {
                     retVal = this.entryAcsr.get(dataMap, locale);
                 }
             } else {
-                //Debug.logInfo("Getting entry, no entryAcsr so using field name " + this.name + " for field " + this.getName() + " of form " + this.modelForm.getName(), module);
                 // if no entry name was specified, use the field's name
-                retVal = dataMap.get(this.name);
+                if (dataMap.containsKey(this.name)) {
+                    retVal = dataMap.get(this.name);
+                }
             }
 
             // this is a special case to fill in fields during a create by default from parameters passed in
