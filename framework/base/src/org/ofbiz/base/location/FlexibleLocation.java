@@ -23,10 +23,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Map.Entry;
+import java.util.Properties;
 
-import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 
@@ -34,10 +33,8 @@ import org.ofbiz.base.util.UtilValidate;
  * A special location resolver that uses Strings like URLs, but with more options.
  *
  */
-
 public final class FlexibleLocation {
 
-    public static final String module = FlexibleLocation.class.getName();
     private static final Map<String, LocationResolver> locationResolvers;
 
     static {
@@ -52,7 +49,11 @@ public final class FlexibleLocation {
         resolverMap.put("ofbizhome", new OFBizHomeLocationResolver());
         resolverMap.put("component", new ComponentLocationResolver());
         try {
-            Properties properties = UtilProperties.getProperties("locationresolvers.properties");
+            /* Note that the file must be placed in framework/base/config -
+             * because this class may be initialized before all components
+             * are loaded.
+             */
+            Properties properties = UtilProperties.createProperties("locationresolvers.properties");
             if (properties != null) {
                 ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
                 for (Entry<Object, Object> entry : properties.entrySet()) {
@@ -63,7 +64,7 @@ public final class FlexibleLocation {
                 }
             }
         } catch (Throwable e) {
-            Debug.logWarning(e, "Error while loading resolvers from locationresolvers.properties: ", module);
+            System.out.println("Exception thrown while loading locationresolvers.properties: " + e);
         }
         locationResolvers = Collections.unmodifiableMap(resolverMap);
     }
