@@ -85,7 +85,7 @@ under the License.
         </field>
         <field name="partyGroupId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}" use-when="parameters.get(&quot;partyGroupId&quot;)==&quot;&quot;">
             <drop-down allow-empty="true" current-description="">
-              <entity-options entity-name="PartyRole" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${partyId}&quot;, false)} : [${partyId}]" key-field-name="partyId">
+              <entity-options entity-name="PartyRole" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${partyId}&quot;, false)} : [${partyId}]" key-field-name="partyId">
                   <entity-constraint name="roleTypeId" operator="equals" value="ACCOUNT"/>
               </entity-options>
             </drop-down>
@@ -93,7 +93,7 @@ under the License.
         <field name="submitButton"><submit button-type="button"/></field>
     </form>
 
-    <form name="MergeLeads" type="single"  target="MergeLeads">
+    <form name="MergeLeads" type="single" target="MergeLeads">
         <actions>
             <set field="roleTypeId" value="LEAD"/>
             <set field="partyTypeId" value="PERSON"/>
@@ -102,12 +102,12 @@ under the License.
         </actions>
         <field name="partyIdTo" title="${uiLabelMap.AccountingToParty}" position="1">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;partyId&quot;, false)} ${lead.partyId}"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingFromParty}" position="2">
             <drop-down allow-empty="false">
-               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;partyId&quot;, false)} ${lead.partyId}"/>
+               <list-options list-name="partyList" key-name="lead.partyId"  list-entry-name="lead" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, 'partyId', false)} ${lead.partyId}"/>
             </drop-down>
         </field>
         <field name="submitButton" position="3" title="${uiLabelMap.SfaMergeLeads}" widget-style="buttontext" tooltip-style="button-text"><submit button-type="text-link"/></field>
@@ -152,9 +152,8 @@ under the License.
             <display-entity entity-name="DataSource"/>
         </field>
         <field name="fromDate"><display/></field>
-        
     </form>
-    
+
     <form name="FindLeads" target="${currentUrl}" extends="FindAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}"><text-find/></field>
@@ -171,6 +170,7 @@ under the License.
             <sort-field name="submitButton"/>
         </sort-order>
     </form>
+
     <form name="listLeads" paginate-target="${currentUrl}"
             extends="listAccounts" extends-resource="component://marketing/widget/sfa/forms/AccountForms.xml">
         <actions>
@@ -183,24 +183,21 @@ under the License.
             <set field="parameters.statusId_op" value="notEqual"/>
             <set field="partyRelationshipTypeId" value="LEAD_OWNER"/>
             <set field="parameters.roleTypeId" from-field="roleTypeIdTo"/>
-            <set field="fieldList" value="${groovy:[&quot;partyId&quot;,&quot;roleTypeId&quot;]}" type="List"/>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
+            <set field="fieldList" value="${groovy:['partyId','roleTypeId']}" type="List"/>
+            <service service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyRoleAndContactMechDetail"/>
                 <field-map field-name="orderBy" value="partyId"/>
                 <field-map field-name="distinct" value="Y"/>
-                <field-map field-name="fieldList" from-field="fieldList"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
     </form>
+
     <form name="ListLeads" extends="listLeads">
         <field name="assignToMe" use-when="existRelationship==null&amp;&amp;!&quot;false&quot;.equals(parameters.get(&quot;all&quot;))"
                 title="${uiLabelMap.SfaAssignToMe}" widget-style="buttontext">
             <hyperlink target="createPartyRelationshipAndRole" description="${uiLabelMap.SfaAssignToMe}">
-                <parameter param-name="partyId" from-field="userLogin.partyId"/>
-                <parameter param-name="roleTypeId" from-field="roleTypeIdFrom"/>
+                <parameter param-name="partyIdFrom" from-field="userLogin.partyId"/>
                 <parameter param-name="roleTypeIdFrom"/>
                 <parameter param-name="roleTypeIdTo"/>
                 <parameter param-name="partyRelationshipTypeId"/>
@@ -227,15 +224,12 @@ under the License.
             <set field="parameters.partyStatusId" value="PARTY_DISABLED"/>
             <set field="parameters.partyStatusId_op" value="notEqual"/>
             <set field="parameters.partyRelationshipTypeId" value="LEAD_OWNER"/>
-            <set field="fieldList" value="${groovy:[&quot;partyIdFrom&quot;,&quot;partyId&quot;]}" type="List"/>
-            <service service-name="performFind" result-map="result" result-map-list="listIt">
+            <set field="fieldList" value="${groovy:['partyIdFrom','partyId']}" type="List"/>
+            <service service-name="performFind">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="PartyRelationshipAndContactMechDetail"/>
                 <field-map field-name="orderBy" value="partyId"/>
                 <field-map field-name="distinct" value="Y"/>
-                <field-map field-name="fieldList" from-field="fieldList"/>
-                <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
         <field name="assignToMe"><hidden/></field>

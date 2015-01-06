@@ -274,7 +274,7 @@ under the License.
     <service name="ensurePartyRole" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="false">
         <description>Ensure that the party is in the specified role.</description>
-        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
     </service>
     <service name="ensureNaPartyRole" engine="simple"
@@ -284,13 +284,20 @@ under the License.
     </service>
     <service name="ensureNaPartyRoleFrom" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
-        <description>Ensure that the party is in the _NA_ role.</description>
+        <description>Ensure that the party indicate by partyIdFrom is in the _NA_ role.</description>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="ensureNaPartyRoleTo" engine="simple"
+    <service name="ensurePartyRoleFrom" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
-        <description>Ensure that the party is in the _NA_ role.</description>
+        <description>Ensure that the party indicate by partyIdFrom is in the roleTypeIdFrom specifc role. If roleTypeIdFrom isn't present use _NA_</description>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeIdFrom" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="ensurePartyRoleTo" engine="simple"
+            location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
+        <description>Ensure that the party indicate by partyIdTo is in the roleTypeIdTo specific role. If roleTypeIdTo isn't present use _NA_</description>
         <attribute name="partyIdTo" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeIdTo" type="String" mode="IN" optional="true"/>
     </service>
 
     <!-- Party Relationship services -->
@@ -335,12 +342,13 @@ under the License.
         <override name="roleTypeIdFrom" optional="true"/>
         <override name="roleTypeIdTo" optional="true"/>
     </service>
-    
+
     <service name="createPartyRelationshipAndRole" engine="group" auth="true">
-        <description>Create party's role and party's relationship</description>
+        <description>Create party's roles and party's relationship</description>
         <group>
-            <invoke name="createPartyRole" result-to-context="true"/>
-            <invoke name="createPartyRelationship" result-to-context="true"/>
+            <invoke name="ensurePartyRoleFrom"/>
+            <invoke name="ensurePartyRoleTo"/>
+            <invoke name="createPartyRelationship"/>
         </group>
     </service>
 
@@ -351,7 +359,7 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="partyRelationshipName" optional="false"/>
     </service>
-    
+
     <service name="createUpdatePartyRelationshipAndRoles" engine="java" default-entity-name="PartyRelationship"
         location="org.ofbiz.party.party.PartyRelationshipServices" invoke="createUpdatePartyRelationshipAndRoles" auth="true">
         <description>
@@ -365,7 +373,6 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <override name="fromDate" optional="true"/>
     </service>
-        
 
     <service name="createPartyRelationshipContactAccount" engine="simple"
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createPartyRelationshipContactAccount" auth="true">
@@ -691,7 +698,6 @@ under the License.
         <attribute name="partyId" mode="IN" type="String"/>
         <attribute name="identifications" mode="IN" type="Map" />
     </service>
-
 
     <!-- Vendor -->
     <service name="createVendor" default-entity-name="Vendor" engine="entity-auto" invoke="create" auth="true">
@@ -1337,12 +1343,12 @@ under the License.
         <attribute name="userLoginId" type="String" mode="IN" optional="false"/>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
     </service>
-    
+
     <service name="importParty" engine="java"
         location="org.ofbiz.party.party.PartyServices" invoke="importParty" auth="true">
         <description>Import an party with related main role, company and contact info in csv format, will ignore parties already entered</description>
         <permission-service service-name="partyGroupPermissionCheck" main-action="CREATE"/>
         <attribute mode="IN" name="uploadedFile" type="java.nio.ByteBuffer" optional="true" />
     </service>
-    
+
 </services>
