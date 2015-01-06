@@ -60,6 +60,7 @@ public class Classpath {
                         return true;
                     }
                 } else {
+                    // In most cases, this warning can be ignored. The JRE-supplied class path may include non-existent paths.
                     System.out.println("Warning : Module classpath component '" + component + "' is not valid and will be ignored...");
                 }
             } catch (IOException e) {}
