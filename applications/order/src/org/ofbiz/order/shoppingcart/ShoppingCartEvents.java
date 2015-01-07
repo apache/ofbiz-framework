@@ -101,7 +101,7 @@ public class ShoppingCartEvents {
     public static String removePromotion(HttpServletRequest request,HttpServletResponse response) {
         LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
         ShoppingCart cart = getCartObject(request);
-        String promoCodeId = (String) request.getParameter("promoCode");
+        String promoCodeId = request.getParameter("promoCode");
         String result = "error";
 
         if (!promoCodeId.isEmpty()) {
@@ -905,13 +905,13 @@ public class ShoppingCartEvents {
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin != null && "anonymous".equals(userLogin.get("userLoginId"))) {
-        	Locale locale = UtilHttp.getLocale(session);
-        	
+            Locale locale = UtilHttp.getLocale(session);
+            
             // here we want to do a full logout, but not using the normal logout stuff because it saves things in the UserLogin record that we don't want changed for the anonymous user
             session.invalidate();
             session = request.getSession(true);
             if (null != locale) {
-            	UtilHttp.setLocale(session, locale);
+                UtilHttp.setLocale(session, locale);
             }
 
             // to allow the display of the order confirmation page put the userLogin in the request, but leave it out of the session
