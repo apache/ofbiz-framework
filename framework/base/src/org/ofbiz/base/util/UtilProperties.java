@@ -897,31 +897,53 @@ public class UtilProperties implements Serializable {
         if (propertiesNotFound.contains(resourceName)) {
             return null;
         }
+        boolean containsProtocol = resource.contains(":");
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
         URL url = null;
         try {
             // Check for complete URL first
             if (resource.endsWith(".xml") || resource.endsWith(".properties")) {
-                url = FlexibleLocation.resolveLocation(resource);
+                if (containsProtocol) {
+                    url = FlexibleLocation.resolveLocation(resource, loader);
+                } else {
+                    url = UtilURL.fromResource(resource, loader);
+                }
                 if (url != null) {
                     return url;
                 }
             }
             // Check for *.properties file
-            url = FlexibleLocation.resolveLocation(resourceName + ".properties");
+            if (containsProtocol) {
+                url = FlexibleLocation.resolveLocation(resourceName + ".properties", loader);
+            } else {
+                url = UtilURL.fromResource(resourceName + ".properties", loader);
+            }
             if (url != null) {
                 return url;
             }
             // Check for Java XML properties file
-            url = FlexibleLocation.resolveLocation(resourceName + ".xml");
+            if (containsProtocol) {
+                url = FlexibleLocation.resolveLocation(resourceName + ".xml", loader);
+            } else {
+                url = UtilURL.fromResource(resourceName + ".xml", loader);
+            }
             if (url != null) {
                 return url;
             }
             // Check for Custom XML properties file
-            url = FlexibleLocation.resolveLocation(resource + ".xml");
+            if (containsProtocol) {
+                url = FlexibleLocation.resolveLocation(resource + ".xml", loader);
+            } else {
+                url = UtilURL.fromResource(resource + ".xml", loader);
+            }
             if (url != null) {
                 return url;
             }
-            url = FlexibleLocation.resolveLocation(resourceName);
+            if (containsProtocol) {
+                url = FlexibleLocation.resolveLocation(resource, loader);
+            } else {
+                url = UtilURL.fromResource(resource, loader);
+            }
             if (url != null) {
                 return url;
             }

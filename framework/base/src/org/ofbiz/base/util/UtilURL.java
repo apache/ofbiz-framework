@@ -21,6 +21,8 @@ package org.ofbiz.base.util;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * URL Utilities - Simple Class for flexibly working with properties files
@@ -29,6 +31,7 @@ import java.net.URL;
 public class UtilURL {
 
     public static final String module = UtilURL.class.getName();
+    private static final Map<String, URL> urlMap = new ConcurrentHashMap<String, URL>();
 
     public static <C> URL fromClass(Class<C> contextClass) {
         String resourceName = contextClass.getName();
@@ -73,6 +76,14 @@ public class UtilURL {
      * @return
      */
     public static URL fromResource(String resourceName, ClassLoader loader) {
+        URL url = urlMap.get(resourceName);
+        if (url != null) {
+            try {
+                return new URL(url.toString());
+            } catch (MalformedURLException e) {
+                Debug.logWarning(e, "Exception thrown while copying URL: ", module);
+            }
+        }
         if (loader == null) {
             try {
                 loader = Thread.currentThread().getContextClassLoader();
@@ -82,39 +93,30 @@ public class UtilURL {
                 loader = utilURL.getClass().getClassLoader();
             }
         }
-        URL url = loader.getResource(resourceName);
+        url = loader.getResource(resourceName);
         if (url != null) {
+            urlMap.put(resourceName, url);
             return url;
         }
-        String propertiesResourceName = null;
-        /* Commenting this out for now. Calling code should check for this.
-        if (!resourceName.endsWith(".properties")) {
-            propertiesResourceName = resourceName.concat(".properties");
-            url = loader.getResource(propertiesResourceName);
-            if (url != null) {
-                return url;
-            }
-        }
-        */
         url = ClassLoader.getSystemResource(resourceName);
         if (url != null) {
+            urlMap.put(resourceName, url);
             return url;
-        }
-        if (propertiesResourceName != null) {
-            url = ClassLoader.getSystemResource(propertiesResourceName);
-            if (url != null) {
-                return url;
-            }
         }
         url = fromFilename(resourceName);
         if (url != null) {
+            urlMap.put(resourceName, url);
             return url;
         }
         url = fromOfbizHomePath(resourceName);
         if (url != null) {
+            urlMap.put(resourceName, url);
             return url;
         }
         url = fromUrlString(resourceName);
+        if (url != null) {
+            urlMap.put(resourceName, url);
+        }
         return url;
     }
 
