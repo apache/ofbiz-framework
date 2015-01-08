@@ -40,7 +40,7 @@ under the License.
                 <set field="applicationMenuName" value="WebPosAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://webpos/widget/WebPosMenus.xml" global="true"/>
                 <set field="applicationTitle" value="${uiLabelMap.WebPosMenuMain}" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/jquery.hotkeys-0.8.min.js" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/jquery.hotkeys-0.7.9.min.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/WebPosHotkeys.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/Shortcuts.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/webpos/images/js/SearchProducts.js" global="true"/>
