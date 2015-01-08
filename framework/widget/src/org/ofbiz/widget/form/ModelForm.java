@@ -201,26 +201,24 @@ public class ModelForm extends ModelWidget {
         this.formLocation = formLocation;
         parentModelForm = getParentForm(formElement, entityModelReader, dispatchContext);
         int defaultViewSizeInt = DEFAULT_PAGE_SIZE;
-        if (parentModelForm != null) {
-            defaultViewSizeInt = parentModelForm.defaultViewSize;
+        String viewSize = formElement.getAttribute("view-size");
+        if (viewSize.isEmpty()) {
+            if (parentModelForm != null) {
+                defaultViewSizeInt = parentModelForm.defaultViewSize;
+            } else {
+                defaultViewSizeInt = UtilProperties.getPropertyAsInteger("widget.properties", "widget.form.defaultViewSize",
+                        defaultViewSizeInt);
+            }
         } else {
-            defaultViewSizeInt = UtilProperties.getPropertyAsInteger("widget.properties", "widget.form.defaultViewSize",
-                    defaultViewSizeInt);
-        }
-        if (formElement.hasAttribute("view-size")) {
             try {
-                defaultViewSizeInt = Integer.valueOf(formElement.getAttribute("view-size"));
+                defaultViewSizeInt = Integer.valueOf(viewSize);
             } catch (NumberFormatException e) {
             }
         }
         this.defaultViewSize = defaultViewSizeInt;
-        String type = null;
-        if (formElement.hasAttribute("type")) {
-            type = formElement.getAttribute("type");
-        } else {
-            if (parentModelForm != null) {
-                type = parentModelForm.type;
-            }
+        String type = formElement.getAttribute("type");
+        if (type.isEmpty() && parentModelForm != null) {
+            type = parentModelForm.type;
         }
         this.type = type;
         FlexibleStringExpander target = FlexibleStringExpander.getInstance(formElement.getAttribute("target"));
@@ -228,211 +226,125 @@ public class ModelForm extends ModelWidget {
             target = parentModelForm.target;
         }
         this.target = target;
-        String containerId = null;
-        if (formElement.hasAttribute("id")) {
-            containerId = formElement.getAttribute("id");
-        } else {
-            if (parentModelForm != null) {
-                containerId = parentModelForm.containerId;
-            }
+        String containerId = formElement.getAttribute("id");
+        if (containerId.isEmpty() && parentModelForm != null) {
+            containerId = parentModelForm.containerId;
         }
         this.containerId = containerId;
-        String containerStyle = "";
-        if (formElement.hasAttribute("style")) {
-            containerStyle = formElement.getAttribute("style");
-        } else {
-            if (parentModelForm != null) {
-                containerStyle = parentModelForm.containerStyle;
-            }
+        String containerStyle = formElement.getAttribute("style");
+        if (containerStyle.isEmpty() && parentModelForm != null) {
+            containerStyle = parentModelForm.containerStyle;
         }
         this.containerStyle = containerStyle;
-        String title = null;
-        if (formElement.hasAttribute("title")) {
-            title = formElement.getAttribute("title");
-        } else {
-            if (parentModelForm != null) {
-                title = parentModelForm.title;
-            }
+        String title = formElement.getAttribute("title");
+        if (title.isEmpty() && parentModelForm != null) {
+            title = parentModelForm.title;
         }
         this.title = title;
-        String tooltip = null;
-        if (formElement.hasAttribute("tooltip")) {
-            tooltip = formElement.getAttribute("tooltip");
-        } else {
-            if (parentModelForm != null) {
-                tooltip = parentModelForm.tooltip;
-            }
+        String tooltip = formElement.getAttribute("tooltip");
+        if (tooltip.isEmpty() && parentModelForm != null) {
+            tooltip = parentModelForm.tooltip;
         }
         this.tooltip = tooltip;
-        String listName = DEFAULT_FORM_RESULT_LIST_NAME;
-        if (formElement.hasAttribute("list-name")) {
-            listName = formElement.getAttribute("list-name");
-        } else {
+        String listName = formElement.getAttribute("list-name");
+        if (listName.isEmpty()) {
             if (parentModelForm != null) {
                 listName = parentModelForm.listName;
+            } else {
+                listName = DEFAULT_FORM_RESULT_LIST_NAME;
             }
         }
         this.listName = listName;
-        String listEntryName = null;
-        if (formElement.hasAttribute("list-entry-name")) {
-            listEntryName = formElement.getAttribute("list-entry-name");
-        } else {
-            if (parentModelForm != null) {
-                listEntryName = parentModelForm.listEntryName;
-            }
+        String listEntryName = formElement.getAttribute("list-entry-name");
+        if (listEntryName.isEmpty() && parentModelForm != null) {
+            listEntryName = parentModelForm.listEntryName;
         }
         this.listEntryName = listEntryName;
-        String defaultEntityName = null;
-        if (formElement.hasAttribute("default-entity-name")) {
-            defaultEntityName = formElement.getAttribute("default-entity-name");
-        } else {
-            if (parentModelForm != null) {
-                defaultEntityName = parentModelForm.defaultEntityName;
-            }
+        String defaultEntityName = formElement.getAttribute("default-entity-name");
+        if (defaultEntityName.isEmpty() && parentModelForm != null) {
+            defaultEntityName = parentModelForm.defaultEntityName;
         }
         this.defaultEntityName = defaultEntityName;
-        String defaultServiceName = null;
-        if (formElement.hasAttribute("default-service-name")) {
-            defaultServiceName = formElement.getAttribute("default-service-name");
-        } else {
-            if (parentModelForm != null) {
-                defaultServiceName = parentModelForm.defaultServiceName;
-            }
+        String defaultServiceName = formElement.getAttribute("default-service-name");
+        if (defaultServiceName.isEmpty() && parentModelForm != null) {
+            defaultServiceName = parentModelForm.defaultServiceName;
         }
         this.defaultServiceName = defaultServiceName;
-        String formTitleAreaStyle = "";
-        if (formElement.hasAttribute("form-title-area-style")) {
-            formTitleAreaStyle = formElement.getAttribute("form-title-area-style");
-        } else {
-            if (parentModelForm != null) {
-                formTitleAreaStyle = parentModelForm.formTitleAreaStyle;
-            }
+        String formTitleAreaStyle = formElement.getAttribute("form-title-area-style");
+        if (formTitleAreaStyle.isEmpty() && parentModelForm != null) {
+            formTitleAreaStyle = parentModelForm.formTitleAreaStyle;
         }
         this.formTitleAreaStyle = formTitleAreaStyle;
-        String formWidgetAreaStyle = "";
-        if (formElement.hasAttribute("form-widget-area-style")) {
-            formWidgetAreaStyle = formElement.getAttribute("form-widget-area-style");
-        } else {
-            if (parentModelForm != null) {
-                formWidgetAreaStyle = parentModelForm.formWidgetAreaStyle;
-            }
+        String formWidgetAreaStyle = formElement.getAttribute("form-widget-area-style");
+        if (formWidgetAreaStyle.isEmpty() && parentModelForm != null) {
+            formWidgetAreaStyle = parentModelForm.formWidgetAreaStyle;
         }
         this.formWidgetAreaStyle = formWidgetAreaStyle;
-        String defaultTitleAreaStyle = "";
-        if (formElement.hasAttribute("default-title-area-style")) {
-            defaultTitleAreaStyle = formElement.getAttribute("default-title-area-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultTitleAreaStyle = parentModelForm.defaultTitleAreaStyle;
-            }
+        String defaultTitleAreaStyle = formElement.getAttribute("default-title-area-style");
+        if (defaultTitleAreaStyle.isEmpty() && parentModelForm != null) {
+            defaultTitleAreaStyle = parentModelForm.defaultTitleAreaStyle;
         }
         this.defaultTitleAreaStyle = defaultTitleAreaStyle;
-        String defaultWidgetAreaStyle = "";
-        if (formElement.hasAttribute("default-widget-area-style")) {
-            defaultWidgetAreaStyle = formElement.getAttribute("default-widget-area-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultWidgetAreaStyle = parentModelForm.defaultWidgetAreaStyle;
-            }
+        String defaultWidgetAreaStyle = formElement.getAttribute("default-widget-area-style");
+        if (defaultWidgetAreaStyle.isEmpty() && parentModelForm != null) {
+            defaultWidgetAreaStyle = parentModelForm.defaultWidgetAreaStyle;
         }
         this.defaultWidgetAreaStyle = defaultWidgetAreaStyle;
-        String oddRowStyle = "";
-        if (formElement.hasAttribute("odd-row-style")) {
-            oddRowStyle = formElement.getAttribute("odd-row-style");
-        } else {
-            if (parentModelForm != null) {
-                oddRowStyle = parentModelForm.oddRowStyle;
-            }
+        String oddRowStyle = formElement.getAttribute("odd-row-style");
+        if (oddRowStyle.isEmpty() && parentModelForm != null) {
+            oddRowStyle = parentModelForm.oddRowStyle;
         }
         this.oddRowStyle = oddRowStyle;
-        String evenRowStyle = "";
-        if (formElement.hasAttribute("even-row-style")) {
-            evenRowStyle = formElement.getAttribute("even-row-style");
-        } else {
-            if (parentModelForm != null) {
-                evenRowStyle = parentModelForm.evenRowStyle;
-            }
+        String evenRowStyle = formElement.getAttribute("even-row-style");
+        if (evenRowStyle.isEmpty() && parentModelForm != null) {
+            evenRowStyle = parentModelForm.evenRowStyle;
         }
         this.evenRowStyle = evenRowStyle;
-        String defaultTableStyle = "";
-        if (formElement.hasAttribute("default-table-style")) {
-            defaultTableStyle = formElement.getAttribute("default-table-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultTableStyle = parentModelForm.defaultTableStyle;
-            }
+        String defaultTableStyle = formElement.getAttribute("default-table-style");
+        if (defaultTableStyle.isEmpty() && parentModelForm != null) {
+            defaultTableStyle = parentModelForm.defaultTableStyle;
         }
         this.defaultTableStyle = defaultTableStyle;
-        String headerRowStyle = "";
-        if (formElement.hasAttribute("header-row-style")) {
-            headerRowStyle = formElement.getAttribute("header-row-style");
-        } else {
-            if (parentModelForm != null) {
-                headerRowStyle = parentModelForm.headerRowStyle;
-            }
+        String headerRowStyle = formElement.getAttribute("header-row-style");
+        if (headerRowStyle.isEmpty() && parentModelForm != null) {
+            headerRowStyle = parentModelForm.headerRowStyle;
         }
         this.headerRowStyle = headerRowStyle;
-        String defaultTitleStyle = "";
-        if (formElement.hasAttribute("default-title-style")) {
-            defaultTitleStyle = formElement.getAttribute("default-title-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultTitleStyle = parentModelForm.defaultTitleStyle;
-            }
+        String defaultTitleStyle = formElement.getAttribute("default-title-style");
+        if (defaultTitleStyle.isEmpty() && parentModelForm != null) {
+            defaultTitleStyle = parentModelForm.defaultTitleStyle;
         }
         this.defaultTitleStyle = defaultTitleStyle;
-        String defaultWidgetStyle = "";
-        if (formElement.hasAttribute("default-widget-style")) {
-            defaultWidgetStyle = formElement.getAttribute("default-widget-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultWidgetStyle = parentModelForm.defaultWidgetStyle;
-            }
+        String defaultWidgetStyle = formElement.getAttribute("default-widget-style");
+        if (defaultWidgetStyle.isEmpty() && parentModelForm != null) {
+            defaultWidgetStyle = parentModelForm.defaultWidgetStyle;
         }
         this.defaultWidgetStyle = defaultWidgetStyle;
-        String defaultTooltipStyle = "";
-        if (formElement.hasAttribute("default-tooltip-style")) {
-            defaultTooltipStyle = formElement.getAttribute("default-tooltip-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultTooltipStyle = parentModelForm.defaultTooltipStyle;
-            }
+        String defaultTooltipStyle = formElement.getAttribute("default-tooltip-style");
+        if (defaultTooltipStyle.isEmpty() && parentModelForm != null) {
+            defaultTooltipStyle = parentModelForm.defaultTooltipStyle;
         }
         this.defaultTooltipStyle = defaultTooltipStyle;
-        String itemIndexSeparator = null;
-        if (formElement.hasAttribute("item-index-separator")) {
-            itemIndexSeparator = formElement.getAttribute("item-index-separator");
-        } else {
-            if (parentModelForm != null) {
-                itemIndexSeparator = parentModelForm.itemIndexSeparator;
-            }
+        String itemIndexSeparator = formElement.getAttribute("item-index-separator");
+        if (itemIndexSeparator.isEmpty() && parentModelForm != null) {
+            itemIndexSeparator = parentModelForm.itemIndexSeparator;
         }
         this.itemIndexSeparator = itemIndexSeparator;
-        boolean separateColumns = false;
-        if (formElement.hasAttribute("separate-columns")) {
-            separateColumns = "true".equals(formElement.getAttribute("separate-columns"));
+        String separateColumns = formElement.getAttribute("separate-columns");
+        if (separateColumns.isEmpty() && parentModelForm != null) {
+            this.separateColumns = parentModelForm.separateColumns;
         } else {
-            if (parentModelForm != null) {
-                separateColumns = parentModelForm.separateColumns;
-            }
+            this.separateColumns = "true".equals(separateColumns);
         }
-        this.separateColumns = separateColumns;
-        boolean groupColumns = false;
-        if (formElement.hasAttribute("group-columns")) {
-            groupColumns = !"false".equals(formElement.getAttribute("group-columns"));
+        String groupColumns = formElement.getAttribute("group-columns");
+        if (groupColumns.isEmpty() && parentModelForm != null) {
+            this.groupColumns = parentModelForm.groupColumns;
         } else {
-            if (parentModelForm != null) {
-                groupColumns = parentModelForm.groupColumns;
-            }
+            this.groupColumns = !"false".equals(groupColumns);
         }
-        this.groupColumns = groupColumns;
-        String targetType = null;
-        if (formElement.hasAttribute("target-type")) {
-            targetType = formElement.getAttribute("target-type");
-        } else {
-            if (parentModelForm != null) {
-                targetType = parentModelForm.targetType;
-            }
+        String targetType = formElement.getAttribute("target-type");
+        if (targetType.isEmpty() && parentModelForm != null) {
+            targetType = parentModelForm.targetType;
         }
         this.targetType = targetType;
         FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName = FlexibleMapAccessor.getInstance(formElement
@@ -446,24 +358,18 @@ public class ModelForm extends ModelWidget {
             targetWindowExdr = parentModelForm.targetWindowExdr;
         }
         this.targetWindowExdr = targetWindowExdr;
-        boolean hideHeader = false;
-        if (formElement.hasAttribute("hide-header")) {
-            hideHeader = "true".equals(formElement.getAttribute("hide-header"));
+        String hideHeader = formElement.getAttribute("hide-header");
+        if (hideHeader.isEmpty() && parentModelForm != null) {
+            this.hideHeader = parentModelForm.hideHeader;
         } else {
-            if (parentModelForm != null) {
-                hideHeader = parentModelForm.hideHeader;
-            }
+            this.hideHeader = "true".equals(hideHeader);
         }
-        this.hideHeader = hideHeader;
-        boolean clientAutocompleteFields = true;
-        if (formElement.hasAttribute("client-autocomplete-fields")) {
-            clientAutocompleteFields = !"false".equals(formElement.getAttribute("client-autocomplete-fields"));
+        String clientAutocompleteFields = formElement.getAttribute("client-autocomplete-fields");
+        if (clientAutocompleteFields.isEmpty() && parentModelForm != null) {
+            this.clientAutocompleteFields = parentModelForm.clientAutocompleteFields;
         } else {
-            if (parentModelForm != null) {
-                clientAutocompleteFields = parentModelForm.clientAutocompleteFields;
-            }
+            this.clientAutocompleteFields = !"false".equals(formElement.getAttribute("client-autocomplete-fields"));
         }
-        this.clientAutocompleteFields = clientAutocompleteFields;
         FlexibleStringExpander paginateTarget = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-target"));
         if (paginateTarget.isEmpty() && parentModelForm != null) {
             paginateTarget = parentModelForm.paginateTarget;
@@ -584,58 +490,38 @@ public class ModelForm extends ModelWidget {
         if (parentModelForm != null) {
             lastOrderFields.addAll(parentModelForm.lastOrderFields);
         }
-        String sortFieldParameterName = "sortField";
-        if (formElement.hasAttribute("sort-field-parameter-name")) {
-            sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
+        String sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
+        if (sortFieldParameterName.isEmpty() && parentModelForm != null) {
+            this.sortFieldParameterName = parentModelForm.targetType;
         } else {
-            if (parentModelForm != null) {
-                sortFieldParameterName = parentModelForm.targetType;
-            }
+            this.sortFieldParameterName = "sortField";
         }
-        this.sortFieldParameterName = sortFieldParameterName;
-        String defaultRequiredFieldStyle = "";
-        if (formElement.hasAttribute("default-required-field-style")) {
-            defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
-        } else {
-            if (parentModelForm != null) {
-                defaultRequiredFieldStyle = parentModelForm.defaultRequiredFieldStyle;
-            }
+        String defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
+        if (defaultRequiredFieldStyle.isEmpty() && parentModelForm != null) {
+            defaultRequiredFieldStyle = parentModelForm.defaultRequiredFieldStyle;
         }
         this.defaultRequiredFieldStyle = defaultRequiredFieldStyle;
-        String defaultSortFieldStyle = DEFAULT_SORT_FIELD_STYLE;
-        if (formElement.hasAttribute("default-sort-field-style")) {
-            defaultSortFieldStyle = formElement.getAttribute("default-sort-field-style");
+        String defaultSortFieldStyle = formElement.getAttribute("default-sort-field-style");
+        if (defaultSortFieldStyle.isEmpty() && parentModelForm != null) {
+            this.defaultSortFieldStyle = parentModelForm.defaultSortFieldStyle;
         } else {
-            if (parentModelForm != null) {
-                defaultSortFieldStyle = parentModelForm.defaultSortFieldStyle;
-            }
+            this.defaultSortFieldStyle = DEFAULT_SORT_FIELD_STYLE;
         }
-        this.defaultSortFieldStyle = defaultSortFieldStyle;
-        String defaultSortFieldAscStyle = DEFAULT_SORT_FIELD_ASC_STYLE;
-        if (formElement.hasAttribute("default-sort-field-asc-style")) {
-            defaultSortFieldAscStyle = formElement.getAttribute("default-sort-field-asc-style");
+        String defaultSortFieldAscStyle = formElement.getAttribute("default-sort-field-asc-style");
+        if (defaultSortFieldAscStyle.isEmpty() && parentModelForm != null) {
+            this.defaultSortFieldAscStyle = parentModelForm.defaultSortFieldAscStyle;
         } else {
-            if (parentModelForm != null) {
-                defaultSortFieldAscStyle = parentModelForm.defaultSortFieldAscStyle;
-            }
+            this.defaultSortFieldAscStyle = DEFAULT_SORT_FIELD_ASC_STYLE;
         }
-        this.defaultSortFieldAscStyle = defaultSortFieldAscStyle;
-        String defaultSortFieldDescStyle = DEFAULT_SORT_FIELD_DESC_STYLE;
-        if (formElement.hasAttribute("default-sort-field-desc-style")) {
-            defaultSortFieldDescStyle = formElement.getAttribute("default-sort-field-desc-style");
+        String defaultSortFieldDescStyle = formElement.getAttribute("default-sort-field-desc-style");
+        if (defaultSortFieldDescStyle.isEmpty() && parentModelForm != null) {
+            this.defaultSortFieldDescStyle = parentModelForm.defaultSortFieldDescStyle;
         } else {
-            if (parentModelForm != null) {
-                defaultSortFieldDescStyle = parentModelForm.defaultSortFieldDescStyle;
-            }
+            this.defaultSortFieldDescStyle = DEFAULT_SORT_FIELD_DESC_STYLE;
         }
-        this.defaultSortFieldDescStyle = defaultSortFieldDescStyle;
-        String paginateTargetAnchor = null;
-        if (formElement.hasAttribute("paginate-target-anchor")) {
-            paginateTargetAnchor = formElement.getAttribute("paginate-target-anchor");
-        } else {
-            if (parentModelForm != null) {
-                paginateTargetAnchor = parentModelForm.paginateTargetAnchor;
-            }
+        String paginateTargetAnchor = formElement.getAttribute("paginate-target-anchor");
+        if (paginateTargetAnchor.isEmpty() && parentModelForm != null) {
+            paginateTargetAnchor = parentModelForm.paginateTargetAnchor;
         }
         this.paginateTargetAnchor = paginateTargetAnchor;
         FlexibleStringExpander paginateIndexField = FlexibleStringExpander.getInstance(formElement
@@ -686,47 +572,35 @@ public class ModelForm extends ModelWidget {
             paginateViewSizeLabel = parentModelForm.paginateViewSizeLabel;
         }
         this.paginateViewSizeLabel = paginateViewSizeLabel;
-        String paginateStyle = DEFAULT_PAG_STYLE;
-        if (formElement.hasAttribute("paginate-style")) {
-            paginateStyle = formElement.getAttribute("paginate-style");
+        String paginateStyle = formElement.getAttribute("paginate-style");
+        if (paginateStyle.isEmpty() && parentModelForm != null) {
+            this.paginateStyle = parentModelForm.paginateStyle;
         } else {
-            if (parentModelForm != null) {
-                paginateStyle = parentModelForm.paginateStyle;
-            }
+            this.paginateStyle = DEFAULT_PAG_STYLE;
         }
-        this.paginateStyle = paginateStyle;
         FlexibleStringExpander paginate = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate"));
         if (paginate.isEmpty() && parentModelForm != null) {
             paginate = parentModelForm.paginate;
         }
         this.paginate = paginate;
-        boolean skipStart = false;
-        if (formElement.hasAttribute("skip-start")) {
-            skipStart = "true".equals(formElement.getAttribute("skip-start"));
+        String skipStart = formElement.getAttribute("skip-start");
+        if (skipStart.isEmpty() && parentModelForm != null) {
+            this.skipStart = parentModelForm.skipStart;
         } else {
-            if (parentModelForm != null) {
-                skipStart = parentModelForm.skipStart;
-            }
+            this.skipStart = "true".equals(skipStart);
         }
-        this.skipStart = skipStart;
-        boolean skipEnd = false;
-        if (formElement.hasAttribute("skip-end")) {
-            skipEnd = "true".equals(formElement.getAttribute("skip-end"));
+        String skipEnd = formElement.getAttribute("skip-end");
+        if (skipEnd.isEmpty() && parentModelForm != null) {
+            this.skipEnd = parentModelForm.skipEnd;
         } else {
-            if (parentModelForm != null) {
-                skipEnd = parentModelForm.skipEnd;
-            }
+            this.skipEnd = "true".equals(skipEnd);
         }
-        this.skipEnd = skipEnd;
-        boolean useRowSubmit = false;
-        if (formElement.hasAttribute("use-row-submit")) {
-            useRowSubmit = "true".equals(formElement.getAttribute("use-row-submit"));
+        String useRowSubmit = formElement.getAttribute("use-row-submit");
+        if (useRowSubmit.isEmpty() && parentModelForm != null) {
+            this.useRowSubmit = parentModelForm.useRowSubmit;
         } else {
-            if (parentModelForm != null) {
-                useRowSubmit = parentModelForm.useRowSubmit;
-            }
+            this.useRowSubmit = "true".equals(useRowSubmit);
         }
-        this.useRowSubmit = useRowSubmit;
         FlexibleStringExpander rowCountExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("row-count"));
         if (rowCountExdr.isEmpty() && parentModelForm != null) {
             rowCountExdr = parentModelForm.rowCountExdr;
@@ -855,14 +729,13 @@ public class ModelForm extends ModelWidget {
         this.autoFieldsEntities = Collections.unmodifiableList(autoFieldsEntities);
         sortOrderFields.trimToSize();
         this.sortOrderFields = Collections.unmodifiableList(sortOrderFields);
-        String focusFieldName = "";
-        if (formElement.hasAttribute("focus-field-name")) {
-            focusFieldName = formElement.getAttribute("focus-field-name");
-        } else {
+        String focusFieldName = formElement.getAttribute("focus-field-name");
+        if (focusFieldName.isEmpty()) {
             if (parentModelForm != null) {
                 focusFieldName = parentModelForm.focusFieldName;
+            } else {
+                // TODO: Set this automatically if not specified
             }
-            // TODO: Set this automatically if not specified
         }
         this.focusFieldName = focusFieldName;
     }
