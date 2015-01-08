@@ -702,7 +702,7 @@ under the License.
         </required-permissions>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
-        <override name="shipmentItemSeqId" mode="IN" optional="true"/>
+        <override name="shipmentItemSeqId" mode="INOUT" optional="true"/>
     </service>
     <service name="removeOrderShipmentFromShipment" engine="simple"
             location="component://product/script/org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="removeOrderShipmentFromShipment" auth="true">
