@@ -730,12 +730,8 @@ public class ModelForm extends ModelWidget {
         sortOrderFields.trimToSize();
         this.sortOrderFields = Collections.unmodifiableList(sortOrderFields);
         String focusFieldName = formElement.getAttribute("focus-field-name");
-        if (focusFieldName.isEmpty()) {
-            if (parentModelForm != null) {
-                focusFieldName = parentModelForm.focusFieldName;
-            } else {
-                // TODO: Set this automatically if not specified
-            }
+        if (focusFieldName.isEmpty() && parentModelForm != null) {
+            focusFieldName = parentModelForm.focusFieldName;
         }
         this.focusFieldName = focusFieldName;
     }
@@ -1004,10 +1000,6 @@ public class ModelForm extends ModelWidget {
 
     public List<ModelFormField> getFieldList() {
         return fieldList;
-    }
-
-    public String getfocusFieldName() {
-        return this.focusFieldName;
     }
 
     public String getFocusFieldName() {

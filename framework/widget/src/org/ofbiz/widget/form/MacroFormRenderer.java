@@ -1347,7 +1347,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
     }
 
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
-        String focusFieldName = modelForm.getfocusFieldName();
+        String focusFieldName = FormRenderer.getFocusFieldName(modelForm, context);
         String formName = FormRenderer.getCurrentFormName(modelForm, context);
         String containerId = FormRenderer.getCurrentContainerId(modelForm, context);
         String hasRequiredField = "";

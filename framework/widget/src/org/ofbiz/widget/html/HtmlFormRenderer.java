@@ -1223,7 +1223,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
      */
     public void renderFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         writer.append("</form>");
-        String focusFieldName = modelForm.getfocusFieldName();
+        String focusFieldName = FormRenderer.getFocusFieldName(modelForm, context);
         if (UtilValidate.isNotEmpty(focusFieldName)) {
             appendWhitespace(writer);
             writer.append("<script language=\"JavaScript\" type=\"text/javascript\">");
