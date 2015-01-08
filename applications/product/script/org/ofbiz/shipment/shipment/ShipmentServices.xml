@@ -1951,6 +1951,7 @@ under the License.
             <set from-field="parameters.quantity" field="inputMap.quantity"/>
             <call-service service-name="createShipmentItem" in-map-name="inputMap">
                 <result-to-field result-name="shipmentItemSeqId" field="parameters.shipmentItemSeqId"/>
+                <result-to-result result-name="shipmentItemSeqId" service-result-name="shipmentItemSeqId"/>
             </call-service>
             <clear-field field="inputMap"/>
             <set from-field="parameters.userLogin" field="inputMap.userLogin"/>
