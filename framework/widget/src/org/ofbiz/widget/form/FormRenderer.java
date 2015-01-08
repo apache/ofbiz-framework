@@ -89,12 +89,22 @@ public class FormRenderer {
         }
     }
 
+    public static String getFocusFieldName(ModelForm modelForm, Map<String, Object> context) {
+        String focusFieldName = (String) context.get(modelForm.getName().concat(".focusFieldName"));
+        if (focusFieldName == null) {
+            return "";
+        }
+        return focusFieldName;
+    }
+
     private final ModelForm modelForm;
     private final FormStringRenderer formStringRenderer;
+    private String focusFieldName;
 
     public FormRenderer(ModelForm modelForm, FormStringRenderer formStringRenderer) {
         this.modelForm = modelForm;
         this.formStringRenderer = formStringRenderer;
+        this.focusFieldName = modelForm.getFocusFieldName();
     }
 
     private Collection<List<ModelFormField>> getFieldListsByPosition(List<ModelFormField> modelFormFieldList) {
@@ -109,6 +119,10 @@ public class FormRenderer {
             fieldListByPosition.add(modelFormField);
         }
         return fieldsByPosition.values();
+    }
+
+    public String getFocusFieldName() {
+        return focusFieldName;
     }
 
     private List<ModelFormField> getHiddenIgnoredFields(Map<String, Object> context, Set<String> alreadyRendered,
@@ -1093,6 +1107,15 @@ public class FormRenderer {
                 continue;
             }
             alreadyRendered.add(currentFormField.getName());
+            if (focusFieldName.isEmpty()) {
+                if (fieldInfo.getFieldType() != FieldInfo.DISPLAY && fieldInfo.getFieldType() != FieldInfo.HIDDEN
+                        && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
+                        && fieldInfo.getFieldType() != FieldInfo.IGNORED
+                        && fieldInfo.getFieldType() != FieldInfo.IMAGE) {
+                    focusFieldName = currentFormField.getName();
+                    context.put(modelForm.getName().concat(".focusFieldName"), focusFieldName);
+                }
+            }
 
             boolean stayingOnRow = false;
             if (lastFormField != null) {
