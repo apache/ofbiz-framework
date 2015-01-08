@@ -83,7 +83,7 @@ public final class EntityClassLoader extends ClassLoader {
                 Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
                 GenericValue resourceValue = delegator.findOne("JavaResource", true, "resourceName", name);
                 if (resourceValue != null) {
-                    url = makeUrl(resourceValue);
+                    url = newUrl(resourceValue);
                 } else {
                     misses.put(key, key);
                 }
@@ -112,7 +112,7 @@ public final class EntityClassLoader extends ClassLoader {
                 if (!resourceValues.isEmpty()) {
                     List<URL> urls = new ArrayList<URL>(resourceValues.size());
                     for (GenericValue resourceValue : resourceValues) {
-                        urls.add(makeUrl(resourceValue));
+                        urls.add(newUrl(resourceValue));
                     }
                     urlEnum = Collections.enumeration(urls);
                 } else {
@@ -160,7 +160,7 @@ public final class EntityClassLoader extends ClassLoader {
         return inFindValue;
     }
 
-    private URL makeUrl(GenericValue resourceValue) throws MalformedURLException {
+    private URL newUrl(GenericValue resourceValue) throws MalformedURLException {
         return new URL("entity", resourceValue.getDelegator().getDelegatorName(), -1, "/".concat(resourceValue
                 .getString("resourceName")), streamHandler);
     }
