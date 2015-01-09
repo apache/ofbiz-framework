@@ -4288,7 +4288,7 @@
     </property>
     <property key="Geo.geoName.AB">
         <value xml:lang="de">Albera</value>
-        <value xml:lang="en">AB</value>
+        <value xml:lang="en">Alberta</value>
         <value xml:lang="fr">Albera</value>
         <value xml:lang="it">AB</value>
         <value xml:lang="ja">アルベラ</value>
@@ -4567,7 +4567,7 @@
     </property>
     <property key="Geo.geoName.BC">
         <value xml:lang="de">Britisch-Kolumbien</value>
-        <value xml:lang="en">BC</value>
+        <value xml:lang="en">British Columbia</value>
         <value xml:lang="fr">Colombie-Britannique</value>
         <value xml:lang="it">BC</value>
         <value xml:lang="ja">ブリティッシュ・コロンビア</value>
@@ -6360,7 +6360,7 @@
     </property>
     <property key="Geo.geoName.MB">
         <value xml:lang="de">Manitoba</value>
-        <value xml:lang="en">MB</value>
+        <value xml:lang="en">Manitoba</value>
         <value xml:lang="fr">Manitoba</value>
         <value xml:lang="it">MB</value>
         <value xml:lang="ja">マニトバ</value>
@@ -6682,7 +6682,7 @@
     </property>
     <property key="Geo.geoName.NB">
         <value xml:lang="de">Neu-Brunswick</value>
-        <value xml:lang="en">NB</value>
+        <value xml:lang="en">New Brunswick</value>
         <value xml:lang="fr">Nouveau-Brunswick</value>
         <value xml:lang="it">NB</value>
         <value xml:lang="ja">ニューブランズウィック</value>
@@ -6807,7 +6807,7 @@
         <value xml:lang="zh_TW">[新]紐埃島</value>
     </property>
     <property key="Geo.geoName.NL">
-        <value xml:lang="en">NL</value>
+        <value xml:lang="en">Newfoundland/Labrador</value>
         <value xml:lang="fr">Terre-Neuve-et-Labrador</value>
         <value xml:lang="it">NL</value>
         <value xml:lang="ja">ニューファンドランド・ラブラドール</value>
@@ -6876,7 +6876,7 @@
         <value xml:lang="zh_TW">諾魯</value>
     </property>
     <property key="Geo.geoName.NS">
-        <value xml:lang="en">NS</value>
+        <value xml:lang="en">Nova Scotia</value>
         <value xml:lang="fr">Nouvelle-Ecosse</value>
         <value xml:lang="it">NS</value>
         <value xml:lang="ja">ノヴァスコシア</value>
@@ -6887,7 +6887,7 @@
         <value xml:lang="zh_TW">新斯科細亞省</value>
     </property>
     <property key="Geo.geoName.NT">
-        <value xml:lang="en">NT</value>
+        <value xml:lang="en">Northwest Territories</value>
         <value xml:lang="fr">Territoires du Nord-Ouest</value>
         <value xml:lang="it">NT</value>
         <value xml:lang="ja">ノースウエスト</value>
@@ -6898,7 +6898,7 @@
         <value xml:lang="zh_TW">加拿大西北地區</value>
     </property>
     <property key="Geo.geoName.NU">
-        <value xml:lang="en">NU</value>
+        <value xml:lang="en">Nunavut</value>
         <value xml:lang="fr">Nunavut</value>
         <value xml:lang="it">NU</value>
         <value xml:lang="ja">ヌナブト</value>
@@ -6939,7 +6939,7 @@
         <value xml:lang="zh_TW">阿曼</value>
     </property>
     <property key="Geo.geoName.ON">
-        <value xml:lang="en">ON</value>
+        <value xml:lang="en">Ontario</value>
         <value xml:lang="fr">Ontario</value>
         <value xml:lang="it">Ontario</value>
         <value xml:lang="ja">オンタリオ</value>
@@ -6995,7 +6995,7 @@
         <value xml:lang="zh_TW">皮特克恩島</value>
     </property>
     <property key="Geo.geoName.PE">
-        <value xml:lang="en">PE</value>
+        <value xml:lang="en">Prince Edward Island</value>
         <value xml:lang="fr">Île-du-Prince-Edouard</value>
         <value xml:lang="it">PE</value>
         <value xml:lang="ja">プリンスエドワードアイランド</value>
@@ -7184,7 +7184,7 @@
         <value xml:lang="zh_TW">卡塔爾</value>
     </property>
     <property key="Geo.geoName.QC">
-        <value xml:lang="en">QC</value>
+        <value xml:lang="en">Quebec</value>
         <value xml:lang="fr">Québec</value>
         <value xml:lang="it">QC</value>
         <value xml:lang="ja">ケベック</value>
@@ -8087,7 +8087,7 @@
         <value xml:lang="zh_TW">葉門</value>
     </property>
     <property key="Geo.geoName.YT">
-        <value xml:lang="en">YT</value>
+        <value xml:lang="en">Yukon Territory</value>
         <value xml:lang="es">Territorio del Yukon</value>
         <value xml:lang="fr">Territoire du Yukon</value>
         <value xml:lang="it">Territorio dello Yukon</value>
