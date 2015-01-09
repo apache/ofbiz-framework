@@ -134,7 +134,7 @@ public class ShoppingCartHelper {
         }
 
         // quantity sanity check
-        if (quantity.compareTo(BigDecimal.ONE) < 0) {
+        if (quantity.compareTo(BigDecimal.ZERO) < 0) {
             String errMsg = UtilProperties.getMessage(resource_error, "cart.quantity_not_positive_number", this.cart.getLocale());
             result = ServiceUtil.returnError(errMsg);
             return result;
