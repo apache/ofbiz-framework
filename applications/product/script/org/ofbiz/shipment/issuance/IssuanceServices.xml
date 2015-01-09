@@ -188,7 +188,9 @@ under the License.
         <first-from-list entry="orderShipment" list="orderShipments"/>
 
         <!-- will create qtyForShipmentItem -->
+        <!-- jacopoc: a weird error is happening here during testMultipleInventoryItemIssuance -->
         <call-simple-method method-name="calcQtyForShipmentItemInline"/>
+
         <log level="info" message="qtyForShipmentItem: ${qtyForShipmentItem}"/>
 
         <if-compare value="0" operator="greater-equals" field="qtyForShipmentItem" type="BigDecimal">
@@ -285,8 +287,9 @@ under the License.
         </iterate>
         <!-- Re-reserve cancelled oisgirs again so that shipped quantity will be subtract from oisgir.quantity and oisgir.quantityNotAvailable will be calculated accordingly -->
         <iterate entry="oisgir" list="oisgirs">
+            <get-related-one value-field="oisgir" relation-name="InventoryItem" to-value-field="tmpInventoryItem"/>
             <set field="reserveProductInventoryByFacilityMap.quantity" from-field="oisgir.quantity"/>
-            <set field="reserveProductInventoryByFacilityMap.facilityId" from-field="orderHeader.originFacilityId"/>
+            <set field="reserveProductInventoryByFacilityMap.facilityId" from-field="tmpInventoryItem.facilityId"/>
             <set field="reserveProductInventoryByFacilityMap.orderId" from-field="oisgir.orderId"/>
             <set field="reserveProductInventoryByFacilityMap.orderItemSeqId" from-field="oisgir.orderItemSeqId"/>
             <set field="reserveProductInventoryByFacilityMap.productId" from-field="orderItem.productId"/>
@@ -324,7 +327,7 @@ under the License.
             </iterate>
         </if-not-empty>
 
-        <!-- If the shipmentItem includes products from more than one inventoryItemId, any items that came from a different inventoryItemId 
+        <!-- If the shipmentItem includes products from more than one inventoryItemId, any items that came from a different inventoryItemId
             from the current one should be ignored as we calculate the adjustment to make.
         -->
         <calculate field="orderShipmentAmount">
@@ -332,7 +335,6 @@ under the License.
                <calcop operator="get" field="otherInventoryItemQuantity"/>
            </calcop>
         </calculate>
-        
         <!-- qtyForShipmentItem is the quantity we will add to the ShipmentItem -->
         <calculate field="qtyForShipmentItem">
            <calcop field="parameters.quantity" operator="subtract">
