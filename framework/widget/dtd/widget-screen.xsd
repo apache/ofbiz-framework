@@ -335,6 +335,7 @@ under the License.
                         </xs:enumeration>
                         <xs:enumeration value="anchor" />
                         <xs:enumeration value="hidden-form" />
+                        <!-- FIXME: This is not a link type. It indicates the target window should be a popup dialog. -->
                         <xs:enumeration value="ajax-window" />
                     </xs:restriction>
                 </xs:simpleType>
@@ -373,67 +374,6 @@ under the License.
                     </xs:restriction>
                 </xs:simpleType>
             </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="parameter">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="param-name" use="required" />
-            <xs:attribute type="xs:string" name="from-field" />
-            <xs:attribute type="xs:string" name="value" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="auto-parameters-service">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude" />
-            </xs:sequence>
-            <xs:attribute name="service-name" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>The service name used to resolve parameters. If empty, use form defaultServiceName. Flexible string allowed.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="send-if-empty" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="auto-parameters-entity">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude" />
-            </xs:sequence>
-            <xs:attribute name="entity-name" type="xs:string" use="required">
-                <xs:annotation>
-                    <xs:documentation>The entity name used to resolve parameters. If empty use form defaultEntityName attribute. Flexible string allowed.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="include" default="pk">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="pk" />
-                        <xs:enumeration value="nonpk" />
-                        <xs:enumeration value="all" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="send-if-empty" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="exclude">
-        <xs:complexType>
-            <xs:attribute name="field-name" type="xs:string" use="required" />
         </xs:complexType>
     </xs:element>
 
