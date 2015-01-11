@@ -30,7 +30,7 @@
         <value xml:lang="ru">часы</value>
         <value xml:lang="th">ชั่วโมง</value>
         <value xml:lang="zh">小时</value>
-        <value xml:lang="zh_TW">小時</value>
+        <value xml:lang="zh-TW">小時</value>
     </property>
     <property key="hour.singular">
         <value xml:lang="de">Stunde</value>
@@ -43,7 +43,7 @@
         <value xml:lang="ru">час</value>
         <value xml:lang="th">ชั่วโมง</value>
         <value xml:lang="zh">小时</value>
-        <value xml:lang="zh_TW">小時</value>
+        <value xml:lang="zh-TW">小時</value>
     </property>
     <property key="millisecond.plural">
         <value xml:lang="de">Millisekunden</value>
@@ -56,7 +56,7 @@
         <value xml:lang="ru">миллисекунды</value>
         <value xml:lang="th">หนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">毫秒</value>
-        <value xml:lang="zh_TW">毫秒</value>
+        <value xml:lang="zh-TW">毫秒</value>
     </property>
     <property key="millisecond.singular">
         <value xml:lang="de">Millisekunde</value>
@@ -69,7 +69,7 @@
         <value xml:lang="ru">миллисекунда</value>
         <value xml:lang="th">หนึ่งในพันของหนึ่งวินาที</value>
         <value xml:lang="zh">毫秒</value>
-        <value xml:lang="zh_TW">毫秒</value>
+        <value xml:lang="zh-TW">毫秒</value>
     </property>
     <property key="minute.plural">
         <value xml:lang="de">Minuten</value>
@@ -82,7 +82,7 @@
         <value xml:lang="ru">минуты</value>
         <value xml:lang="th">นาที</value>
         <value xml:lang="zh">分钟</value>
-        <value xml:lang="zh_TW">分鐘</value>
+        <value xml:lang="zh-TW">分鐘</value>
     </property>
     <property key="minute.singular">
         <value xml:lang="de">Minute</value>
@@ -95,7 +95,7 @@
         <value xml:lang="ru">минута</value>
         <value xml:lang="th">นาที</value>
         <value xml:lang="zh">分钟</value>
-        <value xml:lang="zh_TW">分鐘</value>
+        <value xml:lang="zh-TW">分鐘</value>
     </property>
     <property key="second.plural">
         <value xml:lang="de">Sekunden</value>
@@ -108,7 +108,7 @@
         <value xml:lang="ru">секунды</value>
         <value xml:lang="th">วินาที</value>
         <value xml:lang="zh">秒</value>
-        <value xml:lang="zh_TW">秒</value>
+        <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="second.singular">
         <value xml:lang="de">Sekunde</value>
@@ -121,7 +121,7 @@
         <value xml:lang="ru">секунда</value>
         <value xml:lang="th">วินาที</value>
         <value xml:lang="zh">秒</value>
-        <value xml:lang="zh_TW">秒</value>
+        <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="week.plural">
         <value xml:lang="de">Wochen</value>
@@ -134,7 +134,7 @@
         <value xml:lang="ru">недели</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
-        <value xml:lang="zh_TW">週</value>
+        <value xml:lang="zh-TW">週</value>
     </property>
     <property key="week.singular">
         <value xml:lang="de">Woche</value>
@@ -147,6 +147,6 @@
         <value xml:lang="ru">неделя</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
-        <value xml:lang="zh_TW">週</value>
+        <value xml:lang="zh-TW">週</value>
     </property>
 </resource>
