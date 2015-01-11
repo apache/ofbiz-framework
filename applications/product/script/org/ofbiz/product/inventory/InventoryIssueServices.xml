@@ -138,10 +138,10 @@ under the License.
                     <set field="createDetailMap.orderId" from-field="parameters.orderId"/>
                     <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                     <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
-                    <calculate field="createDetailMap.availableToPromiseDiff">
+                    <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    <calculate field="createDetailMap.quantityOnHandDiff">
+                    <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -173,10 +173,10 @@ under the License.
                     <set field="createDetailMap.orderId" from-field="parameters.orderId"/>
                     <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                     <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
-                    <calculate field="createDetailMap.availableToPromiseDiff">
+                    <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    <calculate field="createDetailMap.quantityOnHandDiff">
+                    <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
                         <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
@@ -249,10 +249,10 @@ under the License.
                         <set field="createDetailMap.orderItemSeqId" from-field="parameters.orderItemSeqId"/>
                         <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>
                         <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
-                        <calculate field="createDetailMap.availableToPromiseDiff">
+                        <calculate field="createDetailMap.availableToPromiseDiff" decimal-scale="6">
                             <calcop field="parameters.deductAmount" operator="negative"/>
                         </calculate>
-                        <calculate field="createDetailMap.quantityOnHandDiff">
+                        <calculate field="createDetailMap.quantityOnHandDiff" decimal-scale="6">
                             <calcop field="parameters.deductAmount" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
