@@ -2237,7 +2237,7 @@ public class OrderReadHelper {
         if (cancelQty == null) cancelQty = ZERO;
         if (orderQty == null) orderQty = ZERO;
 
-        return orderQty.subtract(cancelQty).setScale(scale, rounding);
+        return orderQty.subtract(cancelQty);
     }
 
     public static BigDecimal getOrderItemShipGroupQuantity(GenericValue shipGroupAssoc) {
