@@ -2515,6 +2515,9 @@
         <value xml:lang="zh">退货的制成品/数字产品明细</value>
         <value xml:lang="zh-TW">退貨的製成品/數字產品細項</value>
     </property>
+    <property key="InvoiceItemType.description.CRT_RPROD_ITEM">
+        <value xml:lang="en">Return Raw Material Good Item</value>
+    </property>
     <property key="InvoiceItemType.description.CRT_FEE_ADJ">
         <value xml:lang="de">Retourengebühr</value>
         <value xml:lang="en">Return Fee</value>
@@ -4162,6 +4165,9 @@
         <value xml:lang="vi">đã 'Kết thúc'/Hàng hóa số</value>
         <value xml:lang="zh">成品/数字商品退货</value>
         <value xml:lang="zh-TW">成品/數字商品退貨</value>
+    </property>
+    <property key="InvoiceItemType.description.SRT_RPROD_ITEM">
+        <value xml:lang="en">Return Raw Material Good Item</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FEE_ADJ">
         <value xml:lang="de">Retourengebühr</value>

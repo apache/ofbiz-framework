@@ -296,6 +296,7 @@ under the License.
     <ReturnItemType description="Return Finished Good Item" returnItemTypeId="RET_FPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Digital Good Item" returnItemTypeId="RET_DPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Finished/Digital Good Item" returnItemTypeId="RET_FDPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
+    <ReturnItemType description="Return Raw Material Good Item" returnItemTypeId="RET_RPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Product-Feature Item" returnItemTypeId="RET_PROD_FEATR_ITEM" parentTypeId="RET_PROD_ITEM"/>
     <ReturnItemType description="Return Service Product Item" returnItemTypeId="RET_SPROD_ITEM" parentTypeId="RET_PROD_ITEM"/>
 
@@ -312,6 +313,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="AGGREGATED_CONF" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_RPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="CUSTOMER_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
@@ -334,6 +336,7 @@ under the License.
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="AGGREGATED_CONF" returnItemTypeId="RET_FPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DIGITAL_GOOD" returnItemTypeId="RET_DPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="FINDIG_GOOD" returnItemTypeId="RET_FDPROD_ITEM"/>
+    <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="RAW_MATERIAL" returnItemTypeId="RET_RPROD_ITEM"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="PROMOTION_ADJUSTMENT" returnItemTypeId="RET_PROMOTION_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="REPLACE_ADJUSTMENT" returnItemTypeId="RET_REPLACE_ADJ"/>
     <ReturnItemTypeMap returnHeaderTypeId="VENDOR_RETURN" returnItemMapKey="DISCOUNT_ADJUSTMENT" returnItemTypeId="RET_DISCOUNT_ADJ"/>
