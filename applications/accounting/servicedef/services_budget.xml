@@ -60,8 +60,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
 
-    <service name="createBudgetRole" default-entity-name="BudgetRole" engine="simple"
-        location="component://accounting/script/org/ofbiz/accounting/budget/BudgetServices.xml" invoke="createBudgetRole">
+    <service name="createBudgetRole" default-entity-name="BudgetRole" engine="entity-auto" invoke="create" auth="true">
         <description>Create a new Budget Role Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>

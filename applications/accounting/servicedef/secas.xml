@@ -104,6 +104,11 @@ under the License.
         <action service="sendOrderPayRetryNotification" mode="async" persist="true"/>
     </eca>
 
+    <!-- budget role ecas -->
+    <eca service="createBudgetRole" event="invoke">
+        <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
+    </eca>
+
     <!-- financial account role ecas -->
     <eca service="createFinAccountRole" event="invoke">
         <action service="ensurePartyRole" mode="sync" run-as-user="system"/>
@@ -128,7 +133,7 @@ under the License.
         <condition field-name="replenishPaymentId" operator="is-not-empty"/>
         <action service="finAccountReplenish" mode="sync" run-as-user="system"/>
     </eca>
-    
+
     <eca service="createFinAccountTrans" event="commit">
         <condition field-name="glAccountId" operator="is-not-empty"/>
         <action service="postFinAccountTransToGl" mode="sync"/>
