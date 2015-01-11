@@ -159,7 +159,6 @@
     <classpathentry kind="src" path="applications/workeffort/src"/>
     <classpathentry kind="src" path="specialpurpose/appserver/src"/>
     <classpathentry excluding="org/ofbiz/base/config/CoberturaInstrumenter.java" kind="src" path="framework/base/src"/>
-    <classpathentry kind="src" path="framework/bi/src"/>
     <classpathentry kind="src" path="specialpurpose/birt/src"/>
     <classpathentry kind="src" path="framework/catalina/src"/>
     <classpathentry kind="src" path="framework/common/src"/>
@@ -171,7 +170,6 @@
     <classpathentry kind="src" path="framework/minilang/src"/>
     <classpathentry kind="src" path="framework/security/src"/>
     <classpathentry kind="src" path="framework/service/src"/>
-    <classpathentry kind="src" path="framework/sql/src"/>
     <classpathentry kind="src" path="framework/start/src"/>
     <classpathentry kind="src" path="framework/testtools/src"/>
     <classpathentry excluding="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
