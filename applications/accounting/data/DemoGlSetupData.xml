@@ -100,6 +100,7 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="CRT_FPROD_ITEM" defaultGlAccountId="421000"/>
     <InvoiceItemType invoiceItemTypeId="CRT_DPROD_ITEM" defaultGlAccountId="421000"/>
     <InvoiceItemType invoiceItemTypeId="CRT_FDPROD_ITEM" defaultGlAccountId="421000"/>
+    <InvoiceItemType invoiceItemTypeId="CRT_RPROD_ITEM" defaultGlAccountId="421000"/>
     <InvoiceItemType invoiceItemTypeId="CRT_PROD_FEATR_ITEM" defaultGlAccountId="421000"/>
     <InvoiceItemType invoiceItemTypeId="CRT_SPROD_ITEM" defaultGlAccountId="421000"/>
 
@@ -124,6 +125,7 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="SRT_FPROD_ITEM" defaultGlAccountId="401000"/>
     <InvoiceItemType invoiceItemTypeId="SRT_DPROD_ITEM" defaultGlAccountId="401000"/>
     <InvoiceItemType invoiceItemTypeId="SRT_FDPROD_ITEM" defaultGlAccountId="401000"/>
+    <InvoiceItemType invoiceItemTypeId="SRT_RPROD_ITEM" defaultGlAccountId="401000"/>
     <InvoiceItemType invoiceItemTypeId="SRT_PROD_FEATR_ITEM" defaultGlAccountId="401000"/>
     <InvoiceItemType invoiceItemTypeId="SRT_SPROD_ITEM" defaultGlAccountId="401000"/>
 

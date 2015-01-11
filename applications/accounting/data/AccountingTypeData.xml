@@ -477,6 +477,7 @@ under the License.
     <InvoiceItemType description="Return Finished Good Item" hasTable="N" invoiceItemTypeId="CRT_FPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Digital Good Item" hasTable="N" invoiceItemTypeId="CRT_DPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Finished/Digital Good Item" hasTable="N" invoiceItemTypeId="CRT_FDPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Raw Material Good Item" hasTable="N" invoiceItemTypeId="CRT_RPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Product-Feature Item" hasTable="N" invoiceItemTypeId="CRT_PROD_FEATR_ITEM" parentTypeId="CRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Service Product Item" hasTable="N" invoiceItemTypeId="CRT_SPROD_ITEM" parentTypeId="CRT_PROD_ITEM"/>
 
@@ -503,6 +504,7 @@ under the License.
     <InvoiceItemType description="Return Finished Good Item" hasTable="N" invoiceItemTypeId="SRT_FPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Digital Good Item" hasTable="N" invoiceItemTypeId="SRT_DPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Finished/Digital Good Item" hasTable="N" invoiceItemTypeId="SRT_FDPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
+    <InvoiceItemType description="Return Raw Material Good Item" hasTable="N" invoiceItemTypeId="SRT_RPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Product-Feature Item" hasTable="N" invoiceItemTypeId="SRT_PROD_FEATR_ITEM" parentTypeId="SRT_PROD_ITEM"/>
     <InvoiceItemType description="Return Service Product Item" hasTable="N" invoiceItemTypeId="SRT_SPROD_ITEM" parentTypeId="SRT_PROD_ITEM"/>
 
@@ -585,6 +587,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FPROD_ITEM" invoiceItemTypeId="CRT_FPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DPROD_ITEM" invoiceItemTypeId="CRT_DPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_FDPROD_ITEM" invoiceItemTypeId="CRT_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_RPROD_ITEM" invoiceItemTypeId="CRT_RPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_PROMOTION_ADJ" invoiceItemTypeId="CRT_PROMOTION_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="CRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="CUST_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="CRT_DISCOUNT_ADJ"/>
@@ -603,6 +606,7 @@ under the License.
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FPROD_ITEM" invoiceItemTypeId="SRT_FPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DPROD_ITEM" invoiceItemTypeId="SRT_DPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_FDPROD_ITEM" invoiceItemTypeId="SRT_FDPROD_ITEM"/>
+    <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_RPROD_ITEM" invoiceItemTypeId="SRT_RPROD_ITEM"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_PROMOTION_ADJ" invoiceItemTypeId="SRT_PROMOTION_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_REPLACE_ADJ" invoiceItemTypeId="SRT_REPLACE_ADJ"/>
     <InvoiceItemTypeMap invoiceTypeId="PURC_RTN_INVOICE" invoiceItemMapKey="RET_DISCOUNT_ADJ" invoiceItemTypeId="SRT_DISCOUNT_ADJ"/>
