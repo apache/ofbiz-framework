@@ -25,7 +25,12 @@
         <menu-item name="mytasks" title="${uiLabelMap.WorkEffortMyTasks}"><link target="MyTasks"/></menu-item>
         <menu-item name="mytime" title="${uiLabelMap.WorkEffortTimesheetMyTime}"><link target="MyTimesheet"/></menu-item>
         <menu-item name="projects" title="${uiLabelMap.WorkEffortProjects}"><link target="FindProject"/></menu-item>
-        <menu-item name="task" title="${uiLabelMap.ProjectMgrTasks}"><link target="FindTask"/></menu-item>
+        <menu-item name="task" title="${uiLabelMap.ProjectMgrTasks}">
+            <condition>
+                <if-has-permission permission="PROJECTMGR_ADMIN"/>
+            </condition>
+            <link target="FindTask"/>
+        </menu-item>
         <menu-item name="resources" title="${uiLabelMap.ProjectMgrResources}">
             <condition>
                 <if-has-permission permission="PROJECTMGR_ADMIN"/>
