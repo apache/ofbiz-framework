@@ -68,19 +68,5 @@ under the License.
         </if-not-empty>
     </simple-method>
 
-    <simple-method method-name="createBudgetRole" short-description="Create a Budget Role">
-        <entity-one value-field="partyRole" entity-name="PartyRole"/>
-        <if-empty field="partyRole">
-            <set field="createPartyRole.partyId" from-field="parameters.partyId"/>
-            <set field="createPartyRole.roleTypeId" from-field="parameters.roleTypeId"/>
-            <call-service service-name="createPartyRole" in-map-name="createPartyRole"/>
-            <check-errors/>
-        </if-empty>
-        <make-value value-field="newEntity" entity-name="BudgetRole"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
 </simple-methods>
 
