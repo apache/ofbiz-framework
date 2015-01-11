@@ -339,7 +339,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdFrom" title="${uiLabelMap.CommonName}">
-            <hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
+            <hyperlink target="taskView" description="${r.taskInfo.taskName}">
                 <parameter param-name="workEffortId" from-field="workEffortIdFrom"/>
             </hyperlink>
         </field>
@@ -351,6 +351,7 @@
         <field name="actualCompletionDate"  entry-name="r.taskInfo.actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
         <field name="deleteButton"><submit button-type="button"/></field>
     </form>
+    
     <form name="DependenciesAfter" target="removeDependency" title="" list-name="depList" type="list" separate-columns="true" paginate-target="Dependencies"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
@@ -363,7 +364,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="workEffortIdTo" title="${uiLabelMap.CommonName}">
-            <hyperlink target="Dependencies" description="${r.taskInfo.taskName}">
+            <hyperlink target="taskView" description="${r.taskInfo.taskName}">
                 <parameter param-name="workEffortId" from-field="workEffortIdTo"/>
             </hyperlink>
         </field>
