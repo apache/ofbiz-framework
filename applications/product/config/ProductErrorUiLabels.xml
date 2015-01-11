@@ -25,21 +25,21 @@
         <value xml:lang="ja">製品カテゴリの読み込み中にエラー: ${errMessage}.</value>
         <value xml:lang="nl">Probleem inzake productcategoriën: ${errMessage}.</value>
         <value xml:lang="zh">读取产品分类时出错：${errMessage}。</value>
-        <value xml:lang="zh_TW">讀取產品分類時出錯:${errMessage}.</value>
+        <value xml:lang="zh-TW">讀取產品分類時出錯:${errMessage}.</value>
     </property>
     <property key="categoryservices.error_find_next_products">
         <value xml:lang="en">Error finding previous/next product info: ${errMessage}</value>
         <value xml:lang="it">Errore nelle ricerca dei prodotti precedenti/successivi: ${errMessage}</value>
         <value xml:lang="ja">前/次の製品情報検索中にエラー: ${errMessage}.</value>
         <value xml:lang="zh">查找上一个/下一个产品信息时出错：${errMessage}</value>
-        <value xml:lang="zh_TW">尋找上一個/下一個產品資訊時出錯:${errMessage}</value>
+        <value xml:lang="zh-TW">尋找上一個/下一個產品資訊時出錯:${errMessage}</value>
     </property>
     <property key="categoryservices.problems_getting_next_products">
         <value xml:lang="en">Both Index and ProductID cannot be null.</value>
         <value xml:lang="it">Entrambi indice e prodotto non possono essere vuoti.</value>
         <value xml:lang="ja">索引と製品IDの両方とも空にできません。</value>
         <value xml:lang="zh">索引和产品标识都不能是空（null）。</value>
-        <value xml:lang="zh_TW">索引和產品標識都不能是空(null).</value>
+        <value xml:lang="zh-TW">索引和產品標識都不能是空(null).</value>
     </property>
     <property key="categoryservices.product_not_found">
         <value xml:lang="en">Product not found in the current category.</value>
@@ -47,171 +47,171 @@
         <value xml:lang="ja">現在のカテゴリに製品が見つかりません。</value>
         <value xml:lang="nl">Product niet gevonden</value>
         <value xml:lang="zh">在当前分类中没有找到产品。</value>
-        <value xml:lang="zh_TW">在當前分類中沒有找到產品.</value>
+        <value xml:lang="zh-TW">在當前分類中沒有找到產品.</value>
     </property>
     <property key="ImageManagementErrorRmoveDefaultImage">
         <value xml:lang="en">Unable to remove an image. It is the defualt image.</value>
         <value xml:lang="ja">画像の削除はできません。デフォルトの画像です。</value>
         <value xml:lang="th">ไม่สามารถลบรูปภาพ</value>
         <value xml:lang="zh">无法删除图片。它是缺省图片。</value>
-        <value xml:lang="zh_TW">無法刪除圖片.它是預設圖片.</value>
+        <value xml:lang="zh-TW">無法刪除圖片.它是預設圖片.</value>
     </property>
     <property key="ScaleImage.error_occurs_during_writing">
         <value xml:lang="en">An error occurs during writing</value>
         <value xml:lang="fr">Une erreur est survenue lors de l'écriture</value>
         <value xml:lang="ja">書き込み中にエラーが発生しました</value>
         <value xml:lang="zh">写的过程中发生一个错误</value>
-        <value xml:lang="zh_TW">寫的過程中發生一個錯誤</value>
+        <value xml:lang="zh-TW">寫的過程中發生一個錯誤</value>
     </property>
     <property key="ScaleImage.one_current_image_dimension_is_null">
         <value xml:lang="en">One current image dimension is null</value>
         <value xml:lang="fr">Une des dimensions de l'image courrante est nulle</value>
         <value xml:lang="ja">現在の画像の寸法が空です</value>
         <value xml:lang="zh">一个当前图像尺寸是null</value>
-        <value xml:lang="zh_TW">一個當前圖像尺寸是null</value>
+        <value xml:lang="zh-TW">一個當前圖像尺寸是null</value>
     </property>
     <property key="ScaleImage.one_parameter_is_null">
         <value xml:lang="en">One parameter is null</value>
         <value xml:lang="fr">Un des paramètres est nul</value>
         <value xml:lang="ja">パラメータが空です</value>
         <value xml:lang="zh">一个参数是null</value>
-        <value xml:lang="zh_TW">一個參數是null</value>
+        <value xml:lang="zh-TW">一個參數是null</value>
     </property>
     <property key="ScaleImage.transform_is_non_invertible">
         <value xml:lang="en">Transform is non-invertible</value>
         <value xml:lang="fr">La transformation n'est pas réversible</value>
         <value xml:lang="ja">変換は非可逆的です</value>
         <value xml:lang="zh">转换是不可逆的</value>
-        <value xml:lang="zh_TW">轉換是不可逆的</value>
+        <value xml:lang="zh-TW">轉換是不可逆的</value>
     </property>
     <property key="ScaleImage.unable_to_create_target_directory">
         <value xml:lang="en">Unable to create target directory</value>
         <value xml:lang="fr">Impossible de créer le dossier cible</value>
         <value xml:lang="ja">対象のディレクトリが作成できません</value>
         <value xml:lang="zh">无法创建目标目录</value>
-        <value xml:lang="zh_TW">無法新建目標目錄</value>
+        <value xml:lang="zh-TW">無法新建目標目錄</value>
     </property>
     <property key="ScaleImage.unable_to_parse">
         <value xml:lang="en">Unable to parse</value>
         <value xml:lang="fr">Impossible d'analyser</value>
         <value xml:lang="ja">解析できません</value>
         <value xml:lang="zh">无法解析</value>
-        <value xml:lang="zh_TW">無法解析</value>
+        <value xml:lang="zh-TW">無法解析</value>
     </property>
     <property key="ScaleImage.unable_to_scale_original_image">
         <value xml:lang="en">Unable to scale original image</value>
         <value xml:lang="fr">Impossible de redimensionner l'image originale</value>
         <value xml:lang="ja">元の画像をスケール変更できません</value>
         <value xml:lang="zh">无法缩放原始图像</value>
-        <value xml:lang="zh_TW">無法縮放原始圖像</value>
+        <value xml:lang="zh-TW">無法縮放原始圖像</value>
     </property>
     <property key="ProductCreateCommunicationEventProductPermissionError">
         <value xml:lang="en">Create Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore di permesso durante la creazione evento comunicazione prodotto</value>
         <value xml:lang="ja">通信イベント製品作成権限エラー</value>
         <value xml:lang="zh">创建沟通事件产品权限时出错</value>
-        <value xml:lang="zh_TW">新建通訊事件產品權限時出錯</value>
+        <value xml:lang="zh-TW">新建通訊事件產品權限時出錯</value>
     </property>
     <property key="ProductErrorAllOrderItemsAreNotPacked">
         <value xml:lang="en">ERROR: All order items are not packed</value>
         <value xml:lang="ja">エラー: すべての注文アイテムが梱包されていません</value>
         <value xml:lang="nl">Orderregels zijn niet verpakt</value>
         <value xml:lang="zh">错误：所有订单明细都没有包装</value>
-        <value xml:lang="zh_TW">錯誤:所有訂單細項都沒有包裝</value>
+        <value xml:lang="zh-TW">錯誤:所有訂單細項都沒有包裝</value>
     </property>
     <property key="ProductErrorAllOrderItemsAreNotVerified">
         <value xml:lang="en">ERROR: All order items are not verified</value>
         <value xml:lang="ja">エラー: すべての注文アイテムが確認されていません</value>
         <value xml:lang="nl">Orderregels zijn niet geverifieerd</value>
         <value xml:lang="zh">错误：所有订单明细都没有验证</value>
-        <value xml:lang="zh_TW">錯誤:所有訂單細項都沒有驗證</value>
+        <value xml:lang="zh-TW">錯誤:所有訂單細項都沒有驗證</value>
     </property>
     <property key="ProductErrorEnteredBothDimensionAndPackageInputBoxField">
         <value xml:lang="en">ERROR: Entered Dimension and Package input box, both the fields cannot be processed together (should enter one of them)</value>
         <value xml:lang="ja">エラー: 寸法と梱包箱の両方は同時に指定できません (1つのみ入力してください)</value>
         <value xml:lang="zh">错误：输入的尺寸和包装输入框，不能同时处理这两个数据项（应该输入其中之一）</value>
-        <value xml:lang="zh_TW">錯誤:輸入的尺寸和包裝輸入框,不能同時處理這兩個數據項(應該輸入其中之一)</value>
+        <value xml:lang="zh-TW">錯誤:輸入的尺寸和包裝輸入框,不能同時處理這兩個數據項(應該輸入其中之一)</value>
     </property>
     <property key="ProductErrorNoItemsCurrentlySetToBeShippedCannotComplete">
         <value xml:lang="en">ERROR: No items currently set to be shipped cannot complete</value>
         <value xml:lang="ja">エラー: 発送完了できない状態のアイテムはありません</value>
         <value xml:lang="zh">错误：当前没有明细设置为要送货，不能完成</value>
-        <value xml:lang="zh_TW">錯誤:當前沒有細項設置為要送貨,不能完成</value>
+        <value xml:lang="zh-TW">錯誤:當前沒有細項設置為要送貨,不能完成</value>
     </property>
     <property key="ProductErrorNotEnteredAllFieldsInDimension">
         <value xml:lang="en">ERROR: Not entered all fields (length, width and height) in Dimension</value>
         <value xml:lang="ja">エラー: 寸法のすべての項目が入力されていません (長さ、幅、および重量)</value>
         <value xml:lang="zh">错误：没有输入尺寸的全部数据项（长、宽、高）</value>
-        <value xml:lang="zh_TW">錯誤:沒有輸入尺寸的全部資料項目(長、寬、高)</value>
+        <value xml:lang="zh-TW">錯誤:沒有輸入尺寸的全部資料項目(長、寬、高)</value>
     </property>
     <property key="ProductErrorInventoryItemLabelIdNotFound">
         <value xml:lang="en">Error Inventory Item Label Id Not Found</value>
         <value xml:lang="it">Errore riga etichetta inventario non trovata</value>
         <value xml:lang="ja">エラー: 在庫アイテムラベルIDが見つかりません</value>
         <value xml:lang="zh">发生库存明细标签标识无法找到的错误</value>
-        <value xml:lang="zh_TW">發生庫存細項標簽識別無法找到的錯誤</value>
+        <value xml:lang="zh-TW">發生庫存細項標簽識別無法找到的錯誤</value>
     </property>
     <property key="ProductErrorIssueItemDidNotReturnAValidShipmentItemSeqId">
         <value xml:lang="en">ERROR: Issue item did not return a valid shipmentItemSeqId</value>
         <value xml:lang="ja">エラー: 発行したアイテムが有効な発送アイテム連番IDを戻しませんでした</value>
         <value xml:lang="zh">错误：发货没有返回一个有效的送货明细序号标识（shipmentItemSeqId）</value>
-        <value xml:lang="zh_TW">錯誤:發貨沒有返回一個有效的出貨細項序號標識(shipmentItemSeqId)</value>
+        <value xml:lang="zh-TW">錯誤:發貨沒有返回一個有效的出貨細項序號標識(shipmentItemSeqId)</value>
     </property>
     <property key="ProductErrorNoInventoryReservationsAvailableCannotVerifyThisItem">
         <value xml:lang="en">ERROR: No inventory reservations available; cannot pick this item</value>
         <value xml:lang="ja">エラー: 有効な在庫予約がありません。このアイテムをピッキングできません</value>
         <value xml:lang="nl">Fout: geen voorraadreservering aanwezig: dit artikel kan niet gepickt worden</value>
         <value xml:lang="zh">错误：没有可用的库存预留；无法分拣这个明细</value>
-        <value xml:lang="zh_TW">錯誤:沒有可用的庫存預留;無法揀貨這個細項</value>
+        <value xml:lang="zh-TW">錯誤:沒有可用的庫存預留;無法揀貨這個細項</value>
     </property>
     <property key="ProductErrorNoShipGroupSequenceIdFoundCannotProcess">
         <value xml:lang="en">ERROR: No ship group sequence Id found cannot process</value>
         <value xml:lang="ja">エラー: 発送グループ連番IDが見つかりません。処理できません</value>
         <value xml:lang="zh">错误：没有找到送货组序号标识，不能处理</value>
-        <value xml:lang="zh_TW">錯誤:沒有找到送貨群組序號標識,不能處理</value>
+        <value xml:lang="zh-TW">錯誤:沒有找到送貨群組序號標識,不能處理</value>
     </property>
     <property key="ProductErrorNotEnoughInventoryReservationAvailableCannotVerifyTheItem">
         <value xml:lang="en">ERROR: Not enough inventory reservation available; cannot verify the item</value>
         <value xml:lang="ja">エラー: 十分な在庫予約がありません。アイテムを確認できません</value>
         <value xml:lang="zh">错误：没有可用的足够的库存预留；无法验证这个明细</value>
-        <value xml:lang="zh_TW">錯誤:沒有可用的足夠的庫存預留;無法驗證這個細項</value>
+        <value xml:lang="zh-TW">錯誤:沒有可用的足夠的庫存預留;無法驗證這個細項</value>
     </property>
     <property key="ProductErrorNoValidOrderItemFoundForProductWithEnteredQuantity">
         <value xml:lang="en">ERROR: No valid order item found for product [${productId}] with quantity [${quantity}]</value>
         <value xml:lang="ja">エラー: 製品 [${productId}] の数量 [${quantity}] で有効な注文アイテムが見つかりません</value>
         <value xml:lang="zh">错误：没有找到有效的订单明细，查找条件：产品 [${productId}]，数量 [${quantity}]</value>
-        <value xml:lang="zh_TW">錯誤:沒有找到有效的訂單細項,尋找條件:產品 [${productId}],數量 [${quantity}]</value>
+        <value xml:lang="zh-TW">錯誤:沒有找到有效的訂單細項,尋找條件:產品 [${productId}],數量 [${quantity}]</value>
     </property>
     <property key="ProductErrorNumberOfPackageCannotBeGreaterThanTheNumberOfOrderedQuantity">
         <value xml:lang="en">ERROR: Number of package cannot be greater than the number of ordered quantity</value>
         <value xml:lang="ja">エラー: パッケージの数は注文数量よりも大きくできません</value>
         <value xml:lang="zh">错误：包装数量不能大于已下订单数量</value>
-        <value xml:lang="zh_TW">錯誤:包裝數量不能大於已下訂單數量</value>
+        <value xml:lang="zh-TW">錯誤:包裝數量不能大於已下訂單數量</value>
     </property>
     <property key="ProductErrorPackageWeightCannotBeNullOrZero">
         <value xml:lang="en">ERROR: Package weight cannot be null/zero, it should be greater than zero</value>
         <value xml:lang="ja">エラー: パッケージの重量は空/ゼロにできません。ゼロより大きくしてください</value>
         <value xml:lang="nl">FOUT: Gewicht kan niet nul zijn</value>
         <value xml:lang="zh">错误：包装重量不能为空（null）/0，而应该大于0</value>
-        <value xml:lang="zh_TW">錯誤:包裝重量不能為空(null)/0,而應該大於0</value>
+        <value xml:lang="zh-TW">錯誤:包裝重量不能為空(null)/0,而應該大於0</value>
     </property>
     <property key="ProductErrorShipmentItemCannotBeDeleted">
         <value xml:lang="en">ERROR: Shipment Item cannot be deleted and require Shipment Package Content to be deleted first</value>
         <value xml:lang="ja">エラー: 発送アイテムを削除できません。発送パッケージ内容を先に削除してください</value>
         <value xml:lang="zh">错误：不能删除送货明细，需要先删除送货包装内容</value>
-        <value xml:lang="zh_TW">錯誤:不能刪除出貨細項,需要先刪除出貨包裝內容</value>
+        <value xml:lang="zh-TW">錯誤:不能刪除出貨細項,需要先刪除出貨包裝內容</value>
     </property>
     <property key="ProductErrorShipmentPackageCannotBeDeleted">
         <value xml:lang="en">ERROR: Shipment Package cannot be deleted and require Shipment Package Content to be deleted first</value>
         <value xml:lang="ja">エラー: 発送パッケージを削除できません。発送パッケージ内容を先に削除してください</value>
         <value xml:lang="zh">错误：不能删除送货包装，需要先删除送货包装内容</value>
-        <value xml:lang="zh_TW">錯誤:不能刪除出貨包裝,需要先刪除出貨包裝內容</value>
+        <value xml:lang="zh-TW">錯誤:不能刪除出貨包裝,需要先刪除出貨包裝內容</value>
     </property>
     <property key="ProductErrorVerifiedQtyDoesNotMatchTheReservedQtyForItem">
         <value xml:lang="en">ERROR: Verified quantity does not match the reserved quantity for item #${productId} [verified qty = ${verifiedQty} / reserved qty = ${reservedQty}]</value>
         <value xml:lang="ja">エラー: 確認した数量が予約数量と一致しません。アイテム #${productId} [確認数量 = ${verifiedQty} / 予約数量 = ${reservedQty}]</value>
         <value xml:lang="zh">错误：已验证的数量与已预留的数量不一致，明细 #${productId} [已验证数量 = ${verifiedQty} / 已预留数量 = ${reservedQty}]</value>
-        <value xml:lang="zh_TW">錯誤:已驗證的數量與已預留的數量不一致,細項 #${productId} [已驗證數量 = ${verifiedQty} / 已預留數量 = ${reservedQty}]</value>
+        <value xml:lang="zh-TW">錯誤:已驗證的數量與已預留的數量不一致,細項 #${productId} [已驗證數量 = ${verifiedQty} / 已預留數量 = ${reservedQty}]</value>
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">
         <value xml:lang="de">Die Produktmerkmal Typ ID darf nur Buchstaben, Zahlen und _ enthalten. Bitte erneut eingeben.</value>
@@ -220,40 +220,40 @@
         <value xml:lang="it">Il tipo caratteristica prodotto deve contenere solamente lettere, underscore e numeri. Prego reinserire</value>
         <value xml:lang="ja">製品機能種類IDは文字、アンダースコア、および数字のみで指定してください。再入力してください。</value>
         <value xml:lang="zh">产品特征类型标识必须只包含字符、下划线和数字。请重新输入</value>
-        <value xml:lang="zh_TW">產品特色類型識別必須只包含字元、下劃線和數字.請重新輸入</value>
+        <value xml:lang="zh-TW">產品特色類型識別必須只包含字元、下劃線和數字.請重新輸入</value>
     </property>
     <property key="ProductNotInAnyLocation">
         <value xml:lang="en">This Product is not in any Location</value>
         <value xml:lang="fr">Ce produit ne se trouve en aucun emplacement</value>
         <value xml:lang="ja">この製品はどの場所にも存在しません</value>
         <value xml:lang="zh">这个产品不在任何地方</value>
-        <value xml:lang="zh_TW">這個產品不在任何地方</value>
+        <value xml:lang="zh-TW">這個產品不在任何地方</value>
     </property>
     <property key="ProductFieldEmpty">
         <value xml:lang="en">Please, fill the product field before</value>
         <value xml:lang="fr">Sélectionnez le produit d'abord</value>
         <value xml:lang="ja">先に製品フィールドを入力してください</value>
         <value xml:lang="zh">请先填写产品域</value>
-        <value xml:lang="zh_TW">請先填寫產品域</value>
+        <value xml:lang="zh-TW">請先填寫產品域</value>
     </property>
     <property key="ProductNumberOfOrdersMustNotBeEmptyToPrintPickSheet">
         <value xml:lang="en">The number of orders must not be empty. Please re-enter to print pick sheet.</value>
         <value xml:lang="ja">注文数量は空にできません。ピッキングシートを印刷するため再度入力してください</value>
         <value xml:lang="zh">订单数量必须不是空。请重新输入打印分拣表单。</value>
-        <value xml:lang="zh_TW">訂單數量必須不是空.請重新輸入列印揀貨表單.</value>
+        <value xml:lang="zh-TW">訂單數量必須不是空.請重新輸入列印揀貨表單.</value>
     </property>
     <property key="ProductNumberOfOrdersMustBeGreaterThenZeroToPrintPickSheet">
         <value xml:lang="en">The number of orders must be greater then zero. Please re-enter to print pick sheet.</value>
         <value xml:lang="ja">注文数量はゼロより大きくしてください。ピッキングシートを印刷するため再度入力してください</value>
         <value xml:lang="zh">订单数量必须大于0。请重新输入打印分拣表单。</value>
-        <value xml:lang="zh_TW">訂單數量必須大於0.請重新輸入列印揀貨表單.</value>
+        <value xml:lang="zh-TW">訂單數量必須大於0.請重新輸入列印揀貨表單.</value>
     </property>
     <property key="ProductRemoveCommunicationEventProductPermissionError">
         <value xml:lang="en">Remove Communication Event Product Permission Error</value>
         <value xml:lang="it">Errore permesso durante la rimozione dell'evento comunicazione prodotto</value>
         <value xml:lang="ja">通信イベント製品削除権限エラー</value>
         <value xml:lang="zh">删除沟通事件时发生产品权限出错</value>
-        <value xml:lang="zh_TW">刪除通訊事件時發生產品權限出錯</value>
+        <value xml:lang="zh-TW">刪除通訊事件時發生產品權限出錯</value>
     </property>
     <property key="ProductReturnNotYetAcceptedOrAlreadyReceived">
         <value xml:lang="de">Diese Retoure wurde noch nicht akzeptiert oder wurde schon erhalten.</value>
@@ -264,7 +264,7 @@
         <value xml:lang="ru">Этот возврат еще не подтвержден или уже получен.</value>
         <value xml:lang="th">การคืนค่านี้ไม่ยอมรับหรือได้รับเรียบร้อยแล้ว</value>
         <value xml:lang="zh">还没有接受或接收到这个退货。</value>
-        <value xml:lang="zh_TW">還沒有接受或接收到這個退貨.</value>
+        <value xml:lang="zh-TW">還沒有接受或接收到這個退貨.</value>
     </property>
     <property key="ProductReturnRequestedOK">
         <value xml:lang="de">Die Retoure wurde verlangt.</value>
@@ -275,7 +275,7 @@
         <value xml:lang="ru">Запрошен возврат.</value>
         <value xml:lang="th">การคืนค่าการร้องขอ</value>
         <value xml:lang="zh">已请求退货。</value>
-        <value xml:lang="zh_TW">已請求退貨.</value>
+        <value xml:lang="zh-TW">已請求退貨.</value>
     </property>
     <property key="ProductReviewErrorCouldNotChangeOrderStatusFromTo">
         <value xml:lang="de">Status ist keine gültige Änderung: von ${productReview.statusId} nach ${parameters.statusId}</value>
@@ -284,7 +284,7 @@
         <value xml:lang="it">Cambio di stato non è valido: da ${productReview.statusId} a ${parameters.statusId}</value>
         <value xml:lang="ja">ステータスの変更が有効ではありません: ${productReview.statusId} から ${parameters.statusId}</value>
         <value xml:lang="zh">状态变化无效：从 ${productReview.statusId} 变为 ${parameters.statusId}</value>
-        <value xml:lang="zh_TW">狀態變化無效:從 ${productReview.statusId} 變為 ${parameters.statusId}</value>
+        <value xml:lang="zh-TW">狀態變化無效:從 ${productReview.statusId} 變為 ${parameters.statusId}</value>
     </property>
     <property key="productSearchEvents.added_param_features">
         <value xml:lang="de">${numAdded} Merkmale hinzugefügt mit ID ${productFeatureId}</value>
@@ -297,7 +297,7 @@
         <value xml:lang="ru">Добавлены ${numAdded} особенностей с кодом ${productFeatureId}</value>
         <value xml:lang="th">เพิ่ม ${numAdded} ลักษณะด้วยรหัส ${productFeatureId}</value>
         <value xml:lang="zh">已添加 ${numAdded} 特征，标识 ${productFeatureId}</value>
-        <value xml:lang="zh_TW">已增加 ${numAdded} 特色識別 ${productFeatureId}</value>
+        <value xml:lang="zh-TW">已增加 ${numAdded} 特色識別 ${productFeatureId}</value>
     </property>
     <property key="productSearchEvents.error_casting_types">
         <value xml:lang="de">Fehler bei der Konvertierung von Datentypen</value>
@@ -310,7 +310,7 @@
         <value xml:lang="ru">Ошибка приведение типов данных</value>
         <value xml:lang="th">Error: ผิดพลาด ! การคัดเลือกประเภทข้อมูล</value>
         <value xml:lang="zh">释放数据类型时发生错误</value>
-        <value xml:lang="zh_TW">釋放資料類型時發生錯誤</value>
+        <value xml:lang="zh-TW">釋放資料類型時發生錯誤</value>
     </property>
     <property key="productSearchEvents.error_getting_results">
         <value xml:lang="de">Fehler beim Holen der Suchresultate</value>
@@ -323,7 +323,7 @@
         <value xml:lang="ru">Ошибка получения результатов поиска</value>
         <value xml:lang="th">Error: ผิดพลาด ! การดึงค่าผลลัพธ์การค้นหา</value>
         <value xml:lang="zh">获取搜索结果时发生错误</value>
-        <value xml:lang="zh_TW">獲取搜尋結果時發生錯誤</value>
+        <value xml:lang="zh-TW">獲取搜尋結果時發生錯誤</value>
     </property>
     <property key="productSearchEvents.removed_param_features">
         <value xml:lang="de">${numRemoved} Merkmale gelöscht mit ID ${productFeatureId}</value>
@@ -336,7 +336,7 @@
         <value xml:lang="ru">Удалены ${numRemoved} особенностей с кодом ${productFeatureId}</value>
         <value xml:lang="th">ลบ ${numRemoved} ลักษณะด้วยรหัส ${productFeatureId}</value>
         <value xml:lang="zh">已删除 ${numRemoved} 特征，标识 ${productFeatureId}</value>
-        <value xml:lang="zh_TW">已刪除 ${numRemoved} 特色識別 ${productFeatureId}</value>
+        <value xml:lang="zh-TW">已刪除 ${numRemoved} 特色識別 ${productFeatureId}</value>
     </property>
     <property key="productevents.association_type_ID_missing">
         <value xml:lang="de">Verknüpfungstyp ID fehlt.</value>
@@ -349,7 +349,7 @@
         <value xml:lang="ru">Отсутствует код типа ассоциации.</value>
         <value xml:lang="th">รหัสกลุ่มประเภทซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少关联类型标识。</value>
-        <value xml:lang="zh_TW">缺少結合類型識別.</value>
+        <value xml:lang="zh-TW">缺少結合類型識別.</value>
     </property>
     <property key="productevents.attribute_name_missing">
         <value xml:lang="de">Attributname fehlt.</value>
@@ -362,7 +362,7 @@
         <value xml:lang="ru">Отсутствует имя атрибута.</value>
         <value xml:lang="th">ชื่อแอททริบิวต์ซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少属性名称。</value>
-        <value xml:lang="zh_TW">缺少屬性名稱.</value>
+        <value xml:lang="zh-TW">缺少屬性名稱.</value>
     </property>
     <property key="productevents.could_not_create_attribute_write">
         <value xml:lang="de">Attribute konnten nicht erstellen werden (Schreibfehler).</value>
@@ -375,7 +375,7 @@
         <value xml:lang="ru">Невозможно создать атрибут (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถสร้างแอททริบิวต์ (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有创建属性 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有新建屬性 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有新建屬性 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_create_keywords_write">
         <value xml:lang="de">Schlüsselwörter konnten nicht erstellt werden (Schreibfehler).</value>
@@ -388,7 +388,7 @@
         <value xml:lang="ru">Невозможно создать ключевые слова (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถสร้างคีย์เวิร์ด (เขียนผิดลาด).</value>
         <value xml:lang="zh">没有创建关键字 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有新建關鍵字 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有新建關鍵字 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_create_product_association_exists">
         <value xml:lang="de">Produktverknüpfung konnte nicht erstellt werden (existiert bereits).</value>
@@ -401,7 +401,7 @@
         <value xml:lang="ru">Невозможно создать ассоциации продукта (уже существуют).</value>
         <value xml:lang="th">ไม่สามารถสร้างกลุ่มสินค้า (ยังคงมีอยู่).</value>
         <value xml:lang="zh">没有创建产品关联(已存在)。</value>
-        <value xml:lang="zh_TW">沒有新建產品結合(已存在).</value>
+        <value xml:lang="zh-TW">沒有新建產品結合(已存在).</value>
     </property>
     <property key="productevents.could_not_create_product_association_write">
         <value xml:lang="de">Produktverknüpfung konnte nicht erstellt werden (Schreibfehler).</value>
@@ -414,7 +414,7 @@
         <value xml:lang="ru">Невозможно создать ассоциацию продукта (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถสร้างกลุ่มสินค้า (เขียนผิดลาด).</value>
         <value xml:lang="zh">没有创建产品关联(写错误)。</value>
-        <value xml:lang="zh_TW">沒有新建產品結合(寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有新建產品結合(寫錯誤).</value>
     </property>
     <property key="productevents.could_not_create_productkeyword_entry_exists">
         <value xml:lang="de">Produkt Schlüsselwort Eintrag konnte nicht erstellt werden (existiert bereits).</value>
@@ -427,7 +427,7 @@
         <value xml:lang="ru">Невозможно создать элемент ключевого слова (уже существует).</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกคีย์เวิร์ดสินค้า (ยังคงมีอยู่).</value>
         <value xml:lang="zh">没有创建产品-关键字记录 (已存在)。</value>
-        <value xml:lang="zh_TW">沒有新建產品-關鍵字記錄 (已存在).</value>
+        <value xml:lang="zh-TW">沒有新建產品-關鍵字記錄 (已存在).</value>
     </property>
     <property key="productevents.could_not_create_productkeyword_entry_write">
         <value xml:lang="de">Produkt Schlüsselwort Eintrag konnte nicht erstellt werden (Schreibfehler).</value>
@@ -440,7 +440,7 @@
         <value xml:lang="ru">Невозможно создать элемент ключевого слова (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกคีย์เวิร์ดสินค้า (เขียนผิดพลาด)</value>
         <value xml:lang="zh">没有创建产品-关键字记录 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有新建產品-關鍵字記錄 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有新建產品-關鍵字記錄 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_delete_attribute_write">
         <value xml:lang="de">Attribut konnte nicht gelöscht werden (Schreibfehler).</value>
@@ -453,7 +453,7 @@
         <value xml:lang="ru">Невозможно удалить атрибут (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถลบแอททริบิวต์ (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有删除属性 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有刪除屬性 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有刪除屬性 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_remove_keywords_write">
         <value xml:lang="de">Produkt-Schlüsselwort konnte nicht gelöscht werden (Schreibfehler).</value>
@@ -466,7 +466,7 @@
         <value xml:lang="ru">Невозможно удалить элемент ключевого слова (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有删除产品-关键字 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有刪除產品-關鍵字 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有刪除產品-關鍵字 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_remove_product_association_exist">
         <value xml:lang="de">Produktverknüpfung konnte nicht gelöscht werden (nicht vorhanden).</value>
@@ -479,7 +479,7 @@
         <value xml:lang="ru">Невозможно удалить ассоциацию продукта (не существует).</value>
         <value xml:lang="th">ไม่สามารถลบกลุ่มสินค้า (ไม่มีอยู่).</value>
         <value xml:lang="zh">没有删除产品关联(不存在)。</value>
-        <value xml:lang="zh_TW">沒有刪除產品結合(不存在).</value>
+        <value xml:lang="zh-TW">沒有刪除產品結合(不存在).</value>
     </property>
     <property key="productevents.could_not_remove_product_association_write">
         <value xml:lang="de">Produktverknüpfung konnte nicht gelöscht werden (Schreibfehler).</value>
@@ -492,7 +492,7 @@
         <value xml:lang="ru">Невозможно удалить ассоциацию продукта (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถลบกลุ่มสินค้า (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有删除产品关联(写错误)。</value>
-        <value xml:lang="zh_TW">沒有刪除產品結合(寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有刪除產品結合(寫錯誤).</value>
     </property>
     <property key="productevents.could_not_remove_productkeyword_entry_notexists">
         <value xml:lang="de">Produkt Schlüsselwort konnte nicht gelöscht werden (nicht vorhanden).</value>
@@ -504,7 +504,7 @@
         <value xml:lang="ru">Невозможно удалить ключевое слово (не существует).</value>
         <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (ไม่มีอยู่);</value>
         <value xml:lang="zh">没有删除产品-关键字(不存在)。</value>
-        <value xml:lang="zh_TW">沒有刪除產品-關鍵字(不存在).</value>
+        <value xml:lang="zh-TW">沒有刪除產品-關鍵字(不存在).</value>
     </property>
     <property key="productevents.could_not_remove_productkeyword_entry_writeerror">
         <value xml:lang="de">Produkt Schlüsselwort konnte nicht gelöscht werden (Schreibfehler).</value>
@@ -517,7 +517,7 @@
         <value xml:lang="ru">Невозможно удалить ключевое слово (ошибка записи);</value>
         <value xml:lang="th">ไม่สามารถลบคีย์เวิร์ดสินค้า (เขียนผิดพลาด)</value>
         <value xml:lang="zh">没有删除产品-关键字(写错误)；</value>
-        <value xml:lang="zh_TW">沒有刪除產品-關鍵字(寫錯誤);</value>
+        <value xml:lang="zh-TW">沒有刪除產品-關鍵字(寫錯誤);</value>
     </property>
     <property key="productevents.could_not_update_attribute_write">
         <value xml:lang="de">Attribut konnte nicht aktualisiert werden (Schreibfehler).</value>
@@ -530,7 +530,7 @@
         <value xml:lang="ru">Невозможно обновить атрибут (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถอัพเดทแอททริบิวต์ (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有更新属性 (写错误)。</value>
-        <value xml:lang="zh_TW">沒有更新屬性 (寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有更新屬性 (寫錯誤).</value>
     </property>
     <property key="productevents.could_not_update_product_association_write">
         <value xml:lang="de">Produktverknüpfung konnte nicht aktualisiert werden (Schreibfehler).</value>
@@ -543,7 +543,7 @@
         <value xml:lang="ru">Невозможно обновить ассоциацию продукта (ошибка записи).</value>
         <value xml:lang="th">ไม่สามารถอัพเดทกลุ่มสินค้า (เขียนผิดพลาด).</value>
         <value xml:lang="zh">没有更新产品关联(写错误)。</value>
-        <value xml:lang="zh_TW">沒有更新產品結合(寫錯誤).</value>
+        <value xml:lang="zh-TW">沒有更新產品結合(寫錯誤).</value>
     </property>
     <property key="productevents.error_getting_product_list">
         <value xml:lang="de">Fehler beim Holden der Produktliste für Index: ${gee}.</value>
@@ -556,7 +556,7 @@
         <value xml:lang="ru">Ошибка получения списка продуктов по индексу: ${gee}.</value>
         <value xml:lang="th">ผิดพลาดการดึงค่ารายการสินค้าไปยังดัชนี: ${gee}.</value>
         <value xml:lang="zh">获取产品列表到索引时出错：${gee}。</value>
-        <value xml:lang="zh_TW">獲取產品清單到索引時出錯:${gee}.</value>
+        <value xml:lang="zh-TW">獲取產品清單到索引時出錯:${gee}.</value>
     </property>
     <property key="productevents.following_errors_occurred">
         <value xml:lang="de">Der folgende Fehler ist aufgetreten:</value>
@@ -569,7 +569,7 @@
         <value xml:lang="ru">Произошли следующие ошибки:</value>
         <value xml:lang="th">ผิดพลาดตามที่เกิดขึ้น:</value>
         <value xml:lang="zh">发生下列错误：</value>
-        <value xml:lang="zh_TW">發生下列錯誤:</value>
+        <value xml:lang="zh-TW">發生下列錯誤:</value>
     </property>
     <property key="productevents.from_date_missing">
         <value xml:lang="de">Von Datum fehlt.</value>
@@ -582,7 +582,7 @@
         <value xml:lang="ru">Отсутствует дата начала.</value>
         <value xml:lang="th">จากวันที่ซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少开始日期</value>
-        <value xml:lang="zh_TW">缺少開始日期</value>
+        <value xml:lang="zh-TW">缺少開始日期</value>
     </property>
     <property key="productevents.keyword_creation_complete_for_products">
         <value xml:lang="de">Erstellung Schlüsselwörter abgeschlossen für ${numProds} Produkte.</value>
@@ -595,7 +595,7 @@
         <value xml:lang="ru">Создание ключевых слов для ${numProds} продуктов завершено.</value>
         <value xml:lang="th">การสร้างคีย์เวิร์ดทั้งหมดสำหรับ ${numProds} สินค้า.</value>
         <value xml:lang="zh">完成为 ${numProds} 产品创建关键字。</value>
-        <value xml:lang="zh_TW">完成為 ${numProds} 產品新建關鍵字.</value>
+        <value xml:lang="zh-TW">完成為 ${numProds} 產品新建關鍵字.</value>
     </property>
     <property key="productevents.keyword_creation_complete_for_products_with_errors">
         <value xml:lang="de">Erstellung Schlüsselwörter abgeschlossen für ${numProds} Produkte, mit Fehlern bei ${errProds} Produkten (siehe Log für mehr Details).</value>
@@ -608,7 +608,7 @@
         <value xml:lang="ru">Создание ключевых слов завершено для ${numProds} продуктов, с ошибками в ${errProds} продуктах (подробности в лог файле).</value>
         <value xml:lang="th">การสร้างคีย์เวิร์ดทั้งหมดสำหรับ${numProds} สินค้า, ด้วยผิดพลาดใน ${errProds} สินค้า (ดูในลอกสำหรับข้อมูลที่มากกว่า).</value>
         <value xml:lang="zh">完成为 ${numProds} 产品创建关键字，${errProds} 产品出错 (查看日志了解详细信息)。</value>
-        <value xml:lang="zh_TW">完成為 ${numProds} 產品新建關鍵字,${errProds} 產品出錯 (檢視日誌瞭解詳細資訊).</value>
+        <value xml:lang="zh-TW">完成為 ${numProds} 產品新建關鍵字,${errProds} 產品出錯 (檢視日誌瞭解詳細資訊).</value>
     </property>
     <property key="productevents.keyword_missing">
         <value xml:lang="de">Schlüsselwort fehlt.</value>
@@ -621,7 +621,7 @@
         <value xml:lang="ru">Отсутствует ключевое слово.</value>
         <value xml:lang="th">คีย์เวิร์ดซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少关键字。</value>
-        <value xml:lang="zh_TW">缺少關鍵字.</value>
+        <value xml:lang="zh-TW">缺少關鍵字.</value>
     </property>
     <property key="productevents.no_product_ID_specified_keywords">
         <value xml:lang="de">Keine Produkt-ID angegeben, kann die Schlüsselwörter nicht aktualisieren.</value>
@@ -634,7 +634,7 @@
         <value xml:lang="ru">Невозможно обновить ключевые слова потому-что не указан код продукта.</value>
         <value xml:lang="th">ไม่ระบุรหัสสินค้า, ไม่สามารถอัพเดทคีย์เวิร์ด.</value>
         <value xml:lang="zh">没有指定产品标识， 无法更新关键字。</value>
-        <value xml:lang="zh_TW">沒有指定產品識別無法更新關鍵字.</value>
+        <value xml:lang="zh-TW">沒有指定產品識別無法更新關鍵字.</value>
     </property>
     <property key="productevents.not_sufficient_permissions">
         <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CATALOG (CATALOG_${updateMode} oder CATALOG_ADMIN benötigt).</value>
@@ -647,7 +647,7 @@
         <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CATALOG (необходимы права CATALOG_${updateMode} или CATALOG_ADMIN).</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CATALOG (CATALOG_${updateMode} หรือ CATALOG_ADMIN ต้องการ).</value>
         <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CATALOG_${updateMode} 或 CATALOG_ADMIN)。</value>
-        <value xml:lang="zh_TW">你沒有足夠的權限 ${updateMode} 型錄 (需要CATALOG_${updateMode} 或 CATALOG_ADMIN).</value>
+        <value xml:lang="zh-TW">你沒有足夠的權限 ${updateMode} 型錄 (需要CATALOG_${updateMode} 或 CATALOG_ADMIN).</value>
     </property>
     <property key="productevents.product_ID_To_missing">
         <value xml:lang="de">Produkt ID Zu fehlt.</value>
@@ -660,7 +660,7 @@
         <value xml:lang="ru">Отсутствует К продукту.</value>
         <value xml:lang="th">รหัสสินค้าซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少产品标识到。</value>
-        <value xml:lang="zh_TW">缺少產品識別到.</value>
+        <value xml:lang="zh-TW">缺少產品識別到.</value>
     </property>
     <property key="productevents.product_ID_missing">
         <value xml:lang="de">Produkt ID fehlt.</value>
@@ -673,7 +673,7 @@
         <value xml:lang="ru">Отсутствует код продукта.</value>
         <value xml:lang="th">รหัสสินค้าซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少产品标识。</value>
-        <value xml:lang="zh_TW">缺少產品識別.</value>
+        <value xml:lang="zh-TW">缺少產品識別.</value>
     </property>
     <property key="productevents.product_To_with_id_not_found">
         <value xml:lang="de">Produkt Zu mit ID ${productIdTo} nicht gefunden.</value>
@@ -686,7 +686,7 @@
         <value xml:lang="ru">Не найден продукт с кодом ${productIdTo}.</value>
         <value xml:lang="th">สินค้าถึงด้วยรหัส ${productIdTo} ไม่พบ.</value>
         <value xml:lang="zh">没有找到标识为 ${productIdTo} 产品到。</value>
-        <value xml:lang="zh_TW">沒有找到識別為 ${productIdTo} 產品到.</value>
+        <value xml:lang="zh-TW">沒有找到識別為 ${productIdTo} 產品到.</value>
     </property>
     <property key="productevents.product_with_id_not_found">
         <value xml:lang="de">Produkt mit ID ${productId} nicht gefunden.</value>
@@ -699,7 +699,7 @@
         <value xml:lang="ru">Продукт с кодом ${productId} не найден.</value>
         <value xml:lang="th">สินค้าด้วยรหัส${productId} ไม่พบ.</value>
         <value xml:lang="zh">没有找到标识为 ${productId} 的产品。</value>
-        <value xml:lang="zh_TW">沒有找到識別為 ${productId} 的產品.</value>
+        <value xml:lang="zh-TW">沒有找到識別為 ${productId} 的產品.</value>
     </property>
     <property key="productevents.product_with_productId_not_found_keywords">
         <value xml:lang="de">Product mit ID "${productId}", nicht gefunden; Schlüsselwörter können nicht aktualisiert werden.</value>
@@ -712,7 +712,7 @@
         <value xml:lang="ru">Продукт с кодом "${productId}" не найден; невозможно обновить ключевые слова.</value>
         <value xml:lang="th">สินค้าด้วยรหัส "${productId}", ไม่พบ; ไม่สามารถอัพเดทคีย์เวิร์ด.</value>
         <value xml:lang="zh">没有找到标识为 "${productId}" 的产品；不能更新关键字。</value>
-        <value xml:lang="zh_TW">沒有找到識別為 "${productId}" 的產品;不能更新關鍵字.</value>
+        <value xml:lang="zh-TW">沒有找到識別為 "${productId}" 的產品;不能更新關鍵字.</value>
     </property>
     <property key="productevents.quantity_not_formatted_correctly">
         <value xml:lang="de">Menge in falschem Format angegeben.</value>
@@ -725,7 +725,7 @@
         <value xml:lang="ru">Неверный формат количества.</value>
         <value xml:lang="th">จำนวนไม่ตรงรูปแบบอย่างถูกต้อง</value>
         <value xml:lang="zh">数量格式不正确。</value>
-        <value xml:lang="zh_TW">數量格式不正確.</value>
+        <value xml:lang="zh-TW">數量格式不正確.</value>
     </property>
     <property key="productevents.sequenceNum_not_formatted_correctly">
         <value xml:lang="de">Sequenznummer im Falschen Format angegeben.</value>
@@ -738,7 +738,7 @@
         <value xml:lang="ru">Неверный формат последовательного номера.</value>
         <value xml:lang="th">หมายเลขรายการไม่ตรงรูปแบบอย่างถูกต้อง</value>
         <value xml:lang="zh">序号格式不正确。</value>
-        <value xml:lang="zh_TW">序號格式不正確.</value>
+        <value xml:lang="zh-TW">序號格式不正確.</value>
     </property>
     <property key="productevents.specified_update_mode_not_supported">
         <value xml:lang="de">Angegebenen Aktualisierungsmodus: "${updateMode}" wird nicht unterstützt.</value>
@@ -751,7 +751,7 @@
         <value xml:lang="ru">Указанный режим обновления: "${updateMode}" не поддерживается.</value>
         <value xml:lang="th">เฉพาะอัพเดทวิธีการ: "${updateMode}" ไม่สนับสนุน.</value>
         <value xml:lang="zh">不支持指定的更新模式："${updateMode}"。</value>
-        <value xml:lang="zh_TW">不支援指定的更新模式:"${updateMode}".</value>
+        <value xml:lang="zh-TW">不支援指定的更新模式:"${updateMode}".</value>
     </property>
     <property key="productevents.thru_date_not_formatted_correctly">
         <value xml:lang="de">Bis Datum im falschen Format</value>
@@ -764,7 +764,7 @@
         <value xml:lang="ru">Формат конечной даты неверный.</value>
         <value xml:lang="th">ถึงวันที่ไม่ตรงรูปแบบที่ถูกต้อง</value>
         <value xml:lang="zh">结束日期格式不正确。</value>
-        <value xml:lang="zh_TW">結束日期格式不正確.</value>
+        <value xml:lang="zh-TW">結束日期格式不正確.</value>
     </property>
     <property key="productevents.updatemode_not_specified">
         <value xml:lang="de">Aktualisierungmodus nicht angegeben, wird benötigt.</value>
@@ -777,7 +777,7 @@
         <value xml:lang="ru">Требуется режим обновления, но он не указан.</value>
         <value xml:lang="th">อัพเดทวิธีการไม่ระบุ แต่ต้องการ</value>
         <value xml:lang="zh">没有指定必须的更新模式。</value>
-        <value xml:lang="zh_TW">沒有指定必須的更新模式.</value>
+        <value xml:lang="zh-TW">沒有指定必須的更新模式.</value>
     </property>
     <property key="productsearchevents.added_x_product_category_members">
         <value xml:lang="de">${numAdded} Produktkategorie Mitglieder hinzugefügt.</value>
@@ -790,7 +790,7 @@
         <value xml:lang="ru">Добавлены ${numAdded} членов категории продуктов.</value>
         <value xml:lang="th">เพิ่ม ${numAdded} สมาชิกหมวดหมู่สินค้า.</value>
         <value xml:lang="zh">已添加 ${numAdded} 产品分类成员。</value>
-        <value xml:lang="zh_TW">已增加 ${numAdded} 產品分類成員.</value>
+        <value xml:lang="zh-TW">已增加 ${numAdded} 產品分類成員.</value>
     </property>
     <property key="productsearchevents.error_getting_search_results">
         <value xml:lang="de">Fehler beim Holen Suchresultate: ${errSearchResult}.</value>
@@ -803,7 +803,7 @@
         <value xml:lang="ru">Ошибка получения результатов поиска: ${errSearchResult}.</value>
         <value xml:lang="th">ผิดพลาดการดึงค่าผลลัพธ์การค้นหา: ${errSearchResult}.</value>
         <value xml:lang="zh">获得搜索结果时出错：${errSearchResult}。</value>
-        <value xml:lang="zh_TW">獲得搜尋結果時出錯:${errSearchResult}.</value>
+        <value xml:lang="zh-TW">獲得搜尋結果時出錯:${errSearchResult}.</value>
     </property>
     <property key="productsearchevents.expired_x_items">
         <value xml:lang="de">${numExpired} Positionen abgelaufen.</value>
@@ -816,7 +816,7 @@
         <value xml:lang="ru">Устарели ${numExpired} позиций.</value>
         <value xml:lang="th">หมดอายุ ${numExpired} รายการ.</value>
         <value xml:lang="zh">已过期 ${numExpired} 明细。</value>
-        <value xml:lang="zh_TW">已過期 ${numExpired} 細項.</value>
+        <value xml:lang="zh-TW">已過期 ${numExpired} 細項.</value>
     </property>
     <property key="productsearchevents.fromDate_not_formatted_properly">
         <value xml:lang="de">Das Von Datum ist nicht im korrekten Format: ${errDateFormat}.</value>
@@ -829,7 +829,7 @@
         <value xml:lang="ru">Неверный формат даты начала: ${errDateFormat}.</value>
         <value xml:lang="th">จากวันที่ไม่ตรงรูปแบบอย่างถูกต้อ ${errDateFormat}.</value>
         <value xml:lang="zh">开始日期格式不正确：${errDateFormat}。</value>
-        <value xml:lang="zh_TW">開始日期格式不正確:${errDateFormat}.</value>
+        <value xml:lang="zh-TW">開始日期格式不正確:${errDateFormat}.</value>
     </property>
     <property key="productsearchevents.no_results_found_probably_error_constraints">
         <value xml:lang="de">Keine Resultate gefunde, vermutlich ist ein Fehler aufgetreten oder es waren keine Bedingungen vorhanden</value>
@@ -842,7 +842,7 @@
         <value xml:lang="ru">Результаты не найдены, вероятно по причине ошибке или по условиям.</value>
         <value xml:lang="th">ไม่พบผลลัพธ์, อย่างถูกต้องเพราะมีข้อผิดพลาดหรือไม่เป็นข้อจำกัด</value>
         <value xml:lang="zh">没有找到结果，可能是因为有错误或没有约束。</value>
-        <value xml:lang="zh_TW">沒有找到結果,可能是因為有錯誤或沒有約束.</value>
+        <value xml:lang="zh-TW">沒有找到結果,可能是因為有錯誤或沒有約束.</value>
     </property>
     <property key="productsearchevents.removed_x_items">
         <value xml:lang="de">${numRemoved} Positionen entfernt.</value>
@@ -854,7 +854,7 @@
         <value xml:lang="ru">удалено ${numRemoved} позиций.</value>
         <value xml:lang="th">ลบ ${numRemoved} รายการ.</value>
         <value xml:lang="zh">已删除 ${numRemoved} 明细。</value>
-        <value xml:lang="zh_TW">已刪除 ${numRemoved} 細項.</value>
+        <value xml:lang="zh-TW">已刪除 ${numRemoved} 細項.</value>
     </property>
     <property key="productsearchevents.thruDate_not_formatted_properly">
         <value xml:lang="de">Das Bis Datum ist nicht im korrekten Format: ${errDateFormat}.</value>
@@ -867,7 +867,7 @@
         <value xml:lang="ru">Неверный формат конечной даты: ${errDateFormat}.</value>
         <value xml:lang="th">ถึงวันที่ไม่ตรงรูปแบบอย่างถูกต้อง: ${errDateFormat}.</value>
         <value xml:lang="zh">结束日期格式不正确：${errDateFormat}。</value>
-        <value xml:lang="zh_TW">結束日期格式不正確:${errDateFormat}.</value>
+        <value xml:lang="zh-TW">結束日期格式不正確:${errDateFormat}.</value>
     </property>
     <property key="productservices.both_productId_and_productIdTo_cannot_be_defined">
         <value xml:lang="de">Sowohl Produkt ID wie auch Produkt ID Zu können nicht definiert werden.</value>
@@ -880,7 +880,7 @@
         <value xml:lang="ru">Нельзя определять одновременно productId и productIdTo.</value>
         <value xml:lang="th">ทั้งรหัสสินค้าและถึงรหัสสินค้าไม่สามารถระบุ</value>
         <value xml:lang="zh">不能定义productId和 productIdTo。</value>
-        <value xml:lang="zh_TW">不能定義productId和 productIdTo.</value>
+        <value xml:lang="zh-TW">不能定義productId和 productIdTo.</value>
     </property>
     <property key="productservices.both_productId_and_productIdTo_cannot_be_null">
         <value xml:lang="de">Sowohl Produkt ID und Produkt ID Zu dürfen nicht leer sein.</value>
@@ -893,7 +893,7 @@
         <value xml:lang="ru">Значения productId и productIdTo не могут быть пустыми одновременно.</value>
         <value xml:lang="th">ทั้งรหัสสินค้าและถึงรหัสสินค้าไม่สามารถเป็นค่าว่าง</value>
         <value xml:lang="zh">productId和 productIdTo 不能为null。</value>
-        <value xml:lang="zh_TW">productId和 productIdTo 不能為null.</value>
+        <value xml:lang="zh-TW">productId和 productIdTo 不能為null.</value>
     </property>
     <property key="productservices.cannot_build_feature_tree_full">
         <value xml:lang="de">Merkmals-Baum kann nicht aufgebaut werden, Merkmalliste ist leer.</value>
@@ -906,7 +906,7 @@
         <value xml:lang="ru">Не могу построить дерево особенностей: пустое значение featureList.</value>
         <value xml:lang="th">ไม่สามารถสร้างลักษณะต้นไม้: รายการลักษณะเป็นค่าว่าง.</value>
         <value xml:lang="zh">不能构建特征树：特征列表为 null。</value>
-        <value xml:lang="zh_TW">不能構建特色樹:特色清單為 null.</value>
+        <value xml:lang="zh-TW">不能構建特色樹:特色清單為 null.</value>
     </property>
     <property key="productservices.empty_list_of_products_returned">
         <value xml:lang="de">Leere Produktliste erhalten.</value>
@@ -919,7 +919,7 @@
         <value xml:lang="ru">Возвращен пустой список продуктов.</value>
         <value xml:lang="th">กลับไปยังสินค้าของรายการที่ว่าง.</value>
         <value xml:lang="zh">返回了空的产品列表。</value>
-        <value xml:lang="zh_TW">返回了空的產品清單.</value>
+        <value xml:lang="zh-TW">返回了空的產品清單.</value>
     </property>
     <property key="productservices.empty_list_of_selectable_features_found">
         <value xml:lang="de">Leere Liste mit wählbaren Merkmalen gefunden.</value>
@@ -932,14 +932,14 @@
         <value xml:lang="ru">Найден пустой список выбираемых особенностей.</value>
         <value xml:lang="th">พบรายการการเลือกลักษณะสินค้าว่าง</value>
         <value xml:lang="zh">找到了空的可选择特征列表。</value>
-        <value xml:lang="zh_TW">找到了空的可選擇特色清單.</value>
+        <value xml:lang="zh-TW">找到了空的可選擇特色清單.</value>
     </property>
     <property key="productservices.entity_error_quick_add_variant_data">
         <value xml:lang="en">Entity error quick add variant data</value>
         <value xml:lang="it">Errore durante la lettura dei dati per l'aggiunta variante veloce.</value>
         <value xml:lang="ja">別型データのクイック追加でエンティティエラー</value>
         <value xml:lang="zh">快速添加多样化产品数据时发生实体错误</value>
-        <value xml:lang="zh_TW">快速增加多樣化產品資料時發生資料實體錯誤</value>
+        <value xml:lang="zh-TW">快速增加多樣化產品資料時發生資料實體錯誤</value>
     </property>
     <property key="productservices.error_finding_associated_variant_with_ID_error">
         <value xml:lang="de">Fehler bei zugeordneter Variante mit ID ${productIdTo}, Fehler war: ${errMessage}.</value>
@@ -952,7 +952,7 @@
         <value xml:lang="ru">Ошибка поиска ассоциированного варианта с кодом ${productIdTo}, ошибка: ${errMessage}.</value>
         <value xml:lang="th">ผิดพลาดการค้นหากลุ่มการเปลี่ยนแปลงด้วยรหัส ${productIdTo}, ผิดพลาดคือ: ${errMessage}.</value>
         <value xml:lang="zh">查找标识为 ${productIdTo} 的关联变型时出错，错误是：${errMessage}。</value>
-        <value xml:lang="zh_TW">尋找識別為 ${productIdTo} 的結合變型時出錯,錯誤是:${errMessage}.</value>
+        <value xml:lang="zh-TW">尋找識別為 ${productIdTo} 的結合變型時出錯,錯誤是:${errMessage}.</value>
     </property>
     <property key="productservices.feature_grouping_came_back_empty">
         <value xml:lang="de">Merkmalgruppierung wurde leer zurückgegeben.</value>
@@ -965,7 +965,7 @@
         <value xml:lang="ru">Группировка особенностей вернулась пустая.</value>
         <value xml:lang="th">กลุ่มลักษณะสินค้ากลับมาว่าง</value>
         <value xml:lang="zh">特征组返回空。</value>
-        <value xml:lang="zh_TW">特色群組返回空.</value>
+        <value xml:lang="zh-TW">特色群組返回空.</value>
     </property>
     <property key="productservices.feature_sample_came_back_empty">
         <value xml:lang="de">Merkmal Beispiel wurde leer zurückgegeben.</value>
@@ -978,7 +978,7 @@
         <value xml:lang="ru">Пример особенности вернулся пустой.</value>
         <value xml:lang="th">ตัวอย่างลักษณะสินค้ากลับมาว่าง</value>
         <value xml:lang="zh">特征样例返回空。</value>
-        <value xml:lang="zh_TW">特色範例返回空.</value>
+        <value xml:lang="zh-TW">特色範例返回空.</value>
     </property>
     <property key="productservices.invalid_productId_passed">
         <value xml:lang="de">Ungültige Produkt ID erhalten.</value>
@@ -991,7 +991,7 @@
         <value xml:lang="ru">Передано неверное значение кода продукта.</value>
         <value xml:lang="th">ผ่านรหัสสินค้าใช้ไม่ได้</value>
         <value xml:lang="zh">传递的产品标识无效。</value>
-        <value xml:lang="zh_TW">傳遞的產品識別無效.</value>
+        <value xml:lang="zh-TW">傳遞的產品識別無效.</value>
     </property>
     <property key="productservices.problem_reading_product_feature_entity">
         <value xml:lang="de">Problem bei der Produkt Merkmal Entität: ${errMessage}.</value>
@@ -1004,7 +1004,7 @@
         <value xml:lang="ru">Проблема при чтении объекта особенностей продукта: ${errMessage}.</value>
         <value xml:lang="th">ปัญหาการอ่านเอนทิตีลักษณะสินค้า: ${errMessage}.</value>
         <value xml:lang="zh">读取产品特征实体时发生问题：${errMessage}。</value>
-        <value xml:lang="zh_TW">讀取產品特色資料實體時發生問題:${errMessage}.</value>
+        <value xml:lang="zh-TW">讀取產品特色資料實體時發生問題:${errMessage}.</value>
     </property>
     <property key="productservices.problem_reading_product_features">
         <value xml:lang="de">Problem beim Lesen der Produktmerkmale.</value>
@@ -1017,7 +1017,7 @@
         <value xml:lang="ru">Проблема при чтении особенностей продукта.</value>
         <value xml:lang="th">ปัญหาการอ่านลักษณะสินค้า</value>
         <value xml:lang="zh">读取产品特征时发生问题。</value>
-        <value xml:lang="zh_TW">讀取產品特色時發生問題.</value>
+        <value xml:lang="zh-TW">讀取產品特色時發生問題.</value>
     </property>
     <property key="productservices.problem_reading_product_features_errors">
         <value xml:lang="de">Problem beim Lesen Produktmerkmal: ${errProductFeatures}.</value>
@@ -1030,7 +1030,7 @@
         <value xml:lang="ru">Проблема при чтении особенностей продукта: ${errProductFeatures}.</value>
         <value xml:lang="th">ปัญหาการอ่านลักษณะสินค้า: ${errProductFeatures}.</value>
         <value xml:lang="zh">读取产品特征时发生问题：${errProductFeatures}。</value>
-        <value xml:lang="zh_TW">讀取產品特色時發生問題:${errProductFeatures}.</value>
+        <value xml:lang="zh-TW">讀取產品特色時發生問題:${errProductFeatures}.</value>
     </property>
     <property key="productservices.problems_getting_product_entity">
         <value xml:lang="de">Problem beim Holen der Produkt Entität.</value>
@@ -1043,7 +1043,7 @@
         <value xml:lang="ru">Проблемы при обращении к объекта продукта.</value>
         <value xml:lang="th">ปัญหาการดึงค่าเอนทิตีสินค้า</value>
         <value xml:lang="zh">获取产品实体时发生问题。</value>
-        <value xml:lang="zh_TW">獲取產品資料實體時發生問題.</value>
+        <value xml:lang="zh-TW">獲取產品資料實體時發生問題.</value>
     </property>
     <property key="productservices.problems_product_association_relation_error">
         <value xml:lang="de">Problem bei den Produktverbindungen: ${errMessage}.</value>
@@ -1056,7 +1056,7 @@
         <value xml:lang="ru">Проблемы с отношениями ассоциаций продукта: ${errMessage}.</value>
         <value xml:lang="th">ปัญหาความสัมพันธ์กลุ่มสินค้า: ${errMessage}.</value>
         <value xml:lang="zh">产品关联关系出错：${errMessage}。</value>
-        <value xml:lang="zh_TW">產品結合關連出錯:${errMessage}.</value>
+        <value xml:lang="zh-TW">產品結合關連出錯:${errMessage}.</value>
     </property>
     <property key="productservices.problems_reading_product_entity">
         <value xml:lang="de">Problem beim Lesen der Produkt Entität: ${errMessage}.</value>
@@ -1069,14 +1069,14 @@
         <value xml:lang="ru">Проблемы при чтении объекта продукта: ${errMessage}.</value>
         <value xml:lang="th">ปัญหาการอ่านเอนทิตีสินค้า: ${errMessage}.</value>
         <value xml:lang="zh">读取产品实体时出现问题：${errMessage}。</value>
-        <value xml:lang="zh_TW">讀取產品資料實體時出現問題:${errMessage}.</value>
+        <value xml:lang="zh-TW">讀取產品資料實體時出現問題:${errMessage}.</value>
     </property>
     <property key="productservices.product_not_found_with_ID">
         <value xml:lang="en">Product not found with ID</value>
         <value xml:lang="it">Prodotto non trovato per codice</value>
         <value xml:lang="ja">製品IDが見つかりません。</value>
         <value xml:lang="zh">没有找到产品，标识是</value>
-        <value xml:lang="zh_TW">沒有找到產品識別是</value>
+        <value xml:lang="zh-TW">沒有找到產品識別是</value>
     </property>
     <property key="productutilservices.did_not_find_any_valid_variants_for_virtual_ID">
         <value xml:lang="de">Keine gültigen Varianten gefunden für virtuelles Produkt mit der ID [${productId}], keinen Merge durchgeführt...</value>
@@ -1089,7 +1089,7 @@
         <value xml:lang="ru">Не найдены правильные варианты для виртуального кода [${productId}], слияние не выполнено...</value>
         <value xml:lang="th">ไม่สามารถค้นหาทุก ๆ ค่าที่เปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
         <value xml:lang="zh">没有为虚拟产品标识 [${productId}]找到任何有效变型， 没有做合并...</value>
-        <value xml:lang="zh_TW">沒有為虛擬產品識別 [${productId}]找到任何有效變型, 沒有做合併...</value>
+        <value xml:lang="zh-TW">沒有為虛擬產品識別 [${productId}]找到任何有效變型, 沒有做合併...</value>
     </property>
     <property key="productutilservices.entity_error_running_clearAllVirtualProductImageNames">
         <value xml:lang="de">Entitätenfehler beim Ausführen clearAllVirtualProductImageNames: ${errMessage}.</value>
@@ -1102,7 +1102,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении clearAllVirtualProductImageNames: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ clearAllVirtualProductImageNames: ${errMessage}.</value>
         <value xml:lang="zh">运行 clearAllVirtualProductImageNames 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 clearAllVirtualProductImageNames 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 clearAllVirtualProductImageNames 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.entity_error_running_discVirtualsWithDiscVariants">
         <value xml:lang="de">Entitätenfehler beim Ausführen discVirtaulsWithDiscVariants: ${errMessage}.</value>
@@ -1115,7 +1115,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении discVirtualsWithDiscVariants: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ discVirtualsWithDiscVariants: ${errMessage}.</value>
         <value xml:lang="zh">运行 discVirtualsWithDiscVariants 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 discVirtualsWithDiscVariants 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 discVirtualsWithDiscVariants 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.entity_error_running_makeStandAloneFromSingleVariantVirtuals">
         <value xml:lang="de">Entitätenfehler beim Ausführen makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
@@ -1128,7 +1128,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении makeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการmakeStandAloneFromSingleVariantVirtuals: ${errMessage}.</value>
         <value xml:lang="zh">运行 makeStandAloneFromSingleVariantVirtuals 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 makeStandAloneFromSingleVariantVirtuals 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 makeStandAloneFromSingleVariantVirtuals 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.entity_error_running_removeCategoryMembersOfDiscProducts">
         <value xml:lang="de">Entitätenfehler beim Ausführen removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
@@ -1141,7 +1141,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ removeCategoryMembersOfDiscProducts: ${errMessage}.</value>
         <value xml:lang="zh">运行 removeCategoryMembersOfDiscProducts 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 removeCategoryMembersOfDiscProducts 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 removeCategoryMembersOfDiscProducts 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.entity_error_running_removeDuplicateOpenEndedCategoryMembers">
         <value xml:lang="de">Entitätenfehler beim Ausführen removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
@@ -1154,7 +1154,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ removeDuplicateOpenEndedCategoryMembers: ${errMessage}.</value>
         <value xml:lang="zh">运行 removeDuplicateOpenEndedCategoryMembers 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 removeDuplicateOpenEndedCategoryMembers 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 removeDuplicateOpenEndedCategoryMembers 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.entity_error_running_setAllProductImageNames">
         <value xml:lang="de">Entitätenfehler beim Ausführen setAllProductImageNames: ${errMessage}</value>
@@ -1167,7 +1167,7 @@
         <value xml:lang="ru">Ошибка объекта при выполнении setAllProductImageNames: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดการดำเนินการ setAllProductImageNames: ${errMessage}.</value>
         <value xml:lang="zh">运行 setAllProductImageNames 时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">執行 setAllProductImageNames 時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">執行 setAllProductImageNames 時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.error_in_attachProductFeaturesToCategory">
         <value xml:lang="de">Fehler bei attachProductFeaturesToCategory: ${errMessage}.</value>
@@ -1180,7 +1180,7 @@
         <value xml:lang="ru">Ошибка в attachProductFeaturesToCategory: ${errMessage}.</value>
         <value xml:lang="th">ผิดพลาดใน attachProductFeaturesToCategory: ${errMessage}.</value>
         <value xml:lang="zh">在 attachProductFeaturesToCategory 中发生错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">在 attachProductFeaturesToCategory 中發生錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">在 attachProductFeaturesToCategory 中發生錯誤:${errMessage}.</value>
     </property>
     <property key="productutilservices.found_more_than_one_valid_variant_for_virtual_ID">
         <value xml:lang="de">Mehr als eine gültige Variante gefunden für Virtuelles Produkt mit der ID [${productId}], kein Merge durchgeführt.</value>
@@ -1193,14 +1193,14 @@
         <value xml:lang="ru">Найдено более одного правильного варианта для витруального кода [${productId}], слияние не выполнено...</value>
         <value xml:lang="th">พบมากกว่าหนึ่งการเปลี่ยนแปลงสำหรับรหัสเกือบทั้งหมด [${productId}], ไม่ทำรวมเข้าด้วยกัน...</value>
         <value xml:lang="zh">找到了一个以上虚拟产品标识为 [${productId}]有效变型，没有做合并...</value>
-        <value xml:lang="zh_TW">找到了一個以上虛擬產品識別為 [${productId}]有效變型,沒有做合併...</value>
+        <value xml:lang="zh-TW">找到了一個以上虛擬產品識別為 [${productId}]有效變型,沒有做合併...</value>
     </property>
     <property key="productworker.null_product_entity_not_valid">
         <value xml:lang="en">Null Product entity not valid</value>
         <value xml:lang="it">Entità Product nulla non valida</value>
         <value xml:lang="ja">製品エンティティは空にできません</value>
         <value xml:lang="zh">Null不能作为产品实体</value>
-        <value xml:lang="zh_TW">Null不能作為產品資料實體</value>
+        <value xml:lang="zh-TW">Null不能作為產品資料實體</value>
     </property>
     <property key="variantevents.entity_error_quick_add_variant_data">
         <value xml:lang="de">Entitätenfehler beim raschen Hinzufügen Variantendaten: ${errMessage}.</value>
@@ -1213,7 +1213,7 @@
         <value xml:lang="ru">Ошибка объекта быстрого добавления варианта объекта: ${errMessage}.</value>
         <value xml:lang="th">เอนทิตีผิดพลาดเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
         <value xml:lang="zh">快速添加变型数据时发生实体错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">快速增加變型資料時發生資料實體錯誤:${errMessage}.</value>
+        <value xml:lang="zh-TW">快速增加變型資料時發生資料實體錯誤:${errMessage}.</value>
     </property>
     <property key="variantevents.featureTypeSize_not_number">
         <value xml:lang="de">featureTypeSize ist keine Nummer: ${featureTypeSizeStr}.</value>
@@ -1226,7 +1226,7 @@
         <value xml:lang="ru">featureTypeSize не является номером: ${featureTypeSizeStr}.</value>
         <value xml:lang="th">ขนาดประเภทลักษณะไม่ใช่หมายเลข: ${featureTypeSizeStr}.</value>
         <value xml:lang="zh">特征类型大小不是一个数字：${featureTypeSizeStr}。</value>
-        <value xml:lang="zh_TW">特色類型大小不是一個數字:${featureTypeSizeStr}.</value>
+        <value xml:lang="zh-TW">特色類型大小不是一個數字:${featureTypeSizeStr}.</value>
     </property>
     <property key="variantevents.productFeatureId_for_feature_type_number_not_found">
         <value xml:lang="de">Die Produktmerkmal ID für Merkmaltyp Nummer ${i} wurde nicht gefunden.</value>
@@ -1239,7 +1239,7 @@
         <value xml:lang="ru">productFeatureId для номера типа особенности ${i} не найден.</value>
         <value xml:lang="th">รหัสลักษณะสินค้าสำหรับหมายเลขประเภทลักษณะ ${i} ไม่พบ.</value>
         <value xml:lang="zh">没有找到特征类型编号为 ${i} 的产品特征标识。</value>
-        <value xml:lang="zh_TW">沒有找到特色類型識別為 ${i} 的產品特色識別.</value>
+        <value xml:lang="zh-TW">沒有找到特色類型識別為 ${i} 的產品特色識別.</value>
     </property>
     <property key="variantevents.productId_required_but_missing">
         <value xml:lang="de">Produkt ID wird benötigt fehlt aber.</value>
@@ -1252,7 +1252,7 @@
         <value xml:lang="ru">Отсутствует обязательный код продукта.</value>
         <value xml:lang="th">รหัสสินค้าต้องการแต่ซึ่งหาไม่พบ</value>
         <value xml:lang="zh">缺少必须的产品标识。</value>
-        <value xml:lang="zh_TW">缺少必須的產品識別.</value>
+        <value xml:lang="zh-TW">缺少必須的產品識別.</value>
     </property>
     <property key="variantevents.product_not_found_with_ID">
         <value xml:lang="de">Produkt nicht gefunden mit der ID: ${productId}.</value>
@@ -1265,7 +1265,7 @@
         <value xml:lang="ru">Продукт с кодом ${productId} не найден.</value>
         <value xml:lang="th">สินค้าไม่พบด้วยรหัส: ${productId}.</value>
         <value xml:lang="zh">没有找到产品，标识：${productId}。</value>
-        <value xml:lang="zh_TW">沒有找到產品識別: ${productId}.</value>
+        <value xml:lang="zh-TW">沒有找到產品識別: ${productId}.</value>
     </property>
     <property key="variantevents.successfully_created_variant_product_with_id">
         <value xml:lang="de">Produktvariante erfolgreich erstellt mit der ID: ${variantProductId} (enthält Verbindungen und Standart-Merkmale für die Variante).</value>
@@ -1278,7 +1278,7 @@
         <value xml:lang="ru">Вариант продукта с кодом ${variantProductId} успешно создан (включая ассоциацию и стандартные, для вариантов, особенности).</value>
         <value xml:lang="th">ประสบผลสำเร็จสร้างการเปลี่ยนแปลงสินค้าด้วยรหัส: ${variantProductId} (รวมกลุ่ม, และลักษณะพื้นฐานสำหรับการเปลี่ยนแปลง).</value>
         <value xml:lang="zh">成功创建变型产品，标识：${variantProductId} (包括关联，以及变型的表转特征)。</value>
-        <value xml:lang="zh_TW">成功新建變型產品識別: ${variantProductId} (包括結合,以及變型的表轉特色).</value>
+        <value xml:lang="zh-TW">成功新建變型產品識別: ${variantProductId} (包括結合,以及變型的表轉特色).</value>
     </property>
     <property key="variantevents.transaction_error_quick_add_variant_data">
         <value xml:lang="de">Transaktionsfehler beim raschen Hinzufügen Variantendaten: ${errMessage}</value>
@@ -1291,7 +1291,7 @@
         <value xml:lang="ru">Ошибка транзакции создания быстрого добавления варианта продукта: ${errMessage}.</value>
         <value xml:lang="th">รายการผิดพลาดการสร้างการเพิ่มข้อมูลการเปลี่ยนแปลงอย่างรวดเร็ว: ${errMessage}.</value>
         <value xml:lang="zh">创建快速添加变型数据时发生交易错误：${errMessage}。</value>
-        <value xml:lang="zh_TW">新建快速增加變型資料時發生交易錯誤: ${errMessage}.</value>
+        <value xml:lang="zh-TW">新建快速增加變型資料時發生交易錯誤: ${errMessage}.</value>
     </property>
     <property key="PicklistManageTooMuchQuantity">
         <value xml:lang="en">The quantity entered (${parameters.quantity}) is higher than the quantity expected (${picklistItem.quantity}).</value>
@@ -1304,28 +1304,28 @@
         <value xml:lang="fr">Il n'y a pas de lien entre le lot ${parameters.lotId} et le produit ${parameters.productId}.</value>
         <value xml:lang="ja">ロット ${parameters.lotId} と製品 ${parameters.productId} にリンクがありません。</value>
         <value xml:lang="zh">在批次 ${parameters.lotId} 和产品 ${parameters.productId} 之间没有关联。</value>
-        <value xml:lang="zh_TW">在批次 ${parameters.lotId} 和產品 ${parameters.productId} 之間沒有結合.</value>
+        <value xml:lang="zh-TW">在批次 ${parameters.lotId} 和產品 ${parameters.productId} 之間沒有結合.</value>
     </property>
     <property key="PicklistManageStockLow">
         <value xml:lang="en">Not enough stock for this lot.</value>
         <value xml:lang="fr">Pas assez de stock pour ce lot.</value>
         <value xml:lang="ja">このロットに十分な在庫がありません。</value>
         <value xml:lang="zh">库存不足以满足这个批次。</value>
-        <value xml:lang="zh_TW">庫存不足以滿足這個批次.</value>
+        <value xml:lang="zh-TW">庫存不足以滿足這個批次.</value>
     </property>
     <property key="ProductLotIdMandatory">
         <value xml:lang="en">The lotId is mandatory for the product ${parameters.productId}.</value>
         <value xml:lang="fr">Le numéro de lot est obligatoire pour ce produit ${parameters.productId}.</value>
         <value xml:lang="ja">製品 ${parameters.productId} に対するロットIDは必須です。</value>
         <value xml:lang="zh">批次标识对产品 ${parameters.productId} 而言是必须的。</value>
-        <value xml:lang="zh_TW">批次標識對產品 ${parameters.productId} 而言是必須的.</value>
+        <value xml:lang="zh-TW">批次標識對產品 ${parameters.productId} 而言是必須的.</value>
     </property>
     <property key="ProductLotIdForbidden">
         <value xml:lang="en">The lotId is forbidden for the product ${parameters.productId}.</value>
         <value xml:lang="fr">Le numéro de lot est interdit pour ce produit ${parameters.productId}.</value>
         <value xml:lang="ja">製品 ${parameters.productId} に対するロットIDは許されていません。</value>
         <value xml:lang="zh">批次标识对产品 ${parameters.productId} 而言是禁用的。</value>
-        <value xml:lang="zh_TW">批次標識對產品 ${parameters.productId} 而言是禁用的.</value>
+        <value xml:lang="zh-TW">批次標識對產品 ${parameters.productId} 而言是禁用的.</value>
     </property>
     <property key="variantevents.variantProductId_required_but_missing_enter_an_id">
         <value xml:lang="de">variantProductId wir benötigt fehlt aber, bitte geben Sie eine ID für die neue Produktvariante an.</value>
@@ -1338,6 +1338,6 @@
         <value xml:lang="ru">Отсутствует необходимый variantProductId, пожалуйста введите код для нового варианта продукта.</value>
         <value xml:lang="th">รหัสการเปลี่ยนแปลงสินค้าต้องการแต่ไม่พบ, กรุณากรอกรหัสสำหรับการเปลี่ยนแปลงสินค้าใหม่.</value>
         <value xml:lang="zh">缺少必须的变型产品标识， 请为新的变型产品输入一个标识。</value>
-        <value xml:lang="zh_TW">缺少必須的變型產品識別, 請為新的變型產品輸入一個識別.</value>
+        <value xml:lang="zh-TW">缺少必須的變型產品識別, 請為新的變型產品輸入一個識別.</value>
     </property>
 </resource>

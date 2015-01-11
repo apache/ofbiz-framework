@@ -26,7 +26,7 @@
         <value xml:lang="ja">要望</value>
         <value xml:lang="th">ความต้องการ</value>
         <value xml:lang="zh">期望的</value>
-        <value xml:lang="zh_TW">期望的</value>
+        <value xml:lang="zh-TW">期望的</value>
     </property>
     <property key="ExampleFeatureApplType.description.NOT_ALLOWED">
         <value xml:lang="en">Not Allowed</value>
@@ -35,7 +35,7 @@
         <value xml:lang="ja">不許可</value>
         <value xml:lang="th">ไม่อนุญาต</value>
         <value xml:lang="zh">不允许</value>
-        <value xml:lang="zh_TW">不允許</value>
+        <value xml:lang="zh-TW">不允許</value>
     </property>
     <property key="ExampleFeatureApplType.description.REQUIRED">
         <value xml:lang="en">Required</value>
@@ -44,7 +44,7 @@
         <value xml:lang="ja">必須</value>
         <value xml:lang="th">ความต้องการ</value>
         <value xml:lang="zh">必须的</value>
-        <value xml:lang="zh_TW">必須的</value>
+        <value xml:lang="zh-TW">必須的</value>
     </property>
     <property key="ExampleType.description.CONTRIVED">
         <value xml:lang="en">Contrived</value>
@@ -53,7 +53,7 @@
         <value xml:lang="ja">考案</value>
         <value xml:lang="th">เป็นไปตามที่วางแผนไว้</value>
         <value xml:lang="zh">人为的</value>
-        <value xml:lang="zh_TW">人為的</value>
+        <value xml:lang="zh-TW">人為的</value>
     </property>
     <property key="ExampleType.description.INSPIRED">
         <value xml:lang="en">Inspired</value>
@@ -62,7 +62,7 @@
         <value xml:lang="ja">起因</value>
         <value xml:lang="th">ยอดเยี่ยม</value>
         <value xml:lang="zh">受启发的</value>
-        <value xml:lang="zh_TW">受啟發的</value>
+        <value xml:lang="zh-TW">受啟發的</value>
     </property>
     <property key="ExampleType.description.MADE_UP">
         <value xml:lang="en">Made Up</value>
@@ -71,7 +71,7 @@
         <value xml:lang="ja">構築</value>
         <value xml:lang="th">ทำขึ้น</value>
         <value xml:lang="zh">制定</value>
-        <value xml:lang="zh_TW">制定</value>
+        <value xml:lang="zh-TW">制定</value>
     </property>
   <!-- Example entity labels -->
     <property key="ExampleType.description.REAL_WORLD">
@@ -81,7 +81,7 @@
         <value xml:lang="ja">現実世界</value>
         <value xml:lang="th">สภาพที่เป็นจริง</value>
         <value xml:lang="zh">真实世界</value>
-        <value xml:lang="zh_TW">真實世界</value>
+        <value xml:lang="zh-TW">真實世界</value>
     </property>
   <!-- Entity descriptions. The Web Tools component will use these properties
         for online documentation. Entity description property keys have the form:
@@ -103,7 +103,7 @@
         <value xml:lang="ja">固有サンプルID。IDを入力しない場合は、自動的に生成します。</value>
         <value xml:lang="th">รหัสตัวอย่าง ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例表示。如果你没有指定一个标识，那么会自动生成一个</value>
-        <value xml:lang="zh_TW">一個唯一的範例表示.如果你沒有指定一個識別,那麼會自動產生一個</value>
+        <value xml:lang="zh-TW">一個唯一的範例表示.如果你沒有指定一個識別,那麼會自動產生一個</value>
     </property>
     <property key="FieldDescription.ExampleItem.exampleItemSeqId">
         <value xml:lang="en">A unique Example Item sequence ID. If you don't assign an ID, one will be generated automatically</value>
@@ -112,7 +112,7 @@
         <value xml:lang="ja">固有サンプルアイテム連番ID。IDを入力しない場合は、自動的に生成します。</value>
         <value xml:lang="th">รหัสตัวอย่างสินค้า ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例明细序号。如果你没有指定一个标识，那么会自动生成一个</value>
-        <value xml:lang="zh_TW">一個唯一的範例細項序號.如果你沒有指定一個識別,那麼會自動產生一個</value>
+        <value xml:lang="zh-TW">一個唯一的範例細項序號.如果你沒有指定一個識別,那麼會自動產生一個</value>
     </property>
     <property key="FieldDescription.ExampleType.exampleTypeId">
         <value xml:lang="en">A unique Example Type ID. If you don't assign an ID, one will be generated automatically</value>
@@ -121,13 +121,13 @@
         <value xml:lang="ja">固有サンプル種類ID。IDを入力しない場合は、自動的に生成します。</value>
         <value xml:lang="th">รหัสตัวอย่างประเภท ถ้าไม่มีการกำหนดรหัส จะต้องมีการสร้างขึ้นอัตโมัติ</value>
         <value xml:lang="zh">一个唯一的样例类型序号。如果你没有指定一个标识，那么会自动生成一个</value>
-        <value xml:lang="zh_TW">一個唯一的範例類型序號.如果你沒有指定一個識別,那麼會自動產生一個</value>
+        <value xml:lang="zh-TW">一個唯一的範例類型序號.如果你沒有指定一個識別,那麼會自動產生一個</value>
     </property>
     <property key="FieldDescription.Example.exampleTypeId">
         <value xml:lang="en">The type of Example.</value>
         <value xml:lang="fr">Le type de l'exemple.</value>
         <value xml:lang="zh">样例类型。</value>
-        <value xml:lang="zh_TW">範例類型.</value>
+        <value xml:lang="zh-TW">範例類型.</value>
     </property>
     <property key="FieldDescription.amount">
         <value xml:lang="de">Betrag</value>
@@ -138,7 +138,7 @@
         <value xml:lang="ro">Import</value>
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">金额</value>
-        <value xml:lang="zh_TW">金額</value>
+        <value xml:lang="zh-TW">金額</value>
     </property>
     <property key="FieldDescription.anotherDate">
         <value xml:lang="en">Another Date</value>
@@ -147,7 +147,7 @@
         <value xml:lang="ja">別の日</value>
         <value xml:lang="th">วันที่อื่น ๆ</value>
         <value xml:lang="zh">另一个日期</value>
-        <value xml:lang="zh_TW">另一個日期</value>
+        <value xml:lang="zh-TW">另一個日期</value>
     </property>
     <property key="FieldDescription.anotherText">
         <value xml:lang="en">Another Text</value>
@@ -157,7 +157,7 @@
         <value xml:lang="th">ตัวอักษรอื่น ๆ</value>
         <value xml:lang="zh">另一个文本</value>
         <!--value xml:lang="zh_TW">另一個文本</value-->
-        <value xml:lang="zh_TW">另一個本文</value>
+        <value xml:lang="zh-TW">另一個本文</value>
     </property>
     <property key="FieldDescription.comments">
         <value xml:lang="de">Kommentare</value>
@@ -168,7 +168,7 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
         <value xml:lang="zh">评论</value>
-        <value xml:lang="zh_TW">評論</value>
+        <value xml:lang="zh-TW">評論</value>
     </property>
     <property key="FieldDescription.exampleDate">
         <value xml:lang="en">Example Date</value>
@@ -178,7 +178,7 @@
         <value xml:lang="ro">Data Exemplu</value>
         <value xml:lang="th">ตัวอย่างวันที่</value>
         <value xml:lang="zh">样例日期</value>
-        <value xml:lang="zh_TW">範例日期</value>
+        <value xml:lang="zh-TW">範例日期</value>
     </property>
     <property key="FieldDescription.exampleId">
         <value xml:lang="en">Example ID</value>
@@ -188,7 +188,7 @@
         <value xml:lang="ro">Cod Exemplu</value>
         <value xml:lang="th">รหัสตัวอย่าง</value>
         <value xml:lang="zh">样例标识</value>
-        <value xml:lang="zh_TW">範例識別</value>
+        <value xml:lang="zh-TW">範例識別</value>
     </property>
     <property key="FieldDescription.exampleItemSeqId">
         <value xml:lang="en">Example Item sequence ID</value>
@@ -197,7 +197,7 @@
         <value xml:lang="ja">サンプルアイテム連番ID</value>
         <value xml:lang="th">รหัสลำดับตัวอย่างสินค้า</value>
         <value xml:lang="zh">样例明细序号</value>
-        <value xml:lang="zh_TW">範例細項序號</value>
+        <value xml:lang="zh-TW">範例細項序號</value>
     </property>
     <property key="FieldDescription.exampleName">
         <value xml:lang="en">Example Name</value>
@@ -207,7 +207,7 @@
         <value xml:lang="ro">Nume Exemplu</value>
         <value xml:lang="th">ชื่อตัวอย่าง</value>
         <value xml:lang="zh">样例名称</value>
-        <value xml:lang="zh_TW">範例名稱</value>
+        <value xml:lang="zh-TW">範例名稱</value>
     </property>
     <property key="FieldDescription.exampleSize">
         <value xml:lang="en">Example Size</value>
@@ -217,7 +217,7 @@
         <value xml:lang="ro">Marime-size Exemplu</value>
         <value xml:lang="th">ขนาดตัวอย่าง</value>
         <value xml:lang="zh">样例尺寸</value>
-        <value xml:lang="zh_TW">範例尺寸</value>
+        <value xml:lang="zh-TW">範例尺寸</value>
     </property>
     <property key="FieldDescription.exampleTypeId">
         <value xml:lang="en">Example Type ID</value>
@@ -226,7 +226,7 @@
         <value xml:lang="ja">サンプル種類ID</value>
         <value xml:lang="th">รหัสประเภทตัวอย่าง</value>
         <value xml:lang="zh">样例类型标识</value>
-        <value xml:lang="zh_TW">範例類型識別</value>
+        <value xml:lang="zh-TW">範例類型識別</value>
     </property>
     <property key="FieldDescription.longDescription">
         <value xml:lang="en">Long Description</value>
@@ -236,6 +236,6 @@
         <value xml:lang="ro">Descriere Lunga</value>
         <value xml:lang="th">รายละเอียด</value>
         <value xml:lang="zh">详细描述</value>
-        <value xml:lang="zh_TW">詳細描述</value>
+        <value xml:lang="zh-TW">詳細描述</value>
     </property>
 </resource>

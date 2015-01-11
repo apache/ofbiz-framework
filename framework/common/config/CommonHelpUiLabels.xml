@@ -27,11 +27,11 @@
         <value xml:lang="fr">Sujet d'aide non trouvé.</value>
         <value xml:lang="it">Voce aiuto non trovata.</value>
         <value xml:lang="ja">ヘルプが見つかりません</value>
-        <value xml:lang="pt_BR">Tópico de ajuda não foi encontrado.</value>
+        <value xml:lang="pt-BR">Tópico de ajuda não foi encontrado.</value>
         <value xml:lang="ru">Справочник помощи не найден.</value>
         <value xml:lang="vi">Không tìm thấy nội dung Trợ giúp.</value>
         <value xml:lang="zh">帮助主题没有找到。</value>
-        <value xml:lang="zh_TW">說明主題沒有找到.</value>
+        <value xml:lang="zh-TW">說明主題沒有找到.</value>
     </property>
     <property key="PageTitleHelp">
         <value xml:lang="da">Open for Business hjælp</value>
@@ -41,10 +41,10 @@
         <value xml:lang="fr">Aide OFBiz (Open for Business)</value>
         <value xml:lang="it">Aiuto</value>
         <value xml:lang="ja">OFBizヘルプ</value>
-        <value xml:lang="pt_BR">Ajuda do OFBiz</value>
+        <value xml:lang="pt-BR">Ajuda do OFBiz</value>
         <value xml:lang="ru">Открыть для бизнес-помощи</value>
         <value xml:lang="vi">Trợ giúp từ OFBiz</value>
         <value xml:lang="zh">OFBiz帮助</value>
-        <value xml:lang="zh_TW">OFBiz說明</value>
+        <value xml:lang="zh-TW">OFBiz說明</value>
     </property>
 </resource>

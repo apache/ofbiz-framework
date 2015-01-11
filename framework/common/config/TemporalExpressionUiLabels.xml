@@ -26,9 +26,9 @@
         <value xml:lang="fr">Expression temporelle</value>
         <value xml:lang="it">Espressione temporale</value>
         <value xml:lang="ja">時間表現</value>
-        <value xml:lang="pt_BR">Expressão temporal</value>
+        <value xml:lang="pt-BR">Expressão temporal</value>
         <value xml:lang="zh">时间表达式</value>
-        <value xml:lang="zh_TW">時間運算式</value>
+        <value xml:lang="zh-TW">時間運算式</value>
     </property>
     <property key="TemporalExpressionCollections">
         <value xml:lang="de">Ausdruckssammlung</value>
@@ -37,9 +37,9 @@
         <value xml:lang="fr">Collections d'expression</value>
         <value xml:lang="it">Collezione espressioni</value>
         <value xml:lang="ja">表現集合</value>
-        <value xml:lang="pt_BR">Coleções de Expressões</value>
+        <value xml:lang="pt-BR">Coleções de Expressões</value>
         <value xml:lang="zh">表达式集合</value>
-        <value xml:lang="zh_TW">運算式集合</value>
+        <value xml:lang="zh-TW">運算式集合</value>
     </property>
     <property key="TemporalExpressionExclude">
         <value xml:lang="de">Ausschließen</value>
@@ -48,9 +48,9 @@
         <value xml:lang="fr">Exclure</value>
         <value xml:lang="it">Escludi</value>
         <value xml:lang="ja">除く</value>
-        <value xml:lang="pt_BR">Excluir</value>
+        <value xml:lang="pt-BR">Excluir</value>
         <value xml:lang="zh">排除</value>
-        <value xml:lang="zh_TW">排除</value>
+        <value xml:lang="zh-TW">排除</value>
     </property>
     <property key="TemporalExpressionFind">
         <value xml:lang="de">Suche Zeitliche Ausdrücke</value>
@@ -59,9 +59,9 @@
         <value xml:lang="fr">Rechercher une expression temporelle</value>
         <value xml:lang="it">Ricerca espressione temporale</value>
         <value xml:lang="ja">時間表現を検索</value>
-        <value xml:lang="pt_BR">Encontrar uma expressão temporal</value>
+        <value xml:lang="pt-BR">Encontrar uma expressão temporal</value>
         <value xml:lang="zh">查找时间表达式</value>
-        <value xml:lang="zh_TW">查詢時間運算式</value>
+        <value xml:lang="zh-TW">查詢時間運算式</value>
     </property>
     <property key="TemporalExpressionFreqCount">
         <value xml:lang="de">Anzahl der Häufigkeit</value>
@@ -70,9 +70,9 @@
         <value xml:lang="fr">Nombre d'occurrences</value>
         <value xml:lang="it">Frequenza conteggio</value>
         <value xml:lang="ja">頻度件数</value>
-        <value xml:lang="pt_BR">Contagem de Freqüência</value>
+        <value xml:lang="pt-BR">Contagem de Freqüência</value>
         <value xml:lang="zh">频率计数</value>
-        <value xml:lang="zh_TW">頻率計數</value>
+        <value xml:lang="zh-TW">頻率計數</value>
     </property>
     <property key="TemporalExpressionFreqType">
         <value xml:lang="de">Häufigkeitstyp</value>
@@ -81,9 +81,9 @@
         <value xml:lang="fr">Type de fréquence</value>
         <value xml:lang="it">Tipo frequenza</value>
         <value xml:lang="ja">頻度種類</value>
-        <value xml:lang="pt_BR">Tipo de Frequência</value>
+        <value xml:lang="pt-BR">Tipo de Frequência</value>
         <value xml:lang="zh">频率类型</value>
-        <value xml:lang="zh_TW">頻率類型</value>
+        <value xml:lang="zh-TW">頻率類型</value>
     </property>
     <property key="TemporalExpressionId">
         <value xml:lang="de">Ausdrucks-Id</value>
@@ -92,9 +92,9 @@
         <value xml:lang="fr">Réf. d'expression</value>
         <value xml:lang="it">Espressione</value>
         <value xml:lang="ja">表現ID</value>
-        <value xml:lang="pt_BR">Id de Expressão</value>
+        <value xml:lang="pt-BR">Id de Expressão</value>
         <value xml:lang="zh">表达式标识</value>
-        <value xml:lang="zh_TW">算式識別</value>
+        <value xml:lang="zh-TW">算式識別</value>
     </property>
     <property key="TemporalExpressionInclude">
         <value xml:lang="de">Einschließen</value>
@@ -103,9 +103,9 @@
         <value xml:lang="fr">Inclure</value>
         <value xml:lang="it">Includi</value>
         <value xml:lang="ja">含む</value>
-        <value xml:lang="pt_BR">Incluir</value>
+        <value xml:lang="pt-BR">Incluir</value>
         <value xml:lang="zh">包含</value>
-        <value xml:lang="zh_TW">包含</value>
+        <value xml:lang="zh-TW">包含</value>
     </property>
     <property key="TemporalExpressionMaintenance">
         <value xml:lang="de">Wartung des Zeitlichen Ausdrucks</value>
@@ -114,9 +114,9 @@
         <value xml:lang="fr">maintenance d'expression temporelle</value>
         <value xml:lang="it">Gestione espressioni temporali</value>
         <value xml:lang="ja">時間表現メンテナンス</value>
-        <value xml:lang="pt_BR">Manutenção Expressão Temporal</value>
+        <value xml:lang="pt-BR">Manutenção Expressão Temporal</value>
         <value xml:lang="zh">时间表达式维护</value>
-        <value xml:lang="zh_TW">時間運算式維護</value>
+        <value xml:lang="zh-TW">時間運算式維護</value>
     </property>
     <property key="TemporalExpressionOccurrence">
         <value xml:lang="de">Auftreten</value>
@@ -125,9 +125,9 @@
         <value xml:lang="fr">Occurrence</value>
         <value xml:lang="it">Occorrenze</value>
         <value xml:lang="ja">繰り返し</value>
-        <value xml:lang="pt_BR">Ocorrência</value>
+        <value xml:lang="pt-BR">Ocorrência</value>
         <value xml:lang="zh">同步</value>
-        <value xml:lang="zh_TW">同步</value>
+        <value xml:lang="zh-TW">同步</value>
     </property>
     <property key="TemporalExpressionTimeFormat">
         <value xml:lang="de">hh:mm:ss</value>
@@ -136,9 +136,9 @@
         <value xml:lang="fr">hh:mm:ss</value>
         <value xml:lang="it">hh:mm:ss</value>
         <value xml:lang="ja">hh:mm:ss</value>
-        <value xml:lang="pt_BR">hh:mm:ss</value>
+        <value xml:lang="pt-BR">hh:mm:ss</value>
         <value xml:lang="zh">HH:mm:ss</value>
-        <value xml:lang="zh_TW">HH:mm:ss</value>
+        <value xml:lang="zh-TW">HH:mm:ss</value>
     </property>
     <property key="TemporalExpressionType">
         <value xml:lang="de">Ausdruckstyp</value>
@@ -147,9 +147,9 @@
         <value xml:lang="fr">Type d'expression</value>
         <value xml:lang="it">Tipo espressione</value>
         <value xml:lang="ja">表現種類</value>
-        <value xml:lang="pt_BR">Tipo de Expressão</value>
+        <value xml:lang="pt-BR">Tipo de Expressão</value>
         <value xml:lang="zh">表达式类型</value>
-        <value xml:lang="zh_TW">運算式類型</value>
+        <value xml:lang="zh-TW">運算式類型</value>
     </property>
     <property key="TemporalExpression_DATE_RANGE">
         <value xml:lang="de">Datumsauswahl</value>
@@ -158,9 +158,9 @@
         <value xml:lang="fr">Intervalle entre 2 dates</value>
         <value xml:lang="it">Intervallo di date</value>
         <value xml:lang="ja">日付範囲</value>
-        <value xml:lang="pt_BR">Período</value>
+        <value xml:lang="pt-BR">Período</value>
         <value xml:lang="zh">日期范围</value>
-        <value xml:lang="zh_TW">日期範圍</value>
+        <value xml:lang="zh-TW">日期範圍</value>
     </property>
     <property key="TemporalExpression_DAY_IN_MONTH">
         <value xml:lang="de">Tag im Monat</value>
@@ -169,9 +169,9 @@
         <value xml:lang="fr">Jour du mois</value>
         <value xml:lang="it">Giorno nel mese</value>
         <value xml:lang="ja">月の日にち</value>
-        <value xml:lang="pt_BR">Dia do Mês</value>
+        <value xml:lang="pt-BR">Dia do Mês</value>
         <value xml:lang="zh">月中的天</value>
-        <value xml:lang="zh_TW">月中的天</value>
+        <value xml:lang="zh-TW">月中的天</value>
     </property>
     <property key="TemporalExpression_DAY_OF_MONTH_RANGE">
         <value xml:lang="de">Tag im Monat Auswahl</value>
@@ -180,9 +180,9 @@
         <value xml:lang="fr">Intervalle entre 2 jours du mois</value>
         <value xml:lang="it">Giorno del mese nell'intervallo</value>
         <value xml:lang="ja">月の日にち範囲</value>
-        <value xml:lang="pt_BR">Intervalo de dias do mês</value>
+        <value xml:lang="pt-BR">Intervalo de dias do mês</value>
         <value xml:lang="zh">月中天的范围</value>
-        <value xml:lang="zh_TW">月中天的範圍</value>
+        <value xml:lang="zh-TW">月中天的範圍</value>
     </property>
     <property key="TemporalExpression_DAY_OF_WEEK_RANGE">
         <value xml:lang="de">Wochentagsauswahl</value>
@@ -191,9 +191,9 @@
         <value xml:lang="fr">Intervalle entre 2 jour de la semaine</value>
         <value xml:lang="it">Giorno della settimana nell'intervallo</value>
         <value xml:lang="ja">週の日にち範囲</value>
-        <value xml:lang="pt_BR">Intervalo de dias da semana</value>
+        <value xml:lang="pt-BR">Intervalo de dias da semana</value>
         <value xml:lang="zh">周中天的范围</value>
-        <value xml:lang="zh_TW">週中天的範圍</value>
+        <value xml:lang="zh-TW">週中天的範圍</value>
     </property>
     <property key="TemporalExpression_DIFFERENCE">
         <value xml:lang="de">Unterschied</value>
@@ -202,9 +202,9 @@
         <value xml:lang="fr">Différence</value>
         <value xml:lang="it">Differenze</value>
         <value xml:lang="ja">差分</value>
-        <value xml:lang="pt_BR">Diferença</value>
+        <value xml:lang="pt-BR">Diferença</value>
         <value xml:lang="zh">差别</value>
-        <value xml:lang="zh_TW">差別</value>
+        <value xml:lang="zh-TW">差別</value>
     </property>
     <property key="TemporalExpression_FREQUENCY">
         <value xml:lang="de">Häufigkeit</value>
@@ -213,18 +213,18 @@
         <value xml:lang="fr">Fréquence</value>
         <value xml:lang="it">Frequenza</value>
         <value xml:lang="ja">頻度</value>
-        <value xml:lang="pt_BR">Frequência</value>
+        <value xml:lang="pt-BR">Frequência</value>
         <value xml:lang="zh">频率</value>
-        <value xml:lang="zh_TW">頻率</value>
+        <value xml:lang="zh-TW">頻率</value>
     </property>
     <property key="TemporalExpression_HOUR_RANGE">
         <value xml:lang="de">Stundenauswahl</value>
         <value xml:lang="en">Hour Range</value>
         <value xml:lang="es">Intervalo de horas</value>
         <value xml:lang="ja">時の範囲</value>
-        <value xml:lang="pt_BR">Intervalo de Hora</value>
+        <value xml:lang="pt-BR">Intervalo de Hora</value>
         <value xml:lang="zh">小时范围</value>
-        <value xml:lang="zh_TW">小時範圍</value>
+        <value xml:lang="zh-TW">小時範圍</value>
     </property>
     <property key="TemporalExpression_INTERSECTION">
         <value xml:lang="de">Durchschnitt</value>
@@ -233,18 +233,18 @@
         <value xml:lang="fr">Intersection</value>
         <value xml:lang="it">Intersezione</value>
         <value xml:lang="ja">交点</value>
-        <value xml:lang="pt_BR">Intersecção</value>
+        <value xml:lang="pt-BR">Intersecção</value>
         <value xml:lang="zh">交叉点</value>
-        <value xml:lang="zh_TW">交叉點</value>
+        <value xml:lang="zh-TW">交叉點</value>
     </property>
     <property key="TemporalExpression_MINUTE_RANGE">
         <value xml:lang="de">Minutenauswahl</value>
         <value xml:lang="en">Minute Range</value>
         <value xml:lang="es">Intervalo de minutos</value>
         <value xml:lang="ja">分の範囲</value>
-        <value xml:lang="pt_BR">Intervalo de Minutos</value>
+        <value xml:lang="pt-BR">Intervalo de Minutos</value>
         <value xml:lang="zh">分钟范围</value>
-        <value xml:lang="zh_TW">分鐘範圍</value>
+        <value xml:lang="zh-TW">分鐘範圍</value>
     </property>
     <property key="TemporalExpression_MONTH_RANGE">
         <value xml:lang="de">Monatsauswahl</value>
@@ -253,18 +253,18 @@
         <value xml:lang="fr">Intervalle entre 2 mois</value>
         <value xml:lang="it">Intervallo di mese</value>
         <value xml:lang="ja">月の範囲</value>
-        <value xml:lang="pt_BR">Intervalo de Meses</value>
+        <value xml:lang="pt-BR">Intervalo de Meses</value>
         <value xml:lang="zh">月的范围</value>
-        <value xml:lang="zh_TW">月的範圍</value>
+        <value xml:lang="zh-TW">月的範圍</value>
     </property>
     <property key="TemporalExpression_SUBSTITUTION">
         <value xml:lang="de">Ersetzung</value>
         <value xml:lang="en">Substitution</value>
         <value xml:lang="es">Sustitución</value>
         <value xml:lang="ja">代用</value>
-        <value xml:lang="pt_BR">Substituição</value>
+        <value xml:lang="pt-BR">Substituição</value>
         <value xml:lang="zh">替换</value>
-        <value xml:lang="zh_TW">替換</value>
+        <value xml:lang="zh-TW">替換</value>
     </property>
     <property key="TemporalExpression_UNION">
         <value xml:lang="de">Vereinigung</value>
@@ -273,8 +273,8 @@
         <value xml:lang="fr">Union</value>
         <value xml:lang="it">Unione</value>
         <value xml:lang="ja">結合</value>
-        <value xml:lang="pt_BR">União</value>
+        <value xml:lang="pt-BR">União</value>
         <value xml:lang="zh">联合</value>
-        <value xml:lang="zh_TW">聯合</value>
+        <value xml:lang="zh-TW">聯合</value>
     </property>
 </resource>

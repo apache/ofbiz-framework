@@ -30,7 +30,7 @@
         <value xml:lang="ru">Попытка начать транзакцию завершилась ошибкой, невозможно обработать метод</value>
         <value xml:lang="th">Error : ผิดพลด ! ในการเริ่มต้นดำเนินการ ไม่สามารถประมวลผลวิธีการนี้ได้</value>
         <value xml:lang="zh">尝试开始交易时出错，无法执行</value>
-        <value xml:lang="zh_TW">嘗試開始交易時出錯,無法執行</value>
+        <value xml:lang="zh-TW">嘗試開始交易時出錯,無法執行</value>
     </property>
     <property key="simpleMethod.error_running">
         <value xml:lang="de">Fehler beim Ausführen der simple-method</value>
@@ -43,14 +43,14 @@
         <value xml:lang="ru">Ошибка выполнения simple-method</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการรัน simple-method</value>
         <value xml:lang="zh">运行这个简单方法时出错</value>
-        <value xml:lang="zh_TW">執行這個簡單方法時出錯</value>
+        <value xml:lang="zh-TW">執行這個簡單方法時出錯</value>
     </property>
     <property key="simpleMethod.error_show_service_name">
         <value xml:lang="en">calling service ${serviceName} in ${methodName}</value>
         <value xml:lang="it">eseguendo il servizio ${serviceName} in ${methodName}</value>
         <value xml:lang="ja">サービス ${serviceName} を ${methodName} で呼び出し</value>
         <value xml:lang="zh">在${methodName}中调用服务${serviceName} </value>
-        <value xml:lang="zh_TW">在${methodName}中呼叫服務${serviceName} </value>
+        <value xml:lang="zh-TW">在${methodName}中呼叫服務${serviceName} </value>
     </property>
     <property key="simpleMethod.must_logged_process">
         <value xml:lang="de">Sie müssen am System angemeldet sein um [${shortDescription}] auszuführen</value>
@@ -63,6 +63,6 @@
         <value xml:lang="ru">Для завершения процесса ${shortDescription} вы должны зарегистрироваться в системе</value>
         <value xml:lang="th">คุณต้องทำการเข้าสู่ระบบในการประมวลผล  [${shortDescription}] ให้เสร็จสมบูรณ์</value>
         <value xml:lang="zh">你必须登录才能完成${shortDescription}步骤</value>
-        <value xml:lang="zh_TW">你必須登入才能完成${shortDescription}步驟</value>
+        <value xml:lang="zh-TW">你必須登入才能完成${shortDescription}步驟</value>
     </property>
 </resource>

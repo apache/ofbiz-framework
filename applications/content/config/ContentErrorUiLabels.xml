@@ -24,21 +24,21 @@
         <value xml:lang="ja">コンテンツリストの取得時にエラー。索引: ${gee}.</value>
         <value xml:lang="pt">Erro ao obter a lista de conteúdo ao índice: ${gee}.</value>
         <value xml:lang="zh">获取内容列表来进行索引时出错：${gee}。</value>
-        <value xml:lang="zh_TW">取得內容清單來進行索引時出錯:${gee}.</value>
+        <value xml:lang="zh-TW">取得內容清單來進行索引時出錯:${gee}.</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents.</value>
         <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。</value>
         <value xml:lang="pt">Criação de palavras-chave completa para conteúdo de ${numConts}.</value>
         <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建。</value>
-        <value xml:lang="zh_TW">完成 ${numConts} 個內容的關鍵新建.</value>
+        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建.</value>
     </property>
     <property key="contentevents.keyword_creation_complete_for_contents_with_errors">
         <value xml:lang="en">Keyword creation complete for ${numConts} contents, with errors in ${errConts} contents (see the log for more details).</value>
         <value xml:lang="ja">${numConts} コンテンツのキーワード作成が完了しました。${errConts} コンテンツでエラーがあります (詳細はログを参照してください)。</value>
         <value xml:lang="pt">Criação de palavras-chave concluída para o conteúdo de ${numConts}, com erros no conteúdo de ${errConts} (veja o log para mais detalhes).</value>
         <value xml:lang="zh">完成 ${numConts} 个内容的关键字创建，${errConts} 个内容的关键字出错（详见日志）。</value>
-        <value xml:lang="zh_TW">完成 ${numConts} 個內容的關鍵新建,${errConts} 個內容的關鍵字出錯(詳見日誌).</value>
+        <value xml:lang="zh-TW">完成 ${numConts} 個內容的關鍵新建,${errConts} 個內容的關鍵字出錯(詳見日誌).</value>
     </property>
     <property key="contentevents.not_sufficient_permissions">
         <value xml:lang="de">Sie haben nicht genügend Berechtigungen um ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} oder CONTENTMGR_ADMIN benötigt).</value>
@@ -52,7 +52,7 @@
         <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CONTENTMGR (необходимы права CONTENTMGR_${updateMode} или CONTENTMGR_ADMIN).</value>
         <value xml:lang="th">คุณไม่มีการอนุญาตเพียงพอถึง ${updateMode} CONTENTMGR (CONTENTMGR_${updateMode} หรือ CONTENTMGR_ADMIN ต้องการ).</value>
         <value xml:lang="zh">你没有足够的权限 ${updateMode} 目录 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN)。</value>
-        <value xml:lang="zh_TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
+        <value xml:lang="zh-TW">您沒有足夠的權限 ${updateMode} 目錄 (需要CONTENTMGR_${updateMode} 或 CONTENTMGR_ADMIN).</value>
     </property>
     <property key="dataEvents.error_call_create_service">
         <value xml:lang="da">Fejl ved kald af service createDataResource</value>
@@ -66,7 +66,7 @@
         <value xml:lang="ro">Eroare executie serviciu createDataResource</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการสร้างข้อมูลแหล่งที่มา</value>
         <value xml:lang="zh">调用新建数据资源（createDataResource）服务时出错</value>
-        <value xml:lang="zh_TW">呼叫新建資料資源(createDataResource)服務時出錯</value>
+        <value xml:lang="zh-TW">呼叫新建資料資源(createDataResource)服務時出錯</value>
     </property>
     <property key="dataEvents.error_call_update_service">
         <value xml:lang="da">Fejl ved kald af service updateDataResource</value>
@@ -80,7 +80,7 @@
         <value xml:lang="ro">Eroare la executarea serviciului updateDataResource</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการเปลี่ยนแปลงข้อมูลแหล่งที่มา</value>
         <value xml:lang="zh">调用更新数据资源（updateDataResource）服务时出错</value>
-        <value xml:lang="zh_TW">呼叫更新資料資源(updateDataResource)服務時出錯</value>
+        <value xml:lang="zh-TW">呼叫更新資料資源(updateDataResource)服務時出錯</value>
     </property>
     <property key="dataEvents.error_get_image">
         <value xml:lang="da">Fejl under hentning af billedrecord fra acquireImage</value>
@@ -94,7 +94,7 @@
         <value xml:lang="ro">Eroare la citirea record imagine din aquireImage</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการรับรูปภาพจากรูปที่ได้</value>
         <value xml:lang="zh">从获取图像（acquireImage）获得图像记录时出错</value>
-        <value xml:lang="zh_TW">在取得圖像(acquireImage)記錄時出錯從</value>
+        <value xml:lang="zh-TW">在取得圖像(acquireImage)記錄時出錯從</value>
     </property>
     <property key="dataEvents.error_write_image">
         <value xml:lang="da">Fejl under skrivning af billede til OutputStream</value>
@@ -108,7 +108,7 @@
         <value xml:lang="ro">Eroare la scrierea imaginii in OutputStream</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเขียนรูปภาพเป็นข้อมูลออกไป</value>
         <value xml:lang="zh">把图像写入OutputStream时出错</value>
-        <value xml:lang="zh_TW">把圖像寫入OutputStream時出錯</value>
+        <value xml:lang="zh-TW">把圖像寫入OutputStream時出錯</value>
     </property>
     <property key="dataEvents.image_or_type_null">
         <value xml:lang="da">billede({b}) eller type(${imageType}) er null eller tom</value>
@@ -122,7 +122,7 @@
         <value xml:lang="ro">imagine({b}) sau tip (${imageType}) este zero sau o lipseste</value>
         <value xml:lang="th">รูปภาพ ({b}) หรือ ประภท (${imageType}) ไม่มีค่าหรือเป็นค่าว่าง</value>
         <value xml:lang="zh">图像({b})或类型(${imageType})为null或为空</value>
-        <value xml:lang="zh_TW">圖像({b})或類型(${imageType})為null或為空</value>
+        <value xml:lang="zh-TW">圖像({b})或類型(${imageType})為null或為空</value>
     </property>
     <property key="dataResourceWorker.image_or_field_null">
         <value xml:lang="da">imageFi(${imageFi}) eller idFieldValue(${idFieldValue}) er null</value>
@@ -136,7 +136,7 @@
         <value xml:lang="ro">imageFi(${imageFi}) sau idFieldValue(${idFieldValue}) este zero</value>
         <value xml:lang="th">ช่องรูปภาพ (${imageFi}) หรือรหัสค่า (${idFieldValue}) ไม่มีค่า</value>
         <value xml:lang="zh">imageFi(${imageFi})或idFieldValue(${idFieldValue})为null</value>
-        <value xml:lang="zh_TW">imageFi(${imageFi})或識別值(${idFieldValue})為null</value>
+        <value xml:lang="zh-TW">imageFi(${imageFi})或識別值(${idFieldValue})為null</value>
     </property>
     <property key="dataResourceWorker.no_files_uploaded">
         <value xml:lang="da">Ingen filer er uploaded</value>
@@ -150,7 +150,7 @@
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
         <value xml:lang="zh">没有上传文件</value>
-        <value xml:lang="zh_TW">沒有上傳檔案</value>
+        <value xml:lang="zh-TW">沒有上傳檔案</value>
     </property>
     <property key="layoutEvents.content_empty">
         <value xml:lang="da">indhold er tomt</value>
@@ -164,7 +164,7 @@
         <value xml:lang="ro">content este fara continut</value>
         <value xml:lang="th">หัวข้อเป็นค่าว่าง</value>
         <value xml:lang="zh">内容为空</value>
-        <value xml:lang="zh_TW">內容為空</value>
+        <value xml:lang="zh-TW">內容為空</value>
     </property>
     <property key="layoutEvents.content_id_empty">
         <value xml:lang="da">contentId er tomt</value>
@@ -178,7 +178,7 @@
         <value xml:lang="ro">contentId este fara continut</value>
         <value xml:lang="th">รหัสหัวข้อเป็นค่าว่าง</value>
         <value xml:lang="zh">内容标识（contentId）为空</value>
-        <value xml:lang="zh_TW">內容識別為空</value>
+        <value xml:lang="zh-TW">內容識別為空</value>
     </property>
     <property key="layoutEvents.content_id_to_null">
         <value xml:lang="da">contentIdTo er null</value>
@@ -192,7 +192,7 @@
         <value xml:lang="ro">contentIdTo este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสหัวข้อ</value>
         <value xml:lang="zh">contentIdTo为null</value>
-        <value xml:lang="zh_TW">內容識別迄為null</value>
+        <value xml:lang="zh-TW">內容識別迄為null</value>
     </property>
     <property key="layoutEvents.data_ressource_id_null">
         <value xml:lang="da">DataRessourceId er null</value>
@@ -206,7 +206,7 @@
         <value xml:lang="ro">DataRessourceId este zero</value>
         <value xml:lang="th">ไม่มีค่าในรหัสแหล่งที่มา</value>
         <value xml:lang="zh">数据资源标识（DataRessourceId）为null</value>
-        <value xml:lang="zh_TW">資料源識別為null</value>
+        <value xml:lang="zh-TW">資料源識別為null</value>
     </property>
     <property key="layoutEvents.empty">
         <value xml:lang="da">er tom</value>
@@ -220,7 +220,7 @@
         <value xml:lang="ro">este fara continut</value>
         <value xml:lang="th">เป็นค่าว่าง</value>
         <value xml:lang="zh">为空</value>
-        <value xml:lang="zh_TW">為空</value>
+        <value xml:lang="zh-TW">為空</value>
     </property>
     <property key="layoutEvents.entityname_empty">
         <value xml:lang="da">'entityName' er tom</value>
@@ -234,7 +234,7 @@
         <value xml:lang="ro">'entityName' este fara continut</value>
         <value xml:lang="th">'entityName' เป็นค่าว่าง</value>
         <value xml:lang="zh">'实体名称（entityName）'为空</value>
-        <value xml:lang="zh_TW">'資料資料實體名稱(entityName)'為空</value>
+        <value xml:lang="zh-TW">'資料資料實體名稱(entityName)'為空</value>
     </property>
     <property key="layoutEvents.image_data_null">
         <value xml:lang="da">Billeddata er null</value>
@@ -248,7 +248,7 @@
         <value xml:lang="ro">Image data este zero</value>
         <value xml:lang="th">ข้อมูลรูปภาพเป็นไม่มีค่า</value>
         <value xml:lang="zh">图像数据为null</value>
-        <value xml:lang="zh_TW">圖像資料為null</value>
+        <value xml:lang="zh-TW">圖像資料為null</value>
     </property>
     <property key="layoutEvents.no_subcontent">
         <value xml:lang="da">Ingen subindhold fundet</value>
@@ -262,7 +262,7 @@
         <value xml:lang="ro">Nici-un sub-continut gasit</value>
         <value xml:lang="th">ไม่พบหัวข้อย่อย</value>
         <value xml:lang="zh">没有找到子内容</value>
-        <value xml:lang="zh_TW">沒有找到子內容</value>
+        <value xml:lang="zh-TW">沒有找到子內容</value>
     </property>
     <property key="layoutWorker.image_null">
         <value xml:lang="da">imageFi(${imageFi}) er null</value>
@@ -276,7 +276,7 @@
         <value xml:lang="ro">imageFi(${imageFi}) este zero</value>
         <value xml:lang="th">ไม่มีค่าในช่องรูปภาพ (${imageFi}) </value>
         <value xml:lang="zh">imageFi(${imageFi})为null</value>
-        <value xml:lang="zh_TW">imageFi(${imageFi})為null</value>
+        <value xml:lang="zh-TW">imageFi(${imageFi})為null</value>
     </property>
     <property key="layoutWorker.no_files_uploaded">
         <value xml:lang="da">Ingen filer uploaded</value>
@@ -290,7 +290,7 @@
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
         <value xml:lang="zh">没有上传文件</value>
-        <value xml:lang="zh_TW">沒有上傳檔案</value>
+        <value xml:lang="zh-TW">沒有上傳檔案</value>
     </property>
     <property key="uploadContentAndImage.no_files_uploaded">
         <value xml:lang="da">Ingen filer uploaded</value>
@@ -304,7 +304,7 @@
         <value xml:lang="ro">Nici-un  fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์</value>
         <value xml:lang="zh">没有上传文件</value>
-        <value xml:lang="zh_TW">沒有上傳檔案</value>
+        <value xml:lang="zh-TW">沒有上傳檔案</value>
     </property>
     <property key="uploadContentAndImage.noRootDirProvided">
         <value xml:lang="en">No root dir provided, please fill path in the data resource objectInfo field</value>

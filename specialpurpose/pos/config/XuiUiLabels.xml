@@ -25,7 +25,7 @@
         <value xml:lang="it">Non è possibile fare il log in; XUI non configurato propriamente</value>
         <value xml:lang="th">ไม่สามารถเข้าสู่ระบบได้ : XUI ไม่สามารถจัดการข้อมูลได้อย่างถูกต้อง</value>
         <value xml:lang="zh">无法登录；XUI配置不正确</value>
-        <value xml:lang="zh_TW">無法登入;XUI配置不正確</value>
+        <value xml:lang="zh-TW">無法登入;XUI配置不正確</value>
     </property>
     <property key="XuiUserLoginNotValid">
         <value xml:lang="en">UserLogin returned not valid (null)</value>
@@ -33,7 +33,7 @@
         <value xml:lang="it">UserLogin restituito non valido (null)</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ถูกต้อง (ค่าว่าง)</value>
         <value xml:lang="zh">返回的用户登录无效(null)</value>
-        <value xml:lang="zh_TW">返回的使用者登入無效(null)</value>
+        <value xml:lang="zh-TW">返回的使用者登入無效(null)</value>
     </property>
     <property key="XuiUsernameDoesNotMatchLoggedUser">
         <value xml:lang="en">User name does not match already logged in user!</value>
@@ -41,6 +41,6 @@
         <value xml:lang="it">Nome utente non confrontato per l'utente autenticato!</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ตรงกับข้อมูลที่บันทึกไว้กรุณาตรวจสอบ</value>
         <value xml:lang="zh">用户名与已经登录的用户不一致！</value>
-        <value xml:lang="zh_TW">使用者名與已經登入的使用者不一致！</value>
+        <value xml:lang="zh-TW">使用者名與已經登入的使用者不一致！</value>
     </property>
 </resource>
