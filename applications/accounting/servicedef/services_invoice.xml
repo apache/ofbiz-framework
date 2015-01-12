@@ -298,8 +298,7 @@ under the License.
         <attribute name="invoicedTotal" type="BigDecimal" mode="OUT" optional="false"/>
     </service>
 
-    <service name="updateInvoiceItemType" engine="simple" default-entity-name="InvoiceItemType"
-        location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
+    <service name="updateInvoiceItemType" default-entity-name="InvoiceItemType" engine="entity-auto" invoke="update">
         <description>Update Invoice Item Type Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
@@ -309,14 +308,14 @@ under the License.
         <description>Scheduled service to generate Invoice from an existing Invoice</description>
         <attribute name="recurrenceInfoId" mode="IN" type="String" optional="false"/>
     </service>
-    
+
     <service name="cancelInvoice" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="cancelInvoice">
         <description>Cancel Invoice</description>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceTypeId" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="getInvoiceRunningTotal" engine="simple"
             location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="getInvoiceRunningTotal" auth="true">
         <description>calculate running total for selected Invoices</description>
@@ -324,7 +323,7 @@ under the License.
         <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
         <attribute name="invoiceRunningTotal" type="String" mode="OUT" optional="false"/>
     </service>
-    
+
     <service name="addtax" engine="simple" 
         location="component://accounting/script/org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="addtax">
         <description>Call Tax Calculate Service</description>
