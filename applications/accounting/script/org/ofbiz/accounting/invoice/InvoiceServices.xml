@@ -45,14 +45,14 @@ under the License.
                     <set field="customMethodName" value="invoiceSequenceRestart"/>
                 </if-compare>
             </else>
-        </if-not-empty>        
+        </if-not-empty>
 
         <if-not-empty field="customMethodName">
             <set-service-fields service-name="${customMethodName}" map="parameters" to-map="customMethodMap"/>
             <set field="customMethodMap.partyAcctgPreference" from-field="partyAcctgPreference"/>
             <call-service service-name="${customMethodName}" in-map-name="customMethodMap">
                <result-to-field result-name="invoiceId" field="invoiceIdTemp"/>
-            </call-service>            
+            </call-service>
             <else>
                 <log level="info" message="In createInvoice sequence enum Standard"/>
                 <!-- default to the default sequencing: INVSQ_STANDARD -->
@@ -172,7 +172,7 @@ under the License.
         <if-not-empty field="party.preferredCurrencyUomId">
             <set field="parameters.currencyUomId" from-field="party.preferredCurrencyUomId"/>
         </if-not-empty>
-        
+
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
@@ -610,12 +610,6 @@ under the License.
         <field-to-result field="contactMechId" result-name="invoiceContactMech"/>
     </simple-method>
 
-    <simple-method method-name="updateInvoiceItemType"  short-description="Updates a InvoiceItemType Record">
-        <entity-one entity-name="InvoiceItemType" value-field="lookedUpValue"/>
-        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-field="lookedUpValue"/>
-   </simple-method>
-
    <simple-method method-name="autoGenerateInvoiceFromExistingInvoice" short-description="Scheduled service to generate Invoice from an existing Invoice">
        <entity-and entity-name="Invoice" list="invoices">
             <field-map field-name="recurrenceInfoId" from-field="parameters.recurrenceInfoId"/>
@@ -640,7 +634,7 @@ under the License.
            <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
        </iterate>
    </simple-method>
-    
+
     <simple-method method-name="cancelInvoice" short-description="Service to cancel the Invoices">
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
@@ -697,7 +691,7 @@ under the License.
         <set field="invoiceRunningTotal" value="${groovy:org.ofbiz.base.util.UtilFormatOut.formatCurrency(runningTotal, currencyUomId, parameters.locale)}"/>
         <field-to-result field="invoiceRunningTotal"/>
     </simple-method>
-    
+
     <simple-method method-name="getInvoicesFilterByAssocType" short-description="Filter invoices by invoiceItemAssocTypeId">
         <set field="invoiceList" from-field="parameters.invoiceList"/>
         <set field="invoiceItemAssocTypeId" from-field="parameters.invoiceItemAssocTypeId"/>
@@ -1010,7 +1004,7 @@ under the License.
         <set-service-fields service-name="updateSimpleTextContent" map="parameters" to-map="updateSimpleText"/>
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
-    
+
     <simple-method method-name="isInvoiceInForeignCurrency" short-description="check if a invoice is in a foreign currency related to the accounting company.">
         <entity-one value-field="invoice" entity-name="InvoiceAndType">
             <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
@@ -1021,10 +1015,10 @@ under the License.
         </if-empty>
         <if-compare field="invoice.parentTypeId" operator="equals" value="PURCHASE_INVOICE">
             <set field="pref.organizationPartyId" from-field="invoice.partyId"/>
-        </if-compare>          
+        </if-compare>
         <if-compare field="invoice.parentTypeId" operator="equals" value="SALES_INVOICE">
             <set field="pref.organizationPartyId" from-field="invoice.partyIdFrom"/>
-        </if-compare>          
+        </if-compare>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="pref">
             <result-to-field result-name="partyAccountingPreference"/>
         </call-service>
@@ -1036,5 +1030,5 @@ under the License.
         </if-compare-field>
         <field-to-result field="isForeign"/>
     </simple-method>
-       
+
 </simple-methods>
