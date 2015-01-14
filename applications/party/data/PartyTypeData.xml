@@ -303,7 +303,7 @@ under the License.
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Partner" partyRelationshipTypeId="PARTNERSHIP" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Sales Affiliate" partyRelationshipTypeId="SALES_AFFILIATE" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Spouse" partyRelationshipTypeId="SPOUSE" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
-    <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Supplier" partyRelationshipTypeId="SUPPLIER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
+    <PartyRelationshipType description="" hasTable="Y" parentTypeId="" partyRelationshipName="Supplier" partyRelationshipTypeId="SUPPLIER_REL" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Web Master" partyRelationshipTypeId="WEB_MASTER_ASSIGNMEN" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Account owned by" partyRelationshipTypeId="ACCOUNT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
     <PartyRelationshipType description="" hasTable="N" parentTypeId="" partyRelationshipName="Assistant" partyRelationshipTypeId="ASSISTANT" roleTypeIdValidFrom="" roleTypeIdValidTo=""/>
@@ -372,7 +372,10 @@ under the License.
     <StatusValidChange condition="" statusId="COM_ROLE_READ" statusIdTo="COM_ROLE_COMPLETED" transitionName="Completed"/>
 
     <StatusType description="Party Relationship" hasTable="N" parentTypeId="" statusTypeId="PARTY_REL_STATUS"/>
-
+    <StatusItem description="Created" sequenceId="01" statusCode="CREATED" statusId="PARTYREL_CREATED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusItem description="Expired" sequenceId="02" statusCode="EXPIRED" statusId="PARTYREL_EXPIRED" statusTypeId="PARTY_REL_STATUS"/>
+    <StatusValidChange condition="" statusId="PARTYREL_CREATED" statusIdTo="PARTYREL_EXPIRED" transitionName="Expired"/>
+    
     <StatusType description="Party Invitation" hasTable="N" parentTypeId="" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Sent" sequenceId="01" statusCode="SENT" statusId="PARTYINV_SENT" statusTypeId="PARTY_INV_STATUS"/>
     <StatusItem description="Invitation Pending" sequenceId="02" statusCode="PENDING" statusId="PARTYINV_PENDING" statusTypeId="PARTY_INV_STATUS"/>
