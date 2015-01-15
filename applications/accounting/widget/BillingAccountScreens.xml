@@ -126,8 +126,12 @@ under the License.
                 <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
                 <set field="billingAccountId" from-field="parameters.billingAccountId"/>
                 <entity-one entity-name="BillingAccount" value-field="billingAccount"/>
-                <set field="partyId" from-field="parameters.partyId"/>
-                <set field="roleTypeId" from-field="parameters.roleTypeId"/>
+                <entity-and entity-name="BillingAccountRole" list="billingAccountRolesCustomer" filter-by-date="true">
+                    <field-map field-name="billingAccountId" from-field="billingAccount.billingAccountId"/>
+                    <field-map field-name="roleTypeId" value="BILL_TO_CUSTOMER"/>
+                </entity-and>
+                <set field="partyId" from-field="parameters.partyId" default-value="${billingAccountRolesCustomer[0].partyId}"/>
+                <set field="roleTypeId" from-field="parameters.roleTypeId" default-value="BILL_TO_CUSTOMER"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonBillingAccountDecorator" location="${parameters.billingAccountDecoratorLocation}">
