@@ -204,12 +204,12 @@ under the License.
         <div>${uiLabelMap.ProductNoConditionProducts}</div>
       </#if>
                 <div>
-                  <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>">
+                  <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>" name="createProductPromoProductConditions">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
                     <input type="hidden" name="productPromoRuleId" value="${productPromoCond.productPromoRuleId}" />
                     <input type="hidden" name="productPromoActionSeqId" value="_NA_" />
                     <input type="hidden" name="productPromoCondSeqId" value="${productPromoCond.productPromoCondSeqId}" />
-                    ${uiLabelMap.ProductProductId}: <input type="text" size="20" maxlength="20" name="productId" value=""/>
+                    <@htmlTemplate.lookupField formName="createProductPromoProductConditions" name="productId" id="productId" fieldFormName="LookupProduct"/>
                     <select name="productPromoApplEnumId">
       <#list productPromoApplEnums as productPromoApplEnum>
                       <option value="${productPromoApplEnum.enumId}">${productPromoApplEnum.get("description",locale)}</option>
