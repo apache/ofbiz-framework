@@ -131,62 +131,125 @@ public class XmlWidgetFieldVisitor extends AbstractWidgetVisitor implements Mode
 
     @Override
     public void visit(HyperlinkField hyperlinkField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(hyperlinkField.getModelFormField());
+        writer.append("<hyperlink");
+        visitAttribute("also-hidden", hyperlinkField.getAlsoHidden());
+        visitAttribute("confirmation-message", hyperlinkField.getConfirmationMsgExdr());
+        visitAttribute("description", hyperlinkField.getDescription());
+        visitAttribute("request-confirmation", hyperlinkField.getRequestConfirmation());
+        Link link = hyperlinkField.getLink();
+        visitLinkAttributes(link);
+        if (link.getImage() != null || link.getAutoEntityParameters() != null || link.getAutoServiceParameters() != null) {
+            writer.append(">");
+            visitImage(link.getImage());
+            visitAutoEntityParameters(link.getAutoEntityParameters());
+            visitAutoServiceParameters(link.getAutoServiceParameters());
+            writer.append("</hyperlink>");
+        } else {
+            writer.append("/>");
+        }
+        writer.append("</field>");
     }
 
     @Override
     public void visit(IgnoredField ignoredField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(ignoredField.getModelFormField());
+        writer.append("<ignored/></field>");
     }
 
     @Override
     public void visit(ImageField imageField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(imageField.getModelFormField());
+        writer.append("<image");
+        visitAttribute("alternate", imageField.getAlternate());
+        visitAttribute("default-value", imageField.getDefaultValue());
+        visitAttribute("description", imageField.getDescription());
+        visitAttribute("style", imageField.getStyle());
+        visitAttribute("value", imageField.getValue());
+        writer.append(">");
+        visitSubHyperlink(imageField.getSubHyperlink());
+        writer.append("</image></field>");
     }
 
     @Override
     public void visit(LookupField textField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(textField.getModelFormField());
+        writer.append("<lookup");
+        visitTextFieldAttrs(textField);
+        visitAttribute("description-field-name", textField.getDescriptionFieldName());
+        visitAttribute("fade-background", textField.getFadeBackground());
+        visitAttribute("target-form-name", textField.getFormName());
+        visitAttribute("initially-collapsed", textField.getInitiallyCollapsed());
+        visitAttribute("height", textField.getLookupHeight());
+        visitAttribute("position", textField.getLookupPosition());
+        visitAttribute("presentation", textField.getLookupPresentation());
+        visitAttribute("width", textField.getLookupWidth());
+        visitAttribute("show-description", textField.getShowDescription());
+        visitAttribute("target-parameter", textField.getTargetParameter());
+        writer.append(">");
+        visitSubHyperlink(textField.getSubHyperlink());
+        writer.append("</lookup></field>");
     }
 
     @Override
     public void visit(PasswordField textField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(textField.getModelFormField());
+        writer.append("<password");
+        visitTextFieldAttrs(textField);
+        writer.append(">");
+        visitSubHyperlink(textField.getSubHyperlink());
+        writer.append("</password></field>");
     }
 
     @Override
     public void visit(RadioField radioField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(radioField.getModelFormField());
+        writer.append("<radio");
+        visitFieldInfoWithOptions(radioField);
+        writer.append("</radio></field>");
     }
 
     @Override
     public void visit(RangeFindField textField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(textField.getModelFormField());
+        writer.append("<range-find");
+        visitTextFieldAttrs(textField);
+        visitAttribute("default-option-from", textField.getDefaultOptionFrom());
+        visitAttribute("default-option-thru", textField.getDefaultOptionThru());
+        writer.append(">");
+        visitSubHyperlink(textField.getSubHyperlink());
+        writer.append("</range-find></field>");
     }
 
     @Override
     public void visit(ResetField resetField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(resetField.getModelFormField());
+        writer.append("<reset/></field>");
     }
 
     @Override
     public void visit(SubmitField submitField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(submitField.getModelFormField());
+        writer.append("<submit");
+        visitAttribute("background-submit-refresh-target", submitField.getBackgroundSubmitRefreshTargetExdr());
+        visitAttribute("button-type", submitField.getButtonType());
+        visitAttribute("confirmation-message", submitField.getConfirmationMsgExdr());
+        visitAttribute("image-location", submitField.getImageLocation());
+        visitAttribute("request-confirmation", submitField.getRequestConfirmation());
+        writer.append("/></field>");
     }
 
     @Override
     public void visit(TextareaField textareaField) throws Exception {
-        // TODO Auto-generated method stub
-
+        visitModelField(textareaField.getModelFormField());
+        writer.append("<textarea");
+        visitAttribute("cols", textareaField.getCols());
+        visitAttribute("default-value", textareaField.getDefaultValue());
+        visitAttribute("read-only", textareaField.isReadOnly());
+        visitAttribute("rows", textareaField.getRows());
+        visitAttribute("visual-editor-buttons", textareaField.getVisualEditorButtons());
+        visitAttribute("visual-editor-enable", textareaField.getVisualEditorEnable());
+        writer.append("/></field>");
     }
 
     @Override
@@ -308,13 +371,55 @@ public class XmlWidgetFieldVisitor extends AbstractWidgetVisitor implements Mode
     }
 
     private void visitAutoComplete(AutoComplete autoComplete) throws Exception {
-        // TODO: Finish implementation
-        
+        if (autoComplete != null) {
+            writer.append("<auto-complete");
+            visitAttribute("auto-select", autoComplete.getAutoSelect());
+            visitAttribute("frequency", autoComplete.getFrequency());
+            visitAttribute("min-chars", autoComplete.getMinChars());
+            visitAttribute("choices", autoComplete.getChoices());
+            visitAttribute("partial-search", autoComplete.getPartialSearch());
+            visitAttribute("partial-chars", autoComplete.getPartialChars());
+            visitAttribute("ignore-case", autoComplete.getIgnoreCase());
+            visitAttribute("full-search", autoComplete.getFullSearch());
+            writer.append("/>");
+        }
     }
 
     private void visitInPlaceEditor(InPlaceEditor editor) throws Exception {
-        // TODO: Finish implementation
-        
+        if (editor != null) {
+            writer.append("<in-place-editor");
+            visitAttribute("cancel-control", editor.getCancelControl());
+            visitAttribute("cancel-text", editor.getCancelText());
+            visitAttribute("click-to-edit-text", editor.getClickToEditText());
+            visitAttribute("field-post-creation", editor.getFieldPostCreation());
+            visitAttribute("form-class-name", editor.getFormClassName());
+            visitAttribute("highlight-color", editor.getHighlightColor());
+            visitAttribute("highlight-end-color", editor.getHighlightEndColor());
+            visitAttribute("hover-class-name", editor.getHoverClassName());
+            visitAttribute("html-response", editor.getHtmlResponse());
+            visitAttribute("loading-class-name", editor.getLoadingClassName());
+            visitAttribute("loading-text", editor.getLoadingText());
+            visitAttribute("ok-control", editor.getOkControl());
+            visitAttribute("ok-text", editor.getOkText());
+            visitAttribute("param-name", editor.getParamName());
+            visitAttribute("saving-class-name", editor.getSavingClassName());
+            visitAttribute("saving-text", editor.getSavingText());
+            visitAttribute("submit-on-blur", editor.getSubmitOnBlur());
+            visitAttribute("text-before-controls", editor.getTextBeforeControls());
+            visitAttribute("text-after-controls", editor.getTextAfterControls());
+            visitAttribute("text-between-controls", editor.getTextBetweenControls());
+            visitAttribute("update-after-request-call", editor.getUpdateAfterRequestCall());
+            visitAttribute("url", editor.getUrl());
+            if (!editor.getCols().isEmpty() || !editor.getRows().isEmpty()) {
+                writer.append(">");
+                writer.append("<simple-editor");
+                visitAttribute("cols", editor.getCols());
+                visitAttribute("rows", editor.getRows());
+                writer.append("/></in-place-editor>");
+            } else {
+                writer.append("/>");
+            }
+        }
     }
 
     private void visitUpdateAreas(Collection<ModelForm.UpdateArea> updateAreas) throws Exception {
