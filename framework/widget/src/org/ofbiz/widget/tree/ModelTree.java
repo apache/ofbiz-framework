@@ -49,10 +49,10 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.*;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.WidgetWorker.Parameter;
+import org.ofbiz.widget.CommonWidgetModels.Parameter;
 import org.ofbiz.widget.screen.ModelScreen;
 import org.ofbiz.widget.screen.ScreenFactory;
 import org.ofbiz.widget.screen.ScreenRenderException;
@@ -259,6 +259,35 @@ public class ModelTree extends ModelWidget {
             Debug.logError(e2, errMsg, module);
             throw new RuntimeException(errMsg);
         }
+
+    }
+
+    public String getDefaultRenderStyle() {
+        return defaultRenderStyle;
+    }
+
+    public FlexibleStringExpander getDefaultWrapStyleExdr() {
+        return defaultWrapStyleExdr;
+    }
+
+    public FlexibleStringExpander getExpandCollapseRequestExdr() {
+        return expandCollapseRequestExdr;
+    }
+
+    public boolean getForceChildCheck() {
+        return forceChildCheck;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public Map<String, ModelNode> getNodeMap() {
+        return nodeMap;
+    }
+
+    public FlexibleStringExpander getTrailNameExdr() {
+        return trailNameExdr;
     }
 
     /**
@@ -268,7 +297,8 @@ public class ModelTree extends ModelWidget {
      */
     public static class ModelNode extends ModelWidget {
 
-        private final List<ModelWidgetAction> actions;
+        private final List<ModelAction> actions;
+        // TODO: Make this a generic condition object.
         private final ModelTreeCondition condition;
         private final String entityName;
         private final String entryName;
@@ -293,7 +323,7 @@ public class ModelTree extends ModelWidget {
             this.entryName = nodeElement.getAttribute("entry-name");
             this.entityName = nodeElement.getAttribute("entity-name");
             this.pkName = nodeElement.getAttribute("join-field-name");
-            ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+            ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
             // FIXME: Validate child elements, should be only one of actions, entity-one, service, script.
             Element actionsElement = UtilXml.firstChildElement(nodeElement, "actions");
             if (actionsElement != null) {
@@ -301,7 +331,7 @@ public class ModelTree extends ModelWidget {
             }
             Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-one");
             if (actionElement != null) {
-                actions.add(new ModelWidgetAction.EntityOne(this, actionElement));
+                actions.add(new AbstractModelAction.EntityOne(this, actionElement));
             }
             actionElement = UtilXml.firstChildElement(nodeElement, "service");
             if (actionElement != null) {
@@ -364,9 +394,9 @@ public class ModelTree extends ModelWidget {
             for (ModelSubNode subNode : subNodeList) {
                 String nodeName = subNode.getNodeName(context);
                 ModelNode node = modelTree.nodeMap.get(nodeName);
-                List<ModelWidgetAction> subNodeActions = subNode.getActions();
+                List<ModelAction> subNodeActions = subNode.getActions();
                 //if (Debug.infoOn()) Debug.logInfo(" context.currentValue:" + context.get("currentValue"), module);
-                ModelWidgetAction.runSubActions(subNodeActions, context);
+                AbstractModelAction.runSubActions(subNodeActions, context);
                 // List dataFound = (List)context.get("dataFound");
                 Iterator<? extends Map<String, ? extends Object>> dataIter = subNode.getListIterator(context);
                 if (dataIter instanceof EntityListIterator) {
@@ -536,7 +566,7 @@ public class ModelTree extends ModelWidget {
                 int depth) throws IOException, GeneralException {
             boolean passed = true;
             if (this.condition != null) {
-                if (!this.condition.eval(context)) {
+                if (!this.condition.getCondition().eval(context)) {
                     passed = false;
                 }
             }
@@ -658,6 +688,46 @@ public class ModelTree extends ModelWidget {
             }
             return showPeers;
         }
+        
+        public List<ModelAction> getActions() {
+            return actions;
+        }
+
+        public ModelTreeCondition getCondition() {
+            return condition;
+        }
+
+        public Label getLabel() {
+            return label;
+        }
+
+        public Link getLink() {
+            return link;
+        }
+
+        public String getPkName() {
+            return pkName;
+        }
+
+        public FlexibleStringExpander getScreenLocationExdr() {
+            return screenLocationExdr;
+        }
+
+        public FlexibleStringExpander getScreenNameExdr() {
+            return screenNameExdr;
+        }
+
+        public String getShareScope() {
+            return shareScope;
+        }
+
+        public List<ModelSubNode> getSubNodeList() {
+            return subNodeList;
+        }
+
+        public FlexibleStringExpander getWrapStyleExdr() {
+            return wrapStyleExdr;
+        }
 
         /**
          * Models the &lt;image&gt; element.
@@ -769,6 +839,18 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
+
+            public FlexibleStringExpander getIdExdr() {
+                return idExdr;
+            }
+
+            public FlexibleStringExpander getStyleExdr() {
+                return styleExdr;
+            }
+
+            public FlexibleStringExpander getTextExdr() {
+                return textExdr;
+            }
         }
 
         /**
@@ -876,7 +958,7 @@ public class ModelTree extends ModelWidget {
                     fullParameterMap.putAll(addlParamMap);
                 }
                 */
-                for (WidgetWorker.Parameter parameter : this.parameterList) {
+                for (CommonWidgetModels.Parameter parameter : this.parameterList) {
                     fullParameterMap.put(parameter.getName(), parameter.getValue(context));
                 }
                 return fullParameterMap;
@@ -941,6 +1023,42 @@ public class ModelTree extends ModelWidget {
                     throw new RuntimeException(errMsg);
                 }
             }
+
+            public FlexibleStringExpander getIdExdr() {
+                return idExdr;
+            }
+
+            public FlexibleStringExpander getNameExdr() {
+                return nameExdr;
+            }
+
+            public List<Parameter> getParameterList() {
+                return parameterList;
+            }
+
+            public FlexibleStringExpander getPrefixExdr() {
+                return prefixExdr;
+            }
+
+            public FlexibleStringExpander getStyleExdr() {
+                return styleExdr;
+            }
+
+            public FlexibleStringExpander getTargetExdr() {
+                return targetExdr;
+            }
+
+            public FlexibleStringExpander getTargetWindowExdr() {
+                return targetWindowExdr;
+            }
+
+            public FlexibleStringExpander getTextExdr() {
+                return textExdr;
+            }
+
+            public FlexibleStringExpander getTitleExdr() {
+                return titleExdr;
+            }
         }
 
         /**
@@ -950,7 +1068,7 @@ public class ModelTree extends ModelWidget {
          */
         public static class ModelSubNode extends ModelWidget {
 
-            private final List<ModelWidgetAction> actions;
+            private final List<ModelAction> actions;
             private final FlexibleStringExpander nodeNameExdr;
             private final ModelNode rootNode;
             private final String iteratorKey;
@@ -959,7 +1077,7 @@ public class ModelTree extends ModelWidget {
                 super(subNodeElement);
                 this.rootNode = modelNode;
                 this.nodeNameExdr = FlexibleStringExpander.getInstance(subNodeElement.getAttribute("node-name"));
-                ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+                ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
                 // FIXME: Validate child elements, should be only one of actions, entity-and, entity-condition, service, script.
                 Element actionsElement = UtilXml.firstChildElement(subNodeElement, "actions");
                 if (actionsElement != null) {
@@ -992,7 +1110,7 @@ public class ModelTree extends ModelWidget {
                 visitor.visit(this);
             }
 
-            public List<ModelWidgetAction> getActions() {
+            public List<ModelAction> getActions() {
                 return actions;
             }
 
@@ -1007,6 +1125,10 @@ public class ModelTree extends ModelWidget {
 
             public String getNodeName(Map<String, Object> context) {
                 return this.nodeNameExdr.expandString(context);
+            }
+
+            public FlexibleStringExpander getNodeNameExdr() {
+                return nodeNameExdr;
             }
 
             public void setListIterator(ListIterator<? extends Map<String, ? extends Object>> iter, Map<String, Object> context) {

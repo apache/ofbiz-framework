@@ -217,7 +217,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, "renderHorizontalSeparator", parameters);
     }
 
-    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenLink link) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
 
@@ -271,7 +271,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
             }
         }
         String imgStr = "";
-        ModelScreenWidget.Image img = link.getImage();
+        ModelScreenWidget.ScreenImage img = link.getImage();
         if (img != null) {
             StringWriter sw = new StringWriter();
             renderImage(sw, context, img);
@@ -311,7 +311,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         executeMacro(writer, sr.toString());
     }
 
-    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
         if (image == null)
             return ;
         String src = image.getSrc(context);

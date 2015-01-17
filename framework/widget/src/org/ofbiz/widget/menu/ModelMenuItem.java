@@ -26,25 +26,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilCodec;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.widget.AbstractModelAction;
+import org.ofbiz.widget.CommonWidgetModels.AutoEntityParameters;
+import org.ofbiz.widget.CommonWidgetModels.AutoServiceParameters;
+import org.ofbiz.widget.CommonWidgetModels.Image;
+import org.ofbiz.widget.CommonWidgetModels.Link;
+import org.ofbiz.widget.CommonWidgetModels.Parameter;
+import org.ofbiz.widget.ModelAction;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.PortalPageWorker;
-import org.ofbiz.widget.WidgetWorker.AutoEntityParameters;
-import org.ofbiz.widget.WidgetWorker.AutoServiceParameters;
-import org.ofbiz.widget.WidgetWorker.Parameter;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 /**
  * Models the &lt;menu-item&gt; element.
@@ -70,7 +67,7 @@ public class ModelMenuItem extends ModelWidget {
 
     public static final String module = ModelMenuItem.class.getName();
 
-    private final List<ModelWidgetAction> actions;
+    private final List<ModelAction> actions;
     private final String align;
     private final String alignStyle;
     private final FlexibleStringExpander associatedContentId;
@@ -80,7 +77,7 @@ public class ModelMenuItem extends ModelWidget {
     private final String disableIfEmpty;
     private final String entityName;
     private final Boolean hideIfSelected;
-    private final Link link;
+    private final MenuLink link;
     private final List<ModelMenuItem> menuItemList;
     private final ModelMenu modelMenu;
     private final String overrideName;
@@ -88,7 +85,7 @@ public class ModelMenuItem extends ModelWidget {
     private final FlexibleStringExpander parentPortalPageId;
     private final Integer position;
     private final String selectedStyle;
-    private final ModelMenu subMenu;
+    private final String subMenu;
     private final FlexibleStringExpander title;
     private final String titleStyle;
     private final FlexibleStringExpander tooltip;
@@ -139,31 +136,10 @@ public class ModelMenuItem extends ModelWidget {
         this.position = position;
         this.associatedContentId = FlexibleStringExpander.getInstance(menuItemElement.getAttribute("associated-content-id"));
         this.cellWidth = menuItemElement.getAttribute("cell-width");
-        Element subMenuElement = UtilXml.firstChildElement(menuItemElement, "sub-menu");
-        if (subMenuElement != null) {
-            String subMenuLocation = subMenuElement.getAttribute("location");
-            String subMenuName = subMenuElement.getAttribute("name");
-            try {
-                this.subMenu = MenuFactory.getMenuFromLocation(subMenuLocation, subMenuName);
-            } catch (IOException e) {
-                String errMsg = "Error getting subMenu in menu named [" + this.modelMenu.getName() + "]: " + e.toString();
-                Debug.logError(e, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (SAXException e2) {
-                String errMsg = "Error getting subMenu in menu named [" + this.modelMenu.getName() + "]: " + e2.toString();
-                Debug.logError(e2, errMsg, module);
-                throw new RuntimeException(errMsg);
-            } catch (ParserConfigurationException e3) {
-                String errMsg = "Error getting subMenu in menu named [" + this.modelMenu.getName() + "]: " + e3.toString();
-                Debug.logError(e3, errMsg, module);
-                throw new RuntimeException(errMsg);
-            }
-        } else {
-            this.subMenu = null;
-        }
+        this.subMenu = menuItemElement.getAttribute("sub-menu");
         Element linkElement = UtilXml.firstChildElement(menuItemElement, "link");
         if (linkElement != null) {
-            this.link = new Link(linkElement, this);
+            this.link = new MenuLink(linkElement, this);
         } else {
             this.link = null;
         }
@@ -184,6 +160,7 @@ public class ModelMenuItem extends ModelWidget {
         // read condition under the "condition" element
         Element conditionElement = UtilXml.firstChildElement(menuItemElement, "condition");
         if (conditionElement != null) {
+            conditionElement = UtilXml.firstChildElement(conditionElement);
             this.condition = new ModelMenuCondition(this, conditionElement);
         } else {
             this.condition = null;
@@ -191,7 +168,7 @@ public class ModelMenuItem extends ModelWidget {
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(conditionElement, "actions");
         if (actionsElement != null) {
-            this.actions = ModelWidgetAction.readSubActions(this, actionsElement);
+            this.actions = AbstractModelAction.readSubActions(this, actionsElement);
         } else {
             this.actions = Collections.emptyList();
         }
@@ -217,13 +194,13 @@ public class ModelMenuItem extends ModelWidget {
         this.parentPortalPageId = FlexibleStringExpander.getInstance(portalPage.getString("parentPortalPageId"));
         this.position = null;
         this.selectedStyle = "";
-        this.subMenu = null;
+        this.subMenu = "";
         this.title = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
         this.titleStyle = "";
         this.tooltip = FlexibleStringExpander.getInstance("");
         this.tooltipStyle = "";
         this.widgetStyle = "";
-        this.link = new Link(portalPage, parentMenuItem, locale);
+        this.link = new MenuLink(portalPage, parentMenuItem, locale);
         this.modelMenu = parentMenuItem.modelMenu;
     }
 
@@ -313,7 +290,7 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public List<ModelWidgetAction> getActions() {
+    public List<ModelAction> getActions() {
         return actions;
     }
 
@@ -396,7 +373,7 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public Link getLink() {
+    public MenuLink getLink() {
         return this.link;
     }
 
@@ -450,7 +427,7 @@ public class ModelMenuItem extends ModelWidget {
         }
     }
 
-    public ModelMenu getSubMenu() {
+    public String getSubMenu() {
         return subMenu;
     }
 
@@ -515,7 +492,7 @@ public class ModelMenuItem extends ModelWidget {
     public void renderMenuItemString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
             throws IOException {
         if (shouldBeRendered(context)) {
-            ModelWidgetAction.runSubActions(actions, context);
+            AbstractModelAction.runSubActions(actions, context);
             String parentPortalPageId = getParentPortalPageId(context);
             if (UtilValidate.isNotEmpty(parentPortalPageId)) {
                 List<GenericValue> portalPages = PortalPageWorker.getPortalPages(parentPortalPageId, context);
@@ -536,286 +513,149 @@ public class ModelMenuItem extends ModelWidget {
 
     public boolean shouldBeRendered(Map<String, Object> context) {
         if (this.condition != null) {
-            return this.condition.eval(context);
+            return this.condition.getCondition().eval(context);
         }
         return true;
     }
 
-    public static class Image {
-
-        private final FlexibleStringExpander borderExdr;
-        private final FlexibleStringExpander heightExdr;
-        private final FlexibleStringExpander idExdr;
-        private final FlexibleStringExpander srcExdr;
-        private final FlexibleStringExpander styleExdr;
-        private final String urlMode;
-        private final FlexibleStringExpander widthExdr;
-
-        public Image(Element imageElement) {
-            this.borderExdr = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(imageElement.getAttribute("border"), "0"));
-            this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
-            this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
-            this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
-            this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
-            this.urlMode = UtilXml.checkEmpty(imageElement.getAttribute("url-mode"), "content");
-            this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
-        }
-
-        public String getBorder(Map<String, Object> context) {
-            return this.borderExdr.expandString(context);
-        }
-
-        public String getHeight(Map<String, Object> context) {
-            return this.heightExdr.expandString(context);
-        }
-
-        public String getId(Map<String, Object> context) {
-            return this.idExdr.expandString(context);
-        }
-
-        public String getSrc(Map<String, Object> context) {
-            return this.srcExdr.expandString(context);
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            return this.styleExdr.expandString(context);
-        }
-
-        public String getUrlMode() {
-            return this.urlMode;
-        }
-
-        public String getWidth(Map<String, Object> context) {
-            return this.widthExdr.expandString(context);
-        }
-
-        public void renderImageString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
-                throws IOException {
-            menuStringRenderer.renderImage(writer, context, this);
-        }
-    }
-
-    public static class Link {
-        private final AutoEntityParameters autoEntityParameters;
-        private final AutoServiceParameters autoServiceParameters;
-        private final FlexibleStringExpander confirmationMsgExdr;
-        private final boolean encode;
-        private final boolean fullPath;
-        private final FlexibleStringExpander idExdr;
-        private final Image image;
+    public static class MenuLink {
         private final ModelMenuItem linkMenuItem;
-        private final String linkType;
-        private final FlexibleStringExpander nameExdr;
-        private final List<Parameter> parameterList;
-        private final FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
-        private final FlexibleStringExpander prefixExdr;
-        private final boolean requestConfirmation;
-        private final boolean secure;
-        private final FlexibleStringExpander styleExdr;
-        private final FlexibleStringExpander targetExdr;
-        private final FlexibleStringExpander targetWindowExdr;
-        private final FlexibleStringExpander textExdr;
-        private final String urlMode;
+        private final Link link;
 
-        public Link(Element linkElement, ModelMenuItem parentMenuItem) {
-            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                this.autoEntityParameters = new AutoEntityParameters(autoEntityParamsElement);
-            } else {
-                this.autoEntityParameters = null;
-            }
-            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                this.autoServiceParameters = new AutoServiceParameters(autoServiceParamsElement);
-            } else {
-                this.autoServiceParameters = null;
-            }
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("confirmation-message"));
-            this.encode = "true".equals(linkElement.getAttribute("encode"));
-            this.fullPath = "true".equals(linkElement.getAttribute("full-path"));
-            this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
-            Element imageElement = UtilXml.firstChildElement(linkElement, "image");
-            if (imageElement != null) {
-                this.image = new Image(imageElement);
-            } else {
-                this.image = null;
-            }
-            this.linkMenuItem = parentMenuItem;
-            this.linkType = linkElement.getAttribute("link-type");
-            this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
-            List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-            if (!parameterElementList.isEmpty()) {
-                List<Parameter> parameterList = new ArrayList<Parameter>(parameterElementList.size());
-                for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new Parameter(parameterElement));
-                }
-                this.parameterList = Collections.unmodifiableList(parameterList);
-            } else {
-                this.parameterList = Collections.emptyList();
-            }
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(linkElement.getAttribute("parameters-map"));
-            this.prefixExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("prefix"));
-            this.requestConfirmation = "true".equals(linkElement.getAttribute("request-confirmation"));
-            this.secure = "true".equals(linkElement.getAttribute("secure"));
-            this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
-            this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
-            this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
-            this.urlMode = UtilXml.checkEmpty(linkElement.getAttribute("url-mode"), "intra-app");
+        public AutoEntityParameters getAutoEntityParameters() {
+            return link.getAutoEntityParameters();
         }
 
-        public Link(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
-            this.autoEntityParameters = null;
-            this.autoServiceParameters = null;
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
-            this.encode = false;
-            this.fullPath = false;
-            this.idExdr = FlexibleStringExpander.getInstance("");
-            this.image = null;
-            this.linkMenuItem = parentMenuItem;
-            this.linkType = "";
-            this.nameExdr = FlexibleStringExpander.getInstance("");
-            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
-            if (parentMenuItem.link != null) {
-                parameterList.addAll(parentMenuItem.link.parameterList);
-            }
-            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
-            parameterList.trimToSize();
-            this.parameterList = Collections.unmodifiableList(parameterList);
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance("");
-            this.prefixExdr = FlexibleStringExpander.getInstance("");
-            this.requestConfirmation = false;
-            this.secure = false;
-            this.styleExdr = FlexibleStringExpander.getInstance("");
-            if (parentMenuItem.link != null) {
-                this.targetExdr = FlexibleStringExpander.getInstance("");
-            } else {
-                this.targetExdr = FlexibleStringExpander.getInstance("showPortalPage");
-            }
-            this.targetWindowExdr = FlexibleStringExpander.getInstance("");
-            this.textExdr = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
-            this.urlMode = "intra-app";
-        }
-
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message)) {
-                return message;
-            } else if (getRequestConfirmation()) {
-                FlexibleStringExpander defaultMessage = FlexibleStringExpander.getInstance(UtilProperties.getPropertyValue(
-                        "general", "default.confirmation.message", "${uiLabelMap.CommonConfirm}"));
-                return defaultMessage.expandString(context);
-            }
-            return "";
-        }
-
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
+        public AutoServiceParameters getAutoServiceParameters() {
+            return link.getAutoServiceParameters();
         }
 
         public boolean getEncode() {
-            return this.encode;
+            return link.getEncode();
         }
 
         public boolean getFullPath() {
-            return this.fullPath;
+            return link.getFullPath();
+        }
+
+        public String getHeight() {
+            return link.getHeight();
         }
 
         public String getId(Map<String, Object> context) {
-            return this.idExdr.expandString(context);
+            return link.getId(context);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return link.getIdExdr();
         }
 
         public Image getImage() {
-            return this.image;
+            return link.getImage();
+        }
+
+        public String getLinkType() {
+            return link.getLinkType();
+        }
+
+        public String getName() {
+            return link.getName();
+        }
+
+        public String getName(Map<String, Object> context) {
+            return link.getName(context);
+        }
+
+        public FlexibleStringExpander getNameExdr() {
+            return link.getNameExdr();
+        }
+
+        public List<Parameter> getParameterList() {
+            return link.getParameterList();
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            return link.getParameterMap(context);
+        }
+
+        public String getPrefix(Map<String, Object> context) {
+            return link.getPrefix(context);
+        }
+
+        public FlexibleStringExpander getPrefixExdr() {
+            return link.getPrefixExdr();
+        }
+
+        public boolean getSecure() {
+            return link.getSecure();
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return link.getStyle(context);
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return link.getStyleExdr();
+        }
+
+        public String getTarget(Map<String, Object> context) {
+            return link.getTarget(context);
+        }
+
+        public FlexibleStringExpander getTargetExdr() {
+            return link.getTargetExdr();
+        }
+
+        public String getTargetWindow(Map<String, Object> context) {
+            return link.getTargetWindow(context);
+        }
+
+        public FlexibleStringExpander getTargetWindowExdr() {
+            return link.getTargetWindowExdr();
+        }
+
+        public String getText(Map<String, Object> context) {
+            return link.getText(context);
+        }
+
+        public FlexibleStringExpander getTextExdr() {
+            return link.getTextExdr();
+        }
+
+        public String getUrlMode() {
+            return link.getUrlMode();
+        }
+
+        public String getWidth() {
+            return link.getWidth();
+        }
+
+        public MenuLink(Element linkElement, ModelMenuItem parentMenuItem) {
+            this.linkMenuItem = parentMenuItem;
+            this.link = new Link(linkElement);
+        }
+
+        public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
+            this.linkMenuItem = parentMenuItem;
+            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+            if (parentMenuItem.link != null) {
+                parameterList.addAll(parentMenuItem.link.getParameterList());
+            }
+            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
+            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
+            String target = "showPortalPage";
+            if (parentMenuItem.link != null) {
+                target= "";
+            }
+            this.link = new Link(portalPage, parameterList, target, locale);
         }
 
         public ModelMenuItem getLinkMenuItem() {
             return linkMenuItem;
         }
 
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public String getName(Map<String, Object> context) {
-            return this.nameExdr.expandString(context);
-        }
-
-        public List<Parameter> getParameterList() {
-            return this.parameterList;
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-            if (this.parametersMapAcsr != null) {
-                Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-                if (addlParamMap != null) {
-                    fullParameterMap.putAll(addlParamMap);
-                }
-            }
-            for (Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, linkMenuItem.getModelMenu()
-                        .getDefaultEntityName()));
-            }
-            return fullParameterMap;
-        }
-
-        public String getPrefix(Map<String, Object> context) {
-            return this.prefixExdr.expandString(context);
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public boolean getSecure() {
-            return this.secure;
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            String style = this.styleExdr.expandString(context);
-            if (UtilValidate.isEmpty(style)) {
-                style = this.linkMenuItem.getWidgetStyle();
-            }
-            return style;
-        }
-
-        public String getTarget(Map<String, Object> context) {
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                return this.targetExdr.expandString(UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context,
-                        simpleEncoder));
-            } else {
-                return this.targetExdr.expandString(context);
-            }
-        }
-
-        public String getTargetWindow(Map<String, Object> context) {
-            return this.targetWindowExdr.expandString(context);
-        }
-
-        public String getText(Map<String, Object> context) {
-            String txt = this.textExdr.expandString(context);
-            if (UtilValidate.isEmpty(txt)) {
-                txt = linkMenuItem.getTitle(context);
-            }
-            // FIXME: Encoding should be done by the renderer, not by the model.
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                txt = simpleEncoder.encode(txt);
-            }
-            return txt;
-        }
-
-        public String getUrlMode() {
-            return this.urlMode;
+        public Link getLink() {
+            return link;
         }
 
         public void renderLinkString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)

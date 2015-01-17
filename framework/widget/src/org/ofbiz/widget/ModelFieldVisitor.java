@@ -4,7 +4,7 @@
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
+ * "License") throws Exception ; you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
@@ -45,45 +45,45 @@ import org.ofbiz.widget.form.ModelFormField.TextareaField;
  */
 public interface ModelFieldVisitor {
 
-    void visit(CheckField checkField);
+    void visit(CheckField checkField) throws Exception ;
 
-    void visit(ContainerField containerField);
+    void visit(ContainerField containerField) throws Exception ;
 
-    void visit(DateFindField dateTimeField);
+    void visit(DateFindField dateTimeField) throws Exception ;
 
-    void visit(DateTimeField dateTimeField);
+    void visit(DateTimeField dateTimeField) throws Exception ;
 
-    void visit(DisplayEntityField displayField);
+    void visit(DisplayEntityField displayField) throws Exception ;
 
-    void visit(DisplayField displayField);
+    void visit(DisplayField displayField) throws Exception ;
 
-    void visit(DropDownField dropDownField);
+    void visit(DropDownField dropDownField) throws Exception ;
 
-    void visit(FileField textField);
+    void visit(FileField textField) throws Exception ;
 
-    void visit(HiddenField hiddenField);
+    void visit(HiddenField hiddenField) throws Exception ;
 
-    void visit(HyperlinkField hyperlinkField);
+    void visit(HyperlinkField hyperlinkField) throws Exception ;
 
-    void visit(IgnoredField ignoredField);
+    void visit(IgnoredField ignoredField) throws Exception ;
 
-    void visit(ImageField imageField);
+    void visit(ImageField imageField) throws Exception ;
 
-    void visit(LookupField textField);
+    void visit(LookupField textField) throws Exception ;
 
-    void visit(PasswordField textField);
+    void visit(PasswordField textField) throws Exception ;
 
-    void visit(RadioField radioField);
+    void visit(RadioField radioField) throws Exception ;
 
-    void visit(RangeFindField textField);
+    void visit(RangeFindField textField) throws Exception ;
 
-    void visit(ResetField resetField);
+    void visit(ResetField resetField) throws Exception ;
 
-    void visit(SubmitField submitField);
+    void visit(SubmitField submitField) throws Exception ;
 
-    void visit(TextareaField textareaField);
+    void visit(TextareaField textareaField) throws Exception ;
 
-    void visit(TextField textField);
+    void visit(TextField textField) throws Exception ;
 
-    void visit(TextFindField textField);
+    void visit(TextFindField textField) throws Exception ;
 }

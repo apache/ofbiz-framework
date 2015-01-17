@@ -52,6 +52,7 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.CommonWidgetModels;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelFormField.CheckField;
@@ -307,7 +308,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
-        makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
+        makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
                 hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
         this.request.removeAttribute("image");
@@ -740,7 +741,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         String alert = "false";
         String name = modelFormField.getParameterName(context);
         String id = modelFormField.getCurrentContainerId(context);
-        String multiple = dropDownField.isAllowMultiple() ? "multiple" : "";
+        String multiple = dropDownField.getAllowMultiple() ? "multiple" : "";
         String otherFieldName = "";
         String formName = modelForm.getName();
         String size = dropDownField.getSize();
@@ -792,11 +793,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         explicitDescription = encode(explicitDescription, modelFormField, context);
         // if allow empty is true, add an empty option
-        if (dropDownField.isAllowEmpty()) {
+        if (dropDownField.getAllowEmpty()) {
             allowEmpty = "Y";
         }
         List<String> currentValueList = null;
-        if (UtilValidate.isNotEmpty(currentValue) && dropDownField.isAllowMultiple()) {
+        if (UtilValidate.isNotEmpty(currentValue) && dropDownField.getAllowMultiple()) {
             // If currentValue is Array, it will start with [
             if (currentValue.startsWith("[")) {
                 currentValueList = StringUtil.toList(currentValue);
@@ -1219,7 +1220,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
                     FlexibleStringExpander target = FlexibleStringExpander.getInstance(modelFormField.getHeaderLink());
                     String fullTarget = target.expandString(context);
                     targetBuffer.append(fullTarget);
-                    String targetType = HyperlinkField.DEFAULT_TARGET_TYPE;
+                    String targetType = CommonWidgetModels.Link.DEFAULT_URL_MODE;
                     if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                         targetType = "plain";
                     }
@@ -2907,8 +2908,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
-            makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context), subHyperlink.getParameterMap(context), subHyperlink.getDescription(context), subHyperlink.getTargetWindow(context), subHyperlink
-                    .getConfirmation(context), subHyperlink.getModelFormField(), this.request, this.response, context);
+            makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(),
+                    subHyperlink.getTarget(context), subHyperlink.getParameterMap(context), subHyperlink.getDescription(context),
+                    subHyperlink.getTargetWindow(context), null, subHyperlink.getModelFormField(), this.request, this.response,
+                    context);
         }
     }
 
@@ -3074,13 +3077,13 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
     }
 
-    public void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<WidgetWorker.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
+    public void makeHiddenFormLinkForm(Appendable writer, String target, String targetType, String targetWindow, List<CommonWidgetModels.Parameter> parameterList, ModelFormField modelFormField, HttpServletRequest request, HttpServletResponse response, Map<String, Object> context) throws IOException {
         StringBuilder actionUrl = new StringBuilder();
         WidgetWorker.buildHyperlinkUrl(actionUrl, target, targetType, null, null, false, false, true, request, response, context);
         String name = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
         StringBuilder parameters = new StringBuilder();
         parameters.append("[");
-        for (WidgetWorker.Parameter parameter : parameterList) {
+        for (CommonWidgetModels.Parameter parameter : parameterList) {
             if (parameters.length() > 1) {
                 parameters.append(",");
             }

@@ -967,158 +967,61 @@ under the License.
             <xs:attribute type="xs:string" name="value" />
         </xs:complexType>
     </xs:element>
-    <xs:element name="hyperlink" substitutionGroup="AllFields">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" ref="auto-parameters-service"/>
-                <xs:element minOccurs="0" ref="auto-parameters-entity"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
-            </xs:sequence>
-            <xs:attribute name="also-hidden" default="true">
-                <xs:annotation>
-                    <xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="link-type" default="auto">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="auto">
-                            <xs:annotation>
-                                <xs:documentation>If selected the hidden-form type will be used if the url-mode is intra-app and the request specified has an event, otherwise the anchor type will be used.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="anchor" />
-                        <xs:enumeration value="hidden-form" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="target-type" default="intra-app">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="intra-app" />
-                        <xs:enumeration value="inter-app" />
-                        <xs:enumeration value="content" />
-                        <xs:enumeration value="plain" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target" use="required">
-                <xs:annotation>
-                    <xs:documentation>The target location of the hyperlink; can use the ${} syntax to substitute values from the context.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="description">
-                <xs:annotation>
-                    <xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target-window" />
-            <xs:attribute type="xs:string" name="alternate">
-                <xs:annotation>
-                    <xs:documentation>Alternate text if the image is not found at image-location</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="image-title">
-                <xs:annotation>
-                    <xs:documentation>Use as a title for the HTML img tag</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="image-location" />
-            <xs:attribute name="request-confirmation" default="false">
-                <xs:annotation>
-                    <xs:documentation>If true then the user is presented with a dialog box, if confirmation-message is empty, use default</xs:documentation>
-                </xs:annotation>
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true" />
-                        <xs:enumeration value="false" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="confirmation-message" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>The message displayed in confirmation box</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="parameters-map" type="xs:string">
-                <xs:annotation>
-                    <xs:documentation>A Map in the context that will be used as additional name/value pairs.</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-            <xs:attribute type="xs:integer" name="size">
-                <xs:annotation>
-                    <xs:documentation>Specifies the size of the field (as a number of characters), when the text to display exceed the given size it is truncated and add the complete text as a hint</xs:documentation>
-                </xs:annotation>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="parameter">
-        <xs:complexType>
-            <xs:attribute type="xs:string" name="param-name" use="required" />
-            <xs:attribute type="xs:string" name="from-field" />
-            <xs:attribute type="xs:string" name="value" />
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="auto-parameters-service">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
-            </xs:sequence>
-            <xs:attribute name="service-name" type="xs:string">
-                 <xs:annotation>
-                     <xs:documentation>The service name used to resolve parameters. If empty, use form defaultServiceName. Flexible string allowed.</xs:documentation>
-                 </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="send-if-empty" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true"/>
-                        <xs:enumeration value="false"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="auto-parameters-entity">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="exclude"/>
-            </xs:sequence>
-            <xs:attribute name="entity-name" type="xs:string">
-                 <xs:annotation>
-                     <xs:documentation>The entity name used to resolve parameters. If empty use form defaultEntityName attribute. Flexible string allowed.</xs:documentation>
-                 </xs:annotation>
-            </xs:attribute>
-            <xs:attribute name="include" default="pk">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="pk"/>
-                        <xs:enumeration value="nonpk"/>
-                        <xs:enumeration value="all"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="send-if-empty" default="true">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="true"/>
-                        <xs:enumeration value="false"/>
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-        </xs:complexType>
-    </xs:element>
-    <xs:element name="exclude">
-        <xs:complexType>
-            <xs:attribute name="field-name" type="xs:string" use="required"/>
-        </xs:complexType>
-    </xs:element>
+    <xs:complexType name="hyperlink">
+        <xs:complexContent>
+            <xs:extension base="link">
+                <xs:attribute type="xs:string" name="description">
+                    <xs:annotation>
+                        <xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="request-confirmation" default="false">
+                    <xs:annotation>
+                        <xs:documentation>If true then the user is presented with a dialog box, if confirmation-message is empty, use default</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="true" />
+                            <xs:enumeration value="false" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="confirmation-message" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>The message displayed in confirmation box</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute name="also-hidden" default="true">
+                    <xs:annotation>
+                        <xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="true" />
+                            <xs:enumeration value="false" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <!-- These attributes have been replaced by the image element -->
+                <xs:attribute type="xs:string" name="alternate">
+                    <xs:annotation>
+                        <xs:documentation>Deprecated - use the image element.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute type="xs:string" name="image-title">
+                    <xs:annotation>
+                        <xs:documentation>Deprecated - use the image element.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+                <xs:attribute type="xs:string" name="image-location">
+                    <xs:annotation>
+                        <xs:documentation>Deprecated - use the image element.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="hyperlink" type="hyperlink" substitutionGroup="AllFields"/>
     <xs:element name="ignored" substitutionGroup="AllFields">
         <xs:complexType/>
     </xs:element>
@@ -1760,43 +1663,19 @@ under the License.
             <xs:attribute name="cols" type="xs:positiveInteger" default="40" />
         </xs:complexType>
     </xs:element>
-    <xs:element name="sub-hyperlink">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element minOccurs="0" ref="auto-parameters-service"/>
-                <xs:element minOccurs="0" ref="auto-parameters-entity"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="parameter" />
-            </xs:sequence>
+    <xs:complexType name="sub-hyperlink">
+        <xs:complexContent>
+            <xs:extension base="link">
+                <xs:attribute type="xs:string" name="description">
+                    <xs:annotation>
+                        <xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
             <xs:attribute type="xs:string" name="use-when" />
-            <xs:attribute type="xs:string" name="link-style" />
-            <xs:attribute name="link-type" default="auto">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="auto">
-                            <xs:annotation>
-                                <xs:documentation>If selected the hidden-form type will be used if the url-mode is intra-app and the request specified has an event, otherwise the anchor type will be used.</xs:documentation>
-                            </xs:annotation>
-                        </xs:enumeration>
-                        <xs:enumeration value="anchor" />
-                        <xs:enumeration value="hidden-form" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute name="target-type" default="intra-app">
-                <xs:simpleType>
-                    <xs:restriction base="xs:token">
-                        <xs:enumeration value="intra-app" />
-                        <xs:enumeration value="inter-app" />
-                        <xs:enumeration value="content" />
-                        <xs:enumeration value="plain" />
-                    </xs:restriction>
-                </xs:simpleType>
-            </xs:attribute>
-            <xs:attribute type="xs:string" name="target" use="required" />
-            <xs:attribute type="xs:string" name="description" />
-            <xs:attribute type="xs:string" name="target-window" />
-        </xs:complexType>
-    </xs:element>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:element name="sub-hyperlink" type="sub-hyperlink"/>
 
   <!-- ================== ACTIONS ==================== -->
     <xs:element name="actions">

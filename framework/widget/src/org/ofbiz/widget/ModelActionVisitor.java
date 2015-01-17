@@ -4,7 +4,7 @@
  * distributed with this work for additional information
  * regarding copyright ownership.  The ASF licenses this file
  * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
+ * "License") throws Exception ; you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
@@ -23,41 +23,41 @@ import org.ofbiz.widget.menu.ModelMenuAction;
 import org.ofbiz.widget.tree.ModelTreeAction;
 
 /**
- *  A <code>ModelWidgetAction</code> visitor.
+ *  A <code>ModelAction</code> visitor.
  */
 public interface ModelActionVisitor {
 
-    void visit(ModelFormAction.CallParentActions callParentActions);
+    void visit(ModelFormAction.CallParentActions callParentActions) throws Exception;
 
-    void visit(ModelWidgetAction.EntityAnd entityAnd);
+    void visit(AbstractModelAction.EntityAnd entityAnd) throws Exception;
 
-    void visit(ModelWidgetAction.EntityCondition entityCondition);
+    void visit(AbstractModelAction.EntityCondition entityCondition) throws Exception;
 
-    void visit(ModelWidgetAction.EntityOne entityOne);
+    void visit(AbstractModelAction.EntityOne entityOne) throws Exception;
 
-    void visit(ModelWidgetAction.GetRelated getRelated);
+    void visit(AbstractModelAction.GetRelated getRelated) throws Exception;
 
-    void visit(ModelWidgetAction.GetRelatedOne getRelatedOne);
+    void visit(AbstractModelAction.GetRelatedOne getRelatedOne) throws Exception;
 
-    void visit(ModelWidgetAction.PropertyMap propertyMap);
+    void visit(AbstractModelAction.PropertyMap propertyMap) throws Exception;
 
-    void visit(ModelWidgetAction.PropertyToField propertyToField);
+    void visit(AbstractModelAction.PropertyToField propertyToField) throws Exception;
 
-    void visit(ModelWidgetAction.Script script);
+    void visit(AbstractModelAction.Script script) throws Exception;
 
-    void visit(ModelWidgetAction.Service service);
+    void visit(AbstractModelAction.Service service) throws Exception;
 
-    void visit(ModelWidgetAction.SetField setField);
+    void visit(AbstractModelAction.SetField setField) throws Exception;
 
-    void visit(ModelFormAction.Service service);
+    void visit(ModelFormAction.Service service) throws Exception;
 
-    void visit(ModelMenuAction.SetField setField);
+    void visit(ModelMenuAction.SetField setField) throws Exception;
 
-    void visit(ModelTreeAction.Script script);
+    void visit(ModelTreeAction.Script script) throws Exception;
 
-    void visit(ModelTreeAction.Service service);
+    void visit(ModelTreeAction.Service service) throws Exception;
 
-    void visit(ModelTreeAction.EntityAnd entityAnd);
+    void visit(ModelTreeAction.EntityAnd entityAnd) throws Exception;
 
-    void visit(ModelTreeAction.EntityCondition entityCondition);
+    void visit(ModelTreeAction.EntityCondition entityCondition) throws Exception;
 }

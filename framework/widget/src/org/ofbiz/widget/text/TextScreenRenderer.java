@@ -75,11 +75,11 @@ public class TextScreenRenderer implements ScreenStringRenderer {
         // TODO: not implemented
     }
 
-    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenLink link) throws IOException {
         // TODO: not implemented
     }
 
-    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.ScreenImage image) throws IOException {
         // TODO: not implemented
     }
 

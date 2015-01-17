@@ -44,8 +44,9 @@ import org.ofbiz.minilang.method.MethodContext;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.AbstractModelAction;
+import org.ofbiz.widget.ModelAction;
 import org.ofbiz.widget.ModelActionVisitor;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.tree.ModelTree.ModelNode;
 import org.w3c.dom.Document;
@@ -55,7 +56,7 @@ import org.w3c.dom.Element;
  * Abstract tree action.
  */
 @SuppressWarnings("serial")
-public abstract class ModelTreeAction extends ModelWidgetAction {
+public abstract class ModelTreeAction extends AbstractModelAction {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -73,24 +74,24 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
 
     public static final String module = ModelTreeAction.class.getName();
 
-    public static List<ModelWidgetAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
+    public static List<ModelAction> readNodeActions(ModelNode modelNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
-        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelNode, actionElement));
             } else if ("script".equals(actionElement.getNodeName())) {
                 actions.add(new Script(modelNode, actionElement));
             } else {
-                actions.add(ModelWidgetAction.newInstance(modelNode, actionElement));
+                actions.add(AbstractModelAction.newInstance(modelNode, actionElement));
             }
         }
         return actions;
     }
 
-    public static List<ModelWidgetAction> readSubNodeActions(ModelNode.ModelSubNode modelSubNode, Element actionsElement) {
+    public static List<ModelAction> readSubNodeActions(ModelNode.ModelSubNode modelSubNode, Element actionsElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(actionsElement);
-        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelSubNode, actionElement));
@@ -101,7 +102,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
             } else if ("script".equals(actionElement.getNodeName())) {
                 actions.add(new Script(modelSubNode, actionElement));
             } else {
-                actions.add(ModelWidgetAction.newInstance(modelSubNode, actionElement));
+                actions.add(AbstractModelAction.newInstance(modelSubNode, actionElement));
             }
         }
         return actions;
@@ -157,7 +158,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -217,7 +218,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -276,7 +277,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -357,7 +358,7 @@ public abstract class ModelTreeAction extends ModelWidgetAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 

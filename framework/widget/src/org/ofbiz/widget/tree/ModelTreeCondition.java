@@ -18,7 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.widget.tree;
 
-import org.ofbiz.widget.ModelWidgetCondition;
+import org.ofbiz.widget.AbstractModelCondition;
+import org.ofbiz.widget.ModelCondition;
 import org.w3c.dom.Element;
 
 /**
@@ -26,11 +27,15 @@ import org.w3c.dom.Element;
  * 
  * @see <code>widget-tree.xsd</code>
  */
-@SuppressWarnings("serial")
-public class ModelTreeCondition extends ModelWidgetCondition {
+public class ModelTreeCondition {
     public static final String module = ModelTreeCondition.class.getName();
+    private final ModelCondition condition;
 
     public ModelTreeCondition(ModelTree modelTree, Element conditionElement) {
-        super(ModelWidgetCondition.DEFAULT_CONDITION_FACTORY, modelTree, conditionElement);
+        this.condition = AbstractModelCondition.DEFAULT_CONDITION_FACTORY.newInstance(modelTree, conditionElement);
+    }
+
+    public ModelCondition getCondition() {
+        return condition;
     }
 }

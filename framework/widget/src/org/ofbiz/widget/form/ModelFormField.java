@@ -61,6 +61,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.widget.CommonWidgetModels.*;
 import org.ofbiz.widget.ModelFieldVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelForm.UpdateArea;
@@ -901,7 +902,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -949,7 +950,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -999,7 +1000,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -1091,7 +1092,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -1210,7 +1211,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -1364,7 +1365,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -1641,7 +1642,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -1712,11 +1713,11 @@ public class ModelFormField {
             return this.textSize;
         }
 
-        public boolean isAllowEmpty() {
+        public boolean getAllowEmpty() {
             return this.allowEmpty;
         }
 
-        public boolean isAllowMultiple() {
+        public boolean getAllowMultiple() {
             return this.allowMulti;
         }
 
@@ -2007,7 +2008,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2052,7 +2053,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2091,110 +2092,32 @@ public class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class HyperlinkField extends FieldInfo {
-        public static String DEFAULT_TARGET_TYPE = "intra-app";
 
         private final boolean alsoHidden;
-        private final FlexibleStringExpander alternate;
-        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
-        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
         private final FlexibleStringExpander confirmationMsgExdr;
         private final FlexibleStringExpander description;
-        private final FlexibleStringExpander imageLocation;
-        private final FlexibleStringExpander imageTitle;
-        private final String linkType;
-        private final List<WidgetWorker.Parameter> parameterList;
-        private final FlexibleMapAccessor<Map<String, String>> parametersMapAcsr;
         private final boolean requestConfirmation;
-        private final String size;
-        private final FlexibleStringExpander target;
-        private final String targetType;
-        private final FlexibleStringExpander targetWindowExdr;
-
+        private final Link link;
         public HyperlinkField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
-            this.alternate = FlexibleStringExpander.getInstance(element.getAttribute("alternate"));
-            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
-            } else {
-                this.autoEntityParameters = null;
-            }
-            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            } else {
-                this.autoServiceParameters = null;
-            }
             this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
             this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
-            this.imageLocation = FlexibleStringExpander.getInstance(element.getAttribute("image-location"));
-            this.imageTitle = FlexibleStringExpander.getInstance(element.getAttribute("image-title"));
-            this.linkType = element.getAttribute("link-type");
-            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
-            if (!parameterElementList.isEmpty()) {
-                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
-                for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
-                }
-                this.parameterList = Collections.unmodifiableList(parameterList);
-            } else {
-                this.parameterList = Collections.emptyList();
-            }
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("parameters-map"));
             this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
-            this.size = element.getAttribute("size");
-            this.target = FlexibleStringExpander.getInstance(element.getAttribute("target"));
-            this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
+            this.link = new Link(element);
         }
 
         private HyperlinkField(HyperlinkField original, ModelFormField modelFormField) {
             super(original.getFieldSource(), original.getFieldType(), modelFormField);
-            this.description = original.description;
-            this.alternate = original.alternate;
-            this.imageLocation = original.imageLocation;
-            this.imageTitle = original.imageTitle;
-            this.target = original.target;
             this.alsoHidden = original.alsoHidden;
-            this.linkType = original.linkType;
-            this.targetType = original.targetType;
-            this.targetWindowExdr = original.targetWindowExdr;
-            this.parametersMapAcsr = original.parametersMapAcsr;
-            this.size = original.size;
-            this.requestConfirmation = original.requestConfirmation;
             this.confirmationMsgExdr = original.confirmationMsgExdr;
-            this.parameterList = original.parameterList;
-            this.autoEntityParameters = original.autoEntityParameters;
-            this.autoServiceParameters = original.autoServiceParameters;
-        }
-
-        public HyperlinkField(int fieldSource, ModelFormField modelFormField) {
-            super(fieldSource, FieldInfo.HYPERLINK, modelFormField);
-            this.alsoHidden = true;
-            this.alternate = FlexibleStringExpander.getInstance("");
-            this.autoEntityParameters = null;
-            this.autoServiceParameters = null;
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
-            this.description = FlexibleStringExpander.getInstance("");
-            this.imageLocation = FlexibleStringExpander.getInstance("");
-            this.imageTitle = FlexibleStringExpander.getInstance("");
-            this.linkType = "";
-            this.parameterList = Collections.emptyList();
-            this.parametersMapAcsr = FlexibleMapAccessor.getInstance("");
-            this.requestConfirmation = false;
-            this.size = "";
-            this.target = FlexibleStringExpander.getInstance("");
-            this.targetType = "";
-            this.targetWindowExdr = FlexibleStringExpander.getInstance("");
-        }
-
-        public HyperlinkField(ModelFormField modelFormField) {
-            this(FieldInfo.SOURCE_EXPLICIT, modelFormField);
+            this.description = original.description;
+            this.requestConfirmation = original.requestConfirmation;
+            this.link = original.link;
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2207,22 +2130,6 @@ public class ModelFormField {
             return this.alsoHidden;
         }
 
-        public FlexibleStringExpander getAlternate() {
-            return alternate;
-        }
-
-        public String getAlternate(Map<String, Object> context) {
-            return this.alternate.expandString(context);
-        }
-
-        public WidgetWorker.AutoEntityParameters getAutoEntityParameters() {
-            return autoEntityParameters;
-        }
-
-        public WidgetWorker.AutoServiceParameters getAutoServiceParameters() {
-            return autoServiceParameters;
-        }
-
         public String getConfirmation(Map<String, Object> context) {
             String message = getConfirmationMsg(context);
             if (UtilValidate.isNotEmpty(message))
@@ -2231,6 +2138,27 @@ public class ModelFormField {
                 String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
                         "${uiLabelMap.CommonConfirm}");
                 return FlexibleStringExpander.expandString(defaultMessage, context);
+            }
+            return "";
+        }
+
+        public String getAlternate(Map<String, Object> context) {
+            if (link.getImage() != null) {
+                return link.getImage().getAlt(context);
+            }
+            return "";
+        }
+
+        public String getImageTitle(Map<String, Object> context) {
+            if (link.getImage() != null) {
+                return link.getImage().getTitleExdr().expandString(context);
+            }
+            return "";
+        }
+
+        public String getImageLocation(Map<String, Object> context) {
+            if (link.getImage() != null) {
+                return link.getImage().getSrc(context);
             }
             return "";
         }
@@ -2251,88 +2179,124 @@ public class ModelFormField {
             return this.description.expandString(context);
         }
 
-        public FlexibleStringExpander getImageLocation() {
-            return imageLocation;
-        }
-
-        public String getImageLocation(Map<String, Object> context) {
-            return this.imageLocation.expandString(context);
-        }
-
-        public FlexibleStringExpander getImageTitle() {
-            return imageTitle;
-        }
-
-        public String getImageTitle(Map<String, Object> context) {
-            return this.imageTitle.expandString(context);
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return parameterList;
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
-            }
-
-            for (WidgetWorker.Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultServiceName()));
-            }
-
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultEntityName()));
-            }
-
-            return fullParameterMap;
-        }
-
-        public FlexibleMapAccessor<Map<String, String>> getParametersMapAcsr() {
-            return parametersMapAcsr;
-        }
-
         public boolean getRequestConfirmation() {
             return this.requestConfirmation;
         }
 
-        public String getSize() {
-            return this.size;
+        public Link getLink() {
+            return link;
         }
 
-        public FlexibleStringExpander getTarget() {
-            return target;
+        public AutoEntityParameters getAutoEntityParameters() {
+            return link.getAutoEntityParameters();
+        }
+
+        public AutoServiceParameters getAutoServiceParameters() {
+            return link.getAutoServiceParameters();
+        }
+
+        public boolean getEncode() {
+            return link.getEncode();
+        }
+
+        public boolean getFullPath() {
+            return link.getFullPath();
+        }
+
+        public String getHeight() {
+            return link.getHeight();
+        }
+
+        public String getId(Map<String, Object> context) {
+            return link.getId(context);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return link.getIdExdr();
+        }
+
+        public Image getImage() {
+            return link.getImage();
+        }
+
+        public String getLinkType() {
+            return link.getLinkType();
+        }
+
+        public String getName() {
+            return link.getName();
+        }
+
+        public String getName(Map<String, Object> context) {
+            return link.getName(context);
+        }
+
+        public FlexibleStringExpander getNameExdr() {
+            return link.getNameExdr();
+        }
+
+        public List<Parameter> getParameterList() {
+            return link.getParameterList();
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            return link.getParameterMap(context);
+        }
+
+        public String getPrefix(Map<String, Object> context) {
+            return link.getPrefix(context);
+        }
+
+        public FlexibleStringExpander getPrefixExdr() {
+            return link.getPrefixExdr();
+        }
+
+        public boolean getSecure() {
+            return link.getSecure();
+        }
+
+        public Integer getSize() {
+            return link.getSize();
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return link.getStyle(context);
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return link.getStyleExdr();
         }
 
         public String getTarget(Map<String, Object> context) {
-            return this.target.expandString(context);
+            return link.getTarget(context);
         }
 
-        public String getTargetType() {
-            if (UtilValidate.isNotEmpty(this.targetType))
-                return this.targetType;
-            return HyperlinkField.DEFAULT_TARGET_TYPE;
+        public FlexibleStringExpander getTargetExdr() {
+            return link.getTargetExdr();
         }
 
         public String getTargetWindow(Map<String, Object> context) {
-            String targetWindow = this.targetWindowExdr.expandString(context);
-            return targetWindow;
+            return link.getTargetWindow(context);
         }
 
         public FlexibleStringExpander getTargetWindowExdr() {
-            return targetWindowExdr;
+            return link.getTargetWindowExdr();
+        }
+
+        public String getText(Map<String, Object> context) {
+            return link.getText(context);
+        }
+
+        public FlexibleStringExpander getTextExdr() {
+            return link.getTextExdr();
+        }
+
+        public String getUrlMode() {
+            return link.getUrlMode();
+        }
+
+        public String getWidth() {
+            return link.getWidth();
         }
 
         @Override
@@ -2366,7 +2330,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2439,7 +2403,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2841,7 +2805,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -2968,7 +2932,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3008,7 +2972,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3052,7 +3016,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3100,7 +3064,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3169,99 +3133,135 @@ public class ModelFormField {
      * @see <code>widget-form.xsd</code>
      */
     public static class SubHyperlink {
-        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
-        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
-        private final FlexibleStringExpander confirmationMsgExdr;
         private final FlexibleStringExpander description;
-        private final String linkStyle;
-        private final String linkType;
-        private final ModelFormField modelFormField;
-        private final List<WidgetWorker.Parameter> parameterList;
-        private final boolean requestConfirmation;
-        private final FlexibleStringExpander target;
-        private final String targetType;
-        private final FlexibleStringExpander targetWindowExdr;
         private final FlexibleStringExpander useWhen;
+        private final Link link;
+        private final ModelFormField modelFormField;
 
         public SubHyperlink(Element element, ModelFormField modelFormField) {
-            Element autoEntityParamsElement = UtilXml.firstChildElement(element, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
-            } else {
-                this.autoEntityParameters = null;
-            }
-            Element autoServiceParamsElement = UtilXml.firstChildElement(element, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            } else {
-                this.autoServiceParameters = null;
-            }
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
             this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
-            this.linkStyle = element.getAttribute("link-style");
-            this.linkType = element.getAttribute("link-type");
-            this.modelFormField = modelFormField;
-            List<? extends Element> parameterElementList = UtilXml.childElementList(element, "parameter");
-            if (!parameterElementList.isEmpty()) {
-                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
-                for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
-                }
-                this.parameterList = Collections.unmodifiableList(parameterList);
-            } else {
-                this.parameterList = Collections.emptyList();
-
-            }
-            this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
-            this.target = FlexibleStringExpander.getInstance(element.getAttribute("target"));
-            this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
             this.useWhen = FlexibleStringExpander.getInstance(element.getAttribute("use-when"));
+            this.link = new Link(element);
+            this.modelFormField = modelFormField;
         }
 
         public SubHyperlink(SubHyperlink original, ModelFormField modelFormField) {
-            this.autoEntityParameters = original.autoEntityParameters;
-            this.autoServiceParameters = original.autoServiceParameters;
-            this.confirmationMsgExdr = original.confirmationMsgExdr;
             this.description = original.description;
-            this.linkStyle = original.linkStyle;
-            this.linkType = original.linkType;
-            this.modelFormField = modelFormField;
-            this.parameterList = original.parameterList;
-            this.requestConfirmation = original.requestConfirmation;
-            this.target = original.target;
-            this.targetType = original.targetType;
-            this.targetWindowExdr = original.targetWindowExdr;
             this.useWhen = original.useWhen;
+            this.link = original.link;
+            this.modelFormField = modelFormField;
         }
 
-        public WidgetWorker.AutoEntityParameters getAutoEntityParameters() {
-            return autoEntityParameters;
+        public AutoEntityParameters getAutoEntityParameters() {
+            return link.getAutoEntityParameters();
         }
 
-        public WidgetWorker.AutoServiceParameters getAutoServiceParameters() {
-            return autoServiceParameters;
+        public AutoServiceParameters getAutoServiceParameters() {
+            return link.getAutoServiceParameters();
         }
 
-        public String getConfirmation(Map<String, Object> context) {
-            String message = getConfirmationMsg(context);
-            if (UtilValidate.isNotEmpty(message))
-                return message;
-
-            if (getRequestConfirmation()) {
-                String defaultMessage = UtilProperties.getPropertyValue("general", "default.confirmation.message",
-                        "${uiLabelMap.CommonConfirm}");
-                return FlexibleStringExpander.expandString(defaultMessage, context);
-            }
-            return "";
+        public boolean getEncode() {
+            return link.getEncode();
         }
 
-        public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
+        public boolean getFullPath() {
+            return link.getFullPath();
         }
 
-        public FlexibleStringExpander getConfirmationMsgExdr() {
-            return confirmationMsgExdr;
+        public String getHeight() {
+            return link.getHeight();
+        }
+
+        public String getId(Map<String, Object> context) {
+            return link.getId(context);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return link.getIdExdr();
+        }
+
+        public Image getImage() {
+            return link.getImage();
+        }
+
+        public String getLinkType() {
+            return link.getLinkType();
+        }
+
+        public String getName() {
+            return link.getName();
+        }
+
+        public String getName(Map<String, Object> context) {
+            return link.getName(context);
+        }
+
+        public FlexibleStringExpander getNameExdr() {
+            return link.getNameExdr();
+        }
+
+        public List<Parameter> getParameterList() {
+            return link.getParameterList();
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            return link.getParameterMap(context);
+        }
+
+        public String getPrefix(Map<String, Object> context) {
+            return link.getPrefix(context);
+        }
+
+        public FlexibleStringExpander getPrefixExdr() {
+            return link.getPrefixExdr();
+        }
+
+        public boolean getSecure() {
+            return link.getSecure();
+        }
+
+        public Integer getSize() {
+            return link.getSize();
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return link.getStyle(context);
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return link.getStyleExdr();
+        }
+
+        public String getTarget(Map<String, Object> context) {
+            return link.getTarget(context);
+        }
+
+        public FlexibleStringExpander getTargetExdr() {
+            return link.getTargetExdr();
+        }
+
+        public String getTargetWindow(Map<String, Object> context) {
+            return link.getTargetWindow(context);
+        }
+
+        public FlexibleStringExpander getTargetWindowExdr() {
+            return link.getTargetWindowExdr();
+        }
+
+        public String getText(Map<String, Object> context) {
+            return link.getText(context);
+        }
+
+        public FlexibleStringExpander getTextExdr() {
+            return link.getTextExdr();
+        }
+
+        public String getUrlMode() {
+            return link.getUrlMode();
+        }
+
+        public String getWidth() {
+            return link.getWidth();
         }
 
         public FlexibleStringExpander getDescription() {
@@ -3269,96 +3269,23 @@ public class ModelFormField {
         }
 
         public String getDescription(Map<String, Object> context) {
-            if (this.description != null) {
-                return this.description.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getLinkStyle() {
-            return this.linkStyle;
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public ModelFormField getModelFormField() {
-            return this.modelFormField;
-        }
-
-        public List<WidgetWorker.Parameter> getParameterList() {
-            return parameterList;
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            /* leaving this here... may want to add it at some point like the hyperlink element:
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
-            }
-            */
-
-            for (WidgetWorker.Parameter parameter : this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, getModelFormField().getModelForm()
-                        .getDefaultServiceName()));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, this.getModelFormField().getModelForm()
-                        .getDefaultEntityName()));
-            }
-
-            return fullParameterMap;
-        }
-
-        public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
-        }
-
-        public FlexibleStringExpander getTarget() {
-            return target;
-        }
-
-        public String getTarget(Map<String, Object> context) {
-            if (this.target != null) {
-                return this.target.expandString(context);
-            } else {
-                return "";
-            }
-        }
-
-        public String getTargetType() {
-            if (UtilValidate.isNotEmpty(this.targetType))
-                return this.targetType;
-            return HyperlinkField.DEFAULT_TARGET_TYPE;
-        }
-
-        public String getTargetWindow(Map<String, Object> context) {
-            String targetWindow = this.targetWindowExdr.expandString(context);
-            return targetWindow;
-        }
-
-        public FlexibleStringExpander getTargetWindowExdr() {
-            return targetWindowExdr;
+            return description.expandString(context);
         }
 
         public FlexibleStringExpander getUseWhen() {
             return useWhen;
         }
 
+        public Link getLink() {
+            return link;
+        }
+
         public String getUseWhen(Map<String, Object> context) {
-            if (this.useWhen != null) {
-                return this.useWhen.expandString(context);
-            } else {
-                return "";
-            }
+            return this.useWhen.expandString(context);
+        }
+
+        public ModelFormField getModelFormField() {
+            return modelFormField;
         }
 
         public boolean shouldUse(Map<String, Object> context) {
@@ -3437,7 +3364,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3569,7 +3496,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3727,7 +3654,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -3841,7 +3768,7 @@ public class ModelFormField {
         }
 
         @Override
-        public void accept(ModelFieldVisitor visitor) {
+        public void accept(ModelFieldVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 

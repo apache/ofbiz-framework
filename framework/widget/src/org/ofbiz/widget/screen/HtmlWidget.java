@@ -221,6 +221,10 @@ public class HtmlWidget extends ModelScreenWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
     }
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
@@ -266,16 +270,21 @@ public class HtmlWidget extends ModelScreenWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
+        public Map<String, ModelScreenWidget> getSectionMap() {
+            return sectionMap;
+        }
     }
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
-        protected String name;
         protected List<ModelScreenWidget> subWidgets;
 
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);
-            this.name = htmlTemplateDecoratorSectionElement.getAttribute("name");
-            // read sub-widgets
             List<? extends Element> subElementList = UtilXml.childElementList(htmlTemplateDecoratorSectionElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(getModelScreen(), subElementList);
         }
@@ -289,6 +298,10 @@ public class HtmlWidget extends ModelScreenWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public List<ModelScreenWidget> getSubWidgets() {
+            return subWidgets;
         }
     }
 

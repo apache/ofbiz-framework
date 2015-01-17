@@ -361,6 +361,27 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public void accept(ModelWidgetVisitor visitor) throws Exception {
         visitor.visit(this);
     }
+
+    public FlexibleMapAccessor<Object> getListNameExdr() {
+        return listNameExdr;
+    }
+
+    public FlexibleStringExpander getEntryNameExdr() {
+        return entryNameExdr;
+    }
+
+    public FlexibleStringExpander getKeyNameExdr() {
+        return keyNameExdr;
+    }
+
+    public FlexibleStringExpander getPaginateTarget() {
+        return paginateTarget;
+    }
+
+    public FlexibleStringExpander getPaginate() {
+        return paginate;
+    }
+
 }
 
 

@@ -21,8 +21,10 @@ package org.ofbiz.widget;
 import java.io.Serializable;
 import java.util.Map;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.widget.xml.XmlWidgetVisitor;
 import org.w3c.dom.Element;
 
 /**
@@ -32,11 +34,13 @@ import org.w3c.dom.Element;
 @SuppressWarnings("serial")
 public abstract class ModelWidget implements Serializable {
 
+    public static final String module = ModelWidget.class.getName();
     /**
      * The parameter name used to control widget boundary comments. Currently
      * set to "widgetVerbose".
      */
     public static final String enableBoundaryCommentsParam = "widgetVerbose";
+
     private final String name;
     private final String systemId;
     private final int startColumn;
@@ -100,7 +104,14 @@ public abstract class ModelWidget implements Serializable {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + "[" + getSystemId() + "#" + getName() + "@" + getStartColumn() + "," + getStartLine() + "]";
+        StringBuilder sb = new StringBuilder();
+        ModelWidgetVisitor visitor = new XmlWidgetVisitor(sb);
+        try {
+            accept(visitor);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Exception thrown in XmlWidgetVisitor: ", module);
+        }
+        return sb.toString();
     }
 
     /**

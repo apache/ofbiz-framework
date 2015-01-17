@@ -41,8 +41,8 @@ import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.menu.ModelMenuItem;
-import org.ofbiz.widget.menu.ModelMenuItem.Image;
-import org.ofbiz.widget.menu.ModelMenuItem.Link;
+import org.ofbiz.widget.CommonWidgetModels.*;
+import org.ofbiz.widget.menu.ModelMenuItem.MenuLink;
 
 /**
  * Widget Library - HTML Menu Renderer implementation
@@ -180,7 +180,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         }
         writer.append(">");
 
-        Link link = menuItem.getLink();
+        MenuLink link = menuItem.getLink();
         //if (Debug.infoOn()) Debug.logInfo("in HtmlMenuRendererImage, link(0):" + link,"");
         if (link != null) {
             renderLink(writer, context, link);
@@ -375,7 +375,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         return title;
     }
 
-    public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ModelMenuItem.MenuLink link) throws IOException {
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
         if (isDisableIfEmpty(menuItem, context)) {
@@ -453,7 +453,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
             }
 
             writer.append(" href=\"");
-            String confirmationMsg = link.getConfirmation(context);
+            String confirmationMsg = null;
             if ("hidden-form".equals(linkType)) {
                 if (UtilValidate.isNotEmpty(confirmationMsg)) {
                     writer.append("javascript:confirmActionFormLink('");
@@ -523,7 +523,7 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         */
     }
 
-    public void renderImage(Appendable writer, Map<String, Object> context, ModelMenuItem.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, Image image) throws IOException {
         // open tag
         writer.append("<img ");
         String id = image.getId(context);
