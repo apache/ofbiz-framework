@@ -1308,10 +1308,10 @@ under the License.
                 <set field="parameters.contactMechIdFrom" from-field="contact.contactMechId"/>
             </else>
         </if-empty>
-        <set-service-fields service-name="createCommunicationEventWithoutPermission" to-map="newComm" map="parameters"/>
-        <set field="newComm.partyIdFrom" from-field="parameters.partyId"/>
-        <call-service service-name="createCommunicationEventWithoutPermission" in-map-name="newComm">
-            <default-message property="CommonGenericServiceSuccessMessage" resource="CommonUiLabels"></default-message>
+        <set-service-fields service-name="sendContactUsEmailToCompany" to-map="newComm" map="parameters"/>
+        <set field="newComm.emailType" value="CONT_NOTI_EMAIL"/>
+        <call-service service-name="sendContactUsEmailToCompany" in-map-name="newComm">
+            <default-message property="ThankYouForContactingUs" resource="EcommerceUiLabels"></default-message>
         </call-service>
     </simple-method>
     <simple-method method-name="fromSetSessionLocale" 

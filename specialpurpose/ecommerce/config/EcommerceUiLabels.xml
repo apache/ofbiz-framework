@@ -5159,4 +5159,7 @@
         <value xml:lang="zh">浏览询价</value>
         <value xml:lang="zh-TW">檢視報價</value>
     </property>
+    <property key="ThankYouForContactingUs">
+        <value xml:lang="en">Thank You for contacting us.</value>
+    </property>
 </resource>
