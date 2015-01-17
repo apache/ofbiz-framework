@@ -36,6 +36,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 
 /**
@@ -81,24 +82,26 @@ public class CatalogUrlServlet extends HttpServlet {
         String pathInfo = request.getPathInfo();
         List<String> pathElements = StringUtil.split(pathInfo, "/");
 
-        // look for productId
         String productId = null;
+        String categoryId = null;
         try {
             String lastPathElement = pathElements.get(pathElements.size() - 1);
-            if (lastPathElement.startsWith("p_") || EntityQuery.use(delegator).from("Product").where("productId", lastPathElement).cache(true).queryOne() != null) {
-                if (lastPathElement.startsWith("p_")) {
-                    productId = lastPathElement.substring(2);
+            if (lastPathElement.startsWith("p_")) {
+                productId = lastPathElement.substring(2);
+            } else {
+                GenericValue productCategory =  EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", lastPathElement).cache(true).queryOne();
+                if (UtilValidate.isNotEmpty(productCategory)) {
+                    categoryId = lastPathElement;
                 } else {
                     productId = lastPathElement;
                 }
-                pathElements.remove(pathElements.size() - 1);
             }
+            pathElements.remove(pathElements.size() - 1);
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Error looking up product info for ProductUrl with path info [" + pathInfo + "]: " + e.toString(), module);
+            Debug.logError(e, "Error in looking up ProductUrl or CategoryUrl with path info [" + pathInfo + "]: " + e.toString(), module);
         }
 
         // get category info going with the IDs that remain
-        String categoryId = null;
         if (pathElements.size() == 1) {
             CategoryWorker.setTrail(request, pathElements.get(0), null);
             categoryId = pathElements.get(0);
