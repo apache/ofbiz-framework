@@ -42,6 +42,7 @@ import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.CommonWidgetModels;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormRenderer;
@@ -337,7 +338,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         String description = encode(hyperlinkField.getDescription(context), modelFormField, context);
         String confirmation = encode(hyperlinkField.getConfirmation(context), modelFormField, context);
-        WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getTargetType(), hyperlinkField.getTarget(context),
+        WidgetWorker.makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context),
                 hyperlinkField.getParameterMap(context), description, hyperlinkField.getTargetWindow(context), confirmation, modelFormField,
                 this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
@@ -351,8 +352,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         if (subHyperlink.shouldUse(context)) {
             writer.append(' ');
             String description = encode(subHyperlink.getDescription(context), subHyperlink.getModelFormField(), context);
-            WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getLinkStyle(), subHyperlink.getTargetType(), subHyperlink.getTarget(context),
-                    subHyperlink.getParameterMap(context), description, subHyperlink.getTargetWindow(context), subHyperlink.getConfirmation(context), subHyperlink.getModelFormField(),
+            WidgetWorker.makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(), subHyperlink.getTarget(context),
+                    subHyperlink.getParameterMap(context), description, subHyperlink.getTargetWindow(context), null, subHyperlink.getModelFormField(),
                     this.request, this.response, context);
         }
     }
@@ -654,7 +655,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 writer.append('"');
             }
 
-            if (dropDownField.isAllowMultiple()) {
+            if (dropDownField.getAllowMultiple()) {
                 writer.append(" multiple=\"multiple\"");
             }
 
@@ -703,7 +704,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             }
 
             // if allow empty is true, add an empty option
-            if (dropDownField.isAllowEmpty()) {
+            if (dropDownField.getAllowEmpty()) {
                 writer.append("<option value=\"\">&nbsp;</option>");
             }
 
@@ -2748,7 +2749,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             FlexibleStringExpander target = FlexibleStringExpander.getInstance(modelFormField.getHeaderLink());
             String fullTarget = target.expandString(context);
             targetBuffer.append(fullTarget);
-            String targetType = HyperlinkField.DEFAULT_TARGET_TYPE;
+            String targetType = CommonWidgetModels.Link.DEFAULT_URL_MODE;
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
                 targetType="plain";
             }

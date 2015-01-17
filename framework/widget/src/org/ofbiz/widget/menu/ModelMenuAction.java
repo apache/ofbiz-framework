@@ -39,7 +39,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.ModelActionVisitor;
-import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.*;
 import org.w3c.dom.Element;
 
 /**
@@ -49,14 +49,14 @@ public abstract class ModelMenuAction {
 
     public static final String module = ModelMenuAction.class.getName();
 
-    public static List<ModelWidgetAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
+    public static List<ModelAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : actionElementList) {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelMenu, actionElement));
             } else {
-                actions.add(ModelWidgetAction.newInstance(modelMenu, actionElement));
+                actions.add(AbstractModelAction.newInstance(modelMenu, actionElement));
             }
         }
         return Collections.unmodifiableList(actions);
@@ -68,7 +68,7 @@ public abstract class ModelMenuAction {
      * @see <code>widget-common.xsd</code>
      */
     @SuppressWarnings("serial")
-    public static class SetField extends ModelWidgetAction {
+    public static class SetField extends AbstractModelAction {
         private final FlexibleMapAccessor<Object> field;
         private final FlexibleMapAccessor<Object> fromField;
         private final FlexibleStringExpander valueExdr;
@@ -192,8 +192,40 @@ public abstract class ModelMenuAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public FlexibleMapAccessor<Object> getField() {
+            return field;
+        }
+
+        public FlexibleMapAccessor<Object> getFromField() {
+            return fromField;
+        }
+
+        public FlexibleStringExpander getValueExdr() {
+            return valueExdr;
+        }
+
+        public FlexibleStringExpander getDefaultExdr() {
+            return defaultExdr;
+        }
+
+        public FlexibleStringExpander getGlobalExdr() {
+            return globalExdr;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public String getToScope() {
+            return toScope;
+        }
+
+        public String getFromScope() {
+            return fromScope;
         }
     }
 }

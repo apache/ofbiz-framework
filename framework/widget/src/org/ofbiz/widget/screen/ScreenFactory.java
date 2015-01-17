@@ -168,7 +168,7 @@ public class ScreenFactory {
             List<? extends Element> screenElements = UtilXml.childElementList(rootElement, "screen");
             for (Element screenElement: screenElements) {
                 ModelScreen modelScreen = new ModelScreen(screenElement, modelScreenMap, sourceLocation);
-                //Debug.logInfo("Read Screen with name: " + modelScreen.getName(), module);
+                Debug.logInfo("Read Screen with name: " + modelScreen.getName() + "\n" + modelScreen, module);
                 modelScreenMap.put(modelScreen.getName(), modelScreen);
             }
         }

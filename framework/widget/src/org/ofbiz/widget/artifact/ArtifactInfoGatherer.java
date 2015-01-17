@@ -23,19 +23,19 @@ import java.util.Set;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.webapp.control.ConfigXMLReader;
+import org.ofbiz.widget.AbstractModelAction.EntityAnd;
+import org.ofbiz.widget.AbstractModelAction.EntityCondition;
+import org.ofbiz.widget.AbstractModelAction.EntityOne;
+import org.ofbiz.widget.AbstractModelAction.GetRelated;
+import org.ofbiz.widget.AbstractModelAction.GetRelatedOne;
+import org.ofbiz.widget.AbstractModelAction.PropertyMap;
+import org.ofbiz.widget.AbstractModelAction.PropertyToField;
+import org.ofbiz.widget.AbstractModelAction.Script;
+import org.ofbiz.widget.AbstractModelAction.Service;
+import org.ofbiz.widget.AbstractModelAction.SetField;
+import org.ofbiz.widget.ModelAction;
 import org.ofbiz.widget.ModelActionVisitor;
 import org.ofbiz.widget.ModelFieldVisitor;
-import org.ofbiz.widget.ModelWidgetAction;
-import org.ofbiz.widget.ModelWidgetAction.EntityAnd;
-import org.ofbiz.widget.ModelWidgetAction.EntityCondition;
-import org.ofbiz.widget.ModelWidgetAction.EntityOne;
-import org.ofbiz.widget.ModelWidgetAction.GetRelated;
-import org.ofbiz.widget.ModelWidgetAction.GetRelatedOne;
-import org.ofbiz.widget.ModelWidgetAction.PropertyMap;
-import org.ofbiz.widget.ModelWidgetAction.PropertyToField;
-import org.ofbiz.widget.ModelWidgetAction.Script;
-import org.ofbiz.widget.ModelWidgetAction.Service;
-import org.ofbiz.widget.ModelWidgetAction.SetField;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.form.FieldInfo;
 import org.ofbiz.widget.form.ModelForm;
@@ -86,10 +86,10 @@ import org.ofbiz.widget.screen.ModelScreenWidget.DecoratorSection;
 import org.ofbiz.widget.screen.ModelScreenWidget.DecoratorSectionInclude;
 import org.ofbiz.widget.screen.ModelScreenWidget.Form;
 import org.ofbiz.widget.screen.ModelScreenWidget.HorizontalSeparator;
-import org.ofbiz.widget.screen.ModelScreenWidget.Image;
+import org.ofbiz.widget.screen.ModelScreenWidget.ScreenImage;
 import org.ofbiz.widget.screen.ModelScreenWidget.IncludeScreen;
 import org.ofbiz.widget.screen.ModelScreenWidget.Label;
-import org.ofbiz.widget.screen.ModelScreenWidget.Link;
+import org.ofbiz.widget.screen.ModelScreenWidget.ScreenLink;
 import org.ofbiz.widget.screen.ModelScreenWidget.Menu;
 import org.ofbiz.widget.screen.ModelScreenWidget.PlatformSpecific;
 import org.ofbiz.widget.screen.ModelScreenWidget.PortalPage;
@@ -113,58 +113,88 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(CallParentActions callParentActions) {
+    public void visit(CallParentActions callParentActions) throws Exception {
     }
 
     @Override
-    public void visit(EntityAnd entityAnd) {
+    public void visit(Column column) throws Exception {
+    }
+
+    @Override
+    public void visit(ColumnContainer columnContainer) throws Exception {
+        for (Column column : columnContainer.getColumns()) {
+            for (ModelScreenWidget widget : column.getSubWidgets()) {
+                widget.accept(this);
+            }
+        }
+    }
+
+    @Override
+    public void visit(Container container) throws Exception {
+        for (ModelScreenWidget widget : container.getSubWidgets()) {
+            widget.accept(this);
+        }
+    }
+
+    @Override
+    public void visit(Content content) throws Exception {
+        infoContext.addEntityName("Content");
+        if (!content.getDataResourceId().isEmpty()) {
+            infoContext.addEntityName("DataResource");
+        }
+    }
+
+    @Override
+    public void visit(DecoratorScreen decoratorScreen) throws Exception {
+        for (ModelScreenWidget section : decoratorScreen.getSectionMap().values()) {
+            section.accept(this);
+        }
+    }
+
+    @Override
+    public void visit(DecoratorSection decoratorSection) throws Exception {
+        for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
+            widget.accept(this);
+        }
+    }
+
+    @Override
+    public void visit(DecoratorSectionInclude decoratorSectionInclude) throws Exception {
+    }
+
+    @Override
+    public void visit(EntityAnd entityAnd) throws Exception {
         infoContext.addEntityName(entityAnd.getFinder().getEntityName());
     }
 
     @Override
-    public void visit(EntityCondition entityCondition) {
+    public void visit(EntityCondition entityCondition) throws Exception {
         infoContext.addEntityName(entityCondition.getFinder().getEntityName());
     }
 
     @Override
-    public void visit(EntityOne entityOne) {
+    public void visit(EntityOne entityOne) throws Exception {
         infoContext.addEntityName(entityOne.getFinder().getEntityName());
     }
 
     @Override
-    public void visit(GetRelated getRelated) {
+    public void visit(Form form) throws Exception {
+        String formLocation = form.getLocation().concat("#").concat(form.getName());
+        infoContext.addFormLocation(formLocation);
+    }
+
+    @Override
+    public void visit(GetRelated getRelated) throws Exception {
         infoContext.addEntityName(getRelated.getRelationName());
     }
 
     @Override
-    public void visit(GetRelatedOne getRelatedOne) {
+    public void visit(GetRelatedOne getRelatedOne) throws Exception {
         infoContext.addEntityName(getRelatedOne.getRelationName());
     }
 
     @Override
-    public void visit(PropertyMap propertyMap) {
-    }
-
-    @Override
-    public void visit(PropertyToField propertyToField) {
-    }
-
-    @Override
-    public void visit(Script script) {
-    }
-
-    @Override
-    public void visit(Service service) {
-        infoContext.addServiceName(service.getServiceNameExdr().getOriginal());
-        // TODO: Look for entityName in performFind service call
-    }
-
-    @Override
-    public void visit(SetField setField) {
-    }
-
-    @Override
-    public void visit(HtmlWidget htmlWidget) throws Exception {
+    public void visit(HorizontalSeparator horizontalSeparator) throws Exception {
     }
 
     @Override
@@ -180,6 +210,14 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
+    public void visit(HtmlWidget htmlWidget) throws Exception {
+    }
+
+    @Override
+    public void visit(IncludeScreen includeScreen) throws Exception {
+    }
+
+    @Override
     public void visit(IterateSectionWidget iterateSectionWidget) throws Exception {
         for (Section section : iterateSectionWidget.getSectionList()) {
             section.accept(this);
@@ -187,14 +225,22 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
+    public void visit(Label label) throws Exception {
+    }
+
+    @Override
+    public void visit(Menu menu) throws Exception {
+    }
+
+    @Override
     public void visit(ModelForm modelForm) throws Exception {
         if (modelForm.getActions() != null) {
-            for (ModelWidgetAction action : modelForm.getActions()) {
+            for (ModelAction action : modelForm.getActions()) {
                 action.accept(this);
             }
         }
         if (modelForm.getRowActions() != null) {
-            for (ModelWidgetAction action : modelForm.getRowActions()) {
+            for (ModelAction action : modelForm.getRowActions()) {
                 action.accept(this);
             }
         }
@@ -265,7 +311,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelFormAction.Service service) {
+    public void visit(ModelFormAction.Service service) throws Exception {
         infoContext.addServiceName(service.getServiceName());
         // TODO: Look for entityName in performFind service call
     }
@@ -275,11 +321,15 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelMenuAction.SetField setField) {
+    public void visit(ModelMenuAction.SetField setField) throws Exception {
     }
 
     @Override
     public void visit(ModelMenuItem modelMenuItem) throws Exception {
+    }
+
+    @Override
+    public void visit(ModelNode modelNode) throws Exception {
     }
 
     @Override
@@ -290,71 +340,58 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ColumnContainer columnContainer) throws Exception {
-        for (Column column : columnContainer.getColumns()) {
-            for (ModelScreenWidget widget : column.getSubWidgets()) {
-                widget.accept(this);
-            }
-        }
+    public void visit(ModelSubNode modelSubNode) throws Exception {
     }
 
     @Override
-    public void visit(Container container) throws Exception {
-        for (ModelScreenWidget widget : container.getSubWidgets()) {
+    public void visit(ModelTree modelTree) throws Exception {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.EntityAnd entityAnd) throws Exception {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.EntityCondition entityCondition) throws Exception {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.Script script) throws Exception {
+    }
+
+    @Override
+    public void visit(ModelTreeAction.Service service) throws Exception {
+    }
+
+    @Override
+    public void visit(PlatformSpecific platformSpecific) throws Exception {
+    }
+
+    @Override
+    public void visit(PortalPage portalPage) throws Exception {
+    }
+
+    @Override
+    public void visit(PropertyMap propertyMap) throws Exception {
+    }
+
+    @Override
+    public void visit(PropertyToField propertyToField) throws Exception {
+    }
+
+    @Override
+    public void visit(ScreenImage image) throws Exception {
+    }
+
+    @Override
+    public void visit(Screenlet screenlet) throws Exception {
+        for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
             widget.accept(this);
         }
     }
 
     @Override
-    public void visit(Content content) throws Exception {
-        infoContext.addEntityName("Content");
-        if (!content.getDataResourceId().isEmpty()) {
-            infoContext.addEntityName("DataResource");
-        }
-    }
-
-    @Override
-    public void visit(DecoratorScreen decoratorScreen) throws Exception {
-        for (ModelScreenWidget section : decoratorScreen.getSectionMap().values()) {
-            section.accept(this);
-        }
-    }
-
-    @Override
-    public void visit(DecoratorSection decoratorSection) throws Exception {
-        for (ModelScreenWidget widget : decoratorSection.getSubWidgets()) {
-            widget.accept(this);
-        }
-    }
-
-    @Override
-    public void visit(DecoratorSectionInclude decoratorSectionInclude) throws Exception {
-    }
-
-    @Override
-    public void visit(Form form) throws Exception {
-        String formLocation = form.getLocation().concat("#").concat(form.getName());
-        infoContext.addFormLocation(formLocation);
-    }
-
-    @Override
-    public void visit(HorizontalSeparator horizontalSeparator) throws Exception {
-    }
-
-    @Override
-    public void visit(Image image) throws Exception {
-    }
-
-    @Override
-    public void visit(IncludeScreen includeScreen) throws Exception {
-    }
-
-    @Override
-    public void visit(Label label) throws Exception {
-    }
-
-    @Override
-    public void visit(Link link) throws Exception {
+    public void visit(ScreenLink link) throws Exception {
         String target = link.getTarget(null);
         String urlMode = link.getUrlMode();
         try {
@@ -370,27 +407,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(Menu menu) throws Exception {
-    }
-
-    @Override
-    public void visit(PlatformSpecific platformSpecific) throws Exception {
-    }
-
-    @Override
-    public void visit(PortalPage portalPage) throws Exception {
-    }
-
-    @Override
-    public void visit(Screenlet screenlet) throws Exception {
-        for (ModelScreenWidget widget : screenlet.getSubWidgets()) {
-            widget.accept(this);
-        }
+    public void visit(Script script) throws Exception {
     }
 
     @Override
     public void visit(Section section) throws Exception {
-        for (ModelWidgetAction action : section.getActions()) {
+        for (ModelAction action : section.getActions()) {
             action.accept(this);
         }
         for (ModelScreenWidget subWidget : section.getSubWidgets()) {
@@ -402,35 +424,17 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
+    public void visit(Service service) throws Exception {
+        infoContext.addServiceName(service.getServiceNameExdr().getOriginal());
+        // TODO: Look for entityName in performFind service call
+    }
+
+    @Override
+    public void visit(SetField setField) throws Exception {
+    }
+
+    @Override
     public void visit(Tree tree) throws Exception {
-    }
-
-    @Override
-    public void visit(ModelTree modelTree) throws Exception {
-    }
-
-    @Override
-    public void visit(ModelNode modelNode) throws Exception {
-    }
-
-    @Override
-    public void visit(ModelSubNode modelSubNode) throws Exception {
-    }
-
-    @Override
-    public void visit(ModelTreeAction.EntityAnd entityAnd) {
-    }
-
-    @Override
-    public void visit(ModelTreeAction.EntityCondition entityCondition) {
-    }
-
-    @Override
-    public void visit(ModelTreeAction.Script script) {
-    }
-
-    @Override
-    public void visit(ModelTreeAction.Service service) {
     }
 
     private class FieldInfoGatherer implements ModelFieldVisitor {
@@ -469,7 +473,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(DisplayEntityField displayField) {
             if (displayField.getSubHyperlink() != null) {
                 String target = displayField.getSubHyperlink().getTarget(null);
-                String urlMode = displayField.getSubHyperlink().getTargetType();
+                String urlMode = displayField.getSubHyperlink().getUrlMode();
                 addRequestLocations(target, urlMode);
             }
         }
@@ -482,7 +486,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(DropDownField dropDownField) {
             if (dropDownField.getSubHyperlink() != null) {
                 String target = dropDownField.getSubHyperlink().getTarget(null);
-                String urlMode = dropDownField.getSubHyperlink().getTargetType();
+                String urlMode = dropDownField.getSubHyperlink().getUrlMode();
                 addRequestLocations(target, urlMode);
             }
         }
@@ -491,7 +495,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(FileField textField) {
             if (textField.getSubHyperlink() != null) {
                 String target = textField.getSubHyperlink().getTarget(null);
-                String urlMode = textField.getSubHyperlink().getTargetType();
+                String urlMode = textField.getSubHyperlink().getUrlMode();
                 addRequestLocations(target, urlMode);
             }
         }
@@ -503,7 +507,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         @Override
         public void visit(HyperlinkField hyperlinkField) {
             String target = hyperlinkField.getTarget(null);
-            String urlMode = hyperlinkField.getTargetType();
+            String urlMode = hyperlinkField.getUrlMode();
             addRequestLocations(target, urlMode);
         }
 
@@ -515,7 +519,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         public void visit(ImageField imageField) {
             if (imageField.getSubHyperlink() != null) {
                 String target = imageField.getSubHyperlink().getTarget(null);
-                String urlMode = imageField.getSubHyperlink().getTargetType();
+                String urlMode = imageField.getSubHyperlink().getUrlMode();
                 addRequestLocations(target, urlMode);
             }
         }

@@ -49,8 +49,10 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelParam;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.AbstractModelAction;
+import org.ofbiz.widget.CommonWidgetModels;
+import org.ofbiz.widget.ModelAction;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
@@ -100,7 +102,7 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_SORT_FIELD_STYLE = "sort-order";
     public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
     public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
-    private final List<ModelWidgetAction> actions;
+    private final List<ModelAction> actions;
     private final List<AltRowStyle> altRowStyles;
     private final List<AltTarget> altTargets;
     private final List<AutoFieldsEntity> autoFieldsEntities;
@@ -177,7 +179,7 @@ public class ModelForm extends ModelWidget {
     private final String paginateTargetAnchor;
     private final FlexibleStringExpander paginateViewSizeLabel;
     private final ModelForm parentModelForm;
-    private final List<ModelWidgetAction> rowActions;
+    private final List<ModelAction> rowActions;
     private final FlexibleStringExpander rowCountExdr;
     private final boolean separateColumns;
     private final boolean skipEnd;
@@ -384,7 +386,7 @@ public class ModelForm extends ModelWidget {
         }
         altTargets.trimToSize();
         this.altTargets = Collections.unmodifiableList(altTargets);
-        ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+        ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
         if (parentModelForm != null) {
             actions.addAll(parentModelForm.actions);
         }
@@ -394,7 +396,7 @@ public class ModelForm extends ModelWidget {
         }
         actions.trimToSize();
         this.actions = Collections.unmodifiableList(actions);
-        ArrayList<ModelWidgetAction> rowActions = new ArrayList<ModelWidgetAction>();
+        ArrayList<ModelAction> rowActions = new ArrayList<ModelAction>();
         if (parentModelForm != null) {
             rowActions.addAll(parentModelForm.rowActions);
         }
@@ -871,7 +873,7 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    public List<ModelWidgetAction> getActions() {
+    public List<ModelAction> getActions() {
         return actions;
     }
 
@@ -1298,7 +1300,7 @@ public class ModelForm extends ModelWidget {
         return rowCountExdr.expandString(context);
     }
 
-    public List<ModelWidgetAction> getRowActions() {
+    public List<ModelAction> getRowActions() {
         return rowActions;
     }
 
@@ -1453,7 +1455,7 @@ public class ModelForm extends ModelWidget {
     }
 
     public void runFormActions(Map<String, Object> context) {
-        ModelWidgetAction.runSubActions(this.actions, context);
+        AbstractModelAction.runSubActions(this.actions, context);
     }
 
     public static class AltRowStyle {
@@ -1735,9 +1737,9 @@ public class ModelForm extends ModelWidget {
         private final String areaTarget;
         private final String defaultServiceName;
         private final String defaultEntityName;
-        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
-        private final WidgetWorker.AutoEntityParameters autoServiceParameters;
-        private final List<WidgetWorker.Parameter> parameterList;
+        private final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
+        private final CommonWidgetModels.AutoServiceParameters autoServiceParameters;
+        private final List<CommonWidgetModels.Parameter> parameterList;
 
         public UpdateArea(Element updateAreaElement) {
             this(updateAreaElement, null, null);
@@ -1757,21 +1759,21 @@ public class ModelForm extends ModelWidget {
             if (parameterElementList.isEmpty()) {
                 this.parameterList = Collections.emptyList();
             } else {
-                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
+                List<CommonWidgetModels.Parameter> parameterList = new ArrayList<CommonWidgetModels.Parameter>(parameterElementList.size());
                 for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
+                    parameterList.add(new CommonWidgetModels.Parameter(parameterElement));
                 }
                 this.parameterList = Collections.unmodifiableList(parameterList);
             }
             Element autoServiceParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-service");
             if (autoServiceParamsElement != null) {
-                this.autoServiceParameters = new WidgetWorker.AutoEntityParameters(autoServiceParamsElement);
+                this.autoServiceParameters = new CommonWidgetModels.AutoServiceParameters(autoServiceParamsElement);
             } else {
                 this.autoServiceParameters = null;
             }
             Element autoEntityParamsElement = UtilXml.firstChildElement(updateAreaElement, "auto-parameters-entity");
             if (autoEntityParamsElement != null) {
-                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
+                this.autoEntityParameters = new CommonWidgetModels.AutoEntityParameters(autoEntityParamsElement);
             } else {
                 this.autoEntityParameters = null;
             }
@@ -1817,7 +1819,7 @@ public class ModelForm extends ModelWidget {
             if (autoEntityParameters != null) {
                 fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, defaultEntityName));
             }
-            for (WidgetWorker.Parameter parameter : this.parameterList) {
+            for (CommonWidgetModels.Parameter parameter : this.parameterList) {
                 fullParameterMap.put(parameter.getName(), parameter.getValue(context));
             }
 
@@ -1827,6 +1829,30 @@ public class ModelForm extends ModelWidget {
         @Override
         public int hashCode() {
             return areaId.hashCode();
+        }
+
+        public String getAreaTarget() {
+            return areaTarget;
+        }
+
+        public String getDefaultServiceName() {
+            return defaultServiceName;
+        }
+
+        public String getDefaultEntityName() {
+            return defaultEntityName;
+        }
+
+        public CommonWidgetModels.AutoEntityParameters getAutoEntityParameters() {
+            return autoEntityParameters;
+        }
+
+        public CommonWidgetModels.AutoServiceParameters getAutoServiceParameters() {
+            return autoServiceParameters;
+        }
+
+        public List<CommonWidgetModels.Parameter> getParameterList() {
+            return parameterList;
         }
     }
 }

@@ -22,8 +22,12 @@ import java.util.Map;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
+import org.ofbiz.widget.AbstractModelCondition;
+import org.ofbiz.widget.AbstractModelCondition.DefaultConditionFactory;
+import org.ofbiz.widget.ModelCondition;
+import org.ofbiz.widget.ModelConditionFactory;
+import org.ofbiz.widget.ModelConditionVisitor;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetCondition;
 import org.w3c.dom.Element;
 
 /**
@@ -32,7 +36,7 @@ import org.w3c.dom.Element;
  * @see <code>widget-screen.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelScreenCondition extends ModelWidgetCondition {
+public final class ModelScreenCondition {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -49,18 +53,19 @@ public class ModelScreenCondition extends ModelWidgetCondition {
      */
 
     public static final String module = ModelScreenCondition.class.getName();
-    public static final ConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
+    public static final ModelConditionFactory SCREEN_CONDITION_FACTORY = new ScreenConditionFactory();
 
-    public ModelScreenCondition(ModelScreen modelScreen, Element conditionElement) {
-        super(SCREEN_CONDITION_FACTORY, modelScreen, conditionElement);
-    }
-
-    public static class IfEmptySection extends ModelWidgetCondition implements Condition {
+    public static class IfEmptySection extends AbstractModelCondition {
         private final FlexibleStringExpander sectionExdr;
 
-        private IfEmptySection(ConditionFactory factory, ModelWidget modelWidget, Element condElement) {
+        private IfEmptySection(ModelConditionFactory factory, ModelWidget modelWidget, Element condElement) {
             super (factory, modelWidget, condElement);
             this.sectionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("section-name"));
+        }
+
+        @Override
+        public void accept(ModelConditionVisitor visitor) throws Exception {
+            visitor.visit(this);
         }
 
         @Override
@@ -68,19 +73,23 @@ public class ModelScreenCondition extends ModelWidgetCondition {
             Map<String, Object> sectionsMap = UtilGenerics.toMap(context.get("sections"));
             return !sectionsMap.containsKey(this.sectionExdr.expandString(context));
         }
+
+        public FlexibleStringExpander getSectionExdr() {
+            return sectionExdr;
+        }
     }
 
-    public static class ScreenConditionFactory extends DefaultConditionFactory {
+    private static class ScreenConditionFactory extends DefaultConditionFactory {
 
         @Override
-        public Condition newInstance(ModelWidget modelWidget, Element conditionElement) {
+        public ModelCondition newInstance(ModelWidget modelWidget, Element conditionElement) {
             if (conditionElement == null) {
                 return DefaultConditionFactory.TRUE;
             }
             if ("if-empty-section".equals(conditionElement.getNodeName())) {
                 return new IfEmptySection(this, modelWidget, conditionElement);
             } else {
-                return super.newInstance(modelWidget,conditionElement);
+                return super.newInstance(this, modelWidget,conditionElement);
             }
         }
     }

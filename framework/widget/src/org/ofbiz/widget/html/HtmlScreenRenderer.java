@@ -51,7 +51,7 @@ import org.ofbiz.widget.form.Paginator;
 import org.ofbiz.widget.menu.MenuStringRenderer;
 import org.ofbiz.widget.menu.ModelMenu;
 import org.ofbiz.widget.screen.ModelScreenWidget;
-import org.ofbiz.widget.screen.ModelScreenWidget.ColumnContainer;
+import org.ofbiz.widget.screen.ModelScreenWidget.*;
 import org.ofbiz.widget.screen.ScreenStringRenderer;
 
 /**
@@ -82,18 +82,18 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     public void renderScreenEnd(Appendable writer, Map<String, Object> context) throws IOException {
     }
 
-    public void renderSectionBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionBegin(Appendable writer, Map<String, Object> context, Section section) throws IOException {
         if (section.isMainSection()) {
             this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
         }
         renderBeginningBoundaryComment(writer, section.isMainSection()?"Screen":"Section Widget", section);
     }
 
-    public void renderSectionEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Section section) throws IOException {
+    public void renderSectionEnd(Appendable writer, Map<String, Object> context, Section section) throws IOException {
         renderEndingBoundaryComment(writer, section.isMainSection()?"Screen":"Section Widget", section);
     }
 
-    public void renderContainerBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+    public void renderContainerBegin(Appendable writer, Map<String, Object> context, Container container) throws IOException {
         String containerId = container.getId(context);
         String autoUpdateTarget = container.getAutoUpdateTargetExdr(context);
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -131,12 +131,12 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         writer.append(">");
         appendWhitespace(writer);
     }
-    public void renderContainerEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Container container) throws IOException {
+    public void renderContainerEnd(Appendable writer, Map<String, Object> context, Container container) throws IOException {
         writer.append("</div>");
         appendWhitespace(writer);
     }
 
-    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, ModelScreenWidget.HorizontalSeparator separator) throws IOException {
+    public void renderHorizontalSeparator(Appendable writer, Map<String, Object> context, HorizontalSeparator separator) throws IOException {
         writer.append("<hr");
         String className = separator.getStyle(context);
         if (UtilValidate.isNotEmpty(className)) {
@@ -150,11 +150,11 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
-    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletBegin(Appendable writer, Map<String, Object> context, boolean collapsed, Screenlet screenlet) throws IOException {
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         boolean javaScriptEnabled = UtilHttp.isJavaScriptEnabled(request);
-        ModelScreenWidget.Menu tabMenu = screenlet.getTabMenu();
+        Menu tabMenu = screenlet.getTabMenu();
         if (tabMenu != null) {
             tabMenu.renderWidgetString(writer, context, this);
         }
@@ -169,8 +169,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
 
         String title = screenlet.getTitle(context);
-        ModelScreenWidget.Menu navMenu = screenlet.getNavigationMenu();
-        ModelScreenWidget.Form navForm = screenlet.getNavigationForm();
+        Menu navMenu = screenlet.getNavigationMenu();
+        Form navForm = screenlet.getNavigationForm();
         String collapsibleAreaId = null;
         if (UtilValidate.isNotEmpty(title) || navMenu != null || navForm != null || screenlet.collapsible()) {
             writer.append("<div class=\"screenlet-title-bar\">");
@@ -275,7 +275,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         return value != null ? value.intValue() : 0;
     }
 
-    protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
+    protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
         ModelForm modelForm = form.getModelForm(context);
@@ -418,7 +418,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
-    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, ModelScreenWidget.Screenlet screenlet) throws GeneralException, IOException {
+    public void renderScreenletSubWidget(Appendable writer, Map<String, Object> context, ModelScreenWidget subWidget, Screenlet screenlet) throws GeneralException, IOException {
         if (subWidget.equals(screenlet.getNavigationForm())) {
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
@@ -437,7 +437,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderScreenletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Screenlet screenlet) throws IOException {
+    public void renderScreenletEnd(Appendable writer, Map<String, Object> context, Screenlet screenlet) throws IOException {
         writer.append("</div>");
         appendWhitespace(writer);
         writer.append("</div>");
@@ -454,7 +454,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         public void renderMenuClose(Appendable writer, Map<String, Object> context, ModelMenu modelMenu) {}
     }
 
-    public void renderLabel(Appendable writer, Map<String, Object> context, ModelScreenWidget.Label label) throws IOException {
+    public void renderLabel(Appendable writer, Map<String, Object> context, Label label) throws IOException {
         String labelText = label.getText(context);
         if (UtilValidate.isEmpty(labelText)) {
             // nothing to render
@@ -491,7 +491,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
-    public void renderLink(Appendable writer, Map<String, Object> context, ModelScreenWidget.Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, ScreenLink link) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
 
@@ -571,7 +571,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         writer.append(">");
 
         // the text
-        ModelScreenWidget.Image img = link.getImage();
+        ScreenImage img = link.getImage();
         if (img == null) {
             writer.append(link.getText(context));
         } else {
@@ -584,7 +584,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
-    public void renderImage(Appendable writer, Map<String, Object> context, ModelScreenWidget.Image image) throws IOException {
+    public void renderImage(Appendable writer, Map<String, Object> context, ScreenImage image) throws IOException {
         // open tag
         String src = image.getSrc(context);
         if (UtilValidate.isEmpty(src)) {
@@ -660,7 +660,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         appendWhitespace(writer);
     }
 
-    public void renderContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBegin(Appendable writer, Map<String, Object> context, Content content) throws IOException {
         String editRequest = content.getEditRequest(context);
         String editContainerStyle = content.getEditContainerStyle(context);
         String enableEditName = content.getEnableEditName(context);
@@ -675,7 +675,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentBody(Appendable writer, Map<String, Object> context, Content content) throws IOException {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         //Boolean nullThruDatesOnly = Boolean.valueOf(false);
         String mimeTypeId = "text/html";
@@ -739,7 +739,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentEnd(Appendable writer, Map<String, Object> context, Content content) throws IOException {
 
                 //Debug.logInfo("renderContentEnd, context:" + context, module);
         String expandedContentId = content.getContentId(context);
@@ -771,7 +771,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderContentFrame(Appendable writer, Map<String, Object> context, ModelScreenWidget.Content content) throws IOException {
+    public void renderContentFrame(Appendable writer, Map<String, Object> context, Content content) throws IOException {
 
 
         HttpServletRequest request = (HttpServletRequest) context.get("request");
@@ -795,7 +795,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
 
     }
 
-    public void renderSubContentBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBegin(Appendable writer, Map<String, Object> context, SubContent content) throws IOException {
 
         String editRequest = content.getEditRequest(context);
         String editContainerStyle = content.getEditContainerStyle(context);
@@ -809,7 +809,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderSubContentBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentBody(Appendable writer, Map<String, Object> context, SubContent content) throws IOException {
             Locale locale = Locale.getDefault();
             String mimeTypeId = "text/html";
             String expandedContentId = content.getContentId(context);
@@ -857,7 +857,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             }
     }
 
-    public void renderSubContentEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.SubContent content) throws IOException {
+    public void renderSubContentEnd(Appendable writer, Map<String, Object> context, SubContent content) throws IOException {
 
         String editMode = "Edit";
         String editRequest = content.getEditRequest(context);
@@ -903,25 +903,25 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
     }
 
-    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+    public void renderPortalPageBegin(Appendable writer, Map<String, Object> context, PortalPage portalPage) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage) throws GeneralException, IOException {
+    public void renderPortalPageEnd(Appendable writer, Map<String, Object> context, PortalPage portalPage) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+    public void renderPortalPageColumnBegin(Appendable writer, Map<String, Object> context, PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
+    public void renderPortalPageColumnEnd(Appendable writer, Map<String, Object> context, PortalPage portalPage, GenericValue portalPageColumn) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+    public void renderPortalPagePortletBegin(Appendable writer, Map<String, Object> context, PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+    public void renderPortalPagePortletEnd(Appendable writer, Map<String, Object> context, PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         // TODO: not implemented
     }
-    public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, ModelScreenWidget.PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
+    public void renderPortalPagePortletBody(Appendable writer, Map<String, Object> context, PortalPage portalPage, GenericValue portalPortlet) throws GeneralException, IOException {
         // TODO: not implemented
     }
 

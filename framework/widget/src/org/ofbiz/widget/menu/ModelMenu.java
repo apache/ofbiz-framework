@@ -31,7 +31,7 @@ import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.*;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.w3c.dom.Element;
 
@@ -59,7 +59,7 @@ public class ModelMenu extends ModelWidget {
 
     public static final String module = ModelMenu.class.getName();
 
-    private final List<ModelWidgetAction> actions;
+    private final List<ModelAction> actions;
     private final String defaultAlign;
     private final String defaultAlignStyle;
     private final FlexibleStringExpander defaultAssociatedContentId;
@@ -70,8 +70,6 @@ public class ModelMenu extends ModelWidget {
     private final String defaultMenuItemName;
     private final String defaultPermissionEntityAction;
     private final String defaultPermissionOperation;
-    private final String defaultPermissionStatusId;
-    private final String defaultPrivilegeEnumId;
     private final String defaultSelectedStyle;
     private final String defaultTitleStyle;
     private final String defaultTooltipStyle;
@@ -98,6 +96,7 @@ public class ModelMenu extends ModelWidget {
     private final String menuLocation;
     private final String menuWidth;
     private final String orientation;
+    private final ModelMenu parentMenu;
     private final FlexibleMapAccessor<String> selectedMenuItemContextFieldName;
     private final String target;
     private final FlexibleStringExpander title;
@@ -107,7 +106,7 @@ public class ModelMenu extends ModelWidget {
     /** XML Constructor */
     public ModelMenu(Element menuElement, String menuLocation) {
         super(menuElement);
-        ArrayList<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>();
+        ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
         String defaultAlign = "";
         String defaultAlignStyle = "";
         FlexibleStringExpander defaultAssociatedContentId = FlexibleStringExpander.getInstance("");
@@ -118,8 +117,6 @@ public class ModelMenu extends ModelWidget {
         String defaultMenuItemName = "";
         String defaultPermissionEntityAction = "";
         String defaultPermissionOperation = "";
-        String defaultPermissionStatusId = "";
-        String defaultPrivilegeEnumId = "";
         String defaultSelectedStyle = "";
         String defaultTitleStyle = "";
         String defaultTooltipStyle = "";
@@ -138,10 +135,10 @@ public class ModelMenu extends ModelWidget {
         String tooltip = "";
         String type = "";
         // check if there is a parent menu to inherit from
+        ModelMenu parent = null;
         String parentResource = menuElement.getAttribute("extends-resource");
         String parentMenu = menuElement.getAttribute("extends");
         if (!parentMenu.isEmpty()) {
-            ModelMenu parent = null;
             if (!parentResource.isEmpty()) {
                 try {
                     parent = MenuFactory.getMenuFromLocation(parentResource, parentMenu);
@@ -154,8 +151,6 @@ public class ModelMenu extends ModelWidget {
                 // try to find a menu definition in the same file
                 Element rootElement = menuElement.getOwnerDocument().getDocumentElement();
                 List<? extends Element> menuElements = UtilXml.childElementList(rootElement, "menu");
-                //Uncomment below to add support for abstract menus
-                //menuElements.addAll(UtilXml.childElementList(rootElement, "abstract-menu"));
                 for (Element menuElementEntry : menuElements) {
                     if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
                         parent = new ModelMenu(menuElementEntry, parentResource);
@@ -183,8 +178,6 @@ public class ModelMenu extends ModelWidget {
                 defaultPermissionOperation = parent.defaultPermissionOperation;
                 defaultPermissionEntityAction = parent.defaultPermissionEntityAction;
                 defaultAssociatedContentId = parent.defaultAssociatedContentId;
-                defaultPermissionStatusId = parent.defaultPermissionStatusId;
-                defaultPrivilegeEnumId = parent.defaultPrivilegeEnumId;
                 defaultHideIfSelected = parent.defaultHideIfSelected;
                 orientation = parent.orientation;
                 menuWidth = parent.menuWidth;
@@ -201,61 +194,57 @@ public class ModelMenu extends ModelWidget {
                 }
             }
         }
-        if (menuElement.hasAttribute("type"))
+        if (!menuElement.getAttribute("type").isEmpty())
             type = menuElement.getAttribute("type");
-        if (menuElement.hasAttribute("target"))
+        if (!menuElement.getAttribute("target").isEmpty())
             target = menuElement.getAttribute("target");
-        if (menuElement.hasAttribute("id"))
+        if (!menuElement.getAttribute("id").isEmpty())
             id = menuElement.getAttribute("id");
-        if (menuElement.hasAttribute("title"))
+        if (!menuElement.getAttribute("title").isEmpty())
             title = FlexibleStringExpander.getInstance(menuElement.getAttribute("title"));
-        if (menuElement.hasAttribute("tooltip"))
+        if (!menuElement.getAttribute("tooltip").isEmpty())
             tooltip = menuElement.getAttribute("tooltip");
-        if (menuElement.hasAttribute("default-entity-name"))
+        if (!menuElement.getAttribute("default-entity-name").isEmpty())
             defaultEntityName = menuElement.getAttribute("default-entity-name");
-        if (menuElement.hasAttribute("default-title-style"))
+        if (!menuElement.getAttribute("default-title-style").isEmpty())
             defaultTitleStyle = menuElement.getAttribute("default-title-style");
-        if (menuElement.hasAttribute("default-selected-style"))
+        if (!menuElement.getAttribute("default-selected-style").isEmpty())
             defaultSelectedStyle = menuElement.getAttribute("default-selected-style");
-        if (menuElement.hasAttribute("default-widget-style"))
+        if (!menuElement.getAttribute("default-widget-style").isEmpty())
             defaultWidgetStyle = menuElement.getAttribute("default-widget-style");
-        if (menuElement.hasAttribute("default-tooltip-style"))
+        if (!menuElement.getAttribute("default-tooltip-style").isEmpty())
             defaultTooltipStyle = menuElement.getAttribute("default-tooltip-style");
-        if (menuElement.hasAttribute("default-menu-item-name"))
+        if (!menuElement.getAttribute("default-menu-item-name").isEmpty())
             defaultMenuItemName = menuElement.getAttribute("default-menu-item-name");
-        if (menuElement.hasAttribute("default-permission-operation"))
+        if (!menuElement.getAttribute("default-permission-operation").isEmpty())
             defaultPermissionOperation = menuElement.getAttribute("default-permission-operation");
-        if (menuElement.hasAttribute("default-permission-entity-action"))
+        if (!menuElement.getAttribute("default-permission-entity-action").isEmpty())
             defaultPermissionEntityAction = menuElement.getAttribute("default-permission-entity-action");
-        if (menuElement.hasAttribute("defaultPermissionStatusId"))
-            defaultPermissionStatusId = menuElement.getAttribute("default-permission-status-id");
-        if (menuElement.hasAttribute("defaultPrivilegeEnumId"))
-            defaultPrivilegeEnumId = menuElement.getAttribute("default-privilege-enum-id");
-        if (menuElement.hasAttribute("defaultAssociatedContentId"))
+        if (!menuElement.getAttribute("default-associated-content-id").isEmpty())
             defaultAssociatedContentId = FlexibleStringExpander.getInstance(menuElement
                     .getAttribute("default-associated-content-id"));
-        if (menuElement.hasAttribute("orientation"))
+        if (!menuElement.getAttribute("orientation").isEmpty())
             orientation = menuElement.getAttribute("orientation");
-        if (menuElement.hasAttribute("menu-width"))
+        if (!menuElement.getAttribute("menu-width").isEmpty())
             menuWidth = menuElement.getAttribute("menu-width");
-        if (menuElement.hasAttribute("default-cell-width"))
+        if (!menuElement.getAttribute("default-cell-width").isEmpty())
             defaultCellWidth = menuElement.getAttribute("default-cell-width");
-        if (menuElement.hasAttribute("default-hide-if-selected"))
-            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected"));
-        if (menuElement.hasAttribute("default-disabled-title-style"))
+        if (!menuElement.getAttribute("default-hide-if-selected").isEmpty())
+            defaultHideIfSelected = "true".equals(menuElement.getAttribute("default-hide-if-selected").isEmpty());
+        if (!menuElement.getAttribute("default-disabled-title-style").isEmpty())
             defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
-        if (menuElement.hasAttribute("selected-menuitem-context-field-name"))
+        if (!menuElement.getAttribute("selected-menuitem-context-field-name").isEmpty())
             selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance(menuElement
                     .getAttribute("selected-menuitem-context-field-name"));
-        if (menuElement.hasAttribute("menu-container-style"))
+        if (!menuElement.getAttribute("menu-container-style").isEmpty())
             menuContainerStyleExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("menu-container-style"));
-        if (menuElement.hasAttribute("default-align"))
+        if (!menuElement.getAttribute("default-align").isEmpty())
             defaultAlign = menuElement.getAttribute("default-align");
-        if (menuElement.hasAttribute("default-align-style"))
+        if (!menuElement.getAttribute("default-align-style").isEmpty())
             defaultAlignStyle = menuElement.getAttribute("default-align-style");
-        if (menuElement.hasAttribute("fill-style"))
+        if (!menuElement.getAttribute("fill-style").isEmpty())
             fillStyle = menuElement.getAttribute("fill-style");
-        if (menuElement.hasAttribute("extra-index"))
+        if (!menuElement.getAttribute("extra-index").isEmpty())
             extraIndex = FlexibleStringExpander.getInstance(menuElement.getAttribute("extra-index"));
         // read all actions under the "actions" element
         Element actionsElement = UtilXml.firstChildElement(menuElement, "actions");
@@ -274,8 +263,6 @@ public class ModelMenu extends ModelWidget {
         this.defaultMenuItemName = defaultMenuItemName;
         this.defaultPermissionEntityAction = defaultPermissionEntityAction;
         this.defaultPermissionOperation = defaultPermissionOperation;
-        this.defaultPermissionStatusId = defaultPermissionStatusId;
-        this.defaultPrivilegeEnumId = defaultPrivilegeEnumId;
         this.defaultSelectedStyle = defaultSelectedStyle;
         this.defaultTitleStyle = defaultTitleStyle;
         this.defaultTooltipStyle = defaultTooltipStyle;
@@ -295,6 +282,7 @@ public class ModelMenu extends ModelWidget {
         this.menuLocation = menuLocation;
         this.menuWidth = menuWidth;
         this.orientation = orientation;
+        this.parentMenu = parent;
         this.selectedMenuItemContextFieldName = selectedMenuItemContextFieldName;
         this.target = target;
         this.title = title;
@@ -327,7 +315,7 @@ public class ModelMenu extends ModelWidget {
         }
     }
 
-    public List<ModelWidgetAction> getActions() {
+    public List<ModelAction> getActions() {
         return actions;
     }
 
@@ -382,14 +370,6 @@ public class ModelMenu extends ModelWidget {
 
     public String getDefaultPermissionOperation() {
         return this.defaultPermissionOperation;
-    }
-
-    public String getDefaultPermissionStatusId() {
-        return this.defaultPermissionStatusId;
-    }
-
-    public String getDefaultPrivilegeEnumId() {
-        return this.defaultPrivilegeEnumId;
     }
 
     public String getDefaultSelectedStyle() {
@@ -460,6 +440,10 @@ public class ModelMenu extends ModelWidget {
         return this.orientation;
     }
 
+    public ModelMenu getParentMenu() {
+        return parentMenu;
+    }
+
     public FlexibleMapAccessor<String> getSelectedMenuItemContextFieldName() {
         return selectedMenuItemContextFieldName;
     }
@@ -518,7 +502,7 @@ public class ModelMenu extends ModelWidget {
      */
     public void renderMenuString(Appendable writer, Map<String, Object> context, MenuStringRenderer menuStringRenderer)
             throws IOException {
-        ModelWidgetAction.runSubActions(this.actions, context);
+        AbstractModelAction.runSubActions(this.actions, context);
         if ("simple".equals(this.type)) {
             this.renderSimpleMenuString(writer, context, menuStringRenderer);
         } else {
@@ -547,6 +531,6 @@ public class ModelMenu extends ModelWidget {
     }
 
     public void runActions(Map<String, Object> context) {
-        ModelWidgetAction.runSubActions(this.actions, context);
+        AbstractModelAction.runSubActions(this.actions, context);
     }
 }

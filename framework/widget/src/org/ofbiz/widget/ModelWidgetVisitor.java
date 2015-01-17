@@ -66,13 +66,13 @@ public interface ModelWidgetVisitor {
 
     void visit(ModelScreenWidget.HorizontalSeparator horizontalSeparator) throws Exception;
 
-    void visit(ModelScreenWidget.Image image) throws Exception;
+    void visit(ModelScreenWidget.ScreenImage image) throws Exception;
 
     void visit(ModelScreenWidget.IncludeScreen includeScreen) throws Exception;
 
     void visit(ModelScreenWidget.Label label) throws Exception;
 
-    void visit(ModelScreenWidget.Link link) throws Exception;
+    void visit(ModelScreenWidget.ScreenLink link) throws Exception;
 
     void visit(ModelScreenWidget.Menu menu) throws Exception;
 
@@ -91,4 +91,6 @@ public interface ModelWidgetVisitor {
     void visit(ModelTree.ModelNode modelNode) throws Exception;
 
     void visit(ModelTree.ModelNode.ModelSubNode modelSubNode) throws Exception;
+
+    void visit(ModelScreenWidget.Column column) throws Exception;
 }

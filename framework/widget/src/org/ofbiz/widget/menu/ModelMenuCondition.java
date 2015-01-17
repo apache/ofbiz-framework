@@ -19,7 +19,8 @@
 package org.ofbiz.widget.menu;
 
 import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.widget.ModelWidgetCondition;
+import org.ofbiz.widget.AbstractModelCondition;
+import org.ofbiz.widget.ModelCondition;
 import org.w3c.dom.Element;
 
 /**
@@ -27,8 +28,7 @@ import org.w3c.dom.Element;
  * 
  * @see <code>widget-menu.xsd</code>
  */
-@SuppressWarnings("serial")
-public class ModelMenuCondition extends ModelWidgetCondition {
+public final class ModelMenuCondition {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -48,11 +48,16 @@ public class ModelMenuCondition extends ModelWidgetCondition {
 
     private final FlexibleStringExpander passStyleExdr;
     private final FlexibleStringExpander failStyleExdr;
+    private final ModelCondition condition;
 
     public ModelMenuCondition(ModelMenuItem modelMenuItem, Element conditionElement) {
-        super(ModelWidgetCondition.DEFAULT_CONDITION_FACTORY, modelMenuItem, conditionElement);
         this.passStyleExdr = FlexibleStringExpander.getInstance(conditionElement.getAttribute("pass-style"));
         this.failStyleExdr = FlexibleStringExpander.getInstance(conditionElement.getAttribute("disabled-style"));
+        this.condition = AbstractModelCondition.DEFAULT_CONDITION_FACTORY.newInstance(modelMenuItem, conditionElement);
+    }
+
+    public ModelCondition getCondition() {
+        return condition;
     }
 
     public FlexibleStringExpander getFailStyleExdr() {

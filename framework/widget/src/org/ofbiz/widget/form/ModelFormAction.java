@@ -35,8 +35,9 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.finder.EntityFinderUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
+import org.ofbiz.widget.AbstractModelAction;
+import org.ofbiz.widget.ModelAction;
 import org.ofbiz.widget.ModelActionVisitor;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.WidgetWorker;
 import org.w3c.dom.Element;
 
@@ -47,9 +48,9 @@ public abstract class ModelFormAction {
 
     public static final String module = ModelFormAction.class.getName();
 
-    public static List<ModelWidgetAction> readSubActions(ModelForm modelForm, Element parentElement) {
+    public static List<ModelAction> readSubActions(ModelForm modelForm, Element parentElement) {
         List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
-        List<ModelWidgetAction> actions = new ArrayList<ModelWidgetAction>(actionElementList.size());
+        List<ModelAction> actions = new ArrayList<ModelAction>(actionElementList.size());
         for (Element actionElement : UtilXml.childElementList(parentElement)) {
             if ("service".equals(actionElement.getNodeName())) {
                 actions.add(new Service(modelForm, actionElement));
@@ -62,11 +63,11 @@ public abstract class ModelFormAction {
                     }
                     actionElement.setAttribute("list", listName);
                 }
-                actions.add(ModelWidgetAction.newInstance(modelForm, actionElement));
+                actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
             } else if ("call-parent-actions".equals(actionElement.getNodeName())) {
                 actions.add(new CallParentActions(modelForm, actionElement));
             } else {
-                actions.add(ModelWidgetAction.newInstance(modelForm, actionElement));
+                actions.add(AbstractModelAction.newInstance(modelForm, actionElement));
             }
         }
         return Collections.unmodifiableList(actions);
@@ -78,7 +79,7 @@ public abstract class ModelFormAction {
      * @see <code>widget-form.xsd</code>
      */
     @SuppressWarnings("serial")
-    public static class CallParentActions extends ModelWidgetAction {
+    public static class CallParentActions extends AbstractModelAction {
         private final ActionsKind kind;;
         private final ModelForm modelForm;
 
@@ -100,7 +101,7 @@ public abstract class ModelFormAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -112,7 +113,7 @@ public abstract class ModelFormAction {
                 parentModel.runFormActions(context);
                 break;
             case ROW_ACTIONS:
-                ModelWidgetAction.runSubActions(parentModel.getRowActions(), context);
+                AbstractModelAction.runSubActions(parentModel.getRowActions(), context);
                 break;
             }
         }
@@ -128,7 +129,7 @@ public abstract class ModelFormAction {
      * @see <code>widget-form.xsd</code>
      */
     @SuppressWarnings("serial")
-    public static class Service extends ModelWidgetAction {
+    public static class Service extends AbstractModelAction {
         private final FlexibleStringExpander autoFieldMapExdr;
         private final Map<FlexibleMapAccessor<Object>, Object> fieldMap;
         private final boolean ignoreError;
@@ -171,7 +172,7 @@ public abstract class ModelFormAction {
         }
 
         @Override
-        public void accept(ModelActionVisitor visitor) {
+        public void accept(ModelActionVisitor visitor) throws Exception {
             visitor.visit(this);
         }
 
@@ -245,6 +246,30 @@ public abstract class ModelFormAction {
                     throw new IllegalArgumentException(errMsg);
                 }
             }
+        }
+
+        public FlexibleStringExpander getAutoFieldMapExdr() {
+            return autoFieldMapExdr;
+        }
+
+        public Map<FlexibleMapAccessor<Object>, Object> getFieldMap() {
+            return fieldMap;
+        }
+
+        public boolean getIgnoreError() {
+            return ignoreError;
+        }
+
+        public FlexibleStringExpander getResultMapListNameExdr() {
+            return resultMapListNameExdr;
+        }
+
+        public FlexibleMapAccessor<Map<String, Object>> getResultMapNameAcsr() {
+            return resultMapNameAcsr;
+        }
+
+        public FlexibleStringExpander getServiceNameExdr() {
+            return serviceNameExdr;
         }
     }
 }

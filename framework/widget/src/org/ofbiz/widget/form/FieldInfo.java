@@ -23,13 +23,17 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.widget.ModelFieldVisitor;
+import org.ofbiz.widget.xml.XmlWidgetFieldVisitor;
 import org.w3c.dom.Element;
 
 /**
  * Form field abstract class.
  */
 public abstract class FieldInfo {
+
+    public static final String module = FieldInfo.class.getName();
 
     public static final int DISPLAY = 1;
     public static final int HYPERLINK = 2;
@@ -113,7 +117,7 @@ public abstract class FieldInfo {
         this.modelFormField = modelFormField;
     }
 
-    public abstract void accept(ModelFieldVisitor visitor);
+    public abstract void accept(ModelFieldVisitor visitor) throws Exception;
 
     /**
      * Returns a new instance of this object.
@@ -136,4 +140,16 @@ public abstract class FieldInfo {
 
     public abstract void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
             throws IOException;
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        ModelFieldVisitor visitor = new XmlWidgetFieldVisitor(sb);
+        try {
+            accept(visitor);
+        } catch (Exception e) {
+            Debug.logWarning(e, "Exception thrown in XmlWidgetFieldVisitor: ", module);
+        }
+        return sb.toString();
+    }
 }

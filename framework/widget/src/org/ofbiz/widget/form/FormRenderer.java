@@ -41,7 +41,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityListIterator;
-import org.ofbiz.widget.ModelWidgetAction;
+import org.ofbiz.widget.AbstractModelAction;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.ModelForm.FieldGroup;
 import org.ofbiz.widget.form.ModelForm.FieldGroupBase;
@@ -736,7 +736,7 @@ public class FormRenderer {
                 previousItem = new HashMap<String, Object>();
                 previousItem.putAll(itemMap);
 
-                ModelWidgetAction.runSubActions(modelForm.getRowActions(), localContext);
+                AbstractModelAction.runSubActions(modelForm.getRowActions(), localContext);
 
                 localContext.put("itemIndex", Integer.valueOf(itemIndex - lowIndex));
                 if (UtilValidate.isNotEmpty(context.get("renderFormSeqNumber"))) {

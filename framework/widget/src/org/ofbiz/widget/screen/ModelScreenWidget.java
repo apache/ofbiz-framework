@@ -42,12 +42,18 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.widget.AbstractModelAction;
+import org.ofbiz.widget.CommonWidgetModels.*;
+import org.ofbiz.widget.CommonWidgetModels.AutoEntityParameters;
+import org.ofbiz.widget.CommonWidgetModels.AutoServiceParameters;
+import org.ofbiz.widget.CommonWidgetModels.Image;
+import org.ofbiz.widget.CommonWidgetModels.Parameter;
+import org.ofbiz.widget.ModelAction;
+import org.ofbiz.widget.ModelCondition;
 import org.ofbiz.widget.ModelWidget;
-import org.ofbiz.widget.ModelWidgetAction;
 import org.ofbiz.widget.ModelWidgetVisitor;
 import org.ofbiz.widget.PortalPageWorker;
 import org.ofbiz.widget.WidgetFactory;
-import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.form.FormFactory;
 import org.ofbiz.widget.form.FormRenderer;
 import org.ofbiz.widget.form.FormStringRenderer;
@@ -205,8 +211,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
     public static final class Section extends ModelScreenWidget {
         public static final String TAG_NAME = "section";
-        private final ModelScreenCondition condition;
-        private final List<ModelWidgetAction> actions;
+        private final ModelCondition condition;
+        private final List<ModelAction> actions;
         private final List<ModelScreenWidget> subWidgets;
         private final List<ModelScreenWidget> failWidgets;
         private final boolean isMainSection;
@@ -221,7 +227,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // read condition under the "condition" element
             Element conditionElement = UtilXml.firstChildElement(sectionElement, "condition");
             if (conditionElement != null) {
-                this.condition = new ModelScreenCondition(modelScreen, conditionElement);
+                conditionElement = UtilXml.firstChildElement(conditionElement);
+                this.condition = ModelScreenCondition.SCREEN_CONDITION_FACTORY.newInstance(modelScreen, conditionElement);
             } else {
                 this.condition = null;
             }
@@ -229,7 +236,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // read all actions under the "actions" element
             Element actionsElement = UtilXml.firstChildElement(sectionElement, "actions");
             if (actionsElement != null) {
-                this.actions = ModelWidgetAction.readSubActions(modelScreen, actionsElement);
+                this.actions = AbstractModelAction.readSubActions(modelScreen, actionsElement);
             } else {
                 this.actions = Collections.emptyList();
             }
@@ -272,7 +279,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             // if condition does not exist or evals to true run actions and render widgets, otherwise render fail-widgets
             if (condTrue) {
                 // run the actions only if true
-                ModelWidgetAction.runSubActions(this.actions, context);
+                AbstractModelAction.runSubActions(this.actions, context);
 
                 try {
                     // section by definition do not themselves do anything, so this method will generally do nothing, but we'll call it anyway
@@ -314,7 +321,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
             }
         }
 
-        public List<ModelWidgetAction> getActions() {
+        public List<ModelAction> getActions() {
             return actions;
         }
 
@@ -328,6 +335,10 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public boolean isMainSection() {
             return isMainSection;
+        }
+
+        public ModelCondition getCondition() {
+            return condition;
         }
     }
 
@@ -376,14 +387,23 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
         }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return styleExdr;
+        }
     }
 
-    public static final class Column {
+    public static final class Column extends ModelWidget {
         private final FlexibleStringExpander idExdr;
         private final FlexibleStringExpander styleExdr;
         private final List<ModelScreenWidget> subWidgets;
 
         public Column(ModelScreen modelScreen, Element columnElement) {
+            super(columnElement);
             this.idExdr = FlexibleStringExpander.getInstance(columnElement.getAttribute("id"));
             this.styleExdr = FlexibleStringExpander.getInstance(columnElement.getAttribute("style"));
             List<? extends Element> subElementList = UtilXml.childElementList(columnElement);
@@ -400,6 +420,19 @@ public abstract class ModelScreenWidget extends ModelWidget {
 
         public String getStyle(Map<String, Object> context) {
             return this.styleExdr.expandString(context);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return styleExdr;
         }
     }
 
@@ -465,6 +498,22 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return styleExdr;
+        }
+
+        public FlexibleStringExpander getAutoUpdateTargetExdr() {
+            return autoUpdateTargetExdr;
+        }
+
+        public FlexibleStringExpander getAutoUpdateInterval() {
+            return autoUpdateInterval;
         }
     }
 
@@ -628,6 +677,30 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getTitleExdr() {
+            return titleExdr;
+        }
+
+        public boolean getCollapsible() {
+            return collapsible;
+        }
+
+        public FlexibleStringExpander getInitiallyCollapsed() {
+            return initiallyCollapsed;
+        }
+
+        public boolean getSaveCollapsed() {
+            return saveCollapsed;
+        }
+
+        public boolean getPadded() {
+            return padded;
+        }
     }
 
     public static final class HorizontalSeparator extends ModelScreenWidget {
@@ -657,6 +730,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return styleExdr;
         }
     }
 
@@ -729,6 +810,18 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getNameExdr() {
+            return nameExdr;
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
+        public FlexibleStringExpander getShareScopeExdr() {
+            return shareScopeExdr;
+        }
     }
 
     public static final class DecoratorScreen extends ModelScreenWidget {
@@ -793,6 +886,15 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getNameExdr() {
+            return nameExdr;
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
     }
 
     public static final class DecoratorSection extends ModelScreenWidget {
@@ -911,6 +1013,18 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getTextExdr() {
+            return textExdr;
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return styleExdr;
+        }
     }
 
     public static final class Form extends ModelScreenWidget {
@@ -992,6 +1106,19 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getNameExdr() {
+            return nameExdr;
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
+        public FlexibleStringExpander getShareScopeExdr() {
+            return shareScopeExdr;
+        }
+
     }
 
     public static final class Tree extends ModelScreenWidget {
@@ -1064,6 +1191,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
+        public FlexibleStringExpander getShareScopeExdr() {
+            return shareScopeExdr;
         }
     }
 
@@ -1260,6 +1395,22 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getContentId() {
+            return contentId;
+        }
+
+        public FlexibleStringExpander getEditRequest() {
+            return editRequest;
+        }
+
+        public FlexibleStringExpander getEditContainerStyle() {
+            return editContainerStyle;
+        }
+
+        public FlexibleStringExpander getEnableEditName() {
+            return enableEditName;
+        }
     }
 
     public static final class SubContent extends ModelScreenWidget {
@@ -1378,73 +1529,134 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
     }
 
-    public static final class Link extends ModelScreenWidget {
+    public static final class ScreenLink extends ModelScreenWidget {
         public static final String TAG_NAME = "link";
-        private final FlexibleStringExpander textExdr;
-        private final FlexibleStringExpander idExdr;
-        private final FlexibleStringExpander styleExdr;
-        private final FlexibleStringExpander targetExdr;
-        private final FlexibleStringExpander targetWindowExdr;
-        private final FlexibleStringExpander prefixExdr;
-        private final FlexibleStringExpander nameExdr;
-        private final Image image;
-        private final String urlMode;
-        private final boolean fullPath;
-        private final boolean secure;
-        private final boolean encode;
-        private final String linkType;
-        private final String width;
-        private final String height;
-        private final List<WidgetWorker.Parameter> parameterList;
-        private final WidgetWorker.AutoServiceParameters autoServiceParameters;
-        private final WidgetWorker.AutoEntityParameters autoEntityParameters;
+        private final Link link;
+        private final ScreenImage image;
 
-        public Link(ModelScreen modelScreen, Element linkElement) {
+        public ScreenLink(ModelScreen modelScreen, Element linkElement) {
             super(modelScreen, linkElement);
-            this.textExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("text"));
-            this.idExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("id"));
-            this.styleExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("style"));
-            this.nameExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("name"));
-            this.targetExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target"));
-            this.targetWindowExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("target-window"));
-            this.prefixExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("prefix"));
-            this.urlMode = linkElement.getAttribute("url-mode");
-            this.fullPath = "true".equals(linkElement.getAttribute("full-path"));
-            this.secure = "true".equals(linkElement.getAttribute("secure"));
-            this.encode = "true".equals(linkElement.getAttribute("encode"));
+            this.link = new Link(linkElement);
             Element imageElement = UtilXml.firstChildElement(linkElement, "image");
             if (imageElement != null) {
-                this.image = new Image(modelScreen, imageElement);
+                this.image = new ScreenImage(modelScreen, imageElement);
             } else {
                 this.image = null;
             }
-            this.linkType = linkElement.getAttribute("link-type");
-            List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
-            if (parameterElementList.isEmpty()) {
-                this.parameterList = Collections.emptyList();
-            } else {
-                List<WidgetWorker.Parameter> parameterList = new ArrayList<WidgetWorker.Parameter>(parameterElementList.size());
-                for (Element parameterElement : parameterElementList) {
-                    parameterList.add(new WidgetWorker.Parameter(parameterElement));
-                }
-                this.parameterList = Collections.unmodifiableList(parameterList);
-            }
-            Element autoServiceParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-service");
-            if (autoServiceParamsElement != null) {
-                this.autoServiceParameters = new WidgetWorker.AutoServiceParameters(autoServiceParamsElement);
-            } else {
-                this.autoServiceParameters = null;
-            }
-            Element autoEntityParamsElement = UtilXml.firstChildElement(linkElement, "auto-parameters-entity");
-            if (autoEntityParamsElement != null) {
-                this.autoEntityParameters = new WidgetWorker.AutoEntityParameters(autoEntityParamsElement);
-            } else {
-                this.autoEntityParameters = null;
-            }
-            this.width = linkElement.getAttribute("width");
-            this.height = linkElement.getAttribute("height");
+        }
+
+        public String getName() {
+            return link.getName();
+        }
+
+        public String getText(Map<String, Object> context) {
+            return link.getText(context);
+        }
+
+        public String getId(Map<String, Object> context) {
+            return link.getId(context);
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return link.getStyle(context);
+        }
+
+        public String getTarget(Map<String, Object> context) {
+            return link.getTarget(context);
+        }
+
+        public String getName(Map<String, Object> context) {
+            return link.getName(context);
+        }
+
+        public String getTargetWindow(Map<String, Object> context) {
+            return link.getTargetWindow(context);
+        }
+
+        public String getUrlMode() {
+            return link.getUrlMode();
+        }
+
+        public String getPrefix(Map<String, Object> context) {
+            return link.getPrefix(context);
+        }
+
+        public boolean getFullPath() {
+            return link.getFullPath();
+        }
+
+        public boolean getSecure() {
+            return link.getSecure();
+        }
+
+        public boolean getEncode() {
+            return link.getEncode();
+        }
+
+        public ScreenImage getImage() {
+            return image;
+        }
+
+        public String getLinkType() {
+            return link.getLinkType();
+        }
+
+        public String getWidth() {
+            return link.getWidth();
+        }
+
+        public String getHeight() {
+            return link.getHeight();
+        }
+
+        public Map<String, String> getParameterMap(Map<String, Object> context) {
+            return link.getParameterMap(context);
+        }
+
+        public FlexibleStringExpander getTextExdr() {
+            return link.getTextExdr();
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return link.getIdExdr();
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return link.getStyleExdr();
+        }
+
+        public FlexibleStringExpander getTargetExdr() {
+            return link.getTargetExdr();
+        }
+
+        public FlexibleStringExpander getTargetWindowExdr() {
+            return link.getTargetWindowExdr();
+        }
+
+        public FlexibleStringExpander getPrefixExdr() {
+            return link.getPrefixExdr();
+        }
+
+        public FlexibleStringExpander getNameExdr() {
+            return link.getNameExdr();
+        }
+
+        public List<Parameter> getParameterList() {
+            return link.getParameterList();
+        }
+
+        public AutoServiceParameters getAutoServiceParameters() {
+            return link.getAutoServiceParameters();
+        }
+
+        public AutoEntityParameters getAutoEntityParameters() {
+            return link.getAutoEntityParameters();
         }
 
         @Override
@@ -1452,138 +1664,93 @@ public abstract class ModelScreenWidget extends ModelWidget {
             try {
                 screenStringRenderer.renderLink(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering link with id [" + getId(context) + "]: " + e.toString();
+                String errMsg = "Error rendering link with id [" + link.getId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
-        }
-
-        public String getText(Map<String, Object> context) {
-            String text = this.textExdr.expandString(context);
-            // FIXME: Encoding should be done by the renderer, not by the model.
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                text = simpleEncoder.encode(text);
-            }
-            return text;
-        }
-
-        public String getId(Map<String, Object> context) {
-            return this.idExdr.expandString(context);
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            return this.styleExdr.expandString(context);
-        }
-
-        public String getTarget(Map<String, Object> context) {
-            Map<String, Object> expanderContext = context;
-            UtilCodec.SimpleEncoder simpleEncoder = context == null ? null : (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                expanderContext = UtilCodec.HtmlEncodingMapWrapper.getHtmlEncodingMapWrapper(context, simpleEncoder);
-            }
-            return this.targetExdr.expandString(expanderContext);
-        }
-
-        public String getName(Map<String, Object> context) {
-            return this.nameExdr.expandString(context);
-        }
-
-        public String getTargetWindow(Map<String, Object> context) {
-            return this.targetWindowExdr.expandString(context);
-        }
-
-        public String getUrlMode() {
-            return this.urlMode;
-        }
-
-        public String getPrefix(Map<String, Object> context) {
-            return this.prefixExdr.expandString(context);
-        }
-
-        public boolean getFullPath() {
-            return this.fullPath;
-        }
-
-        public boolean getSecure() {
-            return this.secure;
-        }
-
-        public boolean getEncode() {
-            return this.encode;
-        }
-
-        public Image getImage() {
-            return this.image;
-        }
-
-        public String getLinkType() {
-            return this.linkType;
-        }
-
-        public String getWidth() {
-            return this.width;
-        }
-
-        public String getHeight() {
-            return this.height;
-        }
-
-        public Map<String, String> getParameterMap(Map<String, Object> context) {
-            Map<String, String> fullParameterMap = new HashMap<String, String>();
-
-            /* leaving this here... may want to add it at some point like the hyperlink element:
-            Map<String, String> addlParamMap = this.parametersMapAcsr.get(context);
-            if (addlParamMap != null) {
-                fullParameterMap.putAll(addlParamMap);
-            }
-            */
-            
-            for (WidgetWorker.Parameter parameter: this.parameterList) {
-                fullParameterMap.put(parameter.getName(), parameter.getValue(context));
-            }
-
-            if (autoServiceParameters != null) {
-                fullParameterMap.putAll(autoServiceParameters.getParametersMap(context, null));
-            }
-            if (autoEntityParameters != null) {
-                fullParameterMap.putAll(autoEntityParameters.getParametersMap(context, null));
-            }
-
-            return fullParameterMap;
         }
 
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
         }
+
+        public Link getLink() {
+            return link;
+        }
     }
 
-    public static final class Image extends ModelScreenWidget {
+    public static final class ScreenImage extends ModelScreenWidget {
         public static final String TAG_NAME = "image";
-        private final FlexibleStringExpander srcExdr;
-        private final FlexibleStringExpander idExdr;
-        private final FlexibleStringExpander styleExdr;
-        private final FlexibleStringExpander widthExdr;
-        private final FlexibleStringExpander heightExdr;
-        private final FlexibleStringExpander borderExdr;
-        private final FlexibleStringExpander alt;
-        private final String urlMode;
+        private final Image image;
 
-        public Image(ModelScreen modelScreen, Element imageElement) {
+        public String getName() {
+            return image.getName();
+        }
+
+        public String getSrc(Map<String, Object> context) {
+            return image.getSrc(context);
+        }
+
+        public String getId(Map<String, Object> context) {
+            return image.getId(context);
+        }
+
+        public String getStyle(Map<String, Object> context) {
+            return image.getStyle(context);
+        }
+
+        public String getWidth(Map<String, Object> context) {
+            return image.getWidth(context);
+        }
+
+        public String getHeight(Map<String, Object> context) {
+            return image.getHeight(context);
+        }
+
+        public String getBorder(Map<String, Object> context) {
+            return image.getBorder(context);
+        }
+
+        public String getAlt(Map<String, Object> context) {
+            return image.getAlt(context);
+        }
+
+        public String getUrlMode() {
+            return image.getUrlMode();
+        }
+
+        public FlexibleStringExpander getSrcExdr() {
+            return image.getSrcExdr();
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return image.getIdExdr();
+        }
+
+        public FlexibleStringExpander getStyleExdr() {
+            return image.getStyleExdr();
+        }
+
+        public FlexibleStringExpander getWidthExdr() {
+            return image.getWidthExdr();
+        }
+
+        public FlexibleStringExpander getHeightExdr() {
+            return image.getHeightExdr();
+        }
+
+        public FlexibleStringExpander getBorderExdr() {
+            return image.getBorderExdr();
+        }
+
+        public FlexibleStringExpander getAlt() {
+            return image.getAlt();
+        }
+
+        public ScreenImage(ModelScreen modelScreen, Element imageElement) {
             super(modelScreen, imageElement);
-            this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
-            this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
-            this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
-            this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
-            this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
-            this.borderExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("border"));
-            this.alt = FlexibleStringExpander.getInstance(imageElement.getAttribute("alt"));
-            String urlMode = imageElement.getAttribute("url-mode");
-            if (urlMode.isEmpty()) {
-                urlMode = "content";
-            }
-            this.urlMode = urlMode;
+            this.image = new Image(imageElement);
         }
 
         @Override
@@ -1591,53 +1758,19 @@ public abstract class ModelScreenWidget extends ModelWidget {
             try {
                 screenStringRenderer.renderImage(writer, context, this);
             } catch (IOException e) {
-                String errMsg = "Error rendering image with id [" + getId(context) + "]: " + e.toString();
+                String errMsg = "Error rendering image with id [" + image.getId(context) + "]: " + e.toString();
                 Debug.logError(e, errMsg, module);
                 throw new RuntimeException(errMsg);
             }
         }
 
-        public String getSrc(Map<String, Object> context) {
-            return this.srcExdr.expandString(context);
-        }
-
-        public String getId(Map<String, Object> context) {
-            return this.idExdr.expandString(context);
-        }
-
-        public String getStyle(Map<String, Object> context) {
-            return this.styleExdr.expandString(context);
-        }
-
-        public String getWidth(Map<String, Object> context) {
-            return this.widthExdr.expandString(context);
-        }
-
-        public String getHeight(Map<String, Object> context) {
-            return this.heightExdr.expandString(context);
-        }
-
-        public String getBorder(Map<String, Object> context) {
-            return this.borderExdr.expandString(context);
-        }
-
-        public String getAlt(Map<String, Object> context) {
-            String alt = this.alt.expandString(context);
-            // FIXME: Encoding should be done by the renderer, not by the model.
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
-            if (simpleEncoder != null) {
-                alt = simpleEncoder.encode(alt);
-            }
-            return alt;
-        }
-
-        public String getUrlMode() {
-            return this.urlMode;
-        }
-
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public Image getImage() {
+            return image;
         }
     }
 
@@ -1819,6 +1952,14 @@ public abstract class ModelScreenWidget extends ModelWidget {
         @Override
         public void accept(ModelWidgetVisitor visitor) throws Exception {
             visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getIdExdr() {
+            return idExdr;
+        }
+
+        public FlexibleStringExpander getConfModeExdr() {
+            return confModeExdr;
         }
     }
 

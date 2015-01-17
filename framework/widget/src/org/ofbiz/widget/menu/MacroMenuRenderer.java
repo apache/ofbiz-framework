@@ -39,10 +39,10 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
+import org.ofbiz.widget.CommonWidgetModels.Image;
 import org.ofbiz.widget.ModelWidget;
 import org.ofbiz.widget.WidgetWorker;
-import org.ofbiz.widget.menu.ModelMenuItem.Image;
-import org.ofbiz.widget.menu.ModelMenuItem.Link;
+import org.ofbiz.widget.menu.ModelMenuItem.MenuLink;
 
 import freemarker.core.Environment;
 import freemarker.template.Template;
@@ -190,7 +190,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
     }
 
     @Override
-    public void renderLink(Appendable writer, Map<String, Object> context, Link link) throws IOException {
+    public void renderLink(Appendable writer, Map<String, Object> context, MenuLink link) throws IOException {
         Map<String, Object> parameters = new HashMap<String, Object>();
         String target = link.getTarget(context);
         ModelMenuItem menuItem = link.getLinkMenuItem();
@@ -303,7 +303,7 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("style", style);
         parameters.put("toolTip", menuItem.getTooltip(context));
         String linkStr = "";
-        Link link = menuItem.getLink();
+        MenuLink link = menuItem.getLink();
         if (link != null) {
             StringWriter sw = new StringWriter();
             renderLink(sw, context, link);
