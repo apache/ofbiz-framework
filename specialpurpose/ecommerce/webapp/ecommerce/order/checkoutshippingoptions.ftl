@@ -59,6 +59,7 @@ function submitForm(form, mode, value) {
 </script>
 
 <form method="post" name="checkoutInfoForm" style="margin:0;">
+  <fieldset>
     <input type="hidden" name="checkoutpage" value="shippingoptions"/>
 
     <div class="screenlet" style="height: 100%;">
@@ -187,6 +188,7 @@ function submitForm(form, mode, value) {
             </table>
         </div>
     </div>
+  </fieldset>
 </form>
 
 <table width="100%">
