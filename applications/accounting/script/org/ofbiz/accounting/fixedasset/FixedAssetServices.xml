@@ -21,173 +21,11 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
 
-    <!-- ================================================================ -->
-    <!-- FixedAsset Services -->
-    <!-- ================================================================ -->
-
-    <!-- create a new Fixed Asset header record -->
-    <simple-method method-name="createFixedAsset" short-description="Create an FixedAsset">
-          <!-- create new entity and create all the fields -->
-        <make-value value-field="newEntity" entity-name="FixedAsset"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- create a non existing ID if not supplied -->
-        <if-empty field="parameters.fixedAssetId">
-            <sequenced-id sequence-name="FixedAsset" field="newEntity.fixedAssetId"/>
-        <else>
-            <!-- check the Duplicate ID> -->
-            <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
-            <if-not-empty field="fixedAsset">
-                <add-error>
-                    <fail-property resource="AccountingUiLabels" property="AccountingFixedAssetIdAlreadyExists"/>
-                </add-error>
-                <log level="info" message="${AccountingUiLabels.AccountingFixedAssetIdAlreadyExists}"/>
-                <else>
-                    <check-id field="parameters.fixedAssetId"/>
-                </else>                
-            </if-not-empty>
-            <check-errors/>
-            <set from-field="parameters.fixedAssetId" field="newEntity.fixedAssetId"/>
-        </else>
-        </if-empty>
-        <field-to-result field="newEntity.fixedAssetId" result-name="fixedAssetId"/>
-
-        <!-- finally create the record (should not exist already)-->
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <!-- update an existing Fixed Asset header Record -->
-    <simple-method method-name="updateFixedAsset" short-description="Update an existing FixedAsset">
-        <entity-one entity-name="FixedAsset" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ================================================================ -->
-    <!-- FixedAssetMember Services -->
-    <!-- ================================================================ -->
-
-    <!-- add a product to a fixed Asset -->
-    <simple-method method-name="addFixedAssetProduct" short-description="Add Product to FixedAsset">
-        <make-value value-field="newEntity" entity-name="FixedAssetProduct"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <!-- update the product to fixed Asset link -->
-    <simple-method method-name="updateFixedAssetProduct" short-description="Update Products of a FixedAsset">
-        <entity-one entity-name="FixedAssetProduct" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- remove the productlink from the Fixed Asset -->
-    <simple-method method-name="removeFixedAssetProduct" short-description="Remove Product From FixedAsset">
-        <entity-one entity-name="FixedAssetProduct" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ================================================================ -->
-    <!-- FixedAssetCalendar Services -->
-    <!-- ================================================================ -->
-    <!-- update the calendar of the fixed Asset -->
-<!--     <simple-method method-name="updateFixedAssetCalendar" short-description="Update the calendar of the FixedAsset">
-        <check-permission permission="ACCOUNTING" action="_UPDATE">
-            <alt-permission permission="ACCOUNTING_ROLE" action="_UPDATE"/>
-            <fail-property resource="AccountingUiLabels" property="AccountingUpdatePermissionError"/>
-        </check-permission>
-        <check-errors/>
-
-        <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
-
-        <make-value value-field="excDayPKMap" entity-name="TechDataCalendarExcDay"/>
-        <set-pk-fields field-name= "calendarId" map="fixedAsset" value-field="excDayPKMap"/>
-        <set-pk-fields fieldName= "exceptionDateStartTime" map="parameters" value-field="excDayPKMap"/>
-        <find-by entity-name="TechDataCalendarExcDay" map-name="excDayPKMap" value-name="lookedUpValue"/>
-        <set-nonpk-fields field-name="capacity" map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-
-
- -->
-
-
-    <!-- create a new FixedAssetStdCost -->
-    <simple-method method-name="createFixedAssetStdCost" short-description="Create a FixedAssetStdCost">
-        <!-- TODO: we should cancel the existing costs of the same type -->
-        <!-- create new entity and create all the fields -->
-
-        <!-- Check, should not exist already -->
-        <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <if-not-empty field="fixedAssetStdCost">
-            <add-error>
-                <fail-property resource="AccountingUiLabels" property="AccountingFixedAssetStdCostAlreadyExists"/>
-            </add-error>
-        </if-not-empty>
-        <check-errors/>
-
-        <make-value value-field="newEntity" entity-name="FixedAssetStdCost"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-
-        <!-- finally create the record (should not exist already)-->
-        <create-value value-field="newEntity"/>
-        <check-errors/>
-    </simple-method>
-    <!-- update an existing FixedAssetStdCost -->
-    <simple-method method-name="updateFixedAssetStdCost" short-description="Update an existing FixedAssetStdCost">
-        <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <set-nonpk-fields map="parameters" value-field="fixedAssetStdCost"/>
-        <store-value value-field="fixedAssetStdCost"/>
-    </simple-method>
     <!-- cancel an existing Agreement -->
     <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
         <now-timestamp field="fixedAssetStdCost.thruDate"/>
         <store-value value-field="fixedAssetStdCost"/>
-    </simple-method>
-
-    <!-- Fixed Asset Identification "FIXED_ASSET_IDENT"-->
-    <simple-method method-name="createFixedAssetIdent" short-description="Create an FixedAssetIdent">
-        <make-value value-field="newEntity" entity-name="FixedAssetIdent"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFixedAssetIdent" short-description="Update an existing FixedAssetIdent">
-        <entity-one entity-name="FixedAssetIdent" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="removeFixedAssetIdent" short-description="Remove Fixed Assets Idents FixedAssetIdent">
-        <entity-one entity-name="FixedAssetIdent" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- FixedAsset Registration Create/Update/Delete"-->
-    <simple-method method-name="createFixedAssetRegistration" short-description="Create FixedAsset Registration">
-        <make-value value-field="newEntity" entity-name="FixedAssetRegistration"/>
-        <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="newEntity.fromDate"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
-        <entity-one entity-name="FixedAssetRegistration" value-field="lookedUpValue"/>
-        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-field="lookedUpValue"/>
-    </simple-method>
-    <simple-method method-name="deleteFixedAssetRegistration" short-description="Delete FixedAsset Registration">
-        <entity-one entity-name="FixedAssetRegistration" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!--  create/update/delete FixedAssetMaint -->
@@ -305,10 +143,6 @@ under the License.
             </then>
         </if>
     </simple-method>
-    <simple-method method-name="deleteFixedAssetMaint" short-description="Delete FixedAsset Maintenance">
-        <entity-one entity-name="FixedAssetMaint" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
 
     <!--  create/update/delete FixedAssetMeter -->
     <simple-method method-name="createFixedAssetMeter" short-description="Create a Fixed Asset Meter Reading">
@@ -327,10 +161,6 @@ under the License.
         <check-errors/>
         <set field="meterValue" from-field="lookedUpValue"/>
         <call-simple-method method-name="createMaintsFromMeterReading"/>
-    </simple-method>
-    <simple-method method-name="deleteFixedAssetMeter" short-description="Delete a Fixed Asset Meter Reading">
-        <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createMaintsFromMeterReading" short-description="Create Fixed Asset Maintenances From A Meter Reading">
         <if-not-empty field="meterValue.maintHistSeqId">
@@ -506,33 +336,6 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-    </simple-method>
-    <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
-        <entity-one entity-name="FixedAssetMaintOrder" value-field="lookedUpValue"/>
-        <remove-value value-field="lookedUpValue"/>
-    </simple-method>
-
-    <!-- ==============Party Fixed Asset Assignment============= -->
-    <simple-method method-name="createPartyFixedAssetAssignment" short-description="Associate Party to Fixed Asset">
-        <make-value entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
-        <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <if-empty field="newEntity.fromDate">
-            <now-timestamp field="nowTimestamp"/>
-            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
-        </if-empty>
-        <create-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="updatePartyFixedAssetAssignment" short-description="Update Party to Fixed Asset">
-        <entity-one entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
-        <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <store-value value-field="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="deletePartyFixedAssetAssignment" short-description="Delete Party to Fixed Asset">
-        <entity-one entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
-        <remove-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="autoAssignFixedAssetPartiesToMaintenance" login-required="true"
