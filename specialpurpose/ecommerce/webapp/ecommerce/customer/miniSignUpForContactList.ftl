@@ -65,7 +65,8 @@ under the License.
             <@contactList publicEmailContactLists=publicEmailContactLists/>
           </div>
           <div>
-            <select name="preferredContactMechId" class="selectBox">
+            <label for="preferredContactMechId">${uiLabelMap.CommonEmail} *</label>
+            <select id="preferredContactMechId" name="preferredContactMechId" class="selectBox">
               <#list partyAndContactMechList as partyAndContactMech>
                 <option value="${partyAndContactMech.contactMechId}"><#if partyAndContactMech.infoString?has_content>${partyAndContactMech.infoString}<#elseif partyAndContactMech.tnContactNumber?has_content>${partyAndContactMech.tnCountryCode!}-${partyAndContactMech.tnAreaCode!}-${partyAndContactMech.tnContactNumber}<#elseif partyAndContactMech.paAddress1?has_content>${partyAndContactMech.paAddress1}, ${partyAndContactMech.paAddress2!}, ${partyAndContactMech.paCity!}, ${partyAndContactMech.paStateProvinceGeoId!}, ${partyAndContactMech.paPostalCode!}, ${partyAndContactMech.paPostalCodeExt!} ${partyAndContactMech.paCountryGeoId!}</#if></option>
               </#list>
@@ -95,7 +96,8 @@ under the License.
           <@contactList publicEmailContactLists=publicEmailContactLists/>
         </div>
         <div>
-          <input name="email" class="inputBox" type="text"/>
+          <label for="email">${uiLabelMap.CommonEmail} *</label>
+          <input id="email" name="email" class="required" type="text"/>
         </div>
         <div>
           <input type="submit" value="${uiLabelMap.EcommerceSubscribe}"/>
