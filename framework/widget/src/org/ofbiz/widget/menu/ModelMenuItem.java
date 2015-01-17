@@ -522,6 +522,32 @@ public class ModelMenuItem extends ModelWidget {
         private final ModelMenuItem linkMenuItem;
         private final Link link;
 
+        public MenuLink(Element linkElement, ModelMenuItem parentMenuItem) {
+            this.linkMenuItem = parentMenuItem;
+            if (linkElement.getAttribute("text").isEmpty()) {
+                linkElement.setAttribute("text", parentMenuItem.getTitle().getOriginal());
+            }
+            if (linkElement.getAttribute("style").isEmpty()) {
+                linkElement.setAttribute("style", parentMenuItem.getWidgetStyle());
+            }
+            this.link = new Link(linkElement);
+        }
+
+        public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
+            this.linkMenuItem = parentMenuItem;
+            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
+            if (parentMenuItem.link != null) {
+                parameterList.addAll(parentMenuItem.link.getParameterList());
+            }
+            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
+            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
+            String target = "showPortalPage";
+            if (parentMenuItem.link != null) {
+                target= "";
+            }
+            this.link = new Link(portalPage, parameterList, target, locale);
+        }
+
         public AutoEntityParameters getAutoEntityParameters() {
             return link.getAutoEntityParameters();
         }
@@ -628,26 +654,6 @@ public class ModelMenuItem extends ModelWidget {
 
         public String getWidth() {
             return link.getWidth();
-        }
-
-        public MenuLink(Element linkElement, ModelMenuItem parentMenuItem) {
-            this.linkMenuItem = parentMenuItem;
-            this.link = new Link(linkElement);
-        }
-
-        public MenuLink(GenericValue portalPage, ModelMenuItem parentMenuItem, Locale locale) {
-            this.linkMenuItem = parentMenuItem;
-            ArrayList<Parameter> parameterList = new ArrayList<Parameter>();
-            if (parentMenuItem.link != null) {
-                parameterList.addAll(parentMenuItem.link.getParameterList());
-            }
-            parameterList.add(new Parameter("portalPageId", portalPage.getString("portalPageId"), false));
-            parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
-            String target = "showPortalPage";
-            if (parentMenuItem.link != null) {
-                target= "";
-            }
-            this.link = new Link(portalPage, parameterList, target, locale);
         }
 
         public ModelMenuItem getLinkMenuItem() {

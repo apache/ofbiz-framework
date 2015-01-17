@@ -398,7 +398,8 @@ public class XmlWidgetVisitor extends AbstractWidgetVisitor implements ModelWidg
             writer.append("</actions>");
         }
         for (ModelMenuItem menuItem : modelMenu.getMenuItemList()) {
-            menuItem.accept(this);;
+            menuItem.accept(this);
+            ;
         }
         writer.append("</menu>");
     }
@@ -433,9 +434,12 @@ public class XmlWidgetVisitor extends AbstractWidgetVisitor implements ModelWidg
             visitActions(modelMenuItem.getActions());
             writer.append("</actions>");
         }
-        visitLink(modelMenuItem.getLink().getLink());
+        if (modelMenuItem.getLink() != null) {
+            visitLink(modelMenuItem.getLink().getLink());
+        }
         for (ModelMenuItem menuItem : modelMenuItem.getMenuItemList()) {
-            menuItem.accept(this);;
+            menuItem.accept(this);
+            ;
         }
         writer.append("</menu-item>");
     }
