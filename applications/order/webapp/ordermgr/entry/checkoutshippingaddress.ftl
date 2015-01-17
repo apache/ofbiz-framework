@@ -55,6 +55,7 @@ function toggleBillingAccount(box) {
 </script>
 <#assign cart = shoppingCart!/>
 <form method="post" name="checkoutInfoForm" style="margin:0;">
+  <fieldset>
     <input type="hidden" name="checkoutpage" value="shippingaddress"/>
     <div class="screenlet" style="height: 100%;">
         <div class="screenlet-title-bar">
@@ -133,6 +134,7 @@ function toggleBillingAccount(box) {
             ${screens.render("component://order/widget/ordermgr/OrderEntryOrderScreens.xml#customertaxinfo")}
         </div>
     </div>
+  </fieldset>
 </form>
 
 <table width="100%">
