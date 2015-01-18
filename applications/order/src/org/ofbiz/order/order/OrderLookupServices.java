@@ -591,6 +591,7 @@ public class OrderLookupServices {
                 eli = EntityQuery.use(delegator)
                         .select(fieldsToSelect)
                         .from(dve)
+                        .where(cond)
                         .orderBy(orderBy)
                         .distinct() // set distinct on so we only get one row per order
                         .maxRows(highIndex)
