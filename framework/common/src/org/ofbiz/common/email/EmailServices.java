@@ -73,9 +73,9 @@ import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.mail.MimeMessageWrapper;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.fo.FoScreenRenderer;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.renderer.fo.FoScreenRenderer;
+import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
 import org.xml.sax.SAXException;
 
 import com.sun.mail.smtp.SMTPAddressFailedException;

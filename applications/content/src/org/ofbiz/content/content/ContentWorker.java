@@ -69,7 +69,7 @@ import freemarker.ext.dom.NodeModel;
 /**
  * ContentWorker Class
  */
-public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
+public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInterface {
 
     public static final String module = ContentWorker.class.getName();
 

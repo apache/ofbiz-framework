@@ -21,7 +21,7 @@
 import java.util.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 if (security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE;

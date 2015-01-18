@@ -102,18 +102,18 @@
         <set field="xscreenContext.sendInitialAuthDetails" from-field="sendInitialAuthDetails"/>
         <set field="xscreenContext.shoppingCart" from-field="parameters.shoppingCart"/>
         <!-- create string renderer -->
-        <create-object class-name="org.ofbiz.widget.html.HtmlScreenRenderer" field="xhtmlStringRenderer"></create-object>
+        <create-object class-name="org.ofbiz.widget.renderer.html.HtmlScreenRenderer" field="xhtmlStringRenderer"></create-object>
         <!-- create screen renderer -->
-        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="screens">
+        <create-object class-name="org.ofbiz.widget.renderer.ScreenRenderer" field="screens">
             <field field="XMLWriter" type="java.lang.Appendable"/>
             <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
-            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
+            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.renderer.ScreenStringRenderer"/>
         </create-object>
         <set field="xscreenContext.screens" from-field="screens"/>
-        <create-object class-name="org.ofbiz.widget.screen.ScreenRenderer" field="xscreens">
+        <create-object class-name="org.ofbiz.widget.renderer.ScreenRenderer" field="xscreens">
             <field field="XMLWriter" type="java.lang.Appendable"/>
             <field field="xscreenContext" type="org.ofbiz.base.util.collections.MapStack"/>
-            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.screen.ScreenStringRenderer"/>
+            <field field="xhtmlStringRenderer" type="org.ofbiz.widget.renderer.ScreenStringRenderer"/>
         </create-object>
         <!-- get uri -->
         <property-to-field resource="googleCheckout" property="xmlTemplateUri" field="screenUri"/>

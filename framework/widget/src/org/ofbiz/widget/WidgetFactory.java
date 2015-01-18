@@ -29,9 +29,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.widget.screen.IterateSectionWidget;
-import org.ofbiz.widget.screen.ModelScreen;
-import org.ofbiz.widget.screen.ModelScreenWidget;
+import org.ofbiz.widget.model.IterateSectionWidget;
+import org.ofbiz.widget.model.ModelScreen;
+import org.ofbiz.widget.model.ModelScreenWidget;
 import org.w3c.dom.Element;
 
 /**

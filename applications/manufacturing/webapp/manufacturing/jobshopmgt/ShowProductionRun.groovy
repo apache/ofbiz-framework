@@ -25,7 +25,7 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.widget.html.HtmlFormWrapper;
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 delegator = request.getAttribute("delegator");

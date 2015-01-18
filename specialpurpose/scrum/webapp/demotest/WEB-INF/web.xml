@@ -46,7 +46,7 @@ under the License.
         <param-name>widgetVerbose</param-name>
         <param-value>false</param-value>
         <description>Enable widget boundary comments. See
-            org.ofbiz.widget.ModelWidget.widgetBoundaryCommentsEnabled().
+            org.ofbiz.widget.model.ModelWidget.widgetBoundaryCommentsEnabled().
         </description>
     </context-param>
     <context-param>

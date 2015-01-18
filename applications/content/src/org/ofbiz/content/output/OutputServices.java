@@ -63,9 +63,9 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.fo.FoFormRenderer;
-import org.ofbiz.widget.fo.FoScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.renderer.fo.FoFormRenderer;
+import org.ofbiz.widget.renderer.fo.FoScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
 
 
 /**

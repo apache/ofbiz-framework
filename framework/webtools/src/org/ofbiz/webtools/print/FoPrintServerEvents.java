@@ -36,8 +36,8 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
 
 /**
  * FoPrintServerEvents

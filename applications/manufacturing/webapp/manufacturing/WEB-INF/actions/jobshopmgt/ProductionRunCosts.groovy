@@ -18,7 +18,7 @@
  */
 
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.widget.html.HtmlFormWrapper;
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 taskCosts = [];
