@@ -60,7 +60,7 @@ entities.each { entityName ->
     if (filterByGroupName && !filterByGroupName.equals(entityGroupName)) {
         return;
     }
-    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase())) {
+    if (filterByEntityName && !((String)entity.getEntityName()).toUpperCase().contains(filterByEntityName.toUpperCase().replace(" ", ""))) {
         return;
     }
     viewEntity = "N";
