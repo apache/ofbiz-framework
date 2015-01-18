@@ -2050,7 +2050,7 @@ under the License.
         </row-actions>
         <field name="productId" title="${uiLabelMap.PageTitleProduct}" position="1" use-when="showPosition1">
             <display-entity entity-name="Product" description="${internalName} " key-field-name="productId">
-                <sub-hyperlink target="ViewProduc" description="[${productId}]">
+                <sub-hyperlink target="ViewProduct" description="[${productId}]">
                     <parameter param-name="productId"/>
                 </sub-hyperlink>
             </display-entity>
