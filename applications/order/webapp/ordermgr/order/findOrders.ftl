@@ -148,6 +148,11 @@ function toggleOrderIdList() {
                 <td width='5%'>&nbsp;</td>
                 <td align='left'><input type='text' name='orderId'/></td>
               </tr>
+              <tr>
+                <td width='25%' align='right' class='label'>${uiLabelMap.OrderOrderName}</td>
+                <td width='5%'>&nbsp;</td>
+                <td align='left'><input type='text' name='orderName'/></td>
+              </tr>
              <tr>
                 <td width='25%' align='right' class='label'>${uiLabelMap.OrderExternalId}</td>
                 <td width='5%'>&nbsp;</td>
@@ -589,6 +594,7 @@ document.lookuporder.orderId.focus();
           </td>
           <td width="5%">${uiLabelMap.OrderOrderType}</td>
           <td width="5%">${uiLabelMap.OrderOrderId}</td>
+          <td width="10 %">${uiLabelMap.OrderOrderName}</td>
           <td width="20%">${uiLabelMap.PartyName}</td>
           <td width="5%" align="right">${uiLabelMap.OrderSurvey}</td>
           <td width="5%" align="right">${uiLabelMap.OrderItemsOrdered}</td>
@@ -625,6 +631,11 @@ document.lookuporder.orderId.focus();
               </td>
               <td>${orderType.get("description",locale)?default(orderType.orderTypeId?default(""))}</td>
               <td><a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class='buttontext'>${orderHeader.orderId}</a></td>
+              <#if orderHeader.orderName?has_content>
+                <td><a href="<@ofbizUrl>orderview?orderId=${orderHeader.orderId}</@ofbizUrl>" class='buttontext'>${orderHeader.orderName}</a></td>
+              <#else>  
+                <td></td>
+              </#if>  
               <td>
                 <div>
                   <#if displayParty?has_content>
