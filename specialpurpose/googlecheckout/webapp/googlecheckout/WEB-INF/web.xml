@@ -46,7 +46,7 @@
     <context-param>
         <param-name>widgetVerbose</param-name>
         <param-value>false</param-value>
-        <description>Enable widget boundary comments. See org.ofbiz.widget.ModelWidget.widgetBoundaryCommentsEnabled().</description>
+        <description>Enable widget boundary comments. See org.ofbiz.widget.model.ModelWidget.widgetBoundaryCommentsEnabled().</description>
     </context-param>
     <context-param>
         <param-name>compressHTML</param-name>

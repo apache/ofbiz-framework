@@ -33,7 +33,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.widget.artifact.ArtifactInfoContext;
 import org.ofbiz.widget.artifact.ArtifactInfoGatherer;
-import org.ofbiz.widget.form.ModelForm;
+import org.ofbiz.widget.model.ModelForm;
 import org.xml.sax.SAXException;
 
 /**

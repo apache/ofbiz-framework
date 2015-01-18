@@ -49,8 +49,8 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
 import org.xml.sax.SAXException;
 
 public class ExamplePrintServices {

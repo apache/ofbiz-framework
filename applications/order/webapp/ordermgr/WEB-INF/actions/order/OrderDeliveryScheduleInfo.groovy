@@ -19,7 +19,7 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
-import org.ofbiz.widget.html.*;
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 orderId = request.getParameter("orderId");
 orderTypeId = null;

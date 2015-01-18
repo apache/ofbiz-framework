@@ -22,7 +22,7 @@
 
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.widget.html.HtmlFormWrapper;
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
 import javolution.util.FastList;

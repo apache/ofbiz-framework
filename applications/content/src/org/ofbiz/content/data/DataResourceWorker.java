@@ -76,11 +76,11 @@ import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.widget.screen.MacroScreenRenderer;
-import org.ofbiz.widget.screen.ModelScreen;
-import org.ofbiz.widget.screen.ScreenFactory;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.ofbiz.widget.screen.ScreenStringRenderer;
+import org.ofbiz.widget.model.ModelScreen;
+import org.ofbiz.widget.model.ScreenFactory;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.ofbiz.widget.renderer.macro.MacroScreenRenderer;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -90,7 +90,7 @@ import freemarker.template.TemplateException;
 /**
  * DataResourceWorker Class
  */
-public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerInterface {
+public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourceWorkerInterface {
 
     public static final String module = DataResourceWorker.class.getName();
     public static final String err_resource = "ContentErrorUiLabels";

@@ -61,9 +61,9 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.widget.fo.FoFormRenderer;
-import org.ofbiz.widget.html.HtmlScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.fo.FoFormRenderer;
+import org.ofbiz.widget.renderer.html.HtmlScreenRenderer;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 

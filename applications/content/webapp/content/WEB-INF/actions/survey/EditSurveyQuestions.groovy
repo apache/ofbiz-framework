@@ -20,7 +20,7 @@
 import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.base.util.*
-import org.ofbiz.widget.html.*
+import org.ofbiz.widget.renderer.html.*
 
 surveyQuestionId = parameters.surveyQuestionId;
 context.surveyQuestionId = surveyQuestionId;

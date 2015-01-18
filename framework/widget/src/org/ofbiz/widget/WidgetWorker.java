@@ -39,8 +39,8 @@ import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.control.WebAppConfigurationException;
 import org.ofbiz.webapp.taglib.ContentUrlTag;
-import org.ofbiz.widget.form.ModelForm;
-import org.ofbiz.widget.form.ModelFormField;
+import org.ofbiz.widget.model.ModelForm;
+import org.ofbiz.widget.model.ModelFormField;
 
 public final class WidgetWorker {
 

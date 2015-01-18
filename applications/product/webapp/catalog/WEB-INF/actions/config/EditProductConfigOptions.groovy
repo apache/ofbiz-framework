@@ -17,7 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.widget.html.*
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper
 
 createConfigOptionWrapper = new HtmlFormWrapper("component://product/widget/catalog/ConfigForms.xml", "CreateConfigOption", request, response);
 createConfigOptionWrapper.putInContext("configItemId", configItemId);

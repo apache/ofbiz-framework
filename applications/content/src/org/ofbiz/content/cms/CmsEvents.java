@@ -47,9 +47,9 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.ofbiz.widget.form.FormStringRenderer;
-import org.ofbiz.widget.form.MacroFormRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
+import org.ofbiz.widget.renderer.FormStringRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.macro.MacroFormRenderer;
 
 import freemarker.template.TemplateException;
 

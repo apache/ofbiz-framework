@@ -27,7 +27,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.widget.screen.ScreenFactory;
+import org.ofbiz.widget.model.ScreenFactory;
 import org.xml.sax.SAXException;
 
 /**

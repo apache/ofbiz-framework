@@ -27,7 +27,7 @@ import org.ofbiz.base.util.Debug
 import org.ofbiz.base.util.UtilHttp
 import org.ofbiz.content.search.SearchWorker
 import org.ofbiz.product.feature.ParametricSearch
-import org.ofbiz.widget.html.HtmlFormWrapper
+import org.ofbiz.widget.renderer.html.HtmlFormWrapper
 import org.apache.lucene.search.*
 import org.apache.lucene.index.DirectoryReader
 import org.apache.lucene.store.Directory

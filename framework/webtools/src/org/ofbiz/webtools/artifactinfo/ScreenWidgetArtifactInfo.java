@@ -35,7 +35,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.widget.artifact.ArtifactInfoContext;
 import org.ofbiz.widget.artifact.ArtifactInfoGatherer;
-import org.ofbiz.widget.screen.ModelScreen;
+import org.ofbiz.widget.model.ModelScreen;
 import org.xml.sax.SAXException;
 
 /**

@@ -28,7 +28,7 @@
     <handler name="simple" type="request" class="org.ofbiz.webapp.event.SimpleEventHandler"/>
     <handler name="groovy" type="request" class="org.ofbiz.webapp.event.GroovyEventHandler"/>    
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
+    <handler name="screen" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
     
     <!-- Events run from here for the first hit in a visit -->
     <firstvisit>

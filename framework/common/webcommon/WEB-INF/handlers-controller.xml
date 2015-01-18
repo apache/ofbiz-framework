@@ -35,11 +35,11 @@ under the License.
     <handler name="script" type="request" class="org.ofbiz.webapp.event.ScriptEventHandler"/>
 
     <!-- view handlers -->
-    <handler name="screen" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screenxml" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screentext" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screencsv" type="view" class="org.ofbiz.widget.screen.MacroScreenViewHandler"/>
-    <handler name="screenfop" type="view" class="org.ofbiz.widget.screen.ScreenFopViewHandler"/>
+    <handler name="screen" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screenxml" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screentext" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screencsv" type="view" class="org.ofbiz.widget.renderer.macro.MacroScreenViewHandler"/>
+    <handler name="screenfop" type="view" class="org.ofbiz.widget.renderer.fo.ScreenFopViewHandler"/>
     <handler name="jsp" type="view" class="org.ofbiz.webapp.view.JspViewHandler"/>
     <handler name="http" type="view" class="org.ofbiz.webapp.view.HttpViewHandler"/>
 </site-conf>
