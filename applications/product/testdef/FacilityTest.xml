@@ -39,8 +39,8 @@ under the License.
         <entity-xml action="load" entity-xml-url="component://product/testdef/data/IssuanceTestData.xml"/>
     </test-case>
 
-    <test-case case-name="issuance-tests">
+<!--    <test-case case-name="issuance-tests">
         <junit-test-suite class-name="org.ofbiz.shipment.test.IssuanceTest"/>
     </test-case>
-
+-->
 </test-suite>
