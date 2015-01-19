@@ -1071,7 +1071,6 @@ under the License.
     <ProductFacility productId="GZ-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="GZ-1004" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
     <ProductFacility productId="SV-1001" facilityId="WebStoreWarehouse" minimumStock="2" reorderQuantity="10" daysToShip="1"/>
-    <ProductFacility productId="GC-002" facilityId="WebStoreWarehouse" minimumStock="1" reorderQuantity="1" daysToShip="1"/>
 
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLUL01"/>
     <ProductFacilityLocation productId="GZ-2644" facilityId="WebStoreWarehouse" locationSeqId="TLTLTLLL01" minimumStock="2" moveQuantity="5"/>
@@ -1135,9 +1134,7 @@ under the License.
     <InventoryItemDetail inventoryItemId="9027" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
     <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9028" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2008-08-01 08:00:00.000" productId="GZ-1004" ownerPartyId="Company" currencyUomId="USD" unitCost="2.4"/>
     <InventoryItemDetail inventoryItemId="9028" inventoryItemDetailSeqId="0001" effectiveDate="2001-05-13 12:00:00.0" availableToPromiseDiff="8" quantityOnHandDiff="8" accountingQuantityDiff="8"/>
-
-    <InventoryItem facilityId="WebStoreWarehouse" inventoryItemId="9032" inventoryItemTypeId="NON_SERIAL_INV_ITEM" datetimeReceived="2015-01-18 00:00:00.000" productId="GC-002" ownerPartyId="Company" currencyUomId="USD"/>
-    <InventoryItemDetail inventoryItemId="9032" inventoryItemDetailSeqId="0001" effectiveDate="2015-01-18 00:00:00.0" availableToPromiseDiff="10" quantityOnHandDiff="10" accountingQuantityDiff="10"/>
+    
 
     <!-- Some additional test promotions -->
     <!-- GWP example on >$100 purchase -->
