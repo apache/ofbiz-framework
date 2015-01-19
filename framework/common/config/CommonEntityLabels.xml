@@ -68,7 +68,7 @@
         <value xml:lang="zh-TW">用於線性元件的材料清單公式</value>
     </property>
     <property key="CustomMethod.description.DBL_DECL_DEP_FORMULA">
-        <value xml:lang="en">Double decline depreciatiion algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
+        <value xml:lang="en">Double decline depreciation algorithm for fixed asset((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="fr">Algorithme de dépréciation d'immobilisation ((valeur - coût déjà déprécié)*2/ années restantes)</value>
         <value xml:lang="it">Declina algoritmo doppio svalutazione per cespiti((NetBookValue - salvageCost)*2/remainingLifeInYears)</value>
         <value xml:lang="ja">固定資産減価償却 二倍定率法((正味簿価 - 残存価額)*2/耐用年数残)</value>
@@ -316,6 +316,7 @@
         <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
         <value xml:lang="it">Contanti messi in cassa</value>
         <value xml:lang="ja">小口現金引出</value>
+        <value xml:lang="nl">Kleine kas - uitgave</value>
         <value xml:lang="pt-BR">Dinheiro de caixa pago pelo balcão</value>
         <value xml:lang="ru">Введите деньги в кассе</value>
         <value xml:lang="vi">Lý do NỘP vào két</value>
@@ -328,6 +329,7 @@
         <value xml:lang="fr">Sortie d'espèces de la caisse</value>
         <value xml:lang="it">Contanti usciti dalla cassa</value>
         <value xml:lang="ja">小口現金支払</value>
+        <value xml:lang="nl">Kleine kas - ontvangst</value>
         <value xml:lang="pt-BR">Valor descontado do caixa</value>
         <value xml:lang="ru">Остаток денежных средств на счету</value>
         <value xml:lang="vi">Lý do RÚT từ két</value>
@@ -340,6 +342,7 @@
         <value xml:lang="fr">Monnaie ajoutée à l'encours de caisse</value>
         <value xml:lang="it">Cambio aggiunti alla cassa</value>
         <value xml:lang="ja">小口現金変更追加</value>
+        <value xml:lang="nl">Kleine kas - wisselgeld in</value>
         <value xml:lang="pt-BR">Alterar adicionado fluxo do balcão</value>
         <value xml:lang="ru">Добавленные деньги к наличным</value>
         <value xml:lang="vi">Thiết lập hướng THÊM vào két</value>
@@ -352,6 +355,7 @@
         <value xml:lang="fr">Niveau Bronze</value>
         <value xml:lang="it">Bronzo</value>
         <value xml:lang="ja">ブロンズ</value>
+        <value xml:lang="nl">Niveau - brons</value>
         <value xml:lang="pt-BR">Nível bronze</value>
         <value xml:lang="th">บรอนซ์</value>
         <value xml:lang="ru">Бронзовая</value>
@@ -365,6 +369,7 @@
         <value xml:lang="fr">Niveau Or</value>
         <value xml:lang="it">Oro</value>
         <value xml:lang="ja">ゴールド</value>
+        <value xml:lang="nl">Niveau - goud</value>
         <value xml:lang="pt-BR">Nível Ouro</value>
         <value xml:lang="th">ทอง</value>
         <value xml:lang="ru">Золотая</value>
@@ -378,6 +383,7 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
+        <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="pt-BR">Não se aplica</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
         <value xml:lang="ru">Не применяется</value>
@@ -391,6 +397,7 @@
         <value xml:lang="fr">Niveau argent</value>
         <value xml:lang="it">Argento</value>
         <value xml:lang="ja">シルバー</value>
+        <value xml:lang="nl">Niveau - zilver</value>
         <value xml:lang="pt-BR">Nivel Prata</value>
         <value xml:lang="th">เงิน</value>
         <value xml:lang="ru">Серебрянная</value>
@@ -405,6 +412,7 @@
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo medio</value>
         <value xml:lang="ja">平均コスト</value>
+        <value xml:lang="nl">Kosten verkoop - gemiddelde kosten</value>
         <value xml:lang="pt">Custo Médio</value>
         <value xml:lang="ro">Cost Mediu</value>
         <value xml:lang="ru">По средней стоимости</value>
@@ -420,6 +428,7 @@
         <value xml:lang="fr">FIFO (premier entré, premier sorti)</value>
         <value xml:lang="it">FIFO</value>
         <value xml:lang="ja">先入先出法(FIFO)</value>
+        <value xml:lang="nl">Kosten verkoop - FIFO</value>
         <value xml:lang="pt">FIFO</value>
         <value xml:lang="pt-BR">FIFO (primeiro a entrar, primeiro a sair)</value>
         <value xml:lang="ro">FIFO</value>
@@ -436,6 +445,7 @@
         <value xml:lang="fr">LIFO (Dernier entré, premier sorti)</value>
         <value xml:lang="it">LIFO</value>
         <value xml:lang="ja">後入先出法(LIFO)</value>
+        <value xml:lang="nl">Kosten verkoop - LIFO</value>
         <value xml:lang="pt">LIFO</value>
         <value xml:lang="pt-BR">LIFO (Último a entrar, primeiro a sair)</value>
         <value xml:lang="ro">LIFO</value>
@@ -521,6 +531,7 @@
         <value xml:lang="fr">Bateau</value>
         <value xml:lang="it">Barca</value>
         <value xml:lang="ja">船舶</value>
+        <value xml:lang="nl">Boot/schip</value>
         <value xml:lang="pt">Boat</value>
         <value xml:lang="pt-BR">Barco</value>
         <value xml:lang="ro">Barca</value>
@@ -537,6 +548,7 @@
         <value xml:lang="fr">Compresseur</value>
         <value xml:lang="it">Compressore</value>
         <value xml:lang="ja">コンプレッサ</value>
+        <value xml:lang="nl">Compressor</value>
         <value xml:lang="pt">Compressor</value>
         <value xml:lang="ro">Compresor</value>
         <value xml:lang="ru">Компрессор</value>
@@ -552,6 +564,7 @@
         <value xml:lang="fr">Pelleteuse</value>
         <value xml:lang="it">Escavatore</value>
         <value xml:lang="ja">掘削機</value>
+        <value xml:lang="nl">Graver</value>
         <value xml:lang="pt">Digger</value>
         <value xml:lang="pt-BR">Escavador</value>
         <value xml:lang="ro">Escavator</value>
@@ -568,6 +581,7 @@
         <value xml:lang="fr">Chariot élévateur à fourche</value>
         <value xml:lang="it">Carrello elevatore</value>
         <value xml:lang="ja">フォークリフト</value>
+        <value xml:lang="nl">Heftruck</value>
         <value xml:lang="pt">Forklift</value>
         <value xml:lang="pt-BR">Empilhadeira</value>
         <value xml:lang="ro">Car Elevator</value>
@@ -584,6 +598,7 @@
         <value xml:lang="fr">Ascenseur</value>
         <value xml:lang="it">Ascensore</value>
         <value xml:lang="ja">昇降機</value>
+        <value xml:lang="nl">Personenlift</value>
         <value xml:lang="pt">Manlift</value>
         <value xml:lang="ro">Ascensor</value>
         <value xml:lang="ru">Подъемник</value>
@@ -599,6 +614,7 @@
         <value xml:lang="fr">Mobile</value>
         <value xml:lang="it">Mobile</value>
         <value xml:lang="ja">自動車</value>
+        <value xml:lang="nl">Mobiele telefoon</value>
         <value xml:lang="pt">Mobile</value>
         <value xml:lang="ro">Mobile</value>
         <value xml:lang="ru">Мобильный</value>
@@ -614,6 +630,7 @@
         <value xml:lang="fr">Passager du véhicule</value>
         <value xml:lang="it">Passeggero veicolo</value>
         <value xml:lang="ja">乗用車</value>
+        <value xml:lang="nl">Voertuig - personen</value>
         <value xml:lang="pt">Passneger Vehicle</value>
         <value xml:lang="pt-BR">Veículo de passageiros</value>
         <value xml:lang="ro">Vehicol Paseger </value>
@@ -629,6 +646,7 @@
         <value xml:lang="fr">Extracteur</value>
         <value xml:lang="it">Tenditore</value>
         <value xml:lang="ja">牽引車</value>
+        <value xml:lang="nl">Voertuig - trekker</value>
         <value xml:lang="pt">Puller</value>
         <value xml:lang="pt-BR">Puxador</value>
         <value xml:lang="ro">Puller</value>
@@ -659,6 +677,7 @@
         <value xml:lang="fr">Organisme de services</value>
         <value xml:lang="it">Servizio corpo</value>
         <value xml:lang="ja">サービスボディ</value>
+        <value xml:lang="nl">Service entiteit</value>
         <value xml:lang="pt">Service Body</value>
         <value xml:lang="pt-BR">Corpo de Serviço</value>
         <value xml:lang="ro">Serviciu Corp</value>
@@ -675,6 +694,7 @@
         <value xml:lang="fr">Camion citerne</value>
         <value xml:lang="it">Cisterna</value>
         <value xml:lang="ja">タンカー</value>
+        <value xml:lang="nl">Tanker</value>
         <value xml:lang="pt">Tanker</value>
         <value xml:lang="pt-BR">Petroleiro</value>
         <value xml:lang="ro">Cisterna</value>
@@ -691,6 +711,7 @@
         <value xml:lang="fr">Tracteur</value>
         <value xml:lang="it">Trattore</value>
         <value xml:lang="ja">トラクター</value>
+        <value xml:lang="nl">Tractor</value>
         <value xml:lang="pt">Tractor</value>
         <value xml:lang="pt-BR">Trator</value>
         <value xml:lang="ro">Tractor</value>
@@ -707,6 +728,7 @@
         <value xml:lang="fr">Tranchoir</value>
         <value xml:lang="it">Trinciatore</value>
         <value xml:lang="ja">トレンチャー(溝堀)</value>
+        <value xml:lang="nl">Sleuvengraver</value>
         <value xml:lang="pt">Trencher</value>
         <value xml:lang="pt-BR">Trincho</value>
         <value xml:lang="ro">Trancher</value>
@@ -723,6 +745,7 @@
         <value xml:lang="fr">Canal de vente : fax</value>
         <value xml:lang="it">Canale fax</value>
         <value xml:lang="ja">FAXチャネル</value>
+        <value xml:lang="nl">Verkoopkanaal: fax</value>
         <value xml:lang="pt">Canal Fax</value>
         <value xml:lang="pt-BR">Canal de Fax</value>
         <value xml:lang="ro">Canal Fax</value>
@@ -739,6 +762,7 @@
         <value xml:lang="fr">Masse (ou volume)</value>
         <value xml:lang="it">Giacenza</value>
         <value xml:lang="ja">バルク</value>
+        <value xml:lang="nl">Bulk</value>
         <value xml:lang="pt">Parte de Edifício</value>
         <value xml:lang="pt-BR">Granel</value>
         <value xml:lang="ro">Stoc</value>
@@ -755,6 +779,7 @@
         <value xml:lang="fr">Choix/Primaire</value>
         <value xml:lang="it">Prelievo/Primaria</value>
         <value xml:lang="ja">ピッキング/最初</value>
+        <value xml:lang="nl">Pick locatie</value>
         <value xml:lang="pt">Recolher/Primária</value>
         <value xml:lang="pt-BR">Escolha/Primária</value>
         <value xml:lang="ro">Preluare/Primara</value>
@@ -796,6 +821,7 @@
         <value xml:lang="fr">AEROSPACIATIALE</value>
         <value xml:lang="it">Spazio aereo</value>
         <value xml:lang="ja">航空宇宙産業</value>
+        <value xml:lang="nl">Ruimtevaart</value>
         <value xml:lang="pt-BR">Espaço aéreo</value>
         <value xml:lang="ru">Воздушное пространство</value>
         <value xml:lang="th">บรรยากาศ</value>
@@ -809,6 +835,7 @@
         <value xml:lang="fr">DISTRIBUTION</value>
         <value xml:lang="it">In distribuzione</value>
         <value xml:lang="ja">物流業</value>
+        <value xml:lang="nl">Distributie</value>
         <value xml:lang="pt-BR">Distribuição</value>
         <value xml:lang="ru">Распределение</value>
         <value xml:lang="th">การกระจาย</value>
@@ -822,6 +849,7 @@
         <value xml:lang="fr">FINANCE</value>
         <value xml:lang="it">Finanza</value>
         <value xml:lang="ja">金融業</value>
+        <value xml:lang="nl">Finance</value>
         <value xml:lang="pt-BR">Financeira</value>
         <value xml:lang="ru">Финансы</value>
         <value xml:lang="th">การเงิน</value>
@@ -835,6 +863,7 @@
         <value xml:lang="fr">SERVICES GENERAUX</value>
         <value xml:lang="it">Servizi generale</value>
         <value xml:lang="ja">サービス業</value>
+        <value xml:lang="nl">Generieke diensten</value>
         <value xml:lang="pt-BR">Serviços Gerais</value>
         <value xml:lang="ru">Общие услуги</value>
         <value xml:lang="th">IND_GEN_SERVICES</value>
@@ -848,6 +877,7 @@
         <value xml:lang="fr">MATERIEL</value>
         <value xml:lang="it">Hardware</value>
         <value xml:lang="ja">ハードウェア業</value>
+        <value xml:lang="nl">Hardware</value>
         <value xml:lang="pt-BR">Hardware</value>
         <value xml:lang="ru">Аппаратные средства</value>
         <value xml:lang="th">ฮาร์ดแวร์</value>
@@ -861,6 +891,7 @@
         <value xml:lang="fr">SANTE</value>
         <value xml:lang="it">Sicurezza sulla salutea</value>
         <value xml:lang="ja">保健医療業</value>
+        <value xml:lang="nl">Gezondheidzorg</value>
         <value xml:lang="pt-BR">Saúde</value>
         <value xml:lang="ru">Забота о здоровье</value>
         <value xml:lang="th">IND_HEALTH_CARE</value>
@@ -874,6 +905,7 @@
         <value xml:lang="fr">ASSURANCE</value>
         <value xml:lang="it">Assicurazione</value>
         <value xml:lang="ja">保険業</value>
+        <value xml:lang="nl">Verzekeringen</value>
         <value xml:lang="pt-BR">Seguros</value>
         <value xml:lang="ru">Страхование</value>
         <value xml:lang="th">การประกัน</value>
@@ -887,6 +919,7 @@
         <value xml:lang="fr">FABRICATION</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="ja">製造業</value>
+        <value xml:lang="nl">Fabricage</value>
         <value xml:lang="pt-BR">Produção</value>
         <value xml:lang="ru">Мануфактура</value>
         <value xml:lang="th">การผลิต</value>
@@ -900,6 +933,7 @@
         <value xml:lang="fr">MEDIA</value>
         <value xml:lang="it">Media</value>
         <value xml:lang="ja">メディア業</value>
+        <value xml:lang="nl">Media</value>
         <value xml:lang="ru">СМИ</value>
         <value xml:lang="th">มีเดีย</value>
         <value xml:lang="vi">Đa phương tiện</value>
@@ -912,6 +946,7 @@
         <value xml:lang="fr">NON LUCRATIF</value>
         <value xml:lang="it">Senza profitto</value>
         <value xml:lang="ja">非営利組織</value>
+        <value xml:lang="nl">Non-profit</value>
         <value xml:lang="pt-BR">Sem fins lucrativos</value>
         <value xml:lang="ru">Бесприбыльный</value>
         <value xml:lang="th">ไม่ผลกำไร</value>
@@ -925,6 +960,7 @@
         <value xml:lang="fr">IMMOBILIER</value>
         <value xml:lang="it">Immobili</value>
         <value xml:lang="ja">不動産業</value>
+        <value xml:lang="nl">Vastgoed</value>
         <value xml:lang="pt-BR">Imobiliária</value>
         <value xml:lang="ru">Собственность</value>
         <value xml:lang="th">บ้านและที่ดิน</value>
@@ -938,6 +974,7 @@
         <value xml:lang="fr">VENTE AU DETAIL</value>
         <value xml:lang="it">Al dettaglio</value>
         <value xml:lang="ja">小売業</value>
+        <value xml:lang="nl">Retail/detaillist</value>
         <value xml:lang="pt-BR">Varejo</value>
         <value xml:lang="ru">Розничный</value>
         <value xml:lang="th">การขายปลีก</value>
@@ -951,6 +988,7 @@
         <value xml:lang="fr">LOGICIEL</value>
         <value xml:lang="it">Software</value>
         <value xml:lang="ja">ソフトウェア業</value>
+        <value xml:lang="nl">Software</value>
         <value xml:lang="pt-BR">Software</value>
         <value xml:lang="ru">ПО</value>
         <value xml:lang="th">ซอฟต์แวร์</value>
@@ -964,6 +1002,7 @@
         <value xml:lang="fr">TELECOM</value>
         <value xml:lang="it">Telefono</value>
         <value xml:lang="ja">電気通信業</value>
+        <value xml:lang="nl">Telecom</value>
         <value xml:lang="pt-BR">Telefonia</value>
         <value xml:lang="ru">Телефония</value>
         <value xml:lang="th">โทรคมนาคม</value>
@@ -978,6 +1017,7 @@
         <value xml:lang="fr">FIFO expiré</value>
         <value xml:lang="it">FIFO scaduto</value>
         <value xml:lang="ja">先入先出法出庫</value>
+        <value xml:lang="nl">FIFO - expiratie</value>
         <value xml:lang="pt">FIFO Expira</value>
         <value xml:lang="pt-BR">FIFO expeira</value>
         <value xml:lang="ro">FIFO Expirat</value>
@@ -994,6 +1034,7 @@
         <value xml:lang="fr">FIFO reçu</value>
         <value xml:lang="it">FIFO ricevuto</value>
         <value xml:lang="ja">先入先出法入庫</value>
+        <value xml:lang="nl">FIFO - ontvangst</value>
         <value xml:lang="pt">FIFO Recebido</value>
         <value xml:lang="ro">FIFO Primit</value>
         <value xml:lang="ru">FIFO получено</value>
@@ -1009,6 +1050,7 @@
         <value xml:lang="fr">Coût supérieur</value>
         <value xml:lang="it">Maggiore del costo unitario</value>
         <value xml:lang="ja">大単位原価</value>
+        <value xml:lang="nl">Kosten - grotere eenheid</value>
         <value xml:lang="pt">Maior Unidade de Custo</value>
         <value xml:lang="pt-BR">Maior custo unitário</value>
         <value xml:lang="ro">Mai mare decat Costul Unitar</value>
@@ -1025,6 +1067,7 @@
         <value xml:lang="fr">LIFO expiré</value>
         <value xml:lang="it">LIFO scaduto</value>
         <value xml:lang="ja">後入先出法出庫</value>
+        <value xml:lang="nl">LIFO - expiratie</value>
         <value xml:lang="pt">LIFO Expira</value>
         <value xml:lang="ro">LIFO Expirat</value>
         <value xml:lang="ru">LIFO окончание срока</value>
@@ -1040,6 +1083,7 @@
         <value xml:lang="fr">LIFO reçu</value>
         <value xml:lang="it">LIFO ricevuto</value>
         <value xml:lang="ja">後入先出法入庫</value>
+        <value xml:lang="nl">LIFO - ontvangst</value>
         <value xml:lang="pt">LIFO Recebido</value>
         <value xml:lang="ro">LIFO Primit</value>
         <value xml:lang="ru">LIFO получено</value>
@@ -1055,6 +1099,7 @@
         <value xml:lang="fr">Coût inférieur</value>
         <value xml:lang="it">Minore del costo unitario</value>
         <value xml:lang="ja">小単位原価</value>
+        <value xml:lang="nl">Kosten - kleinere eenheid</value>
         <value xml:lang="pt">Menor Unidade de Custo</value>
         <value xml:lang="pt-BR">Menor Custo Unitário</value>
         <value xml:lang="ro">Mai mic decat Costul Unitar</value>
@@ -1071,6 +1116,7 @@
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="ja">拡張連番(欠番なし、組織単位)</value>
+        <value xml:lang="nl">Oplopende volgnummers</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
         <value xml:lang="pt-BR">Seqüência Forçada (sem intervalo, por organização)</value>
         <value xml:lang="ro">Seqventa Fortata (nici-o pauza, pentru organizare)</value>
@@ -1087,6 +1133,7 @@
         <value xml:lang="fr">Reprendre sur l'année fiscale(aucun saut, par organisation, remise à 1 chaque année)</value>
         <value xml:lang="it">Riavvio ad anno fiscale (nessuna pausa, per organizzazione, azzeramento ad ogni anno)</value>
         <value xml:lang="ja">会計年度毎(欠番なし、組織単位、毎年リセット)</value>
+        <value xml:lang="nl">Herstart per fiscaal jaar (start met 1)</value>
         <value xml:lang="pt">Recomeçar no Ano Fiscal (sem intervalos, por org, reset para 1 cada ano)</value>
         <value xml:lang="pt-BR">Reinicie o Ano Fiscal (sem intervalos, por organização, volta para 1 a cada ano)</value>
         <value xml:lang="ro">Restart din Anul Fiscal (nici-o pauza, pentru organizare, azereaza fiecare an)</value>
@@ -1103,6 +1150,7 @@
         <value xml:lang="fr">Standard (plus rapide, des sauts peuvent apparaître, fait par le système)</value>
         <value xml:lang="it">Normale (più veloce, potrebbe esserci pause, per il sistema)</value>
         <value xml:lang="ja">標準(高速、欠番可能性あり、システム単位)</value>
+        <value xml:lang="nl">Standaard nummering (kan gaten hebben, per systeem, maar sneller)</value>
         <value xml:lang="pt">Standard (mais rápido, pode ter intervalos, por sistema)</value>
         <value xml:lang="pt-BR">Padrão (mais rápido, pode ter lacunas, por sistema)</value>
         <value xml:lang="ro">Normal (rapid, posibil sa apara pauze in sistem)</value>
@@ -1145,6 +1193,7 @@
         <value xml:lang="fr">Catégorie d'article</value>
         <value xml:lang="it">Categoria prodotto</value>
         <value xml:lang="ja">製品カテゴリ</value>
+        <value xml:lang="nl">Productcategorie</value>
         <value xml:lang="pt">Categoria do Produto</value>
         <value xml:lang="pt-BR">Categoria de Produtos</value>
         <value xml:lang="ro">Categorie Produs</value>
@@ -1161,6 +1210,7 @@
         <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品</value>
+        <value xml:lang="nl">Product</value>
         <value xml:lang="pt">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
@@ -1292,7 +1342,7 @@
         <value xml:lang="fr">Terme apparenté</value>
         <value xml:lang="it">Termine relativo</value>
         <value xml:lang="ja">関連語</value>
-        <value xml:lang="nl">Related Term</value>
+        <value xml:lang="nl">Soortgelijk begrip</value>
         <value xml:lang="pt">Termo Relacionado</value>
         <value xml:lang="ro">Termen Relativ</value>
         <value xml:lang="ru">Связанные термины</value>
@@ -1308,7 +1358,7 @@
         <value xml:lang="fr">Portée des notes</value>
         <value xml:lang="it">Scopo note</value>
         <value xml:lang="ja">範囲注釈(スコープノート)</value>
-        <value xml:lang="nl">Scope Opmerkingen</value>
+        <value xml:lang="nl">Scope opmerkingen</value>
         <value xml:lang="pt">Notas de Alcance</value>
         <value xml:lang="pt-BR">Nota</value>
         <value xml:lang="ro">Scop Note</value>
@@ -1371,6 +1421,7 @@
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="ja">拡張連番(欠番なし、組織単位)</value>
+        <value xml:lang="nl">Oplopende nummering</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
         <value xml:lang="pt-BR">Seqüência Forçada (sem intervalos, por organização)</value>
         <value xml:lang="ro">Secventa Fortata (nici-o pauza, pentru organizare)</value>
@@ -1433,6 +1484,7 @@
         <value xml:lang="fr">Crédit</value>
         <value xml:lang="it">Credito</value>
         <value xml:lang="ja">信用</value>
+        <value xml:lang="nl">Credit</value>
         <value xml:lang="pt">Creditar</value>
         <value xml:lang="pt-BR">Crédito</value>
         <value xml:lang="ro">Credit</value>
@@ -1449,6 +1501,7 @@
         <value xml:lang="fr">Remboursement</value>
         <value xml:lang="it">Rimborso</value>
         <value xml:lang="ja">返済</value>
+        <value xml:lang="nl">Terugstorting</value>
         <value xml:lang="pt">Reembolsar</value>
         <value xml:lang="pt-BR">Reembolso</value>
         <value xml:lang="ro">Rambursare</value>
@@ -1481,6 +1534,7 @@
         <value xml:lang="fr">Canal de vente : téléphonique</value>
         <value xml:lang="it">Canale telefonico</value>
         <value xml:lang="ja">電話チャネル</value>
+        <value xml:lang="nl">Verkoopkanaal - telefonisch</value>
         <value xml:lang="pt">Canal Telefone</value>
         <value xml:lang="pt-BR">Canal de Telefone</value>
         <value xml:lang="ro">Canal Telefon</value>
@@ -1513,6 +1567,7 @@
         <value xml:lang="fr">Coût et frêt</value>
         <value xml:lang="it">Costo e spese di trasporto</value>
         <value xml:lang="ja">原価および運送費用</value>
+        <value xml:lang="nl">Kosten en vracht</value>
         <value xml:lang="pt">Cost and Freight</value>
         <value xml:lang="pt-BR">Custo e frete</value>
         <value xml:lang="ro">Cost si Cheltuieli de Trasport</value>
@@ -1733,6 +1788,7 @@
         <value xml:lang="fr">En transit</value>
         <value xml:lang="it">In transito</value>
         <value xml:lang="ja">運送中</value>
+        <value xml:lang="nl">In transit</value>
         <value xml:lang="pt">Em Trânsito</value>
         <value xml:lang="ro">In Tranzit</value>
         <value xml:lang="ru">Во время транзита</value>
@@ -1747,6 +1803,7 @@
         <value xml:lang="fr">Origine</value>
         <value xml:lang="it">Origine</value>
         <value xml:lang="ja">出発地</value>
+        <value xml:lang="nl">Origine/herkomst</value>
         <value xml:lang="pt">Origem</value>
         <value xml:lang="ro">Origine</value>
         <value xml:lang="ru">В пункте отправки</value>
@@ -1762,6 +1819,7 @@
         <value xml:lang="fr">Est</value>
         <value xml:lang="it">E'</value>
         <value xml:lang="ja">＝</value>
+        <value xml:lang="nl">is gelijk aan</value>
         <value xml:lang="pt">É</value>
         <value xml:lang="ro">Este</value>
         <value xml:lang="ru">это</value>
@@ -1777,6 +1835,7 @@
         <value xml:lang="fr">Est plus grand que</value>
         <value xml:lang="it">E' maggiore di</value>
         <value xml:lang="ja">＞</value>
+        <value xml:lang="nl">Groter dan</value>
         <value xml:lang="pt">É Maior Que</value>
         <value xml:lang="ro">E Mai mare decat</value>
         <value xml:lang="ru">больше</value>
@@ -1792,6 +1851,7 @@
         <value xml:lang="fr">Est plus grand ou égal  à</value>
         <value xml:lang="it">E' maggiore di o uguale a</value>
         <value xml:lang="ja">≧</value>
+        <value xml:lang="nl">Groter of gelijk aan</value>
         <value xml:lang="pt">É Maior ou Igual A</value>
         <value xml:lang="ro">E Mai mare sau Egal cu</value>
         <value xml:lang="ru">больше или равно</value>
@@ -1807,6 +1867,7 @@
         <value xml:lang="fr">Est plus petit que</value>
         <value xml:lang="it">E' minore di</value>
         <value xml:lang="ja">＜</value>
+        <value xml:lang="nl">Kleiner dan</value>
         <value xml:lang="pt">É Menos Que</value>
         <value xml:lang="ro">E Mai mic decat</value>
         <value xml:lang="ru">меньше</value>
@@ -1822,6 +1883,7 @@
         <value xml:lang="fr">Est plus petit ou égal à</value>
         <value xml:lang="it">E' minore di o uguale a</value>
         <value xml:lang="ja">≦</value>
+        <value xml:lang="nl">Kleiner of gelijk aan</value>
         <value xml:lang="pt">É Menos Que ou Igual A</value>
         <value xml:lang="pt-BR">É inferior ou igual a</value>
         <value xml:lang="ro">E Mai mic sau egal cu</value>
@@ -1838,6 +1900,7 @@
         <value xml:lang="fr">N'est pas</value>
         <value xml:lang="it">Non e'</value>
         <value xml:lang="ja">≠</value>
+        <value xml:lang="nl">Niet gelijk aan</value>
         <value xml:lang="pt">Não É</value>
         <value xml:lang="ro">Nu Este</value>
         <value xml:lang="ru">не</value>
@@ -1869,6 +1932,7 @@
         <value xml:lang="fr">Sous-total du panier</value>
         <value xml:lang="it">Sub-totale carrello</value>
         <value xml:lang="ja">買い物かご小計</value>
+        <value xml:lang="nl">Sub-totaal winkelmand</value>
         <value xml:lang="pt">Sub-total do Carrinho</value>
         <value xml:lang="ro">Sub-total Cos</value>
         <value xml:lang="ru">Итог корзины</value>
@@ -2221,6 +2285,7 @@
         <value xml:lang="fr">Enregistrement</value>
         <value xml:lang="it">Registrazione</value>
         <value xml:lang="ja">登録</value>
+        <value xml:lang="nl">Registratie</value>
         <value xml:lang="pt">Registo</value>
         <value xml:lang="pt-BR">Registro</value>
         <value xml:lang="ro">Registratura</value>
@@ -2237,6 +2302,7 @@
         <value xml:lang="fr">Achat d'une carte-cadeau</value>
         <value xml:lang="it">Acquisto carta-omaggio</value>
         <value xml:lang="ja">ギフトカードの支払</value>
+        <value xml:lang="nl">Aankoop/verkoop cadeaukaart</value>
         <value xml:lang="pt">Compra de Cartão-de-Oferta</value>
         <value xml:lang="pt-BR">Compra de cartão de presente Card</value>
         <value xml:lang="ro">Cumpara Carte-Omagiu</value>
@@ -2269,6 +2335,7 @@
         <value xml:lang="fr">Commande en attente</value>
         <value xml:lang="it">Back-Order</value>
         <value xml:lang="ja">入荷待ち</value>
+        <value xml:lang="nl">Back order</value>
         <value xml:lang="pt">Encomenda em Aberto</value>
         <value xml:lang="pt-BR">Pedido em aberto-</value>
         <value xml:lang="ro">Back-Order</value>
@@ -2285,6 +2352,7 @@
         <value xml:lang="fr">Changement de commande</value>
         <value xml:lang="it">Cambio ordine</value>
         <value xml:lang="ja">注文変更</value>
+        <value xml:lang="nl">Order - gewijzigd</value>
         <value xml:lang="pt">Alteração de Encomenda</value>
         <value xml:lang="pt-BR">Alteração de Pedido</value>
         <value xml:lang="ro">Schimb Comanda</value>
@@ -2301,6 +2369,7 @@
         <value xml:lang="fr">Accompli</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Compleet</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="ro">Executat</value>
         <value xml:lang="ru">Завершение</value>
@@ -2316,6 +2385,7 @@
         <value xml:lang="fr">Confirmation</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="ja">確認</value>
+        <value xml:lang="nl">Bevestiging</value>
         <value xml:lang="pt">Confirmação</value>
         <value xml:lang="ro">Confirma</value>
         <value xml:lang="ru">Подтверждение</value>
@@ -2500,6 +2570,7 @@
         <value xml:lang="fr">Confirmation de devis</value>
         <value xml:lang="it">Conferma preventivo</value>
         <value xml:lang="ja">見積確認</value>
+        <value xml:lang="nl">Quote - bevestiging</value>
         <value xml:lang="pt">Confirmação de Quotação</value>
         <value xml:lang="pt-BR">Confirmação de cotação</value>
         <value xml:lang="ro">Confirma Oferta</value>
@@ -2515,6 +2586,7 @@
         <value xml:lang="fr">Devis créé</value>
         <value xml:lang="it">Creazione preventivo</value>
         <value xml:lang="ja">見積作成</value>
+        <value xml:lang="nl">Quote - aangemaakt</value>
         <value xml:lang="pt-BR">Cotação criada</value>
         <value xml:lang="ru">Цена создана</value>
         <value xml:lang="vi">Tạo báo giá</value>
@@ -2528,6 +2600,7 @@
         <value xml:lang="fr">Retour accepté</value>
         <value xml:lang="it">Reso accettato</value>
         <value xml:lang="ja">返品受付</value>
+        <value xml:lang="nl">Quote - geaccepteerd</value>
         <value xml:lang="pt">Devolução Aceite</value>
         <value xml:lang="pt-BR">Devoluução aceita</value>
         <value xml:lang="ro">Acces Returnare</value>
@@ -2544,6 +2617,7 @@
         <value xml:lang="fr">Retour annulé</value>
         <value xml:lang="it">Reso cancellato</value>
         <value xml:lang="ja">返品取消</value>
+        <value xml:lang="nl">Retour - geannuleerd</value>
         <value xml:lang="pt">Devolução Cancelada</value>
         <value xml:lang="ro">Returnare Stearsa</value>
         <value xml:lang="ru">Отмена возврата</value>
@@ -2559,6 +2633,7 @@
         <value xml:lang="fr">Retour Accompli</value>
         <value xml:lang="it">Reso completato</value>
         <value xml:lang="ja">返品完了</value>
+        <value xml:lang="nl">Retour - afgerond</value>
         <value xml:lang="pt">Devolução Completa</value>
         <value xml:lang="pt-BR">Devolução completada</value>
         <value xml:lang="ro">Returnare Executata</value>
@@ -2574,6 +2649,7 @@
         <value xml:lang="fr">Le dire à un ami</value>
         <value xml:lang="it">Dillo ad un'amico</value>
         <value xml:lang="ja">友達に教える</value>
+        <value xml:lang="nl">Vertel het aan een vriend</value>
         <value xml:lang="pt">Dize-A-Um-Amigo</value>
         <value xml:lang="pt-BR">Indique a um Amigo</value>
         <value xml:lang="ro">Transmite la un Prirten</value>
@@ -2590,6 +2666,7 @@
         <value xml:lang="fr">Devise utilisée</value>
         <value xml:lang="it">Udm Valuta</value>
         <value xml:lang="ja">通貨単位</value>
+        <value xml:lang="nl">UoM valuta</value>
         <value xml:lang="pt">Moeda UomId</value>
         <value xml:lang="ro">Udm Valuta</value>
         <value xml:lang="ru">Код валюты</value>
@@ -2605,6 +2682,7 @@
         <value xml:lang="fr">Prix public</value>
         <value xml:lang="it">Prezzo di listino</value>
         <value xml:lang="ja">定価</value>
+        <value xml:lang="nl">Lijstprijs</value>
         <value xml:lang="pt">Lista de Preços</value>
         <value xml:lang="pt-BR">Preço de tabela</value>
         <value xml:lang="ro">Pret de Lista</value>
@@ -2667,6 +2745,7 @@
         <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品</value>
+        <value xml:lang="nl">Product</value>
         <value xml:lang="pt">Produto</value>
         <value xml:lang="ro">Produs</value>
         <value xml:lang="ru">Продукт</value>
@@ -2682,6 +2761,7 @@
         <value xml:lang="fr">Catégorie d'articles</value>
         <value xml:lang="it">Categoria prodotto</value>
         <value xml:lang="ja">製品カテゴリ</value>
+        <value xml:lang="nl">Productcategorie</value>
         <value xml:lang="pt">Categoria de Produto</value>
         <value xml:lang="pt-BR">Categoria de Produtos</value>
         <value xml:lang="ro">Categoria Produs</value>
@@ -2698,6 +2778,7 @@
         <value xml:lang="fr">Catalogue d'articles</value>
         <value xml:lang="it">Catalogo prodotto</value>
         <value xml:lang="ja">製品カタログ</value>
+        <value xml:lang="nl">Productcatalogus</value>
         <value xml:lang="pt">Catálogo de Produtos</value>
         <value xml:lang="ro">Catalog Produs</value>
         <value xml:lang="ru">Продуктовый каталог</value>
@@ -2729,6 +2810,7 @@
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Quantità</value>
         <value xml:lang="ja">数量</value>
+        <value xml:lang="nl">Hoeveelheid</value>
         <value xml:lang="pt">Quantidade</value>
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="ru">Количество</value>
@@ -2773,6 +2855,7 @@
         <value xml:lang="fr">Besoin créé quand la quantité disponible (ATP) atteint le stock minimum fixé</value>
         <value xml:lang="it">Fabbisogno per un'ordine quando ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="ja">製品在庫(納期)が下限到達の場合注文要求</value>
+        <value xml:lang="nl">Requirement voor order, als AtP min. hoeveelheid van product-faciliteit nadert</value>
         <value xml:lang="pt-BR">Requisição para pedido quando o estoque alcançar o mínimo de produtos por instalação</value>
         <value xml:lang="ru">Требование для заказа когда ATP достиг минимального запаса для продукта-устройства</value>
         <value xml:lang="vi">Yêu cầu cho đơn hàng khi ATP đạt số lượng kho tối thiểu cho Product-Facility</value>
@@ -2786,6 +2869,7 @@
         <value xml:lang="fr">Automatique pour chaque ordre de Vente</value>
         <value xml:lang="it">Automatico per ogni ordine di vendita</value>
         <value xml:lang="ja">すべての販売注文に対して自動処理</value>
+        <value xml:lang="nl">Autom. voor iedere verkooporder</value>
         <value xml:lang="pt">Automático Para Cada Encomenda</value>
         <value xml:lang="pt-BR">Automático para todo pedido de vendas</value>
         <value xml:lang="ro">Automatic Pentru Orice Comanda de Vanzare</value>
@@ -2801,6 +2885,7 @@
         <value xml:lang="fr">Expédition par un tiers seulement</value>
         <value xml:lang="it">Solo spedizione conto terzi</value>
         <value xml:lang="ja">直送のみ</value>
+        <value xml:lang="nl">Alleen drop ship</value>
         <value xml:lang="pt-BR">Apenas Drop-Ship</value>
         <value xml:lang="ru">Прямые поставки только</value>
         <value xml:lang="vi">Chỉ Drop-ship</value>
@@ -2813,6 +2898,7 @@
         <value xml:lang="fr">Expédition par un tiers automatique sur faible quantité</value>
         <value xml:lang="it">Spedizione conto terzi automatica sulla bassa quantità</value>
         <value xml:lang="ja">少数時自動直送</value>
+        <value xml:lang="nl">Auto drop ship bij lage hoeveelheid</value>
         <value xml:lang="pt-BR">Drop-ship automático para pequenas quantidades</value>
         <value xml:lang="ru">Автоматическая поставка на маленькое количество</value>
         <value xml:lang="vi">Tự động Drop-ship tại số lượng ít</value>
@@ -2826,6 +2912,7 @@
         <value xml:lang="fr">Aucun besoin créé</value>
         <value xml:lang="it">Nessun fabbisogno creato</value>
         <value xml:lang="ja">要求なし</value>
+        <value xml:lang="nl">Reguirement - geen aangemaakt</value>
         <value xml:lang="pt">Nenhuma Requisição Criada</value>
         <value xml:lang="pt-BR">Nenhuma requisito Criado</value>
         <value xml:lang="ro">Nessun Necesar Creat</value>
@@ -2842,6 +2929,7 @@
         <value xml:lang="fr">Quand la quantité existante (QOH) atteint le stock minimum fixé</value>
         <value xml:lang="it">Quando la QOH raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="ja">手持在庫が下限到達の場合</value>
+        <value xml:lang="nl">Wanneer QoH de min. hoeveelheid van product-magazijn nadert</value>
         <value xml:lang="pt">Quando QOH (quantidade em espera) Atinge o Stock Mínimo para Produto-Armazém</value>
         <value xml:lang="pt-BR">Quando a quantidade em estoque (QOH) atingir mínimo de produtos por instalação</value>
         <value xml:lang="ro">Cand cantitatea QOH Ajunge la Stocul Minim pe Produs-Compartiment</value>
@@ -2858,6 +2946,7 @@
         <value xml:lang="fr">Quand la quantité disponible (ATP) atteint le stock minimum fixé</value>
         <value xml:lang="it">Quando la ATP raggiunge la giacenza minima per il prodotto-stabilimento</value>
         <value xml:lang="ja">製品在庫(納期)が下限到達の場合</value>
+        <value xml:lang="nl">Wanneer AtP de min. hoeveelheid van product-magazijn nadert</value>
         <value xml:lang="pt">Quando ATP Atinge o Stock Mínimo para Produto-Armazém</value>
         <value xml:lang="pt-BR">Quando o ATP atingir mínimo de produtos por instalação</value>
         <value xml:lang="ro">Cand ATP Ajunge Stocul Minim pe Produs-Compartiment</value>
@@ -2874,6 +2963,7 @@
         <value xml:lang="fr">Expédition gratuite</value>
         <value xml:lang="it">Spedizione gratuita</value>
         <value xml:lang="ja">配送料無料</value>
+        <value xml:lang="nl">Gratis levering</value>
         <value xml:lang="pt">Envio Grátis</value>
         <value xml:lang="pt-BR">Frete Grátis</value>
         <value xml:lang="ro">Expediere Gratuita</value>
@@ -2890,6 +2980,7 @@
         <value xml:lang="fr">Cadeau lors d'un achat</value>
         <value xml:lang="it">Omaggio con acquisto</value>
         <value xml:lang="ja">購入時プレゼント</value>
+        <value xml:lang="nl">Cadeau bij aankoop</value>
         <value xml:lang="pt">Oferta com Compra</value>
         <value xml:lang="pt-BR">Presente para compras</value>
         <value xml:lang="ro">Omagiu la Cumparare</value>
@@ -2922,6 +3013,7 @@
         <value xml:lang="fr">Pourcentage de remise de la commande</value>
         <value xml:lang="it">Percentuale sconto ordine</value>
         <value xml:lang="ja">注文の%割引</value>
+        <value xml:lang="nl">Order - procentuele korting</value>
         <value xml:lang="pt">Desconto de Percentagem em Encomenda</value>
         <value xml:lang="pt-BR">Porcentagem de desconto por pedido</value>
         <value xml:lang="ro">Procent Reducere Comanda</value>
@@ -2986,6 +3078,7 @@
         <value xml:lang="fr">Un article au prix [spécial promo]</value>
         <value xml:lang="it">Prodotto per promozione speciale prezzo</value>
         <value xml:lang="ja">製品を[特別プロモーション]価格で</value>
+        <value xml:lang="nl">Product tegen [speciale promo]-prijs</value>
         <value xml:lang="pt">Produto para [Promo Especial] Preço</value>
         <value xml:lang="pt-BR">Produto por Preço [Promoção especial]</value>
         <value xml:lang="ro">Produs pentru [Promovare Speciala] Pret</value>
@@ -3002,6 +3095,7 @@
         <value xml:lang="fr">Ordre imposé (aucun saut, par organisation)</value>
         <value xml:lang="it">Sequenza forzata (nessuna pausa, per organizzazione)</value>
         <value xml:lang="ja">拡張連番(欠番なし、組織単位)</value>
+        <value xml:lang="nl">Oplopende nummering</value>
         <value xml:lang="pt">Sequência Forçada (sem intervalos, por organização)</value>
         <value xml:lang="pt-BR">Seqüência forçada(sem intervalos por organização)</value>
         <value xml:lang="ro">Secventa Fortata (nici-o pauza, pentru organizare)</value>
@@ -3034,6 +3128,7 @@
         <value xml:lang="fr">Canal de courrier lent</value>
         <value xml:lang="it">Canale snail email</value>
         <value xml:lang="ja">郵便チャネル</value>
+        <value xml:lang="nl">Verkoopkanaal - brief/post</value>
         <value xml:lang="pt">Snail Mail Channel</value>
         <value xml:lang="pt-BR">Canal de correio tradicional</value>
         <value xml:lang="ro">Canal Snail Mail</value>
@@ -3049,6 +3144,7 @@
         <value xml:lang="fr">Niveau Bronze</value>
         <value xml:lang="it">Sottoscrizione bronzo</value>
         <value xml:lang="ja">ブロンズ付与</value>
+        <value xml:lang="nl">Abonnement - brons</value>
         <value xml:lang="pt-BR">Assinatura Bronze</value>
         <value xml:lang="ru">Бронзовая подписка</value>
         <value xml:lang="th">บรอนซ์</value>
@@ -3062,6 +3158,7 @@
         <value xml:lang="fr">Niveau or</value>
         <value xml:lang="it">Sottoscrizione oro</value>
         <value xml:lang="ja">ゴールド付与</value>
+        <value xml:lang="nl">Abonnement - goud</value>
         <value xml:lang="pt-BR">Assinatura ouro</value>
         <value xml:lang="ru">Золотая подписка</value>
         <value xml:lang="th">ทอง</value>
@@ -3075,6 +3172,7 @@
         <value xml:lang="fr">Niveau argent</value>
         <value xml:lang="it">Sottoscrizione argento</value>
         <value xml:lang="ja">シルバー付与</value>
+        <value xml:lang="nl">Abonnement - zilver</value>
         <value xml:lang="pt-BR">Assinatura Prata</value>
         <value xml:lang="ru">Серебряная подписка</value>
         <value xml:lang="th">เงิน</value>
@@ -3118,6 +3216,7 @@
         <value xml:lang="fr">Canal de vente : inconnu</value>
         <value xml:lang="it">Canale sconosciuto</value>
         <value xml:lang="ja">未知のチャネル</value>
+        <value xml:lang="nl">Verkoopkanaal - onbekend</value>
         <value xml:lang="pt">Unknown Channel</value>
         <value xml:lang="pt-BR">Canal Desconhecido</value>
         <value xml:lang="ro">Canal Necunoscut</value>
@@ -3133,6 +3232,7 @@
         <value xml:lang="fr">Mode automatique</value>
         <value xml:lang="it">Automatico</value>
         <value xml:lang="ja">自動</value>
+        <value xml:lang="nl">Automatisch</value>
         <value xml:lang="pt-BR">Automático</value>
         <value xml:lang="ru">Автоматически</value>
         <value xml:lang="th">อัตโนมัติ</value>
@@ -3146,7 +3246,7 @@
         <value xml:lang="fr">Mode manuel</value>
         <value xml:lang="it">Manuale</value>
         <value xml:lang="ja">手動</value>
-        <value xml:lang="pt-BR">Modo Manual</value>
+        <value xml:lang="nl">Handmatig</value>
         <value xml:lang="ru">Вручную</value>
         <value xml:lang="th">คู่มือ</value>
         <value xml:lang="vi">Tự làm</value>
@@ -3159,6 +3259,7 @@
         <value xml:lang="fr">Implémentation de boucle</value>
         <value xml:lang="it">Loop</value>
         <value xml:lang="ja">繰り返し</value>
+        <value xml:lang="nl">Loop</value>
         <value xml:lang="pt-BR">Implmentação de laço</value>
         <value xml:lang="ru">Петля</value>
         <value xml:lang="th">WAT_LOOP</value>
@@ -3172,6 +3273,7 @@
         <value xml:lang="fr">Pas d'implémentation</value>
         <value xml:lang="it">Nessuno</value>
         <value xml:lang="ja">なし</value>
+        <value xml:lang="nl">Nummer</value>
         <value xml:lang="pt-BR">Nenhum</value>
         <value xml:lang="ru">Никто</value>
         <value xml:lang="th">WAT_NO</value>
@@ -3185,6 +3287,7 @@
         <value xml:lang="fr">Route</value>
         <value xml:lang="it">Percorso</value>
         <value xml:lang="ja">経路</value>
+        <value xml:lang="nl">Route</value>
         <value xml:lang="pt-BR">Rota</value>
         <value xml:lang="ru">Дистанционно</value>
         <value xml:lang="th">Route</value>
@@ -3198,6 +3301,7 @@
         <value xml:lang="fr">Implémentation de flux secondaire</value>
         <value xml:lang="it">Flusso secondario</value>
         <value xml:lang="ja">サブフロー</value>
+        <value xml:lang="nl">Sub flow</value>
         <value xml:lang="pt-BR">Subfluxo</value>
         <value xml:lang="ru">Подпоток</value>
         <value xml:lang="th">WAT_SUBFLOW</value>
@@ -3237,6 +3341,7 @@
         <value xml:lang="fr">Booléen - type simple</value>
         <value xml:lang="it">Booleano</value>
         <value xml:lang="ja">真偽型</value>
+        <value xml:lang="nl">Boolean</value>
         <value xml:lang="pt-BR">Booleano</value>
         <value xml:lang="ru">Логический</value>
         <value xml:lang="th">บูลีน</value>
@@ -3250,6 +3355,7 @@
         <value xml:lang="fr">Date-Heure - type de base</value>
         <value xml:lang="it">Data ora</value>
         <value xml:lang="ja">日付時間型</value>
+        <value xml:lang="nl">Datum-tijd</value>
         <value xml:lang="pt-BR">Data/horário</value>
         <value xml:lang="ru">Дата/Время</value>
         <value xml:lang="th">วันเวลา</value>
@@ -3263,6 +3369,7 @@
         <value xml:lang="fr">Déclaré</value>
         <value xml:lang="it">Dichiarato</value>
         <value xml:lang="ja">定義型</value>
+        <value xml:lang="nl">Declaratie</value>
         <value xml:lang="pt-BR">Declarado</value>
         <value xml:lang="ru">Объявленный</value>
         <value xml:lang="th">DECLARED</value>
@@ -3276,6 +3383,7 @@
         <value xml:lang="fr">Enumération - type complexe</value>
         <value xml:lang="it">Enumerazione</value>
         <value xml:lang="ja">列挙型</value>
+        <value xml:lang="nl">Opsomming</value>
         <value xml:lang="pt-BR">Enumeração</value>
         <value xml:lang="ru">Перечисление</value>
         <value xml:lang="th">ENUMERATION</value>
@@ -3407,6 +3515,7 @@
         <value xml:lang="fr">Canal de vente : internet</value>
         <value xml:lang="it">Canale web</value>
         <value xml:lang="ja">Webチャネル</value>
+        <value xml:lang="nl">Verkoopkanaal - web/ecommerce</value>
         <value xml:lang="pt">Canal Web</value>
         <value xml:lang="ro">Canal Web</value>
         <value xml:lang="ru">Web сайт</value>
@@ -3525,6 +3634,14 @@
         <value xml:lang="vi">Chung, truy nhập công khai</value>
         <value xml:lang="zh">通用，公共访问</value>
         <value xml:lang="zh-TW">通用,公共訪問</value>
+    </property>
+    <property key="Enumeration.description.WF_PREDECESSOR">
+        <value xml:lang="en">Preceding</value>
+        <value xml:lang="nl">Voorafgaand</value>
+    </property>
+    <property key="Enumeration.description.WF_SUCCESSOR">
+        <value xml:lang="en">Succeeding</value>
+        <value xml:lang="nl">Opvolgend</value>
     </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
@@ -3805,6 +3922,7 @@
         <value xml:lang="fr">Application</value>
         <value xml:lang="it">Applicazione</value>
         <value xml:lang="ja">業務</value>
+        <value xml:lang="nl">Applicatie/toepassing</value>
         <value xml:lang="pt-BR">Aplicativo</value>
         <value xml:lang="ru">Приложение</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้</value>
@@ -3818,6 +3936,7 @@
         <value xml:lang="fr">Procédure</value>
         <value xml:lang="it">Procedura</value>
         <value xml:lang="ja">処理</value>
+        <value xml:lang="nl">Prodedure</value>
         <value xml:lang="pt-BR">Procedimento</value>
         <value xml:lang="ru">Процедура</value>
         <value xml:lang="th">ขั้นตอน</value>
@@ -3864,6 +3983,7 @@
         <value xml:lang="fr">Méthodes COGS (coût des biens vendus)</value>
         <value xml:lang="it">Metodi COGS</value>
         <value xml:lang="ja">売上原価算出方法</value>
+        <value xml:lang="nl">Methode kostprijs verkopen (COGS)</value>
         <value xml:lang="pt">Métodos de Custo das Matérias-Primas</value>
         <value xml:lang="pt-BR">Métodos de custo de matéria-prima</value>
         <value xml:lang="ro">Metode COGS</value>
@@ -3880,6 +4000,7 @@
         <value xml:lang="fr">Type d'emplacement de stockage</value>
         <value xml:lang="it">Tipo posizione stabilimento</value>
         <value xml:lang="ja">拠点位置種類</value>
+        <value xml:lang="nl">Soort locatie (faciliteit)</value>
         <value xml:lang="pt">Tpo de Localização de Instalação</value>
         <value xml:lang="pt-BR">Tipo de localização da Instalação</value>
         <value xml:lang="ro">Tip Pozitie Compartiment</value>
@@ -3896,6 +4017,7 @@
         <value xml:lang="fr">Classe d'immobilisation</value>
         <value xml:lang="it">Classe cespite</value>
         <value xml:lang="ja">固定資産分類</value>
+        <value xml:lang="nl">Klasse vaste activa</value>
         <value xml:lang="pt">Fixed Asset Class</value>
         <value xml:lang="pt-BR">Classe de Ativo Fixo</value>
         <value xml:lang="ro">Clasa Mijloace Fixe</value>
@@ -3912,6 +4034,7 @@
         <value xml:lang="fr">Mode de numérotation des factures</value>
         <value xml:lang="it">Modo sequenza fattura</value>
         <value xml:lang="ja">請求書番号採番方法</value>
+        <value xml:lang="nl">Methode volgnummers facturen</value>
         <value xml:lang="pt">Modo de Sequência de Facturação</value>
         <value xml:lang="pt-BR">Modo sequencial da Fatura</value>
         <value xml:lang="ro">Mod Seqventa Factura</value>
@@ -3928,6 +4051,7 @@
         <value xml:lang="fr">Inventaire des ordres de réservation</value>
         <value xml:lang="it">Inventario ordini riservati</value>
         <value xml:lang="ja">在庫予約注文</value>
+        <value xml:lang="nl">Volgorde voorraadreservering</value>
         <value xml:lang="pt">Encomenda Reserva de Inventário</value>
         <value xml:lang="pt-BR">Pedido de reserva no inventário</value>
         <value xml:lang="ro">Inventar Comenzi Rezervate</value>
@@ -3977,6 +4101,7 @@
         <value xml:lang="fr">Canal de commande de vente</value>
         <value xml:lang="it">Canale di vendita</value>
         <value xml:lang="ja">注文販売チャネル</value>
+        <value xml:lang="nl">Order verkoopkanaal</value>
         <value xml:lang="pt">Canal de Encomendas (Vendas)</value>
         <value xml:lang="pt-BR">Canal de Pedidos de Vendas</value>
         <value xml:lang="ro">Canal de Vanzare</value>
@@ -3993,6 +4118,7 @@
         <value xml:lang="fr">Mode de numérotation des commandes</value>
         <value xml:lang="it">Modo sequenza ordini</value>
         <value xml:lang="ja">注文番号採番方法</value>
+        <value xml:lang="nl">Methode volgnummers orders</value>
         <value xml:lang="pt">Modo de Sequência de Encomenda</value>
         <value xml:lang="pt-BR">Modo sequencial de Pedidos</value>
         <value xml:lang="ro">Mod Secventa Ordine</value>
@@ -4025,6 +4151,7 @@
         <value xml:lang="fr">Email des magasins</value>
         <value xml:lang="it">Notifica email negozio</value>
         <value xml:lang="ja">製品店舗Eメール通知</value>
+        <value xml:lang="nl">Email notifictie productwinkel</value>
         <value xml:lang="pt">Notificação por Email de Produto de Loja</value>
         <value xml:lang="pt-BR">E-mail de Notificação da loja</value>
         <value xml:lang="ro">Notifica Email Magazin</value>
@@ -4070,6 +4197,7 @@
         <value xml:lang="fr">Condition de prix</value>
         <value xml:lang="it">Condizioni promozioni prodotto</value>
         <value xml:lang="ja">製品プロモーション条件</value>
+        <value xml:lang="nl">Conditie product-promo</value>
         <value xml:lang="pt">Condição de Promoção de Produto</value>
         <value xml:lang="pt-BR">Condição para a Promoção de Produtos</value>
         <value xml:lang="ro">Conditii Promovari Produse</value>
@@ -4102,6 +4230,7 @@
         <value xml:lang="fr">Action de promotion</value>
         <value xml:lang="it">Azione promozione prodotto</value>
         <value xml:lang="ja">製品プロモーション活動</value>
+        <value xml:lang="nl">Actie product-promo</value>
         <value xml:lang="pt">Acção de Promoção de Produto</value>
         <value xml:lang="pt-BR">Ação de promoção do produto</value>
         <value xml:lang="ro">Actiune Promovare Produs</value>
@@ -4118,6 +4247,7 @@
         <value xml:lang="fr">Condition de promotion</value>
         <value xml:lang="it">Condizione promozione prodotto</value>
         <value xml:lang="ja">製品プロモーション条件</value>
+        <value xml:lang="nl">Conditie product-promo</value>
         <value xml:lang="pt">Condição de Promoção de Produto</value>
         <value xml:lang="pt-BR">Condição para a Promoção de Produtos</value>
         <value xml:lang="ro">Conditie Promovare Produs</value>
@@ -4182,6 +4312,7 @@
         <value xml:lang="fr">Méthode de besoin d'article</value>
         <value xml:lang="it">Tipo metodo fabbisogno prodotto</value>
         <value xml:lang="ja">製品要求方法</value>
+        <value xml:lang="nl">Methode product-requirement</value>
         <value xml:lang="pt">Método de Requisição de Produto</value>
         <value xml:lang="pt-BR">Método de requisitos do produto</value>
         <value xml:lang="ro">Tip Necesar Produs</value>
@@ -4214,6 +4345,7 @@
         <value xml:lang="fr">Mode de numérotation des devis</value>
         <value xml:lang="it">Modo sequenza preventivo</value>
         <value xml:lang="ja">見積番号採番方法</value>
+        <value xml:lang="nl">Methode nummering - quote</value>
         <value xml:lang="pt">Modo de Sequência de Quotação</value>
         <value xml:lang="pt-BR">Modo sequencial para cotações</value>
         <value xml:lang="ro">Mod Secventa Oferta</value>
@@ -4245,6 +4377,7 @@
         <value xml:lang="fr">Attentes de tâches</value>
         <value xml:lang="it">Aspettative impegni di lavoro</value>
         <value xml:lang="ja">作業成果要望</value>
+        <value xml:lang="nl">Work Effort - verwachtingen</value>
         <value xml:lang="pt">Estimativas de Esforço de Trabalho</value>
         <value xml:lang="pt-BR">Estimativas para o esforço de trabalho</value>
         <value xml:lang="ro">Aspectative Sarcini de Lucru</value>
@@ -4261,6 +4394,7 @@
         <value xml:lang="fr">Classification de portée de tâche</value>
         <value xml:lang="it">Capacità classificazioni impegno di lavoro</value>
         <value xml:lang="ja">作業成果範囲分類</value>
+        <value xml:lang="nl">Work Effort - scope</value>
         <value xml:lang="pt">Classificações de Nível de Esforço de Trabalho</value>
         <value xml:lang="pt-BR">Classificações do Escopo do Esforço Trabalho</value>
         <value xml:lang="ro">Capacitate Clasificare Sarcini de Lucru</value>
@@ -4285,6 +4419,14 @@
         <value xml:lang="vi">Không áp dụng</value>
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
+    </property>
+    <property key="Enumeration.description.TX_D_PROD">
+        <value xml:lang="en">Production</value>
+        <value xml:lang="nl"> Productie</value>
+    </property>
+    <property key="Enumeration.description.TX_D_SHIP_O">
+        <value xml:lang="en">Shipment</value>
+        <value xml:lang="nl">Verzending</value>
     </property>
     <property key="Geo.geoName.AB">
         <value xml:lang="de">Albera</value>
@@ -4367,6 +4509,7 @@
         <value xml:lang="fr">Albanie</value>
         <value xml:lang="it">Albania</value>
         <value xml:lang="ja">アルバニア</value>
+        <value xml:lang="nl">Albanië</value>
         <value xml:lang="pt">Albania</value>
         <value xml:lang="pt-BR">Albânia</value>
         <value xml:lang="ro">Albania</value>
@@ -4398,6 +4541,7 @@
         <value xml:lang="fr">Antilles néerlandaises</value>
         <value xml:lang="it">Antille Paesi Bassi</value>
         <value xml:lang="ja">オランダ領アンティル</value>
+        <value xml:lang="nl">Nederlandse Antillen</value>
         <value xml:lang="pt">Netherlands Antilles</value>
         <value xml:lang="pt-BR">Antilhas Holandesas</value>
         <value xml:lang="ro">Antille Paesi Bassi</value>
@@ -4430,6 +4574,7 @@
         <value xml:lang="fr">Argentine</value>
         <value xml:lang="it">Argentina</value>
         <value xml:lang="ja">アルゼンチン</value>
+        <value xml:lang="nl">Argentinië</value>
         <value xml:lang="pt">Argentina</value>
         <value xml:lang="ro">Argentina</value>
         <value xml:lang="ru">Аргентина</value>
@@ -4445,6 +4590,7 @@
         <value xml:lang="fr">Arménie</value>
         <value xml:lang="it">Armenia</value>
         <value xml:lang="ja">アルメニア</value>
+        <value xml:lang="nl">Armenië</value>
         <value xml:lang="pt">Armenia</value>
         <value xml:lang="pt-BR">Armênia</value>
         <value xml:lang="ru">Армения</value>
@@ -4524,6 +4670,7 @@
         <value xml:lang="fr">Australie</value>
         <value xml:lang="it">Australia</value>
         <value xml:lang="ja">オーストラリア</value>
+        <value xml:lang="nl">Australië</value>
         <value xml:lang="pt">Australia</value>
         <value xml:lang="pt-BR">Austrália</value>
         <value xml:lang="ro">Australia</value>
@@ -4540,6 +4687,7 @@
         <value xml:lang="fr">Autriche</value>
         <value xml:lang="it">Austria</value>
         <value xml:lang="ja">オーストリア</value>
+        <value xml:lang="nl">Oostenrijk</value>
         <value xml:lang="pt">Austria</value>
         <value xml:lang="pt-BR">Áustria</value>
         <value xml:lang="ro">Austria</value>
@@ -4571,6 +4719,7 @@
         <value xml:lang="fr">Colombie-Britannique</value>
         <value xml:lang="it">BC</value>
         <value xml:lang="ja">ブリティッシュ・コロンビア</value>
+        <value xml:lang="nl">Brits Columbia</value>
         <value xml:lang="pt-BR">Colúmbia Britânica</value>
         <value xml:lang="ru">Британский-Колумбийский</value>
         <value xml:lang="th">BC</value>
@@ -4600,6 +4749,7 @@
         <value xml:lang="fr">Belgique</value>
         <value xml:lang="it">Belgio</value>
         <value xml:lang="ja">ベルギー</value>
+        <value xml:lang="nl">België</value>
         <value xml:lang="pt">Belgium</value>
         <value xml:lang="pt-BR">Bélgica</value>
         <value xml:lang="ro">Belgio</value>
@@ -4787,6 +4937,7 @@
         <value xml:lang="fr">Brésil</value>
         <value xml:lang="it">Brasile</value>
         <value xml:lang="ja">ブラジル</value>
+        <value xml:lang="nl">Brazilië</value>
         <value xml:lang="pt">Brazil</value>
         <value xml:lang="pt-BR">Brasil</value>
         <value xml:lang="ro">Brazilia</value>
@@ -4927,6 +5078,7 @@
         <value xml:lang="fr">Suisse</value>
         <value xml:lang="it">Svizzera</value>
         <value xml:lang="ja">スイス</value>
+        <value xml:lang="nl">Zwitserland</value>
         <value xml:lang="pt">Switzerland</value>
         <value xml:lang="pt-BR">Suíça</value>
         <value xml:lang="ro">Elvezia</value>
@@ -5194,6 +5346,7 @@
         <value xml:lang="fr">Allemagne</value>
         <value xml:lang="it">Germania</value>
         <value xml:lang="ja">ドイツ</value>
+        <value xml:lang="nl">Duitsland</value>
         <value xml:lang="pt">Germany</value>
         <value xml:lang="pt-BR">Alemanha</value>
         <value xml:lang="ro">Germania</value>
@@ -5320,6 +5473,7 @@
         <value xml:lang="fr">Angleterre</value>
         <value xml:lang="it">Inghilterra</value>
         <value xml:lang="ja">イングランド</value>
+        <value xml:lang="nl">Engeland</value>
         <value xml:lang="pt">England</value>
         <value xml:lang="pt-BR">Inglaterra</value>
         <value xml:lang="ro">Anglia</value>
@@ -5367,6 +5521,7 @@
         <value xml:lang="fr">Espagne</value>
         <value xml:lang="it">Spagna</value>
         <value xml:lang="ja">スペイン</value>
+        <value xml:lang="nl">Spanje</value>
         <value xml:lang="pt">Spain</value>
         <value xml:lang="pt-BR">Espanha</value>
         <value xml:lang="ro">Spagna</value>
@@ -5383,6 +5538,7 @@
         <value xml:lang="fr">Estonie</value>
         <value xml:lang="it">Estonia</value>
         <value xml:lang="ja">エストニア</value>
+        <value xml:lang="nl">Estland</value>
         <value xml:lang="pt">Estonia</value>
         <value xml:lang="pt-BR">Estônia</value>
         <value xml:lang="ro">Estonia</value>
@@ -5415,6 +5571,7 @@
         <value xml:lang="fr">Finlande</value>
         <value xml:lang="it">Finlandia</value>
         <value xml:lang="ja">フィンランド</value>
+        <value xml:lang="nl">Finland</value>
         <value xml:lang="pt">Finland</value>
         <value xml:lang="pt-BR">Finlândia</value>
         <value xml:lang="ro">Finlandia</value>
@@ -5462,6 +5619,7 @@
         <value xml:lang="fr">France</value>
         <value xml:lang="it">Francia</value>
         <value xml:lang="ja">フランス</value>
+        <value xml:lang="nl">Frankrijk</value>
         <value xml:lang="pt">France</value>
         <value xml:lang="pt-BR">França</value>
         <value xml:lang="ro">Francia</value>
@@ -5541,6 +5699,7 @@
         <value xml:lang="fr">Royaume-Uni</value>
         <value xml:lang="it">Regno Unito</value>
         <value xml:lang="ja">イギリス</value>
+        <value xml:lang="nl">Verenigd Koninkrijk</value>
         <value xml:lang="pt">United Kingdom</value>
         <value xml:lang="pt-BR">Reino Unido</value>
         <value xml:lang="ro">Regniul Unit</value>
@@ -5681,6 +5840,7 @@
         <value xml:lang="fr">Grèce</value>
         <value xml:lang="it">Grecia</value>
         <value xml:lang="ja">ギリシャ</value>
+        <value xml:lang="nl">Griekenland</value>
         <value xml:lang="pt">Greece</value>
         <value xml:lang="pt-BR">Grécia</value>
         <value xml:lang="ro">Grecia</value>
@@ -5710,6 +5870,7 @@
         <value xml:lang="fr">Groënland</value>
         <value xml:lang="it">Groenlandia</value>
         <value xml:lang="ja">グリーンランド</value>
+        <value xml:lang="nl">Groenland</value>
         <value xml:lang="pt">Greenland</value>
         <value xml:lang="pt-BR">Groenlândia</value>
         <value xml:lang="ro">Groenlandia</value>
@@ -5827,6 +5988,7 @@
         <value xml:lang="fr">Croatie</value>
         <value xml:lang="it">Croazia</value>
         <value xml:lang="ja">クロアチア(現地名:フルヴァツカ)</value>
+        <value xml:lang="nl">Kroatië</value>
         <value xml:lang="pt">Croatia (local Name: Hrvatska)</value>
         <value xml:lang="pt-BR">Croácia (nome local: Hrvatska)</value>
         <value xml:lang="ro">Croazia</value>
@@ -5856,6 +6018,7 @@
         <value xml:lang="fr">Hongrie</value>
         <value xml:lang="it">Ungheria</value>
         <value xml:lang="ja">ハンガリー</value>
+        <value xml:lang="nl">Hongarije</value>
         <value xml:lang="pt">Hungary</value>
         <value xml:lang="pt-BR">Hungria</value>
         <value xml:lang="ro">Ungaria</value>
@@ -5871,6 +6034,7 @@
         <value xml:lang="fr">Indonésie</value>
         <value xml:lang="it">Indonesia</value>
         <value xml:lang="ja">インドネシア</value>
+        <value xml:lang="nl">Indonesië</value>
         <value xml:lang="pt">Indonesia</value>
         <value xml:lang="pt-BR">Indonésia</value>
         <value xml:lang="ro">Indonesia</value>
@@ -5917,6 +6081,7 @@
         <value xml:lang="fr">Irlande</value>
         <value xml:lang="it">Irlanda</value>
         <value xml:lang="ja">アイルランド</value>
+        <value xml:lang="nl">Ierland</value>
         <value xml:lang="pt">Ireland</value>
         <value xml:lang="pt-BR">Irlanda</value>
         <value xml:lang="ro">Irlanda</value>
@@ -5962,6 +6127,7 @@
         <value xml:lang="fr">Islande</value>
         <value xml:lang="it">Islanda</value>
         <value xml:lang="ja">アイスランド</value>
+        <value xml:lang="nl">Ijsland</value>
         <value xml:lang="pt">Iceland</value>
         <value xml:lang="pt-BR">Islândia</value>
         <value xml:lang="ro">Islanda</value>
@@ -5991,6 +6157,7 @@
         <value xml:lang="fr">Italie</value>
         <value xml:lang="it">Italia</value>
         <value xml:lang="ja">イタリア</value>
+        <value xml:lang="nl">Italië</value>
         <value xml:lang="pt">Italy</value>
         <value xml:lang="pt-BR">Itália</value>
         <value xml:lang="ro">Italia</value>
@@ -6306,6 +6473,7 @@
         <value xml:lang="fr">Luxembourg</value>
         <value xml:lang="it">Lussemburgo</value>
         <value xml:lang="ja">ルクセンブルク</value>
+        <value xml:lang="nl">Luxemburg</value>
         <value xml:lang="pt">Luxembourg</value>
         <value xml:lang="pt-BR">Luxemburgo</value>
         <value xml:lang="ro">Lussemburg</value>
@@ -6772,6 +6940,7 @@
         <value xml:lang="fr">Irlande du Nord</value>
         <value xml:lang="it">Irlanda del Nord</value>
         <value xml:lang="ja">北アイルランド</value>
+        <value xml:lang="nl">Noord Ierland</value>
         <value xml:lang="pt">N.Ireland</value>
         <value xml:lang="pt-BR">Irlanda do Norte</value>
         <value xml:lang="ro">Irlanda de Nord</value>
@@ -6824,6 +6993,7 @@
         <value xml:lang="fr">Pays-Bas</value>
         <value xml:lang="it">Paesi Bassi</value>
         <value xml:lang="ja">オランダ</value>
+        <value xml:lang="nl">Nederland</value>
         <value xml:lang="pt">Netherlands</value>
         <value xml:lang="pt-BR">Holanda</value>
         <value xml:lang="ro">Paesi Bassi</value>
@@ -6839,6 +7009,7 @@
         <value xml:lang="fr">Norvège</value>
         <value xml:lang="it">Norvegia</value>
         <value xml:lang="ja">ノルウェー</value>
+        <value xml:lang="nl">Noorwegen</value>
         <value xml:lang="pt">Norway</value>
         <value xml:lang="pt-BR">Noruega</value>
         <value xml:lang="ro">Norvegia</value>
@@ -6880,6 +7051,7 @@
         <value xml:lang="fr">Nouvelle-Ecosse</value>
         <value xml:lang="it">NS</value>
         <value xml:lang="ja">ノヴァスコシア</value>
+        <value xml:lang="nl">Nova Scotia</value>
         <value xml:lang="pt-BR">Nova Escócia</value>
         <value xml:lang="ru">НС</value>
         <value xml:lang="th">NS</value>
@@ -6915,6 +7087,7 @@
         <value xml:lang="fr">Nouvelle-Zélande</value>
         <value xml:lang="it">Nuova Zelanda</value>
         <value xml:lang="ja">ニュージーランド</value>
+        <value xml:lang="nl">Nieuw-Zeeland</value>
         <value xml:lang="pt">New Zealand</value>
         <value xml:lang="pt-BR">Nova Zelândia</value>
         <value xml:lang="ro">Nuova Zelanda</value>
@@ -7070,6 +7243,7 @@
         <value xml:lang="fr">Pologne</value>
         <value xml:lang="it">Polonia</value>
         <value xml:lang="ja">ポーランド</value>
+        <value xml:lang="nl">Polen</value>
         <value xml:lang="pt">Poland</value>
         <value xml:lang="pt-BR">Polônia</value>
         <value xml:lang="ro">Polonia</value>
@@ -7276,6 +7450,7 @@
         <value xml:lang="fr">Ecosse</value>
         <value xml:lang="it">Scozia</value>
         <value xml:lang="ja">スコットランド</value>
+        <value xml:lang="nl">Schotland</value>
         <value xml:lang="pt">Scotland</value>
         <value xml:lang="pt-BR">Escócia</value>
         <value xml:lang="ro">Scozia</value>
@@ -7506,6 +7681,7 @@
         <value xml:lang="fr">Surinam</value>
         <value xml:lang="it">Suriname</value>
         <value xml:lang="ja">スリナム</value>
+        <value xml:lang="nl">Suriname</value>
         <value xml:lang="pt">Suriname</value>
         <value xml:lang="ro">Suriname</value>
         <value xml:lang="ru">Суринам</value>
@@ -7550,6 +7726,7 @@
         <value xml:lang="fr">Suède</value>
         <value xml:lang="it">Svezia</value>
         <value xml:lang="ja">スウェーデン</value>
+        <value xml:lang="nl">Zweden</value>
         <value xml:lang="pt">Sweden</value>
         <value xml:lang="pt-BR">Suécia</value>
         <value xml:lang="ro">Suedia</value>
@@ -7889,6 +8066,7 @@
         <value xml:lang="fr">Etats-Unis</value>
         <value xml:lang="it">Stati Uniti d'America</value>
         <value xml:lang="ja">アメリカ</value>
+        <value xml:lang="nl">Verenigde Staten van Amerika</value>
         <value xml:lang="pt">United States</value>
         <value xml:lang="pt-BR">Estados Unidos</value>
         <value xml:lang="ro">USA</value>
@@ -8023,6 +8201,7 @@
         <value xml:lang="fr">Pays de Galles</value>
         <value xml:lang="it">Galles</value>
         <value xml:lang="ja">ウェールズ</value>
+        <value xml:lang="nl">Wales</value>
         <value xml:lang="pt">Wales</value>
         <value xml:lang="pt-BR">País de Gales</value>
         <value xml:lang="ro">Galles</value>
@@ -8165,6 +8344,7 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
+        <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
@@ -8180,6 +8360,7 @@
         <value xml:lang="fr">Ville</value>
         <value xml:lang="it">Città</value>
         <value xml:lang="ja">市区町村</value>
+        <value xml:lang="nl">Stad</value>
         <value xml:lang="pt">Cidade</value>
         <value xml:lang="ro">Oras</value>
         <value xml:lang="ru">Город</value>
@@ -8195,6 +8376,7 @@
         <value xml:lang="fr">Pays</value>
         <value xml:lang="it">Paese</value>
         <value xml:lang="ja">国</value>
+        <value xml:lang="nl">Land</value>
         <value xml:lang="pt">País</value>
         <value xml:lang="ro">Tara</value>
         <value xml:lang="ru">Страна</value>
@@ -8210,6 +8392,7 @@
         <value xml:lang="fr">Département</value>
         <value xml:lang="it">Contea</value>
         <value xml:lang="ja">郡</value>
+        <value xml:lang="nl">Departement</value>
         <value xml:lang="pt">Condado/Dístrito</value>
         <value xml:lang="pt-BR">Município</value>
         <value xml:lang="ro">Sector</value>
@@ -8226,6 +8409,7 @@
         <value xml:lang="fr">Agglomération</value>
         <value xml:lang="it">Contea-Città</value>
         <value xml:lang="ja">郡-市</value>
+        <value xml:lang="nl">Departement - stad</value>
         <value xml:lang="pt">Condado/Dístrito-Cidade</value>
         <value xml:lang="pt-BR">Comarca-cidade</value>
         <value xml:lang="ro">Sector-Oras</value>
@@ -8242,6 +8426,7 @@
         <value xml:lang="fr">Groupe</value>
         <value xml:lang="it">Gruppo</value>
         <value xml:lang="ja">グループ</value>
+        <value xml:lang="nl">Groep</value>
         <value xml:lang="pt">Grupo</value>
         <value xml:lang="ro">Grup</value>
         <value xml:lang="ru">Группа</value>
@@ -8257,6 +8442,7 @@
         <value xml:lang="fr">Code Postal</value>
         <value xml:lang="it">Codice postale</value>
         <value xml:lang="ja">郵便番号</value>
+        <value xml:lang="nl">Postcode</value>
         <value xml:lang="pt">Código Postal</value>
         <value xml:lang="pt-BR">CEP</value>
         <value xml:lang="ro">C.P.</value>
@@ -8273,6 +8459,7 @@
         <value xml:lang="fr">Province</value>
         <value xml:lang="it">Provincia</value>
         <value xml:lang="ja">都道府県/省/地方</value>
+        <value xml:lang="nl">Provincie</value>
         <value xml:lang="pt">Provincia</value>
         <value xml:lang="pt-BR">Província</value>
         <value xml:lang="ro">Judet</value>
@@ -8289,6 +8476,7 @@
         <value xml:lang="fr">Région</value>
         <value xml:lang="it">Regione</value>
         <value xml:lang="ja">地区</value>
+        <value xml:lang="nl">Regio</value>
         <value xml:lang="pt">Região</value>
         <value xml:lang="ro">Regiune</value>
         <value xml:lang="ru">Область</value>
@@ -8304,6 +8492,7 @@
         <value xml:lang="fr">Territoire de vente</value>
         <value xml:lang="it">Territorio di vendita</value>
         <value xml:lang="ja">営業区域</value>
+        <value xml:lang="nl">Regio - verkoop</value>
         <value xml:lang="pt">Território de Vendas</value>
         <value xml:lang="ro">Teritoriu Vanzari</value>
         <value xml:lang="ru">Территория продаж</value>
@@ -8319,6 +8508,7 @@
         <value xml:lang="fr">Territoire de service</value>
         <value xml:lang="it">Territorio servizio</value>
         <value xml:lang="ja">サービス区域</value>
+        <value xml:lang="nl">Regio - service</value>
         <value xml:lang="pt">Território do Serviço</value>
         <value xml:lang="ro">Teritoriu Serviciu</value>
         <value xml:lang="ru">Сервисная территория</value>
@@ -8334,6 +8524,7 @@
         <value xml:lang="fr">Etat</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="ja">州</value>
+        <value xml:lang="nl">Staat</value>
         <value xml:lang="pt">Estado</value>
         <value xml:lang="ro">Stat</value>
         <value xml:lang="ru">Штат</value>
@@ -8349,6 +8540,7 @@
         <value xml:lang="fr">Territoire</value>
         <value xml:lang="it">Territorio</value>
         <value xml:lang="ja">区域</value>
+        <value xml:lang="nl">Territorium</value>
         <value xml:lang="pt">Território</value>
         <value xml:lang="ro">Teritoriu</value>
         <value xml:lang="ru">Территория</value>
@@ -8364,6 +8556,7 @@
         <value xml:lang="fr">Non réconcilié</value>
         <value xml:lang="it">Non riconciliato</value>
         <value xml:lang="ja">未消込</value>
+        <value xml:lang="nl">Niet</value>
         <value xml:lang="pt-BR">Não Reconciliados</value>
         <value xml:lang="ru">Не смирились</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
@@ -8378,6 +8571,7 @@
         <value xml:lang="fr">Partiellement réconcilié</value>
         <value xml:lang="it">Parzialmente riconciliato</value>
         <value xml:lang="ja">一部消込</value>
+        <value xml:lang="nl">Gedeeltelijk</value>
         <value xml:lang="pt-BR">Reconciliado parcialmente</value>
         <value xml:lang="ru">Частично примирились</value>
         <value xml:lang="th">การยอมรับบางส่วน</value>
@@ -8392,6 +8586,7 @@
         <value xml:lang="fr">Réconcilié</value>
         <value xml:lang="it">Riconciliato</value>
         <value xml:lang="ja">消込済</value>
+        <value xml:lang="nl">Volledig</value>
         <value xml:lang="pt-BR">Reconciliados</value>
         <value xml:lang="ru">Смирились</value>
         <value xml:lang="th">ทำให้ยอมรับ</value>
@@ -8649,6 +8844,7 @@
         <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="ja">使用中</value>
+        <value xml:lang="nl">In gebruik</value>
         <value xml:lang="pt-BR">Em Uso</value>
         <value xml:lang="ru">В использовании</value>
         <value xml:lang="vi">Đang sử dụng</value>
@@ -8662,6 +8858,7 @@
         <value xml:lang="fr">Acceptation en attente</value>
         <value xml:lang="it">Accettazione sospesa</value>
         <value xml:lang="ja">受付保留</value>
+        <value xml:lang="nl">Wacht op acceptatie</value>
         <value xml:lang="pt">Aceitação Pendente</value>
         <value xml:lang="pt-BR">Pendentes de Aceitação</value>
         <value xml:lang="ro">Aceptare Suspendata</value>
@@ -8678,6 +8875,7 @@
         <value xml:lang="fr">Refusée</value>
         <value xml:lang="it">Rifiutata</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Geweigerd</value>
         <value xml:lang="pt">Rejeitada</value>
         <value xml:lang="pt-BR">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
@@ -8693,6 +8891,7 @@
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt-BR">Aprovado</value>
         <value xml:lang="ru">Подтвержден</value>
         <value xml:lang="vi">Đã duyệt</value>
@@ -8705,6 +8904,7 @@
         <value xml:lang="fr">Approbation en cours</value>
         <value xml:lang="it">Approvazione in corso</value>
         <value xml:lang="ja">承認処理中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt-BR">Aprovação em processo</value>
         <value xml:lang="ru">Утверждение в процессе</value>
         <value xml:lang="vi">Đang trong quá trình xét duyệt</value>
@@ -8717,6 +8917,7 @@
         <value xml:lang="fr">Non prêt pour approbation</value>
         <value xml:lang="it">Non pronto per l'approvazione</value>
         <value xml:lang="ja">承認準備未了</value>
+        <value xml:lang="nl">Niet klaar voor fiattering</value>
         <value xml:lang="pt-BR">Não está pronto para aprovação</value>
         <value xml:lang="ru">Не готов для потверждения</value>
         <value xml:lang="vi">Không sẵn sàng cho duyệt</value>
@@ -8729,6 +8930,7 @@
         <value xml:lang="fr">Prêt pour approbation</value>
         <value xml:lang="it">Pronto per l'approvazione</value>
         <value xml:lang="ja">承認準備完了</value>
+        <value xml:lang="nl">Klaar voor fiattering</value>
         <value xml:lang="pt-BR">Pronto para aprovação</value>
         <value xml:lang="ru">Готов для потверждения</value>
         <value xml:lang="vi">Sẵn sàng cho duyệt</value>
@@ -8741,6 +8943,7 @@
         <value xml:lang="fr">Refusé</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Afgekeurd/Geweigerd</value>
         <value xml:lang="pt-BR">Rejeitado</value>
         <value xml:lang="ru">Отклонены</value>
         <value xml:lang="vi">Từ chối</value>
@@ -8766,6 +8969,7 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменено</value>
@@ -8781,6 +8985,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond/compleet</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="ro">Completat</value>
         <value xml:lang="ru">Завершено</value>
@@ -8796,6 +9001,7 @@
         <value xml:lang="fr">Saisi</value>
         <value xml:lang="it">Inserito</value>
         <value xml:lang="ja">登録</value>
+        <value xml:lang="nl">Opgevoerd</value>
         <value xml:lang="pt">Inserido</value>
         <value xml:lang="pt-BR">Introduzido</value>
         <value xml:lang="ro">Introdus</value>
@@ -8812,6 +9018,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Progresso</value>
         <value xml:lang="pt-BR">Em andamento</value>
         <value xml:lang="ro">In-Executie</value>
@@ -8828,6 +9035,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Wachtend</value>
         <value xml:lang="pt">Pendente</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Ожидающее</value>
@@ -8858,6 +9066,7 @@
         <value xml:lang="fr">Résolu</value>
         <value xml:lang="it">Risolto</value>
         <value xml:lang="ja">解決</value>
+        <value xml:lang="nl">Opgelost</value>
         <value xml:lang="pt">Resolvido</value>
         <value xml:lang="pt-BR">Resolvida</value>
         <value xml:lang="ro">Soluzionat</value>
@@ -8873,6 +9082,7 @@
         <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond/compleet</value>
         <value xml:lang="pt-BR">Fechado</value>
         <value xml:lang="ru">Закрыто</value>
         <value xml:lang="vi">Đã đóng</value>
@@ -8929,6 +9139,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettata</value>
         <value xml:lang="ja">受付</value>
+        <value xml:lang="nl">Geaccepteerd</value>
         <value xml:lang="pt">Aceite</value>
         <value xml:lang="pt-BR">Aceito</value>
         <value xml:lang="ro">Acceptata</value>
@@ -8945,6 +9156,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
@@ -8960,6 +9172,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond/compleet</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ro">Completata</value>
@@ -8974,6 +9187,7 @@
         <value xml:lang="es">Esbozo</value>
         <value xml:lang="fr">Brouillon</value>
         <value xml:lang="ja">原稿</value>
+        <value xml:lang="nl">Concept</value>
         <value xml:lang="pt-BR">Projeto</value>
         <value xml:lang="ru">Проект</value>
         <value xml:lang="vi">Nháp</value>
@@ -8985,6 +9199,7 @@
         <value xml:lang="es">Pendiente</value>
         <value xml:lang="fr">En attente</value>
         <value xml:lang="ja">保留顧客</value>
+        <value xml:lang="nl">Wachtend</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ru">Ожидание</value>
         <value xml:lang="vi">Yêu cầu từ khách hàng đang đợi xử lý</value>
@@ -8998,6 +9213,7 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Afgewezen/geweigerd</value>
         <value xml:lang="pt">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
         <value xml:lang="ru">Отклонен</value>
@@ -9013,6 +9229,7 @@
         <value xml:lang="fr">Revu</value>
         <value xml:lang="it">Recensita</value>
         <value xml:lang="ja">レビュー済</value>
+        <value xml:lang="nl">Geevalueerd</value>
         <value xml:lang="pt">Revisto</value>
         <value xml:lang="pt-BR">Revisado</value>
         <value xml:lang="ro">Recenzionata</value>
@@ -9029,6 +9246,7 @@
         <value xml:lang="fr">Proposé</value>
         <value xml:lang="it">Sottomesso</value>
         <value xml:lang="ja">実行済</value>
+        <value xml:lang="nl">Ingediend</value>
         <value xml:lang="pt">Submetido</value>
         <value xml:lang="pt-BR">Enviada</value>
         <value xml:lang="ro">Subordonata</value>
@@ -9044,6 +9262,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="pt-BR">Disponível</value>
         <value xml:lang="ru">Доступен</value>
         <value xml:lang="vi">Có sẵn</value>
@@ -9057,6 +9276,7 @@
         <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disattivato</value>
         <value xml:lang="ja">無効</value>
+        <value xml:lang="nl">Gedeactiveerd</value>
         <value xml:lang="pt">Desactivado</value>
         <value xml:lang="pt-BR">Desativado</value>
         <value xml:lang="ro">Desactivat</value>
@@ -9073,6 +9293,7 @@
         <value xml:lang="fr">Ebauche finale</value>
         <value xml:lang="it">Bozza finale</value>
         <value xml:lang="ja">最終原稿</value>
+        <value xml:lang="nl">Laaste concept</value>
         <value xml:lang="pt">Desenho Final</value>
         <value xml:lang="pt-BR">Rascunho final</value>
         <value xml:lang="ro">Schita Finala</value>
@@ -9089,6 +9310,7 @@
         <value xml:lang="fr">Ebauche initiale</value>
         <value xml:lang="it">Bozza iniziale</value>
         <value xml:lang="ja">初期原稿</value>
+        <value xml:lang="nl">Eerste concept</value>
         <value xml:lang="pt">Desenho Inícial</value>
         <value xml:lang="pt-BR">Projeto inicial</value>
         <value xml:lang="ro">Schita Initiala</value>
@@ -9105,6 +9327,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Progresso</value>
         <value xml:lang="pt-BR">Em Andamento</value>
         <value xml:lang="ro">In Curs</value>
@@ -9121,6 +9344,7 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblicato</value>
         <value xml:lang="ja">公開</value>
+        <value xml:lang="nl">Gepubliceerd</value>
         <value xml:lang="pt">Publicado</value>
         <value xml:lang="ro">Publicat</value>
         <value xml:lang="ru">Опубликован</value>
@@ -9136,6 +9360,7 @@
         <value xml:lang="fr">Ebauche révisée</value>
         <value xml:lang="it">Bozza revisionata</value>
         <value xml:lang="ja">改定原稿</value>
+        <value xml:lang="nl">Gereviseerd concept</value>
         <value xml:lang="pt">Desenho Revisto</value>
         <value xml:lang="pt-BR">Projeto de revisado</value>
         <value xml:lang="ro">Schita Revizionata</value>
@@ -9363,6 +9588,7 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отменено</value>
@@ -9378,6 +9604,7 @@
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond/compleet</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="pt-BR">Concluída</value>
         <value xml:lang="ro">Completat</value>
@@ -9394,6 +9621,7 @@
         <value xml:lang="fr">Créée</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt">Criado</value>
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
@@ -9409,6 +9637,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Progresso</value>
         <value xml:lang="pt-BR">Em Processo</value>
         <value xml:lang="ro">In Curs</value>
@@ -9425,6 +9654,7 @@
         <value xml:lang="fr">Planifiée</value>
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="ja">スケジュール済</value>
+        <value xml:lang="nl">Geagendeerd</value>
         <value xml:lang="pt">Agendado</value>
         <value xml:lang="pt-BR">Agendada</value>
         <value xml:lang="ro">Planificat</value>
@@ -9440,6 +9670,7 @@
         <value xml:lang="fr">Affecté</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
+        <value xml:lang="nl">Toegewezen</value>
         <value xml:lang="pt-BR">Atribuído</value>
         <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
@@ -9452,6 +9683,7 @@
         <value xml:lang="fr">Demande refusée</value>
         <value xml:lang="it">Richiesta negata</value>
         <value xml:lang="ja">リクエスト否認</value>
+        <value xml:lang="nl">Toewijzing geweigerd</value>
         <value xml:lang="pt-BR">Pedido negado</value>
         <value xml:lang="ru">В требовании отказано</value>
         <value xml:lang="vi">Từ chối yêu cầu</value>
@@ -9464,6 +9696,7 @@
         <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="ja">リクエスト</value>
+        <value xml:lang="nl">Toewijzing verzocht</value>
         <value xml:lang="pt-BR">Solicitado</value>
         <value xml:lang="ru">Запрошенный</value>
         <value xml:lang="vi">Đã yêu cầu</value>
@@ -9476,6 +9709,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Actief</value>
         <value xml:lang="pt-BR">Ativo</value>
         <value xml:lang="ru">Действующий</value>
         <value xml:lang="vi">Hoạt động</value>
@@ -9488,6 +9722,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отмененный</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -9500,6 +9735,7 @@
         <value xml:lang="fr">Bloqué manuellement</value>
         <value xml:lang="it">Congelato manualmente</value>
         <value xml:lang="ja">凍結指示</value>
+        <value xml:lang="nl">Handm. bevroren</value>
         <value xml:lang="pt-BR">Bloqueado Manualmente</value>
         <value xml:lang="ru">Блокировать вручную</value>
         <value xml:lang="vi">Manually Frozen</value>
@@ -9512,6 +9748,7 @@
         <value xml:lang="fr">Replanification en attente</value>
         <value xml:lang="it">Rifornimento in attesa negativo</value>
         <value xml:lang="ja">消極的保留追加</value>
+        <value xml:lang="nl">Negatief, wacht op aanvulling</value>
         <value xml:lang="pt-BR">Reposição pendente Negativa</value>
         <value xml:lang="ru">Изменение расписания</value>
         <value xml:lang="vi">Negative Pending Replenishment</value>
@@ -9631,7 +9868,7 @@
         <value xml:lang="fr">En cours de création</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
-        <value xml:lang="nl">In Voorbereiding</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Processamento</value>
         <value xml:lang="pt-BR">Em processo</value>
         <value xml:lang="ro">In-Curs</value>
@@ -9665,7 +9902,7 @@
         <value xml:lang="fr">Prêt</value>
         <value xml:lang="it">Pronte per contabilizzazione</value>
         <value xml:lang="ja">送付準備完了</value>
-        <value xml:lang="nl">Gereed</value>
+        <value xml:lang="nl">Afgerond/gereed</value>
         <value xml:lang="pt">pronta para Lançamento</value>
         <value xml:lang="pt-BR">Pronto para lançamento</value>
         <value xml:lang="ro">Promte pentru Contabilizare</value>
@@ -9732,6 +9969,7 @@
         <value xml:lang="fr">Activé</value>
         <value xml:lang="it">Attivato</value>
         <value xml:lang="ja">活動済</value>
+        <value xml:lang="nl">Geactiveerd</value>
         <value xml:lang="pt-BR">Ativado</value>
         <value xml:lang="ru">Активированный</value>
         <value xml:lang="vi">Đã hoạt động</value>
@@ -9745,6 +9983,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibili</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="pt">Disponível</value>
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступна</value>
@@ -9760,6 +9999,7 @@
         <value xml:lang="fr">En cours de transfert</value>
         <value xml:lang="it">In trasferimento</value>
         <value xml:lang="ja">転送中</value>
+        <value xml:lang="nl">Wordt overgedragen</value>
         <value xml:lang="pt">A ser Transferido</value>
         <value xml:lang="pt-BR">Sendo transferido</value>
         <value xml:lang="ro">In Transferiment</value>
@@ -9791,6 +10031,7 @@
         <value xml:lang="fr">Désactivé</value>
         <value xml:lang="it">Disattivato</value>
         <value xml:lang="ja">非活動化</value>
+        <value xml:lang="nl">Gedeactiveerd</value>
         <value xml:lang="pt-BR">Desativado</value>
         <value xml:lang="ru">Деактивированный</value>
         <value xml:lang="vi">Không hoạt động</value>
@@ -9804,6 +10045,7 @@
         <value xml:lang="fr">Défectueux</value>
         <value xml:lang="it">Difettosa</value>
         <value xml:lang="ja">不完全</value>
+        <value xml:lang="nl">Defect</value>
         <value xml:lang="pt">Defeituoso</value>
         <value xml:lang="ro">Defectuoasa</value>
         <value xml:lang="ru">Дефектная</value>
@@ -9819,6 +10061,7 @@
         <value xml:lang="fr">Livré</value>
         <value xml:lang="it">Consegnata</value>
         <value xml:lang="ja">配送済</value>
+        <value xml:lang="nl">Afgeleverd</value>
         <value xml:lang="pt">Entregue</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставлена</value>
@@ -10122,6 +10365,7 @@
         <value xml:lang="en">Approved</value>
         <value xml:lang="fr">Validé</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
         <value xml:lang="zh">已批准</value>
@@ -10131,6 +10375,7 @@
         <value xml:lang="en">Rejected</value>
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Afgekeurd</value>
         <value xml:lang="ru">Отклоненный</value>
         <value xml:lang="vi">Từ chối</value>
         <value xml:lang="zh">已拒绝</value>
@@ -10143,6 +10388,7 @@
         <value xml:lang="fr">Approuvée</value>
         <value xml:lang="it">Approvata</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt">Aprovada</value>
         <value xml:lang="pt-BR">Aprovado</value>
         <value xml:lang="ro">Aprobata</value>
@@ -10159,6 +10405,7 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Afgekeurd</value>
         <value xml:lang="pt">Cancelada</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
@@ -10175,6 +10422,7 @@
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgesloten</value>
         <value xml:lang="pt">Completa</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ro">Completata</value>
@@ -10191,6 +10439,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In voortgang</value>
         <value xml:lang="pt">Em  Progresso</value>
         <value xml:lang="pt-BR">Em Andamento</value>
         <value xml:lang="ro">In Curs</value>
@@ -10207,6 +10456,7 @@
         <value xml:lang="fr">Planifiée</value>
         <value xml:lang="it">Pianificata</value>
         <value xml:lang="ja">計画済</value>
+        <value xml:lang="nl">Gepland</value>
         <value xml:lang="pt">Planeada</value>
         <value xml:lang="pt-BR">Planejado</value>
         <value xml:lang="ro">Planificat</value>
@@ -10239,6 +10489,7 @@
         <value xml:lang="fr">Confirmation d'erreur envoyée</value>
         <value xml:lang="it">Errore conferma inviata</value>
         <value xml:lang="ja">送付確認エラー</value>
+        <value xml:lang="nl">Error - verzending confirmatie</value>
         <value xml:lang="pt-BR">Confirmação de erro enviada</value>
         <value xml:lang="ru">Ошибка подтверждения отправки</value>
         <value xml:lang="vi">Lỗi khi xác nhận gửi</value>
@@ -10383,6 +10634,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
+        <value xml:lang="nl">Geaccepteerd</value>
         <value xml:lang="pt">Aceite</value>
         <value xml:lang="pt-BR">Aceita</value>
         <value xml:lang="ro">Acceptat</value>
@@ -10399,6 +10651,7 @@
         <value xml:lang="fr">Prévision acceptée</value>
         <value xml:lang="it">Schedulazione approvata</value>
         <value xml:lang="ja">スケジュール承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt">Prazo Aprovado</value>
         <value xml:lang="pt-BR">Cronograma aprovado</value>
         <value xml:lang="ro">Planificare Aprobata</value>
@@ -10445,6 +10698,7 @@
         <value xml:lang="fr">Transmis au fournisseur</value>
         <value xml:lang="it">Sottoposta al fornitore</value>
         <value xml:lang="ja">サプライヤー実行済</value>
+        <value xml:lang="nl">Ingediend</value>
         <value xml:lang="pt">Fornecedor Submetido</value>
         <value xml:lang="pt-BR">Enviado pelo Fornecedor</value>
         <value xml:lang="ro">Subordinata Furnizorului</value>
@@ -10544,7 +10798,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">処理中</value>
-        <value xml:lang="nl">Onder handen</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">A Processar</value>
         <value xml:lang="pt-BR">Processando</value>
         <value xml:lang="ro">In Executie</value>
@@ -10679,6 +10933,7 @@
         <value xml:lang="fr">Assignée</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
+        <value xml:lang="nl">Toegewezen</value>
         <value xml:lang="pt-BR">Atribuído</value>
         <value xml:lang="ru">Назначенный</value>
         <value xml:lang="vi">Đã giao việc</value>
@@ -10692,6 +10947,7 @@
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond/compleet</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполненный</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -10832,6 +11088,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Pick - geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отмененный</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -10844,6 +11101,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completata</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Pick - afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполненный</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -10856,6 +11114,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Pick - wachtend</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang đợi</value>
@@ -10869,6 +11128,7 @@
         <value xml:lang="fr">Assignée</value>
         <value xml:lang="it">Assegnata</value>
         <value xml:lang="ja">割当済</value>
+        <value xml:lang="nl">Pick - toegewezen</value>
         <value xml:lang="pt">Atribuida</value>
         <value xml:lang="pt-BR">Atribuído</value>
         <value xml:lang="ro">Atribuita</value>
@@ -10885,6 +11145,7 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Pick - geannuleerd</value>
         <value xml:lang="pt">Cancelada</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
@@ -10901,6 +11162,7 @@
         <value xml:lang="fr">Entrée</value>
         <value xml:lang="it">Input</value>
         <value xml:lang="ja">入力</value>
+        <value xml:lang="nl">Picklijst - input</value>
         <value xml:lang="pt">Entrada</value>
         <value xml:lang="ro">Input</value>
         <value xml:lang="ru">Получение</value>
@@ -10916,6 +11178,7 @@
         <value xml:lang="fr">Choisie</value>
         <value xml:lang="it">Prelevata</value>
         <value xml:lang="ja">ピッキング済</value>
+        <value xml:lang="nl">Picklijt - gepickt</value>
         <value xml:lang="pt">Recolhida</value>
         <value xml:lang="pt-BR">Apanhado</value>
         <value xml:lang="ro">Preluata</value>
@@ -10931,6 +11194,7 @@
         <value xml:lang="fr">Imprimée</value>
         <value xml:lang="it">Stampata</value>
         <value xml:lang="ja">印刷済</value>
+        <value xml:lang="nl">Picklijst - afgedrukt</value>
         <value xml:lang="pt-BR">Impresso</value>
         <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="vi">Đã in</value>
@@ -11140,6 +11404,7 @@
         <value xml:lang="fr">Actif</value>
         <value xml:lang="it">Attivo</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Actief</value>
         <value xml:lang="pt-BR">Ativo</value>
         <value xml:lang="ru">Активный</value>
         <value xml:lang="vi">Hoạt động</value>
@@ -11152,6 +11417,7 @@
         <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="ja">終了</value>
+        <value xml:lang="nl">Afgesloten</value>
         <value xml:lang="pt-BR">Fechado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã đóng</value>
@@ -11164,6 +11430,7 @@
         <value xml:lang="fr">Validé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt-BR">Aprovado</value>
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
@@ -11176,6 +11443,7 @@
         <value xml:lang="fr">Supprimé</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">削除</value>
+        <value xml:lang="nl">Verwijderd</value>
         <value xml:lang="pt-BR">Excluído</value>
         <value xml:lang="ru">Удален</value>
         <value xml:lang="th">ลบ</value>
@@ -11189,6 +11457,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospesa</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Wachtend</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="th">ยังค้างอยู่</value>
@@ -11203,6 +11472,7 @@
         <value xml:lang="fr">Affectée</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
+        <value xml:lang="nl">Toegewezen</value>
         <value xml:lang="pt">Atribuido</value>
         <value xml:lang="pt-BR">Atribuído</value>
         <value xml:lang="ro">Alocat</value>
@@ -11220,6 +11490,7 @@
         <value xml:lang="fr">Proposée</value>
         <value xml:lang="it">Offerto</value>
         <value xml:lang="ja">提案済</value>
+        <value xml:lang="nl">Aangeboden</value>
         <value xml:lang="pt">Oferecido</value>
         <value xml:lang="pt-BR">Ofertado</value>
         <value xml:lang="ro">Oferit</value>
@@ -11236,6 +11507,7 @@
         <value xml:lang="fr">Non affectée</value>
         <value xml:lang="it">Non assegnato</value>
         <value xml:lang="ja">未割当</value>
+        <value xml:lang="nl">Niet toegewezen</value>
         <value xml:lang="pt">Retirado</value>
         <value xml:lang="pt-BR">Não Atribuído</value>
         <value xml:lang="ro">Ne Alocat</value>
@@ -11252,6 +11524,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelada</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ro">Sters</value>
@@ -11268,6 +11541,7 @@
         <value xml:lang="fr">Clos</value>
         <value xml:lang="it">Chiuso</value>
         <value xml:lang="ja">終了</value>
+        <value xml:lang="nl">Afgesloten</value>
         <value xml:lang="pt">Fechada</value>
         <value xml:lang="pt-BR">Fechado</value>
         <value xml:lang="ro">Inchis</value>
@@ -11284,6 +11558,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt">Completa</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ro">Completat</value>
@@ -11300,6 +11575,7 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt">Criada</value>
         <value xml:lang="pt-BR">Criado</value>
         <value xml:lang="ro">Creat</value>
@@ -11316,6 +11592,7 @@
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="ja">確認済</value>
+        <value xml:lang="nl">Afgedrukt</value>
         <value xml:lang="pt">Confirmada</value>
         <value xml:lang="pt-BR">Confirmado</value>
         <value xml:lang="ro">Confirmat</value>
@@ -11332,6 +11609,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">実行中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Execução</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">Выполняется</value>
@@ -11346,6 +11624,7 @@
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Schedulato</value>
         <value xml:lang="ja">スケジュール済</value>
+        <value xml:lang="nl">Geagendeerd</value>
         <value xml:lang="pt-BR">Agendado</value>
         <value xml:lang="ru">Плановый</value>
         <value xml:lang="vi">Đã đặt lịch</value>
@@ -11359,6 +11638,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -11372,6 +11652,7 @@
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -11385,6 +11666,7 @@
         <value xml:lang="fr">Créée</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt-BR">Criado</value>
         <value xml:lang="ru">Создан</value>
         <value xml:lang="vi">Đã tạo</value>
@@ -11398,6 +11680,7 @@
         <value xml:lang="fr">Assignée</value>
         <value xml:lang="it">Assegnato</value>
         <value xml:lang="ja">割当済</value>
+        <value xml:lang="nl">Aangemaakt als</value>
         <value xml:lang="pt-BR">Atribuído</value>
         <value xml:lang="ru">Назначен</value>
         <value xml:lang="vi">Đã giao việc</value>
@@ -11411,6 +11694,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In voorbereiding</value>
         <value xml:lang="pt-BR">Em Andamento</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
@@ -11424,6 +11708,7 @@
         <value xml:lang="fr">Non affectée</value>
         <value xml:lang="it">Non assegnato</value>
         <value xml:lang="ja">未割当</value>
+        <value xml:lang="nl">Niet toegewezen</value>
         <value xml:lang="pt-BR">Não atribuído</value>
         <value xml:lang="ru">Неназначен</value>
         <value xml:lang="vi">Chưa giao việc</value>
@@ -11437,6 +11722,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留中</value>
+        <value xml:lang="nl">On hold</value>
         <value xml:lang="pt-BR">Em Espera</value>
         <value xml:lang="ru">На удержании</value>
         <value xml:lang="vi">Đang giữ (Hold)</value>
@@ -11450,6 +11736,7 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creata</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt">Criado</value>
         <value xml:lang="ro">Creata</value>
         <value xml:lang="ru">Создана</value>
@@ -11465,6 +11752,7 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuta</value>
         <value xml:lang="ja">受取</value>
+        <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Recebido</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получена</value>
@@ -11480,6 +11768,7 @@
         <value xml:lang="fr">Envoyé</value>
         <value xml:lang="it">Spedita</value>
         <value xml:lang="ja">発送済</value>
+        <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt">Enviado</value>
         <value xml:lang="ro">Expediata</value>
         <value xml:lang="ru">Поставлена</value>
@@ -11495,6 +11784,7 @@
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt">Aprovada</value>
         <value xml:lang="pt-BR">Aprovado</value>
         <value xml:lang="ro">Approbata</value>
@@ -11511,6 +11801,7 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt">Criada</value>
         <value xml:lang="pt-BR">Criado</value>
         <value xml:lang="ro">Creata</value>
@@ -11527,6 +11818,7 @@
         <value xml:lang="fr">Commandé</value>
         <value xml:lang="it">Ordinato</value>
         <value xml:lang="ja">注文済</value>
+        <value xml:lang="nl">Georderd</value>
         <value xml:lang="pt">Encomendada</value>
         <value xml:lang="pt-BR">Encomendado</value>
         <value xml:lang="ro">Comandata</value>
@@ -11543,6 +11835,7 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Afgewezen</value>
         <value xml:lang="pt">Rejeitada</value>
         <value xml:lang="pt-BR">Rejeitado</value>
         <value xml:lang="ro">Refuzata</value>
@@ -11559,6 +11852,7 @@
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt">Aprovado</value>
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утверждено</value>
@@ -11574,6 +11868,7 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt">Criado</value>
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Создано</value>
@@ -11589,6 +11884,7 @@
         <value xml:lang="fr">Commandé</value>
         <value xml:lang="it">Ordinato</value>
         <value xml:lang="ja">注文済</value>
+        <value xml:lang="nl">Georderd</value>
         <value xml:lang="pt">Encomendado</value>
         <value xml:lang="ro">Comandat</value>
         <value xml:lang="ru">Заказано</value>
@@ -11604,6 +11900,7 @@
         <value xml:lang="fr">Proposée</value>
         <value xml:lang="it">Proposto</value>
         <value xml:lang="ja">提案済</value>
+        <value xml:lang="nl">Voorgesteld</value>
         <value xml:lang="pt-BR">Proposto</value>
         <value xml:lang="ru">Предложено</value>
         <value xml:lang="th">ถูกเสนอ</value>
@@ -11618,6 +11915,7 @@
         <value xml:lang="fr">Rejeté</value>
         <value xml:lang="it">Rifiutato</value>
         <value xml:lang="ja">否認</value>
+        <value xml:lang="nl">Afgewezen</value>
         <value xml:lang="pt">Rejeitado</value>
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклонено</value>
@@ -11633,6 +11931,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
+        <value xml:lang="nl">Geaccepteerd</value>
         <value xml:lang="pt">Aceite</value>
         <value xml:lang="pt-BR">Aceito</value>
         <value xml:lang="ro">Acceptata</value>
@@ -11649,6 +11948,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменен</value>
@@ -11664,6 +11964,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ro">Completata</value>
@@ -11679,6 +11980,7 @@
         <value xml:lang="fr">Remboursement manuel nécessaire</value>
         <value xml:lang="it">Reso manual richiesto</value>
         <value xml:lang="ja">要返金手続</value>
+        <value xml:lang="nl">Handm. terugbetaling</value>
         <value xml:lang="pt-BR">Restituição manual necessária</value>
         <value xml:lang="ru">Ручной запрос возврата</value>
         <value xml:lang="vi">Yêu cầu tự thực hiện hoàn phí</value>
@@ -11692,6 +11994,7 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="ja">受取</value>
+        <value xml:lang="nl">Ontvangen</value>
         <value xml:lang="pt">Recebido</value>
         <value xml:lang="ro">Primita</value>
         <value xml:lang="ru">Получен</value>
@@ -11707,6 +12010,7 @@
         <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="ja">リクエスト</value>
+        <value xml:lang="nl">Verzocht</value>
         <value xml:lang="pt">Requerido</value>
         <value xml:lang="pt-BR">Solicitado</value>
         <value xml:lang="ro">Ceruta</value>
@@ -11717,11 +12021,12 @@
         <value xml:lang="zh-TW">已請求</value>
     </property>
     <property key="StatusItem.description.ROU_ACTIVE">
-        <value xml:lang="en">ROU_ACTIVE</value>
+        <value xml:lang="en">Active</value>
         <value xml:lang="es">Ruta activa</value>
         <value xml:lang="fr">Bien défini et utilisable</value>
         <value xml:lang="it">Attiva</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Actief</value>
         <value xml:lang="pt-BR">Rota ativa</value>
         <value xml:lang="ru">Активный</value>
         <value xml:lang="th">ปฏิบัติการ</value>
@@ -11730,11 +12035,12 @@
         <value xml:lang="zh-TW">有效</value>
     </property>
     <property key="StatusItem.description.ROU_PROD_TEMPLATE">
-        <value xml:lang="en">ROU_PROD_TEMPLATE</value>
+        <value xml:lang="en">Production Template</value>
         <value xml:lang="es">Ruta plantilla de producto</value>
         <value xml:lang="fr">Utilisé en interne pour l'association entre le produit et le cheminement associés</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ja">製品テンプレート</value>
+        <value xml:lang="nl">Template</value>
         <value xml:lang="pt-BR">ROU_PROD_TEMPLATE</value>
         <value xml:lang="ru">Шаблон продукта</value>
         <value xml:lang="th">เทมเพลต</value>
@@ -11749,6 +12055,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Annullato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -11762,6 +12069,7 @@
         <value xml:lang="fr">Planté</value>
         <value xml:lang="it">Bloccato</value>
         <value xml:lang="ja">クラッシュ</value>
+        <value xml:lang="nl">Gecrasht</value>
         <value xml:lang="pt-BR">Quebrado</value>
         <value xml:lang="ru">Разбившийся</value>
         <value xml:lang="th">เงินสด</value>
@@ -11775,6 +12083,7 @@
         <value xml:lang="fr">Échoué</value>
         <value xml:lang="it">Fallito</value>
         <value xml:lang="ja">失敗</value>
+        <value xml:lang="nl">Gefaald</value>
         <value xml:lang="pt-BR">Falhou</value>
         <value xml:lang="ru">Неудачый</value>
         <value xml:lang="th">ผิดพลาด</value>
@@ -11788,6 +12097,7 @@
         <value xml:lang="fr">Fini</value>
         <value xml:lang="it">Finito</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Законченный</value>
         <value xml:lang="th">เสร็จสิ้น</value>
@@ -11801,6 +12111,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Wachtend</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="th">ยังค้างอยู่</value>
@@ -11814,6 +12125,7 @@
         <value xml:lang="fr">Placé dans la file d'attente</value>
         <value xml:lang="it">In coda</value>
         <value xml:lang="ja">実行待ち</value>
+        <value xml:lang="nl">In de wacht</value>
         <value xml:lang="pt-BR">Enfileirado</value>
         <value xml:lang="ru">Очереди</value>
         <value xml:lang="vi">Đang trong hàng đợi</value>
@@ -11826,6 +12138,7 @@
         <value xml:lang="fr">En cours d'éxécution</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">実行中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt-BR">Em execução</value>
         <value xml:lang="ru">Работающий</value>
         <value xml:lang="vi">Đang chạy</value>
@@ -11839,6 +12152,7 @@
         <value xml:lang="fr">Annulée</value>
         <value xml:lang="it">Cancellata</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt">Cancelado</value>
         <value xml:lang="ro">Stearsa</value>
         <value xml:lang="ru">Отменена</value>
@@ -11854,6 +12168,7 @@
         <value xml:lang="fr">Livrée</value>
         <value xml:lang="it">Consegnata</value>
         <value xml:lang="ja">配送済</value>
+        <value xml:lang="nl">Geleverd</value>
         <value xml:lang="pt">Entregue</value>
         <value xml:lang="ro">Livrata</value>
         <value xml:lang="ru">Доставлена</value>
@@ -11869,6 +12184,7 @@
         <value xml:lang="fr">Créée</value>
         <value xml:lang="it">Ingresso</value>
         <value xml:lang="ja">入力</value>
+        <value xml:lang="nl">Input</value>
         <value xml:lang="pt">Entrada</value>
         <value xml:lang="pt-BR">Parâmetro de entrada</value>
         <value xml:lang="ro">Intrare</value>
@@ -11885,6 +12201,7 @@
         <value xml:lang="fr">Empaquetée</value>
         <value xml:lang="it">Imballata</value>
         <value xml:lang="ja">梱包済</value>
+        <value xml:lang="nl">Gepackt/verpakt</value>
         <value xml:lang="pt">Empacotado</value>
         <value xml:lang="pt-BR">Embalado</value>
         <value xml:lang="ro">Ambalata</value>
@@ -11901,6 +12218,7 @@
         <value xml:lang="fr">Prélevée</value>
         <value xml:lang="it">Prelevata</value>
         <value xml:lang="ja">ピッキング済</value>
+        <value xml:lang="nl">Gepickt</value>
         <value xml:lang="pt">Recolhido</value>
         <value xml:lang="ro">Preluata</value>
         <value xml:lang="ru">Сортировка</value>
@@ -11916,6 +12234,7 @@
         <value xml:lang="fr">Planifiée</value>
         <value xml:lang="it">Schedulata</value>
         <value xml:lang="ja">スケジュール済</value>
+        <value xml:lang="nl">Geagendeerd</value>
         <value xml:lang="pt">Agendado</value>
         <value xml:lang="ro">Planificata</value>
         <value xml:lang="ru">Запланировано</value>
@@ -11931,6 +12250,7 @@
         <value xml:lang="fr">Expédiée</value>
         <value xml:lang="it">Spedita</value>
         <value xml:lang="ja">発送済</value>
+        <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt">Enviado</value>
         <value xml:lang="ro">Expediata</value>
         <value xml:lang="ru">Поставлена</value>
@@ -11945,6 +12265,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
+        <value xml:lang="nl">Geaccepteerd</value>
         <value xml:lang="pt-BR">Aceito</value>
         <value xml:lang="ru">Принят</value>
         <value xml:lang="th">ยอมรับ</value>
@@ -11958,6 +12279,7 @@
         <value xml:lang="fr">Confirmé</value>
         <value xml:lang="it">Confermato</value>
         <value xml:lang="ja">確認済</value>
+        <value xml:lang="nl">Bevestigd</value>
         <value xml:lang="pt-BR">Confirmado</value>
         <value xml:lang="ru">Подтвержденный</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -11971,6 +12293,7 @@
         <value xml:lang="fr">Non commencé</value>
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="ja">未開始</value>
+        <value xml:lang="nl">Niet gestart</value>
         <value xml:lang="pt-BR">Não iniciado</value>
         <value xml:lang="ru">Не начат</value>
         <value xml:lang="th">ไม่เริ่ม</value>
@@ -11997,6 +12320,7 @@
         <value xml:lang="fr">Accepté</value>
         <value xml:lang="it">Accettato</value>
         <value xml:lang="ja">受付</value>
+        <value xml:lang="nl">Geaccepteerd</value>
         <value xml:lang="pt-BR">Aceito</value>
         <value xml:lang="ru">Полученная ошибка подтверждена</value>
         <value xml:lang="vi">Đã đồng ý</value>
@@ -12009,6 +12333,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -12021,6 +12346,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">要返金手続</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -12033,6 +12359,7 @@
         <value xml:lang="fr">Demandé</value>
         <value xml:lang="it">Richiesto</value>
         <value xml:lang="ja">リクエスト</value>
+        <value xml:lang="nl">Verzocht</value>
         <value xml:lang="pt-BR">Solicitado</value>
         <value xml:lang="ru">Запрошенный</value>
         <value xml:lang="vi">Đã yêu cầu</value>
@@ -12045,6 +12372,7 @@
         <value xml:lang="fr">Expédié</value>
         <value xml:lang="it">Spedito</value>
         <value xml:lang="ja">発送済</value>
+        <value xml:lang="nl">Verzonden</value>
         <value xml:lang="pt-BR">Comercializado</value>
         <value xml:lang="ru">Погруженный</value>
         <value xml:lang="vi">Đã chuyển hàng</value>
@@ -12086,6 +12414,7 @@
         <value xml:lang="fr">Terminée</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -12098,7 +12427,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">処理中</value>
-        <value xml:lang="nl">Onder handen</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt-BR">Em processo</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
@@ -12169,6 +12498,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="pt-BR">Disponível</value>
         <value xml:lang="ru">Доступный</value>
         <value xml:lang="vi">Có sẵn</value>
@@ -12181,6 +12511,7 @@
         <value xml:lang="fr">En cours d'utilisation</value>
         <value xml:lang="it">In uso</value>
         <value xml:lang="ja">使用中</value>
+        <value xml:lang="nl">In gebruik</value>
         <value xml:lang="pt-BR">Em Uso</value>
         <value xml:lang="ru">В использовании</value>
         <value xml:lang="vi">Đang sử dụng</value>
@@ -12193,6 +12524,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -12204,6 +12536,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -12216,6 +12549,7 @@
         <value xml:lang="fr">Créé</value>
         <value xml:lang="it">Creato</value>
         <value xml:lang="ja">作成</value>
+        <value xml:lang="nl">Aangemaakt</value>
         <value xml:lang="pt-BR">Criado</value>
         <value xml:lang="ru">Создан</value>
         <value xml:lang="vi">Đã tạo</value>
@@ -12228,6 +12562,7 @@
         <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ja">有効</value>
+        <value xml:lang="nl">Beschikbaar</value>
         <value xml:lang="pt-BR">Disponível</value>
         <value xml:lang="ru">Доступный</value>
         <value xml:lang="vi">Có sẵn</value>
@@ -12252,6 +12587,7 @@
         <value xml:lang="fr">Occupé</value>
         <value xml:lang="it">Occupato</value>
         <value xml:lang="ja">ビジー</value>
+        <value xml:lang="nl">Bezet</value>
         <value xml:lang="pt-BR">Ocupado</value>
         <value xml:lang="ru">Занят</value>
         <value xml:lang="vi">Bận</value>
@@ -12264,6 +12600,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Geannuleerd</value>
         <value xml:lang="pt-BR">Cancelado</value>
         <value xml:lang="ru">Отменен</value>
         <value xml:lang="vi">Đã hủy</value>
@@ -12276,6 +12613,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completo</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt-BR">Completado</value>
         <value xml:lang="ru">Выполнен</value>
         <value xml:lang="vi">Hoàn thành</value>
@@ -12288,6 +12626,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In corso</value>
         <value xml:lang="ja">処理中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt-BR">Em Andamento</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang xử lý</value>
@@ -12300,6 +12639,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留中</value>
+        <value xml:lang="nl">On hold</value>
         <value xml:lang="pt-BR">Em Espera</value>
         <value xml:lang="ru">На удержание</value>
         <value xml:lang="vi">Đang giữ (Hold)</value>
@@ -12312,6 +12652,7 @@
         <value xml:lang="fr">Planifié</value>
         <value xml:lang="it">Pianificato</value>
         <value xml:lang="ja">計画中</value>
+        <value xml:lang="nl">Planning</value>
         <value xml:lang="pt-BR">Planejamento</value>
         <value xml:lang="ru">Планирование</value>
         <value xml:lang="vi">Đang lập kế hoạch</value>
@@ -12324,6 +12665,7 @@
         <value xml:lang="fr">Approuvé</value>
         <value xml:lang="it">Approvato</value>
         <value xml:lang="ja">承認</value>
+        <value xml:lang="nl">Goedgekeurd</value>
         <value xml:lang="pt-BR">Aprovado</value>
         <value xml:lang="ru">Утвержденный</value>
         <value xml:lang="vi">Đã duyệt</value>
@@ -12336,6 +12678,7 @@
         <value xml:lang="fr">Supprimé</value>
         <value xml:lang="it">Cancellato</value>
         <value xml:lang="ja">削除済</value>
+        <value xml:lang="nl">Verwijderd</value>
         <value xml:lang="pt-BR">Excluído</value>
         <value xml:lang="ru">Удален</value>
         <value xml:lang="vi">Đã xóa</value>
@@ -12348,6 +12691,7 @@
         <value xml:lang="fr">En attente</value>
         <value xml:lang="it">In attesa</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Wachtend</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ru">В процессе</value>
         <value xml:lang="vi">Đang đợi</value>
@@ -12361,6 +12705,7 @@
         <value xml:lang="fr">Echoué</value>
         <value xml:lang="it">Abortito</value>
         <value xml:lang="ja">中断</value>
+        <value xml:lang="nl">Afgebroken</value>
         <value xml:lang="pt">Abortado</value>
         <value xml:lang="ro">Abandonat</value>
         <value xml:lang="ru">Прерван</value>
@@ -12376,6 +12721,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
+        <value xml:lang="nl">Afgerond</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="pt-BR">Concluído</value>
         <value xml:lang="ro">Completat</value>
@@ -12392,6 +12738,7 @@
         <value xml:lang="fr">Non commencé</value>
         <value xml:lang="it">Non iniziato</value>
         <value xml:lang="ja">未開始</value>
+        <value xml:lang="nl">Niet gestart</value>
         <value xml:lang="pt">Não Iniiciado</value>
         <value xml:lang="pt-BR">Não Iniciado</value>
         <value xml:lang="ro">Ne Initiat</value>
@@ -12408,6 +12755,7 @@
         <value xml:lang="fr">En cours</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">実行中</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em Execução</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">Выполняется</value>
@@ -12423,6 +12771,7 @@
         <value xml:lang="fr">Suspendu</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="ja">停止中</value>
+        <value xml:lang="nl">Opgeschort</value>
         <value xml:lang="pt">Suspenso</value>
         <value xml:lang="ro">Suspendat</value>
         <value xml:lang="ru">Приостановлен</value>
@@ -12438,6 +12787,7 @@
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="it">Terminato</value>
         <value xml:lang="ja">終了</value>
+        <value xml:lang="nl">Getermineerd</value>
         <value xml:lang="pt">Terminado</value>
         <value xml:lang="ro">Terminat</value>
         <value xml:lang="ru">Прекращен</value>
@@ -12452,6 +12802,7 @@
         <value xml:lang="fr">En cours : article entrant d'inventaire effectué</value>
         <value xml:lang="it">Entrata terminata</value>
         <value xml:lang="ja">完了収入</value>
+        <value xml:lang="nl">WIP - inkomend gedaan</value>
         <value xml:lang="pt-BR">Entrada terminada</value>
         <value xml:lang="ru">Входящий сделан</value>
         <value xml:lang="th">WIP_INCOMING_DONE</value>
@@ -12465,6 +12816,7 @@
         <value xml:lang="fr">En cours : accomplissement d'article entrant</value>
         <value xml:lang="it">Entrata in completamento</value>
         <value xml:lang="ja">実現収入</value>
+        <value xml:lang="nl">WIP - inkomend fulfilment</value>
         <value xml:lang="pt-BR">Completando entrada</value>
         <value xml:lang="ru">Входящий выполнен</value>
         <value xml:lang="th">WIP_INCOMING_FULFIL</value>
@@ -12478,6 +12830,7 @@
         <value xml:lang="fr">En cours : article estimé à recevoir</value>
         <value xml:lang="it">Entrata pianificata</value>
         <value xml:lang="ja">計画収入</value>
+        <value xml:lang="nl">WIP - inkomend plan</value>
         <value xml:lang="pt-BR">Entrada planejada</value>
         <value xml:lang="ru">Входящий план</value>
         <value xml:lang="th">WIP_INCOMING_PLAN</value>
@@ -12491,6 +12844,7 @@
         <value xml:lang="fr">En cours : article entrant d'inventaire réservé</value>
         <value xml:lang="it">Entrata riservata</value>
         <value xml:lang="ja">残余収入</value>
+        <value xml:lang="nl">WIP - inkomende reservering</value>
         <value xml:lang="pt-BR">Entrada reservada</value>
         <value xml:lang="ru">Входящий результат</value>
         <value xml:lang="th">WIP_INCOMING_RES</value>
@@ -12504,6 +12858,7 @@
         <value xml:lang="fr">En cours : article sortant d'inventaire effectué</value>
         <value xml:lang="it">Uscita terminata</value>
         <value xml:lang="ja">完了支出</value>
+        <value xml:lang="nl">WIP - uitgaand gedaan</value>
         <value xml:lang="pt-BR">Saída terminada</value>
         <value xml:lang="ru">Исходящий сделан</value>
         <value xml:lang="th">WIP_OUTGOING_DONE</value>
@@ -12517,6 +12872,7 @@
         <value xml:lang="fr">En cours : accomplissement d'article sortant</value>
         <value xml:lang="it">Uscita in completamento</value>
         <value xml:lang="ja">実現支出</value>
+        <value xml:lang="nl">WIP - uitgaand fulfilment</value>
         <value xml:lang="pt-BR">Saída em processamento</value>
         <value xml:lang="ru">Исходящий выполнен</value>
         <value xml:lang="th">WIP_OUTGOING_FULFIL</value>
@@ -12530,6 +12886,7 @@
         <value xml:lang="fr">En cours : article sortant estimé</value>
         <value xml:lang="it">Uscita pianificata</value>
         <value xml:lang="ja">計画支出</value>
+        <value xml:lang="nl">WIP - uitgaand plan</value>
         <value xml:lang="pt-BR">Saída planejada</value>
         <value xml:lang="ru">Исходящий план</value>
         <value xml:lang="th">WIP_OUTGOING_PLAN</value>
@@ -12543,6 +12900,7 @@
         <value xml:lang="fr">En cours : article sortant d'inventaire réservé</value>
         <value xml:lang="it">Uscita riservata</value>
         <value xml:lang="ja">残余支出</value>
+        <value xml:lang="nl">WIP - uitgaand reservering</value>
         <value xml:lang="pt-BR">Saída reservada</value>
         <value xml:lang="ru">Исходящий результат</value>
         <value xml:lang="th">WIP_OUTGOING_RES</value>
@@ -12556,6 +12914,7 @@
         <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Pubblicata</value>
         <value xml:lang="ja">公開</value>
+        <value xml:lang="nl">Vrijgegeven</value>
         <value xml:lang="pt-BR">Publicado</value>
         <value xml:lang="ru">Релиз</value>
         <value xml:lang="th">วางจำหน่าย</value>
@@ -12569,6 +12928,7 @@
         <value xml:lang="fr">En cours de révision</value>
         <value xml:lang="it">In revisione</value>
         <value xml:lang="ja">修正中</value>
+        <value xml:lang="nl">In revisie</value>
         <value xml:lang="pt-BR">Sob revisão</value>
         <value xml:lang="ru">В обзоре</value>
         <value xml:lang="th">WPS_UNDER_REVISION</value>
@@ -12582,6 +12942,7 @@
         <value xml:lang="fr">En cours de test</value>
         <value xml:lang="it">In test</value>
         <value xml:lang="ja">テスト中</value>
+        <value xml:lang="nl">In test</value>
         <value xml:lang="pt-BR">Em teste</value>
         <value xml:lang="ru">В тестировании</value>
         <value xml:lang="th">WPS_UNDER_TEST</value>
@@ -12596,7 +12957,7 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
-        <value xml:lang="nl">Niet van toepassing</value>
+        <value xml:lang="nl">Niet beschikbaar/Niet van toepassing</value>
         <value xml:lang="pt">Não Aplicável</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="ru">Не применимо</value>
@@ -12643,6 +13004,7 @@
         <value xml:lang="fr">Acteur de liste de contact</value>
         <value xml:lang="it">Liste di contatto soggetto</value>
         <value xml:lang="ja">連絡リスト取引先</value>
+        <value xml:lang="nl">Partij</value>
         <value xml:lang="pt">Lista de Contactos de Participante</value>
         <value xml:lang="pt-BR">Lista de contato de participantes</value>
         <value xml:lang="ro">Lista de Contact Subiecti</value>
@@ -12690,6 +13052,7 @@
         <value xml:lang="fr">Evènement</value>
         <value xml:lang="it">Evento</value>
         <value xml:lang="ja">イベント</value>
+        <value xml:lang="nl">Event/gebeurtenis</value>
         <value xml:lang="pt">Evento</value>
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
@@ -12705,6 +13068,7 @@
         <value xml:lang="fr">Maintenance d'immobilisation</value>
         <value xml:lang="it">Manutenzione cespiti</value>
         <value xml:lang="ja">固定資産メンテナンス</value>
+        <value xml:lang="nl">Onderhoud activa</value>
         <value xml:lang="pt">Fixed Asset Maintenance</value>
         <value xml:lang="pt-BR">Manutenção de Ativos Fixos</value>
         <value xml:lang="ro">Intretinere Mijloace Fixe</value>
@@ -12721,6 +13085,7 @@
         <value xml:lang="fr">Ligne de stock</value>
         <value xml:lang="it">Riga inventario</value>
         <value xml:lang="ja">在庫アイテム</value>
+        <value xml:lang="nl">Voorraad item</value>
         <value xml:lang="pt">Item de Inventário</value>
         <value xml:lang="ro">Linie Inventar</value>
         <value xml:lang="ru">Позиция ТМЦ</value>
@@ -12736,6 +13101,7 @@
         <value xml:lang="fr">Transfert de stock</value>
         <value xml:lang="it">Inventario per trasferimenti</value>
         <value xml:lang="ja">在庫転送</value>
+        <value xml:lang="nl">Transfer</value>
         <value xml:lang="pt">Transferência de Inventário</value>
         <value xml:lang="ro">Inventar x Trasferari</value>
         <value xml:lang="ru">Перемещение ТМЦ</value>
@@ -12751,7 +13117,7 @@
         <value xml:lang="fr">Statut de facture</value>
         <value xml:lang="it">Stato fattura</value>
         <value xml:lang="ja">在庫ステータス</value>
-        <value xml:lang="nl">Status factuur</value>
+        <value xml:lang="nl">Factuurstatus</value>
         <value xml:lang="pt">Estado da Factura</value>
         <value xml:lang="pt-BR">Estado da fatura</value>
         <value xml:lang="ro">Stare Factura</value>
@@ -12767,6 +13133,7 @@
         <value xml:lang="fr">Ligne de stock sans n° de série</value>
         <value xml:lang="it">Riga inventario non serializzata</value>
         <value xml:lang="ja">一括配送在庫アイテム</value>
+        <value xml:lang="nl">Ongenummerd goed</value>
         <value xml:lang="pt">Item de Inventário não Serializado</value>
         <value xml:lang="pt-BR">Item de estoque não-serializado</value>
         <value xml:lang="ro">Linie Inventar Ne-Serializata</value>
@@ -12782,6 +13149,7 @@
         <value xml:lang="fr">Ligne de stock avec n° de série</value>
         <value xml:lang="it">Riga inventario serializzata</value>
         <value xml:lang="ja">複数配送在庫ステータス</value>
+        <value xml:lang="nl">Genummerd goed</value>
         <value xml:lang="pt">Item de Inventário Serializado</value>
         <value xml:lang="pt-BR">Item de estoque Serializado</value>
         <value xml:lang="ro">Linie Inventar Serializata</value>
@@ -12813,7 +13181,7 @@
         <value xml:lang="fr">planification d'expédition</value>
         <value xml:lang="it">Schedulazione consegne ordini</value>
         <value xml:lang="ja">注文配送スケジュール</value>
-        <value xml:lang="nl">Bestelling verzendschema</value>
+        <value xml:lang="nl">Order - verzendschema</value>
         <value xml:lang="pt">Prazo de Entrega de Encomendas</value>
         <value xml:lang="pt-BR">Programação de entrega do pedido</value>
         <value xml:lang="ro">Planificare Livrari Comenzi</value>
@@ -12830,7 +13198,7 @@
         <value xml:lang="fr">Ligne de commande</value>
         <value xml:lang="it">Riga ordine</value>
         <value xml:lang="ja">注文アイテム</value>
-        <value xml:lang="nl">Bestelling regel</value>
+        <value xml:lang="nl">Order - regel</value>
         <value xml:lang="pt">Item Encomenda</value>
         <value xml:lang="pt-BR">Item do pedido</value>
         <value xml:lang="ro">Linie Comanda</value>
@@ -12846,7 +13214,7 @@
         <value xml:lang="fr">Statut de retour de commande</value>
         <value xml:lang="it">Stato reso ordine</value>
         <value xml:lang="ja">注文返送ステータス</value>
-        <value xml:lang="nl">Bestelling retour status</value>
+        <value xml:lang="nl">Order - retour</value>
         <value xml:lang="pt">Estado da Devolução de Encomendas</value>
         <value xml:lang="pt-BR">Estado do pedido de retorno</value>
         <value xml:lang="ro">Stadiul Comanda Returnata</value>
@@ -12863,7 +13231,7 @@
         <value xml:lang="fr">Commande</value>
         <value xml:lang="it">Ordine</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="nl">Order</value>
         <value xml:lang="pt">Encomenda</value>
         <value xml:lang="pt-BR">Pedido</value>
         <value xml:lang="ro">Comanda</value>
@@ -12896,6 +13264,7 @@
         <value xml:lang="fr">Liste de choix</value>
         <value xml:lang="it">Lista di prelievo</value>
         <value xml:lang="ja">ピッキングリスト</value>
+        <value xml:lang="nl">Picklijst</value>
         <value xml:lang="pt">Lista de Recolha</value>
         <value xml:lang="pt-BR">Lista de itens a recolher</value>
         <value xml:lang="ro">Lista de Preluari</value>
@@ -12912,6 +13281,7 @@
         <value xml:lang="fr">Statut de paiement</value>
         <value xml:lang="it">Stato pagamento</value>
         <value xml:lang="ja">支払ステータス</value>
+        <value xml:lang="nl">Betaling</value>
         <value xml:lang="pt">Estado do Pagamento</value>
         <value xml:lang="pt-BR">Situação do pagamento</value>
         <value xml:lang="ro">Stadiu Plata</value>
@@ -12928,6 +13298,7 @@
         <value xml:lang="fr">Statut d'ordre de fabrication</value>
         <value xml:lang="it">Stato ciclo di produzione</value>
         <value xml:lang="ja">製品実行ステータス</value>
+        <value xml:lang="nl">Productierun</value>
         <value xml:lang="pt">Estado da Produção</value>
         <value xml:lang="pt-BR">Estado da Execução da Produção</value>
         <value xml:lang="ro">Stadii Ciclu Productie</value>
@@ -12959,6 +13330,7 @@
         <value xml:lang="fr">Expédition d'achat</value>
         <value xml:lang="it">Spedizione di acquisto</value>
         <value xml:lang="ja">購入配送</value>
+        <value xml:lang="nl">Inkoop levering</value>
         <value xml:lang="pt">Envio de Compra</value>
         <value xml:lang="pt-BR">Remessa de compra</value>
         <value xml:lang="ro">Expediere Cumparari</value>
@@ -12976,6 +13348,7 @@
         <value xml:lang="fr">Statut de devis</value>
         <value xml:lang="it">Stato preventivo</value>
         <value xml:lang="ja">見積ステータス</value>
+        <value xml:lang="nl">Quote status</value>
         <value xml:lang="pt">Estado da Quotação</value>
         <value xml:lang="pt-BR">Estado da cotação</value>
         <value xml:lang="ro">Stadiu Oferta</value>
@@ -12992,6 +13365,7 @@
         <value xml:lang="fr">Statut de besoin</value>
         <value xml:lang="it">Stato fabbisogno</value>
         <value xml:lang="ja">要求ステータス</value>
+        <value xml:lang="nl">Requirement - status</value>
         <value xml:lang="pt">Estado do Requerimento</value>
         <value xml:lang="pt-BR">Estado da requisição</value>
         <value xml:lang="ro">Stadiu Necesar</value>
@@ -13008,6 +13382,7 @@
         <value xml:lang="fr">Expédition</value>
         <value xml:lang="it">Spedizione</value>
         <value xml:lang="ja">配送ステータス</value>
+        <value xml:lang="nl">Zending - status</value>
         <value xml:lang="pt">Carregamento</value>
         <value xml:lang="pt-BR">Envio</value>
         <value xml:lang="ro">Expediere</value>
@@ -13040,6 +13415,7 @@
         <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="ja">タスク</value>
+        <value xml:lang="nl">Taak - status</value>
         <value xml:lang="pt">Tarefa</value>
         <value xml:lang="ro">Sarcina</value>
         <value xml:lang="ru">Задача</value>
@@ -13055,6 +13431,7 @@
         <value xml:lang="fr">Workflow</value>
         <value xml:lang="it">Impegno di lavoro</value>
         <value xml:lang="ja">ワークフロー</value>
+        <value xml:lang="nl">Workflow - status</value>
         <value xml:lang="pt">Workflow</value>
         <value xml:lang="pt-BR">Fluxo de trabalho</value>
         <value xml:lang="ro">Sarcini de Lucru</value>
@@ -13071,6 +13448,7 @@
         <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non applicabile</value>
         <value xml:lang="ja">適用外</value>
+        <value xml:lang="nl">Niet beschikbaar/niet van toepassing</value>
         <value xml:lang="pt-BR">Não Aplicável</value>
         <value xml:lang="ru">Неприменяемые</value>
         <value xml:lang="th">ไม่เหมาะสม</value>
@@ -14453,7 +14831,7 @@
         <value xml:lang="fr">Commande arrivée</value>
         <value xml:lang="it">Ordine arrivato</value>
         <value xml:lang="ja">注文到着</value>
-        <value xml:lang="nl">Bestelling aangekomen</value>
+        <value xml:lang="nl">Order aangekomen</value>
         <value xml:lang="pt">Chegou Encomenda</value>
         <value xml:lang="pt-BR">Pedido recebido</value>
         <value xml:lang="ro">Comanda Parvenita</value>
@@ -14969,7 +15347,7 @@
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
         <value xml:lang="ja">注文取消</value>
-        <value xml:lang="nl">Annuleren bestelling</value>
+        <value xml:lang="nl">Order - annuleren</value>
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="pt-BR">Cancelar Pedido</value>
         <value xml:lang="ro">Sterge Comanda</value>
@@ -14986,7 +15364,7 @@
         <value xml:lang="fr">Compléter la commande</value>
         <value xml:lang="it">Completa ordine</value>
         <value xml:lang="ja">注文完了</value>
-        <value xml:lang="nl">Gereedmaken bestelling</value>
+        <value xml:lang="nl">Order - gereedmaken</value>
         <value xml:lang="pt">Completar Encomenda</value>
         <value xml:lang="pt-BR">Finalizar Pedido</value>
         <value xml:lang="ro">Completeaza Comanda</value>
@@ -15003,7 +15381,7 @@
         <value xml:lang="fr">Prendre la commande</value>
         <value xml:lang="it">Congela ordine</value>
         <value xml:lang="ja">注文保留</value>
-        <value xml:lang="nl">In de wacht zetten bestelling</value>
+        <value xml:lang="nl">Order - on hold zetten</value>
         <value xml:lang="pt">Colocar Encomenda em Espera</value>
         <value xml:lang="pt-BR">Segurar Pedido</value>
         <value xml:lang="ru">Заказ на ожидание</value>
@@ -15019,7 +15397,7 @@
         <value xml:lang="fr">Traiter la commande</value>
         <value xml:lang="it">Processa ordine</value>
         <value xml:lang="ja">注文処理中</value>
-        <value xml:lang="nl">Verwerken bestelling</value>
+        <value xml:lang="nl">Order - verwerken</value>
         <value xml:lang="pt">Hold Order</value>
         <value xml:lang="pt-BR">Processando pedido</value>
         <value xml:lang="ro">Congeleaza comanda</value>
@@ -15036,7 +15414,7 @@
         <value xml:lang="fr">Envoyer la commande</value>
         <value xml:lang="it">Invia ordine</value>
         <value xml:lang="ja">注文送付</value>
-        <value xml:lang="nl">Verzenden bestelling</value>
+        <value xml:lang="nl">Order - verzenden bevestiging</value>
         <value xml:lang="pt">Enviar Encomenda</value>
         <value xml:lang="pt-BR">Enviar Pedido</value>
         <value xml:lang="ro">Trimite Comanda</value>
@@ -15053,7 +15431,7 @@
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
         <value xml:lang="ja">注文承認</value>
-        <value xml:lang="nl">Goedkeuren bestelling</value>
+        <value xml:lang="nl">Order - goedkeuren</value>
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="pt-BR">Aprovar pedido</value>
         <value xml:lang="ro">Aproba Comanda</value>
@@ -15070,7 +15448,7 @@
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
         <value xml:lang="ja">注文取消</value>
-        <value xml:lang="nl">Annuleren bestelling</value>
+        <value xml:lang="nl">Order - annuleren</value>
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="pt-BR">Cancelar Pedido</value>
         <value xml:lang="ro">Sterge Comanda</value>
@@ -15087,7 +15465,7 @@
         <value xml:lang="fr">Traiter la commande</value>
         <value xml:lang="it">Esegui ordine</value>
         <value xml:lang="ja">注文処理</value>
-        <value xml:lang="nl">Verwerken bestelling</value>
+        <value xml:lang="nl">Order - verwerken</value>
         <value xml:lang="pt">Processar Encomenda</value>
         <value xml:lang="pt-BR">Processar pedido</value>
         <value xml:lang="ro">Executa Comanda</value>
@@ -15104,7 +15482,7 @@
         <value xml:lang="fr">Rejeter la commande</value>
         <value xml:lang="it">Rifiuta ordine</value>
         <value xml:lang="ja">注文否認</value>
-        <value xml:lang="nl">Afwijzen bestelling</value>
+        <value xml:lang="nl">Order - afwijzen</value>
         <value xml:lang="pt">Rejeitar Encomenda</value>
         <value xml:lang="pt-BR">Rejeitar Pedido</value>
         <value xml:lang="ro">Refuza Comanda</value>
@@ -15121,7 +15499,7 @@
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
         <value xml:lang="ja">注文承認</value>
-        <value xml:lang="nl">Bestelling goedkeuren</value>
+        <value xml:lang="nl">Order - goedkeuren</value>
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="pt-BR">Aprovar Pedido</value>
         <value xml:lang="ru">Утвердить заказ</value>
@@ -15137,7 +15515,7 @@
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
         <value xml:lang="ja">注文取消</value>
-        <value xml:lang="nl">Annuleren bestelling</value>
+        <value xml:lang="nl">Order - annuleren</value>
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="pt-BR">Cancelar Pedido</value>
         <value xml:lang="ru">Отменить заказ</value>
@@ -15153,7 +15531,7 @@
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva ordine</value>
         <value xml:lang="ja">注文承認</value>
-        <value xml:lang="nl">Goedkeuren bestelling</value>
+        <value xml:lang="nl">Order - goedkeuren</value>
         <value xml:lang="pt">Aprovar Encomenda</value>
         <value xml:lang="pt-BR">Aprovar Pedido</value>
         <value xml:lang="ro">Aproba Comanda</value>
@@ -15170,7 +15548,7 @@
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Cancella ordine</value>
         <value xml:lang="ja">注文取消</value>
-        <value xml:lang="nl">Annuleren bestelling</value>
+        <value xml:lang="nl">Order - annuleren</value>
         <value xml:lang="pt">Cancelar Encomenda</value>
         <value xml:lang="pt-BR">Cancelar Pedido</value>
         <value xml:lang="ro">Sterge Comanda</value>
@@ -15187,7 +15565,7 @@
         <value xml:lang="fr">Rejeter la commande</value>
         <value xml:lang="it">Rifiuta ordine</value>
         <value xml:lang="ja">注文否認</value>
-        <value xml:lang="nl">Afwijzen bestelling</value>
+        <value xml:lang="nl">Order - afwijzen</value>
         <value xml:lang="pt">Rejeitar Encomenda</value>
         <value xml:lang="pt-BR">Rejeitar Pedido</value>
         <value xml:lang="ro">Refuza Comanda</value>
@@ -15204,7 +15582,7 @@
         <value xml:lang="fr">Commande annulée</value>
         <value xml:lang="it">Ordine cancellato</value>
         <value xml:lang="ja">注文取消</value>
-        <value xml:lang="nl">Bestelling geannuleerd</value>
+        <value xml:lang="nl">Order - geannuleerd</value>
         <value xml:lang="pt">Encomenda Cancelada</value>
         <value xml:lang="pt-BR">Pedido Cancelado</value>
         <value xml:lang="ro">Comanda Stearsa</value>
@@ -15221,7 +15599,7 @@
         <value xml:lang="fr">Commande terminée</value>
         <value xml:lang="it">Ordine completato</value>
         <value xml:lang="ja">注文完了</value>
-        <value xml:lang="nl">Bestelling gereed</value>
+        <value xml:lang="nl">Order - gereed</value>
         <value xml:lang="pt">Encomenda Completa</value>
         <value xml:lang="pt-BR">Pedido Finalizado</value>
         <value xml:lang="ro">Comanda Completata</value>
@@ -15255,7 +15633,7 @@
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="ja">支払取消</value>
-        <value xml:lang="nl">Betaling geannuleerd</value>
+        <value xml:lang="nl">Betaling - annuleren </value>
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -15271,7 +15649,7 @@
         <value xml:lang="fr">Paiement réglé</value>
         <value xml:lang="it">Pagamento saldato</value>
         <value xml:lang="ja">支払解決</value>
-        <value xml:lang="nl">Betaling verrekend</value>
+        <value xml:lang="nl">Betaling - verrekenen</value>
         <value xml:lang="pt">Pagamento Acordado</value>
         <value xml:lang="pt-BR">Pagamento combinado</value>
         <value xml:lang="ro">Plata Achitata</value>
@@ -15288,7 +15666,7 @@
         <value xml:lang="fr">Paiement autorisé</value>
         <value xml:lang="it">Pagamento autorizzato</value>
         <value xml:lang="ja">支払承認</value>
-        <value xml:lang="nl">Betaling geautoriseerd</value>
+        <value xml:lang="nl">Betaling - autoriseren</value>
         <value xml:lang="pt">Pagamento Autorizado</value>
         <value xml:lang="ro">Plata Autorizata</value>
         <value xml:lang="ru">Платеж авторизирован</value>
@@ -15302,7 +15680,7 @@
         <value xml:lang="en">Payment Cancelled</value>
         <value xml:lang="es">Pago cancelado</value>
         <value xml:lang="fr">Paiement annulé</value>
-        <value xml:lang="it">Pagamento cancellato</value>
+        <value xml:lang="it">Pagamento - annuleren</value>
         <value xml:lang="ja">支払取消</value>
         <value xml:lang="nl">Betaling geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
@@ -15320,7 +15698,7 @@
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="ja">支払取消</value>
-        <value xml:lang="nl">Betaling geannuleerd</value>
+        <value xml:lang="nl">Betaling - annuleren</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -15336,7 +15714,7 @@
         <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento ricevuto</value>
         <value xml:lang="ja">支払受取</value>
-        <value xml:lang="nl">Betaling ontvangen</value>
+        <value xml:lang="nl">Betaling - ontvangen</value>
         <value xml:lang="pt">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
@@ -15352,6 +15730,7 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Picklijst - annuleren</value>
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
@@ -15367,6 +15746,7 @@
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="ja">ピッキング</value>
+        <value xml:lang="nl">Picklijst - gepickt</value>
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Preleva</value>
         <value xml:lang="ru">Сортировать</value>
@@ -15380,6 +15760,7 @@
         <value xml:lang="es">Impreso</value>
         <value xml:lang="fr">Imprimé</value>
         <value xml:lang="it">Stampa</value>
+        <value xml:lang="nl">Picklijst - geprint</value>
         <value xml:lang="ru">Напечатанный</value>
         <value xml:lang="ja">印刷済</value>
         <value xml:lang="pt-BR">Impresso</value>
@@ -15393,6 +15774,7 @@
         <value xml:lang="fr">Attribuer</value>
         <value xml:lang="it">Assegna</value>
         <value xml:lang="ja">割当</value>
+        <value xml:lang="nl">Picklijst - toegewezen</value>
         <value xml:lang="pt">Atribuir</value>
         <value xml:lang="ro">Atribuie</value>
         <value xml:lang="ru">Назначить</value>
@@ -15408,6 +15790,7 @@
         <value xml:lang="fr">Annuler</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Picklijst - geannuleerd</value>
         <value xml:lang="pt">Cancelar</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
@@ -15423,6 +15806,7 @@
         <value xml:lang="fr">Prélever</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="ja">ピッキング</value>
+        <value xml:lang="nl">Picklijst - gepickt</value>
         <value xml:lang="pt">Recolher</value>
         <value xml:lang="ro">Preluare</value>
         <value xml:lang="ru">Сортировать</value>
@@ -15436,6 +15820,7 @@
         <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="it">Stampa</value>
+        <value xml:lang="nl">Picklijst - afgedrukt</value>
         <value xml:lang="ru">Печатать</value>
         <value xml:lang="ja">印刷</value>
         <value xml:lang="pt-BR">Imprimir</value>
@@ -15448,6 +15833,7 @@
         <value xml:lang="fr">Annulé</value>
         <value xml:lang="it">Cancella</value>
         <value xml:lang="ja">取消</value>
+        <value xml:lang="nl">Picklijst - geannuleerd</value>
         <value xml:lang="pt-BR">Cancelar</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="vi">Hủy bỏ</value>
@@ -15460,6 +15846,7 @@
         <value xml:lang="fr">Prélevé</value>
         <value xml:lang="it">Preleva</value>
         <value xml:lang="ja">ピッキング</value>
+        <value xml:lang="nl">Picklijst - gepickt</value>
         <value xml:lang="pt-BR">Recolher</value>
         <value xml:lang="ru">Выбирать</value>
         <value xml:lang="vi">Chọn ra (pick)</value>
@@ -15473,7 +15860,7 @@
         <value xml:lang="fr">Paiement annulé</value>
         <value xml:lang="it">Pagamento cancellato</value>
         <value xml:lang="ja">支払取消</value>
-        <value xml:lang="nl">Betaling geannuleerd</value>
+        <value xml:lang="nl">Betaling - geannuleerd</value>
         <value xml:lang="pt">Pagamento Cancelado</value>
         <value xml:lang="ro">Plata Stearsa</value>
         <value xml:lang="ru">Платеж отменен</value>
@@ -15489,7 +15876,7 @@
         <value xml:lang="fr">Paiement reçu</value>
         <value xml:lang="it">Pagamento ricevuto</value>
         <value xml:lang="ja">支払受取</value>
-        <value xml:lang="nl">Betaling ontvangen</value>
+        <value xml:lang="nl">Betaling - ontvangen</value>
         <value xml:lang="pt">Pagamento Recebido</value>
         <value xml:lang="ro">Plata Primita</value>
         <value xml:lang="ru">Платеж получен</value>
@@ -15505,7 +15892,7 @@
         <value xml:lang="fr">Paiement envoyé</value>
         <value xml:lang="it">Pagamento inviato</value>
         <value xml:lang="ja">支払送付</value>
-        <value xml:lang="nl">Betaling verstuurd</value>
+        <value xml:lang="nl">Betaling - verstuurd</value>
         <value xml:lang="pt">Pagamento Enviado</value>
         <value xml:lang="ro">Plata Trimisa</value>
         <value xml:lang="ru">Платеж отослан</value>
@@ -15521,7 +15908,7 @@
         <value xml:lang="fr">Paiement confirmé</value>
         <value xml:lang="it">Pagamento confermato</value>
         <value xml:lang="ja">支払確認済</value>
-        <value xml:lang="nl">Betaling bevestigd</value>
+        <value xml:lang="nl">Betaling - bevestigd</value>
         <value xml:lang="pt">Pagamento Confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
@@ -15537,7 +15924,7 @@
         <value xml:lang="fr">Paiement confirmé</value>
         <value xml:lang="it">Pagamento confermato</value>
         <value xml:lang="ja">支払確認済</value>
-        <value xml:lang="nl">Betaling bevestigd</value>
+        <value xml:lang="nl">Betaling - bevestigd</value>
         <value xml:lang="pt">Pagamento Confirmado</value>
         <value xml:lang="ro">Plata Confirmata</value>
         <value xml:lang="ru">Платеж подтвержден</value>
@@ -15600,6 +15987,7 @@
         <value xml:lang="fr">Révision</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="ja">受取</value>
+        <value xml:lang="nl">Inkoop - ontvangen</value>
         <value xml:lang="pt">Receber</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получить</value>
@@ -15615,6 +16003,7 @@
         <value xml:lang="fr">Transport</value>
         <value xml:lang="it">Spedita</value>
         <value xml:lang="ja">発送</value>
+        <value xml:lang="nl">Inkoop - verzonden</value>
         <value xml:lang="pt">Expedir</value>
         <value xml:lang="pt-BR">Enviar</value>
         <value xml:lang="ro">Expediat</value>
@@ -15631,6 +16020,7 @@
         <value xml:lang="fr">Reçu</value>
         <value xml:lang="it">Ricevuto</value>
         <value xml:lang="ja">受取</value>
+        <value xml:lang="nl">Inkoop - ontvangen</value>
         <value xml:lang="pt">Receber</value>
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получить</value>
@@ -15647,6 +16037,7 @@
         <value xml:lang="fr">Devis de commande</value>
         <value xml:lang="it">Preventivo ordine</value>
         <value xml:lang="ja">見積注文</value>
+        <value xml:lang="nl">Quote - georderd</value>
         <value xml:lang="pt">Encomendar Citação</value>
         <value xml:lang="pt-BR">Cotação de pedido</value>
         <value xml:lang="ro">Oferta Comanda</value>
@@ -15664,6 +16055,7 @@
         <value xml:lang="fr">Rejeter le devis</value>
         <value xml:lang="it">Preventivo rifiutato</value>
         <value xml:lang="ja">見積否認</value>
+        <value xml:lang="nl">Quote - afgewezen</value>
         <value xml:lang="pt">Rejeitar Citação</value>
         <value xml:lang="pt-BR">Rejeitar Cotação</value>
         <value xml:lang="ro">Oferta Refuzata</value>
@@ -15681,6 +16073,7 @@
         <value xml:lang="fr">Accepter le devis</value>
         <value xml:lang="it">Preventivo accettato</value>
         <value xml:lang="ja">見積承認</value>
+        <value xml:lang="nl">Quote - goedgekeurd</value>
         <value xml:lang="pt">Aceitar Citação</value>
         <value xml:lang="pt-BR">Aceitar Cotação</value>
         <value xml:lang="ro">Oferta Acceptata</value>
@@ -15697,6 +16090,7 @@
         <value xml:lang="fr">Rejeter le devis</value>
         <value xml:lang="it">Preventivo rifiutato</value>
         <value xml:lang="ja">見積否認</value>
+        <value xml:lang="nl">Quote - afgewezen</value>
         <value xml:lang="pt">Rejeitar Citação</value>
         <value xml:lang="pt-BR">Rejeitar Cotação</value>
         <value xml:lang="ro">Oferta Refuzat</value>
@@ -15713,6 +16107,7 @@
         <value xml:lang="fr">Condition de commande</value>
         <value xml:lang="it">Fabbisogno ordine</value>
         <value xml:lang="ja">要求注文</value>
+        <value xml:lang="nl">Req. - georderd</value>
         <value xml:lang="pt">Encomendar Requerimento</value>
         <value xml:lang="pt-BR">Requisição de pedido</value>
         <value xml:lang="ro">Necesar Comanda</value>
@@ -15729,6 +16124,7 @@
         <value xml:lang="fr">Rejeter la condition</value>
         <value xml:lang="it">Fabbisogno rifiutato</value>
         <value xml:lang="ja">要求否認</value>
+        <value xml:lang="nl">Req. - afgewezen</value>
         <value xml:lang="pt">Rejeitar Requerimento</value>
         <value xml:lang="pt-BR">Rejeitar Requisição</value>
         <value xml:lang="ro">Necesar Refuzat</value>
@@ -15745,6 +16141,7 @@
         <value xml:lang="fr">Accepter la condition</value>
         <value xml:lang="it">Fabbisogno accettato</value>
         <value xml:lang="ja">要求承認</value>
+        <value xml:lang="nl">Req. - goedgekeurd</value>
         <value xml:lang="pt">Aceitar Requerimento</value>
         <value xml:lang="pt-BR">Aceitar a requisição</value>
         <value xml:lang="ro">Necesar Acceptato</value>
@@ -15761,6 +16158,7 @@
         <value xml:lang="fr">Rejeter la condition</value>
         <value xml:lang="it">Fabbisogno rifiutato</value>
         <value xml:lang="ja">要求否認</value>
+        <value xml:lang="nl">Req. - afgewezen</value>
         <value xml:lang="pt">Rejeitar Requerimento</value>
         <value xml:lang="pt-BR">Rejeitar Exigência</value>
         <value xml:lang="ro">Necesar Refuzat</value>
@@ -15794,7 +16192,7 @@
         <value xml:lang="fr">Retour reçu et accepté</value>
         <value xml:lang="it">Accettata reso ricevuto</value>
         <value xml:lang="ja">受取返却受付</value>
-        <value xml:lang="nl">Geaccepteerde retourzending ontvangen</value>
+        <value xml:lang="nl">VerkoopRetour - ontvangen</value>
         <value xml:lang="pt">Devolução Recebida Aceite</value>
         <value xml:lang="pt-BR">Retorno Aceito Recebido</value>
         <value xml:lang="ro">Acceptatre Rturnare Primita</value>
@@ -15811,7 +16209,7 @@
         <value xml:lang="fr">Retour reçu et annulé</value>
         <value xml:lang="it">Ricevuto reso cancellato</value>
         <value xml:lang="ja">返却受取取消</value>
-        <value xml:lang="nl">Ontvangen retourzending geannuleerd</value>
+        <value xml:lang="nl">VerkoopRetour -  geannuleerd</value>
         <value xml:lang="pt">Devolução Recebida Cancelada</value>
         <value xml:lang="pt-BR">Recebido Retorno Cancelado</value>
         <value xml:lang="ro">Primit Returnare Stearsa</value>
@@ -15828,7 +16226,7 @@
         <value xml:lang="fr">Retour reçu et terminé</value>
         <value xml:lang="it">Ricevuto reso completato</value>
         <value xml:lang="ja">返却受取完了</value>
-        <value xml:lang="nl">Ontvangen retourzending gereed</value>
+        <value xml:lang="nl">VerkoopRetour - afgerond</value>
         <value xml:lang="pt">Devolução Recebida Completa</value>
         <value xml:lang="pt-BR">Recebido Devolução</value>
         <value xml:lang="ro">Primit Returnare Completa</value>
@@ -15845,7 +16243,7 @@
         <value xml:lang="fr">Retour demandé et accepté</value>
         <value xml:lang="it">Richiesta reso accettata</value>
         <value xml:lang="ja">返品リクエスト受付</value>
-        <value xml:lang="nl">Aangevraagde retourzending geaccpeteerd</value>
+        <value xml:lang="nl">VerkoopRetour - geaccepteerd</value>
         <value xml:lang="pt">Devolução Pedida Aceite</value>
         <value xml:lang="pt-BR">Retorno Requerida aceitado</value>
         <value xml:lang="ro">Cerere Returnari Acceptata</value>
@@ -15862,7 +16260,7 @@
         <value xml:lang="fr">Retour demandé, annulé</value>
         <value xml:lang="it">Richiesta reso cancellata</value>
         <value xml:lang="ja">返品リクエスト取消</value>
-        <value xml:lang="nl">Aangevraagde retourzending geannuleerd</value>
+        <value xml:lang="nl">VerkoopRetour - geannuleerd</value>
         <value xml:lang="pt">Devolução Pedida Cancelada</value>
         <value xml:lang="pt-BR">Retorno Requerida Cancelado</value>
         <value xml:lang="ro">Cerere Returnari Stearsa</value>
@@ -15929,7 +16327,7 @@
         <value xml:lang="fr">Programmer</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="ja">スケジュール</value>
-        <value xml:lang="nl">Ingepland</value>
+        <value xml:lang="nl">Inplannen</value>
         <value xml:lang="pt">Agendar</value>
         <value xml:lang="pt-BR">Agenda</value>
         <value xml:lang="ro">Pagina</value>
