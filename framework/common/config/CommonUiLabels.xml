@@ -18,6 +18,7 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+
     <property key="Accounting - AP">
         <value xml:lang="cs">Závazky</value>
         <value xml:lang="de">Kreditoren</value>
@@ -34,6 +35,7 @@
         <value xml:lang="zh">应付账户</value>
         <value xml:lang="zh-TW">應付帳款</value>
     </property>
+
     <property key="Accounting - AR">
         <value xml:lang="cs">Pohledávky</value>
         <value xml:lang="de">Debitoren</value>
@@ -1908,7 +1910,7 @@
         <value xml:lang="hi-IN">पूर्ण</value>
         <value xml:lang="it">Completato</value>
         <value xml:lang="ja">完了</value>
-        <value xml:lang="nl">Volledig</value>
+        <value xml:lang="nl">Gereed</value>
         <value xml:lang="pt">Completo</value>
         <value xml:lang="pt-BR">Concluída</value>
         <value xml:lang="ro">Completat</value>
@@ -1956,11 +1958,12 @@
     </property>
     <property key="CommonConfirm">
         <value xml:lang="cs">Potvrzujete ?</value>
-        <value xml:lang="en">Do you confirm ?</value>
+        <value xml:lang="en">Do you confirm?</value>
         <value xml:lang="es">¿Está seguro?</value>
         <value xml:lang="fr">Vous confirmez ?</value>
         <value xml:lang="it">Confermi ?</value>
         <value xml:lang="ja">確認しましたか?</value>
+        <value xml:lang="nl">Bevestigen?</value>
         <value xml:lang="pt-BR">Você confirma?</value>
         <value xml:lang="ru">Вы подтверждаете?</value>
         <value xml:lang="vi">Bạn có xác nhận không?</value>
@@ -2014,7 +2017,7 @@
         <value xml:lang="hi-IN">संपर्क यांत्रिक क्रमांक(ContactMechId)</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ja">問い合わせ方法ID</value>
-        <value xml:lang="nl">Kontact Mech Nr</value>
+        <value xml:lang="nl">Contact Mech ID</value>
         <value xml:lang="pt">ContactMechId</value>
         <value xml:lang="pt-BR">Código de mecanismo de contato (ContactMechId)</value>
         <value xml:lang="ro">Contact</value>
@@ -2306,6 +2309,10 @@
         <value xml:lang="zh">县城</value>
         <value xml:lang="zh-CN">县市</value>
         <value xml:lang="zh-TW">縣城</value>
+    </property>
+    <property key="CommonCost">
+        <value xml:lang="en">Cost</value>
+        <value xml:lang="nl">Kosten</value>
     </property>
     <property key="CommonCreate">
         <value xml:lang="ar">استحداث</value>
@@ -3579,6 +3586,33 @@
         <value xml:lang="vi">Lỗi xảy ra khi gửi thông tin (form) lên máy chủ.</value>
         <value xml:lang="zh">提交表单时发生了一个错误。</value>
         <value xml:lang="zh-TW">提交表單時發生了一個錯誤.</value>
+    </property>
+    <property key="CommonEstimatedCompletionDate">
+        <value xml:lang="de">Soll-Enddatum</value>
+        <value xml:lang="en">Estimated Completion Date</value>
+        <value xml:lang="fr">Date estimée d'achèvement</value>
+        <value xml:lang="it">Data completamento stimata</value>
+        <value xml:lang="ja">予定完了日</value>
+        <value xml:lang="nl">Gepl. datum afgerond</value>
+        <value xml:lang="ro">Data Terminare Stimata</value>
+        <value xml:lang="th">วันที่สำเร็จประมาณ</value>
+        <value xml:lang="vi">Ngày hoàn thành dự tính</value>
+        <value xml:lang="zh">预计完成日期</value>
+        <value xml:lang="zh-TW">預計完成日期</value>
+    </property>
+    <property key="CommonEstimatedStartDate">
+        <value xml:lang="de">Soll-Anfangsdatum</value>
+        <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="es">Fecha de comienzo estimada</value>
+        <value xml:lang="fr">Date estimée de début</value>
+        <value xml:lang="it">Data inizio stimata</value>
+        <value xml:lang="ja">予定開始日</value>
+        <value xml:lang="nl">Datum start</value>
+        <value xml:lang="ro">Data Initiere Stimata</value>
+        <value xml:lang="th">วันที่เริ่มประมาณ</value>
+        <value xml:lang="vi">Ngày bắt đầu dự tính</value>
+        <value xml:lang="zh">预计开始日期</value>
+        <value xml:lang="zh-TW">預計開始日期</value>
     </property>
     <property key="CommonEventDate">
         <value xml:lang="ar">تاريخ الحدث</value>
@@ -4988,6 +5022,7 @@
         <value xml:lang="hi-IN">पकड़ा</value>
         <value xml:lang="it">Congelati</value>
         <value xml:lang="ja">保留</value>
+        <value xml:lang="nl">Geblokkeerd</value>
         <value xml:lang="pt">Preso/Bloqueado</value>
         <value xml:lang="pt-BR">Suspenso</value>
         <value xml:lang="ru">Приостановленные</value>
@@ -5114,6 +5149,15 @@
         <value xml:lang="vi">Hàng giờ</value>
         <value xml:lang="zh">每小时</value>
         <value xml:lang="zh-TW">每小時</value>
+    </property>
+    <property key="CommonHours">
+        <value xml:lang="de">Stunden</value>
+        <value xml:lang="en">Hours</value>
+        <value xml:lang="es">Hora</value>
+        <value xml:lang="fr">Heure</value>
+        <value xml:lang="it">Ora</value>
+        <value xml:lang="ja">時間</value>
+        <value xml:lang="nl">Uren</value>
     </property>
     <property key="CommonId">
         <value xml:lang="ar">دليل</value>
@@ -5816,6 +5860,10 @@
         <value xml:lang="zh">本地化</value>
         <value xml:lang="zh-TW">當地語系化</value>
     </property>
+    <property key="CommonLocation">
+        <value xml:lang="en">Location</value>
+        <value xml:lang="nl">Locatie</value>
+    </property>
     <property key="CommonLogin">
         <value xml:lang="ar">دخول</value>
         <value xml:lang="cs">Přihlásit</value>
@@ -6023,7 +6071,7 @@
         <value xml:lang="hi-IN">मुख्य</value>
         <value xml:lang="it">Pagina principale</value>
         <value xml:lang="ja">メイン</value>
-        <value xml:lang="nl">HoofdMenu</value>
+        <value xml:lang="nl">Hoofdmenu</value>
         <value xml:lang="pt">Início</value>
         <value xml:lang="pt-BR">Principal</value>
         <value xml:lang="pt-PT">Entrada</value>
@@ -7427,7 +7475,7 @@
         <value xml:lang="hi-IN">नोट्स</value>
         <value xml:lang="it">Note</value>
         <value xml:lang="ja">連絡</value>
-        <value xml:lang="nl">Nota's</value>
+        <value xml:lang="nl">Notities</value>
         <value xml:lang="pt">Notas</value>
         <value xml:lang="ro">Note</value>
         <value xml:lang="ru">Заметки</value>
@@ -7771,7 +7819,7 @@
         <value xml:lang="hi-IN">आदेश</value>
         <value xml:lang="it">Ordine</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="nl">Order</value>
         <value xml:lang="pt">Ordenar</value>
         <value xml:lang="pt-BR">Pedido</value>
         <value xml:lang="ro">Comanda</value>
@@ -7792,7 +7840,7 @@
         <value xml:lang="hi-IN">आदेश से</value>
         <value xml:lang="it">Ordinato da</value>
         <value xml:lang="ja">並び順</value>
-        <value xml:lang="nl">Bestelling Door</value>
+        <value xml:lang="nl">Order Door</value>
         <value xml:lang="pt">Ordenar Por</value>
         <value xml:lang="ro">Comandat de la</value>
         <value xml:lang="ru">Сортировка</value>
@@ -7812,7 +7860,7 @@
         <value xml:lang="hi-IN">आदेश</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestellingen</value>
+        <value xml:lang="nl">Orders</value>
         <value xml:lang="pt">Encomendas</value>
         <value xml:lang="pt-BR">Pedidos</value>
         <value xml:lang="ro">Comenzi</value>
@@ -7887,6 +7935,10 @@
         <value xml:lang="vi">Xem qua</value>
         <value xml:lang="zh">概览</value>
         <value xml:lang="zh-TW">概覽</value>
+    </property>
+    <property key="CommonOwner">
+        <value xml:lang="en">Owner</value>
+        <value xml:lang="nl">Eigenaar</value>
     </property>
     <property key="CommonPage">
         <value xml:lang="ar">صفحة</value>
@@ -8141,6 +8193,10 @@
         <value xml:lang="zh">执行</value>
         <value xml:lang="zh-CN">执行</value>
         <value xml:lang="zh-TW">執行</value>
+    </property>
+    <property key="CommonPeriod">
+        <value xml:lang="en">Period</value>
+        <value xml:lang="nl">Periode</value>
     </property>
     <property key="CommonPermissionError">
         <value xml:lang="ar">خطأ في الرخصة</value>
@@ -8556,13 +8612,14 @@
     <property key="CommonPrint">
         <value xml:lang="ar">نسخ</value>
         <value xml:lang="cs">Tisk</value>
-        <value xml:lang="de">Drucken</value>
-        <value xml:lang="en">Print</value>
+        <value xml:lang="de">Drucken (PDF)</value>
+        <value xml:lang="en">Print (PDF)</value>
         <value xml:lang="es">Imprimir</value>
         <value xml:lang="fr">Imprimer</value>
         <value xml:lang="hi-IN">प्रिंट</value>
         <value xml:lang="it">Stampa</value>
         <value xml:lang="ja">印刷</value>
+        <value xml:lang="nl">Afdrukken (PDF)</value>
         <value xml:lang="pt">Imprimir</value>
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="ru">Печать</value>
@@ -8570,6 +8627,42 @@
         <value xml:lang="vi">In</value>
         <value xml:lang="zh">打印</value>
         <value xml:lang="zh-TW">列印</value>
+    </property>
+    <property key="CommonPrice">
+        <value xml:lang="en">Price</value>
+        <value xml:lang="nl">Prijs</value>
+    </property>
+    <property key="CommonPrices">
+        <value xml:lang="en">Prices</value>
+        <value xml:lang="nl">Prijzen</value>
+    </property>
+    <property key="CommonAdjustment">
+        <value xml:lang="en">Adjustment</value>
+        <value xml:lang="nl">Aanpassing</value>
+    </property>
+    <property key="CommonAdjustments">
+        <value xml:lang="en">Adjustments</value>
+        <value xml:lang="nl">Aanpassingen</value>
+    </property>
+    <property key="CommonAttribute">
+        <value xml:lang="en">Attribute</value>
+        <value xml:lang="nl">Attribuut</value>
+    </property>
+    <property key="CommonAttributes">
+        <value xml:lang="en">Attributes</value>
+        <value xml:lang="nl">Attritbuten</value>
+    </property>
+    <property key="CommonWorkEffort">
+        <value xml:lang="en">Work Effort</value>
+        <value xml:lang="nl">Activiteit</value>
+    </property>
+    <property key="CommonWorkEfforts">
+        <value xml:lang="en">Work Effort</value>
+        <value xml:lang="nl">Activiteiten</value>
+    </property>
+    <property key="CommonProfit">
+        <value xml:lang="en">Profit</value>
+        <value xml:lang="nl">Winst</value>
     </property>
     <property key="CommonPrinterFriendly">
         <value xml:lang="cs">Tisk</value>
@@ -8616,7 +8709,7 @@
         <value xml:lang="hi-IN">प्रसंस्करण</value>
         <value xml:lang="it">In esecuzione</value>
         <value xml:lang="ja">処理中</value>
-        <value xml:lang="nl">aan het Uitvoeren</value>
+        <value xml:lang="nl">In uitvoering</value>
         <value xml:lang="pt">Em processamento</value>
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">В работе</value>
@@ -8625,6 +8718,10 @@
         <value xml:lang="zh">处理中</value>
         <value xml:lang="zh-CN">处理中</value>
         <value xml:lang="zh-TW">處理中</value>
+    </property>
+    <property key="CommonProduct">
+        <value xml:lang="en">Product</value>
+        <value xml:lang="nl">Product</value>
     </property>
     <property key="CommonProfile">
         <value xml:lang="ar">خصائص</value>
@@ -8892,6 +8989,10 @@
         <value xml:lang="zh-CN">快速添加到购物列表</value>
         <value xml:lang="zh-TW">快速增加到購物清單</value>
     </property>
+    <property key="CommonQuote">
+        <value xml:lang="en">Quote</value>
+        <value xml:lang="nl">Offerte</value>
+    </property>
     <property key="CommonRate">
         <value xml:lang="ar">النسبة</value>
         <value xml:lang="cs">Sazba</value>
@@ -8963,6 +9064,7 @@
         <value xml:lang="hi-IN">कारण</value>
         <value xml:lang="it">Motivazione</value>
         <value xml:lang="ja">理由</value>
+        <value xml:lang="nl">Reden</value>
         <value xml:lang="pt-BR">Razão</value>
         <value xml:lang="ru">Причина</value>
         <value xml:lang="vi">Lý do</value>
@@ -9129,6 +9231,10 @@
         <value xml:lang="zh-CN">拒绝</value>
         <value xml:lang="zh-TW">已拒絕</value>
     </property>
+    <property key="CommonRelation">
+        <value xml:lang="en">Relation</value>
+        <value xml:lang="nl">Relatie</value>
+    </property>
     <property key="CommonRelatedInformation">
         <value xml:lang="cs">Související informace</value>
         <value xml:lang="de">Ähnliche Informationen</value>
@@ -9151,6 +9257,7 @@
         <value xml:lang="es">Distribución</value>
         <value xml:lang="fr">Distribution</value>
         <value xml:lang="ja">リリース</value>
+        <value xml:lang="nl">Release</value>
         <value xml:lang="ru">Релиз</value>
         <value xml:lang="vi">Ban hành</value>
         <value xml:lang="zh">发布</value>
@@ -9163,6 +9270,7 @@
         <value xml:lang="es">Fecha distribución</value>
         <value xml:lang="fr">Date de distribution</value>
         <value xml:lang="ja">リリース日</value>
+        <value xml:lang="nl">Release-datum</value>
         <value xml:lang="pt-BR">Data de Lançamento</value>
         <value xml:lang="ru">Дата релиза</value>
         <value xml:lang="vi">Ngày ban hành</value>
@@ -9297,6 +9405,10 @@
         <value xml:lang="vi">Truy vấn lại</value>
         <value xml:lang="zh">重新查询</value>
         <value xml:lang="zh-TW">再查詢</value>
+    </property>
+    <property key="CommonRequest">
+        <value xml:lang="en">Request</value>
+        <value xml:lang="nl">Verzoek</value>
     </property>
     <property key="CommonRequired">
         <value xml:lang="ar">إلزامي</value>
@@ -9458,6 +9570,14 @@
         <value xml:lang="zh">评价</value>
         <value xml:lang="zh-CN">评论</value>
         <value xml:lang="zh-TW">評論</value>
+    </property>
+    <property key="CommonRole">
+        <value xml:lang="en">Role</value>
+        <value xml:lang="nl">Rol</value>
+    </property>
+    <property key="CommonRoles">
+        <value xml:lang="en">Roles</value>
+        <value xml:lang="nl">Rollen</value>
     </property>
     <property key="CommonRouting">
         <value xml:lang="ar">تمرير</value>
@@ -10080,6 +10200,10 @@
         <value xml:lang="zh-CN">序列编号</value>
         <value xml:lang="zh-TW">序號數</value>
     </property>
+    <property key="CommonSeqId">
+        <value xml:lang="en">Sequence Id</value>
+        <value xml:lang="nl">Volg ID</value>
+    </property>
     <property key="CommonServerHour">
         <value xml:lang="en">Server Hour</value>
         <value xml:lang="fr">Heure du serveur </value>
@@ -10182,6 +10306,10 @@
         <value xml:lang="zh">(如果空，将设置为当前时间)</value>
         <value xml:lang="zh-CN">(如果为空就按当前日期赋值)</value>
         <value xml:lang="zh-TW">(如果是空值,將設定為目前時間)</value>
+    </property>
+    <property key="CommonShipment">
+        <value xml:lang="en">Shipment</value>
+        <value xml:lang="nl">Zending</value>
     </property>
     <property key="CommonShipping">
         <value xml:lang="cs">Doprava</value>
@@ -10739,6 +10867,7 @@
         <value xml:lang="hi-IN">सारांश</value>
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ja">合計</value>
+        <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="pt-BR">Resumo</value>
         <value xml:lang="ru">Резюме</value>
         <value xml:lang="vi">Tóm lược</value>
@@ -10910,6 +11039,16 @@
         <value xml:lang="zh">承租人代號</value>
         <value xml:lang="zh-TW">承租人識別</value>
     </property>
+    <property key="CommonTerm">
+        <value xml:lang="en">Term</value>
+        <value xml:lang="nl">Conditie</value>
+    </property>
+    
+    <property key="CommonTerms">
+        <value xml:lang="en">Terms</value>
+        <value xml:lang="nl">Condities</value>
+    </property>
+    
     <property key="CommonTest">
         <value xml:lang="ar">إختبار</value>
         <value xml:lang="cs">Test</value>
@@ -11048,7 +11187,7 @@
         <value xml:lang="hi-IN">तक</value>
         <value xml:lang="it">Fino a </value>
         <value xml:lang="ja">終了</value>
-        <value xml:lang="nl">tot</value>
+        <value xml:lang="nl">Tot</value>
         <value xml:lang="pt">Até</value>
         <value xml:lang="ro">Pina la </value>
         <value xml:lang="ru">До</value>
@@ -13070,7 +13209,7 @@
         <value xml:lang="hi-IN">द्वारा बनाया गया</value>
         <value xml:lang="it">Creato da</value>
         <value xml:lang="ja">作成者</value>
-        <value xml:lang="nl">Aangemaakt door By</value>
+        <value xml:lang="nl">Door gebruiker</value>
         <value xml:lang="pt-BR">Criado por</value>
         <value xml:lang="ro">Creat De</value>
         <value xml:lang="ru">Создан</value>
@@ -13083,13 +13222,13 @@
         <value xml:lang="ar">استحدث من طرف المستخدم</value>
         <value xml:lang="cs">Vytvořeno uživatelem s loginem</value>
         <value xml:lang="de">Erstellt von Benutzer</value>
-        <value xml:lang="en">Created By User Login</value>
+        <value xml:lang="en">Created By User</value>
         <value xml:lang="es">Creado por usuario</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="hi-IN">उपयोगकर्ता लॉगिन द्वारा निर्मित</value>
         <value xml:lang="it">Creato dall'utente</value>
         <value xml:lang="ja">作成ユーザ</value>
-        <value xml:lang="nl">Aangemaakt door ingelogde gebruiker</value>
+        <value xml:lang="nl">Door gebruiker</value>
         <value xml:lang="pt-BR">Criado através de um login de usuário</value>
         <value xml:lang="ro">Creiat De Utilizator</value>
         <value xml:lang="ru">Создано (имя входа)</value>
@@ -13403,13 +13542,13 @@
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
         <value xml:lang="cs">Naposledy změněno uživatelem s loginem</value>
         <value xml:lang="de">Zuletzt geändert von Benutzer</value>
-        <value xml:lang="en">Last Modified By User Login</value>
+        <value xml:lang="en">Last Modified By User</value>
         <value xml:lang="es">Última modificación por usuario</value>
         <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
         <value xml:lang="hi-IN">उपयोगकर्ता लॉगिन द्वारा अंतिम बार संशोधित</value>
         <value xml:lang="it">Ultima modifica dell'utente</value>
         <value xml:lang="ja">最終更新ユーザ</value>
-        <value xml:lang="nl">Laatste wijziging door gebruiker</value>
+        <value xml:lang="nl">Door gebruiker</value>
         <value xml:lang="pt-BR">Última modificação pelo login de Usuário</value>
         <value xml:lang="ro">Ultima Modificare Utilizator</value>
         <value xml:lang="ru">Последнее изменение пользователем</value>
@@ -13428,7 +13567,7 @@
         <value xml:lang="hi-IN">अंतिम बार संशोधित दिनांक</value>
         <value xml:lang="it">Data ultima modifica</value>
         <value xml:lang="ja">最終更新日</value>
-        <value xml:lang="nl">Laatste wijziging op</value>
+        <value xml:lang="nl">Laatste wijziging</value>
         <value xml:lang="pt-BR">Data da última modificação</value>
         <value xml:lang="ro">Data Ultimei Modificari</value>
         <value xml:lang="ru">Дата последнего изменения</value>
@@ -13495,6 +13634,7 @@
         <value xml:lang="hi-IN">उपयोगकर्ता लॉगिन क्रमांक द्वारा संशोधित</value>
         <value xml:lang="it">Modificato dall'utente</value>
         <value xml:lang="ja">更新ユーザID</value>
+        <value xml:lang="nl">Aangepast door</value>
         <value xml:lang="pt-BR">Modificado por Login de usuário Id</value>
         <value xml:lang="ru">Модифицированно пользователем ID</value>
         <value xml:lang="vi">Chỉnh sửa bởi người dùng đăng nhập</value>
@@ -13716,6 +13856,7 @@
         <value xml:lang="hi-IN">क्रम संख्या</value>
         <value xml:lang="it">Numero sequenza</value>
         <value xml:lang="ja">連番</value>
+        <value xml:lang="nl">Volgno.</value>
         <value xml:lang="pt">Número de Sequência</value>
         <value xml:lang="pt-BR">Nº de Seqüência</value>
         <value xml:lang="ro">Num. Secventa</value>
@@ -13847,7 +13988,7 @@
         <value xml:lang="hi-IN">माप की इकाई</value>
         <value xml:lang="it">Udm</value>
         <value xml:lang="ja">単位</value>
-        <value xml:lang="nl">Valuta</value>
+        <value xml:lang="nl">UoM</value>
         <value xml:lang="pt">UOM</value>
         <value xml:lang="pt-BR">UDM</value>
         <value xml:lang="ro">Udm</value>
@@ -13857,7 +13998,7 @@
         <value xml:lang="zh">单位</value>
         <value xml:lang="zh-TW">度量單位</value>
     </property>
-    <property key="FormFieldTitle_updateButton">
+    <property key="FormFieldTitle_updateButton">		
         <value xml:lang="ar">تحديث</value>
         <value xml:lang="cs">Obnovit</value>
         <value xml:lang="de">Aktualisieren</value>
@@ -14032,7 +14173,7 @@
         <value xml:lang="hi-IN">आदेश</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="nl">Order</value>
         <value xml:lang="pt">Encomenda</value>
         <value xml:lang="pt-BR">Pedido</value>
         <value xml:lang="ro">Comenzi</value>
@@ -14825,5 +14966,53 @@
         <value xml:lang="zh">中文</value>
         <value xml:lang="zh-CN">中文</value>
         <value xml:lang="zh-TW">中文</value>
+    </property>
+    
+    
+    <!-- ORRTIZ:BMS Applications -->
+    
+    <property key="CPM">
+        <value xml:lang="en">CPM: Products</value>
+        <value xml:lang="nl">CPM: Producten</value>
+    </property>
+    <property key="CRM">
+        <value xml:lang="en">CRM: Customers</value>
+        <value xml:lang="nl">CRM: Klanten</value>
+    </property>
+    <property key="EAM">
+        <value xml:lang="en">EAM: Equipment</value>
+        <value xml:lang="nl">EAM: Productiemiddelen</value>
+    </property>
+    <property key="MFG">
+        <value xml:lang="en">MFG: Production</value>
+        <value xml:lang="nl">MFG: Productie</value>
+    </property>
+    <property key="SRM">
+        <value xml:lang="en">SRM: Suppliers</value>
+        <value xml:lang="nl">SRM: Leveranciers</value>
+    </property>
+    <property key="WHM">
+        <value xml:lang="en">WHM: Warehousing</value>
+        <value xml:lang="nl">WHM: Magazijn</value>
+    </property>
+    <property key="TaxReport">
+        <value xml:lang="en">TRM: Tax Reporting</value>
+        <value xml:lang="nl">TRM: Belasting Rapportage</value>
+    </property>
+    <property key="ESSCAS">
+        <value xml:lang="en">ESS: CAS</value>
+        <value xml:lang="nl">ESS: CAS</value>
+    </property>
+    <property key="ESSPROFILE">
+        <value xml:lang="en">ESS: Profile</value>
+        <value xml:lang="nl">ESS: Profiel</value>
+    </property>
+    <property key="ESSTERR">
+        <value xml:lang="en">ESS: Expense Report</value>
+        <value xml:lang="nl">ESS: Onkostendeclaratie</value>
+    </property>
+    <property key="ESSTIME">
+        <value xml:lang="en">ESS: Time Registration</value>
+        <value xml:lang="nl">ESS: Tijdregistratie</value>
     </property>
 </resource>
