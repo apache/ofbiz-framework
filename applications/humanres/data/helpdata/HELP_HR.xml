@@ -22,5 +22,45 @@ under the License.
   xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
   xmlns="http://docbook.org/ns/docbook">
   <title>Human Resources Introduction</title>
-  <para>WIP, to be continued...</para>
+    
+   <title>About OFBiz Human Resources</title>
+    <para>The people who work for your company, it's human capital, are it's
+    most important asset. Selecting a software platform that increases the
+    value of your companies human capital and delivers benefits, services and
+    opportunities to your workforce, is critical to your companies success
+    .</para>
+  
+  <para>That platform must be able to accurately and reliability process
+    worker transactions, collect decision support information, and communicate
+    between management, workers and outside resources. The OFBiz Human
+    Resource application (HR App) can provide a backbone for building that
+    platform.</para>
+    
+     <para>In this chapter you are introduced to the organization of this
+    document and to the key business objects that are the core to HR
+    App.</para>
+
+        <para>In the HR App you can:</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Create positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Fulfill positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Define the responsibilities of a position</para>
+          </listitem>
+
+          <listitem>
+            <para>Define a tree reporting structure between positions</para>
+          </listitem>
+
+          <listitem>
+            <para>Track the positions fulfillments over time</para>
+          </listitem>
+        </itemizedlist>
 </section>

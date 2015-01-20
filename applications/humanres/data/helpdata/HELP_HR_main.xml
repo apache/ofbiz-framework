@@ -22,11 +22,51 @@ under the License.
   xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
   xmlns="http://docbook.org/ns/docbook">
   <title>The Human Resources Main screen.</title>
+  
+  
+    <para>The Main window is the entry point into the HR App and displays the
+    Company tree view for navigating to key HR App items.</para>
+    
   <para> This screen will show the the organization of your company, the top level company is defined in a system setup file: general.properties.
         The system will list devisions and departments in the role &quot;Internal organization&quot; as defined in the party relationships 
         as a &quot;Group member&quot; under it in as many levels as required.
   </para>
+  
   <para>
         related to an &quot;Internal Organization&quot; is an employee position which can be full filled by an employee in an employment. 
   </para>
+   <title> Nodes In the Company Tree</title>
+
+    <para>There are three node types in the tree, each identified by a
+    different icon. The top of the tree represents your Company, the highest
+    level in the HR App organization. The Company and departments under the
+    Company can have children departments or positions. Under positions are
+    the people who fulfill the position.</para>
+  
+    <title>Usage</title>
+
+    <itemizedlist>
+      <listitem>
+        <para>Navigate the HR Organization to view departments, positions and
+        people</para>
+      </listitem>
+
+      <listitem>
+        <para>Add or remove a department</para>
+      </listitem>
+
+      <listitem>
+        <para>Add a person</para>
+      </listitem>
+
+      <listitem>
+        <para>Quickly open the profile of any item in the tree</para>
+      </listitem>
+
+      <listitem>
+        <para>If the item is a position you can add a person to fulfill the
+        position</para>
+      </listitem>
+    </itemizedlist>
+  
 </section>
