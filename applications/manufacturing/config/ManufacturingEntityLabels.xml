@@ -51,6 +51,7 @@
         <value xml:lang="fr">Besoin Mrp</value>
         <value xml:lang="it">Fabbisogno Mrp</value>
         <value xml:lang="ja">MRP要求</value>
+        <value xml:lang="nl">MRP - requirement</value>
         <value xml:lang="pt-BR">Requisito de Mrp</value>
         <value xml:lang="ro">Necesar Mrp</value>
         <value xml:lang="th">ความต้องการตาม Mrp</value>
@@ -103,6 +104,7 @@
         <value xml:lang="fr">Expédition de commande de vente</value>
         <value xml:lang="it">Spedizioni Ordini Vendita</value>
         <value xml:lang="ja">販売注文発送</value>
+        <value xml:lang="nl">Verkooporder - zending</value>
         <value xml:lang="pt-BR">Envio de pedido de vendas</value>
         <value xml:lang="ro">Expediere Comenzi Vanzare</value>
         <value xml:lang="th">การขนส่งสินค้าตามรายการขาย</value>
@@ -116,6 +118,7 @@
         <value xml:lang="fr">Calendrier utilisé par défaut quand aucun calendrier spécifique n'est défini</value>
         <value xml:lang="it">Calendario di Default usato quando nessun calendario specifico è definito</value>
         <value xml:lang="ja">カレンダが指定されない時に使用するデフォルトカレンダ</value>
+        <value xml:lang="nl">Standaard kalender</value>
         <value xml:lang="pt-BR">Calendário padrão utilizado quando não há um calendário específico definido</value>
         <value xml:lang="ro">Calendar de Default folosit atunci cand nici-un calendar specific nu este definit</value>
         <value xml:lang="th">ปฏิทินมาตรฐานใช้เมื่อไม่มีการระบุปฏิทินโดยเฉพาะ</value>
@@ -138,6 +141,7 @@
         <value xml:lang="fr">Calendrier d'atelier de séchage</value>
         <value xml:lang="it">Calendario Officina Asciugatura</value>
         <value xml:lang="ja">空のカレンダ</value>
+        <value xml:lang="nl">Kalender - drogen</value>
         <value xml:lang="pt-BR">Calendários do escritório de secagem</value>
         <value xml:lang="ro">Calendar Atelier Uscatorie</value>
         <value xml:lang="th">ปฏิทิน</value>
@@ -151,6 +155,7 @@
         <value xml:lang="fr">Calendrier d'atelier d'usinage</value>
         <value xml:lang="it">Calendario Officina Macchine</value>
         <value xml:lang="ja">一致するカレンダ</value>
+        <value xml:lang="nl">Kalender - manchines</value>
         <value xml:lang="pt-BR">Calendário do escritório de maquinário</value>
         <value xml:lang="ro">Calendar Atelier Masini</value>
         <value xml:lang="th">ปฏิทินของระบบการปฎิบัติงาน</value>
@@ -164,6 +169,7 @@
         <value xml:lang="fr">Calendrier utilisé pour le calcul de la date de commande répétitive de l'article acheté</value>
         <value xml:lang="it">Calendario usato per Ri-Ordini data calcolo per prodotti acquistati</value>
         <value xml:lang="ja">購入製品の注文日再計算に使用するカレンダ</value>
+        <value xml:lang="nl">Kalender - leverancier</value>
         <value xml:lang="pt-BR">Calendário usado para refazer pedidos de produtos já comprados</value>
         <value xml:lang="ro">Calendar folosit pentru Re-Ordonarea datelor de calcul a produselor cumparate</value>
         <value xml:lang="th">ปฏิทินใช้สำหรับวันที่มีการคำนวณรายการสั่งสินค้าสำหรับซื้อสินค้า</value>
@@ -177,6 +183,7 @@
         <value xml:lang="fr">8heures/jour</value>
         <value xml:lang="it">8 ore/giorno</value>
         <value xml:lang="ja">8時間/日</value>
+        <value xml:lang="nl">8 uur/dag</value>
         <value xml:lang="pt-BR">8 horas/dia</value>
         <value xml:lang="ro">8 ore/zi</value>
         <value xml:lang="th">8 ชั่วโมง/วัน</value>
@@ -199,6 +206,7 @@
         <value xml:lang="fr">Caldendrier des vacances (0 heure/jour, 0 jour/semaine)</value>
         <value xml:lang="it">Calendario per il periodo di vacanze, 0 ore/giorno 0 giorni/settimana</value>
         <value xml:lang="ja">休日</value>
+        <value xml:lang="nl">Feestdag / vakantie</value>
         <value xml:lang="pt-BR">Calendário de feriados, 0 horas/dia, 0 dias/semana</value>
         <value xml:lang="ro">Calendar pentru perioada de vacanza, 0 ore/zi 0 zile/saptamana</value>
         <value xml:lang="th">ปฏิทินวันหยุด</value>
@@ -212,6 +220,7 @@
         <value xml:lang="fr">Calendrier standard 24 heures, 7 jours</value>
         <value xml:lang="it">Calendario Standard aperto 24 ore al giorno 7 giorni alla settimana</value>
         <value xml:lang="ja">標準カレンダ、24時間、7日</value>
+        <value xml:lang="nl">7 dagen/24 uur per dag</value>
         <value xml:lang="pt-BR">Calendário padrão de 24 horas e 7 dias por semana</value>
         <value xml:lang="ro">Calendar Standard deschis 24 ore pe zi 7 zile pe saptamana</value>
         <value xml:lang="th">ปฏิทินมาตรฐานกำหนดให้เป็น 24 ชั่วโมงหรือ 7 วัน</value>
@@ -225,6 +234,7 @@
         <value xml:lang="fr">Calendrier standard 8heures/jour, 5 jours par semaine</value>
         <value xml:lang="it">Calendario Standard 8 ore/giorno 5giorni/settimana con inizio alle 8:30 dal Lunedì al Venerdì</value>
         <value xml:lang="ja">標準カレンダ、8時間、5日</value>
+        <value xml:lang="nl">5 dagen/8 uur per dag</value>
         <value xml:lang="pt-BR">Calendário padrão de 8 horas/dia, 5 dias/semana.</value>
         <value xml:lang="ro">Calendar Standard 8 ore/zi 5 zile /saptamana de la orele 8:30 de Luni pana Vineri</value>
         <value xml:lang="th">ปฏิทินมาตรฐาน 8 ชั่วโมง/5 วัน/กำหนดให้เริ่ม 8:30</value>
@@ -238,6 +248,7 @@
         <value xml:lang="fr">8 heures/jour, actuellement le precessus de renouvellement de commande converti le jour en mms à 8h/jour</value>
         <value xml:lang="it">8 ore/giorno, attualmente il Processo di Ri-Ordine converte il giorno a mms con 8h/giorno</value>
         <value xml:lang="ja">8時間/日、再注文プロセスが8時間/日で日数を変換します</value>
+        <value xml:lang="nl">8 uur per dag</value>
         <value xml:lang="pt-BR">8 horas/dia, atualmente o processo de refazer pedidos converte dia para mms.</value>
         <value xml:lang="ro">8 ore/zi, in prezent Procesul de Re-Ordinare converteste ziua in mms cu  8h/zi" mondayStartTime="08:30:00"</value>
         <value xml:lang="th">8 ชั่วโมง/วัน, ขณะนี้รายการสั่งซื้อกำลังประมวลผลในการเปลี่ยนวันไปเป็น mms ด้วย 8 ชั่วโมง/วัน</value>

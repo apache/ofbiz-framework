@@ -26,7 +26,7 @@
         <value xml:lang="fr">Un centre de profit doit être choisi pour une commande de vente.</value>
         <value xml:lang="it">Un Negozioe DEVE essere selezionato per un'Ordine di Vendita. </value>
         <value xml:lang="ja">販売注文に対して製品店舗を選択する必要があります。</value>
-        <value xml:lang="nl">Er moet een winkel geselecteerd zijn voor een verkoopbestelling.</value>
+        <value xml:lang="nl">Er moet een winkel geselecteerd zijn voor een verkoopborder.</value>
         <value xml:lang="pt-BR">Um produto da loja deve estar selecionado para um pedido de venda</value>
         <value xml:lang="ro">TREBUIE sa selectionezi un magazin pentru o comanda de Vanzare. </value>
         <value xml:lang="ru">Для сбытового заказа ДОЛЖНА быть выбрана торговая точка. </value>
@@ -106,7 +106,7 @@
         <value xml:lang="fr">Impossible d'obtenir l'en-tête de la commande :</value>
         <value xml:lang="it">Non è possibile leggere testata ordine : </value>
         <value xml:lang="ja">注文ヘッダが取得できません: </value>
-        <value xml:lang="nl">Kan de bestellingkop niet ophalen : </value>
+        <value xml:lang="nl">Kan de orderkop niet ophalen : </value>
         <value xml:lang="pt-BR">Impossível obter cabeçalho do pedido</value>
         <value xml:lang="ro">Nu este posibila citerea Antetului Comenzii : </value>
         <value xml:lang="ru">Невозможно получить шапку заказа: </value>
@@ -122,7 +122,7 @@
         <value xml:lang="fr">Impossible de lire la ligne de la commande</value>
         <value xml:lang="it">Non è possibile leggere l'entità riga ordine</value>
         <value xml:lang="ja">注文アイテムエンティティが読み込みできません</value>
-        <value xml:lang="nl">Kan de tabel met bestellingen niet lezen</value>
+        <value xml:lang="nl">Kan de tabel met orders niet lezen</value>
         <value xml:lang="pt-BR">Não foi possível ler o item do pedido</value>
         <value xml:lang="ro">Nu este posibila citerea entitatii linie comanda</value>
         <value xml:lang="ru">Невозможно прочитать объект позиции заказа</value>
@@ -170,7 +170,7 @@
         <value xml:lang="fr">Impossible de mettre à jour l'en-tête de commande [ ${orderId} ]</value>
         <value xml:lang="it">Non è possibile modificare a null testata ordine [ ${orderId} ]</value>
         <value xml:lang="ja">注文ヘッダが空のため更新できません [ ${orderId} ]</value>
-        <value xml:lang="nl">Kan lege bestellingkop niet aanpassen [ ${orderId} ]</value>
+        <value xml:lang="nl">Kan lege orderkop niet aanpassen [ ${orderId} ]</value>
         <value xml:lang="pt-BR">Impossível atualizar cabeçalho de pedido vazio  [ ${orderId} ]</value>
         <value xml:lang="ro">Nu este posibila anularea Antetului comenzii[ ${orderId} ]</value>
         <value xml:lang="ru">Невозможно обновить шапку заказа с пустым значением [ ${orderId} ]</value>
@@ -264,7 +264,7 @@
         <value xml:lang="en">Caught generic service exception while getting order Id </value>
         <value xml:lang="fr">Erreur générique de service lors de l'acquisition de la réf. de commande </value>
         <value xml:lang="ja">注文の取得中にサービス例外が発生しました。ID </value>
-        <value xml:lang="nl">Er is een algemene service uitzondering opgetreden tijdens het ophalen van de bestelling ID </value>
+        <value xml:lang="nl">Er is een algemene service uitzondering opgetreden tijdens het ophalen van de order ID </value>
         <value xml:lang="pt-BR">Exceção capturada em serviço genérico durante a obtenção do ID do pedido</value>
         <value xml:lang="vi">Lỗi xảy ra ở tầng dịch vụ ứng dụng khi lấy ID của đơn hàng</value>
         <value xml:lang="zh">获得订单标识时发生一般服务意外错误 </value>
@@ -328,7 +328,7 @@
         <value xml:lang="fr">Vous ne pouvez pas trouver l'en-tôte de la commande pour l'identifiant de commande [ ${orderId} ] dans l'obtention du magasin pour les articles de la commande, le retour étant nul</value>
         <value xml:lang="it">Non è possibile trovare OrderHeader per orderId [ ${orderId} ] in getProductStoreFromOrder, restituito null</value>
         <value xml:lang="ja">getProductStoreFromOrderで、注文ID [ ${orderId} ] に対する注文ヘッダが見つかりません。空を戻します</value>
-        <value xml:lang="nl">Kan de bestellingkop niet vinden voor bestelling ID [ ${orderId} ] in service getProductStoreFromOrder, respons is leeg</value>
+        <value xml:lang="nl">Kan de orderkop niet vinden voor order ID [ ${orderId} ] in service getProductStoreFromOrder, respons is leeg</value>
         <value xml:lang="pt-BR">Não foi possível encontrar o cabeçalho do pedido de ID [ ${orderId} ] em in getProductStoreFromOrder, returning null</value>
         <value xml:lang="ro">Nu este posibila gasirea OrderHeader pentru orderId [ ${orderId} ] in getProductStoreFromOrder, returnat nul</value>
         <value xml:lang="ru">Невозможно найти OrderHeader для orderId [ ${orderId} ] в getProductStoreFromOrder, возвращается пустое значение</value>
@@ -408,7 +408,7 @@
         <value xml:lang="fr">Impossible d'initialiser un ordre d'achat vide</value>
         <value xml:lang="it">Non è possibile inizializzare un'ordine di acquisto vuoto.</value>
         <value xml:lang="ja">購買注文が空のため初期化できません</value>
-        <value xml:lang="nl">Kan een lege inkoopbestelling niet initialiseren.</value>
+        <value xml:lang="nl">Kan een lege inkooporder niet initialiseren.</value>
         <value xml:lang="pt-BR">Não foi possível iniciar um pedido de compra vazio</value>
         <value xml:lang="ru">Невозможно инициализировать пустой закупочный заказ.</value>
         <value xml:lang="th">ไม่สามารถเริ่มดำเนินการรายการสั่งซื้อว่าง</value>
@@ -571,7 +571,7 @@
         <value xml:lang="en">ERROR: All items of order #${orderId} are already verified</value>
         <value xml:lang="fr">ERREUR : Toutes les lignes de la commande ${orderId} sont déjà vérifiées</value>
         <value xml:lang="ja">エラー: 注文No ${orderId} のアイテムはすべて確認済です</value>
-        <value xml:lang="nl">Fout: Alle regels van de bestelling met nummer #${orderId} zijn al gevalideerd</value>
+        <value xml:lang="nl">Fout: Alle regels van de order met nummer #${orderId} zijn al gevalideerd</value>
         <value xml:lang="pt-BR">ERRO: Todos os itens do pedido #${orderId} já foram verificados</value>
         <value xml:lang="vi">Lỗi xảy ra: Tất cả hạng mục hàng hóa trong đơn hàng #${orderId} đã được thẩm định</value>
         <value xml:lang="zh">错误：已经验证了订单#${orderId}的全部明细</value>
@@ -581,7 +581,7 @@
         <value xml:lang="en">ERROR: Attempt to verify order #${orderId} failed</value>
         <value xml:lang="fr">ERREUR : La vérification de la commande ${orderId} a échoué</value>
         <value xml:lang="ja">エラー: 注文No ${orderId} の確認に失敗しました</value>
-        <value xml:lang="nl">Fout Poging om bestelling met nummer #${orderId} te controleren is mislukt</value>
+        <value xml:lang="nl">Fout Poging om order met nummer #${orderId} te controleren is mislukt</value>
         <value xml:lang="pt-BR">ERRO: Tentativa de verificar pedido #${orderId} falhou</value>
         <value xml:lang="vi">Lỗi xảy ra: Quá trình thẩm định đơn hàng #${orderId} không thành công</value>
         <value xml:lang="zh">错误：验证订单#${orderId}时失败</value>
@@ -704,7 +704,7 @@
         <value xml:lang="fr">Erreur : Ne peut pas obtenir l'entité de l'en-tête de la commande : </value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderHeader : </value>
         <value xml:lang="ja">エラー: 注文ヘッダエンティティが取得できません: </value>
-        <value xml:lang="nl">Fout : Kan de bestellingkop tabel niet ophalen : </value>
+        <value xml:lang="nl">Fout : Kan de orderkop tabel niet ophalen : </value>
         <value xml:lang="pt-BR">ERRO : Não foi possível obter cabeçalho do produto :</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderHeader : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderHeader: </value>
@@ -720,7 +720,7 @@
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité d'association des articles de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderItem Assoc : ${itemMsgInfo}</value>
         <value xml:lang="ja">エラー: 注文アイテム関連付けエンティティが取得できません: ${itemMsgInfo}</value>
-        <value xml:lang="nl">Fout : Kan de bestellingregel associatie tabel niet ophalen : ${itemMsgInfo}</value>
+        <value xml:lang="nl">Fout : Kan de orderregel associatie tabel niet ophalen : ${itemMsgInfo}</value>
         <value xml:lang="pt-BR">Não foi possível obter OrderItem associado a entity : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderItem Assoc : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem Assoc: ${itemMsgInfo}</value>
@@ -736,7 +736,7 @@
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité des articles de la commande : </value>
         <value xml:lang="it">ERRORE: Non è possibile ottenere entità OrderItem :</value>
         <value xml:lang="ja">エラー: 注文アイテムエンティティが取得できません: </value>
-        <value xml:lang="nl">Fout : Kan de bestellingregel tabel niet ophalen : </value>
+        <value xml:lang="nl">Fout : Kan de orderregel tabel niet ophalen : </value>
         <value xml:lang="pt-BR">ERRO: Não foi possível ler entity do OrderItem: </value>
         <value xml:lang="ro">EROARE: Nu este posibila obtinerea entitatii OrderItem :</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderItem:</value>
@@ -752,7 +752,7 @@
         <value xml:lang="fr">Erreur : impossible d'obtenir l'entité du rôle de la commande ${itemMsgInfo}</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ja">エラー: 注文ロールエンティティが取得できません: ${itemMsgInfo}</value>
-        <value xml:lang="nl">Fout : Kan de bestellingrol tabel niet ophalen : ${itemMsgInfo}</value>
+        <value xml:lang="nl">Fout : Kan de oderrol tabel niet ophalen : ${itemMsgInfo}</value>
         <value xml:lang="pt-BR">ERRO : Não foi possível ler entity de OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii OrderRole : ${itemMsgInfo}</value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект OrderRole: ${itemMsgInfo}</value>
