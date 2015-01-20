@@ -25,7 +25,7 @@
         <value xml:lang="fr">Ajouter une note</value>
         <value xml:lang="it">Aggiungi nota</value>
         <value xml:lang="ja">連絡を追加</value>
-        <value xml:lang="nl">Toegevoegde opmerking aan bestelling: </value>
+        <value xml:lang="nl">Toegevoegde opmerking aan order: </value>
         <value xml:lang="pt-BR">Adicionar uma nota</value>
         <value xml:lang="vi">Thêm ghi chú</value>
         <value xml:lang="zh">添加便笺</value>
@@ -402,7 +402,7 @@
         <value xml:lang="fr">Réf. de premier essai de commande</value>
         <value xml:lang="it">Primo Tentativo Numero Ordine</value>
         <value xml:lang="ja">初回試行注文ID</value>
-        <value xml:lang="nl">Bestelling ID eerste poging</value>
+        <value xml:lang="nl">Order ID eerste poging</value>
         <value xml:lang="pt-BR">ID da primeira tentativa de pedido</value>
         <value xml:lang="ro">Prima Tentativa Numar Comanda</value>
         <value xml:lang="ru">Код первого заказа</value>
@@ -509,7 +509,7 @@
         <value xml:lang="fr">Est une commande "rush"</value>
         <value xml:lang="it">E' un'Ordine Rush</value>
         <value xml:lang="ja">至急注文</value>
-        <value xml:lang="nl">Spoedbestelling</value>
+        <value xml:lang="nl">Spoedorder</value>
         <value xml:lang="pt-BR">É um pedido marcado com urgência</value>
         <value xml:lang="ro">Este o Comanda Rush</value>
         <value xml:lang="ru">Срочный заказ?</value>
@@ -541,7 +541,7 @@
         <value xml:lang="fr">Date de dernière commande</value>
         <value xml:lang="it">Ultima Data Ordine</value>
         <value xml:lang="ja">最新注文日</value>
-        <value xml:lang="nl">Laatste bestellingdatum</value>
+        <value xml:lang="nl">Laatste orderdatum</value>
         <value xml:lang="pt-BR">Última data de pedido</value>
         <value xml:lang="ro">Ultima Data Comanda</value>
         <value xml:lang="ru">Дата последнего заказа</value>
@@ -683,7 +683,7 @@
         <value xml:lang="fr">Réf. d'entête de commande</value>
         <value xml:lang="it">Numero Testata Ordine</value>
         <value xml:lang="ja">注文ヘッダID</value>
-        <value xml:lang="nl">Bestelling briefhoofd ID</value>
+        <value xml:lang="nl">Order briefhoofd ID</value>
         <value xml:lang="pt-BR">ID do cabeçalho do pedido</value>
         <value xml:lang="ro">Numar Antet Comanda</value>
         <value xml:lang="ru">Код оглавления заказа</value>
@@ -700,7 +700,7 @@
         <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
         <value xml:lang="ja">注文ID</value>
-        <value xml:lang="nl">Bestelling ID</value>
+        <value xml:lang="nl">Order ID</value>
         <value xml:lang="pt-BR">ID do pedido</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="ru">Код заказа</value>
@@ -732,7 +732,7 @@
         <value xml:lang="fr">Nom de commande</value>
         <value xml:lang="it">Nome Ordine</value>
         <value xml:lang="ja">注文名称</value>
-        <value xml:lang="nl">Bestellingnaam</value>
+        <value xml:lang="nl">Ordernaam</value>
         <value xml:lang="pt-BR">Nome do pedido</value>
         <value xml:lang="th">ชื่อรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Tên</value>
@@ -746,7 +746,7 @@
         <value xml:lang="fr">Réf. status de commande</value>
         <value xml:lang="it">Stato Ordine</value>
         <value xml:lang="ja">注文ステータスID</value>
-        <value xml:lang="nl">ID Bestellingstatus</value>
+        <value xml:lang="nl">ID Orderstatus</value>
         <value xml:lang="pt-BR">ID do estado do pedido</value>
         <value xml:lang="ro">Stare Comanda</value>
         <value xml:lang="ru">Код статуса заказа</value>
@@ -762,7 +762,7 @@
         <value xml:lang="fr">Réf. de type de commande</value>
         <value xml:lang="it">Tipo Ordine</value>
         <value xml:lang="ja">注文種類ID</value>
-        <value xml:lang="nl">ID bestellingsoort</value>
+        <value xml:lang="nl">ID Ordersoort</value>
         <value xml:lang="pt-BR">ID do tipo de pedido</value>
         <value xml:lang="ro">Tip Comanda</value>
         <value xml:lang="ru">Код типа заказа</value>
@@ -778,7 +778,7 @@
         <value xml:lang="fr">Lien vers les commandes</value>
         <value xml:lang="it">Link Ordini</value>
         <value xml:lang="ja">注文リンク</value>
-        <value xml:lang="nl">link naar bestellingen</value>
+        <value xml:lang="nl">link naar orders</value>
         <value xml:lang="pt-BR">Link para pedidos</value>
         <value xml:lang="ro">Link Comenzi</value>
         <value xml:lang="ru">Связь с заказами</value>
@@ -1119,6 +1119,10 @@
         <value xml:lang="vi">Kiểu phần đầu hoàn trả (Return HeaderType)</value>
         <value xml:lang="zh">退货头类型标识</value>
         <value xml:lang="zh-TW">退貨標頭類型識別</value>
+    </property>
+    <property key="FormFieldTitle_returnItemSeqId">
+        <value xml:lang="en">Return Item Seq Id</value>
+        <value xml:lang="nl">Retour Itemnr Id</value>
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="de">Verkaufskanal Id</value>
@@ -1769,7 +1773,7 @@
         <value xml:lang="fr">Ajouter à la commande</value>
         <value xml:lang="it">Aggiungi All'Ordine</value>
         <value xml:lang="ja">注文に追加</value>
-        <value xml:lang="nl">Aan bestelling toevoegen</value>
+        <value xml:lang="nl">Aan order toevoegen</value>
         <value xml:lang="pt-BR">Adicionar ao pedido</value>
         <value xml:lang="ro">Adauga la Comanda </value>
         <value xml:lang="ru">Добавить в заказ</value>
@@ -1908,7 +1912,7 @@
         <value xml:lang="fr">Agent de commande</value>
         <value xml:lang="it">Agente Ordine</value>
         <value xml:lang="ja">注文エージェント</value>
-        <value xml:lang="nl">Bestelling-agent</value>
+        <value xml:lang="nl">Order-agent</value>
         <value xml:lang="pt-BR">Encarregado do pedido</value>
         <value xml:lang="ro">Agent Comanda </value>
         <value xml:lang="ru">Агент заказа</value>
@@ -2048,7 +2052,7 @@
         <value xml:lang="hi-IN">कोईभी आदेश स्थिति</value>
         <value xml:lang="it">Qualsiasi stato ordine</value>
         <value xml:lang="ja">任意の注文ステータス</value>
-        <value xml:lang="nl">Elke bestellingstatus</value>
+        <value xml:lang="nl">Elke orderstatus</value>
         <value xml:lang="pt">Qualquer Estado de Encomenda</value>
         <value xml:lang="pt-BR">Qualquer estado de pedido</value>
         <value xml:lang="ro">Orice Stadiu Comanda</value>
@@ -2068,7 +2072,7 @@
         <value xml:lang="hi-IN">कोईभी आदेश के प्रकार</value>
         <value xml:lang="it">Qualsiasi tipo ordine</value>
         <value xml:lang="ja">任意の注文種類</value>
-        <value xml:lang="nl">Elk bestellingstype</value>
+        <value xml:lang="nl">Elk orderstype</value>
         <value xml:lang="pt">Qualquer Tipo de Encomenda</value>
         <value xml:lang="pt-BR">Qualquer tipo de pedido</value>
         <value xml:lang="ro">Orice Tip de Comanda</value>
@@ -2086,7 +2090,7 @@
         <value xml:lang="fr">Approuver la commande</value>
         <value xml:lang="it">Approva Ordine(i)</value>
         <value xml:lang="ja">注文を承認</value>
-        <value xml:lang="nl">Bevestig bestelling</value>
+        <value xml:lang="nl">Bevestig order</value>
         <value xml:lang="pt-BR">Aprovar pedido</value>
         <value xml:lang="ro">Aprobare Comanda(enzi)</value>
         <value xml:lang="ru">Утвердить заказ</value>
@@ -2312,7 +2316,7 @@
         <value xml:lang="hi-IN">आर्डर सम्मिमित करना न भूलें #</value>
         <value xml:lang="it">Assicurati di specificare il n° del tuo ordine</value>
         <value xml:lang="ja">注文に含まれていることを確認</value>
-        <value xml:lang="nl">Bestelling bijgesloten?</value>
+        <value xml:lang="nl">Order bijgesloten?</value>
         <value xml:lang="pt-BR">Certifique-se de incluir seu pedido</value>
         <value xml:lang="pt-PT">Certifique-se que incluiu o número da sua encomenda</value>
         <value xml:lang="ro">Asigurate ca ai inclus Comanda ta </value>
@@ -2466,7 +2470,7 @@
         <value xml:lang="fr">Annuler la commande</value>
         <value xml:lang="it">Annulla ordine</value>
         <value xml:lang="ja">注文を取消</value>
-        <value xml:lang="nl">Bestelling annuleren</value>
+        <value xml:lang="nl">Order annuleren</value>
         <value xml:lang="pt-BR">Cancelar pedido</value>
         <value xml:lang="th">ยกเลิกรายการสั่งซื้อ</value>
         <value xml:lang="vi">Hủy đặt hàng</value>
@@ -2528,7 +2532,7 @@
         <value xml:lang="fr">(Ne peut être modifié sans réinitialiser la commande.)</value>
         <value xml:lang="it">(Non è possibile cambiarlo senza annullare l'ordine.)</value>
         <value xml:lang="ja">(変更できません、注文をクリアしてください)</value>
-        <value xml:lang="nl">(kan niet worden gewijzigd zonder de reeds opgestartte bestelling op te ruimen.)</value>
+        <value xml:lang="nl">(kan niet worden gewijzigd zonder de reeds opgestartte order op te ruimen.)</value>
         <value xml:lang="pt-BR">(não é possível alterar sem limpar o pedido.)</value>
         <value xml:lang="ro">(Nu este posibila schimbarea fara stergerea comenzii.)</value>
         <value xml:lang="ru">(нельзя изменить без очистки заказа.)</value>
@@ -2803,7 +2807,7 @@
         <value xml:lang="fr">Réinitialisation</value>
         <value xml:lang="it">Annulla Ordine</value>
         <value xml:lang="ja">注文をクリア</value>
-        <value xml:lang="nl">Bestelling wissen</value>
+        <value xml:lang="nl">Order wissen</value>
         <value xml:lang="pt-BR">Limpar pedido</value>
         <value xml:lang="ru">Очистить</value>
         <value xml:lang="th">เคลียร์รายการสั่งซื้อสินค้า</value>
@@ -2855,7 +2859,7 @@
         <value xml:lang="hi-IN">कोमा (,) के अलग करके आप अपना एक से ज्यादा ईमेल पता डाल सकते हैं, जिस तरह से आपने डाला है उस तरह से उपयोग होगा</value>
         <value xml:lang="it">Puoi aggiungere altri indirizzi email separati da virgola qui, saranno usati solamente per l'ordine attuale</value>
         <value xml:lang="ja">カンマ区切りで別のEメールアドレスを追加できます。このEメールアドレスは現在の注文でのみ有効です。</value>
-        <value xml:lang="nl">U mag een aantal emailadressen hier toevoegen (gescheiden door een comma) die alleen voor de huidige bestelling worden gebruikt</value>
+        <value xml:lang="nl">U mag een aantal emailadressen hier toevoegen (gescheiden door een comma) die alleen voor de huidige order worden gebruikt</value>
         <value xml:lang="pt-BR">Você pode adicionar outros endereços de email separados por vírgulas aqui. Eles serão utilizados apenas para o pedido atual</value>
         <value xml:lang="pt-PT">Você pode adicionar outros endereços de e-mail, separados por vírgulas, utilizados apenas para esta encomenda</value>
         <value xml:lang="ro">Tu poti sa adaugi aici alte adrese email separate de virgula, care vor fi uzate numai pentru comanda actuala</value>
@@ -2872,7 +2876,7 @@
         <value xml:lang="fr">OFBiz : Gestion commerciale</value>
         <value xml:lang="it">OFBiz: Gestione ordini</value>
         <value xml:lang="ja">OFBiz: 注文管理</value>
-        <value xml:lang="nl">OFBiz: Bestelling Manager</value>
+        <value xml:lang="nl">OFBiz: Order Manager</value>
         <value xml:lang="pt-BR">OFBiz: Gestão de Pedidos</value>
         <value xml:lang="ro">OFBiz: Gestiune Comanda </value>
         <value xml:lang="ru">OFBiz: Управление заказами</value>
@@ -2909,7 +2913,7 @@
         <value xml:lang="fr">Terminer la commande</value>
         <value xml:lang="it">Ordine Completato</value>
         <value xml:lang="ja">注文を完了</value>
-        <value xml:lang="nl">Bestelling afronden</value>
+        <value xml:lang="nl">Order afronden</value>
         <value xml:lang="pt-BR">Concluir pedido</value>
         <value xml:lang="ro">Ordin Completat</value>
         <value xml:lang="ru">Завершить заполнение заказа</value>
@@ -3022,7 +3026,7 @@
         <value xml:lang="fr">Passer à la vérification finale de la commande</value>
         <value xml:lang="it">Passa alla revisione finale ordine</value>
         <value xml:lang="ja">最終注文確認を続ける</value>
-        <value xml:lang="nl">Doorgaan naar bestellingoverzicht</value>
+        <value xml:lang="nl">Doorgaan naar orderoverzicht</value>
         <value xml:lang="pt-BR">Prosseguir para a revisão final do pedido</value>
         <value xml:lang="pt-PT">Continuar para a Revisão Final da Encomenda</value>
         <value xml:lang="ro">Continua Revizia Comenzii Finale</value>
@@ -3083,7 +3087,7 @@
         <value xml:lang="fr">Dupliquer cette commande</value>
         <value xml:lang="it">Creare Come Nuovo Ordine</value>
         <value xml:lang="ja">新規注文として作成</value>
-        <value xml:lang="nl">Als nieuwe bestelling aanmaken</value>
+        <value xml:lang="nl">Als nieuwe order aanmaken</value>
         <value xml:lang="pt-BR">Criar como um novo perdido</value>
         <value xml:lang="ru">Создать как новый заказ</value>
         <value xml:lang="th">สร้างรายการสั่งซื้อสินค้าใหม่</value>
@@ -3177,7 +3181,7 @@
         <value xml:lang="fr">Création de la commande</value>
         <value xml:lang="it">Creare Ordine</value>
         <value xml:lang="ja">注文を作成</value>
-        <value xml:lang="nl">Nieuw bestelling aanmaken</value>
+        <value xml:lang="nl">Nieuw order aanmaken</value>
         <value xml:lang="pt-BR">Criar pedido</value>
         <value xml:lang="ro">Creare Comanda</value>
         <value xml:lang="ru">Создать заказ</value>
@@ -3333,7 +3337,7 @@
         <value xml:lang="fr">Créer une nouveau devis depuis le panier</value>
         <value xml:lang="it">Crea un nuovo preventivo dal carrello</value>
         <value xml:lang="ja">買い物かごから新規見積を作成</value>
-        <value xml:lang="nl">maak een nieuwe offerte van deze bestelling</value>
+        <value xml:lang="nl">maak een nieuwe offerte van deze order</value>
         <value xml:lang="pt-BR">Criar nova cotação do carrinho</value>
         <value xml:lang="ro">Creare Nou Preventiv Din Cos</value>
         <value xml:lang="ru">Создать предложение из корзины</value>
@@ -3707,7 +3711,7 @@
         <value xml:lang="hi-IN">नोट: यह एअ डेमो साइट है</value>
         <value xml:lang="it">NOTA: Questo è un sito DIMOSTRATIVO. Gli ordini immessi NON saranno fatturati, e NON saranno evasi</value>
         <value xml:lang="ja">注意: これはデモ店舗です。ここでの注文は請求も実行されません。</value>
-        <value xml:lang="nl">OPMERKING: dit is een demonstratiewinkel. bestellingen die hier worden ingegeven worden niet uitgevoerd en worden niet gefactureerd.</value>
+        <value xml:lang="nl">OPMERKING: dit is een demonstratiewinkel. Orders die hier worden ingegeven worden niet uitgevoerd en worden niet gefactureerd.</value>
         <value xml:lang="pt-BR">OBS.: Essa é uma demonstração de frente de loja. Pedidos feitos aqui NÂO serão cobrados e não serão processados</value>
         <value xml:lang="pt-PT">NOTA: Isto é uma loja DEMONSTRAÇÃO. As encomendas colocadas aqui não serão processadas nem cobradas</value>
         <value xml:lang="ro">NOTA: Acesta este un un DEMO store-front. Comenzile aflate aici NU vor fi facturate, si NU vor fi satisfacute</value>
@@ -3926,7 +3930,7 @@
         <value xml:lang="hi-IN">चुना गया है  आपके आर्डर पर विचार कर आपको माल भेजने के बाद इमेल से सूचित किया जाएगा  आपके आर्डर के लिए धन्यवाद</value>
         <value xml:lang="it">è stato accettato. Il tuo ordine sarà processato, e riceverai un notifica email appena gli articoli saranno spediti.Grazie per averci preferito!</value>
         <value xml:lang="ja">は受付られました。注文が処理され、品物を発送する際にEメールでご連絡します。ご注文ありがとうございました。</value>
-        <value xml:lang="nl">is geaccepteerd. Uw bestelling zal worden uitgevoerd en een e-mail zal gestuurd worden wanneer de bestelling is verstuurd.Wij danken u voor uw bestelling!</value>
+        <value xml:lang="nl">is geaccepteerd. Uw order zal worden uitgevoerd en een e-mail zal gestuurd worden wanneer de order is verstuurd.Wij danken u voor uw order!</value>
         <value xml:lang="pt-BR">foi aceito. Seu pedido será processado, e você receberá uma notificação por email quando o item(ns) for(em) enviado(s). Muito Obrigado por seu pedido!</value>
         <value xml:lang="ro">A fost acceptat. Comanda ta va fi procesata, si vei primi o nota email dupa ce Linia(ile) au fost expediate.Iti Multumim pentru comenzile tale!</value>
         <value xml:lang="ru">подтвержден. Ваш заказ будет обработан и вы получите уведомление по электронной почте как только произойдет отгрузка.Спасибо за ваш заказ!</value>
@@ -3960,7 +3964,7 @@
         <value xml:lang="hi-IN">इस इमेल से आपको सूचित किया जाता है कि आर्डर का भुगतान #</value>
         <value xml:lang="it">Questa email è per informarti che per il tuo pagamento ordine n°</value>
         <value xml:lang="ja">このメールは次の注文に関する支払いのお知らせです。注文No</value>
-        <value xml:lang="nl">Deze e-mail is gestuurd om u te informeren dat de betaling voor bestelling #</value>
+        <value xml:lang="nl">Deze e-mail is gestuurd om u te informeren dat de betaling voor order #</value>
         <value xml:lang="pt-BR">Esse email serve para informá-lo que seu pagamento para o pedido #</value>
         <value xml:lang="ro">Acest email este pentru a te informa  ca plata comenzii #</value>
         <value xml:lang="ru">Это сообщение информирует вас что оплата заказа №</value>
@@ -3977,7 +3981,7 @@
         <value xml:lang="hi-IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
         <value xml:lang="it">Il tuo ordine è stato annullato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
         <value xml:lang="ja">あなたの注文は取り消され、処理されませんでした。なにかご質問がございましたら、カスタマサービスまでご連絡ください。</value>
-        <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
+        <value xml:lang="nl">Uw order is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
         <value xml:lang="pt-BR">Nesse momento seu pedido foi cancelado e não será processado. Por favor, entre em contato com o serviço ao cliente se você tiver alguma dúvida.</value>
         <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu va fi procesata. Te rugam contacteaza Serviciul Clienti pentru orice nelamurire.</value>
         <value xml:lang="ru">В данный момент ваш заказ отклонен и не будет обработан. Если у вас есть вопросы, пожалуйста, свяжитесь со службой поддержки пользователей.</value>
@@ -3994,7 +3998,7 @@
         <value xml:lang="hi-IN">इस इमेल से यह सूचित किया जाता है कि आपके आर्डर भुगतान मे समस्या है</value>
         <value xml:lang="it">Questa email è per informarti se c'è un problema con il tuo metodo di pagamento per l'ordine n°</value>
         <value xml:lang="ja">支払方法に問題がありましたので、メールにてお知らせさせていただきます。注文No</value>
-        <value xml:lang="nl">Deze email is U gestuurd om U ter informeren dat er een probleem was met uw betaling voor de bestelling #</value>
+        <value xml:lang="nl">Deze email is U gestuurd om U ter informeren dat er een probleem was met uw betaling voor de order #</value>
         <value xml:lang="pt-BR">Esse email serve para informá-lo que houve um problema com seu método de pagamento para o pedido #</value>
         <value xml:lang="ro">Acest email este pentru a te informa ca  sunt probleme cu metoda ta de plata a comenzii #</value>
         <value xml:lang="ru">Это сообщение информирует вас о наличии проблем с указанным вами способом оплаты по заказу №</value>
@@ -4012,7 +4016,7 @@
         <value xml:lang="hi-IN">आपका आर्डर इस इमेल पर भेजा जाएगा</value>
         <value xml:lang="it">Il tuo ordine sarà spedito ai seguenti indirizzi email</value>
         <value xml:lang="ja">あなたの注文内容は次のEメールアドレスに送られます</value>
-        <value xml:lang="nl">Uw bestelling zal naar het volgende e-mailadres(sen) worden gestuurd.</value>
+        <value xml:lang="nl">Uw order zal naar het volgende e-mailadres(sen) worden gestuurd.</value>
         <value xml:lang="pt-BR">Seu pedido será enviado para os seguintes endereços de email</value>
         <value xml:lang="pt-PT">A Nota de Encomenda será enviada para o(s) seguinte(s) endereço(s) de E-mail</value>
         <value xml:lang="ro">Comanda ta va fi expediata la urmatoarele adrese email</value>
@@ -4030,7 +4034,7 @@
         <value xml:lang="hi-IN">माफ किजीये, इस इमेल मे समस्या है, ग्राहक सेवा से संपर्क किजीये अपने आर्डर के बारे मे</value>
         <value xml:lang="it">Spiacente, si è verificato un problema con questa email, per favore contatta l'assistenza clienti per informazioni rigurdanti il tuo ordine n°</value>
         <value xml:lang="ja">申し訳ありません、このEメールに問題がありました。注文に関してカスタマサービスにご連絡ください。注文No</value>
-        <value xml:lang="nl">Onze excuses, er was een probleem met deze e-mail. Neem contact op met klantenservice voor informatie over de bestelling.</value>
+        <value xml:lang="nl">Onze excuses, er was een probleem met deze e-mail. Neem contact op met klantenservice voor informatie over de order.</value>
         <value xml:lang="pt-BR">Sentimos muito, houve um problema com esse email. Por favor, entre contato com o serviço ao cliente para maiores informações a respeito de seu pedido #</value>
         <value xml:lang="ro">Cerem Scuze, sunt probleme cu acest email, va rugam contactati serviciul Subiecti pentru informatii referitoare la comanda ta #</value>
         <value xml:lang="ru">Извините, в случае проблем с этим сообщением, пожалуйста свяжитесь со службой технической поддержки для получения информации по заказу №</value>
@@ -4299,7 +4303,7 @@
         <value xml:lang="fr">commandes d'achat</value>
         <value xml:lang="it">ordini di acquisto</value>
         <value xml:lang="ja">購買注文</value>
-        <value xml:lang="nl">Inkoopbestellingen</value>
+        <value xml:lang="nl">Inkooporders</value>
         <value xml:lang="pt-BR">Pedidos de compra</value>
         <value xml:lang="ru">закупочные заказы</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
@@ -4362,7 +4366,7 @@
         <value xml:lang="hi-IN">आख़री चेक आउट जान्च</value>
         <value xml:lang="it">Revisione finale ordine</value>
         <value xml:lang="ja">最終勘定確認</value>
-        <value xml:lang="nl">Laatste bestellingsoverzicht</value>
+        <value xml:lang="nl">Laatste orderoverzicht</value>
         <value xml:lang="pt-BR">Revisão final de conclusão do pagamento</value>
         <value xml:lang="pt-PT">Revisão Final Do Pagamento</value>
         <value xml:lang="ro">Revizie Checkout Final</value>
@@ -4379,7 +4383,7 @@
         <value xml:lang="fr">Finaliser la commande</value>
         <value xml:lang="it">Concludi Ordine</value>
         <value xml:lang="ja">注文を完了</value>
-        <value xml:lang="nl">Bestelling afronden (maximale opties)</value>
+        <value xml:lang="nl">Order afronden (maximale opties)</value>
         <value xml:lang="pt-BR">Finalizar pedido</value>
         <value xml:lang="ro">Conclude Comenzi </value>
         <value xml:lang="ru">Завершить</value>
@@ -4396,7 +4400,7 @@
         <value xml:lang="fr">Terminer avec les options par défaut</value>
         <value xml:lang="it">Concludi Ordine Con Valori di Default</value>
         <value xml:lang="ja">デフォルトのオプションで注文を完了</value>
-        <value xml:lang="nl">Bestelling afronden (Standaard opties)</value>
+        <value xml:lang="nl">Order afronden (Standaard opties)</value>
         <value xml:lang="pt-BR">Finalizar pedido com opções padrão</value>
         <value xml:lang="ro">Conclude Comenzi cu Valori de Default</value>
         <value xml:lang="ru">Закрыть с параметрами по умолчанию</value>
@@ -4412,7 +4416,7 @@
         <value xml:lang="fr">Recherche de commandes</value>
         <value xml:lang="it">Ricerca ordini</value>
         <value xml:lang="ja">注文を検索</value>
-        <value xml:lang="nl">Zoeken bestellingen</value>
+        <value xml:lang="nl">Zoeken orders</value>
         <value xml:lang="pt-BR">Buscar pedido</value>
         <value xml:lang="ro">Cauta Comenzi </value>
         <value xml:lang="ru">Поиск заказов</value>
@@ -4524,7 +4528,7 @@
         <value xml:lang="fr">Forcer l'achèvement de la commande d'achat</value>
         <value xml:lang="it">Forza completamento ordine di acquisto</value>
         <value xml:lang="ja">購買注文を強制完了</value>
-        <value xml:lang="nl">Inkoopbestelling forceren</value>
+        <value xml:lang="nl">Inkooporder forceren</value>
         <value xml:lang="pt-BR">Forçar finalização do pedido de compra</value>
         <value xml:lang="ru">Принудительное завершение закупочного заказа</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าเสร็จสมบูรณ์</value>
@@ -4645,7 +4649,7 @@
         <value xml:lang="fr">Montants totals bruts (incluant les ajustements et les commandes en attente)</value>
         <value xml:lang="it">Importi Lordi (include aggiustamenti e ordini sospesi)</value>
         <value xml:lang="ja">総合計金額(調整および保留の注文を含む)</value>
-        <value xml:lang="nl">Totaalbedrag (inclusief aanpassingen en openstaande bestellingen).</value>
+        <value xml:lang="nl">Totaalbedrag (inclusief aanpassingen en openstaande orders).</value>
         <value xml:lang="pt-BR">Quantias totais brutas (incluem ajustes e pedidos pendentes)</value>
         <value xml:lang="ro">Valoare Bruta  (include Modificari si comenzi suspendate)</value>
         <value xml:lang="ru">Валовые суммы в долларах (включая надбавки и ожидающие заказы)</value>
@@ -4662,7 +4666,7 @@
         <value xml:lang="fr">Lignes de ventes brutes (incluant les promotions et les commandes en attente)</value>
         <value xml:lang="it">Righe Vendute Lorde (include promozioni e ordini sospesi)</value>
         <value xml:lang="ja">総販売アイテム数(プロモーションおよび保留の注文を含む)</value>
-        <value xml:lang="nl">Totaalbedrag verkocht (inclusief promoties en lopende bestellingen).</value>
+        <value xml:lang="nl">Totaalbedrag verkocht (inclusief promoties en lopende orders).</value>
         <value xml:lang="pt-BR">Total bruto de itens vendidos (inclui promoções e pedidos pendentes)</value>
         <value xml:lang="ro">Linii Vandute Brute  (include promotii si comenzi suspendate)</value>
         <value xml:lang="ru">Валовые продажи по позициям (включая предложения и ожидающие заказы)</value>
@@ -4695,6 +4699,7 @@
         <value xml:lang="fr">Historique non disponible</value>
         <value xml:lang="it">Storia non disponibile</value>
         <value xml:lang="ja">履歴は有効ではありません</value>
+        <value xml:lang="nl">Historie niet beschikbaar/aanwezig.</value>
         <value xml:lang="pt-BR">Histórico indisponível</value>
         <value xml:lang="vi">Không có lịch sử nào</value>
         <value xml:lang="zh">无历史资料</value>
@@ -4708,7 +4713,7 @@
         <value xml:lang="fr">Bloquer la commande</value>
         <value xml:lang="it">Congela Ordine</value>
         <value xml:lang="ja">注文を保留</value>
-        <value xml:lang="nl">Bestelling in wacht zetten</value>
+        <value xml:lang="nl">Order in wacht zetten</value>
         <value xml:lang="pt-BR">Reter pedido</value>
         <value xml:lang="ro">Congeleaza Comenzi </value>
         <value xml:lang="ru">Приостановить заказа</value>
@@ -4876,7 +4881,7 @@
         <value xml:lang="fr">Saisie rapide d'une commande d'achat</value>
         <value xml:lang="it">Inserimento Veloce Ordine Acquisto</value>
         <value xml:lang="ja">購買注文をクイック入力</value>
-        <value xml:lang="nl">Snel een inkoopbestelling maken</value>
+        <value xml:lang="nl">Snel een inkooporder maken</value>
         <value xml:lang="pt-BR">Criação rápida de pedido de compra</value>
         <value xml:lang="ro">Inseriment Rapid Comanda Comparare OrderInternalCode = Cod Intern</value>
         <value xml:lang="ru">Быстрый ввод закупочного заказа</value>
@@ -5376,7 +5381,7 @@
         <value xml:lang="fr">Lien depuis ligne de commande</value>
         <value xml:lang="it">Link da una riga ordine</value>
         <value xml:lang="ja">注文アイテムからリンク</value>
-        <value xml:lang="nl">Gelinkt vanaf bestellingregel</value>
+        <value xml:lang="nl">Gelinkt vanaf orderregel</value>
         <value xml:lang="pt-BR">Referido de um item do pedido</value>
         <value xml:lang="ru">Связь от позиции заказа</value>
         <value xml:lang="th">ลิงค์จากรายการสั่งซื้อสินค้าสินค้า</value>
@@ -5527,7 +5532,7 @@
         <value xml:lang="fr">Gestion de Commandes</value>
         <value xml:lang="it">Gestione ordini</value>
         <value xml:lang="ja">注文管理</value>
-        <value xml:lang="nl">Bestelling Manager</value>
+        <value xml:lang="nl">Order Manager</value>
         <value xml:lang="pt-BR">Gestão de pedidos</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
@@ -5544,7 +5549,7 @@
         <value xml:lang="fr">Gestion de Commandes</value>
         <value xml:lang="it">Applicazione gestione ordini</value>
         <value xml:lang="ja">注文管理業務</value>
-        <value xml:lang="nl">OFBiz: Bestelling Manager</value>
+        <value xml:lang="nl">OFBiz: Order Manager</value>
         <value xml:lang="pt-BR">Aplicativo de gestão de pedidos</value>
         <value xml:lang="ro">Aplicatie Gestiune Comenzi</value>
         <value xml:lang="ru">Управление заказами</value>
@@ -5766,7 +5771,7 @@
         <value xml:lang="fr">Nouvelle commande</value>
         <value xml:lang="it">Nuovo ordine</value>
         <value xml:lang="ja">新規注文</value>
-        <value xml:lang="nl">Nieuwe bestelling</value>
+        <value xml:lang="nl">Nieuwe order</value>
         <value xml:lang="pt-BR">Novo pedido</value>
         <value xml:lang="pt-PT">Nova Encomenda</value>
         <value xml:lang="ro">Noua Comanda</value>
@@ -6070,7 +6075,7 @@
         <value xml:lang="fr">Aucune note pour cette commande</value>
         <value xml:lang="it">Nessuna nota per questo ordine.</value>
         <value xml:lang="ja">この注文に連絡はありません</value>
-        <value xml:lang="nl">Geen notities voor deze bestelling</value>
+        <value xml:lang="nl">Geen notities voor deze order</value>
         <value xml:lang="pt-BR">Nenhuma nota para esse pedido</value>
         <value xml:lang="ro">Nici-o nota pentru aceasta comanda.</value>
         <value xml:lang="ru">Нет примечаний для этого заказа</value>
@@ -6122,7 +6127,7 @@
         <value xml:lang="hi-IN">कोई आर्डर नही मिला</value>
         <value xml:lang="it">Nessun ordine trovato</value>
         <value xml:lang="ja">注文はありません</value>
-        <value xml:lang="nl">Geen bestellingen gevonden</value>
+        <value xml:lang="nl">Geen orders gevonden</value>
         <value xml:lang="pt-BR">Nenhum pedido encontrado</value>
         <value xml:lang="pt-PT">Não Foram Encontradas Encomendas</value>
         <value xml:lang="ro">Nici-o Comanda Gasita</value>
@@ -6139,7 +6144,7 @@
         <value xml:lang="fr">Aucune commande trouvés pour réf. d'acteur</value>
         <value xml:lang="it">Nessun Ordine Trovato per il soggetto</value>
         <value xml:lang="ja">注文はありません、取引先ID:</value>
-        <value xml:lang="nl">Geen bestellingen gevonden voor deze relatie</value>
+        <value xml:lang="nl">Geen orders gevonden voor deze relatie</value>
         <value xml:lang="pt-BR">Nenhum pedido encontrado para esse ID de participante (partyId)</value>
         <value xml:lang="ro">Nici-o Comanda Gasita pentru subiectul</value>
         <value xml:lang="ru">Для контрагента заказы не найдены</value>
@@ -6155,7 +6160,7 @@
         <value xml:lang="fr">Aucune ligne de commande à afficher</value>
         <value xml:lang="it">Nessuna riga ordine da visualizzare.</value>
         <value xml:lang="ja">注文アイテムはありません</value>
-        <value xml:lang="nl">Geen bestellingregels</value>
+        <value xml:lang="nl">Geen orderregels</value>
         <value xml:lang="pt-BR">Nenhum item de pedido para mostrar.</value>
         <value xml:lang="ro">Nici-o linie de comanda de vizualizare.</value>
         <value xml:lang="ru">Нет заказанных позиций для показа.</value>
@@ -6172,7 +6177,7 @@
         <value xml:lang="fr">Aucune préférence de paiement liée à cette commande</value>
         <value xml:lang="it">Nessuna preferenza pagamento con questo ordine.</value>
         <value xml:lang="ja">この注文に支払の選択はありません</value>
-        <value xml:lang="nl">Geen betaalvoorkeur voor deze bestelling</value>
+        <value xml:lang="nl">Geen betaalvoorkeur voor deze order</value>
         <value xml:lang="pt-BR">Sem preferências de pagamento para esse pedido.</value>
         <value xml:lang="ru">Платежных предпочтений ассоциированных с этим заказом нет.</value>
         <value xml:lang="th">ไม่มีสิทธิพิเศษที่เกี่ยวข้องกับการชำระเงินด้วยรายการสั่งซื้อสินค้านี้</value>
@@ -6197,7 +6202,7 @@
         <value xml:lang="fr">Aucune commande d'achat spécifiée</value>
         <value xml:lang="it">Nessun ordine di acquisto specificato</value>
         <value xml:lang="ja">指定された購買注文はありません</value>
-        <value xml:lang="nl">Geen inkoopbestelling gespecificeerd</value>
+        <value xml:lang="nl">Geen inkooporder gespecificeerd</value>
         <value xml:lang="pt-BR">Nenhum pedido de venda especificado</value>
         <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
         <value xml:lang="vi">Chưa Đơn hàng bán (PO) nào được chọn</value>
@@ -6243,7 +6248,7 @@
         <value xml:lang="fr">Aucune commande d'achat n'a été spécifiée</value>
         <value xml:lang="it">Nessun Ordine di Acquisto è stato specificato</value>
         <value xml:lang="ja">指定された購買注文はありません</value>
-        <value xml:lang="nl">Geen inkoopbestelling gespecificeerd.</value>
+        <value xml:lang="nl">Geen inkooporder gespecificeerd.</value>
         <value xml:lang="pt-BR">Nenhum pedido de venda foi especificado</value>
         <value xml:lang="ro">Nici-o Comanda de Cumparare a fost specificata</value>
         <value xml:lang="ru">Не указаны закупочные заказы</value>
@@ -6346,7 +6351,7 @@
         <value xml:lang="hi-IN">आर्डर मे कोई सामान वापस करने योग्य नही</value>
         <value xml:lang="it">Nessuna riga reso trovata per l'ordine</value>
         <value xml:lang="ja">注文に返品可能なアイテムはありません</value>
-        <value xml:lang="nl">Geen  retourzendingen gevonden voor bestelling</value>
+        <value xml:lang="nl">Geen  retourzendingen gevonden voor order</value>
         <value xml:lang="pt-BR">Nenhum item que pode ser devolvido encontrado no pedido</value>
         <value xml:lang="pt-PT">Não foram encontrados itens restituíveis para encomenda</value>
         <value xml:lang="ro">Nici-o linie returnare gasita pentru comanda</value>
@@ -6448,7 +6453,7 @@
         <value xml:lang="fr">Non utilisé pour les commandes d'achat</value>
         <value xml:lang="it">Non Usato Per Ordini Acquisto</value>
         <value xml:lang="ja">購買注文で使用しない</value>
-        <value xml:lang="nl">Niet in gebruik voor inkoopbestelling</value>
+        <value xml:lang="nl">Niet in gebruik voor inkooporder</value>
         <value xml:lang="pt-BR">Não utilizado para pedidos de compra</value>
         <value xml:lang="ro">Nu este folosit Pentru Comenzi de Cumparare</value>
         <value xml:lang="ru">Не используется в закупочных заказах</value>
@@ -6666,7 +6671,7 @@
         <value xml:lang="fr">Offline: chèque, espèces</value>
         <value xml:lang="it">Offline: Assegno/Ordine Soldi</value>
         <value xml:lang="ja">オフライン: 小切手/現金</value>
-        <value xml:lang="nl"> Faktuur: Check/Money Bestelling</value>
+        <value xml:lang="nl"> Faktuur: Cheque/Money Order</value>
         <value xml:lang="pt-BR">Offline: Cheque/Dinheiro</value>
         <value xml:lang="ro">Offline: Cec/Ordin de plata</value>
         <value xml:lang="ru">Оффлайн: Чек/Деньги заказ</value>
@@ -6818,7 +6823,7 @@
         <value xml:lang="hi-IN">आर्डर</value>
         <value xml:lang="it">Ordine</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="nl">Order</value>
         <value xml:lang="pt-BR">Pedido</value>
         <value xml:lang="pt-PT">Encomenda</value>
         <value xml:lang="ro">Comanda</value>
@@ -6905,7 +6910,7 @@
         <value xml:lang="fr">Création</value>
         <value xml:lang="it">Inserimento ordine</value>
         <value xml:lang="ja">注文エントリ</value>
-        <value xml:lang="nl">Invoeren bestelling</value>
+        <value xml:lang="nl">Invoeren order</value>
         <value xml:lang="pt-BR">Criação do pedido</value>
         <value xml:lang="ro">Introducere Comanda </value>
         <value xml:lang="ru">Ввод заказа</value>
@@ -6922,7 +6927,7 @@
         <value xml:lang="fr">Saisie de l'intitulé et de la devise de la commande</value>
         <value xml:lang="it">Inserire Valuta Ordine, Contratti, e Date Spedizione</value>
         <value xml:lang="ja">注文の通貨、同意書、および発送日を入力してください</value>
-        <value xml:lang="nl">Invoeren bestellinggegevens (behalve valuta, catalogus, is deze informatie nog aan te passen) </value>
+        <value xml:lang="nl">Invoeren ordergegevens (behalve valuta, catalogus, is deze informatie nog aan te passen) </value>
         <value xml:lang="pt-BR">Informar moeda do pedido, acordos e datas de envio</value>
         <value xml:lang="ro">Introducere Valuta Comanda, Contracte, si Data Expediere</value>
         <value xml:lang="ru">Введите валюту заказа, договора и даты поставки</value>
@@ -6938,7 +6943,7 @@
         <value xml:lang="fr">Information sur le client</value>
         <value xml:lang="it">Inserimento Informazioni Ordine</value>
         <value xml:lang="ja">注文エントリ顧客情報</value>
-        <value xml:lang="nl">Bestellingklant-info</value>
+        <value xml:lang="nl">Orderklant-info</value>
         <value xml:lang="pt-BR">Informações do cliente</value>
         <value xml:lang="ro">Introducere Informatii Comenzi </value>
         <value xml:lang="ru">Ввод информации о клиенте заказа</value>
@@ -6972,7 +6977,7 @@
         <value xml:lang="fr">Conditions de règlement</value>
         <value xml:lang="it">Inserimento Termini Ordine</value>
         <value xml:lang="ja">注文エントリ注文条件</value>
-        <value xml:lang="nl">Bestelling-bestelvoorwaarden</value>
+        <value xml:lang="nl">Order-bestelvoorwaarden</value>
         <value xml:lang="pt-BR">Condições do pedido</value>
         <value xml:lang="ro">Introducere Termene Comanda</value>
         <value xml:lang="ru">Введите условия заказа</value>
@@ -6989,7 +6994,7 @@
         <value xml:lang="fr">Configuration des modes de règlement</value>
         <value xml:lang="it">Inserimento Configurazione Pagamento Ordine</value>
         <value xml:lang="ja">注文エントリ支払設定</value>
-        <value xml:lang="nl">Bestelling-betaalinstellingen</value>
+        <value xml:lang="nl">Order-betaalinstellingen</value>
         <value xml:lang="pt-BR">Condições de pagamento do pedido</value>
         <value xml:lang="ro">Introducere Configuratie Plata Comanda</value>
         <value xml:lang="ru">Введите настройки оплаты заказа</value>
@@ -7006,7 +7011,7 @@
         <value xml:lang="fr">Renseignements sur la livraison</value>
         <value xml:lang="it">Inserimento Configurazione Spedire-A Ordine</value>
         <value xml:lang="ja">注文エントリ発送先設定</value>
-        <value xml:lang="nl">Bestelling verzendinstellingen</value>
+        <value xml:lang="nl">Order-verzendinstellingen</value>
         <value xml:lang="pt-BR">Escolhas para o envio do pedido</value>
         <value xml:lang="ro">Introducere Configuratie Expediere la Comanda</value>
         <value xml:lang="ru">Введите настройки доставки заказа</value>
@@ -7023,7 +7028,7 @@
         <value xml:lang="fr">Commande pour</value>
         <value xml:lang="it">Ordine per</value>
         <value xml:lang="ja">注文:</value>
-        <value xml:lang="nl">Bestelling voor</value>
+        <value xml:lang="nl">Order voor</value>
         <value xml:lang="pt-BR">Pedido para</value>
         <value xml:lang="ro">Comanda pentru </value>
         <value xml:lang="ru">Заказ для</value>
@@ -7040,7 +7045,7 @@
         <value xml:lang="fr">Commande(s) trouvée(s)</value>
         <value xml:lang="it">Ordine(i) Trovato(i)</value>
         <value xml:lang="ja">次の注文があります</value>
-        <value xml:lang="nl">Bestelling(en) gevonden</value>
+        <value xml:lang="nl">Order(s) gevonden</value>
         <value xml:lang="pt-BR">Pedidos encontrado</value>
         <value xml:lang="ro">Comand(enzi) Gasita(e)</value>
         <value xml:lang="ru">Найденные заказы</value>
@@ -7057,7 +7062,7 @@
         <value xml:lang="fr">Informations d'en-tête</value>
         <value xml:lang="it">Informazioni Testata Ordine</value>
         <value xml:lang="ja">注文ヘッダ情報</value>
-        <value xml:lang="nl">Bestelling kopgegevens</value>
+        <value xml:lang="nl">Orderkop</value>
         <value xml:lang="pt-BR">Informações do cabeçalho do pedido</value>
         <value xml:lang="ro">Informatii Antet Comanda</value>
         <value xml:lang="ru">Оглавление заказа</value>
@@ -7085,7 +7090,7 @@
         <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
         <value xml:lang="ja">注文ID</value>
-        <value xml:lang="nl">Bestelling ID</value>
+        <value xml:lang="nl">Order ID</value>
         <value xml:lang="pt-BR">ID do pedido</value>
         <value xml:lang="ro">Numar Comanda</value>
         <value xml:lang="ru">Код заказа</value>
@@ -7136,7 +7141,7 @@
         <value xml:lang="hi-IN">माल आर्डर किजीये</value>
         <value xml:lang="it">Articoli ordinati</value>
         <value xml:lang="ja">注文アイテム</value>
-        <value xml:lang="nl">Bestellingregels</value>
+        <value xml:lang="nl">Orderregels</value>
         <value xml:lang="pt-BR">Itens do pedido</value>
         <value xml:lang="pt-PT">Itens da Encomenda</value>
         <value xml:lang="ro">Linii Comanda</value>
@@ -7154,7 +7159,7 @@
         <value xml:lang="fr">Liste des commandes</value>
         <value xml:lang="it">Lista ordini</value>
         <value xml:lang="ja">アイテム一覧</value>
-        <value xml:lang="nl">Bestellingen</value>
+        <value xml:lang="nl">Orders</value>
         <value xml:lang="pt-BR">Lista de pedidos</value>
         <value xml:lang="ro">Lista Comanda</value>
         <value xml:lang="ru">Список заказов</value>
@@ -7187,7 +7192,7 @@
         <value xml:lang="fr">Commandes nécessitant de l'attention</value>
         <value xml:lang="it">Ordini che Hanno bisogno di Attenzione</value>
         <value xml:lang="ja">要注意注文</value>
-        <value xml:lang="nl">Bestellingen die aandacht nodig hebben</value>
+        <value xml:lang="nl">Orders die aandacht nodig hebben</value>
         <value xml:lang="pt-BR">Pedidos que necessitam de atenção</value>
         <value xml:lang="ro">Comenzi care au nevoie de Atentie</value>
         <value xml:lang="ru">Заказы требующие внимания</value>
@@ -7281,7 +7286,7 @@
         <value xml:lang="fr">Renseignements des options de commande</value>
         <value xml:lang="it">Configurazione Opzioni Ordine</value>
         <value xml:lang="ja">注文オプション設定</value>
-        <value xml:lang="nl">Bestellingopties instellen</value>
+        <value xml:lang="nl">Orderopties instellen</value>
         <value xml:lang="pt-BR">Configurações de opções do pedido</value>
         <value xml:lang="ro">Configurare Optiuni Comanda</value>
         <value xml:lang="ru">Дополнительные настройки заказа</value>
@@ -7445,7 +7450,7 @@
         <value xml:lang="fr">Qté de la commande</value>
         <value xml:lang="it">Qnt Ordine</value>
         <value xml:lang="ja">注文数量</value>
-        <value xml:lang="nl">Bestellingtellingen</value>
+        <value xml:lang="nl">Ordertellingen</value>
         <value xml:lang="pt-BR">Quantidade do pedido</value>
         <value xml:lang="ro">Cant Comanda</value>
         <value xml:lang="ru">Количество в заказе</value>
@@ -8467,7 +8472,7 @@
         <value xml:lang="fr">Commandes reçues le</value>
         <value xml:lang="it">Ordini ricevuti il</value>
         <value xml:lang="ja">受取済の注文</value>
-        <value xml:lang="nl">Bestellingen ontvangen op</value>
+        <value xml:lang="nl">Orders ontvangen op</value>
         <value xml:lang="pt-BR">Pedido recebido em</value>
         <value xml:lang="vi">Đặt hàng đã nhận ngày</value>
         <value xml:lang="zh">收到订单日期</value>
@@ -8531,7 +8536,7 @@
         <value xml:lang="fr">Page des statistiques des ventes</value>
         <value xml:lang="it">Pagina Statistiche Ordini</value>
         <value xml:lang="ja">注文統計ページ</value>
-        <value xml:lang="nl">Bestellingstatistieken</value>
+        <value xml:lang="nl">Orderstatistieken</value>
         <value xml:lang="pt-BR">Página de estatísticas de vendas</value>
         <value xml:lang="ro">Pagini Statistici Comenzi</value>
         <value xml:lang="ru">Страница статистики заказа</value>
@@ -8548,7 +8553,7 @@
         <value xml:lang="fr">Tâches de commande</value>
         <value xml:lang="it">Compiti Ordine</value>
         <value xml:lang="ja">注文タスク</value>
-        <value xml:lang="nl">Bestelling taken</value>
+        <value xml:lang="nl">Order taken</value>
         <value xml:lang="pt-BR">Tarefas de pedido</value>
         <value xml:lang="ro">Sarcini Comenzi</value>
         <value xml:lang="ru">Задачи по заказам</value>
@@ -8645,7 +8650,7 @@
         <value xml:lang="fr">Total commande</value>
         <value xml:lang="it">Totale Ordine</value>
         <value xml:lang="ja">注文合計</value>
-        <value xml:lang="nl">Bestelling totaal</value>
+        <value xml:lang="nl">Order totaal</value>
         <value xml:lang="pt-BR">Total do pedido</value>
         <value xml:lang="ro">Total Comenzi</value>
         <value xml:lang="ru">Заказ всего</value>
@@ -8662,7 +8667,7 @@
         <value xml:lang="fr">Type de commande</value>
         <value xml:lang="it">Tipo Ordine</value>
         <value xml:lang="ja">注文種類</value>
-        <value xml:lang="nl">Soort bestelling</value>
+        <value xml:lang="nl">Soort order</value>
         <value xml:lang="pt-BR">Tipo do pedido</value>
         <value xml:lang="ro">Tip Comenzi</value>
         <value xml:lang="ru">Тип заказа</value>
@@ -8696,7 +8701,7 @@
         <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="ja">注文</value>
-        <value xml:lang="nl">Bestellingen</value>
+        <value xml:lang="nl">Orders</value>
         <value xml:lang="pt-BR">Pedidos</value>
         <value xml:lang="pt-PT">Encomendas</value>
         <value xml:lang="ro">Comenzi</value>
@@ -8756,7 +8761,7 @@
         <value xml:lang="fr">Totaux des commandes</value>
         <value xml:lang="it">Totali Ordini</value>
         <value xml:lang="ja">注文数合計</value>
-        <value xml:lang="nl">Bestellingen totalen</value>
+        <value xml:lang="nl">Orders totalen</value>
         <value xml:lang="pt-BR">Totais de pedidos</value>
         <value xml:lang="ro">Total Comenzi</value>
         <value xml:lang="ru">Всего заказов</value>
@@ -8790,7 +8795,7 @@
         <value xml:lang="fr">Autres commandes</value>
         <value xml:lang="it">Altri Ordini</value>
         <value xml:lang="ja">その他注文数</value>
-        <value xml:lang="nl">Andere bestellingen</value>
+        <value xml:lang="nl">Andere orders</value>
         <value xml:lang="pt-BR">Outros pedidos</value>
         <value xml:lang="ro">Alte Comenzi</value>
         <value xml:lang="ru">Другие заказы</value>
@@ -9355,7 +9360,7 @@
         <value xml:lang="hi-IN">कृपया इन्तजार किजीये माल उपलब्ध होते ही भेजा जाएगा</value>
         <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto prima di spedirlo</value>
         <value xml:lang="ja">すべての品物が揃うまで発送を待ってください</value>
-        <value xml:lang="nl">Wacht tot de hele bestelling beschikbaar is voor verzending</value>
+        <value xml:lang="nl">Wacht tot de hele order beschikbaar is voor verzending</value>
         <value xml:lang="pt-BR">Por favor, espere todo o pedido estar disponível para enviá-lo</value>
         <value xml:lang="pt-PT">Por favor, aguarde até a totalidade da encomenda estar pronta antes de a enviar</value>
         <value xml:lang="ro">Va rugam sa asteptati pana cand intreaga comanda este prompta de expediere. </value>
@@ -9391,7 +9396,7 @@
         <value xml:lang="fr">Préparer la commande</value>
         <value xml:lang="it">Prepara Ordine</value>
         <value xml:lang="ja">注文準備</value>
-        <value xml:lang="nl">Bestelling voorbereiden</value>
+        <value xml:lang="nl">Order voorbereiden</value>
         <value xml:lang="pt-BR">Preparar pedido</value>
         <value xml:lang="ru">Подготовить заказ</value>
         <value xml:lang="th">จัดเตรียมรายการสั่งซื้อสินค้า</value>
@@ -9440,7 +9445,7 @@
         <value xml:lang="fr">Exécuter la commande</value>
         <value xml:lang="it">Processa ordine</value>
         <value xml:lang="ja">注文を処理</value>
-        <value xml:lang="nl">Bestelling verwerken</value>
+        <value xml:lang="nl">Order verwerken</value>
         <value xml:lang="pt-BR">Processar pedido</value>
         <value xml:lang="th">ประมวลผลรายการสั่งซื้อสินค้า</value>
         <value xml:lang="vi">Xử lý đặt hàng</value>
@@ -9454,7 +9459,7 @@
         <value xml:lang="fr">Cette commande est actuellement dans un état «Active»</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Attivo'.</value>
         <value xml:lang="ja">注文のステータスは現在'有効'です。</value>
-        <value xml:lang="nl">Deze bestelling heeft status 'Actief'.</value>
+        <value xml:lang="nl">Deze order heeft status 'Actief'.</value>
         <value xml:lang="pt-BR">Esse pedido está Ativo atualmente</value>
         <value xml:lang="ro">Aceasta comanda este in acest moment in stare 'Activ'.</value>
         <value xml:lang="ru">Заказ находится в состоянии 'Активный'.</value>
@@ -9470,7 +9475,7 @@
         <value xml:lang="fr">Cette commande est actuellement dans un état «Bloquée». L'activité a été suspendue.</value>
         <value xml:lang="it">Questo ordine è attualmente in uno stato 'Congelato'. L'attività è stata sospesa.</value>
         <value xml:lang="ja">この注文のステータスは現在'保留'です。作業は一時停止中です。</value>
-        <value xml:lang="nl">Deze bestelling heeft status 'Hold'. Opgeschort.</value>
+        <value xml:lang="nl">Deze order heeft status 'Hold'. Opgeschort.</value>
         <value xml:lang="pt-BR">Esse pedido está em um estado de 'espera'. A atividade foi suspensa.</value>
         <value xml:lang="ro">Aceasta Comanda este in acest moment in stare 'Congelata'. Activitatea a fost suspendata.</value>
         <value xml:lang="ru">Заказ находится в состоянии 'Удержание'. Обработка приостановлена.</value>
@@ -9722,7 +9727,7 @@
         <value xml:lang="fr">Historique des commandes qui vous ont été envoyées</value>
         <value xml:lang="it">Storia ordini inviati a te</value>
         <value xml:lang="ja">発送済の注文履歴</value>
-        <value xml:lang="nl">Bestellinghistorie voor verzonden bestellingen</value>
+        <value xml:lang="nl">Orderhistorie voor verzonden orders</value>
         <value xml:lang="pt-BR">Histórico de pedido para pedidos enviados a você</value>
         <value xml:lang="th">ข้อมูลการสั่งซื้อสินค้าสำหรับส่งให้คุณ</value>
         <value xml:lang="vi">Các Đặt hàng đã gửi tới bạn</value>
@@ -9736,7 +9741,7 @@
         <value xml:lang="fr">Commande d'achat</value>
         <value xml:lang="it">Ordine Acquisto</value>
         <value xml:lang="ja">購買注文</value>
-        <value xml:lang="nl">Inkoopbestelling</value>
+        <value xml:lang="nl">Inkooporder</value>
         <value xml:lang="pt-BR">Pedido de compra</value>
         <value xml:lang="ro">Comanda Cumparare</value>
         <value xml:lang="ru">Закупочный заказ</value>
@@ -9755,7 +9760,7 @@
         <value xml:lang="hi-IN">ख़रीदारी आर्डर नम्बर</value>
         <value xml:lang="it">N° ordine acquisto</value>
         <value xml:lang="ja">購買注文番号</value>
-        <value xml:lang="nl">Nr. inkoopbestelling</value>
+        <value xml:lang="nl">Nr. inkooporder</value>
         <value xml:lang="pt-BR">Nº do pedido de compra</value>
         <value xml:lang="pt-PT">Número de Nota de Encomenda</value>
         <value xml:lang="ro">Numar Comanda Cumparare </value>
@@ -9772,7 +9777,7 @@
         <value xml:lang="fr">Options de l'état sur commande d'achat</value>
         <value xml:lang="it">Opzioni Stampe Ordine Acquisto</value>
         <value xml:lang="ja">購買注文レポートオプション</value>
-        <value xml:lang="nl">Bestelling inkooprapportopties</value>
+        <value xml:lang="nl">Order inkooprapportopties</value>
         <value xml:lang="pt-BR">Opções de relatório de pedido de compra</value>
         <value xml:lang="ro">Optiuni Tiparire Comanda Cumparare</value>
         <value xml:lang="ru">Параметры отчета закупочного заказа</value>
@@ -9996,7 +10001,7 @@
         <value xml:lang="fr">Qté vendue</value>
         <value xml:lang="it">Qnt Venduta</value>
         <value xml:lang="ja">販売数</value>
-        <value xml:lang="nl">Verkochte hoeveelheid</value>
+        <value xml:lang="nl">Qty</value>
         <value xml:lang="pt-BR">Quant. vendida</value>
         <value xml:lang="ro">Cantitate Vanduta</value>
         <value xml:lang="ru">Прод. кол.</value>
@@ -10046,7 +10051,7 @@
         <value xml:lang="fr">Ajout rapide d'article</value>
         <value xml:lang="it">Aggiunta Veloce Riga Ordine</value>
         <value xml:lang="ja">注文アイテムをクイック追加</value>
-        <value xml:lang="nl">Bestellingregel Snel toevoegen</value>
+        <value xml:lang="nl">Orderregel Snel toevoegen</value>
         <value xml:lang="pt-BR">Adição rápida de item ao pedido</value>
         <value xml:lang="ro">Adaugare Rapida Linie Comanda</value>
         <value xml:lang="ru">Быстрое добавления позиции заказа</value>
@@ -10063,7 +10068,7 @@
         <value xml:lang="fr">Finaliser rapidement</value>
         <value xml:lang="it">Aggiunta Veloce Ordine</value>
         <value xml:lang="ja">クイック注文完了</value>
-        <value xml:lang="nl">Bestelling afronden (minimale opties)</value>
+        <value xml:lang="nl">Order afronden (minimale opties)</value>
         <value xml:lang="pt-BR">Finalização rápida do pedido</value>
         <value xml:lang="ro">Adaugare Rapida Comanda</value>
         <value xml:lang="ru">Быстро закрыть</value>
@@ -10097,7 +10102,7 @@
         <value xml:lang="fr">Réception rapide de la commande d'achat</value>
         <value xml:lang="it">Ricevimento Veloce Ordine Acquisto</value>
         <value xml:lang="ja">購買注文をクイック受取</value>
-        <value xml:lang="nl">Quick Receive Purchase Bestelling</value>
+        <value xml:lang="nl">Quick Receive Purchase Order</value>
         <value xml:lang="pt-BR">Receber rapidamente o pedido de compra</value>
         <value xml:lang="ro">Primire Rapida Comanda Cumparare</value>
         <value xml:lang="ru">Быстрый прием закупочного заказа</value>
@@ -10114,7 +10119,7 @@
         <value xml:lang="fr">Remboursement rapide de toute la commande</value>
         <value xml:lang="it">Reso Veloce Intero Ordine</value>
         <value xml:lang="ja">注文全体をクイック返済</value>
-        <value xml:lang="nl">Quick Refund Entire Bestelling</value>
+        <value xml:lang="nl">Quick Refund Entire Order</value>
         <value xml:lang="pt-BR">Reembolso rápido pelo pedido inteiro</value>
         <value xml:lang="ro">Returnare Rapida Intreaga Comanda</value>
         <value xml:lang="ru">Быстрый возврат по всему заказу</value>
@@ -10131,7 +10136,7 @@
         <value xml:lang="fr">Livraison rapide de toute la commande</value>
         <value xml:lang="it">Spedizione Veloce Intero Ordine</value>
         <value xml:lang="ja">注文全体をクイック発送</value>
-        <value xml:lang="nl">Quick Ship Entire Bestelling</value>
+        <value xml:lang="nl">Quick Ship hele order</value>
         <value xml:lang="pt-BR">Envio rápido de todo o pedido</value>
         <value xml:lang="ro">Expediere Rapida Intreaga Comanda</value>
         <value xml:lang="ru">Быстрая поставка полного заказа</value>
@@ -10277,7 +10282,7 @@
         <value xml:lang="fr">Recalculer la commande</value>
         <value xml:lang="it">Ricalcola Ordine</value>
         <value xml:lang="ja">注文を再計算</value>
-        <value xml:lang="nl">Bestelling berekenen</value>
+        <value xml:lang="nl">Order berekenen</value>
         <value xml:lang="pt-BR">Recalcular pedido</value>
         <value xml:lang="ro">Recalculeaza Comanda</value>
         <value xml:lang="ru">Пересчитать</value>
@@ -10345,7 +10350,7 @@
         <value xml:lang="fr">Sur un autre bon de livraison</value>
         <value xml:lang="it">Su gli Altri Ordini Spediti</value>
         <value xml:lang="ja">その他の配送注文</value>
-        <value xml:lang="nl">On Other Delivery Bestelling</value>
+        <value xml:lang="nl">On Other Delivery Order</value>
         <value xml:lang="pt-BR">Em outra entrega de pedido</value>
         <value xml:lang="ro">Pe Alte Comenzi Expediate</value>
         <value xml:lang="ru">На другой доставляемый заказ</value>
@@ -10361,6 +10366,7 @@
         <value xml:lang="fr">Historique des quantités reçues</value>
         <value xml:lang="it">Storia quantità ricevuta</value>
         <value xml:lang="ja">受取数量履歴</value>
+        <value xml:lang="nl">Historie hoeveelheden ontvangen</value>
         <value xml:lang="pt-BR">Histórico de quantidade recebida</value>
         <value xml:lang="vi">Lịch sử số lượng đã nhận</value>
         <value xml:lang="zh">已接收数量的历史记录</value>
@@ -10595,7 +10601,7 @@
         <value xml:lang="fr">Etat des ventes par centre de profit</value>
         <value xml:lang="it">Report Vendite per Negozio</value>
         <value xml:lang="ja">店舗別販売レポート</value>
-        <value xml:lang="nl">Sales by Store Report</value>
+        <value xml:lang="nl">Verkopen per Winkel</value>
         <value xml:lang="pt-BR">Relatório de vendas por loja</value>
         <value xml:lang="ro">Raport Vanzari Magazie</value>
         <value xml:lang="ru">Отчет по продажам, по торговым точкам</value>
@@ -10624,7 +10630,7 @@
         <value xml:lang="fr">Etats des commandes</value>
         <value xml:lang="it">Stampe Ordini</value>
         <value xml:lang="ja">注文レポート</value>
-        <value xml:lang="nl">Bestellingrapporten</value>
+        <value xml:lang="nl">Orderrapporten</value>
         <value xml:lang="pt-BR">Relatórios de pedidos</value>
         <value xml:lang="ro">Tiparire Comenzi</value>
         <value xml:lang="ru">Отчеты заказа</value>
@@ -11103,7 +11109,7 @@
         <value xml:lang="fr">Réf. de statut d'un besoin</value>
         <value xml:lang="it">Stato Ordine Fabbisogno</value>
         <value xml:lang="ja">注文要求ステータスID</value>
-        <value xml:lang="nl">Bestelling-benodigdheid status ID</value>
+        <value xml:lang="nl">Order-benodigdheid status ID</value>
         <value xml:lang="pt-BR">ID de estado do requisito de pedido</value>
         <value xml:lang="ro">Stare Comanda Necesar</value>
         <value xml:lang="ru">Код статуса требования заказа</value>
@@ -11194,7 +11200,7 @@
         <value xml:lang="fr">Ajustement(s) de retour depuis la commande</value>
         <value xml:lang="it">Reso Aggiustamento(i) Ordine Per l'Ordine</value>
         <value xml:lang="ja">返品注文調整、注文(元)</value>
-        <value xml:lang="nl">Return Bestelling Adjustment(s) From Bestelling</value>
+        <value xml:lang="nl">Return Order Adjustment(s) From Order</value>
         <value xml:lang="pt-BR">Ajustes de devolução do pedido</value>
         <value xml:lang="ro">Returnare Modificare(i) Comanda Pentru Comanda</value>
         <value xml:lang="ru">Настройки возвратного заказа из заказа</value>
@@ -11232,7 +11238,7 @@
         <value xml:lang="fr">Lieu de stockage destinataire</value>
         <value xml:lang="it">Stabilimento Destinazione </value>
         <value xml:lang="ja">対象拠点</value>
-        <value xml:lang="nl">Destination Facility</value>
+        <value xml:lang="nl">Naar faciliteit</value>
         <value xml:lang="pt-BR">Armazém de destino</value>
         <value xml:lang="ro">Compartiment Destinatie </value>
         <value xml:lang="ru">На склад</value>
@@ -11304,7 +11310,7 @@
         <value xml:lang="fr">Retourner l'article(s) de la commande</value>
         <value xml:lang="it">Riga(e) Reso Dall'Ordine</value>
         <value xml:lang="ja">返品アイテム、注文(元)</value>
-        <value xml:lang="nl">Return Item(s) From Bestelling</value>
+        <value xml:lang="nl">Return Item(s) From Order</value>
         <value xml:lang="pt-BR">Itens de devolução do pedido</value>
         <value xml:lang="ro">Linia(e) Returnare De la Comanda</value>
         <value xml:lang="ru">Возврат позиции(й) из заказа</value>
@@ -11320,7 +11326,7 @@
         <value xml:lang="fr">Acteur d'origine</value>
         <value xml:lang="it">Reso Dal Soggetto</value>
         <value xml:lang="ja">返品元取引先</value>
-        <value xml:lang="nl">Return From Party</value>
+        <value xml:lang="nl">Retournering van/door</value>
         <value xml:lang="pt-BR">Devolvido pelo participante</value>
         <value xml:lang="ro">Returnare De la Subiect</value>
         <value xml:lang="ru">Возврат от контрагента</value>
@@ -11353,6 +11359,7 @@
         <value xml:lang="fr">Historique des retours</value>
         <value xml:lang="it">Storia resi</value>
         <value xml:lang="ja">返品履歴</value>
+        <value xml:lang="nl">Historie retouren</value>
         <value xml:lang="pt-BR">Histórico de devolução</value>
         <value xml:lang="vi">Lịch sử hoàn trả</value>
         <value xml:lang="zh">退货历史记录</value>
@@ -11420,7 +11427,7 @@
         <value xml:lang="hi-IN">आर्डर से वापस सामान</value>
         <value xml:lang="it">Restituire gli articoli dell'ordine</value>
         <value xml:lang="ja">返品アイテム、注文(元)</value>
-        <value xml:lang="nl">Retourgoederen vande bestelling</value>
+        <value xml:lang="nl">Retourgoederen vande order</value>
         <value xml:lang="pt-BR">Devolução dos item(ns) do pedido</value>
         <value xml:lang="pt-PT">Devolver Itens da Encomenda</value>
         <value xml:lang="ro">Linie(ii) Returnate de la Comanda </value>
@@ -11448,7 +11455,7 @@
         <value xml:lang="fr">Charger les articles pour le retour</value>
         <value xml:lang="it">Carica righe ordine per il reso</value>
         <value xml:lang="ja">返品のため注文アイテムをロード</value>
-        <value xml:lang="nl">Load bestelling items for return</value>
+        <value xml:lang="nl">Laad orderitems voor retour</value>
         <value xml:lang="pt-BR">Carregar itens de pedido para devolução</value>
         <value xml:lang="ro">Incarca linii comanda pe returnare </value>
         <value xml:lang="ru">Загрузить позиции заказа для возврата</value>
@@ -11464,7 +11471,7 @@
         <value xml:lang="fr">Ajustement manuel du retour pour la commande</value>
         <value xml:lang="it">Reso Manuale Aggiustamento Per l'Ordine</value>
         <value xml:lang="ja">手動返品調整、注文:</value>
-        <value xml:lang="nl">Manual Return Adjustment For Bestelling</value>
+        <value xml:lang="nl">Manual Return Adjustment For Order</value>
         <value xml:lang="pt-BR">Ajuste manual para devolução do pedido</value>
         <value xml:lang="ro">Modificare Returnare Manuala pe Comanda</value>
         <value xml:lang="ru">Ручная настройка возврата для заказа</value>
@@ -11479,6 +11486,7 @@
         <value xml:lang="fr">Si positif (Y) alors le retour sera automatiquement terminée dès qu'accepté (laissant de coté le status reçu)</value>
         <value xml:lang="it">Se questo è a Y all i resi saranno automaticamente completati quando verrà accettato, saltando il processo e gli stati della ricezione.</value>
         <value xml:lang="ja">Yの場合は返品が受け取られると、ステータスと処理の受付をスキップして、自動的に完了します。</value>
+        <value xml:lang="nl">Indien Y, dan wordt de retoure na acceptatie automatisch gecompleteerd (zonder ontvangstfase).</value>
         <value xml:lang="pt-BR">Se sim (Y), então a devolução será automáticamente completada quando for aceita, ignorando o estado de recebido e processando.</value>
         <value xml:lang="vi">Nếu là Y thì Hoàn trả sẽ tự động được Kết thúc khi hoàn trả này được Chấp nhận, bỏ qua trạng thái Đã nhận và tiếp tục xử lý.</value>
         <value xml:lang="zh">如果这是Y，那么当退货被接受时它会自动完成，会跳过已接收状态及处理。</value>
@@ -11491,7 +11499,7 @@
         <value xml:lang="fr">Recevoir automatiquement sur acceptation</value>
         <value xml:lang="it">Necessario Ricezione-Automatica (in ACCETTAZIONE)</value>
         <value xml:lang="ja">受付時に自動受取</value>
-        <value xml:lang="nl">Needs Auto-Receive (On ACCEPT)</value>
+        <value xml:lang="nl">Autom. ontvangst (bij ACCEPT)</value>
         <value xml:lang="pt-BR">Receber automaticamente ao ACEITAR</value>
         <value xml:lang="ro">Necesar Receptie-Automatica (in ACCEPTARE)</value>
         <value xml:lang="ru">Автоприем (если статус Принят)</value>
@@ -11507,7 +11515,7 @@
         <value xml:lang="fr">Aucuns articles retournables trouvés pour la commande</value>
         <value xml:lang="it">Nessuna riga restituibile trovata per l'ordine</value>
         <value xml:lang="ja">注文に返品不可のアイテムがあります</value>
-        <value xml:lang="nl">No returnable items found for bestelling</value>
+        <value xml:lang="nl">Geen retourneerbarer items voor order</value>
         <value xml:lang="pt-BR">Nenhum item retornável encontrado para o pedido</value>
         <value xml:lang="ro">Nici-o linie restituita gasita pe comanda</value>
         <value xml:lang="ru">В заказе не найдены позиции которые могут быть возвращены</value>
@@ -11523,7 +11531,7 @@
         <value xml:lang="fr">Prix de retour</value>
         <value xml:lang="it">Prezzo Reso</value>
         <value xml:lang="ja">返品価格</value>
-        <value xml:lang="nl">Return Price</value>
+        <value xml:lang="nl">Prijs retour</value>
         <value xml:lang="pt-BR">Preço de devolução</value>
         <value xml:lang="ro">Pret Returnare</value>
         <value xml:lang="ru">Цена возврата</value>
@@ -11538,6 +11546,7 @@
         <value xml:lang="fr">Historique des prix de retour</value>
         <value xml:lang="it">Storia prezzi reso</value>
         <value xml:lang="ja">返品価格履歴</value>
+        <value xml:lang="nl">Historie prijs retouren</value>
         <value xml:lang="pt-BR">Histórico de preços de devolução</value>
         <value xml:lang="vi">Lịch sử giá hoàn trả</value>
         <value xml:lang="zh">退货价格历史记录</value>
@@ -11581,6 +11590,7 @@
         <value xml:lang="fr">Historique des quantités de retour</value>
         <value xml:lang="it">Storia quantità resa</value>
         <value xml:lang="ja">返品数量履歴</value>
+        <value xml:lang="nl">Historie hoeveelheden retouren</value>
         <value xml:lang="pt-BR">Histórico de quantidade de devolução</value>
         <value xml:lang="vi">Lịch sử số lượng hoàn trả</value>
         <value xml:lang="zh">退货数量历史记录</value>
@@ -11593,7 +11603,7 @@
         <value xml:lang="fr">Motif</value>
         <value xml:lang="it">Motivo</value>
         <value xml:lang="ja">理由</value>
-        <value xml:lang="nl">Reason</value>
+        <value xml:lang="nl">Reden</value>
         <value xml:lang="pt-BR">Razão</value>
         <value xml:lang="ro">Motiv</value>
         <value xml:lang="ru">Причина</value>
@@ -11608,6 +11618,7 @@
         <value xml:lang="fr">Historique des raisons de retour</value>
         <value xml:lang="it">Storia motivazione reso</value>
         <value xml:lang="ja">返品理由履歴</value>
+        <value xml:lang="nl">Historie redenen retouren</value>
         <value xml:lang="pt-BR">Histórico de motivação para devolução</value>
         <value xml:lang="vi">Lịch sử nguyên nhân hoàn trả</value>
         <value xml:lang="zh">退货原因历史记录</value>
@@ -11736,7 +11747,7 @@
         <value xml:lang="fr">Total du retour</value>
         <value xml:lang="it">Totale Reso</value>
         <value xml:lang="ja">返品合計</value>
-        <value xml:lang="nl">Return Total</value>
+        <value xml:lang="nl">Totaal retouren</value>
         <value xml:lang="pt-BR">Total de devolução</value>
         <value xml:lang="ro">Total Returnare</value>
         <value xml:lang="ru">Общая по возврату</value>
@@ -11768,6 +11779,7 @@
         <value xml:lang="fr">Historique des types de retour</value>
         <value xml:lang="it">Storia tipo reso</value>
         <value xml:lang="ja">返品種類履歴</value>
+        <value xml:lang="nl">Historie type retouren</value>
         <value xml:lang="pt-BR">Histórico de tipo de devolução</value>
         <value xml:lang="vi">Lịch sử kiểu hoàn trả</value>
         <value xml:lang="zh">退货类型历史记录</value>
@@ -11808,7 +11820,7 @@
         <value xml:lang="fr">Vérifier la commande</value>
         <value xml:lang="it">Modifica Ordine</value>
         <value xml:lang="ja">注文確認</value>
-        <value xml:lang="nl">Review Bestelling</value>
+        <value xml:lang="nl">Order reviewen</value>
         <value xml:lang="pt-BR">Repassar pedido</value>
         <value xml:lang="ro">Modifica Comanda</value>
         <value xml:lang="ru">Просмотр заказа</value>
@@ -11825,7 +11837,7 @@
         <value xml:lang="fr">Exécuter</value>
         <value xml:lang="it">Esegui Azione</value>
         <value xml:lang="ja">操作実行</value>
-        <value xml:lang="nl">Run Action</value>
+        <value xml:lang="nl">Actie uitvoeren</value>
         <value xml:lang="pt-BR">Executar ação</value>
         <value xml:lang="ro">Executa Actiune</value>
         <value xml:lang="ru">Выполнить действие</value>
@@ -11841,7 +11853,7 @@
         <value xml:lang="fr">Exécuter les promotions du centre de profit</value>
         <value xml:lang="it">Esegui Promozioni Negozio</value>
         <value xml:lang="ja">店舗プロモーションを実行</value>
-        <value xml:lang="nl">Run Store Promotions</value>
+        <value xml:lang="nl">Winkel promos uitvoeren</value>
         <value xml:lang="pt-BR">Aplicar promoções da loja</value>
         <value xml:lang="ro">Executa Promotie Magazie</value>
         <value xml:lang="ru">Начать акцию в торговой точке</value>
@@ -11886,7 +11898,7 @@
         <value xml:lang="fr">Commande de vente</value>
         <value xml:lang="it">Ordine Vendita</value>
         <value xml:lang="ja">販売注文</value>
-        <value xml:lang="nl">Verkoopbestelling</value>
+        <value xml:lang="nl">Verkooporder</value>
         <value xml:lang="pt-BR">Pedido de venda</value>
         <value xml:lang="ro">Comanda Vanzare </value>
         <value xml:lang="ru">Заказ на продажу</value>
@@ -11976,7 +11988,7 @@
         <value xml:lang="fr">Planifier l'expédition</value>
         <value xml:lang="it">Schedulazione Consegna</value>
         <value xml:lang="ja">配送スケジュール</value>
-        <value xml:lang="nl">Schedule Delivery</value>
+        <value xml:lang="nl">Levering plannen</value>
         <value xml:lang="pt-BR">Agendar envio</value>
         <value xml:lang="ro">Planificare Livrare </value>
         <value xml:lang="ru">Запланированная доставка</value>
@@ -12055,7 +12067,7 @@
         <value xml:lang="fr">Choisir un accord pour cette commande</value>
         <value xml:lang="it">Seleziona un contratto per questo ordine</value>
         <value xml:lang="ja">この注文の同意書を選択</value>
-        <value xml:lang="nl">Select an agreement for this bestelling</value>
+        <value xml:lang="nl">Selecteer contract voor deze order</value>
         <value xml:lang="pt-BR">Selecione um acordo para esse pedido</value>
         <value xml:lang="ro">Selectioneaza un contract pentru aceasta comanda</value>
         <value xml:lang="ru">Выберите договор для этого заказа</value>
@@ -12101,7 +12113,7 @@
         <value xml:lang="fr">Ou sélectionnez une devise pour cette commande</value>
         <value xml:lang="it">O imposta una valuta per questo ordine</value>
         <value xml:lang="ja">またはこの注文の通貨設定</value>
-        <value xml:lang="nl">Or set a currency for this bestelling</value>
+        <value xml:lang="nl">Of zet een valuta voor deze order</value>
         <value xml:lang="pt-BR">Ou selecione uma moeda para esse pedido</value>
         <value xml:lang="ro">Sau seteaza o valuta pentru aceasta comanda</value>
         <value xml:lang="ru">Или установите валюту заказа</value>
@@ -12127,7 +12139,7 @@
         <value xml:lang="fr">Sélectionnez le type d'acteurs à associer à la commande</value>
         <value xml:lang="it">Seleziona il tipo di Soggetto da associare all'ordine</value>
         <value xml:lang="ja">注文に関連付ける取引先の種類を選択</value>
-        <value xml:lang="nl">Select type of party to associate to bestelling</value>
+        <value xml:lang="nl">Select soort partij om aan order te koppelen</value>
         <value xml:lang="pt-BR">Selecione o tipo de participante para associar ao pedido</value>
         <value xml:lang="ro">Selectioneaza tipul de Subiect de asociat la comanda</value>
         <value xml:lang="ru">Выберите ассоциированный с заказом тип контрагента</value>
@@ -12236,7 +12248,7 @@
         <value xml:lang="fr">La promotion ne s'applique pas sur tous les articles. Ceux sur lesquels elle peut s'appliquer sont sélectionnés, les autres restent inchangés.</value>
         <value xml:lang="it">Selezionato un Omaggio che non è disponibile per tutte le righe. Le righe che sono disponibile sono state selezionate, le altre rimarranno invariate.</value>
         <value xml:lang="ja">すべてのアイテムで選択したギフト方法は有効ではありません。有効なアイテムが選択されています、その他は変更ありません。</value>
-        <value xml:lang="nl">Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged.</value>
+        <value xml:lang="nl">Gekozen kadoverpakking is niet voor alle artikelen beschikbaar. De artikelen van toepassing zijn geselecteerd, de andere veranderen niet.</value>
         <value xml:lang="pt-BR">O embrulho pra presente selecionado não está disponível para todos os itens. Os itens para os quais está disponível foram selecionados, os demais permanecem sem alterações.</value>
         <value xml:lang="ro">Selectioneaza un Omagiu care nu este disponibil pe toate liniile. Liniile care sunt disponibile sunt selectionate, celelalte vor ramane invariate.</value>
         <value xml:lang="ru">Выбранная подарочная упаковка недоступна для всех позиций. Позиции для которых возможно ее использования будут выбраны, остальные нет.</value>
@@ -12380,7 +12392,7 @@
         <value xml:lang="fr">Envoi du courriel</value>
         <value xml:lang="it">Invia Email</value>
         <value xml:lang="ja">Eメールを送信</value>
-        <value xml:lang="nl">Send Email</value>
+        <value xml:lang="nl">E-mail versturen</value>
         <value xml:lang="pt-BR">Enviar email</value>
         <value xml:lang="ro">Trimite Email</value>
         <value xml:lang="ru">Послать сообщение</value>
@@ -12664,7 +12676,7 @@
         <value xml:lang="fr">Envoyer vers un autre acteur</value>
         <value xml:lang="it">Spedizione ad un'Altro Soggetto</value>
         <value xml:lang="ja">別の取引先に発送</value>
-        <value xml:lang="nl">Ship to Another Party</value>
+        <value xml:lang="nl">Naar andere partij verzenden</value>
         <value xml:lang="pt-BR">Enviar para outro participante</value>
         <value xml:lang="ro">Expediere la un'Alt Subiect</value>
         <value xml:lang="ru">Поставить другому контрагенту</value>
@@ -12920,7 +12932,7 @@
         <value xml:lang="fr">Pénurie</value>
         <value xml:lang="it">Deficit</value>
         <value xml:lang="ja">不足</value>
-        <value xml:lang="nl">Shortfalled</value>
+        <value xml:lang="nl">Tekort</value>
         <value xml:lang="pt-BR">Pendente</value>
         <value xml:lang="ro">Deficit</value>
         <value xml:lang="ru">Нехватка</value>
@@ -12936,7 +12948,7 @@
         <value xml:lang="fr">Montrer toutes les notes</value>
         <value xml:lang="it">Mostra Tutte le Note</value>
         <value xml:lang="ja">連絡をすべて表示</value>
-        <value xml:lang="nl">Show All Notes</value>
+        <value xml:lang="nl">Toon alle notities</value>
         <value xml:lang="pt-BR">Mostrar todas as notas</value>
         <value xml:lang="ro">Afiseaza Toate Notele</value>
         <value xml:lang="ru">Показать все примечания</value>
@@ -12953,7 +12965,7 @@
         <value xml:lang="fr">Montrer les notes liées à cet article</value>
         <value xml:lang="it">Mostra Questa(e) Nota(e) Riga(e)</value>
         <value xml:lang="ja">このアイテムの連絡を表示</value>
-        <value xml:lang="nl">Show This Item's Notes</value>
+        <value xml:lang="nl">Toon notities van dit element</value>
         <value xml:lang="pt-BR">Mostrar as notas desse item</value>
         <value xml:lang="ro">Afiseaza aceasta Nota </value>
         <value xml:lang="ru">Показать примечания этой позиции</value>
@@ -12969,6 +12981,7 @@
         <value xml:lang="fr">Tailles Disponibles</value>
         <value xml:lang="it">Taglie disponibili</value>
         <value xml:lang="ja">可能なサイズ</value>
+        <value xml:lang="nl">Maten beschikbaar</value>
         <value xml:lang="pt-BR">Tamanhos disponíveis</value>
         <value xml:lang="vi">Các kích cỡ sẵn có</value>
         <value xml:lang="zh">可用尺寸</value>
@@ -12980,6 +12993,7 @@
         <value xml:lang="fr">Taille</value>
         <value xml:lang="it">Taglia</value>
         <value xml:lang="ja">サイズ</value>
+        <value xml:lang="nl">Maat</value>
         <value xml:lang="pt-BR">Tamanho</value>
         <value xml:lang="vi">Kích cỡ</value>
         <value xml:lang="zh">尺寸</value>
@@ -12992,6 +13006,7 @@
         <value xml:lang="fr">Palettes</value>
         <value xml:lang="it">Pallets</value>
         <value xml:lang="ja">パレット</value>
+        <value xml:lang="nl">Pallets</value>
         <value xml:lang="pt-BR">Pallets</value>
         <value xml:lang="th">Skids Pallets</value>
         <value xml:lang="vi">Skids Pallets</value>
@@ -13201,7 +13216,7 @@
         <value xml:lang="hi-IN">आर्डर जमा करें</value>
         <value xml:lang="it">Invia ordine</value>
         <value xml:lang="ja">注文を実行</value>
-        <value xml:lang="nl">Plaats bestelling</value>
+        <value xml:lang="nl">Plaats order</value>
         <value xml:lang="pt-BR">Enviar pedido</value>
         <value xml:lang="pt-PT">Registar Encomenda</value>
         <value xml:lang="ro">Trimite Comanda </value>
@@ -13220,7 +13235,7 @@
         <value xml:lang="hi-IN">कृपया इन्तजार करें, आपके आर्डर पर काम चालू है</value>
         <value xml:lang="it">Attendere prego, elaborazione ordine...</value>
         <value xml:lang="ja">しばらくお待ちください、注文を処理中です...</value>
-        <value xml:lang="nl">Een moment, de bestelling wordt verwerkt...</value>
+        <value xml:lang="nl">Een moment, order wordt verwerkt...</value>
         <value xml:lang="pt-BR">Por favor aguarde, processando o pedido...</value>
         <value xml:lang="pt-PT">Please Wait, Processing Order...</value>
         <value xml:lang="ro">Asteapta te rog, Elaborare Comanda...</value>
@@ -13257,7 +13272,7 @@
         <value xml:lang="fr">Données fournisseur</value>
         <value xml:lang="it">Dati fornitore</value>
         <value xml:lang="ja">サプライヤデータ</value>
-        <value xml:lang="nl">Supplier Data</value>
+        <value xml:lang="nl">Data leverancier</value>
         <value xml:lang="pt-BR">Dados do fornecedor</value>
         <value xml:lang="ro">Data Furnizata</value>
         <value xml:lang="ru">Данные поставщика</value>
@@ -13274,7 +13289,7 @@
         <value xml:lang="fr">Données financières du fournisseur</value>
         <value xml:lang="it">Dati finanziari fornitore</value>
         <value xml:lang="ja">サプライヤ金融データ</value>
-        <value xml:lang="nl">Supplier Financial Data</value>
+        <value xml:lang="nl">Financiele data leverancier</value>
         <value xml:lang="pt-BR">Dados financeiros do fornecedor</value>
         <value xml:lang="ro">Data Finantiara Furnizor</value>
         <value xml:lang="ru">Финансовые данные поставщика</value>
@@ -13291,7 +13306,7 @@
         <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
         <value xml:lang="ja">評価</value>
-        <value xml:lang="nl">Survey</value>
+        <value xml:lang="nl">Enquete</value>
         <value xml:lang="pt-BR">Levantamento</value>
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="ru">Обзор</value>
@@ -13323,7 +13338,7 @@
         <value xml:lang="hi-IN">यह आर्डर उपहार है</value>
         <value xml:lang="it">Questo ordine è un omaggio</value>
         <value xml:lang="ja">この注文はギフトです</value>
-        <value xml:lang="nl">Deze bestelling is een geschenk</value>
+        <value xml:lang="nl">Deze order is een geschenk</value>
         <value xml:lang="pt-BR">Este pedido é um presente</value>
         <value xml:lang="pt-PT">Esta encomenda é um presente</value>
         <value xml:lang="ro">Aceasta comanda este un omagiu</value>
@@ -13342,7 +13357,7 @@
         <value xml:lang="hi-IN">यह आर्डर उपहार नही है</value>
         <value xml:lang="it">Questo ordine non è un omaggio</value>
         <value xml:lang="ja">この注文はギフトではありません</value>
-        <value xml:lang="nl">Deze bestelling is geen geschenk</value>
+        <value xml:lang="nl">Deze order is geen geschenk</value>
         <value xml:lang="pt-BR">Esse pedido não é um presente</value>
         <value xml:lang="pt-PT">Esta encomenda não é um presente</value>
         <value xml:lang="ro">Aceasta comanda nu este un omagiu</value>
@@ -13358,6 +13373,7 @@
         <value xml:lang="fr">Cette commande n'a pas d'instructions de livraison</value>
         <value xml:lang="it">Quest'ordine non ha istruzioni di spedizione</value>
         <value xml:lang="ja">この注文は発送について特別な指示はありません</value>
+        <value xml:lang="nl">Deze order heeft geen verzendinfo</value>
         <value xml:lang="pt-BR">Esse pedido não possui instruções para envio</value>
         <value xml:lang="vi">Đặt hàng này không có hướng dẫn chuyển hàng</value>
         <value xml:lang="zh">本订单没有送货说明</value>
@@ -13370,7 +13386,7 @@
         <value xml:lang="fr">Cette commande est un cadeau</value>
         <value xml:lang="it">Questo ordine è un'omaggio</value>
         <value xml:lang="ja">この注文はギフトです</value>
-        <value xml:lang="nl">Deze bestelling is een geschenk</value>
+        <value xml:lang="nl">Deze order is een geschenk</value>
         <value xml:lang="pt-BR">Esse pedido é um presente</value>
         <value xml:lang="ro">Aceasta comanda este un omagiu</value>
         <value xml:lang="ru">Этот заказ - подарок</value>
@@ -13387,7 +13403,7 @@
         <value xml:lang="fr">Cette commande n'est pas un cadeau</value>
         <value xml:lang="it">Questo ordine non è un'omaggio</value>
         <value xml:lang="ja">この注文はギフトではありません</value>
-        <value xml:lang="nl">Deze bestelling is geen geschenk</value>
+        <value xml:lang="nl">Deze order is geen geschenk</value>
         <value xml:lang="pt-BR">Esse pedido não é um presente</value>
         <value xml:lang="ro">Aceasta comanda nu este un omagiu</value>
         <value xml:lang="ru">Этот заказ не подарок</value>
@@ -13504,7 +13520,7 @@
         <value xml:lang="fr">Total des autres ajustements</value>
         <value xml:lang="it">Totale Altri Aggiustamenti Ordine</value>
         <value xml:lang="ja">その他注文調整合計</value>
-        <value xml:lang="nl">Totaal overige bestelling aanpassingen</value>
+        <value xml:lang="nl">Totaal overige orderaanpassingen</value>
         <value xml:lang="pt-BR">Total de outros ajustes de pedidos</value>
         <value xml:lang="ro">Total Alte Modificari Comenzi</value>
         <value xml:lang="ru">Другие общие корректировки по заказу</value>
@@ -13572,7 +13588,7 @@
         <value xml:lang="fr">Quantité totale commandée</value>
         <value xml:lang="it">Totale quantità ordinata</value>
         <value xml:lang="ja">注文数量合計</value>
-        <value xml:lang="nl">Total quantity bestellinged</value>
+        <value xml:lang="nl">Totaal hoeveelheid georderd</value>
         <value xml:lang="pt-BR">Quantidade total encomendada</value>
         <value xml:lang="ro">Total cantitate comandata</value>
         <value xml:lang="ru">Общее заказанное количество</value>
@@ -13589,7 +13605,7 @@
         <value xml:lang="fr">Quantité totale reçue</value>
         <value xml:lang="it">Totale quantità ricevuta</value>
         <value xml:lang="ja">受取済数量合計</value>
-        <value xml:lang="nl">Total quantity received</value>
+        <value xml:lang="nl">Totale hoeveelheid ontvangen</value>
         <value xml:lang="pt-BR">Quantidade total recebida</value>
         <value xml:lang="ro">Total cantitate primita</value>
         <value xml:lang="ru">Общее полученное количество</value>
@@ -13606,7 +13622,7 @@
         <value xml:lang="fr">Quantité totale refusée</value>
         <value xml:lang="it">Totale quantità scartata</value>
         <value xml:lang="ja">拒否数量合計</value>
-        <value xml:lang="nl">Total quantity rejected</value>
+        <value xml:lang="nl">Totale hoeveelheid geweigerd</value>
         <value xml:lang="pt-BR">Quantidade total rejeitada</value>
         <value xml:lang="ro">Total cantitate rebutata</value>
         <value xml:lang="ru">Общее отмененное количество</value>
@@ -13895,7 +13911,7 @@
         <value xml:lang="fr">Estimer l'achat</value>
         <value xml:lang="it">Valore Acquisto</value>
         <value xml:lang="ja">購入額</value>
-        <value xml:lang="nl">Value Purch</value>
+        <value xml:lang="nl">Inkoopwaarde</value>
         <value xml:lang="pt-BR">Valor da compra</value>
         <value xml:lang="ro">Valoare Cumparare </value>
         <value xml:lang="ru">Стоимость приобретения</value>
@@ -13911,7 +13927,7 @@
         <value xml:lang="fr">Valeur</value>
         <value xml:lang="it">Valore Vendita</value>
         <value xml:lang="ja">販売額</value>
-        <value xml:lang="nl">Value Sold</value>
+        <value xml:lang="nl">Waarde</value>
         <value xml:lang="pt-BR">Valor de venda</value>
         <value xml:lang="ro">Valoare Vanzare</value>
         <value xml:lang="ru">Стоимость продажи</value>
@@ -14010,7 +14026,7 @@
         <value xml:lang="fr">Affichage/Modification des paramètres d'expédition</value>
         <value xml:lang="it">Mostra/Modifica Informazione Schedulazione Consegne</value>
         <value xml:lang="ja">配送スケジュールを表示/編集</value>
-        <value xml:lang="nl">View/Edit Delivery Schedule Info</value>
+        <value xml:lang="nl">View/Edit info planning levering</value>
         <value xml:lang="pt-BR">Visualizar/alterar agendamentos de entrega</value>
         <value xml:lang="ro">Afiseaza/Modifica Informatiile Planificare Livrari</value>
         <value xml:lang="ru">Просмотреть/Редактировать информацию по запланированной доставке</value>
@@ -14044,7 +14060,7 @@
         <value xml:lang="fr">Montrer la commande</value>
         <value xml:lang="it">Mostra Ordine</value>
         <value xml:lang="ja">注文を表示</value>
-        <value xml:lang="nl">Bekijk bestelling</value>
+        <value xml:lang="nl">Bekijk order</value>
         <value xml:lang="pt-BR">Visualizar pedido</value>
         <value xml:lang="ro">Afiseaza Comanda</value>
         <value xml:lang="ru">Просмотреть заказ</value>
@@ -14060,7 +14076,7 @@
         <value xml:lang="fr">Voir l'historique de la commande</value>
         <value xml:lang="it">Mostra storia ordine</value>
         <value xml:lang="ja">注文履歴を表示</value>
-        <value xml:lang="nl">Bekijk eerdere bestellingen</value>
+        <value xml:lang="nl">Bekijk eerdere orders</value>
         <value xml:lang="pt-BR">Visualizar histórico de pedido</value>
         <value xml:lang="vi">Xem lịch sử đặt hàng</value>
         <value xml:lang="zh">浏览订单历史</value>
@@ -14126,7 +14142,7 @@
         <value xml:lang="fr">Montrer la demande</value>
         <value xml:lang="it">Mostra Richiesta</value>
         <value xml:lang="ja">リクエストを表示</value>
-        <value xml:lang="nl">View Request</value>
+        <value xml:lang="nl">Bekijk verzoek</value>
         <value xml:lang="pt-BR">Visualizar solicitação</value>
         <value xml:lang="ro">Afiseaza Cererea</value>
         <value xml:lang="ru">Просмотреть запрос</value>
@@ -14142,6 +14158,7 @@
         <value xml:lang="fr">Vu</value>
         <value xml:lang="it">Visionato</value>
         <value xml:lang="ja">表示</value>
+        <value xml:lang="nl">Gezien</value>
         <value xml:lang="pt-BR">Visualizado</value>
         <value xml:lang="vi">Đã xem</value>
         <value xml:lang="zh">已浏览</value>
@@ -14171,7 +14188,7 @@
         <value xml:lang="fr">Approbations en attente</value>
         <value xml:lang="it">In Attesa di Approvazione</value>
         <value xml:lang="ja">承認待ち</value>
-        <value xml:lang="nl">Waiting Approval</value>
+        <value xml:lang="nl">Wachtend op toestemming</value>
         <value xml:lang="pt-BR">Aguardando aprovação</value>
         <value xml:lang="ro">In Asteptarea de Aprovare</value>
         <value xml:lang="ru">Ожидание утверждения</value>
@@ -14188,7 +14205,7 @@
         <value xml:lang="fr">Achèvements en attente</value>
         <value xml:lang="it">In Attesa di Completamento</value>
         <value xml:lang="ja">完了待ち</value>
-        <value xml:lang="nl">Waiting Completion</value>
+        <value xml:lang="nl">Wachtend op afronding</value>
         <value xml:lang="pt-BR">Aguardando conclusão</value>
         <value xml:lang="ro">In Asteptare de Completare</value>
         <value xml:lang="ru">Ожидание завершения</value>
@@ -14205,7 +14222,7 @@
         <value xml:lang="fr">Paiements en attente</value>
         <value xml:lang="it">In Attesa di Pagamento</value>
         <value xml:lang="ja">支払待ち</value>
-        <value xml:lang="nl">Waiting Payment</value>
+        <value xml:lang="nl">Wachtend op betaling</value>
         <value xml:lang="pt-BR">Aguardando pagamento</value>
         <value xml:lang="ro">In Asteptare de Plata</value>
         <value xml:lang="ru">Ожидание оплаты</value>
@@ -14222,6 +14239,7 @@
         <value xml:lang="fr">Site web</value>
         <value xml:lang="it">Sito web</value>
         <value xml:lang="ja">Webサイト</value>
+        <value xml:lang="nl">Website</value>
         <value xml:lang="pt-BR">Site web</value>
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="vi">Trang thông tin</value>
@@ -14235,6 +14253,7 @@
         <value xml:lang="fr">Pesée</value>
         <value xml:lang="it">Misura peso</value>
         <value xml:lang="ja">重量の単位</value>
+        <value xml:lang="nl">Gewicht measurement</value>
         <value xml:lang="pt-BR">Medida de peso</value>
         <value xml:lang="th">หน่วยวัดน้ำหนัก</value>
         <value xml:lang="vi">Đơn vị tính cân nặng</value>
@@ -14251,7 +14270,7 @@
         <value xml:lang="hi-IN">माल कहाँ भेजें</value>
         <value xml:lang="it">Dove vuoi spedire </value>
         <value xml:lang="ja">どこに発送しますか</value>
-        <value xml:lang="nl">Waarheen zullen we het sturen?</value>
+        <value xml:lang="nl">Waarheen versturen?</value>
         <value xml:lang="pt-BR">Para onde devemos enviá-lo</value>
         <value xml:lang="pt-PT">Onde vamos enviá-lo(a)</value>
         <value xml:lang="ro">Unde vrei sa expediezi </value>
@@ -14268,7 +14287,7 @@
         <value xml:lang="fr">avec le code promo.</value>
         <value xml:lang="it">con Codice</value>
         <value xml:lang="ja">コード:</value>
-        <value xml:lang="nl">with Code</value>
+        <value xml:lang="nl">met Code</value>
         <value xml:lang="pt-BR">com código</value>
         <value xml:lang="ro">cu Cod</value>
         <value xml:lang="ru">с кодом</value>
@@ -14284,6 +14303,7 @@
         <value xml:lang="fr">Besoins</value>
         <value xml:lang="it">Fabbisogni</value>
         <value xml:lang="ja">要求</value>
+        <value xml:lang="nl">Requirement</value>
         <value xml:lang="pt-BR">Requisitos</value>
         <value xml:lang="vi">Yêu cầu Nguồn lực</value>
         <value xml:lang="zh">需求</value>
@@ -14331,7 +14351,7 @@
         <value xml:lang="hi-IN">हाँ, यह उपहार है</value>
         <value xml:lang="it">Si, è un omaggio</value>
         <value xml:lang="ja">はい、ギフトです</value>
-        <value xml:lang="nl">Inderdaad, het is een geschenk</value>
+        <value xml:lang="nl">Ja, het is een geschenk</value>
         <value xml:lang="pt-BR">Sim, e um presente</value>
         <value xml:lang="ro">Da, Este un Omagiu</value>
         <value xml:lang="ru">Да, это подарок</value>
@@ -14695,7 +14715,7 @@
         <value xml:lang="fr">Rechercher un ou des entêtes de commande</value>
         <value xml:lang="it">Ricerca Testate Ordini</value>
         <value xml:lang="ja">注文ヘッダを検索</value>
-        <value xml:lang="nl">Lookup Bestelling Header</value>
+        <value xml:lang="nl">Lookup Order Header</value>
         <value xml:lang="pt-BR">Buscar cabeçalho de pedido</value>
         <value xml:lang="ro">Cauta Antet Comenzi</value>
         <value xml:lang="ru">Найзи оглавление заказа</value>
@@ -14711,7 +14731,7 @@
         <value xml:lang="fr">Rechercher un ou des entêtes de commande et infos d'expédition</value>
         <value xml:lang="it">Ricerca Testate Ordini e Informazioni Spedizioni</value>
         <value xml:lang="ja">注文ヘッダおよび発送情報を検索</value>
-        <value xml:lang="nl">Lookup Bestelling Header and Ship Info</value>
+        <value xml:lang="nl">Lookup Order Header and Ship Info</value>
         <value xml:lang="pt-BR">Buscar cabeçalho de pedido e informações de envio</value>
         <value xml:lang="ro">Cauta Antet Comenzi si Informatii Expedieri</value>
         <value xml:lang="ru">Найти оглавление заказа и информацию о поставке</value>
@@ -14727,7 +14747,7 @@
         <value xml:lang="fr">Rechercher un ou des entêtes commandes d'achat et infos d'expédition</value>
         <value xml:lang="it">Ricerca Testate Ordini Acquisto e Informazioni Spedizioni</value>
         <value xml:lang="ja">購買注文ヘッダおよび発送情報を検索</value>
-        <value xml:lang="nl">Lookup Purchase Bestelling Header and Ship Info</value>
+        <value xml:lang="nl">Lookup Purchase Order Header and Ship Info</value>
         <value xml:lang="pt-BR">Buscar cabeçalho de pedido de venda e informação de envio</value>
         <value xml:lang="ro">Cauta Antete Comenzi de Cumparare si Informatii Expedieri </value>
         <value xml:lang="ru">Найти оглавление закупочного заказа и информацию о поставке</value>
@@ -14825,7 +14845,7 @@
         <value xml:lang="fr">Initialisation de commande</value>
         <value xml:lang="it">Inserimento ordine</value>
         <value xml:lang="ja">注文初期化</value>
-        <value xml:lang="nl">Bestelling initialiseren</value>
+        <value xml:lang="nl">Order initialiseren</value>
         <value xml:lang="pt-BR">Inicialização de pedido</value>
         <value xml:lang="ro">Introducere Comanda</value>
         <value xml:lang="ru">Начальный заказ</value>
@@ -14967,7 +14987,7 @@
         <value xml:lang="fr">Articles en retours</value>
         <value xml:lang="it">Righe Reso</value>
         <value xml:lang="ja">返品アイテム</value>
-        <value xml:lang="nl">Return Items</value>
+        <value xml:lang="nl">Retour-items</value>
         <value xml:lang="pt-BR">Itens de devolução</value>
         <value xml:lang="ro">Linii Returnari</value>
         <value xml:lang="ru">Позиции возврата</value>

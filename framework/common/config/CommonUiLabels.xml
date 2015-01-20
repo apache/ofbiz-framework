@@ -6132,14 +6132,12 @@
     <property key="CommonManager">
         <value xml:lang="ar">مدير</value>
         <value xml:lang="cs">Správce</value>
-        <value xml:lang="de">Manager</value>
         <value xml:lang="en">Manager</value>
         <value xml:lang="es">Administrador</value>
         <value xml:lang="fr">Responsable</value>
         <value xml:lang="hi-IN">प्रबंधक</value>
         <value xml:lang="it">Responsabile</value>
         <value xml:lang="ja">管理者</value>
-        <value xml:lang="nl">Manager</value>
         <value xml:lang="pt">Gerente</value>
         <value xml:lang="ro">Manager</value>
         <value xml:lang="ru">Менеджер</value>
@@ -13998,7 +13996,7 @@
         <value xml:lang="zh">单位</value>
         <value xml:lang="zh-TW">度量單位</value>
     </property>
-    <property key="FormFieldTitle_updateButton">		
+    <property key="FormFieldTitle_updateButton">
         <value xml:lang="ar">تحديث</value>
         <value xml:lang="cs">Obnovit</value>
         <value xml:lang="de">Aktualisieren</value>
