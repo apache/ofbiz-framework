@@ -4420,14 +4420,6 @@
         <value xml:lang="zh">不可用</value>
         <value xml:lang="zh-TW">不適用</value>
     </property>
-    <property key="Enumeration.description.TX_D_PROD">
-        <value xml:lang="en">Production</value>
-        <value xml:lang="nl"> Productie</value>
-    </property>
-    <property key="Enumeration.description.TX_D_SHIP_O">
-        <value xml:lang="en">Shipment</value>
-        <value xml:lang="nl">Verzending</value>
-    </property>
     <property key="Geo.geoName.AB">
         <value xml:lang="de">Albera</value>
         <value xml:lang="en">Alberta</value>
