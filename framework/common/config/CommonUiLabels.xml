@@ -12207,7 +12207,7 @@
         <value xml:lang="ru">Доступ к этому виду - запрещен</value>
         <value xml:lang="vi">Quyền truy cập tới giao diện này hiện đã bị khoá</value>
         <value xml:lang="zh">已经禁止访问这个界面了。</value>
-        <value xml:lang="zh_-TW">已經禁止訪問這個檢視了.</value>
+        <value xml:lang="zh-TW">已經禁止訪問這個檢視了.</value>
     </property>
     <property key="CommonViewCalendar">
         <value xml:lang="ar">مشاهدة الرزمانة</value>
@@ -14967,50 +14967,4 @@
     </property>
     
     
-    <!-- ORRTIZ:BMS Applications -->
-    
-    <property key="CPM">
-        <value xml:lang="en">CPM: Products</value>
-        <value xml:lang="nl">CPM: Producten</value>
-    </property>
-    <property key="CRM">
-        <value xml:lang="en">CRM: Customers</value>
-        <value xml:lang="nl">CRM: Klanten</value>
-    </property>
-    <property key="EAM">
-        <value xml:lang="en">EAM: Equipment</value>
-        <value xml:lang="nl">EAM: Productiemiddelen</value>
-    </property>
-    <property key="MFG">
-        <value xml:lang="en">MFG: Production</value>
-        <value xml:lang="nl">MFG: Productie</value>
-    </property>
-    <property key="SRM">
-        <value xml:lang="en">SRM: Suppliers</value>
-        <value xml:lang="nl">SRM: Leveranciers</value>
-    </property>
-    <property key="WHM">
-        <value xml:lang="en">WHM: Warehousing</value>
-        <value xml:lang="nl">WHM: Magazijn</value>
-    </property>
-    <property key="TaxReport">
-        <value xml:lang="en">TRM: Tax Reporting</value>
-        <value xml:lang="nl">TRM: Belasting Rapportage</value>
-    </property>
-    <property key="ESSCAS">
-        <value xml:lang="en">ESS: CAS</value>
-        <value xml:lang="nl">ESS: CAS</value>
-    </property>
-    <property key="ESSPROFILE">
-        <value xml:lang="en">ESS: Profile</value>
-        <value xml:lang="nl">ESS: Profiel</value>
-    </property>
-    <property key="ESSTERR">
-        <value xml:lang="en">ESS: Expense Report</value>
-        <value xml:lang="nl">ESS: Onkostendeclaratie</value>
-    </property>
-    <property key="ESSTIME">
-        <value xml:lang="en">ESS: Time Registration</value>
-        <value xml:lang="nl">ESS: Tijdregistratie</value>
-    </property>
 </resource>
