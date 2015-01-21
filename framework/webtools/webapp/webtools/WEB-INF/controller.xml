@@ -541,37 +541,6 @@ under the License.
         <response name="success" type="view" value="findTemporalExpression"/>
     </request-map>
 
-    <!-- PortalPage administration  -->
-    <request-map uri="FindPortalPage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="FindPortalPage"/>
-    </request-map>
-    <request-map uri="EditPortalPage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="DuplicatePortalPage">
-        <security https="true" auth="true"/>
-        <event  type="simple" invoke="duplicatePortalPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-    </request-map>
-    <request-map uri="NewPortalPage">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="CreatePortalPage"/>
-    </request-map>
-    <request-map uri="createPortalPageAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createPortalPage"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="CreatePortalPage"/>
-    </request-map>
-    <request-map uri="updatePortalPageAdm">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="updatePortalPage"/>
-        <response name="success" type="view" value="EditPortalPage"/>
-        <response name="error" type="view" value="EditPortalPage"/>
-    </request-map>
-
     <!-- Geo Management -->
     <request-map uri="FindGeo"><security https="true" auth="true"/><response name="success" type="view" value="FindGeo" save-home-view="true"/></request-map>
     <request-map uri="EditGeo"><security https="true" auth="true"/><response name="success" type="view" value="EditGeo"/></request-map>
@@ -700,11 +669,6 @@ under the License.
     <!-- Temporal expression views -->
     <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>
     <view-map name="findTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#FindTemporalExpression"/>
-
-    <!-- PortalPage administration  -->
-    <view-map name="FindPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#FindPortalPage"/>
-    <view-map name="CreatePortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#CreatePortalPage"/>
-    <view-map name="EditPortalPage" type="screen" page="component://webtools/widget/PortalAdmScreens.xml#EditPortalPage"/>
 
     <!-- Geo Management -->
     <view-map name="FindGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#FindGeo"/>
