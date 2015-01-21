@@ -540,7 +540,7 @@ public class ModelMenuItem extends ModelWidget {
             parameterList.add(new Parameter("parentPortalPageId", portalPage.getString("parentPortalPageId"), false));
             String target = "showPortalPage";
             if (parentMenuItem.link != null) {
-                target= "";
+                target = parentMenuItem.link.getTargetExdr().getOriginal();
             }
             this.link = new Link(portalPage, parameterList, target, locale);
         }
