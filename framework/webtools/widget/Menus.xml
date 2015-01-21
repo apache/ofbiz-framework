@@ -47,10 +47,6 @@ under the License.
         </menu-item>
         <menu-item name="geoManagement" title="${uiLabelMap.WebtoolsGeoManagement}">
             <link target="FindGeo"/>
-        </menu-item>        
-        <menu-item name="portalAdmin" title="${uiLabelMap.WebtoolsAdminPortalPage}">
-            <condition><if-has-permission permission="PORTALPAGE_ADMIN"/></condition>
-            <link target="FindPortalPage"/>
         </menu-item>
         <menu-item name="security" title="${uiLabelMap.CommonSecurity}">
             <condition>
@@ -200,22 +196,6 @@ under the License.
         </menu-item>
         <menu-item name="entityPerformanceTest" title="${uiLabelMap.WebtoolsPerformanceTests}">
             <link target="EntityPerformanceTest"/>
-        </menu-item>
-    </menu>
-
-    <menu name="PortalPageAdmin">
-        <menu-item name="duplicate" title="${uiLabelMap.CommonDuplicate}">
-            <link target="DuplicatePortalPage">
-               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
-            </link>
-        </menu-item>
-        <menu-item name="new" title="${uiLabelMap.CommonNew}">
-            <link target="NewPortalPage"/>
-        </menu-item>
-        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}">
-            <link target="EditPortalPage">
-               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
-            </link>
         </menu-item>
     </menu>
 
