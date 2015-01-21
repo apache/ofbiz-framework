@@ -20,12 +20,61 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="MyPortalAppBar" title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}"
+    <menu name="MyPortalAppBar" 
+        title="${uiLabelMap.PageTitleMyPortal} ${partyNameView.personalTitle} ${partyNameView.firstName} ${partyNameView.middleName} ${partyNameView.lastName} ${partyNameView.groupName}"
         extends="CommonAppBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="main" parent-portal-page-value="${parameters.parentPortalPageId}"/>
         <menu-item name="Dashboard" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
             <link target="ManagePortalPages" link-type="anchor">
                 <parameter param-name="parentPortalPageId" from-field="parameters.parentPortalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="portalAdmin" title="${uiLabelMap.AdminPortalPage}">
+            <condition>
+                <if-has-permission permission="MYPORTALBASE_ADMIN"/>
+            </condition>
+            <link target="FindPortalPage"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="PortalPageAdmin">
+        <menu-item name="duplicate" title="${uiLabelMap.CommonDuplicate}">
+            <link target="DuplicatePortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <link target="NewPortalPage"/>
+        </menu-item>
+        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}">
+            <link target="EditPortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="portalAdmin" title="${uiLabelMap.WebtoolsAdminPortalPage}">
+            <condition>
+            <and><if-has-permission permission="WEBTOOLS_VIEW"/>
+            <or>
+            <if-has-permission permission="MYPORTALBASE_ADMIN"/>
+            </or>
+            </and>
+            </condition>
+            <link target="FindPortalPage"/>
+        </menu-item>
+    </menu>
+    
+    <menu name="PortalPageAdmin">
+        <menu-item name="duplicate" title="${uiLabelMap.CommonDuplicate}">
+            <link target="DuplicatePortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
+            </link>
+        </menu-item>
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <link target="NewPortalPage"/>
+        </menu-item>
+        <menu-item name="refresh" title="${uiLabelMap.CommonRefresh}">
+            <link target="EditPortalPage">
+               <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
     </menu>

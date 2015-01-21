@@ -52,10 +52,45 @@
         <response name="success" type="view" value="LookupUserLoginAndPartyDetails"/>
     </request-map>
     
+    <!-- PortalPage administration  -->
+    <request-map uri="FindPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindPortalPage"/>
+    </request-map>
+    <request-map uri="EditPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="DuplicatePortalPage">
+        <security https="true" auth="true"/>
+        <event  type="simple" invoke="duplicatePortalPage" path="component://common/script/org/ofbiz/common/PortalPageMethods.xml"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+    </request-map>
+    <request-map uri="NewPortalPage">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="CreatePortalPage"/>
+    </request-map>
+    <request-map uri="createPortalPageAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createPortalPage"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="CreatePortalPage"/>
+    </request-map>
+    <request-map uri="updatePortalPageAdm">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPage"/>
+        <response name="success" type="view" value="EditPortalPage"/>
+        <response name="error" type="view" value="EditPortalPage"/>
+    </request-map>
+    
     <view-map name="main" type="screen" page="component://common/widget/PortalPageScreens.xml#showPortalPage"/>
     <view-map name="login" type="screen" page="component://myportal/widget/CommonScreens.xml#login"/>
     <view-map name="newRegisterLogin" type="screen" page="component://myportal/widget/CommonScreens.xml#newRegisterLogin"/>  
 
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
-
+    
+    <!-- PortalPage administration  -->
+    <view-map name="FindPortalPage" type="screen" page="component://myportal/widget/PortalAdmScreens.xml#FindPortalPage"/>
+    <view-map name="CreatePortalPage" type="screen" page="component://myportal/widget/PortalAdmScreens.xml#CreatePortalPage"/>
+    <view-map name="EditPortalPage" type="screen" page="component://myportal/widget/PortalAdmScreens.xml#EditPortalPage"/>
 </site-conf>
