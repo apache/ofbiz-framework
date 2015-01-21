@@ -51,7 +51,7 @@ under the License.
                <parameter param-name="portalPageId" from-field="parameters.portalPageId"/>
             </link>
         </menu-item>
-        <menu-item name="portalAdmin" title="${uiLabelMap.WebtoolsAdminPortalPage}">
+        <menu-item name="portalAdmin" title="${uiLabelMap.MyPortalAdminPortalPage}">
             <condition>
             <and><if-has-permission permission="WEBTOOLS_VIEW"/>
             <or>
