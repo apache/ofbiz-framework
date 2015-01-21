@@ -1684,7 +1684,25 @@ under the License.
                         <xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
-            <xs:attribute type="xs:string" name="use-when" />
+                <xs:attribute type="xs:string" name="use-when" />
+                <xs:attribute name="target-type" default="intra-app">
+                    <xs:annotation>
+                        <xs:documentation>Deprecated - use the url-mode attribute.</xs:documentation>
+                    </xs:annotation>
+                    <xs:simpleType>
+                        <xs:restriction base="xs:token">
+                            <xs:enumeration value="intra-app" />
+                            <xs:enumeration value="inter-app" />
+                            <xs:enumeration value="content" />
+                            <xs:enumeration value="plain" />
+                        </xs:restriction>
+                    </xs:simpleType>
+                </xs:attribute>
+                <xs:attribute name="link-style" type="xs:string">
+                    <xs:annotation>
+                        <xs:documentation>Deprecated - use the style attribute.</xs:documentation>
+                    </xs:annotation>
+                </xs:attribute>
             </xs:extension>
         </xs:complexContent>
     </xs:complexType>

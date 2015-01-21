@@ -3148,6 +3148,9 @@ public class ModelFormField {
         public SubHyperlink(Element element, ModelFormField modelFormField) {
             this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
             this.useWhen = FlexibleStringExpander.getInstance(element.getAttribute("use-when"));
+            // Backwards compatible support
+            element.setAttribute("style", element.getAttribute("link-style"));
+            element.setAttribute("url-mode", element.getAttribute("target-type"));
             this.link = new Link(element);
             this.modelFormField = modelFormField;
         }
