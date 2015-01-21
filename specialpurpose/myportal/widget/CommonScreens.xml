@@ -49,6 +49,38 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <screen name="AdminDecorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="MyPortalUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProjectMgrUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="HumanResUiLabels" map-name="uiLabelMap" global="true"/>
+
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.MyPortalInformation" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.PartyCompanySubtitle" global="true"/>
+                <set field="applicationMenuName" value="MyPortalAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://myportal/widget/MyPortalMenus.xml" global="true"/>
+                <!-- 
+                <set field="parameters.parentPortalPageId" from-field="parameters.parentPortalPageId" default-value="MYPORTAL" global="true"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/GetParentPortalPageId.groovy"/>
+                <set field="applicationTitle" value="${uiLabelMap.PageTitleMyPortalForNoLogin}"/>
+                <set field="my" value="My" global="true"/>
+                 -->
+            </actions>
+            <widgets>
+                <include-screen name="ApplicationDecorator" location="component://commonext/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
 
    <screen name="CommonPartyDecorator">
         <section>

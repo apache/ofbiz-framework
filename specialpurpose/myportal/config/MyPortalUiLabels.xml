@@ -248,4 +248,31 @@
         <value xml:lang="zh">我的门户页面</value>
         <value xml:lang="zh-TW">入口網頁</value>
     </property>
+    <property key="PageTitleFindPortalPage">
+        <value xml:lang="en">Find Portal page</value>
+        <value xml:lang="fr">Rech. page portail</value>
+        <value xml:lang="it">Ricerca pagine portale</value>
+        <value xml:lang="ja">ポータルページを検索</value>
+        <value xml:lang="pt">Encontrar a pÃ¡gina do Portal</value>
+        <value xml:lang="vi">Tìm trang Cổng thông tin</value>
+        <value xml:lang="zh">查找门户页面</value>
+        <value xml:lang="zh_TW">查詢入口網頁</value>
+    </property>
+    <property key="WebtoolsAdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+        <value xml:lang="ja">ポータルページの管理</value>
+        <value xml:lang="vi">Quản trị Cổng thông tin</value>
+        <value xml:lang="zh">门户页面管理</value>
+        <value xml:lang="zh_TW">入口網頁面管理</value>
+    </property>
+    
+    <property key="AdminPortalPage">
+        <value xml:lang="en">Portal page Admin.</value>
+        <value xml:lang="fr">Admin. Page portail</value>
+        <value xml:lang="ja">ポータルページの管理</value>
+        <value xml:lang="vi">Quản trị Cổng thông tin</value>
+        <value xml:lang="zh">门户页面管理</value>
+        <value xml:lang="zh-TW">入口網頁面管理</value>
+    </property>
 </resource>
