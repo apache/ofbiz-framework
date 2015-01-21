@@ -621,7 +621,7 @@ $(function(){
                   <strong><div id="variant_price_display"> </div></strong>
                 </div>
               </#if>
-              <#if (availableInventory??) && (availableInventory <= 0)>
+              <#if (availableInventory??) && (availableInventory <= 0) && product.requireAmount?default("N") == "N">
                 <#assign inStock = false />
               </#if>
             </#if>
