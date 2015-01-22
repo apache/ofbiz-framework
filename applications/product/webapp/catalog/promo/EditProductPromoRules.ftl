@@ -388,7 +388,7 @@ under the License.
         <div>${uiLabelMap.ProductNoActionProducts}</div>
       </#if>
                 <div>
-                  <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>" name="createProductPromoProductActions">>
+                  <form method="post" action="<@ofbizUrl>createProductPromoProduct</@ofbizUrl>" name="createProductPromoProductActions">
                     <input type="hidden" name="productPromoId" value="${productPromoId}" />
                     <input type="hidden" name="productPromoRuleId" value="${productPromoAction.productPromoRuleId}" />
                     <input type="hidden" name="productPromoActionSeqId" value="${productPromoAction.productPromoActionSeqId}" />
