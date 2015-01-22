@@ -11350,7 +11350,8 @@
         <value xml:lang="zh-TW">操作和分類,用於操作</value>
     </property>
     <property key="ProductActionForRule">
-        <value xml:lang="en">Action For Rule</value>
+        <value xml:lang="en">Actions For Rule</value>
+        <value xml:lang="fr">Actions pour la règle</value>
         <value xml:lang="ja">ルールに対するアクション</value>
         <value xml:lang="vi">Áp dụng cho Chính sách</value>
         <value xml:lang="zh">操作，用于规则</value>
@@ -14510,6 +14511,7 @@
     </property>
     <property key="ProductConditionsForRule">
         <value xml:lang="en">Conditions For Rule</value>
+        <value xml:lang="fr">Conditions pour la règle</value>
         <value xml:lang="ja">ルールに対する条件</value>
         <value xml:lang="vi">Điều kiện cho Luật áp dụng</value>
         <value xml:lang="zh">条件，用于规则</value>
