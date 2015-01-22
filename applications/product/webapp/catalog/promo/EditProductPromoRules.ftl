@@ -274,7 +274,7 @@ under the License.
               <td>
                 <div>
                   <b> ${uiLabelMap.ProductAction} ${(productPromoAction.productPromoActionSeqId)!}</b>
-                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>">
+                  <form method="post" action="<@ofbizUrl>updateProductPromoAction</@ofbizUrl>" name="updateProductPromoAction">
                     <input type="hidden" name="productPromoId" value="${(productPromoAction.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoAction.productPromoRuleId)!}" />
                     <input type="hidden" name="productPromoActionSeqId" value="${(productPromoAction.productPromoActionSeqId)!}" />
@@ -293,8 +293,11 @@ under the License.
                     <input type="hidden" name="orderAdjustmentTypeId" value="${(productPromoAction.orderAdjustmentTypeId)!}" />
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" value="${(productPromoAction.quantity)!}" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" value="${(productPromoAction.amount)!}" />
-                    ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" value="${(productPromoAction.productId)!}" />
-                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" value="${(productPromoAction.partyId)!}" /><br />
+                    <br/>
+                    ${uiLabelMap.ProductItemId}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.productId)!}" formName="updateProductPromoAction" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                    <br/>
+                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField value="${(productPromoAction.partyId)!}" formName="updateProductPromoAction" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+                    <br/>
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" value="${(productPromoAction.serviceName)!}" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
@@ -415,7 +418,7 @@ under the License.
             <tr>
               <td colspan="3">
                 <div>
-                  <form method="post" action="<@ofbizUrl>createProductPromoAction</@ofbizUrl>">
+                  <form method="post" action="<@ofbizUrl>createProductPromoAction</@ofbizUrl>" name="createProductPromoAction">
                     <input type="hidden" name="productPromoId" value="${(productPromoRule.productPromoId)!}" />
                     <input type="hidden" name="productPromoRuleId" value="${(productPromoRule.productPromoRuleId)!}" />
                     <span class="label"><b>${uiLabelMap.CommonNew}:</b>&nbsp;</span>
@@ -427,8 +430,11 @@ under the License.
                     <input type="hidden" name="orderAdjustmentTypeId" value="PROMOTION_ADJUSTMENT" />
                     ${uiLabelMap.ProductQuantity}:&nbsp;<input type="text" size="5" name="quantity" />
                     ${uiLabelMap.ProductAmount}:&nbsp;<input type="text" size="5" name="amount" />
-                    ${uiLabelMap.ProductItemId}:&nbsp;<input type="text" size="15" name="productId" />
-                    ${uiLabelMap.PartyParty}:&nbsp;<input type="text" size="10" name="partyId" /><br />
+                    <br/>
+                    ${uiLabelMap.ProductItemId}:<@htmlTemplate.lookupField formName="createProductPromoAction" name="productId" id="productId" fieldFormName="LookupProduct"/>
+                    <br/>
+                    ${uiLabelMap.PartyParty}:&nbsp;<@htmlTemplate.lookupField formName="createProductPromoAction" name="partyId" id="partyId" fieldFormName="LookupUserLoginAndPartyDetails"/>
+                    <br/>
                     ${uiLabelMap.ProductServiceName}:&nbsp;<input type="text" size="20" name="serviceName" />
                     ${uiLabelMap.UseCartQuantity}:&nbsp;
                     <select name="useCartQuantity">
