@@ -195,13 +195,13 @@ under the License.
                 <parameter param-name="quoteItemSeqId"/>
             </hyperlink>
         </field>
-        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;N&quot;)}">
+        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy: 'N'.equals(isPromo)}">
             <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
                 <parameter param-name="quoteId"/>
                 <parameter param-name="quoteItemSeqId"/>
             </hyperlink>
         </field>
-        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${bsh:isPromo!=null&amp;&amp;isPromo.equals(&quot;Y&quot;)}"><display/></field>
+        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" use-when="${groovy: 'Y'.equals(isPromo)}"><display/></field>
         <field name="productId" title="${uiLabelMap.ProductProductId}">
             <display-entity entity-name="Product" key-field-name="productId" description="${productId} - ${internalName}"/>
         </field>
