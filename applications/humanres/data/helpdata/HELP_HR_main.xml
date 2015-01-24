@@ -24,30 +24,29 @@ under the License.
   <title>The Human Resources Main screen.</title>
   
   
-    <para>The Main window is the entry point into the HR App and displays the
-    Company tree view for navigating to key HR App items.</para>
+    <para>The Main window is the entry point into the Human Resources Application and displays the
+    Company tree view for navigating to the main menu items.</para>
     
-  <para> This screen will show the the organization of your company, the top level company is defined in a system setup file: general.properties.
-        The system will list devisions and departments in the role &quot;Internal organization&quot; as defined in the party relationships 
-        as a &quot;Group member&quot; under it in as many levels as required.
-  </para>
-  
+  <para> This screen will display the organizational setup of your Company. The top level Company is defined in a system setup file: general.properties.</para>
   <para>
-        related to an &quot;Internal Organization&quot; is an employee position which can be full filled by an employee in an employment. 
-  </para>
-   <title> Nodes In the Company Tree</title>
+        The system will also list any divisions or departments that have been setup with the role &quot;Internal organization&quot; as defined in the party relationships 
+        as a &quot;Group member&quot;. </para>
+        
+  <para>The number of organizational levels can be as many as required.</para>
+  
+     <title> Nodes In the Company Tree</title>
 
     <para>There are three node types in the tree, each identified by a
     different icon. The top of the tree represents your Company, the highest
-    level in the HR App organization. The Company and departments under the
-    Company can have children departments or positions. Under positions are
+    level in the organization. The Company and departments under the
+    Company can have sub departments or positions. Under positions are
     the people who fulfill the position.</para>
   
     <title>Usage</title>
 
     <itemizedlist>
       <listitem>
-        <para>Navigate the HR Organization to view departments, positions and
+        <para>Navigate the organization to view departments, positions and
         people</para>
       </listitem>
 

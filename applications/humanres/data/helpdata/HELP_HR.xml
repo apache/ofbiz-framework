@@ -23,24 +23,23 @@ under the License.
   xmlns="http://docbook.org/ns/docbook">
   <title>Human Resources Introduction</title>
     
-   <title>About OFBiz Human Resources</title>
-    <para>The people who work for your company, it's human capital, are it's
-    most important asset. Selecting a software platform that increases the
-    value of your companies human capital and delivers benefits, services and
-    opportunities to your workforce, is critical to your companies success
+   <para>The people who work for your company, are its most important asset.
+    They are human capital. Selecting a software platform that increases the
+    value of your company's human capital and delivers benefits, services and
+    opportunities to your workforce, is critical to your company's success
     .</para>
   
-  <para>That platform must be able to accurately and reliability process
+  <para>The platform must be able to accurately and reliability process
     worker transactions, collect decision support information, and communicate
-    between management, workers and outside resources. The OFBiz Human
-    Resource application (HR App) can provide a backbone for building that
-    platform.</para>
+    between management, workers and outside resources.</para> 
     
-     <para>In this chapter you are introduced to the organization of this
-    document and to the key business objects that are the core to HR
-    App.</para>
+   <para> The OFBiz Human Resource Application (HR App) can provide a backbone for 
+   building that platform.</para>
+    
+     <para>In this section we introduce you to the organization of this
+    guide and to the key business objects that are the core to Human Resources.</para>
 
-        <para>In the HR App you can:</para>
+        <para>In the Human Resources Application you can:</para>
 
         <itemizedlist>
           <listitem>

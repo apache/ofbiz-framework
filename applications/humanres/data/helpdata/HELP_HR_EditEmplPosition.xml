@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements. See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to you under the Apache License, Version
+2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0 Unless required by
+applicable law or agreed to in writing, software distributed under the
+License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+CONDITIONS OF ANY KIND, either express or implied. See the License for
+the specific language governing permissions and limitations under the
+License.
+-->
+<section xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="5.0"
+  xmlns:xl="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude"
+  xsi:schemaLocation="http://docbook.org/ns/docbook ../../../content/dtd/docbook.xsd"
+  xmlns="http://docbook.org/ns/docbook">
+ 
+  <title>Create or Edit Employee Position</title>
+
+    <para>This screen is used to create or edit and update an employee position.</para>
+    <para>The main search screen it is opened in create mode by clicking the New Employee
+        Position button or in update mode by clicking on the EmployeePosition Id
+        column in Search Results.</para>
+
+       <para>Fields</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>Employee Position Id - Unique Id for the position. May be
+            user entered or if empty the system will generate sequence
+            number.</para>
+          </listitem>
+
+          <listitem>
+            <para>Status ID - One of Active/Open, Inactive/Closed or Planned
+            For.</para>
+          </listitem>
+
+          <listitem>
+            <para>Party Id - The party id of the
+            internal organization authorized to fill the
+            position.</para>
+          </listitem>
+
+          <listitem>
+            <para>Budget Id - A user entered identifier for the budget
+            authorizing the position.</para>
+          </listitem>
+
+          <listitem>
+            <para>Budget Item Seq Id - A user entered identifier for the
+            budget item authorizing the position.</para>
+          </listitem>
+
+          <listitem>
+            <para>Empl Position Type Id - Select a name for the position type.
+            Position types are defined in Global HR Settings
+            .</para>
+          </listitem>
+
+          <listitem>
+            <para>Estimated From Date - Enter date the position is expected to
+            be filled.</para>
+          </listitem>
+
+          <listitem>
+            <para>Estimated Thru Date - Enter date on which the positions
+            budget authorization is expected to end.</para>
+          </listitem>
+
+          <listitem>
+            <para>Salary Flag - Enter Y if this is a salaried position else
+            N.</para>
+          </listitem>
+
+          <listitem>
+            <para>Exempt Flag - Enter Y if this position exempt from a
+            requirement else N</para>
+          </listitem>
+
+          <listitem>
+            <para>Fulltime Flag - Enter Y if this is a fulltime position else
+            N</para>
+          </listitem>
+
+          <listitem>
+            <para>Temporary Flag - Enter Y if this is a temporary position
+            else N</para>
+          </listitem>
+
+          <listitem>
+            <para>Actual From Date - Enter the date the position is
+            filled.</para>
+          </listitem>
+
+          <listitem>
+            <para>Actual Thru Date - Enter the date the position is no longer
+            authorized.</para>
+          </listitem>
+        </itemizedlist>
+
+        <para>Click Create - to create the position.</para>
+    
+</section>
