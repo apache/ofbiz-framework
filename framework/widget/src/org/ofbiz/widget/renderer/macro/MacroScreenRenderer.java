@@ -684,7 +684,12 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
     protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, ModelScreenWidget.Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
-        ModelForm modelForm = form.getModelForm(context);
+        ModelForm modelForm;
+        try {
+            modelForm = form.getModelForm(context);
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
         modelForm.runFormActions(context);
         Paginator.preparePager(modelForm, context);
         String targetService = modelForm.getPaginateTarget(context);
