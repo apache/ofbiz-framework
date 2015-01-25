@@ -98,41 +98,41 @@ public abstract class ModelForm extends ModelWidget {
     public static String DEFAULT_SORT_FIELD_STYLE = "sort-order";
     public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
     public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
-    protected final List<ModelAction> actions;
-    protected final List<AltRowStyle> altRowStyles;
-    protected final List<AltTarget> altTargets;
-    protected final List<AutoFieldsEntity> autoFieldsEntities;
-    protected final List<AutoFieldsService> autoFieldsServices;
-    protected final boolean clientAutocompleteFields;
-    protected final String containerId;
-    protected final String containerStyle;
-    protected final String defaultEntityName;
+    private final List<ModelAction> actions;
+    private final List<AltRowStyle> altRowStyles;
+    private final List<AltTarget> altTargets;
+    private final List<AutoFieldsEntity> autoFieldsEntities;
+    private final List<AutoFieldsService> autoFieldsServices;
+    private final boolean clientAutocompleteFields;
+    private final String containerId;
+    private final String containerStyle;
+    private final String defaultEntityName;
     /** This field group will be the "catch-all" group for fields that are not
      *  included in an explicit field-group.
      */
-    protected final FieldGroup defaultFieldGroup;
-    protected final FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName;
-    protected final String defaultRequiredFieldStyle;
-    protected final String defaultServiceName;
-    protected final String defaultSortFieldAscStyle;
-    protected final String defaultSortFieldDescStyle;
-    protected final String defaultSortFieldStyle;
-    protected final String defaultTableStyle;
-    protected final String defaultTitleAreaStyle;
-    protected final String defaultTitleStyle;
-    protected final String defaultTooltipStyle;
-    protected final int defaultViewSize;
-    protected final String defaultWidgetAreaStyle;
-    protected final String defaultWidgetStyle;
-    protected final String evenRowStyle;
+    private final FieldGroup defaultFieldGroup;
+    private final FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName;
+    private final String defaultRequiredFieldStyle;
+    private final String defaultServiceName;
+    private final String defaultSortFieldAscStyle;
+    private final String defaultSortFieldDescStyle;
+    private final String defaultSortFieldStyle;
+    private final String defaultTableStyle;
+    private final String defaultTitleAreaStyle;
+    private final String defaultTitleStyle;
+    private final String defaultTooltipStyle;
+    private final int defaultViewSize;
+    private final String defaultWidgetAreaStyle;
+    private final String defaultWidgetStyle;
+    private final String evenRowStyle;
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
      */
-    protected final List<FieldGroupBase> fieldGroupList;
+    private final List<FieldGroupBase> fieldGroupList;
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
-    protected final Map<String, FieldGroupBase> fieldGroupMap;
+    private final Map<String, FieldGroupBase> fieldGroupMap;
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
      * with constraints will also be in this list but may appear multiple times for the same
@@ -142,56 +142,56 @@ public abstract class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    protected final List<ModelFormField> fieldList;
-    protected final String focusFieldName;
-    protected final String formLocation;
-    protected final String formTitleAreaStyle;
-    protected final String formWidgetAreaStyle;
-    protected final boolean groupColumns;
-    protected final String headerRowStyle;
-    protected final boolean hideHeader;
-    protected final String itemIndexSeparator;
-    protected final List<String> lastOrderFields;
-    protected final String listEntryName;
-    protected final String listName;
-    protected final List<ModelFormField> multiSubmitFields;
-    protected final String oddRowStyle;
+    private final List<ModelFormField> fieldList;
+    private final String focusFieldName;
+    private final String formLocation;
+    private final String formTitleAreaStyle;
+    private final String formWidgetAreaStyle;
+    private final boolean groupColumns;
+    private final String headerRowStyle;
+    private final boolean hideHeader;
+    private final String itemIndexSeparator;
+    private final List<String> lastOrderFields;
+    private final String listEntryName;
+    private final String listName;
+    private final List<ModelFormField> multiSubmitFields;
+    private final String oddRowStyle;
     /** On Paginate areas to be updated. */
-    protected final List<UpdateArea> onPaginateUpdateAreas;
+    private final List<UpdateArea> onPaginateUpdateAreas;
     /** On Sort Column areas to be updated. */
-    protected final List<UpdateArea> onSortColumnUpdateAreas;
+    private final List<UpdateArea> onSortColumnUpdateAreas;
     /** On Submit areas to be updated. */
-    protected final List<UpdateArea> onSubmitUpdateAreas;
-    protected final FlexibleStringExpander overrideListSize;
-    protected final FlexibleStringExpander paginate;
-    protected final FlexibleStringExpander paginateFirstLabel;
-    protected final FlexibleStringExpander paginateIndexField;
-    protected final FlexibleStringExpander paginateLastLabel;
-    protected final FlexibleStringExpander paginateNextLabel;
-    protected final FlexibleStringExpander paginatePreviousLabel;
-    protected final FlexibleStringExpander paginateSizeField;
-    protected final String paginateStyle;
-    protected final FlexibleStringExpander paginateTarget;
-    protected final String paginateTargetAnchor;
-    protected final FlexibleStringExpander paginateViewSizeLabel;
-    protected final ModelForm parentModel;
-    protected final List<ModelAction> rowActions;
-    protected final FlexibleStringExpander rowCountExdr;
-    protected final boolean separateColumns;
-    protected final boolean skipEnd;
-    protected final boolean skipStart;
-    protected final String sortFieldParameterName;
-    protected final List<SortField> sortOrderFields;
-    protected final FlexibleStringExpander target;
-    protected final String targetType;
-    protected final FlexibleStringExpander targetWindowExdr;
-    protected final String title;
-    protected final String tooltip;
-    protected final String type;
-    protected final boolean useRowSubmit;
+    private final List<UpdateArea> onSubmitUpdateAreas;
+    private final FlexibleStringExpander overrideListSize;
+    private final FlexibleStringExpander paginate;
+    private final FlexibleStringExpander paginateFirstLabel;
+    private final FlexibleStringExpander paginateIndexField;
+    private final FlexibleStringExpander paginateLastLabel;
+    private final FlexibleStringExpander paginateNextLabel;
+    private final FlexibleStringExpander paginatePreviousLabel;
+    private final FlexibleStringExpander paginateSizeField;
+    private final String paginateStyle;
+    private final FlexibleStringExpander paginateTarget;
+    private final String paginateTargetAnchor;
+    private final FlexibleStringExpander paginateViewSizeLabel;
+    private final ModelForm parentModel;
+    private final List<ModelAction> rowActions;
+    private final FlexibleStringExpander rowCountExdr;
+    private final boolean separateColumns;
+    private final boolean skipEnd;
+    private final boolean skipStart;
+    private final String sortFieldParameterName;
+    private final List<SortField> sortOrderFields;
+    private final FlexibleStringExpander target;
+    private final String targetType;
+    private final FlexibleStringExpander targetWindowExdr;
+    private final String title;
+    private final String tooltip;
+    private final String type;
+    private final boolean useRowSubmit;
     /** Keeps track of conditional fields to help ensure that only one is rendered
      */
-    protected final Set<String> useWhenFields;
+    private final Set<String> useWhenFields;
 
     /** XML Constructor */
     protected ModelForm(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -1550,12 +1550,12 @@ public abstract class ModelForm extends ModelWidget {
     public static class FieldGroup implements FieldGroupBase {
         private static AtomicInteger baseSeqNo = new AtomicInteger(0);
         private static final String baseId = "_G";
-        protected final String id;
-        protected final String style;
-        protected final String title;
-        protected final boolean collapsible;
-        protected final boolean initiallyCollapsed;
-        protected final ModelForm modelForm;
+        private final String id;
+        private final String style;
+        private final String title;
+        private final boolean collapsible;
+        private final boolean initiallyCollapsed;
+        private final ModelForm modelForm;
 
         public FieldGroup(Element sortOrderElement, ModelForm modelForm, List<SortField> sortOrderFields,
                 Map<String, FieldGroupBase> fieldGroupMap) {
@@ -1656,8 +1656,8 @@ public abstract class ModelForm extends ModelWidget {
     }
 
     public static class SortField {
-        protected final String fieldName;
-        protected final Integer position;
+        private final String fieldName;
+        private final Integer position;
 
         public SortField(String name) {
             this(name, null);
@@ -1690,14 +1690,14 @@ public abstract class ModelForm extends ModelWidget {
      * elements used in form widgets.
      */
     public static class UpdateArea {
-        protected final String eventType;
-        protected final String areaId;
-        protected final String areaTarget;
-        protected final String defaultServiceName;
-        protected final String defaultEntityName;
-        protected final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
-        protected final CommonWidgetModels.AutoServiceParameters autoServiceParameters;
-        protected final List<CommonWidgetModels.Parameter> parameterList;
+        private final String eventType;
+        private final String areaId;
+        private final String areaTarget;
+        private final String defaultServiceName;
+        private final String defaultEntityName;
+        private final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
+        private final CommonWidgetModels.AutoServiceParameters autoServiceParameters;
+        private final List<CommonWidgetModels.Parameter> parameterList;
 
         public UpdateArea(Element updateAreaElement) {
             this(updateAreaElement, null, null);
