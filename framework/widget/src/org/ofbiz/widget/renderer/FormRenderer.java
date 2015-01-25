@@ -44,7 +44,7 @@ import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.widget.WidgetWorker;
 import org.ofbiz.widget.model.AbstractModelAction;
 import org.ofbiz.widget.model.FieldInfo;
-import org.ofbiz.widget.model.ModelForm;
+import org.ofbiz.widget.model.*;
 import org.ofbiz.widget.model.ModelForm.FieldGroup;
 import org.ofbiz.widget.model.ModelForm.FieldGroupBase;
 import org.ofbiz.widget.model.ModelFormField;
@@ -214,7 +214,7 @@ public class FormRenderer {
     }
 
     /**
-     * Renders this form to a String, i.e. in a text format, as defined with the
+     * Renders this form to a writer, as defined with the
      * FormStringRenderer implementation.
      *
      * @param writer The Writer that the form text will be written to
@@ -227,7 +227,7 @@ public class FormRenderer {
     public void render(Appendable writer, Map<String, Object> context)
             throws Exception {
         //  increment the paginator, only for list and multi forms
-        if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType())) {
+        if (modelForm instanceof ModelGrid) {
             WidgetWorker.incrementPaginatorNumber(context);
         }
 
@@ -237,8 +237,8 @@ public class FormRenderer {
 
         modelForm.runFormActions(context);
 
-        // if this is a list form, don't useRequestParameters
-        if ("list".equals(modelForm.getType()) || "multi".equals(modelForm.getType())) {
+        // if this is a list form, don't use Request Parameters
+        if (modelForm instanceof ModelGrid) {
             context.put("useRequestParameters", Boolean.FALSE);
         }
 

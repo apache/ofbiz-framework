@@ -1046,9 +1046,9 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 }
                 UtilGenerics.<MapStack<String>>cast(context).push();
             }
-            ModelForm modelForm = getModelForm(context);
-            FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
             try {
+                ModelForm modelForm = getModelForm(context);
+                FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
                 renderer.render(writer, context);
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + getName() + "] at location [" + this.getLocation(context) + "]: " + e.toString();
@@ -1061,12 +1061,97 @@ public abstract class ModelScreenWidget extends ModelWidget {
             }
         }
 
+        public ModelForm getModelForm(Map<String, Object> context) throws IOException, SAXException, ParserConfigurationException {
+            String name = this.getName(context);
+            String location = this.getLocation(context);
+            return FormFactory.getFormFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(),
+                    getModelScreen().getDispatcher(context).getDispatchContext());
+        }
+
+        public String getName(Map<String, Object> context) {
+            return this.nameExdr.expandString(context);
+        }
+
+        public String getLocation() {
+            return locationExdr.getOriginal();
+        }
+
+        public String getLocation(Map<String, Object> context) {
+            return this.locationExdr.expandString(context);
+        }
+
+        public boolean shareScope(Map<String, Object> context) {
+            String shareScopeString = this.shareScopeExdr.expandString(context);
+            // defaults to false, so anything but true is false
+            return "true".equals(shareScopeString);
+        }
+
+        @Override
+        public void accept(ModelWidgetVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        public FlexibleStringExpander getNameExdr() {
+            return nameExdr;
+        }
+
+        public FlexibleStringExpander getLocationExdr() {
+            return locationExdr;
+        }
+
+        public FlexibleStringExpander getShareScopeExdr() {
+            return shareScopeExdr;
+        }
+    }
+
+    public static final class Grid extends ModelScreenWidget {
+        public static final String TAG_NAME = "include-grid";
+        private final FlexibleStringExpander nameExdr;
+        private final FlexibleStringExpander locationExdr;
+        private final FlexibleStringExpander shareScopeExdr;
+
+        public Grid(ModelScreen modelScreen, Element formElement) {
+            super(modelScreen, formElement);
+            this.nameExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("location"));
+            this.shareScopeExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("share-scope"));
+        }
+
+        @Override
+        public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
+            // Output format might not support forms, so make form rendering optional.
+            FormStringRenderer formStringRenderer = (FormStringRenderer) context.get("formStringRenderer");
+            if (formStringRenderer == null) {
+                Debug.logVerbose("FormStringRenderer instance not found in rendering context, form not rendered.", module);
+                return;
+            }
+            boolean protectScope = !shareScope(context);
+            if (protectScope) {
+                if (!(context instanceof MapStack<?>)) {
+                    context = MapStack.create(context);
+                }
+                UtilGenerics.<MapStack<String>>cast(context).push();
+            }
+            ModelForm modelForm = getModelForm(context);
+            FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
+            try {
+                renderer.render(writer, context);
+            } catch (Exception e) {
+                String errMsg = "Error rendering included grid named [" + getName() + "] at location [" + this.getLocation(context) + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+            if (protectScope) {
+                UtilGenerics.<MapStack<String>>cast(context).pop();
+            }
+        }
+
         public ModelForm getModelForm(Map<String, Object> context) {
             ModelForm modelForm = null;
             String name = this.getName(context);
             String location = this.getLocation(context);
             try {
-                modelForm = FormFactory.getFormFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(), getModelScreen().getDispatcher(context).getDispatchContext());
+                modelForm = GridFactory.getGridFromLocation(location, name, getModelScreen().getDelegator(context).getModelReader(), getModelScreen().getDispatcher(context).getDispatchContext());
             } catch (Exception e) {
                 String errMsg = "Error rendering included form named [" + name + "] at location [" + location + "]: ";
                 Debug.logError(e, errMsg, module);
@@ -1109,7 +1194,6 @@ public abstract class ModelScreenWidget extends ModelWidget {
         public FlexibleStringExpander getShareScopeExdr() {
             return shareScopeExdr;
         }
-
     }
 
     public static final class Tree extends ModelScreenWidget {

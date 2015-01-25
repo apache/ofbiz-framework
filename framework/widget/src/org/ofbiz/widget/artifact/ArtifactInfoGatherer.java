@@ -84,6 +84,7 @@ import org.ofbiz.widget.model.ModelScreenWidget.DecoratorScreen;
 import org.ofbiz.widget.model.ModelScreenWidget.DecoratorSection;
 import org.ofbiz.widget.model.ModelScreenWidget.DecoratorSectionInclude;
 import org.ofbiz.widget.model.ModelScreenWidget.Form;
+import org.ofbiz.widget.model.ModelScreenWidget.Grid;
 import org.ofbiz.widget.model.ModelScreenWidget.HorizontalSeparator;
 import org.ofbiz.widget.model.ModelScreenWidget.IncludeScreen;
 import org.ofbiz.widget.model.ModelScreenWidget.Label;
@@ -181,6 +182,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     public void visit(Form form) throws Exception {
         String formLocation = form.getLocation().concat("#").concat(form.getName());
         infoContext.addFormLocation(formLocation);
+    }
+
+    @Override
+    public void visit(Grid grid) throws Exception {
+        String gridLocation = grid.getLocation().concat("#").concat(grid.getName());
+        infoContext.addFormLocation(gridLocation);
     }
 
     @Override

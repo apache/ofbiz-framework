@@ -62,7 +62,7 @@ import bsh.Interpreter;
  * @see <code>widget-form.xsd</code>
  */
 @SuppressWarnings("serial")
-public class ModelForm extends ModelWidget {
+public abstract class ModelForm extends ModelWidget {
 
     /*
      * ----------------------------------------------------------------------- *
@@ -98,41 +98,41 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_SORT_FIELD_STYLE = "sort-order";
     public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
     public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
-    private final List<ModelAction> actions;
-    private final List<AltRowStyle> altRowStyles;
-    private final List<AltTarget> altTargets;
-    private final List<AutoFieldsEntity> autoFieldsEntities;
-    private final List<AutoFieldsService> autoFieldsServices;
-    private final boolean clientAutocompleteFields;
-    private final String containerId;
-    private final String containerStyle;
-    private final String defaultEntityName;
+    protected final List<ModelAction> actions;
+    protected final List<AltRowStyle> altRowStyles;
+    protected final List<AltTarget> altTargets;
+    protected final List<AutoFieldsEntity> autoFieldsEntities;
+    protected final List<AutoFieldsService> autoFieldsServices;
+    protected final boolean clientAutocompleteFields;
+    protected final String containerId;
+    protected final String containerStyle;
+    protected final String defaultEntityName;
     /** This field group will be the "catch-all" group for fields that are not
      *  included in an explicit field-group.
      */
-    private final FieldGroup defaultFieldGroup;
-    private final FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName;
-    private final String defaultRequiredFieldStyle;
-    private final String defaultServiceName;
-    private final String defaultSortFieldAscStyle;
-    private final String defaultSortFieldDescStyle;
-    private final String defaultSortFieldStyle;
-    private final String defaultTableStyle;
-    private final String defaultTitleAreaStyle;
-    private final String defaultTitleStyle;
-    private final String defaultTooltipStyle;
-    private final int defaultViewSize;
-    private final String defaultWidgetAreaStyle;
-    private final String defaultWidgetStyle;
-    private final String evenRowStyle;
+    protected final FieldGroup defaultFieldGroup;
+    protected final FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName;
+    protected final String defaultRequiredFieldStyle;
+    protected final String defaultServiceName;
+    protected final String defaultSortFieldAscStyle;
+    protected final String defaultSortFieldDescStyle;
+    protected final String defaultSortFieldStyle;
+    protected final String defaultTableStyle;
+    protected final String defaultTitleAreaStyle;
+    protected final String defaultTitleStyle;
+    protected final String defaultTooltipStyle;
+    protected final int defaultViewSize;
+    protected final String defaultWidgetAreaStyle;
+    protected final String defaultWidgetStyle;
+    protected final String evenRowStyle;
     /** This is a list of FieldGroups in the order they were created.
      * Can also include Banner objects.
      */
-    private final List<FieldGroupBase> fieldGroupList;
+    protected final List<FieldGroupBase> fieldGroupList;
     /** This Map is keyed with the field name and has a FieldGroup for the value.
      * Can also include Banner objects.
      */
-    private final Map<String, FieldGroupBase> fieldGroupMap;
+    protected final Map<String, FieldGroupBase> fieldGroupMap;
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
      * with constraints will also be in this list but may appear multiple times for the same
@@ -142,67 +142,67 @@ public class ModelForm extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the form definition to keep the
      * list clean and implement the override features for field definitions.
      */
-    private final List<ModelFormField> fieldList;
-    private final String focusFieldName;
-    private final String formLocation;
-    private final String formTitleAreaStyle;
-    private final String formWidgetAreaStyle;
-    private final boolean groupColumns;
-    private final String headerRowStyle;
-    private final boolean hideHeader;
-    private final String itemIndexSeparator;
-    private final List<String> lastOrderFields;
-    private final String listEntryName;
-    private final String listName;
-    private final List<ModelFormField> multiSubmitFields;
-    private final String oddRowStyle;
+    protected final List<ModelFormField> fieldList;
+    protected final String focusFieldName;
+    protected final String formLocation;
+    protected final String formTitleAreaStyle;
+    protected final String formWidgetAreaStyle;
+    protected final boolean groupColumns;
+    protected final String headerRowStyle;
+    protected final boolean hideHeader;
+    protected final String itemIndexSeparator;
+    protected final List<String> lastOrderFields;
+    protected final String listEntryName;
+    protected final String listName;
+    protected final List<ModelFormField> multiSubmitFields;
+    protected final String oddRowStyle;
     /** On Paginate areas to be updated. */
-    private final List<UpdateArea> onPaginateUpdateAreas;
+    protected final List<UpdateArea> onPaginateUpdateAreas;
     /** On Sort Column areas to be updated. */
-    private final List<UpdateArea> onSortColumnUpdateAreas;
+    protected final List<UpdateArea> onSortColumnUpdateAreas;
     /** On Submit areas to be updated. */
-    private final List<UpdateArea> onSubmitUpdateAreas;
-    private final FlexibleStringExpander overrideListSize;
-    private final FlexibleStringExpander paginate;
-    private final FlexibleStringExpander paginateFirstLabel;
-    private final FlexibleStringExpander paginateIndexField;
-    private final FlexibleStringExpander paginateLastLabel;
-    private final FlexibleStringExpander paginateNextLabel;
-    private final FlexibleStringExpander paginatePreviousLabel;
-    private final FlexibleStringExpander paginateSizeField;
-    private final String paginateStyle;
-    private final FlexibleStringExpander paginateTarget;
-    private final String paginateTargetAnchor;
-    private final FlexibleStringExpander paginateViewSizeLabel;
-    private final ModelForm parentModelForm;
-    private final List<ModelAction> rowActions;
-    private final FlexibleStringExpander rowCountExdr;
-    private final boolean separateColumns;
-    private final boolean skipEnd;
-    private final boolean skipStart;
-    private final String sortFieldParameterName;
-    private final List<SortField> sortOrderFields;
-    private final FlexibleStringExpander target;
-    private final String targetType;
-    private final FlexibleStringExpander targetWindowExdr;
-    private final String title;
-    private final String tooltip;
-    private final String type;
-    private final boolean useRowSubmit;
+    protected final List<UpdateArea> onSubmitUpdateAreas;
+    protected final FlexibleStringExpander overrideListSize;
+    protected final FlexibleStringExpander paginate;
+    protected final FlexibleStringExpander paginateFirstLabel;
+    protected final FlexibleStringExpander paginateIndexField;
+    protected final FlexibleStringExpander paginateLastLabel;
+    protected final FlexibleStringExpander paginateNextLabel;
+    protected final FlexibleStringExpander paginatePreviousLabel;
+    protected final FlexibleStringExpander paginateSizeField;
+    protected final String paginateStyle;
+    protected final FlexibleStringExpander paginateTarget;
+    protected final String paginateTargetAnchor;
+    protected final FlexibleStringExpander paginateViewSizeLabel;
+    protected final ModelForm parentModel;
+    protected final List<ModelAction> rowActions;
+    protected final FlexibleStringExpander rowCountExdr;
+    protected final boolean separateColumns;
+    protected final boolean skipEnd;
+    protected final boolean skipStart;
+    protected final String sortFieldParameterName;
+    protected final List<SortField> sortOrderFields;
+    protected final FlexibleStringExpander target;
+    protected final String targetType;
+    protected final FlexibleStringExpander targetWindowExdr;
+    protected final String title;
+    protected final String tooltip;
+    protected final String type;
+    protected final boolean useRowSubmit;
     /** Keeps track of conditional fields to help ensure that only one is rendered
      */
-    private final Set<String> useWhenFields;
+    protected final Set<String> useWhenFields;
 
     /** XML Constructor */
-    public ModelForm(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
+    protected ModelForm(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
         super(formElement);
         this.formLocation = formLocation;
-        parentModelForm = getParentForm(formElement, entityModelReader, dispatchContext);
+        parentModel = getParentModel(formElement, entityModelReader, dispatchContext);
         int defaultViewSizeInt = DEFAULT_PAGE_SIZE;
         String viewSize = formElement.getAttribute("view-size");
         if (viewSize.isEmpty()) {
-            if (parentModelForm != null) {
-                defaultViewSizeInt = parentModelForm.defaultViewSize;
+            if (parentModel != null) {
+                defaultViewSizeInt = parentModel.defaultViewSize;
             } else {
                 defaultViewSizeInt = UtilProperties.getPropertyAsInteger("widget.properties", "widget.form.defaultViewSize",
                         defaultViewSizeInt);
@@ -215,167 +215,167 @@ public class ModelForm extends ModelWidget {
         }
         this.defaultViewSize = defaultViewSizeInt;
         String type = formElement.getAttribute("type");
-        if (type.isEmpty() && parentModelForm != null) {
-            type = parentModelForm.type;
+        if (type.isEmpty() && parentModel != null) {
+            type = parentModel.type;
         }
         this.type = type;
         FlexibleStringExpander target = FlexibleStringExpander.getInstance(formElement.getAttribute("target"));
-        if (target.isEmpty() && parentModelForm != null) {
-            target = parentModelForm.target;
+        if (target.isEmpty() && parentModel != null) {
+            target = parentModel.target;
         }
         this.target = target;
         String containerId = formElement.getAttribute("id");
-        if (containerId.isEmpty() && parentModelForm != null) {
-            containerId = parentModelForm.containerId;
+        if (containerId.isEmpty() && parentModel != null) {
+            containerId = parentModel.containerId;
         }
         this.containerId = containerId;
         String containerStyle = formElement.getAttribute("style");
-        if (containerStyle.isEmpty() && parentModelForm != null) {
-            containerStyle = parentModelForm.containerStyle;
+        if (containerStyle.isEmpty() && parentModel != null) {
+            containerStyle = parentModel.containerStyle;
         }
         this.containerStyle = containerStyle;
         String title = formElement.getAttribute("title");
-        if (title.isEmpty() && parentModelForm != null) {
-            title = parentModelForm.title;
+        if (title.isEmpty() && parentModel != null) {
+            title = parentModel.title;
         }
         this.title = title;
         String tooltip = formElement.getAttribute("tooltip");
-        if (tooltip.isEmpty() && parentModelForm != null) {
-            tooltip = parentModelForm.tooltip;
+        if (tooltip.isEmpty() && parentModel != null) {
+            tooltip = parentModel.tooltip;
         }
         this.tooltip = tooltip;
         String listName = formElement.getAttribute("list-name");
         if (listName.isEmpty()) {
-            if (parentModelForm != null) {
-                listName = parentModelForm.listName;
+            if (parentModel != null) {
+                listName = parentModel.listName;
             } else {
                 listName = DEFAULT_FORM_RESULT_LIST_NAME;
             }
         }
         this.listName = listName;
         String listEntryName = formElement.getAttribute("list-entry-name");
-        if (listEntryName.isEmpty() && parentModelForm != null) {
-            listEntryName = parentModelForm.listEntryName;
+        if (listEntryName.isEmpty() && parentModel != null) {
+            listEntryName = parentModel.listEntryName;
         }
         this.listEntryName = listEntryName;
         String defaultEntityName = formElement.getAttribute("default-entity-name");
-        if (defaultEntityName.isEmpty() && parentModelForm != null) {
-            defaultEntityName = parentModelForm.defaultEntityName;
+        if (defaultEntityName.isEmpty() && parentModel != null) {
+            defaultEntityName = parentModel.defaultEntityName;
         }
         this.defaultEntityName = defaultEntityName;
         String defaultServiceName = formElement.getAttribute("default-service-name");
-        if (defaultServiceName.isEmpty() && parentModelForm != null) {
-            defaultServiceName = parentModelForm.defaultServiceName;
+        if (defaultServiceName.isEmpty() && parentModel != null) {
+            defaultServiceName = parentModel.defaultServiceName;
         }
         this.defaultServiceName = defaultServiceName;
         String formTitleAreaStyle = formElement.getAttribute("form-title-area-style");
-        if (formTitleAreaStyle.isEmpty() && parentModelForm != null) {
-            formTitleAreaStyle = parentModelForm.formTitleAreaStyle;
+        if (formTitleAreaStyle.isEmpty() && parentModel != null) {
+            formTitleAreaStyle = parentModel.formTitleAreaStyle;
         }
         this.formTitleAreaStyle = formTitleAreaStyle;
         String formWidgetAreaStyle = formElement.getAttribute("form-widget-area-style");
-        if (formWidgetAreaStyle.isEmpty() && parentModelForm != null) {
-            formWidgetAreaStyle = parentModelForm.formWidgetAreaStyle;
+        if (formWidgetAreaStyle.isEmpty() && parentModel != null) {
+            formWidgetAreaStyle = parentModel.formWidgetAreaStyle;
         }
         this.formWidgetAreaStyle = formWidgetAreaStyle;
         String defaultTitleAreaStyle = formElement.getAttribute("default-title-area-style");
-        if (defaultTitleAreaStyle.isEmpty() && parentModelForm != null) {
-            defaultTitleAreaStyle = parentModelForm.defaultTitleAreaStyle;
+        if (defaultTitleAreaStyle.isEmpty() && parentModel != null) {
+            defaultTitleAreaStyle = parentModel.defaultTitleAreaStyle;
         }
         this.defaultTitleAreaStyle = defaultTitleAreaStyle;
         String defaultWidgetAreaStyle = formElement.getAttribute("default-widget-area-style");
-        if (defaultWidgetAreaStyle.isEmpty() && parentModelForm != null) {
-            defaultWidgetAreaStyle = parentModelForm.defaultWidgetAreaStyle;
+        if (defaultWidgetAreaStyle.isEmpty() && parentModel != null) {
+            defaultWidgetAreaStyle = parentModel.defaultWidgetAreaStyle;
         }
         this.defaultWidgetAreaStyle = defaultWidgetAreaStyle;
         String oddRowStyle = formElement.getAttribute("odd-row-style");
-        if (oddRowStyle.isEmpty() && parentModelForm != null) {
-            oddRowStyle = parentModelForm.oddRowStyle;
+        if (oddRowStyle.isEmpty() && parentModel != null) {
+            oddRowStyle = parentModel.oddRowStyle;
         }
         this.oddRowStyle = oddRowStyle;
         String evenRowStyle = formElement.getAttribute("even-row-style");
-        if (evenRowStyle.isEmpty() && parentModelForm != null) {
-            evenRowStyle = parentModelForm.evenRowStyle;
+        if (evenRowStyle.isEmpty() && parentModel != null) {
+            evenRowStyle = parentModel.evenRowStyle;
         }
         this.evenRowStyle = evenRowStyle;
         String defaultTableStyle = formElement.getAttribute("default-table-style");
-        if (defaultTableStyle.isEmpty() && parentModelForm != null) {
-            defaultTableStyle = parentModelForm.defaultTableStyle;
+        if (defaultTableStyle.isEmpty() && parentModel != null) {
+            defaultTableStyle = parentModel.defaultTableStyle;
         }
         this.defaultTableStyle = defaultTableStyle;
         String headerRowStyle = formElement.getAttribute("header-row-style");
-        if (headerRowStyle.isEmpty() && parentModelForm != null) {
-            headerRowStyle = parentModelForm.headerRowStyle;
+        if (headerRowStyle.isEmpty() && parentModel != null) {
+            headerRowStyle = parentModel.headerRowStyle;
         }
         this.headerRowStyle = headerRowStyle;
         String defaultTitleStyle = formElement.getAttribute("default-title-style");
-        if (defaultTitleStyle.isEmpty() && parentModelForm != null) {
-            defaultTitleStyle = parentModelForm.defaultTitleStyle;
+        if (defaultTitleStyle.isEmpty() && parentModel != null) {
+            defaultTitleStyle = parentModel.defaultTitleStyle;
         }
         this.defaultTitleStyle = defaultTitleStyle;
         String defaultWidgetStyle = formElement.getAttribute("default-widget-style");
-        if (defaultWidgetStyle.isEmpty() && parentModelForm != null) {
-            defaultWidgetStyle = parentModelForm.defaultWidgetStyle;
+        if (defaultWidgetStyle.isEmpty() && parentModel != null) {
+            defaultWidgetStyle = parentModel.defaultWidgetStyle;
         }
         this.defaultWidgetStyle = defaultWidgetStyle;
         String defaultTooltipStyle = formElement.getAttribute("default-tooltip-style");
-        if (defaultTooltipStyle.isEmpty() && parentModelForm != null) {
-            defaultTooltipStyle = parentModelForm.defaultTooltipStyle;
+        if (defaultTooltipStyle.isEmpty() && parentModel != null) {
+            defaultTooltipStyle = parentModel.defaultTooltipStyle;
         }
         this.defaultTooltipStyle = defaultTooltipStyle;
         String itemIndexSeparator = formElement.getAttribute("item-index-separator");
-        if (itemIndexSeparator.isEmpty() && parentModelForm != null) {
-            itemIndexSeparator = parentModelForm.itemIndexSeparator;
+        if (itemIndexSeparator.isEmpty() && parentModel != null) {
+            itemIndexSeparator = parentModel.itemIndexSeparator;
         }
         this.itemIndexSeparator = itemIndexSeparator;
         String separateColumns = formElement.getAttribute("separate-columns");
-        if (separateColumns.isEmpty() && parentModelForm != null) {
-            this.separateColumns = parentModelForm.separateColumns;
+        if (separateColumns.isEmpty() && parentModel != null) {
+            this.separateColumns = parentModel.separateColumns;
         } else {
             this.separateColumns = "true".equals(separateColumns);
         }
         String groupColumns = formElement.getAttribute("group-columns");
-        if (groupColumns.isEmpty() && parentModelForm != null) {
-            this.groupColumns = parentModelForm.groupColumns;
+        if (groupColumns.isEmpty() && parentModel != null) {
+            this.groupColumns = parentModel.groupColumns;
         } else {
             this.groupColumns = !"false".equals(groupColumns);
         }
         String targetType = formElement.getAttribute("target-type");
-        if (targetType.isEmpty() && parentModelForm != null) {
-            targetType = parentModelForm.targetType;
+        if (targetType.isEmpty() && parentModel != null) {
+            targetType = parentModel.targetType;
         }
         this.targetType = targetType;
         FlexibleMapAccessor<Map<String, ? extends Object>> defaultMapName = FlexibleMapAccessor.getInstance(formElement
                 .getAttribute("default-map-name"));
-        if (defaultMapName.isEmpty() && parentModelForm != null) {
-            defaultMapName = parentModelForm.defaultMapName;
+        if (defaultMapName.isEmpty() && parentModel != null) {
+            defaultMapName = parentModel.defaultMapName;
         }
         this.defaultMapName = defaultMapName;
         FlexibleStringExpander targetWindowExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("target-window"));
-        if (targetWindowExdr.isEmpty() && parentModelForm != null) {
-            targetWindowExdr = parentModelForm.targetWindowExdr;
+        if (targetWindowExdr.isEmpty() && parentModel != null) {
+            targetWindowExdr = parentModel.targetWindowExdr;
         }
         this.targetWindowExdr = targetWindowExdr;
         String hideHeader = formElement.getAttribute("hide-header");
-        if (hideHeader.isEmpty() && parentModelForm != null) {
-            this.hideHeader = parentModelForm.hideHeader;
+        if (hideHeader.isEmpty() && parentModel != null) {
+            this.hideHeader = parentModel.hideHeader;
         } else {
             this.hideHeader = "true".equals(hideHeader);
         }
         String clientAutocompleteFields = formElement.getAttribute("client-autocomplete-fields");
-        if (clientAutocompleteFields.isEmpty() && parentModelForm != null) {
-            this.clientAutocompleteFields = parentModelForm.clientAutocompleteFields;
+        if (clientAutocompleteFields.isEmpty() && parentModel != null) {
+            this.clientAutocompleteFields = parentModel.clientAutocompleteFields;
         } else {
             this.clientAutocompleteFields = !"false".equals(formElement.getAttribute("client-autocomplete-fields"));
         }
         FlexibleStringExpander paginateTarget = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-target"));
-        if (paginateTarget.isEmpty() && parentModelForm != null) {
-            paginateTarget = parentModelForm.paginateTarget;
+        if (paginateTarget.isEmpty() && parentModel != null) {
+            paginateTarget = parentModel.paginateTarget;
         }
         this.paginateTarget = paginateTarget;
         ArrayList<AltTarget> altTargets = new ArrayList<AltTarget>();
-        if (parentModelForm != null) {
-            altTargets.addAll(parentModelForm.altTargets);
+        if (parentModel != null) {
+            altTargets.addAll(parentModel.altTargets);
         }
         for (Element altTargetElement : UtilXml.childElementList(formElement, "alt-target")) {
             altTargets.add(new AltTarget(altTargetElement));
@@ -383,8 +383,8 @@ public class ModelForm extends ModelWidget {
         altTargets.trimToSize();
         this.altTargets = Collections.unmodifiableList(altTargets);
         ArrayList<ModelAction> actions = new ArrayList<ModelAction>();
-        if (parentModelForm != null) {
-            actions.addAll(parentModelForm.actions);
+        if (parentModel != null) {
+            actions.addAll(parentModel.actions);
         }
         Element actionsElement = UtilXml.firstChildElement(formElement, "actions");
         if (actionsElement != null) {
@@ -393,8 +393,8 @@ public class ModelForm extends ModelWidget {
         actions.trimToSize();
         this.actions = Collections.unmodifiableList(actions);
         ArrayList<ModelAction> rowActions = new ArrayList<ModelAction>();
-        if (parentModelForm != null) {
-            rowActions.addAll(parentModelForm.rowActions);
+        if (parentModel != null) {
+            rowActions.addAll(parentModel.rowActions);
         }
         Element rowActionsElement = UtilXml.firstChildElement(formElement, "row-actions");
         if (rowActionsElement != null) {
@@ -405,10 +405,10 @@ public class ModelForm extends ModelWidget {
         ArrayList<UpdateArea> onPaginateUpdateAreas = new ArrayList<UpdateArea>();
         ArrayList<UpdateArea> onSubmitUpdateAreas = new ArrayList<UpdateArea>();
         ArrayList<UpdateArea> onSortColumnUpdateAreas = new ArrayList<UpdateArea>();
-        if (parentModelForm != null) {
-            onPaginateUpdateAreas.addAll(parentModelForm.onPaginateUpdateAreas);
-            onSubmitUpdateAreas.addAll(parentModelForm.onSubmitUpdateAreas);
-            onSortColumnUpdateAreas.addAll(parentModelForm.onSortColumnUpdateAreas);
+        if (parentModel != null) {
+            onPaginateUpdateAreas.addAll(parentModel.onPaginateUpdateAreas);
+            onSubmitUpdateAreas.addAll(parentModel.onSubmitUpdateAreas);
+            onSortColumnUpdateAreas.addAll(parentModel.onSortColumnUpdateAreas);
         }
         for (Element updateAreaElement : UtilXml.childElementList(formElement, "on-event-update-area")) {
             UpdateArea updateArea = new UpdateArea(updateAreaElement, defaultServiceName, defaultEntityName);
@@ -452,8 +452,8 @@ public class ModelForm extends ModelWidget {
         onSortColumnUpdateAreas.trimToSize();
         this.onSortColumnUpdateAreas = Collections.unmodifiableList(onSortColumnUpdateAreas);
         ArrayList<AltRowStyle> altRowStyles = new ArrayList<AltRowStyle>();
-        if (parentModelForm != null) {
-            altRowStyles.addAll(parentModelForm.altRowStyles);
+        if (parentModel != null) {
+            altRowStyles.addAll(parentModel.altRowStyles);
         }
         for (Element altRowStyleElement : UtilXml.childElementList(formElement, "alt-row-style")) {
             AltRowStyle altRowStyle = new AltRowStyle(altRowStyleElement);
@@ -462,14 +462,14 @@ public class ModelForm extends ModelWidget {
         altRowStyles.trimToSize();
         this.altRowStyles = Collections.unmodifiableList(altRowStyles);
         Set<String> useWhenFields = new HashSet<String>();
-        if (parentModelForm != null) {
-            useWhenFields.addAll(parentModelForm.useWhenFields);
+        if (parentModel != null) {
+            useWhenFields.addAll(parentModel.useWhenFields);
         }
         ArrayList<ModelFormFieldBuilder> fieldBuilderList = new ArrayList<ModelFormFieldBuilder>();
         Map<String, ModelFormFieldBuilder> fieldBuilderMap = new HashMap<String, ModelFormFieldBuilder>();
-        if (parentModelForm != null) {
-            // Create this fieldList/Map from clones of parentModelForm's
-            for (ModelFormField parentChildField : parentModelForm.fieldList) {
+        if (parentModel != null) {
+            // Create this fieldList/Map from clones of parentModel's
+            for (ModelFormField parentChildField : parentModel.fieldList) {
                 ModelFormFieldBuilder builder = new ModelFormFieldBuilder(parentChildField);
                 builder.setModelForm(this);
                 fieldBuilderList.add(builder);
@@ -477,131 +477,131 @@ public class ModelForm extends ModelWidget {
             }
         }
         Map<String, FieldGroupBase> fieldGroupMap = new HashMap<String, FieldGroupBase>();
-        if (parentModelForm != null) {
-            fieldGroupMap.putAll(parentModelForm.fieldGroupMap);
+        if (parentModel != null) {
+            fieldGroupMap.putAll(parentModel.fieldGroupMap);
         }
         ArrayList<FieldGroupBase> fieldGroupList = new ArrayList<FieldGroupBase>();
-        if (parentModelForm != null) {
-            fieldGroupList.addAll(parentModelForm.fieldGroupList);
+        if (parentModel != null) {
+            fieldGroupList.addAll(parentModel.fieldGroupList);
         }
         ArrayList<String> lastOrderFields = new ArrayList<String>();
-        if (parentModelForm != null) {
-            lastOrderFields.addAll(parentModelForm.lastOrderFields);
+        if (parentModel != null) {
+            lastOrderFields.addAll(parentModel.lastOrderFields);
         }
         String sortFieldParameterName = formElement.getAttribute("sort-field-parameter-name");
-        if (sortFieldParameterName.isEmpty() && parentModelForm != null) {
-            this.sortFieldParameterName = parentModelForm.targetType;
+        if (sortFieldParameterName.isEmpty() && parentModel != null) {
+            this.sortFieldParameterName = parentModel.targetType;
         } else {
             this.sortFieldParameterName = "sortField";
         }
         String defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
-        if (defaultRequiredFieldStyle.isEmpty() && parentModelForm != null) {
-            defaultRequiredFieldStyle = parentModelForm.defaultRequiredFieldStyle;
+        if (defaultRequiredFieldStyle.isEmpty() && parentModel != null) {
+            defaultRequiredFieldStyle = parentModel.defaultRequiredFieldStyle;
         }
         this.defaultRequiredFieldStyle = defaultRequiredFieldStyle;
         String defaultSortFieldStyle = formElement.getAttribute("default-sort-field-style");
-        if (defaultSortFieldStyle.isEmpty() && parentModelForm != null) {
-            this.defaultSortFieldStyle = parentModelForm.defaultSortFieldStyle;
+        if (defaultSortFieldStyle.isEmpty() && parentModel != null) {
+            this.defaultSortFieldStyle = parentModel.defaultSortFieldStyle;
         } else {
             this.defaultSortFieldStyle = DEFAULT_SORT_FIELD_STYLE;
         }
         String defaultSortFieldAscStyle = formElement.getAttribute("default-sort-field-asc-style");
-        if (defaultSortFieldAscStyle.isEmpty() && parentModelForm != null) {
-            this.defaultSortFieldAscStyle = parentModelForm.defaultSortFieldAscStyle;
+        if (defaultSortFieldAscStyle.isEmpty() && parentModel != null) {
+            this.defaultSortFieldAscStyle = parentModel.defaultSortFieldAscStyle;
         } else {
             this.defaultSortFieldAscStyle = DEFAULT_SORT_FIELD_ASC_STYLE;
         }
         String defaultSortFieldDescStyle = formElement.getAttribute("default-sort-field-desc-style");
-        if (defaultSortFieldDescStyle.isEmpty() && parentModelForm != null) {
-            this.defaultSortFieldDescStyle = parentModelForm.defaultSortFieldDescStyle;
+        if (defaultSortFieldDescStyle.isEmpty() && parentModel != null) {
+            this.defaultSortFieldDescStyle = parentModel.defaultSortFieldDescStyle;
         } else {
             this.defaultSortFieldDescStyle = DEFAULT_SORT_FIELD_DESC_STYLE;
         }
         String paginateTargetAnchor = formElement.getAttribute("paginate-target-anchor");
-        if (paginateTargetAnchor.isEmpty() && parentModelForm != null) {
-            paginateTargetAnchor = parentModelForm.paginateTargetAnchor;
+        if (paginateTargetAnchor.isEmpty() && parentModel != null) {
+            paginateTargetAnchor = parentModel.paginateTargetAnchor;
         }
         this.paginateTargetAnchor = paginateTargetAnchor;
         FlexibleStringExpander paginateIndexField = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-index-field"));
-        if (paginateIndexField.isEmpty() && parentModelForm != null) {
-            paginateIndexField = parentModelForm.paginateIndexField;
+        if (paginateIndexField.isEmpty() && parentModel != null) {
+            paginateIndexField = parentModel.paginateIndexField;
         }
         this.paginateIndexField = paginateIndexField;
         FlexibleStringExpander paginateSizeField = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-size-field"));
-        if (paginateSizeField.isEmpty() && parentModelForm != null) {
-            paginateSizeField = parentModelForm.paginateSizeField;
+        if (paginateSizeField.isEmpty() && parentModel != null) {
+            paginateSizeField = parentModel.paginateSizeField;
         }
         this.paginateSizeField = paginateSizeField;
         FlexibleStringExpander overrideListSize = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("override-list-size"));
-        if (overrideListSize.isEmpty() && parentModelForm != null) {
-            overrideListSize = parentModelForm.overrideListSize;
+        if (overrideListSize.isEmpty() && parentModel != null) {
+            overrideListSize = parentModel.overrideListSize;
         }
         this.overrideListSize = overrideListSize;
         FlexibleStringExpander paginateFirstLabel = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-first-label"));
-        if (paginateFirstLabel.isEmpty() && parentModelForm != null) {
-            paginateFirstLabel = parentModelForm.paginateFirstLabel;
+        if (paginateFirstLabel.isEmpty() && parentModel != null) {
+            paginateFirstLabel = parentModel.paginateFirstLabel;
         }
         this.paginateFirstLabel = paginateFirstLabel;
         FlexibleStringExpander paginatePreviousLabel = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-previous-label"));
-        if (paginatePreviousLabel.isEmpty() && parentModelForm != null) {
-            paginatePreviousLabel = parentModelForm.paginatePreviousLabel;
+        if (paginatePreviousLabel.isEmpty() && parentModel != null) {
+            paginatePreviousLabel = parentModel.paginatePreviousLabel;
         }
         this.paginatePreviousLabel = paginatePreviousLabel;
         FlexibleStringExpander paginateNextLabel = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-next-label"));
-        if (paginateNextLabel.isEmpty() && parentModelForm != null) {
-            paginateNextLabel = parentModelForm.paginateNextLabel;
+        if (paginateNextLabel.isEmpty() && parentModel != null) {
+            paginateNextLabel = parentModel.paginateNextLabel;
         }
         this.paginateNextLabel = paginateNextLabel;
         FlexibleStringExpander paginateLastLabel = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-last-label"));
-        if (paginateLastLabel.isEmpty() && parentModelForm != null) {
-            paginateLastLabel = parentModelForm.paginateLastLabel;
+        if (paginateLastLabel.isEmpty() && parentModel != null) {
+            paginateLastLabel = parentModel.paginateLastLabel;
         }
         this.paginateLastLabel = paginateLastLabel;
         FlexibleStringExpander paginateViewSizeLabel = FlexibleStringExpander.getInstance(formElement
                 .getAttribute("paginate-viewsize-label"));
-        if (paginateViewSizeLabel.isEmpty() && parentModelForm != null) {
-            paginateViewSizeLabel = parentModelForm.paginateViewSizeLabel;
+        if (paginateViewSizeLabel.isEmpty() && parentModel != null) {
+            paginateViewSizeLabel = parentModel.paginateViewSizeLabel;
         }
         this.paginateViewSizeLabel = paginateViewSizeLabel;
         String paginateStyle = formElement.getAttribute("paginate-style");
-        if (paginateStyle.isEmpty() && parentModelForm != null) {
-            this.paginateStyle = parentModelForm.paginateStyle;
+        if (paginateStyle.isEmpty() && parentModel != null) {
+            this.paginateStyle = parentModel.paginateStyle;
         } else {
             this.paginateStyle = DEFAULT_PAG_STYLE;
         }
         FlexibleStringExpander paginate = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate"));
-        if (paginate.isEmpty() && parentModelForm != null) {
-            paginate = parentModelForm.paginate;
+        if (paginate.isEmpty() && parentModel != null) {
+            paginate = parentModel.paginate;
         }
         this.paginate = paginate;
         String skipStart = formElement.getAttribute("skip-start");
-        if (skipStart.isEmpty() && parentModelForm != null) {
-            this.skipStart = parentModelForm.skipStart;
+        if (skipStart.isEmpty() && parentModel != null) {
+            this.skipStart = parentModel.skipStart;
         } else {
             this.skipStart = "true".equals(skipStart);
         }
         String skipEnd = formElement.getAttribute("skip-end");
-        if (skipEnd.isEmpty() && parentModelForm != null) {
-            this.skipEnd = parentModelForm.skipEnd;
+        if (skipEnd.isEmpty() && parentModel != null) {
+            this.skipEnd = parentModel.skipEnd;
         } else {
             this.skipEnd = "true".equals(skipEnd);
         }
         String useRowSubmit = formElement.getAttribute("use-row-submit");
-        if (useRowSubmit.isEmpty() && parentModelForm != null) {
-            this.useRowSubmit = parentModelForm.useRowSubmit;
+        if (useRowSubmit.isEmpty() && parentModel != null) {
+            this.useRowSubmit = parentModel.useRowSubmit;
         } else {
             this.useRowSubmit = "true".equals(useRowSubmit);
         }
         FlexibleStringExpander rowCountExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("row-count"));
-        if (rowCountExdr.isEmpty() && parentModelForm != null) {
-            rowCountExdr = parentModelForm.rowCountExdr;
+        if (rowCountExdr.isEmpty() && parentModel != null) {
+            rowCountExdr = parentModel.rowCountExdr;
         }
         this.rowCountExdr = paginate;
         ArrayList<ModelFormFieldBuilder> multiSubmitBuilders = new ArrayList<ModelFormFieldBuilder>();
@@ -728,8 +728,8 @@ public class ModelForm extends ModelWidget {
         sortOrderFields.trimToSize();
         this.sortOrderFields = Collections.unmodifiableList(sortOrderFields);
         String focusFieldName = formElement.getAttribute("focus-field-name");
-        if (focusFieldName.isEmpty() && parentModelForm != null) {
-            focusFieldName = parentModelForm.focusFieldName;
+        if (focusFieldName.isEmpty() && parentModel != null) {
+            focusFieldName = parentModel.focusFieldName;
         }
         this.focusFieldName = focusFieldName;
     }
@@ -1245,51 +1245,18 @@ public class ModelForm extends ModelWidget {
         return field;
     }
 
-    private ModelForm getParentForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext) {
-        ModelForm parent = null;
-        String parentResource = formElement.getAttribute("extends-resource");
-        String parentForm = formElement.getAttribute("extends");
-        if (parentForm.length() > 0) {
-            // check if we have a resource name (part of the string before the ?)
-            if (parentResource.length() > 0) {
-                try {
-                    parent = FormFactory.getFormFromLocation(parentResource, parentForm, entityModelReader, dispatchContext);
-                } catch (Exception e) {
-                    Debug.logError(e, "Failed to load parent form definition '" + parentForm + "' at resource '" + parentResource
-                            + "'", module);
-                }
-            } else if (!parentForm.equals(formElement.getAttribute("name"))) {
-                // try to find a form definition in the same file
-                Element rootElement = formElement.getOwnerDocument().getDocumentElement();
-                List<? extends Element> formElements = UtilXml.childElementList(rootElement, "form");
-                //Uncomment below to add support for abstract forms
-                //formElements.addAll(UtilXml.childElementList(rootElement, "abstract-form"));
-                for (Element formElementEntry : formElements) {
-                    if (formElementEntry.getAttribute("name").equals(parentForm)) {
-                        parent = new ModelForm(formElementEntry, parentResource, entityModelReader, dispatchContext);
-                        break;
-                    }
-                }
-                if (parent == null) {
-                    Debug.logError("Failed to find parent form definition '" + parentForm + "' in same document.", module);
-                }
-            } else {
-                Debug.logError("Recursive form definition found for '" + formElement.getAttribute("name") + ".'", module);
-            }
-        }
-        return parent;
-    }
+    protected abstract ModelForm getParentModel(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext);
 
     public String getParentFormLocation() {
-        return this.parentModelForm == null ? null : this.parentModelForm.getFormLocation();
+        return this.parentModel == null ? null : this.parentModel.getFormLocation();
     }
 
     public String getParentFormName() {
-        return this.parentModelForm == null ? null : this.parentModelForm.getName();
+        return this.parentModel == null ? null : this.parentModel.getName();
     }
 
     public ModelForm getParentModelForm() {
-        return parentModelForm;
+        return parentModel;
     }
 
     public String getPassedRowCount(Map<String, Object> context) {
@@ -1588,12 +1555,12 @@ public class ModelForm extends ModelWidget {
     public static class FieldGroup implements FieldGroupBase {
         private static AtomicInteger baseSeqNo = new AtomicInteger(0);
         private static final String baseId = "_G";
-        private final String id;
-        private final String style;
-        private final String title;
-        private final boolean collapsible;
-        private final boolean initiallyCollapsed;
-        private final ModelForm modelForm;
+        protected final String id;
+        protected final String style;
+        protected final String title;
+        protected final boolean collapsible;
+        protected final boolean initiallyCollapsed;
+        protected final ModelForm modelForm;
 
         public FieldGroup(Element sortOrderElement, ModelForm modelForm, List<SortField> sortOrderFields,
                 Map<String, FieldGroupBase> fieldGroupMap) {
@@ -1694,8 +1661,8 @@ public class ModelForm extends ModelWidget {
     }
 
     public static class SortField {
-        private final String fieldName;
-        private final Integer position;
+        protected final String fieldName;
+        protected final Integer position;
 
         public SortField(String name) {
             this(name, null);
@@ -1728,14 +1695,14 @@ public class ModelForm extends ModelWidget {
      * elements used in form widgets.
      */
     public static class UpdateArea {
-        private final String eventType;
-        private final String areaId;
-        private final String areaTarget;
-        private final String defaultServiceName;
-        private final String defaultEntityName;
-        private final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
-        private final CommonWidgetModels.AutoServiceParameters autoServiceParameters;
-        private final List<CommonWidgetModels.Parameter> parameterList;
+        protected final String eventType;
+        protected final String areaId;
+        protected final String areaTarget;
+        protected final String defaultServiceName;
+        protected final String defaultEntityName;
+        protected final CommonWidgetModels.AutoEntityParameters autoEntityParameters;
+        protected final CommonWidgetModels.AutoServiceParameters autoServiceParameters;
+        protected final List<CommonWidgetModels.Parameter> parameterList;
 
         public UpdateArea(Element updateAreaElement) {
             this(updateAreaElement, null, null);

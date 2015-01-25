@@ -23,12 +23,273 @@ under the License.
   <!-- ================== FORMS ==================== -->
     <xs:element name="forms">
         <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="form"/>
-            </xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="form"/>
+                <xs:element ref="grid"/>
+            </xs:choice>
         </xs:complexType>
     </xs:element>
     <xs:element name="form">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" ref="actions" />
+                <xs:element minOccurs="0" ref="row-actions" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-row-style" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-target" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-service" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-entity" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="field" />
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="on-event-update-area" />
+                <xs:element minOccurs="0" ref="sort-order" />
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required" />
+            <xs:attribute name="type">
+                <xs:annotation>
+                    <xs:documentation>The form type is always required unless you are extending another form.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="single">
+                            <xs:annotation>
+                                <xs:documentation>a single form is a simple single form with values from a single set of values</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="list">
+                            <xs:annotation>
+                                <xs:documentation>a list form is a list of individual forms in a table (could be called a tabular form), it has a list of sets of values and creates one form for each list element</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="multi">
+                            <xs:annotation>
+                                <xs:documentation>a multi form is like a list/tabular form, but it creates a single form to submit all list item forms at once; the field names in the resulting form have an appendage attached to make them unique according to the pattern used for the multi-service
+                                    event handler that will call one service for each list element</xs:documentation>
+                            </xs:annotation>
+                        </xs:enumeration>
+                        <xs:enumeration value="upload">
+                        </xs:enumeration>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="target" type="xs:string" />
+            <xs:attribute name="target-window" type="xs:string" />
+            <xs:attribute name="target-type" default="intra-app">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="intra-app" />
+                        <xs:enumeration value="inter-app" />
+                        <xs:enumeration value="content" />
+                        <xs:enumeration value="plain" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="id" type="xs:string" />
+            <xs:attribute name="style" type="xs:string" />
+            <xs:attribute name="focus-field-name" type="xs:string" />
+            <xs:attribute name="title" type="xs:string" />
+            <xs:attribute name="tooltip" type="xs:string" />
+            <xs:attribute name="list-name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>for list type and other multiple data/form types this is the name of the list in the context to iterate over</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="list-entry-name" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>if specified each list entry will be put in the context with this name; otherwise the list entry must be a Map and the entries in the Map will be put into the context by name</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <!-- this is now deprecated, never made sense to separate anyway; use list-name instead <xs:attribute type="xs:string" name="list-iterator-name"/> -->
+            <xs:attribute type="xs:string" name="default-map-name" />
+            <xs:attribute type="xs:string" name="default-entity-name" />
+            <xs:attribute type="xs:string" name="default-service-name" />
+            <xs:attribute type="xs:string" name="form-title-area-style">
+                <xs:annotation>
+                    <xs:documentation>The form-title-area-style specifies the style to use in the header or title area for the form in a multi-form widget with all form fields rendered in one area.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="form-widget-area-style">
+                <xs:annotation>
+                    <xs:documentation>The form-widget-area-style specifies the style to use in the main or widget area for the form in a multi-form widget with all form fields rendered in one area.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-title-area-style" />
+            <xs:attribute type="xs:string" name="default-widget-area-style" />
+            <xs:attribute type="xs:string" name="default-title-style" />
+            <xs:attribute type="xs:string" name="default-widget-style" />
+            <xs:attribute type="xs:string" name="default-tooltip-style" />
+            <xs:attribute type="xs:string" name="default-required-field-style" />
+            <xs:attribute type="xs:string" name="sort-field-parameter-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the request parameter that is used for specifying the sorted column. This is required when you
+                        have more than one list on a screen - each list must use its own sort field parameter. Defaults to "sortField".
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-sort-field-style">
+                <xs:annotation>
+                    <xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order".</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-sort-field-asc-style">
+                <xs:annotation>
+                    <xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order-asc".</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-sort-field-desc-style">
+                <xs:annotation>
+                    <xs:documentation>CSS style to used for form sort fields. Defaults to "sort-order-desc".</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate" default="${paginate}">
+                <xs:annotation>
+                    <xs:documentation>Indicate if this form is paginated or not, true by default.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-target">
+                <xs:annotation>
+                    <xs:documentation>Target location for the [Previous] and [Next] buttons in a form with pagination. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-target-anchor">
+                <xs:annotation>
+                    <xs:documentation>Target anchor for the [Previous] and [Next] buttons in a form with pagination.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-size-field">
+                <xs:annotation>
+                    <xs:documentation>The name of the parameter that specifies the number of rows to display for each page in a list form with multiple pages. The default is VIEW_SIZE. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-index-field">
+                <xs:annotation>
+                    <xs:documentation>The name of the parameter that specifies what the current page is in a list form with multiple pages. The default is VIEW_INDEX Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="override-list-size">
+                <xs:annotation>
+                    <xs:documentation>The total number of rows in the original list (used for pagination). If not specified, the size of the list will be used. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-first-label">
+                <xs:annotation>
+                    <xs:documentation>Text to display for the [First] button in a form with pagination. Defaults to the CommonFirst label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-previous-label">
+                <xs:annotation>
+                    <xs:documentation>Text to display for the [Previous] button in a form with pagination. Defaults to the CommonPrevious label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-next-label">
+                <xs:annotation>
+                    <xs:documentation>Text to display for the [Next] button in a form with pagination. Defaults to the CommonNext label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-last-label">
+                <xs:annotation>
+                    <xs:documentation>Text to display for the [Last] button in a form with pagination. Defaults to the CommonLast label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="paginate-style">
+                <xs:annotation>
+                    <xs:documentation>CSS style to use for the whole pager in a form with pagination. Defaults to "nav-pager".</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="item-index-separator" default="_o_" />
+            <xs:attribute type="xs:string" name="extends" />
+            <xs:attribute type="xs:string" name="extends-resource" />
+            <xs:attribute name="separate-columns" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="group-columns" default="true">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:integer" name="view-size">
+                <xs:annotation>
+                    <xs:documentation>The number of items to display per page</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="row-count" />
+            <xs:attribute name="use-row-submit" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="skip-start" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="skip-end" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="hide-header" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="odd-row-style">
+                <xs:annotation>
+                    <xs:documentation>The odd-row-style specifies the style to use in the table content odd rows.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="even-row-style">
+                <xs:annotation>
+                    <xs:documentation>The even-row-style specifies the style to use in the table content even rows.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="header-row-style">
+                <xs:annotation>
+                    <xs:documentation>The header-row-style specifies the style to use in the header of table.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute type="xs:string" name="default-table-style">
+                <xs:annotation>
+                    <xs:documentation>The default-table-style specifies the style to use in the table.</xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="client-autocomplete-fields" default="true">
+                <xs:annotation>
+                    <xs:documentation>Tells the browser whether or not to try and autocomplete with values previously entered. Default to true.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <!--
+                not sure this is such a good idea <xs:attribute type="xs:string" name="hidden-values-map-name"> <xs:annotation> <xs:documentation>A map that contains hidden field name/value pairs. The reason for this is to eliminate the need to code custom forms so that auxiliary, passthru data can
+                be sent to the server. By doing it this way, more standard forms can be used. </xs:documentation> </xs:annotation> </xs:attribute>
+            -->
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="grid">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" ref="actions" />
