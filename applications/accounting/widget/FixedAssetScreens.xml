@@ -68,7 +68,7 @@ under the License.
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
             </actions>
             <widgets>
-                <include-form name="ListFixedAssets" location="component://accounting/widget/FixedAssetForms.xml"/>
+                <include-grid name="ListFixedAssets" location="component://accounting/widget/FixedAssetForms.xml"/>
             </widgets>
         </section>
     </screen>

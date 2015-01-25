@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.location.FlexibleLocation;
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.cache.UtilCache;
@@ -39,7 +40,6 @@ import org.ofbiz.service.LocalDispatcher;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
-
 
 /**
  * Widget Library - Form factory class
@@ -90,7 +90,7 @@ public class FormFactory {
             URL formFileUrl = servletContext.getResource(resourceName);
             Document formFileDoc = UtilXml.readXmlDocument(formFileUrl, true, true);
             Element formElement = UtilXml.firstChildElement(formFileDoc.getDocumentElement(), "form", "name", formName);
-            modelForm = new ModelForm(formElement, resourceName, delegator.getModelReader(), dispatcher.getDispatchContext());
+            modelForm = createModelForm(formElement, delegator.getModelReader(), dispatcher.getDispatchContext(), resourceName, formName);
             modelForm = formWebappCache.putIfAbsentAndGet(cacheKey, modelForm);
         }
         if (modelForm == null) {
@@ -125,7 +125,11 @@ public class FormFactory {
     }
 
     public static ModelForm createModelForm(Element formElement, ModelReader entityModelReader, DispatchContext dispatchContext, String formLocation, String formName) {
-        ModelForm modelForm = new ModelForm(formElement, formLocation, entityModelReader, dispatchContext);
-        return modelForm;
+        String formType = formElement.getAttribute("type");
+        if (formType.isEmpty() || "single".equals(formType) || "upload".equals(formType)) {
+            return new ModelSingleForm(formElement, formLocation, entityModelReader, dispatchContext);
+        } else {
+            return new ModelGrid(formElement, formLocation, entityModelReader, dispatchContext);
+        }
     }
 }

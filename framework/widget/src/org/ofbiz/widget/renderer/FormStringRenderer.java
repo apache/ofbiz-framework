@@ -25,7 +25,7 @@ import org.ofbiz.widget.model.ModelForm;
 import org.ofbiz.widget.model.ModelFormField;
 
 /**
- * Widget Library - Form String Renderer interface.
+ * Widget Library - Form/Grid renderer.
  */
 public interface FormStringRenderer {
     public void renderDisplayField(Appendable writer, Map<String, Object> context, ModelFormField.DisplayField displayField) throws IOException;

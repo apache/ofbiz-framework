@@ -57,6 +57,8 @@ public interface ModelWidgetVisitor {
 
     void visit(ModelScreenWidget.Form form) throws Exception;
 
+    void visit(ModelScreenWidget.Grid grid) throws Exception;
+
     void visit(ModelScreenWidget.HorizontalSeparator horizontalSeparator) throws Exception;
 
     void visit(ModelScreenWidget.ScreenImage image) throws Exception;

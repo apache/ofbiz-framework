@@ -450,6 +450,20 @@ under the License.
             </xs:attribute>
         </xs:complexType>
     </xs:element>
+    <xs:element name="include-grid" substitutionGroup="AllWidgets">
+        <xs:complexType>
+            <xs:attribute type="xs:string" name="name" use="required" />
+            <xs:attribute type="xs:string" name="location" use="required" />
+            <xs:attribute name="share-scope" default="false">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+    </xs:element>
     <xs:element name="include-menu" substitutionGroup="AllWidgets">
         <xs:complexType>
             <xs:attribute type="xs:string" name="name" use="required" />

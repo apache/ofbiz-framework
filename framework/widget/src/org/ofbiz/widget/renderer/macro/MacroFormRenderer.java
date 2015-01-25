@@ -81,6 +81,7 @@ import org.ofbiz.widget.model.ModelFormField.TextFindField;
 import org.ofbiz.widget.model.ModelFormField.TextareaField;
 import org.ofbiz.widget.model.ModelFormFieldBuilder;
 import org.ofbiz.widget.model.ModelScreenWidget;
+import org.ofbiz.widget.model.ModelSingleForm;
 import org.ofbiz.widget.model.ModelWidget;
 import org.ofbiz.widget.renderer.FormRenderer;
 import org.ofbiz.widget.renderer.FormStringRenderer;
@@ -155,12 +156,6 @@ public final class MacroFormRenderer implements FormStringRenderer {
             environments.put(writer, environment);
         }
         return environment;
-    }
-
-    private void appendWhitespace(Appendable writer) throws IOException {
-        // appending line ends for now, but this could be replaced with a simple space or something
-        writer.append("\r\n");
-        //writer.append(' ');
     }
 
     private String encode(String value, ModelFormField modelFormField, Map<String, Object> context) {
@@ -1303,7 +1298,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
 
     public void renderFormOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
         this.widgetCommentsEnabled = ModelWidget.widgetBoundaryCommentsEnabled(context);
-        renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        if (modelForm instanceof ModelSingleForm) {
+            renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        } else {
+            renderBeginningBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
+        }
         String targetType = modelForm.getTargetType();
         String targ = modelForm.getTarget(context, targetType);
         StringBuilder linkUrl = new StringBuilder();
@@ -1378,7 +1377,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(hasRequiredField);
         sr.append("\" />");
         executeMacro(writer, sr.toString());
-        renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        if (modelForm instanceof ModelSingleForm) {
+            renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        } else {
+            renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
+        }
     }
 
     public void renderMultiFormClose(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1408,9 +1411,12 @@ public final class MacroFormRenderer implements FormStringRenderer {
         Appendable postMultiFormWriter = wholeFormContext != null ? (Appendable) wholeFormContext.get("postMultiFormWriter") : null;
         if (postMultiFormWriter != null) {
             writer.append(postMultiFormWriter.toString());
-            appendWhitespace(writer);
         }
-        renderEndingBoundaryComment(writer, "Form Widget - Form Element (Multi)", modelForm);
+        if (modelForm instanceof ModelSingleForm) {
+            renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        } else {
+            renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
+        }
     }
 
     public void renderFormatListWrapperOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
@@ -1424,7 +1430,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
         context.put("_QBESTRING_", queryString);
-        renderBeginningBoundaryComment(writer, "Form Widget", modelForm);
+        if (modelForm instanceof ModelSingleForm) {
+            renderBeginningBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        } else {
+            renderBeginningBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
+        }
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
@@ -1477,7 +1487,11 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (this.renderPagination) {
             this.renderNextPrev(writer, context, modelForm);
         }
-        renderEndingBoundaryComment(writer, "Form Widget - Formal List Wrapper", modelForm);
+        if (modelForm instanceof ModelSingleForm) {
+            renderEndingBoundaryComment(writer, "Form Widget - Form Element", modelForm);
+        } else {
+            renderEndingBoundaryComment(writer, "Grid Widget - Grid Element", modelForm);
+        }
     }
 
     public void renderFormatHeaderRowOpen(Appendable writer, Map<String, Object> context, ModelForm modelForm) throws IOException {
