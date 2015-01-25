@@ -239,115 +239,15 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
     @Override
     public void visit(ModelSingleForm modelForm) throws Exception {
         writer.append("<form");
-        visitModelWidget(modelForm);
-        if (modelForm.getParentModelForm() != null) {
-            visitAttribute("extends", modelForm.getParentModelForm().getName());
-            visitAttribute("extends-resource", modelForm.getParentModelForm().getFormLocation());
-        }
-        visitAttribute("view-size", modelForm.getDefaultViewSize());
-        visitAttribute("type", modelForm.getType());
-        visitAttribute("target", modelForm.getTarget());
-        visitAttribute("id", modelForm.getContainerId());
-        visitAttribute("style", modelForm.getContainerStyle());
-        visitAttribute("title", modelForm.getTitle());
-        visitAttribute("tooltip", modelForm.getTooltip());
-        visitAttribute("list-name", modelForm.getListName());
-        visitAttribute("list-entry-name", modelForm.getListEntryName());
-        visitAttribute("default-entity-name", modelForm.getDefaultEntityName());
-        visitAttribute("default-service-name", modelForm.getDefaultServiceName());
-        visitAttribute("form-title-area-style", modelForm.getFormTitleAreaStyle());
-        visitAttribute("form-widget-area-style", modelForm.getFormWidgetAreaStyle());
-        visitAttribute("default-title-area-style", modelForm.getDefaultTitleAreaStyle());
-        visitAttribute("default-widget-area-style", modelForm.getDefaultWidgetAreaStyle());
-        visitAttribute("odd-row-style", modelForm.getOddRowStyle());
-        visitAttribute("even-row-style", modelForm.getEvenRowStyle());
-        visitAttribute("default-table-style", modelForm.getDefaultTableStyle());
-        visitAttribute("header-row-style", modelForm.getHeaderRowStyle());
-        visitAttribute("default-title-style", modelForm.getDefaultTitleStyle());
-        visitAttribute("default-widget-style", modelForm.getDefaultWidgetStyle());
-        visitAttribute("default-tooltip-style", modelForm.getDefaultTooltipStyle());
-        visitAttribute("item-index-separator", modelForm.getItemIndexSeparator());
-        visitAttribute("separate-columns", modelForm.getSeparateColumns());
-        visitAttribute("group-columns", modelForm.getGroupColumns());
-        visitAttribute("target-type", modelForm.getTargetType());
-        visitAttribute("default-map-name", modelForm.getDefaultMapName());
-        visitAttribute("target-window", modelForm.getTargetWindow());
-        visitAttribute("hide-header", modelForm.getHideHeader());
-        visitAttribute("client-autocomplete-fields", modelForm.getClientAutocompleteFields());
-        visitAttribute("paginate-target", modelForm.getPaginateTarget());
-        visitAttribute("sort-field-parameter-name", modelForm.getSortFieldParameterName());
-        visitAttribute("default-required-field-style", modelForm.getDefaultRequiredFieldStyle());
-        visitAttribute("default-sort-field-style", modelForm.getDefaultSortFieldStyle());
-        visitAttribute("default-sort-field-asc-style", modelForm.getDefaultSortFieldAscStyle());
-        visitAttribute("default-sort-field-desc-style", modelForm.getDefaultSortFieldDescStyle());
-        visitAttribute("paginate-target-anchor", modelForm.getPaginateTargetAnchor());
-        visitAttribute("paginate-index-field", modelForm.getPaginateIndexField());
-        visitAttribute("paginate-size-field", modelForm.getPaginateSizeField());
-        visitAttribute("override-list-size", modelForm.getOverrideListSize());
-        visitAttribute("paginate-first-label", modelForm.getPaginateFirstLabel());
-        visitAttribute("paginate-previous-label", modelForm.getPaginatePreviousLabel());
-        visitAttribute("paginate-next-label", modelForm.getPaginateNextLabel());
-        visitAttribute("paginate-last-label", modelForm.getPaginateLastLabel());
-        visitAttribute("paginate-viewsize-label", modelForm.getPaginateViewSizeLabel());
-        visitAttribute("paginate-style", modelForm.getPaginateStyle());
-        visitAttribute("paginate", modelForm.getPaginate());
-        visitAttribute("skip-start", modelForm.getSkipStart());
-        visitAttribute("skip-end", modelForm.getSkipEnd());
-        visitAttribute("use-row-submit", modelForm.getUseRowSubmit());
-        visitAttribute("row-count", modelForm.getRowCount());
-        visitAttribute("focus-field-name", modelForm.getFocusFieldName());
-        writer.append(">");
-        if (!modelForm.getActions().isEmpty()) {
-            writer.append("<actions>");
-            visitActions(modelForm.getActions());
-            writer.append("</actions>");
-        }
-        if (!modelForm.getRowActions().isEmpty()) {
-            writer.append("<row-actions>");
-            visitActions(modelForm.getRowActions());
-            writer.append("</row-actions>");
-        }
-        for (ModelForm.AltRowStyle rowStyle : modelForm.getAltRowStyles()) {
-            writer.append("<alt-row-style");
-            visitAttribute("use-when", rowStyle.useWhen);
-            visitAttribute("style", rowStyle.style);
-            writer.append("/>");
-        }
-        for (ModelForm.AltTarget target : modelForm.getAltTargets()) {
-            writer.append("<alt-target");
-            visitAttribute("use-when", target.useWhen);
-            visitAttribute("target", target.targetExdr);
-            writer.append("/>");
-        }
-        for (ModelForm.AutoFieldsService service : modelForm.getAutoFieldsServices()) {
-            writer.append("<auto-fields-service");
-            visitAttribute("service-name", service.serviceName);
-            visitAttribute("map-name", service.mapName);
-            visitAttribute("default-field-type", service.defaultFieldType);
-            visitAttribute("default-position", service.defaultPosition);
-            writer.append("/>");
-        }
-        for (ModelForm.AutoFieldsEntity entity : modelForm.getAutoFieldsEntities()) {
-            writer.append("<auto-fields-entity");
-            visitAttribute("entity-name", entity.entityName);
-            visitAttribute("map-name", entity.mapName);
-            visitAttribute("default-field-type", entity.defaultFieldType);
-            visitAttribute("default-position", entity.defaultPosition);
-            writer.append("/>");
-        }
-        for (ModelFormField field : modelForm.getFieldList()) {
-            field.getFieldInfo().accept(fieldVisitor);
-        }
-        visitUpdateAreas(modelForm.getOnPaginateUpdateAreas());
-        visitUpdateAreas(modelForm.getOnSortColumnUpdateAreas());
-        visitUpdateAreas(modelForm.getOnSubmitUpdateAreas());
+        visitModelForm(modelForm);
         writer.append("</form>");
     }
 
     @Override
     public void visit(ModelGrid modelGrid) throws Exception {
-        // TODO: Finish implementation
-        
+        writer.append("<grid");
+        visitModelForm(modelGrid);
+        writer.append("</grid>");
     }
 
     @Override
@@ -637,6 +537,111 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
         for (ModelAction action : actions) {
             action.accept(actionVisitor);
         }
+    }
+
+    public void visitModelForm(ModelForm modelForm) throws Exception {
+        visitModelWidget(modelForm);
+        if (modelForm.getParentModelForm() != null) {
+            visitAttribute("extends", modelForm.getParentModelForm().getName());
+            visitAttribute("extends-resource", modelForm.getParentModelForm().getFormLocation());
+        }
+        visitAttribute("view-size", modelForm.getDefaultViewSize());
+        visitAttribute("type", modelForm.getType());
+        visitAttribute("target", modelForm.getTarget());
+        visitAttribute("id", modelForm.getContainerId());
+        visitAttribute("style", modelForm.getContainerStyle());
+        visitAttribute("title", modelForm.getTitle());
+        visitAttribute("tooltip", modelForm.getTooltip());
+        visitAttribute("list-name", modelForm.getListName());
+        visitAttribute("list-entry-name", modelForm.getListEntryName());
+        visitAttribute("default-entity-name", modelForm.getDefaultEntityName());
+        visitAttribute("default-service-name", modelForm.getDefaultServiceName());
+        visitAttribute("form-title-area-style", modelForm.getFormTitleAreaStyle());
+        visitAttribute("form-widget-area-style", modelForm.getFormWidgetAreaStyle());
+        visitAttribute("default-title-area-style", modelForm.getDefaultTitleAreaStyle());
+        visitAttribute("default-widget-area-style", modelForm.getDefaultWidgetAreaStyle());
+        visitAttribute("odd-row-style", modelForm.getOddRowStyle());
+        visitAttribute("even-row-style", modelForm.getEvenRowStyle());
+        visitAttribute("default-table-style", modelForm.getDefaultTableStyle());
+        visitAttribute("header-row-style", modelForm.getHeaderRowStyle());
+        visitAttribute("default-title-style", modelForm.getDefaultTitleStyle());
+        visitAttribute("default-widget-style", modelForm.getDefaultWidgetStyle());
+        visitAttribute("default-tooltip-style", modelForm.getDefaultTooltipStyle());
+        visitAttribute("item-index-separator", modelForm.getItemIndexSeparator());
+        visitAttribute("separate-columns", modelForm.getSeparateColumns());
+        visitAttribute("group-columns", modelForm.getGroupColumns());
+        visitAttribute("target-type", modelForm.getTargetType());
+        visitAttribute("default-map-name", modelForm.getDefaultMapName());
+        visitAttribute("target-window", modelForm.getTargetWindow());
+        visitAttribute("hide-header", modelForm.getHideHeader());
+        visitAttribute("client-autocomplete-fields", modelForm.getClientAutocompleteFields());
+        visitAttribute("paginate-target", modelForm.getPaginateTarget());
+        visitAttribute("sort-field-parameter-name", modelForm.getSortFieldParameterName());
+        visitAttribute("default-required-field-style", modelForm.getDefaultRequiredFieldStyle());
+        visitAttribute("default-sort-field-style", modelForm.getDefaultSortFieldStyle());
+        visitAttribute("default-sort-field-asc-style", modelForm.getDefaultSortFieldAscStyle());
+        visitAttribute("default-sort-field-desc-style", modelForm.getDefaultSortFieldDescStyle());
+        visitAttribute("paginate-target-anchor", modelForm.getPaginateTargetAnchor());
+        visitAttribute("paginate-index-field", modelForm.getPaginateIndexField());
+        visitAttribute("paginate-size-field", modelForm.getPaginateSizeField());
+        visitAttribute("override-list-size", modelForm.getOverrideListSize());
+        visitAttribute("paginate-first-label", modelForm.getPaginateFirstLabel());
+        visitAttribute("paginate-previous-label", modelForm.getPaginatePreviousLabel());
+        visitAttribute("paginate-next-label", modelForm.getPaginateNextLabel());
+        visitAttribute("paginate-last-label", modelForm.getPaginateLastLabel());
+        visitAttribute("paginate-viewsize-label", modelForm.getPaginateViewSizeLabel());
+        visitAttribute("paginate-style", modelForm.getPaginateStyle());
+        visitAttribute("paginate", modelForm.getPaginate());
+        visitAttribute("skip-start", modelForm.getSkipStart());
+        visitAttribute("skip-end", modelForm.getSkipEnd());
+        visitAttribute("use-row-submit", modelForm.getUseRowSubmit());
+        visitAttribute("row-count", modelForm.getRowCount());
+        visitAttribute("focus-field-name", modelForm.getFocusFieldName());
+        writer.append(">");
+        if (!modelForm.getActions().isEmpty()) {
+            writer.append("<actions>");
+            visitActions(modelForm.getActions());
+            writer.append("</actions>");
+        }
+        if (!modelForm.getRowActions().isEmpty()) {
+            writer.append("<row-actions>");
+            visitActions(modelForm.getRowActions());
+            writer.append("</row-actions>");
+        }
+        for (ModelForm.AltRowStyle rowStyle : modelForm.getAltRowStyles()) {
+            writer.append("<alt-row-style");
+            visitAttribute("use-when", rowStyle.useWhen);
+            visitAttribute("style", rowStyle.style);
+            writer.append("/>");
+        }
+        for (ModelForm.AltTarget target : modelForm.getAltTargets()) {
+            writer.append("<alt-target");
+            visitAttribute("use-when", target.useWhen);
+            visitAttribute("target", target.targetExdr);
+            writer.append("/>");
+        }
+        for (ModelForm.AutoFieldsService service : modelForm.getAutoFieldsServices()) {
+            writer.append("<auto-fields-service");
+            visitAttribute("service-name", service.serviceName);
+            visitAttribute("map-name", service.mapName);
+            visitAttribute("default-field-type", service.defaultFieldType);
+            visitAttribute("default-position", service.defaultPosition);
+            writer.append("/>");
+        }
+        for (ModelForm.AutoFieldsEntity entity : modelForm.getAutoFieldsEntities()) {
+            writer.append("<auto-fields-entity");
+            visitAttribute("entity-name", entity.entityName);
+            visitAttribute("map-name", entity.mapName);
+            visitAttribute("default-field-type", entity.defaultFieldType);
+            visitAttribute("default-position", entity.defaultPosition);
+            writer.append("/>");
+        }
+        for (ModelFormField field : modelForm.getFieldList()) {
+            field.getFieldInfo().accept(fieldVisitor);
+        }
+        visitUpdateAreas(modelForm.getOnPaginateUpdateAreas());
+        visitUpdateAreas(modelForm.getOnSortColumnUpdateAreas());
+        visitUpdateAreas(modelForm.getOnSubmitUpdateAreas());
     }
 
     private void visitSubWidgets(Collection<? extends ModelWidget> subWidgets) throws Exception {

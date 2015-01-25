@@ -33,14 +33,22 @@ import org.ofbiz.widget.model.AbstractModelAction.PropertyToField;
 import org.ofbiz.widget.model.AbstractModelAction.Script;
 import org.ofbiz.widget.model.AbstractModelAction.Service;
 import org.ofbiz.widget.model.AbstractModelAction.SetField;
-import org.ofbiz.widget.model.*;
+import org.ofbiz.widget.model.FieldInfo;
+import org.ofbiz.widget.model.HtmlWidget;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplate;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecorator;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecoratorSection;
+import org.ofbiz.widget.model.IterateSectionWidget;
+import org.ofbiz.widget.model.ModelAction;
+import org.ofbiz.widget.model.ModelActionVisitor;
+import org.ofbiz.widget.model.ModelFieldVisitor;
+import org.ofbiz.widget.model.ModelForm;
 import org.ofbiz.widget.model.ModelForm.AltTarget;
 import org.ofbiz.widget.model.ModelForm.AutoFieldsEntity;
 import org.ofbiz.widget.model.ModelForm.AutoFieldsService;
+import org.ofbiz.widget.model.ModelFormAction;
 import org.ofbiz.widget.model.ModelFormAction.CallParentActions;
+import org.ofbiz.widget.model.ModelFormField;
 import org.ofbiz.widget.model.ModelFormField.CheckField;
 import org.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.ofbiz.widget.model.ModelFormField.DateFindField;
@@ -63,6 +71,12 @@ import org.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.ofbiz.widget.model.ModelFormField.TextField;
 import org.ofbiz.widget.model.ModelFormField.TextFindField;
 import org.ofbiz.widget.model.ModelFormField.TextareaField;
+import org.ofbiz.widget.model.ModelGrid;
+import org.ofbiz.widget.model.ModelMenu;
+import org.ofbiz.widget.model.ModelMenuAction;
+import org.ofbiz.widget.model.ModelMenuItem;
+import org.ofbiz.widget.model.ModelScreen;
+import org.ofbiz.widget.model.ModelScreenWidget;
 import org.ofbiz.widget.model.ModelScreenWidget.Column;
 import org.ofbiz.widget.model.ModelScreenWidget.ColumnContainer;
 import org.ofbiz.widget.model.ModelScreenWidget.Container;
@@ -83,8 +97,12 @@ import org.ofbiz.widget.model.ModelScreenWidget.ScreenLink;
 import org.ofbiz.widget.model.ModelScreenWidget.Screenlet;
 import org.ofbiz.widget.model.ModelScreenWidget.Section;
 import org.ofbiz.widget.model.ModelScreenWidget.Tree;
+import org.ofbiz.widget.model.ModelSingleForm;
+import org.ofbiz.widget.model.ModelTree;
 import org.ofbiz.widget.model.ModelTree.ModelNode;
 import org.ofbiz.widget.model.ModelTree.ModelNode.ModelSubNode;
+import org.ofbiz.widget.model.ModelTreeAction;
+import org.ofbiz.widget.model.ModelWidgetVisitor;
 
 /**
  * An object that gathers artifact information from screen widgets.
@@ -225,86 +243,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
     @Override
     public void visit(ModelSingleForm modelForm) throws Exception {
-        if (modelForm.getActions() != null) {
-            for (ModelAction action : modelForm.getActions()) {
-                action.accept(this);
-            }
-        }
-        if (modelForm.getRowActions() != null) {
-            for (ModelAction action : modelForm.getRowActions()) {
-                action.accept(this);
-            }
-        }
-        for (AutoFieldsEntity autoFieldsEntity : modelForm.getAutoFieldsEntities()) {
-            infoContext.addEntityName(autoFieldsEntity.entityName);
-        }
-        for (AutoFieldsService autoFieldsService : modelForm.getAutoFieldsServices()) {
-            infoContext.addServiceName(autoFieldsService.serviceName);
-        }
-        if (modelForm.getAltTargets() != null) {
-            for (AltTarget altTarget : modelForm.getAltTargets()) {
-                String target = altTarget.targetExdr.getOriginal();
-                String urlMode = "intra-app";
-                try {
-                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target,
-                            urlMode);
-                    if (controllerLocAndRequestSet != null) {
-                        for (String requestLocation : controllerLocAndRequestSet) {
-                            infoContext.addTargetLocation(requestLocation);
-                        }
-                    }
-                } catch (GeneralException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        if (!modelForm.getTarget().isEmpty()) {
-            String target = modelForm.getTarget();
-            String urlMode = UtilValidate.isNotEmpty(modelForm.getTargetType()) ? modelForm.getTargetType() : "intra-app";
-            if (target.indexOf("${") < 0) {
-                try {
-                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target,
-                            urlMode);
-                    if (controllerLocAndRequestSet != null) {
-                        for (String requestLocation : controllerLocAndRequestSet) {
-                            infoContext.addTargetLocation(requestLocation);
-                        }
-                    }
-                } catch (GeneralException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        }
-        FieldInfoGatherer fieldInfoGatherer = new FieldInfoGatherer();
-        for (ModelFormField modelFormField : modelForm.getFieldList()) {
-            if (UtilValidate.isNotEmpty(modelFormField.getEntityName())) {
-                infoContext.addEntityName(modelFormField.getEntityName());
-            }
-            if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
-                infoContext.addEntityName(((ModelFormField.DisplayEntityField) modelFormField.getFieldInfo()).getEntityName());
-            }
-            if (modelFormField.getFieldInfo() instanceof FieldInfoWithOptions) {
-                for (ModelFormField.OptionSource optionSource : ((FieldInfoWithOptions) modelFormField
-                        .getFieldInfo()).getOptionSources()) {
-                    if (optionSource instanceof ModelFormField.EntityOptions) {
-                        infoContext.addEntityName(((ModelFormField.EntityOptions) optionSource).getEntityName());
-                    }
-                }
-            }
-            if (UtilValidate.isNotEmpty(modelFormField.getServiceName())) {
-                infoContext.addServiceName(modelFormField.getServiceName());
-            }
-            FieldInfo fieldInfo = modelFormField.getFieldInfo();
-            if (fieldInfo != null) {
-                fieldInfo.accept(fieldInfoGatherer);
-            }
-        }
+        visitModelForm(modelForm);
     }
 
     @Override
     public void visit(ModelGrid modelGrid) throws Exception {
-        // TODO: Finish implementation
-        
+        visitModelForm(modelGrid);
     }
 
     @Override
@@ -555,6 +499,83 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
         @Override
         public void visit(TextFindField textField) {
+        }
+    }
+
+    public void visitModelForm(ModelForm modelForm) throws Exception {
+        if (modelForm.getActions() != null) {
+            for (ModelAction action : modelForm.getActions()) {
+                action.accept(this);
+            }
+        }
+        if (modelForm.getRowActions() != null) {
+            for (ModelAction action : modelForm.getRowActions()) {
+                action.accept(this);
+            }
+        }
+        for (AutoFieldsEntity autoFieldsEntity : modelForm.getAutoFieldsEntities()) {
+            infoContext.addEntityName(autoFieldsEntity.entityName);
+        }
+        for (AutoFieldsService autoFieldsService : modelForm.getAutoFieldsServices()) {
+            infoContext.addServiceName(autoFieldsService.serviceName);
+        }
+        if (modelForm.getAltTargets() != null) {
+            for (AltTarget altTarget : modelForm.getAltTargets()) {
+                String target = altTarget.targetExdr.getOriginal();
+                String urlMode = "intra-app";
+                try {
+                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target,
+                            urlMode);
+                    if (controllerLocAndRequestSet != null) {
+                        for (String requestLocation : controllerLocAndRequestSet) {
+                            infoContext.addTargetLocation(requestLocation);
+                        }
+                    }
+                } catch (GeneralException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        if (!modelForm.getTarget().isEmpty()) {
+            String target = modelForm.getTarget();
+            String urlMode = UtilValidate.isNotEmpty(modelForm.getTargetType()) ? modelForm.getTargetType() : "intra-app";
+            if (target.indexOf("${") < 0) {
+                try {
+                    Set<String> controllerLocAndRequestSet = ConfigXMLReader.findControllerRequestUniqueForTargetType(target,
+                            urlMode);
+                    if (controllerLocAndRequestSet != null) {
+                        for (String requestLocation : controllerLocAndRequestSet) {
+                            infoContext.addTargetLocation(requestLocation);
+                        }
+                    }
+                } catch (GeneralException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        FieldInfoGatherer fieldInfoGatherer = new FieldInfoGatherer();
+        for (ModelFormField modelFormField : modelForm.getFieldList()) {
+            if (UtilValidate.isNotEmpty(modelFormField.getEntityName())) {
+                infoContext.addEntityName(modelFormField.getEntityName());
+            }
+            if (modelFormField.getFieldInfo() instanceof ModelFormField.DisplayEntityField) {
+                infoContext.addEntityName(((ModelFormField.DisplayEntityField) modelFormField.getFieldInfo()).getEntityName());
+            }
+            if (modelFormField.getFieldInfo() instanceof FieldInfoWithOptions) {
+                for (ModelFormField.OptionSource optionSource : ((FieldInfoWithOptions) modelFormField
+                        .getFieldInfo()).getOptionSources()) {
+                    if (optionSource instanceof ModelFormField.EntityOptions) {
+                        infoContext.addEntityName(((ModelFormField.EntityOptions) optionSource).getEntityName());
+                    }
+                }
+            }
+            if (UtilValidate.isNotEmpty(modelFormField.getServiceName())) {
+                infoContext.addServiceName(modelFormField.getServiceName());
+            }
+            FieldInfo fieldInfo = modelFormField.getFieldInfo();
+            if (fieldInfo != null) {
+                fieldInfo.accept(fieldInfoGatherer);
+            }
         }
     }
 }
