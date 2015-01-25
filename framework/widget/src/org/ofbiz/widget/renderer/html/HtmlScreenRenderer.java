@@ -28,6 +28,7 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -65,6 +66,7 @@ import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.MenuStringRenderer;
 import org.ofbiz.widget.renderer.Paginator;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
+import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Form Renderer implementation
@@ -290,7 +292,12 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
     protected void renderScreenletPaginateMenu(Appendable writer, Map<String, Object> context, Form form) throws IOException {
         HttpServletResponse response = (HttpServletResponse) context.get("response");
         HttpServletRequest request = (HttpServletRequest) context.get("request");
-        ModelForm modelForm = form.getModelForm(context);
+        ModelForm modelForm;
+        try {
+            modelForm = form.getModelForm(context);
+        } catch (Exception e) {
+            throw new IOException(e);
+        }
         modelForm.runFormActions(context);
         Paginator.preparePager(modelForm, context);
         String targetService = modelForm.getPaginateTarget(context);
