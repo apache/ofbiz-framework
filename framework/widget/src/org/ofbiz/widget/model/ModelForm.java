@@ -734,11 +734,6 @@ public abstract class ModelForm extends ModelWidget {
         this.focusFieldName = focusFieldName;
     }
 
-    @Override
-    public void accept(ModelWidgetVisitor visitor) throws Exception {
-        visitor.visit(this);
-    }
-
     private void addAutoFieldsFromEntity(AutoFieldsEntity autoFieldsEntity, ModelReader entityModelReader,
             Set<String> useWhenFields, List<ModelFormFieldBuilder> fieldBuilderList, Map<String, ModelFormFieldBuilder> fieldBuilderMap) {
         // read entity def and auto-create fields

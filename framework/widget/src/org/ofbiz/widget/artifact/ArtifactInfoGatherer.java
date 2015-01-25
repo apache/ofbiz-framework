@@ -33,22 +33,14 @@ import org.ofbiz.widget.model.AbstractModelAction.PropertyToField;
 import org.ofbiz.widget.model.AbstractModelAction.Script;
 import org.ofbiz.widget.model.AbstractModelAction.Service;
 import org.ofbiz.widget.model.AbstractModelAction.SetField;
-import org.ofbiz.widget.model.FieldInfo;
-import org.ofbiz.widget.model.HtmlWidget;
+import org.ofbiz.widget.model.*;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplate;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecorator;
 import org.ofbiz.widget.model.HtmlWidget.HtmlTemplateDecoratorSection;
-import org.ofbiz.widget.model.IterateSectionWidget;
-import org.ofbiz.widget.model.ModelAction;
-import org.ofbiz.widget.model.ModelActionVisitor;
-import org.ofbiz.widget.model.ModelFieldVisitor;
-import org.ofbiz.widget.model.ModelForm;
 import org.ofbiz.widget.model.ModelForm.AltTarget;
 import org.ofbiz.widget.model.ModelForm.AutoFieldsEntity;
 import org.ofbiz.widget.model.ModelForm.AutoFieldsService;
-import org.ofbiz.widget.model.ModelFormAction;
 import org.ofbiz.widget.model.ModelFormAction.CallParentActions;
-import org.ofbiz.widget.model.ModelFormField;
 import org.ofbiz.widget.model.ModelFormField.CheckField;
 import org.ofbiz.widget.model.ModelFormField.ContainerField;
 import org.ofbiz.widget.model.ModelFormField.DateFindField;
@@ -71,11 +63,6 @@ import org.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.ofbiz.widget.model.ModelFormField.TextField;
 import org.ofbiz.widget.model.ModelFormField.TextFindField;
 import org.ofbiz.widget.model.ModelFormField.TextareaField;
-import org.ofbiz.widget.model.ModelMenu;
-import org.ofbiz.widget.model.ModelMenuAction;
-import org.ofbiz.widget.model.ModelMenuItem;
-import org.ofbiz.widget.model.ModelScreen;
-import org.ofbiz.widget.model.ModelScreenWidget;
 import org.ofbiz.widget.model.ModelScreenWidget.Column;
 import org.ofbiz.widget.model.ModelScreenWidget.ColumnContainer;
 import org.ofbiz.widget.model.ModelScreenWidget.Container;
@@ -96,11 +83,8 @@ import org.ofbiz.widget.model.ModelScreenWidget.ScreenLink;
 import org.ofbiz.widget.model.ModelScreenWidget.Screenlet;
 import org.ofbiz.widget.model.ModelScreenWidget.Section;
 import org.ofbiz.widget.model.ModelScreenWidget.Tree;
-import org.ofbiz.widget.model.ModelTree;
 import org.ofbiz.widget.model.ModelTree.ModelNode;
 import org.ofbiz.widget.model.ModelTree.ModelNode.ModelSubNode;
-import org.ofbiz.widget.model.ModelTreeAction;
-import org.ofbiz.widget.model.ModelWidgetVisitor;
 
 /**
  * An object that gathers artifact information from screen widgets.
@@ -240,7 +224,7 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
     }
 
     @Override
-    public void visit(ModelForm modelForm) throws Exception {
+    public void visit(ModelSingleForm modelForm) throws Exception {
         if (modelForm.getActions() != null) {
             for (ModelAction action : modelForm.getActions()) {
                 action.accept(this);
@@ -315,6 +299,12 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
                 fieldInfo.accept(fieldInfoGatherer);
             }
         }
+    }
+
+    @Override
+    public void visit(ModelGrid modelGrid) throws Exception {
+        // TODO: Finish implementation
+        
     }
 
     @Override

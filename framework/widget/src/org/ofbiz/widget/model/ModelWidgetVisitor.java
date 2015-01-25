@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.widget.model;
 
-import org.ofbiz.widget.model.HtmlWidget;
 
 /**
  *  A <code>ModelWidget</code> visitor.
@@ -35,7 +34,9 @@ public interface ModelWidgetVisitor {
 
     void visit(IterateSectionWidget iterateSectionWidget) throws Exception;
 
-    void visit(ModelForm modelForm) throws Exception;
+    void visit(ModelSingleForm modelForm) throws Exception;
+
+    void visit(ModelGrid modelGrid) throws Exception;
 
     void visit(ModelMenu modelMenu) throws Exception;
 

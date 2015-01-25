@@ -237,7 +237,7 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
     }
 
     @Override
-    public void visit(ModelForm modelForm) throws Exception {
+    public void visit(ModelSingleForm modelForm) throws Exception {
         writer.append("<form");
         visitModelWidget(modelForm);
         if (modelForm.getParentModelForm() != null) {
@@ -345,9 +345,18 @@ public class XmlWidgetVisitor extends XmlAbstractWidgetVisitor implements ModelW
     }
 
     @Override
-    public void visit(Grid grid) throws Exception {
-        // TODO Auto-generated method stub
+    public void visit(ModelGrid modelGrid) throws Exception {
+        // TODO: Finish implementation
         
+    }
+
+    @Override
+    public void visit(Grid grid) throws Exception {
+        writer.append("<include-grid");
+        visitModelWidget(grid);
+        visitAttribute("location", grid.getLocationExdr());
+        visitAttribute("share-scope", grid.getShareScopeExdr());
+        writer.append("/>");
     }
 
     @Override
