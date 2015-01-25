@@ -57,7 +57,7 @@ import bsh.EvalError;
 import bsh.Interpreter;
 
 /**
- * Models the &lt;form&gt; element.
+ * Abstract base class for the &lt;form&gt; and &lt;grid&gt; elements.
  * 
  * @see <code>widget-form.xsd</code>
  */
