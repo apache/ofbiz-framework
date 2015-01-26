@@ -53,7 +53,7 @@ public class ModelSingleForm extends ModelForm {
     /** XML Constructor */
     public ModelSingleForm(Element formElement, String formLocation, ModelReader entityModelReader,
             DispatchContext dispatchContext) {
-        super(formElement, formLocation, entityModelReader, dispatchContext);
+        super(formElement, formLocation, entityModelReader, dispatchContext, "single");
     }
 
     @Override

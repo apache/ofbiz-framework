@@ -52,7 +52,7 @@ public class ModelGrid extends ModelForm {
 
     /** XML Constructor */
     public ModelGrid(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
-        super(formElement, formLocation, entityModelReader, dispatchContext);
+        super(formElement, formLocation, entityModelReader, dispatchContext, "list");
     }
 
     @Override
