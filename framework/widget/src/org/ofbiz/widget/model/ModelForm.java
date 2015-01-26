@@ -194,7 +194,7 @@ public abstract class ModelForm extends ModelWidget {
     private final Set<String> useWhenFields;
 
     /** XML Constructor */
-    protected ModelForm(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext) {
+    protected ModelForm(Element formElement, String formLocation, ModelReader entityModelReader, DispatchContext dispatchContext, String defaultType) {
         super(formElement);
         this.formLocation = formLocation;
         parentModel = getParentModel(formElement, entityModelReader, dispatchContext);
@@ -215,8 +215,12 @@ public abstract class ModelForm extends ModelWidget {
         }
         this.defaultViewSize = defaultViewSizeInt;
         String type = formElement.getAttribute("type");
-        if (type.isEmpty() && parentModel != null) {
-            type = parentModel.type;
+        if (type.isEmpty()) {
+            if (parentModel != null) {
+                type = parentModel.type;
+            } else {
+                type = defaultType;
+            }
         }
         this.type = type;
         FlexibleStringExpander target = FlexibleStringExpander.getInstance(formElement.getAttribute("target"));
