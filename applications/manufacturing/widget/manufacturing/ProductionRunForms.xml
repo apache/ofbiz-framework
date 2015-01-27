@@ -211,13 +211,17 @@ under the License.
 
     <form name="ListProductionRunComponents" type="list" target="EditProductionRun" title="" list-name="productionRunComponents"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one value-field="product" entity-name="Product" use-cache="true"/>
+        </row-actions>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]"/>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductName}">
-            <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
+            <display description="${product.internalName} [${productId}]"/>
         </field>
         <field name="estimatedQuantity" title="${uiLabelMap.ManufacturingQuantity}"><display/></field>
+        <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
     </form>
 
     <form name="EditProductionRunRoutingTask" type="single" target="updateProductionRunRoutingTask" title="" default-map-name="productionRunTask"
@@ -941,13 +945,15 @@ under the License.
     </form>
     <form name="ProductionRunTaskComponents" type="list" target="updateProductionRunComponent" paginate-target="ProductionRunComponents" title="" list-name="records"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one value-field="product" entity-name="Product" use-cache="true"/>
+        </row-actions>
         <field name="productId"><display/></field>
-        <field name="internalName" entry-name="productId" title="${uiLabelMap.ProductInternalName}">
-            <display-entity entity-name="Product" key-field-name="productId" description="${internalName}"/>
-        </field>
+        <field name="internalName" map-name="product" title="${uiLabelMap.ProductInternalName}"><display/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="productionRunId"><hidden/></field>
         <field name="estimatedQuantity"><text/></field>
+        <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
             <hyperlink target="deleteProductionRunComponent"  description="${uiLabelMap.CommonDelete}" also-hidden="false">
