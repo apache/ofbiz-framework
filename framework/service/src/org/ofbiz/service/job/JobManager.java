@@ -292,7 +292,7 @@ public final class JobManager {
         EntityCondition statusCondition = EntityCondition.makeCondition(statusExprList, EntityOperator.OR);
         EntityCondition mainCondition = EntityCondition.makeCondition(UtilMisc.toList(EntityCondition.makeCondition("runByInstanceId", instanceId), statusCondition));
         try {
-            crashed = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("startDateTime").queryList();
+            crashed = EntityQuery.use(delegator).from("JobSandbox").where(mainCondition).orderBy("startDateTime").cache(false).queryList();
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "Unable to load crashed jobs", module);
         }
