@@ -94,7 +94,6 @@ public final class JobManager {
             registeredManagers.putIfAbsent(delegator.getDelegatorName(), jm);
             jm = registeredManagers.get(delegator.getDelegatorName());
             if (enablePoller) {
-                jm.reloadCrashedJobs();
                 JobPoller.registerJobManager(jm);
             }
         }
@@ -280,7 +279,7 @@ public final class JobManager {
         return poll;
     }
 
-    private synchronized void reloadCrashedJobs() {
+    public synchronized void reloadCrashedJobs() {
         assertIsRunning();
         if (crashedJobsReloaded) {
             return;
