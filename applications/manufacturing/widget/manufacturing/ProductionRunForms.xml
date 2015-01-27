@@ -41,9 +41,7 @@ under the License.
                 <option key="Y" description="${uiLabelMap.CommonYes}"/>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="findProductionRun" target="FindProductionRun" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
@@ -66,7 +64,7 @@ under the License.
                 </entity-options>
              </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
 
     <form name="listFindProductionRun" list-name="listIt" title="" type="list" paginate-target="FindProductionRun"
@@ -91,7 +89,6 @@ under the License.
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
-
         <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="facilityId" title="${uiLabelMap.ProductFacilityId}"><display/></field>
@@ -118,7 +115,7 @@ under the License.
         <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
         <field name="workEffortName"  title="${uiLabelMap.ManufacturingProductionRunName}"><text/></field>
         <field name="description"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit/></field>
     </form>
     <form name="ListProductionRunOrderItems" type="list" target="EditProductionRun" title="" list-name="orderItems"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -227,40 +224,18 @@ under the License.
     <form name="EditProductionRunRoutingTask" type="single" target="updateProductionRunRoutingTask" title="" default-map-name="productionRunTask"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="productionRunTask==null" target="addProductionRunRoutingTask"/>
-        <field name="productionRunId">
-            <hidden value="${productionRunId}"/>
-        </field>
-        <field name="routingTaskId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask==null">
-            <lookup target-form-name="LookupRoutingTask"/>
-        </field>
-        <field name="routingTaskId" map-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask!=null">
-            <display/>
-        </field>
-        <field name="priority" title="${uiLabelMap.CommonSequenceNum}">
-            <text size="4"/>
-        </field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}">
-            <text/>
-        </field>
-        <field name="description">
-            <text/>
-        </field>
+        <field name="productionRunId"><hidden value="${productionRunId}"/></field>
+        <field name="routingTaskId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask==null"><lookup target-form-name="LookupRoutingTask"/></field>
+        <field name="routingTaskId" map-name="workEffortId" title="${uiLabelMap.ManufacturingRoutingTaskId}" use-when="productionRunTask!=null"><display/></field>
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><text size="4"/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><text/></field>
+        <field name="description"><text/></field>
         <field name="reservPersons"><text/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}">
-            <date-time/>
-        </field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}">
-            <display/>
-        </field>
-        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}">
-            <text/>
-        </field>
-        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}">
-            <text/>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonEdit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="estimatedStartDate" title="${uiLabelMap.ManufacturingStartDate}"><date-time/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><text/></field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit/></field>
     </form>
 
     <!-- Production Run Declaration -->
@@ -301,9 +276,7 @@ under the License.
             </drop-down>
         </field>
         <field name="lotId"><text default-value="${lastLotId}"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
-            <submit button-type="button"/>
-        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="ProductionRunDeclareAndProduceTop" type="single" skip-end="true" target="productionRunDeclareAndProduce" title="" default-map-name="productionRunData"
         header-row-style="header-row" default-table-style="basic-table">
@@ -405,6 +378,7 @@ under the License.
             </hyperlink>
         </field>
     </form>
+
     <form name="ListIssueProductionRunDeclComponents" type="multi" target="issueProductionRunTaskComponents?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsDataReadyForIssuance"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productId"><hidden/></field>
@@ -446,6 +420,7 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
+
     <form name="ListReturnProductionRunDeclComponents" type="multi" use-row-submit="true" target="productionRunTaskReturnMaterials?productionRunId=${productionRunId}" title="" list-name="productionRunComponentsAlreadyIssued"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="productId"><hidden/></field>
@@ -469,76 +444,29 @@ under the License.
 
      <form name="EditProductionRunDeclRoutingTask" type="single" target="updateProductionRunTask" title="" default-map-name="routingTaskData"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="actionForm">
-            <hidden value="${actionForm}"/>
-        </field>
-        <field name="productionRunId">
-            <hidden value="${routingTaskData.workEffortParentId}"/>
-        </field>
-        <field name="productionRunTaskId">
-            <hidden value="${routingTaskData.workEffortId}"/>
-        </field>
-        <field name="priority" title="${uiLabelMap.CommonSequenceNum}">
-            <display/>
-        </field>
-        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}">
-            <display/>
-        </field>
-        <field name="description" title="${uiLabelMap.CommonDescription}">
-            <display/>
-        </field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}">
-            <display/>
-        </field>
-        <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}">
-            <date-time/>
-        </field>
-        <field name="toDate" title="${uiLabelMap.ManufacturingToDate}">
-            <date-time/>
-        </field>
-        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}">
-            <display/>
-        </field>
-        <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}">
-            <display/>
-        </field>
-        <field name="addSetupTime" title="${uiLabelMap.ManufacturingAddSetupTime}">
-            <text/>
-        </field>
-        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}">
-            <display/>
-        </field>
-        <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}">
-            <display/>
-        </field>
-        <field name="addTaskTime" title="${uiLabelMap.ManufacturingAddTaskTime}">
-            <text/>
-        </field>
-
-        <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
-            <display/>
-        </field>
-        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}">
-            <display/>
-        </field>
-        <field name="addQuantityProduced" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
-            <text/>
-        </field>
-        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}">
-            <display/>
-        </field>
-        <field name="addQuantityRejected" title="${uiLabelMap.ManufacturingAddQuantityRejected}">
-            <text/>
-        </field>
-        <field name="comments" title="${uiLabelMap.ManufacturingComments}">
-            <text/>
-        </field>
-        <field name="partyId" title="${uiLabelMap.ManufacturingWorker}">
-            <text/>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="actionForm"><hidden value="${actionForm}"/></field>
+        <field name="productionRunId"><hidden value="${routingTaskData.workEffortParentId}"/></field>
+        <field name="productionRunTaskId"><hidden value="${routingTaskData.workEffortId}"/></field>
+        <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
+        <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><display/></field>
+        <field name="description"><display/></field>
+        <field name="estimatedCompletionDate" title="${uiLabelMap.ManufacturingEstimatedCompletionDate}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.ManufacturingFromDate}"><date-time/></field>
+        <field name="toDate" title="${uiLabelMap.ManufacturingToDate}"><date-time/></field>
+        <field name="estimatedSetupMillis" title="${uiLabelMap.ManufacturingTaskEstimatedSetupMillis}"><display/></field>
+        <field name="actualSetupMillis" title="${uiLabelMap.ManufacturingTaskActualSetupMillis}"><display/></field>
+        <field name="addSetupTime" title="${uiLabelMap.ManufacturingAddSetupTime}"><text/></field>
+        <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><display/></field>
+        <field name="actualMilliSeconds" title="${uiLabelMap.ManufacturingTaskActualMilliSeconds}"><display/></field>
+        <field name="addTaskTime" title="${uiLabelMap.ManufacturingAddTaskTime}"><text/></field>
+        <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}"><display/></field>
+        <field name="quantityProduced" title="${uiLabelMap.ManufacturingQuantityProduced}"><display/></field>
+        <field name="addQuantityProduced" title="${uiLabelMap.ManufacturingAddQuantityProduced}"><text/></field>
+        <field name="quantityRejected" title="${uiLabelMap.ManufacturingQuantityRejected}"><display/></field>
+        <field name="addQuantityRejected" title="${uiLabelMap.ManufacturingAddQuantityRejected}"><text/></field>
+        <field name="comments" title="${uiLabelMap.ManufacturingComments}"><text/></field>
+        <field name="partyId" title="${uiLabelMap.ManufacturingWorker}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
     <form name="CreateRoutingTaskDelivProduct" type="single" target="createProductionRunTaskProduct" title="" default-map-name="formData"
         header-row-style="header-row" default-table-style="basic-table">
@@ -550,15 +478,9 @@ under the License.
             </drop-down>
         </field>
         <field name="productId" title="${uiLabelMap.ProductProductId}" use-when="${groovy:delivProducts.size()==0}"><lookup target-form-name="LookupProduct"/></field>
-        <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}">
-            <text/>
-        </field>
-        <field name="lotId" title="${uiLabelMap.ProductLotId}">
-            <text />
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
-            <submit button-type="button"/>
-        </field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingAddQuantityProduced}"><text/></field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><text /></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
     <form name="ProductionRunTaskInventoryProducedList" type="list" title="" list-name="prunInventoryProduced"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -571,18 +493,10 @@ under the License.
     <form name="FindDelivProductContent" type="single" target="ProductionRunContent">
         <field name="productionRunId"><hidden/></field>
         <field name="productId" entry-name="delivProductId"><hidden/></field>
-        <field name="contentLocale">
-            <text default-value="${locale}"/>
-        </field>
-        <field name="partyId">
-            <lookup target-form-name="LookupCustomerName"/>
-        </field>
-        <field name="roleTypeId">
-            <hidden value="CONTENT_USER"/>
-        </field>
-        <field name="submitButton" title="${uiLabelMap.CommonFind}">
-            <submit button-type="button"/>
-        </field>
+        <field name="contentLocale"><text default-value="${locale}"/></field>
+        <field name="partyId"><lookup target-form-name="LookupCustomerName"/></field>
+        <field name="roleTypeId"><hidden value="CONTENT_USER"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonFind}"><submit button-type="button"/></field>
     </form>
     <form name="ListProductionRunContent" type="list" title="" list-name="productionRunContents">
         <actions>
@@ -722,9 +636,7 @@ under the License.
         <field name="fixedAssetId" use-when="${actionIsAdd}==null">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName}"/>
         </field>
-        <field name="fromDate" use-when="${actionIsAdd}==null">
-            <display />
-        </field>
+        <field name="fromDate" use-when="${actionIsAdd}==null"><display /></field>
         <field name="statusId">
             <!-- Statuses are not yet defined for the WorkEffortFixedAssetAssign entity
                 so this field will be hidden meanwhile
@@ -735,9 +647,7 @@ under the License.
             </drop-down> -->
             <hidden />
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="AddProductionRunTaskFixedAsset" type="single" target="createWorkEffortFixedAssetAssign" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -765,9 +675,7 @@ under the License.
             </drop-down> -->
             <hidden />
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}">
-            <submit button-type="button"/>
-        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
 
     <!-- ******************* -->
@@ -824,10 +732,8 @@ under the License.
     </form>
     <form name="SelectMrpName" type="single" target="ManufacturingReports" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="mrpName"  title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="mrpName" title="${uiLabelMap.ManufacturingMrpName}"><text size="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="linkProductionRun" type="single" target="createProductionRunAssoc" title=""
         header-row-style="header-row" default-table-style="basic-table">
@@ -849,9 +755,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
-            <submit button-type="button"/>
-        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
     <form name="mandatoryWorkEfforts" type="list" target="" title="" list-name="mandatoryWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -956,7 +860,7 @@ under the License.
         <field name="quantityUomId" map-name="product" title="${uiLabelMap.CommonUom}"><display-entity entity-name="Uom" key-field-name="uomId" description="${abbreviation}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
-            <hyperlink target="deleteProductionRunComponent"  description="${uiLabelMap.CommonDelete}" also-hidden="false">
+            <hyperlink target="deleteProductionRunComponent" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="productId"/>
@@ -1006,9 +910,7 @@ under the License.
         <field name="productId">
             <lookup target-form-name="LookupProduct"/>
         </field>
-        <field name="lotId" title="${uiLabelMap.ProductLotId}">
-            <text />
-        </field>
+        <field name="lotId" title="${uiLabelMap.ProductLotId}"><text /></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
@@ -1018,7 +920,7 @@ under the License.
             </drop-down>
         </field>
         <field name="description"><text/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit/></field>
     </form>
 </forms>
 
