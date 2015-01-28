@@ -862,7 +862,7 @@ public class RequestHandler {
     }
     private void renderView(String view, boolean allowExtView, HttpServletRequest req, HttpServletResponse resp, String saveName) throws RequestHandlerException {
         GenericValue userLogin = (GenericValue) req.getSession().getAttribute("userLogin");
-        // workaraound if we are in the root webapp
+        // workaround if we are in the root webapp
         String cname = UtilHttp.getApplicationName(req);
         String oldView = view;
 
@@ -873,12 +873,11 @@ public class RequestHandler {
         // if the view name starts with the control servlet name and a /, then it was an
         // attempt to override the default view with a call back into the control servlet,
         // so just get the target view name and use that
-        
         String servletName = req.getServletPath();
-        if (servletName.startsWith("/")) {
+        if (UtilValidate.isNotEmpty(servletName) && servletName.length() > 1 || servletName.startsWith("/")) {
             servletName = servletName.substring(1);
         }
-
+        
         if (Debug.infoOn()) Debug.logInfo("Rendering View [" + view + "], sessionId=" + UtilHttp.getSessionId(req), module);
         if (view.startsWith(servletName + "/")) {
             view = view.substring(servletName.length() + 1);
