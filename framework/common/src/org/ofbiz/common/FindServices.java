@@ -479,6 +479,16 @@ public class FindServices {
             filterByDate = (String) inputFields.get("filterByDate");
         }
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
+        String fromDateName = (String) context.get("fromDateName");
+        if (UtilValidate.isEmpty(fromDateName)) {
+            // try finding in inputFields Map
+            fromDateName = (String) inputFields.get("fromDateName");
+        }
+        String thruDateName = (String) context.get("thruDateName");
+        if (UtilValidate.isEmpty(thruDateName)) {
+            // try finding in inputFields Map
+            thruDateName = (String) inputFields.get("thruDateName");
+        }
 
         Integer viewSize = (Integer) context.get("viewSize");
         Integer viewIndex = (Integer) context.get("viewIndex");
@@ -493,7 +503,7 @@ public class FindServices {
         try {
             prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy,
                                                "inputFields", inputFields, "filterByDate", filterByDate, "noConditionFind", noConditionFind,
-                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin,
+                                               "filterByDateValue", filterByDateValue, "userLogin", userLogin, "fromDateName", fromDateName, "thruDateName", thruDateName,
                                                "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "CommonFindErrorPreparingConditions", UtilMisc.toMap("errorString", gse.getMessage()), locale));
@@ -550,6 +560,8 @@ public class FindServices {
             filterByDate = (String) inputFields.get("filterByDate");
         }
         Timestamp filterByDateValue = (Timestamp) context.get("filterByDateValue");
+        String fromDateName = (String) context.get("fromDateName");
+        String thruDateName = (String) context.get("thruDateName");
 
         Map<String, Object> queryStringMap = new LinkedHashMap<String, Object>();
         ModelEntity modelEntity = delegator.getModelEntity(entityName);
@@ -562,12 +574,16 @@ public class FindServices {
         if (tmpList.size() > 0 || "Y".equals(noConditionFind)) {
             if ("Y".equals(filterByDate)) {
                 queryStringMap.put("filterByDate", filterByDate);
+                if (UtilValidate.isEmpty(fromDateName)) fromDateName = "fromDate";
+                else queryStringMap.put("fromDateName", fromDateName);
+                if (UtilValidate.isEmpty(thruDateName)) thruDateName = "thruDate";
+                else queryStringMap.put("thruDateName", thruDateName);
                 if (UtilValidate.isEmpty(filterByDateValue)) {
-                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr();
+                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(fromDateName, thruDateName);
                     tmpList.add(filterByDateCondition);
                 } else {
                     queryStringMap.put("filterByDateValue", filterByDateValue);
-                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue);
+                    EntityCondition filterByDateCondition = EntityUtil.getFilterByDateExpr(filterByDateValue, fromDateName, thruDateName);
                     tmpList.add(filterByDateCondition);
                 }
             }

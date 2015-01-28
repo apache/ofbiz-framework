@@ -162,10 +162,12 @@ under the License.
     <entity entity-name="TestingNodeMember"
             package-name="org.ofbiz.entity.test"
             title="Testing Node Member">
-      <field name="testingNodeId" type="id-ne"></field>
-      <field name="testingId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
+      <field name="testingNodeId" type="id-ne"/>
+      <field name="testingId" type="id-ne"/>
+      <field name="fromDate" type="date-time"/>
+      <field name="thruDate" type="date-time"/>
+      <field name="extendFromDate" type="date-time"/><!--use to test filterDate -->
+      <field name="extendThruDate" type="date-time"/><!--use to test filterDate -->
       <prim-key field="testingNodeId"/>
       <prim-key field="testingId"/>
       <prim-key field="fromDate"/>

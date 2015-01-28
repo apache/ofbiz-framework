@@ -73,4 +73,5 @@ under the License.
     <service-resource type="mca" loader="main" location="servicedef/smcas_test.xml"/>
 
     <test-suite loader="main" location="testdef/UserLoginTests.xml"/>
+    <test-suite loader="main" location="testdef/PerformFindTests.xml"/>
 </ofbiz-component>
