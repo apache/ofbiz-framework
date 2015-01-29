@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.product.category;
+package org.ofbiz.product.category.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -25,13 +25,16 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.template.FreeMarkerWorker;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.product.category.CatalogUrlFilter;
+import org.ofbiz.product.category.CategoryContentWrapper;
+import org.ofbiz.product.category.SeoConfigUtil;
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.OfbizUrlBuilder;
@@ -46,10 +49,9 @@ import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateTransformModel;
 
-public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
-    public final static String module = OfbizCatalogUrlTransform.class.getName();
+public class CatalogAltUrlSeoTransform implements TemplateTransformModel {
+    public final static String module = CatalogUrlSeoTransform.class.getName();
 
-    @SuppressWarnings("unchecked")
     public String getStringArg(Map args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -78,26 +80,21 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public Writer getWriter(final Writer out, final Map args)
-            throws TemplateModelException, IOException {
+    public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         final boolean fullPath = checkArg(args, "fullPath", false);
         final boolean secure = checkArg(args, "secure", false);
 
         return new Writer(out) {
-            
-            @Override
+
             public void write(char[] cbuf, int off, int len) throws IOException {
                 buf.append(cbuf, off, len);
             }
-            
-            @Override
+
             public void flush() throws IOException {
                 out.flush();
             }
-            
-            @Override
+
             public void close() throws IOException {
                 try {
                     Environment env = Environment.getCurrentEnvironment();
@@ -106,7 +103,7 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                     String productCategoryId = getStringArg(args, "productCategoryId");
                     String productId = getStringArg(args, "productId");
                     String url = "";
-                    
+
                     Object prefix = env.getVariable("urlPrefix");
                     String viewSize = getStringArg(args, "viewSize");
                     String viewIndex = getStringArg(args, "viewIndex");
@@ -116,14 +113,26 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         HttpServletRequest request = (HttpServletRequest) req.getWrappedObject();
                         StringBuilder newURL = new StringBuilder();
                         if (UtilValidate.isNotEmpty(productId)) {
-                            url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
+                            if (SeoConfigUtil.isCategoryUrlEnabled(request.getContextPath())) {
+                                url = CatalogUrlSeoTransform.makeProductUrl(request, productId, productCategoryId, previousCategoryId);
+                            } else {
+                                url = CatalogUrlFilter.makeProductUrl(request, previousCategoryId, productCategoryId, productId);
+                            }
                         } else {
-                            url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            if (SeoConfigUtil.isCategoryUrlEnabled(request.getContextPath())) {
+                                url = CatalogUrlSeoTransform.makeCategoryUrl(request, productCategoryId, previousCategoryId, viewSize, viewIndex, viewSort, searchString);
+                            } else {
+                                url = CatalogUrlFilter.makeCategoryUrl(request, previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            }
                         }
                         // make the link
-                        if (fullPath){
-                            OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
-                            builder.buildHostPart(newURL, url, secure);
+                        if (fullPath) {
+                            try {
+                                OfbizUrlBuilder builder = OfbizUrlBuilder.from(request);
+                                builder.buildHostPart(newURL, "", secure);
+                            } catch (WebAppConfigurationException e) {
+                                Debug.logError(e.getMessage(), module);
+                            }
                         }
                         newURL.append(url);
                         out.write(newURL.toString());
@@ -131,14 +140,31 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                         Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
                         LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
                         Locale locale = (Locale) args.get("locale");
+                        String prefixString = ((StringModel) prefix).getAsString();
+                        prefixString = prefixString.replaceAll("&#47;", "/");
+                        String contextPath = prefixString;
+                        int lastSlashIndex = prefixString.lastIndexOf("/");
+                        if (lastSlashIndex > -1 && lastSlashIndex < prefixString.length()) {
+                            contextPath = prefixString.substring(prefixString.lastIndexOf("/"));
+                        }
                         if (UtilValidate.isNotEmpty(productId)) {
-                            GenericValue product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
+                            GenericValue product = delegator.findOne("Product", UtilMisc.toMap("productId", productId), false);
                             ProductContentWrapper wrapper = new ProductContentWrapper(dispatcher, product, locale, "text/html");
-                            url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId);
+                            if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
+                                url = CatalogUrlSeoTransform.makeProductUrl(delegator, wrapper, prefixString, contextPath, productCategoryId, previousCategoryId, productId);
+                            } else {
+                                url = CatalogUrlFilter.makeProductUrl(delegator, wrapper, null, prefixString, previousCategoryId, productCategoryId,
+                                        productId);
+                            }
                         } else {
-                            GenericValue productCategory = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId", productCategoryId).queryOne();
+                            GenericValue productCategory = delegator.findOne("ProductCategory", UtilMisc.toMap("productCategoryId", productCategoryId), false);
                             CategoryContentWrapper wrapper = new CategoryContentWrapper(dispatcher, productCategory, locale, "text/html");
-                            url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, ((StringModel) prefix).getAsString(), previousCategoryId, productCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            if (SeoConfigUtil.isCategoryUrlEnabled(contextPath)) {
+                                url = CatalogUrlSeoTransform.makeCategoryUrl(delegator, wrapper, prefixString, productCategoryId, previousCategoryId, productId, viewSize, viewIndex, viewSort, searchString);
+                            } else {
+                                url = CatalogUrlFilter.makeCategoryUrl(delegator, wrapper, null, prefixString, previousCategoryId, productCategoryId,
+                                        productId, viewSize, viewIndex, viewSort, searchString);
+                            }
                         }
                         out.write(url.toString());
                     } else {
@@ -147,8 +173,6 @@ public class OfbizCatalogAltUrlTransform implements TemplateTransformModel {
                 } catch (TemplateModelException e) {
                     throw new IOException(e.getMessage());
                 } catch (GenericEntityException e) {
-                    throw new IOException(e.getMessage());
-                } catch (WebAppConfigurationException e) {
                     throw new IOException(e.getMessage());
                 }
             }

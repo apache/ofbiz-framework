@@ -66,7 +66,7 @@ public final class WebAppUtil {
         String servletMapping = null;
         WebXml webXml = getWebXml(webAppInfo);
         for (ServletDef servletDef : webXml.getServlets().values()) {
-            if ("org.ofbiz.webapp.control.ControlServlet".equals(servletDef.getServletClass())) {
+            if ("org.ofbiz.webapp.control.ControlServlet".equals(servletDef.getServletClass()) || "org.ofbiz.product.category.SeoControlServlet".equals(servletDef.getServletClass())) {
                 String servletName = servletDef.getServletName();
                 // Catalina servlet mappings: key = url-pattern, value = servlet-name.
                 for (Entry<String, String> entry : webXml.getServletMappings().entrySet()) {

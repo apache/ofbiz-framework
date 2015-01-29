@@ -16,13 +16,15 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.product.category;
+package org.ofbiz.product.category.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.ofbiz.product.category.CatalogUrlServlet;
 
 import freemarker.core.Environment;
 import freemarker.ext.beans.BeanModel;
@@ -34,7 +36,6 @@ import freemarker.template.TemplateTransformModel;
 public class OfbizCatalogUrlTransform implements TemplateTransformModel {
     public final static String module = OfbizCatalogUrlTransform.class.getName();
     
-    @SuppressWarnings("unchecked")
     public String getStringArg(Map args, String key) {
         Object o = args.get(key);
         if (o instanceof SimpleScalar) {
@@ -46,7 +47,6 @@ public class OfbizCatalogUrlTransform implements TemplateTransformModel {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Writer getWriter(final Writer out, final Map args) throws TemplateModelException, IOException {
         final StringBuilder buf = new StringBuilder();
         return new Writer(out) {
