@@ -524,7 +524,7 @@ public class CategoryServices {
                 }
             }
         } catch (GenericEntityException e) {
-            e.printStackTrace();
+            Debug.logWarning(e, module);
             return "error";
         }
         return "success";

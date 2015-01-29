@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    <xs:element name="seo-config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="regexpifmatch"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="category-url"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="jsessionid"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="url-configs"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="char-filters"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="regexpifmatch"/>
+    <xs:element name="category-url">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="value"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="allowed-context-paths"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="category-name"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="category-url-suffix"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="value" default="disable"/>
+    <xs:element name="allowed-context-paths"/>
+    <xs:element name="category-name" default="disable"/>
+    <xs:element name="category-url-suffix" default=".html"/>
+    <xs:element name="jsessionid">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="anonymous"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="user"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="anonymous">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="value"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="user">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="value"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="exceptions"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="exceptions">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="url-pattern"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="url-configs">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="url-config"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="char-filters">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="char-filter"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="url-config">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" ref="description"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="url-pattern"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="seo"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="forward"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="description"/>
+    <xs:element name="url-pattern"/>
+    <xs:element name="seo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="replacement"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="forward">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="replacement"/>
+                <xs:element minOccurs="0" maxOccurs="1" ref="responsecode"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="replacement"/>
+    <xs:element name="responsecode" default="301"/>
+    <xs:element name="char-filter">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="1" maxOccurs="1" ref="character-pattern"/>
+                <xs:element minOccurs="1" maxOccurs="1" ref="replacement"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="character-pattern"/>
+</xs:schema>
