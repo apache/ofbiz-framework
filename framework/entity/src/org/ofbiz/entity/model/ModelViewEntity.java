@@ -1337,7 +1337,7 @@ public class ModelViewEntity extends ModelEntity {
             try {
                 this.operator = EntityOperator.lookupComparison(operator);
             } catch (IllegalArgumentException e) {
-                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + this.operator);
+                throw new IllegalArgumentException("[" + this.viewEntityCondition.modelViewEntity.getEntityName() + "]: Could not find an entity operator for the name: " + operator);
             }
             String relEntityAlias = conditionExprElement.getAttribute("rel-entity-alias");
             String relFieldNameStr = conditionExprElement.getAttribute("rel-field-name");
