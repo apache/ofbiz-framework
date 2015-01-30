@@ -66,15 +66,14 @@ under the License.
         <attribute name="note" type="String" mode="IN" allow-html="any"/>
         <attribute name="noteId" type="String" mode="OUT"/>
     </service>
-    
-    <service name="updateNote" engine="simple" default-entity-name="NoteData"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="updateNote">
+
+    <service name="updateNote" default-entity-name="NoteData" engine="entity-auto" invoke="update">
         <description>Update a note record</description>
         <auto-attributes include="pk" mode="INOUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="noteInfo" allow-html="any"/>
     </service>
-    
+
     <service name="adjustDebugLevels" engine="java"
              location="org.ofbiz.common.CommonServices" invoke="adjustDebugLevels" auth="true">
         <description>Sets/Updates cached debugging levels</description>
@@ -95,8 +94,7 @@ under the License.
     </service>
 
     <!-- Enumeration Services -->
-    <service name="createEnumeration" default-entity-name="Enumeration" engine="simple"
-        location="component://common/script/org/ofbiz/common/EnumerationServices.xml" invoke="createEnumeration" auth="true">
+    <service name="createEnumeration" default-entity-name="Enumeration" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Enumeration</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
@@ -104,8 +102,7 @@ under the License.
         <override name="enumTypeId" optional="false"/>
         <override name="description" optional="false" allow-html="any"/>
     </service>
-    <service name="updateEnumeration" default-entity-name="Enumeration" engine="simple"
-        location="component://common/script/org/ofbiz/common/EnumerationServices.xml" invoke="updateEnumeration" auth="true">
+    <service name="updateEnumeration" default-entity-name="Enumeration" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Enumeration</description>
         <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
@@ -118,27 +115,24 @@ under the License.
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
-    
+
     <!-- DataSource Services -->
     <service name="interfaceDataSource" engine="interface" location="" invoke="">
         <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
         <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createDataSource" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceServices.xml" invoke="createDataSource" auth="true">
+    <service name="createDataSource" engine="entity-auto" default-entity-name="DataSource" invoke="create" auth="true">
         <description>Create a DataSource record</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <implements service="interfaceDataSource"/>
     </service>
-    <service name="updateDataSource" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceServices.xml" invoke="updateDataSource" auth="true">
+    <service name="updateDataSource" engine="entity-auto" default-entity-name="DataSource" invoke="update" auth="true">
         <description>Update a DataSource record</description>
         <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceDataSource"/>
     </service>
-    <service name="deleteDataSource" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceServices.xml" invoke="deleteDataSource" auth="true">
+    <service name="deleteDataSource" engine="entity-auto" default-entity-name="DataSource" invoke="delete" auth="true">
         <description>Delete a DataSource record</description>
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <attribute name="dataSourceId" type="String" mode="IN" optional="false"/>
@@ -149,20 +143,17 @@ under the License.
         <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
         <attribute name="description" type="String" mode="IN" optional="true"/>
     </service>
-    <service name="createDataSourceType" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="createDataSourceType" auth="true">
+    <service name="createDataSourceType" engine="entity-auto" default-entity-name="DataSourceType" invoke="create" auth="true">
         <description>Create a DataSourceType record</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <implements service="interfaceDataSourceType"/>
     </service>
-    <service name="updateDataSourceType" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="updateDataSourceType" auth="true">
+    <service name="updateDataSourceType" engine="entity-auto" default-entity-name="DataSourceType" invoke="update" auth="true">
         <description>Update a DataSourceType record</description>
         <permission-service service-name="commonGenericPermission" main-action="UPDATE"/>
         <implements service="interfaceDataSourceType"/>
     </service>
-    <service name="deleteDataSourceType" engine="simple"
-            location="component://common/script/org/ofbiz/common/datasource/DataSourceTypeServices.xml" invoke="deleteDataSourceType" auth="true">
+    <service name="deleteDataSourceType" engine="entity-auto" default-entity-name="DataSourceType" invoke="delete" auth="true">
         <description>Delete a DataSourceType record</description>
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <attribute name="dataSourceTypeId" type="String" mode="IN" optional="false"/>
@@ -720,7 +711,7 @@ under the License.
         <auto-attributes include="pk" mode="INOUT"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="geoName" optional="false"/>
-        <override name="geoTypeId" optional="false"/>        
+        <override name="geoTypeId" optional="false"/>
     </service>
     <service name="updateGeo" default-entity-name="Geo" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Geo</description>
@@ -734,7 +725,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="linkGeos" engine="simple" auth="true"
-        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">        
+        location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="linkGeos">
         <description>Link Geos to another Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
         <attribute name="geoIds" type="List" mode="IN" optional="true"/>
@@ -744,7 +735,7 @@ under the License.
     <service name="getRelatedGeos" engine="simple" auth="false"
         location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getRelatedGeos">
         <attribute name="geoId" mode="IN" type="String"/>
-        <attribute name="geoAssocTypeId" mode="IN" type="String"/>        
+        <attribute name="geoAssocTypeId" mode="IN" type="String"/>
         <attribute name="geoList" mode="OUT" type="java.util.List"/>
     </service>
     <service name="getCountryList" engine="simple" auth="false"
