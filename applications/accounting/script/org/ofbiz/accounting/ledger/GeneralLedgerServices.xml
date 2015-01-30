@@ -2582,12 +2582,38 @@ under the License.
             <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
             <set field="creditEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
             <!-- Debit -->
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfPurchaseInvoice" ret-field="invoiceExchangeRate">
+                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfOutgoingPayment" ret-field="paymentExchangeRate">
+                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
+            <if-compare-field field="invoiceExchangeRate" operator="not-equals" to-field="paymentExchangeRate">
+                <set field="debitEntry.debitCreditFlag" value="D"/>
+                <set field="debitEntry.organizationPartyId" from-field="payment.partyIdFrom"/>
+                <set field="debitEntry.partyId" from-field="payment.partyIdTo"/>
+                <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
+                <set field="debitEntry.amount" value="${paymentApplication.amountApplied * (paymentExchangeRate - invoiceExchangeRate)}"/>
+                <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
+                <!--
+                <entity-one entity-name="GlAccountTypeDefault" value-field="currencyExchangeRateGainLossAccount" use-cache="true">
+                    <field-map field-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
+                    <field-map field-name="glAccountTypeId" value="FX_GAIN_LOSS_ACCT"/>
+                </entity-one>
+                <set field="debitEntry.glAccountId" from-field="currencyExchangeRateGainLossAccount.glAccountId"/>
+                -->
+                <set field="debitEntry.glAccountTypeId" value="FX_GAIN_LOSS_ACCT"/>
+                <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
+                <clear-field field="debitEntry"/>
+            </if-compare-field>
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <set field="debitEntry.debitCreditFlag" value="D"/>
             <set field="debitEntry.organizationPartyId" from-field="payment.partyIdFrom"/>
             <set field="debitEntry.partyId" from-field="payment.partyIdTo"/>
             <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="debitEntry.origAmount" from-field="paymentApplication.amountApplied"/>
+            <set field="debitEntry.amount" value="${paymentApplication.amountApplied * invoiceExchangeRate}"/>
             <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
             <set field="debitEntry.glAccountTypeId" value="ACCOUNTS_PAYABLE"/>
             <if-not-empty field="paymentApplication.overrideGlAccountId">

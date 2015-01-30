@@ -312,6 +312,7 @@ under the License.
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="SALES_ACCOUNT" glAccountId="400000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="COGS_ACCOUNT" glAccountId="500000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="INV_ADJ_VAL" glAccountId="515000"/>
+    <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="FX_GAIN_LOSS_ACCT" glAccountId="518000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="OPERATING_EXPENSE" glAccountId="600000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="PROFIT_LOSS_ACCOUNT" glAccountId="850000"/>
     <GlAccountTypeDefault organizationPartyId="Company" glAccountTypeId="TAX_ACCOUNT" glAccountId="900000"/>
