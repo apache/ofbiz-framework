@@ -2932,7 +2932,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             writer.append(' ');
             makeHyperlinkByType(writer, subHyperlink.getLinkType(), subHyperlink.getStyle(context), subHyperlink.getUrlMode(),
                     subHyperlink.getTarget(context), subHyperlink.getParameterMap(context), subHyperlink.getDescription(context),
-                    subHyperlink.getTargetWindow(context), null, subHyperlink.getModelFormField(), this.request, this.response,
+                    subHyperlink.getTargetWindow(context), "", subHyperlink.getModelFormField(), this.request, this.response,
                     context);
         }
     }
