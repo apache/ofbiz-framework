@@ -275,6 +275,7 @@ under the License.
         <entity-and list="oisgirs" entity-name="OrderItemShipGrpInvRes">
             <field-map field-name="orderId" from-field="orderItemShipGrpInvRes.orderId"/>
             <field-map field-name="orderItemSeqId" from-field="orderItemShipGrpInvRes.orderItemSeqId"/>
+            <field-map field-name="inventoryItemId" from-field="orderItemShipGrpInvRes.inventoryItemId"/>
         </entity-and>
         <!-- Need to Cancel and re-reserve oisgir to fix OFBIZ-5364 issue, while there are multiple ship groups for an order item associated with same inventory and you are issuing items from one ship group to another, then quantityNotAvailable will be incorrect if we do not cancel and reserve all oisgir of order item  -->
         <iterate entry="oisgir" list="oisgirs">
