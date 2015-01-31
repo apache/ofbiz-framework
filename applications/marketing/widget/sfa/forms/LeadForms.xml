@@ -85,7 +85,7 @@ under the License.
         </field>
         <field name="partyGroupId" title="${uiLabelMap.SfaAccountName}" tooltip="${uiLabelMap.SfaSelectExistingAccountOrLeaveBlankToCreateNew}" use-when="parameters.get(&quot;partyGroupId&quot;)==&quot;&quot;">
             <drop-down allow-empty="true" current-description="">
-              <entity-options entity-name="PartyRole" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, &quot;${partyId}&quot;, false)} : [${partyId}]" key-field-name="partyId">
+              <entity-options entity-name="PartyRole" description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, partyId, false)} : [partyId]" key-field-name="partyId">
                   <entity-constraint name="roleTypeId" operator="equals" value="ACCOUNT"/>
               </entity-options>
             </drop-down>
