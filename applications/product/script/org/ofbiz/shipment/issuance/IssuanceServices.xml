@@ -188,7 +188,6 @@ under the License.
         <first-from-list entry="orderShipment" list="orderShipments"/>
 
         <!-- will create qtyForShipmentItem -->
-        <!-- jacopoc: a weird error is happening here during testMultipleInventoryItemIssuance -->
         <call-simple-method method-name="calcQtyForShipmentItemInline"/>
 
         <log level="info" message="qtyForShipmentItem: ${qtyForShipmentItem}"/>
