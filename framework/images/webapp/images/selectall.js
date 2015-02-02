@@ -524,7 +524,7 @@ function ajaxAutoCompleteDropDown() {
                                             "(?![^&;]+;)(?!<[^<>]*)(" +
                                             jQuery.ui.autocomplete.escapeRegex(request.term) +
                                             ")(?![^<>]*>)(?![^&;]+;)", "gi"
-                                        ), "<strong>$1</strong>" ),
+                                        ), "<b>$1</b>" ),
                                     value: text,
                                     option: this
                                 };
@@ -558,7 +558,7 @@ function ajaxAutoCompleteDropDown() {
                 })
                 //.addClass( "ui-widget ui-widget-content ui-corner-left" );
 
-            input.data( "autocomplete" )._renderItem = function( ul, item ) {
+            input.data( "ui-autocomplete" )._renderItem = function( ul, item ) {
                 return jQuery( "<li></li>" )
                     .data( "item.autocomplete", item )
                     .append( "<a>" + item.label + "</a>" )
