@@ -119,6 +119,7 @@
     <classpathentry kind="lib" path="specialpurpose/jetty/lib/org.eclipse.jdt.core-3.7.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/axis-1.4.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/axis-ant-1.4.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/birt/lib/commons-discovery-0.5.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/wsdl4j-1.6.2.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/axiom-api-1.2.9.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/axiom-impl-1.2.9.jar"/>
