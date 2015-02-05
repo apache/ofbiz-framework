@@ -134,10 +134,6 @@ under the License.
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="INVENTORY_XFER_OUT" glResourceTypeId="MONEY"
     accountName="RECEIVABLE FROM INVENTORY TRANSFERRED OUT" description=""/>
 
-  <GlAccount parentGlAccountId="120000" glAccountId="126000" accountCode="126000"
-    glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCREC_UNAPPLIED" glResourceTypeId="MONEY"
-    accountName="ACCOUNTS RECEIVABLE - UNAPPLIED PAYMENTS" description=""/>
-
   <GlAccount parentGlAccountId="120000" glAccountId="129000" accountCode="129000"
     glAccountClassId="CURRENT_ASSET" glAccountTypeId="CURRENT_ASSET" glResourceTypeId="MONEY"
     accountName="A/R MISCELLANEOUS" description=""/>
@@ -336,9 +332,12 @@ under the License.
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="INVENTORY_XFER_IN" glResourceTypeId="MONEY"
     accountName="PAYABLE FOR INVENTORY TRANSFERRED IN" description=""/>
 
-  <GlAccount parentGlAccountId="210000" glAccountId="216000" accountCode="216000"
-    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="ACCPAYABLE_UNAPPLIED" glResourceTypeId="MONEY"
+  <GlAccount parentGlAccountId="100000" glAccountId="216000" accountCode="216000"
+    glAccountClassId="CURRENT_ASSET" glAccountTypeId="ACCPAYABLE_UNAPPLIED" glResourceTypeId="MONEY"
     accountName="ACCOUNTS PAYABLE - UNAPPLIED PAYMENTS" description=""/>
+  <GlAccount parentGlAccountId="200000" glAccountId="126000" accountCode="126000"
+    glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="ACCREC_UNAPPLIED" glResourceTypeId="MONEY"
+    accountName="ACCOUNTS RECEIVABLE - UNAPPLIED PAYMENTS" description=""/>
 
   <GlAccount parentGlAccountId="200000" glAccountId="220000" accountCode="220000"
     glAccountClassId="CURRENT_LIABILITY" glAccountTypeId="CURRENT_LIABILITY" glResourceTypeId="MONEY"
