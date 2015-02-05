@@ -40,7 +40,8 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
 
     public static final String module = GenericAbstractDispatcher.class.getName();
 
-    protected ServiceDispatcher globalDispatcher = null;
+    protected DispatchContext ctx = null;
+    protected ServiceDispatcher dispatcher = null;
     protected String name = null;
 
     public GenericAbstractDispatcher() {}
@@ -134,7 +135,7 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.util.Map, long, int, int, int, long)
      */
     public void schedule(String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws GenericServiceException {
-        ModelService model = getModelService(serviceName);
+        ModelService model = ctx.getModelService(serviceName);
         schedule(null, serviceName, context, startTime, frequency, interval, count, endTime, model.maxRetry);
     }
 
@@ -179,28 +180,28 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#getJobManager()
      */
     public JobManager getJobManager() {
-        return globalDispatcher.getJobManager();
+        return dispatcher.getJobManager();
     }
 
     /**
      * @see org.ofbiz.service.LocalDispatcher#getJMSListeneFactory()
      */
     public JmsListenerFactory getJMSListeneFactory() {
-        return globalDispatcher.getJMSListenerFactory();
+        return dispatcher.getJMSListenerFactory();
     }
 
     /**
      * @see org.ofbiz.service.LocalDispatcher#getDelegator()
      */
     public Delegator getDelegator() {
-        return globalDispatcher.getDelegator();
+        return dispatcher.getDelegator();
     }
 
     /**
      * @see org.ofbiz.service.LocalDispatcher#getSecurity()
      */
     public Security getSecurity() {
-        return globalDispatcher.getSecurity();
+        return dispatcher.getSecurity();
     }
 
     /**
@@ -211,18 +212,25 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
     }
 
     /**
+     * @see org.ofbiz.service.LocalDispatcher#getDispatchContext()
+     */
+    public DispatchContext getDispatchContext() {
+        return ctx;
+    }
+
+    /**
      * @see org.ofbiz.service.LocalDispatcher#deregister()
      */
     public void deregister() {
         ServiceContainer.removeFromCache(getName());
-        globalDispatcher.deregister(this);
+        dispatcher.deregister(this);
     }
 
     /**
      * @see org.ofbiz.service.LocalDispatcher#registerCallback(String, GenericServiceCallback)
      */
     public void registerCallback(String serviceName, GenericServiceCallback cb) {
-        globalDispatcher.registerCallback(serviceName, cb);
+        dispatcher.registerCallback(serviceName, cb);
     }
 }
 

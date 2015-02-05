@@ -51,9 +51,7 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
-import org.ofbiz.service.ServiceContainer;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.webapp.control.ConfigXMLReader;
 import org.ofbiz.webapp.control.ConfigXMLReader.ControllerConfig;
@@ -133,13 +131,16 @@ public class ArtifactInfoFactory {
         this.delegatorName = delegatorName;
         this.entityModelReader = ModelReader.getModelReader(delegatorName);
         DelegatorElement delegatorInfo = EntityConfig.getInstance().getDelegator(delegatorName);
-        String modelName = "main";
+        String modelName;
         if (delegatorInfo != null) {
             modelName = delegatorInfo.getEntityModelReader();
+        } else {
+            modelName = "main";
         }
-        Delegator delegator = DelegatorFactory.getDelegator(delegatorName);
-        LocalDispatcher dispatcher = ServiceContainer.getLocalDispatcher(modelName, delegator);
-        this.dispatchContext = dispatcher.getDispatchContext();
+        // since we do not associate a dispatcher to this DispatchContext, it is important to set a name of an existing entity model reader:
+        // in this way it will be possible to retrieve the service models from the cache
+        this.dispatchContext = new DispatchContext(modelName, this.getClass().getClassLoader(), null);
+
         this.prepareAll();
     }
 
