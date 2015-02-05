@@ -2176,6 +2176,40 @@ under the License.
                 <result-to-field result-name="acctgTransId"/>
             </call-service>
             <field-to-result field="acctgTransId" result-name="acctgTransId"/>
+
+            <!-- Now create accounting transactions for the payment applications -->
+            <entity-and entity-name="PaymentApplication" list="paymentApplications">
+                <field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
+            </entity-and>
+            <log level="warning" message="APPLICAZIONI"/>
+            <iterate list="paymentApplications" entry="paymentApplication">
+                <log level="warning" message="applicazione ${paymentApplication}"/>
+                <get-related-one value-field="paymentApplication" relation-name="Payment" to-value-field="payment"/>
+                <log level="warning" message="payment ${payment}"/>
+                <if>
+                    <condition>
+                        <or>
+                            <if-compare field="payment.statusId" operator="equals" value="PMNT_SENT"/>
+                            <if-compare field="payment.statusId" operator="equals" value="PMNT_CONFIRMED"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <log level="warning" message="processing payment ${payment.paymentId}"/>
+                        <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+                        <if-compare field="payment.paymentTypeId" operator="equals" value="CUSTOMER_REFUND">
+                            <call-service service-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                                <result-to-field result-name="acctgTransId"/>
+                            </call-service>
+                        <else>
+                            <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                                <result-to-field result-name="acctgTransId"/>
+                            </call-service>
+                        </else>
+                        </if-compare>
+                        <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/>
+                    </then>
+                </if>
+            </iterate>
         </if-compare>
     </simple-method>
 
@@ -2407,18 +2441,29 @@ under the License.
                 <field-map field-name="paymentId" from-field="payment.paymentId"/>
             </entity-and>
             <iterate list="paymentApplications" entry="paymentApplication">
-                <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
-                <if-compare field="payment.paymentTypeId" operator="equals" value="CUSTOMER_REFUND">
-                    <call-service service-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
-                        <result-to-field result-name="acctgTransId"/>
-                    </call-service>
-                <else>
-                    <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
-                        <result-to-field result-name="acctgTransId"/>
-                    </call-service>
-                </else>
-                </if-compare>
-                <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/> 
+                <get-related-one value-field="paymentApplication" relation-name="Invoice" to-value-field="invoice"/>
+                <if>
+                    <condition>
+                        <or>
+                            <condition field-name="invoice.statusId" operator="equals" value="INVOICE_READY"/>
+                            <condition field-name="invoice.statusId" operator="equals" value="INVOICE_PAID"/>
+                        </or>
+                    </condition>
+                    <then>
+                        <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
+                        <if-compare field="payment.paymentTypeId" operator="equals" value="CUSTOMER_REFUND">
+                            <call-service service-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                                <result-to-field result-name="acctgTransId"/>
+                            </call-service>
+                        <else>
+                            <call-service service-name="createAcctgTransAndEntriesForPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
+                                <result-to-field result-name="acctgTransId"/>
+                            </call-service>
+                        </else>
+                        </if-compare>
+                        <log level="info" message="Accounting transaction ${acctgTransId} created for payment application ${paymentApplication.paymentApplicationId}"/>
+                    </then>
+                </if>
             </iterate>
         </if-compare>
     </simple-method>
@@ -2571,6 +2616,13 @@ under the License.
             <if-compare field="paymentGlAccountTypeMap.glAccountTypeId" operator="equals" value="ACCOUNTS_PAYABLE">
                 <return/>
             </if-compare>
+
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfPurchaseInvoice" ret-field="invoiceExchangeRate">
+                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
+            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfOutgoingPayment" ret-field="paymentExchangeRate">
+                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
+            </call-class-method>
             <!--Credit -->
             <make-value entity-name="AcctgTransEntry" value-field="creditEntry"/>
             <set field="creditEntry.debitCreditFlag" value="C"/>
@@ -2579,15 +2631,10 @@ under the License.
             <set field="creditEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
             <set field="creditEntry.origAmount" from-field="paymentApplication.amountApplied"/>
             <set field="creditEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
+            <set field="creditEntry.amount" value="${paymentApplication.amountApplied * paymentExchangeRate}"/>
             <set field="creditEntry.glAccountId" from-field="payment.overrideGlAccountId"/>
             <set field="creditEntry.glAccountTypeId" from-field="paymentGlAccountTypeMap.glAccountTypeId"/>
             <!-- Debit -->
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfPurchaseInvoice" ret-field="invoiceExchangeRate">
-                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
-            </call-class-method>
-            <call-class-method class-name="org.ofbiz.accounting.util.UtilAccounting" method-name="getGlExchangeRateOfOutgoingPayment" ret-field="paymentExchangeRate">
-                <field field="paymentApplication" type="org.ofbiz.entity.GenericValue"/>
-            </call-class-method>
             <make-value entity-name="AcctgTransEntry" value-field="debitEntry"/>
             <if-compare-field field="invoiceExchangeRate" operator="not-equals" to-field="paymentExchangeRate">
                 <set field="debitEntry.debitCreditFlag" value="D"/>
@@ -2595,14 +2642,6 @@ under the License.
                 <set field="debitEntry.partyId" from-field="payment.partyIdTo"/>
                 <set field="debitEntry.roleTypeId" value="BILL_FROM_VENDOR"/>
                 <set field="debitEntry.amount" value="${paymentApplication.amountApplied * (paymentExchangeRate - invoiceExchangeRate)}"/>
-                <set field="debitEntry.origCurrencyUomId" from-field="payment.currencyUomId"/>
-                <!--
-                <entity-one entity-name="GlAccountTypeDefault" value-field="currencyExchangeRateGainLossAccount" use-cache="true">
-                    <field-map field-name="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                    <field-map field-name="glAccountTypeId" value="FX_GAIN_LOSS_ACCT"/>
-                </entity-one>
-                <set field="debitEntry.glAccountId" from-field="currencyExchangeRateGainLossAccount.glAccountId"/>
-                -->
                 <set field="debitEntry.glAccountTypeId" value="FX_GAIN_LOSS_ACCT"/>
                 <set field="acctgTransEntries[]" from-field="debitEntry" type="Object"/>
                 <clear-field field="debitEntry"/>
