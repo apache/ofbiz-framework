@@ -18,30 +18,22 @@
  *******************************************************************************/
 package org.ofbiz.service;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.Future;
 
 import javax.transaction.Transaction;
 
-import org.ofbiz.base.component.ComponentConfig;
-import org.ofbiz.base.concurrent.ExecutionPool;
 import org.ofbiz.base.config.GenericConfigException;
-import org.ofbiz.base.config.MainResourceHandler;
-import org.ofbiz.base.config.ResourceHandler;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilTimer;
 import org.ofbiz.base.util.UtilValidate;
-import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericDelegator;
@@ -54,7 +46,6 @@ import org.ofbiz.security.Security;
 import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.config.ServiceConfigUtil;
-import org.ofbiz.service.config.model.GlobalServices;
 import org.ofbiz.service.config.model.StartupService;
 import org.ofbiz.service.eca.ServiceEcaRule;
 import org.ofbiz.service.eca.ServiceEcaUtil;
@@ -69,12 +60,8 @@ import org.ofbiz.service.semaphore.ServiceSemaphore;
 import com.googlecode.concurrentlinkedhashmap.ConcurrentLinkedHashMap;
 
 /**
- * The global service dispatcher.
- * <p>The Service Dispatcher handles dispatching services to the appropriate Service Engine where it is then invoked.
- * There is exactly one ServiceDispatcher for each Entity Delegator. If there are multiple delegators in an application
- * there will also be multiple dispatchers. The ServiceDispatcher is accessed via a LocalDispatcher. There can be many
- * LocalDispatchers associated with a ServiceDispatcher. Each LocalDispatcher is uniquely named and contains its own
- * list of service definitions.</p>
+ * The global service dispatcher. This is the "engine" part of the
+ * Service Engine.
  */
 public class ServiceDispatcher {
 
@@ -82,7 +69,6 @@ public class ServiceDispatcher {
     public static final int lruLogSize = 200;
     public static final int LOCK_RETRIES = 3;
 
-    private static final UtilCache<String, Map<String, ModelService>> modelServiceMapByModel = UtilCache.createUtilCache("service.ModelServiceMapByModel", 0, 0, false);
     protected static final Map<RunningService, ServiceDispatcher> runLog = new ConcurrentLinkedHashMap.Builder<RunningService, ServiceDispatcher>().maximumWeightedCapacity(lruLogSize).build();
     protected static ConcurrentHashMap<String, ServiceDispatcher> dispatchers = new ConcurrentHashMap<String, ServiceDispatcher>();
     // FIXME: These fields are not thread-safe. They are modified by EntityDataLoadContainer.
@@ -94,7 +80,7 @@ public class ServiceDispatcher {
     protected Delegator delegator = null;
     protected GenericEngineFactory factory = null;
     protected Security security = null;
-    protected ConcurrentHashMap<String, LocalDispatcher> localDispatchers = new ConcurrentHashMap<String, LocalDispatcher>();
+    protected Map<String, DispatchContext> localContext = new HashMap<String, DispatchContext>();
     protected Map<String, List<GenericServiceCallback>> callbacks = new HashMap<String, List<GenericServiceCallback>>();
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
@@ -188,25 +174,21 @@ public class ServiceDispatcher {
     }
 
     /**
-     * Registers the LocalDispatcher with this ServiceDispatcher
-     * @param local
+     * Registers the loader with this ServiceDispatcher
+     * @param context the context of the local dispatcher
      */
-    public LocalDispatcher register(LocalDispatcher local) {
-        if (Debug.infoOn()) {
-            Debug.logInfo("Registering dispatcher: " + local.getName(), module);
-        }
-        localDispatchers.putIfAbsent(local.getName(), local);
-        return localDispatchers.get(local.getName());
+    public void register(DispatchContext context) {
+        if (Debug.infoOn()) Debug.logInfo("Registering dispatcher: " + context.getName(), module);
+        this.localContext.put(context.getName(), context);
     }
-
     /**
      * De-Registers the loader with this ServiceDispatcher
      * @param local the LocalDispatcher to de-register
      */
     public void deregister(LocalDispatcher local) {
         if (Debug.infoOn()) Debug.logInfo("De-Registering dispatcher: " + local.getName(), module);
-        localDispatchers.remove(local.getName());
-        if (localDispatchers.size() == 0) {
+        localContext.remove(local.getName());
+        if (localContext.size() == 0) {
             try {
                  this.shutdown();
              } catch (GenericServiceException e) {
@@ -273,7 +255,7 @@ public class ServiceDispatcher {
         Map<String, List<ServiceEcaRule>> eventMap = null;
         Map<String, Object> ecaContext = null;
         RunningService rs = null;
-        DispatchContext ctx = getLocalContext(localName);
+        DispatchContext ctx = localContext.get(localName);
         GenericEngine engine = null;
         Transaction parentTransaction = null;
         boolean isFailure = false;
@@ -659,7 +641,7 @@ public class ServiceDispatcher {
         Locale locale = this.checkLocale(context);
 
         // setup the engine and context
-        DispatchContext ctx = getLocalContext(localName);
+        DispatchContext ctx = localContext.get(localName);
         GenericEngine engine = this.getGenericEngine(service.engineName);
 
         // for isolated transactions
@@ -840,11 +822,7 @@ public class ServiceDispatcher {
      * @param name of the context to find.
      */
     public DispatchContext getLocalContext(String name) {
-        LocalDispatcher local = localDispatchers.get(name);
-        if (local != null) {
-            return new DispatchContext(local);
-        }
-        return null;
+        return localContext.get(name);
     }
 
     /**
@@ -853,7 +831,7 @@ public class ServiceDispatcher {
      * @return LocalDispatcher matching the loader name
      */
     public LocalDispatcher getLocalDispatcher(String name) {
-        return localDispatchers.get(name);
+        return localContext.get(name).getDispatcher();
     }
 
     /**
@@ -862,7 +840,7 @@ public class ServiceDispatcher {
      * @return true if the local context is found in this dispatcher.
      */
     public boolean containsContext(String name) {
-        return localDispatchers.containsKey(name);
+        return localContext.containsKey(name);
     }
 
     protected void shutdown() throws GenericServiceException {
@@ -1073,60 +1051,6 @@ public class ServiceDispatcher {
 
     public static Map<RunningService, ServiceDispatcher> getServiceLogMap() {
         return runLog;
-    }
-
-    private Callable<Map<String, ModelService>> createServiceReaderCallable(final ResourceHandler handler) {
-        return new Callable<Map<String, ModelService>>() {
-            public Map<String, ModelService> call() throws Exception {
-                return ModelServiceReader.getModelServiceMap(handler, delegator);
-            }
-        };
-    }
-
-    Map<String, ModelService> getGlobalServiceMap(String model) {
-        Map<String, ModelService> serviceMap = modelServiceMapByModel.get(model);
-        if (serviceMap == null) {
-            serviceMap = new HashMap<String, ModelService>();
-            List<Future<Map<String, ModelService>>> futures = new LinkedList<Future<Map<String, ModelService>>>();
-            List<GlobalServices> globalServicesList = null;
-            try {
-                globalServicesList = ServiceConfigUtil.getServiceEngine().getGlobalServices();
-            } catch (GenericConfigException e) {
-                // FIXME: Refactor API so exceptions can be thrown and caught.
-                Debug.logError(e, module);
-                throw new RuntimeException(e.getMessage());
-            }
-            for (GlobalServices globalServices : globalServicesList) {
-                ResourceHandler handler = new MainResourceHandler(ServiceConfigUtil.SERVICE_ENGINE_XML_FILENAME, globalServices.getLoader(), globalServices.getLocation());
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(handler)));
-            }
-
-            // get all of the component resource model stuff, ie specified in each ofbiz-component.xml file
-            for (ComponentConfig.ServiceResourceInfo componentResourceInfo: ComponentConfig.getAllServiceResourceInfos("model")) {
-                futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(createServiceReaderCallable(componentResourceInfo.createResourceHandler())));
-            }
-            for (Map<String, ModelService> servicesMap: ExecutionPool.getAllFutures(futures)) {
-                if (servicesMap != null) {
-                    serviceMap.putAll(servicesMap);
-                }
-            }
-            for (ModelService modelService : serviceMap.values()) {
-                if (!modelService.inheritedParameters()) {
-                    try {
-                        modelService.interfaceUpdate(serviceMap);
-                    } catch (GenericServiceException e) {
-                        Debug.logError(e, module);
-                        throw new RuntimeException(e.getMessage());
-                    }
-                }
-            }
-            serviceMap = Collections.unmodifiableMap(serviceMap);
-            Map<String, ModelService> cachedServiceMap = modelServiceMapByModel.putIfAbsentAndGet(model, serviceMap);
-            if (cachedServiceMap == serviceMap) { // same object: this means that the object created by this thread was actually added to the cache
-                ServiceEcaUtil.reloadConfig();
-            }
-        }
-        return serviceMap;
     }
 
 }
