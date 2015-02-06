@@ -2181,11 +2181,8 @@ under the License.
             <entity-and entity-name="PaymentApplication" list="paymentApplications">
                 <field-map field-name="invoiceId" from-field="invoice.invoiceId"/>
             </entity-and>
-            <log level="warning" message="APPLICAZIONI"/>
             <iterate list="paymentApplications" entry="paymentApplication">
-                <log level="warning" message="applicazione ${paymentApplication}"/>
                 <get-related-one value-field="paymentApplication" relation-name="Payment" to-value-field="payment"/>
-                <log level="warning" message="payment ${payment}"/>
                 <if>
                     <condition>
                         <or>
@@ -2194,7 +2191,6 @@ under the License.
                         </or>
                     </condition>
                     <then>
-                        <log level="warning" message="processing payment ${payment.paymentId}"/>
                         <set field="createAcctgTransAndEntriesForPaymentApplicationInMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
                         <if-compare field="payment.paymentTypeId" operator="equals" value="CUSTOMER_REFUND">
                             <call-service service-name="createAcctgTransAndEntriesForCustomerRefundPaymentApplication" in-map-name="createAcctgTransAndEntriesForPaymentApplicationInMap">
