@@ -86,8 +86,8 @@ public abstract class JdbcValueHandler<T> {
         result.put("java.sql.Clob", new ClobJdbcValueHandler(Types.CLOB));
         result.put("Clob", new ClobJdbcValueHandler(Types.CLOB));
         // JDBC 4
-        result.put("RowId", new RowIdJdbcValueHandler(Types.ARRAY));
-        result.put("java.sql.RowId", new RowIdJdbcValueHandler(Types.ARRAY));
+        result.put("RowId", new RowIdJdbcValueHandler(Types.ROWID));
+        result.put("java.sql.RowId", new RowIdJdbcValueHandler(Types.ROWID));
         // Non-JDBC Types
         result.put("java.lang.Object", new ObjectJdbcValueHandler(Types.BLOB));
         result.put("Object", new ObjectJdbcValueHandler(Types.BLOB));
