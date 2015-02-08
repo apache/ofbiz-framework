@@ -55,6 +55,8 @@ public abstract class JdbcValueHandler<T> {
          */
         Map<String, JdbcValueHandler<?>> result = new HashMap<String, JdbcValueHandler<?>>();
         // JDBC 1
+        result.put("Array", new ArrayJdbcValueHandler(Types.ARRAY));
+        result.put("java.sql.Array", new ArrayJdbcValueHandler(Types.ARRAY));
         result.put("byte[]", new ByteArrayJdbcValueHandler(Types.LONGVARBINARY));
         result.put("java.lang.Boolean", new BooleanJdbcValueHandler(Types.BOOLEAN));
         result.put("Boolean", new BooleanJdbcValueHandler(Types.BOOLEAN));
@@ -83,6 +85,9 @@ public abstract class JdbcValueHandler<T> {
         result.put("Blob", new BlobJdbcValueHandler(Types.BLOB));
         result.put("java.sql.Clob", new ClobJdbcValueHandler(Types.CLOB));
         result.put("Clob", new ClobJdbcValueHandler(Types.CLOB));
+        // JDBC 4
+        result.put("RowId", new RowIdJdbcValueHandler(Types.ARRAY));
+        result.put("java.sql.RowId", new RowIdJdbcValueHandler(Types.ARRAY));
         // Non-JDBC Types
         result.put("java.lang.Object", new ObjectJdbcValueHandler(Types.BLOB));
         result.put("Object", new ObjectJdbcValueHandler(Types.BLOB));
@@ -97,12 +102,19 @@ public abstract class JdbcValueHandler<T> {
         exception will be thrown.
          */
         Map<String, Integer> result = new HashMap<String, Integer>();
-        // SQL 99 Data Types
+        // SQL 2003 Data Types
+        result.put("ARRAY", Types.ARRAY);
+        result.put("BIGINT", Types.BIGINT);
         result.put("BIT", Types.BIT);
+        result.put("BINARY LARGE OBJECT", Types.BLOB);
         result.put("BLOB", Types.BLOB);
         result.put("BOOLEAN", Types.BOOLEAN);
         result.put("CHAR", Types.CHAR);
         result.put("CHARACTER", Types.CHAR);
+        result.put("CHAR VARYING", Types.VARCHAR);
+        result.put("CHARACTER VARYING", Types.VARCHAR);
+        result.put("CHAR LARGE OBJECT", Types.CLOB);
+        result.put("CHARACTER LARGE OBJECT", Types.CLOB);
         result.put("CLOB", Types.CLOB);
         result.put("DATE", Types.DATE);
         result.put("DEC", Types.DECIMAL);
@@ -112,14 +124,26 @@ public abstract class JdbcValueHandler<T> {
         result.put("FLOAT", Types.FLOAT);
         result.put("INT", Types.INTEGER);
         result.put("INTEGER", Types.INTEGER);
+        //result.put("INTERVAL", Types.?);
+        //result.put("MULTISET", Types.?);
+        result.put("NATIONAL CHAR", Types.NCHAR);
+        result.put("NATIONAL CHARACTER", Types.NCHAR);
+        result.put("NCHAR", Types.NCHAR);
+        result.put("NATIONAL CHAR VARYING", Types.NVARCHAR);
+        result.put("NATIONAL CHARACTER VARYING", Types.NVARCHAR);
+        result.put("NCHAR VARYING", Types.NVARCHAR);
+        result.put("NATIONAL CHARACTER LARGE OBJECT", Types.NCLOB);
+        result.put("NCHAR LARGE OBJECT", Types.NCLOB);
+        result.put("NCLOB", Types.NCLOB);
         result.put("NUMERIC", Types.NUMERIC);
         result.put("REAL", Types.REAL);
+        result.put("REF", Types.REF);
+        result.put("ROW", Types.ROWID);
+        result.put("ROWID", Types.ROWID);
         result.put("SMALLINT", Types.SMALLINT);
         result.put("TIME", Types.TIME);
         result.put("TIMESTAMP", Types.TIMESTAMP);
         result.put("VARCHAR", Types.VARCHAR);
-        result.put("CHAR VARYING", Types.VARCHAR);
-        result.put("CHARACTER VARYING", Types.VARCHAR);
         // DB2, MS SQL Data Types
         // Note: Do NOT map the DATETIME SQL data type, the
         // java-type will be used to select the correct data type
@@ -257,6 +281,31 @@ public abstract class JdbcValueHandler<T> {
             return;
         }
         this.castAndSetValue(ps, parameterIndex, obj);
+    }
+
+    /**
+     * A <code>java.sql.Array</code> JDBC value handler.
+     */
+    protected static class ArrayJdbcValueHandler extends JdbcValueHandler<java.sql.Array> {
+        protected ArrayJdbcValueHandler(int jdbcType) {
+            super(jdbcType);
+        }
+        @Override
+        public Class<java.sql.Array> getJavaClass() {
+            return java.sql.Array.class;
+        }
+        @Override
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.Array obj) throws SQLException {
+            ps.setArray(parameterIndex, obj);
+        }
+        @Override
+        public java.sql.Array getValue(ResultSet rs, int columnIndex) throws SQLException {
+            return rs.getArray(columnIndex);
+        }
+        @Override
+        protected JdbcValueHandler<java.sql.Array> newInstance(int sqlType) {
+            return new ArrayJdbcValueHandler(sqlType);
+        }
     }
 
     /**
@@ -601,6 +650,31 @@ public abstract class JdbcValueHandler<T> {
         @Override
         protected JdbcValueHandler<Object> newInstance(int sqlType) {
             return new ObjectJdbcValueHandler(sqlType);
+        }
+    }
+
+    /**
+     * A <code>java.sql.RowId</code> JDBC value handler.
+     */
+    protected static class RowIdJdbcValueHandler extends JdbcValueHandler<java.sql.RowId> {
+        protected RowIdJdbcValueHandler(int jdbcType) {
+            super(jdbcType);
+        }
+        @Override
+        public Class<java.sql.RowId> getJavaClass() {
+            return java.sql.RowId.class;
+        }
+        @Override
+        protected void castAndSetValue(PreparedStatement ps, int parameterIndex, java.sql.RowId obj) throws SQLException {
+            ps.setRowId(parameterIndex, obj);
+        }
+        @Override
+        public java.sql.RowId getValue(ResultSet rs, int columnIndex) throws SQLException {
+            return rs.getRowId(columnIndex);
+        }
+        @Override
+        protected JdbcValueHandler<java.sql.RowId> newInstance(int sqlType) {
+            return new RowIdJdbcValueHandler(sqlType);
         }
     }
 
