@@ -220,14 +220,6 @@
         <value xml:lang="zh">验证验证码</value>
         <value xml:lang="zh-TW">驗證碼</value>
     </property>
-    <property key="PageTitleFindPortalPage">
-        <value xml:lang="en">Find Portal page</value>
-        <value xml:lang="fr">Rech. page portail</value>
-        <value xml:lang="ja">ポータルページの検索</value>
-        <value xml:lang="vi">Tìm trang trên Cổng thông tin</value>
-        <value xml:lang="zh">查找门户页面</value>
-        <value xml:lang="zh-TW">尋找入口網頁</value>
-    </property>
     <property key="PageTitleMyPortal">
         <value xml:lang="en">My Portal for : </value>
         <value xml:lang="fr">Mon portail pour : </value>
@@ -253,10 +245,13 @@
         <value xml:lang="fr">Rech. page portail</value>
         <value xml:lang="it">Ricerca pagine portale</value>
         <value xml:lang="ja">ポータルページを検索</value>
+        <!--value xml:lang="ja">ポータルページの検索</value-->
         <value xml:lang="pt">Encontrar a pÃ¡gina do Portal</value>
         <value xml:lang="vi">Tìm trang Cổng thông tin</value>
+        <!--value xml:lang="vi">Tìm trang trên Cổng thông tin</value-->
         <value xml:lang="zh">查找门户页面</value>
         <value xml:lang="zh-TW">查詢入口網頁</value>
+        <!--value xml:lang="zh-TW">尋找入口網頁</value-->
     </property>
     <property key="MyPortalAdminPortalPage">
         <value xml:lang="en">Portal page Admin.</value>
