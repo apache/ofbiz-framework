@@ -1,0 +1,15 @@
+As you are probably aware, OFBiz has a pretty uncommon way of generating URLs.
+Most of this has to do with the fact that OFBiz uses a servlet (ControlServlet) to handle all requests.
+The servlet is mounted at /control, so that it won't interfere with other servlets.
+Though functionally valid, this has the side effect that all URLs are actually created on /control, which is neither pretty, nor good by any measures of SEO.
+It also means that a few 302 redirects are necessary to forward the user from / to /control/main.
+It also makes requests more complicated, since many forwards are necessary whenever somebody wants to move away from this implementation.
+
+Since this is hurtful to many of the implementers, The ecomseo functional changes contain:
+
+    Removal of /control out of all the urls
+    SEO-friendly URLS (by default the suffix .html, see <category-url-suffix> in SeoConfig.xml)
+    Configurable product/category and other URLs (see in in SeoConfig.xml)
+    Frontpage mapping from /main to /
+    
+If you want to know more about this feature, please check https://issues.apache.org/jira/browse/OFBIZ-5312
