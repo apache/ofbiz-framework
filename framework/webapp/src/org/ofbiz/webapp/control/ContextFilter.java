@@ -254,16 +254,25 @@ public class ContextFilter implements Filter {
             // get tenant delegator by domain name
             String serverName = httpRequest.getServerName();
             try {
+            	
                 // if tenant was specified, replace delegator with the new per-tenant delegator and set tenantId to session attribute
                 Delegator delegator = getDelegator(config.getServletContext());
 
                 //Use base delegator for fetching data from entity of entityGroup org.ofbiz.tenant 
                 Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
                 GenericValue tenantDomainName = EntityQuery.use(baseDelegator).from("TenantDomainName").where("domainName", serverName).queryOne();
-
-                if (UtilValidate.isNotEmpty(tenantDomainName)) {
-                    String tenantId = tenantDomainName.getString("tenantId");
-
+                String tenantId = null;
+                if(UtilValidate.isNotEmpty(tenantDomainName)) {
+                    tenantId = tenantDomainName.getString("tenantId");
+                }
+                
+                if(UtilValidate.isEmpty(tenantId)) {
+                    tenantId = (String) httpRequest.getAttribute("tenantId");
+                }
+                if(UtilValidate.isEmpty(tenantId)) {
+                    tenantId = (String) httpRequest.getParameter("tenantId");
+                }
+                if (UtilValidate.isNotEmpty(tenantId)) {
                     // if the request path is a root mount then redirect to the initial path
                     if (UtilValidate.isNotEmpty(requestPath) && requestPath.equals(contextUri)) {
                         GenericValue tenant = EntityQuery.use(baseDelegator).from("Tenant").where("tenantId", tenantId).queryOne();
@@ -296,30 +305,6 @@ public class ContextFilter implements Filter {
                     request.setAttribute("security", security);
                     
                     request.setAttribute("tenantId", tenantId);
-                } else if (delegator.getDelegatorBaseName() != delegator.getDelegatorName()) {
-                    
-                    // Set default delegator
-                    Debug.logInfo("No tenant found for requested domain name " + serverName, module);
-                    Debug.logInfo("Setting default delegator and dispatcher", module);
-                    String delegatorName = delegator.getDelegatorBaseName();
-                    httpRequest.getSession().setAttribute("delegatorName", delegatorName);
-
-                    // after this line the delegator is replaced with the new per-tenant delegator
-                    delegator = DelegatorFactory.getDelegator(delegatorName);
-                    config.getServletContext().setAttribute("delegator", delegator);
-
-                    // clear web context objects
-                    config.getServletContext().setAttribute("security", null);
-                    config.getServletContext().setAttribute("dispatcher", null);
-
-                    // initialize security
-                    Security security = getSecurity();
-                    // initialize the services dispatcher
-                    LocalDispatcher dispatcher = getDispatcher(config.getServletContext());
-
-                    // set web context objects
-                    request.setAttribute("dispatcher", dispatcher);
-                    request.setAttribute("security", security);
                 }
 
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 
