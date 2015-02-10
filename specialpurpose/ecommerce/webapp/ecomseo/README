@@ -8,7 +8,7 @@ It also makes requests more complicated, since many forwards are necessary whene
 Since this is hurtful to many of the implementers, The ecomseo functional changes contain:
 
     Removal of /control out of all the urls
-    SEO-friendly URLS (by default the suffix .html, see <category-url-suffix> in SeoConfig.xml)
+    SEO-friendly URLS (with by default the suffix .html, see <category-url-suffix> in SeoConfig.xml)
     Configurable product/category and other URLs (see in in SeoConfig.xml)
     Frontpage mapping from /main to /
     
