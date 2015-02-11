@@ -472,6 +472,12 @@ under the License.
         <event type="service" invoke="createProductionRunAssoc"/>
         <response name="success" type="view" value="ProductionRunAssocs"/>
     </request-map>
+    <request-map uri="removeProductionRunAssoc">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortAssoc"/>
+        <response name="success" type="view" value="EditProductionRun"/>
+        <response name="error" type="view" value="EditProductionRun"/>
+    </request-map>
     <request-map uri="ManufacturingReports">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManufacturingReports"/>

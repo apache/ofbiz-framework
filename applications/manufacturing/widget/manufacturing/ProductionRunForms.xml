@@ -785,6 +785,15 @@ under the License.
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}" entry-name="workEffortIdFrom">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
         </field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="removeProductionRunAssoc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="workEffortIdFrom"/>
+                <parameter param-name="workEffortIdTo" from-field="productionRunId"/>
+                <parameter param-name="fromDate" from-field="estimatedStartDate"/>
+                <parameter param-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
+                <parameter param-name="productionRunId"/>
+            </hyperlink>
+        </field>
     </form>
     <form name="dependentWorkEfforts" type="list" target="" title="" list-name="dependentWorkEfforts"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -813,6 +822,15 @@ under the License.
         </field>
         <field name="actualCompletionDate" title="${uiLabelMap.ManufacturingActualCompletionDate}" entry-name="workEffortIdTo">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description="${actualCompletionDate} " cache="true"/>
+        </field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="removeProductionRunAssoc" description="${uiLabelMap.CommonRemove}" also-hidden="false">
+                <parameter param-name="workEffortIdFrom" from-field="productionRunId"/>
+                <parameter param-name="workEffortIdTo"/>
+                <parameter param-name="fromDate" from-field="estimatedStartDate"/>
+                <parameter param-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
+                <parameter param-name="productionRunId"/>
+            </hyperlink>
         </field>
     </form>
     <form name="ProductionRunTaskCosts" type="list" target="" title="" list-name="taskCosts"
