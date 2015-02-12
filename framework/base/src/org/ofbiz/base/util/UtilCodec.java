@@ -139,7 +139,7 @@ public class UtilCodec {
     }
 
     public static String canonicalize(String value) throws IntrusionException {
-        return canonicalize(value, true, true);
+        return canonicalize(value, false, false);
     }
 
     public static String canonicalize(String value, boolean strict) throws IntrusionException {
