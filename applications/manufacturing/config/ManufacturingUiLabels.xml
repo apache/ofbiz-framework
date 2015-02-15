@@ -19,6 +19,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="AddParty">
+        <value xml:lang="en">Add Party</value>
+    </property>
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="de">Verrechnete Kosten</value>
         <value xml:lang="en">Allocated Cost</value>
@@ -3770,6 +3773,10 @@
         <value xml:lang="vi">Chế tác lô hàng được cập nhật không thành công, bạn hãy xem vết để biết thêm chi tiết</value>
         <value xml:lang="zh">生产运行更新失败，请查看日志了解详细信息</value>
         <value xml:lang="zh-TW">生產運行更新失敗,請檢視日誌瞭解詳細資訊</value>
+    </property>
+    <property key="ManufacturingProductionRunParties">
+        <value xml:lang="en">Parties</value>
+        <value xml:lang="nl">Partijen</value>
     </property>
     <property key="ManufacturingProductionRunPrintDocuments">
         <value xml:lang="de">Dokumente für Produktionsauftrage drucken</value>

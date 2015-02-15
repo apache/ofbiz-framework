@@ -38,6 +38,17 @@ under the License.
         <attribute name="productionRunId" type="String" mode="OUT" optional="false"/>
         <attribute name="estimatedCompletionDate" type="java.sql.Timestamp" mode="OUT" optional="true"/>
     </service>
+    <service name="createProductionRunPartyAssign" engine="simple"
+        location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunPartyAssign" auth="false">
+        <description>
+            Associate a party to the production run
+        </description>
+        <attribute name="productionRunId" type="String" mode="INOUT" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <attribute name="workEffortId" mode="IN" type="String" optional="true"/>
+        <attribute name="fromDate" type="java.sql.Timestamp" mode="INOUT" optional="true"/>
+    </service>
     <service name="createProductionRunAssoc" engine="simple"
                 location="component://manufacturing/script/org/ofbiz/manufacturing/jobshopmgt/ProductionRunServices.xml" invoke="createProductionRunAssoc" auth="false">
         <description>
