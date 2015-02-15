@@ -165,6 +165,11 @@ under the License.
                 <parameter param-name="productionRunId"/>
             </link>
         </menu-item>
+        <menu-item name="parties" title="${uiLabelMap.ManufacturingProductionRunParties}">
+            <link target="productionRunParties">
+                <parameter param-name="productionRunId"/>
+            </link>
+        </menu-item>
         <menu-item name="assocs" title="${uiLabelMap.ManufacturingProductionRunAssocs}">
             <link target="ProductionRunAssocs">
                 <parameter param-name="productionRunId"/>

@@ -73,6 +73,18 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CreateProductionRunParty">
+        <section>
+            <actions>
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.AddParty}">
+                    <include-form name="AssocProductionRunParty" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
     <screen name="EditProductionRun">
         <section>
             <actions>
@@ -335,6 +347,93 @@ under the License.
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunParties">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ManufacturingProductionRunAssocs"/>
+                <set field="tabButtonItem" value="parties"/>
+                <set field="headerItem" value="jobshop"/>
+
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+                <!-- Find all the work efforts that must be completed before this one. -->
+                <entity-condition entity-name="WorkEffortAssoc" list="mandatoryWorkEfforts">
+                    <condition-list>
+                        <condition-expr field-name="workEffortIdTo" from-field="productionRunId"/>
+                        <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
+                    </condition-list>
+                </entity-condition>
+                <!-- Find all the work efforts that are dependent from this one. -->
+                <entity-condition entity-name="WorkEffortAssoc" list="dependentWorkEfforts">
+                    <condition-list>
+                        <condition-expr field-name="workEffortIdFrom" from-field="productionRunId"/>
+                        <condition-expr field-name="workEffortAssocTypeId" value="WORK_EFF_PRECEDENCY"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonJobshopDecorator" location="${parameters.commonJobshopDecorator}">
+                    <decorator-section name="body">
+                            <section>
+                                <widgets>
+                                    <include-screen name="CreateProductionRunParty"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <widgets>
+                                    <include-screen name="ProductionRunPartyAssocs"/>
+                                </widgets>
+                            </section>
+                            <section>
+                                <widgets>
+                                    <container>
+                                        <include-screen name="ProductionRunTaskPartyAssocs"/>
+                                    </container>
+                                </widgets>
+                            </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunPartyAssocs">
+        <section>
+            <actions>
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+                <entity-condition entity-name="WorkEffortPartyAssignment" list="productionRunParties">
+                    <condition-list>
+                        <condition-expr field-name="workEffortId" from-field="productionRunId"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <screenlet>
+                    <include-form name="ProductionRunPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ProductionRunTaskPartyAssocs">
+        <section>
+            <actions>
+                <set field="productionRunId" from-field="parameters.productionRunId"/>
+                <entity-one entity-name="WorkEffort" value-field="productionRun">
+                    <field-map field-name="workEffortId" from-field="productionRunId"/>
+                </entity-one>
+                <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/jobshopmgt/ProductionRunTaskParties.groovy"/>
+            </actions>
+            <widgets>
+                <screenlet>
+                    <include-form name="ProductionRunTaskPartyAssocs" location="component://manufacturing/widget/manufacturing/ProductionRunForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

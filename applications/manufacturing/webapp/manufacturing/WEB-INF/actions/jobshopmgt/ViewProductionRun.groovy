@@ -41,6 +41,11 @@ if (productionRunId) {
         productionRunData.quantity = productionRun.getQuantity();
         productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate();
         productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate();
+
+        manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").queryOne();
+        if (manufacturer){
+            productionRunData.manufacturerId = manufacturer.partyId;
+        }
         context.productionRunData = productionRunData;
 
         // Find all the order items to which this production run is linked.
