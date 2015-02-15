@@ -112,12 +112,18 @@ public class MacroScreenViewHandler extends AbstractViewHandler {
         }
         ScreenStringRenderer screenStringRenderer = new MacroScreenRenderer(UtilProperties.getPropertyValue("widget", getName()
                 + ".name"), screenMacroLibraryPath);
-        FormStringRenderer formStringRenderer = new MacroFormRenderer(formMacroLibraryPath, request, response);
-        context.put("formStringRenderer", formStringRenderer);
-        TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(treeMacroLibraryPath, writer);
-        context.put("treeStringRenderer", treeStringRenderer);
-        MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(menuMacroLibraryPath, request, response);
-        context.put("menuStringRenderer", menuStringRenderer);
+        if (!formMacroLibraryPath.isEmpty()) {
+            FormStringRenderer formStringRenderer = new MacroFormRenderer(formMacroLibraryPath, request, response);
+            context.put("formStringRenderer", formStringRenderer);
+        }
+        if (!treeMacroLibraryPath.isEmpty()) {
+            TreeStringRenderer treeStringRenderer = new MacroTreeRenderer(treeMacroLibraryPath, writer);
+            context.put("treeStringRenderer", treeStringRenderer);
+        }
+        if (!menuMacroLibraryPath.isEmpty()) {
+            MenuStringRenderer menuStringRenderer = new MacroMenuRenderer(menuMacroLibraryPath, request, response);
+            context.put("menuStringRenderer", menuStringRenderer);
+        }
         return screenStringRenderer;
     }
 
