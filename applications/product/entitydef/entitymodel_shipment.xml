@@ -1225,11 +1225,11 @@ under the License.
       <field name="shipmentRouteSegmentId" type="id-ne"></field>
       <field name="trackingCode" type="short-varchar"></field>
       <field name="boxNumber" type="short-varchar"></field>
-      <field name="labelImage" type="blob"></field>
-      <field name="labelIntlSignImage" type="blob"></field>
+      <field name="labelImage" type="byte-array"></field>
+      <field name="labelIntlSignImage" type="byte-array"></field>
       <field name="labelHtml" type="very-long"></field>
       <field name="labelPrinted" type="indicator"></field> <!-- tracks if a label has been printed -->
-      <field name="internationalInvoice" type="blob"></field>
+      <field name="internationalInvoice" type="byte-array"></field>
       <field name="packageTransportCost" type="currency-amount"></field>
       <field name="packageServiceCost" type="currency-amount"></field>
       <field name="packageOtherCost" type="currency-amount"></field>
@@ -1292,7 +1292,7 @@ under the License.
       <field name="thirdPartyAccountNumber" type="id"></field>
       <field name="thirdPartyPostalCode" type="id"></field>
       <field name="thirdPartyCountryGeoCode" type="id"></field>
-      <field name="upsHighValueReport" type="blob"></field>
+      <field name="upsHighValueReport" type="byte-array"></field>
       <prim-key field="shipmentId"/>
       <prim-key field="shipmentRouteSegmentId"/>
       <relation type="one" fk-name="SHPMT_RTSEG_SHPMT" rel-entity-name="Shipment">

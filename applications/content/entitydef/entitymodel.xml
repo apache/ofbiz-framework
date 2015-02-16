@@ -728,7 +728,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="Other Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="audioData" type="blob"></field>
+      <field name="audioData" type="object"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_AUDIO" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
@@ -1039,7 +1039,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="Other Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="dataResourceContent" type="blob"></field>
+      <field name="dataResourceContent" type="object"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_OTHER" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
@@ -1049,7 +1049,7 @@ under the License.
             package-name="org.ofbiz.content.data"
             title="Other Data Object Entity">
       <field name="dataResourceId" type="id-ne"></field>
-      <field name="videoData" type="blob"></field>
+      <field name="videoData" type="object"></field>
       <prim-key field="dataResourceId"/>
       <relation type="one" fk-name="DATA_REC_VIDEO" rel-entity-name="DataResource">
         <key-map field-name="dataResourceId"/>
@@ -1069,7 +1069,7 @@ under the License.
       <field name="comments" type="comment"></field>
       <field name="documentLocation" type="long-varchar"></field>
       <field name="documentText" type="long-varchar"></field>
-      <field name="imageData" type="blob"></field>
+      <field name="imageData" type="object"></field>
       <prim-key field="documentId"/>
       <relation type="one" fk-name="DOCUMENT_TO_TYPE" rel-entity-name="DocumentType">
         <key-map field-name="documentTypeId"/>
