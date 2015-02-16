@@ -155,7 +155,7 @@ under the License.
       <field name="agreementItemTypeId" type="id"></field>
       <field name="currencyUomId" type="id"></field>
       <field name="agreementText" type="very-long"></field>
-      <field name="agreementImage" type="blob"></field>
+      <field name="agreementImage" type="object"></field>
       <prim-key field="agreementId"/>
       <prim-key field="agreementItemSeqId"/>
       <relation type="one" fk-name="AGRMNT_ITEM_AGR" rel-entity-name="Agreement">
