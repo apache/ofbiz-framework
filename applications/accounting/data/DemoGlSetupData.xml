@@ -81,12 +81,12 @@ under the License.
     <InvoiceItemType invoiceItemTypeId="PITM_ADD_FEATURE" defaultGlAccountId="516100"/>
     <InvoiceItemType invoiceItemTypeId="PITM_WARRANTY_ADJ" defaultGlAccountId="516100"/>
 
-    <InvoiceItemType invoiceItemTypeId="PINV_PROD_ITEM" defaultGlAccountId="140000"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_FPROD_ITEM" defaultGlAccountId="140000"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_DPROD_ITEM" defaultGlAccountId="140000"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_FDPROD_ITEM" defaultGlAccountId="140000"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_PROD_FEATR_ITEM" defaultGlAccountId="140000"/>
-    <InvoiceItemType invoiceItemTypeId="PINV_SPROD_ITEM" defaultGlAccountId="140000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_PROD_ITEM" defaultGlAccountId="214000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_FPROD_ITEM" defaultGlAccountId="214000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_DPROD_ITEM" defaultGlAccountId="500000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_FDPROD_ITEM" defaultGlAccountId="214000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_PROD_FEATR_ITEM" defaultGlAccountId="214000"/>
+    <InvoiceItemType invoiceItemTypeId="PINV_SPROD_ITEM" defaultGlAccountId="500000"/>
 
     <InvoiceItemType invoiceItemTypeId="PINV_INVPRD_ITEM" defaultGlAccountId="650000"/>
     <InvoiceItemType invoiceItemTypeId="PINV_SUPLPRD_ITEM" defaultGlAccountId="650000"/>
