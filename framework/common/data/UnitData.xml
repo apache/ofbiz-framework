@@ -30,6 +30,7 @@ under the License.
     <Uom abbreviation="Mb" description="Megabit of Data" uomId="DATA_Mb" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="Gb" description="Gigabit of Data" uomId="DATA_Gb" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="Tb" description="Terabit of Data" uomId="DATA_Tb" uomTypeId="DATA_MEASURE"/>
+    <Uom abbreviation="Pb" description="Petabit of Data" uomId="DATA_Pb" uomTypeId="DATA_MEASURE"/>
 
     <Uom abbreviation="B" description="Byte of Data" uomId="DATA_B" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="KB" description="Kilobyte of Data" uomId="DATA_KB" uomTypeId="DATA_MEASURE"/>
@@ -42,6 +43,7 @@ under the License.
     <UomConversion uomId="DATA_Mb" uomIdTo="DATA_Kb" conversionFactor="1024"/>
     <UomConversion uomId="DATA_Gb" uomIdTo="DATA_Mb" conversionFactor="1024"/>
     <UomConversion uomId="DATA_Tb" uomIdTo="DATA_Gb" conversionFactor="1024"/>
+    <UomConversion uomId="DATA_Pb" uomIdTo="DATA_Tb" conversionFactor="1024"/>
 
     <UomConversion uomId="DATA_B" uomIdTo="DATA_b" conversionFactor="8"/>
     <UomConversion uomId="DATA_KB" uomIdTo="DATA_B" conversionFactor="1024"/>
