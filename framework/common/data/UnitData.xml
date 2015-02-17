@@ -23,8 +23,7 @@ under the License.
       NOTE: All UomConversion conversionFactors are multipliers to change from uomId to uomIdTo.
       In other words there is 1 uomId for conversionFactor uomIdTos, for instance 1 minute for 60 seconds.
     -->
-    <Uom abbreviation="Pb" description="Petabit of Data" uomId="DATA_Pb" uomTypeId="DATA_MEASURE"/>
-  
+ 
     <!-- =============== DATA_MEASURE =============== -->
     <Uom abbreviation="b" description="Bit of Data" uomId="DATA_b" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="Kb" description="Kilobit of Data" uomId="DATA_Kb" uomTypeId="DATA_MEASURE"/>
@@ -36,7 +35,6 @@ under the License.
     <Uom abbreviation="B" description="Byte of Data" uomId="DATA_B" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="KB" description="Kilobyte of Data" uomId="DATA_KB" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="MB" description="Megabyte of Data" uomId="DATA_MB" uomTypeId="DATA_MEASURE"/>
-    <UomConversion uomId="DATA_Pb" uomIdTo="DATA_Tb" conversionFactor="1024"/>
     <Uom abbreviation="GB" description="Gigabyte of Data" uomId="DATA_GB" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="TB" description="Terabyte of Data" uomId="DATA_TB" uomTypeId="DATA_MEASURE"/>
     <Uom abbreviation="PB" description="Petabyte of Data" uomId="DATA_PB" uomTypeId="DATA_MEASURE"/>
