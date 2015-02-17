@@ -45,5 +45,6 @@ under the License.
         <fileset dir="../../applications/product/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/party/build/lib" includes="*.jar"/>
         <fileset dir="../../applications/order/build/lib" includes="*.jar"/>
+        <fileset dir="../../applications/content/build/lib" includes="*.jar"/>
     </path>
 </project>
