@@ -171,6 +171,7 @@ public class EntityListIterator implements ListIterator<GenericValue> {
         if (closed) throw new GenericResultSetClosedException("This EntityListIterator has been closed, this operation cannot be performed");
 
         GenericValue value = GenericValue.create(modelEntity);
+        value.setDelegator(this.delegator);
 
         for (int j = 0; j < selectFields.size(); j++) {
             ModelField curField = selectFields.get(j);
@@ -178,7 +179,6 @@ public class EntityListIterator implements ListIterator<GenericValue> {
             SqlJdbcUtil.getValue(resultSet, j + 1, curField, value, modelFieldTypeReader);
         }
 
-        value.setDelegator(this.delegator);
         value.synchronizedWithDatasource();
         this.haveMadeValue = true;
         return value;
