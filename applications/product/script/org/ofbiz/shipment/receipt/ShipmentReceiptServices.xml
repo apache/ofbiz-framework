@@ -467,7 +467,26 @@ under the License.
         </if-not-empty>
         <call-simple-method method-name="getReceivedQuantityForOrderItem"/>
         <if-compare-field field="orderItem.quantity" operator="less" to-field="receivedQuantity" type="BigDecimal">
+            <entity-and list="orderItemShipGroupAssocs" entity-name="OrderItemShipGroupAssoc">
+                <field-map field-name="orderId" from-field="orderItem.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="orderItem.orderItemSeqId"/>
+            </entity-and>
+            <calculate field="quantityVariance" type="BigDecimal" decimal-scale="2" rounding-mode="HalfUp">
+                <calcop operator="subtract">
+                    <calcop operator="get" field="receivedQuantity"/>
+                    <calcop operator="get" field="orderItem.quantity"/>
+                </calcop>
+            </calculate>
+            <first-from-list entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs"/>
+            <calculate field="oisgaQuantity" type="BigDecimal" decimal-scale="2" rounding-mode="HalfUp">
+                <calcop operator="add">
+                    <calcop operator="get" field="orderItemShipGroupAssoc.quantity"/>
+                    <calcop operator="get" field="quantityVariance"/>
+                </calcop>
+            </calculate>
+            <set field="orderItemShipGroupAssoc.quantity" from-field="oisgaQuantity"/>
             <set field="orderItem.quantity" from-field="receivedQuantity"/>
+            <store-value value-field="orderItemShipGroupAssoc"/>
             <store-value value-field="orderItem"/>
         </if-compare-field>
         <if-not-empty field="parameters.shipmentId">
