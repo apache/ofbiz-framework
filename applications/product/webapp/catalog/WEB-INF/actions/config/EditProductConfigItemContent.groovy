@@ -24,9 +24,12 @@ import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 
 // make the image file formats
+context.tenantId = delegator.getDelegatorTenantId();
 imageFilenameFormat = "configitems/${configItemId}";
 imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.server.path", delegator), context);
-imageUrlPrefix = EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator);
+imageUrlPrefix = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.url.prefix",delegator), context);
+imageServerPath = imageServerPath.endsWith("/") ? imageServerPath.substring(0, imageServerPath.length()-1) : imageServerPath;
+imageUrlPrefix = imageUrlPrefix.endsWith("/") ? imageUrlPrefix.substring(0, imageUrlPrefix.length()-1) : imageUrlPrefix;
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
 context.imageUrlPrefix = imageUrlPrefix;
