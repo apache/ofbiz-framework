@@ -84,8 +84,8 @@ if (productionRunId) {
         productionRunData.actualCompletionDate = productionRun.getGenericValue().getTimestamp("actualCompletionDate");
         productionRunData.currentStatusId = productionRun.getGenericValue().currentStatusId;
         productionRunData.facilityId = productionRun.getGenericValue().facilityId;
-        
-        manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").queryOne();
+
+        manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").filterByDate().queryFirst();
         if (manufacturer){
             productionRunData.manufacturerId = manufacturer.partyId;
         }
