@@ -117,11 +117,6 @@ if (maxDate && maxDate.length() > 8) {
 if ("Y".equals(lookupFlag)) {
     context.paramList = paramListBuffer.toString();
 
-    mainCond = null;
-    if (findShipmentExprs.size() > 0) {
-        mainCond = EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND);
-    }
-
     beganTransaction = false;
     try {
         beganTransaction = TransactionUtil.begin();
@@ -132,7 +127,11 @@ if ("Y".equals(lookupFlag)) {
         
         if (!orderReturnValue) {
             // using list iterator
-            orli = from("Shipment").where(mainCond).orderBy("-estimatedShipDate").cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator();
+            if (findShipmentExprs.size() > 0) {
+                orli = from("Shipment").where(EntityCondition.makeCondition(findShipmentExprs, EntityOperator.AND)).orderBy("-estimatedShipDate").cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator();
+            } else {
+                orli = from("Shipment").orderBy("-estimatedShipDate").cursorScrollInsensitive().distinct().maxRows(highIndex).queryIterator();
+            }
     
             shipmentListSize = orli.getResultsSizeAfterPartialList();
             if (highIndex > shipmentListSize) {
