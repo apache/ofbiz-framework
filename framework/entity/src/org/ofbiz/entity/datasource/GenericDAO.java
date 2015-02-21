@@ -563,9 +563,9 @@ public class GenericDAO {
 
         Set<String> tempKeys = new TreeSet<String>(keys);
 
-        Iterator<ModelField> nopkIter = modelEntity.getNopksIterator();
-        while (nopkIter.hasNext()) {
-            ModelField curField = nopkIter.next();
+        Iterator<ModelField> entityFieldIter = modelEntity.getFieldsIterator();
+        while (entityFieldIter.hasNext()) {
+            ModelField curField = entityFieldIter.next();
             if (tempKeys.contains(curField.getName())) {
                 partialFields.add(curField);
                 tempKeys.remove(curField.getName());
