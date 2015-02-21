@@ -34,6 +34,7 @@ under the License.
         
   <para>The number of organizational levels can be as many as required.</para>
   
+  <section>
      <title> Nodes In the Company Tree</title>
 
     <para>There are three node types in the tree, each identified by a
@@ -41,7 +42,9 @@ under the License.
     level in the organization. The Company and departments under the
     Company can have sub departments or positions. Under positions are
     the people who fulfill the position.</para>
+  </section>
   
+  <section>
     <title>Usage</title>
 
     <itemizedlist>
@@ -67,5 +70,6 @@ under the License.
         position</para>
       </listitem>
     </itemizedlist>
+  </section>
   
 </section>
