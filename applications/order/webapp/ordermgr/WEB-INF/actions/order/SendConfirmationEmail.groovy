@@ -37,7 +37,7 @@ context.donePage = donePage;
 // Provide the correct order confirmation ProductStoreEmailSetting, if one exists
 orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
 if (orderHeader.productStoreId) {
-    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType)context.queryOne();
+    productStoreEmailSetting = from("ProductStoreEmailSetting").where("productStoreId", orderHeader.productStoreId, "emailType", emailType).queryOne();
     if (productStoreEmailSetting) {
         context.productStoreEmailSetting = productStoreEmailSetting;
     }
