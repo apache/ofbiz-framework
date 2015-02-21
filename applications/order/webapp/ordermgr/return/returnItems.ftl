@@ -387,6 +387,7 @@ under the License.
         </#if>
 <!-- if no requestParameters.orderId??, then show list of items -->
 <#elseif returnHeader?has_content>
+        <#assign selectAllFormName = "returnItems"/>
         <form name="returnItems" method="post" action="<@ofbizUrl>createReturnItems</@ofbizUrl>">
           <input type="hidden" name="returnId" value="${returnId}" />
           <input type="hidden" name="_useRowSubmit" value="Y" />
