@@ -1946,7 +1946,7 @@ under the License.
     
     <request-map uri="ProductUomDropDownOnly">
         <security auth="false" https="false"/>
-        <response name="success" type="view" value="ProductUomDropDownOnly" save-last-view="true"/>
+        <response name="success" type="view" value="ProductUomDropDownOnly" save-current-view="false" />
     </request-map>
     
     <!-- Captcha: Image request, the captcha code is stored in the session using _CAPTCHA_CODE_ as the key -->
