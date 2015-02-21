@@ -282,11 +282,6 @@ under the License.
         <description>Ensure that the party is in the _NA_ role.</description>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
     </service>
-    <service name="ensureNaPartyRoleFrom" engine="simple"
-            location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
-        <description>Ensure that the party indicate by partyIdFrom is in the _NA_ role.</description>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
-    </service>
     <service name="ensurePartyRoleFrom" engine="simple"
             location="component://party/script/org/ofbiz/party/party/PartySimpleMethods.xml" invoke="ensureNaPartyRole" auth="true">
         <description>Ensure that the party indicate by partyIdFrom is in the roleTypeIdFrom specifc role. If roleTypeIdFrom isn't present use _NA_</description>
