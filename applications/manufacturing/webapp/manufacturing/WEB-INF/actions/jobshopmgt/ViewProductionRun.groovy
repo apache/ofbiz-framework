@@ -42,7 +42,7 @@ if (productionRunId) {
         productionRunData.estimatedStartDate = productionRun.getEstimatedStartDate();
         productionRunData.estimatedCompletionDate = productionRun.getEstimatedCompletionDate();
 
-        manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").queryOne();
+		manufacturer = from("WorkEffortPartyAssignment").where("workEffortId", productionRunId, "roleTypeId", "MANUFACTURER").filterByDate().queryFirst();
         if (manufacturer){
             productionRunData.manufacturerId = manufacturer.partyId;
         }
