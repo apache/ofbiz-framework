@@ -65,7 +65,6 @@ public class ModelSingleForm extends ModelForm {
         ModelForm parent = null;
         String parentResource = formElement.getAttribute("extends-resource");
         String parentForm = formElement.getAttribute("extends");
-        String formType = formElement.getAttribute("type");
         if (!parentForm.isEmpty()) {
             // check if we have a resource name
             if (!parentResource.isEmpty()) {
@@ -82,8 +81,7 @@ public class ModelSingleForm extends ModelForm {
                 //Uncomment below to add support for abstract forms
                 //formElements.addAll(UtilXml.childElementList(rootElement, "abstract-form"));
                 for (Element parentElement : formElements) {
-                    if (parentElement.getAttribute("name").equals(parentForm)
-                            && formType.equals(parentElement.getAttribute("type"))) {
+                    if (parentElement.getAttribute("name").equals(parentForm)) {
                         parent = FormFactory.createModelForm(parentElement, entityModelReader, dispatchContext, parentResource,
                                 parentForm);
                         break;
