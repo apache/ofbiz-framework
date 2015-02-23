@@ -64,7 +64,6 @@ public class ModelGrid extends ModelForm {
         ModelForm parentModel = null;
         String parentResource = gridElement.getAttribute("extends-resource");
         String parentGrid = gridElement.getAttribute("extends");
-        String gridType = gridElement.getAttribute("type");
         if (!parentGrid.isEmpty()) {
             // check if we have a resource name
             if (!parentResource.isEmpty()) {
@@ -83,8 +82,7 @@ public class ModelGrid extends ModelForm {
                     gridElements = UtilXml.childElementList(rootElement, "form");
                 }
                 for (Element parentElement : gridElements) {
-                    if (parentElement.getAttribute("name").equals(parentGrid)
-                            && gridType.equals(parentElement.getAttribute("type"))) {
+                    if (parentElement.getAttribute("name").equals(parentGrid)) {
                         parentModel = GridFactory.createModelGrid(parentElement, entityModelReader, dispatchContext,
                                 parentResource, parentGrid);
                         break;
