@@ -1274,6 +1274,16 @@ under the License.
         <entity-one value-field="inventoryItem" entity-name="InventoryItem"  auto-field-map="false">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
         </entity-one>
+        <if-not-empty field="inventoryItem">
+            <set field="facilityId" from-field="inventoryItem.facilityId"/>
+            <set field="productId" from-field="inventoryItem.productId"/>
+            <entity-one value-field="productFacility" entity-name="ProductFacility"/>
+            <if-empty field="productFacility">
+                <set field="createProductFacilityMap.facilityId" from-field="facilityId"/>
+                <set field="createProductFacilityMap.productId" from-field="productId"/>
+                <call-service service-name="createProductFacility" in-map-name="createProductFacilityMap" require-new-transaction="true"/>
+            </if-empty>
+        </if-not-empty>
         <entity-and list="productFacilities" entity-name="ProductFacility">
             <field-map field-name="productId" from-field="inventoryItem.productId" />
         </entity-and>
