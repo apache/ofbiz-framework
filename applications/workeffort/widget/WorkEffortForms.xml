@@ -396,18 +396,18 @@ under the License.
         </sort-order>
     </form>
 
-    <form name="ListWorkEfforts" type="list" list-name="workEfforts" paginate-target="ListWorkEfforts"
+    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
+            <set field="fieldList" value="${groovy:['workEffortId','workEffortTypeId','currentStatusId','workEffortPurposeTypeId','description','priority','lastModifiedDate','estimatedStartDate','estimatedCompletionDate','actualStartDate','actualCompletionDate']}" type="List"/>
             <service service-name="performFind" result-map="result" result-map-list="listIt">
                 <field-map field-name="inputFields" from-field="parameters"/>
                 <field-map field-name="entityName" value="WorkEffortFindView"/>
+                <field-map field-name="fieldList" from-field="fieldList"/>
                 <field-map field-name="orderBy" value="lastModifiedDate DESC"/>
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
-                <field-map field-name="viewSize" from-field="viewSize"/>              
-            </service>
-            <service service-name="removeDuplicateWorkEfforts" result-map="result" result-map-list="workEfforts">
-                <field-map field-name="workEffortIterator" from-field="listIt"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+                <field-map field-name="distinct" value="Y"/>
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
