@@ -335,42 +335,44 @@ public class XmlWidgetFieldVisitor extends XmlAbstractWidgetVisitor implements M
     }
 
     private void visitModelField(ModelFormField modelField) throws Exception {
-        writer.append("<field");
-        visitAttribute("name", modelField.getName());
-        visitAttribute("action", modelField.getAction());
-        visitAttribute("attribute-name", modelField.getAttributeName());
-        visitAttribute("encode-output", modelField.getEncodeOutput());
-        visitAttribute("entity-name", modelField.getEntityName());
-        visitAttribute("entry-name", modelField.getEntryName());
-        visitAttribute("event", modelField.getEvent());
-        visitAttribute("field-name", modelField.getFieldName());
-        visitAttribute("header-link", modelField.getHeaderLink());
-        visitAttribute("header-link-style", modelField.getHeaderLinkStyle());
-        visitAttribute("id-name", modelField.getIdName());
-        visitAttribute("map-name", modelField.getMapName());
-        visitAttribute("parameter-name", modelField.getParameterName());
-        visitAttribute("position", modelField.getPosition());
-        visitAttribute("red-when", modelField.getRedWhen());
-        visitAttribute("required-field", modelField.getRequiredField());
-        visitAttribute("required-field-style", modelField.getRequiredFieldStyle());
-        visitAttribute("separate-column", modelField.getSeparateColumn());
-        visitAttribute("service-name", modelField.getServiceName());
-        visitAttribute("sort-field", modelField.getSortField());
-        visitAttribute("sort-field-asc-style", modelField.getSortFieldAscStyle());
-        visitAttribute("sort-field-desc-style", modelField.getSortFieldDescStyle());
-        visitAttribute("sort-field-help-text", modelField.getSortFieldHelpText());
-        visitAttribute("sort-field-style", modelField.getSortFieldStyle());
-        visitAttribute("title", modelField.getTitle());
-        visitAttribute("title-area-style", modelField.getTitleAreaStyle());
-        visitAttribute("title-style", modelField.getTitleStyle());
-        visitAttribute("tooltip", modelField.getTooltip());
-        visitAttribute("tooltip-style", modelField.getTooltipStyle());
-        visitAttribute("use-when", modelField.getUseWhen());
-        visitAttribute("widget-area-style", modelField.getWidgetAreaStyle());
-        visitAttribute("widget-style", modelField.getWidgetStyle());
-        writer.append(">");
-        visitUpdateAreas(modelField.getOnChangeUpdateAreas());
-        visitUpdateAreas(modelField.getOnClickUpdateAreas());
+        if (modelField != null) {
+            writer.append("<field");
+            visitAttribute("name", modelField.getName());
+            visitAttribute("action", modelField.getAction());
+            visitAttribute("attribute-name", modelField.getAttributeName());
+            visitAttribute("encode-output", modelField.getEncodeOutput());
+            visitAttribute("entity-name", modelField.getEntityName());
+            visitAttribute("entry-name", modelField.getEntryName());
+            visitAttribute("event", modelField.getEvent());
+            visitAttribute("field-name", modelField.getFieldName());
+            visitAttribute("header-link", modelField.getHeaderLink());
+            visitAttribute("header-link-style", modelField.getHeaderLinkStyle());
+            visitAttribute("id-name", modelField.getIdName());
+            visitAttribute("map-name", modelField.getMapName());
+            visitAttribute("parameter-name", modelField.getParameterName());
+            visitAttribute("position", modelField.getPosition());
+            visitAttribute("red-when", modelField.getRedWhen());
+            visitAttribute("required-field", modelField.getRequiredField());
+            visitAttribute("required-field-style", modelField.getRequiredFieldStyle());
+            visitAttribute("separate-column", modelField.getSeparateColumn());
+            visitAttribute("service-name", modelField.getServiceName());
+            visitAttribute("sort-field", modelField.getSortField());
+            visitAttribute("sort-field-asc-style", modelField.getSortFieldAscStyle());
+            visitAttribute("sort-field-desc-style", modelField.getSortFieldDescStyle());
+            visitAttribute("sort-field-help-text", modelField.getSortFieldHelpText());
+            visitAttribute("sort-field-style", modelField.getSortFieldStyle());
+            visitAttribute("title", modelField.getTitle());
+            visitAttribute("title-area-style", modelField.getTitleAreaStyle());
+            visitAttribute("title-style", modelField.getTitleStyle());
+            visitAttribute("tooltip", modelField.getTooltip());
+            visitAttribute("tooltip-style", modelField.getTooltipStyle());
+            visitAttribute("use-when", modelField.getUseWhen());
+            visitAttribute("widget-area-style", modelField.getWidgetAreaStyle());
+            visitAttribute("widget-style", modelField.getWidgetStyle());
+            writer.append(">");
+            visitUpdateAreas(modelField.getOnChangeUpdateAreas());
+            visitUpdateAreas(modelField.getOnClickUpdateAreas());
+        }
     }
 
     private void visitSubHyperlink(SubHyperlink hyperlink) throws Exception {
