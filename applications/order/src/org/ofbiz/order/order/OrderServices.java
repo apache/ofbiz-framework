@@ -3591,6 +3591,23 @@ public class OrderServices {
                     "OrderShoppingCartEmpty", locale));
         }
 
+        try {
+            //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+            // if not and if quantity is in decimal format then return error.
+            if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
+                if (remainder.compareTo(BigDecimal.ZERO) != 0) {
+                    return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", locale));
+                }
+                quantity = quantity.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+            } else {
+                quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+            }
+        } catch(GenericEntityException e) {
+            Debug.logError(e.getMessage(), module);
+            quantity = BigDecimal.ONE;
+        }
+
         shipGroupIdx = cart.getShipInfoIndex(shipGroupSeqId);
 
         // add in the new product
@@ -3749,6 +3766,23 @@ public class OrderServices {
                 BigDecimal qty = itemTotals.get(itemSeqId);
                 BigDecimal priceSave = cartItem.getBasePrice();
 
+                try {
+                    //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+                    // if not and if quantity is in decimal format then return error.
+                    if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, cartItem.getProductId(), cart.getProductStoreId())){
+                        BigDecimal remainder = qty.remainder(BigDecimal.ONE);
+                        if (remainder.compareTo(BigDecimal.ZERO) != 0) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", locale));
+                        }
+                        qty = qty.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                    } else {
+                        qty = qty.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                    }
+                } catch(GenericEntityException e) {
+                    Debug.logError(e.getMessage(), module);
+                    qty = BigDecimal.ONE;
+                }
+
                 // set quantity
                 try {
                     cartItem.setQuantity(qty, dispatcher, cart, false, false); // trigger external ops, don't reset ship groups (and update prices for both PO and SO items)
@@ -3881,6 +3915,22 @@ public class OrderServices {
             // set the group qty
             ShoppingCartItem cartItem = cart.findCartItem(itemInfo[0]);
             if (cartItem != null) {
+                try {
+                    //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+                    // if not and if quantity is in decimal format then return error.
+                    if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, cartItem.getProductId(), cart.getProductStoreId())){
+                        BigDecimal remainder = groupQty.remainder(BigDecimal.ONE);
+                        if (remainder.compareTo(BigDecimal.ZERO) != 0) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", locale));
+                        }
+                        groupQty = groupQty.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                    } else {
+                        groupQty = groupQty.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                    }
+                } catch(GenericEntityException e) {
+                    Debug.logError(e.getMessage(), module);
+                    groupQty = BigDecimal.ONE;
+                }
                 int shipGroupIndex = cart.getShipInfoIndex(itemInfo[1]);
                 if (Debug.infoOn()) Debug.logInfo("Shipping info (before) for group #" + (shipGroupIndex) + " [" + cart.getShipmentMethodTypeId(shipGroupIndex) + " / " + cart.getCarrierPartyId(shipGroupIndex) + "]", module);
                 cart.setItemShipGroupQty(cartItem, groupQty, shipGroupIndex);

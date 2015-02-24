@@ -446,7 +446,27 @@ public class ShoppingCartHelper {
                             quantity = quantity.multiply(piecesIncluded);
                         }
                     }
-                    
+
+                    try {
+                        //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+                        // if not and if quantity is in decimal format then return error.
+                        if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, productId, cart.getProductStoreId())){
+                            BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
+                            if (remainder.compareTo(BigDecimal.ZERO) != 0) {
+                                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale()));
+                            }
+                            quantity = quantity.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                        } else {
+                            quantity = quantity.setScale(UtilNumber.getBigDecimalScale("order.decimals"), UtilNumber.getBigDecimalRoundingMode("order.rounding"));
+                        }
+                    } catch(GenericEntityException e) {
+                        Debug.logError(e.getMessage(), module);
+                        quantity = BigDecimal.ONE;
+                    }
+                    if (quantity.compareTo(BigDecimal.ZERO) < 0) {
+                        return ServiceUtil.returnError(UtilProperties.getMessage(resource_error, "cart.quantity_not_positive_number", this.cart.getLocale()));
+                    }
+
                     try {
                         if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart [" + quantity + "] of [" + productId + "] in Item Group [" + itemGroupNumber + "]", module);
                         this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, null, null, null, null, catalogId, null, null, itemGroupNumberToUse, originalProductId, dispatcher);
@@ -536,6 +556,7 @@ public class ShoppingCartHelper {
                             if (Debug.warningOn()) Debug.logWarning(UtilProperties.getMessage(resource_error, "OrderTheRequirementIsAlreadyInTheCartNotAdding", UtilMisc.toMap("requirementId",requirementId), cart.getLocale()), module);
                             continue;
                         }
+
                         try {
                             if (Debug.verboseOn()) Debug.logVerbose("Bulk Adding to cart requirement [" + quantity + "] of [" + productId + "]", module);
                             int index = this.cart.addOrIncreaseItem(productId, null, quantity, null, null, null, requirement.getTimestamp("requiredByDate"), null, null, null, catalogId, null, null, itemGroupNumber, null, dispatcher);
@@ -750,8 +771,16 @@ public class ShoppingCartHelper {
                         }
                     } else {
                         quantity = (BigDecimal) ObjectType.simpleTypeConvert(quantString, "BigDecimal", null, locale);
-                        //For quantity we should test if we allow to add decimal quantity for this product an productStore : if not then round to 0
+                        //For quantity we should test if we allow to add decimal quantity for this product an productStore : 
+                        // if not and if quantity is in decimal format then return error.
                         if(! ProductWorker.isDecimalQuantityOrderAllowed(delegator, item.getProductId(), cart.getProductStoreId())){
+                            BigDecimal remainder = quantity.remainder(BigDecimal.ONE);
+                            if (remainder.compareTo(BigDecimal.ZERO) != 0) {
+                                String errMsg = UtilProperties.getMessage(resource_error, "cart.addToCart.quantityInDecimalNotAllowed", this.cart.getLocale());
+                                errorMsgs.add(errMsg);
+                                result = ServiceUtil.returnError(errorMsgs);
+                                return result;
+                            }
                             quantity = quantity.setScale(0, UtilNumber.getBigDecimalRoundingMode("order.rounding"));
                         }                
                         else {

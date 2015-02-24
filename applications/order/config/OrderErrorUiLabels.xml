@@ -4813,6 +4813,9 @@
         <value xml:lang="zh-CN">配置无效</value>
         <value xml:lang="zh-TW">配置無效</value>
     </property>
+    <property key="cart.addToCart.quantityInDecimalNotAllowed">
+        <value xml:lang="en">Quantity in decimal is not allowed.</value>
+    </property>
     <property key="cart.addToCart.rental.endDate">
         <value xml:lang="de">Probleme beim Verarbeiten der Reservierungszeichenkette.</value>
         <value xml:lang="en">Problems parsing Reservation end string.</value>
