@@ -75,6 +75,10 @@ public class ServiceGroupReader {
 
         for (Element group: UtilXml.childElementList(rootElement, "group")) {
             String groupName = group.getAttribute("name");
+            if (groupName == null || groupName.isEmpty()) {
+                Debug.logError("XML Parsing error: <group> element 'name' attribute null or empty", module);
+                continue;
+            }
             groupsCache.put(groupName, new GroupModel(group));
             numDefs++;
         }
