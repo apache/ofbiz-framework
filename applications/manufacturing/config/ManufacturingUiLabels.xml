@@ -1500,6 +1500,7 @@
     </property>
     <property key="ManufacturingCreateDependentProductionRuns">
         <value xml:lang="en">Create Dependent Production Runs</value>
+        <value xml:lang="fr">Créer des ordres de fabrications dépendant</value>
         <value xml:lang="it">Crea ordini di produzione dipendenti</value>
         <value xml:lang="ja">従属生産実行の作成</value>
         <value xml:lang="vi">Thêm các 'Chế tác lô hàng' phụ thuộc</value>
