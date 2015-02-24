@@ -204,38 +204,34 @@ public final class CommonWidgetModels {
         private final FlexibleStringExpander widthExdr;
 
         public Image(Element imageElement) {
-            this.name = imageElement.getAttribute("name");
-            String src = imageElement.getAttribute("image-location");
-            if (src.isEmpty()) {
-                src = imageElement.getAttribute("src");
-            } else {
+            if (!imageElement.getAttribute("image-location").isEmpty()) {
                 // Form field version, log warning.
-            }
-            this.srcExdr = FlexibleStringExpander.getInstance(src);
-            this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
-            this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
-            this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
-            this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
-            this.borderExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("border"));
-            String alt = imageElement.getAttribute("alternate");
-            if (alt.isEmpty()) {
-                alt = imageElement.getAttribute("alt"); // Common version, no warning.
+                this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("image-location"));
+                this.alt = FlexibleStringExpander.getInstance(imageElement.getAttribute("alternate"));
+                this.titleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("image-title"));
+                this.name = "";
+                this.idExdr = FlexibleStringExpander.getInstance("");
+                this.styleExdr = FlexibleStringExpander.getInstance("");
+                this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
+                this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
+                this.borderExdr = FlexibleStringExpander.getInstance("");
+                this.urlMode = "content";
             } else {
-                // Form field version, log warning.
+                this.srcExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("src"));
+                this.alt = FlexibleStringExpander.getInstance(imageElement.getAttribute("alt"));
+                this.titleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("title"));
+                this.name = imageElement.getAttribute("name");
+                this.idExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("id"));
+                this.styleExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("style"));
+                this.widthExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("width"));
+                this.heightExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("height"));
+                this.borderExdr = FlexibleStringExpander.getInstance(imageElement.getAttribute("border"));
+                String urlMode = imageElement.getAttribute("url-mode");
+                if (urlMode.isEmpty()) {
+                    urlMode = "content";
+                }
+                this.urlMode = urlMode;
             }
-            this.alt = FlexibleStringExpander.getInstance(alt);
-            String urlMode = imageElement.getAttribute("url-mode");
-            if (urlMode.isEmpty()) {
-                urlMode = "content";
-            }
-            this.urlMode = urlMode;
-            String title = imageElement.getAttribute("image-title");
-            if (title.isEmpty()) {
-                title = imageElement.getAttribute("title");
-            } else {
-                // Form field version, log warning.
-            }
-            this.titleExdr = FlexibleStringExpander.getInstance(title);
         }
 
         public FlexibleStringExpander getAlt() {
@@ -333,7 +329,7 @@ public final class CommonWidgetModels {
         private final FlexibleStringExpander targetWindowExdr;
         private final FlexibleStringExpander textExdr;
         private final String urlMode;
-        // FIXME: These don't belong in this class
+        // FIXME: These don't belong in this class (might have been used for image)
         private final String height;
         private final String width;
 
@@ -353,8 +349,12 @@ public final class CommonWidgetModels {
             if (imageElement != null) {
                 this.image = new Image(imageElement);
             } else {
-                // TODO: Look for ModelFormField attributes
-                this.image = null;
+                if (!linkElement.getAttribute("image-location").isEmpty()) {
+                    // Backwards compatibility
+                    this.image = new Image(linkElement);
+                } else {
+                    this.image = null;
+                }
             }
             this.linkType = linkElement.getAttribute("link-type");
             List<? extends Element> parameterElementList = UtilXml.childElementList(linkElement, "parameter");
