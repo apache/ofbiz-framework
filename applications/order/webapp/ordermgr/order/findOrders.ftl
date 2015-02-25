@@ -594,7 +594,7 @@ document.lookuporder.orderId.focus();
           </td>
           <td width="5%">${uiLabelMap.OrderOrderType}</td>
           <td width="5%">${uiLabelMap.OrderOrderId}</td>
-          <td width="10 %">${uiLabelMap.OrderOrderName}</td>
+          <td width="15%">${uiLabelMap.OrderOrderName}</td>
           <td width="20%">${uiLabelMap.PartyName}</td>
           <td width="5%" align="right">${uiLabelMap.OrderSurvey}</td>
           <td width="5%" align="right">${uiLabelMap.OrderItemsOrdered}</td>
@@ -604,10 +604,10 @@ document.lookuporder.orderId.focus();
           <td width="10%" align="right">${uiLabelMap.OrderOrderTotal}</td>
           <td width="5%">&nbsp;</td>
             <#if (requestParameters.filterInventoryProblems?default("N") == "Y") || (requestParameters.filterPOsOpenPastTheirETA?default("N") == "Y") || (requestParameters.filterPOsWithRejectedItems?default("N") == "Y") || (requestParameters.filterPartiallyReceivedPOs?default("N") == "Y")>
-              <td width="15%">${uiLabelMap.CommonStatus}</td>
+              <td width="10%">${uiLabelMap.CommonStatus}</td>
               <td width="5%">${uiLabelMap.CommonFilter}</td>
             <#else>
-              <td width="20%">${uiLabelMap.CommonStatus}</td>
+              <td width="15%">${uiLabelMap.CommonStatus}</td>
             </#if>
           <td width="20%">${uiLabelMap.OrderDate}</td>
           <td width="5%">${uiLabelMap.PartyPartyId}</td>
