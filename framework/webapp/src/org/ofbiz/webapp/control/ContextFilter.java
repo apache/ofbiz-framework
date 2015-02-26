@@ -407,15 +407,6 @@ public class ContextFilter implements Filter {
             if (Debug.verboseOn()) Debug.logVerbose("Adding web.xml context-param to application attribute with name [" + initParamName + "] and value [" + initParamValue + "]", module);
             config.getServletContext().setAttribute(initParamName, initParamValue);
         }
-        String GeronimoMultiOfbizInstances = (String) config.getServletContext().getAttribute("GeronimoMultiOfbizInstances");
-        if (UtilValidate.isNotEmpty(GeronimoMultiOfbizInstances)) {
-            String ofbizHome = System.getProperty("ofbiz.home");
-            if (GeronimoMultiOfbizInstances.equalsIgnoreCase("true") && UtilValidate.isEmpty(ofbizHome)) {
-                ofbizHome = System.getProperty("ofbiz.home"); // This is only used in case of Geronimo or WASCE using OFBiz multi-instances. It allows to retrieve ofbiz.home value set in JVM env
-                System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
-                System.setProperty("ofbiz.home", ofbizHome);
-            }
-        }
     }
 
     protected String getServerId() {
