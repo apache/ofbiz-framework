@@ -1033,7 +1033,7 @@ under the License.
     <request-map uri="deleteContactMech">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePartyContactMech"/>
-        <response name="success" type="view" value="editcontactmech"/>
+        <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="editcontactmech"/>
     </request-map>
 
