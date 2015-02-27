@@ -63,6 +63,7 @@ import org.xml.sax.SAXException;
 import freemarker.ext.jsp.TaglibFactory;
 import freemarker.ext.servlet.HttpRequestHashModel;
 import freemarker.ext.servlet.HttpSessionHashModel;
+import freemarker.ext.servlet.ServletContextHashModel;
 
 /**
  * Widget Library - Screen model class
@@ -246,7 +247,11 @@ public class ScreenRenderer {
         TaglibFactory JspTaglibs = new TaglibFactory(servletContext);
         context.put("JspTaglibs", JspTaglibs);
         context.put("requestParameters",  UtilHttp.getParameterMap(request));
-        
+       
+        ServletContextHashModel ftlServletContext = (ServletContextHashModel) request.getAttribute("ftlServletContext");
+        context.put("Application", ftlServletContext);
+        context.put("Request", context.get("requestAttributes"));
+ 
         // this is a dummy object to stand-in for the JPublish page object for backward compatibility
         context.put("page", new HashMap());
 
