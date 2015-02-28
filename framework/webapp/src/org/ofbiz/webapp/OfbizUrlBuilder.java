@@ -133,7 +133,7 @@ public final class OfbizUrlBuilder {
      * @param buffer
      * @param url
      * @param useSSL Default value to use - will be replaced by request-map setting
-     * if one is found.
+     * if one is found with security=true set.
      * @return <code>true</code> if the URL uses https
      * @throws WebAppConfigurationException
      * @throws IOException
@@ -150,7 +150,7 @@ public final class OfbizUrlBuilder {
         if (config != null) {
             requestMap = config.getRequestMapMap().get(requestMapUri);
         }
-        if (requestMap != null) {
+        if (!makeSecure && requestMap != null) { // if the request has security="true" then use it
             makeSecure = requestMap.securityHttps;
         }
         makeSecure = webSiteProps.getEnableHttps() & makeSecure;
