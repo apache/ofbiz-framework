@@ -69,7 +69,7 @@ under the License.
         mount-point="/ecomclone"
         app-bar-display="false"/>
     <webapp name="ecomseo"
-        title="eCommerce Clone"
+        title="SEO enhanced eCommerce"
         server="default-server"
         location="webapp/ecomseo"
         mount-point="/ecomseo"
