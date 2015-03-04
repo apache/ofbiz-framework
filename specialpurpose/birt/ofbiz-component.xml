@@ -30,33 +30,34 @@ under the License.
     <service-resource type="model" loader="main" location="servicedef/services.xml"/>
    
     <webapp name="accounting"
-            title="Accounting"
-            server="default-server"
-            location="webapp/accounting"
-            base-permission="OFBTOOLS,ACCOUNTING"
-            mount-point="/accounting"/>
+        title="Accounting"
+        server="default-server"
+        location="webapp/accounting"
+        base-permission="OFBTOOLS,ACCOUNTING"
+        mount-point="/accounting"/>
     <webapp name="facility"
-            title="Facility"
-            description="FacilityComponentDescription"
-            server="default-server"
-            location="webapp/facility"
-            base-permission="OFBTOOLS,FACILITY"
-            mount-point="/facility"/>
+        title="Facility"
+        description="FacilityComponentDescription"
+        server="default-server"
+        location="webapp/facility"
+        base-permission="OFBTOOLS,FACILITY"
+        mount-point="/facility"/>
     <webapp name="order"
-            title="Order"
-            description="OrderComponentDescription"
-            server="default-server"
-            location="webapp/ordermgr"
-            base-permission="OFBTOOLS,ORDERMGR"
-            mount-point="/ordermgr"/>
+        title="Order"
+        description="OrderComponentDescription"
+        server="default-server"
+        location="webapp/ordermgr"
+        base-permission="OFBTOOLS,ORDERMGR"
+        mount-point="/ordermgr"/>
 
     <webapp name="birt"
-            title="BIRT"
-            server="default-server"
-            location="webapp/birt"
-            base-permission="OFBTOOLS,WEBTOOLS"
-            mount-point="/birt"
-            app-bar-display="false"/>
+        title="BIRT"
+        server="default-server"
+        location="webapp/birt"
+        base-permission="OFBTOOLS,WEBTOOLS"
+        mount-point="/birt"
+        menu-name="secondary"
+        app-bar-display="true"/>
 
     <container name="birt-container" loaders="main" class="org.ofbiz.birt.container.BirtContainer"/>
 
