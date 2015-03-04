@@ -212,7 +212,6 @@ under the License.
                 </or>
             </condition>
             <then>
-                <find-by-primary-key entity-name="WorkEffort" map="estimatedArrivalWorkEffortMap" value-field="estimatedArrivalWorkEffort"/>
                 <entity-one entity-name="WorkEffort" value-field="estimatedArrivalWorkEffort" auto-field-map="false">
                     <field-map field-name="workEffortId" from-field="lookedUpValue.estimatedArrivalWorkEffId"/>
                 </entity-one>
