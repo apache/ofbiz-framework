@@ -1944,6 +1944,16 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (value2 == null) {
             value2 = "";
         }
+        if (context.containsKey("parameters")) {
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+            if (parameters.containsKey(name + "_fld0_value")) {
+                value = (String) parameters.get(name + "_fld0_value");
+            }
+            if (parameters.containsKey(name + "_fld1_value")) {
+                value2 = (String) parameters.get(name + "_fld1_value");
+            }
+        }
+        
         String titleStyle = "";
         if (UtilValidate.isNotEmpty(modelFormField.getTitleStyle())) {
             titleStyle = modelFormField.getTitleStyle();
@@ -1960,6 +1970,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(localizedInputTitle);
         sr.append("\" value=\"");
         sr.append(value);
+        sr.append("\" value2=\"");
+        sr.append(value2);
         sr.append("\" size=\"");
         sr.append(Integer.toString(size));
         sr.append("\" maxlength=\"");
