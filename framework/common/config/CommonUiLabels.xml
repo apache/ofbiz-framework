@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
 
     <property key="Accounting - AP">
+        <value xml:lang="ar">ذمم دائنة</value>
         <value xml:lang="cs">Závazky</value>
         <value xml:lang="de">Kreditoren</value>
         <value xml:lang="en">Accounting - AP</value>
@@ -37,6 +38,7 @@
     </property>
 
     <property key="Accounting - AR">
+        <value xml:lang="ar">ذمم مدينة</value>
         <value xml:lang="cs">Pohledávky</value>
         <value xml:lang="de">Debitoren</value>
         <value xml:lang="en">Accounting - AR</value>
@@ -73,6 +75,7 @@
         <value xml:lang="zh-TW">會計</value>
     </property>
     <property key="AssetMaint">
+        <value xml:lang="ar">إدارة الأصول</value>
         <value xml:lang="cs">Správa majetku</value>
         <value xml:lang="de">Instandhaltung</value>
         <value xml:lang="en">Asset Maint</value>
@@ -90,6 +93,7 @@
         <value xml:lang="zh-TW">資產維護</value>
     </property>
     <property key="Business Intelligence">
+        <value xml:lang="ar">إستخبارات العمل</value>
         <value xml:lang="cs">Business Intelligence</value>
         <value xml:lang="de">Geschäftsanalytik</value>
         <value xml:lang="en">Business Intelligence</value>
@@ -107,6 +111,7 @@
         <value xml:lang="zh-TW">商業智慧</value>
     </property>
     <property key="CMS Site">
+        <value xml:lang="ar">موقع نظام إدارة المحتوى</value>
         <value xml:lang="cs">Správa obsahu</value>
         <value xml:lang="de">CMS Seite</value>
         <value xml:lang="en">CMS Site</value>
@@ -143,6 +148,7 @@
         <value xml:lang="zh-TW">型錄</value>
     </property>
     <property key="CatalogComponentDescription">
+        <value xml:lang="ar">إدارة كتالوج المنتجات, الفئات, المنتجات, أحكام التسعير, الترويج, متجر المنتجات</value>
         <value xml:lang="cs">Správa katalogu produktů, Kategorií, Produktů, Cenových pravidel, Akcí, Obchodu</value>
         <value xml:lang="en">Product Catalog management, Categories, Product, Price rules, Promotions, Product Store</value>
         <value xml:lang="fr">Gestion des catalogues, Catégories, Articles, Promotions, Règles de prix, Centres de profit </value>
@@ -153,6 +159,7 @@
         <value xml:lang="zh-TW">產品型錄管理,包括分類、產品、價格規則、促銷、產品商店</value>
     </property>
     <property key="CommonAbort">
+        <value xml:lang="ar">إلغاء</value>
         <value xml:lang="cs">Zrušit</value>
         <value xml:lang="en">Abort</value>
         <value xml:lang="es">Cancelar</value>
@@ -227,6 +234,7 @@
         <value xml:lang="zh-TW">僅有效</value>
     </property>
     <property key="CommonActualStartDate">
+        <value xml:lang="ar">التاريخ الفعلي للبدء</value>
         <value xml:lang="cs">Současné počáteční datum</value>
         <value xml:lang="de">Ist-Anfangsdatum</value>
         <value xml:lang="en">Actual Start Date</value>
@@ -285,6 +293,7 @@
         <value xml:lang="zh-TW">新建</value>
     </property>
     <property key="CommonAddAColumnToThisPortalPage">
+        <value xml:lang="ar">إضافة عمود جديد لهذه البوابة</value>
         <value xml:lang="cs">Přidání nového sloupce do portálu</value>
         <value xml:lang="en">Add a new column to this portal</value>
         <value xml:lang="es">Añadir nueva columna a este portal</value>
@@ -298,6 +307,7 @@
         <value xml:lang="zh-TW">給這個入口網頁新加一欄</value>
     </property>
     <property key="CommonAddAPortlet">
+        <value xml:lang="ar">إضافة مدخل</value>
         <value xml:lang="cs">Přidat portlet...</value>
         <value xml:lang="en">Add A Portlet...</value>
         <value xml:lang="es">Añadir un portlet...</value>
@@ -313,6 +323,7 @@
         <value xml:lang="zh-TW">增加一個Portlet...</value>
     </property>
     <property key="CommonAddColumn">
+        <value xml:lang="ar">إضافة عمود</value>
         <value xml:lang="cs">Přidat sloupec</value>
         <value xml:lang="en">Add Column</value>
         <value xml:lang="es">Añadir columna</value>
@@ -391,6 +402,7 @@
         <value xml:lang="zh-TW">新增</value>
     </property>
     <property key="CommonAddPortletToPage">
+        <value xml:lang="ar">إضافة مدخل الى البوابة</value>
         <value xml:lang="cs">Přidat portlet do stránky portálu</value>
         <value xml:lang="en">Add a portlet to portal page</value>
         <value xml:lang="es">Añadir un portlet a la página</value>
@@ -404,7 +416,7 @@
         <value xml:lang="zh-TW">給入口網頁增加一個Portlet</value>
     </property>
     <property key="CommonAddProblem">
-        <value xml:lang="ar">مشكل أثناء الإضافة</value>
+        <value xml:lang="ar">خطأ أثناء الإضافة</value>
         <value xml:lang="cs">Přidat problém</value>
         <value xml:lang="de">Problem hinzufügen</value>
         <value xml:lang="en">Add Problem</value>
@@ -485,6 +497,7 @@
         <value xml:lang="zh-TW">位址行</value>
     </property>
     <property key="CommonAddressNotFound">
+        <value xml:lang="ar">العنوان غير موجود</value>
         <value xml:lang="cs">Adresa nebyla nalezena.</value>
         <value xml:lang="de">Die Adresse wurde nicht gefunden.</value>
         <value xml:lang="en">Address not found.</value>
@@ -517,6 +530,7 @@
         <value xml:lang="zh-TW">位址</value>
     </property>
     <property key="CommonAdvancedFeatures">
+        <value xml:lang="ar">مميزات متقدمة</value>
         <value xml:lang="cs">Pokročilé možnosti</value>
         <value xml:lang="en">Advanced Features</value>
         <value xml:lang="es">Características avanzadas</value>
@@ -531,6 +545,7 @@
         <value xml:lang="zh-TW">進階特性</value>
     </property>
     <property key="CommonAdvancedSearch">
+        <value xml:lang="ar">بحث متقدم</value>
         <value xml:lang="cs">Pokročilé vyhledávání</value>
         <value xml:lang="de">Erweiterte Suche</value>
         <value xml:lang="en">Advanced Search</value>
@@ -632,6 +647,7 @@
         <value xml:lang="zh-TW">整週</value>
     </property>
     <property key="CommonAlwaysInclude">
+        <value xml:lang="ar">دائما يحتوي</value>
         <value xml:lang="cs">Vždy zahrnout</value>
         <value xml:lang="de">Immer berücksichtigen</value>
         <value xml:lang="en">Always Include</value>
@@ -710,7 +726,7 @@
         <value xml:lang="zh-TW">任何</value>
     </property>
     <property key="CommonAnyReturnStatus">
-        <value xml:lang="ar">أي وضع للرجوع</value>
+        <value xml:lang="ar">أي حالة للرجوع</value>
         <value xml:lang="cs">Libovolný návratový stav</value>
         <value xml:lang="de">Beliebiger Retourenstatus</value>
         <value xml:lang="en">Any return status</value>
@@ -771,6 +787,7 @@
         <value xml:lang="zh-TW">任意通路</value>
     </property>
     <property key="CommonAnyStateProvince">
+        <value xml:lang="ar">أي مقاطعة/ولاية</value>
         <value xml:lang="cs">Libovolný kraj/stát/provincie</value>
         <value xml:lang="de">Beliebiges Bundesland</value>
         <value xml:lang="en">Any State/Province</value>
@@ -827,6 +844,7 @@
         <value xml:lang="zh-TW">任何網站</value>
     </property>
     <property key="CommonApplications">
+        <value xml:lang="ar">البرامج</value>
         <value xml:lang="cs">Aplikace</value>
         <value xml:lang="de">Anwendungen</value>
         <value xml:lang="en">Applications</value>
@@ -865,7 +883,7 @@
         <value xml:lang="zh-TW">套用</value>
     </property>
     <property key="CommonApproved">
-        <value xml:lang="ar">مسند</value>
+        <value xml:lang="ar">مصدق</value>
         <value xml:lang="cs">Schválený</value>
         <value xml:lang="de">Genehmigt</value>
         <value xml:lang="en">Approved</value>
@@ -885,7 +903,7 @@
         <value xml:lang="zh-TW">已核准</value>
     </property>
     <property key="CommonApril">
-        <value xml:lang="ar">أفريل</value>
+        <value xml:lang="ar">أبريل</value>
         <value xml:lang="cs">Duben</value>
         <value xml:lang="de">April</value>
         <value xml:lang="en">April</value>
@@ -1048,7 +1066,7 @@
         <value xml:lang="zh-TW">至</value>
     </property>
     <property key="CommonAugust">
-        <value xml:lang="ar">أوت</value>
+        <value xml:lang="ar">أغسطس</value>
         <value xml:lang="cs">Srpen</value>
         <value xml:lang="de">August</value>
         <value xml:lang="en">August</value>
@@ -1068,6 +1086,7 @@
         <value xml:lang="zh-TW">八月</value>
     </property>
     <property key="CommonAuthenticate">
+        <value xml:lang="ar">توثيق</value>
         <value xml:lang="cs">Autentikovat</value>
         <value xml:lang="en">Authenticate</value>
         <value xml:lang="es">Autentificar</value>
@@ -1078,6 +1097,7 @@
         <value xml:lang="zh-TW">認證</value>
     </property>
     <property key="CommonAuthorise">
+        <value xml:lang="ar">تفويض</value>
         <value xml:lang="cs">Autorizovat</value>
         <value xml:lang="en">Authorise</value>
         <value xml:lang="es">Autorizar</value>
@@ -1089,6 +1109,7 @@
         <value xml:lang="zh-TW">授權</value>
     </property>
     <property key="CommonAutoAssignedId">
+        <value xml:lang="ar">الرقم التسلسلي - يعين تلقائيا إذا ما ترك فارغا</value>    
         <value xml:lang="cs">Unikátní ID - automaticky přiřazeno pokud je prázdné</value>
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
         <value xml:lang="es">Código único - asignado automáticamente si se deja en blanco</value>
@@ -1123,6 +1144,7 @@
         <value xml:lang="zh-TW">可用</value>
     </property>
     <property key="CommonAvailablePortlets">
+        <value xml:lang="ar">المداخل المتوفرة</value>
         <value xml:lang="cs">Dostupné portlety</value>
         <value xml:lang="en">Available Portlets</value>
         <value xml:lang="es">Portlets disponibles</value>
@@ -1220,7 +1242,7 @@
         <value xml:lang="zh-TW">後退到清單</value>
     </property>
     <property key="CommonBackToOptions">
-        <value xml:lang="ar">العودة إاى الإختيارات</value>
+        <value xml:lang="ar">العودة إلى الإختيارات</value>
         <value xml:lang="cs">Zpět na volby</value>
         <value xml:lang="de">Zurück zu den Optionen</value>
         <value xml:lang="en">Back to Options</value>
@@ -1430,7 +1452,7 @@
         <value xml:lang="zh-TW">取消全部</value>
     </property>
     <property key="CommonCancelDone">
-        <value xml:lang="ar">إلغاء/تمام</value>
+        <value xml:lang="ar">إلغاء/إتمام</value>
         <value xml:lang="cs">Storno/Dokončeno</value>
         <value xml:lang="de">Abbrechen/Erledigt</value>
         <value xml:lang="en">Cancel/Done</value>
@@ -1472,6 +1494,7 @@
         <value xml:lang="zh-TW">已取消</value>
     </property>
     <property key="CommonCannotBeFound">
+        <value xml:lang="ar">تعذر العثور على</value>
         <value xml:lang="cs">Nepodařilo se najít</value>
         <value xml:lang="de">Nicht auffindbar</value>
         <value xml:lang="en">Could not be found</value>
@@ -1486,6 +1509,7 @@
         <value xml:lang="zh-TW">無法找到</value>
     </property>
     <property key="CommonCaptchaCode">
+        <value xml:lang="ar">رمز كلمة التحقق</value>
         <value xml:lang="cs">Kód captcha</value>
         <value xml:lang="en">Captcha Code</value>
         <value xml:lang="es">Código captcha</value>
@@ -1518,6 +1542,7 @@
         <value xml:lang="zh-TW">修改</value>
     </property>
     <property key="CommonCharactorsLeft">
+        <value xml:lang="ar">الأحرف المتبقية</value>
         <value xml:lang="cs">Zbývá znaků</value>
         <value xml:lang="de">Zeichen übrig.</value>
         <value xml:lang="en">charactors left.</value>
@@ -1593,7 +1618,7 @@
         <value xml:lang="zh-TW">正在檢查</value>
     </property>
     <property key="CommonCheckoutAnonymous">
-        <value xml:lang="ar">الفحص دون الدخول</value>
+        <value xml:lang="ar">شراء بدون إسم مستخدم</value>
         <value xml:lang="cs">Anonymní objednávka</value>
         <value xml:lang="de">Bestellung ohne Login</value>
         <value xml:lang="en">Checkout Without Login</value>
@@ -1615,7 +1640,7 @@
         <value xml:lang="zh-TW">直接結帳不登入</value>
     </property>
     <property key="CommonCheckoutAnonymousMsg">
-        <value xml:lang="ar">يمكنكم التفحص دون استحداث حساب</value>
+        <value xml:lang="ar">يمكنكم الشراء بدون خلق إسم مستخدم</value>
         <value xml:lang="cs">Můžete objednávat i bez účtu</value>
         <value xml:lang="de">Sie können bestellen, ohne ein Benutzerkonto zu eröffnen</value>
         <value xml:lang="en">You may checkout without creating an account</value>
@@ -1699,6 +1724,7 @@
         <value xml:lang="zh-TW">清除</value>
     </property>
     <property key="CommonClearAll">
+        <value xml:lang="ar">محو الجميع</value>
         <value xml:lang="cs">Vyčistit vše</value>
         <value xml:lang="de">Alles leeren</value>
         <value xml:lang="en">Clear All</value>
@@ -1715,6 +1741,7 @@
         <value xml:lang="zh-TW">全部清除</value>
     </property>
     <property key="CommonClearCurrent">
+        <value xml:lang="ar">محو الحالي</value>
         <value xml:lang="cs">Vyčistit aktuální</value>
         <value xml:lang="de">Aktuelles leeren</value>
         <value xml:lang="en">Clear Current</value>
@@ -1752,6 +1779,7 @@
         <value xml:lang="zh-TW">點擊這裡</value>
     </property>
     <property key="CommonClickHereForFieldLookup">
+        <value xml:lang="ar">انقر هنا للبحث عن الحقل </value>
         <value xml:lang="cs">Kliněte zde pro vyhledání pole</value>
         <value xml:lang="de">Hier klicken um Feld zu suchen</value>
         <value xml:lang="en">Click here For Field Lookup</value>
@@ -1807,6 +1835,7 @@
         <value xml:lang="zh-TW">關</value>
     </property>
     <property key="CommonCollapse">
+        <value xml:lang="ar">طوي</value>
         <value xml:lang="cs">Sbalit</value>
         <value xml:lang="de">Zuklappen</value>
         <value xml:lang="en">Collapse</value>
@@ -1823,6 +1852,7 @@
         <value xml:lang="zh-TW">收合</value>
     </property>
     <property key="CommonCollapseAll">
+        <value xml:lang="ar">طوي الجميع</value>
         <value xml:lang="cs">Sbalit vše</value>
         <value xml:lang="de">Alles zuklappen</value>
         <value xml:lang="en">Collapse all</value>
@@ -1881,7 +1911,7 @@
         <value xml:lang="zh-TW">評論</value>
     </property>
     <property key="CommonComments">
-        <value xml:lang="ar">تعاليق</value>
+        <value xml:lang="ar">تعليقات</value>
         <value xml:lang="cs">Poznámky</value>
         <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Comments</value>
@@ -1942,6 +1972,7 @@
         <value xml:lang="zh-TW">配置</value>
     </property>
     <property key="CommonConfigure">
+        <value xml:lang="ar">ترتيب</value>
         <value xml:lang="cs">Konfigurovat:</value>
         <value xml:lang="de">Konfigurieren:</value>
         <value xml:lang="en">Configure:</value>
@@ -1957,6 +1988,7 @@
         <value xml:lang="zh-TW">配置:</value>
     </property>
     <property key="CommonConfirm">
+        <value xml:lang="ar">هل تؤكد ؟</value>
         <value xml:lang="cs">Potvrzujete ?</value>
         <value xml:lang="en">Do you confirm?</value>
         <value xml:lang="es">¿Está seguro?</value>
@@ -1971,6 +2003,7 @@
         <value xml:lang="zh-TW">你確定嗎？</value>
     </property>
     <property key="CommonConfirmAdd">
+        <value xml:lang="ar">هل تؤكد الإضافة ؟</value>
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
         <value xml:lang="cs">Potvrzujete přidání?</value>
         <value xml:lang="de">BestÃ¤tigen</value>
@@ -1990,6 +2023,7 @@
         <value xml:lang="zh-TW">確定要增加嗎？</value>
     </property>
     <property key="CommonConfirmDelete">
+        <value xml:lang="ar">هل تؤكد الحذف؟</value>
         <value xml:lang="ar">ØªØ£ÙƒÙŠØ¯</value>
         <value xml:lang="cs">Souhlasíte se zrušením?</value>
         <value xml:lang="de">BestÃ¤tigen</value>
@@ -2008,7 +2042,7 @@
         <value xml:lang="zh-TW">你確定要刪除嗎？</value>
     </property>
     <property key="CommonContactMechID">
-        <value xml:lang="ar">إحداثيات</value>
+        <value xml:lang="ar">دليل وسيلة الإتصال</value>
         <value xml:lang="cs">ID způsobu kontaktu</value>
         <value xml:lang="de">KontaktMechId</value>
         <value xml:lang="en">ContactMechId</value>
@@ -2028,7 +2062,7 @@
         <value xml:lang="zh-TW">聯絡方式識別</value>
     </property>
     <property key="CommonContactPurpose">
-        <value xml:lang="ar">هدف الصلة</value>
+        <value xml:lang="ar">هدف الإتصال</value>
         <value xml:lang="cs">Účel kontaktu</value>
         <value xml:lang="de">Kontakt Zweck</value>
         <value xml:lang="en">Contact Purpose</value>
@@ -2070,7 +2104,7 @@
         <value xml:lang="zh-TW">聯絡我們</value>
     </property>
     <property key="CommonContacts">
-        <value xml:lang="ar">وصلات</value>
+        <value xml:lang="ar">الإتصالات</value>
         <value xml:lang="cs">Kontakty</value>
         <value xml:lang="de">Kontakte</value>
         <value xml:lang="en">Contacts</value>
@@ -2152,6 +2186,7 @@
         <value xml:lang="zh-TW">複製</value>
     </property>
     <property key="CommonCopyright">
+        <value xml:lang="ar">حقوق الطبع</value>
         <value xml:lang="en">Copyright</value>
         <value xml:lang="fr">Droit d'auteur</value>
         <value xml:lang="hi-IN">कॉपीराइट</value>
@@ -2161,7 +2196,7 @@
         <value xml:lang="zh-TW">版權所有</value>
     </property>
     <property key="CommonCouldBeUsedAs">
-        <value xml:lang="ar">يحتمل استعمالها ك</value>
+        <value xml:lang="ar">يكمن استعمالها ك</value>
         <value xml:lang="cs">Může být použito jako</value>
         <value xml:lang="de">Kann benutzt werden als</value>
         <value xml:lang="en">Could be Used as</value>
@@ -2180,7 +2215,7 @@
         <value xml:lang="zh-TW">能夠作為</value>
     </property>
     <property key="CommonCouldBeUsedFor">
-        <value xml:lang="ar">يحتمل استعمالها ل</value>
+        <value xml:lang="ar">يمكن استعمالها ل</value>
         <value xml:lang="cs">Může být použito pro</value>
         <value xml:lang="de">Kann benutzt werden für</value>
         <value xml:lang="en">Could be used for</value>
@@ -2269,7 +2304,7 @@
         <value xml:lang="zh-TW">沒有國家</value>
     </property>
     <property key="CommonCounty">
-        <value xml:lang="ar">ولاية</value>
+        <value xml:lang="ar">مقاطعة</value>
         <value xml:lang="cs">Distrikt/Kraj</value>
         <value xml:lang="de">Kreis/Bezirk</value>
         <value xml:lang="en">County</value>
@@ -2290,7 +2325,7 @@
         <value xml:lang="zh-TW">縣</value>
     </property>
     <property key="CommonCountyCity">
-        <value xml:lang="ar">ولاية-مدينة</value>
+        <value xml:lang="ar">مقاطعة-مدينة</value>
         <value xml:lang="cs">Krajské město</value>
         <value xml:lang="de">Kreis/Bezirk Ort</value>
         <value xml:lang="en">County-City</value>
@@ -2315,7 +2350,7 @@
         <value xml:lang="nl">Kosten</value>
     </property>
     <property key="CommonCreate">
-        <value xml:lang="ar">استحداث</value>
+        <value xml:lang="ar">خلق</value>
         <value xml:lang="cs">Založit</value>
         <value xml:lang="de">Anlegen</value>
         <value xml:lang="en">Create</value>
@@ -2376,6 +2411,7 @@
         <value xml:lang="zh-TW">已新建</value>
     </property>
     <property key="CommonCreatedBy">
+        <value xml:lang="ar">تم الخلق من</value>
         <value xml:lang="cs">Kým vytvořeno</value>
         <value xml:lang="de">Erstellt von</value>
         <value xml:lang="en">Created By</value>
@@ -2395,7 +2431,7 @@
         <value xml:lang="zh-TW">新建者 </value>
     </property>
     <property key="CommonCredit">
-        <value xml:lang="ar">قرض</value>
+        <value xml:lang="ar">دائن</value>
         <value xml:lang="cs">Kredit</value>
         <value xml:lang="de">Guthaben</value>
         <value xml:lang="en">Credit</value>
@@ -2435,7 +2471,7 @@
         <value xml:lang="zh-TW">幣別</value>
     </property>
     <property key="CommonCurrent">
-        <value xml:lang="ar">جاري</value>
+        <value xml:lang="ar">حالي</value>
         <value xml:lang="cs">Současný</value>
         <value xml:lang="de">Aktuell</value>
         <value xml:lang="en">Current</value>
@@ -2456,6 +2492,7 @@
         <value xml:lang="zh-TW">目前</value>
     </property>
     <property key="CommonCurrentPassword">
+        <value xml:lang="ar">كلمة السر الحالية</value>
         <value xml:lang="cs">Současné heslo</value>
         <value xml:lang="de">Aktuelles Passwort</value>
         <value xml:lang="en">Current Password</value>
@@ -2491,6 +2528,7 @@
         <value xml:lang="zh-TW">每日</value>
     </property>
     <property key="CommonDashboard">
+        <value xml:lang="ar">لوحة التحكم</value>
         <value xml:lang="cs">Řídící panel</value>
         <value xml:lang="en">Dashboard</value>
         <value xml:lang="es">Panel de control</value>
@@ -2526,7 +2564,7 @@
         <value xml:lang="zh-TW">${errMessage} 資料庫錯誤</value>
     </property>
     <property key="CommonDate">
-        <value xml:lang="ar">تاريخ</value>
+        <value xml:lang="ar">التاريخ</value>
         <value xml:lang="cs">Datum</value>
         <value xml:lang="de">Datum</value>
         <value xml:lang="en">Date</value>
@@ -2566,6 +2604,7 @@
         <value xml:lang="zh-TW">日期篩選器</value>
     </property>
     <property key="CommonDates">
+        <value xml:lang="ar">تواريخ</value>
         <value xml:lang="cs">Datumy</value>
         <value xml:lang="de">Termine</value>
         <value xml:lang="en">Dates</value>
@@ -2621,6 +2660,7 @@
         <value xml:lang="zh-TW">日</value>
     </property>
     <property key="CommonDeactivate">
+        <value xml:lang="ar">إبطال وتعيين تاريخ الإنتهاء للوقت الحالي</value>
         <value xml:lang="cs">Deaktivovat, nastavte od data do teď</value>
         <value xml:lang="en">Deactivate, set thruDate to Now</value>
         <value xml:lang="es">Desactivar, establecer fecha actual como fecha final</value>
@@ -2633,7 +2673,7 @@
         <value xml:lang="zh-TW">要使其失效,可以把截止日期設為現在</value>
     </property>
     <property key="CommonDebit">
-        <value xml:lang="ar">دين</value>
+        <value xml:lang="ar">مدين</value>
         <value xml:lang="cs">Debet</value>
         <value xml:lang="de">Belastung</value>
         <value xml:lang="en">Debit</value>
@@ -2673,6 +2713,7 @@
         <value xml:lang="zh-TW">十二月</value>
     </property>
     <property key="CommonDefaultOrganizationPartyId">
+        <value xml:lang="ar">دليل طرف المنظمة الإعتيادية</value>
         <value xml:lang="cs">Výchozí organizace</value>
         <value xml:lang="de">Standard-Organisation</value>
         <value xml:lang="en">Default Organization</value>
@@ -2688,6 +2729,7 @@
         <value xml:lang="zh-TW">預設組織機構團體代號</value>
     </property>
     <property key="CommonDeferred">
+        <value xml:lang="ar">مؤجل</value>
         <value xml:lang="cs">Odložený</value>
         <value xml:lang="en">Deferred</value>
         <value xml:lang="fr">Différé</value>
@@ -2739,6 +2781,7 @@
         <value xml:lang="zh-TW">刪除全部</value>
     </property>
     <property key="CommonDeleteColumn">
+        <value xml:lang="ar">حذف عمود</value>
         <value xml:lang="cs">Smazat sloupec</value>
         <value xml:lang="en">Delete Column</value>
         <value xml:lang="es">Eliminar columna</value>
@@ -2752,6 +2795,7 @@
         <value xml:lang="zh-TW">刪除欄位</value>
     </property>
     <property key="CommonDeleteThisColumn">
+        <value xml:lang="ar">حذف هذا العمود</value>
         <value xml:lang="cs">Smazat tento sloupec</value>
         <value xml:lang="en">Delete this column</value>
         <value xml:lang="es">Eliminar esta columna</value>
@@ -2765,6 +2809,7 @@
         <value xml:lang="zh-TW">刪除此欄</value>
     </property>
     <property key="CommonDeleteThisPortlet">
+        <value xml:lang="ar">حذف هذا المدخل</value>
         <value xml:lang="cs">Smazat tento portlet</value>
         <value xml:lang="en">Delete this portlet</value>
         <value xml:lang="es">Eliminar este portlet</value>
@@ -2798,7 +2843,7 @@
         <value xml:lang="zh-TW">深度</value>
     </property>
     <property key="CommonDescription">
-        <value xml:lang="ar">وصف</value>
+        <value xml:lang="ar">الوصف</value>
         <value xml:lang="cs">Popis</value>
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
@@ -2859,6 +2904,7 @@
         <value xml:lang="zh-TW">詳細</value>
     </property>
     <property key="CommonDimension">
+        <value xml:lang="ar">بعد</value>
         <value xml:lang="cs">Rozměr</value>
         <value xml:lang="en">Dimension</value>
         <value xml:lang="es">Dimensión</value>
@@ -2873,7 +2919,7 @@
         <value xml:lang="zh-TW">維度</value>
     </property>
     <property key="CommonDisabled">
-        <value xml:lang="ar">غير شغال</value>
+        <value xml:lang="ar">غير مفعل</value>
         <value xml:lang="cs">Nedostupné</value>
         <value xml:lang="de">Deaktiviert</value>
         <value xml:lang="en">Disabled</value>
@@ -2894,6 +2940,7 @@
         <value xml:lang="zh-TW">已關閉</value>
     </property>
     <property key="CommonDisplaying">
+        <value xml:lang="ar">إظهار ${lowCount} إلى ${highCount} من ${total}</value>
         <value xml:lang="cs">Zobrazuji ${lowCount} - ${highCount} z ${total}</value>
         <value xml:lang="de">Zeige ${lowCount} - ${highCount} von ${total}</value>
         <value xml:lang="en">Displaying ${lowCount} - ${highCount} of ${total}</value>
@@ -2927,6 +2974,7 @@
         <value xml:lang="zh-TW">距離</value>
     </property>
     <property key="CommonDone">
+        <value xml:lang="ar">تم</value>
         <value xml:lang="cs">Dokončeno</value>
         <value xml:lang="de">Erledigt</value>
         <value xml:lang="en">Done</value>
@@ -2946,6 +2994,7 @@
         <value xml:lang="zh-TW">完成</value>
     </property>
     <property key="CommonDownloaded">
+        <value xml:lang="ar">تم التحميل</value>
         <value xml:lang="cs">Staženo.</value>
         <value xml:lang="de">Daten empfangen.</value>
         <value xml:lang="en">Downloaded.</value>
@@ -2999,6 +3048,7 @@
         <value xml:lang="zh-TW">編輯</value>
     </property>
     <property key="CommonEditPortletAttributes">
+        <value xml:lang="ar">تحرير سمات المدخل</value>
         <value xml:lang="cs">Upravit atributy portletu</value>
         <value xml:lang="de">Portlet-Attribute anpassen</value>
         <value xml:lang="en">Edit Attributes for Portlet</value>
@@ -3034,6 +3084,7 @@
         <value xml:lang="zh-TW">元素找到了</value>
     </property>
     <property key="CommonElevation">
+        <value xml:lang="ar">الإرتفاع: </value>
         <value xml:lang="cs">Výška: </value>
         <value xml:lang="de">Höhe: </value>
         <value xml:lang="en">Elevation: </value>
@@ -3068,6 +3119,7 @@
         <value xml:lang="zh-TW">電子郵件</value>
     </property>
     <property key="CommonEmailAlreadyExist">
+        <value xml:lang="ar">البريد الإلكتروني موجود مسبقا</value>
         <value xml:lang="cs">Email již existuje</value>
         <value xml:lang="en">Email already exist</value>
         <value xml:lang="es">Correo electrónico ya existe</value>
@@ -3080,6 +3132,7 @@
         <value xml:lang="zh-TW">電子郵件已存在</value>
     </property>
     <property key="CommonEmailDeliveryFailed">
+        <value xml:lang="ar">فشل التسليم لعناوين البريد الإلكتروني التالية: </value>
         <value xml:lang="cs">Doručení následujícím příjemcům selhalo:</value>
         <value xml:lang="en">Delivery to the following recipient(s) failed:</value>
         <value xml:lang="es">El envío a los siguientes destinatarios ha fallado:</value>
@@ -3092,6 +3145,7 @@
         <value xml:lang="zh-TW">發送到下列收件者時失敗:</value>
     </property>
     <property key="CommonEmailDeliveryOriginalMessage">
+        <value xml:lang="ar">----- الرسالة الإصلية -----</value>
         <value xml:lang="cs">----- Původní zpráva -----</value>
         <value xml:lang="en">----- Original message -----</value>
         <value xml:lang="es">----- Mensaje original -----</value>
@@ -3104,6 +3158,7 @@
         <value xml:lang="zh-TW">----- 原始訊息 -----</value>
     </property>
     <property key="CommonEmailNotValid">
+        <value xml:lang="ar">الطرف: ${parameters.partyIdTo} ليس لديه بريد الكتروني صالح!</value>
         <value xml:lang="cs">PartyId: ${parameters.partyIdTo} nemá platnou emailovou adresu!</value>
         <value xml:lang="en">PartyId: ${parameters.partyIdTo} has no valid email address!</value>
         <value xml:lang="es">Id de participante: ${parameters.partyIdTo} no tiene dirección de correo electrónico válida!</value>
@@ -3138,6 +3193,7 @@
         <value xml:lang="zh-TW">電子郵件密碼</value>
     </property>
     <property key="CommonEmailSendAddressError">
+        <value xml:lang="ar">[ADDRERR] خطأ في العنوان عند إرسال الرسالة إلى ${sendTo} من ${sendFrom} نسخة إلى ${sendCC} نسخة مخفية إلى ${sendBcc} بعنوان ${subject}</value>
         <value xml:lang="cs">[ADDRERR] Chyba adresy při odesílání zprávu pro ${sendTo} od ${sendFrom} v kopii ${sendCc} slepé kopii ${sendBcc} předmět ${subject}</value>
         <value xml:lang="en">[ADDRERR] Address error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[ADDRERR] Error en la dirección al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
@@ -3150,6 +3206,7 @@
         <value xml:lang="zh-TW">[位址錯誤] 自 ${sendFrom} 發送訊息到 ${sendTo}、 複本 ${sendCc} 、密複本 ${sendBcc} 、主題 ${subject} 時發生位址錯誤</value>
     </property>
     <property key="CommonEmailSendConnectionError">
+        <value xml:lang="ar">[CON] خطأ في شبكة الإتصال عند إرسال الرسالة إلى ${sendTo} من ${sendFrom} نسخة إلى ${sendCC} نسخة مخفية إلى ${sendBcc} بعنوان ${subject}</value>
         <value xml:lang="cs">[CON] Chyba připojení při odesílání zprávu pro ${sendTo} od ${sendFrom} v kopii ${sendCc} bcc ${sendBcc} předmět ${subject}</value>
         <value xml:lang="en">[CON] Connection error when sending message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">[CON] Error de conexión al enviar el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
@@ -3162,6 +3219,7 @@
         <value xml:lang="zh-TW">[連接] 由 ${sendFrom} 發送訊息到 ${sendTo}、 複本 ${sendCc} 、密複本 ${sendBcc} 、主題 ${subject} 時發生連接錯誤</value>
     </property>
     <property key="CommonEmailSendError">
+        <value xml:lang="ar">خطأ في إرسال البريد الإلكتروني: ${errorString}</value>
         <value xml:lang="cs">Chyba při odesílání emailu: ${errorString}</value>
         <value xml:lang="en">Error send email: ${errorString}</value>
         <value xml:lang="es">Error enviando correo electrónico: ${errorString}</value>
@@ -3174,6 +3232,7 @@
         <value xml:lang="zh-TW">發送郵件時出錯:${errorString}</value>
     </property>
     <property key="CommonEmailSendGettingError">
+        <value xml:lang="ar">خطأ في تحميل المحتوى: ${errorString}</value>
         <value xml:lang="cs">Chyba při získávání obsahu: ${errorString}</value>
         <value xml:lang="en">Error getting content: ${errorString}</value>
         <value xml:lang="es">Error obteniendo contenido: ${errorString}</value>
@@ -3186,6 +3245,7 @@
         <value xml:lang="zh-TW">取出內容時出錯:${errorString}</value>
     </property>
     <property key="CommonEmailSendIOException">
+        <value xml:lang="ar">خطأ في IOException عند خلق رسالة إلى ${sendTo} من ${sendFrom} نسخة ${sendCc} نسخة مخفية ${sendBcc} بموضوع ${subject}</value>
         <value xml:lang="cs">IOException při přípravě zprávy pro ${sendTo} od ${sendFrom} kopie ${sendCc} bcc ${sendBcc} předmět ${subject}</value>
         <value xml:lang="en">IOException when creating message to ${sendTo} from ${sendFrom} cc ${sendCc} bcc ${sendBcc} subject ${subject}</value>
         <value xml:lang="es">IOException creando el mensaje para ${sendTo} de ${sendFrom} cc ${sendCc} bcc ${sendBcc} asunto ${subject}</value>
@@ -3197,6 +3257,7 @@
         <value xml:lang="zh-TW">新建由 ${sendFrom} 、到 ${sendTo}、 複本 ${sendCc} 、密複本 ${sendBcc} 、主題 ${subject} 的訊息時發生IO錯誤</value>
     </property>
     <property key="CommonEmailSendMalformedUrl">
+        <value xml:lang="ar">خطأ في العنوان: ${bodyUrl} ونوع الخطأ: ${errorString}</value>
         <value xml:lang="cs">Chybný formát URL: ${bodyUrl}; chyba: ${errorString}</value>
         <value xml:lang="en">Malformed URL: ${bodyUrl}; error was: ${errorString}</value>
         <value xml:lang="es">URL mal formada: ${bodyUrl}; el error fue: ${errorString}</value>
@@ -3230,6 +3291,7 @@
         <value xml:lang="zh-TW">當 sendType 不是 mail.smtp.host 時,必須有參數 sendVia </value>
     </property>
     <property key="CommonEmailSendRenderingScreenEmailError">
+        <value xml:lang="ar">خطأ في تقديم شاشة البريد الإلكتروني: ${errorString}</value>
         <value xml:lang="cs">Nepodařilo se připravit obrazovku pro email: ${errorString}</value>
         <value xml:lang="en">Error rendering screen for email: ${errorString}</value>
         <value xml:lang="es">Error componiendo pantalla para el correo electrónico: ${errorString}</value>
@@ -3241,6 +3303,7 @@
         <value xml:lang="zh-TW">為郵件產生內容時出錯:${errorString}</value>
     </property>
     <property key="CommonEmailSendRenderingScreenPdfError">
+        <value xml:lang="ar">خطأ في تقديم المرفق PDF للبريد الإلكتروني: ${errorString}</value>
         <value xml:lang="cs">Nepodařilo se připravit PDF přílohu emailu: ${errorString}</value>
         <value xml:lang="en">Error rendering PDF attachment for email: ${errorString}</value>
         <value xml:lang="es">Error componiendo el PDF para adjuntar por correo electrónico: ${errorString}</value>
@@ -3252,6 +3315,7 @@
         <value xml:lang="zh-TW">為郵件產生PDF附件時出錯:${errorString}</value>
     </property>
     <property key="CommonEmailSendUndeliveredMail">
+        <value xml:lang="ar">تم إعادة البريد الغير مرسل للمرسل</value>
         <value xml:lang="cs">Nedoručený email vrácen odesílateli</value>
         <value xml:lang="en">Undelivered Mail Returned to Sender</value>
         <value xml:lang="es">Correo electrónico que no puede ser entregado devuelto al remitente</value>
@@ -3263,6 +3327,7 @@
         <value xml:lang="zh-TW">已把無法投遞的郵件退回發送者</value>
     </property>
     <property key="CommonEmailShouldBeSpecified">
+        <value xml:lang="ar">دليل الطرف أو البريد الإلكتروني للشخص المرسل إليه يجب تحديده!</value>
         <value xml:lang="cs">PartyId nebo emailová adresa příjemce by měly být zadány!</value>
         <value xml:lang="en">PartyId or Email Address (sendTo) should be specified!</value>
         <value xml:lang="es">Debe especificarse el código de participante o la dirección de correo electrónico de destino!</value>
@@ -3276,7 +3341,7 @@
         <value xml:lang="zh-TW">必須指定團體識別(partyId)或電子郵件位址(sendTo)！</value>
     </property>
     <property key="CommonEmailTo">
-        <value xml:lang="ar">بريد الإلكتروني إلى</value>
+        <value xml:lang="ar">بريد الكتروني إلى</value>
         <value xml:lang="cs">Email komu</value>
         <value xml:lang="de">E-Mail an</value>
         <value xml:lang="en">Email To</value>
@@ -3318,7 +3383,7 @@
         <value xml:lang="zh-TW">電子郵件類型</value>
     </property>
     <property key="CommonEmails">
-        <value xml:lang="ar">البريد الإلكتروني</value>
+        <value xml:lang="ar">رسائل البريد الإلكتروني</value>
         <value xml:lang="cs">Emaily</value>
         <value xml:lang="de">E-Mails</value>
         <value xml:lang="en">Emails</value>
@@ -3343,6 +3408,7 @@
         <value xml:lang="en" xml:space="preserve"> </value>
     </property>
     <property key="CommonEnable">
+        <value xml:lang="ar">تفعيل</value>
         <value xml:lang="cs">Povolit</value>
         <value xml:lang="en">Enable</value>
         <value xml:lang="es">Habilitar</value>
@@ -3355,7 +3421,7 @@
         <value xml:lang="zh-TW">開啟</value>
     </property>
     <property key="CommonEnabled">
-        <value xml:lang="ar">شغال</value>
+        <value xml:lang="ar">فعال</value>
         <value xml:lang="cs">Povoleno</value>
         <value xml:lang="de">Aktiviert</value>
         <value xml:lang="en">Enabled</value>
@@ -3376,7 +3442,7 @@
         <value xml:lang="zh-TW">已開啟</value>
     </property>
     <property key="CommonEndDate">
-        <value xml:lang="ar">تاريخ النهاية</value>
+        <value xml:lang="ar">تاريخ الإنتهاء</value>
         <value xml:lang="cs">Koncové datum</value>
         <value xml:lang="de">Ende Datum</value>
         <value xml:lang="en">End date</value>
@@ -3397,7 +3463,7 @@
         <value xml:lang="zh-TW">結束日期</value>
     </property>
     <property key="CommonEndDateTime">
-        <value xml:lang="ar">تاريخ/وقت النهاية</value>
+        <value xml:lang="ar">تاريخ/وقت الإنتهاء</value>
         <value xml:lang="cs">Koncové datum a čas</value>
         <value xml:lang="de">Ende Datum/Uhrzeit</value>
         <value xml:lang="en">End Date/Time</value>
@@ -3436,6 +3502,7 @@
         <value xml:lang="zh-TW">子</value>
     </property>
     <property key="CommonEntityTestFailure">
+        <value xml:lang="ar">غير قادر على إنشاء كيان اختبار</value>
         <value xml:lang="cs">Nepodařilo se vytvořit testovací entitu</value>
         <value xml:lang="en">Unable to create test entity</value>
         <value xml:lang="es">No se puede crear la entidad de prueba</value>
@@ -3448,7 +3515,7 @@
         <value xml:lang="zh-TW">無法新建測試資料實體</value>
     </property>
     <property key="CommonEntries">
-        <value xml:lang="ar">مداخيل</value>
+        <value xml:lang="ar">إدخالات</value>
         <value xml:lang="cs">Záznamy</value>
         <value xml:lang="de">Einträge</value>
         <value xml:lang="en">Entries</value>
@@ -3468,7 +3535,7 @@
         <value xml:lang="zh-TW">記錄</value>
     </property>
     <property key="CommonEntry">
-        <value xml:lang="ar">مدخول</value>
+        <value xml:lang="ar">إدخال</value>
         <value xml:lang="cs">Záznam</value>
         <value xml:lang="de">Eintrag</value>
         <value xml:lang="en">Entry</value>
@@ -3544,6 +3611,7 @@
         <value xml:lang="zh-TW">發生下列錯誤</value>
     </property>
     <property key="CommonErrorNoStatusValidChange">
+        <value xml:lang="ar">خطأ: تحويل الحالة من [${lookedUpValue.statusId}] إلى [${parameters.statusId}] غير مسموح به</value>
         <value xml:lang="cs">Chyba: změna stavu z [${lookedUpValue.statusId}] na [${parameters.statusId}] není povolena.</value>
         <value xml:lang="de">Fehler: Statuswechsel von [${lookedUpValue.statusId}] nach [${parameters.statusId}] ist nicht erlaubt.</value>
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
@@ -3561,6 +3629,7 @@
         <value xml:lang="zh-TW">錯誤: 不允許把狀態從[${lookedUpValue.statusId}]變為[${parameters.statusId}].</value>
     </property>
     <property key="CommonErrorStatusNotValid">
+        <value xml:lang="ar">خطأ: حالة ${entity} غير صالحة. الحالة هي: ${lookedUpValue.statusId} ولكن يجب أن تكون ${goodStatusId}</value>
         <value xml:lang="cs">Chyba: stav ${entity} není platný, nalezeno: ${lookedUpValue.statusId} avšak očekáváno: ${goodStatusId}.</value>
         <value xml:lang="de">Fehler: Der Status von ${entity} ist ungÃ¼ltig; gefunden: ${lookedUpValue.statusId}; soll: ${goodStatusId}.</value>
         <value xml:lang="en">Error: status of ${entity} is not valid, it is: ${lookedUpValue.statusId} but should be: ${goodStatusId}.</value>
@@ -3576,6 +3645,7 @@
         <value xml:lang="zh-TW">錯誤: ${entity}狀態無效,現在是${lookedUpValue.statusId},應該是${goodStatusId}.</value>
     </property>
     <property key="CommonErrorSubmittingForm">
+        <value xml:lang="ar">حدث خطأ في تسليم الإستمارة</value>
         <value xml:lang="cs">Chyba při odeslání formuláře.</value>
         <value xml:lang="de">Ein Fehler beim abschicken der Form ist aufgetreten.</value>
         <value xml:lang="en">An error occurred submitting form.</value>
@@ -3636,6 +3706,7 @@
         <value xml:lang="zh-TW">事件日期</value>
     </property>
     <property key="CommonExclude">
+        <value xml:lang="ar">إستثناء</value>
         <value xml:lang="cs">Vyjmout</value>
         <value xml:lang="de">Ausschliessen</value>
         <value xml:lang="en">Exclude</value>
@@ -3652,6 +3723,7 @@
         <value xml:lang="zh-TW">除外</value>
     </property>
     <property key="CommonExpand">
+        <value xml:lang="ar">بسط</value>
         <value xml:lang="cs">Rozbalit</value>
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand</value>
@@ -3668,6 +3740,7 @@
         <value xml:lang="zh-TW">展開</value>
     </property>
     <property key="CommonExpandAll">
+        <value xml:lang="ar">بسط الكل</value>
         <value xml:lang="cs">Rozbalit vše</value>
         <value xml:lang="de">Erweitern</value>
         <value xml:lang="en">Expand all</value>
@@ -3685,7 +3758,7 @@
         <value xml:lang="zh-TW">全部展開</value>
     </property>
     <property key="CommonExpectation">
-        <value xml:lang="ar">التوقعات</value>
+        <value xml:lang="ar">التوقع</value>
         <value xml:lang="cs">Očekávání</value>
         <value xml:lang="de">Erwartung</value>
         <value xml:lang="en">Expectation</value>
@@ -3706,7 +3779,7 @@
         <value xml:lang="zh-TW">期望</value>
     </property>
     <property key="CommonExpire">
-        <value xml:lang="ar">نهاية الصلاحية</value>
+        <value xml:lang="ar">إنهاء الصلاحية</value>
         <value xml:lang="cs">Expirovat</value>
         <value xml:lang="de">Ablaufen</value>
         <value xml:lang="en">Expire</value>
@@ -3727,7 +3800,7 @@
         <value xml:lang="zh-TW">設成逾期</value>
     </property>
     <property key="CommonExpireAll">
-        <value xml:lang="ar">نهاية الصلاحية للكل</value>
+        <value xml:lang="ar">إنهاء الصلاحية للكل</value>
         <value xml:lang="cs">Expirovat vše</value>
         <value xml:lang="de">Alle ablaufen</value>
         <value xml:lang="en">Expire All</value>
@@ -3828,6 +3901,7 @@
         <value xml:lang="zh-TW">分機</value>
     </property>
     <property key="CommonExtHelpDefinition">
+        <value xml:lang="ar">التعريف: ما هو؟</value>
         <value xml:lang="cs">Definice, co je to?</value>
         <value xml:lang="en">Definition, what is it?</value>
         <value xml:lang="es">Definición, ¿qué és?</value>
@@ -3841,6 +3915,7 @@
         <value xml:lang="zh-TW">！定義, 它是什麼？</value>
     </property>
     <property key="CommonExtHelpOnScreen">
+        <value xml:lang="ar">ماذا يوجد على الشاشة؟</value>
         <value xml:lang="cs">Co je na obrazovce?</value>
         <value xml:lang="en">What's on the screen?</value>
         <value xml:lang="es">¿Qué hay en la plantalla?</value>
@@ -3854,6 +3929,7 @@
         <value xml:lang="zh-TW">螢幕上有什麼？</value>
     </property>
     <property key="CommonExtHelpTitle">
+        <value xml:lang="ar">شاشة المساعدة</value>
         <value xml:lang="cs">Obrazovka nápovědy.</value>
         <value xml:lang="en">Help screen.</value>
         <value xml:lang="es">Pantalla de ayuda.</value>
@@ -3867,6 +3943,7 @@
         <value xml:lang="zh-TW">說明畫面.</value>
     </property>
     <property key="CommonExtHelpUsedFor">
+        <value xml:lang="ar">لماذا يستخدم؟</value>
         <value xml:lang="cs">K čemu je to použito?</value>
         <value xml:lang="en">What is it used for?</value>
         <value xml:lang="es">¿Para qué se usa?</value>
@@ -3880,6 +3957,7 @@
         <value xml:lang="zh-TW">它是用來做什麼用的？</value>
     </property>
     <property key="CommonExtIndex">
+        <value xml:lang="ar">فهرس</value>
         <value xml:lang="cs">Obsah</value>
         <value xml:lang="en">Index</value>
         <value xml:lang="es">Índice</value>
@@ -3893,6 +3971,7 @@
         <value xml:lang="zh-TW">索引</value>
     </property>
     <property key="CommonExternalDevice">
+        <value xml:lang="ar">جهاز خارجي</value>
         <value xml:lang="cs">Externí zařízení</value>
         <value xml:lang="en">External Device</value>
         <value xml:lang="es">Dispositivo externo</value>
@@ -3904,6 +3983,7 @@
         <value xml:lang="zh-TW">外部設備</value>
     </property>
     <property key="CommonExternalDeviceUserAction">
+        <value xml:lang="ar">تصرف مستخدم للجهاز الخارجي</value>
         <value xml:lang="cs">Uživatelská akce externího zařízení</value>
         <value xml:lang="en">External Device User Action</value>
         <value xml:lang="es">Acción del usuario del dispositivo externo</value>
@@ -3934,7 +4014,7 @@
         <value xml:lang="zh-TW">假</value>
     </property>
     <property key="CommonFebruary">
-        <value xml:lang="ar">فيفري</value>
+        <value xml:lang="ar">فبراير</value>
         <value xml:lang="cs">Únor</value>
         <value xml:lang="de">Februar</value>
         <value xml:lang="en">February</value>
@@ -3973,6 +4053,7 @@
         <value xml:lang="zh-TW">女</value>
     </property>
     <property key="CommonFieldLookup">
+        <value xml:lang="ar">إستعراض حقل</value>
         <value xml:lang="cs">Vyhledání pole</value>
         <value xml:lang="de">Feldsuche</value>
         <value xml:lang="en">Field Lookup</value>
@@ -4028,6 +4109,7 @@
         <value xml:lang="zh-TW">篩選器</value>
     </property>
     <property key="CommonFinAccounts">
+        <value xml:lang="ar">الحسابات المالية</value>
         <value xml:lang="cs">Finanční účty</value>
         <value xml:lang="de">Finanzkonti</value>
         <value xml:lang="en">Fin Accts</value>
@@ -4106,6 +4188,7 @@
         <value xml:lang="zh-TW">查詢全部</value>
     </property>
     <property key="CommonFindErrorPreparingConditions">
+        <value xml:lang="ar">خطأ في تحضير الشروط: ${errorString}</value>
         <value xml:lang="cs">Chyba při přípravě podmínek: ${errorString}</value>
         <value xml:lang="en">Error preparing conditions: ${errorString}</value>
         <value xml:lang="es">Error preparando las condiciones: ${errorString}</value>
@@ -4118,6 +4201,7 @@
         <value xml:lang="zh-TW">準備查詢條件時出錯:${errorString}</value>
     </property>
     <property key="CommonFindErrorRetrieveIterator">
+        <value xml:lang="ar">خطأ في العثور على المكرر: ${errorString}</value>
         <value xml:lang="cs">Chyba při přípravě iterátoru: ${errorString}</value>
         <value xml:lang="en">Error finding iterator: ${errorString}</value>
         <value xml:lang="es">Error buscando iterador: ${errorString}</value>
@@ -4130,6 +4214,7 @@
         <value xml:lang="zh-TW">尋找反覆運算子(iterator)時出錯:${errorString}</value>
     </property>
     <property key="CommonFindErrorRunning">
+        <value xml:lang="ar">خطأ في العثور على الكيان ${entityName}: ${errorString}</value>
         <value xml:lang="cs">Chyba při vyhledávání v ${entityName}: ${errorString}</value>
         <value xml:lang="en">Error running Find on the ${entityName} entity: ${errorString}</value>
         <value xml:lang="es">Error buscando en la entidad ${entityName}: ${errorString}</value>
@@ -4142,7 +4227,7 @@
         <value xml:lang="zh-TW">對資料實體 ${entityName} 作尋找(Find)時出錯:${errorString}</value>
     </property>
     <property key="CommonFinishDate">
-        <value xml:lang="ar">تاريخ/وقت النهاية</value>
+        <value xml:lang="ar">تاريخ/وقت الإنتهاء</value>
         <value xml:lang="cs">Datum a čas ukončení</value>
         <value xml:lang="de">Abschluss Datum/Uhrzeit</value>
         <value xml:lang="en">Finish Date/Time</value>
@@ -4163,6 +4248,7 @@
         <value xml:lang="zh-TW">完成日期/時間</value>
     </property>
     <property key="CommonFirst">
+        <value xml:lang="ar">الأول</value>
         <value xml:lang="cs">První</value>
         <value xml:lang="de">Erster</value>
         <value xml:lang="en">First</value>
@@ -4524,7 +4610,7 @@
         <value xml:lang="zh-TW">開始日期不是有效的日期和時間.</value>
     </property>
     <property key="CommonFromDateThruDate">
-        <value xml:lang="ar">تاريخ البدء/تاريخ النهاية</value>
+        <value xml:lang="ar">تاريخ البدء/تاريخ الإنتهاء</value>
         <value xml:lang="cs">Od data / Do data</value>
         <value xml:lang="de">Von Datum / Bis Datum</value>
         <value xml:lang="en">From Date / Through Date</value>
@@ -4571,6 +4657,7 @@
         <value xml:lang="zh-TW">開始日期 時間</value>
     </property>
     <property key="CommonFtpConnectionRefused">
+        <value xml:lang="ar">تم رفض الإتصال</value>
         <value xml:lang="cs">připojení odmítnuto</value>
         <value xml:lang="en">connection refused</value>
         <value xml:lang="es">conexión rechazada</value>
@@ -4583,6 +4670,7 @@
         <value xml:lang="zh-TW">連接被拒</value>
     </property>
     <property key="CommonFtpFileCannotBeOpen">
+        <value xml:lang="ar">خطأ: غير قادر على فتح الملف المحلي</value>
         <value xml:lang="cs">ERROR: Nepodařilo se otevřít místní soubor</value>
         <value xml:lang="en">ERROR: Could not open local file</value>
         <value xml:lang="es">Error: no se puede abrir el fichero local</value>
@@ -4595,6 +4683,7 @@
         <value xml:lang="zh-TW">錯誤:不能打開本機檔</value>
     </property>
     <property key="CommonFtpFileNotSentSuccesfully">
+        <value xml:lang="ar">لم يتم إرسال الملف بنجاح: ${replyString}</value>
         <value xml:lang="cs">soubor nebyl úspěšně odeslán: ${replyString}</value>
         <value xml:lang="en">File not sent succesfully: ${replyString}</value>
         <value xml:lang="es">Fichero no enviado correctamente: ${replyString}</value>
@@ -4607,6 +4696,7 @@
         <value xml:lang="zh-TW">不能成功發送檔:${replyString}</value>
     </property>
     <property key="CommonFtpLoginFailure">
+        <value xml:lang="ar">محاولة الدخل فشلت (${username}, ${password})</value>
         <value xml:lang="cs">Přihlášení selhalo (${username}, ${password})</value>
         <value xml:lang="en">Login failed (${username}, ${password})</value>
         <value xml:lang="es">Fallo de conexión (${username}, ${password})</value>
@@ -4619,6 +4709,7 @@
         <value xml:lang="zh-TW">登入失敗(${username},${password})</value>
     </property>
     <property key="CommonFtpProblemWithTransfer">
+        <value xml:lang="ar">حدثت مشكلة أثناء نقل الملفات عبر الشبكة: ${errorString}</value>
         <value xml:lang="cs">Chyba FTP přenosu: ${errorString}</value>
         <value xml:lang="en">Problem with FTP transfer: ${errorString}</value>
         <value xml:lang="es">Problema con la transferencia FTP: ${errorString}</value>
@@ -4631,6 +4722,7 @@
         <value xml:lang="zh-TW">FTP傳送時出問題:${errorString}</value>
     </property>
     <property key="CommonFtpSiteCommandFailed">
+        <value xml:lang="ar">أمر SITE ${command} لم ينجح: ${replyString}</value>
         <value xml:lang="cs">SITE command ${command} failed: ${replyString}</value>
         <value xml:lang="en">SITE command ${command} failed: ${replyString}</value>
         <value xml:lang="es">Ha fallado el comando ${command}: ${replyString}</value>
@@ -4643,6 +4735,7 @@
         <value xml:lang="zh-TW">站台指令執行 ${command} 時失敗:${replyString}</value>
     </property>
     <property key="CommonGenericPermissionError">
+        <value xml:lang="ar">خطأ في نظام الحماية: لتشغيل ${resourceDescription} يجب أن يكون لديك أحد الصلاحيات التالية: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="cs">Bezpečnostní chyba: Pro spuštění ${resourceDescription} musíte mít jedno z oprávnění: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="en">Security Error: To run ${resourceDescription} you must have the one of the following permissions: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -4660,6 +4753,7 @@
         <value xml:lang="zh-TW">安全錯誤:要執行${resourceDescription},你必須具有下列權限之一:${primaryPermission}_${mainAction}、${primaryPermission}_ADMIN${altPermissionList}</value>
     </property>
     <property key="CommonGenericServiceErrorMessage">
+        <value xml:lang="ar">خطأ في تشغيل الخدمة</value>
         <value xml:lang="cs">Chyba při spouštění služby</value>
         <value xml:lang="en">Error while executing service</value>
         <value xml:lang="es">Error ejecutando el servicio</value>
@@ -4672,6 +4766,7 @@
         <value xml:lang="zh-TW">執行服務時出錯</value>
     </property>
     <property key="CommonGenericServiceSuccessMessage">
+        <value xml:lang="ar">تم تشغيل الخدمة بنجاح</value>
         <value xml:lang="cs">Služba úspěšně spuštěna</value>
         <value xml:lang="en">Service executed successfully</value>
         <value xml:lang="es">Servicio ejecutado correctamente</value>
@@ -4684,7 +4779,7 @@
         <value xml:lang="zh-TW">成功執行了服務</value>
     </property>
     <property key="CommonGeo">
-        <value xml:lang="ar">جيو</value>
+        <value xml:lang="ar">إحداثية</value>
         <value xml:lang="cs">Poloha</value>
         <value xml:lang="de">Geo</value>
         <value xml:lang="en">Geo</value>
@@ -4701,6 +4796,7 @@
         <value xml:lang="zh-TW">地理</value>
     </property>
     <property key="CommonGeoAbbr">
+        <value xml:lang="ar">إختصار</value>
         <value xml:lang="cs">Zkratka</value>
         <value xml:lang="en">Abbreviation</value>
         <value xml:lang="es">Abreviación</value>
@@ -4717,6 +4813,7 @@
         <value xml:lang="zh-TW">地理縮寫</value>
     </property>
     <property key="CommonGeoAssocTypeId">
+        <value xml:lang="ar">دليل نوع ترابط الإحداثية</value>
         <value xml:lang="cs">ID asociace typu polohy</value>
         <value xml:lang="en">Geo Assoc Type ID</value>
         <value xml:lang="es">Tipo de código de ubicación</value>
@@ -4729,6 +4826,7 @@
         <value xml:lang="zh-TW">地理相關類型識別</value>
     </property>
     <property key="CommonGeoCode">
+        <value xml:lang="ar">رمز</value>
         <value xml:lang="cs">Kód</value>
         <value xml:lang="en">Code</value>
         <value xml:lang="es">Código</value>
@@ -4745,6 +4843,7 @@
         <value xml:lang="zh-TW">地理代碼</value>
     </property>
     <property key="CommonGeoId">
+        <value xml:lang="ar">دليل الإحداثية</value>
         <value xml:lang="cs">ID polohy</value>
         <value xml:lang="en">Geo ID</value>
         <value xml:lang="es">Código ubicación</value>
@@ -4761,6 +4860,7 @@
         <value xml:lang="zh-TW">地理識別</value>
     </property>
     <property key="CommonGeoLocation">
+        <value xml:lang="ar">الموقع الإحداثي</value>
         <value xml:lang="cs">Geografická poloha</value>
         <value xml:lang="de">Geopraphischer Ort</value>
         <value xml:lang="en">Geo Location</value>
@@ -4776,6 +4876,7 @@
         <value xml:lang="zh-TW">地理位置</value>
     </property>
     <property key="CommonGeoName">
+        <value xml:lang="ar">الإسم</value>
         <value xml:lang="cs">Název</value>
         <value xml:lang="de">Name</value>
         <value xml:lang="en">Name</value>
@@ -4793,6 +4894,7 @@
         <value xml:lang="zh-TW">地理名稱</value>
     </property>
     <property key="CommonGeoSecCode">
+        <value xml:lang="ar">الرمز الثانوي</value>
         <value xml:lang="cs">Sekundární kód</value>
         <value xml:lang="de">Sekundärer Kode</value>
         <value xml:lang="en">Secondary Code</value>
@@ -4810,6 +4912,7 @@
         <value xml:lang="zh-TW">地理次代碼</value>
     </property>
     <property key="CommonGeoTypeId">
+        <value xml:lang="ar">دليل نوع الإحداثية</value>
         <value xml:lang="cs">ID typu polohy</value>
         <value xml:lang="en">Geo Type ID</value>
         <value xml:lang="es">Tipo de ubicación</value>
@@ -4826,6 +4929,7 @@
         <value xml:lang="zh-TW">地理類型識別</value>
     </property>
     <property key="CommonGeoWellKnownText">
+        <value xml:lang="ar">نص معروف جدا</value>
         <value xml:lang="cs">Známý text</value>
         <value xml:lang="en">Well Known Text</value>
         <value xml:lang="es">Texto conocido</value>
@@ -4838,6 +4942,7 @@
         <value xml:lang="zh-TW">眾所週知的本文</value>
     </property>
     <property key="CommonGeos">
+        <value xml:lang="ar">إحداثيات</value>
         <value xml:lang="cs">Poloha</value>
         <value xml:lang="de">Geo</value>
         <value xml:lang="en">Geos</value>
@@ -4875,7 +4980,7 @@
         <value xml:lang="zh-TW">得到密碼提示</value>
     </property>
     <property key="CommonGlobal">
-        <value xml:lang="ar">إجمالي</value>
+        <value xml:lang="ar">عالمي</value>
         <value xml:lang="cs">Globální</value>
         <value xml:lang="de">Global</value>
         <value xml:lang="en">Global</value>
@@ -4934,6 +5039,7 @@
         <value xml:lang="zh-TW">到前一步</value>
     </property>
     <property key="CommonGotoPage">
+        <value xml:lang="ar">إذهب الى صفحة</value>
         <value xml:lang="cs">Jít na stránku</value>
         <value xml:lang="de">Gehe zu Seite</value>
         <value xml:lang="en">Go to Page</value>
@@ -5032,6 +5138,7 @@
         <value xml:lang="zh-TW">已保留</value>
     </property>
     <property key="CommonHelp">
+        <value xml:lang="ar">مساعدة</value>
         <value xml:lang="cs">Nápověda</value>
         <value xml:lang="de">Hilfe</value>
         <value xml:lang="en">Help</value>
@@ -5048,6 +5155,7 @@
         <value xml:lang="zh-TW">幫助</value>
     </property>
     <property key="CommonHelpNotFound">
+        <value xml:lang="ar">ملف أو عنوان المساعدة غير موجود</value>
         <value xml:lang="cs">Soubor s nápovědou nebo URL nebylo nalezeno</value>
         <value xml:lang="en">Help file or URL not found</value>
         <value xml:lang="es">Fichero de ayuda o URL no encontrada</value>
@@ -5083,6 +5191,7 @@
         <value xml:lang="zh-TW">隱藏欄位</value>
     </property>
     <property key="CommonHigh">
+        <value xml:lang="ar">عالي</value>
         <value xml:lang="cs">Vysoký</value>
         <value xml:lang="de">Hoch</value>
         <value xml:lang="en">High</value>
@@ -5097,6 +5206,7 @@
         <value xml:lang="zh-TW">高</value>
     </property>
     <property key="CommonHome">
+        <value xml:lang="ar">الصفحة الرئيسية</value>
         <value xml:lang="cs">Výchozí stránka</value>
         <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Home</value>
@@ -5132,7 +5242,7 @@
         <value xml:lang="zh-TW">小時</value>
     </property>
     <property key="CommonHourly">
-        <value xml:lang="ar">ساعي</value>
+        <value xml:lang="ar">بالساعة</value>
         <value xml:lang="cs">Hodinově</value>
         <value xml:lang="de">Stündlich</value>
         <value xml:lang="en">Hourly</value>
@@ -5175,7 +5285,7 @@
         <value xml:lang="zh-TW">識別</value>
     </property>
     <property key="CommonIdAlreadyExist">
-        <value xml:lang="ar">دليل موجود</value>
+        <value xml:lang="ar">الدليل موجود مسبقا</value>
         <value xml:lang="cs">ID již existuje</value>
         <value xml:lang="de">ID ist bereits vorhanden</value>
         <value xml:lang="en">Id Already Exist</value>
@@ -5253,6 +5363,7 @@
         <value xml:lang="zh-TW">識別</value>
     </property>
     <property key="CommonImage">
+        <value xml:lang="ar">صورة</value>
         <value xml:lang="cs">Obrázek</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imagen</value>
@@ -5311,6 +5422,7 @@
         <value xml:lang="zh-TW">在</value>
     </property>
     <property key="CommonInclude">
+        <value xml:lang="ar">يحتوي</value>
         <value xml:lang="cs">Zahrnout</value>
         <value xml:lang="de">Einbeziehen</value>
         <value xml:lang="en">Include</value>
@@ -5347,7 +5459,7 @@
         <value xml:lang="zh-TW">資訊</value>
     </property>
     <property key="CommonInput">
-        <value xml:lang="ar">داخل</value>
+        <value xml:lang="ar">إدخال</value>
         <value xml:lang="cs">Vstup</value>
         <value xml:lang="de">Eingabe</value>
         <value xml:lang="en">Input</value>
@@ -5367,6 +5479,7 @@
         <value xml:lang="zh-TW">輸入</value>
     </property>
     <property key="CommonInsert">
+        <value xml:lang="ar">إدخال</value>
         <value xml:lang="cs">Vložit</value>
         <value xml:lang="de">Einfügen</value>
         <value xml:lang="en">Insert</value>
@@ -5383,6 +5496,7 @@
         <value xml:lang="zh-TW">插入</value>
     </property>
     <property key="CommonInternalComment">
+        <value xml:lang="ar">ملاحظة داخلية</value>
         <value xml:lang="cs">Interní poznámka</value>
         <value xml:lang="de">Interne Notiz</value>
         <value xml:lang="en">Internal Comment</value>
@@ -5439,6 +5553,7 @@
         <value xml:lang="zh-TW">匯入日期</value>
     </property>
     <property key="CommonInventory">
+        <value xml:lang="ar">قائمة الجرد</value>
         <value xml:lang="cs">Sklad</value>
         <value xml:lang="de">Inventar</value>
         <value xml:lang="en">Inventory</value>
@@ -5476,7 +5591,7 @@
         <value xml:lang="zh-TW">是個</value>
     </property>
     <property key="CommonIsAnonymous">
-        <value xml:lang="ar">غير معرف</value>
+        <value xml:lang="ar">مجهول</value>
         <value xml:lang="cs">Je anonymní</value>
         <value xml:lang="de">Ohne Benutzerkonto</value>
         <value xml:lang="en">Is Anonymous</value>
@@ -5495,7 +5610,7 @@
         <value xml:lang="zh-TW">匿名</value>
     </property>
     <property key="CommonItem">
-        <value xml:lang="ar">سطر</value>
+        <value xml:lang="ar">عنصر</value>
         <value xml:lang="cs">Položka</value>
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Item</value>
@@ -5515,7 +5630,7 @@
         <value xml:lang="zh-TW">細項</value>
     </property>
     <property key="CommonItems">
-        <value xml:lang="ar">أسطر</value>
+        <value xml:lang="ar">عناصر</value>
         <value xml:lang="cs">Položky</value>
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Items</value>
@@ -5536,6 +5651,7 @@
         <value xml:lang="zh-TW">細項</value>
     </property>
     <property key="CommonItemsPerPage">
+        <value xml:lang="ar">عناصر الصفحة</value>
         <value xml:lang="cs">Položek na stránku</value>
         <value xml:lang="de">Elemente pro Seite</value>
         <value xml:lang="en">Items per page</value>
@@ -5550,7 +5666,7 @@
         <value xml:lang="zh-TW">每頁筆數</value>
     </property>
     <property key="CommonJanuary">
-        <value xml:lang="ar">جانفي</value>
+        <value xml:lang="ar">يناير</value>
         <value xml:lang="cs">Leden</value>
         <value xml:lang="de">Januar</value>
         <value xml:lang="en">January</value>
@@ -5570,7 +5686,7 @@
         <value xml:lang="zh-TW">一月</value>
     </property>
     <property key="CommonJuly">
-        <value xml:lang="ar">جويلية</value>
+        <value xml:lang="ar">يوليو</value>
         <value xml:lang="cs">Červenec</value>
         <value xml:lang="de">Juli</value>
         <value xml:lang="en">July</value>
@@ -5590,7 +5706,7 @@
         <value xml:lang="zh-TW">七月</value>
     </property>
     <property key="CommonJune">
-        <value xml:lang="ar">جوان</value>
+        <value xml:lang="ar">يونيو</value>
         <value xml:lang="cs">Červen</value>
         <value xml:lang="de">Juni</value>
         <value xml:lang="en">June</value>
@@ -5632,7 +5748,7 @@
         <value xml:lang="zh-TW">語言</value>
     </property>
     <property key="CommonLarge">
-        <value xml:lang="ar">عريض</value>
+        <value xml:lang="ar">كبير</value>
         <value xml:lang="cs">Velký</value>
         <value xml:lang="de">Groß</value>
         <value xml:lang="en">Large</value>
@@ -5653,6 +5769,7 @@
         <value xml:lang="zh-TW">大</value>
     </property>
     <property key="CommonLast">
+        <value xml:lang="ar">الأخير</value>
         <value xml:lang="cs">Poslední</value>
         <value xml:lang="de">Letzter</value>
         <value xml:lang="en">Last</value>
@@ -5669,6 +5786,7 @@
         <value xml:lang="zh-TW">最後</value>
     </property>
     <property key="CommonLastSytemNotes">
+        <value xml:lang="ar">ملاحظات النظام الأخيرة</value>
         <value xml:lang="cs">Poslední systémová poznámka</value>
         <value xml:lang="en">Last system notes</value>
         <value xml:lang="es">Últimas notas del sistema</value>
@@ -5703,6 +5821,7 @@
         <value xml:lang="zh-TW">最近更新</value>
     </property>
     <property key="CommonLatitude">
+        <value xml:lang="ar">خط العرض</value>
         <value xml:lang="cs">Zeměpisná šířka: </value>
         <value xml:lang="de">Breitengrad: </value>
         <value xml:lang="en">Latitude: </value>
@@ -5718,6 +5837,7 @@
         <value xml:lang="zh-TW">緯度:</value>
     </property>
     <property key="CommonLength">
+        <value xml:lang="ar">الطول</value>
         <value xml:lang="cs">Délka</value>
         <value xml:lang="de">Länge</value>
         <value xml:lang="en">Length</value>
@@ -5733,6 +5853,7 @@
         <value xml:lang="zh-TW">長度</value>
     </property>
     <property key="CommonLessThan">
+        <value xml:lang="ar">أقل من</value>
         <value xml:lang="cs">méně než</value>
         <value xml:lang="de">weniger als</value>
         <value xml:lang="en">less than</value>
@@ -5830,6 +5951,7 @@
         <value xml:lang="zh-TW">全部清單</value>
     </property>
     <property key="CommonLoading">
+        <value xml:lang="ar">تحميل ...</value>
         <value xml:lang="cs">Nahrávání....</value>
         <value xml:lang="de">Empfange Daten ...</value>
         <value xml:lang="en">Loading...</value>
@@ -5845,6 +5967,7 @@
         <value xml:lang="zh-TW">正在載入...</value>
     </property>
     <property key="CommonLocalisation">
+        <value xml:lang="ar">التعريب</value>
         <value xml:lang="cs">Lokalizace</value>
         <value xml:lang="de">Lokalisierung</value>
         <value xml:lang="en">Localization</value>
@@ -5931,6 +6054,7 @@
         <value xml:lang="zh-TW">登出</value>
     </property>
     <property key="CommonLongitude">
+        <value xml:lang="ar">خط الطول</value>
         <value xml:lang="cs">Zeměpisná délka: </value>
         <value xml:lang="de">Längengrad: </value>
         <value xml:lang="en">Longitude: </value>
@@ -5968,6 +6092,7 @@
         <value xml:lang="zh-TW">查詢</value>
     </property>
     <property key="CommonLookupAnywho">
+        <value xml:lang="ar">البحث في :anywho.com</value>
         <value xml:lang="cs">vyhledat: google.cz</value>
         <value xml:lang="de">Rückwärtssuche: 11880</value>
         <value xml:lang="en">lookup:anywho.com</value>
@@ -5997,6 +6122,7 @@
         <value xml:lang="zh-TW">HTTP://www.anywho.com/qry/wp_rl?npa=${telecomNumber.areaCode}&amp;telephone=${telecomNumber.contactNumber}&amp;btnsubmit.x=20&amp;btnsubmit.y=8</value>
     </property>
     <property key="CommonLookupLocale">
+        <value xml:lang="ar">البحث بلغة</value>
         <value xml:lang="cs">Vyhledat lokalizaci</value>
         <value xml:lang="en">Lookup Locale</value>
         <value xml:lang="es">Buscar Locale</value>
@@ -6008,6 +6134,7 @@
         <value xml:lang="zh-TW">查詢語言</value>
     </property>
     <property key="CommonLookupWhitepages">
+        <value xml:lang="ar">البحث في الصفحات البيضاء</value>
         <value xml:lang="cs">Vyhledat ve Zlatých stránkách</value>
         <value xml:lang="en">Look up White pages</value>
         <value xml:lang="es">Páginas Blancas</value>
@@ -6047,6 +6174,7 @@
         <value xml:lang="zh-TW">HTTP://whitepages.com/find_person_results.pl?fid=p&amp;ac=${telecomNumber.areaCode}&amp;s=&amp;p=${telecomNumber.contactNumber}&amp;pt=b&amp;x=40&amp;y=9</value>
     </property>
     <property key="CommonLow">
+        <value xml:lang="ar">منخفض</value>
         <value xml:lang="cs">Nízký</value>
         <value xml:lang="de">Niedrig</value>
         <value xml:lang="en">Low</value>
@@ -6103,6 +6231,7 @@
         <value xml:lang="zh-TW">男</value>
     </property>
     <property key="CommonManage">
+        <value xml:lang="ar">إدارة</value>
         <value xml:lang="cs">Spravovat</value>
         <value xml:lang="en">Manage</value>
         <value xml:lang="es">Gestionar</value>
@@ -6115,6 +6244,7 @@
         <value xml:lang="zh-TW">管理</value>
     </property>
     <property key="CommonManagePortalPages">
+        <value xml:lang="ar">إدارة صفحات البوابة</value>
         <value xml:lang="cs">Spravovat stránky portálu...</value>
         <value xml:lang="de">Portalseiten verwalten...</value>
         <value xml:lang="en">Manage Portal Pages...</value>
@@ -6148,7 +6278,7 @@
         <value xml:lang="zh-TW">管理者</value>
     </property>
     <property key="CommonMany">
-        <value xml:lang="ar">عدة</value>
+        <value xml:lang="ar">الكثير</value>
         <value xml:lang="cs">Mnoho</value>
         <value xml:lang="de">Viele</value>
         <value xml:lang="en">Many</value>
@@ -6188,7 +6318,7 @@
         <value xml:lang="zh-TW">三月</value>
     </property>
     <property key="CommonMatched">
-        <value xml:lang="ar">مماثل</value>
+        <value xml:lang="ar">متطابق</value>
         <value xml:lang="cs">Shoda</value>
         <value xml:lang="de">Passend</value>
         <value xml:lang="en">Matched</value>
@@ -6210,6 +6340,7 @@
         <value xml:lang="zh-TW">已匹配</value>
     </property>
     <property key="CommonMax250Chars">
+        <value xml:lang="ar">250 حرف بحد أقصى</value>
         <value xml:lang="cs">Maximálně 250 znaků</value>
         <value xml:lang="en">250 Chars Maximum</value>
         <value xml:lang="es">250 caracteres máximo</value>
@@ -6224,7 +6355,7 @@
         <value xml:lang="zh-TW">最多250個字元(125個漢字)</value>
     </property>
     <property key="CommonMay">
-        <value xml:lang="ar">ماي</value>
+        <value xml:lang="ar">مايو</value>
         <value xml:lang="cs">Květen</value>
         <value xml:lang="de">Mai</value>
         <value xml:lang="en">May</value>
@@ -6264,7 +6395,7 @@
         <value xml:lang="zh-TW">新建</value>
     </property>
     <property key="CommonMayCreateNewAccountHere">
-        <value xml:lang="ar">يمكن استحداث حساب جديد هنا</value>
+        <value xml:lang="ar">يمكنك خلق حساب جديد هنا</value>
         <value xml:lang="cs">Zde si můžete založit nový účet</value>
         <value xml:lang="de">Sie können sich hier registrieren</value>
         <value xml:lang="en">You may create a new account here</value>
@@ -6285,6 +6416,7 @@
         <value xml:lang="zh-TW">你可以在這此新建帳戶</value>
     </property>
     <property key="CommonMeasures">
+        <value xml:lang="ar">تدابير</value>
         <value xml:lang="cs">Opatření</value>
         <value xml:lang="de">Maße</value>
         <value xml:lang="en">Measures</value>
@@ -6300,7 +6432,7 @@
         <value xml:lang="zh-TW">度量</value>
     </property>
     <property key="CommonMedium">
-        <value xml:lang="ar">وسيط</value>
+        <value xml:lang="ar">متوسط</value>
         <value xml:lang="cs">Střední</value>
         <value xml:lang="de">Mittel</value>
         <value xml:lang="en">Medium</value>
@@ -6339,6 +6471,7 @@
         <value xml:lang="zh-TW">訊息</value>
     </property>
     <property key="CommonMessageMissing">
+        <value xml:lang="ar">الرسالة مفقودة</value>
         <value xml:lang="cs">Chybí zpráva</value>
         <value xml:lang="en">Message is missing</value>
         <value xml:lang="es">Falta el mensaje</value>
@@ -6351,6 +6484,7 @@
         <value xml:lang="zh-TW">訊息丟失了</value>
     </property>
     <property key="CommonMessages">
+        <value xml:lang="ar">رسائل</value>
         <value xml:lang="cs">Zprávy</value>
         <value xml:lang="de">Meldungen</value>
         <value xml:lang="en">Messages</value>
@@ -6389,6 +6523,7 @@
         <value xml:lang="zh-TW">方法</value>
     </property>
     <property key="CommonMilliSecond">
+        <value xml:lang="ar">واحد بالألف من الثانية</value>
         <value xml:lang="cs">Milisekunda</value>
         <value xml:lang="de">Millisekunde</value>
         <value xml:lang="en">Millisecond</value>
@@ -6442,6 +6577,7 @@
         <value xml:lang="zh-TW">每分鐘</value>
     </property>
     <property key="CommonMiscellaneous">
+        <value xml:lang="ar">متنوع</value>
         <value xml:lang="cs">Různé</value>
         <value xml:lang="de">Verschiedenes</value>
         <value xml:lang="en">Miscellaneous</value>
@@ -6574,6 +6710,7 @@
         <value xml:lang="zh-TW">更多</value>
     </property>
     <property key="CommonMoreThan">
+        <value xml:lang="ar">أكثر من</value>
         <value xml:lang="cs">více než</value>
         <value xml:lang="de">mehr als</value>
         <value xml:lang="en">more than</value>
@@ -6590,6 +6727,7 @@
         <value xml:lang="zh-TW">大於</value>
     </property>
     <property key="CommonMovePortletBottom">
+        <value xml:lang="ar">تحريك المدخل الى القاع</value>
         <value xml:lang="cs">Přesunout portlet nejníž</value>
         <value xml:lang="de">Portlet an die Unterkante verschieben</value>
         <value xml:lang="en">Move Portlet at the Bottom</value>
@@ -6605,6 +6743,7 @@
         <value xml:lang="zh-TW">在底部移動Portlet</value>
     </property>
     <property key="CommonMovePortletDown">
+        <value xml:lang="ar">تحريك المدخل أسفل</value>
         <value xml:lang="cs">Přesunout portlet níž</value>
         <value xml:lang="de">Portlet nach unten schieben</value>
         <value xml:lang="en">Move Portlet Down</value>
@@ -6620,6 +6759,7 @@
         <value xml:lang="zh-TW">下移Portlet</value>
     </property>
     <property key="CommonMovePortletLeft">
+        <value xml:lang="ar">تحريك المدخل إلى اليسار</value>
         <value xml:lang="cs">Přesunout portlet vlevo</value>
         <value xml:lang="de">Portlet nach links schieben</value>
         <value xml:lang="en">Move Portlet Left</value>
@@ -6635,6 +6775,7 @@
         <value xml:lang="zh-TW">左移Portlet</value>
     </property>
     <property key="CommonMovePortletRight">
+        <value xml:lang="ar">تحريك المدخل إلى اليمين</value>
         <value xml:lang="cs">Přesunout portlet vpravo</value>
         <value xml:lang="de">Portlet nach rechts schieben</value>
         <value xml:lang="en">Move Portlet Right</value>
@@ -6650,6 +6791,7 @@
         <value xml:lang="zh-TW">右移Portlet</value>
     </property>
     <property key="CommonMovePortletTop">
+        <value xml:lang="ar">تحريك المدخل الى الأعلى</value>
         <value xml:lang="cs">Přesunout portlet nejvýš</value>
         <value xml:lang="de">Portlet an die Oberkante verschieben</value>
         <value xml:lang="en">Move Portlet at the Top</value>
@@ -6665,6 +6807,7 @@
         <value xml:lang="zh-TW">在頂部移動Portlet</value>
     </property>
     <property key="CommonMovePortletUp">
+        <value xml:lang="ar">تحريك المدخل فوق</value>
         <value xml:lang="cs">Přesunout portlet výš</value>
         <value xml:lang="de">Portlet nach oben schieben</value>
         <value xml:lang="en">Move Portlet Up</value>
@@ -6680,6 +6823,7 @@
         <value xml:lang="zh-TW">上移Portlet</value>
     </property>
     <property key="CommonMoveToPortalPage">
+        <value xml:lang="ar">الذهاب لصفحة المدخل ...</value>
         <value xml:lang="cs">Přesunout do portálové stránky...</value>
         <value xml:lang="de">Auf die Portalseite verschieben...</value>
         <value xml:lang="en">Move to Portal Page...</value>
@@ -6695,6 +6839,7 @@
         <value xml:lang="zh-TW">移動到入口網頁...</value>
     </property>
     <property key="CommonMyPersonalPage">
+        <value xml:lang="ar">صفحتي الشخصية</value>
         <value xml:lang="cs">Moje osobní stránka</value>
         <value xml:lang="de">Persönliche Seite</value>
         <value xml:lang="en">My Personal Page</value>
@@ -6781,6 +6926,7 @@
         <value xml:lang="zh-TW">名稱</value>
     </property>
     <property key="CommonNbr">
+        <value xml:lang="ar">#</value>
         <value xml:lang="de">Nr</value>
         <value xml:lang="cs">No</value>
         <value xml:lang="en">Nbr</value>
@@ -6819,6 +6965,7 @@
         <value xml:lang="zh-TW">新建</value>
     </property>
     <property key="CommonNewPassword">
+        <value xml:lang="ar">كلمة سر جديدة</value>
         <value xml:lang="cs">Nové heslo</value>
         <value xml:lang="de">Neues Passwort</value>
         <value xml:lang="en">New Password</value>
@@ -6835,6 +6982,7 @@
         <value xml:lang="zh-TW">新密碼</value>
     </property>
     <property key="CommonNewPasswordVerify">
+        <value xml:lang="ar">تحقق من كلمة السر</value>
         <value xml:lang="cs">Kontrola nového hesla</value>
         <value xml:lang="de">Neues Passwort (Wiederholung)</value>
         <value xml:lang="en">New Password Verify</value>
@@ -6851,6 +6999,7 @@
         <value xml:lang="zh-TW">新密碼驗證</value>
     </property>
     <property key="CommonNewPortalPage">
+        <value xml:lang="ar">صفحة بوابة جديدة</value>
         <value xml:lang="cs">Nová stránka portálu</value>
         <value xml:lang="de">Neue Portalseite</value>
         <value xml:lang="en">New Portal Page</value>
@@ -6949,6 +7098,7 @@
         <value xml:lang="zh-TW">否</value>
     </property>
     <property key="CommonNoAccess">
+        <value xml:lang="ar">غير مسموح بإستخدام هذه الوظيفة. إتصل بمسؤول النظام إن كنت تعتقد بوجود خطأ في النظام</value>
         <value xml:lang="cs">Funkce není dostupná. Kontaktujte správce, pokud se domníváte, že se jedná o chybu</value>
         <value xml:lang="de">Sie haben keine Berechtigung für diese Fumktion; falls Sie dies für einen Fehler halten, wenden Sie sich an Ihren Systemadministrator</value>
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
@@ -6984,7 +7134,7 @@
         <value xml:lang="zh-TW">沒有位址</value>
     </property>
     <property key="CommonNoContactInformationOnFile">
-        <value xml:lang="ar">لا معاومات حول الصلة في الملف</value>
+        <value xml:lang="ar">لا معلومات حول الصلة في الملف</value>
         <value xml:lang="cs">Nenalezeny kontaktní informace pro soubor</value>
         <value xml:lang="de">Keine Kontaktinformation hinterlegt</value>
         <value xml:lang="en">No contact information on file</value>
@@ -7025,7 +7175,7 @@
         <value xml:lang="zh-TW">不包含</value>
     </property>
     <property key="CommonNoCustomMethodName">
-        <value xml:lang="ar"> اسم طريقة تحويل وحدات القياس عير موجود</value>
+        <value xml:lang="ar">اسم طريقة تحويل وحدات القياس عير موجود</value>
         <value xml:lang="cs">Vlastní název metody pro konverzy jednotek nebyl nalezen.</value>
         <value xml:lang="de">Die Konvertierungsmethode für die Einheitenumwandlung wurde nicht gefunden</value>
         <value xml:lang="en">Custom method name for UoM conversion not found</value>
@@ -7044,6 +7194,7 @@
         <value xml:lang="zh-TW">沒有找到用於貨幣轉換的客製方法名稱</value>
     </property>
     <property key="CommonNoDetailImageAvailableToDisplay">
+        <value xml:lang="ar">لا يوجد صورة تفصيلية للعرض</value>
         <value xml:lang="cs">Detailní obrázek pro zobrazení není k dispozici.</value>
         <value xml:lang="en">No detail image available to display.</value>
         <value xml:lang="es">Ninguna imagen de detalles para visualizar.</value>
@@ -7077,6 +7228,7 @@
         <value xml:lang="zh-TW">沒有發現元素</value>
     </property>
     <property key="CommonNoGeolocationAvailable">
+        <value xml:lang="ar">لا يوجد موقع جغرافي (للعرض يمكنك إستخدام بروفايل الطرف DemoCustomer)</value>
         <value xml:lang="cs">Poloha není k dispozici (pro otestování můžete zkusit použí profil DemoCustomer)</value>
         <value xml:lang="de">Kein Geografischer Ort verfügbar (testen Sie mit dem DemoCustomer Profil)</value>
         <value xml:lang="en">No Geolocation Available (for a demo you may try using DemoCustomer party profile)</value>
@@ -7092,6 +7244,7 @@
         <value xml:lang="zh-TW">沒有可用的地理位置(若作為Demo,你可以使用 DemoCustomer 團體相關資料)</value>
     </property>
     <property key="CommonNoOptions">
+        <value xml:lang="ar">لا يوجد خيار: _NA_</value>
         <value xml:lang="cs">Žádné volby: _NA_</value>
         <value xml:lang="de">Keine Optionen: _NA_</value>
         <value xml:lang="en">No options: _NA_</value>
@@ -7126,6 +7279,7 @@
         <value xml:lang="zh-TW">沒有上一層</value>
     </property>
     <property key="CommonNoPortalPageDataFound">
+        <value xml:lang="ar">لا يوجد صفحة للبوابة. قد لا تتوفر لديك الإدخالات الضرورية لإستعراض المعلومة</value>
         <value xml:lang="cs">Nenalezena data pro stránku portálu.</value>
         <value xml:lang="de">Keine Daten für eine Portalseite gefunden. Sie haben wahrscheinlich nicht die notwendigen Seed oder andere Daten dafür geladen.</value>
         <value xml:lang="en">No portal page data found. You may not have the necessary seed or other data for it.</value>
@@ -7140,6 +7294,7 @@
         <value xml:lang="zh-TW">沒有找到入口網頁相關資料.你可能沒有它所需的種子或其它資料.</value>
     </property>
     <property key="CommonNoPortletsInCategory">
+        <value xml:lang="ar">الرجاء إختيار فئة جديدة مرة أخرى. لا يوجد مدخل لهذة الفئة</value>
         <value xml:lang="cs">Prosím vyberte jinou kategorii. V této kategorii nejsou žádné portlety.</value>
         <value xml:lang="de">Bitte wählen Sie erneut eine neue Kategorie. Keine Portlets in dieser Kategorie.</value>
         <value xml:lang="en">Please, choose new category again, No portlet in this category.</value>
@@ -7154,7 +7309,7 @@
         <value xml:lang="zh-TW">請再選擇一次新建分類,這個分類中沒有Portlet.</value>
     </property>
     <property key="CommonNoPostalAddress">
-        <value xml:lang="ar">لا عنوان بريدي</value>
+        <value xml:lang="ar">لا يوجد عنوان بريدي</value>
         <value xml:lang="cs">Chybí poštovní adresa</value>
         <value xml:lang="de">Keine Postadresse erfasst</value>
         <value xml:lang="en">No Postal Address</value>
@@ -7172,6 +7327,7 @@
         <value xml:lang="zh-TW">沒有郵政位址</value>
     </property>
     <property key="CommonNoRecordFound">
+        <value xml:lang="ar">لم يتم العثور على سجلات</value>
         <value xml:lang="da">Der er ikke fundet nogen registreringer</value>
         <value xml:lang="cs">Žádný záznam nenalezen</value>
         <value xml:lang="de">Keine Datensätze gefunden</value>
@@ -7192,6 +7348,7 @@
     </property>
     <property key="CommonNoStatesProvinces">
     <!-- OFBIZ-5246 please use ": _NA_" at end, with a space between the colon and _NA_. getDependentDropdownValues relies on it  -->
+        <value xml:lang="ar">لا يوجد ولايات / مقاطعات: _NA_</value>
         <value xml:lang="cs">Neexistují žádné státy/provincie: _NA_</value>
         <value xml:lang="de">Kein exitierendes Bundesland: _NA_</value>
         <value xml:lang="en">No States/Provinces exist: _NA_</value>
@@ -7205,6 +7362,7 @@
         <value xml:lang="zh-TW">沒有州省: _NA_</value>
     </property>
     <property key="CommonNoStatesProvincesExists">
+        <value xml:lang="ar">لا يوجد ولايات / مقاطعات</value>
         <value xml:lang="cs">Žádný Kraj/Samosprávný celek neexistuje</value>
         <value xml:lang="de">Es existiert kein Bundesland</value>
         <value xml:lang="en">No States/Provinces exist</value>
@@ -7280,6 +7438,7 @@
         <value xml:lang="zh-TW">無</value>
     </property>
     <property key="CommonNormal">
+        <value xml:lang="ar">طبيعي</value>
         <value xml:lang="cs">Normální</value>
         <value xml:lang="de">Normal</value>
         <value xml:lang="en">Normal</value>
@@ -7296,7 +7455,7 @@
         <value xml:lang="zh-TW">正常</value>
     </property>
     <property key="CommonNot">
-        <value xml:lang="ar">لا</value>
+        <value xml:lang="ar">ليس</value>
         <value xml:lang="cs">Není</value>
         <value xml:lang="de">Kein</value>
         <value xml:lang="en">Not</value>
@@ -7316,6 +7475,7 @@
         <value xml:lang="zh-TW">不是</value>
     </property>
     <property key="CommonNotAssigned">
+        <value xml:lang="ar">غير معين</value>
         <value xml:lang="cs">Není přiřazeno</value>
         <value xml:lang="de">Nicht zugewiesen</value>
         <value xml:lang="en">Not Assigned</value>
@@ -7330,6 +7490,7 @@
         <value xml:lang="zh-TW">未指定</value>
     </property>
     <property key="CommonNotModifRecreat">
+        <value xml:lang="ar">لا يمكن التغيير دون إعادة خلق</value>
         <value xml:lang="cs">nelze změnit bez vymazání a nového vytvoření</value>
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
         <value xml:lang="en">cannot change without re-creating</value>
@@ -7350,6 +7511,7 @@
         <value xml:lang="zh-TW">無法修改,除非重新新建</value>
     </property>
     <property key="CommonNotSet">
+        <value xml:lang="ar">لم يتم التعيين</value>
         <value xml:lang="cs">Není nastaveno</value>
         <value xml:lang="de">Nicht gesetzt</value>
         <value xml:lang="en">Not Set</value>
@@ -7390,7 +7552,7 @@
         <value xml:lang="zh-TW">未顯示</value>
     </property>
     <property key="CommonNotYetImplemented">
-        <value xml:lang="ar">لم يركب بعد</value>
+        <value xml:lang="ar">لم ينفذ بعد</value>
         <value xml:lang="cs">Není implementováno</value>
         <value xml:lang="de">Noch nicht implementiert</value>
         <value xml:lang="en">Not yet implemented</value>
@@ -7432,7 +7594,7 @@
         <value xml:lang="zh-TW">如果不是你本人</value>
     </property>
     <property key="CommonNote">
-        <value xml:lang="ar">مذكرة</value>
+        <value xml:lang="ar">الملاحظة</value>
         <value xml:lang="cs">Poznámka</value>
         <value xml:lang="de">Notiz</value>
         <value xml:lang="en">Note</value>
@@ -7452,6 +7614,7 @@
         <value xml:lang="zh-TW">便箋</value>
     </property>
     <property key="CommonNoteCannotBeUpdated">
+        <value xml:lang="ar">لم يتم تحديث بيانات الملاحظة</value>
         <value xml:lang="cs">Nepodařilo se aktualizovat data (chyba zápisu): ${errorString}</value>
         <value xml:lang="en">Could update note data (write failure): ${errorString}</value>
         <value xml:lang="es">No se pueden actualizar los datos de la nota (fallo de escritura): ${errorString}</value>
@@ -7464,7 +7627,7 @@
         <value xml:lang="zh-TW">無法更新便箋資料(寫入失敗):${errorString}</value>
     </property>
     <property key="CommonNotes">
-        <value xml:lang="ar">مذكرات</value>
+        <value xml:lang="ar">ملاحظات</value>
         <value xml:lang="cs">Poznánky</value>
         <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Notes</value>
@@ -7484,6 +7647,7 @@
         <value xml:lang="zh-TW">便箋</value>
     </property>
     <property key="CommonNotifyEmailDeliveryError">
+        <value xml:lang="ar">خطأ في تسليم البريد الإلكتروني. راجع سجل الأخطاء</value>
         <value xml:lang="cs">Chyba při doručení emailu, zobrazte chybový protokol</value>
         <value xml:lang="en">Email delivery error, see error log</value>
         <value xml:lang="es">Error en el envío de correo electrónico, verifique el log</value>
@@ -7496,6 +7660,7 @@
         <value xml:lang="zh-TW">郵件遞送時出錯,參見錯誤日誌</value>
     </property>
     <property key="CommonNotifyEmailInvalidBody">
+        <value xml:lang="ar">نص البريد الإلكتروني غير صالح: لا يمكن ترك النص فارغا</value>
         <value xml:lang="cs">Chybné tělo zprávy; null není povoleno</value>
         <value xml:lang="en">Invalid email body; null is not allowed</value>
         <value xml:lang="es">Contenido del correo electrónico no válido; no se permite null</value>
@@ -7508,6 +7673,7 @@
         <value xml:lang="zh-TW">郵件主體無效;不允許是null</value>
     </property>
     <property key="CommonNotifyEmailMessageBodyGeneratedSuccessfully">
+        <value xml:lang="ar">تم خلق نص الرسالة بنجاح</value>
         <value xml:lang="cs">Úspěšně vytvořeno tělo zprávy</value>
         <value xml:lang="en">Message body generated successfully</value>
         <value xml:lang="es">Contenido del correo electrónico generado correctamente</value>
@@ -7520,6 +7686,7 @@
         <value xml:lang="zh-TW">成功產生郵件主體</value>
     </property>
     <property key="CommonNotifyEmailProblemFindingTemplate">
+        <value xml:lang="ar">خطأ في العثور على القالب: راجع السجلات</value>
         <value xml:lang="cs">Chyba při hledání šablony, zobrazte chybový protokol</value>
         <value xml:lang="en">Problem finding template; see logs</value>
         <value xml:lang="es">Problema localizando la plantilla; verifique el log</value>
@@ -7532,6 +7699,7 @@
         <value xml:lang="zh-TW">尋找模板時出問題;參見日誌</value>
     </property>
     <property key="CommonNotifyEmailProblemProcessingTemplate">
+        <value xml:lang="ar">خطأ في تجهيز القالب: راجع سجلات الأخطاء</value>
         <value xml:lang="cs">Chyba zpracování šablony, zobrazte chybový protokol</value>
         <value xml:lang="en">Template processing problem, see error logs</value>
         <value xml:lang="es">Problema accediendo a la plantilla, verifique el log de errores</value>
@@ -7544,6 +7712,7 @@
         <value xml:lang="zh-TW">處理模板時出錯,參見錯誤日誌</value>
     </property>
     <property key="CommonNotifyEmailProblemReadingTemplate">
+        <value xml:lang="ar">خطأ في قراءة القالب, راجع سجلات الأخطاء</value>
         <value xml:lang="cs">Chyba při čtení šablony, více informací je v logu</value>
         <value xml:lang="en">Template reading problem, see error logs</value>
         <value xml:lang="es">Problema leyendo la plantilla, verifique el log de errores</value>
@@ -7596,6 +7765,7 @@
         <value xml:lang="zh-TW">現在</value>
     </property>
     <property key="CommonNumber">
+        <value xml:lang="ar">رقم</value>
         <value xml:lang="cs">Číslo</value>
         <value xml:lang="de">Nummer</value>
         <value xml:lang="en">Number</value>
@@ -7690,6 +7860,7 @@
         <value xml:lang="zh-TW">只有</value>
     </property>
     <property key="CommonOpen">
+        <value xml:lang="ar">فتح</value>
         <value xml:lang="cs">Otevřít</value>
         <value xml:lang="de">Öffnen</value>
         <value xml:lang="en">Open</value>
@@ -7768,7 +7939,7 @@
         <value xml:lang="zh-TW">+</value>
     </property>
     <property key="CommonOptions">
-        <value xml:lang="ar">اختيارات</value>
+        <value xml:lang="ar">خيارات</value>
         <value xml:lang="cs">Volby</value>
         <value xml:lang="de">Optionen</value>
         <value xml:lang="en">Options</value>
@@ -7808,7 +7979,7 @@
         <value xml:lang="zh-TW">或</value>
     </property>
     <property key="CommonOrder">
-        <value xml:lang="ar">طلبية</value>
+        <value xml:lang="ar">أمر</value>
         <value xml:lang="cs">Objednávka</value>
         <value xml:lang="de">Bestellung</value>
         <value xml:lang="en">Order</value>
@@ -7870,6 +8041,7 @@
         <value xml:lang="zh-TW">訂單</value>
     </property>
     <property key="CommonOrganizationLogo">
+        <value xml:lang="ar">شعار المنظمة</value>
         <value xml:lang="cs">Logo organizace</value>
         <value xml:lang="en">Organization Logo</value>
         <value xml:lang="es">Logo de la organización</value>
@@ -7920,6 +8092,7 @@
         <value xml:lang="zh-TW">(覆蓋上述選擇中的任何一個.)</value>
     </property>
     <property key="CommonOverview">
+        <value xml:lang="ar">نظرة عامة</value>
         <value xml:lang="cs">Přehled</value>
         <value xml:lang="de">Überblick</value>
         <value xml:lang="en">Overview</value>
@@ -7959,6 +8132,7 @@
         <value xml:lang="zh-TW">共用網頁</value>
     </property>
     <property key="CommonPagingOff">
+        <value xml:lang="ar">إبطال التصفيح</value>
         <value xml:lang="cs">Stránkování vypnuto</value>
         <value xml:lang="de">Blättern aus</value>
         <value xml:lang="en">Paging Off</value>
@@ -7975,6 +8149,7 @@
         <value xml:lang="zh-TW">關閉分頁</value>
     </property>
     <property key="CommonPagingOn">
+        <value xml:lang="ar">تفعيل التصفيح</value>
         <value xml:lang="cs">Stránkování zapnuto</value>
         <value xml:lang="de">Blättern ein</value>
         <value xml:lang="en">Paging On</value>
@@ -7991,6 +8166,7 @@
         <value xml:lang="zh-TW">啟用分頁</value>
     </property>
     <property key="CommonParent">
+        <value xml:lang="ar">الوالد</value>
         <value xml:lang="cs">Rodič</value>
         <value xml:lang="de">Eltern</value>
         <value xml:lang="en">Parent</value>
@@ -8006,6 +8182,7 @@
         <value xml:lang="zh-TW">上層</value>
     </property>
     <property key="CommonPartyGroupName">
+        <value xml:lang="ar">إسم المجموعة</value>
         <value xml:lang="cs">Název partnera</value>
         <value xml:lang="de">Gruppenname</value>
         <value xml:lang="en">Group Name</value>
@@ -8045,6 +8222,7 @@
         <value xml:lang="zh-TW">團體識別</value>
     </property>
     <property key="CommonPartyName">
+        <value xml:lang="ar">الإسم</value>
         <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Name</value>
         <value xml:lang="en">Name</value>
@@ -8064,6 +8242,7 @@
         <value xml:lang="zh-TW">團體名字</value>
     </property>
     <property key="CommonPartySkills">
+        <value xml:lang="ar">مهارات الطرف</value>
         <value xml:lang="cs">Dovednosti</value>
         <value xml:lang="de">Teilnehmerfähigkeiten</value>
         <value xml:lang="en">Party Skills</value>
@@ -8102,6 +8281,7 @@
         <value xml:lang="zh-TW">密碼</value>
     </property>
     <property key="CommonPasswordChange">
+        <value xml:lang="ar">الرجاء تغيير كلمة السر الخاصة بك</value>
         <value xml:lang="cs">Prosím změňte si heslo</value>
         <value xml:lang="de">Bitte ändern Sie Ihr Passwort</value>
         <value xml:lang="en">Please Change Your Password</value>
@@ -8118,6 +8298,7 @@
         <value xml:lang="zh-TW">請修改你的密碼</value>
     </property>
     <property key="CommonPayment">
+        <value xml:lang="ar">تسديدة</value>
         <value xml:lang="cs">Platba</value>
         <value xml:lang="de">Bezahlung</value>
         <value xml:lang="en">Payment</value>
@@ -8169,6 +8350,7 @@
         <value xml:lang="zh-TW">支付</value>
     </property>
     <property key="CommonPdf">
+        <value xml:lang="ar">PDF</value>
         <value xml:lang="en">PDF</value>
         <value xml:lang="hi-IN">पीडीऍफ़(PDF)</value>
     </property>
@@ -8197,7 +8379,7 @@
         <value xml:lang="nl">Periode</value>
     </property>
     <property key="CommonPermissionError">
-        <value xml:lang="ar">خطأ في الرخصة</value>
+        <value xml:lang="ar">خطأ في الصلاحية</value>
         <value xml:lang="cs">Chyba oprávnění</value>
         <value xml:lang="de">Berechtigungsfehler</value>
         <value xml:lang="en">Permission Error</value>
@@ -8217,6 +8399,7 @@
         <value xml:lang="zh-TW">權限錯誤</value>
     </property>
     <property key="CommonPermissionErrorMessage">
+        <value xml:lang="ar">خطأ أمني: لتشغيل ${resourceDescription} يجب أن تتوافر لك واحد من الصلاحيات التالية: EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="cs">Chyba oprávnění: Pro spuštění ${resourceDescription} musíte mít jedno z těchto oprávnění:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen müssen Sie eine der folgenden Berechtigungen besitzen:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="en">Error  Security: To run ${resourceDescription}  you must have the one of the following permissions:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
@@ -8234,6 +8417,7 @@
         <value xml:lang="zh-TW">安全錯誤:要執行${resourceDescription},你必須具有下列權限之一:EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
     </property>
     <property key="CommonPermissionMainActionAttributeMissing">
+        <value xml:lang="ar">إذن سمة النشاط الرئيسي مفقوده</value>
         <value xml:lang="cs">Chybí parametr main-action!</value>
         <value xml:lang="de">Der main-action Parameter fehlt!</value>
         <value xml:lang="en">Permission main-action parameter missing!</value>
@@ -8250,6 +8434,7 @@
         <value xml:lang="zh-TW">缺少主操作參數權限！</value>
     </property>
     <property key="CommonPermissionPrimaryPermissionMissing">
+        <value xml:lang="ar">الإذن الأساسي مفقود</value>
         <value xml:lang="cs">Chybí parametr primaryPermission!</value>
         <value xml:lang="de">Der Berechtigungsparameter primaryPermission fehlt!</value>
         <value xml:lang="en">Permission primaryPermission parameter missing!</value>
@@ -8266,6 +8451,7 @@
         <value xml:lang="zh-TW">缺少主權限參數權限！</value>
     </property>
     <property key="CommonPermissionThisOperation">
+        <value xml:lang="ar">هذه العملية</value>
         <value xml:lang="cs">tato operace</value>
         <value xml:lang="de">diese Aktion</value>
         <value xml:lang="en">this operation</value>
@@ -8302,6 +8488,7 @@
         <value xml:lang="zh-TW">人員</value>
     </property>
     <property key="CommonPingDatasourceCannotConnect">
+        <value xml:lang="ar">غير قادر على الإتصال بمصدر المعلومة</value>
         <value xml:lang="cs">Nepodařilo se připojit k datovému zdroji!</value>
         <value xml:lang="de">Die Verbindung zur Datenquelle kann nicht aufgebaut werden!</value>
         <value xml:lang="en">Unable to connect to datasource!</value>
@@ -8315,6 +8502,7 @@
         <value xml:lang="zh-TW">無法連接到資料源！</value>
     </property>
     <property key="CommonPingDatasourceInvalidCount">
+        <value xml:lang="ar">قيمة العد العائدة من قاعدة البيانات غير صالحة</value>
         <value xml:lang="cs">Z databáze vrácen chybný počet</value>
         <value xml:lang="de">Ungültige Anzahl wurde von der Datenbank zurückgegeben</value>
         <value xml:lang="en">Invalid count returned from database</value>
@@ -8328,6 +8516,7 @@
         <value xml:lang="zh-TW">從資料庫返回的計數無效</value>
     </property>
     <property key="CommonPleaseEnterValidNumberInThisField">
+        <value xml:lang="ar">الرجاء إدخال رقم صالح في هذا الحقل</value>
         <value xml:lang="cs">Prosím zadejte do tohoto pole platné číslo.</value>
         <value xml:lang="de">Bitte eine gültige Zahl in dieses Feld eingeben.</value>
         <value xml:lang="en">Please enter a valid number in this field.</value>
@@ -8341,6 +8530,7 @@
         <value xml:lang="zh-TW">請在本欄位中輸入一個有效的數字.</value>
     </property>
     <property key="CommonPleaseSelect">
+        <value xml:lang="ar">الرجاء الإختيار</value>
         <value xml:lang="cs">Prosím vyberte</value>
         <value xml:lang="de">Bitte wählen</value>
         <value xml:lang="en">please select</value>
@@ -8354,6 +8544,7 @@
         <value xml:lang="zh-TW">請選擇</value>
     </property>
     <property key="CommonPleaseSelectAllFeaturesFirst">
+        <value xml:lang="ar">الرجاء إختيار جميع الخصائص أولا</value>
         <value xml:lang="cs">Prosím nejprve vyberte všechny volby.</value>
         <value xml:lang="de">Bitte wählen Sie erst alle Merkmale aus.</value>
         <value xml:lang="en">Please select all features first.</value>
@@ -8366,6 +8557,7 @@
         <value xml:lang="zh-TW">請先選擇全部特色.</value>
     </property>
     <property key="CommonPleaseSelectAllRequiredOptions">
+        <value xml:lang="ar">الرجاء إختيار جميع الخيارات المطلوبة</value>
         <value xml:lang="cs">Prosím vyberte všechny požadované volby.</value>
         <value xml:lang="de">Bitte selektieren Sie alle benötigten Optionen.</value>
         <value xml:lang="en">Please select all of the required options.</value>
@@ -8378,6 +8570,7 @@
         <value xml:lang="zh-TW">請選擇全部必要的選項.</value>
     </property>
     <property key="CommonPleaseWait">
+        <value xml:lang="ar">الرجاء الإنتظار ...</value>
         <value xml:lang="cs">Prosím vyčkejte ...</value>
         <value xml:lang="de">Bitte warten Sie ...</value>
         <value xml:lang="en">please wait ...</value>
@@ -8391,6 +8584,7 @@
         <value xml:lang="zh-TW">請稍候...</value>
     </property>
     <property key="CommonPortalCategoryPage">
+        <value xml:lang="ar">فئة صفحات المدخل للبرنامج</value>
         <value xml:lang="cs">Kategorie portletových stránek pro aplikaci</value>
         <value xml:lang="de">Kategorie der Portletseiten für Anwendung</value>
         <value xml:lang="en">Category of portlet pages for application</value>
@@ -8406,6 +8600,7 @@
         <value xml:lang="zh-TW">應用程式Portlet的分類網頁</value>
     </property>
     <property key="CommonPortalEditPage">
+        <value xml:lang="ar">تحرير صفحة المدخل</value>
         <value xml:lang="cs">Upravit stránku portálu</value>
         <value xml:lang="de">Portalseite ändern</value>
         <value xml:lang="en">Edit portal page</value>
@@ -8421,6 +8616,7 @@
         <value xml:lang="zh-TW">編輯入口網頁</value>
     </property>
     <property key="CommonPortalNewPage">
+        <value xml:lang="ar">إضافة صفحة جديدة للبوابة</value>
         <value xml:lang="cs">Přidat novou stránku portálu</value>
         <value xml:lang="de">Neue Portalseite hinzufügen</value>
         <value xml:lang="en">Add a new portal Page</value>
@@ -8436,6 +8632,7 @@
         <value xml:lang="zh-TW">增加一個新的入口網頁</value>
     </property>
     <property key="CommonPortalPagesForApplication">
+        <value xml:lang="ar">صفحات البوابة للبرنامج</value>
         <value xml:lang="cs">Portálové stránky pro aplikaci</value>
         <value xml:lang="de">Portalseiten für die Anwendung</value>
         <value xml:lang="en">Portal pages for application</value>
@@ -8489,6 +8686,7 @@
         <value xml:lang="zh-TW">過賬日</value>
     </property>
     <property key="CommonPoweredBy">
+        <value xml:lang="ar">مدعوم من قبل</value>
         <value xml:lang="en">Powered by</value>
         <value xml:lang="fr">Motorisé par</value>
         <value xml:lang="hi-IN">द्वारा संचालित</value>
@@ -8499,6 +8697,7 @@
         <value xml:lang="zh-TW">運行平台</value>
     </property>
     <property key="CommonPreferenceGroup">
+        <value xml:lang="ar">مجموعة التفضيلات</value>
         <value xml:lang="cs">Skupina předvoleb</value>
         <value xml:lang="de">Bevorzugte Gruppe</value>
         <value xml:lang="en">Preference Group</value>
@@ -8511,6 +8710,7 @@
         <value xml:lang="zh-TW">偏好群組</value>
     </property>
     <property key="CommonPreferenceName">
+        <value xml:lang="ar">إسم التفضيل</value>
         <value xml:lang="cs">Název předvolby</value>
         <value xml:lang="de">Bevorzugter Name</value>
         <value xml:lang="en">Preference Name</value>
@@ -8523,6 +8723,7 @@
         <value xml:lang="zh-TW">偏好名稱</value>
     </property>
     <property key="CommonPreferences">
+        <value xml:lang="ar">التفضيلات</value>
         <value xml:lang="de">Einstellungen</value>
         <value xml:lang="en">Preferences</value>
         <value xml:lang="es">Preferencias</value>
@@ -8557,6 +8758,7 @@
         <value xml:lang="zh-TW">已準備</value>
     </property>
     <property key="CommonPreview">
+        <value xml:lang="ar">معاينة</value>
         <value xml:lang="cs">Náhled</value>
         <value xml:lang="de">Vorschau</value>
         <value xml:lang="en">Preview</value>
@@ -8590,6 +8792,7 @@
         <value xml:lang="zh-TW">上一個</value>
     </property>
     <property key="CommonPrimaryApps">
+        <value xml:lang="ar">البرامج الأساسية</value>
         <value xml:lang="cs">Primární aplikace</value>
         <value xml:lang="de">Primäranwendungen</value>
         <value xml:lang="en">Primary Apps</value>
@@ -8608,7 +8811,7 @@
         <value xml:lang="zh-TW">主要應用</value>
     </property>
     <property key="CommonPrint">
-        <value xml:lang="ar">نسخ</value>
+        <value xml:lang="ar">طباعة</value>
         <value xml:lang="cs">Tisk</value>
         <value xml:lang="de">Drucken (PDF)</value>
         <value xml:lang="en">Print (PDF)</value>
@@ -8663,6 +8866,7 @@
         <value xml:lang="nl">Winst</value>
     </property>
     <property key="CommonPrinterFriendly">
+        <value xml:lang="ar">مناسب للطابعة</value>
         <value xml:lang="cs">Tisk</value>
         <value xml:lang="de">Druckansicht</value>
         <value xml:lang="en">Printer Friendly</value>
@@ -8905,7 +9109,7 @@
         <value xml:lang="zh-TW">數量</value>
     </property>
     <property key="CommonQuarter">
-        <value xml:lang="ar">ثلاثية</value>
+        <value xml:lang="ar">ربع</value>
         <value xml:lang="cs">Čtvrtletí</value>
         <value xml:lang="de">Viertel</value>
         <value xml:lang="en">Quarter</value>
@@ -9013,7 +9217,7 @@
         <value xml:lang="zh-TW">評等</value>
     </property>
     <property key="CommonRates">
-        <value xml:lang="ar">نسبات</value>
+        <value xml:lang="ar">النسب</value>
         <value xml:lang="cs">Sazby</value>
         <value xml:lang="de">Sätze</value>
         <value xml:lang="en">Rates</value>
@@ -9054,6 +9258,7 @@
         <value xml:lang="zh-TW">就緒</value>
     </property>
     <property key="CommonReason">
+        <value xml:lang="ar">السبب</value>
         <value xml:lang="cs">Důvod</value>
         <value xml:lang="de">Grund</value>
         <value xml:lang="en">Reason</value>
@@ -9150,6 +9355,7 @@
         <value xml:lang="zh-TW">加強</value>
     </property>
     <property key="CommonRefineSearch">
+        <value xml:lang="ar">تحسين البحث</value>
         <value xml:lang="cs">Upřesnění hledání</value>
         <value xml:lang="de">Verfeinerte Suche</value>
         <value xml:lang="en">Refine Search</value>
@@ -9234,6 +9440,7 @@
         <value xml:lang="nl">Relatie</value>
     </property>
     <property key="CommonRelatedInformation">
+        <value xml:lang="ar">المعلومات ذات الصلة</value>
         <value xml:lang="cs">Související informace</value>
         <value xml:lang="de">Ähnliche Informationen</value>
         <value xml:lang="en">Related Information</value>
@@ -9249,6 +9456,7 @@
         <value xml:lang="zh-TW">相關資訊</value>
     </property>
     <property key="CommonRelease">
+        <value xml:lang="ar">إصدار</value>
         <value xml:lang="cs">Distribuce</value>
         <value xml:lang="de">Release</value>
         <value xml:lang="en">Release</value>
@@ -9262,6 +9470,7 @@
         <value xml:lang="zh-TW">發行</value>
     </property>
     <property key="CommonReleaseDate">
+        <value xml:lang="ar">تاريخ الإصدار</value>
         <value xml:lang="cs">Datum distribuce</value>
         <value xml:lang="de">Release Datum</value>
         <value xml:lang="en">Release Date</value>
@@ -9276,6 +9485,7 @@
         <value xml:lang="zh-TW">發行日期</value>
     </property>
     <property key="CommonReleaseVersion">
+        <value xml:lang="ar">نسخة الإصدار</value>
         <value xml:lang="cs">Verze distribuce</value>
         <value xml:lang="de">Releaseversion</value>
         <value xml:lang="en">Release Version</value>
@@ -9292,6 +9502,7 @@
         <value xml:lang="zh-TW">發行版本</value>
     </property>
     <property key="CommonReloadCaptchaCode">
+        <value xml:lang="ar">تحميل رمز CAPTCHA</value>
         <value xml:lang="cs">Znovu načíst kód Captcha</value>
         <value xml:lang="de">Captcha Code neu laden</value>
         <value xml:lang="en">Reload Captcha Code</value>
@@ -9345,6 +9556,7 @@
         <value xml:lang="zh-TW">刪除過期的</value>
     </property>
     <property key="CommonRemovePortlet">
+        <value xml:lang="ar">نزع المدخل</value>
         <value xml:lang="cs">Odstranit Portlet</value>
         <value xml:lang="de">Portlet entfernen</value>
         <value xml:lang="en">Remove Portlet</value>
@@ -9360,6 +9572,7 @@
         <value xml:lang="zh-TW">刪除Portlet</value>
     </property>
     <property key="CommonReport">
+        <value xml:lang="ar">تقرير</value>
         <value xml:lang="cs">Přehled</value>
         <value xml:lang="de">Bericht</value>
         <value xml:lang="en">Report</value>
@@ -9393,6 +9606,7 @@
         <value xml:lang="zh-TW">報表</value>
     </property>
     <property key="CommonRequery">
+        <value xml:lang="ar">إعادة عملية البحث</value>
         <value xml:lang="cs">Znovu dotázat</value>
         <value xml:lang="de">Erneute Abfrage</value>
         <value xml:lang="en">Requery</value>
@@ -9513,6 +9727,7 @@
         <value xml:lang="zh-TW">退貨</value>
     </property>
     <property key="CommonReturnStatus">
+        <value xml:lang="ar">حالة العودة</value>
         <value xml:lang="cs">Návratový stav</value>
         <value xml:lang="de">Status Retoure</value>
         <value xml:lang="en">Return Status</value>
@@ -9532,6 +9747,7 @@
         <value xml:lang="zh-TW">退貨狀態</value>
     </property>
     <property key="CommonRevertPortalPage">
+        <value xml:lang="ar">رجوع إلى الأصل</value>
         <value xml:lang="cs">Vrátit k původní verzi</value>
         <value xml:lang="de">Originalzustand wiederherstellen</value>
         <value xml:lang="en">revert to original</value>
@@ -9598,6 +9814,7 @@
         <value xml:lang="zh-TW">路徑</value>
     </property>
     <property key="CommonRows">
+        <value xml:lang="ar">الصفوف</value>
         <value xml:lang="cs">řádky</value>
         <value xml:lang="de">Zeilen</value>
         <value xml:lang="en">rows</value>
@@ -9717,6 +9934,7 @@
         <value xml:lang="zh-TW">搜尋</value>
     </property>
     <property key="CommonSearchOptions">
+        <value xml:lang="ar">خيارات البحث</value>
         <value xml:lang="cs">Možnosti vyhledávání</value>
         <value xml:lang="de">Suchoptionen</value>
         <value xml:lang="en">Search Options</value>
@@ -9754,6 +9972,7 @@
         <value xml:lang="zh-TW">搜尋結果-</value>
     </property>
     <property key="CommonSearchResults">
+        <value xml:lang="ar">نتائج البحث</value>
         <value xml:lang="cs">Výsledky vyhledávání</value>
         <value xml:lang="de">Suchergebnisse</value>
         <value xml:lang="en">Search Results</value>
@@ -9790,6 +10009,7 @@
         <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="CommonSecondaryApps">
+        <value xml:lang="ar">البرامج الثانوية</value>
         <value xml:lang="cs">Sekundární aplikace</value>
         <value xml:lang="de">Sekundäranwendungen</value>
         <value xml:lang="en">Secondary Apps</value>
@@ -9847,6 +10067,7 @@
         <value xml:lang="zh-TW">安全</value>
     </property>
     <property key="CommonSecurityGroupId">
+        <value xml:lang="ar">دليل مجموعة الأمن</value>
         <value xml:lang="cs">ID skupiny zabezpečení</value>
         <value xml:lang="de">Sicherheitsgruppe ID</value>
         <value xml:lang="en">Security Group ID</value>
@@ -9949,6 +10170,7 @@
         <value xml:lang="zh-TW">選擇一個</value>
     </property>
     <property key="CommonSelectPortalPage">
+        <value xml:lang="ar">إختر صفحة البوابة</value>
         <value xml:lang="cs">Vyberte stránku portálu...</value>
         <value xml:lang="de">Portalseite auswählen...</value>
         <value xml:lang="en">Select Portal Page...</value>
@@ -9964,6 +10186,7 @@
         <value xml:lang="zh-TW">選擇入口網頁...</value>
     </property>
     <property key="CommonSelectPortletToHelp">
+        <value xml:lang="ar">إختر مدخل تود أن تتلقى المساعدة فيه ...</value>
         <value xml:lang="cs">Vyberte požadovaný portlet pro pomoc...</value>
         <value xml:lang="de">Wählen Sie ein Portlet aus, an dem Sie mitarbeiten wollen....</value>
         <value xml:lang="en">Select a portlet you would like to have help on....</value>
@@ -10210,6 +10433,7 @@
         <value xml:lang="zh-TW">服務器小時</value>
     </property>
     <property key="CommonServiceReturnError">
+        <value xml:lang="ar">خطأ مرتجع من الخدمة</value>
         <value xml:lang="cs">Služba vrátila chyba : Vrácená chyba</value>
         <value xml:lang="en">Return Error Service : Returning Error</value>
         <value xml:lang="es">El servicio ha devuelto un error: Devolviendo error</value>
@@ -10222,6 +10446,7 @@
         <value xml:lang="zh-TW">返回錯誤服務:正在返回錯誤</value>
     </property>
     <property key="CommonSessionTimeoutPleaseLogIn">
+        <value xml:lang="ar">إنتهت صلاحية الجلسة ويتطلب إعادة تسجيل الدخول. يمكنك تحديث الصفحة أو حفظ البيانات الخاصة بك لتسجيل الدخول</value>
         <value xml:lang="cs">Vaše session expirovala. Je vyžadováno nové přihlášení. Pro přihlášení obnovte stránku.</value>
         <value xml:lang="de">Sie sind nicht mehr angemeldet. Bitte melden Sie sich erneut an.</value>
         <value xml:lang="en">Your session has expired.  A login is required.  You can refresh the page or save your data to login.</value>
@@ -10254,6 +10479,7 @@
         <value xml:lang="zh-TW">設定</value>
     </property>
     <property key="CommonSetAsCurrent">
+        <value xml:lang="ar">تسجيل الوضع كحالي</value>
         <value xml:lang="cs">Nastavit jako aktuální</value>
         <value xml:lang="de">Als aktuell festlegen</value>
         <value xml:lang="en">Set As Current</value>
@@ -10270,6 +10496,7 @@
         <value xml:lang="zh-TW">設定為目前</value>
     </property>
     <property key="CommonSetColumnWidth">
+        <value xml:lang="ar">تحديد عرض العمود</value>
         <value xml:lang="cs">Nastavit šířku sloupce</value>
         <value xml:lang="de">Spaltenbreite setzen</value>
         <value xml:lang="en">Set Column Width</value>
@@ -10310,6 +10537,7 @@
         <value xml:lang="nl">Zending</value>
     </property>
     <property key="CommonShipping">
+        <value xml:lang="ar">الشحن</value>
         <value xml:lang="cs">Doprava</value>
         <value xml:lang="de">Versand</value>
         <value xml:lang="en">Shipping</value>
@@ -10326,6 +10554,7 @@
         <value xml:lang="zh-TW">配送</value>
     </property>
     <property key="CommonShoppingCart">
+        <value xml:lang="ar">عربة التسوق</value>
         <value xml:lang="cs">Nákupní košík</value>
         <value xml:lang="de">Warenkorb</value>
         <value xml:lang="en">ShoppingCart</value>
@@ -10443,6 +10672,7 @@
         <value xml:lang="zh-TW">自從</value>
     </property>
     <property key="CommonSize">
+        <value xml:lang="ar">الحجم</value>
         <value xml:lang="cs">Velikost</value>
         <value xml:lang="de">Größe</value>
         <value xml:lang="en">Size</value>
@@ -10456,6 +10686,7 @@
         <value xml:lang="zh-TW">尺寸</value>
     </property>
     <property key="CommonSkipNavigation">
+        <value xml:lang="ar">تخطي الملاحة</value>
         <value xml:lang="cs">Přeskočit navigaci</value>
         <value xml:lang="de">Navigation auslassen</value>
         <value xml:lang="en">Skip navigation</value>
@@ -10492,7 +10723,7 @@
         <value xml:lang="zh-TW">小</value>
     </property>
     <property key="CommonSorryYouCannotSend">
-        <value xml:lang="ar">للأسف, لا يمكنكم إرسال هذه الصفحة إاى صديق. إختر بدل ذلك من نوع أو سلعة</value>
+        <value xml:lang="ar">للأسف, لا يمكنكم إرسال هذه الصفحة لصديق. إختر بدل ذلك من نوع أو سلعة</value>
         <value xml:lang="cs">Litujeme, ale tuto stránku nemůžete odeslat příteli. Prosíme vyberte si jinou v náhledu produktů či kategorií.</value>
         <value xml:lang="de">Leider können Sie diese Seite nicht weiterempfehlen. Wählen Sie bitte aus einer Kategorie oder einem Artikel.</value>
         <value xml:lang="en">Sorry, you cannot send this page to a friend.  Select rather from a category or an item</value>
@@ -10612,7 +10843,7 @@
         <value xml:lang="zh-TW">開始日期/時間</value>
     </property>
     <property key="CommonState">
-        <value xml:lang="ar">دولة</value>
+        <value xml:lang="ar">ولاية</value>
         <value xml:lang="cs">Stav</value>
         <value xml:lang="de">Staat</value>
         <value xml:lang="en">State</value>
@@ -10632,7 +10863,7 @@
         <value xml:lang="zh-TW">州</value>
     </property>
     <property key="CommonStateProvince">
-        <value xml:lang="ar">دولة/ولاية</value>
+        <value xml:lang="ar">ولاية/إقليم</value>
         <value xml:lang="cs">Kraj/Oblast</value>
         <value xml:lang="de">Staat/Provinz</value>
         <value xml:lang="en">State/Province</value>
@@ -10673,7 +10904,7 @@
         <value xml:lang="zh-TW">統計</value>
     </property>
     <property key="CommonStatus">
-        <value xml:lang="ar">وضعية</value>
+        <value xml:lang="ar">الحالة</value>
         <value xml:lang="cs">Stav</value>
         <value xml:lang="de">Status</value>
         <value xml:lang="en">Status</value>
@@ -10693,7 +10924,7 @@
         <value xml:lang="zh-TW">狀態</value>
     </property>
     <property key="CommonStatusHistory">
-        <value xml:lang="ar">سوابق الوضعيات</value>
+        <value xml:lang="ar">الحالات السابقة</value>
         <value xml:lang="cs">Historie stavů</value>
         <value xml:lang="de">Status Verlauf</value>
         <value xml:lang="en">Status History</value>
@@ -10713,6 +10944,7 @@
         <value xml:lang="zh-TW">狀態歷史記錄</value>
     </property>
     <property key="CommonStatusMandatory">
+        <value xml:lang="ar">المتغير statusTypeIds لا يمكن تركه فارغا ويجب أن يحتوى على الأقل على عنصر واحد</value>
         <value xml:lang="cs">Parametr statusTypeIds musí být nastaven a musí obsahovat alespoň jeden prvek</value>
         <value xml:lang="de">Parameter statusTypeIds darf nicht leer sein und muß mindestens ein Element enthalten</value>
         <value xml:lang="en">Parameter statusTypeIds can not be null and must contain at least one element</value>
@@ -10725,6 +10957,7 @@
         <value xml:lang="zh-TW">參數 statusTypeIds 不能是null,並且必須至少有一個元素</value>
     </property>
     <property key="CommonStatustoComplete">
+        <value xml:lang="ar">تغير الحالة إلى "مكتمل"</value>
         <value xml:lang="cs">Nastavit 'dokončeno'</value>
         <value xml:lang="de">Auf 'abgeschlossen' setzen</value>
         <value xml:lang="en">Status to 'complete'</value>
@@ -10845,6 +11078,7 @@
         <value xml:lang="zh-TW">小計</value>
     </property>
     <property key="CommonSuccessfullyCreated">
+        <value xml:lang="ar">خلق بنجاح</value>
         <value xml:lang="cs">Úspěšně vytvořeno.</value>
         <value xml:lang="de">Erfolgreich angelegt.</value>
         <value xml:lang="en">Successfully created.</value>
@@ -10857,6 +11091,7 @@
         <value xml:lang="zh-TW">新建成功.</value>
     </property>
     <property key="CommonSummary">
+        <value xml:lang="ar">ملخص</value>
         <value xml:lang="cs">Souhrn</value>
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
@@ -10894,6 +11129,7 @@
         <value xml:lang="zh-TW">週日</value>
     </property>
     <property key="CommonSurveys">
+        <value xml:lang="ar">إستبيانات</value>
         <value xml:lang="cs">Průzkumy</value>
         <value xml:lang="de">Befragungen</value>
         <value xml:lang="en">Surveys</value>
@@ -10975,6 +11211,7 @@
         <value xml:lang="zh-TW">記錄</value>
     </property>
     <property key="CommonTax">
+        <value xml:lang="ar">ضريبة</value>
         <value xml:lang="cs">Daň</value>
         <value xml:lang="de">Steuern (USt)</value>
         <value xml:lang="en">Tax</value>
@@ -11025,6 +11262,7 @@
         <value xml:lang="zh-TW">告訴朋友</value>
     </property>
     <property key="CommonTenantId">
+        <value xml:lang="ar">دليل المتسأجر</value>
         <value xml:lang="cs">ID tenanta</value>
         <value xml:lang="de">Mandanten ID</value>
         <value xml:lang="en">Tenant ID</value>
@@ -11038,15 +11276,15 @@
         <value xml:lang="zh-TW">承租人識別</value>
     </property>
     <property key="CommonTerm">
+        <value xml:lang="ar">شرط</value>
         <value xml:lang="en">Term</value>
         <value xml:lang="nl">Conditie</value>
     </property>
-    
     <property key="CommonTerms">
+        <value xml:lang="ar">شروط</value>
         <value xml:lang="en">Terms</value>
         <value xml:lang="nl">Condities</value>
     </property>
-    
     <property key="CommonTest">
         <value xml:lang="ar">إختبار</value>
         <value xml:lang="cs">Test</value>
@@ -11070,6 +11308,7 @@
         <value xml:lang="zh-TW">測試</value>
     </property>
     <property key="CommonTestRollingBack">
+        <value xml:lang="ar">تراجع</value>
         <value xml:lang="cs">Návrat zpět!</value>
         <value xml:lang="de">Zurückrollen!</value>
         <value xml:lang="en">Rolling back!</value>
@@ -11118,6 +11357,7 @@
         <value xml:lang="zh-TW">此</value>
     </property>
     <property key="CommonTheFollowingRequiredFieldsWhereFoundEmpty">
+        <value xml:lang="ar">الحقول التالية تم العثور عليها فارغة</value>
         <value xml:lang="cs">Následující povinná pole byla prázdná</value>
         <value xml:lang="de">Die folgenden benötigten Felder sind leer</value>
         <value xml:lang="en">The following required fields were found empty</value>
@@ -11135,7 +11375,7 @@
         <value xml:lang="zh-TW">發現下列必要的資料項是空的</value>
     </property>
     <property key="CommonTheOpenForBusinessProject">
-        <value xml:lang="ar">المتفتح للبزنس</value>
+        <value xml:lang="ar">مشروع اوفبيز</value>
         <value xml:lang="cs">Projkekt Open For Business</value>
         <value xml:lang="de">Das Open For Business Projekt</value>
         <value xml:lang="en">The Open For Business Project</value>
@@ -11156,7 +11396,7 @@
         <value xml:lang="zh-TW">OFBiz專案</value>
     </property>
     <property key="CommonThis">
-        <value xml:lang="ar">هطا</value>
+        <value xml:lang="ar">هذا</value>
         <value xml:lang="cs">Tento</value>
         <value xml:lang="de">Dies</value>
         <value xml:lang="en">This</value>
@@ -11196,7 +11436,7 @@
         <value xml:lang="zh-TW">截止</value>
     </property>
     <property key="CommonThruDate">
-        <value xml:lang="ar">التاريخ النهائي</value>
+        <value xml:lang="ar">تاريخ الإنتهاء</value>
         <value xml:lang="cs">Do data</value>
         <value xml:lang="de">Bis Datum</value>
         <value xml:lang="en">Through Date</value>
@@ -11218,7 +11458,7 @@
         <value xml:lang="zh-TW">截止日期</value>
     </property>
     <property key="CommonThruDateTime">
-        <value xml:lang="ar">التاريخ/الوقت النهائي</value>
+        <value xml:lang="ar">تاريخ/وقت الإنتهاء</value>
         <value xml:lang="cs">Do data a času</value>
         <value xml:lang="de">Bis Datum  Zeit</value>
         <value xml:lang="en">Through Date  Time</value>
@@ -11280,6 +11520,7 @@
         <value xml:lang="zh-TW">時間</value>
     </property>
     <property key="CommonTimeZone">
+        <value xml:lang="ar">منطقة زمنية</value>
         <value xml:lang="cs">Časové pásmo</value>
         <value xml:lang="de">Zeitzone</value>
         <value xml:lang="en">Time Zone</value>
@@ -11503,6 +11744,7 @@
         <value xml:lang="zh-TW">合計</value>
     </property>
     <property key="CommonTotalAmount">
+        <value xml:lang="ar">المبلغ الإجمالي</value>
         <value xml:lang="cs">Celkové množství</value>
         <value xml:lang="de">Totalbetrag</value>
         <value xml:lang="en">Total Amount</value>
@@ -11521,6 +11763,7 @@
         <value xml:lang="zh-TW">金額</value>
     </property>
     <property key="CommonTotalCost">
+        <value xml:lang="ar">التكلفة الإجمالية</value>
         <value xml:lang="cs">Celkové náklady</value>
         <value xml:lang="de">Total Kosten</value>
         <value xml:lang="en">Total Cost</value>
@@ -11539,6 +11782,7 @@
         <value xml:lang="zh-TW">成本合計</value>
     </property>
     <property key="CommonTotalCostMult">
+        <value xml:lang="ar">مضاعفات التكلفة الإجمالية</value>
         <value xml:lang="cs">Celkové náklady navíc</value>
         <value xml:lang="de">Mehrfache Total Kosten</value>
         <value xml:lang="en">Total Cost Mult</value>
@@ -11556,6 +11800,7 @@
         <value xml:lang="zh-TW">成本合計乘以</value>
     </property>
     <property key="CommonTotalCostToPriceMult">
+        <value xml:lang="ar">مضاعفات التكلفة للسعر</value>
         <value xml:lang="cs">Celkové náklady navíc oproti ceně</value>
         <value xml:lang="de">Kosten zu Preis mehrfach</value>
         <value xml:lang="en">Cost To Price Mult</value>
@@ -11572,6 +11817,7 @@
         <value xml:lang="zh-TW">成本價格差乘以</value>
     </property>
     <property key="CommonTotalPercProfit">
+        <value xml:lang="ar">إجمالي نسبة الربح</value>
         <value xml:lang="cs">Celkové procento zisku</value>
         <value xml:lang="de">Total Prozent Gewinn</value>
         <value xml:lang="en">Total Perc Profit</value>
@@ -11590,6 +11836,7 @@
         <value xml:lang="zh-TW">利潤百分比合計</value>
     </property>
     <property key="CommonTotalPrice">
+        <value xml:lang="ar">إجمالي السعر</value>
         <value xml:lang="cs">Celková cena</value>
         <value xml:lang="de">Total Preis</value>
         <value xml:lang="en">Total Price</value>
@@ -11608,6 +11855,7 @@
         <value xml:lang="zh-TW">價格合計</value>
     </property>
     <property key="CommonTotalProfit">
+        <value xml:lang="ar">إجمالي الربح</value>
         <value xml:lang="cs">Celkový zisk</value>
         <value xml:lang="de">Total Gewinn</value>
         <value xml:lang="en">Total Profit</value>
@@ -11725,6 +11973,7 @@
         <value xml:lang="zh-TW">單價</value>
     </property>
     <property key="CommonUnspecifiedErrorOccurred">
+        <value xml:lang="ar">حدث خطأ غير محدد</value>
         <value xml:lang="cs">Došlo k nespecifikované chybě!</value>
         <value xml:lang="de">Ein unbestimmter Fehler ist aufgetreten!</value>
         <value xml:lang="en">An unspecified error occurred!</value>
@@ -11840,7 +12089,7 @@
         <value xml:lang="zh-TW">更新</value>
     </property>
     <property key="CommonUpdateLink">
-        <value xml:lang="ar">ربطة التحديث</value>
+        <value xml:lang="ar">رابط التحديث</value>
         <value xml:lang="cs">Odkaz na aktualizaci</value>
         <value xml:lang="de">Aktualisieren Link</value>
         <value xml:lang="en">Update link</value>
@@ -11903,6 +12152,7 @@
         <value xml:lang="zh-TW">更新有效截止</value>
     </property>
     <property key="CommonUpdatingData">
+        <value xml:lang="ar">يتم تحديث البيانات</value>
         <value xml:lang="de">Aktualisiere Daten</value>
         <value xml:lang="en">Updating data</value>
         <value xml:lang="fr">Mise à jour des données</value>
@@ -11913,7 +12163,7 @@
         <value xml:lang="zh-TW">正在更新資料</value>
     </property>
     <property key="CommonUpload">
-        <value xml:lang="ar">الشحن الفوقي</value>
+        <value xml:lang="ar">التحميل</value>
         <value xml:lang="cs">Nahrát</value>
         <value xml:lang="de">Hinaufladen</value>
         <value xml:lang="en">Upload</value>
@@ -12016,6 +12266,7 @@
         <value xml:lang="zh-TW">只允許使用者進入</value>
     </property>
     <property key="CommonUserLoginId">
+        <value xml:lang="ar">دليل المستخدم</value>
         <value xml:lang="cs">Kód loginu uživatele</value>
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login ID</value>
@@ -12120,7 +12371,7 @@
         <value xml:lang="zh-TW">驗證</value>
     </property>
     <property key="CommonValidityProblem">
-        <value xml:lang="ar">مشكل موافقة</value>
+        <value xml:lang="ar">خطأ في التحقق من الصحة</value>
         <value xml:lang="cs">Problém s ověřením</value>
         <value xml:lang="de">Überprüfungsfehler</value>
         <value xml:lang="en">Validity problem</value>
@@ -12160,6 +12411,7 @@
         <value xml:lang="zh-TW">數值</value>
     </property>
     <property key="CommonVerifyCaptchaCode">
+        <value xml:lang="ar">التأكد من صحة رمز كلمة التحقق</value>
         <value xml:lang="cs">Ověření kódu Captcha</value>
         <value xml:lang="de">Wiederhole Captcha Code</value>
         <value xml:lang="en">Verify Captcha Code</value>
@@ -12173,7 +12425,7 @@
         <value xml:lang="zh-TW">檢查驗證碼</value>
     </property>
     <property key="CommonView">
-        <value xml:lang="ar">مشهد</value>
+        <value xml:lang="ar">مشاهدة</value>
         <value xml:lang="cs">Pohled</value>
         <value xml:lang="de">Sichten</value>
         <value xml:lang="en">View</value>
@@ -12194,6 +12446,7 @@
         <value xml:lang="zh-TW">檢視</value>
     </property>
     <property key="CommonViewBlocked">
+        <value xml:lang="ar">تم حظر الدخول على هذه الصفحة</value>
         <value xml:lang="de">Zugriff auf diese Sicht wurde blockiert.</value>
         <value xml:lang="cs">Přístup k pohledu byl zablokován.</value>
         <value xml:lang="en">Access to this view has been blocked.</value>
@@ -12252,6 +12505,7 @@
         <value xml:lang="zh-TW">檢視請求</value>
     </property>
     <property key="CommonVisitors">
+        <value xml:lang="ar">الزائرون</value>
         <value xml:lang="cs">Návštěvníci</value>
         <value xml:lang="de">Besucher</value>
         <value xml:lang="en">Visitors</value>
@@ -12268,6 +12522,7 @@
         <value xml:lang="zh-TW">訪問者</value>
     </property>
     <property key="CommonVisualTheme">
+        <value xml:lang="ar">قالب الشكل</value>
         <value xml:lang="cs">Vzhled</value>
         <value xml:lang="de">Layoutvorlagen</value>
         <value xml:lang="en">Visual Theme</value>
@@ -12284,6 +12539,7 @@
         <value xml:lang="zh-TW">視覺風格</value>
     </property>
     <property key="CommonVisualThemeIdNotFound">
+        <value xml:lang="ar">دليل قالب الشكل غير موجود</value>
         <value xml:lang="cs">Vzhled s ID nebyl nalezen.</value>
         <value xml:lang="de">Layout-ID nicht gefunden.</value>
         <value xml:lang="en">Visual Theme ID not found.</value>
@@ -12315,6 +12571,7 @@
         <value xml:lang="zh-TW">找到了無效的視覺風格資源記錄:visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
     </property>
     <property key="CommonVisualThemeNoScreenshots">
+        <value xml:lang="ar">لا يوجد لقطة للشاشة</value>
         <value xml:lang="cs">Bez snímků obrazovek</value>
         <value xml:lang="de">Keine Bildschirmfotos</value>
         <value xml:lang="en">No Screenshots</value>
@@ -12346,6 +12603,7 @@
         <value xml:lang="zh-TW">沒有找到視覺風格資源.</value>
     </property>
     <property key="CommonVisualThemeSelected">
+        <value xml:lang="ar">قالب الشكل المختار</value>
         <value xml:lang="cs">Výběr vzhledu</value>
         <value xml:lang="de">Ausgewählte Layoutvorlage</value>
         <value xml:lang="en">Selected Visual Theme</value>
@@ -12372,6 +12630,7 @@
         <value xml:lang="zh-TW">點擊圖片來預覽,點擊連結來選擇風格,然後點擊「完成」來讓您的選擇生效</value>
     </property>
     <property key="CommonVisualThemes">
+        <value xml:lang="ar">قوالب الشكل</value>
         <value xml:lang="cs">Témata vzhledu</value>
         <value xml:lang="de">Layoutvorlagen</value>
         <value xml:lang="en">Visual Themes</value>
@@ -12388,7 +12647,7 @@
         <value xml:lang="zh-TW">視覺風格</value>
     </property>
     <property key="CommonVolume">
-        <value xml:lang="ar">الجحم</value>
+        <value xml:lang="ar">الحجم</value>
         <value xml:lang="cs">Objem</value>
         <value xml:lang="de">Volumen</value>
         <value xml:lang="en">Volume</value>
@@ -12533,6 +12792,7 @@
         <value xml:lang="zh-TW">歡迎</value>
     </property>
     <property key="CommonWelcomeToTheOFBizDashboard">
+        <value xml:lang="ar">مرحبا بك في لوحة تحكم أوفبيز</value>
         <value xml:lang="cs">Vítejte v řídícím panelu OFBizu</value>
         <value xml:lang="de">OFBiz Dashboard - Willkommen</value>
         <value xml:lang="en">Welcome to the OFBiz dashboard</value>
@@ -12942,6 +13202,7 @@
         <value xml:lang="zh-TW">範例</value>
     </property>
     <property key="ExampleExt">
+        <value xml:lang="ar">إمتداد المثال</value>
         <value xml:lang="cs">Rozšířený příklad</value>
         <value xml:lang="de">Erweitertes Beispiel</value>
         <value xml:lang="en">Example Ext</value>
@@ -12978,6 +13239,7 @@
         <value xml:lang="zh-TW">場所管理</value>
     </property>
     <property key="FacilityComponentDescription">
+        <value xml:lang="ar">إدارة المخزون, المستودع, المكان, الشحن, الإستلام, الجرد</value>
         <value xml:lang="cs">Správa skladu, lokalit, dodávek, dodacích listů</value>
         <value xml:lang="en">Inventory management, Facility, location, Shipment, Receipt, Physical Inventory</value>
         <value xml:lang="fr">Gestion des stocks, lieux de stockage, emplacement, expédition, réception, inventaire</value>
@@ -13006,6 +13268,7 @@
         <value xml:lang="zh-TW">財務</value>
     </property>
     <property key="FormFieldTitle_acceptButton">
+        <value xml:lang="ar">قبول</value>
         <value xml:lang="cs">Přijmout</value>
         <value xml:lang="en">Accept</value>
         <value xml:lang="es">Aceptar</value>
@@ -13018,6 +13281,7 @@
         <value xml:lang="zh-TW">接受</value>
     </property>
     <property key="FormFieldTitle_actionEnumId">
+        <value xml:lang="ar">النشاط</value>
         <value xml:lang="cs">Akce</value>
         <value xml:lang="en">Action</value>
         <value xml:lang="es">Acción</value>
@@ -13068,6 +13332,7 @@
         <value xml:lang="zh-TW">金額</value>
     </property>
     <property key="FormFieldTitle_approve">
+        <value xml:lang="ar">التصديق</value>
         <value xml:lang="cs">Schválit</value>
         <value xml:lang="en">Approve</value>
         <value xml:lang="es">Aprobar</value>
@@ -13117,6 +13382,7 @@
         <value xml:lang="zh-TW">屬性值</value>
     </property>
     <property key="FormFieldTitle_cmdToCall">
+        <value xml:lang="ar">إستدعاء الأمر</value>
         <value xml:lang="cs">Příkaz k zavolání</value>
         <value xml:lang="en">Cmd To Call</value>
         <value xml:lang="es">Comando a llamar</value>
@@ -13127,7 +13393,7 @@
         <value xml:lang="zh-TW">要呼叫的命令</value>
     </property>
     <property key="FormFieldTitle_comments">
-        <value xml:lang="ar">تعاليق</value>
+        <value xml:lang="ar">تعليقات</value>
         <value xml:lang="cs">Poznámky</value>
         <value xml:lang="de">Notizen</value>
         <value xml:lang="en">Comments</value>
@@ -13146,6 +13412,7 @@
         <value xml:lang="zh-TW">評論</value>
     </property>
     <property key="FormFieldTitle_confirmButton">
+        <value xml:lang="ar">تأكيد</value>
         <value xml:lang="cs">Potvrdit</value>
         <value xml:lang="en">Confirm</value>
         <value xml:lang="es">Confirmar</value>
@@ -13158,7 +13425,7 @@
         <value xml:lang="zh-TW">確認</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
-        <value xml:lang="ar">دليل مكانزمة الصلة</value>
+        <value xml:lang="ar">دليل وسيلة الإتصال</value>
         <value xml:lang="cs">Kód způsobu kontaktu</value>
         <value xml:lang="de">Kontaktmechanismus ID</value>
         <value xml:lang="en">Contact Mech Id</value>
@@ -13236,6 +13503,7 @@
         <value xml:lang="zh-TW">建立的使用者登入代號</value>
     </property>
     <property key="FormFieldTitle_createdByUserLoginId">
+        <value xml:lang="ar">خلق من قبل دليل المستخدم</value>
         <value xml:lang="cs">Vytvořeno uživatelem s kódem loginu</value>
         <value xml:lang="de">Erstellt von Benutzer-Id</value>
         <value xml:lang="en">Created By User Login Id</value>
@@ -13270,6 +13538,7 @@
         <value xml:lang="zh-TW">建立日</value>
     </property>
     <property key="FormFieldTitle_createdTxStamp">
+        <value xml:lang="ar">ختم وقت الخلق</value>
         <value xml:lang="cs">Vytvořena časová značka</value>
         <value xml:lang="de">Zeitpunkt der Erstellung</value>
         <value xml:lang="en">Created Tx Stamp</value>
@@ -13304,6 +13573,7 @@
         <value xml:lang="zh-TW">幣別</value>
     </property>
     <property key="FormFieldTitle_currentRecurrenceCount">
+        <value xml:lang="ar">تعداد التكرار الحالي</value>
         <value xml:lang="cs">Současná hloubka zanoření</value>
         <value xml:lang="de">Anzahl der Wiederholungen</value>
         <value xml:lang="en">Current Recurrence Count</value>
@@ -13319,6 +13589,7 @@
         <value xml:lang="zh-TW">當前重現次數</value>
     </property>
     <property key="FormFieldTitle_currentStatusId">
+        <value xml:lang="ar">دليل الحالة الحالية</value>
         <value xml:lang="cs">Kód aktuálního stavu</value>
         <value xml:lang="de">Aktuelle Status ID</value>
         <value xml:lang="en">Current Status Id</value>
@@ -13391,6 +13662,7 @@
         <value xml:lang="zh-TW">描述</value>
     </property>
     <property key="FormFieldTitle_deviceLocation">
+        <value xml:lang="ar">موقع الجهاز</value>
         <value xml:lang="cs">Umístění zařízení</value>
         <value xml:lang="en">Device Location</value>
         <value xml:lang="es">Emplazamiento dispositivo</value>
@@ -13448,6 +13720,7 @@
         <value xml:lang="zh-TW">過期</value>
     </property>
     <property key="FormFieldTitle_extDevicePurposeActionId">
+        <value xml:lang="ar">دليل هدف نشاط الجهاز الخارجي</value>
         <value xml:lang="cs">ID účelové akce externího zařázení</value>
         <value xml:lang="en">External Device Purpose Action Id</value>
         <value xml:lang="es">Código acción dispositivo externo</value>
@@ -13458,6 +13731,7 @@
         <value xml:lang="zh-TW">外部設備目的操作識別</value>
     </property>
     <property key="FormFieldTitle_externalDeviceId">
+        <value xml:lang="ar">دليل الجهاز الخارجي</value>
         <value xml:lang="cs">ID externího zařízení</value>
         <value xml:lang="en">External Device Id</value>
         <value xml:lang="es">Código dispositivo externo</value>
@@ -13469,6 +13743,7 @@
         <value xml:lang="zh-TW">外部設備識別</value>
     </property>
     <property key="FormFieldTitle_externalDeviceTypeId">
+        <value xml:lang="ar">دليل نوع الجهاز الخارجي</value>
         <value xml:lang="cs">ID externího typu zařízení</value>
         <value xml:lang="en">External Device Type Id</value>
         <value xml:lang="es">Código tipo dispositivo externo</value>
@@ -13519,7 +13794,7 @@
         <value xml:lang="zh-TW">有資料庫表</value>
     </property>
     <property key="FormFieldTitle_isPublic">
-        <value xml:lang="ar">جمهور</value>
+        <value xml:lang="ar">هل هو عام</value>
         <value xml:lang="cs">Je zveřejněno</value>
         <value xml:lang="de">Ist öffentlich</value>
         <value xml:lang="en">Is Public</value>
@@ -13575,6 +13850,7 @@
         <value xml:lang="zh-TW">最近修改日</value>
     </property>
     <property key="FormFieldTitle_lastUpdatedTxStamp">
+        <value xml:lang="ar">ختم تاريخ آخر تحديث</value>
         <value xml:lang="cs">Časová značka poslední aktualizace</value>
         <value xml:lang="de">Zeitpunkt der letzten Aktualisierung</value>
         <value xml:lang="en">Last Updated Tx Stamp</value>
@@ -13609,6 +13885,7 @@
         <value xml:lang="zh-TW">行小計</value>
     </property>
     <property key="FormFieldTitle_maxRecurrenceCount">
+        <value xml:lang="ar">عدد الحد الأقصى للتكرار</value>
         <value xml:lang="cs">Maximální hodnota zanoření</value>
         <value xml:lang="de">Maximale Wiederholungen</value>
         <value xml:lang="en">Max Recurrence Count</value>
@@ -13624,6 +13901,7 @@
         <value xml:lang="zh-TW">最大重現次數</value>
     </property>
     <property key="FormFieldTitle_modifiedByUserLoginId">
+        <value xml:lang="ar">تم التغير بواسط دليل المستخدم</value>
         <value xml:lang="cs">Změněno uživatelem s loginem</value>
         <value xml:lang="de">Geändert von Benutzer-Id</value>
         <value xml:lang="en">Modified By User Login Id</value>
@@ -13640,6 +13918,7 @@
         <value xml:lang="zh-TW">修改的使用者登入識別</value>
     </property>
     <property key="FormFieldTitle_originalPortalPageId">
+        <value xml:lang="ar">الصفحة الأصلية</value>
         <value xml:lang="cs">Původní stránka</value>
         <value xml:lang="de">Originalseite</value>
         <value xml:lang="en">original page</value>
@@ -13654,6 +13933,7 @@
         <value xml:lang="zh-TW">原頁面</value>
     </property>
     <property key="FormFieldTitle_ownerUserLoginId">
+        <value xml:lang="ar">دليل إسم المتسخدم للمالك</value>
         <value xml:lang="cs">Přihlašovací login vlastníka</value>
         <value xml:lang="de">Benutzer-ID des Besitzers</value>
         <value xml:lang="en">Owner User Login ID</value>
@@ -13668,6 +13948,7 @@
         <value xml:lang="zh-TW">擁有人使用者登入識別</value>
     </property>
     <property key="FormFieldTitle_parentPortalPageId">
+        <value xml:lang="ar">الصفحة الأم</value>
         <value xml:lang="cs">Rodičovská stránka</value>
         <value xml:lang="de">Elternseite</value>
         <value xml:lang="en">Parent page</value>
@@ -13682,6 +13963,7 @@
         <value xml:lang="zh-TW">上層頁面</value>
     </property>
     <property key="FormFieldTitle_pending">
+        <value xml:lang="ar">قيد الإنتظار</value>
         <value xml:lang="cs">Čekající</value>
         <value xml:lang="en">Pending</value>
         <value xml:lang="es">Pendiente</value>
@@ -13694,6 +13976,7 @@
         <value xml:lang="zh-TW">等待中</value>
     </property>
     <property key="FormFieldTitle_portalPageName">
+        <value xml:lang="ar">إسم صفحة البوابة</value>
         <value xml:lang="cs">Název stránky portálu</value>
         <value xml:lang="de">Portaseitenname</value>
         <value xml:lang="en">Portal page name</value>
@@ -13780,6 +14063,7 @@
         <value xml:lang="zh-TW">刪除</value>
     </property>
     <property key="FormFieldTitle_saveButton">
+        <value xml:lang="ar">حفظ</value>
         <value xml:lang="cs">Uložit</value>
         <value xml:lang="de">Speichern</value>
         <value xml:lang="en">Save</value>
@@ -13815,6 +14099,7 @@
         <value xml:lang="zh-TW">搜尋</value>
     </property>
     <property key="FormFieldTitle_sendButton">
+        <value xml:lang="ar">إرسال</value>
         <value xml:lang="cs">Odeslat</value>
         <value xml:lang="de">Absenden</value>
         <value xml:lang="en">Send</value>
@@ -13830,6 +14115,7 @@
         <value xml:lang="zh-TW">發送</value>
     </property>
     <property key="FormFieldTitle_sendNotificationEmail">
+        <value xml:lang="ar">إرسال بريد الكتروني للإعلام</value>
         <value xml:lang="cs">Poslat upozornění e-mailem</value>
         <value xml:lang="de">Benachrichtigungs-Email versenden</value>
         <value xml:lang="en">Send Notification Email</value>
@@ -13865,7 +14151,7 @@
         <value xml:lang="zh-TW">序號數字</value>
     </property>
     <property key="FormFieldTitle_statusId">
-        <value xml:lang="ar">دليل الوضعية</value>
+        <value xml:lang="ar">دليل الحالة</value>
         <value xml:lang="cs">Kód stavu</value>
         <value xml:lang="de">Status ID</value>
         <value xml:lang="en">Status ID</value>
@@ -13924,6 +14210,7 @@
         <value xml:lang="zh-TW">稅務機構地理位置識別</value>
     </property>
     <property key="FormFieldTitle_tempExprId">
+        <value xml:lang="ar">تعبير زمني</value>
         <value xml:lang="cs">Časový výraz</value>
         <value xml:lang="de">Zeitlicher Ausdruck</value>
         <value xml:lang="en">Temporal Expression</value>
@@ -13939,7 +14226,7 @@
         <value xml:lang="zh-TW">時間運算式</value>
     </property>
     <property key="FormFieldTitle_thruDate">
-        <value xml:lang="ar">حتي تاريخ</value>
+        <value xml:lang="ar">تاريخ الإنتهاء</value>
         <value xml:lang="cs">Da data</value>
         <value xml:lang="de">Bis Datum</value>
         <value xml:lang="en">Through Date</value>
@@ -14025,6 +14312,7 @@
         <value xml:lang="vi">Trên nền tảng Google</value>
     </property>
     <property key="HR">
+        <value xml:lang="ar">الموارد البشرية</value>
         <value xml:lang="cs">Personální</value>
         <value xml:lang="de">Personal</value>
         <value xml:lang="en">HR</value>
@@ -14041,6 +14329,7 @@
         <value xml:lang="zh-TW">人力資源</value>
     </property>
     <property key="HandheldFacility">
+        <value xml:lang="ar">المحمول</value>
         <value xml:lang="cs">Možnosti PDA</value>
         <value xml:lang="de">Lagerverwaltung mit PDA</value>
         <value xml:lang="en">Handheld Facility</value>
@@ -14056,6 +14345,7 @@
         <value xml:lang="zh-TW">手持設備</value>
     </property>
     <property key="HumanResourceApplication">
+        <value xml:lang="ar">إستمارة المواد البشرية</value>
         <value xml:lang="cs">Lidské zdroje</value>
         <value xml:lang="de">Personalverwaltung Anwendung</value>
         <value xml:lang="en">Human Resource Application</value>
@@ -14126,6 +14416,7 @@
         <value xml:lang="zh-TW">行銷</value>
     </property>
     <property key="MyPortal">
+        <value xml:lang="ar">بوابتي</value>
         <value xml:lang="cs">Můj portál</value>
         <value xml:lang="de">Mein Portal</value>
         <value xml:lang="en">My Portal</value>
@@ -14142,6 +14433,7 @@
         <value xml:lang="zh-TW">我的入口網站</value>
     </property>
     <property key="OFBiz Site">
+        <value xml:lang="ar">موقع أوفبيز</value>
         <value xml:lang="cs">Domovská stránka OFBiz</value>
         <value xml:lang="de">OFBiz Homepage</value>
         <value xml:lang="en">OFBiz Site</value>
@@ -14162,7 +14454,7 @@
         <value xml:lang="vi">Giao thức XML Oagis</value>
     </property>
     <property key="Order">
-        <value xml:lang="ar">طلبية</value>
+        <value xml:lang="ar">أمر</value>
         <value xml:lang="cs">Objednávka</value>
         <value xml:lang="de">Bestellung</value>
         <value xml:lang="en">Order</value>
@@ -14183,6 +14475,7 @@
         <value xml:lang="zh-TW">訂單</value>
     </property>
     <property key="OrderComponentDescription">
+        <value xml:lang="ar">نظام إدارة المبيعات, المشتريات, طلبات العميل, المتطلبات, التسعير والإحصائيات</value>
         <value xml:lang="cs">Správa objednávek, požadavků zákazníků, nabídej a jejich statistika</value>
         <value xml:lang="en">Sales Order management, Purchase order, Customer request, Requirement, Quote, Statistics</value>
         <value xml:lang="fr">Gestion des commandes de vente, d'achat, des demandes, des devis, des besoins, des stats</value>
@@ -14235,6 +14528,7 @@
         <value xml:lang="zh-TW">新建資料源類型</value>
     </property>
     <property key="PageTitleCategoryPage">
+        <value xml:lang="ar">صفحة الفئة</value>
         <value xml:lang="cs">Strana kategorií</value>
         <value xml:lang="da">Kategori side</value>
         <value xml:lang="de">Kategorie Seite</value>
@@ -14255,6 +14549,7 @@
         <value xml:lang="zh-TW">分類頁面</value>
     </property>
     <property key="PageTitleCheckoutOptions">
+        <value xml:lang="ar">خيارات الخروج</value>
         <value xml:lang="cs">Možnosti objednání</value>
         <value xml:lang="da">Muligheder for udcheckning</value>
         <value xml:lang="de">Bestelloptionen</value>
@@ -14274,6 +14569,7 @@
         <value xml:lang="zh-TW">結帳選項</value>
     </property>
     <property key="PageTitleCommonGeoLocation">
+        <value xml:lang="ar">إحداثيات موقع العنصر المطلوب</value>
         <value xml:lang="cs">Poloha požadované položky</value>
         <value xml:lang="de">Geografischer Ort des Elements</value>
         <value xml:lang="en">Geo Location of requested element</value>
@@ -14373,6 +14669,7 @@
         <value xml:lang="zh-TW">資料源類型清單</value>
     </property>
     <property key="PageTitleLogin">
+        <value xml:lang="ar">الدخول</value>
         <value xml:lang="cs">Přihlášení</value>
         <value xml:lang="de">Anmeldung</value>
         <value xml:lang="en">Login</value>
@@ -14392,6 +14689,7 @@
         <value xml:lang="zh-TW">登入</value>
     </property>
     <property key="PageTitleLookupGeo">
+        <value xml:lang="ar">إستعراض الإحداثيات</value>
         <value xml:lang="cs">Vyhledání polohy</value>
         <value xml:lang="en">Lookup Geo</value>
         <value xml:lang="es">Buscar zonas geográficas</value>
@@ -14407,6 +14705,7 @@
         <value xml:lang="zh-TW">查詢地理位置</value>
     </property>
     <property key="PageTitleMain">
+        <value xml:lang="ar">الصفحة الرئيسية</value>
         <value xml:lang="cs">úvodní strana</value>
         <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Main Page</value>
@@ -14426,6 +14725,7 @@
         <value xml:lang="zh-TW">首頁</value>
     </property>
     <property key="PageTitleProductPage">
+        <value xml:lang="ar">صفحة المنتج</value>
         <value xml:lang="cs">Stránka výrobku</value>
         <value xml:lang="da">Produktside</value>
         <value xml:lang="de">Produkt Seite</value>
@@ -14446,6 +14746,7 @@
         <value xml:lang="zh-TW">產品頁面</value>
     </property>
     <property key="PageTitleQuickAdd">
+        <value xml:lang="ar">إضافة سريعة</value>
         <value xml:lang="cs">Zrychlené zadání</value>
         <value xml:lang="da">Tilføj hurtigt</value>
         <value xml:lang="de">Schnelleingabe</value>
@@ -14466,6 +14767,7 @@
         <value xml:lang="zh-TW">快速增加</value>
     </property>
     <property key="PageTitleViewBlocked">
+        <value xml:lang="ar">إظهار المستبعد</value>
         <value xml:lang="cs">Zobrazení zablokováno</value>
         <value xml:lang="de">Zugriff blockiert</value>
         <value xml:lang="en">View Blocked</value>
@@ -14501,6 +14803,7 @@
         <value xml:lang="zh-TW">團體</value>
     </property>
     <property key="PartyComponentDescription">
+        <value xml:lang="ar">العملاء, الموردين, إدارة الموظفين, الإتصالات, التقسيمات</value>
         <value xml:lang="cs">Zákazníci - Dodavatelé - Mamagement, komunikace, klasifikace</value>
         <value xml:lang="en">Customers - Suppliers - Employee Management, Communications, Classifications</value>
         <value xml:lang="fr">Gestion des clients, Fournisseurs, Employés, Communications, Classifications</value>
@@ -14511,6 +14814,7 @@
         <value xml:lang="zh-TW">團體:客戶－供應商－員工管理,包括通訊、分類</value>
     </property>
     <property key="PortalPageNotFound">
+        <value xml:lang="ar">هذه الصفحة ${parameters.portalPageId} غير موجودة</value>
         <value xml:lang="cs">Stránka (${parameters.portalPageId}) nemůže být nalezena!</value>
         <value xml:lang="de">Die folgende Seite konnte nicht gefunden werden: (${parameters.portalPageId})!</value>
         <value xml:lang="en">This page (${parameters.portalPageId}) could not be found!</value>
@@ -14526,6 +14830,7 @@
         <value xml:lang="zh-TW">無法找到這個頁面(${parameters.portalPageId})！</value>
     </property>
     <property key="PortalPageNotOwned">
+        <value xml:lang="ar">الصفحة ${portalPage.portalPageName} ${portalPage.portalPageId} ليست ممتلكة من قبلك, لذا لا يمكن تغييرها</value>
         <value xml:lang="cs">Stránka '${portalPage.portalPageName}' [${portalPage.portalPageId}] není Vámi vlastněná a nemůže být změněna!</value>
         <value xml:lang="de">Sie sind nicht Besitzer der Seite '${portalPage.portalPageName}' [${portalPage.portalPageId}] deshalb können Sie sie nicht ändern!</value>
         <value xml:lang="en">The page '${portalPage.portalPageName}' [${portalPage.portalPageId}] is not owned by you, so cannot be changed!</value>
@@ -14541,6 +14846,7 @@
         <value xml:lang="zh-TW">你不擁有頁面'${portalPage.portalPageName}' [${portalPage.portalPageId}],所以你不能修改它！</value>
     </property>
     <property key="Project">
+        <value xml:lang="ar">مشروع</value>
         <value xml:lang="cs">Projekt</value>
         <value xml:lang="de">Projekt</value>
         <value xml:lang="en">Project</value>
@@ -14557,6 +14863,7 @@
         <value xml:lang="zh-TW">專案</value>
     </property>
     <property key="SFA">
+        <value xml:lang="ar">ميكنة فريق المبيعات</value>
         <value xml:lang="cs">SFA</value>
         <value xml:lang="de">Vertrieb</value>
         <value xml:lang="en">SFA</value>
@@ -14683,6 +14990,7 @@
         <value xml:lang="zh-TW">捷克語</value>
     </property>
     <property key="da">
+        <value xml:lang="ar">دنماركية</value>
         <value xml:lang="cs">Dánština</value>
         <value xml:lang="da">Dansk</value>
         <value xml:lang="de">Dänisch</value>
@@ -14930,6 +15238,7 @@
         <value xml:lang="zh-TW">葡萄牙語</value>
     </property>
     <property key="ru">
+        <value xml:lang="ar">روسية</value>
         <value xml:lang="cs">Ruština</value>
         <value xml:lang="de">Russisch</value>
         <value xml:lang="en">Russian</value>
@@ -14946,6 +15255,7 @@
         <value xml:lang="zh-TW">俄語</value>
     </property>
     <property key="zh">
+        <value xml:lang="ar">صينية</value>
         <value xml:lang="cs">Čínština</value>
         <value xml:lang="de">Chinesisch</value>
         <value xml:lang="en">Chinese</value>
@@ -14965,6 +15275,5 @@
         <value xml:lang="zh-CN">中文</value>
         <value xml:lang="zh-TW">中文</value>
     </property>
-    
-    
+
 </resource>
