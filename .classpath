@@ -113,7 +113,6 @@
     <classpathentry kind="lib" path="framework/testtools/lib/org.springframework.core-3.1.0.M2.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/iText-2.1.7.jar"/>
-    <classpathentry kind="lib" path="framework/webapp/lib/json-lib-2.2.3-jdk15.jar"/>
     <classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/axis-1.4.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/axis-ant-1.4.jar"/>
