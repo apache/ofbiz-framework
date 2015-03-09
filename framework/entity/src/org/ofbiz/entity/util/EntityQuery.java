@@ -401,7 +401,10 @@ public class EntityQuery {
      */
     public GenericValue queryFirst() throws GenericEntityException {
         EntityFindOptions efo = makeEntityFindOptions();
-        efo.setMaxRows(1);
+        // Only limit results when the query isn't filtering by date in memory against a cached result
+        if (!this.useCache && !this.filterByDate) {
+            efo.setMaxRows(1);
+        }
         GenericValue result =  EntityUtil.getFirst(query(efo));
         return result;
     }
