@@ -21,7 +21,6 @@ package org.ofbiz.webapp.event;
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 
 import java.io.File;
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -231,17 +230,8 @@ public class ServiceEventHandler implements EventHandler {
         // store the multi-part map as an attribute so we can access the parameters
         request.setAttribute("multiPartMap", multiPartMap);
 
-        Map<String, Object> rawParametersMap = UtilHttp.getParameterMap(request, null, null);
+        Map<String, Object> rawParametersMap = UtilHttp.getCombinedMap(request);
         Set<String> urlOnlyParameterNames = UtilHttp.getUrlOnlyParameterMap(request).keySet();
-        Map<String, Object> requestBodyMap = null;
-        try {
-            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
-        } catch (IOException ioe) {
-            Debug.logWarning(ioe, module);
-        }
-        if (requestBodyMap != null) {
-            rawParametersMap.putAll(requestBodyMap);
-        }
 
         // we have a service and the model; build the context
         Map<String, Object> serviceContext = new HashMap<String, Object>();

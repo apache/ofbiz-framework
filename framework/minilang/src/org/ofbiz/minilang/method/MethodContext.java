@@ -82,7 +82,7 @@ public final class MethodContext {
 
     public MethodContext(HttpServletRequest request, HttpServletResponse response, ClassLoader loader) {
         this.methodType = MethodContext.EVENT;
-        this.parameters = UtilHttp.getParameterMap(request);
+        this.parameters = UtilHttp.getCombinedMap(request);
         this.loader = loader;
         this.request = request;
         this.response = response;
