@@ -24,6 +24,7 @@ import java.io.IOException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -54,6 +55,7 @@ import org.ofbiz.security.SecurityConfigurationException;
 import org.ofbiz.security.SecurityFactory;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
+import org.ofbiz.webapp.event.RequestBodyMapHandlerFactory;
 import org.ofbiz.webapp.website.WebSiteWorker;
 
 /**
@@ -314,6 +316,20 @@ public class ContextFilter implements Filter {
                 // httpRequest.getSession().setAttribute("delegatorName", delegator.getDelegatorName());
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "Unable to get Tenant", module);
+            }
+        }
+
+        // read the body (for JSON requests) and set the parameters as attributes:
+        Map<String, Object> requestBodyMap = null;
+        try {
+            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
+        } catch (IOException ioe) {
+            Debug.logWarning(ioe, module);
+        }
+        if (requestBodyMap != null) {
+            Set<String> parameterNames = requestBodyMap.keySet();
+            for (String parameterName: parameterNames) {
+                httpRequest.setAttribute(parameterName, requestBodyMap.get(parameterName));
             }
         }
 
