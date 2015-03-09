@@ -74,6 +74,14 @@ public class EntityConditionBuilder extends BuilderSupport {
         public EntityCondition freeze() {
             return condition.freeze();
         }
+
+        public int hashCode() {
+            return condition.hashCode();
+        }
+        public boolean equals(Object obj) {
+            return condition.equals(obj);
+        }
+
     }
 
     @Override
