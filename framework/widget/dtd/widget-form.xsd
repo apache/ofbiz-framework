@@ -1317,6 +1317,13 @@ under the License.
                 <xs:element minOccurs="0" ref="sub-hyperlink" />
             </xs:sequence>
             <xs:attribute type="xs:string" name="target-form-name" use="required" />
+            <xs:attribute type="xs:string" name="form-name">
+                <xs:annotation>
+                    <xs:documentation>
+                        The name of the parent form, needed when using skip-start="true" along with correct id-name value on field
+                    </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute type="xs:nonNegativeInteger" name="size" default="25" />
             <xs:attribute type="xs:positiveInteger" name="maxlength" />
             <xs:attribute type="xs:string" name="default-value" />
