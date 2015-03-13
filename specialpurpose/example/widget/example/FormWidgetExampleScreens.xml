@@ -41,7 +41,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;DateTimeFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                         <include-form name="DateTimeFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                     </container>
                                 </container>
@@ -50,7 +50,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;DropDownFieldsExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                     </container>
                                     <section>
                                         <actions>                                            
@@ -87,7 +87,7 @@ under the License.
                                         <container style="screenlet-body">
                                             <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                             <label>${uiLabelMap.ExampleDefinitionName} &quot;ExampleLookupFields&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
-                                            <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                            <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                             <include-form name="ExampleLookupFields" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                         </container>
                                 </container>
@@ -96,7 +96,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;FieldGroupExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                         <container style="button-bar">
                                             <link target="javascript:expandAll(true);"  text="${uiLabelMap.CommonExpandAll}" style="buttontext expand-all" url-mode="plain"/>
                                             <link target="javascript:expandAll(false);" text="${uiLabelMap.CommonCollapseAll}" style="buttontext collapse-all" url-mode="plain"/>
@@ -109,7 +109,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
                                         <label>${uiLabelMap.ExampleDefinitionName} &quot;SelectionBoxesExampleForm&quot; ${uiLabelMap.ExampleDefinitionFile}</label>
-                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                         <include-form name="SelectionBoxesExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                     </container>
                                 </container>
