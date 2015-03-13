@@ -366,7 +366,7 @@ under the License.
             <lookup target-form-name="LookupGeo" read-only="true"/>
         </field>
         <!-- Standard lookup (in a layer with autocompletion) -->
-        <!-- passes the name in one field and the id in another, passing the id in the other field does not work yet with autocompletion, WIP... -->
+        <!-- passes the name in one field and the id in another -->
         <field name="geoName" title="${uiLabelMap.CommonGeoName}" tooltip="${uiLabelMap.ExampleLookupFields4}" tooltip-style="button-text">
             <lookup target-form-name="LookupGeoName" description-field-name="geoId"/>
         </field>
