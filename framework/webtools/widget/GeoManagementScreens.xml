@@ -36,9 +36,7 @@
                                     <include-form name="FindGeo" location="component://webtools/widget/GeoManagementForms.xml"/>
                                 </decorator-section>
                                 <decorator-section name="search-results">
-                                    <screenlet title="${uiLabelMap.CommonGeos}">
-                                        <include-form name="ListGeos" location="component://webtools/widget/GeoManagementForms.xml"/>
-                                    </screenlet>
+                                    <include-form name="ListGeos" location="component://webtools/widget/GeoManagementForms.xml"/>
                                 </decorator-section>
                             </decorator-screen>
                         </container>
