@@ -295,7 +295,7 @@
         <value xml:lang="zh-TW">在檔:</value>
     </property>
     <property key="ExampleDefinitionFileTooltip">
-        <value xml:lang="en">framework/example/widget/example/FormWidgetExampleForms.xml</value>
+        <value xml:lang="en">specialpurpose/example/widget/example/FormWidgetExampleForms.xml</value>
     </property>
     <property key="ExampleDefinitionName">
         <value xml:lang="en">See the form definition with name</value>
