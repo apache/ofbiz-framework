@@ -23,6 +23,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -197,8 +198,9 @@ public class ContentWorker implements org.ofbiz.widget.content.ContentWorkerInte
             ModelService service = dctx.getModelService(serviceName);
             if (service != null) {
                 //put all requestParameters into templateContext to use them as IN service parameters
-                Map<String,Object> tempTemplateContext = UtilMisc.<String,Object>toMap(templateContext);
+                Map<String,Object> tempTemplateContext = new HashMap<String, Object>();
                 tempTemplateContext.putAll(UtilGenerics.<String,Object>checkMap(templateContext.get("requestParameters")));
+                tempTemplateContext.putAll(templateContext);
                 Map<String,Object> serviceCtx = service.makeValid(tempTemplateContext, ModelService.IN_PARAM);
                 Map<String,Object> serviceRes;
                 try {
