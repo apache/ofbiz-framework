@@ -5344,6 +5344,10 @@
         <value xml:lang="zh-CN">标识</value>
         <value xml:lang="zh-TW">識別</value>
     </property>
+    <property key="CommonIdGeneratedIfEmpty">
+        <value xml:lang="ar">يتم خلق دليل تسلسلي اذا ترك فارغا</value>
+        <value xml:lang="en">ID sequence will be generated if empty</value>
+    </property>
     <property key="CommonIds">
         <value xml:lang="ar">دلائل</value>
         <value xml:lang="cs">Identifikátory</value>

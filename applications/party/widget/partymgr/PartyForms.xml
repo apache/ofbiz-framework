@@ -26,7 +26,7 @@ under the License.
         <alt-target use-when="personInfo==null" target="createPerson"/>
         <auto-fields-service service-name="updatePerson"/>
         <field use-when="personInfo!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="personInfo==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}"><ignored/></field>
+        <field use-when="personInfo==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="personInfo==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="40" maxlength="60"/></field>
         <field name="lastName" title="${uiLabelMap.PartyLastName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="40" maxlength="60"/></field>
@@ -102,7 +102,7 @@ under the License.
         <alt-target use-when="partyGroup==null" target="createPartyGroup"/>
         <auto-fields-service service-name="updatePartyGroup"/>
         <field use-when="partyGroup!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}"><ignored/></field>
+        <field use-when="partyGroup==null&amp;&amp;partyId==null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field use-when="partyGroup==null&amp;&amp;partyId!=null" name="partyId" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyId}]"><display also-hidden="false"/></field>
         <field name="groupName" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"></field>
         <field name="partyTypeId"><ignored/></field>
@@ -432,6 +432,7 @@ under the License.
 
     <form name="NewUser" type="single" target="${target}${previousParams}"
         focus-field-name="USER_TITLE" header-row-style="header-row" default-table-style="basic-table">
+        <field name="USER_PARTY_ID" title="${uiLabelMap.PartyPartyId}" tooltip="${uiLabelMap.CommonIdGeneratedIfEmpty}"><text/></field>
         <field name="USE_ADDRESS"><hidden value="${USE_ADDRESS}"/></field>
         <field name="require_email"><hidden value="${require_email}"/></field>
         <field name="USER_TITLE" title="${uiLabelMap.CommonTitle}"><text size="10" maxlength="30"/></field>

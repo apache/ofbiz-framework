@@ -124,6 +124,7 @@ under the License.
         <!-- Create the Person -->
         <call-map-processor in-map-name="parameters" out-map-name="personContext">
             <simple-map-processor name="newPerson">
+            	<process field="USER_PARTY_ID"><copy to-field="partyId"/></process>
                 <process field="USER_FIRST_NAME"><copy to-field="firstName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
                 <process field="USER_MIDDLE_NAME"><copy to-field="middleName"/></process>
                 <process field="USER_LAST_NAME"><copy to-field="lastName"/><not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
