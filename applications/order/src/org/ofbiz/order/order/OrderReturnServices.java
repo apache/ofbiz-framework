@@ -439,7 +439,9 @@ public class OrderReturnServices {
                     }
                     String returnStatus = returnHeader.getString("statusId");
                     if (!returnStatus.equals("RETURN_CANCELLED")) {
-                        returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));
+                        if(!UtilValidate.isEmpty(returnItem.getBigDecimal("returnQuantity"))){
+                            returnedQty = returnedQty.add(returnItem.getBigDecimal("returnQuantity"));   
+                        } 
                     }
                 }
                 if (returnedQty.compareTo(orderQty) < 0) {
