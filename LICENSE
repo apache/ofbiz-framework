@@ -18,7 +18,7 @@ framework/base/lib/avalon-framework-4.2.0.jar
 framework/base/lib/batik-all-1.7.jar
 framework/base/lib/barcode4j-2.1-barcode4j-fop-ext-complete.jar
 framework/base/lib/clhm-release-1.0-lru.jar
-framework/base/lib/freemarker-2.3.21.jar
+framework/base/lib/freemarker-2.3.22.jar
 framework/base/lib/httpclient-4.3.6.jar
 framework/base/lib/httpclient-cache-4.3.6.jar
 framework/base/lib/httpcore-4.3.3.jar
