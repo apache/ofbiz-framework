@@ -89,15 +89,15 @@
     <classpathentry kind="lib" path="framework/base/lib/scripting/jakarta-oro-2.0.8.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/scripting/jython-nooro.jar"/>
     <classpathentry kind="lib" path="framework/catalina/lib/ecj-4.4.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina-ha.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina-tribes.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-catalina.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-jasper.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-api.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-coyote.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.57-tomcat-util.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.57-tomcat-juli.jar"/>
-    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.57-tomcat-juli-adapters.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-catalina-ha.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-catalina-tribes.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-catalina.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-jasper.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-tomcat-api.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-tomcat-coyote.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-7.0.59-tomcat-util.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.59-tomcat-juli.jar"/>
+    <classpathentry kind="lib" path="framework/catalina/lib/tomcat-extras-7.0.59-tomcat-juli-adapters.jar"/>
     <classpathentry kind="lib" path="framework/entity/lib/commons-dbcp2-2.1.jar"/>
     <classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-3.1.1.jar"/>
     <classpathentry kind="lib" path="framework/service/lib/wsdl4j-1.6.2.jar"/>
