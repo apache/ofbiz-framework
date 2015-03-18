@@ -1068,7 +1068,7 @@ public class OrderReadHelper {
 
         try {
             // get a set of invoice IDs that belong to the order
-            List<GenericValue> orderItemBillings = orderHeader.getRelated("OrderItemBilling", null, null, true);
+            List<GenericValue> orderItemBillings = orderHeader.getRelated("OrderItemBilling", null, null, false);
             Set<String> invoiceIds = new HashSet<String>();
             for (GenericValue orderItemBilling : orderItemBillings) {
                 invoiceIds.add(orderItemBilling.getString("invoiceId"));
