@@ -85,6 +85,9 @@ under the License.
         <field name="custSequenceNum" type="numeric"/>
         <field name="parentCustRequestId" type="id-ne"/>
         <field name="billed" type="indicator"/>
+        <relation type="one" fk-name="CUST_REQ_PARENT" title="Parent" rel-entity-name="CustRequest">
+            <key-map field-name="parentCustRequestId" rel-field-name="custRequestId"/>
+        </relation>
     </extend-entity>
     
     <view-entity entity-name="ScrumProjectSprintBacklogAndTask"
