@@ -589,7 +589,8 @@ public abstract class ModelScreenWidget extends ModelWidget {
                 Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
                 if (requestParameters != null) {
                     String collapsedParam = (String) requestParameters.get(preferenceKey);
-                    collapsed = "true".equals(collapsedParam);
+                    if (collapsedParam != null)
+                        collapsed = "true".equals(collapsedParam);
                 }
             }
             try {
