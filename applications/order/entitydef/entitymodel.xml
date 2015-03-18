@@ -1780,9 +1780,6 @@ under the License.
       <relation type="one" fk-name="CUST_REQ_CUOM" title="Currency" rel-entity-name="Uom">
         <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
-      <relation type="one" fk-name="CUST_REQ_PARENT" title="Parent" rel-entity-name="CustRequest">
-        <key-map field-name="parentCustRequestId" rel-field-name="custRequestId"/>
-      </relation>
     </entity>
     <entity entity-name="CustRequestAttribute"
             package-name="org.ofbiz.order.request"
