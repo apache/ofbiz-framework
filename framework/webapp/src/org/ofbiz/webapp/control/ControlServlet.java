@@ -72,7 +72,8 @@ public class ControlServlet extends HttpServlet {
         super.init(config);
         if (Debug.infoOn()) {
             ServletContext servletContext = config.getServletContext();
-            Debug.logInfo("Loading webapp [" + servletContext.getContextPath().substring(1) + "], located at " + servletContext.getRealPath("/"), module);
+            String webappName = servletContext.getContextPath().length() != 0 ? servletContext.getContextPath().substring(1) : "";
+            Debug.logInfo("Loading webapp [" + webappName + "], located at " + servletContext.getRealPath("/"), module);
         }
 
         // configure custom BSF engines
