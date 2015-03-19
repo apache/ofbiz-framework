@@ -2068,7 +2068,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         // add lookup pop-up button
         String descriptionFieldName = lookupField.getDescriptionFieldName();
         ModelForm modelForm = modelFormField.getModelForm();
-        String formName = lookupField.getParentFormName();
+        String formName = modelFormField.getParentFormName();
         if (UtilValidate.isEmpty(formName)) {
             formName = FormRenderer.getCurrentFormName(modelForm, context);
         }        
