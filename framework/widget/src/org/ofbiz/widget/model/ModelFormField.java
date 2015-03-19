@@ -137,6 +137,7 @@ public class ModelFormField {
     private final FlexibleStringExpander useWhen;
     private final String widgetAreaStyle;
     private final String widgetStyle;
+    private final String parentFormName;
 
     private ModelFormField(ModelFormFieldBuilder builder) {
         this.action = builder.getAction();
@@ -187,6 +188,7 @@ public class ModelFormField {
         this.useWhen = builder.getUseWhen();
         this.widgetAreaStyle = builder.getWidgetAreaStyle();
         this.widgetStyle = builder.getWidgetStyle();
+        this.parentFormName = builder.getParentFormName();
     }
 
     public FlexibleStringExpander getAction() {
@@ -398,8 +400,13 @@ public class ModelFormField {
     public String getIdName() {
         if (UtilValidate.isNotEmpty(idName))
             return idName;
-        return this.modelForm.getName() + "_" + this.getFieldName();
-    }
+        String parentFormName = this.getParentFormName();
+        if (UtilValidate.isNotEmpty(parentFormName)) {
+            return parentFormName + "_" + this.getFieldName();
+        } else {
+           return this.modelForm.getName() + "_" + this.getFieldName();
+        }
+     }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
         if (UtilValidate.isEmpty(this.mapAcsr))
@@ -641,6 +648,12 @@ public class ModelFormField {
         if (UtilValidate.isNotEmpty(this.widgetStyle))
             return this.widgetStyle;
         return this.modelForm.getDefaultWidgetStyle();
+    }
+
+    public String getParentFormName() {
+        if (UtilValidate.isNotEmpty(this.parentFormName)) 
+            return this.parentFormName;
+        return "";
     }
 
     /**
@@ -2761,7 +2774,6 @@ public class ModelFormField {
         private final String descriptionFieldName;
         private final String fadeBackground;
         private final FlexibleStringExpander formName;
-        private final String parentFormName;
         private final String initiallyCollapsed;
         private final String lookupHeight;
         private final String lookupPosition;
@@ -2773,7 +2785,6 @@ public class ModelFormField {
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.descriptionFieldName = element.getAttribute("description-field-name");
-            this.parentFormName = element.getAttribute("form-name");
             this.fadeBackground = element.getAttribute("fade-background");
             this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
             this.initiallyCollapsed = element.getAttribute("initially-collapsed");
@@ -2790,7 +2801,6 @@ public class ModelFormField {
             this.descriptionFieldName = "";
             this.fadeBackground = "";
             this.formName = FlexibleStringExpander.getInstance("");
-            this.parentFormName = "";
             this.initiallyCollapsed = "";
             this.lookupHeight = "";
             this.lookupPosition = "";
@@ -2805,7 +2815,6 @@ public class ModelFormField {
             this.descriptionFieldName = original.descriptionFieldName;
             this.fadeBackground = original.fadeBackground;
             this.formName = original.formName;
-            this.parentFormName = original.parentFormName;
             this.initiallyCollapsed = original.initiallyCollapsed;
             this.lookupHeight = original.lookupHeight;
             this.lookupPosition = original.lookupPosition;
@@ -2869,10 +2878,6 @@ public class ModelFormField {
         public String getTargetParameter() {
             return targetParameter;
         }
-
-        public String getParentFormName() {
-            return this.parentFormName;
-        }        
 
         public List<String> getTargetParameterList() {
             List<String> paramList = new LinkedList<String>();

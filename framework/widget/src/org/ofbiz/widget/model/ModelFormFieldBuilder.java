@@ -104,6 +104,7 @@ public class ModelFormFieldBuilder {
     private FlexibleStringExpander useWhen = FlexibleStringExpander.getInstance("");;
     private String widgetAreaStyle = "";
     private String widgetStyle = "";
+    private String parentFormName = "";
 
     public ModelFormFieldBuilder() {
     }
@@ -152,6 +153,7 @@ public class ModelFormFieldBuilder {
         this.useWhen = FlexibleStringExpander.getInstance(fieldElement.getAttribute("use-when"));
         this.widgetAreaStyle = fieldElement.getAttribute("widget-area-style");
         this.widgetStyle = fieldElement.getAttribute("widget-style");
+        this.parentFormName = fieldElement.getAttribute("form-name");
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
@@ -255,6 +257,7 @@ public class ModelFormFieldBuilder {
         this.useWhen = modelFormField.getUseWhen();
         this.widgetAreaStyle = modelFormField.getWidgetAreaStyle();
         this.widgetStyle = modelFormField.getWidgetStyle();
+        this.parentFormName = modelFormField.getParentFormName();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -294,6 +297,7 @@ public class ModelFormFieldBuilder {
         this.useWhen = builder.getUseWhen();
         this.widgetAreaStyle = builder.getWidgetAreaStyle();
         this.widgetStyle = builder.getWidgetStyle();
+        this.parentFormName = builder.getParentFormName();
     }
 
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
@@ -456,6 +460,10 @@ public class ModelFormFieldBuilder {
 
     public String getWidgetStyle() {
         return widgetStyle;
+    }
+
+    public String getParentFormName() {
+        return this.parentFormName;
     }
 
     private boolean induceFieldInfo(ModelForm modelForm, String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -716,6 +724,8 @@ public class ModelFormFieldBuilder {
             this.titleStyle = builder.getTitleStyle();
         if (UtilValidate.isNotEmpty(builder.getWidgetStyle()))
             this.widgetStyle = builder.getWidgetStyle();
+        if (UtilValidate.isNotEmpty(builder.getParentFormName()))
+            this.parentFormName = builder.getParentFormName();
         if (UtilValidate.isNotEmpty(builder.getRedWhen()))
             this.redWhen = builder.getRedWhen();
         if (UtilValidate.isNotEmpty(builder.getEvent()))
@@ -916,6 +926,10 @@ public class ModelFormFieldBuilder {
 
     public ModelFormFieldBuilder setWidgetStyle(String widgetStyle) {
         this.widgetStyle = widgetStyle;
+        return this;
+    }
+    public ModelFormFieldBuilder setParentFormName(String parentFormName) {
+        this.parentFormName = parentFormName;
         return this;
     }
 }
