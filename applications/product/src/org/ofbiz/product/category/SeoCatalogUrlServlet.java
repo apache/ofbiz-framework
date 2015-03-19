@@ -156,7 +156,7 @@ public class SeoCatalogUrlServlet extends HttpServlet {
     public static String makeCatalogUrl(HttpServletRequest request, String productId, String currentCategoryId, String previousCategoryId) {
         StringBuilder urlBuilder = new StringBuilder();
         urlBuilder.append(request.getSession().getServletContext().getContextPath());
-        if (urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
+        if (urlBuilder.length() == 0 || urlBuilder.charAt(urlBuilder.length() - 1) != '/') {
             urlBuilder.append("/");
         }
         urlBuilder.append(CATALOG_URL_MOUNT_POINT);
