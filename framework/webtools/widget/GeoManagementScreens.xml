@@ -26,6 +26,7 @@
                 <set field="titleProperty" value="WebtoolsGeosFind"/>
                 <set field="currentUrl" value="FindGeo"/>
                 <set field="headerItem" value="Geos"/>
+                <set field="tabButtonItem" value="FindGeo"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
@@ -37,6 +38,34 @@
                                 </decorator-section>
                                 <decorator-section name="search-results">
                                     <include-form name="ListGeos" location="component://webtools/widget/GeoManagementForms.xml"/>
+                                </decorator-section>
+                            </decorator-screen>
+                        </container>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="GeoPoints">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebtoolsGeoPoints"/>
+                <set field="currentUrl" value="geoPoints"/>
+                <set field="headerItem" value="Geos"/>
+                <set field="tabButtonItem" value="GeoPoints"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonGeoManagementDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="no-clear">
+                            <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                                <decorator-section name="search-options">
+                                    <include-form name="FindGeoPoint" location="component://webtools/widget/GeoManagementForms.xml"/>
+                                </decorator-section>
+                                <decorator-section name="search-results">
+                                    <screenlet title="${uiLabelMap.WebtoolsGeoPoints}">
+                                        <include-form name="ListGeoPoints" location="component://webtools/widget/GeoManagementForms.xml"/>
+                                    </screenlet>
                                 </decorator-section>
                             </decorator-screen>
                         </container>
@@ -97,6 +126,7 @@
                 <set field="titleProperty" value="WebtoolsGeosLink"/>
                 <set field="currentUrl" value="LinkGeos"/>
                 <set field="headerItem" value="Geos"/>
+                <set field="tabButtonItem" value="LinkGeos"/>
                 
                 <set field="noId" value="true"/><!-- see CommonGeoManagementDecorator -->
                 

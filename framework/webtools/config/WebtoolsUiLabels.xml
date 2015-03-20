@@ -2441,6 +2441,9 @@
         <value xml:lang="zh">链接地理（把它们关联到一个地理位置）</value>
         <value xml:lang="zh-TW">連結地理(把它們結合到一個地理位置)</value>
     </property>
+    <property key="WebtoolsGeoPoints">
+        <value xml:lang="en">GEO Points</value>
+    </property>
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
         <value xml:lang="fr">Sélectionnez les zones géographiques à associer</value>
