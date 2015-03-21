@@ -1099,9 +1099,18 @@ public class ProductServices {
             for ( String sizeType : ScaleImage.sizeTypeList ) {
                 imageUrl = imageUrlMap.get(sizeType);
                 if( UtilValidate.isNotEmpty(imageUrl)) {
-                    result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());
-                    if( ServiceUtil.isError(result)) {
-                        return result;
+                    try {
+                        GenericValue productContentType = EntityQuery.use(delegator).from("ProductContentType").where("productContentTypeId", "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase()).cache().queryOne();
+                        if (UtilValidate.isNotEmpty(productContentType)) {
+                            result = addImageResource(dispatcher, delegator, context, imageUrl, "XTRA_IMG_" + viewNumber + "_" + sizeType.toUpperCase());
+                            if( ServiceUtil.isError(result)) {
+                                Debug.logError(ServiceUtil.getErrorMessage(result), module);
+                                return result;
+                            }
+                        }
+                    } catch(GenericEntityException e) {
+                        Debug.logError(e,module);
+                        return ServiceUtil.returnError(e.getMessage());
                     }
                 }
             }
