@@ -208,8 +208,15 @@ public class EntityTestSuite extends EntityTestCase {
         } catch (UnsupportedOperationException e) {
         }
         // Test entity value update operation updates the cache
+        // Since the cache uses equals() and hashCode() methods, we test those as well
+        int hashCode = testValue.hashCode();
+        GenericValue originalValue = testValue;
         testValue = (GenericValue) testValue.clone();
+        assertTrue("Cloned GenericValue equals original GenericValue", originalValue.equals(testValue));
+        assertTrue("Cloned GenericValue has the same hash code", hashCode == testValue.hashCode());
         testValue.put("description", "New Testing Type #Cache-1");
+        assertFalse("Modified GenericValue does not equal original GenericValue", originalValue.equals(testValue));
+        assertTrue("Modified GenericValue has a different hash code", hashCode != testValue.hashCode());
         testValue.store();
         testValue = EntityQuery.use(delegator).from("TestingType").where("testingTypeId", "TEST-CACHE-1").cache(true).queryOne();
         assertEquals("Retrieved from cache value has the correct description", "New Testing Type #Cache-1", testValue.getString("description"));
