@@ -21,7 +21,6 @@
 <project name="OFBiz Special Purpose Applications Build" default="build" basedir=".">
     <filelist id="specialpurpose-builds" dir="specialpurpose"
         files="
-        appserver/build.xml,
         assetmaint/build.xml,
         birt/build.xml,
         ebay/build.xml,
