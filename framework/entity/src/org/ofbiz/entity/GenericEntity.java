@@ -1276,14 +1276,14 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
      */
     @Override
     public boolean equals(Object obj) {
-        if (!(obj instanceof GenericEntity)) return false;
-
-        // from here, use the compareTo method since it is more efficient:
-        try {
-            return this.compareTo((GenericEntity) obj) == 0;
-        } catch (ClassCastException e) {
-            return false;
+        if (obj == this) {
+            return true;
         }
+        if (obj instanceof GenericEntity) {
+            GenericEntity that = (GenericEntity) obj;
+            return this.entityName.equals(that.entityName) && this.fields.equals(that.fields);
+        }
+        return false;
     }
 
     /** Creates a hashCode for the entity, using the default String hashCode and Map hashCode, overrides the default hashCode
