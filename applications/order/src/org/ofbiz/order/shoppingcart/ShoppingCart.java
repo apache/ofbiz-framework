@@ -51,6 +51,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.common.DataModelConstants;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
@@ -2698,21 +2699,34 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     /** Returns the total from the cart, including tax/shipping. */
     public BigDecimal getGrandTotal() {
         // sales tax and shipping are not stored as adjustments but rather as part of the ship group
-        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(), module);
+        // Debug.logInfo("Subtotal:" + this.getSubTotal() + " Shipping:" + this.getTotalShipping() + "SalesTax: "+ this.getTotalSalesTax() + " others: " + this.getOrderOtherAdjustmentTotal(),module);
         BigDecimal grandTotal = this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal());
         // Debug.logInfo("Grand Total before rounding:" + grandTotal, module);
-        grandTotal = grandTotal.setScale(2, BigDecimal.ROUND_HALF_UP);
+        grandTotal = this.getSubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(getOrderGlobalAdjusments());
         return grandTotal;
     }
 
     public BigDecimal getDisplaySubTotal() {
         BigDecimal itemsTotal = BigDecimal.ZERO;
         for (ShoppingCartItem cartItem : this.cartLines) {
-            itemsTotal = itemsTotal.add(cartItem.getDisplayItemSubTotal());
+            itemsTotal = this.getDisplaySubTotal().add(this.getTotalShipping()).add(this.getTotalSalesTax()).add(this.getOrderOtherAdjustmentTotal()).add(getOrderGlobalAdjusments());
         }
         return itemsTotal;
     }
-
+    public BigDecimal getOrderGlobalAdjusments() {
+        List cartAdjustments = this.getAdjustments();
+        List tempAdjustmentsList = FastList.newInstance();
+        if (cartAdjustments != null) {
+            Iterator cartAdjustmentIter = cartAdjustments.iterator();
+            while (cartAdjustmentIter.hasNext()) {
+                GenericValue checkOrderAdjustment = (GenericValue) cartAdjustmentIter.next();
+                if (UtilValidate.isEmpty(checkOrderAdjustment.getString("shipGroupSeqId")) || DataModelConstants.SEQ_ID_NA.equals(checkOrderAdjustment.getString("shipGroupSeqId"))) {
+                    tempAdjustmentsList.add(checkOrderAdjustment);
+                }
+            }
+        }
+        return OrderReadHelper.calcOrderAdjustments(tempAdjustmentsList, this.getSubTotal(), false, true, true);
+    }
     public BigDecimal getDisplayTaxIncluded() {
         BigDecimal taxIncluded  = getDisplaySubTotal().subtract(getSubTotal());
         return taxIncluded.setScale(taxFinalScale, taxRounding);
@@ -4919,7 +4933,7 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 }
                 if ("Y".equals(splitPayPrefPerShpGrp)  && cart.paymentInfo.size() == 1) {
                     for (CartShipInfo csi : cart.getShipGroups()) {
-                        maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().divide(new BigDecimal(cart.getShipGroupSize()), generalRounding)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
+                        maxAmount = csi.getTotal().add(cart.getOrderOtherAdjustmentTotal().add(cart.getOrderGlobalAdjusments()).divide(new BigDecimal(cart.getShipGroupSize()), generalRounding)).add(csi.getShipEstimate().add(csi.getTotalTax(cart)));
                         maxAmount = maxAmount.setScale(scale, rounding);
 
                         // create the OrderPaymentPreference record
