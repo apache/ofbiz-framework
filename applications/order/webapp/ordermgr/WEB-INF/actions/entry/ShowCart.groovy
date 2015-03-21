@@ -20,6 +20,7 @@
 import org.ofbiz.service.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
+import org.ofbiz.order.order.OrderReadHelper; 
 import org.ofbiz.order.shoppingcart.*;
 import org.ofbiz.party.party.PartyWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
@@ -51,6 +52,25 @@ context.shoppingCartSize = shoppingCart.size();
 context.shoppingCart = shoppingCart;
 context.currencyUomId = shoppingCart.getCurrency();
 context.orderType = shoppingCart.getOrderType();
+
+orderItems = shoppingCart.makeOrderItems();
+orderAdjustments = shoppingCart.makeAllAdjustments();
+orderItemShipGroupInfo = shoppingCart.makeAllShipGroupInfos();
+if (orderItemShipGroupInfo) {
+    orderItemShipGroupInfo.each { osiInfo ->
+        if ("OrderAdjustment".equals(osiInfo.getEntityName())) {
+            // shipping / tax adjustment(s)
+            orderAdjustments.add(osiInfo);
+        }
+    }
+}
+orderHeaderAdjustments = OrderReadHelper.getOrderHeaderAdjustments(orderAdjustments, null);
+orderSubTotal = OrderReadHelper.getOrderItemsSubTotal(orderItems, orderAdjustments);
+shippingAmount = OrderReadHelper.getAllOrderItemsAdjustmentsTotal(orderItems, orderAdjustments, false, false, true);
+shippingAmount = shippingAmount.add(OrderReadHelper.calcOrderAdjustments(orderHeaderAdjustments, orderSubTotal, false, false, true));
+context.orderShippingTotal = shippingAmount;
+taxAmount = OrderReadHelper.getOrderTaxByTaxAuthGeoAndParty(orderAdjustments).taxGrandTotal;
+context.orderTaxTotal = taxAmount;
 
 // get all the possible gift wrap options
 allgiftWraps = from("ProductFeature").where("productFeatureTypeId", "GIFT_WRAP").orderBy("defaultSequenceNum").queryList();
