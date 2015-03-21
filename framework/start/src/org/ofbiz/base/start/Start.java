@@ -81,7 +81,6 @@ public final class Start {
         out.println("-help, -? ----> This screen");
         out.println("load-data -----> Creates tables/load data, eg: load-data -readers=seed,demo,ext -timeout=7200 -delegator=default -group=org.ofbiz. Or: load-data -file=/tmp/dataload.xml");
         out.println("pos     -----> Runs the POS (Point of Sales) application");
-        //out.println("-setup -------> Run external application server setup");
         out.println("start -------> Starts the server");
         out.println("-status ------> Gives the status of the server");
         out.println("-shutdown ----> Shutdowns the server");
