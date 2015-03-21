@@ -98,6 +98,8 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     private final Map<String, ModelField> fieldsMap = new HashMap<String, ModelField>();
 
+    private final ArrayList<String> pkFieldNames = new ArrayList<String>();
+
     /** A List of the Field objects for the Entity, one for each Primary Key */
     private final ArrayList<ModelField> pks = new ArrayList<ModelField>();
 
@@ -168,7 +170,6 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before general/basic info");
         this.populateBasicInfo(entityElement);
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before prim-keys");
-        List<String> pkFieldNames = new ArrayList<String>();
         for (Element pkElement: UtilXml.childElementList(entityElement, "prim-key")) {
             pkFieldNames.add(pkElement.getAttribute("field").intern());
         }
@@ -216,6 +217,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 pks.add(pkField);
             }
         }
+        pkFieldNames.trimToSize();
         pks.trimToSize();
         nopks.trimToSize();
         reader.incrementFieldCount(fieldsMap.size());
@@ -375,6 +377,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                         this.pks.remove(existingField);
                     }
                     this.pks.add(newField);
+                    if (!this.pkFieldNames.contains(newField.getName())) {
+                        this.pkFieldNames.add(newField.getName());
+                    }
                 }
             }
         }
@@ -627,6 +632,9 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
             fieldsMap.put(field.getName(), field);
             if (field.getIsPk()) {
                 pks.add(field);
+                if (!pkFieldNames.contains(field.getName())) {
+                    pkFieldNames.add(field.getName());
+                }
             } else {
                 nopks.add(field);
             }
@@ -642,6 +650,7 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
                 this.fieldsList.remove(field);
                 if (field.getIsPk()) {
                     pks.remove(field);
+                    pkFieldNames.remove(field.getName());
                 } else {
                     nopks.remove(field);
                 }
@@ -652,14 +661,14 @@ public class ModelEntity implements Comparable<ModelEntity>, Serializable {
 
     public List<String> getAllFieldNames() {
         synchronized (fieldsLock) {
-            List<String> newList = new ArrayList<String>(fieldsMap.size());
-            newList.addAll(this.fieldsMap.keySet());
-            return newList;
+            return new ArrayList<String>(this.fieldsMap.keySet());
         }
     }
 
     public List<String> getPkFieldNames() {
-        return getFieldNamesFromFieldVector(getPkFields());
+        synchronized (fieldsLock) {
+            return new ArrayList<String>(pkFieldNames);
+        }
     }
 
     public List<String> getNoPkFieldNames() {

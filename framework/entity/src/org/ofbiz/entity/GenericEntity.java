@@ -905,13 +905,7 @@ public class GenericEntity implements Map<String, Object>, LocalizedMap<Object>,
     }
 
     public GenericPK getPrimaryKey() {
-        Collection<String> pkNames = new LinkedList<String>();
-        Iterator<ModelField> iter = this.getModelEntity().getPksIterator();
-        while (iter != null && iter.hasNext()) {
-            ModelField curField = iter.next();
-            pkNames.add(curField.getName());
-        }
-        return GenericPK.create(this.getDelegator(), getModelEntity(), this.getFields(pkNames));
+        return GenericPK.create(this.getDelegator(), getModelEntity(), getFields(getModelEntity().getPkFieldNames()));
     }
 
     /** go through the pks and for each one see if there is an entry in fields to set */
