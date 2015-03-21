@@ -48,6 +48,8 @@ function aroundSubmitOrder(invocation) {
                    }
             }
         }
+    }).done(function() {
+        processOrder();
     });
 }
 
