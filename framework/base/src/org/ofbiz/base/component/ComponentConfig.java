@@ -847,12 +847,8 @@ public final class ComponentConfig {
             this.description = description;
             this.server = element.getAttribute("server");
             String mountPoint = element.getAttribute("mount-point");
-            if (mountPoint.isEmpty()) {
-                // default mount point is name if none specified
-                mountPoint = this.name;
-            }
             // check the mount point and make sure it is properly formatted
-            if (!"/".equals(mountPoint)) {
+            if (!mountPoint.isEmpty()) {
                 if (!mountPoint.startsWith("/")) {
                     mountPoint = "/" + mountPoint;
                 }
