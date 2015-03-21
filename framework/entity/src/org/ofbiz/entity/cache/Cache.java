@@ -23,25 +23,24 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntity;
-import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericPK;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.transaction.TransactionUtil;
 
 public class Cache {
 
     public static final String module = Cache.class.getName();
 
-    protected EntityCache entityCache;
-    protected EntityListCache entityListCache;
-    protected EntityObjectCache entityObjectCache;
-
-    protected String delegatorName;
+    private final EntityCache entityCache;
+    private final EntityListCache entityListCache;
+    private final EntityObjectCache entityObjectCache;
 
     public Cache(String delegatorName) {
-        this.delegatorName = delegatorName;
         entityCache = new EntityCache(delegatorName);
-        entityObjectCache = new EntityObjectCache(delegatorName);
         entityListCache = new EntityListCache(delegatorName);
+        entityObjectCache = new EntityObjectCache(delegatorName);
+        TransactionUtil.addListener(entityCache);
     }
 
     public void clear() {
