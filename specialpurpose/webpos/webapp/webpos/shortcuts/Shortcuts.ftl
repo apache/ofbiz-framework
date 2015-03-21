@@ -28,6 +28,52 @@ under the License.
 </table>
 <script type="text/javascript">
   function activateHotKeys() {
+    $(document).keydown(function(e){
+        switch (e.keyCode) {
+          case 112:
+            productToSearchFocus();
+            break;
+          case 113:
+            partyToSearchFocus();
+            break;
+          case 114:
+            payCash();
+            break;
+          case 115:
+            payCheck();
+            break;
+          case 116:
+            payGiftCard();
+            break;
+          case 117:
+            payCreditCard();
+            break;
+          case 118:
+            payFinish();
+            break;
+          case 119:
+            itemQuantityFocus();
+            break;
+          case 120:
+            incrementItemQuantity();
+            break;
+          case 121:
+            decrementItemQuantity();
+            break;
+          case 122:
+            emptyCart();
+            break;
+          case 38:
+            keyUp();
+            break;
+          case 40:
+            keyDown();
+            break;
+          default: return;
+        }
+        e.preventDefault();
+        return false;
+    });
     WebPosHotkeys.bind("keydown", "f1", productToSearchFocus, "productToSearchFocus()", "${uiLabelMap.WebPosShortcutF1}");
     WebPosHotkeys.bind("keydown", "f2", partyToSearchFocus, "partyToSearchFocus()", "${uiLabelMap.WebPosShortcutF2}");
     WebPosHotkeys.bind("keydown", "f3", payCash, "payCash()", "${uiLabelMap.WebPosShortcutF3}");
