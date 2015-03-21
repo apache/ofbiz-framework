@@ -3584,6 +3584,20 @@
         <value xml:lang="zh">运行设置预计交货日期（setEstimatedDeliveryDates）服务时出错</value>
         <value xml:lang="zh-TW">回合設定預計交貨日期(setEstimatedDeliveryDates)服務時出錯</value>
     </property>
+    <property key="ManufacturingProductionRunEstimatedMilliSecondsNotCorrect">
+        <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit für Produktionsauftrag ist falsch formatiert</value>
+        <value xml:lang="en">Production Run Estimated Unit Run Time field is not formatted correctly</value>
+        <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
+        <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
+    </property>
+    <property key="ManufacturingProductionRunEstimatedSetupMillisNotCorrect">
+        <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
+        <value xml:lang="en">Production Run Estimated Setup Time field is not formatted correctly</value>
+        <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
+        <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
+    </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
         <value xml:lang="en">Production Run Costs</value>
@@ -3860,7 +3874,7 @@
         <value xml:lang="de">Mengenfeld für Produktionsauftrag ist falsch formatiert</value>
         <value xml:lang="en">Production Run Quantity field is not formatted correctly</value>
         <value xml:lang="es">El formato usado para indicar la cantidad no es correcto</value>
-        <value xml:lang="fr">Le champ quantité de l'orde de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="fr">Le champ quantité de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Quantità non è formattato correttamente</value>
         <value xml:lang="ja">生産実行数量の書式が正しくありません</value>
         <value xml:lang="pt-BR">O campo da quantidade da execução de produção não está formatado corretamente</value>
@@ -3869,6 +3883,13 @@
         <value xml:lang="vi">Trường thông tin Số lượng không đúng định dạng</value>
         <value xml:lang="zh">生产运行数量域格式不正确</value>
         <value xml:lang="zh-TW">生產運行數量域格式不正確</value>
+    </property>
+    <property key="ManufacturingProductionRunReservPersonNotCorrect">
+        <value xml:lang="de">Personen reserviert für Produktionsauftrag ist falsch formatiert</value>
+        <value xml:lang="en">Production Run Reserv Persons field is not formatted correctly</value>
+        <value xml:lang="es">El formato usado para indicar la Reservar para cuántas personas no es correcto</value>
+        <value xml:lang="fr">Le champ Personnes réservées de l'ordre de fabrication n'est pas formatté correctement</value>
+        <value xml:lang="it">Ordine di Produzione campo Persone Riserva non è formattato correttamente</value>
     </property>
     <property key="ManufacturingProductionRunStartDateMissing">
         <value xml:lang="de">Start-Datum für Produktionsauftrag fehlt</value>

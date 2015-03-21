@@ -48,13 +48,13 @@ under the License.
                 <process field="estimatedSetupMillis">
                     <copy/>
                     <convert type="BigDecimal">
-                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunEstimatedSetupMillisNotCorrect"/>
                     </convert>
                 </process>
                 <process field="estimatedMilliSeconds">
                     <copy/>
                     <convert type="BigDecimal">
-                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunEstimatedMilliSecondsNotCorrect"/>
                     </convert>
                 </process>
             </simple-map-processor>
@@ -86,13 +86,19 @@ under the License.
                 <process field="estimatedSetupMillis">
                     <copy/>
                     <convert type="BigDecimal">
-                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunEstimatedSetupMillisNotCorrect"/>
                     </convert>
                 </process>
                 <process field="estimatedMilliSeconds">
                     <copy/>
                     <convert type="BigDecimal">
-                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunQuantityNotCorrect"/>
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunEstimatedMilliSecondsNotCorrect"/>
+                    </convert>
+                </process>
+                <process field="reservPersons">
+                    <copy/>
+                    <convert type="BigDecimal">
+                        <fail-property resource="ManufacturingUiLabels" property="ManufacturingProductionRunReservPersonNotCorrect"/>
                     </convert>
                 </process>
             </simple-map-processor>
