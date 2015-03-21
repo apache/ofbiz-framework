@@ -24,11 +24,12 @@ import org.ofbiz.entity.DelegatorFactory;
 
 public abstract class AbstractCache<K, V> {
 
-    protected String delegatorName, id;
+    protected final String delegatorName, id, cacheNamePrefix;
 
     protected AbstractCache(String delegatorName, String id) {
         this.delegatorName = delegatorName;
         this.id = id;
+        this.cacheNamePrefix = "entitycache.".concat(id).concat(".").concat(delegatorName).concat(".");
     }
 
     public Delegator getDelegator() {
@@ -44,13 +45,13 @@ public abstract class AbstractCache<K, V> {
     }
 
     public String getCacheNamePrefix() {
-        return "entitycache." + id + "." + delegatorName + ".";
+        return cacheNamePrefix;
     }
 
     public String[] getCacheNamePrefixes() {
         return new String[] {
             "entitycache." + id + ".${delegator-name}.",
-            "entitycache." + id + "." + delegatorName + "."
+            cacheNamePrefix
         };
     }
 
