@@ -75,7 +75,7 @@ if (shipment) {
             // Now we get the products qty already reserved by production runs
             serviceInput = [productId : oneComponent.getProduct().productId,
                                           userLogin : userLogin];
-            serviceOutput = runSevice('getProductionRunTotResQty', serviceInput);
+            serviceOutput = runService('getProductionRunTotResQty', serviceInput);
             resQty = serviceOutput.reservedQuantity;
             record.reservedQuantity = resQty;
             records.add(record);
