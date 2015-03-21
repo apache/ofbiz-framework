@@ -306,17 +306,31 @@ under the License.
               </tr>
             <#list shoppingCart.getAdjustments() as cartAdjustment>
               <#assign adjustmentType = cartAdjustment.getRelatedOne("OrderAdjustmentType", true)>
-              <tr>
-                <td colspan="4" nowrap="nowrap" align="right">
-                  <div>
-                    <i>${uiLabelMap.OrderAdjustment}</i> - ${adjustmentType.get("description",locale)!}
-                    <#if cartAdjustment.productPromoId?has_content><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${cartAdjustment.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></#if>:
-                  </div>
-                </td>
-                <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) isoCode=currencyUomId/></div></td>
-                <td>&nbsp;</td>
-              </tr>
+              <#if adjustmentType.get("orderAdjustmentTypeId",locale) != 'SHIPPING_CHARGES'>
+                <tr>
+                  <td colspan="4" nowrap="nowrap" align="right">
+                    <div>
+                      <i>${uiLabelMap.OrderAdjustment}</i> - ${adjustmentType.get("description",locale)!}
+                      <#if cartAdjustment.productPromoId?has_content><a href="<@ofbizUrl>showPromotionDetails?productPromoId=${cartAdjustment.productPromoId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDetails}</a></#if>:
+                    </div>
+                  </td>
+                  <td nowrap="nowrap" align="right"><div><@ofbizCurrency amount=Static["org.ofbiz.order.order.OrderReadHelper"].calcOrderAdjustment(cartAdjustment, shoppingCart.getSubTotal()) isoCode=currencyUomId/></div></td>
+                  <td>&nbsp;</td>
+                </tr>
+              </#if>
             </#list>
+            <#if orderShippingTotal != 0>
+              <tr>
+                <td align="right" colspan="4"><div>${uiLabelMap.FacilityShippingAndHandling}</div></td>
+                <td align="right" nowrap="nowrap"><div><@ofbizCurrency amount=orderShippingTotal isoCode=currencyUomId/></div></td>
+              </tr>
+            </#if>
+            <#if orderTaxTotal != 0>
+              <tr>
+                <td align="right" colspan="4"><div>${uiLabelMap.OrderSalesTax}</div></td>
+                <td align="right" nowrap="nowrap"><div><@ofbizCurrency amount=orderTaxTotal isoCode=currencyUomId/></div></td>
+              </tr>
+            </#if>
         </#if>
 
         <tr>
