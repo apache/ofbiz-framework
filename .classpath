@@ -173,7 +173,6 @@
     <classpathentry excluding="org/ofbiz/webapp/view/JasperReportsPdfViewHandler.java|org/ofbiz/webapp/view/JasperReportsXmlViewHandler.java|org/ofbiz/webapp/view/JasperReportsJXlsViewHandler.java|org/ofbiz/webapp/view/JasperReportsPoiXlsViewHandler.java" kind="src" path="framework/webapp/src"/>
     <classpathentry kind="src" path="framework/webtools/src"/>
     <classpathentry kind="src" path="framework/widget/src"/>
-    <classpathentry kind="src" path="specialpurpose/appserver/src"/>
     <classpathentry kind="src" path="specialpurpose/assetmaint/src"/>
     <classpathentry kind="src" path="specialpurpose/birt/src"/>
     <classpathentry kind="src" path="specialpurpose/ebay/src"/>
