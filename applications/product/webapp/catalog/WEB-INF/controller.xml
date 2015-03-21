@@ -1771,6 +1771,12 @@ under the License.
         <response name="success" type="view" value="EditProductPromoRules"/>
         <response name="error" type="view" value="EditProductPromoRules"/>
     </request-map>
+    
+    <request-map uri="LookupUserLoginAndPartyDetails">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupUserLoginAndPartyDetails"/>
+    </request-map>
+    
     <request-map uri="deleteProductPromoCond">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="deleteProductPromoCond"/>
@@ -3231,6 +3237,7 @@ under the License.
     <view-map name="EditProductTag" type="screen" page="component://product/widget/catalog/ProductScreens.xml#EditProductTag"/>
 
     <!-- Lookup request mappings -->
+    <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>
     <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <view-map name="LookupFixedAsset" type="screen" page="component://accounting/widget/LookupScreens.xml#LookupFixedAsset"/>
     <view-map name="LookupPartyName" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyName"/>
