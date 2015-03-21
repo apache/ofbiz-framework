@@ -1309,7 +1309,7 @@ under the License.
         </exec>
         <xmlproperty file="runtime/svninfo_tmp.xml"/>
 
-        <property name="sonar.sources" value="specialpurpose/appserver/src, framework/base/src, framework/bi/src,
+        <property name="sonar.sources" value="framework/base/src, framework/bi/src,
             framework/catalina/src, framework/common/src, framework/datafile/src, framework/entity/src, framework/entityext/src,
             framework/example/src, framework/geronimo/src, framework/jetty/src,
             framework/minilang/src, framework/security/src, framework/service/src, framework/start/src,
