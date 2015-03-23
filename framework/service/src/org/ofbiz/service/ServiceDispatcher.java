@@ -85,7 +85,7 @@ public class ServiceDispatcher {
     protected JobManager jm = null;
     protected JmsListenerFactory jlf = null;
 
-    protected ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS, boolean enableSvcs) {
+    protected ServiceDispatcher(Delegator delegator, boolean enableJM, boolean enableJMS) {
         factory = new GenericEngineFactory(this);
         ServiceGroupReader.readConfig();
         ServiceEcaUtil.readConfig();
@@ -127,14 +127,10 @@ public class ServiceDispatcher {
         if (enableJMS) {
             this.jlf = JmsListenerFactory.getInstance(delegator);
         }
-
-        if (enableSvcs) {
-            this.runStartupServices();
-        }
     }
 
     protected ServiceDispatcher(Delegator delegator) {
-        this(delegator, enableJM, enableJMS, enableSvcs);
+        this(delegator, enableJM, enableJMS);
     }
 
     /**
@@ -167,8 +163,15 @@ public class ServiceDispatcher {
             if (Debug.verboseOn())
                 Debug.logVerbose("[ServiceDispatcher.getInstance] : No instance found (" + dispatcherKey + ").", module);
             sd = new ServiceDispatcher(delegator);
-            dispatchers.putIfAbsent(dispatcherKey, sd);
-            sd = dispatchers.get(dispatcherKey);
+            ServiceDispatcher cachedDispatcher = dispatchers.putIfAbsent(dispatcherKey, sd);
+            if (cachedDispatcher == null) {
+                // if the cachedDispatcher is null, then it means that
+                // the new dispatcher created by this thread was successfully added to the cache
+                // only in this case, the thread runs runStartupServices
+                sd.runStartupServices();
+                cachedDispatcher = sd;
+            }
+            sd = cachedDispatcher;
         }
         return sd;
     }
@@ -981,8 +984,9 @@ public class ServiceDispatcher {
 
     // run startup services
     private synchronized int runStartupServices() {
-        if (jm == null)
+        if (!enableSvcs || jm == null) {
             return 0;
+        }
         int servicesScheduled = 0;
         List<StartupService> startupServices = null;
         try {
