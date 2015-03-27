@@ -42,8 +42,6 @@ import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.Delegator;
-import org.ofbiz.entity.DelegatorFactory;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.config.model.DelegatorElement;
 import org.ofbiz.entity.config.model.EntityConfig;

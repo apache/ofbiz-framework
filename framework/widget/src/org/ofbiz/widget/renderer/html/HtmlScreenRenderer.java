@@ -28,8 +28,6 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -66,7 +64,6 @@ import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.MenuStringRenderer;
 import org.ofbiz.widget.renderer.Paginator;
 import org.ofbiz.widget.renderer.ScreenStringRenderer;
-import org.xml.sax.SAXException;
 
 /**
  * Widget Library - HTML Form Renderer implementation
