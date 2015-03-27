@@ -1387,7 +1387,7 @@ public abstract class ModelScreenWidget extends ModelWidget {
                         return;
                     }
                     if (content != null) {
-                        expandedDataResourceId = content.getString("dataResourceId");
+                        if (content.get("dataResourceId") != null) expandedDataResourceId = content.getString("dataResourceId");
                     } else {
                         String errMsg = "Could not find content with contentId [" + expandedContentId + "] ";
                         Debug.logError(errMsg, module);
