@@ -37,9 +37,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import javax.sql.rowset.serial.SerialBlob;
 
 import org.ofbiz.base.concurrent.ExecutionPool;
-import org.ofbiz.base.lang.JSON;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.Observable;
 import org.ofbiz.base.util.Observer;
 import org.ofbiz.base.util.UtilDateTime;
@@ -52,8 +50,6 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.config.model.Datasource;
 import org.ofbiz.entity.config.model.EntityConfig;
@@ -62,11 +58,9 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.testtools.EntityTestCase;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntitySaxReader;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.SequenceUtil;
 
 public class EntityTestSuite extends EntityTestCase {

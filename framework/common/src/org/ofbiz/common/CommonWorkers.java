@@ -20,12 +20,9 @@ package org.ofbiz.common;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;

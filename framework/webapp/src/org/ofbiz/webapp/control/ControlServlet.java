@@ -48,8 +48,6 @@ import org.ofbiz.security.Security;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.stats.ServerHitBin;
 import org.ofbiz.webapp.stats.VisitHandler;
-import org.ofbiz.entity.util.EntityClassLoader;
-
 import freemarker.ext.servlet.ServletContextHashModel;
 
 /**

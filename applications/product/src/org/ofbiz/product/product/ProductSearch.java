@@ -54,7 +54,6 @@ import org.ofbiz.entity.model.ModelViewEntity.ComplexAlias;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasField;
 import org.ofbiz.entity.transaction.GenericTransactionException;
 import org.ofbiz.entity.transaction.TransactionUtil;
-import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;

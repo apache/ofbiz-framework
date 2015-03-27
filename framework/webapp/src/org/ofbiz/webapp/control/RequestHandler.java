@@ -63,7 +63,6 @@ import org.ofbiz.webapp.view.ViewHandler;
 import org.ofbiz.webapp.view.ViewHandlerException;
 import org.ofbiz.webapp.website.WebSiteProperties;
 import org.ofbiz.webapp.website.WebSiteWorker;
-import org.python.modules.re;
 
 /**
  * RequestHandler - Request Processor Object

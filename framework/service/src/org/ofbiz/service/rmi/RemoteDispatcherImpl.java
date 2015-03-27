@@ -24,7 +24,6 @@ import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Map;
 
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.service.GenericRequester;
