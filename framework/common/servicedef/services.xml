@@ -69,7 +69,7 @@ under the License.
 
     <service name="updateNote" default-entity-name="NoteData" engine="entity-auto" invoke="update">
         <description>Update a note record</description>
-        <auto-attributes include="pk" mode="INOUT" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="noteInfo" allow-html="any"/>
     </service>
