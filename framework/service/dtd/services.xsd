@@ -228,6 +228,11 @@ under the License.
         <xs:attribute name="action" type="xs:string"/>
     </xs:attributeGroup>
     <xs:element name="check-role-member">
+        <xs:annotation>
+            <xs:documentation>
+                    This is deprecated
+            </xs:documentation>
+        </xs:annotation>   
         <xs:complexType>
             <xs:attributeGroup ref="attlist.check-role-member"/>
         </xs:complexType>
