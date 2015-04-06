@@ -24,7 +24,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask><@renderField value /></#macro>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask placeholder tabindex><@renderField value /></#macro>
 
 <#macro renderTextareaField name className alert cols rows id readonly value visualEditorEnable language buttons><@renderField value /></#macro>
 
