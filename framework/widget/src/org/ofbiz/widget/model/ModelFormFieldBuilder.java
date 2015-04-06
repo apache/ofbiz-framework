@@ -105,6 +105,7 @@ public class ModelFormFieldBuilder {
     private String widgetAreaStyle = "";
     private String widgetStyle = "";
     private String parentFormName = "";
+    private String tabindex = "";
 
     public ModelFormFieldBuilder() {
     }
@@ -154,6 +155,7 @@ public class ModelFormFieldBuilder {
         this.widgetAreaStyle = fieldElement.getAttribute("widget-area-style");
         this.widgetStyle = fieldElement.getAttribute("widget-style");
         this.parentFormName = fieldElement.getAttribute("form-name");
+        this.tabindex = fieldElement.getAttribute("tabindex");
         Element childElement = null;
         List<? extends Element> subElements = UtilXml.childElementList(fieldElement);
         for (Element subElement : subElements) {
@@ -258,6 +260,7 @@ public class ModelFormFieldBuilder {
         this.widgetAreaStyle = modelFormField.getWidgetAreaStyle();
         this.widgetStyle = modelFormField.getWidgetStyle();
         this.parentFormName = modelFormField.getParentFormName();
+        this.tabindex = modelFormField.getTabindex();
     }
 
     public ModelFormFieldBuilder(ModelFormFieldBuilder builder) {
@@ -298,6 +301,7 @@ public class ModelFormFieldBuilder {
         this.widgetAreaStyle = builder.getWidgetAreaStyle();
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
+        this.tabindex = builder.getTabindex();
     }
 
     public ModelFormFieldBuilder addOnChangeUpdateArea(UpdateArea onChangeUpdateArea) {
@@ -464,6 +468,10 @@ public class ModelFormFieldBuilder {
 
     public String getParentFormName() {
         return this.parentFormName;
+    }
+
+    public String getTabindex() {
+        return tabindex;
     }
 
     private boolean induceFieldInfo(ModelForm modelForm, String defaultFieldType, ModelReader entityModelReader, DispatchContext dispatchContext) {
@@ -746,6 +754,8 @@ public class ModelFormFieldBuilder {
             this.onChangeUpdateAreas.addAll(builder.getOnChangeUpdateAreas());
         if (UtilValidate.isNotEmpty(builder.getOnClickUpdateAreas()))
             this.onClickUpdateAreas.addAll(builder.getOnClickUpdateAreas());
+        if (UtilValidate.isNotEmpty(builder.getTabindex()))
+            this.tabindex = builder.getTabindex();
         this.encodeOutput = builder.getEncodeOutput();
         this.position = builder.getPosition();
         this.requiredField = builder.getRequiredField();
@@ -930,6 +940,10 @@ public class ModelFormFieldBuilder {
     }
     public ModelFormFieldBuilder setParentFormName(String parentFormName) {
         this.parentFormName = parentFormName;
+        return this;
+    }
+    public ModelFormFieldBuilder setTabindex(String tabindex) {
+        this.tabindex = tabindex;
         return this;
     }
 }
