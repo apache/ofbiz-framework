@@ -138,6 +138,7 @@ public class ModelFormField {
     private final String widgetAreaStyle;
     private final String widgetStyle;
     private final String parentFormName;
+    private final String tabindex;
 
     private ModelFormField(ModelFormFieldBuilder builder) {
         this.action = builder.getAction();
@@ -189,6 +190,7 @@ public class ModelFormField {
         this.widgetAreaStyle = builder.getWidgetAreaStyle();
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
+        this.tabindex = builder.getTabindex();
     }
 
     public FlexibleStringExpander getAction() {
@@ -406,7 +408,11 @@ public class ModelFormField {
         } else {
            return this.modelForm.getName() + "_" + this.getFieldName();
         }
-     }
+    }
+
+    public String getTabindex() {
+        return tabindex;
+    }
 
     public Map<String, ? extends Object> getMap(Map<String, ? extends Object> context) {
         if (UtilValidate.isEmpty(this.mapAcsr))
