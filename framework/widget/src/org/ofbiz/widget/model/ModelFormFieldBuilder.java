@@ -467,7 +467,7 @@ public class ModelFormFieldBuilder {
     }
 
     public String getParentFormName() {
-        return this.parentFormName;
+        return parentFormName;
     }
 
     public String getTabindex() {
@@ -732,8 +732,6 @@ public class ModelFormFieldBuilder {
             this.titleStyle = builder.getTitleStyle();
         if (UtilValidate.isNotEmpty(builder.getWidgetStyle()))
             this.widgetStyle = builder.getWidgetStyle();
-        if (UtilValidate.isNotEmpty(builder.getParentFormName()))
-            this.parentFormName = builder.getParentFormName();
         if (UtilValidate.isNotEmpty(builder.getRedWhen()))
             this.redWhen = builder.getRedWhen();
         if (UtilValidate.isNotEmpty(builder.getEvent()))
@@ -754,6 +752,8 @@ public class ModelFormFieldBuilder {
             this.onChangeUpdateAreas.addAll(builder.getOnChangeUpdateAreas());
         if (UtilValidate.isNotEmpty(builder.getOnClickUpdateAreas()))
             this.onClickUpdateAreas.addAll(builder.getOnClickUpdateAreas());
+        if (UtilValidate.isNotEmpty(builder.getParentFormName()))
+            this.parentFormName = builder.getParentFormName();
         if (UtilValidate.isNotEmpty(builder.getTabindex()))
             this.tabindex = builder.getTabindex();
         this.encodeOutput = builder.getEncodeOutput();
