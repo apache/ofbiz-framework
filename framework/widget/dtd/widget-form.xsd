@@ -916,7 +916,7 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The name of the parent form, needed at least for lookups when using skip-start="true"
-                        Must be set also on the related field if description-field-name is used 
+                        Must be set also on the related field if description-field-name is used.
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
