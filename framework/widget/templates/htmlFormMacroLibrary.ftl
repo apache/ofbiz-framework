@@ -771,8 +771,8 @@ Parameter: lastViewName, String, optional - If the ajaxEnabled parameter is true
 <#macro renderFileField className alert name value size maxlength autocomplete tabindex>
   <input type="file" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>
 </#macro>
-<#macro renderPasswordField className alert name value size maxlength id autocomplete>
-  <input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if>/>
+<#macro renderPasswordField className alert name value size maxlength id autocomplete tabindex>
+  <input type="password" <@renderClass className alert /><#if name?has_content> name="${name}"</#if><#if value?has_content> value="${value}"</#if><#if size?has_content> size="${size}"</#if><#if maxlength?has_content> maxlength="${maxlength}"</#if><#if id?has_content> id="${id}"</#if><#if autocomplete?has_content> autocomplete="off"</#if><#if tabindex?has_content> tabindex="${tabindex}"</#if><#rt/>/>
 </#macro>
 <#macro renderImageField value description alternate style event action><img<#if value?has_content> src="${value}"</#if><#if description?has_content> title="${description}"</#if> alt="<#if alternate?has_content>${alternate}"</#if><#if style?has_content> class="${style}"</#if><#if event?has_content> ${event?html}="${action}" </#if>/></#macro>
 
