@@ -924,8 +924,6 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>
                         The HTML tabindex specifies the tab order of an element (when the "tab" button is used for navigating).
-                        In HTML 4.01, the tabindex attribute can be used with a, area, button, input, object, select, and textarea.
-                        In HTML5, the tabindex attribute can be used on any HTML element, however, it is not necessarily useful.
                         To exclude an element from the tab order, set the value of tabindex to 0
                         In that case the element is skipped when the user tabs around the form.
                     </xs:documentation>
