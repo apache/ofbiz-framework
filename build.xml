@@ -1536,7 +1536,7 @@ under the License.
             <arg value="-kek"/>
             <classpath>
                 <path location="framework/base/build/lib/ofbiz-base.jar"/>
-                <path location="framework/base/lib/commons/commons-codec-1.4.jar"/>
+                <path location="framework/base/lib/commons/commons-codec-1.10.jar"/>
             </classpath>
         </java>
     </target>
