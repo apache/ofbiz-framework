@@ -21,6 +21,7 @@ package org.ofbiz.webapp.control;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Map;
@@ -317,22 +318,11 @@ public class ContextFilter implements Filter {
             }
         }
 
-        // read the body (for JSON requests) and set the parameters as attributes:
-        Map<String, Object> requestBodyMap = null;
-        try {
-            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
-        } catch (IOException ioe) {
-            Debug.logWarning(ioe, module);
-        }
-        if (requestBodyMap != null) {
-            Set<String> parameterNames = requestBodyMap.keySet();
-            for (String parameterName: parameterNames) {
-                httpRequest.setAttribute(parameterName, requestBodyMap.get(parameterName));
-            }
-        }
+        setCharacterEncoding(request);
+        setAttributesFromRequestBody(request);
 
         // we're done checking; continue on
-        chain.doFilter(httpRequest, httpResponse);
+        chain.doFilter(request, httpResponse);
     }
 
     /**
@@ -351,6 +341,33 @@ public class ContextFilter implements Filter {
             servletContext.setAttribute("dispatcher", dispatcher);
         }
         return dispatcher;
+    }
+
+    public static void setCharacterEncoding(ServletRequest request) throws UnsupportedEncodingException {
+        String charset = request.getServletContext().getInitParameter("charset");
+        if (UtilValidate.isEmpty(charset)) charset = request.getCharacterEncoding();
+        if (UtilValidate.isEmpty(charset)) charset = "UTF-8";
+        if (Debug.verboseOn()) Debug.logVerbose("The character encoding of the request is: [" + request.getCharacterEncoding() + "]. The character encoding we will use for the request is: [" + charset + "]", module);
+
+        if (!"none".equals(charset)) {
+            request.setCharacterEncoding(charset);
+        }
+    }
+
+    public static void setAttributesFromRequestBody(ServletRequest request) {
+        // read the body (for JSON requests) and set the parameters as attributes:
+        Map<String, Object> requestBodyMap = null;
+        try {
+            requestBodyMap = RequestBodyMapHandlerFactory.extractMapFromRequestBody(request);
+        } catch (IOException ioe) {
+            Debug.logWarning(ioe, module);
+        }
+        if (requestBodyMap != null) {
+            Set<String> parameterNames = requestBodyMap.keySet();
+            for (String parameterName: parameterNames) {
+                request.setAttribute(parameterName, requestBodyMap.get(parameterName));
+            }
+        }
     }
 
     /** This method only sets up a dispatcher for the current webapp and passed in delegator, it does not save it to the ServletContext or anywhere else, just returns it */

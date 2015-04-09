@@ -66,7 +66,9 @@ public class CatalogUrlFilter extends ContextFilter {
         
         //Get ServletContext
         ServletContext servletContext = config.getServletContext();
-        
+
+        ContextFilter.setCharacterEncoding(request);
+
         //Set request attribute and session
         UrlServletHelper.setRequestAttributes(request, delegator, servletContext);
         
@@ -323,6 +325,7 @@ public class CatalogUrlFilter extends ContextFilter {
             UrlServletHelper.setViewQueryParameters(request, urlBuilder);
             if (UtilValidate.isNotEmpty(productId) || UtilValidate.isNotEmpty(productCategoryId) || UtilValidate.isNotEmpty(urlContentId)) {
                 Debug.logInfo("[Filtered request]: " + pathInfo + " (" + urlBuilder + ")", module);
+                ContextFilter.setAttributesFromRequestBody(request);
                 RequestDispatcher dispatch = request.getRequestDispatcher(urlBuilder.toString());
                 dispatch.forward(request, response);
                 return;
