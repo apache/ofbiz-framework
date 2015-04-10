@@ -28,10 +28,7 @@ import org.w3c.dom.Element;
 import java.util.Collection;
 import java.util.List;
 
-import javolution.util.FastMap;
-import javolution.util.FastList;
-
-List testList = FastList.newInstance();
+List testList = [];
 for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuiteInfos(parameters.compName)) {
     String componentName = testSuiteInfo.componentConfig.getComponentName();
     ResourceHandler testSuiteResource = testSuiteInfo.createResourceHandler();
@@ -42,7 +39,7 @@ for (ComponentConfig.TestSuiteInfo testSuiteInfo: ComponentConfig.getAllTestSuit
         suiteName =  documentElement.getAttribute("suite-name")
         firstLine = true;
         for (Element testCaseElement : UtilXml.childElementList(documentElement, UtilMisc.toSet("test-case", "test-group"))) {
-            testMap = FastMap.newInstance();
+            testMap = [:];
             String caseName = testCaseElement.getAttribute("case-name");
             if (firstLine == true) {
                 testMap = UtilMisc.toMap("suiteName", suiteName, "suiteNameSave", suiteName, "caseName", caseName);

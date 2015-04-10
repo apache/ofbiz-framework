@@ -19,10 +19,9 @@
 package org.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.entity.Delegator;
@@ -86,7 +85,7 @@ public class ShippingEstimateWrapper {
     }
 
     protected void loadEstimates() {
-        this.shippingEstimates = FastMap.newInstance();
+        this.shippingEstimates = new HashMap<GenericValue, BigDecimal>();
         if (shippingMethods != null) {
             for (GenericValue shipMethod : shippingMethods) {
                 String shippingMethodTypeId = shipMethod.getString("shipmentMethodTypeId");

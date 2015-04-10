@@ -19,15 +19,14 @@
 package org.ofbiz.product.category;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -97,7 +96,7 @@ public class CategoryServices {
         }
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
-        if (orderByFields == null) orderByFields = FastList.newInstance();
+        if (orderByFields == null) orderByFields = new LinkedList<String>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         GenericValue productCategory;
@@ -112,7 +111,7 @@ public class CategoryServices {
         if (activeOnly) {
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
         }
-        List<EntityCondition> filterConditions = FastList.newInstance();
+        List<EntityCondition> filterConditions = new LinkedList<EntityCondition>();
         if (introductionDateLimit != null) {
             EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
             filterConditions.add(condition);
@@ -218,7 +217,7 @@ public class CategoryServices {
         Timestamp releaseDateLimit = (Timestamp) context.get("releaseDateLimit");
 
         List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
-        if (orderByFields == null) orderByFields = FastList.newInstance();
+        if (orderByFields == null) orderByFields = new LinkedList<String>();
         String entityName = getCategoryFindEntityName(delegator, orderByFields, introductionDateLimit, releaseDateLimit);
 
         String prodCatalogId = (String) context.get("prodCatalogId");
@@ -236,7 +235,6 @@ public class CategoryServices {
         }
 
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        
         int viewIndex = 0;
         try {
             viewIndex = Integer.valueOf((String) context.get("viewIndexString")).intValue();
@@ -291,7 +289,7 @@ public class CategoryServices {
                     if (activeOnly) {
                         productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, true);
                     }
-                    List<EntityCondition> filterConditions = FastList.newInstance();
+                    List<EntityCondition> filterConditions = new LinkedList<EntityCondition>();
                     if (introductionDateLimit != null) {
                         EntityCondition condition = EntityCondition.makeCondition(EntityCondition.makeCondition("introductionDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("introductionDate", EntityOperator.LESS_THAN_EQUAL_TO, introductionDateLimit));
                         filterConditions.add(condition);
@@ -335,7 +333,7 @@ public class CategoryServices {
                         highIndex = listSize;
                     }
                 } else {
-                    List<EntityCondition> mainCondList = FastList.newInstance();
+                    List<EntityCondition> mainCondList = new LinkedList<EntityCondition>();
                     mainCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategory.getString("productCategoryId")));
                     if (activeOnly) {
                         mainCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
@@ -357,7 +355,7 @@ public class CategoryServices {
                     if (limitView) {
                         if (viewProductCategoryId != null) {
                             // do manual checking to filter view allow
-                            productCategoryMembers = FastList.newInstance();
+                            productCategoryMembers = new LinkedList<GenericValue>();
                             GenericValue nextValue;
                             int chunkSize = 0;
                             listSize = 0;
@@ -399,7 +397,7 @@ public class CategoryServices {
                     }
                     // null safety
                     if (productCategoryMembers == null) {
-                        productCategoryMembers = FastList.newInstance();
+                        productCategoryMembers = new LinkedList<GenericValue>();
                     }
 
                     if (highIndex > listSize) {
@@ -414,7 +412,7 @@ public class CategoryServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("viewIndex", Integer.valueOf(viewIndex));
         result.put("viewSize", Integer.valueOf(viewSize));
         result.put("lowIndex", Integer.valueOf(lowIndex));
@@ -438,7 +436,7 @@ public class CategoryServices {
         String hrefString2 = request.getParameter("hrefString2");
         String entityName = null;
         String primaryKeyName = null;
-        
+
         if (isCatalog.equals("true")) {
             entityName = "ProdCatalog";
             primaryKeyName = "prodCatalogId";
@@ -446,11 +444,11 @@ public class CategoryServices {
             entityName = "ProductCategory";
             primaryKeyName = "productCategoryId";
         }
-        
-        List categoryList = FastList.newInstance();
+
+        List categoryList = new LinkedList();
         List<GenericValue> childOfCats;
         List<String> sortList = org.ofbiz.base.util.UtilMisc.toList("sequenceNum", "title");
-        
+
         try {
             GenericValue category = EntityQuery.use(delegator).from(entityName).where(primaryKeyName, productCategoryId).queryOne();
             if (UtilValidate.isNotEmpty(category)) {
@@ -472,50 +470,47 @@ public class CategoryServices {
                         
                         catId = childOfCat.get("productCategoryId");
                         catNameField = "CATEGORY_NAME";
-                        
-                        Map josonMap = FastMap.newInstance();
+
+                        Map josonMap = new HashMap();
                         List<GenericValue> childList = null;
-                        
+
                         // Get the child list of chosen category
                         childList = EntityQuery.use(delegator).from("ProductCategoryRollup").where("parentProductCategoryId", catId).filterByDate().queryList();
-                        
+
                         // Get the chosen category information for the categoryContentWrapper
                         GenericValue cate = EntityQuery.use(delegator).from("ProductCategory").where("productCategoryId",catId).queryOne();
-                        
+
                         // If chosen category's child exists, then put the arrow before category icon
                         if (UtilValidate.isNotEmpty(childList)) {
                             josonMap.put("state", "closed");
                         }
-                        Map dataMap = FastMap.newInstance();
-                        Map dataAttrMap = FastMap.newInstance();
+                        Map dataMap = new HashMap();
+                        Map dataAttrMap = new HashMap();
                         CategoryContentWrapper categoryContentWrapper = new CategoryContentWrapper(cate, request);
-                        
                         String title = null;
                         if (UtilValidate.isNotEmpty(categoryContentWrapper.get(catNameField))) {
-                            title = categoryContentWrapper.get(catNameField)+" "+"["+catId+"]";
+                            title = new StringBuffer(categoryContentWrapper.get(catNameField).toString()).append(" [").append(catId).append("]").toString();
                             dataMap.put("title", title);
                         } else {
                             title = catId.toString();
                             dataMap.put("title", catId);
                         }
-                        dataAttrMap.put("onClick", onclickFunction + "('" + catId + additionParam + "')");
-                        
+                        dataAttrMap.put("onClick", new StringBuffer(onclickFunction).append("('").append(catId).append(additionParam).append("')").toString());
+
                         String hrefStr = hrefString + catId;
                         if (UtilValidate.isNotEmpty(hrefString2)) {
                             hrefStr = hrefStr + hrefString2;
                         }
                         dataAttrMap.put("href", hrefStr);
-                        
                         dataMap.put("attr", dataAttrMap);
                         josonMap.put("data", dataMap);
-                        Map attrMap = FastMap.newInstance();
+                        Map attrMap = new HashMap();
                         attrMap.put("id", catId);
                         attrMap.put("isCatalog", false);
                         attrMap.put("rel", "CATEGORY");
-                        josonMap.put("attr",attrMap);
-                        josonMap.put("sequenceNum",childOfCat.get("sequenceNum"));
-                        josonMap.put("title",title);
-                        
+                        josonMap.put("attr", attrMap);
+                        josonMap.put("sequenceNum", childOfCat.get("sequenceNum"));
+                        josonMap.put("title", title);
                         categoryList.add(josonMap);
                     }
                     List<Map<Object, Object>> sortedCategoryList = UtilMisc.sortMaps(categoryList, sortList);

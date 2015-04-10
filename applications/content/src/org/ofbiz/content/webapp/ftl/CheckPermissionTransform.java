@@ -20,13 +20,12 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.StringUtil;
@@ -96,7 +95,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
         FreeMarkerWorker.overrideWithArgs(templateCtx, args);
         final String mode = (String)templateCtx.get("mode");
         final String quickCheckContentId = (String)templateCtx.get("quickCheckContentId");
-        final Map<String, Object> savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
         //Debug.logInfo("in CheckPermission, contentId(1):" + templateCtx.get("contentId"),"");
         //Debug.logInfo("in CheckPermission, subContentId(1):" + templateCtx.get("subContentId"),"");
 
@@ -151,7 +150,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                 String passedStatusId = (String)templateCtx.get("statusId");
                 List<String> statusList = StringUtil.split(passedStatusId, "|");
                 if (statusList == null) {
-                    statusList = FastList.newInstance();
+                    statusList = new LinkedList<String>();
                 }
                 if (UtilValidate.isNotEmpty(statusId) && !statusList.contains(statusId)) {
                     statusList.add(statusId);
@@ -171,7 +170,7 @@ public class CheckPermissionTransform implements TemplateTransformModel {
                     //Debug.logInfo("in CheckPermission, templateCtx:" + templateCtx,"");
                     throw new IOException("targetOperationList has zero size.");
                 }
-                List<String> roleList = FastList.newInstance();
+                List<String> roleList = new LinkedList<String>();
 
                 String privilegeEnumId = (String)currentContent.get("privilegeEnumId");
                 Map<String, Object> results = EntityPermissionChecker.checkPermission(currentContent, statusList, userLogin, purposeList, targetOperationList, roleList, delegator, security, entityOperation, privilegeEnumId, quickCheckContentId);

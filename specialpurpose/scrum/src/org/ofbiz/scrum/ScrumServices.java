@@ -21,13 +21,12 @@ package org.ofbiz.scrum;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -173,7 +172,7 @@ public class ScrumServices {
                 Integer revision = Integer.parseInt(latestRevision.trim());
                 for (int i = 1; i <= revision; i++) {
                     String logline = null;
-                    List<String> logMessageList = FastList.newInstance();
+                    List<String> logMessageList = new LinkedList<String>();
                     String logCommand = "svn log -r" + i + " " + repositoryRoot;
                     Process logProcess = Runtime.getRuntime().exec(logCommand);
                     BufferedReader logIn = new BufferedReader(new InputStreamReader(logProcess.getInputStream()));
@@ -205,10 +204,10 @@ public class ScrumServices {
                         if (UtilValidate.isNotEmpty(taskId)) {
                             String version = "R" + i;
                             List <GenericValue> workeffContentList = EntityQuery.use(delegator).from("WorkEffortAndContentDataResource").where("contentName",version.trim() ,"drObjectInfo", revisionLink.trim()).queryList();
-                            List<EntityCondition> exprsAnd = FastList.newInstance();
+                            List<EntityCondition> exprsAnd = new LinkedList<EntityCondition>();
                             exprsAnd.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, taskId));
 
-                            List<EntityCondition> exprsOr = FastList.newInstance();
+                            List<EntityCondition> exprsOr = new LinkedList<EntityCondition>();
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_ERROR"));
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_TEST"));
                             exprsOr.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "SCRUM_TASK_IMPL"));
@@ -217,7 +216,7 @@ public class ScrumServices {
 
                             List<GenericValue> workEffortList = EntityQuery.use(delegator).from("WorkEffort").where(exprsAnd).queryList();
                             if (UtilValidate.isEmpty(workeffContentList) && UtilValidate.isNotEmpty(workEffortList)) {
-                                Map<String, Object> inputMap = FastMap.newInstance();
+                                Map<String, Object> inputMap = new HashMap<String, Object>();
                                 inputMap.put("taskId", taskId);
                                 inputMap.put("user", user);
                                 inputMap.put("revisionNumber", Integer.toString(i));
@@ -260,7 +259,7 @@ public class ScrumServices {
         String repositoryRoot = (String) context.get("repositoryRoot");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         try {
-            List<EntityCondition> exprsAnd = FastList.newInstance();
+            List<EntityCondition> exprsAnd = new LinkedList<EntityCondition>();
             String revisionLink = repositoryRoot.substring(repositoryRoot.lastIndexOf("svn/") + 4, repositoryRoot.length()) + "&revision=";
             exprsAnd.add(EntityCondition.makeCondition("workEffortContentTypeId", EntityOperator.EQUALS, "TASK_SUB_INFO"));
             exprsAnd.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.EQUALS, "DOCUMENT"));
@@ -268,8 +267,8 @@ public class ScrumServices {
             List<GenericValue> workEffortDataResourceList = EntityQuery.use(delegator).from("WorkEffortAndContentDataResource").where(exprsAnd).queryList();
             if (UtilValidate.isNotEmpty(workEffortDataResourceList)) {
                 Debug.logInfo("Total Content Size ============== >>>>>>>>>>> "+ workEffortDataResourceList.size(), module);
-                Set<String> keys = FastSet.newInstance();
-                Set<GenericValue> exclusions = FastSet.newInstance();
+                Set<String> keys = new HashSet<String>();
+                Set<GenericValue> exclusions = new HashSet<GenericValue>();
                 for (GenericValue workEffort : workEffortDataResourceList) {
                     String drObjectInfo = workEffort.getString("drObjectInfo");
                     if (keys.contains(drObjectInfo)) {

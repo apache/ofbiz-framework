@@ -21,12 +21,12 @@ package org.ofbiz.product.config;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -167,7 +167,7 @@ public class ProductConfigItemContentWrapper implements java.io.Serializable {
                 .queryFirst();
         if (productConfigItemContent != null) {
             // when rendering the product config item content, always include the ProductConfigItem and ProdConfItemContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productConfigItem", productConfigItem);
             inContext.put("productConfigItemContent", productConfigItemContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, productConfigItemContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);

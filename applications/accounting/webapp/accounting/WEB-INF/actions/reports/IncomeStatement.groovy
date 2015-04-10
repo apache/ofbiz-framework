@@ -25,8 +25,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.accounting.util.UtilAccounting;
 import org.ofbiz.party.party.PartyWorker;
 
-import javolution.util.FastList;
-
 if (!fromDate) {
     return;
 }
@@ -57,7 +55,7 @@ List sgaExpenseAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(s
 GenericValue depreciationGlAccountClass = from("GlAccountClass").where("glAccountClassId", "DEPRECIATION").cache(true).queryOne();
 List depreciationAccountClassIds = UtilAccounting.getDescendantGlAccountClassIds(depreciationGlAccountClass);
 
-List mainAndExprs = FastList.newInstance();
+List mainAndExprs = [];
 mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
@@ -72,7 +70,7 @@ List balanceTotalList = [];
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List revenueAndExprs = FastList.newInstance(mainAndExprs);
+List revenueAndExprs = mainAndExprs as LinkedList;
 revenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, revenueAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(revenueAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
@@ -115,7 +113,7 @@ context.revenueBalanceTotal = balanceTotal;
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List contraRevenueAndExprs = FastList.newInstance(mainAndExprs);
+List contraRevenueAndExprs = mainAndExprs as LinkedList;
 contraRevenueAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, contraRevenueAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(contraRevenueAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
@@ -157,7 +155,7 @@ balanceTotalList.add(UtilMisc.toMap("totalName", "TOTAL CONTRA REVENUE", "balanc
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List expenseAndExprs = FastList.newInstance(mainAndExprs);
+List expenseAndExprs = mainAndExprs as LinkedList;
 expenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, expenseAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(expenseAndExprs).queryList();
 if (transactionTotals) {
@@ -200,7 +198,7 @@ context.expenseBalanceTotal = balanceTotal;
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List cogsExpenseAndExprs = FastList.newInstance(mainAndExprs);
+List cogsExpenseAndExprs = mainAndExprs as LinkedList;
 cogsExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, cogsExpenseAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(cogsExpenseAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
@@ -242,7 +240,7 @@ balanceTotalList.add(UtilMisc.toMap("totalName", "AccountingCostOfGoodsSold", "b
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List sgaExpenseAndExprs = FastList.newInstance(mainAndExprs);
+List sgaExpenseAndExprs = mainAndExprs as LinkedList;
 sgaExpenseAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, sgaExpenseAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(sgaExpenseAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
@@ -283,7 +281,7 @@ sgaExpense = balanceTotal;
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List depreciationAndExprs = FastList.newInstance(mainAndExprs);
+List depreciationAndExprs = mainAndExprs as LinkedList;
 depreciationAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, depreciationAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(depreciationAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {
@@ -324,7 +322,7 @@ depreciation = balanceTotal;
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List incomeAndExprs = FastList.newInstance(mainAndExprs);
+List incomeAndExprs = mainAndExprs as LinkedList;
 incomeAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, incomeAccountClassIds));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(incomeAndExprs).orderBy("glAccountId").queryList();
 if (transactionTotals) {

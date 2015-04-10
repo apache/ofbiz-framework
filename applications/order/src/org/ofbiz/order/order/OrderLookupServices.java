@@ -20,13 +20,12 @@
 package org.ofbiz.order.order;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -77,7 +76,7 @@ public class OrderLookupServices {
         }
 
         // list of fields to select (initial list)
-        Set<String> fieldsToSelect = FastSet.newInstance();
+        Set<String> fieldsToSelect = new HashSet<String>();
         fieldsToSelect.add("orderId");
         fieldsToSelect.add("orderName");
         fieldsToSelect.add("statusId");
@@ -91,10 +90,10 @@ public class OrderLookupServices {
         List<String> orderBy = UtilMisc.toList("-orderDate", "-orderId");
 
         // list to hold the parameters
-        List<String> paramList = FastList.newInstance();
+        List<String> paramList = new LinkedList<String>();
 
         // list of conditions
-        List<EntityCondition> conditions = FastList.newInstance();
+        List<EntityCondition> conditions = new LinkedList<EntityCondition>();
 
         // check security flag for purchase orders
         boolean canViewPo = security.hasEntityPermission("ORDERMGR", "_PURCHASE_VIEW", userLogin);
@@ -119,7 +118,7 @@ public class OrderLookupServices {
         // the base order header fields
         List<String> orderTypeList = UtilGenerics.checkList(context.get("orderTypeId"));
         if (orderTypeList != null) {
-            List<EntityExpr> orExprs = FastList.newInstance();
+            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
             for (String orderTypeId : orderTypeList) {
                 paramList.add("orderTypeId=" + orderTypeId);
 
@@ -138,11 +137,11 @@ public class OrderLookupServices {
 
         List<String> orderStatusList = UtilGenerics.checkList(context.get("orderStatusId"));
         if (orderStatusList != null) {
-            List<EntityCondition> orExprs = FastList.newInstance();
+            List<EntityCondition> orExprs = new LinkedList<EntityCondition>();
             for (String orderStatusId : orderStatusList) {
                 paramList.add("orderStatusId=" + orderStatusId);
                 if ("PENDING".equals(orderStatusId)) {
-                    List<EntityExpr> pendExprs = FastList.newInstance();
+                    List<EntityExpr> pendExprs = new LinkedList<EntityExpr>();
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_CREATED"));
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_PROCESSING"));
                     pendExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
@@ -156,7 +155,7 @@ public class OrderLookupServices {
 
         List<String> productStoreList = UtilGenerics.checkList(context.get("productStoreId"));
         if (productStoreList != null) {
-            List<EntityExpr> orExprs = FastList.newInstance();
+            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
             for (String productStoreId : productStoreList) {
                 paramList.add("productStoreId=" + productStoreId);
                 orExprs.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
@@ -166,7 +165,7 @@ public class OrderLookupServices {
 
         List<String> webSiteList = UtilGenerics.checkList(context.get("orderWebSiteId"));
         if (webSiteList != null) {
-            List<EntityExpr> orExprs = FastList.newInstance();
+            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
             for (String webSiteId : webSiteList) {
                 paramList.add("webSiteId=" + webSiteId);
                 orExprs.add(EntityCondition.makeCondition("webSiteId", EntityOperator.EQUALS, webSiteId));
@@ -176,7 +175,7 @@ public class OrderLookupServices {
 
         List<String> saleChannelList = UtilGenerics.checkList(context.get("salesChannelEnumId"));
         if (saleChannelList != null) {
-            List<EntityExpr> orExprs = FastList.newInstance();
+            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
             for (String salesChannelEnumId : saleChannelList) {
                 paramList.add("salesChannelEnumId=" + salesChannelEnumId);
                 orExprs.add(EntityCondition.makeCondition("salesChannelEnumId", EntityOperator.EQUALS, salesChannelEnumId));
@@ -329,7 +328,7 @@ public class OrderLookupServices {
 
         if (roleTypeList != null) {
             fieldsToSelect.add("roleTypeId");
-            List<EntityExpr> orExprs = FastList.newInstance();
+            List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
             for (String roleTypeId : roleTypeList) {
                 paramList.add("roleTypeId=" + roleTypeId);
                 orExprs.add(makeExpr("roleTypeId", roleTypeId));
@@ -393,7 +392,7 @@ public class OrderLookupServices {
                 if (product != null) {
                     String isVirtual = product.getString("isVirtual");
                     if (isVirtual != null && "Y".equals(isVirtual)) {
-                        List<EntityExpr> orExprs = FastList.newInstance();
+                        List<EntityExpr> orExprs = new LinkedList<EntityExpr>();
                         orExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
 
                         Map<String, Object> varLookup = null;
@@ -532,7 +531,7 @@ public class OrderLookupServices {
                 conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.NOT_EQUAL, null));
                 conditions.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.GREATER_THAN, BigDecimal.ZERO));
             } else if ("N".equals(hasBackOrders)) {
-                List<EntityExpr> orExpr = FastList.newInstance();
+                List<EntityExpr> orExpr = new LinkedList<EntityExpr>();
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, null));
                 orExpr.add(EntityCondition.makeCondition("quantityNotAvailable", EntityOperator.EQUALS, BigDecimal.ZERO));
                 conditions.add(EntityCondition.makeCondition(orExpr, EntityOperator.OR));
@@ -577,7 +576,7 @@ public class OrderLookupServices {
             Debug.logInfo("Find order query: " + cond.toString(), module);
         }
 
-        List<GenericValue> orderList = FastList.newInstance();
+        List<GenericValue> orderList = new LinkedList<GenericValue>();
         int orderCount = 0;
 
         // get the index for the partial list
@@ -648,7 +647,7 @@ public class OrderLookupServices {
     }
 
     public static void filterInventoryProblems(Map<String, ? extends Object> context, Map<String, Object> result, List<GenericValue> orderList, List<String> paramList) {
-        List<String> filterInventoryProblems = FastList.newInstance();
+        List<String> filterInventoryProblems = new LinkedList<String>();
 
         String doFilter = (String) context.get("filterInventoryProblems");
         if (doFilter == null) {
@@ -666,9 +665,9 @@ public class OrderLookupServices {
             }
         }
 
-        List<String> filterPOsOpenPastTheirETA = FastList.newInstance();
-        List<String> filterPOsWithRejectedItems = FastList.newInstance();
-        List<String> filterPartiallyReceivedPOs = FastList.newInstance();
+        List<String> filterPOsOpenPastTheirETA = new LinkedList<String>();
+        List<String> filterPOsWithRejectedItems = new LinkedList<String>();
+        List<String> filterPartiallyReceivedPOs = new LinkedList<String>();
 
         String filterPOReject = (String) context.get("filterPOsWithRejectedItems");
         String filterPOPast = (String) context.get("filterPOsOpenPastTheirETA");

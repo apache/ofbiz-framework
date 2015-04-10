@@ -34,9 +34,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilDateTime;
@@ -580,7 +577,7 @@ public class ShoppingCartEvents {
                             EntityCondition.makeCondition(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId), EntityOperator.OR, EntityCondition.makeCondition("productIdTo", EntityOperator.EQUALS, productId)),
                             EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_INCOMPATABLE")), EntityOperator.AND);
                     productAssocs = EntityQuery.use(delegator).from("ProductAssoc").where(cond).filterByDate().queryList();
-                    List<String> productList = FastList.newInstance();
+                    List<String> productList = new LinkedList<String>();
                     for (GenericValue productAssoc : productAssocs) {
                         if (productId.equals(productAssoc.getString("productId"))) {
                             productList.add(productAssoc.getString("productIdTo"));
@@ -988,7 +985,7 @@ public class ShoppingCartEvents {
         }
         List<ShoppingCart> cartList = UtilGenerics.checkList(session.getAttribute("shoppingCartList"));
         if (UtilValidate.isEmpty(cartList)) {
-            cartList = FastList.newInstance();
+            cartList = new LinkedList<ShoppingCart>();
             session.setAttribute("shoppingCartList", cartList);
         }
         ShoppingCart currentCart = (ShoppingCart) session.getAttribute("shoppingCart");
@@ -2067,7 +2064,7 @@ public class ShoppingCartEvents {
                             ", quantity = " + quantity + ", itemType = " + itemType + " and itemDescription = " + itemDescription, module);
                     HttpSession session = request.getSession();
                     GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-                    Map<String, Object> appendOrderItemMap = FastMap.newInstance();
+                    Map<String, Object> appendOrderItemMap = new HashMap<String, Object>();
                     appendOrderItemMap.put("productId", productId);
                     appendOrderItemMap.put("quantity", quantity);
                     appendOrderItemMap.put("orderId", orderId);

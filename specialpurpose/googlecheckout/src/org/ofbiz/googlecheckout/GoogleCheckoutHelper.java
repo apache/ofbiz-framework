@@ -25,7 +25,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -383,14 +382,14 @@ public class GoogleCheckoutHelper {
         // handle shipping
         Shipping shipping = adjustment.getShipping();
         BigDecimal shipAmount = new BigDecimal(shipping.getShippingCost());
-        GenericValue shipAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+        GenericValue shipAdj = delegator.makeValue("OrderAdjustment");
         shipAdj.set("orderAdjustmentTypeId", "SHIPPING_CHARGES");
         shipAdj.set("amount", shipAmount);
         cart.addAdjustment(shipAdj);
 
         // handle tax
         BigDecimal taxAmount = new BigDecimal(adjustment.getTotalTax());
-        GenericValue taxAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+        GenericValue taxAdj = delegator.makeValue("OrderAdjustment");
         taxAdj.set("orderAdjustmentTypeId", "SALES_TAX");
         taxAdj.set("amount", taxAmount);
         cart.addAdjustment(taxAdj);
@@ -398,7 +397,7 @@ public class GoogleCheckoutHelper {
         // handle promotions
         Collection<MerchantCodes> merchantCodes = UtilGenerics.checkCollection(adjustment.getMerchantCodes());
         for (MerchantCodes codes : merchantCodes) {
-            GenericValue promoAdj = delegator.makeValue("OrderAdjustment", FastMap.newInstance());
+            GenericValue promoAdj = delegator.makeValue("OrderAdjustment");
             promoAdj.set("orderAdjustmentTypeId", "PROMOTION_ADJUSTMENT");
             promoAdj.set("description", "Promotion Code: " + codes.getCode());
             promoAdj.set("comments", "Google Promotion: " + codes.getMessage());
@@ -500,7 +499,7 @@ public class GoogleCheckoutHelper {
     }
 
     protected String createPerson(StructuredName name) throws GeneralException {
-        Map<String, Object> personMap = FastMap.newInstance();
+        Map<String, Object> personMap = new HashMap<String, Object>();
         personMap.put("firstName", name.getFirstName());
         personMap.put("lastName", name.getLastName());
         personMap.put("userLogin", system);
@@ -526,7 +525,7 @@ public class GoogleCheckoutHelper {
         }
 
         // prepare the create address map
-        Map<String, Object> addrMap = FastMap.newInstance();
+        Map<String, Object> addrMap = new HashMap<String, Object>();
         addrMap.put("partyId", partyId);
         addrMap.put("toName", addr.getContactName());
         addrMap.put("address1", addr.getAddress1());
@@ -563,7 +562,7 @@ public class GoogleCheckoutHelper {
                 .queryList();
 
         if (UtilValidate.isEmpty(values)) {
-            Map<String, Object> addPurposeMap = FastMap.newInstance();
+            Map<String, Object> addPurposeMap = new HashMap<String, Object>();
             addPurposeMap.put("contactMechId", contactMechId);
             addPurposeMap.put("partyId", partyId);
             addPurposeMap.put("contactMechPurposeTypeId", contactMechPurposeTypeId);
@@ -590,7 +589,7 @@ public class GoogleCheckoutHelper {
     }
 
     protected void setContactInfo(ShoppingCart cart, String contactMechPurposeTypeId, String infoString) throws GeneralException {
-        Map<String, Object> lookupMap = FastMap.newInstance();
+        Map<String, Object> lookupMap = new HashMap<String, Object>();
         String cmId = null;
 
         String entityName = "PartyAndContactMech";

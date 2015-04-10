@@ -19,7 +19,6 @@
 
 import java.util.*;
 import java.lang.*;
-import javolution.util.FastList;
 import org.apache.tools.ant.taskdefs.Parallel.TaskList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
@@ -63,10 +62,10 @@ taskUnplanList.each { taskUnplanMap ->
 	taskListDropdown.add(unplanMap);
 }
 
-exprBldr =  FastList.newInstance();
+exprBldr =  [];
 exprBldr.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_PROD_BACKLOG"));
 exprBldr.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_SCRUM_MEETINGS"));
-andExprs = FastList.newInstance();
+andExprs = [];
 andExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, "STS_CREATED"));
 andExprs.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
 andExprs.add(EntityCondition.makeCondition(exprBldr, EntityOperator.OR));

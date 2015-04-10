@@ -24,14 +24,12 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.fop.apps.FOPException;
 import org.eclipse.birt.report.engine.api.EngineException;
@@ -143,7 +141,7 @@ public class BirtEmailServices {
                 // create the output stream for the generation
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-                Map<String, Object> birtContext = FastMap.newInstance();
+                Map<String, Object> birtContext = new HashMap<String, Object>();
                 if (birtLocale == null) {
                     birtLocale = locale;
                 }
@@ -171,7 +169,7 @@ public class BirtEmailServices {
                 baos.close();
 
                 // store in the list of maps for sendmail....
-                List<Map<String, ? extends Object>> bodyParts = FastList.newInstance();
+                List<Map<String, ? extends Object>> bodyParts = new LinkedList<Map<String,? extends Object>>();
                 if (bodyText != null) {
                     bodyText = FlexibleStringExpander.expandString(bodyText, screenContext,  locale);
                     bodyParts.add(UtilMisc.toMap("content", bodyText, "type", "text/html"));

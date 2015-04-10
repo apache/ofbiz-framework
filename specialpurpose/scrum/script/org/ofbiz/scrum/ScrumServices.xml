@@ -1301,8 +1301,7 @@
                 <condition-expr field-name="partyId" operator="in" from-field="partyIdAllInCompany" />
             </condition-list>
         </entity-condition>
-        <call-class-method class-name="javolution.util.FastList" method-name="newInstance" ret-field="tasks"/>
-        <set field="isAddAll" value="${groovy:tasks.addAll(sprintTasks)}"/>
+        <set field="tasks" value="${groovy:sprintTasks as LinkedList}" type="List"/>
         <set field="isAddAll" value="${groovy:tasks.addAll(cancelledBacklogTasks)}"/>
         <set field="isAddAll" value="${groovy:tasks.addAll(unplannedTasks)}"/>
         <if-empty field="tasks">

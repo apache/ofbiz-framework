@@ -21,13 +21,12 @@ package org.ofbiz.manufacturing.jobshopmgt;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -62,7 +61,7 @@ public class ProductionRunEvents {
         }
 
         Collection<Map<String, Object>> componentRows = UtilHttp.parseMultiFormData(parameters);
-        Map<GenericPK, Object> componentsLocationMap = FastMap.newInstance();
+        Map<GenericPK, Object> componentsLocationMap = new HashMap<GenericPK, Object>();
         for (Map<String, Object>componentRow : componentRows) {
             Timestamp fromDate = null;
             try {

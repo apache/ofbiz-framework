@@ -20,6 +20,7 @@
 package org.ofbiz.product.category;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -31,8 +32,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilCodec;
@@ -113,7 +112,7 @@ public class SeoContentUrlFilter extends ContextFilter {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String url = null;
         try {
-            List<EntityCondition> expr = FastList.newInstance();
+            List<EntityCondition> expr = new LinkedList<EntityCondition>();
             expr.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, "ALTERNATIVE_URL"));
             expr.add(EntityCondition.makeCondition("caThruDate", EntityOperator.EQUALS, null));
             expr.add(EntityCondition.makeCondition("contentIdStart", EntityOperator.EQUALS, contentId));

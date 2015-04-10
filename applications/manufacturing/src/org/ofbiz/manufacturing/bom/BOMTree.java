@@ -21,10 +21,9 @@ package org.ofbiz.manufacturing.bom;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -106,7 +105,7 @@ public class BOMTree {
                 .where("productId", productId, 
                         "productFeatureApplTypeId", "STANDARD_FEATURE")
                 .queryList();
-        List<GenericValue> productFeatures = FastList.newInstance();
+        List<GenericValue> productFeatures = new LinkedList<GenericValue>();
         GenericValue oneProductFeatureAppl = null;
         for (int i = 0; i < productFeaturesAppl.size(); i++) {
             oneProductFeatureAppl = productFeaturesAppl.get(i);
@@ -184,7 +183,7 @@ public class BOMTree {
      *
      */
     public boolean isConfigured() {
-        List<BOMNode> notConfiguredParts = FastList.newInstance();
+        List<BOMNode> notConfiguredParts = new LinkedList<BOMNode>();
         root.isConfigured(notConfiguredParts);
         return (notConfiguredParts.size() == 0);
     }
@@ -301,8 +300,8 @@ public class BOMTree {
      * @return List containing all the tree's productId.
      */
     public List<String> getAllProductsId() {
-        List<BOMNode> nodeArr = FastList.newInstance();
-        List<String> productsId = FastList.newInstance();
+        List<BOMNode> nodeArr = new LinkedList<BOMNode>();
+        List<String> productsId = new LinkedList<String>();
         print(nodeArr);
         for (int i = 0; i < nodeArr.size(); i++) {
             productsId.add((nodeArr.get(i)).getProduct().getString("productId"));

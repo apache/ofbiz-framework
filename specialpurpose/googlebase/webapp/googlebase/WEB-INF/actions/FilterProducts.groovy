@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import javolution.util.FastList;
+
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.UtilValidate;
@@ -33,7 +33,7 @@ if (parameters.productStoreId) {
 active = parameters.ACTIVE_PRODUCT;
 notSynced = parameters.GOOGLE_SYNCED;
 
-productList = FastList.newInstance();
+productList = [];
 if (UtilValidate.isNotEmpty(productIds) && ("Y".equals(active) || "Y".equals(notSynced))) {
     for (int i = 0; i < productIds.size(); i++) {
         productId = productIds[i];

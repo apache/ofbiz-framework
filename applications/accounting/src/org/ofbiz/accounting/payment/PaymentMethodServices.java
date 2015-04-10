@@ -19,12 +19,11 @@
 package org.ofbiz.accounting.payment;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -61,7 +60,7 @@ public class PaymentMethodServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> deletePaymentMethod(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -111,7 +110,7 @@ public class PaymentMethodServices {
     }
 
     public static Map<String, Object> makeExpireDate(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         String expMonth = (String) context.get("expMonth");
         String expYear = (String) context.get("expYear");
 
@@ -132,7 +131,7 @@ public class PaymentMethodServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> createCreditCard(DispatchContext ctx, Map<String, Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -145,7 +144,7 @@ public class PaymentMethodServices {
         if (result.size() > 0) return result;
 
         // do some more complicated/critical validation...
-        List<String> messages = FastList.newInstance();
+        List<String> messages = new LinkedList<String>();
 
         // first remove all spaces from the credit card number
         context.put("cardNumber", StringUtil.removeSpaces((String) context.get("cardNumber")));
@@ -166,7 +165,7 @@ public class PaymentMethodServices {
             return ServiceUtil.returnError(messages);
         }
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
@@ -254,7 +253,7 @@ public class PaymentMethodServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updateCreditCard(DispatchContext ctx, Map<String, Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -266,7 +265,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;
@@ -295,7 +294,7 @@ public class PaymentMethodServices {
         }
 
         // do some more complicated/critical validation...
-        List<String> messages = FastList.newInstance();
+        List<String> messages = new LinkedList<String>();
 
         // first remove all spaces from the credit card number
         String updatedCardNumber = StringUtil.removeSpaces((String) context.get("cardNumber"));
@@ -484,7 +483,7 @@ public class PaymentMethodServices {
     }
 
     public static Map<String, Object> createGiftCard(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -497,7 +496,7 @@ public class PaymentMethodServices {
         if (result.size() > 0)
             return result;
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
         toBeStored.add(newPm);
         GenericValue newGc = delegator.makeValue("GiftCard");
@@ -541,7 +540,7 @@ public class PaymentMethodServices {
     }
 
     public static Map<String, Object> updateGiftCard(DispatchContext ctx, Map<String, Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -554,7 +553,7 @@ public class PaymentMethodServices {
         if (result.size() > 0)
             return result;
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;
@@ -675,7 +674,7 @@ public class PaymentMethodServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> createEftAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -687,7 +686,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         GenericValue newPm = delegator.makeValue("PaymentMethod");
 
         toBeStored.add(newPm);
@@ -774,7 +773,7 @@ public class PaymentMethodServices {
      * @return Map with the result of the service, the output parameters
      */
     public static Map<String, Object> updateEftAccount(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = ctx.getDelegator();
         Security security = ctx.getSecurity();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -786,7 +785,7 @@ public class PaymentMethodServices {
 
         if (result.size() > 0) return result;
 
-        List<GenericValue> toBeStored = FastList.newInstance();
+        List<GenericValue> toBeStored = new LinkedList<GenericValue>();
         boolean isModified = false;
 
         GenericValue paymentMethod = null;

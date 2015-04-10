@@ -18,17 +18,15 @@
  */
 import org.ofbiz.product.product.ProductContentWrapper;
 import org.ofbiz.product.category.*;
-import javolution.util.FastMap;
-import javolution.util.FastList;
 import org.ofbiz.base.util.UtilValidate;
 
 parentCategoryStr = parameters.parentCategoryStr;
 if(!UtilValidate.isEmpty(parentCategoryStr)) {
     pathList = parentCategoryStr.split('/');
-    cateList = FastList.newInstance();
+    cateList = [];
     pathTemp = '';
     for(path in pathList) {
-        cateMap = FastMap.newInstance();
+        cateMap = [:];
         category = from("ProductCategory").where("productCategoryId", path).queryOne();
         categoryContentWrapper = new CategoryContentWrapper(category, request);
         

@@ -26,15 +26,12 @@ import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 reader = delegator.getModelReader();
 ec = reader.getEntityNames();
 entities = new TreeSet(ec);
 entitiesIt = entities.iterator();
 
-List starSchemas = FastList.newInstance();
+List starSchemas = [];
 
 while (entitiesIt.hasNext()) {
     entity = reader.getModelEntity(entitiesIt.next());
@@ -43,7 +40,7 @@ while (entitiesIt.hasNext()) {
         continue;
     }
 
-    entityMap = FastMap.newInstance();
+    entityMap = [:];
     entityMap.name = entity.getEntityName();
     entityMap.title = entity.getTitle();
 

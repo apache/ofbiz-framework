@@ -28,10 +28,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilValidate;
 
@@ -132,7 +131,7 @@ public class ControlApplet extends Applet implements Runnable {
     }
 
     protected void pull() {
-        Map<String, Object> params = FastMap.newInstance();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sessionId", this.sessionId.trim());
         params.put("visitId", this.visitId.trim());
 
@@ -162,7 +161,7 @@ public class ControlApplet extends Applet implements Runnable {
     }
 
     protected void push() {
-        Map<String, Object> params = FastMap.newInstance();
+        Map<String, Object> params = new HashMap<String, Object>();
         params.put("sessionId", this.sessionId.trim());
         params.put("visitId", this.visitId.trim());
         params.put("currentPage", this.currentPage.trim());

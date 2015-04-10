@@ -19,6 +19,7 @@
 
 package org.ofbiz.securityext.login;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -27,10 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastMap;
-
 import org.apache.commons.lang.RandomStringUtils;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilHttp;
@@ -274,14 +272,14 @@ public class LoginEvents {
         }
 
         // set the needed variables in new context
-        Map<String, Object> bodyParameters = FastMap.newInstance();
+        Map<String, Object> bodyParameters = new HashMap<String, Object>();
         bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);
         bodyParameters.put("productStoreId", productStoreId);
 
-        Map<String, Object> serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = new HashMap<String, Object>();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
         serviceContext.put("bodyParameters", bodyParameters);
         if (productStoreEmail != null) {

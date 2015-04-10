@@ -19,14 +19,12 @@
 
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
-import javolution.util.FastList;
 
 paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
 paymentServiceTypeEnumId = request.getParameter("paymentServiceTypeEnumId");
 customMethodsCond = null;
 
 if (paymentMethodTypeId && paymentServiceTypeEnumId) {
-    
     if (paymentMethodTypeId == "CREDIT_CARD" && paymentServiceTypeEnumId == "PRDS_PAY_AUTH" ) {
         customMethodsCond = EntityCondition.makeCondition("customMethodTypeId", EntityOperator.EQUALS, "CC_AUTH");
     } else if (paymentMethodTypeId == "CREDIT_CARD" && paymentServiceTypeEnumId == "PRDS_PAY_CAPTURE" ) {
@@ -61,7 +59,7 @@ if (paymentMethodTypeId && paymentServiceTypeEnumId) {
 } 
 
 if (!paymentMethodTypeId || !paymentServiceTypeEnumId) {
-    customMethods = FastList.newInstance();
+    customMethods = [];
     customMethods.add(EntityCondition.makeCondition("customMethodTypeId", EntityOperator.EQUALS, "CC_AUTH"));
     customMethods.add(EntityCondition.makeCondition("customMethodTypeId", EntityOperator.EQUALS, "CC_CAPTURE"));
     customMethods.add(EntityCondition.makeCondition("customMethodTypeId", EntityOperator.EQUALS, "CC_REAUTH"));

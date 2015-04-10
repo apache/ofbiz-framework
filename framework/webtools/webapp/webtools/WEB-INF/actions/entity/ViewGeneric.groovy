@@ -32,8 +32,6 @@ import org.ofbiz.base.util.UtilValidate;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.Time;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 String entityName = parameters.get("entityName");
 context.put("entityName", entityName);
@@ -92,10 +90,10 @@ if (value == null) {
 }
 
 if (value != null) {
-    List fieldList = FastList.newInstance();
+    List fieldList = [];
     Iterator fieldIterator = entity.getFieldsIterator();
     while (fieldIterator.hasNext()) {
-        Map mapField = FastMap.newInstance();
+        Map mapField = [:];
 
         ModelField field = fieldIterator.next();
         ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
@@ -146,10 +144,10 @@ if ((session.getAttribute("_ERROR_MESSAGE_") != null || request.getAttribute("_E
 }
 context.put("useValue", useValue);
 
-List newFieldPkList = FastList.newInstance();
+List newFieldPkList = [];
 pkIterator = entity.getPksIterator();
 while (pkIterator.hasNext()) {
-    Map mapField = FastMap.newInstance();
+    Map mapField = [:];
 
     ModelField field = pkIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
@@ -223,10 +221,10 @@ while (pkIterator.hasNext()) {
 }
 context.put("newFieldPkList", newFieldPkList);
 
-List newFieldNoPkList = FastList.newInstance();
+List newFieldNoPkList = [];
 Iterator noPkIterator = entity.getNopksIterator();
 while (noPkIterator.hasNext()) {
-    Map mapField = FastMap.newInstance();
+    Map mapField = [:];
 
     ModelField field = noPkIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
@@ -303,9 +301,9 @@ while (noPkIterator.hasNext()) {
 }
 context.put("newFieldNoPkList", newFieldNoPkList);
 
-List relationFieldList = FastList.newInstance();
+List relationFieldList = [];
 for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
-    Map mapRelation = FastMap.newInstance();
+    Map mapRelation = [:];
 
     ModelRelation relation = entity.getRelation(relIndex);
     ModelEntity relatedEntity = reader.getModelEntity(relation.getRelEntityName());
@@ -331,10 +329,10 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
                     valueRelated = (GenericValue) tempIter.next();
                 }
 
-                List relatedFieldsList = FastList.newInstance();
+                List relatedFieldsList = [];
                 Iterator relFieldIterator = relatedEntity.getFieldsIterator();
                 while (relFieldIterator.hasNext()) {
-                    Map mapRelatedFields = FastMap.newInstance();
+                    Map mapRelatedFields = [:];
                     ModelField field = relFieldIterator.next();
                     ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
 

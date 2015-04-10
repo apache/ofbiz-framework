@@ -19,7 +19,6 @@
 
 import java.util.*;
 import java.lang.*;
-import javolution.util.FastList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.UtilMisc;
@@ -35,10 +34,10 @@ backlogList=[];
 custRequestList = from("CustRequestItem").where("productId", productId).queryList();
 custRequestList.each { custRequestListMap ->
     custRequestId=custRequestListMap.custRequestId;
-    exprBldr = FastList.newInstance();
+    exprBldr = [];
     exprBldr.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REOPENED"));
     exprBldr.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"));
-    andExprs = FastList.newInstance();
+    andExprs = [];
     andExprs.add(EntityCondition.makeCondition("custRequestId", EntityOperator.EQUALS, custRequestId));
     andExprs.add(EntityCondition.makeCondition(exprBldr, EntityOperator.OR));
     custRequestTypeCond = EntityCondition.makeCondition(andExprs, EntityOperator.AND);

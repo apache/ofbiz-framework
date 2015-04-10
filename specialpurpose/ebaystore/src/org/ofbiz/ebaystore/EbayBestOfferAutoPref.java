@@ -18,10 +18,9 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
@@ -40,7 +39,7 @@ public class EbayBestOfferAutoPref {
 
     public static Map<String, Object> ebayBestOfferPrefCond(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-            Map<String, Object> result = FastMap.newInstance();
+            Map<String, Object> result = new HashMap<String, Object>();
             LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericValue userLogin = (GenericValue) context.get("userLogin");
             Delegator delegator = dctx.getDelegator();

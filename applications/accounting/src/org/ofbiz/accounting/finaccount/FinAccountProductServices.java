@@ -19,6 +19,12 @@
 
 package org.ofbiz.accounting.finaccount;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
@@ -29,15 +35,14 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.util.EntityUtilProperties;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.finaccount.FinAccountHelper;
-
-import java.util.*;
-import java.math.BigDecimal;
-
-import javolution.util.FastMap;
 
 /**
  * FinAccountProductServices - Financial Accounts created from product purchases (i.e. gift certificates)
@@ -169,7 +174,7 @@ public class FinAccountProductServices {
         }
 
         // create the context for FSE
-        Map<String, Object> expContext = FastMap.newInstance();
+        Map<String, Object> expContext = new HashMap<String, Object>();
         expContext.put("orderHeader", orderHeader);
         expContext.put("orderItem", orderItem);
         expContext.put("party", party);
@@ -186,7 +191,7 @@ public class FinAccountProductServices {
         BigDecimal deposit = price.multiply(quantity).setScale(FinAccountHelper.decimals, FinAccountHelper.rounding);
 
         // create the financial account
-        Map<String, Object> createCtx = FastMap.newInstance();
+        Map<String, Object> createCtx = new HashMap<String, Object>();
         String finAccountId;
 
         createCtx.put("finAccountTypeId", finAccountTypeId);
@@ -218,7 +223,7 @@ public class FinAccountProductServices {
         finAccountId = (String) createResp.get("finAccountId");
 
         // create the owner role
-        Map<String, Object> roleCtx = FastMap.newInstance();
+        Map<String, Object> roleCtx = new HashMap<String, Object>();
         roleCtx.put("partyId", partyId);
         roleCtx.put("roleTypeId", "OWNER");
         roleCtx.put("finAccountId", finAccountId);
@@ -237,7 +242,7 @@ public class FinAccountProductServices {
         }
 
         // create the initial deposit
-        Map<String, Object> depositCtx = FastMap.newInstance();
+        Map<String, Object> depositCtx = new HashMap<String, Object>();
         depositCtx.put("finAccountId", finAccountId);
         depositCtx.put("productStoreId", productStoreId);
         depositCtx.put("currency", currency);

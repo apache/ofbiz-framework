@@ -19,10 +19,9 @@
 package org.ofbiz.accounting.thirdparty.orbital;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
 import org.ofbiz.base.util.Debug;
@@ -260,7 +259,7 @@ public class OrbitalPaymentServices {
         //TODO: Will move this to property file and then will read it from there.
         String configFile = "/applications/accounting/config/linehandler.properties";
         String paymentGatewayConfigId = (String) context.get("paymentGatewayConfigId");
-        Map<String, Object> buildConfiguratorContext = FastMap.newInstance();
+        Map<String, Object> buildConfiguratorContext = new HashMap<String, Object>();
         try {
             buildConfiguratorContext.put("OrbitalConnectionUsername", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "username"));
             buildConfiguratorContext.put("OrbitalConnectionPassword", getPaymentGatewayConfigValue(delegator, paymentGatewayConfigId, "connectionPassword"));
@@ -496,7 +495,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> processCard(RequestIF request) {
-        Map<String, Object> processCardResult = FastMap.newInstance();
+        Map<String, Object> processCardResult = new HashMap<String, Object>();
         try {
             response = tp.process(request);
             if (response.isApproved()) {
@@ -606,7 +605,7 @@ public class OrbitalPaymentServices {
     }
 
     private static void printTransResult(ResponseIF response) {
-        Map<String, Object> generatedResponse = FastMap.newInstance();
+        Map<String, Object> generatedResponse = new HashMap<String, Object>();
         generatedResponse.put("isGood",  response.isGood());
         generatedResponse.put("isError", response.isError());
         generatedResponse.put("isQuickResponse",  response.isQuickResponse());
@@ -650,7 +649,7 @@ public class OrbitalPaymentServices {
     }
 
     private static Map<String, Object> validateRequest(Map<String, Object> params, Map props, RequestIF request) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         return result;
     }

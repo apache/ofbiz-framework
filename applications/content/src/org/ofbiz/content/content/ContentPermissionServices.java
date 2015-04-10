@@ -18,12 +18,11 @@
  *******************************************************************************/
 package org.ofbiz.content.content;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -115,7 +114,7 @@ public class ContentPermissionServices {
              displayPassCond = true;
         }
         Debug.logInfo("displayPassCond(0):" + displayPassCond, "");
-        Map<String, Object> results  = FastMap.newInstance();
+        Map<String, Object> results = new HashMap<String, Object>();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String partyId = (String) context.get("partyId");
         if (UtilValidate.isEmpty(partyId)) {
@@ -147,7 +146,7 @@ public class ContentPermissionServices {
         if (UtilValidate.isNotEmpty(contentPurposeString)) {
             List<String> purposesFromString = StringUtil.split(contentPurposeString, "|");
             if (passedPurposes == null) {
-                passedPurposes = FastList.newInstance();
+                passedPurposes = new LinkedList<String>();
             }
             passedPurposes.addAll(purposesFromString);
         }
@@ -164,7 +163,7 @@ public class ContentPermissionServices {
         if (UtilValidate.isNotEmpty(targetOperationString)) {
             List<String> operationsFromString = StringUtil.split(targetOperationString, "|");
             if (targetOperations == null) {
-                targetOperations = FastList.newInstance();
+                targetOperations = new LinkedList<String>();
             }
             targetOperations.addAll(operationsFromString);
         }
@@ -175,7 +174,7 @@ public class ContentPermissionServices {
         EntityPermissionChecker.StdRelatedRoleGetter roleGetter = new EntityPermissionChecker.StdRelatedRoleGetter("Content",  "roleTypeId", "contentId", "partyId", "ownerContentId", "ContentRole");
         //Debug.logInfo("targetOperations(b):" + targetOperations, "");
         List<String> passedRoles = UtilGenerics.checkList(context.get("roleTypeList"));
-        if (passedRoles == null) passedRoles = FastList.newInstance();
+        if (passedRoles == null) passedRoles = new LinkedList<String>();
         String roleTypeString = (String) context.get("roleTypeString");
         if (UtilValidate.isNotEmpty(roleTypeString)) {
             List<String> rolesFromString = StringUtil.split(roleTypeString, "|");
@@ -191,7 +190,7 @@ public class ContentPermissionServices {
 
         StringBuilder errBuf = new StringBuilder();
         String permissionStatus = null;
-        List<Object> entityIds = FastList.newInstance();
+        List<Object> entityIds = new LinkedList<Object>();
         if (passed) {
             results.put("permissionStatus", "granted");
             permissionStatus = "granted";
@@ -261,7 +260,7 @@ public class ContentPermissionServices {
     }
 
     public static Map<String, Object> checkAssocPermission(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> results = FastMap.newInstance();
+        Map<String, Object> results = new HashMap<String, Object>();
         // Security security = dctx.getSecurity();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -291,12 +290,12 @@ public class ContentPermissionServices {
         // boolean isMatch = false;
         // boolean isMatchTo = false;
         // boolean isMatchFrom = false;
-        Map<String, Object> permResults = FastMap.newInstance();
+        Map<String, Object> permResults = new HashMap<String, Object>();
 
         // Use the purposes from the from entity for both cases.
         List<String> relatedPurposes = EntityPermissionChecker.getRelatedPurposes(contentFrom, null);
         List<String> relatedPurposesTo = EntityPermissionChecker.getRelatedPurposes(contentTo, relatedPurposes);
-        Map<String, Object> serviceInMap = FastMap.newInstance();
+        Map<String, Object> serviceInMap = new HashMap<String, Object>();
         serviceInMap.put("userLogin", userLogin);
         serviceInMap.put("targetOperationList", UtilMisc.toList("CONTENT_LINK_TO"));
         serviceInMap.put("contentPurposeList", relatedPurposesTo);

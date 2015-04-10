@@ -32,13 +32,11 @@ import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.service.LocalDispatcher;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.util.*;
 import java.io.Writer;
 import java.io.IOException;
 import java.io.StringWriter;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /**
  * WorkEffortContentWrapper; gets work effort content for display
@@ -224,7 +222,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
         if (partyContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
@@ -239,11 +237,11 @@ public class PartyContentWrapper implements ContentWrapper {
                 .filterByDate()
                 .queryList();
 
-        List<String> contentList = FastList.newInstance();
+        List<String> contentList = new LinkedList<String>();
         if (partyContentList != null) {
             for (GenericValue partyContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map<String, Object> inContext = FastMap.newInstance();
+                Map<String, Object> inContext = new HashMap<String, Object>();
                 inContext.put("party", party);
                 inContext.put("partyContent", partyContent);
                 ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);

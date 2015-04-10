@@ -19,12 +19,11 @@
 package org.ofbiz.order.test;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -85,11 +84,11 @@ public class OrderTestServices {
             salesChannel = "WEB_SALES_CHANNEL";
         }
 
-        List<String> productsList = FastList.newInstance();
+        List<String> productsList = new LinkedList<String>();
         try {
             if (UtilValidate.isNotEmpty(productId)) {
                 productsList.add(productId);
-                numberOfProductsPerOrder = Integer.valueOf(1);
+                numberOfProductsPerOrder = 1;
             } else {
                 Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
                 if (result.get("categoryMembers") != null) {

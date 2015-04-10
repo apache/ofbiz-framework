@@ -20,6 +20,7 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,8 +28,6 @@ import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -61,7 +60,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         // final StringBuilder buf = new StringBuilder();
         final Environment env = Environment.getCurrentEnvironment();
         //final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
-        //final Map templateCtx = FastMap.newInstance();
+        //final Map templateCtx = new HashMap<String, Object>();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
@@ -69,7 +68,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map<String, Object> savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         //if (Debug.infoOn()) Debug.logInfo("in RenderSubContent, contentId(2):" + templateRoot.get("contentId"), module);
@@ -120,7 +119,7 @@ public class RenderSubContentCacheTransform implements TemplateTransformModel {
         templateRoot.put("subContentId", subContentIdSub);
         templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
 
-        //final Map savedValues = FastMap.newInstance();
+        //final Map savedValues = new HashMap<String, Object>();
         //FreeMarkerWorker.saveContextValues(templateCtx, saveKeyNames, savedValues);
 
         return new Writer(out) {

@@ -18,9 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.pos.jpos.service;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import javolution.util.FastList;
 
 import jpos.services.EventCallbacks;
 import jpos.JposException;
@@ -37,7 +36,7 @@ public class BaseService implements jpos.services.BaseService, jpos.loader.JposS
     public static final String module = BaseService.class.getName();
     protected static boolean claimed = false;
 
-    protected List<Object> eventQueue = FastList.newInstance();
+    protected List<Object> eventQueue = new LinkedList<Object>();
     protected JposEntry entry = null;
 
     protected boolean freezeEvents = false;
@@ -184,8 +183,8 @@ public class BaseService implements jpos.services.BaseService, jpos.loader.JposS
     }
 
     private void fireQueuedEvents() {
-        List<Object> queuedList = new FastList<Object>(eventQueue);
-        this.eventQueue = FastList.newInstance();
+        List<Object> queuedList = new LinkedList<Object>(eventQueue);
+        this.eventQueue = new LinkedList<Object>();
         for (Object obj : queuedList) {
             this.fireEvent(obj);
         }

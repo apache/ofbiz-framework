@@ -21,11 +21,11 @@ package org.ofbiz.shipment.verify;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -67,7 +67,7 @@ public class VerifyPickSession implements Serializable {
         this._delegator = _dispatcher.getDelegator();
         this.delegatorName = _delegator.getDelegatorName();
         this.userLogin = userLogin;
-        this.pickRows = FastList.newInstance();
+        this.pickRows = new LinkedList<VerifyPickSessionRow>();
     }
 
     public LocalDispatcher getDispatcher() {
@@ -91,7 +91,7 @@ public class VerifyPickSession implements Serializable {
         }
 
         // get the reservations for the item
-        Map<String, Object> inventoryLookupMap = FastMap.newInstance();
+        Map<String, Object> inventoryLookupMap = new HashMap<String, Object>();
         inventoryLookupMap.put("orderId", orderId);
         inventoryLookupMap.put("orderItemSeqId", orderItemSeqId);
         inventoryLookupMap.put("shipGroupSeqId", shipGroupSeqId);
@@ -108,7 +108,7 @@ public class VerifyPickSession implements Serializable {
             this.createVerifyPickRow(checkCode, reservation, orderId, orderItemSeqId, shipGroupSeqId, productId, originGeoId, quantity, locale);
         } else {
             // more than one reservation found
-            Map<GenericValue, BigDecimal> reserveQtyMap = FastMap.newInstance();
+            Map<GenericValue, BigDecimal> reserveQtyMap = new HashMap<GenericValue, BigDecimal>();
             BigDecimal qtyRemain = quantity;
 
             for (GenericValue reservation : reservations) {
@@ -155,7 +155,7 @@ public class VerifyPickSession implements Serializable {
 
     protected String findOrderItemSeqId(String productId, String orderId, String shipGroupSeqId, BigDecimal quantity, Locale locale) throws GeneralException {
 
-        Map<String, Object> orderItemLookupMap = FastMap.newInstance();
+        Map<String, Object> orderItemLookupMap = new HashMap<String, Object>();
         orderItemLookupMap.put("orderId", orderId);
         orderItemLookupMap.put("productId", productId);
         orderItemLookupMap.put("statusId", "ITEM_APPROVED");
@@ -167,7 +167,7 @@ public class VerifyPickSession implements Serializable {
         if (orderItems != null) {
             for (GenericValue orderItem : orderItems) {
                 // get the reservations for the item
-                Map<String, Object> inventoryLookupMap = FastMap.newInstance();
+                Map<String, Object> inventoryLookupMap = new HashMap<String, Object>();
                 inventoryLookupMap.put("orderId", orderId);
                 inventoryLookupMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                 inventoryLookupMap.put("shipGroupSeqId", shipGroupSeqId);
@@ -254,7 +254,7 @@ public class VerifyPickSession implements Serializable {
     }
 
     public List<VerifyPickSessionRow> getPickRows(String orderId) {
-        List<VerifyPickSessionRow> pickVerifyRows = FastList.newInstance();
+        List<VerifyPickSessionRow> pickVerifyRows = new LinkedList<VerifyPickSessionRow>();
         for (VerifyPickSessionRow line: this.getPickRows()) {
             if (orderId.equals(line.getOrderId())) {
                 pickVerifyRows.add(line);
@@ -309,7 +309,7 @@ public class VerifyPickSession implements Serializable {
         this.updateProduct();
 
         // Update the shipment status to Picked, this will trigger createInvoicesFromShipment and finally a invoice will be created
-        Map<String, Object> updateShipmentCtx = FastMap.newInstance();
+        Map<String, Object> updateShipmentCtx = new HashMap<String, Object>();
         updateShipmentCtx.put("shipmentId", shipmentId);
         updateShipmentCtx.put("statusId", "SHIPMENT_PICKED");
         updateShipmentCtx.put("userLogin", this.getUserLogin());
@@ -319,7 +319,7 @@ public class VerifyPickSession implements Serializable {
     }
 
     protected void checkReservedQty(String orderId, Locale locale) throws GeneralException {
-        List<String> errorList = FastList.newInstance();
+        List<String> errorList = new LinkedList<String>();
         for (VerifyPickSessionRow pickRow : this.getPickRows(orderId)) {
             BigDecimal reservedQty =  this.getReservedQty(pickRow.getOrderId(), pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId());
             BigDecimal verifiedQty = this.getReadyToVerifyQuantity(pickRow.getOrderId(), pickRow.getOrderItemSeqId());
@@ -364,7 +364,7 @@ public class VerifyPickSession implements Serializable {
     }
 
     protected void issueItemsToShipment(String shipmentId, Locale locale) throws GeneralException {
-        List<VerifyPickSessionRow> processedRows = FastList.newInstance();
+        List<VerifyPickSessionRow> processedRows = new LinkedList<VerifyPickSessionRow>();
         for (VerifyPickSessionRow pickRow : this.getPickRows()) {
             if (this.checkLine(processedRows, pickRow)) {
                 BigDecimal totalVerifiedQty = this.getVerifiedQuantity(pickRow.getOrderId(),  pickRow.getOrderItemSeqId(), pickRow.getShipGroupSeqId(), pickRow.getProductId(), pickRow.getInventoryItemId());
@@ -387,7 +387,7 @@ public class VerifyPickSession implements Serializable {
     protected String createShipment(VerifyPickSessionRow line) throws GeneralException {
         Delegator delegator = this.getDelegator();
         String orderId = line.getOrderId();
-        Map<String, Object> newShipment = FastMap.newInstance();
+        Map<String, Object> newShipment = new HashMap<String, Object>();
         newShipment.put("originFacilityId", facilityId);
         newShipment.put("primaryShipGroupSeqId", line.getShipGroupSeqId());
         newShipment.put("primaryOrderId", orderId);
@@ -429,7 +429,7 @@ public class VerifyPickSession implements Serializable {
     protected void updateProduct() throws GeneralException {
         for (VerifyPickSessionRow pickRow : this.getPickRows()) {
             if (UtilValidate.isNotEmpty(pickRow.getOriginGeoId())) {
-                Map<String, Object> updateProductCtx = FastMap.newInstance();
+                Map<String, Object> updateProductCtx = new HashMap<String, Object>();
                 updateProductCtx.put("originGeoId", pickRow.getOriginGeoId());
                 updateProductCtx.put("productId", pickRow.getProductId());
                 updateProductCtx.put("userLogin", this.getUserLogin());

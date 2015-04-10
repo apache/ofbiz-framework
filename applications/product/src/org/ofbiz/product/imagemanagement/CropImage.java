@@ -22,11 +22,10 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-
-import javolution.util.FastMap;
 
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
@@ -62,10 +61,10 @@ public class CropImage {
         String imageH = (String) context.get("imageH");
         
         if (UtilValidate.isNotEmpty(imageName)) {
-            Map<String, Object> contentCtx = FastMap.newInstance();
+            Map<String, Object> contentCtx = new HashMap<String, Object>();
             contentCtx.put("contentTypeId", "DOCUMENT");
             contentCtx.put("userLogin", userLogin);
-            Map<String, Object> contentResult = FastMap.newInstance();
+            Map<String, Object> contentResult = new HashMap<String, Object>();
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
             } catch (GenericServiceException e) {
@@ -73,10 +72,10 @@ public class CropImage {
                 return ServiceUtil.returnError(e.getMessage());
             }
             
-            Map<String, Object> contentThumb = FastMap.newInstance();
+            Map<String, Object> contentThumb = new HashMap<String, Object>();
             contentThumb.put("contentTypeId", "DOCUMENT");
             contentThumb.put("userLogin", userLogin);
-            Map<String, Object> contentThumbResult = FastMap.newInstance();
+            Map<String, Object> contentThumbResult = new HashMap<String, Object>();
             try {
                 contentThumbResult = dispatcher.runSync("createContent", contentThumb);
             } catch (GenericServiceException e) {
@@ -114,7 +113,7 @@ public class CropImage {
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
             
-            Map<String, Object> createContentAssocMap = FastMap.newInstance();
+            Map<String, Object> createContentAssocMap = new HashMap<String, Object>();
             createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
             createContentAssocMap.put("contentId", contentId);
             createContentAssocMap.put("contentIdTo", contentIdThumb);
@@ -127,7 +126,7 @@ public class CropImage {
                 return ServiceUtil.returnError(e.getMessage());
             }
             
-            Map<String, Object> productContentCtx = FastMap.newInstance();
+            Map<String, Object> productContentCtx = new HashMap<String, Object>();
             productContentCtx.put("productId", productId);
             productContentCtx.put("productContentTypeId", "IMAGE");
             productContentCtx.put("fromDate", UtilDateTime.nowTimestamp());
@@ -141,7 +140,7 @@ public class CropImage {
                 return ServiceUtil.returnError(e.getMessage());
             }
             
-            Map<String, Object> contentApprovalCtx = FastMap.newInstance();
+            Map<String, Object> contentApprovalCtx = new HashMap<String, Object>();
             contentApprovalCtx.put("contentId", contentId);
             contentApprovalCtx.put("userLogin", userLogin);
             try {

@@ -31,6 +31,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -39,8 +41,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.ImageIcon;
-
-import javolution.util.FastMap;
 
 import org.jdom.JDOMException;
 import org.ofbiz.base.util.Debug;
@@ -66,7 +66,7 @@ public class FrameImage {
 
     public static Map<String, Object> addImageFrame(DispatchContext dctx, Map<String, ? extends Object> context)
     throws IOException, JDOMException {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Delegator delegator = dctx.getDelegator();
         String imageServerPath = FlexibleStringExpander.expandString(EntityUtilProperties.getPropertyValue("catalog", "image.management.path", delegator), context);
@@ -120,10 +120,10 @@ public class FrameImage {
             int width = Integer.parseInt(imageWidth);
             int height= Integer.parseInt(imageHeight);
             
-            Map<String, Object> contentCtx = FastMap.newInstance();
+            Map<String, Object> contentCtx = new HashMap<String, Object>();
             contentCtx.put("contentTypeId", "DOCUMENT");
             contentCtx.put("userLogin", userLogin);
-            Map<String, Object> contentResult = FastMap.newInstance();
+            Map<String, Object> contentResult = new HashMap<String, Object>();
             try {
                 contentResult = dispatcher.runSync("createContent", contentCtx);
             } catch (GenericServiceException e) {
@@ -132,10 +132,10 @@ public class FrameImage {
                 result.putAll(context);
             }
             
-            Map<String, Object> contentThumb = FastMap.newInstance();
+            Map<String, Object> contentThumb = new HashMap<String, Object>();
             contentThumb.put("contentTypeId", "DOCUMENT");
             contentThumb.put("userLogin", userLogin);
-            Map<String, Object> contentThumbResult = FastMap.newInstance();
+            Map<String, Object> contentThumbResult = new HashMap<String, Object>();
             try {
                 contentThumbResult = dispatcher.runSync("createContent", contentThumb);
             } catch (GenericServiceException e) {
@@ -167,7 +167,7 @@ public class FrameImage {
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameToUse, imageUrlResource, contentId, "image/jpeg");
             ImageManagementServices.createContentAndDataResource(dctx, userLogin, filenameTouseThumb, imageUrlThumb, contentIdThumb, "image/jpeg");
             
-            Map<String, Object> createContentAssocMap = FastMap.newInstance();
+            Map<String, Object> createContentAssocMap = new HashMap<String, Object>();
             createContentAssocMap.put("contentAssocTypeId", "IMAGE_THUMBNAIL");
             createContentAssocMap.put("contentId", contentId);
             createContentAssocMap.put("contentIdTo", contentIdThumb);
@@ -181,7 +181,7 @@ public class FrameImage {
                 result.putAll(context);
             }
             
-            Map<String, Object> productContentCtx = FastMap.newInstance();
+            Map<String, Object> productContentCtx = new HashMap<String, Object>();
             productContentCtx.put("productId", productId);
             productContentCtx.put("productContentTypeId", "IMAGE");
             productContentCtx.put("fromDate", UtilDateTime.nowTimestamp());
@@ -196,7 +196,7 @@ public class FrameImage {
                 result.putAll(context);
             }
             
-            Map<String, Object> contentApprovalCtx = FastMap.newInstance();
+            Map<String, Object> contentApprovalCtx = new HashMap<String, Object>();
             contentApprovalCtx.put("contentId", contentId);
             contentApprovalCtx.put("userLogin", userLogin);
             try {
@@ -293,7 +293,7 @@ public class FrameImage {
             out.close();
             
             //create dataResource
-            Map<String, Object> dataResourceCtx = FastMap.newInstance();
+            Map<String, Object> dataResourceCtx = new HashMap<String, Object>();
             dataResourceCtx.put("objectInfo", imageServerUrl + imagePath);
             dataResourceCtx.put("dataResourceName", imageName);
             dataResourceCtx.put("userLogin", userLogin);
@@ -303,7 +303,7 @@ public class FrameImage {
             Map<String, Object> dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
             dataResourceId = dataResourceResult.get("dataResourceId").toString();
             //create content
-            Map<String, Object> contentCtx = FastMap.newInstance();
+            Map<String, Object> contentCtx = new HashMap<String, Object>();
             contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId").toString());
             contentCtx.put("contentTypeId", "IMAGE_FRAME");
             contentCtx.put("contentName", imageName);

@@ -25,7 +25,6 @@ import org.ofbiz.accounting.payment.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
-import javolution.util.FastMap;
 
 Boolean actualCurrency = new Boolean(context.actualCurrency);
 if (actualCurrency == null) {

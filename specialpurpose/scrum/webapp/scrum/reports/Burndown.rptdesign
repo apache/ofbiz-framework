@@ -23,7 +23,7 @@ under the License.
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
 importPackage(Packages.java.sql);
-importPackage(Packages.javolution.util);
+
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 
@@ -45,7 +45,7 @@ var countHoliday = 0;
 while (countHoliday < dayNumber) {
     var conditionTimestampFrom = new Timestamp(actualStartDate.getTime() + (countHoliday*1000*60*60*24));
     // get public holiday
-    var holidayConds = FastList.newInstance();
+    var holidayConds = new LinkedkList();
     holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
     holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
     var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
@@ -61,7 +61,7 @@ while (countHoliday < dayNumber) {
     countHoliday ++;
 }
 // get plan hours 
-input =  FastMap.newInstance();
+input =  new HashMap();
 input.put("userLogin",userLogin);
 input.put("sprintId",sprintId);
 result = dispatcher.runSync("getScrumPlanHour", input);
@@ -234,7 +234,7 @@ remainActualHours = BigDecimal.ZERO;
 
 averageHours = previousAverageHours;
 
-holidays = FastList.newInstance();
+holidays = new LinkedkList();
 reportContext.getAppContext().put("holidays", holidays);
 ]]></method>
             <method name="fetch"><![CDATA[if (dayCount >= dayNumber || currentDay >= 0) return false;
@@ -251,7 +251,7 @@ if (nowTimestamp.getTime() >= conditionTimestampFrom.getTime() &amp;&amp; nowTim
 }
 
 // get public holiday
-var holidayConds = FastList.newInstance();
+var holidayConds = new LinkedkList();
 holidayConds.add(EntityCondition.makeCondition("workEffortTypeId",EntityOperator.EQUALS, "PUBLIC_HOLIDAY"));
 holidayConds.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.EQUALS, conditionTimestampFrom));
 var fieldsToSelect = UtilMisc.toSet("workEffortId","estimatedStartDate");
@@ -268,7 +268,7 @@ if (isHoliday) {
     holidays.add(sprintDay + "");
     reportContext.getAppContext().put("holidays", holidays);
 }
-input =  FastMap.newInstance();
+input =  new HashMap();
 var plannedHours = BigDecimal.ZERO;
 var actualHours = BigDecimal.ZERO;
 
@@ -279,7 +279,7 @@ for (i=0; i<backlogItems.size(); i++) {
     // get all task from backlog item
     var backlogItem = backlogItems.get(i);
     var custRequestId = backlogItem.get("custRequestId");
-    var conds = FastList.newInstance();
+    var conds = new LinkedkList();
     conds.add(EntityCondition.makeCondition("custRequestId", custRequestId));
     conds.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.NOT_EQUAL, "SCRUM_SPRINT"));
     var tasks = delegator.findList("CustRequestAndWorkEffort", EntityCondition.makeCondition(conds), null, null, null, false);
@@ -301,7 +301,7 @@ for (i=0; i<backlogItems.size(); i++) {
             }
         }
         // get all time entries from task
-        var timeEntryConds = FastList.newInstance();
+        var timeEntryConds = new LinkedkList();
         timeEntryConds.add(EntityCondition.makeCondition("workEffortId", workEffortId));
         timeEntryConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, conditionTimestampFrom));
         timeEntryConds.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, conditionTimestampTo));

@@ -19,7 +19,6 @@
 
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
-import javolution.util.FastMap;
 
 productId = request.getParameter("productId");
 if (!productId) {
@@ -32,7 +31,7 @@ if (productId) {
 
     facilityId = request.getParameter("facilityId");
     resultOutput = runService('getInventoryAvailableByFacility', [productId : productId, facilityId : facilityId]);
-    quantitySummary = FastMap.newInstance();
+    quantitySummary = [:];
     quantitySummary.facilityId = facilityId;
     quantitySummary.atp_qoh = ((Double)resultOutput.availableToPromiseTotal).intValue() + " / " +
             ((Double)resultOutput.quantityOnHandTotal).intValue();
@@ -56,7 +55,7 @@ if (productId) {
     // todo: change this to a select from inv_items where productId and facilityId matches distinct (locationSeqId).
     invItemList = from("InventoryItem").where("productId", productId, "facilityId", facilityId).queryList();
 
-    locations = FastMap.newInstance();
+    locations = [:];
 
     boolean negativeQOH = false;
     invItemList.each { invItem ->
@@ -79,7 +78,7 @@ if (productId) {
     while (locationsIter.hasNext()) {
         location = locationsIter.next();
         resultOutput = runService('getInventoryAvailableByLocation', [productId : productId, facilityId : facilityId, locationSeqId : location]);
-        quantitySummary = FastMap.newInstance();
+        quantitySummary = [:];
         quantitySummary.productId = productId;
         quantitySummary.facilityId = facilityId;
         if ("nullField".equals( location ) == true) {

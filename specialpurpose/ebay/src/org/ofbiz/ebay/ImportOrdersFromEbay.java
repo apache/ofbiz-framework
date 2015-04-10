@@ -22,13 +22,12 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -61,7 +60,7 @@ public class ImportOrdersFromEbay {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         try {
             Map<String, Object> eBayConfigResult = EbayHelper.buildEbayConfig(context, delegator);
             StringBuffer sellerTransactionsItemsXml = new StringBuffer();
@@ -85,8 +84,8 @@ public class ImportOrdersFromEbay {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        Map<String, Object> order = FastMap.newInstance();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> order = new HashMap<String, Object>();
+        Map<String, Object> result = new HashMap<String, Object>();
         try {
             order.put("productStoreId", context.get("productStoreId"));
             order.put("userLogin", context.get("userLogin"));
@@ -130,7 +129,7 @@ public class ImportOrdersFromEbay {
         String orderId = (String) context.get("orderId");
         String externalId = (String) context.get("externalId");
         String transactionId = "";
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         try {
             if (orderId == null && externalId == null) {
                 Debug.logError("orderId or externalId must be filled", module);
@@ -205,7 +204,7 @@ public class ImportOrdersFromEbay {
                     order.put("errorMessage", "");
                 }
             }
-            Map<String, Object> result = FastMap.newInstance();
+            Map<String, Object> result = new HashMap<String, Object>();
             result.put("responseMessage", ModelService.RESPOND_SUCCESS);
             result.put("orderList", orders);
             return result;
@@ -353,7 +352,7 @@ public class ImportOrdersFromEbay {
             }
 
             if (ack != null && "Success".equals(ack)) {
-                orders = FastList.newInstance();
+                orders = new LinkedList<Map<String,Object>>();
                 if (totalOrders > 0) {
                     // retrieve transaction array
                     List<? extends Element> transactions = UtilXml.childElementList(elemResponse, "TransactionArray");
@@ -365,7 +364,7 @@ public class ImportOrdersFromEbay {
                         List<? extends Element> transaction = UtilXml.childElementList(transactionsElement, "Transaction");
                         Iterator<? extends Element> transactionElemIter = transaction.iterator();
                         while (transactionElemIter.hasNext()) {
-                            Map<String, Object> order = FastMap.newInstance();
+                            Map<String, Object> order = new HashMap<String, Object>();
                             String itemId = "";
 
                             Element transactionElement = transactionElemIter.next();

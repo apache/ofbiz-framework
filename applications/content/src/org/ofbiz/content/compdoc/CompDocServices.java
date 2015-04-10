@@ -21,12 +21,11 @@ package org.ofbiz.content.compdoc;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -72,7 +71,7 @@ public class CompDocServices {
      */
 
     public static Map<String, Object> persistRootCompDoc(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale)context.get("locale");
@@ -109,7 +108,7 @@ public class CompDocServices {
             //request.setAttribute("contentId", contentId);
             // Update ContentRevision and ContentRevisonItem
 
-            Map<String, Object> contentRevisionMap = FastMap.newInstance();
+            Map<String, Object> contentRevisionMap = new HashMap<String, Object>();
             contentRevisionMap.put("itemContentId", contentId);
             contentRevisionMap.put("contentId", contentId);
             contentRevisionMap.put("userLogin", userLogin);
@@ -144,7 +143,7 @@ public class CompDocServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         try {
-            List<EntityCondition> exprList = FastList.newInstance();
+            List<EntityCondition> exprList = new LinkedList<EntityCondition>();
             exprList.add(EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId));
             exprList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, "COMPDOC_PART"));
             exprList.add(EntityCondition.makeCondition("rootRevisionContentId", EntityOperator.EQUALS, contentId));

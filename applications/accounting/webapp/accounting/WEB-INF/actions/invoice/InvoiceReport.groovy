@@ -26,8 +26,6 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.EntityFindOptions;
 
-import javolution.util.FastList;
-
 exprBldr = new org.ofbiz.entity.condition.EntityConditionBuilder();
 
 if (invoiceTypeId) {

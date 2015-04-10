@@ -24,7 +24,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
@@ -33,9 +35,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
@@ -78,8 +77,8 @@ public class UpsServices {
 
     public final static String module = UpsServices.class.getName();
 
-    public static Map<String, String> unitsUpsToOfbiz = FastMap.newInstance();
-    public static Map<String, String> unitsOfbizToUps = FastMap.newInstance();
+    public static Map<String, String> unitsUpsToOfbiz = new HashMap<String, String>();
+    public static Map<String, String> unitsOfbizToUps = new HashMap<String, String>();
     static {
         unitsUpsToOfbiz.put("LBS", "WT_lb");
         unitsUpsToOfbiz.put("KGS", "WT_kg");
@@ -719,7 +718,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
@@ -1003,7 +1002,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
@@ -1421,7 +1420,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         // handle other response elements
@@ -1628,7 +1627,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
@@ -1845,12 +1844,12 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         //String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
             List<? extends Element> rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
-            Map<String, BigDecimal> rateMap = FastMap.newInstance();
+            Map<String, BigDecimal> rateMap = new HashMap<String, BigDecimal>();
             BigDecimal firstRate = null;
             if (UtilValidate.isEmpty(rates)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
@@ -2349,17 +2348,17 @@ public class UpsServices {
         Element responseElement = UtilXml.firstChildElement(avResponseElement, "Response");
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
 
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
 
         if ("1".equals(responseStatusCode)) {
-            List<Map<String, String>> matches = FastList.newInstance();
+            List<Map<String, String>> matches = new LinkedList<Map<String,String>>();
 
             List<? extends Element> avResultList = UtilXml.childElementList(avResponseElement, "AddressValidationResult");
             // TODO: return error if there are no matches?
             if (UtilValidate.isNotEmpty(avResultList)) {
                 for (Element avResultElement: avResultList) {
-                    Map<String, String> match = FastMap.newInstance();
+                    Map<String, String> match = new HashMap<String, String>();
 
                     match.put("Rank", UtilXml.childElementValue(avResultElement, "Rank"));
                     match.put("Quality", UtilXml.childElementValue(avResultElement, "Quality"));
@@ -2680,7 +2679,7 @@ public class UpsServices {
             // handle Response element info
             Element responseElement = UtilXml.firstChildElement(shipmentConfirmResponseElement, "Response");
             String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-            List<Object> errorList = FastList.newInstance();
+            List<Object> errorList = new LinkedList<Object>();
             UpsServices.handleErrors(responseElement, errorList, locale);
             if (!"1".equals(responseStatusCode)) {
                 errorList.add(0, UtilProperties.getMessage(resourceError, "FacilityShipmentUpsShipmentConfirmFailedForReturnShippingLabel", locale));
@@ -2789,7 +2788,7 @@ public class UpsServices {
         Locale locale = (Locale) context.get("locale");
         String rateResponseString = null;
         String productStoreId = (String) context.get("productStoreId");
-        List<Map<String, Object>> shippingRates = FastList.newInstance();
+        List<Map<String, Object>> shippingRates = new LinkedList<Map<String,Object>>();
         GenericValue shipmentRouteSegment = null;
         Map<String, Object> shipmentGatewayConfig = ShipmentServices.getShipmentGatewayConfigFromShipment(delegator, shipmentId, locale);
         String shipmentGatewayConfigId = (String) shipmentGatewayConfig.get("shipmentGatewayConfigId");
@@ -3100,7 +3099,7 @@ public class UpsServices {
                 List <GenericValue> productStoreShipmentMethods = EntityQuery.use(delegator).from("ProductStoreShipmentMethView").where("productStoreId", productStoreId).queryList();
                 for (GenericValue productStoreShipmentMethod :productStoreShipmentMethods) {
                     if ("UPS".equals(productStoreShipmentMethod.get("partyId"))) {
-                        Map<String,Object> thisUpsRateCodeMap = FastMap.newInstance();
+                        Map<String, Object> thisUpsRateCodeMap = new HashMap<String, Object>();
                         carrierShipmentMethod = EntityQuery.use(delegator).from("CarrierShipmentMethod")
                                 .where("shipmentMethodTypeId", productStoreShipmentMethod.getString("shipmentMethodTypeId"), "partyId", productStoreShipmentMethod.getString("partyId"), "roleTypeId", productStoreShipmentMethod.getString("roleTypeId"))
                                 .queryOne();
@@ -3141,13 +3140,13 @@ public class UpsServices {
         // handle Response element info
         Element responseElement = UtilXml.firstChildElement(rateResponseElement, "Response");
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
-        List<Object> errorList = FastList.newInstance();
+        List<Object> errorList = new LinkedList<Object>();
         UpsServices.handleErrors(responseElement, errorList, locale);
         String totalRates = null;
 
         if ("1".equals(responseStatusCode)) {
             List<? extends Element> rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
-            Map<String, BigDecimal> rateMap = FastMap.newInstance();
+            Map<String, BigDecimal> rateMap = new HashMap<String, BigDecimal>();
             if (UtilValidate.isEmpty(rates)) {
                 return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, "FacilityShipmentUpsNoRateAvailable", locale));
             } else {

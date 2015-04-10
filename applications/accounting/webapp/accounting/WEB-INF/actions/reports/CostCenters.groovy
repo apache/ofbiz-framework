@@ -24,9 +24,6 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 if (!fromDate) {
     return;
 }
@@ -41,7 +38,7 @@ if (!parameters.glFiscalTypeId) {
 // Posted transactions totals and grand totals
 postedTotalDebit = BigDecimal.ZERO;
 postedTotalCredit = BigDecimal.ZERO;
-andExprs = FastList.newInstance();
+andExprs = [];
 andExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 andExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 andExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));

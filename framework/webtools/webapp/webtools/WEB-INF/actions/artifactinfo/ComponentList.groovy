@@ -23,17 +23,15 @@ import java.util.List;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentConfig.WebappInfo;
 
-import javolution.util.FastMap;
-import javolution.util.FastList;
 import org.ofbiz.base.util.*
 
 Collection <ComponentConfig> components = ComponentConfig.getAllComponents();
-List componentList = FastList.newInstance();
+List componentList = [];
 
 components.each { component ->
      List<WebappInfo> webApps = component.getWebappInfos();
      webApps.each { webApp ->
-         componentMap = FastMap.newInstance();
+         componentMap = [:];
          componentMap.compName = component.getComponentName();
          componentMap.rootLocation =  component.getRootLocation();
          componentMap.enabled = (component.enabled() == true? "Y" : "N");
@@ -46,7 +44,7 @@ components.each { component ->
          componentList.add(componentMap);
      }
      if (UtilValidate.isEmpty(webApps)) {
-         componentMap = FastMap.newInstance();
+         componentMap = [:];
          componentMap.compName = component.getComponentName();
          componentMap.rootLocation =  component.getRootLocation();
          componentMap.enabled = (component.enabled() == true? "Y" : "N");

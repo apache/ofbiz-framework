@@ -26,7 +26,6 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import javolution.util.FastList;
 
 cart = session.getAttribute("shoppingCart");
 party = userLogin.getRelatedOne("Party", false);

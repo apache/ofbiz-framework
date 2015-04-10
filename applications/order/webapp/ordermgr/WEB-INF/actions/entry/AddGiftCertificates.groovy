@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import javolution.util.FastList;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -31,7 +30,7 @@ if (productStoreId == null) {
 // Get Gift cards availbale in data
 
 giftCardCategories = from("ProductCategory").where("productCategoryTypeId", "GIFT_CARD_CATEGORY").queryList();
-giftCardProductList = FastList.newInstance();
+giftCardProductList = [];
 if (UtilValidate.isNotEmpty(giftCardCategories)) {
     giftCardCategories.each { giftCardCategory -> 
         giftCardCategoryMembers = from("ProductCategoryMember").where("productCategoryId", giftCardCategory.productCategoryId).queryList();

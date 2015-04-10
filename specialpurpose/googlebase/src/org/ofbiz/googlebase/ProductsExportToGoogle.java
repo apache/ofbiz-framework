@@ -28,14 +28,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.StringTokenizer;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -117,7 +116,7 @@ public class ProductsExportToGoogle {
 
         try {
             if (UtilValidate.isNotEmpty(productCategoryId)) {
-                List<String> productsList = FastList.newInstance();
+                List<String> productsList = new LinkedList<String>();
                 Map<String, Object> result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
 
                 if (result.get("categoryMembers") != null) {
@@ -142,7 +141,7 @@ public class ProductsExportToGoogle {
                 if (productsList.size() == 0) {
                     return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "productsExportToGoogle.noProductsAvailableInProductCategory", locale));
                 } else {
-                    Map<String, Object> paramIn = FastMap.newInstance();
+                    Map<String, Object> paramIn = new HashMap<String, Object>();
                     paramIn.put("selectResult", productsList);
                     paramIn.put("webSiteUrl", webSiteUrl);
                     paramIn.put("imageUrl", imageUrl);
@@ -276,7 +275,7 @@ public class ProductsExportToGoogle {
 
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         String response = "";
         if (responseCode == HttpURLConnection.HTTP_CREATED || responseCode == HttpURLConnection.HTTP_OK) {
             inputStream = connection.getInputStream();
@@ -304,8 +303,8 @@ public class ProductsExportToGoogle {
 
     private static Map<String, Object> buildDataItemsXml(DispatchContext dctx, Map<String, Object> context, StringBuffer dataItemsXml) {
         Locale locale = (Locale)context.get("locale");
-        List<String> newProductsInGoogle = FastList.newInstance();
-        List<String> productsRemovedFromGoogle = FastList.newInstance();
+        List<String> newProductsInGoogle = new LinkedList<String>();
+        List<String> productsRemovedFromGoogle = new LinkedList<String>();
         String localeString = null;
         String productStoreId = (String) context.get("productStoreId");
         
@@ -641,7 +640,7 @@ public class ProductsExportToGoogle {
 
     private static String getProductPrice(LocalDispatcher dispatcher, GenericValue product) {
         String priceString = null;
-        Map<String, Object> map = FastMap.newInstance();
+        Map<String, Object> map = new HashMap<String, Object>();
         try {
             map = dispatcher.runSync("calculateProductPrice", UtilMisc.toMap("product", product));
             boolean validPriceFound = ((Boolean)map.get("validPriceFound")).booleanValue();
@@ -656,7 +655,7 @@ public class ProductsExportToGoogle {
 
     private static Map<String, Object> readResponseFromGoogle(String msg, List<String> newProductsInGoogle, List<String> productsRemovedFromGoogle,
             LocalDispatcher dispatcher, Delegator delegator, Locale locale, String localeString) {
-        List<String> message = FastList.newInstance();
+        List<String> message = new LinkedList<String>();
         // Debug.logInfo("====get xml response from google: " + msg, module);
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
@@ -721,7 +720,7 @@ public class ProductsExportToGoogle {
 
     private static Map<String, Object> buildGoogleBaseConfig(Map<String, Object> context, Delegator delegator) {
         String productStoreId = (String) context.get("productStoreId");
-        Map<String, Object> buildGoogleBaseConfigContext = FastMap.newInstance();
+        Map<String, Object> buildGoogleBaseConfigContext = new HashMap<String, Object>();
 
         if (UtilValidate.isNotEmpty(productStoreId)) {
             GenericValue googleBaseConfig = null;

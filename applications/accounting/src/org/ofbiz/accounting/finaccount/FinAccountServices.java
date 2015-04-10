@@ -21,11 +21,10 @@ package org.ofbiz.accounting.finaccount;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -128,7 +127,7 @@ public class FinAccountServices {
                         creditAccount = EntityQuery.use(delegator).from("FinAccount").where("finAccountId", creditAccountId).queryOne();
 
                         // create the owner role
-                        Map<String, Object> roleCtx = FastMap.newInstance();
+                        Map<String, Object> roleCtx = new HashMap<String, Object>();
                         roleCtx.put("partyId", partyId);
                         roleCtx.put("roleTypeId", "OWNER");
                         roleCtx.put("finAccountId", creditAccountId);
@@ -153,7 +152,7 @@ public class FinAccountServices {
             }
 
             // create the credit transaction
-            Map<String, Object> transactionMap = FastMap.newInstance();
+            Map<String, Object> transactionMap = new HashMap<String, Object>();
             transactionMap.put("finAccountTransTypeId", "ADJUSTMENT");
             transactionMap.put("finAccountId", creditAccount.getString("finAccountId"));
             transactionMap.put("partyId", partyId);
@@ -413,7 +412,7 @@ public class FinAccountServices {
                                     String returnId = (String) rhResp.get("returnId");
 
                                     // create the return item
-                                    Map<String, Object> returnItemCtx = FastMap.newInstance();
+                                    Map<String, Object> returnItemCtx = new HashMap<String, Object>();
                                     returnItemCtx.put("returnId", returnId);
                                     returnItemCtx.put("orderId", orderId);
                                     returnItemCtx.put("description", orderItem.getString("itemDescription"));
@@ -455,7 +454,7 @@ public class FinAccountServices {
                                     String paymentId = response.getString("paymentId");
 
                                     // create the adjustment transaction
-                                    Map<String, Object> txCtx = FastMap.newInstance();
+                                    Map<String, Object> txCtx = new HashMap<String, Object>();
                                     txCtx.put("finAccountTransTypeId", "ADJUSTMENT");
                                     txCtx.put("finAccountId", finAccountId);
                                     txCtx.put("orderId", orderId);

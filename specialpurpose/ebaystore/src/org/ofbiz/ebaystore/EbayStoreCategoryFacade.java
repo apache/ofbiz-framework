@@ -19,11 +19,10 @@
 package org.ofbiz.ebaystore;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -130,7 +129,7 @@ public class EbayStoreCategoryFacade {
         //get listing durations
         ListingDurationDefinitionsType listDuration = featureDefinition.getListingDurations();
         ListingDurationDefinitionType[] durationArray = listDuration.getListingDuration();
-        listingDurationMap = FastMap.newInstance();
+        listingDurationMap = new HashMap<Integer, String[]>();
         for (int i = 0; i < durationArray.length; i++) {
             listingDurationMap.put(durationArray[i].getDurationSetID(), durationArray[i].getDuration());
         }
@@ -140,7 +139,7 @@ public class EbayStoreCategoryFacade {
         if (listingDuration == null || listingDuration.length == 0) {
             listingDuration = siteDefaults.getListingDuration();
         }
-        listingDurationReferenceMap = FastMap.newInstance();
+        listingDurationReferenceMap = new HashMap<String, Integer>();
         for (int i = 0; i < listingDuration.length; i++) {
             listingDurationReferenceMap.put(listingDuration[i].getType().value(),listingDuration[i].getValue());
         }
@@ -222,7 +221,7 @@ public class EbayStoreCategoryFacade {
     public List<Map<String,Object>> syncAdItemTemplates() throws ApiException, SdkSoapException, SdkException {
         GetDescriptionTemplatesRequestType req = null;
         GetDescriptionTemplatesResponseType resp = null;
-        List<Map<String,Object>> temGroupList = FastList.newInstance();
+        List<Map<String,Object>> temGroupList = new LinkedList<Map<String,Object>>();
 
         GetDescriptionTemplatesCall call = new GetDescriptionTemplatesCall(this.apiContext);
         req = new GetDescriptionTemplatesRequestType();
@@ -235,7 +234,7 @@ public class EbayStoreCategoryFacade {
                 List<Map<String,Object>> templateList = null;
                 Map<String,Object> templateGroup = null;
                 if ("THEME".equals(String.valueOf(descTemplateType.getType()))) {
-                    Map<String,Object> template = FastMap.newInstance();
+                    Map<String,Object> template = new HashMap<String, Object>();
                     template.put("TemplateId", String.valueOf(descTemplateType.getID()));
                     template.put("TemplateImageURL", descTemplateType.getImageURL());
                     template.put("TemplateName", descTemplateType.getName());
@@ -249,8 +248,8 @@ public class EbayStoreCategoryFacade {
                         }
                     }
                     if (templateGroup == null) {
-                        templateGroup = FastMap.newInstance();
-                        templateList = FastList.newInstance();
+                        templateGroup = new HashMap<String, Object>();
+                        templateList = new LinkedList<Map<String,Object>>();
                         templateGroup.put("TemplateGroupId", descTemplateType.getGroupID().toString());
                         templateList.add(template);
                         templateGroup.put("Templates", templateList);
@@ -282,7 +281,7 @@ public class EbayStoreCategoryFacade {
     }
 
     public List<Map<String,Object>> getAdItemTemplates(String temGroupId) {
-        List<Map<String,Object>> themes = FastList.newInstance();
+        List<Map<String,Object>> themes = new LinkedList<Map<String,Object>>();
         for (Map<String,Object> temp : this.adItemTemplates) {
             if (temp.get("TemplateGroupId").equals(temGroupId)) {
                 themes = UtilGenerics.checkList(temp.get("Templates"));

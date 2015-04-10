@@ -29,8 +29,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -57,7 +55,7 @@ public class EbayStoreOrder {
     private static final String module = EbayStoreOrder.class.getName();
 
     public static Map<String, Object> EbayStoreImportTransaction(DispatchContext dctx, Map<String, Object> context) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             if ("Complete".equals(context.get("checkoutStatus").toString()) && "NOT_IMPORT".equals(context.get("importStatus").toString())) {
@@ -75,7 +73,7 @@ public class EbayStoreOrder {
     }
     public static Map<String, Object> EbayStoreImportOrder(DispatchContext dctx, Map<String, Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         if (UtilValidate.isEmpty(context.get("orderId"))) {
             try {
                 result = dispatcher.runSync("EbayStoreCreateOrderShoppingCart", context);
@@ -93,7 +91,7 @@ public class EbayStoreOrder {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         
         String productStoreId = context.get("productStoreId").toString();
         String defaultCurrencyUomId = "";
@@ -305,7 +303,7 @@ public class EbayStoreOrder {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map <String, Object> result = FastMap.newInstance();
+        Map <String, Object> result = new HashMap<String, Object>();
 
         String productStoreId = context.get("productStoreId").toString();
         String defaultCurrencyUomId = null;

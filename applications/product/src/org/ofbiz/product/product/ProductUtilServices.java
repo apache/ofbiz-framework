@@ -19,13 +19,12 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Locale;
-
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -501,7 +500,7 @@ public class ProductUtilServices {
         String errMsg = null;
 
         if (UtilValidate.isEmpty(pattern)) {
-            Map<String, Object>imageContext = FastMap.newInstance();
+            Map<String, Object> imageContext = new HashMap<String, Object>();
             imageContext.putAll(context);
             imageContext.put("tenantId",delegator.getDelegatorTenantId());
             String imageFilenameFormat = EntityUtilProperties.getPropertyValue("catalog", "image.filename.format", delegator);
@@ -627,7 +626,7 @@ while (allCatIter.hasNext()) {
         boolean doSubCategories = !"N".equals(doSubCategoriesStr);
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
-        Set<String> productFeatureTypeIdsToExclude = FastSet.newInstance();
+        Set<String> productFeatureTypeIdsToExclude = new HashSet<String>();
         String excludeProp = EntityUtilProperties.getPropertyValue("prodsearch", "attach.feature.type.exclude", delegator);
         if (UtilValidate.isNotEmpty(excludeProp)) {
             List<String> typeList = StringUtil.split(excludeProp, ",");
@@ -672,7 +671,7 @@ while (allCatIter.hasNext()) {
         }
 
         // now get all features for this category and make associated feature groups
-        Map<String, Set<String>> productFeatureIdByTypeIdSetMap = FastMap.newInstance();
+        Map<String, Set<String>> productFeatureIdByTypeIdSetMap = new HashMap<String, Set<String>>();
         List<GenericValue> productCategoryMemberList = EntityQuery.use(delegator).from("ProductCategoryMember").where("productCategoryId", productCategoryId).queryList();
         for (GenericValue productCategoryMember: productCategoryMemberList) {
             String productId = productCategoryMember.getString("productId");
@@ -694,7 +693,7 @@ while (allCatIter.hasNext()) {
                 }
                 Set<String> productFeatureIdSet = productFeatureIdByTypeIdSetMap.get(productFeatureTypeId);
                 if (productFeatureIdSet == null) {
-                    productFeatureIdSet = FastSet.newInstance();
+                    productFeatureIdSet = new HashSet<String>();
                     productFeatureIdByTypeIdSetMap.put(productFeatureTypeId, productFeatureIdSet);
                 }
                 productFeatureIdSet.add(productFeatureId);

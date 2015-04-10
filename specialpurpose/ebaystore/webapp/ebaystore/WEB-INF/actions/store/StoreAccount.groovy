@@ -18,10 +18,8 @@
  */
 
 import org.ofbiz.base.util.*;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
-results =  FastList.newInstance();
+results =  [];
 ebayAccountList = from("PartyRoleAndPartyDetail").where("roleTypeId", "EBAY_ACCOUNT").queryList();
 productStoreRoles = from("ProductStoreRole").where("roleTypeId", "EBAY_ACCOUNT").queryList();
 
@@ -30,7 +28,7 @@ if (productStoreRoles != null && ebayAccountList != null) {
         partyId = ebayAccount.partyId;
         productStoreRoles.each{productStoreRole ->
             if(partyId.equals(productStoreRole.partyId)){
-                storeMap = FastMap.newInstance();
+                storeMap = [:];
                 storeMap.partyId = ebayAccount.partyId;
                 storeMap.firstName = ebayAccount.firstName;
                 storeMap.lastName = ebayAccount.lastName;

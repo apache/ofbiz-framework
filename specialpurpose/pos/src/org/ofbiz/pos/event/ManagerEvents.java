@@ -21,10 +21,10 @@ package org.ofbiz.pos.event;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.util.FastMap;
 import net.xoetrope.xui.XProjectManager;
 
 import org.ofbiz.base.util.Debug;
@@ -545,7 +545,7 @@ public class ManagerEvents {
         }
 
 
-        Map<String, String> reportMap = FastMap.newInstance();
+        Map<String, String> reportMap = new HashMap<String, String>();
         String reportTemplate = "totals.txt";
 
         // miscellaneous

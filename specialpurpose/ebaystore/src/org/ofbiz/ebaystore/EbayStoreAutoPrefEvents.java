@@ -18,13 +18,12 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -86,7 +85,7 @@ public class EbayStoreAutoPrefEvents{
             }
         }
 
-        Map<String, Object> bestOfferCondition =  FastMap.newInstance();
+        Map<String, Object> bestOfferCondition = new HashMap<String, Object>();
         bestOfferCondition.put("productStoreId", productStoreId);
         bestOfferCondition.put("userLogin", userLogin);
         bestOfferCondition.put("enabled", enabled);

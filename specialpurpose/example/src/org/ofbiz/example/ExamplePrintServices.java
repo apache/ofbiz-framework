@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.print.Doc;
@@ -38,8 +39,6 @@ import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.Sides;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
-
-import javolution.util.FastMap;
 
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
@@ -61,7 +60,7 @@ public class ExamplePrintServices {
     public static Map<String, Object> printReportPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
         String screenLocation = "component://example/widget/example/ExampleReportScreens.xml";
         String reportScreenName = "ExampleReport";
-        Map<String, Object> workContext = FastMap.newInstance();
+        Map<String, Object> workContext = new HashMap<String, Object>();
         workContext.putAll(context);
 
         // render a screen to get the XML document

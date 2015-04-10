@@ -21,7 +21,6 @@ import java.util.*;
 import java.lang.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
-import javolution.util.FastMap;
 
 if (parameters.workEffortId) {
     workEffortId = parameters.workEffortId;

@@ -19,13 +19,12 @@
 package org.ofbiz.humanres;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -82,10 +81,10 @@ public class HumanResEvents {
                             title = memGroupCtx.getString("groupName");
                         }
                         
-                        Map josonMap = FastMap.newInstance();
-                        Map dataMap = FastMap.newInstance();
-                        Map dataAttrMap = FastMap.newInstance();
-                        Map attrMap = FastMap.newInstance();
+                        Map josonMap = new HashMap();
+                        Map dataMap = new HashMap();
+                        Map dataAttrMap = new HashMap();
+                        Map attrMap = new HashMap();
                         
                         dataAttrMap.put("onClick", onclickFunction + "('" + memberId + additionParam + "')");
                         
@@ -124,10 +123,10 @@ public class HumanResEvents {
                         String catNameField = null;
                         String title = null;
                         
-                        Map josonMap = FastMap.newInstance();
-                        Map dataMap = FastMap.newInstance();
-                        Map dataAttrMap = FastMap.newInstance();
-                        Map attrMap = FastMap.newInstance();
+                        Map josonMap = new HashMap();
+                        Map dataMap = new HashMap();
+                        Map dataAttrMap = new HashMap();
+                        Map attrMap = new HashMap();
                         
                         catId = childOfCom.get("partyIdTo");
                         
@@ -198,10 +197,10 @@ public class HumanResEvents {
 
                 if (UtilValidate.isNotEmpty(isEmpls)) {
                     for (GenericValue childOfEmpl : isEmpls ) {
-                        Map emplMap = FastMap.newInstance();
-                        Map emplAttrMap = FastMap.newInstance();
-                        Map empldataMap = FastMap.newInstance();
-                        Map emplDataAttrMap = FastMap.newInstance();
+                        Map emplMap = new HashMap();
+                        Map emplAttrMap = new HashMap();
+                        Map empldataMap = new HashMap();
+                        Map emplDataAttrMap = new HashMap();
                         
                         String emplId = (String) childOfEmpl.get("emplPositionId");
                         String typeId = (String) childOfEmpl.get("emplPositionTypeId");

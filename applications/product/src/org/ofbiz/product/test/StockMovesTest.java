@@ -20,11 +20,10 @@
 package org.ofbiz.product.test;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericValue;
@@ -52,9 +51,9 @@ public class StockMovesTest extends OFBizTestCase {
     }
 
     public void testStockMoves() throws Exception {
-        Map<String, Object> fsmnCtx = FastMap.newInstance();
+        Map<String, Object> fsmnCtx = new HashMap<String, Object>();
         Map<?,?> stockMoveHandled = null;
-        List<?> warningList = FastList.newInstance();
+        List<?> warningList = new LinkedList();
 
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);
@@ -70,7 +69,7 @@ public class StockMovesTest extends OFBizTestCase {
         warningList = UtilGenerics.checkList(respMap2.get("warningMessageList"));
         assertNull(warningList);
 
-        Map<String, Object> ppsmCtx = FastMap.newInstance();
+        Map<String, Object> ppsmCtx = new HashMap<String, Object>();
         ppsmCtx.put("productId", "GZ-2644");
         ppsmCtx.put("facilityId", "WebStoreWarehouse");
         ppsmCtx.put("locationSeqId","TLTLTLUL01");

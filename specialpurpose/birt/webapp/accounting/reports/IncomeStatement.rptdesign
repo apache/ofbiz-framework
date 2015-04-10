@@ -20,7 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util)
+    <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.entity.util)
 
@@ -28,7 +28,7 @@ module = "IncomeStatement.rptdesign";
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
 
 // prepare uiLabelMap
-uiLabelMap = FastMap.newInstance();
+uiLabelMap = new HashMap();
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
 
@@ -67,7 +67,7 @@ if (!params["glFiscalTypeId"].value) {
 }
 
 // call IncomeStatement.groovy script
-context = FastMap.newInstance();
+context = new HashMap();
 context.put("organizationPartyId", organizationPartyId);
 context.put("fromDate", fromDate);
 context.put("thruDate", thruDate);

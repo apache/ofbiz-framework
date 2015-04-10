@@ -26,13 +26,12 @@ import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -308,7 +307,7 @@ public class PdfSurveyServices {
     /**
      */
     public static Map<String, Object> getAcroFieldsFromPdf(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object> acroFieldMap = FastMap.newInstance();
+        Map<String, Object> acroFieldMap = new HashMap<String, Object>();
         try {
             ByteArrayOutputStream os = new ByteArrayOutputStream();
             Delegator delegator = dctx.getDelegator();
@@ -488,7 +487,7 @@ public class PdfSurveyServices {
         //LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> results = ServiceUtil.returnSuccess();
         String surveyResponseId = (String)context.get("surveyResponseId");
-        List<Object> qAndA = FastList.newInstance();
+        List<Object> qAndA = new LinkedList<Object>();
 
         try {
             List<GenericValue> responses = EntityQuery.use(delegator).from("SurveyResponseAnswer").where("surveyResponseId", surveyResponseId).queryList();
@@ -512,7 +511,7 @@ public class PdfSurveyServices {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> results = ServiceUtil.returnSuccess();
-        Map<String, Object> acroFieldMap = FastMap.newInstance();
+        Map<String, Object> acroFieldMap = new HashMap<String, Object>();
         String surveyResponseId = (String)context.get("surveyResponseId");
         String acroFormContentId = null;
 

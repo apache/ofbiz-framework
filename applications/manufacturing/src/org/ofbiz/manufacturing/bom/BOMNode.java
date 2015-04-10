@@ -22,11 +22,10 @@ package org.ofbiz.manufacturing.bom;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -73,8 +72,8 @@ public class BOMNode {
         this.delegator = product.getDelegator();
         this.dispatcher = dispatcher;
         this.userLogin = userLogin;
-        children = FastList.newInstance();
-        childrenNodes = FastList.newInstance();
+        children = new LinkedList<GenericValue>();
+        childrenNodes = new LinkedList<BOMNode>();
         parentNode = null;
         productForRules = null;
         bomTypeId = null;
@@ -111,9 +110,9 @@ public class BOMNode {
                     .orderBy("sequenceNum")
                     .filterByDate(inDate).queryList();
         }
-        children = FastList.newInstance();
+        children = new LinkedList<GenericValue>();
         children.addAll(rows);
-        childrenNodes = FastList.newInstance();
+        childrenNodes = new LinkedList<BOMNode>();
         BOMNode oneChildNode = null;
         for (GenericValue oneChild : children) {
             // Configurator
@@ -272,7 +271,7 @@ public class BOMNode {
                         // -----------------------------------------------------------
                         // We try to apply directly the selected features
                         if (newNode.equals(oneChildNode)) {
-                            Map<String, String> selectedFeatures = FastMap.newInstance();
+                            Map<String, String> selectedFeatures = new HashMap<String, String>();
                             if (productFeatures != null) {
                                 GenericValue feature = null;
                                 for (int j = 0; j < productFeatures.size(); j++) {
@@ -282,7 +281,7 @@ public class BOMNode {
                             }
 
                             if (selectedFeatures.size() > 0) {
-                                Map<String, Object> context = FastMap.newInstance();
+                                Map<String, Object> context = new HashMap<String, Object>();
                                 context.put("productId", node.get("productIdTo"));
                                 context.put("selectedFeatures", selectedFeatures);
                                 Map<String, Object> storeResult = null;
@@ -338,9 +337,9 @@ public class BOMNode {
                     .orderBy("sequenceNum")
                     .filterByDate(inDate).queryList();
         }
-        children = FastList.newInstance();
+        children = new LinkedList<GenericValue>();
         children.addAll(rows);
-        childrenNodes = FastList.newInstance();
+        childrenNodes = new LinkedList<BOMNode>();
 
         BOMNode oneChildNode = null;
         for (GenericValue oneChild : children) {
@@ -506,7 +505,7 @@ public class BOMNode {
         Timestamp endDate = null;
         if (isManufactured(ignoreSupplierProducts)) {
             BOMNode oneChildNode = null;
-            List<String> childProductionRuns = FastList.newInstance();
+            List<String> childProductionRuns = new LinkedList<String>();
             Timestamp maxEndDate = null;
             for (int i = 0; i < childrenNodes.size(); i++) {
                 oneChildNode = childrenNodes.get(i);
@@ -528,7 +527,7 @@ public class BOMNode {
             }
 
             Timestamp startDate = UtilDateTime.toTimestamp(UtilDateTime.toDateTimeString(date));
-            Map<String, Object> serviceContext = FastMap.newInstance();
+            Map<String, Object> serviceContext = new HashMap<String, Object>();
             if (!useSubstitute) {
                 serviceContext.put("productId", getProduct().getString("productId"));
                 serviceContext.put("facilityId", getProduct().getString("facilityId"));

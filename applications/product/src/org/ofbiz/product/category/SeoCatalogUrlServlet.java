@@ -19,6 +19,7 @@
 package org.ofbiz.product.category;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -27,8 +28,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -105,7 +104,7 @@ public class SeoCatalogUrlServlet extends HttpServlet {
         } else if (pathElements.size() > 2) {
             List<String> trail = CategoryWorker.getTrail(request);
             if (trail == null) {
-                trail = FastList.newInstance();
+                trail = new LinkedList<String>();
             }
 
             if (trail.contains(pathElements.get(0))) {

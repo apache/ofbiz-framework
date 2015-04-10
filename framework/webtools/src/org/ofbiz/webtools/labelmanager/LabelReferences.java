@@ -22,16 +22,15 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.util.Debug;
@@ -65,8 +64,8 @@ public class LabelReferences {
     protected Delegator delegator;
     protected DispatchContext dispatchContext;
     protected Map<String, LabelInfo> labels;
-    protected Set<String> labelSet = FastSet.newInstance();
-    protected Set<String> rootFolders = FastSet.newInstance();
+    protected Set<String> labelSet = new HashSet<String>();
+    protected Set<String> rootFolders = new HashSet<String>();
 
     public LabelReferences(Delegator delegator, LabelManagerFactory factory) {
         this.delegator = delegator;
@@ -113,7 +112,7 @@ public class LabelReferences {
         // get labels from simple method files
         getLabelsFromSimpleMethodFiles();
         // get labels from widgets files
-        List<File> fileList = FastList.newInstance();
+        List<File> fileList = new LinkedList<File>();
         for (String rootFolder : this.rootFolders) {
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "webapp", null, null, null));
             fileList.addAll(FileUtil.findXmlFiles(rootFolder + "widget", null, null, null));
@@ -259,7 +258,7 @@ public class LabelReferences {
     }
 
     private void getLabelsFromFormWidgets(String inFile, File file) throws MalformedURLException, SAXException, ParserConfigurationException, IOException, GenericServiceException {
-        Set<String> fieldNames = FastSet.newInstance();
+        Set<String> fieldNames = new HashSet<String>();
         findUiLabelMapInFile(inFile, file.getPath());
         Document formDocument = UtilXml.readXmlDocument(file.toURI().toURL());
         Element rootElem = formDocument.getDocumentElement();

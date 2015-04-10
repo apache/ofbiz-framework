@@ -21,14 +21,13 @@ package org.ofbiz.content.webapp.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -94,9 +93,9 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map<String, Object> savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
-        final Map<String, Object> savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
 
         String contentAssocTypeId = (String) templateRoot.get("contentAssocTypeId");
@@ -105,7 +104,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             templateRoot.put("contentAssocTypeId ", contentAssocTypeId);
         }
 
-        final Map<String, GenericValue> pickedEntityIds = FastMap.newInstance();
+        final Map<String, GenericValue> pickedEntityIds = new HashMap<String, GenericValue>();
         List<String> assocTypes = StringUtil.split(contentAssocTypeId, "|");
 
         String contentPurposeTypeId = (String) templateRoot.get("contentPurposeTypeId");
@@ -117,7 +116,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
             templateRoot.put("locale", locale);
         }
 
-        Map<String, Object> whenMap = FastMap.newInstance();
+        Map<String, Object> whenMap = new HashMap<String, Object>();
         whenMap.put("followWhen", templateRoot.get("followWhen"));
         whenMap.put("pickWhen", templateRoot.get("pickWhen"));
         whenMap.put("returnBeforePickWhen", templateRoot.get("returnBeforePickWhen"));
@@ -266,7 +265,7 @@ public class LimitedSubContentCacheTransform implements TemplateTransformModel {
                         isPickObj.booleanValue()) || (isFollowObj != null && isFollowObj.booleanValue()))) {
                     List<Map<String, ? extends Object>> globalNodeTrail = UtilGenerics.checkList(ctx.get("globalNodeTrail"));
                     if (globalNodeTrail == null) {
-                        globalNodeTrail = FastList.newInstance();
+                        globalNodeTrail = new LinkedList<Map<String,? extends Object>>();
                     }
                     globalNodeTrail.add(trailNode);
                     ctx.put("globalNodeTrail", globalNodeTrail);

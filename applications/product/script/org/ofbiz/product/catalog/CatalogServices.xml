@@ -449,7 +449,7 @@ under the License.
         </entity-and>
 
         <!-- Get all categories -->
-        <call-class-method method-name="newInstance" class-name="javolution.util.FastList" ret-field="parameters.productCategories"/>
+        <set field="parameters.productCategories" value="${groovy: []}" type="List"/>
         <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
             <set field="rootProductCategoryId" from-field="prodCatalogCategory.productCategoryId"/>
             <entity-and list="productCategoryRollupList" entity-name="ProductCategoryRollup" filter-by-date="true">

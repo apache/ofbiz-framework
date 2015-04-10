@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import javolution.util.FastMap;
-import javolution.util.FastList;
-
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityTypeUtil;
 import org.ofbiz.entity.util.EntityUtil;
@@ -37,12 +34,12 @@ shipGroups = from("OrderItemShipGroup").where(findMap).orderBy("shipGroupSeqId")
 context.shipGroups = shipGroups;
 
 // method to expand the marketing packages
-FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
-    sublines = FastList.newInstance();
+LinkedList expandProductGroup(product, quantityInGroup, quantityShipped, quantityOpen, assocType) {
+    sublines = [];
     associations = product.getRelated("MainProductAssoc", [productAssocTypeId : assocType], null, false);
     associations = EntityUtil.filterByDate(associations);
     associations.each { association ->
-        line = FastMap.newInstance();
+        line = [:];
         line.product = association.getRelatedOne("AssocProduct", false);
 
         // determine the quantities
@@ -56,9 +53,9 @@ FastList expandProductGroup(product, quantityInGroup, quantityShipped, quantityO
     return sublines;
 }
 
-groupData = FastMap.newInstance();
+groupData = [:];
 shipGroups.each { shipGroup ->
-    data = FastMap.newInstance();
+    data = [:];
 
     address = shipGroup.getRelatedOne("PostalAddress", false);
     data.address = address;
@@ -73,14 +70,14 @@ shipGroups.each { shipGroup ->
     }
 
     // the lines in a page, each line being a row of data to display
-    lines = FastList.newInstance();
+    lines = [];
 
     // process the order item to ship group associations, each being a line item for the group
     orderItemAssocs = shipGroup.getRelated("OrderItemShipGroupAssoc", null, ["orderItemSeqId"], false);
     orderItemAssocs.each { orderItemAssoc ->
         orderItem = orderItemAssoc.getRelatedOne("OrderItem", false);
         product = orderItem.getRelatedOne("Product", false);
-        line = FastMap.newInstance();
+        line = [];
 
         // the quantity in group
         quantityInGroup = orderItemAssoc.quantity;

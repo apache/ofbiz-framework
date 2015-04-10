@@ -19,13 +19,13 @@
 package org.ofbiz.pos.screen;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
 
-import javolution.util.FastList;
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XComboBox;
 import net.xoetrope.swing.XDialog;
@@ -94,7 +94,7 @@ public class PaidInOut extends XPage {
         XEventHelper.addMouseHandler(this, m_amountEdit, "editAmount");
 
         m_comboModel = new DefaultComboBoxModel();
-        List<GenericValue> posPaidReasons = FastList.newInstance();
+        List<GenericValue> posPaidReasons = new LinkedList<GenericValue>();
         if (m_type.equals("IN")) {
             m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PosPaidInTitle", locale));
             try {

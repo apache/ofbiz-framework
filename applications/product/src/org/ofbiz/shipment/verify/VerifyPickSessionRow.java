@@ -21,10 +21,9 @@ package org.ofbiz.shipment.verify;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilProperties;
@@ -130,7 +129,7 @@ public class VerifyPickSessionRow implements Serializable {
             quantity = this.getReadyToVerifyQty();
         }
 
-        Map<String, Object> issueOrderItemMap = FastMap.newInstance();
+        Map<String, Object> issueOrderItemMap = new HashMap<String, Object>();
         issueOrderItemMap.put("shipmentId", shipmentId);
         issueOrderItemMap.put("orderId", this.getOrderId());
         issueOrderItemMap.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -154,7 +153,7 @@ public class VerifyPickSessionRow implements Serializable {
         if (picklistBinId != null) {
             // find the pick list item
             Delegator delegator = dispatcher.getDelegator();
-            Map<String, Object> picklistItemMap = FastMap.newInstance();
+            Map<String, Object> picklistItemMap = new HashMap<String, Object>();
             picklistItemMap.put("picklistBinId", picklistBinId);
             picklistItemMap.put("orderId", this.getOrderId());
             picklistItemMap.put("orderItemSeqId", this.getOrderItemSeqId());

@@ -20,12 +20,11 @@ under the License.
 package org.ofbiz.googlecheckout;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -297,8 +296,8 @@ public class GoogleRequestServices {
         String returnId = (String) context.get("returnId");
 
         // sort by order
-        Map<String, BigDecimal> toRefund = FastMap.newInstance();
-        Map<String, List<String>> toReturn = FastMap.newInstance();
+        Map<String, BigDecimal> toRefund = new HashMap<String, BigDecimal>();
+        Map<String, List<String>> toReturn = new HashMap<String, List<String>>();
         BigDecimal refundTotal = new BigDecimal(0.0);
 
         List<GenericValue> returnItems = null;
@@ -321,7 +320,7 @@ public class GoogleRequestServices {
                     }
                     List<String> items = toReturn.get(orderId);
                     if (items == null) {
-                        items = FastList.newInstance();
+                        items = new LinkedList<String>();
                     }
 
                     // get the values from the return item

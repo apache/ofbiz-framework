@@ -19,7 +19,6 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
-import javolution.util.FastList;
 
 communicationEvent = from("CommunicationEvent").where("communicationEventId", parameters.communicationEventId).cache(true).queryOne();
 
@@ -40,7 +39,7 @@ name = communicationEvent.note.substring(startName, endName);
 if (name) {
     counter = 0;
     lastBlank = 0;
-    List names = FastList.newInstance();
+    List names = [];
     while ((nextBlank = name.indexOf(" ", lastBlank)) != -1) {
         names.add(name.substring(lastBlank, nextBlank));
         lastBlank = nextBlank + 1;

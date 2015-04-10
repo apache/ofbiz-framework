@@ -18,9 +18,8 @@
  */
 package org.ofbiz.webtools.labelmanager;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -32,7 +31,7 @@ public class LabelInfo {
     protected String labelKey = "";
     protected String labelKeyComment = "";
     protected String fileName = "";
-    protected Map<String, LabelValue> labelValues = FastMap.newInstance();
+    protected Map<String, LabelValue> labelValues = new LinkedHashMap<String, LabelValue>();
 
     public LabelInfo(String labelKey, String labelKeyComment, String fileName, String localeStr, String labelValue, String labelComment) {
         this.labelKey = labelKey;

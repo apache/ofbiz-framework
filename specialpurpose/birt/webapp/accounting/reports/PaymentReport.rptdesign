@@ -36,7 +36,7 @@ under the License.
     <property name="Payment.Payments.y">80</property>
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
-importPackage(Packages.javolution.util)
+
 importPackage(Packages.org.ofbiz.entity.util)
 module = "PaymentReport.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>
@@ -331,8 +331,8 @@ try {
 } catch(e) {
         Debug.logError(e,"");
 }
-input =  FastMap.newInstance();
-inputFields =  FastMap.newInstance();
+input =  new HashMap();
+inputFields =  new HashMap();
 if(params!=null){
     inputFields.put("partyIdTo", params["partyIdTo"]);
     inputFields.put("paymentId", params["paymentId"]);

@@ -25,8 +25,6 @@ import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 
-import javolution.util.FastList;
-
 exprBldr =  new EntityConditionBuilder();
 invoice = context.invoice;
 if (!invoice) return;

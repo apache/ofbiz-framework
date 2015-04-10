@@ -20,7 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util)
+    <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.entity.condition)
 importPackage(Packages.org.ofbiz.entity.util)
@@ -28,7 +28,7 @@ importPackage(Packages.org.ofbiz.entity.util)
 module = "TrialBalance.rptdesign";
 
 // prepare uiLabelMap
-uiLabelMap = FastMap.newInstance();
+uiLabelMap = new HashMap();
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
 
@@ -50,7 +50,7 @@ if (!logoImageUrl) {
 
 // prepare parties list
 partyIds = org.ofbiz.party.party.PartyWorker.getAssociatedPartyIdsByRelationshipType(delegator, organizationPartyId, "GROUP_ROLLUP");
-parties = FastList.newInstance();
+parties = new LinkedkList();
 try {
     var 
     parties = delegator.findList("Party", EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds), null, null, null, false);
@@ -60,7 +60,7 @@ try {
 partyIds.add(organizationPartyId);
 
 // call TrialBalance.groovy script
-context = FastMap.newInstance();
+context = new HashMap();
 context.put("parties", parties);
 context.put("delegator", delegator);
 context.put("dispatcher", dispatcher);
@@ -69,12 +69,12 @@ GroovyUtil.runScriptAtLocation("component://accounting/webapp/accounting/WEB-INF
 partyNameList = context.partyNameList;
 
 // get grand totoal posted
-var condList = FastList.newInstance();
+var condList = new LinkedkList();
 condList.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 condList.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, customTimePeriodId));
 var cond = EntityCondition.makeCondition(condList);
 var fieldsToSelect = UtilMisc.toSet("totalPostedDebits", "totalPostedCredits");
-grandTotalPosted = FastList.newInstance();
+grandTotalPosted = new LinkedkList();
 try {
     grandTotalPosted = delegator.findList("GlAccountAndHistoryTotals", cond, fieldsToSelect, null, null, false);
 } catch (e) {
@@ -214,13 +214,13 @@ grandTotalPostedRecord = grandTotalPosted.get(0);]]></method>
             </structure>
             <property name="dataSource">OFBiz</property>
             <method name="open"><![CDATA[// get Gl account history totals
-var condList = FastList.newInstance();
+var condList = new LinkedkList();
 condList.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 condList.add(EntityCondition.makeCondition("customTimePeriodId", EntityOperator.EQUALS, customTimePeriodId));
 var cond = EntityCondition.makeCondition(condList);
 var fieldsToSelect = UtilMisc.toSet("glAccountId", "accountCode", "accountName", "totalPostedDebits", "totalPostedCredits", "totalEndingBalance");
 var orderBy = UtilMisc.toList("accountCode");
-glAccountAndHistories = FastList.newInstance();
+glAccountAndHistories = new LinkedkList();
 try {
     glAccountAndHistories = delegator.findList("GlAccountAndHistoryTotals", cond, fieldsToSelect, orderBy, null, false);
 } catch (e) {

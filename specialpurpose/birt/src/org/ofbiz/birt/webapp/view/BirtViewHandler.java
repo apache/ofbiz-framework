@@ -21,6 +21,7 @@ package org.ofbiz.birt.webapp.view;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -28,8 +29,6 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastMap;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.report.engine.api.IReportEngine;
@@ -86,7 +85,7 @@ public class BirtViewHandler implements ViewHandler {
             Map<String, Object> appContext = UtilGenerics.cast(engine.getConfig().getAppContext());
             BirtWorker.setWebContextObjects(appContext, request, response);
 
-            Map<String, Object> context = FastMap.newInstance();
+            Map<String, Object> context = new HashMap<String, Object>();
             // set parameters from request
              Map<String, Object> parameters = UtilGenerics.cast(request.getAttribute(BirtWorker.BIRT_PARAMETERS));
             if (parameters != null) {

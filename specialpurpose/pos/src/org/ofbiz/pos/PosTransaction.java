@@ -22,14 +22,14 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
 import net.xoetrope.xui.data.XModel;
 import net.xoetrope.xui.helper.SwingWorker;
 
@@ -259,7 +259,7 @@ public class PosTransaction implements Serializable {
 
     public Map<String, Object> getItemInfo(int index) {
         ShoppingCartItem item = cart.findCartItem(index);
-        Map<String, Object> itemInfo = FastMap.newInstance();
+        Map<String, Object> itemInfo = new HashMap<String, Object>();
         itemInfo.put("productId", item.getProductId());
         String description = item.getDescription();
         if (UtilValidate.isEmpty(description)) {
@@ -300,7 +300,7 @@ public class PosTransaction implements Serializable {
             pcw = item.getConfigWrapper();
             List<ConfigOption> selected = pcw.getSelectedOptions();
             for (ConfigOption configoption : selected) {
-                Map<String, Object> itemInfo = FastMap.newInstance();
+                Map<String, Object> itemInfo = new HashMap<String, Object>();
                 if (configoption.isSelected() && !configoption.isDefault()) {
                     itemInfo.put("productId", "");
                     itemInfo.put("sku", "");
@@ -320,7 +320,7 @@ public class PosTransaction implements Serializable {
         GenericValue infValue = inf.getValueObject(session.getDelegator());
         GenericValue paymentPref = null;
         try {
-            Map<String, Object> fields = FastMap.newInstance();
+            Map<String, Object> fields = new HashMap<String, Object>();
             fields.put("paymentMethodTypeId", inf.paymentMethodTypeId);
             if (inf.paymentMethodId != null) {
                 fields.put("paymentMethodId", inf.paymentMethodId);
@@ -345,7 +345,7 @@ public class PosTransaction implements Serializable {
         }
         //Debug.logInfo("PaymentPref - " + paymentPref, module);
 
-        Map<String, Object> payInfo = FastMap.newInstance();
+        Map<String, Object> payInfo = new HashMap<String, Object>();
 
         // locate the auth info
         GenericValue authTrans = null;
@@ -845,7 +845,7 @@ public class PosTransaction implements Serializable {
                      UtilMisc.toMap("reasonEnumId", "EnumIdHere"), // TODO: where does this come from?
                      "itemCommentMap", UtilMisc.toMap("changeComments", "change Comments here")); //TODO
 
-             Map<String, Object> svcCtx = FastMap.newInstance();
+             Map<String, Object> svcCtx = new HashMap<String, Object>();
              svcCtx.put("userLogin", session.getUserLogin());
              svcCtx.put("orderId", orderId);
              svcCtx.put("shoppingCart", cart);
@@ -1139,7 +1139,7 @@ public class PosTransaction implements Serializable {
             expYear = "20" + expYear;
         }
 
-        Map<String, Object> svcCtx = FastMap.newInstance();
+        Map<String, Object> svcCtx = new HashMap<String, Object>();
         svcCtx.put("userLogin", session.getUserLogin());
         svcCtx.put("partyId", partyId);
         svcCtx.put("cardNumber", cardNumber);
@@ -1249,10 +1249,10 @@ public class PosTransaction implements Serializable {
     private List<GenericValue> findOrders() {
         LocalDispatcher dispatcher = session.getDispatcher();
 
-        Map<String, Object> svcCtx = FastMap.newInstance();
+        Map<String, Object> svcCtx = new HashMap<String, Object>();
         svcCtx.put("userLogin", session.getUserLogin());
         svcCtx.put("partyId", partyId);
-        List<String> orderStatusIds = FastList.newInstance();
+        List<String> orderStatusIds = new LinkedList<String>();
         orderStatusIds.add("ORDER_CREATED");
         svcCtx.put("orderStatusId", orderStatusIds);
         svcCtx.put("viewIndex", 1);
@@ -1318,7 +1318,7 @@ public class PosTransaction implements Serializable {
     }
 
     public Map<String, String> createSalesMap(List<GenericValue> shoppingLists) {
-        Map<String, String> salesMap = FastMap.newInstance();
+        Map<String, String> salesMap = new HashMap<String, String>();
         for (GenericValue shoppingList : shoppingLists) {
             List<GenericValue> items = null;
             try {
@@ -1336,7 +1336,7 @@ public class PosTransaction implements Serializable {
     }
 
     public Map<String, String> createOrderHash(List<GenericValue> orders) {
-        Map<String, String> hash = FastMap.newInstance();
+        Map<String, String> hash = new HashMap<String, String>();
         for (GenericValue order : orders) {
             String orderName = order.getString("orderName");
             String orderId = order.getString("orderId");
@@ -1369,7 +1369,7 @@ public class PosTransaction implements Serializable {
 
         LocalDispatcher dispatcher = session.getDispatcher();
 
-        Map<String, Object> svcCtx = FastMap.newInstance();
+        Map<String, Object> svcCtx = new HashMap<String, Object>();
         svcCtx.put("userLogin", session.getUserLogin());
         svcCtx.put("orderId", orderId);
         svcCtx.put("skipInventoryChecks", Boolean.TRUE);
@@ -1548,7 +1548,7 @@ public class PosTransaction implements Serializable {
                         party.put(key, keyTypeValue);
                         partyListIt.set(party);
                     } else {
-                        Map<String, String> partyClone = FastMap.newInstance();
+                        Map<String, String> partyClone = new HashMap<String, String>();
                         partyClone.putAll(party);
                         partyClone.put(key, keyTypeValue);
                         partyListIt.add(partyClone);
@@ -1602,11 +1602,11 @@ public class PosTransaction implements Serializable {
         }
 
             // define the main condition & expression list
-            List<EntityCondition> andExprs = FastList.newInstance();
+            List<EntityCondition> andExprs = new LinkedList<EntityCondition>();
             EntityCondition mainCond = null;
 
-            List<String> orderBy = FastList.newInstance();
-            List<String> fieldsToSelect = FastList.newInstance();
+            List<String> orderBy = new LinkedList<String>();
+            List<String> fieldsToSelect = new LinkedList<String>();
             // fields we need to select; will be used to set distinct
             fieldsToSelect.add("partyId");
             fieldsToSelect.add("lastName");
@@ -1692,9 +1692,9 @@ public class PosTransaction implements Serializable {
             }
 
             if (partyList != null) {
-                resultList = FastList.newInstance();
+                resultList = new LinkedList<Map<String,String>>();
                 for (GenericValue party : partyList) {
-                    Map<String, String> partyMap = FastMap.newInstance();
+                    Map<String, String> partyMap = new HashMap<String, String>();
                     partyMap.put("partyId", party.getString("partyId"));
                     partyMap.put("lastName", party.getString("lastName"));
                     partyMap.put("cardId", party.getString("cardId"));
@@ -1721,7 +1721,7 @@ public class PosTransaction implements Serializable {
                     resultList = searchContactMechs(delegator, pos, resultList, "", "EMAIL_ADDRESS");
                 }
             } else {
-            resultList = FastList.newInstance();
+            resultList = new LinkedList<Map<String,String>>();
         }
         return resultList;
     }
@@ -1737,8 +1737,8 @@ public class PosTransaction implements Serializable {
         GenericValue partyUserLogin = null;
         String result = null;
 
-        Map<String, Object> svcCtx = FastMap.newInstance();
-        Map<String, Object>  svcRes = null;
+        Map<String, Object> svcCtx = new HashMap<String, Object>();
+        Map<String, Object> svcRes = null;
 
         // Create
         if ("create".equals(editType)) {

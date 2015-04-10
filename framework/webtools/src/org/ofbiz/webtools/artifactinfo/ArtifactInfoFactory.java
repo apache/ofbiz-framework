@@ -24,6 +24,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -32,8 +33,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.concurrent.ExecutionPool;
@@ -329,7 +328,7 @@ public class ArtifactInfoFactory {
     }
 
     public Set<ArtifactInfoBase> getAllArtifactInfosByNamePartial(String artifactNamePartial, String type) {
-        Set<ArtifactInfoBase> aiBaseSet = FastSet.newInstance();
+        Set<ArtifactInfoBase> aiBaseSet = new HashSet<ArtifactInfoBase>();
 
         if (UtilValidate.isEmpty(artifactNamePartial)) {
             return aiBaseSet;

@@ -17,14 +17,13 @@
 * under the License.
 */
 
-import javolution.util.FastList;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 
 taskStatusId = null;
 paraBacklogStatusId = backlogStatusId;
 
-orStsExprs = FastList.newInstance();
+orStsExprs = [];
     if (backlogStatusId != "Any") {
         taskStatusId = "STS_CREATED";
         orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"));
@@ -32,12 +31,12 @@ orStsExprs = FastList.newInstance();
         orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_REVIEWED"));
         orStsExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "CRQ_COMPLETED"));
     }
-orCurentExprs = FastList.newInstance();
+orCurentExprs = [];
     if (taskStatusId) {
         orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, taskStatusId));
         orCurentExprs.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, null));
     }
-andExprs =  FastList.newInstance();
+andExprs =  [];
     andExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, parameters.productId));
     andExprs.add(EntityCondition.makeCondition("custRequestTypeId", EntityOperator.EQUALS, "RF_UNPLAN_BACKLOG"));
     andExprs.add(EntityCondition.makeCondition(orStsExprs, EntityOperator.OR));

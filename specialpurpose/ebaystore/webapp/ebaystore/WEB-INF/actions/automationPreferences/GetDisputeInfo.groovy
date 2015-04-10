@@ -21,8 +21,6 @@ import org.ofbiz.base.util.*;
 
 import com.ebay.soap.eBLBaseComponents.DisputeReasonCodeType;
 import com.ebay.soap.eBLBaseComponents.DisputeExplanationCodeType;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 public static String makeSpace(String text){
     String result = "";
@@ -39,59 +37,59 @@ public static String makeSpace(String text){
     }
     return result;
 }
-reasons = FastList.newInstance();
-explanations = FastList.newInstance();
+reasons = [];
+explanations = [];
 
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("reasonCode", DisputeReasonCodeType.BUYER_HAS_NOT_PAID.toString());
 entry.put("value",  makeSpace(DisputeReasonCodeType.BUYER_HAS_NOT_PAID.value()));
 reasons.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("reasonCode", DisputeReasonCodeType.TRANSACTION_MUTUALLY_CANCELED.toString());
 entry.put("value",  makeSpace(DisputeReasonCodeType.TRANSACTION_MUTUALLY_CANCELED.value()));
 reasons.add(entry);
 
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_HAS_NOT_RESPONDED.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_HAS_NOT_RESPONDED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_REFUSED_TO_PAY.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_REFUSED_TO_PAY.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_RETURNED_ITEM_FOR_REFUND.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_RETURNED_ITEM_FOR_REFUND.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.UNABLE_TO_RESOLVE_TERMS.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.UNABLE_TO_RESOLVE_TERMS.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_PURCHASING_MISTAKE.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_PURCHASING_MISTAKE.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.SHIP_COUNTRY_NOT_SUPPORTED.toString());
 entry.put("value",  makeSpace(DisputeExplanationCodeType.SHIP_COUNTRY_NOT_SUPPORTED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.SHIPPING_ADDRESS_NOT_CONFIRMED.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.SHIPPING_ADDRESS_NOT_CONFIRMED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.PAYMENT_METHOD_NOT_SUPPORTED.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.PAYMENT_METHOD_NOT_SUPPORTED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_NO_LONGER_REGISTERED.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_NO_LONGER_REGISTERED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.BUYER_NO_LONGER_REGISTERED.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.BUYER_NO_LONGER_REGISTERED.value()));
 explanations.add(entry);
-entry = FastMap.newInstance();
+entry = [:];
 entry.put("explanationCode", DisputeExplanationCodeType.OTHER_EXPLANATION.toString());
 entry.put("value", makeSpace(DisputeExplanationCodeType.OTHER_EXPLANATION.value()));
 explanations.add(entry);

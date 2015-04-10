@@ -20,7 +20,6 @@
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.webtools.artifactinfo.*;
 import org.ofbiz.base.util.*;
-import javolution.util.FastList;
 
 name = parameters.name;
 location = parameters.location;
@@ -56,7 +55,7 @@ if (artifactInfo) {
     // add to the recently viewed list
     recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
     if (!recentArtifactInfoList) {
-        recentArtifactInfoList = FastList.newInstance();
+        recentArtifactInfoList = [];
         session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
     }
     if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfoMap)) {

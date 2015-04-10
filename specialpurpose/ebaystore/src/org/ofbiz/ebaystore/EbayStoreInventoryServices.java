@@ -19,10 +19,11 @@
 package org.ofbiz.ebaystore;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
@@ -34,6 +35,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
+
 import com.ebay.sdk.ApiException;
 import com.ebay.sdk.SdkException;
 import com.ebay.sdk.SdkSoapException;
@@ -67,7 +69,7 @@ public class EbayStoreInventoryServices {
     }
     /*update inventory on ebay site*/
     public static Map<String,Object> updateEbayStoreInventory(DispatchContext dctx, Map<String,Object> context) {
-        Map<String,Object> result = FastMap.newInstance();
+        Map<String,Object> result = new HashMap<String, Object>();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
@@ -239,7 +241,7 @@ public class EbayStoreInventoryServices {
     }
 
     public static Map<String,Object> getFolderInEbayStoreInventory(DispatchContext dctx, Map<String,Object> context) {
-        Map<String,Object> result = FastMap.newInstance();
+        Map<String,Object> result = new HashMap<String, Object>();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         Delegator delegator = dctx.getDelegator();
@@ -322,7 +324,7 @@ public class EbayStoreInventoryServices {
     public static Map<String,Object> updateEbayInventoryStatusByProductId(DispatchContext dctx, Map<String,Object> context) {
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
-        Map<String,Object> result = FastMap.newInstance();
+        Map<String,Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String)context.get("productStoreId");
         String facilityId = (String)context.get("facilityId");
@@ -380,7 +382,7 @@ public class EbayStoreInventoryServices {
 
     public static Map<String,Object> updateEbayInventoryStatus(DispatchContext dctx, Map<String,Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String,Object> result = FastMap.newInstance();
+        Map<String,Object> result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         List<GenericValue> ebayProductStoreInventoryList = null;
 

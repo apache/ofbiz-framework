@@ -17,7 +17,6 @@
 * under the License.
 */
 
-import javolution.util.FastList;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.base.util.*;
 
@@ -39,19 +38,19 @@ if ("SPRINT_CLOSED".equals(currentStatus)) {
         taskStatusId = "STS_CREATED";
     }
 }
-orCurentExprs = FastList.newInstance();
+orCurentExprs = [];
     if (taskStatusId) {
         orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, taskStatusId));
         orCurentExprs.add(EntityCondition.makeCondition("taskCurrentStatusId", EntityOperator.EQUALS, "SPRINT_ACTIVE"));
     }
-orBacklogExprs = FastList.newInstance();
+orBacklogExprs = [];
     if (backlogStatusId) {
         orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, backlogStatusId));
     }
     if (reopenedStatusId) {
         orBacklogExprs.add(EntityCondition.makeCondition("backlogStatusId", EntityOperator.EQUALS, reopenedStatusId));
     }
-andExprs =  FastList.newInstance();
+andExprs =  [];
     if (parameters.projectId) {
         andExprs.add(EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, parameters.projectId));
     } else {

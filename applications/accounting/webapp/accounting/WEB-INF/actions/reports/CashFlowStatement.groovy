@@ -29,9 +29,6 @@ import org.ofbiz.party.party.PartyWorker;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 if (!fromDate) {
     return;
 }
@@ -65,7 +62,7 @@ GenericValue lastClosedTimePeriod = (GenericValue)lastClosedTimePeriodResult.las
 // Get the opening balances of Cash Account
 Map openingCashBalances = [:];
 if (lastClosedTimePeriod) {
-    List timePeriodAndExprs = FastList.newInstance();
+    List timePeriodAndExprs = [];
     timePeriodAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
     timePeriodAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperator.IN, glAccountClassIds));
     timePeriodAndExprs.add(EntityCondition.makeCondition("endingBalance", EntityOperator.NOT_EQUAL, BigDecimal.ZERO));
@@ -76,7 +73,7 @@ if (lastClosedTimePeriod) {
         openingCashBalances.(lastTimePeriodHistory.glAccountId) = accountMap;
     }
 }
-List mainAndExprs = FastList.newInstance();
+List mainAndExprs = [];
 mainAndExprs.add(EntityCondition.makeCondition("organizationPartyId", EntityOperator.IN, partyIds));
 mainAndExprs.add(EntityCondition.makeCondition("isPosted", EntityOperator.EQUALS, "Y"));
 mainAndExprs.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, parameters.glFiscalTypeId));
@@ -87,7 +84,7 @@ mainAndExprs.add(EntityCondition.makeCondition("glAccountClassId", EntityOperato
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List openingCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
+List openingCashBalanceAndExprs = mainAndExprs as LinkedList;
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, periodClosingFromDate));
 openingCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, parametersFromDate));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(openingCashBalanceAndExprs).orderBy("glAccountId").queryList();
@@ -132,7 +129,7 @@ openingTransactionKeySet = transactionTotalsMap.keySet();
 accountBalanceList = [];
 transactionTotals = [];
 balanceTotal = BigDecimal.ZERO;
-List periodCashBalanceAndExprs = FastList.newInstance(mainAndExprs);
+List periodCashBalanceAndExprs = mainAndExprs as LinkedList;
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, parametersFromDate));
 periodCashBalanceAndExprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN, thruDate));
 transactionTotals = select("glAccountId", "accountName", "accountCode", "debitCreditFlag", "amount").from("AcctgTransEntrySums").where(periodCashBalanceAndExprs).orderBy("glAccountId").queryList();
@@ -174,9 +171,9 @@ cashFlowBalanceTotalList.add("totalName":"AccountingPeriodCashBalance", "balance
 // GlAccounts from parameter's fromDate to parameter's thruDate.
 accountBalanceList = [];
 balanceTotal = BigDecimal.ZERO;
-List transactionTotals = FastList.newInstance();
-transactionTotals.addAll(FastList.newInstance(context.openingCashBalanceList));
-transactionTotals.addAll(FastList.newInstance(context.periodCashBalanceList));
+List transactionTotals = [];
+transactionTotals.addAll(new LinkedList(context.openingCashBalanceList));
+transactionTotals.addAll(new LinkedList(context.periodCashBalanceList));
 transactionTotals = UtilMisc.sortMaps(transactionTotals, UtilMisc.toList("accountCode"));
 closingTransactionKeySet = [];
 if (transactionTotals) {
@@ -196,7 +193,7 @@ if (transactionTotals) {
                     transactionTotalsMap.(transactionTotal.glAccountId).balance = totalDebitBalance.subtract(totalCreditBalance);
                 }
             } else {
-                transactionTotalsMap.(transactionTotal.glAccountId) = FastMap.newInstance(transactionTotal);
+                transactionTotalsMap.(transactionTotal.glAccountId) = transactionTotal as LinkedList;
             }
             accountBalanceList = UtilMisc.sortMaps(transactionTotalsMap.values().asList(), UtilMisc.toList("accountCode"));
         }

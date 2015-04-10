@@ -61,7 +61,7 @@ under the License.
     <property name="Data Cube.Inventory.width">150</property>
     <property name="Data Cube.Inventory.height">200</property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
-importPackage(Packages.javolution.util)
+
 
 module = "InventoryReport.rptdesign";]]></method>
     <text-property name="displayName">Blank Report</text-property>
@@ -179,8 +179,8 @@ try {
         Debug.logError(e,"");
 }
 
-inputInvent =  FastMap.newInstance();
-inputInventFields =  FastMap.newInstance();
+inputInvent =  new HashMap();
+inputInventFields =  new HashMap();
 if(params!=null){
     inputInventFields.put("facilityId", params["facilityId"]);
     inputInventFields.put("noConditionFind", "Y");
@@ -274,14 +274,14 @@ if(inventory = inventories.next()){
                 </list-property>
             </structure>
             <property name="dataSource">OFBiz</property>
-            <method name="open"><![CDATA[inputOrder =  FastMap.newInstance();
+            <method name="open"><![CDATA[inputOrder =  new HashMap();
 userLogin = null;
 try {
     userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
 } catch(e) {
         Debug.logError(e,"");
 }
-inputOrderFields =  FastMap.newInstance();
+inputOrderFields =  new HashMap();
 if(params!=null){
     inputOrderFields.put("orderDateDateValue_fld0_op", params["orderDateDateValue_fld0_op"]);
     inputOrderFields.put("noConditionFind", "Y");

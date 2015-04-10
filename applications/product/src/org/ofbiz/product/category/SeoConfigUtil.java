@@ -22,16 +22,14 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -110,9 +108,9 @@ public class SeoConfigUtil {
         seoReplacements = new HashMap<String, String>();
         forwardReplacements = new HashMap<String, String>();
         forwardResponseCodes = new HashMap<String, Integer>();
-        userExceptionPatterns = FastList.newInstance();
-        specialProductIds = FastMap.newInstance();
-        charFilters = FastMap.newInstance();
+        userExceptionPatterns = new LinkedList<Pattern>();
+        specialProductIds = new HashMap<String, String>();
+        charFilters = new HashMap<String, String>();
         try {
             URL seoConfigFilename = UtilURL.fromResource(SEO_CONFIG_FILENAME);
             Document configDoc = UtilXml.readXmlDocument(seoConfigFilename, false);
@@ -140,7 +138,7 @@ public class SeoConfigUtil {
                     
                     if (categoryUrlEnabled) {
                         String allowedContextValue = UtilXml.childElementValue(categoryUrlElement, ELEMENT_ALLOWED_CONTEXT_PATHS, null);
-                        allowedContextPaths = FastSet.newInstance();
+                        allowedContextPaths = new HashSet<String>();
                         if (UtilValidate.isNotEmpty(allowedContextValue)) {
                             List<String> allowedContextPathList = StringUtil.split(allowedContextValue, ALLOWED_CONTEXT_PATHS_SEPERATOR);
                             for (String path : allowedContextPathList) {

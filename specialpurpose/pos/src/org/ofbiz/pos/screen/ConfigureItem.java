@@ -20,6 +20,7 @@ package org.ofbiz.pos.screen;
 
 import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import javolution.util.FastMap;
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
@@ -176,7 +176,7 @@ public class ConfigureItem extends XPage {
     private void displayQuestions() {
 
         QuestionFactory qf = new QuestionFactory();
-        questionHashMap = FastMap.newInstance();
+        questionHashMap = new HashMap<String, ConfigureItem.Question>();
 
         List<ConfigItem> questions = m_pcw.getQuestions();
         

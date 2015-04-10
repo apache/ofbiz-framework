@@ -19,11 +19,10 @@
 package org.ofbiz.webpos.transaction;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -419,7 +418,7 @@ public class WebPosTransaction {
             expYear = "20" + expYear;
         }
 
-        Map<String, Object> svcCtx = FastMap.newInstance();
+        Map<String, Object> svcCtx = new HashMap<String, Object>();
         svcCtx.put("userLogin", webPosSession.getUserLogin());
         svcCtx.put("partyId", partyId);
         svcCtx.put("cardNumber", cardNumber);

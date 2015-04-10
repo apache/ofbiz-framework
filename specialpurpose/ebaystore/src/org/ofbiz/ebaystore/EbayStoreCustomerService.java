@@ -18,10 +18,9 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -53,7 +52,7 @@ public class EbayStoreCustomerService {
         if (UtilValidate.isEmpty(context.get("userId")) || UtilValidate.isEmpty(context.get("itemId"))) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredUserIdAndItemId", locale));
         }
-        Map <String, Object> result = FastMap.newInstance();
+        Map <String, Object> result = new HashMap<String, Object>();
         try {
             String itemId = (String) context.get("itemId");
             String bestOfferId = (String) context.get("bestOfferId");
@@ -112,7 +111,7 @@ public class EbayStoreCustomerService {
         String price = (String) context.get("price");
         String email = (String) context.get("email");
         String quantity = (String) context.get("quantity");
-        Map <String, Object> result = FastMap.newInstance();
+        Map <String, Object> result = new HashMap<String, Object>();
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);
             String[] bestOfferIDs = {offerId};
@@ -148,11 +147,12 @@ public class EbayStoreCustomerService {
         }
         return result;
     }
+
     public static Map<String, Object> deleteContactAlert(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         Locale locale = (Locale) context.get("locale");
-        Map <String, Object> result = FastMap.newInstance();
+        Map <String, Object> result = new HashMap<String, Object>();
         if (UtilValidate.isEmpty(context.get("itemId")) || UtilValidate.isEmpty(context.get("userId"))) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource, "EbayStoreRequiredUserIdAndItemId", locale));
         }

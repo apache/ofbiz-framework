@@ -26,9 +26,6 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.party.party.PartyHelper;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
-import javolution.util.FastMap;
-import javolution.util.FastList;
-import javolution.util.FastList.*;
 import org.ofbiz.entity.*;
 import java.util.List;
 
@@ -36,17 +33,17 @@ import java.util.List;
 // The separateRootType function will return the list of category of given catalog.
 // PLEASE NOTE : The structure of the list of separateRootType function is according to the JSON_DATA plugin of the jsTree.
 
-completedTree =  FastList.newInstance();
-completedTreeContext =  FastList.newInstance();
-existParties =  FastList.newInstance();
-subtopLists =  FastList.newInstance();
+completedTree =  [];
+completedTreeContext = [];
+existParties = [];
+subtopLists = [];
 
 //internalOrg list
 partyRelationships = from("PartyRelationship").where("partyIdFrom", partyId, "partyRelationshipTypeId", "GROUP_ROLLUP").filterByDate().queryList();
 if (partyRelationships) {
     //root
     partyRoot = from("PartyGroup").where("partyId", partyId).queryOne();
-    partyRootMap = FastMap.newInstance();
+    partyRootMap = [];
     partyRootMap.put("partyId", partyId);
     partyRootMap.put("groupName", partyRoot.getString("groupName"));
 
@@ -62,8 +59,8 @@ if (partyRelationships) {
 
     partyRootMap.put("child", completedTreeContext);
     completedTree.add(partyRootMap);
-
 }
+
 // The complete tree list for the category tree
 context.completedTree = completedTree;
 context.subtopLists = subtopLists;

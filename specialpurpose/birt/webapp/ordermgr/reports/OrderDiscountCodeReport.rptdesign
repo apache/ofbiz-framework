@@ -23,7 +23,7 @@ under the License.
     <property name="comments">Copyright (c) 2007 &lt;&lt;Your Company Name here>></property>
     <html-property name="description">Creates a blank report with no predefined content.</html-property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
-importPackage(Packages.javolution.util)
+
 
 module = "OrderDiscountCodeReport.rptdesign";]]></method>
     <text-property name="displayName">Blank Report</text-property>
@@ -115,8 +115,8 @@ try {
         Debug.logError(e,"");
 }
 
-input =  FastMap.newInstance();
-inputFields =  FastMap.newInstance();
+input =  new HashMap();
+inputFields =  new HashMap();
 if(params!=null){
     inputFields.put("noConditionFind", "Y");
 }

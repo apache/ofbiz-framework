@@ -19,10 +19,9 @@
 package org.ofbiz.ebaystore;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import com.ebay.sdk.ApiContext;
 import com.ebay.sdk.ApiException;
@@ -149,7 +148,7 @@ public class EbayStoreSiteFacade {
             }
 
             //convert the map to list
-            List<CategoryType> catsList = FastList.newInstance();
+            List<CategoryType> catsList = new LinkedList<CategoryType>();
             for (CategoryType cat : csCatsMap.values()) {
                 catsList.add(cat);
             }
@@ -180,7 +179,7 @@ public class EbayStoreSiteFacade {
     //get all categories from ebay store depend on siteId
     private List<StoreCustomCategoryType> getEbayStoreCategories() {
         Map<String, StoreCustomCategoryType> catsMap = new HashMap<String, StoreCustomCategoryType>(30000);
-        List<StoreCustomCategoryType> catsList = FastList.newInstance();
+        List<StoreCustomCategoryType> catsList = new LinkedList<StoreCustomCategoryType>();
         try {
             GetStoreCall call = new GetStoreCall(this.apiContext);
             GetStoreRequestType req = new GetStoreRequestType();

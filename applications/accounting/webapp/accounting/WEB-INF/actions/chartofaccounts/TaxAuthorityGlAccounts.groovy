@@ -18,7 +18,6 @@
  */
 
 import org.ofbiz.base.util.UtilMisc;
-import javolution.util.FastList;
 
 taxAuthorities = from('TaxAuthority').orderBy("taxAuthGeoId", "taxAuthPartyId").queryList();
 

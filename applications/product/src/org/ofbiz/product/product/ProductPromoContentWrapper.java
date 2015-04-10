@@ -22,13 +22,12 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -180,7 +179,7 @@ public class ProductPromoContentWrapper implements ContentWrapper {
 
         if (UtilValidate.isNotEmpty(productPromoContent)) {
             // when rendering the product promo content, always include the ProductPromo and ProductPromoContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productPromo", productPromo);
             inContext.put("productPromoContent", productPromoContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, productPromoContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, partyId, roleTypeId, true);

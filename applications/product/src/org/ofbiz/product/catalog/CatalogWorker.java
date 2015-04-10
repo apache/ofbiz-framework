@@ -19,14 +19,13 @@
 package org.ofbiz.product.catalog;
 
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -69,7 +68,7 @@ public class CatalogWorker {
     }
 
     public static List<String> getAllCatalogIds(ServletRequest request) {
-        List<String> catalogIds = FastList.newInstance();
+        List<String> catalogIds = new LinkedList<String>();
         List<GenericValue> catalogs = null;
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         try {
@@ -177,7 +176,7 @@ public class CatalogWorker {
         if (!fromSession) {
             if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, module);
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, FastList.<String>newInstance());
+            CategoryWorker.setTrail(request, new LinkedList<String>());
         }
         return prodCatalogId;
     }
@@ -195,8 +194,8 @@ public class CatalogWorker {
     }
 
     public static List<String> getCatalogIdsAvailable(List<GenericValue> partyCatalogs, List<GenericValue> storeCatalogs) {
-        List<String> categoryIds = FastList.newInstance();
-        List<GenericValue> allCatalogLinks = FastList.newInstance();
+        List<String> categoryIds = new LinkedList<String>();
+        List<GenericValue> allCatalogLinks = new LinkedList<GenericValue>();
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
 
@@ -387,7 +386,7 @@ public class CatalogWorker {
     public static Collection<String> getCatalogQuickaddCategories(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        Collection<String> categoryIds = FastList.newInstance();
+        Collection<String> categoryIds = new LinkedList<String>();
 
         Collection<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 

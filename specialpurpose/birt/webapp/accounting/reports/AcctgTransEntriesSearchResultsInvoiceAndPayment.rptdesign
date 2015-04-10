@@ -20,8 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util)
-importPackage(Packages.org.ofbiz.base.util)
+    <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.base.util.collections)
 importPackage(Packages.org.ofbiz.entity.util)
 importPackage(Packages.org.ofbiz.entity.condition)
@@ -42,7 +41,7 @@ if (!logoImageUrl) {
 dateFormatter = new java.text.SimpleDateFormat("dd MMMMM yyyy");
 
 // prepare uiLabelMap
-uiLabelMap = FastMap.newInstance();
+uiLabelMap = new HashMap();
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
 
@@ -525,7 +524,7 @@ var thruDate = params["thruDate"].value;
 acctgTransAndEntries = null;
 
 try {
-    var conds = FastList.newInstance();
+    var conds = new LinkedkList();
     if (glAccountId) conds.add(EntityCondition.makeCondition("glAccountId", EntityOperator.EQUALS, glAccountId));
     if (acctgTransTypeId) conds.add(EntityCondition.makeCondition("acctgTransTypeId", EntityOperator.EQUALS, acctgTransTypeId));
     if (glFiscalTypeId) conds.add(EntityCondition.makeCondition("glFiscalTypeId", EntityOperator.EQUALS, glFiscalTypeId));
@@ -831,8 +830,8 @@ return true;]]></method>
 countOfRow = 0;]]></method>
             <method name="fetch"><![CDATA[if (countOfRow >= totalRows) return false;
 
-var context = FastMap.newInstance();
-var parameters = FastMap.newInstance();
+var context = new HashMap();
+var parameters = new HashMap();
 context.put("partyId", organizationPartyId);
 context.put("nowTimestamp", UtilDateTime.nowTimestamp());
 context.put("locale", reportContext.getLocale());

@@ -18,8 +18,6 @@
  */
  import org.ofbiz.base.util.*
  import org.ofbiz.entity.util.EntityUtil;
- import javolution.util.FastList;
- import javolution.util.FastMap;
  
  productStoreId = null;
  
