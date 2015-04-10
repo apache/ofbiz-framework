@@ -29,11 +29,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.webapp.event.CoreEvents;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 if (session.getAttribute("_RUN_SYNC_RESULT_")) {
-    serviceResultList = FastList.newInstance();
+    serviceResultList = [];
     serviceResult = session.getAttribute("_RUN_SYNC_RESULT_");
 
     if (parameters.servicePath) {

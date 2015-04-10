@@ -20,14 +20,13 @@ package org.ofbiz.accounting.tax;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -89,7 +88,7 @@ public class TaxAuthorityServices {
             }
 
             if ("Y".equals(productStore.getString("showPricesWithVatTax"))) {
-                Set<GenericValue> taxAuthoritySet = FastSet.newInstance();
+                Set<GenericValue> taxAuthoritySet = new HashSet<GenericValue>();
                 if (productStore.get("vatTaxAuthPartyId") == null) {
                     List<GenericValue> taxAuthorityRawList = EntityQuery.use(delegator).from("TaxAuthority")
                             .where("taxAuthGeoId", productStore.get("vatTaxAuthGeoId")).cache().queryList();
@@ -191,7 +190,7 @@ public class TaxAuthorityServices {
         }
 
         // without knowing the TaxAuthority parties, just find all TaxAuthories for the set of IDs...
-        Set<GenericValue> taxAuthoritySet = FastSet.newInstance();
+        Set<GenericValue> taxAuthoritySet = new HashSet<GenericValue>();
         try {
             getTaxAuthorities(delegator, shippingAddress, taxAuthoritySet);
         } catch (GenericEntityException e) {
@@ -200,8 +199,8 @@ public class TaxAuthorityServices {
         }
 
         // Setup the return lists.
-        List<GenericValue> orderAdjustments = FastList.newInstance();
-        List<List<GenericValue>> itemAdjustments = FastList.newInstance();
+        List<GenericValue> orderAdjustments = new LinkedList<GenericValue>();
+        List<List<GenericValue>> itemAdjustments = new LinkedList<List<GenericValue>>();
 
         // Loop through the products; get the taxCategory; and lookup each in the cache.
         for (int i = 0; i < itemProductList.size(); i++) {
@@ -234,7 +233,7 @@ public class TaxAuthorityServices {
     }
 
     private static void getTaxAuthorities(Delegator delegator, GenericValue shippingAddress, Set<GenericValue> taxAuthoritySet) throws GenericEntityException {
-        Map<String, String> geoIdByTypeMap = FastMap.newInstance();
+        Map<String, String> geoIdByTypeMap = new HashMap<String, String>();
         if (shippingAddress != null) {
             if (UtilValidate.isNotEmpty(shippingAddress.getString("countryGeoId"))) {
                 geoIdByTypeMap.put("COUNTRY", shippingAddress.getString("countryGeoId"));
@@ -269,7 +268,7 @@ public class TaxAuthorityServices {
             BigDecimal itemPrice, BigDecimal itemQuantity, BigDecimal itemAmount, 
             BigDecimal shippingAmount, BigDecimal orderPromotionsAmount) {
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        List<GenericValue> adjustments = FastList.newInstance();
+        List<GenericValue> adjustments = new LinkedList<GenericValue>();
 
         if (payToPartyId == null) {
             if (productStore != null) {
@@ -289,7 +288,7 @@ public class TaxAuthorityServices {
         }
 
         // build the TaxAuthority expressions (taxAuthGeoId, taxAuthPartyId)
-        List<EntityCondition> taxAuthCondOrList = FastList.newInstance();
+        List<EntityCondition> taxAuthCondOrList = new LinkedList<EntityCondition>();
         // start with the _NA_ TaxAuthority...
         taxAuthCondOrList.add(EntityCondition.makeCondition(
                 EntityCondition.makeCondition("taxAuthPartyId", EntityOperator.EQUALS, "_NA_"),
@@ -315,7 +314,7 @@ public class TaxAuthorityServices {
                 if ("Y".equals(product.getString("isVariant"))) {
                     virtualProductId = ProductWorker.getVariantVirtualId(product);
                 }
-                Set<String> productCategoryIdSet = FastSet.newInstance();
+                Set<String> productCategoryIdSet = new HashSet<String>();
                 EntityCondition productIdCond = null;
                 if (virtualProductId != null) {
                     productIdCond = EntityCondition.makeCondition(
@@ -464,7 +463,7 @@ public class TaxAuthorityServices {
                 if (UtilValidate.isNotEmpty(billToPartyId) && UtilValidate.isNotEmpty(taxAuthGeoId)) {
                     // see if partyId is a member of any groups, if so honor their tax exemptions
                     // look for PartyRelationship with partyRelationshipTypeId=GROUP_ROLLUP, the partyIdTo is the group member, so the partyIdFrom is the groupPartyId
-                    Set<String> billToPartyIdSet = FastSet.newInstance();
+                    Set<String> billToPartyIdSet = new HashSet<String>();
                     billToPartyIdSet.add(billToPartyId);
                     List<GenericValue> partyRelationshipList = EntityQuery.use(delegator).from("PartyRelationship")
                             .where("partyIdTo", billToPartyId, "partyRelationshipTypeId", "GROUP_ROLLUP")
@@ -528,7 +527,7 @@ public class TaxAuthorityServices {
             }
         } catch (GenericEntityException e) {
             Debug.logError(e, "Problems looking up tax rates", module);
-            return FastList.newInstance();
+            return new LinkedList<GenericValue>();
         }
 
         return adjustments;

@@ -19,13 +19,12 @@
 package org.ofbiz.content.content;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.Delegator;
@@ -99,7 +98,7 @@ public class ContentSearchEvents {
         String searchSortOrderString = ContentSearchSession.searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
 
         result.put("contentIds", contentIds);
         result.put("viewIndex", Integer.valueOf(viewIndex));

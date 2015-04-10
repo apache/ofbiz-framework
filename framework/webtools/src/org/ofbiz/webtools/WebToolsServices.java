@@ -34,7 +34,10 @@ import java.net.URL;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -43,10 +46,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -109,7 +108,7 @@ public class WebToolsServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        List<String> messages = FastList.newInstance();
+        List<String> messages = new LinkedList<String>();
 
         String filename = (String)context.get("filename");
         String fmfilename = (String)context.get("fmfilename");
@@ -157,7 +156,7 @@ public class WebToolsServices {
             try {
                 Configuration conf = org.ofbiz.base.util.template.FreeMarkerWorker.getDefaultOfbizConfig();
                 template = new Template("FMImportFilter", templateReader, conf);
-                Map<String, Object> fmcontext = FastMap.newInstance();
+                Map<String, Object> fmcontext = new HashMap<String, Object>();
 
                 InputSource ins = url != null ? new InputSource(url.openStream()) : new InputSource(new StringReader(fulltext));
                 NodeModel nodeModel;
@@ -221,7 +220,7 @@ public class WebToolsServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        List<String> messages = FastList.newInstance();
+        List<String> messages = new LinkedList<String>();
 
         String path = (String) context.get("path");
         String mostlyInserts = (String) context.get("mostlyInserts");
@@ -246,7 +245,7 @@ public class WebToolsServices {
 
             if (baseDir.isDirectory() && baseDir.canRead()) {
                 File[] fileArray = baseDir.listFiles();
-                FastList<File> files = FastList.newInstance();
+                List<File> files = new LinkedList<File>();
                 for (File file: fileArray) {
                     if (file.getName().toUpperCase().endsWith("XML")) {
                         files.add(file);
@@ -256,11 +255,11 @@ public class WebToolsServices {
                 int passes=0;
                 int initialListSize = files.size();
                 int lastUnprocessedFilesCount = 0;
-                FastList<File> unprocessedFiles = FastList.newInstance();
+                List<File> unprocessedFiles = new LinkedList<File>();
                 while (files.size()>0 &&
                         files.size() != lastUnprocessedFilesCount) {
                     lastUnprocessedFilesCount = files.size();
-                    unprocessedFiles = FastList.newInstance();
+                    unprocessedFiles = new LinkedList<File>();
                     for (File f: files) {
                         Map<String, Object> parseEntityXmlFileArgs = UtilMisc.toMap("mostlyInserts", mostlyInserts,
                                 "createDummyFks", createDummyFks,
@@ -330,13 +329,13 @@ public class WebToolsServices {
         Integer txTimeoutInt = (Integer) context.get("txTimeout");
         int txTimeout = txTimeoutInt != null ? txTimeoutInt.intValue() : -1;
 
-        List<Object> messages = FastList.newInstance();
+        List<Object> messages = new LinkedList<Object>();
 
         // parse the pass in list of readers to use
         List<String> readerNames = null;
         if (UtilValidate.isNotEmpty(readers) && !"none".equalsIgnoreCase(readers)) {
             if (readers.indexOf(",") == -1) {
-                readerNames = FastList.newInstance();
+                readerNames = new LinkedList<String>();
                 readerNames.add(readers);
             } else {
                 readerNames = StringUtil.split(readers, ",");
@@ -366,7 +365,7 @@ public class WebToolsServices {
 
         // need a list if it is empty
         if (urlList == null) {
-            urlList = FastList.newInstance();
+            urlList = new LinkedList<URL>();
         }
 
         // process the list of files
@@ -374,8 +373,8 @@ public class WebToolsServices {
         changedFormat.setMinimumIntegerDigits(5);
         changedFormat.setGroupingUsed(false);
 
-        List<Object> errorMessages = FastList.newInstance();
-        List<String> infoMessages = FastList.newInstance();
+        List<Object> errorMessages = new LinkedList<Object>();
+        List<String> infoMessages = new LinkedList<String>();
         int totalRowsChanged = 0;
         if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
@@ -477,7 +476,7 @@ public class WebToolsServices {
             txTimeout = Integer.valueOf(7200);
         }
 
-        List<String> results = FastList.newInstance();
+        List<String> results = new LinkedList<String>();
 
         if (UtilValidate.isNotEmpty(outpath)) {
             File outdir = new File(outpath);
@@ -509,7 +508,7 @@ public class WebToolsServices {
                         boolean beganTx = TransactionUtil.begin();
                         // some databases don't support cursors, or other problems may happen, so if there is an error here log it and move on to get as much as possible
                         try {
-                            List<EntityCondition> conds = FastList.newInstance();
+                            List<EntityCondition> conds = new LinkedList<EntityCondition>();
                             if (UtilValidate.isNotEmpty(fromDate)) {
                                 conds.add(EntityCondition.makeCondition("createdStamp", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
                             }
@@ -624,7 +623,7 @@ public class WebToolsServices {
         Map<String, Object> resultMap = ServiceUtil.returnSuccess();
 
         ModelReader reader = delegator.getModelReader();
-        Map<String, TreeSet<String>> entitiesByPackage = FastMap.newInstance();
+        Map<String, TreeSet<String>> entitiesByPackage = new HashMap<String, TreeSet<String>>();
         TreeSet<String> packageNames = new TreeSet<String>();
         TreeSet<String> tableNames = new TreeSet<String>();
 
@@ -651,14 +650,14 @@ public class WebToolsServices {
         }
 
         String search = (String) context.get("search");
-        List<Map<String, Object>> packagesList = FastList.newInstance();
+        List<Map<String, Object>> packagesList = new LinkedList<Map<String,Object>>();
         try {
             for (String pName : packageNames) {
-                Map<String, Object> packageMap = FastMap.newInstance();
+                Map<String, Object> packageMap = new HashMap<String, Object>();
                 TreeSet<String> entities = entitiesByPackage.get(pName);
-                List<Map<String, Object>> entitiesList = FastList.newInstance();
+                List<Map<String, Object>> entitiesList = new LinkedList<Map<String,Object>>();
                 for (String entityName: entities) {
-                    Map<String, Object> entityMap = FastMap.newInstance();
+                    Map<String, Object> entityMap = new HashMap<String, Object>();
                     String helperName = delegator.getEntityHelperName(entityName);
                     String groupName = delegator.getEntityGroupName(entityName);
                     if (search == null || entityName.toLowerCase().indexOf(search.toLowerCase()) != -1) {
@@ -682,9 +681,9 @@ public class WebToolsServices {
                         }
 
                         // fields list
-                        List<Map<String, Object>> javaNameList = FastList.newInstance();
+                        List<Map<String, Object>> javaNameList = new LinkedList<Map<String,Object>>();
                         for (Iterator<ModelField> f = entity.getFieldsIterator(); f.hasNext();) {
-                            Map<String, Object> javaNameMap = FastMap.newInstance();
+                            Map<String, Object> javaNameMap = new HashMap<String, Object>();
                             ModelField field = f.next();
                             ModelFieldType type = delegator.getEntityFieldType(entity, field.getType());
                             javaNameMap.put("isPk", field.getIsPk());
@@ -718,14 +717,14 @@ public class WebToolsServices {
                         }
 
                         // relations list
-                        List<Map<String, Object>> relationsList = FastList.newInstance();
+                        List<Map<String, Object>> relationsList = new LinkedList<Map<String,Object>>();
                         for (int r = 0; r < entity.getRelationsSize(); r++) {
-                            Map<String, Object> relationMap = FastMap.newInstance();
+                            Map<String, Object> relationMap = new HashMap<String, Object>();
                             ModelRelation relation = entity.getRelation(r);
-                            List<Map<String, Object>> keysList = FastList.newInstance();
+                            List<Map<String, Object>> keysList = new LinkedList<Map<String,Object>>();
                             int row = 1;
                             for (ModelKeyMap keyMap : relation.getKeyMaps()) {
-                                Map<String, Object> keysMap = FastMap.newInstance();
+                                Map<String, Object> keysMap = new HashMap<String, Object>();
                                 String fieldName = null;
                                 String relFieldName = null;
                                 if (keyMap.getFieldName().equals(keyMap.getRelFieldName())) {
@@ -751,16 +750,16 @@ public class WebToolsServices {
                         }
 
                         // index list
-                        List<Map<String, Object>> indexList = FastList.newInstance();
+                        List<Map<String, Object>> indexList = new LinkedList<Map<String,Object>>();
                         for (int r = 0; r < entity.getIndexesSize(); r++) {
-                            List<String> fieldNameList = FastList.newInstance();
+                            List<String> fieldNameList = new LinkedList<String>();
 
                             ModelIndex index = entity.getIndex(r);
                             for (Iterator<ModelIndex.Field> fieldIterator = index.getFields().iterator(); fieldIterator.hasNext();) {
                                 fieldNameList.add(fieldIterator.next().getFieldName());
                             }
 
-                            Map<String, Object> indexMap = FastMap.newInstance();
+                            Map<String, Object> indexMap = new HashMap<String, Object>();
                             indexMap.put("name", index.getName());
                             indexMap.put("description", index.getDescription());
                             indexMap.put("fieldNameList", fieldNameList);
@@ -823,7 +822,7 @@ public class WebToolsServices {
 
             Set<String> entityNames = new TreeSet<String>();
             if (UtilValidate.isNotEmpty(entityPackageNameOrig)) {
-                Set<String> entityPackageNameSet = FastSet.newInstance();
+                Set<String> entityPackageNameSet = new HashSet<String>();
                 entityPackageNameSet.addAll(StringUtil.split(entityPackageNameOrig, ","));
 
                 Debug.logInfo("Exporting with entityPackageNameSet: " + entityPackageNameSet, module);
@@ -851,12 +850,12 @@ public class WebToolsServices {
             }
 
             // write the index.eomodeld file
-            Map<String, Object> topLevelMap = FastMap.newInstance();
+            Map<String, Object> topLevelMap = new HashMap<String, Object>();
             topLevelMap.put("EOModelVersion", "\"2.1\"");
-            List<Map<String, Object>> entitiesMapList = FastList.newInstance();
+            List<Map<String, Object>> entitiesMapList = new LinkedList<Map<String,Object>>();
             topLevelMap.put("entities", entitiesMapList);
             for (String entityName: entityNames) {
-                Map<String, Object> entitiesMap = FastMap.newInstance();
+                Map<String, Object> entitiesMap = new HashMap<String, Object>();
                 entitiesMapList.add(entitiesMap);
                 entitiesMap.put("className", "EOGenericRecord");
                 entitiesMap.put("name", entityName);

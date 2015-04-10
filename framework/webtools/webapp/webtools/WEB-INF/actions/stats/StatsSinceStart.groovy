@@ -22,8 +22,6 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.security.Security;
 import org.ofbiz.webapp.stats.*;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 clearBins = parameters.clear;
 if ("true".equals(clearBins)) {
@@ -34,9 +32,9 @@ if ("true".equals(clearBins)) {
 
 // Requests
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.requestSinceStarted.keySet()));
-requestList = FastList.newInstance();
+requestList = [];
 while (iterator.hasNext()) {
-    requestIdMap = FastMap.newInstance();
+    requestIdMap = [:];
     statsId = iterator.next();
     bin = ServerHitBin.requestSinceStarted.get(statsId);
     if (bin) {
@@ -57,9 +55,9 @@ context.requestList = requestList;
 
 // Events
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.eventSinceStarted.keySet()));
-eventList = FastList.newInstance();
+eventList = [];
 while (iterator.hasNext()) {
-    requestIdMap = FastMap.newInstance();
+    requestIdMap = [:];
     statsId = iterator.next();
     bin = ServerHitBin.eventSinceStarted.get(statsId);
     if (bin) {
@@ -81,9 +79,9 @@ context.eventList = eventList;
 
 // Views
 iterator = UtilMisc.toIterator(new TreeSet(ServerHitBin.viewSinceStarted.keySet()));
-viewList = FastList.newInstance();
+viewList = [];
 while (iterator.hasNext()) {
-    requestIdMap = FastMap.newInstance();
+    requestIdMap = [:];
     statsId = iterator.next();
     bin = ServerHitBin.viewSinceStarted.get(statsId);
     if (bin) {

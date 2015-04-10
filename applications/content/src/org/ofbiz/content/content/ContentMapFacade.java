@@ -21,6 +21,9 @@ package org.ofbiz.content.content;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,10 +31,6 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -52,7 +51,7 @@ public class ContentMapFacade implements Map<Object, Object> {
 
     public static final String module = ContentMapFacade.class.getName();
 
-    protected static final Set<String> mapKeySet = FastSet.newInstance();
+    protected static final Set<String> mapKeySet = new HashSet<String>();
     static {
         mapKeySet.add("fields");
         mapKeySet.add("link");
@@ -279,10 +278,10 @@ public class ContentMapFacade implements Map<Object, Object> {
             return dataResource;
         } else if ("subcontent_all".equalsIgnoreCase(name)) {
             // subcontent list of ordered subcontent
-            List<ContentMapFacade> subContent = FastList.newInstance();
+            List<ContentMapFacade> subContent = new LinkedList<ContentMapFacade>();
             List<GenericValue> subs = null;
             try {
-                Map<String, Object> expressions = FastMap.newInstance();
+                Map<String, Object> expressions = new HashMap<String, Object>();
                 expressions.put("contentIdStart", contentId);
                 if(!this.mapKeyFilter.equals("")) {
                     expressions.put("caMapKey", this.mapKeyFilter);
@@ -329,7 +328,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             return "=========> " + errorMsg + " <=========";
         }
         // TODO: change to use the MapStack instead of a cloned Map
-        Map<String, Object> renderCtx = FastMap.newInstance();
+        Map<String, Object> renderCtx = new HashMap<String, Object>();
         renderCtx.putAll(context);
         if (this.decoratedContent != null) {
             renderCtx.put("decoratedContent", decoratedContent);
@@ -457,7 +456,7 @@ public class ContentMapFacade implements Map<Object, Object> {
             // key is the mapKey
             GenericValue sub = null;
             try {
-                Map<String, Object> expressions = FastMap.newInstance();
+                Map<String, Object> expressions = new HashMap<String, Object>();
                 expressions.put("contentIdStart", contentId);
                 expressions.put("caMapKey", name);
                 if(!this.statusFilter.equals("")) {

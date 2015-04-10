@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.webpos.search;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -51,7 +50,7 @@ public class WebPosSearch {
         String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         
-        List<EntityCondition> andExprs = FastList.newInstance();
+        List<EntityCondition> andExprs = new LinkedList<EntityCondition>();
         EntityCondition mainCond = null;
         String entityName = "Product";
         
@@ -95,10 +94,10 @@ public class WebPosSearch {
         String shippingLocation = (String) context.get("shippingLocation");
         Map<String, Object> result = ServiceUtil.returnSuccess();
         
-        List<EntityCondition> andExprs = FastList.newInstance();
-        List<EntityCondition> orExprs = FastList.newInstance();
+        List<EntityCondition> andExprs = new LinkedList<EntityCondition>();
+        List<EntityCondition> orExprs = new LinkedList<EntityCondition>();
         EntityCondition mainCond = null;
-        List<String> orderBy = FastList.newInstance();
+        List<String> orderBy = new LinkedList<String>();
         
         // default view settings
         DynamicViewEntity dynamicView = new DynamicViewEntity();

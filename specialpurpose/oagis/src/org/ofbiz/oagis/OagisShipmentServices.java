@@ -24,14 +24,13 @@ import java.io.OutputStream;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -91,7 +90,7 @@ public class OagisShipmentServices {
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        List<Map<String, String>> errorMapList = FastList.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
 
         GenericValue userLogin = null;
         try {
@@ -244,7 +243,7 @@ public class OagisShipmentServices {
                     if (UtilValidate.isNotEmpty(invItemElementList)) {
 
                         // sort the INVITEM elements by ITEM so that all shipments are processed in the same order, avoids deadlocking problems we've seen with concurrently processed orders
-                        List<Map<String, Object>> invitemMapList = FastList.newInstance();
+                        List<Map<String, Object>> invitemMapList = new LinkedList<Map<String,Object>>();
                         boolean foundBadProductId = false;
                         for (Element invItemElement : invItemElementList) {
                             String productId = UtilXml.childElementValue(invItemElement, "of:ITEM"); // of
@@ -259,7 +258,7 @@ public class OagisShipmentServices {
                                 continue;
                             }
 
-                            Map<String, Object> invitemMap = FastMap.newInstance();
+                            Map<String, Object> invitemMap = new HashMap<String, Object>();
                             invitemMap.put("productId", productId);
                             // support multiple INVITEM elements for a given productId
                             UtilMisc.addToListInMap(invItemElement, invitemMap, "invItemElementList");
@@ -368,7 +367,7 @@ public class OagisShipmentServices {
                                     }
                                 }
 
-                                List<String> serialNumberList = FastList.newInstance();
+                                List<String> serialNumberList = new LinkedList<String>();
                                 List<? extends Element> invDetailElementList = UtilXml.childElementList(invItemElement, "ns:INVDETAIL"); //n
                                 for (Element invDetailElement : invDetailElementList) {
                                     String serialNumber = UtilXml.childElementValue(invDetailElement, "of:SERIALNUM"); // os
@@ -531,7 +530,7 @@ public class OagisShipmentServices {
                     oagisMsgInfoCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     dispatcher.runSync("updateOagisMessageInfo", oagisMsgInfoCtx, 60, true);
 
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);
@@ -547,7 +546,7 @@ public class OagisShipmentServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.putAll(omiPkMap);
         result.put("userLogin", userLogin);
 
@@ -562,7 +561,7 @@ public class OagisShipmentServices {
 
             try {
                 // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-                Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                 saveErrorMapListCtx.putAll(omiPkMap);
                 saveErrorMapListCtx.put("errorMapList", errorMapList);
                 saveErrorMapListCtx.put("userLogin", userLogin);
@@ -573,7 +572,7 @@ public class OagisShipmentServices {
             }
 
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(omiPkMap);
                 sendConfirmBodCtx.put("errorMapList", errorMapList);
                 sendConfirmBodCtx.put("userLogin", userLogin);
@@ -737,7 +736,7 @@ public class OagisShipmentServices {
             }
 
             // check payment authorization
-            Map<String, Object> authServiceContext = FastMap.newInstance();
+            Map<String, Object> authServiceContext = new HashMap<String, Object>();
             authServiceContext.put("orderId", orderId);
             authServiceContext.put("userLogin", userLogin);
             authServiceContext.put("reAuth", true);
@@ -759,7 +758,7 @@ public class OagisShipmentServices {
 
             // prepare map to Create Oagis Message Info
             try {
-                Map<String, Object> comiCtx = FastMap.newInstance();
+                Map<String, Object> comiCtx = new HashMap<String, Object>();
                 comiCtx.putAll(omiPkMap);
                 comiCtx.put("processingStatusId", "OAGMP_TRIGGERED");
                 comiCtx.put("outgoingMessage", "Y");
@@ -816,7 +815,7 @@ public class OagisShipmentServices {
 
             orderItemShipGroup = EntityQuery.use(delegator).from("OrderItemShipGroup").where("orderId", orderId).queryFirst();
             bodyParameters.put("orderItemShipGroup", orderItemShipGroup);
-            Set<String> correspondingPoIdSet = FastSet.newInstance();
+            Set<String> correspondingPoIdSet = new HashSet<String>();
 
             List<GenericValue> orderItems = orderReadHelper.getOrderItems();
             for (GenericValue orderItem : orderItems) {
@@ -827,7 +826,7 @@ public class OagisShipmentServices {
             }
             bodyParameters.put("correspondingPoIdSet", correspondingPoIdSet);
             if (orderHeader.get("externalId") != null) {
-                Set<String> externalIdSet = FastSet.newInstance();
+                Set<String> externalIdSet = new HashSet<String>();
                 externalIdSet.add(orderHeader.getString("externalId"));
                 bodyParameters.put("externalIdSet", externalIdSet);
             }
@@ -888,7 +887,7 @@ public class OagisShipmentServices {
             if (Debug.infoOn()) Debug.logInfo("Finished rendering oagisSendProcessShipment message for orderId [" + orderId + "]", module);
 
             try {
-                Map<String, Object> uomiCtx = FastMap.newInstance();
+                Map<String, Object> uomiCtx = new HashMap<String, Object>();
                 uomiCtx.putAll(omiPkMap);
                 uomiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
                 uomiCtx.put("shipmentId", shipmentId);
@@ -905,7 +904,7 @@ public class OagisShipmentServices {
             Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale, delegator);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
-                    Map<String, Object> uomiCtx = FastMap.newInstance();
+                    Map<String, Object> uomiCtx = new HashMap<String, Object>();
                     uomiCtx.putAll(omiPkMap);
                     uomiCtx.put("processingStatusId", "OAGMP_SEND_ERROR");
                     uomiCtx.put("userLogin", userLogin);
@@ -919,7 +918,7 @@ public class OagisShipmentServices {
 
             if (Debug.infoOn()) Debug.logInfo("Message send done for oagisSendProcessShipment for orderId [" + orderId + "], sendToUrl=[" + sendToUrl + "], saveToDirectory=[" + saveToDirectory + "], saveToFilename=[" + saveToFilename + "]", module);
             try {
-                Map<String, Object> uomiCtx = FastMap.newInstance();
+                Map<String, Object> uomiCtx = new HashMap<String, Object>();
                 uomiCtx.putAll(omiPkMap);
                 uomiCtx.put("processingStatusId", "OAGMP_SENT");
                 uomiCtx.put("userLogin", userLogin);
@@ -940,7 +939,7 @@ public class OagisShipmentServices {
                         return ServiceUtil.returnError(errMsg);
                     }
 
-                    Map<String, Object> uomiCtx = FastMap.newInstance();
+                    Map<String, Object> uomiCtx = new HashMap<String, Object>();
                     uomiCtx.putAll(omiPkMap);
                     uomiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     uomiCtx.put("bsrVerb", "PROCESS");
@@ -951,7 +950,7 @@ public class OagisShipmentServices {
                     dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
 
                     List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);
@@ -1049,7 +1048,7 @@ public class OagisShipmentServices {
 
             // prepare map to Create Oagis Message Info
             try {
-                Map<String, Object> comiCtx = FastMap.newInstance();
+                Map<String, Object> comiCtx = new HashMap<String, Object>();
                 comiCtx.putAll(omiPkMap);
                 comiCtx.put("outgoingMessage", "Y");
                 comiCtx.put("confirmation", "1");
@@ -1080,7 +1079,7 @@ public class OagisShipmentServices {
 
             // calculate total qty of return items in a shipping unit received, order associated with return
             double totalQty = 0.0;
-            Map<String, List<String>> serialNumberListByReturnItemSeqIdMap = FastMap.newInstance();
+            Map<String, List<String>> serialNumberListByReturnItemSeqIdMap = new HashMap<String, List<String>>();
             bodyParameters.put("serialNumberListByReturnItemSeqIdMap", serialNumberListByReturnItemSeqIdMap);
             for (GenericValue returnItem : returnItems) {
                 double itemQty = returnItem.getDouble("returnQuantity").doubleValue();
@@ -1095,7 +1094,7 @@ public class OagisShipmentServices {
                                 .where("orderId", orderItem.get("orderId"), "orderItemSeqId", orderItem.get("orderItemSeqId"), "inventoryItemTypeId", "SERIALIZED_INV_ITEM")
                                 .queryList();
                         if (itemIssuanceAndInventoryItemList.size() == itemQty) {
-                            List<String> serialNumberList = FastList.newInstance();
+                            List<String> serialNumberList = new LinkedList<String>();
                             serialNumberListByReturnItemSeqIdMap.put(returnItem.getString("returnItemSeqId"), serialNumberList);
                             for (GenericValue itemIssuanceAndInventoryItem : itemIssuanceAndInventoryItemList) {
                                 serialNumberList.add(itemIssuanceAndInventoryItem.getString("serialNumber"));
@@ -1132,7 +1131,7 @@ public class OagisShipmentServices {
             String outText = writer.toString();
 
             try {
-                Map<String, Object> uomiCtx = FastMap.newInstance();
+                Map<String, Object> uomiCtx = new HashMap<String, Object>();
                 uomiCtx.putAll(omiPkMap);
                 uomiCtx.put("processingStatusId", "OAGMP_OGEN_SUCCESS");
                 uomiCtx.put("userLogin", userLogin);
@@ -1148,7 +1147,7 @@ public class OagisShipmentServices {
             Map<String, Object> sendMessageReturn = OagisServices.sendMessageText(outText, out, sendToUrl, saveToDirectory, saveToFilename, locale, delegator);
             if (sendMessageReturn != null && ServiceUtil.isError(sendMessageReturn)) {
                 try {
-                    Map<String, Object> uomiCtx = FastMap.newInstance();
+                    Map<String, Object> uomiCtx = new HashMap<String, Object>();
                     uomiCtx.putAll(omiPkMap);
                     uomiCtx.put("processingStatusId", "OAGMP_SEND_ERROR");
                     uomiCtx.put("userLogin", userLogin);
@@ -1161,7 +1160,7 @@ public class OagisShipmentServices {
             }
 
             try {
-                Map<String, Object> uomiCtx = FastMap.newInstance();
+                Map<String, Object> uomiCtx = new HashMap<String, Object>();
                 uomiCtx.putAll(omiPkMap);
                 uomiCtx.put("processingStatusId", "OAGMP_SENT");
                 uomiCtx.put("userLogin", userLogin);
@@ -1182,7 +1181,7 @@ public class OagisShipmentServices {
                         return ServiceUtil.returnError(errMsg);
                     }
 
-                    Map<String, Object> uomiCtx = FastMap.newInstance();
+                    Map<String, Object> uomiCtx = new HashMap<String, Object>();
                     uomiCtx.putAll(omiPkMap);
                     uomiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     uomiCtx.put("bsrVerb", "RECEIVE");
@@ -1193,7 +1192,7 @@ public class OagisShipmentServices {
                     dispatcher.runSync("updateOagisMessageInfo", uomiCtx, 60, true);
 
                     List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("description", errMsg, "reasonCode", "SystemError"));
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);

@@ -23,12 +23,10 @@ import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -366,8 +364,8 @@ public class ShoppingCartServices {
                 try {
                     product = EntityQuery.use(delegator).from("Product").where("productId", productId).queryOne();
                     if ("DIGITAL_GOOD".equals(product.getString("productTypeId"))) {
-                        Map<String, Object> surveyResponseMap = FastMap.newInstance();
-                        Map<String, Object> answers = FastMap.newInstance();
+                        Map<String, Object> surveyResponseMap = new HashMap<String, Object>();
+                        Map<String, Object> answers = new HashMap<String, Object>();
                         List<GenericValue> surveyResponseAndAnswers = EntityQuery.use(delegator).from("SurveyResponseAndAnswer").where("orderId", orderId, "orderItemSeqId", orderItemSeqId).queryList();
                         if (UtilValidate.isNotEmpty(surveyResponseAndAnswers)) {
                             String surveyId = EntityUtil.getFirst(surveyResponseAndAnswers).getString("surveyId");
@@ -757,11 +755,11 @@ public class ShoppingCartServices {
 
         // Convert the quote adjustment to order header adjustments and
         // put them in a map: the key/values pairs are quoteItemSeqId/List of adjs
-        Map<String, List<GenericValue>> orderAdjsMap = FastMap.newInstance() ;
+        Map<String, List<GenericValue>> orderAdjsMap = new HashMap<String, List<GenericValue>>() ;
         for (GenericValue quoteAdj : quoteAdjs) {
             List<GenericValue> orderAdjs = orderAdjsMap.get(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId);
             if (orderAdjs == null) {
-                orderAdjs = FastList.newInstance();
+                orderAdjs = new LinkedList<GenericValue>();
                 orderAdjsMap.put(UtilValidate.isNotEmpty(quoteAdj.getString("quoteItemSeqId")) ? quoteAdj.getString("quoteItemSeqId") : quoteId, orderAdjs);
             }
             // convert quote adjustments to order adjustments
@@ -1113,7 +1111,7 @@ public class ShoppingCartServices {
             result.put("displayGrandTotalCurrencyFormatted",org.ofbiz.base.util.UtilFormatOut.formatCurrency(shoppingCart.getDisplayGrandTotal(), isoCode, locale));
             BigDecimal orderAdjustmentsTotal = OrderReadHelper.calcOrderAdjustments(OrderReadHelper.getOrderHeaderAdjustments(shoppingCart.getAdjustments(), null), shoppingCart.getSubTotal(), true, true, true);
             result.put("displayOrderAdjustmentsTotalCurrencyFormatted", org.ofbiz.base.util.UtilFormatOut.formatCurrency(orderAdjustmentsTotal, isoCode, locale));
-            Map<String, Object> cartItemData = FastMap.newInstance();
+            Map<String, Object> cartItemData = new HashMap<String, Object>();
             for (ShoppingCartItem cartLine : shoppingCart) {
                 int cartLineIndex = shoppingCart.getItemIndex(cartLine);
                 cartItemData.put("displayItemQty_" + cartLineIndex, cartLine.getQuantity());
@@ -1166,7 +1164,7 @@ public class ShoppingCartServices {
             Debug.logError(e.toString(), module);
             return ServiceUtil.returnError(e.toString());
         }
-        Map<String, Object> vendorMap = FastMap.newInstance();
+        Map<String, Object> vendorMap = new HashMap<String, Object>();
         for (ShoppingCartItem item : cart) {
             GenericValue vendorProduct = null;
             String productId = item.getParentProductId();

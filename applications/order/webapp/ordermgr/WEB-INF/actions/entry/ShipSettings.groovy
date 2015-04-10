@@ -26,9 +26,6 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 
-import javolution.util.FastMap;
-import javolution.util.FastList;
-
 cart = session.getAttribute("shoppingCart");
 
 if (cart) {
@@ -84,7 +81,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
 
     companyId = cart.getBillToCustomerPartyId();
     if (companyId) {
-        facilityMaps = FastList.newInstance();
+        facilityMaps = [:];
         facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList();
 
         // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there.
@@ -96,7 +93,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
             }
         }
         facilities.each { facility ->
-            facilityMap = FastMap.newInstance();
+            facilityMap = [:];
             facilityContactMechValueMaps = ContactMechWorker.getFacilityContactMechValueMaps(delegator, facility.facilityId, false, null);
             facilityMap.facilityContactMechList = facilityContactMechValueMaps;
             facilityMap.facility = facility;

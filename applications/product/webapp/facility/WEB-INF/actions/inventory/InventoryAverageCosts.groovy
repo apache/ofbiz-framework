@@ -18,7 +18,6 @@
  */
 
 import java.util.*;
-import javolution.util.FastList;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.condition.EntityCondition;
@@ -31,7 +30,7 @@ EntityCondition whereConditions = EntityCondition.makeCondition("facilityId", En
 inventoryItems = select("productId").from("InventoryItem").where("facilityId", facilityId).orderBy("productId").queryList();
 inventoryItemProducts = EntityUtil.getFieldListFromEntityList(inventoryItems, "productId", true);
 
-inventoryAverageCosts = FastList.newInstance();
+inventoryAverageCosts = [];
 inventoryItemProducts.each { productId ->
     productFacility = from("ProductFacility").where("productId", productId, "facilityId", facilityId).queryOne();
     if (UtilValidate.isNotEmpty(productFacility)) {

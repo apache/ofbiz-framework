@@ -32,9 +32,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
@@ -140,7 +137,7 @@ public class IdealEvents {
             return "error";
         }
         
-        List<String> descriptionList = FastList.newInstance();
+        List<String> descriptionList = new LinkedList<String>();
         for (GenericValue orderItem : orderItemList) {
             if (UtilValidate.isNotEmpty(orderItem.get("itemDescription"))){
                 descriptionList.add((String) orderItem.get("itemDescription"));
@@ -427,7 +424,7 @@ public class IdealEvents {
     }
 
     public static List<Issuer> getIssuerList() {
-        List<Issuer> issuerList = FastList.newInstance();
+        List<Issuer> issuerList = new LinkedList<Issuer>();
         try {
             IdealConnector connector = new IdealConnector("payment");
             Issuers issuers = connector.getIssuerList();

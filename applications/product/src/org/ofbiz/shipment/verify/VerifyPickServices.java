@@ -20,9 +20,9 @@
 package org.ofbiz.shipment.verify;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilGenerics;
@@ -90,7 +90,7 @@ public class VerifyPickServices {
         String orderId = (String) context.get("orderId");
         try {
             shipmentId = pickSession.complete(orderId, locale);
-            Map<String, Object> shipment = FastMap.newInstance();
+            Map<String, Object> shipment = new HashMap<String, Object>();
             shipment.put("shipmentId", shipmentId);
             pickSession.clearAllRows();
             return shipment;

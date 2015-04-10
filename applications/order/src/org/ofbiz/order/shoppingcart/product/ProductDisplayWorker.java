@@ -24,14 +24,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
@@ -67,7 +65,7 @@ public class ProductDisplayWorker {
 
         List<GenericValue> cartAssocs = null;
         try {
-            Map<String, GenericValue> products = FastMap.newInstance();
+            Map<String, GenericValue> products = new HashMap<String, GenericValue>();
 
             Iterator<ShoppingCartItem> cartiter = cart.iterator();
 
@@ -117,16 +115,16 @@ public class ProductDisplayWorker {
                 String currentCatalogId = CatalogWorker.getCurrentCatalogId(request);
                 String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, currentCatalogId);
                 if (viewProductCategoryId != null) {
-                    List<GenericValue> tempList = FastList.newInstance();
+                    List<GenericValue> tempList = new LinkedList<GenericValue>();
                     tempList.addAll(products.values());
                     tempList = CategoryWorker.filterProductsInCategory(delegator, tempList, viewProductCategoryId, "productId");
-                    cartAssocs = FastList.newInstance();
+                    cartAssocs = new LinkedList<GenericValue>();
                     cartAssocs.addAll(tempList);
                 }
             }
 
             if (cartAssocs == null) {
-                cartAssocs = FastList.newInstance();
+                cartAssocs = new LinkedList<GenericValue>();
                 cartAssocs.addAll(products.values());
             }
 
@@ -150,7 +148,7 @@ public class ProductDisplayWorker {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         GenericValue userLogin = (GenericValue) httpRequest.getSession().getAttribute("userLogin");
-        Map<String, Object> results = FastMap.newInstance();
+        Map<String, Object> results = new HashMap<String, Object>();
 
         if (userLogin == null) userLogin = (GenericValue) httpRequest.getSession().getAttribute("autoUserLogin");
         if (userLogin == null) return results;
@@ -250,7 +248,7 @@ public class ProductDisplayWorker {
                 }
             //}
 
-            List<GenericValue> reorderProds = FastList.newInstance();
+            List<GenericValue> reorderProds = new LinkedList<GenericValue>();
             reorderProds.addAll(products.values());
 
             /*
@@ -264,7 +262,7 @@ public class ProductDisplayWorker {
             // sort descending by new metric...
             BigDecimal occurancesModifier = BigDecimal.ONE;
             BigDecimal quantityModifier = BigDecimal.ONE;
-            Map<String, Object> newMetric = FastMap.newInstance();
+            Map<String, Object> newMetric = new HashMap<String, Object>();
             for (Map.Entry<String, Integer> entry : productOccurances.entrySet()) {
                 String prodId = entry.getKey();
                 Integer quantity = entry.getValue();
@@ -301,7 +299,7 @@ public class ProductDisplayWorker {
         if (values == null)  return null;
         if (values.size() == 0) return UtilMisc.toList(values);
 
-        List<GenericValue> result = FastList.newInstance();
+        List<GenericValue> result = new LinkedList<GenericValue>();
         result.addAll(values);
 
         Collections.sort(result, new ProductByMapComparator(orderByMap, descending));

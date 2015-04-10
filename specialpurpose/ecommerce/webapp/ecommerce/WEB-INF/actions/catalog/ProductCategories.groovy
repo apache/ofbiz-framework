@@ -26,19 +26,16 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.base.util.*;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
-import javolution.util.FastMap;
-import javolution.util.FastList;
-import javolution.util.FastList.*;
 import org.ofbiz.entity.*;
 
 List fillTree(rootCat ,CatLvl, parentCategoryId) {
     if(rootCat) {
         rootCat.sort{ it.productCategoryId }
-        def listTree = FastList.newInstance();
+        def listTree = [];
         for(root in rootCat) {
             preCatChilds = from("ProductCategoryRollup").where("parentProductCategoryId", root.productCategoryId).queryList();
             catChilds = EntityUtil.getRelated("CurrentProductCategory",null,preCatChilds,false);
-            def childList = FastList.newInstance();
+            def childList = [];
             
             // CatLvl uses for identify the Category level for display different css class
             if(catChilds) {
@@ -55,7 +52,7 @@ List fillTree(rootCat ,CatLvl, parentCategoryId) {
             
             // Display the category if this category containing products or contain the category that's containing products
             if(productsInCat || childList) {
-                def rootMap = FastMap.newInstance();
+                def rootMap = [:];
                 category = from("ProductCategory").where("productCategoryId", root.productCategoryId).queryOne();
                 categoryContentWrapper = new CategoryContentWrapper(category, request);
                 context.title = categoryContentWrapper.CATEGORY_NAME;
@@ -89,9 +86,9 @@ CategoryWorker.setTrail(request, curCategoryId);
 
 categoryList = request.getAttribute("topLevelList");
 if (categoryList) {
-    catContentWrappers = FastMap.newInstance();
+    catContentWrappers = [:];
     CategoryWorker.getCategoryContentWrappers(catContentWrappers, categoryList, request);
     context.catContentWrappers = catContentWrappers;
-    completedTree = fillTree(categoryList,1,"");
+    completedTree = fillTree(categoryList, 1, "");
     context.completedTree = completedTree;
 }

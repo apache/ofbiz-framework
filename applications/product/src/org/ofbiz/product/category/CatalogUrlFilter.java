@@ -20,6 +20,7 @@ package org.ofbiz.product.category;
 
 import java.io.IOException;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.servlet.FilterChain;
@@ -30,8 +31,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -89,7 +88,7 @@ public class CatalogUrlFilter extends ContextFilter {
             try {
                 // look for productId
                 if (alternativeUrl.endsWith("-p")) {
-                    List<EntityCondition> productContentConds = FastList.newInstance();
+                    List<EntityCondition> productContentConds = new LinkedList<EntityCondition>();
                     productContentConds.add(EntityCondition.makeCondition("productContentTypeId", "ALTERNATIVE_URL"));
                     productContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productContentInfos = EntityQuery.use(delegator).from("ProductContentAndInfo").where(productContentConds).orderBy("-fromDate").cache(true).queryList();
@@ -144,7 +143,7 @@ public class CatalogUrlFilter extends ContextFilter {
                 
                 // look for productCategoryId
                 if (alternativeUrl.endsWith("-c")) {
-                    List<EntityCondition> productCategoryContentConds = FastList.newInstance();
+                    List<EntityCondition> productCategoryContentConds = new LinkedList<EntityCondition>();
                     productCategoryContentConds.add(EntityCondition.makeCondition("prodCatContentTypeId", "ALTERNATIVE_URL"));
                     productCategoryContentConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryContentInfos = EntityQuery.use(delegator).from("ProductCategoryContentAndInfo").where(productCategoryContentConds).orderBy("-fromDate").cache(true).queryList();
@@ -209,7 +208,7 @@ public class CatalogUrlFilter extends ContextFilter {
             
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
-                    List<EntityCondition> conds = FastList.newInstance();
+                    List<EntityCondition> conds = new LinkedList<EntityCondition>();
                     conds.add(EntityCondition.makeCondition("productId", productId));
                     conds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).select("productCategoryId").from("ProductCategoryMember").where(conds).orderBy("-fromDate").cache(true).queryList();
@@ -234,7 +233,7 @@ public class CatalogUrlFilter extends ContextFilter {
             // look for productCategoryId from productId
             if (UtilValidate.isNotEmpty(productId)) {
                 try {
-                    List<EntityCondition> rolllupConds = FastList.newInstance();
+                    List<EntityCondition> rolllupConds = new LinkedList<EntityCondition>();
                     rolllupConds.add(EntityCondition.makeCondition("productId", productId));
                     rolllupConds.add(EntityUtil.getFilterByDateExpr());
                     List<GenericValue> productCategoryMembers = EntityQuery.use(delegator).from("ProductCategoryMember").where(rolllupConds).orderBy("-fromDate").cache(true).queryList();
@@ -252,13 +251,13 @@ public class CatalogUrlFilter extends ContextFilter {
 
             // generate trail elements from productCategoryId
             if (UtilValidate.isNotEmpty(productCategoryId)) {
-                List<String> trailElements = FastList.newInstance();
+                List<String> trailElements = new LinkedList<String>();
                 trailElements.add(productCategoryId);
                 String parentProductCategoryId = productCategoryId;
                 while (UtilValidate.isNotEmpty(parentProductCategoryId)) {
                     // find product category rollup
                     try {
-                        List<EntityCondition> rolllupConds = FastList.newInstance();
+                        List<EntityCondition> rolllupConds = new LinkedList<EntityCondition>();
                         rolllupConds.add(EntityCondition.makeCondition("productCategoryId", parentProductCategoryId));
                         rolllupConds.add(EntityUtil.getFilterByDateExpr());
                         List<GenericValue> productCategoryRollups = EntityQuery.use(delegator).from("ProductCategoryRollup").where(rolllupConds).orderBy("-fromDate").cache(true).queryList();
@@ -283,7 +282,7 @@ public class CatalogUrlFilter extends ContextFilter {
                 
                 List<String> trail = CategoryWorker.getTrail(httpRequest);
                 if (trail == null) {
-                    trail = FastList.newInstance();
+                    trail = new LinkedList<String>();
                 }
 
                 // adjust trail
@@ -405,7 +404,7 @@ public class CatalogUrlFilter extends ContextFilter {
             url = urlBuilder.toString();
         } else {
             if (UtilValidate.isEmpty(trail)) {
-                trail = FastList.newInstance();
+                trail = new LinkedList<String>();
             }
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }
@@ -448,7 +447,7 @@ public class CatalogUrlFilter extends ContextFilter {
             url = urlBuilder.toString();
         } else {
             if (UtilValidate.isEmpty(trail)) {
-                trail = FastList.newInstance();
+                trail = new LinkedList<String>();
             }
             url = CatalogUrlServlet.makeCatalogUrl(contextPath, trail, productId, productCategoryId, previousCategoryId);
         }

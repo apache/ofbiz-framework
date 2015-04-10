@@ -26,10 +26,10 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javolution.util.FastMap;
 import jpos.JposException;
 import jpos.POSPrinter;
 import jpos.POSPrinterConst;
@@ -64,7 +64,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
     protected SimpleDateFormat[] dateFormat = null;
     protected String[] storeReceiptTmpl = null;
     protected String[] custReceiptTmpl = null;
-    protected Map<String, Object> reportTmpl = FastMap.newInstance();
+    protected Map<String, Object> reportTmpl = new HashMap<String, Object>();
 
     protected static final String[] dateFmtStr = { "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z", "EEE, d MMM yyyy HH:mm:ss z" };
     protected static final int[] priceLength = { 7, 7, 7 };
@@ -458,7 +458,7 @@ public class Receipt extends GenericDevice implements DialogCallback {
     }
 
     private Map<String, Object> makeCodeExpandMap(PosTransaction trans, int type) {
-        Map<String, Object> expandMap = FastMap.newInstance();
+        Map<String, Object> expandMap = new HashMap<String, Object>();
         SimpleDateFormat fmt = this.getDateFormat(type);
         String dateString = fmt.format(new Date());
 

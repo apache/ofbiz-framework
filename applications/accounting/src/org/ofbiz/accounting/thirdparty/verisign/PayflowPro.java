@@ -21,12 +21,11 @@ package org.ofbiz.accounting.thirdparty.verisign;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.lang.StringUtils;
 import org.ofbiz.accounting.payment.PaymentGatewayServices;
@@ -90,7 +89,7 @@ public class PayflowPro {
             isPayPal = true;
         }
 
-        Map<String, String> data = FastMap.newInstance();
+        Map<String, String> data = new HashMap<String, Object>();
 
         boolean isReAuth = false;
         if (isPayPal) {
@@ -433,7 +432,7 @@ public class PayflowPro {
                     "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
-        Map<String, String> data = FastMap.newInstance();
+        Map<String, String> data = new HashMap<String, Object>();
 
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
@@ -543,7 +542,7 @@ public class PayflowPro {
         String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
         String configString = "payment.properties";
 
-        Map<String, String> data = FastMap.newInstance();
+        Map<String, String> data = new HashMap<String, Object>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("ACTION", "G");
@@ -576,7 +575,7 @@ public class PayflowPro {
                     "AccountingPayPalCommunicationError", locale));
         }
 
-        Map<String, Object> inMap = FastMap.newInstance();
+        Map<String, Object> inMap = new HashMap<String, Object>();
         inMap.put("userLogin", cart.getUserLogin());
         inMap.put("partyId", cart.getOrderPartyId());
         inMap.put("contactMechId", cart.getShippingContactMechId());
@@ -622,7 +621,7 @@ public class PayflowPro {
         }
         BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
 
-        Map<String, String> data = FastMap.newInstance();
+        Map<String, String> data = new HashMap<String, Object>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("PAYERID", payPalPaymentMethod.getString("payerId"));
@@ -650,7 +649,7 @@ public class PayflowPro {
 
         Map<String, String> responseMap = parseResponse(resp);
 
-        Map<String, Object> inMap = FastMap.newInstance();
+        Map<String, Object> inMap = new HashMap<String, Object>();
         inMap.put("userLogin", userLogin);
         inMap.put("paymentMethodId", payPalPaymentMethod.get("paymentMethodId"));
         inMap.put("transactionId", responseMap.get("PNREF"));
@@ -670,7 +669,7 @@ public class PayflowPro {
 
     private static Map<String, String> parseResponse(String resp) {
         Debug.logInfo("Verisign response string: " + resp, module);
-        Map<String, String> parameters = FastMap.newInstance();
+        Map<String, String> parameters = new HashMap<String, Object>();
         List<String> params = StringUtil.split(resp, "&");
         for (String str : params) {
             if (str.length() > 0) {

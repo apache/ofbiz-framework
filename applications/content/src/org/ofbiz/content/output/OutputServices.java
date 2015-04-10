@@ -26,6 +26,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -46,8 +47,6 @@ import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttributeSet;
 import javax.print.attribute.standard.PrinterName;
 import javax.xml.transform.stream.StreamSource;
-
-import javolution.util.FastMap;
 
 import org.apache.fop.apps.Fop;
 import org.apache.fop.apps.MimeConstants;
@@ -87,7 +86,7 @@ public class OutputServices {
         String printerContentType = (String) serviceContext.remove("printerContentType");
 
         if (UtilValidate.isEmpty(screenContext)) {
-            screenContext = FastMap.newInstance();
+            screenContext = new HashMap<String, Object>();
         }
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {
@@ -200,7 +199,7 @@ public class OutputServices {
         String fileName = (String) serviceContext.remove("fileName");
 
         if (UtilValidate.isEmpty(screenContext)) {
-            screenContext = FastMap.newInstance();
+            screenContext = new HashMap<String, Object>();
         }
         screenContext.put("locale", locale);
         if (UtilValidate.isEmpty(contentType)) {

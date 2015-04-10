@@ -16,7 +16,6 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import javolution.util.FastList
 import org.ofbiz.entity.util.EntityUtilProperties
 
 configList = []

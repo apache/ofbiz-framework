@@ -44,18 +44,14 @@ import org.ofbiz.base.util.Debug;
 import java.sql.Timestamp;
 import java.sql.Date;
 import java.sql.Time;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
-
 
 entityName = parameters.entityName;
 
 ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity(entityName);
 
-groupByFields = FastList.newInstance();
-functionFields = FastList.newInstance();
+groupByFields = [];
+functionFields = [];
 
 if (modelEntity instanceof ModelViewEntity) {
     aliases = modelEntity.getAliasesCopy()
@@ -89,7 +85,7 @@ if (find == null) {
 String curFindString = "entityName=" + entityName + "&find=" + find;
 
 GenericEntity findByEntity = delegator.makeValue(entityName);
-List errMsgList = FastList.newInstance();
+List errMsgList = [];
 Iterator fieldIterator = modelEntity.getFieldsIterator();
 while (fieldIterator.hasNext()) {
     ModelField field = fieldIterator.next();
@@ -143,7 +139,7 @@ if ("true".equals(find)) {
     //EntityCondition condition = EntityCondition.makeCondition(findByEntity, EntityOperator.AND);
 
     // small variation to support LIKE if a wildcard (%) is found in a String
-    conditionList = FastList.newInstance();
+    conditionList = [];
     findByKeySet = findByEntity.keySet();
     fbksIter = findByKeySet.iterator();
     while (fbksIter.hasNext()) {
@@ -168,7 +164,7 @@ if ("true".equals(find)) {
             fieldsToSelect = null;
 
             if (groupByFields || functionFields) {
-                fieldsToSelect = FastSet.newInstance();
+                fieldsToSelect = [];
 
                 for (String groupByField : groupByFields) {
                     fieldsToSelect.add(groupByField);
@@ -178,7 +174,7 @@ if ("true".equals(find)) {
                     fieldsToSelect.add(functionField)
                 }
             }
-            Collection pkNames = FastList.newInstance();
+            Collection pkNames = [];
             Iterator iter = modelEntity.getPksIterator();
             while (iter != null && iter.hasNext()) {
                 ModelField curField = (ModelField) iter.next();
@@ -216,13 +212,13 @@ context.resultPartialList = resultPartialList;
 viewIndexLast = UtilMisc.getViewLastIndex(arraySize, viewSize);
 context.viewIndexLast = viewIndexLast;
 
-List fieldList = FastList.newInstance();
+List fieldList = [];
 fieldIterator = modelEntity.getFieldsIterator();
 while (fieldIterator.hasNext()) {
     ModelField field = fieldIterator.next();
     ModelFieldType type = delegator.getEntityFieldType(modelEntity, field.getType());
 
-    Map fieldMap = FastMap.newInstance();
+    Map fieldMap = [:];
     fieldMap.put("name", field.getName());
     fieldMap.put("isPk", (field.getIsPk() == true) ? "Y" : "N");
     fieldMap.put("javaType", type.getJavaType());
@@ -234,11 +230,11 @@ while (fieldIterator.hasNext()) {
 context.fieldList = fieldList;
 context.columnCount = fieldList.size()+2;
 
-List records = FastList.newInstance();
+List records = [];
 if (resultPartialList != null) {
     Iterator resultPartialIter = resultPartialList.iterator();
     while (resultPartialIter.hasNext()) {
-        Map record = FastMap.newInstance();
+        Map record = [:];
 
         GenericValue value = (GenericValue)resultPartialIter.next();
         String findString = "entityName=" + entityName;

@@ -23,6 +23,7 @@ import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastSet;
 
 import org.apache.oro.text.regex.Pattern;
 import org.apache.oro.text.regex.Perl5Matcher;
@@ -69,12 +68,12 @@ import org.ofbiz.webapp.website.WebSiteWorker;
 public class SeoContextFilter extends ContextFilter {
 
     public static final String module = SeoContextFilter.class.getName();
-    
-    protected Set<String> WebServlets = FastSet.newInstance();
-    
+
+    protected Set<String> WebServlets = new HashSet<String>();
+
     public void init(FilterConfig config) throws ServletException {
         super.init(config);
-        
+
         Map<String, ? extends ServletRegistration> servletRegistrations = config.getServletContext().getServletRegistrations();
         for (String key : servletRegistrations.keySet()) {
             Collection<String> servlets = servletRegistrations.get(key).getMappings();

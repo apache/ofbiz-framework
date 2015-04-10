@@ -25,15 +25,15 @@ import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Calendar;
@@ -149,7 +149,7 @@ public class ICalConverter {
     }
 
     protected static ResponseProperties createWorkEffort(Component component, Map<String, Object> context) {
-        Map<String, Object> serviceMap = FastMap.newInstance();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
         setWorkEffortServiceMap(component, serviceMap);
         serviceMap.put("workEffortTypeId", "VTODO".equals(component.getName()) ? "TASK" : "EVENT");
         serviceMap.put("currentStatusId", "VTODO".equals(component.getName()) ? "CAL_NEEDS_ACTION" : "CAL_TENTATIVE");
@@ -463,7 +463,7 @@ public class ICalConverter {
 
     protected static Map<String, Object> invokeService(String serviceName, Map<String, ? extends Object> serviceMap, Map<String, Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) context.get("dispatcher");
-        Map<String, Object> localMap = FastMap.newInstance();
+        Map<String, Object> localMap = new HashMap<String, Object>();
         try {
             ModelService modelService = null;
             modelService = dispatcher.getDispatchContext().getModelService(serviceName);
@@ -722,7 +722,7 @@ public class ICalConverter {
         }
         boolean hasCreatePermission = hasPermission(workEffortId, "CREATE", context);
         List<GenericValue> workEfforts = getRelatedWorkEfforts(publishProperties, context);
-        Set<String> validWorkEfforts = FastSet.newInstance();
+        Set<String> validWorkEfforts = new HashSet<String>();
         if (UtilValidate.isNotEmpty(workEfforts)) {
             // Security issue: make sure only related work efforts get updated
             for (GenericValue workEffort : workEfforts) {
@@ -776,8 +776,8 @@ public class ICalConverter {
 
     protected static ResponseProperties storePartyAssignments(String workEffortId, Component component, Map<String, Object> context) {
         ResponseProperties responseProps = null;
-        Map<String, Object> serviceMap = FastMap.newInstance();
-        List<Property> partyList = FastList.newInstance();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
+        List<Property> partyList = new LinkedList<Property>();
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ATTENDEE"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("CONTACT"), Property.class));
         partyList.addAll(UtilGenerics.checkList(component.getProperties("ORGANIZER"), Property.class));
@@ -829,7 +829,7 @@ public class ICalConverter {
         if (!hasPermission(workEffortId, "UPDATE", context)) {
             return null;
         }
-        Map<String, Object> serviceMap = FastMap.newInstance();
+        Map<String, Object> serviceMap = new HashMap<String, Object>();
         serviceMap.put("workEffortId", workEffortId);
         setWorkEffortServiceMap(component, serviceMap);
         invokeService("updateWorkEffort", serviceMap, context);

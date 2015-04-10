@@ -154,7 +154,7 @@ under the License.
     <property name="DataCube.Group1.NewTabularHierarchy1.height">200</property>
     <property name="Channel.SalesOrderItemFact.x">135</property>
     <property name="Channel.SalesOrderItemFact.y">80</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util);
+    <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.util);
 module = "OrdersByChannel.rptdesign";]]></method>

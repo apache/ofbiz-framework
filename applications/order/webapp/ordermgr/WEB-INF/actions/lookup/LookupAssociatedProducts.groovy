@@ -17,7 +17,6 @@
  * under the License.
  */
 
-import javolution.util.FastList;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
@@ -32,7 +31,7 @@ if (productId != null) {
         products = EntityUtil.filterByAnd(prodAssocs, [EntityCondition.makeCondition("productAssocTypeId", EntityOperator.NOT_EQUAL, "PRODUCT_VARIANT")]);
 
         if (UtilValidate.isNotEmpty(products)) {
-            productList = FastList.newInstance();
+            productList = [];
             products.each { product ->
                 if (product != null) {
                     String productIdTo = product.getString("productIdTo");

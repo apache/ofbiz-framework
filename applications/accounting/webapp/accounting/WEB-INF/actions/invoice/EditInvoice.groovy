@@ -28,9 +28,6 @@ import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import org.ofbiz.base.util.UtilNumber;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 
 
 invoiceId = parameters.get("invoiceId");
@@ -68,8 +65,8 @@ if (invoice) {
     }
 
     invoiceItems = invoice.getRelated("InvoiceItem", null, ["invoiceItemSeqId"], false);
-    invoiceItemsConv = FastList.newInstance();
-    vatTaxesByType = FastMap.newInstance();
+    invoiceItemsConv = [];
+    vatTaxesByType = [:];
     invoiceItems.each { invoiceItem ->
         invoiceItem.amount = invoiceItem.getBigDecimal("amount").multiply(conversionRate).setScale(decimals, rounding);
         invoiceItemsConv.add(invoiceItem);

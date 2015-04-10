@@ -21,13 +21,12 @@ package org.ofbiz.accounting.invoice;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -114,7 +113,7 @@ public class InvoiceWorker {
 
     /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
     public static List<String> getTaxableInvoiceItemTypeIds(Delegator delegator) throws GenericEntityException {
-        List<String> typeIds = FastList.newInstance();
+        List<String> typeIds = new LinkedList<String>();
         List<GenericValue> invoiceItemTaxTypes = EntityQuery.use(delegator).from("Enumeration").where("enumTypeId", "TAXABLE_INV_ITM_TY")
                 .cache().queryList();
         for (GenericValue invoiceItemTaxType : invoiceItemTaxTypes) {
@@ -586,7 +585,7 @@ public class InvoiceWorker {
     @Deprecated
     public static Map<String, Object> getInvoiceTaxByTaxAuthGeoAndParty(GenericValue invoice) {
         BigDecimal taxGrandTotal = ZERO;
-        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = FastList.newInstance();
+        List<Map<String, Object>> taxByTaxAuthGeoAndPartyList = new LinkedList<Map<String,Object>>();
         List<GenericValue> invoiceItems = null;
         if (UtilValidate.isNotEmpty(invoice)) {
             try {
@@ -634,7 +633,7 @@ public class InvoiceWorker {
                 }
             }
         }
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("taxByTaxAuthGeoAndPartyList", taxByTaxAuthGeoAndPartyList);
         result.put("taxGrandTotal", taxGrandTotal);
         return result;
@@ -647,7 +646,7 @@ public class InvoiceWorker {
      *         will not account for tax lines that do not contain a taxAuthPartyId
      */
     public static Map<String, Set<String>> getInvoiceTaxAuthPartyAndGeos (GenericValue invoice) {
-        Map<String, Set<String>> result = FastMap.newInstance();
+        Map<String, Set<String>> result = new HashMap<String, Set<String>>();
 
         if (invoice == null)
            throw new IllegalArgumentException("Invoice cannot be null.");
@@ -668,7 +667,7 @@ public class InvoiceWorker {
                 String taxAuthGeoId = invoiceItem.getString("taxAuthGeoId");
                 if (UtilValidate.isNotEmpty(taxAuthPartyId)) {
                     if (!result.containsKey(taxAuthPartyId)) {
-                        Set<String> taxAuthGeos = FastSet.newInstance();
+                        Set<String> taxAuthGeos = new HashSet<String>();
                         taxAuthGeos.add(taxAuthGeoId);
                         result.put(taxAuthPartyId, taxAuthGeos);
                     } else {

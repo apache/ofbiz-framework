@@ -29,19 +29,15 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
-import javolution.util.FastSet;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 starSchemaName = parameters.starSchemaName;
 selectedFieldList = UtilHttp.parseMultiFormData(parameters);
 
-columnNames = FastSet.newInstance();
+columnNames = [];
 selectedFieldList.each { selectedField ->
   columnNames.add(selectedField.selectedFieldName);
 }
 context.columnNames = columnNames;
-List records = FastList.newInstance();
+List records = [];
 records = select(context.columnNames).from(starSchemaName).distinct(false).queryList();
 
 context.records = records;

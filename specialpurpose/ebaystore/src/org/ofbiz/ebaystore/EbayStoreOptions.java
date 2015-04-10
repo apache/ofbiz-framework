@@ -18,6 +18,8 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -25,9 +27,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -85,7 +84,7 @@ public class EbayStoreOptions {
                     String colorSchemeId = themeId.substring(themeId.indexOf("-")+1);
                     themeId = themeId.substring(0,themeId.indexOf("-"));
 
-                    Map<String,Object> storeColorSchemeMap = FastMap.newInstance();
+                    Map<String,Object> storeColorSchemeMap = new HashMap<String, Object>();
                     while (i < storeBasicTheme.length) {
 
                         StoreThemeType storeThemeType = storeBasicTheme[i];
@@ -178,9 +177,9 @@ public class EbayStoreOptions {
                 request.setAttribute("categoryId", ebayCategoryId);
                 results = EbayEvents.getChildCategories(request);
                 if (UtilValidate.isNotEmpty(results)) {
-                    List<Map<String,Object>> categories = FastList.newInstance();
+                    List<Map<String,Object>> categories = new LinkedList<Map<String,Object>>();
                     for (CategoryType category : results) {
-                        Map<String,Object> context = FastMap.newInstance();
+                        Map<String,Object> context = new HashMap<String, Object>();
                         context.put("CategoryCode", category.getCategoryID());
                         context.put("CategoryName", category.getCategoryName());
                         String isLeaf = String.valueOf(category.isLeafCategory()!= null ? category.isLeafCategory() : "false");
@@ -229,9 +228,9 @@ public class EbayStoreOptions {
                 request.setAttribute("categoryId", ebayStoreCategory);
                 results = EbayEvents.getStoreChildCategories(request);
                 if (UtilValidate.isNotEmpty(results)) {
-                    List<Map<String,Object>> categories = FastList.newInstance();
+                    List<Map<String,Object>> categories = new LinkedList<Map<String,Object>>();
                     for (StoreCustomCategoryType category : results) {
-                        Map<String,Object> context = FastMap.newInstance();
+                        Map<String,Object> context = new HashMap<String, Object>();
                         context.put("CategoryCode", category.getCategoryID());
                         context.put("CategoryName", category.getName());
                         String isLeaf = "false";

@@ -21,13 +21,12 @@ package org.ofbiz.product.price;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.TreeSet;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -86,7 +85,7 @@ public class PriceServices {
 
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         GenericValue product = (GenericValue) context.get("product");
@@ -201,7 +200,7 @@ public class PriceServices {
 
         BigDecimal amount = (BigDecimal) context.get("amount");
 
-        List<EntityCondition> productPriceEcList = FastList.newInstance();
+        List<EntityCondition> productPriceEcList = new LinkedList<EntityCondition>();
         productPriceEcList.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
         // this funny statement is for backward compatibility purposes; the productPricePurposeId is a new pk field on the ProductPrice entity and in order databases may not be populated, until the pk is updated and such; this will ease the transition somewhat
         if ("PURCHASE".equals(productPricePurposeId)) {
@@ -342,7 +341,7 @@ public class PriceServices {
 
         boolean validPriceFound = false;
         BigDecimal defaultPrice = BigDecimal.ZERO;
-        List<GenericValue> orderItemPriceInfos = FastList.newInstance();
+        List<GenericValue> orderItemPriceInfos = new LinkedList<GenericValue>();
         if (defaultPriceValue != null) {
             // If a price calc formula (service) is specified, then use it to get the unit price
             if ("ProductPrice".equals(defaultPriceValue.getEntityName()) && UtilValidate.isNotEmpty(defaultPriceValue.getString("customPriceCalcService"))) {
@@ -426,8 +425,8 @@ public class PriceServices {
                 List<GenericValue> nonQuantityProductPriceRules = null;
                 if (findAllQuantityPrices) {
                     // split into list with quantity conditions and list without, then iterate through each quantity cond one
-                    quantityProductPriceRules = FastList.newInstance();
-                    nonQuantityProductPriceRules = FastList.newInstance();
+                    quantityProductPriceRules = new LinkedList<GenericValue>();
+                    nonQuantityProductPriceRules = new LinkedList<GenericValue>();
                     for (GenericValue productPriceRule: allProductPriceRules) {
                         List<GenericValue> productPriceCondList = EntityQuery.use(delegator).from("ProductPriceCond").where("productPriceRuleId", productPriceRule.get("productPriceRuleId")).cache(true).queryList();
 
@@ -453,12 +452,12 @@ public class PriceServices {
                 }
 
                 if (findAllQuantityPrices) {
-                    List<Map<String, Object>> allQuantityPrices = FastList.newInstance();
+                    List<Map<String, Object>> allQuantityPrices = new LinkedList<Map<String,Object>>();
 
                     // if findAllQuantityPrices then iterate through quantityProductPriceRules
                     // foreach create an entry in the out list and eval that rule and all nonQuantityProductPriceRules rather than a single rule
                     for (GenericValue quantityProductPriceRule: quantityProductPriceRules) {
-                        List<GenericValue> ruleListToUse = FastList.newInstance();
+                        List<GenericValue> ruleListToUse = new LinkedList<GenericValue>();
                         ruleListToUse.add(quantityProductPriceRule);
                         ruleListToUse.addAll(nonQuantityProductPriceRules);
 
@@ -525,7 +524,7 @@ public class PriceServices {
         if ("true".equals(EntityUtilProperties.getPropertyValue("catalog.properties", "convertProductPriceCurrency", delegator))) {
             if (UtilValidate.isNotEmpty(currencyDefaultUomId) && UtilValidate.isNotEmpty(currencyUomIdTo) && !currencyDefaultUomId.equals(currencyUomIdTo)) {
                 if (UtilValidate.isNotEmpty(result)) {
-                    Map<String, Object> convertPriceMap = FastMap.newInstance();
+                    Map<String, Object> convertPriceMap = new HashMap<String, Object>();
                     for (Map.Entry<String, Object> entry : result.entrySet()) {
                         BigDecimal tempPrice = BigDecimal.ZERO;
                         if(entry.getKey() == "basePrice")
@@ -546,7 +545,7 @@ public class PriceServices {
                             tempPrice = (BigDecimal) entry.getValue();
                         
                         if (tempPrice != null && tempPrice != BigDecimal.ZERO) {
-                            Map<String, Object> priceResults = FastMap.newInstance();
+                            Map<String, Object> priceResults = new HashMap<String, Object>();
                             try {
                                 priceResults = dispatcher.runSync("convertUom", UtilMisc.<String, Object> toMap("uomId", currencyDefaultUomId, "uomIdTo", currencyUomIdTo,
                                         "originalValue", tempPrice, "defaultDecimalScale", Long.valueOf(2), "defaultRoundingMode", "HalfUp"));
@@ -767,7 +766,7 @@ public class PriceServices {
                 }
             }
 
-            productPriceRules = FastList.newInstance();
+            productPriceRules = new LinkedList<GenericValue>();
             for (String productPriceRuleId: productPriceRuleIds) {
                 GenericValue productPriceRule = EntityQuery.use(delegator).from("ProductPriceRule").where("productPriceRuleId", productPriceRuleId).cache().queryOne();
                 if (productPriceRule == null) continue;
@@ -780,7 +779,7 @@ public class PriceServices {
             // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
 
             productPriceRules = EntityQuery.use(delegator).from("ProductPriceRule").cache(true).queryList();
-            if (productPriceRules == null) productPriceRules = FastList.newInstance();
+            if (productPriceRules == null) productPriceRules = new LinkedList<GenericValue>();
         }
 
         return productPriceRules;
@@ -792,9 +791,9 @@ public class PriceServices {
         String webSiteId, String partyId, BigDecimal quantity, String currencyUomId, Delegator delegator, Timestamp nowTimestamp,
         Locale locale) throws GenericEntityException {
 
-        Map<String, Object> calcResults = FastMap.newInstance();
+        Map<String, Object> calcResults = new HashMap<String, Object>();
 
-        List<GenericValue> orderItemPriceInfos = FastList.newInstance();
+        List<GenericValue> orderItemPriceInfos = new LinkedList<GenericValue>();
         boolean isSale = false;
 
         // ========= go through each price rule by id and eval all conditions =========
@@ -1224,9 +1223,9 @@ public class PriceServices {
     public static Map<String, Object> calculatePurchasePrice(DispatchContext dctx, Map<String, ? extends Object> context) {
         Delegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
 
-        List<GenericValue> orderItemPriceInfos = FastList.newInstance();
+        List<GenericValue> orderItemPriceInfos = new LinkedList<GenericValue>();
         boolean validPriceFound = false;
         BigDecimal price = BigDecimal.ZERO;
 

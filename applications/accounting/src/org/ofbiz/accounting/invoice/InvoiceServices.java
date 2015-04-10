@@ -26,14 +26,13 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.csv.CSVFormat;
@@ -236,7 +235,7 @@ public class InvoiceServices {
 
             // create the invoice record
             if (UtilValidate.isEmpty(invoiceId)) {
-                Map<String, Object> createInvoiceContext = FastMap.newInstance();
+                Map<String, Object> createInvoiceContext = new HashMap<String, Object>();
                 createInvoiceContext.put("partyId", billToCustomerPartyId);
                 createInvoiceContext.put("partyIdFrom", billFromVendorPartyId);
                 createInvoiceContext.put("billingAccountId", billingAccountId);
@@ -261,7 +260,7 @@ public class InvoiceServices {
 
             // order roles to invoice roles
             List<GenericValue> orderRoles = orderHeader.getRelated("OrderRole", null, null, false);
-            Map<String, Object> createInvoiceRoleContext = FastMap.newInstance();
+            Map<String, Object> createInvoiceRoleContext = new HashMap<String, Object>();
             createInvoiceRoleContext.put("invoiceId", invoiceId);
             createInvoiceRoleContext.put("userLogin", userLogin);
             for (GenericValue orderRole : orderRoles) {
@@ -423,7 +422,7 @@ public class InvoiceServices {
 
                 BigDecimal billingAmount = orderItem.getBigDecimal("unitPrice").setScale(invoiceTypeDecimals, ROUNDING);
 
-                Map<String, Object> createInvoiceItemContext = FastMap.newInstance();
+                Map<String, Object> createInvoiceItemContext = new HashMap<String, Object>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
                 createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, (orderItem.getString("orderItemTypeId")), (product == null ? null : product.getString("productTypeId")), invoiceType, "INV_FPROD_ITEM"));
@@ -467,7 +466,7 @@ public class InvoiceServices {
                 invoiceQuantity = invoiceQuantity.add(billingQuantity).setScale(invoiceTypeDecimals, ROUNDING);
 
                 // create the OrderItemBilling record
-                Map<String, Object> createOrderItemBillingContext = FastMap.newInstance();
+                Map<String, Object> createOrderItemBillingContext = new HashMap<String, Object>();
                 createOrderItemBillingContext.put("invoiceId", invoiceId);
                 createOrderItemBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
                 createOrderItemBillingContext.put("orderId", orderItem.get("orderId"));
@@ -558,7 +557,7 @@ public class InvoiceServices {
                         }
                     }
                     if (amount.signum() != 0) {
-                        Map<String, Object> createInvoiceItemAdjContext = FastMap.newInstance();
+                        Map<String, Object> createInvoiceItemAdjContext = new HashMap<String, Object>();
                         createInvoiceItemAdjContext.put("invoiceId", invoiceId);
                         createInvoiceItemAdjContext.put("invoiceItemSeqId", invoiceItemSeqId);
                         createInvoiceItemAdjContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceType, "INVOICE_ITM_ADJ"));
@@ -607,7 +606,7 @@ public class InvoiceServices {
                         }
 
                         // Create the OrderAdjustmentBilling record
-                        Map<String, Object> createOrderAdjustmentBillingContext = FastMap.newInstance();
+                        Map<String, Object> createOrderAdjustmentBillingContext = new HashMap<String, Object>();
                         createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
                         createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
                         createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
@@ -643,8 +642,8 @@ public class InvoiceServices {
             }
 
             // create header adjustments as line items -- always to tax/shipping last
-            Map<GenericValue, BigDecimal> shipAdjustments = FastMap.newInstance();
-            Map<GenericValue, BigDecimal> taxAdjustments = FastMap.newInstance();
+            Map<GenericValue, BigDecimal> shipAdjustments = new HashMap<GenericValue, BigDecimal>();
+            Map<GenericValue, BigDecimal> taxAdjustments = new HashMap<GenericValue, BigDecimal>();
 
             List<GenericValue> headerAdjustments = orh.getOrderHeaderAdjustments();
             for (GenericValue adj : headerAdjustments) {
@@ -765,7 +764,7 @@ public class InvoiceServices {
                     .where(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId),
                             EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAYMENT_CANCELLED")
                     ).queryList();
-            List<GenericValue> currentPayments = FastList.newInstance();
+            List<GenericValue> currentPayments = new LinkedList<GenericValue>();
             for (GenericValue paymentPref : orderPaymentPrefs) {
                 List<GenericValue> payments = paymentPref.getRelated("Payment", null, null, false);
                 currentPayments.addAll(payments);
@@ -777,7 +776,7 @@ public class InvoiceServices {
                 }
                 BigDecimal notApplied = PaymentWorker.getPaymentNotApplied(payment);
                 if (notApplied.signum() > 0) {
-                    Map<String, Object> appl = FastMap.newInstance();
+                    Map<String, Object> appl = new HashMap<String, Object>();
                     appl.put("paymentId", payment.get("paymentId"));
                     appl.put("invoiceId", invoiceId);
                     appl.put("billingAccountId", billingAccountId);
@@ -826,8 +825,8 @@ public class InvoiceServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
         List<String> salesInvoiceIds = UtilGenerics.checkList(context.get("invoiceIds"));
-        List<Map<String, String>> invoicesCreated = FastList.newInstance();
-        Map<String, List<Map<String, Object>>> commissionParties = FastMap.newInstance();
+        List<Map<String, String>> invoicesCreated = new LinkedList<Map<String,String>>();
+        Map<String, List<Map<String, Object>>> commissionParties = new HashMap<String, List<Map<String,Object>>>();
         for (String salesInvoiceId : salesInvoiceIds) {
             List<String> salesRepPartyIds = UtilGenerics.checkList(context.get("partyIds"));
             BigDecimal amountTotal =  InvoiceWorker.getInvoiceTotal(delegator, salesInvoiceId);
@@ -927,7 +926,7 @@ public class InvoiceServices {
         Timestamp now = UtilDateTime.nowTimestamp();
         // Create invoice for each commission receiving party
         for (Map.Entry<String, List<Map<String, Object>>> commissionParty : commissionParties.entrySet()) {
-            List<GenericValue> toStore = FastList.newInstance();
+            List<GenericValue> toStore = new LinkedList<GenericValue>();
             List<Map<String, Object>> commList = commissionParty.getValue();
             // get the billing parties
             if (UtilValidate.isEmpty(commList)) {
@@ -941,7 +940,7 @@ public class InvoiceServices {
             Long days = (Long) (commList.get(0)).get("days");
             // create the invoice record
             // To and From are in commission's sense, opposite for invoice
-            Map<String, Object> createInvoiceMap = FastMap.newInstance();
+            Map<String, Object> createInvoiceMap = new HashMap<String, Object>();
             createInvoiceMap.put("partyId", partyIdBillTo);
             createInvoiceMap.put("partyIdFrom", partyIdBillFrom);
             createInvoiceMap.put("invoiceDate", now);
@@ -1075,7 +1074,7 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         Locale locale = (Locale) context.get("locale");
-        List<String> invoicesCreated = FastList.newInstance();
+        List<String> invoicesCreated = new LinkedList<String>();
         Map<String, Object> response = ServiceUtil.returnSuccess();
         GenericValue orderShipment = null;
         String invoicePerShipment = null;
@@ -1138,7 +1137,7 @@ public class InvoiceServices {
                     "AccountingTroubleGettingShipmentEntity",
                     UtilMisc.toMap("shipmentId", shipmentId), locale));
         }
-        List<GenericValue> itemIssuances = FastList.newInstance();
+        List<GenericValue> itemIssuances = new LinkedList<GenericValue>();
         try {
             itemIssuances = EntityQuery.use(delegator).select("orderId", "shipmentId")
                     .from("ItemIssuance").orderBy("orderId").distinct().queryList();
@@ -1154,11 +1153,11 @@ public class InvoiceServices {
         // The orders can now be placed in separate groups, each for
         // 1. The group of orders for which payment is already captured. No grouping and action required.
         // 2. The group of orders for which invoice is IN-Process status.
-        Map<String, GenericValue> ordersWithInProcessInvoice = FastMap.newInstance();
+        Map<String, GenericValue> ordersWithInProcessInvoice = new HashMap<String, GenericValue>();
 
         for (GenericValue itemIssuance : itemIssuances) {
             String orderId = itemIssuance.getString("orderId");
-            Map<String, Object> billFields = FastMap.newInstance();
+            Map<String, Object> billFields = new HashMap<String, Object>();
             billFields.put("orderId", orderId);
 
             GenericValue orderItemBilling = null;
@@ -1191,7 +1190,7 @@ public class InvoiceServices {
      // For In-Process invoice, move the status to ready and capture the payment
         for (GenericValue invoice : ordersWithInProcessInvoice.values()) {
             String invoiceId = invoice.getString("invoiceId");
-            Map<String, Object> setInvoiceStatusResult = FastMap.newInstance();
+            Map<String, Object> setInvoiceStatusResult = new HashMap<String, Object>();
             try {
                 setInvoiceStatusResult = dispatcher.runSync("setInvoiceStatus", UtilMisc.<String, Object>toMap("invoiceId", invoiceId, "statusId", "INVOICE_READY", "userLogin", userLogin));
             } catch (GenericServiceException e) {
@@ -1238,7 +1237,7 @@ public class InvoiceServices {
         boolean purchaseShipmentFound = false;
         boolean dropShipmentFound = false;
 
-        List<String> invoicesCreated = FastList.newInstance();
+        List<String> invoicesCreated = new LinkedList<String>();
 
         //DEJ20060520: not used? planned to be used? List shipmentIdList = new LinkedList();
         for (String tmpShipmentId : shipmentIds) {
@@ -1321,17 +1320,17 @@ public class InvoiceServices {
         }
 
         // group items by order
-        Map<String, List<GenericValue>> shippedOrderItems = FastMap.newInstance();
+        Map<String, List<GenericValue>> shippedOrderItems = new HashMap<String, List<GenericValue>>();
         for (GenericValue item : items) {
             String orderId = item.getString("orderId");
             String orderItemSeqId = item.getString("orderItemSeqId");
             List<GenericValue> itemsByOrder = shippedOrderItems.get(orderId);
             if (itemsByOrder == null) {
-                itemsByOrder = FastList.newInstance();
+                itemsByOrder = new LinkedList<GenericValue>();
             }
 
             // check and make sure we haven't already billed for this issuance or shipment receipt
-            List<EntityCondition> billFields = FastList.newInstance();
+            List<EntityCondition> billFields = new LinkedList<EntityCondition>();
             billFields.add(EntityCondition.makeCondition("orderId", orderId));
             billFields.add(EntityCondition.makeCondition("orderItemSeqId", orderItemSeqId));
             billFields.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
@@ -1374,10 +1373,10 @@ public class InvoiceServices {
             List<GenericValue> billItems = shippedOrderItems.get(orderId);
 
             // a new list to be used to pass to the create invoice service
-            List<GenericValue> toBillItems = FastList.newInstance();
+            List<GenericValue> toBillItems = new LinkedList<GenericValue>();
 
             // map of available quantities so we only have to calc once
-            Map<String, BigDecimal> itemQtyAvail = FastMap.newInstance();
+            Map<String, BigDecimal> itemQtyAvail = new HashMap<String, BigDecimal>();
 
             // now we will check each issuance and make sure it hasn't already been billed
             for (GenericValue issue : billItems) {
@@ -1391,7 +1390,7 @@ public class InvoiceServices {
 
                 BigDecimal billAvail = itemQtyAvail.get(issue.getString("orderItemSeqId"));
                 if (billAvail == null) {
-                    List<EntityCondition> lookup = FastList.newInstance();
+                    List<EntityCondition> lookup = new LinkedList<EntityCondition>();
                     lookup.add(EntityCondition.makeCondition("orderId", orderId));
                     lookup.add(EntityCondition.makeCondition("orderItemSeqId", issue.get("orderItemSeqId")));
                     lookup.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "INVOICE_CANCELLED"));
@@ -1514,7 +1513,7 @@ public class InvoiceServices {
                 }
 
                 // Total the additional shipping charges for the shipments
-                Map<GenericValue, BigDecimal> additionalShippingCharges = FastMap.newInstance();
+                Map<GenericValue, BigDecimal> additionalShippingCharges = new HashMap<GenericValue, BigDecimal>();
                 BigDecimal totalAdditionalShippingCharges = ZERO;
                 if (UtilValidate.isNotEmpty(invoiceableShipments)) {
                     for (GenericValue shipment : invoiceableShipments) {
@@ -1533,7 +1532,7 @@ public class InvoiceServices {
                         GenericValue shipment = entry.getKey();
                         BigDecimal additionalShippingCharge = entry.getValue();
                         String shipmentId = shipment.getString("shipmentId");
-                        Map<String, Object> createOrderAdjustmentContext = FastMap.newInstance();
+                        Map<String, Object> createOrderAdjustmentContext = new HashMap<String, Object>();
                         createOrderAdjustmentContext.put("orderId", orderId);
                         createOrderAdjustmentContext.put("orderAdjustmentTypeId", "SHIPPING_CHARGES");
                         String addtlChargeDescription = shipment.getString("addtlShippingChargeDesc");
@@ -1566,8 +1565,8 @@ public class InvoiceServices {
                                     "AccountingTroubleCallingCreateInvoicesFromShipmentService", locale));
                         }
 
-                        List<Object> emptyList = FastList.newInstance();
-                        Map<String, Object> calcTaxContext = FastMap.newInstance();
+                        List<Object> emptyList = new LinkedList<Object>();
+                        Map<String, Object> calcTaxContext = new HashMap<String, Object>();
                         calcTaxContext.put("productStoreId", orh.getProductStoreId());
                         calcTaxContext.put("payToPartyId", payToParty.getString("partyId"));
                         calcTaxContext.put("billToPartyId", billToParty.getString("partyId"));
@@ -1761,7 +1760,7 @@ public class InvoiceServices {
         boolean salesReturnFound = false;
         boolean purchaseReturnFound = false;
 
-        List<String> invoicesCreated = FastList.newInstance();
+        List<String> invoicesCreated = new LinkedList<String>();
         try {
 
             // get the shipment and validate that it is a sales return
@@ -1792,7 +1791,7 @@ public class InvoiceServices {
             }
 
             // group the shipments by returnId (because we want a seperate itemized invoice for each return)
-            Map<String, List<GenericValue>> itemsShippedGroupedByReturn = FastMap.newInstance();
+            Map<String, List<GenericValue>> itemsShippedGroupedByReturn = new HashMap<String, List<GenericValue>>();
 
             for (GenericValue item : shippedItems) {
                 String returnId = null;
@@ -1824,7 +1823,7 @@ public class InvoiceServices {
                 // get the List of items shipped to/from this returnId
                 List<GenericValue> billItems = itemsShippedGroupedByReturn.get(returnId);
                 if (billItems == null) {
-                    billItems = FastList.newInstance();
+                    billItems = new LinkedList<GenericValue>();
                 }
 
                 // add our item to the group and put it back in the map
@@ -2180,7 +2179,7 @@ public class InvoiceServices {
                     UtilMisc.toMap("invoiceId", invoiceId), locale));
         }
 
-        Map<String, BigDecimal> payments = FastMap.newInstance();
+        Map<String, BigDecimal> payments = new HashMap<String, BigDecimal>();
         Timestamp paidDate = null;
         for (GenericValue payAppl : paymentAppl) {
             payments.put(payAppl.getString("paymentId"), payAppl.getBigDecimal("amountApplied"));
@@ -2239,7 +2238,7 @@ public class InvoiceServices {
                 amount = baseAmount.multiply(multiplier).divide(divisor, decimals, rounding);
             }
             if (amount.signum() != 0) {
-                Map<String, Object> createInvoiceItemContext = FastMap.newInstance();
+                Map<String, Object> createInvoiceItemContext = new HashMap<String, Object>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
                 createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceTypeId, "INVOICE_ADJ"));
@@ -2268,7 +2267,7 @@ public class InvoiceServices {
                 }
 
                 // Create the OrderAdjustmentBilling record
-                Map<String, Object> createOrderAdjustmentBillingContext = FastMap.newInstance();
+                Map<String, Object> createOrderAdjustmentBillingContext = new HashMap<String, Object>();
                 createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
                 createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
                 createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
@@ -2295,7 +2294,7 @@ public class InvoiceServices {
                 amount = percent.multiply(divisor);
             }
             if (amount.signum() != 0) {
-                Map<String, Object> createInvoiceItemContext = FastMap.newInstance();
+                Map<String, Object> createInvoiceItemContext = new HashMap<String, Object>();
                 createInvoiceItemContext.put("invoiceId", invoiceId);
                 createInvoiceItemContext.put("invoiceItemSeqId", invoiceItemSeqId);
                 createInvoiceItemContext.put("invoiceItemTypeId", getInvoiceItemType(delegator, adj.getString("orderAdjustmentTypeId"), null, invoiceTypeId, "INVOICE_ADJ"));
@@ -2324,7 +2323,7 @@ public class InvoiceServices {
                 }
 
                 // Create the OrderAdjustmentBilling record
-                Map<String, Object> createOrderAdjustmentBillingContext = FastMap.newInstance();
+                Map<String, Object> createOrderAdjustmentBillingContext = new HashMap<String, Object>();
                 createOrderAdjustmentBillingContext.put("orderAdjustmentId", adj.getString("orderAdjustmentId"));
                 createOrderAdjustmentBillingContext.put("invoiceId", invoiceId);
                 createOrderAdjustmentBillingContext.put("invoiceItemSeqId", invoiceItemSeqId);
@@ -2353,7 +2352,7 @@ public class InvoiceServices {
         if (terms != null) {
             for (GenericValue term : terms) {
 
-                Map<String, Object> createInvoiceTermContext = FastMap.newInstance();
+                Map<String, Object> createInvoiceTermContext = new HashMap<String, Object>();
                 createInvoiceTermContext.put("invoiceId", invoiceId);
                 createInvoiceTermContext.put("invoiceItemSeqId", "_NA_");
                 createInvoiceTermContext.put("termTypeId", term.get("termTypeId"));
@@ -2443,7 +2442,7 @@ public class InvoiceServices {
         String taxAuthGeoId = (String) context.get("taxAuthGeoId");
         String useHighestAmount = (String) context.get("useHighestAmount");
 
-        List<String> errorMessageList = FastList.newInstance();
+        List<String> errorMessageList = new LinkedList<String>();
 
         if (debug) Debug.logInfo("updatePaymentApplicationDefBd input parameters..." +
                 " defaultInvoiceProcessing: " + defaultInvoiceProcessing +
@@ -3357,8 +3356,8 @@ public class InvoiceServices {
         String csvString = Charset.forName(encoding).decode(fileBytes).toString();
         final BufferedReader csvReader = new BufferedReader(new StringReader(csvString));
         CSVFormat fmt = CSVFormat.DEFAULT.withHeader();
-        List<String> errMsgs = FastList.newInstance();
-        List<String> newErrMsgs = FastList.newInstance();
+        List<String> errMsgs = new LinkedList<String>();
+        List<String> newErrMsgs = new LinkedList<String>();
         String lastInvoiceId = null;
         String currentInvoiceId = null;
         String newInvoiceId = null;
@@ -3395,7 +3394,7 @@ public class InvoiceServices {
 
                     // invoice validation
                     try {
-                        newErrMsgs = FastList.newInstance();
+                        newErrMsgs = new LinkedList<String>();
                         if (UtilValidate.isEmpty(invoice.get("partyIdFrom"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory Party Id From and Party Id From Trans missing for invoice: " + currentInvoiceId);
                         } else if (EntityQuery.use(delegator).from("Party").where("partyId", invoice.get("partyIdFrom")).queryOne() == null) {
@@ -3459,7 +3458,7 @@ public class InvoiceServices {
                     }
                     // invoice item validation
                     try {
-                        newErrMsgs = FastList.newInstance();
+                        newErrMsgs = new LinkedList<String>();
                         if (UtilValidate.isEmpty(invoiceItem.get("invoiceItemSeqId"))) {
                             newErrMsgs.add("Line number " + rec.getRecordNumber() + ": Mandatory item sequence Id missing for invoice: " + currentInvoiceId);
                         } 

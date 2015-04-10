@@ -23,6 +23,7 @@ import java.io.Writer;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Timestamp;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.ofbiz.content.content.ContentWrapper;
@@ -40,8 +41,6 @@ import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.service.LocalDispatcher;
-import javolution.util.FastMap;
-import javolution.util.FastList;
 
 /**
  * WorkEffortContentWrapper; gets work effort content for display
@@ -304,7 +303,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
         if (workEffortContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);
@@ -319,11 +318,11 @@ public class WorkEffortContentWrapper implements ContentWrapper {
                 .filterByDate()
                 .queryList();
 
-        List<String> contentList = FastList.newInstance();
+        List<String> contentList = new LinkedList<String>();
         if (partyContentList != null) {
             for (GenericValue workEffortContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map<String, Object> inContext = FastMap.newInstance();
+                Map<String, Object> inContext = new HashMap<String, Object>();
                 inContext.put("workEffort", workEffort);
                 inContext.put("workEffortContent", workEffortContent);
                 ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);

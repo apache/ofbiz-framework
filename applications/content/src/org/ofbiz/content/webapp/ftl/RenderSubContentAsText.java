@@ -20,13 +20,12 @@ package org.ofbiz.content.webapp.ftl;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -58,7 +57,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         // final Map templateCtx = FreeMarkerWorker.getWrappedObject("context", env);
-        // final Map templateCtx = FastMap.newInstance();
+        // final Map templateCtx = new HashMap<String, Object>();
         final LocalDispatcher dispatcher = FreeMarkerWorker.getWrappedObject("dispatcher", env);
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);
         final HttpServletRequest request = FreeMarkerWorker.getWrappedObject("request", env);
@@ -68,7 +67,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
             Debug.logInfo("in RenderSubContent, contentId(0):" + templateRoot.get("contentId"), module);
         }
         FreeMarkerWorker.getSiteParameters(request, templateRoot);
-        final Map<String, Object> savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         if (Debug.infoOn()) {
@@ -129,7 +128,7 @@ public class RenderSubContentAsText implements TemplateTransformModel {
         templateRoot.put("subDataResourceTypeId", subDataResourceTypeId);
         */
 
-        final Map<String, Object> savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
 
         return new Writer(out) {
 

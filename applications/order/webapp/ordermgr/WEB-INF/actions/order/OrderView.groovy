@@ -31,8 +31,6 @@ import org.ofbiz.product.inventory.InventoryWorker;
 import org.ofbiz.product.catalog.CatalogWorker;
 import org.ofbiz.accounting.payment.*;
 
-import javolution.util.FastMap;
-
 orderId = parameters.orderId;
 context.orderId = orderId;
 
@@ -348,7 +346,7 @@ if (orderHeader) {
         facilitiesForShipGroup = [:];
         if (orderReadHelper.getBillToParty()) {
             ownerPartyId = orderReadHelper.getBillToParty().partyId;
-            Map ownedFacilities = FastMap.newInstance();
+            Map ownedFacilities = [:];
             shipGroups.each { shipGroup ->
                 lookupMap = [ownerPartyId : ownerPartyId];
                 if (shipGroup.contactMechId) {
@@ -412,8 +410,8 @@ if (orderHeader) {
         onOrderMap = InventoryWorker.getOutstandingProductQuantitiesForPurchaseOrders(productIds, delegator);
         context.onOrderProductQuantityMap = onOrderMap;
     } else {
-        context.requiredProductQuantityMap = FastMap.newInstance();
-        context.onOrderProductQuantityMap = FastMap.newInstance();
+        context.requiredProductQuantityMap = [:];
+        context.onOrderProductQuantityMap = [:];
     }
 
         // list to find all the POSTAL_ADDRESS for the shipment party.

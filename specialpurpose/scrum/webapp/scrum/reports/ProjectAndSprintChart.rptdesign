@@ -23,7 +23,7 @@ under the License.
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.sql);
 importPackage(Packages.java.text);
-importPackage(Packages.javolution.util);
+
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "ProjectAndSprintChart.rptdesign";
@@ -124,13 +124,13 @@ productId = params["productId"].value;
                 </list-property>
             </structure>
             <property name="dataSource">Data Source</property>
-            <method name="open"><![CDATA[resultList = FastList.newInstance();
+            <method name="open"><![CDATA[resultList = new LinkedkList();
 var projectList = null;
 try{
     var projectList = delegator.findByAnd("WorkEffortAndProduct", UtilMisc.toMap("productId", productId, "workEffortTypeId", "SCRUM_PROJECT"), null, false);
     if (projectList != null) {
         for (i = 0;i < projectList.size(); i++ ) {
-            var inputMap = FastMap.newInstance();
+            var inputMap = new HashMap();
             var projectId = projectList.get(i).getString("workEffortId");
             inputMap.put("projectName",projectList.get(i).getString("workEffortName"));
             // time out sprint
@@ -138,7 +138,7 @@ try{
             var sqlDate = date.toString().substring(0,10);
             var thruDate = sqlDate + " " + "00:00:00.000";
             //Debug.logInfo("-----------thruDate---------"+thruDate,module);
-            var timeOutConds = FastList.newInstance();
+            var timeOutConds = new LinkedkList();
             timeOutConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
             timeOutConds.add(EntityCondition.makeCondition("sprintWorkEffortTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
             timeOutConds.add(EntityCondition.makeCondition("sprintCurrentStatusId", EntityOperator.EQUALS, "SPRINT_ACTIVE"));
@@ -153,7 +153,7 @@ try{
             inputMap.put("timeOut",timeOutData);
             
             // active sprint
-            var activeConds = FastList.newInstance();
+            var activeConds = new LinkedkList();
             activeConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
             activeConds.add(EntityCondition.makeCondition("sprintWorkEffortTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
             activeConds.add(EntityCondition.makeCondition("sprintCurrentStatusId", EntityOperator.EQUALS, "SPRINT_ACTIVE"));
@@ -167,7 +167,7 @@ try{
             inputMap.put("active",activeData);
             
             // total sprint
-            var totalConds = FastList.newInstance();
+            var totalConds = new LinkedkList();
             totalConds.add(EntityCondition.makeCondition("projectId",EntityOperator.EQUALS, projectId));
             totalConds.add(EntityCondition.makeCondition("sprintWorkEffortTypeId", EntityOperator.EQUALS, "SCRUM_SPRINT"));
             var totalList = delegator.findList("ProjectSprint", EntityCondition.makeCondition(totalConds), null, null, null, false);

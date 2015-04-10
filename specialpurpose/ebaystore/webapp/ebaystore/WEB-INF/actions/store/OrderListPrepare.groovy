@@ -19,11 +19,9 @@
 
 import org.ofbiz.entity.util.EntityUtil;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
 import org.ofbiz.entity.util.EntityUtil;
 
-orderLists = FastList.newInstance();
+orderLists = [];
 if (orderList) {
     for (orderCount = 0; orderCount < orderList.size(); orderCount++) {
         orderItem = orderList[orderCount];
@@ -47,7 +45,7 @@ if (orderList) {
                 product = from("Product").where("productId", item.get("productId")).cache(true).queryOne();
                 title = product.get("internalName");
             }
-            orderMap = FastMap.newInstance();
+            orderMap = [:];
             orderMap.put("orderId", orderId);
             orderMap.put("externalId", orderItem.get("externalId"));
             orderMap.put("amountPaid", orderItem.get("amountPaid"));

@@ -19,7 +19,6 @@
 
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.util.EntityUtil;
-import javolution.util.FastMap;
 
 if (billingAccountId) {
     orderPaymentPreferencesList = [];
@@ -28,7 +27,7 @@ if (billingAccountId) {
         orderList.each { orderHeader ->
             orderId = orderHeader.orderId;
             orderBillingAcc = from("OrderHeaderAndPaymentPref").where("orderId", orderId).queryFirst();
-            orderBillingAccMap = FastMap.newInstance();
+            orderBillingAccMap = [:];
             if (orderBillingAcc.paymentMethodTypeId.equals("EXT_BILLACT") && orderBillingAcc.paymentStatusId.equals("PAYMENT_NOT_RECEIVED")) {
                 orderBillingAccMap.putAll(orderBillingAcc);
                 orderId = orderBillingAcc.orderId;

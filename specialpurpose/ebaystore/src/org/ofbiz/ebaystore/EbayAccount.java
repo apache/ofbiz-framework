@@ -18,10 +18,9 @@
  */
 package org.ofbiz.ebaystore;
 
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.service.DispatchContext;
@@ -36,7 +35,7 @@ import com.ebay.soap.eBLBaseComponents.UserType;
 public class EbayAccount {
     
     public static Map<String, Object> getEbayUser(DispatchContext dctx, Map<String, ? extends Object> context) {
-        Map<String, Object>result = FastMap.newInstance();
+        Map<String, Object>result = new HashMap<String, Object>();
         Delegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productStoreId = (String) context.get("productStoreId");
@@ -56,7 +55,7 @@ public class EbayAccount {
             street1 = null, 
             street2 = null,
             status = null;
-        Map<String, Object>registrationAddress = FastMap.newInstance();
+        Map<String, Object>registrationAddress = new HashMap<String, Object>();
 
         try {
             ApiContext apiContext = EbayStoreHelper.getApiContext(productStoreId, locale, delegator);

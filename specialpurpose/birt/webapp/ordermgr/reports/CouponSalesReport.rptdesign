@@ -21,7 +21,7 @@ under the License.
     <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
-importPackage(Packages.javolution.util)
+
 importPackage(Packages.org.ofbiz.entity.util)
 importPackage(Packages.java.util)
 importPackage(Packages.java.lang)
@@ -149,7 +149,7 @@ if (couponSalesOrders) {
 }]]></method>
             <method name="fetch"><![CDATA[if (countOfRow == totalRow - 1) return false;
 userLogin = null;
-input =  FastMap.newInstance();
+input =  new HashMap();
 try {
     userLogin = delegator.findOne("UserLogin",UtilMisc.toMap("userLoginId","admin"), false);
 } catch(e) {
@@ -179,7 +179,7 @@ if(productPromoCodes.size()>0){
         amount = orderInfo.get("grandTotal");
         totalOrdersAmount = totalOrdersAmount + amount;
         //Shipping Total
-        cond =  FastList.newInstance();
+        cond =  new LinkedkList();
         cond.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
         cond.add(EntityCondition.makeCondition("orderAdjustmentTypeId", EntityOperator.EQUALS, "SHIPPING_CHARGES"));
         orderAdjustments = delegator.findList("OrderAdjustment", EntityCondition.makeCondition(cond, EntityOperator.AND), null, null, null, false);

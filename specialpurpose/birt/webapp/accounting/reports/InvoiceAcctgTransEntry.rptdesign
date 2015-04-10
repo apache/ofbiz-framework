@@ -20,7 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util)
+    <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.entity.util)
 importPackage(Packages.org.ofbiz.entity.condition)
@@ -28,14 +28,14 @@ importPackage(Packages.org.ofbiz.entity.condition)
 module = "InvoiceAcctgTransEntry.rptdesign";
 
 // prepare uiLabelMap
-uiLabelMap = FastMap.newInstance();
+uiLabelMap = new HashMap();
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
 
 invoiceId = params["invoiceId"].value;
 userLoginId = params["userLoginId"].value;
 
-parameters = FastMap.newInstance();
+parameters = new HashMap();
 parameters.put("invoiceId", invoiceId);
 parameters.put("userLoginId", userLoginId);
 
@@ -53,7 +53,7 @@ if ("PURCHASE_INVOICE".equals(invoice.get("invoiceTypeId")) || "PURCHASE_INVOICE
 }
 
 // get company header
-var companyLogoCtx = FastMap.newInstance();
+var companyLogoCtx = new HashMap();
 companyLogoCtx.put("invoice", invoice);
 companyLogoCtx.put("nowTimestamp", UtilDateTime.nowTimestamp());
 companyLogoCtx.put("locale", reportContext.getLocale());
@@ -66,7 +66,7 @@ if (!logoImageUrl) {
 }
 
 // create application list
-var context = FastMap.newInstance();
+var context = new HashMap();
 context.put("invoice", invoice);
 GroovyUtil.runScriptAtLocation("component://accounting/webapp/accounting/WEB-INF/actions/invoice/CreateApplicationList.groovy", context);
 invoiceApplications = context.get("invoiceApplications");
@@ -364,13 +364,13 @@ creditTotal = 0;]]></method>
                 </list-property>
             </structure>
             <property name="dataSource">OFBiz</property>
-            <method name="open"><![CDATA[acctgTransAndEntries = FastList.newInstance();
+            <method name="open"><![CDATA[acctgTransAndEntries = new LinkedkList();
 
 // get acctg trans entry of invoice
-invoiceAcctgTransAndEntries = FastList.newInstance();
+invoiceAcctgTransAndEntries = new LinkedkList();
 var orderBy = UtilMisc.toList("acctgTransId", "acctgTransEntrySeqId");
 try {
-    var conds = FastList.newInstance();
+    var conds = new LinkedkList();
     conds.add(EntityCondition.makeCondition("invoiceId", EntityOperator.EQUALS, invoiceId));
     conds.add(EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, null));
     invoiceAcctgTransAndEntries = delegator.findList("AcctgTransAndEntries", EntityCondition.makeCondition(conds), null, orderBy, null, false);

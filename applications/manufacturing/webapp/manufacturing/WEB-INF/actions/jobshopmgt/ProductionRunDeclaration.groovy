@@ -25,8 +25,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.widget.renderer.html.HtmlFormWrapper;
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
-import javolution.util.FastList;
-
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
@@ -160,9 +158,9 @@ if (productionRunId) {
 
         //  Product components list
         productionRunComponents = productionRun.getProductionRunComponents();
-        productionRunComponentsData = FastList.newInstance();
-        productionRunComponentsDataReadyForIssuance = FastList.newInstance();
-        productionRunComponentsAlreadyIssued = FastList.newInstance();
+        productionRunComponentsData = [];
+        productionRunComponentsDataReadyForIssuance = [];
+        productionRunComponentsAlreadyIssued = [];
         if (productionRunComponents) {
             productionRunComponents.each { component ->
                 product = component.getRelatedOne("Product", false);

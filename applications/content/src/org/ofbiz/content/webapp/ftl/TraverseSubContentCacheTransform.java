@@ -21,13 +21,12 @@ package org.ofbiz.content.webapp.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilDateTime;
@@ -86,9 +85,9 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         //final Map templateRoot = FreeMarkerWorker.getWrappedObject("context", env);
         final Map<String, Object> templateRoot = FreeMarkerWorker.createEnvironmentMap(env);
         //FreeMarkerWorker.convertContext(templateRoot);
-        final Map<String, Object> savedValuesUp = FastMap.newInstance();
+        final Map<String, Object> savedValuesUp = new HashMap<String, Object>();
         FreeMarkerWorker.saveContextValues(templateRoot, upSaveKeyNames, savedValuesUp);
-        final Map<String, Object> savedValues = FastMap.newInstance();
+        final Map<String, Object> savedValues = new HashMap<String, Object>();
         FreeMarkerWorker.overrideWithArgs(templateRoot, args);
         String startContentAssocTypeId = (String)templateRoot.get("contentAssocTypeId");
         // if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, startContentAssocTypeId:" + startContentAssocTypeId, module);
@@ -114,9 +113,9 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
         // final GenericValue view = val;
 
 
-        final Map<String, Object> traverseContext = FastMap.newInstance();
+        final Map<String, Object> traverseContext = new HashMap<String, Object>();
         traverseContext.put("delegator", delegator);
-        Map<String, Object> whenMap = FastMap.newInstance();
+        Map<String, Object> whenMap = new HashMap<String, Object>();
         whenMap.put("followWhen", templateRoot.get("followWhen"));
         whenMap.put("pickWhen", templateRoot.get("pickWhen"));
         whenMap.put("returnBeforePickWhen", templateRoot.get("returnBeforePickWhen"));
@@ -170,7 +169,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                 // if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, trailCsv(1):" + trailCsv , module);
                 if (globalNodeTrail.size() > 0) {
                     int sz = globalNodeTrail.size() ;
-                    nodeTrail = FastList.newInstance();
+                    nodeTrail = new LinkedList<Map<String,? extends Object>>();
                     //nodeTrail = passedGlobalNodeTrail.subList(sz - 1, sz);
                     node = UtilGenerics.checkMap(globalNodeTrail.get(sz - 1));
                     //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, onStart, node(1):" + node , module);
@@ -265,7 +264,7 @@ public class TraverseSubContentCacheTransform implements TemplateTransformModel 
                     Map<String, ? extends Object> ndStart = nodeTrail.get(0);
                     contentIdStart = (String)ndStart.get("contentId");
                 } else {
-                    globalNodeTrail = FastList.newInstance();
+                    globalNodeTrail = new LinkedList<Map<String,? extends Object>>();
                 }
                 //if (Debug.infoOn()) Debug.logInfo("in TraverseSubContentCache, populateContext, contentIdEnd(1):" + contentIdEnd + " contentIdStart:" + contentIdStart + " equals:" + (contentIdStart.equals(contentIdEnd)), module);
                 boolean bIdEnd = UtilValidate.isNotEmpty(contentIdEnd);

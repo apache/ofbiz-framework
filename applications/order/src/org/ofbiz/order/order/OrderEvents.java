@@ -20,6 +20,7 @@ package org.ofbiz.order.order;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -37,13 +38,10 @@ import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
-
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.webapp.website.WebSiteWorker;
-
-import javolution.util.FastMap;
 
 /**
  * Order Events
@@ -109,7 +107,7 @@ public class OrderEvents {
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         Locale locale = UtilHttp.getLocale(request);
 
-        Map<String, Object> resultMap = FastMap.newInstance();
+        Map<String, Object> resultMap = new HashMap<String, Object>();
         String  orderId = request.getParameter("orderId");
         String[] orderItemSeqIds = request.getParameterValues("selectedItem");
 
@@ -122,7 +120,7 @@ public class OrderEvents {
                         GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup", false);
                         String shipGroupSeqId = orderItemShipGroup.getString("shipGroupSeqId");
 
-                        Map<String, Object> contextMap = FastMap.newInstance();
+                        Map<String, Object> contextMap = new HashMap<String, Object>();
                         contextMap.put("orderId", orderId);
                         contextMap.put("orderItemSeqId", orderItemSeqId);
                         contextMap.put("shipGroupSeqId", shipGroupSeqId);

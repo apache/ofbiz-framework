@@ -29,12 +29,9 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 starSchemaName = parameters.starSchemaName;
 
-starSchemaFields = FastList.newInstance();
+starSchemaFields = [];
 if (starSchemaName) {
     reader = delegator.getModelReader();
     starSchema = reader.getModelEntity(starSchemaName);
@@ -42,7 +39,7 @@ if (starSchemaName) {
         fieldsIt = starSchema.getAliasesIterator();
         while (fieldsIt.hasNext()) {
             field = fieldsIt.next();
-            fieldMap = FastMap.newInstance();
+            fieldMap = [:];
             fieldMap.name = field.getName();
             description = field.getDescription();
             if (!description) {

@@ -22,8 +22,6 @@ import org.ofbiz.entity.condition.*;
 import java.sql.Timestamp;
 import java.util.Map;
 
-import javolution.util.FastMap;
-
 partyId = null
 resultUser = runService('getEbayStoreUser', ["productStoreId": parameters.productStoreId, "userLogin": context.get("userLogin")]);
 ownerUser = resultUser.get("userLoginId");
@@ -31,7 +29,7 @@ userLogin = from("UserLogin").where("userLoginId", ownerUser).queryOne();
 if (userLogin) {
     partyId = userLogin.get("partyId");
 }
-expr = []
+expr = [];
 cond = null;
 
 contentId = request.getParameter("contentId");

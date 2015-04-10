@@ -21,12 +21,11 @@ package org.ofbiz.order.order;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -140,7 +139,7 @@ public class OrderContentWrapper {
                 .cache().filterByDate().queryFirst();
         if (orderContent != null) {
             // when rendering the order content, always include the OrderHeader/OrderItem and OrderContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("order", order);
             inContext.put("orderContent", orderContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, orderContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, false);

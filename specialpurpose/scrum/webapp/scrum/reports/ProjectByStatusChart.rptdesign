@@ -22,7 +22,7 @@ under the License.
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
-importPackage(Packages.javolution.util);
+
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "BacklogByTypeChart.rptdesign";

@@ -22,13 +22,12 @@ import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityOperator;
-import javolution.util.FastList;
 
 partyId = parameters.partyId;
 
-andCond = FastList.newInstance();
-orCond = FastList.newInstance();
-combinedCondList = FastList.newInstance();
+andCond = [];
+orCond = [];
+combinedCondList = [];
 
 andCond.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
 andCond.add(EntityCondition.makeCondition("partyStatusId", EntityOperator.EQUALS, "PARTY_ENABLED"));
@@ -53,19 +52,19 @@ userPreferenceOutList = [];
 if (scrumUserLoginSecurityGroupList) {
     scrumUserLoginSecurityGroupList.each { scrumUserLoginSecurityGroupMap ->
         if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_PRODUCT_OWNER") {
-            ownerCond = FastList.newInstance();
+            ownerCond = [];
             ownerCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
             ownerCond.add(EntityCondition.makeCondition("enumId", EntityOperator.NOT_EQUAL, "MASTER_NOTIFY"));
             ownerConds = EntityCondition.makeCondition(ownerCond, EntityOperator.AND);
             userPreferenceList = from("Enumeration").where(ownerConds).queryList();
         } else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_MASTER") {
-            masterCond = FastList.newInstance();
+            masterCond = [];
             masterCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
             masterCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "MASTER_NOTIFY"));
             masterConds = EntityCondition.makeCondition(masterCond, EntityOperator.AND);
             userPreferenceList = from("Enumeration").where(masterConds).queryList();
         } /*else if (scrumUserLoginSecurityGroupMap.groupId == "SCRUM_TEAM") {
-            teamCond = FastList.newInstance();
+            teamCond = [];
             teamCond.add(EntityCondition.makeCondition("enumTypeId", EntityOperator.EQUALS, "SCRUM_PREFERENCE"));
             teamCond.add(EntityCondition.makeCondition("enumId", EntityOperator.EQUALS, "INVITE_NOTIFI"));
             teamConds = EntityCondition.makeCondition(teamCond, EntityOperator.AND);

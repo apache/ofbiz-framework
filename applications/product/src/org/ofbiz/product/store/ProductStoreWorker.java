@@ -19,6 +19,8 @@
 package org.ofbiz.product.store;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -27,9 +29,6 @@ import java.util.Random;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -220,7 +219,7 @@ public class ProductStoreWorker {
 
     public static List<GenericValue> getAvailableStoreShippingMethods(Delegator delegator, String productStoreId, GenericValue shippingAddress, List<BigDecimal> itemSizes, Map<String, BigDecimal> featureIdMap, BigDecimal weight, BigDecimal orderTotal) {
         if (featureIdMap == null) {
-            featureIdMap = FastMap.newInstance();
+            featureIdMap = new HashMap<String, BigDecimal>();
         }
         List<GenericValue> shippingMethods = null;
         try {
@@ -462,7 +461,7 @@ public class ProductStoreWorker {
     }
 
     public static List<GenericValue> getSurveys(Delegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
-        List<GenericValue> surveys = FastList.newInstance();
+        List<GenericValue> surveys = new LinkedList<GenericValue>();
         List<GenericValue> storeSurveys = null;
         try {
             storeSurveys = EntityQuery.use(delegator).from("ProductStoreSurveyAppl").where("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId).orderBy("sequenceNum").cache(true).queryList();
@@ -700,7 +699,7 @@ public class ProductStoreWorker {
         }
     }
 
-    protected static Map<String, String> defaultProductStoreEmailScreenLocation = FastMap.newInstance();
+    protected static Map<String, String> defaultProductStoreEmailScreenLocation = new HashMap<String, String>();
 
     static {
         defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");

@@ -18,14 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.googlebase;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -56,7 +55,7 @@ public class GoogleBaseSearchEvents {
         Locale locale = UtilHttp.getLocale(request);
         GenericValue userLogin = (GenericValue) request.getSession().getAttribute("userLogin");
         String selectResult = request.getParameter("selectResult");
-        List<String> productExportList = FastList.newInstance();
+        List<String> productExportList = new LinkedList<String>();
         String errMsg = null;
 
         try {
@@ -84,7 +83,7 @@ public class GoogleBaseSearchEvents {
                         if(!selectResult.startsWith("{")){
                             productExportList.add(selectResult);
                         }else {
-                            List<String> listTemp = FastList.newInstance();
+                            List<String> listTemp = new LinkedList<String>();
                             String temp = selectResult.substring(1, selectResult.length()-1);
                             String arrayTemp[] = temp.split(",");
                             for (int i=0; i<arrayTemp.length; i++){

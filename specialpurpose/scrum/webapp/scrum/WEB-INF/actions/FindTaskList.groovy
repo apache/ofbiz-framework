@@ -19,7 +19,6 @@
 
 import java.util.*;
 import java.lang.*;
-import javolution.util.FastList;
 import org.apache.tools.ant.taskdefs.Parallel.TaskList;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
@@ -56,7 +55,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
     ||(partyId != null)||(viewIndex_1 > 0)||(viewIndex_2 > 0)||(viewIndex_3 > 0)||(viewIndex_4 > 0)
     ||(viewIndexNo_1 > 0)||(viewIndexNo_2 > 0)||(viewIndexNo_3 > 0)||(viewIndexNo_4 > 0)){
     if ((taskId != null)||(taskName != null)||(taskTypeId != null)){
-        exprBldr =  FastList.newInstance();
+        exprBldr =  [];
         if (taskId) {
             exprBldr.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, taskId));
         }
@@ -75,7 +74,7 @@ if ((taskId != null)||(taskName != null)||(taskTypeId != null)||(sprintId != nul
         unplannedTaskList = from("UnPlannedBacklogsAndTasks").orderBy("-createdDate").queryList();
     }
     
-    exprBldr2 =  FastList.newInstance();
+    exprBldr2 =  [];
     if (taskId) {
         exprBldr2.add(EntityCondition.makeCondition("taskId", EntityOperator.EQUALS, taskId));
     }

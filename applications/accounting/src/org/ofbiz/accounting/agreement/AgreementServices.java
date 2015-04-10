@@ -20,11 +20,10 @@
 package org.ofbiz.accounting.agreement;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -79,7 +78,7 @@ public class AgreementServices {
         Delegator delegator = ctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
-        List<Map<String, Object>> commissions = FastList.newInstance();
+        List<Map<String, Object>> commissions = new LinkedList<Map<String,Object>>();
 
         try {
             BigDecimal amount = ((BigDecimal)context.get("amount"));

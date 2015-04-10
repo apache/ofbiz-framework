@@ -21,6 +21,8 @@ package org.ofbiz.product.category.ftl;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Collection;
+import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -28,9 +30,6 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.apache.oro.text.regex.MalformedPatternException;
 import org.apache.oro.text.regex.Pattern;
@@ -187,8 +186,8 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
     
     public static synchronized void initCategoryMap(HttpServletRequest request, Delegator delegator) {
         if (SeoConfigUtil.checkCategoryUrl()) {
-            categoryNameIdMap = FastMap.newInstance();
-            categoryIdNameMap = FastMap.newInstance();
+            categoryNameIdMap = new Hashtable<String, String>();
+            categoryIdNameMap = new Hashtable<String, String>();
             Perl5Matcher matcher = new Perl5Matcher();
 
             try {
@@ -556,7 +555,7 @@ public class CatalogUrlSeoTransform implements TemplateTransformModel {
                     String tempProductId = urlElements.get(i);
                     while (i >= 0) {
                         try {
-                            List<EntityExpr> exprs = FastList.newInstance();
+                            List<EntityExpr> exprs = new LinkedList<EntityExpr>();
                             exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, lastPathElement));
 //                            if (SeoConfigUtil.isSpecialProductId(tempProductId)) {
 //                                exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, SeoConfigUtil.getSpecialProductId(tempProductId)));

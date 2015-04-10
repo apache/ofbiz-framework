@@ -20,7 +20,7 @@ under the License.
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.21" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 2.6.0.v20100531 Build &lt;2.6.0.v20100609-1613></property>
     <property name="units">in</property>
-    <method name="initialize"><![CDATA[importPackage(Packages.javolution.util)
+    <method name="initialize"><![CDATA[
 importPackage(Packages.org.ofbiz.base.util)
 importPackage(Packages.org.ofbiz.entity.util)
 importPackage(Packages.org.ofbiz.entity.condition)
@@ -28,7 +28,7 @@ importPackage(Packages.org.ofbiz.entity.condition)
 module = "PaymentAcctgTransEntry.rptdesign";
 
 // prepare uiLabelMap
-uiLabelMap = FastMap.newInstance();
+uiLabelMap = new HashMap();
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("CommonUiLabels", reportContext.getLocale()));
 uiLabelMap.putAll(UtilProperties.getResourceBundleMap("AccountingUiLabels", reportContext.getLocale()));
 
@@ -349,7 +349,7 @@ creditTotal = 0;]]></method>
             </structure>
             <property name="dataSource">OFBiz</property>
             <method name="open"><![CDATA[// get acctg trans entries of payment
-acctgTransAndEntries = FastList.newInstance();
+acctgTransAndEntries = new LinkedkList();
 var orderBy = UtilMisc.toList("acctgTransId", "acctgTransEntrySeqId");
 try {
     acctgTransAndEntries = delegator.findList("AcctgTransAndEntries", EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, paymentId), null, orderBy, null, false);

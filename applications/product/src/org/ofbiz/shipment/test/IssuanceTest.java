@@ -56,7 +56,7 @@ public class IssuanceTest extends OFBizTestCase {
         String orderItemSeqId="00001";
         String shipGroupSeqId="00001";
         String shipmentItemSeqId = "00001";
-        
+
         PackingSession packSession = new PackingSession(dispatcher, userLogin, facilityId, null, orderId, shipGroupSeqId);
         packSession.addOrIncreaseLine(orderId, orderItemSeqId, shipGroupSeqId, productId, BigDecimal.valueOf(6L), 1,
             BigDecimal.valueOf(1000L), false);
@@ -66,10 +66,10 @@ public class IssuanceTest extends OFBizTestCase {
 
         // Test the OrderShipment is correct
         List<GenericValue> orderShipments = orderHeader.getRelated("OrderShipment", null, null, false);
-        
+
         assertFalse("No OrderShipment for order", UtilValidate.isEmpty(orderShipments));
         assertEquals( "Incorrect number of OrderShipments for order", 1, orderShipments.size());
-        
+
         GenericValue orderShipment = orderShipments.get(0);
         assertEquals(orderItemSeqId, orderShipment.getString("orderItemSeqId"));
         assertEquals(shipGroupSeqId, orderShipment.getString("shipGroupSeqId"));
@@ -79,10 +79,10 @@ public class IssuanceTest extends OFBizTestCase {
         assertTrue("Incorrect quantity in OrderShipment. Expected 6.00000 actual " + actual, actual.compareTo(BigDecimal.valueOf(6L))==0);
 
         // Test the ItemIssuances are correct
-        List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("itemIssuanceId"), false);
+        List<GenericValue> itemIssuances = orderHeader.getRelated("ItemIssuance", null, UtilMisc.toList("inventoryItemId"), false);
         assertFalse("No ItemIssuances for order", UtilValidate.isEmpty(itemIssuances));
         assertEquals( "Incorrect number of ItemIssuances for order", 2, itemIssuances.size());
-        
+
         GenericValue itemIssuance = itemIssuances.get(0);
         assertEquals(orderItemSeqId, itemIssuance.getString("orderItemSeqId"));
         assertEquals(shipGroupSeqId, itemIssuance.getString("shipGroupSeqId"));
@@ -104,14 +104,15 @@ public class IssuanceTest extends OFBizTestCase {
         // Test reservations have been removed
         List<GenericValue> reservations = orderHeader.getRelated("OrderItemShipGrpInvRes", null, null, false);
         assertTrue("Reservations exist for order - should have been deleted", UtilValidate.isEmpty(reservations));
-        
+
         // Test order header status is now ORDER_COMPLETED
         assertEquals(orderHeader.getString("statusId"), "ORDER_COMPLETED");
-        
+
         // Test order items status are now ITEM_COMPLETED
         List<GenericValue> orderItems = orderHeader.getRelated("OrderItem", null, null, false);
-        
-        for ( GenericValue orderItem : orderItems )
+
+        for (GenericValue orderItem : orderItems) {
             assertEquals("ITEM_COMPLETED", orderItem.getString("statusId"));
+        }
     }
 }

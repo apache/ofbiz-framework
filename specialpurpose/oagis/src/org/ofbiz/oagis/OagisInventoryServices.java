@@ -20,13 +20,12 @@ package org.ofbiz.oagis;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -67,8 +66,8 @@ public class OagisInventoryServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
-        List<Map<String, String>> errorMapList = FastList.newInstance();
-        List<Map<String, Object>> inventoryMapList = FastList.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
+        List<Map<String, Object>> inventoryMapList = new LinkedList<Map<String,Object>>();
         final String syncInventoryFacilityId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.SyncInventoryFacilityId", delegator);
         GenericValue userLogin = null;
         try {
@@ -97,7 +96,7 @@ public class OagisInventoryServices {
         String authId = UtilXml.childElementValue(docSenderElement, "of:AUTHID");
 
         // create oagis message info
-        Map<String, Object> comiCtx = FastMap.newInstance();
+        Map<String, Object> comiCtx = new HashMap<String, Object>();
         comiCtx.put("logicalId", logicalId);
         comiCtx.put("component", component);
         comiCtx.put("task", task);
@@ -218,7 +217,7 @@ public class OagisInventoryServices {
         if (errorMapList.size() == 0 && inventoryMapList.size() > 0) {
             try {
                 // prepare information to send mail
-                Map<String, Object> sendMap = FastMap.newInstance();
+                Map<String, Object> sendMap = new HashMap<String, Object>();
 
                 String sendToEmail = EntityUtilProperties.getPropertyValue("oagis.properties", "oagis.notification.email.sendTo", delegator);
 
@@ -291,7 +290,7 @@ public class OagisInventoryServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -308,7 +307,7 @@ public class OagisInventoryServices {
             }
 
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.put("logicalId", logicalId);
             saveErrorMapListCtx.put("component", component);
             saveErrorMapListCtx.put("task", task);
@@ -323,7 +322,7 @@ public class OagisInventoryServices {
             }
 
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
                 // for sync inventory no such ID: sendConfirmBodCtx.put("origRefId", shipmentId);
@@ -359,8 +358,8 @@ public class OagisInventoryServices {
         Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
-        List<Map<String, String>> errorMapList = FastList.newInstance();
-        Map<String, Object> comiCtx = FastMap.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
+        Map<String, Object> comiCtx = new HashMap<String, Object>();
 
         GenericValue userLogin = null;
         try {
@@ -459,7 +458,7 @@ public class OagisInventoryServices {
         if (UtilValidate.isNotEmpty(acknowledgeElementList)) {
             try {
                 for (Element receiptLnElement : acknowledgeElementList) {
-                    Map<String, Object> ripCtx = FastMap.newInstance();
+                    Map<String, Object> ripCtx = new HashMap<String, Object>();
                     Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
 
                     String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
@@ -490,7 +489,7 @@ public class OagisInventoryServices {
                     // Check reference to PO number, if exists
                     GenericValue orderHeader = null;
                     if (orderId != null) {
-                        List<GenericValue> toStore = FastList.newInstance();
+                        List<GenericValue> toStore = new LinkedList<GenericValue>();
                         orderHeader = EntityQuery.use(delegator).from("OrderHeader").where("orderId", orderId).queryOne();
                         if (orderHeader != null) {
                             // Case : update the record
@@ -556,7 +555,7 @@ public class OagisInventoryServices {
                     comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
 
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);
@@ -572,7 +571,7 @@ public class OagisInventoryServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -589,7 +588,7 @@ public class OagisInventoryServices {
             }
 
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.put("logicalId", logicalId);
             saveErrorMapListCtx.put("component", component);
             saveErrorMapListCtx.put("task", task);
@@ -604,7 +603,7 @@ public class OagisInventoryServices {
             }
 
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
                 sendConfirmBodCtx.put("origRefId", orderId);
@@ -649,7 +648,7 @@ public class OagisInventoryServices {
         Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
-        List<Map<String, String>> errorMapList = FastList.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
 
         GenericValue userLogin = null;
         try {
@@ -691,7 +690,7 @@ public class OagisInventoryServices {
         String locationSeqId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId", delegator);
 
         Timestamp timestamp = UtilDateTime.nowTimestamp();
-        Map<String, Object> comiCtx = FastMap.newInstance();
+        Map<String, Object> comiCtx = new HashMap<String, Object>();
 
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
@@ -752,15 +751,15 @@ public class OagisInventoryServices {
 
         String lastReturnId = null;
         //String inventoryItemId = null;
-        List<String> invItemIds = FastList.newInstance();
+        List<String> invItemIds = new LinkedList<String>();
         // get RECEIPTLN elements from message
         List<? extends Element> receiptLineElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(receiptLineElementList)) {
             try {
-                Map<String, String> processedStatusIdByReturnIdMap = FastMap.newInstance();
+                Map<String, String> processedStatusIdByReturnIdMap = new HashMap<String, String>();
 
                 for (Element receiptLnElement : receiptLineElementList) {
-                    Map<String, Object> ripCtx = FastMap.newInstance();
+                    Map<String, Object> ripCtx = new HashMap<String, Object>();
                     Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
 
                     String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
@@ -840,7 +839,7 @@ public class OagisInventoryServices {
                         processedStatusIdByReturnIdMap.put(returnId, statusId);
 
                         // getting the serial number(s)
-                        List<String> serialNumsList = FastList.newInstance();
+                        List<String> serialNumsList = new LinkedList<String>();
                         List<? extends Element> invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
                         if (UtilValidate.isNotEmpty(invDetailList)) {
                             for (Element invDetailElement : invDetailList) {
@@ -922,7 +921,7 @@ public class OagisInventoryServices {
                                     // TODOLATER: another fun thing to check: see if the serial number matches a serial number attached to the original return (if possible!)
 
                                     //clone the context as it may be changed in the call
-                                    Map<String, Object> localRipCtx = FastMap.newInstance();
+                                    Map<String, Object> localRipCtx = new HashMap<String, Object>();
                                     localRipCtx.putAll(ripCtx);
                                     localRipCtx.put("quantityAccepted", new Double(1.0));
                                     // always set this to 0, if needed we'll handle the rejected quantity separately
@@ -950,7 +949,7 @@ public class OagisInventoryServices {
 
                                 // no serial numbers, just receive the quantity
                                 // clone the context as it may be changted in the call
-                                Map<String, Object> localRipCtx = FastMap.newInstance();
+                                Map<String, Object> localRipCtx = new HashMap<String, Object>();
                                 localRipCtx.putAll(ripCtx);
                                 localRipCtx.put("quantityAccepted", new Double(quantityAccepted));
                                 // always set this to 0, if needed we'll handle the rejected quantity separately
@@ -969,7 +968,7 @@ public class OagisInventoryServices {
                                 invItemIds.add(inventoryItemId);
 
                                 if (("INV_ON_HOLD").equals(invItemStatusId)) {
-                                    Map<String, Object> createPhysicalInvAndVarCtx = FastMap.newInstance();
+                                    Map<String, Object> createPhysicalInvAndVarCtx = new HashMap<String, Object>();
                                     createPhysicalInvAndVarCtx.put("inventoryItemId", inventoryItemId);
                                     createPhysicalInvAndVarCtx.put("physicalInventoryDate", UtilDateTime.nowTimestamp());
                                     // NOTE DEJ20070815: calling damaged for now as the only option so that all will feed into a check/repair process and go into the ON_HOLD status; we should at some point change OFBiz so these can go into the ON_HOLD status without having to call them damaged
@@ -1010,7 +1009,7 @@ public class OagisInventoryServices {
                         //so we _could_ possibly move to that method if needed
 
                         // loop through ReturnItem records, get totals for each productId
-                        Map<String, Double> returnQuantityByProductIdMap = FastMap.newInstance();
+                        Map<String, Double> returnQuantityByProductIdMap = new HashMap<String, Double>();
                         List<GenericValue> returnItemList = delegator.findByAnd("ReturnItem", UtilMisc.toMap("returnId", returnId), null, false);
                         for (GenericValue returnItem : returnItemList) {
                             String productId = returnItem.getString("productId");
@@ -1068,7 +1067,7 @@ public class OagisInventoryServices {
                     comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
 
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);
@@ -1084,7 +1083,7 @@ public class OagisInventoryServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -1101,7 +1100,7 @@ public class OagisInventoryServices {
             }
 
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.put("logicalId", logicalId);
             saveErrorMapListCtx.put("component", component);
             saveErrorMapListCtx.put("task", task);
@@ -1116,7 +1115,7 @@ public class OagisInventoryServices {
             }
 
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
                 // TODO: unfortunately there could be multiple returnIds for the message, so what to do...?
@@ -1163,7 +1162,7 @@ public class OagisInventoryServices {
         Locale locale = (Locale) context.get("locale");
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Delegator delegator = ctx.getDelegator();
-        List<Map<String, String>> errorMapList = FastList.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
 
         GenericValue userLogin = null;
         try {
@@ -1201,7 +1200,7 @@ public class OagisInventoryServices {
         String locationSeqId = EntityUtilProperties.getPropertyValue("oagis.properties", "Oagis.Warehouse.ReturnReceiptLocationSeqId", delegator);
 
         Timestamp timestamp = UtilDateTime.nowTimestamp();
-        Map<String, Object> comiCtx = FastMap.newInstance();
+        Map<String, Object> comiCtx = new HashMap<String, Object>();
 
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
@@ -1260,13 +1259,13 @@ public class OagisInventoryServices {
         }
 
         //String inventoryItemId = null;
-        List<String> invItemIds = FastList.newInstance();
+        List<String> invItemIds = new LinkedList<String>();
         // get RECEIPTLN elements from message
         List<? extends Element> receiptLineElementList = UtilXml.childElementList(acknowledgeDeliveryElement, "ns:RECEIPTLN");
         if (UtilValidate.isNotEmpty(receiptLineElementList)) {
             try {
                 for (Element receiptLnElement : receiptLineElementList) {
-                    Map<String, Object> uiiCtx = FastMap.newInstance();
+                    Map<String, Object> uiiCtx = new HashMap<String, Object>();
                     Element qtyElement = UtilXml.firstChildElement(receiptLnElement, "os:QUANTITY");
 
                     String itemQtyStr = UtilXml.childElementValue(qtyElement, "of:VALUE");
@@ -1311,7 +1310,7 @@ public class OagisInventoryServices {
                     uiiCtx.put("statusId", invItemStatusId);
 
                     // geting the serial number(s)
-                    List<String> serialNumsList = FastList.newInstance();
+                    List<String> serialNumsList = new LinkedList<String>();
                     List<? extends Element> invDetailList = UtilXml.childElementList(receiptLnElement, "ns:INVDETAIL");
                     if (UtilValidate.isNotEmpty(invDetailList)) {
                         for (Element invDetailElement : invDetailList) {
@@ -1371,7 +1370,7 @@ public class OagisInventoryServices {
                                 continue;
                             }
 
-                            Map<String, Object> updateInvItmMap = FastMap.newInstance();
+                            Map<String, Object> updateInvItmMap = new HashMap<String, Object>();
                             updateInvItmMap.put("inventoryItemId", inventoryItem.getString("inventoryItemId"));
                             updateInvItmMap.put("userLogin", userLogin);
                             updateInvItmMap.put("statusId", invItemStatusId);
@@ -1402,7 +1401,7 @@ public class OagisInventoryServices {
                     comiCtx.put("processingStatusId", "OAGMP_SYS_ERROR");
                     dispatcher.runSync("updateOagisMessageInfo", comiCtx, 60, true);
 
-                    Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+                    Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
                     saveErrorMapListCtx.putAll(omiPkMap);
                     saveErrorMapListCtx.put("errorMapList", errorMapList);
                     saveErrorMapListCtx.put("userLogin", userLogin);
@@ -1418,7 +1417,7 @@ public class OagisInventoryServices {
             }
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.putAll(omiPkMap);
         result.put("userLogin", userLogin);
 
@@ -1432,7 +1431,7 @@ public class OagisInventoryServices {
             }
 
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.putAll(omiPkMap);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
             saveErrorMapListCtx.put("userLogin", userLogin);
@@ -1444,7 +1443,7 @@ public class OagisInventoryServices {
             }
 
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
 
                 // run async because this will send a message back to the other server and may take some time, and/or fail

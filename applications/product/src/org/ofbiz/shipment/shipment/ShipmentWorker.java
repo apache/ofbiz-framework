@@ -20,11 +20,10 @@ package org.ofbiz.shipment.shipment;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -106,7 +105,7 @@ public class ShipmentWorker {
 
     public static List<Map<String, BigDecimal>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo, BigDecimal maxWeight) {
         // create the package list w/ the first package
-        List<Map<String, BigDecimal>> packages = FastList.newInstance();
+        List<Map<String, BigDecimal>> packages = new LinkedList<Map<String,BigDecimal>>();
 
         if (UtilValidate.isNotEmpty(shippableItemInfo)) {
             for (Map<String, Object> itemInfo: shippableItemInfo) {
@@ -124,13 +123,13 @@ public class ShipmentWorker {
                     BigDecimal partialQty = pieces > 1 ? BigDecimal.ONE.divide(BigDecimal.valueOf(pieces), generalRounding) : BigDecimal.ONE;
                     for (long x = 0; x < pieces; x++) {
                         if (weight.compareTo(maxWeight) >= 0) {
-                            Map<String, BigDecimal> newPackage = FastMap.newInstance();
+                            Map<String, BigDecimal> newPackage = new HashMap<String, BigDecimal>();
                             newPackage.put(productId, partialQty);
                             packages.add(newPackage);
                         } else if (totalWeight.compareTo(BigDecimal.ZERO) > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(FastMap.<String, BigDecimal>newInstance());
+                                packages.add(new HashMap<String, BigDecimal>());
                             }
 
                             // package loop
@@ -147,7 +146,7 @@ public class ShipmentWorker {
                                 }
                             }
                             if (!addedToPackage) {
-                                Map<String, BigDecimal> packageMap = FastMap.newInstance();
+                                Map<String, BigDecimal> packageMap = new HashMap<String, BigDecimal>();
                                 packageMap.put(productId, partialQty);
                                 packages.add(packageMap);
                             }
@@ -181,7 +180,7 @@ public class ShipmentWorker {
             }
             if (!"WT_lb".equals(weightUomId)) {
                 // attempt a conversion to pounds
-                Map<String, Object> result = FastMap.newInstance();
+                Map<String, Object> result = new HashMap<String, Object>();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", productWeight));
                 } catch (GenericServiceException ex) {

@@ -35,14 +35,13 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
@@ -145,13 +144,13 @@ public class OagisServices {
         String sentDate = isoDateFormat.format(timestamp);
         bodyParameters.put("sentDate", sentDate);
 
-        Map<String, Object> omiPkMap = FastMap.newInstance();
+        Map<String, Object> omiPkMap = new HashMap<String, Object>();
         omiPkMap.put("logicalId", logicalId);
         omiPkMap.put("component", "EXCEPTION");
         omiPkMap.put("task", "RECIEPT");
         omiPkMap.put("referenceId", referenceId);
 
-        Map<String, Object> oagisMsgInfoContext = FastMap.newInstance();
+        Map<String, Object> oagisMsgInfoContext = new HashMap<String, Object>();
         oagisMsgInfoContext.putAll(omiPkMap);
         oagisMsgInfoContext.put("authId", authId);
         oagisMsgInfoContext.put("sentDate", timestamp);
@@ -170,7 +169,7 @@ public class OagisServices {
 
         try {
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.putAll(omiPkMap);
             saveErrorMapListCtx.put("errorMapList", errorMapList);
             saveErrorMapListCtx.put("userLogin", userLogin);
@@ -235,7 +234,7 @@ public class OagisServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         Document doc = (Document) context.get("document");
-        List<Map<String, String>> errorMapList = FastList.newInstance();
+        List<Map<String, String>> errorMapList = new LinkedList<Map<String,String>>();
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
         try {
@@ -281,7 +280,7 @@ public class OagisServices {
 
         Map<String, Object> omiPkMap = UtilMisc.toMap("logicalId", (Object) logicalId, "component", component, "task", task, "referenceId", referenceId);
 
-        Map<String, Object> oagisMsgInfoCtx = FastMap.newInstance();
+        Map<String, Object> oagisMsgInfoCtx = new HashMap<String, Object>();
         oagisMsgInfoCtx.putAll(omiPkMap);
         oagisMsgInfoCtx.put("authId", authId);
         oagisMsgInfoCtx.put("receivedDate", receivedTimestamp);
@@ -328,7 +327,7 @@ public class OagisServices {
                         String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
                         String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
 
-                        Map<String, Object> createOagisMessageErrorInfoForOriginal = FastMap.newInstance();
+                        Map<String, Object> createOagisMessageErrorInfoForOriginal = new HashMap<String, Object>();
                         createOagisMessageErrorInfoForOriginal.putAll(originalOmiPkMap);
                         createOagisMessageErrorInfoForOriginal.put("reasonCode", reasonCode);
                         createOagisMessageErrorInfoForOriginal.put("description", description);
@@ -353,7 +352,7 @@ public class OagisServices {
                     String description = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:DESCRIPTN");
                     String reasonCode = UtilXml.childElementValue(dataAreaConfirmMsgElement, "of:REASONCODE");
 
-                    Map<String, Object> createOagisMessageErrorInfoForCbod = FastMap.newInstance();
+                    Map<String, Object> createOagisMessageErrorInfoForCbod = new HashMap<String, Object>();
                     createOagisMessageErrorInfoForCbod.putAll(omiPkMap);
                     createOagisMessageErrorInfoForCbod.put("reasonCode", reasonCode);
                     createOagisMessageErrorInfoForCbod.put("description", description);
@@ -372,7 +371,7 @@ public class OagisServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "OagisErrorProcessingConfirmBOD", UtilMisc.toMap("errorString", t.toString()), locale));
         }
 
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         result.put("logicalId", logicalId);
         result.put("component", component);
         result.put("task", task);
@@ -381,7 +380,7 @@ public class OagisServices {
 
         if (errorMapList.size() > 0) {
             // call services createOagisMsgErrInfosFromErrMapList and for incoming messages oagisSendConfirmBod
-            Map<String, Object> saveErrorMapListCtx = FastMap.newInstance();
+            Map<String, Object> saveErrorMapListCtx = new HashMap<String, Object>();
             saveErrorMapListCtx.put("logicalId", logicalId);
             saveErrorMapListCtx.put("component", component);
             saveErrorMapListCtx.put("task", task);
@@ -397,7 +396,7 @@ public class OagisServices {
 
             // TODO and NOTE DEJ20070813: should we really send back a Confirm BOD if there is an error with the Confirm BOD they send us? probably so... will do for now...
             try {
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.putAll(saveErrorMapListCtx);
                 // NOTE: this is different for each service, should be shipmentId or returnId or PO orderId or etc
                 // no such thing for confirm bod: sendConfirmBodCtx.put("origRefId", shipmentId);
@@ -479,7 +478,7 @@ public class OagisServices {
         Delegator delegator = ctx.getDelegator();
         LocalDispatcher dispatcher = ctx.getDispatcher();
         InputStream in = (InputStream) context.get("inputStream");
-        List<Map<String, String>> errorList = FastList.newInstance();
+        List<Map<String, String>> errorList = new LinkedList<Map<String,String>>();
         Boolean isErrorRetry = (Boolean) context.get("isErrorRetry");
         Locale locale = (Locale) context.get("locale");
         GenericValue userLogin = null;
@@ -552,7 +551,7 @@ public class OagisServices {
 
         Map<String, Object> messageProcessContext = UtilMisc.toMap("document", doc, "userLogin", userLogin);
 
-        // call async, no additional results to return: Map subServiceResult = FastMap.newInstance();
+        // call async, no additional results to return: Map subServiceResult = new HashMap<String, Object>();
         if (UtilValidate.isNotEmpty(oagisMessageInfo)) {
             if (Boolean.TRUE.equals(isErrorRetry) || "OAGMP_SYS_ERROR".equals(oagisMessageInfo.getString("processingStatusId"))) {
                 // there was an error last time, tell the service this is a retry
@@ -563,7 +562,7 @@ public class OagisServices {
 
                 List<Map<String, String>> errorMapList = UtilMisc.toList(UtilMisc.<String, String>toMap("reasonCode", "MessageAlreadyReceived", "description", responseMsg));
 
-                Map<String, Object> sendConfirmBodCtx = FastMap.newInstance();
+                Map<String, Object> sendConfirmBodCtx = new HashMap<String, Object>();
                 sendConfirmBodCtx.put("logicalId", logicalId);
                 sendConfirmBodCtx.put("component", component);
                 sendConfirmBodCtx.put("task", task);

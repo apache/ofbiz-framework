@@ -25,12 +25,11 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -60,8 +59,8 @@ public class ProductsExportToEbay {
     private static final String resource = "EbayUiLabels";
     private static final String configFileName = "ebayExport.properties";
     private static final String module = ProductsExportToEbay.class.getName();
-    private static List<String> productExportSuccessMessageList = FastList.newInstance();
-    private static List<String> productExportFailureMessageList = FastList.newInstance();
+    private static List<String> productExportSuccessMessageList = new LinkedList<String>();
+    private static List<String> productExportFailureMessageList = new LinkedList<String>();
 
 
     public static Map<String, Object> exportToEbay(DispatchContext dctx, Map<String, Object> context) {
@@ -69,7 +68,7 @@ public class ProductsExportToEbay {
         Delegator delegator = dctx.getDelegator();
         productExportSuccessMessageList.clear();
         productExportFailureMessageList.clear();
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         Map<String, Object> response = null;
         try {
             List<String> selectResult = UtilGenerics.checkList(context.get("selectResult"), String.class);
@@ -153,7 +152,7 @@ public class ProductsExportToEbay {
         outputStream.close();
         int responseCode = connection.getResponseCode();
         InputStream inputStream;
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         String response = null;
 
         if (responseCode == HttpURLConnection.HTTP_CREATED ||
@@ -549,7 +548,7 @@ public class ProductsExportToEbay {
 
     private static Map<String, Object> readEbayCategoriesResponse(String msg, Locale locale) {
         Map<String, Object> results = null;
-        List<Map<String, Object>> categories = FastList.newInstance();
+        List<Map<String, Object>> categories = new LinkedList<Map<String,Object>>();
         try {
             Document docResponse = UtilXml.readXmlDocument(msg, true);
             Element elemResponse = docResponse.getDocumentElement();
@@ -565,7 +564,7 @@ public class ProductsExportToEbay {
                 for (Element categoryArrayElement : UtilXml.childElementList(elemResponse, "CategoryArray")) {
                     // retrieve Category
                     for (Element categoryElement : UtilXml.childElementList(categoryArrayElement, "Category")) {
-                        Map<String, Object> categ = FastMap.newInstance();
+                        Map<String, Object> categ = new HashMap<String, Object>();
 
                         String categoryCode = ("true".equalsIgnoreCase((UtilXml.childElementValue(categoryElement, "LeafCategory", "").trim())) ? "Y" : "N") + "_" +
                                               UtilXml.childElementValue(categoryElement, "CategoryID", "").trim() + "_" +

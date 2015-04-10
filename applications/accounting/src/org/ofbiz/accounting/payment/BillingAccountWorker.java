@@ -23,11 +23,10 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -66,7 +65,7 @@ public class BillingAccountWorker {
     }
 
     public static List<Map<String, Object>> makePartyBillingAccountList(GenericValue userLogin, String currencyUomId, String partyId, Delegator delegator, LocalDispatcher dispatcher) throws GeneralException {
-        List<Map<String, Object>> billingAccountList = FastList.newInstance();
+        List<Map<String, Object>> billingAccountList = new LinkedList<Map<String,Object>>();
 
         Map<String, Object> agentResult = dispatcher.runSync("getRelatedParties", UtilMisc.<String, Object>toMap("userLogin", userLogin, "partyIdFrom", partyId,
                 "roleTypeIdFrom", "AGENT", "roleTypeIdTo", "CUSTOMER", "partyRelationshipTypeId", "AGENT", "includeFromToSwitched", "Y"));

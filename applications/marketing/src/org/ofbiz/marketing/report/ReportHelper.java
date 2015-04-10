@@ -18,12 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.marketing.report;
 
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
-import java.util.*;
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 /**
  * Marketing Report Helper
@@ -42,11 +44,11 @@ public class ReportHelper {
  * conversionRate - # orders/# visits
  */
     public static List<Map<String, Object>> calcConversionRates(List<GenericValue> visits, List<GenericValue> orders, String keyFieldName) {
-        List<Map<String, Object>> conversionRates = FastList.newInstance();
+        List<Map<String, Object>> conversionRates = new LinkedList<Map<String, Object>>();
 
         // loop through all the visits
         for (GenericValue visit: visits) {
-            Map<String, Object> reportValue = FastMap.newInstance();
+            Map<String, Object> reportValue = new HashMap<String, Object>();
             reportValue.put(keyFieldName, visit.getString(keyFieldName));
             reportValue.put("visits", visit.getLong("visitId")); // actually # of visits
 

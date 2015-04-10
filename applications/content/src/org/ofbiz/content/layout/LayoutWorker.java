@@ -20,13 +20,12 @@ package org.ofbiz.content.layout;
 
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -56,8 +55,8 @@ public class LayoutWorker {
         //Debug.logVerbose("in uploadAndStoreImage", "");
         Locale locale = UtilHttp.getLocale(request);
 
-        Map<String, Object> results = FastMap.newInstance();
-        Map<String, String> formInput = FastMap.newInstance();
+        Map<String, Object> results = new HashMap<String, Object>();
+        Map<String, String> formInput = new HashMap<String, String>();
         results.put("formInput", formInput);
         ServletFileUpload fu = new ServletFileUpload(new DiskFileItemFactory(10240, new File(new File("runtime"), "tmp")));
         List<FileItem> lst = null;

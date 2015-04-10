@@ -21,15 +21,14 @@ package org.ofbiz.workeffort.workeffort;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
-
-import javolution.util.FastList;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -134,17 +133,17 @@ public class WorkEffortSearch {
 
     public static class WorkEffortSearchContext {
         public int index = 1;
-        public List<EntityCondition> entityConditionList = FastList.newInstance();
-        public List<String> orderByList = FastList.newInstance();
+        public List<EntityCondition> entityConditionList = new LinkedList<EntityCondition>();
+        public List<String> orderByList = new LinkedList<String>();
         public List<String> fieldsToSelect = UtilMisc.toList("workEffortId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean workEffortIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List<Set<String>> keywordFixedOrSetAndList = FastList.newInstance();
-        public Set<String> orKeywordFixedSet = FastSet.newInstance();
-        public Set<String> andKeywordFixedSet = FastSet.newInstance();
-        public List<GenericValue> workEffortSearchConstraintList = FastList.newInstance();
+        public List<Set<String>> keywordFixedOrSetAndList = new LinkedList<Set<String>>();
+        public Set<String> orKeywordFixedSet = new HashSet<String>();
+        public Set<String> andKeywordFixedSet = new HashSet<String>();
+        public List<GenericValue> workEffortSearchConstraintList = new LinkedList<GenericValue>();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -274,7 +273,7 @@ public class WorkEffortSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-                    List<EntityExpr> keywordOrList = FastList.newInstance();
+                    List<EntityExpr> keywordOrList = new LinkedList<EntityExpr>();
                     for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
@@ -386,7 +385,7 @@ public class WorkEffortSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set<String> workEffortIdSet = FastSet.newInstance();
+                Set<String> workEffortIdSet = new HashSet<String>();
 
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
@@ -508,7 +507,7 @@ public class WorkEffortSearch {
 
         @Override
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
-            Set<String> workEffortIdSet = FastSet.newInstance();
+            Set<String> workEffortIdSet = new HashSet<String>();
             if (includeSubWorkEfforts) {
                 // find all sub-categories recursively, make a Set of workEffortId
                 WorkEffortSearch.getAllSubWorkEffortIds(workEffortId, workEffortIdSet, workEffortSearchContext.getDelegator(), workEffortSearchContext.nowTimestamp);
@@ -535,7 +534,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
 
-            List<EntityExpr> assocConditionFromTo = FastList.newInstance();
+            List<EntityExpr> assocConditionFromTo = new LinkedList<EntityExpr>();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -556,7 +555,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
 
-            List<EntityExpr> assocConditionToFrom = FastList.newInstance();
+            List<EntityExpr> assocConditionToFrom = new LinkedList<EntityExpr>();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -955,7 +954,7 @@ public class WorkEffortSearch {
                         expandedSet.add(keyword);
                     }
                     Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set<String> fixedKeywordSet = FastSet.newInstance();
+                    Set<String> fixedKeywordSet = new HashSet<String>();
                     fixedKeywordSet.addAll(fixedSet);
                     workEffortSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }

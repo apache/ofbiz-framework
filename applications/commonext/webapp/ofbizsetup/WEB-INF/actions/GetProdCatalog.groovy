@@ -18,13 +18,12 @@
  */
  import org.ofbiz.base.util.*
  import org.ofbiz.entity.util.EntityUtil;
- import javolution.util.FastList;
  import org.ofbiz.product.catalog.*;
  
  prodCatalog = null;
  prodCatalogId = parameters.prodCatalogId;
  showScreen = "origin";
- List errMsgList = FastList.newInstance();
+ List errMsgList = [];
  
  productStore = EntityUtil.getFirst(delegator.findByAnd("ProductStore", [payToPartyId: partyId], null, false));
  if(productStore){
@@ -33,7 +32,7 @@
  if(UtilValidate.isEmpty(productStore)){
      errMsgList.add("Product Store not set!");
      showScreen = "message";
- }else{
+ } else {
      facility = delegator.findOne("Facility", [facilityId : productStore.inventoryFacilityId], false);
      webSite = EntityUtil.getFirst(delegator.findByAnd("WebSite", [productStoreId: productStore.productStoreId], null, false));
      

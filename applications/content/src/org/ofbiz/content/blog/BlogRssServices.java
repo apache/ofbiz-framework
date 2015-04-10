@@ -20,12 +20,11 @@
 package org.ofbiz.content.blog;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -100,7 +99,7 @@ public class BlogRssServices {
     }
 
     public static List<SyndEntry> generateEntryList(LocalDispatcher dispatcher, Delegator delegator, String contentId, String entryLink, Locale locale, GenericValue userLogin) {
-        List<SyndEntry> entries = FastList.newInstance();
+        List<SyndEntry> entries = new LinkedList<SyndEntry>();
 
         List<GenericValue> contentRecs = null;
         try {
@@ -117,7 +116,7 @@ public class BlogRssServices {
             for (GenericValue v : contentRecs) {
                 String sub = null;
                 try {
-                    Map<String, Object> dummy = FastMap.newInstance();
+                    Map<String, Object> dummy = new HashMap<String, Object>();
                     sub = ContentWorker.renderSubContentAsText(dispatcher, delegator, v.getString("contentId"), mapKey, dummy, locale, mimeTypeId, true);
                 } catch (GeneralException e) {
                     Debug.logError(e, module);

@@ -20,14 +20,13 @@
 package org.ofbiz.party.party;
 
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.ServletRequest;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -57,7 +56,7 @@ public class PartyWorker {
 
     public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Delegator delegator = (Delegator) request.getAttribute("delegator");
-        Map<String, GenericValue> result = FastMap.newInstance();
+        Map<String, GenericValue> result = new HashMap<String, GenericValue>();
         try {
             GenericValue party = EntityQuery.use(delegator).from("Party").where("partyId", partyId).queryOne();
 
@@ -248,7 +247,7 @@ public class PartyWorker {
             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
             String firstName, String middleName, String lastName) throws GeneralException {
         // return list
-        List<GenericValue> returnList = FastList.newInstance();
+        List<GenericValue> returnList = new LinkedList<GenericValue>();
 
         // address information
         if (firstName == null || lastName == null) {
@@ -319,7 +318,7 @@ public class PartyWorker {
             throw new IllegalArgumentException();
         }
 
-        List<EntityCondition> addrExprs = FastList.newInstance();
+        List<EntityCondition> addrExprs = new LinkedList<EntityCondition>();
         if (stateProvinceGeoId != null) {
             if ("**".equals(stateProvinceGeoId)) {
                 Debug.logWarning("Illegal state code passed!", module);
@@ -369,7 +368,7 @@ public class PartyWorker {
             return addresses;
         }
 
-        List<GenericValue> validFound = FastList.newInstance();
+        List<GenericValue> validFound = new LinkedList<GenericValue>();
         // check the address line
         for (GenericValue address: addresses) {
             // address 1 field
@@ -443,7 +442,7 @@ public class PartyWorker {
     }
 
     public static List<String> getAssociatedPartyIdsByRelationshipType(Delegator delegator, String partyIdFrom, String partyRelationshipTypeId) {
-        List<GenericValue> partyList = FastList.newInstance();
+        List<GenericValue> partyList = new LinkedList<GenericValue>();
         List<String> partyIds = null;
         try {
             EntityConditionList<EntityExpr> baseExprs = EntityCondition.makeCondition(UtilMisc.toList(
@@ -452,7 +451,7 @@ public class PartyWorker {
             List<GenericValue> associatedParties = EntityQuery.use(delegator).from("PartyRelationship").where(baseExprs).cache(true).queryList();
             partyList.addAll(associatedParties);
             while (UtilValidate.isNotEmpty(associatedParties)) {
-                List<GenericValue> currentAssociatedParties = FastList.newInstance();
+                List<GenericValue> currentAssociatedParties = new LinkedList<GenericValue>();
                 for (GenericValue associatedParty : associatedParties) {
                     EntityConditionList<EntityExpr> innerExprs = EntityCondition.makeCondition(UtilMisc.toList(
                             EntityCondition.makeCondition("partyIdFrom", associatedParty.get("partyIdTo")),

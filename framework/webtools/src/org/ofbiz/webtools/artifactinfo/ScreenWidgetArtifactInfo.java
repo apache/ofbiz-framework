@@ -21,12 +21,11 @@ package org.ofbiz.webtools.artifactinfo;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
 import javax.xml.parsers.ParserConfigurationException;
-
-import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -216,7 +215,7 @@ public class ScreenWidgetArtifactInfo extends ArtifactInfoBase {
 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludedInScreen() {
         // TODO: implement this
-        return FastSet.newInstance();
+        return new HashSet<ScreenWidgetArtifactInfo>();
     }
 
     public Set<ScreenWidgetArtifactInfo> getScreensIncludingThisScreen() {

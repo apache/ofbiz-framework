@@ -18,10 +18,9 @@
  *******************************************************************************/
 package org.ofbiz.manufacturing.jobshopmgt;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -54,7 +53,7 @@ public class ProductionRunHelper {
      * <li> the productionRunProduct
      */
     public static Map<String, Object> getProductionRun(Delegator delegator, String productionRunId) {
-        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> result = new HashMap<String, Object>();
         
         try {
             if (productionRunId != null) {

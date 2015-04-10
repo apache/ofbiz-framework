@@ -19,13 +19,11 @@
 
 import org.ofbiz.manufacturing.jobshopmgt.ProductionRun;
 
-import javolution.util.FastList;
-
 productionRunId = parameters.productionRunId ?: parameters.workEffortId;
 if (productionRunId) {
     ProductionRun productionRun = new ProductionRun(productionRunId, delegator, dispatcher);
     if (productionRun.exist()) {
-        productionRunFixedAssetsData = FastList.newInstance();
+        productionRunFixedAssetsData = [];
         productionRunRoutingTasks = productionRun.getProductionRunRoutingTasks();
         productionRunRoutingTasks.each { prodRunTask ->
             taskFixedAssets = prodRunTask.getRelated("WorkEffortFixedAssetAssign", null, null, false);

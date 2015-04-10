@@ -19,14 +19,13 @@
 package org.ofbiz.order.shoppingcart.shipping;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -148,7 +147,7 @@ public class ShippingEvents {
             String productStoreId, String supplierPartyId, List<Map<String, Object>> itemInfo, BigDecimal shippableWeight, BigDecimal shippableQuantity,
             BigDecimal shippableTotal, String partyId, String productStoreShipMethId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
-        List<String> errorMessageList = FastList.newInstance();
+        List<String> errorMessageList = new LinkedList<String>();
 
         if ("NO_SHIPPING".equals(shipmentMethodTypeId)) {
             return ServiceUtil.returnSuccess();
@@ -208,7 +207,7 @@ public class ShippingEvents {
         BigDecimal shippingTotal = BigDecimal.ZERO;
 
         // prepare the service invocation fields
-        Map<String, Object> serviceFields = FastMap.newInstance();
+        Map<String, Object> serviceFields = new HashMap<String, Object>();
         serviceFields.put("initialEstimateAmt", shippingTotal);
         serviceFields.put("shippableTotal", shippableTotal);
         serviceFields.put("shippableQuantity", shippableQuantity);

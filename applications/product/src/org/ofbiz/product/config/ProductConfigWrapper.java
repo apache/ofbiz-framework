@@ -22,14 +22,13 @@ package org.ofbiz.product.config;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -41,7 +40,6 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceContainer;
-
 
 /**
  * Product Config Wrapper: gets product config to display
@@ -80,7 +78,7 @@ public class ProductConfigWrapper implements Serializable {
         listPrice = pcw.listPrice;
         basePrice = pcw.basePrice;
         defaultPrice = pcw.defaultPrice;
-        questions = FastList.newInstance();
+        questions = new LinkedList<ProductConfigWrapper.ConfigItem>();
         delegator = pcw.getDelegator();
         delegatorName = delegator.getDelegatorName();
         dispatcher = pcw.getDispatcher();
@@ -122,10 +120,10 @@ public class ProductConfigWrapper implements Serializable {
         if (price != null) {
             basePrice = price;
         }
-        questions = FastList.newInstance();
+        questions = new LinkedList<ProductConfigWrapper.ConfigItem>();
         if ("AGGREGATED".equals(product.getString("productTypeId")) || "AGGREGATED_SERVICE".equals(product.getString("productTypeId"))) {
             List<GenericValue> questionsValues = EntityQuery.use(delegator).from("ProductConfig").where("productId", productId).orderBy("sequenceNum").filterByDate().queryList();
-            Set<String> itemIds = FastSet.newInstance();
+            Set<String> itemIds = new HashSet<String>();
             for (GenericValue questionsValue: questionsValues) {
                 ConfigItem oneQuestion = new ConfigItem(questionsValue);
                 oneQuestion.setContent(locale, "text/html"); // TODO: mime-type shouldn't be hardcoded
@@ -285,18 +283,17 @@ public class ProductConfigWrapper implements Serializable {
         GenericValue oneComponent = components.get(component);
         if (theOption.isVirtualComponent(oneComponent)) {
             if (theOption.componentOptions == null) {
-                theOption.componentOptions = FastMap.newInstance();
+                theOption.componentOptions = new HashMap<String, String>();
             }
             theOption.componentOptions.put(oneComponent.getString("productId"), componentOption);
 
             //  recalculate option price
             theOption.recalculateOptionPrice(this);
-
         }
     }
 
     public List<ConfigOption> getSelectedOptions() {
-        List<ConfigOption> selectedOptions = FastList.newInstance();
+        List<ConfigOption> selectedOptions = new LinkedList<ProductConfigWrapper.ConfigOption>();
         for (ConfigItem ci: questions) {
             if (ci.isStandard()) {
                 selectedOptions.addAll(ci.getOptions());
@@ -312,7 +309,7 @@ public class ProductConfigWrapper implements Serializable {
     }
 
     public List<ConfigOption> getDefaultOptions() {
-        List<ConfigOption> defaultOptions = FastList.newInstance();
+        List<ConfigOption> defaultOptions = new LinkedList<ProductConfigWrapper.ConfigOption>();
         for (ConfigItem ci: questions) {
             ConfigOption co = ci.getDefault();
             if (co != null) {
@@ -397,13 +394,13 @@ public class ProductConfigWrapper implements Serializable {
         public ConfigItem(GenericValue questionAssoc) throws Exception {
             configItemAssoc = questionAssoc;
             configItem = configItemAssoc.getRelatedOne("ConfigItemProductConfigItem", false);
-            options = FastList.newInstance();
+            options = new LinkedList<ProductConfigWrapper.ConfigOption>();
         }
 
         public ConfigItem(ConfigItem ci) {
             configItem = GenericValue.create(ci.configItem);
             configItemAssoc = GenericValue.create(ci.configItemAssoc);
-            options = FastList.newInstance();
+            options = new LinkedList<ProductConfigWrapper.ConfigOption>();
             for (ConfigOption co: ci.options) {
                 options.add(new ConfigOption(co));
             }
@@ -602,7 +599,7 @@ public class ProductConfigWrapper implements Serializable {
 
         public ConfigOption(ConfigOption co) {
             configOption = GenericValue.create(co.configOption);
-            componentList = FastList.newInstance();
+            componentList = new LinkedList<GenericValue>();
             for (GenericValue component: co.componentList) {
                 componentList.add(GenericValue.create(component));
             }

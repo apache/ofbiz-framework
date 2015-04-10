@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.pos.screen;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
@@ -25,7 +26,6 @@ import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 
-import javolution.util.FastMap;
 import net.xoetrope.swing.XButton;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XList;
@@ -47,7 +47,7 @@ public class LoadSale extends XPage {
     public static final String module = LoadSale.class.getName();
     protected static PosScreen m_pos = null;
     protected XDialog m_dialog = null;
-    static protected Map<String, String> m_saleMap = FastMap.newInstance();
+    static protected Map<String, String> m_saleMap = new HashMap<String, String>();
     protected XList m_salesList = null;
     protected XButton m_cancel = null;
     protected XButton m_add = null;

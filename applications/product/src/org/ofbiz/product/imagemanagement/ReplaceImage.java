@@ -20,12 +20,11 @@ package org.ofbiz.product.imagemanagement;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilValidate;
@@ -103,7 +102,7 @@ public class ReplaceImage{
             GenericValue productContent = EntityQuery.use(delegator).from("ProductContent").where("productId", productId, "contentId", contentIdReplace, "productContentTypeId", "IMAGE").queryFirst();
             
             if (productContent != null) {
-                Map<String, Object> productContentCtx = FastMap.newInstance();
+                Map<String, Object> productContentCtx = new HashMap<String, Object>();
                 productContentCtx.put("productId", productId);
                 productContentCtx.put("contentId", contentIdReplace);
                 productContentCtx.put("productContentTypeId", "IMAGE");

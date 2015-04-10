@@ -32,6 +32,8 @@ import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -54,9 +56,6 @@ import javax.crypto.spec.DHPrivateKeySpec;
 import javax.crypto.spec.DHPublicKeySpec;
 import javax.crypto.spec.IvParameterSpec;
 
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
@@ -75,7 +74,7 @@ public class ValueLinkApi {
     public static final String module = ValueLinkApi.class.getName();
 
     // static object cache
-    private static Map<String, Object> objectCache = FastMap.newInstance();
+    private static Map<String, Object> objectCache = new HashMap<String, Object>();
 
     // instance variables
     protected Delegator delegator = null;
@@ -696,7 +695,7 @@ public class ValueLinkApi {
      * @return Map containing the inital request values
      */
     public Map<String, Object> getInitialRequestMap(Map<String, Object> context) {
-        Map<String, Object> request = FastMap.newInstance();
+        Map<String, Object> request = new HashMap<String, Object>();
 
         // merchant information
         request.put("MerchID", merchantId + terminalId);
@@ -941,7 +940,7 @@ public class ValueLinkApi {
         subResponse = StringUtil.replaceString(subResponse, "</td>", "");
 
         // make the map
-        Map<String, Object> responseMap = FastMap.newInstance();
+        Map<String, Object> responseMap = new HashMap<String, Object>();
         responseMap.putAll(StringUtil.strToMap(subResponse, true));
 
         // add the raw html back in just in case we need it later
@@ -997,7 +996,7 @@ public class ValueLinkApi {
         List<String> valueList = StringUtil.split(values, "&");
 
         // create a List of Maps for each set of values
-        List<Map<String, String>> valueMap = FastList.newInstance();
+        List<Map<String, String>> valueMap = new LinkedList<Map<String,String>>();
         for (int i = 0; i < valueList.size(); i++) {
             valueMap.add(StringUtil.createMap(StringUtil.split(keys, "|"), StringUtil.split(valueList.get(i), "|")));
         }

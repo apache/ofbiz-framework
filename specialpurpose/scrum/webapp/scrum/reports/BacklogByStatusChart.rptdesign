@@ -22,7 +22,7 @@ under the License.
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.java.math);
 importPackage(Packages.java.text);
-importPackage(Packages.javolution.util);
+
 importPackage(Packages.org.ofbiz.base.util);
 importPackage(Packages.org.ofbiz.entity.condition);
 module = "BacklogChart.rptdesign";
@@ -96,9 +96,9 @@ openData = 0;
 beingData = 0;
 finishData = 0;
 
-inputOpenData =  FastMap.newInstance();
-inputBeingData =  FastMap.newInstance();
-inputFinishedData =  FastMap.newInstance();
+inputOpenData =  new HashMap();
+inputBeingData =  new HashMap();
+inputFinishedData =  new HashMap();
 
 try{
 

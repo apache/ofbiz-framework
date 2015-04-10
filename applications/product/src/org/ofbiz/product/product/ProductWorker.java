@@ -22,15 +22,14 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -269,7 +268,7 @@ public class ProductWorker {
      */
     public static Set<GenericValue> getVariantDistinguishingFeatures(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct == null) {
-            return FastSet.newInstance();
+            return new HashSet<GenericValue>();
         }
         if (!"Y".equals(variantProduct.getString("isVariant"))) {
             throw new IllegalArgumentException("Cannot get distinguishing features for a product that is not a variant (ie isVariant!=Y).");
@@ -278,7 +277,7 @@ public class ProductWorker {
         String virtualProductId = getVariantVirtualId(variantProduct);
 
         // find all selectable features on the virtual product that are also standard features on the variant
-        Set<GenericValue> distFeatures = FastSet.newInstance();
+        Set<GenericValue> distFeatures = new HashSet<GenericValue>();
 
         List<GenericValue> variantDistinguishingFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT").cache(true).queryList();
         // Debug.logInfo("Found variantDistinguishingFeatures: " + variantDistinguishingFeatures, module);
@@ -292,7 +291,7 @@ public class ProductWorker {
         List<GenericValue> virtualSelectableFeatures = EntityQuery.use(delegator).from("ProductFeatureAndAppl").where("productId", virtualProductId, "productFeatureApplTypeId", "SELECTABLE_FEATURE").cache(true).queryList();
         // Debug.logInfo("Found virtualSelectableFeatures: " + virtualSelectableFeatures, module);
 
-        Set<String> virtualSelectableFeatureIds = FastSet.newInstance();
+        Set<String> virtualSelectableFeatureIds = new HashSet<String>();
         for (GenericValue virtualSelectableFeature: EntityUtil.filterByDate(virtualSelectableFeatures)) {
             virtualSelectableFeatureIds.add(virtualSelectableFeature.getString("productFeatureId"));
         }
@@ -394,7 +393,7 @@ public class ProductWorker {
             features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
-            features = FastList.newInstance();
+            features = new LinkedList<GenericValue>();
         }
         return features;
     }
@@ -423,7 +422,7 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List <List<Map<String,String>>> featureTypeFeatures = FastList.newInstance();
+        List <List<Map<String,String>>> featureTypeFeatures = new LinkedList<List<Map<String,String>>>();
         try {
             Delegator delegator = product.getDelegator();
             //List<GenericValue> features = delegator.findByAnd("ProductFeatureAndAppl", fields, order, true);
@@ -435,13 +434,13 @@ public class ProductWorker {
                                                     .cache(true)
                                                     .queryList();
             String oldType = null;
-            List<Map<String,String>> featureList = FastList.newInstance();
+            List<Map<String,String>> featureList = new LinkedList<Map<String,String>>();
             for (GenericValue productFeatureAppl: featuresSorted) {
                 if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
                     // use first entry for type and description
                     if (oldType != null) {
                         featureTypeFeatures.add(featureList);
-                        featureList = FastList.newInstance();
+                        featureList = new LinkedList<Map<String,String>>();
                     }
                     GenericValue productFeatureType = EntityQuery.use(delegator).from("ProductFeatureType").where("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId")).queryOne();
                     featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"),
@@ -498,7 +497,7 @@ public class ProductWorker {
         List<String> selectableTypes = EntityUtil.getFieldListFromEntityList(selectableFeatures, "productFeatureTypeId", true);
         // The standard features from the variant product
         List<GenericValue> standardFeatures = ProductWorker.getProductFeaturesByApplTypeId(variantProduct, "STANDARD_FEATURE");
-        List<GenericValue> result = FastList.newInstance();
+        List<GenericValue> result = new LinkedList<GenericValue>();
         for (GenericValue standardFeature : standardFeatures) {
             // For each standard variant feature check it is also a virtual selectable feature and
             // if a feature of the same type hasn't already been added to the list
@@ -525,7 +524,7 @@ public class ProductWorker {
                 String featureType = appl.getString("productFeatureTypeId");
                 List<GenericValue> features = featureMap.get(featureType);
                 if (features == null) {
-                    features = FastList.newInstance();
+                    features = new LinkedList<GenericValue>();
                 }
                 features.add(appl);
                 featureMap.put(featureType, features);
@@ -562,7 +561,7 @@ public class ProductWorker {
     }
 
     public static List<GenericValue> filterOrderAdjustments(List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
+        List<GenericValue> newOrderAdjustmentsList = new LinkedList<GenericValue>();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             for (GenericValue orderAdjustment: adjustments) {
@@ -694,7 +693,7 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List<GenericValue> categories = FastList.newInstance();
+        List<GenericValue> categories = new LinkedList<GenericValue>();
         try {
             List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember", null, null, false);
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
@@ -832,7 +831,7 @@ public class ProductWorker {
         } else {
             // attempt a conversion if necessary
             if (desiredUomId != null && product.get("weightUomId") != null && !desiredUomId.equals(product.get("weightUomId"))) {
-                Map<String, Object> result = FastMap.newInstance();
+                Map<String, Object> result = new HashMap<String, Object>();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", desiredUomId, "originalValue", weight));
                 } catch (GenericServiceException e) {
@@ -980,7 +979,7 @@ public class ProductWorker {
     }
 
     public static Set<String> getRefurbishedProductIdSet(String productId, Delegator delegator) throws GenericEntityException {
-        Set<String> productIdSet = FastSet.newInstance();
+        Set<String> productIdSet = new HashSet<String>();
 
         // find associated refurb items, we want serial number for main item or any refurb items too
         List<GenericValue> refubProductAssocs = EntityQuery.use(delegator).from("ProductAssoc").where("productId", productId, "productAssocTypeId", "PRODUCT_REFURB").filterByDate().queryList();
@@ -1147,7 +1146,7 @@ nextProd:
         if(productId != null || virtualVariantId != null){
             List<GenericValue> alternativePackingProds = null;
             try {
-                List<EntityCondition> condList = FastList.newInstance();
+                List<EntityCondition> condList = new LinkedList<EntityCondition>();
 
                 if (UtilValidate.isNotEmpty(productId)) {
                     condList.add(EntityCondition.makeCondition("productIdTo", productId));
@@ -1232,7 +1231,7 @@ nextProd:
                 Boolean isMarketingPackage = EntityTypeUtil.hasParentType(delegator, "ProductType", "productTypeId", product.getString("productTypeId"), "parentTypeId", "MARKETING_PKG");
                 
                 if ( UtilValidate.isNotEmpty(isMarketingPackage) && isMarketingPackage) {
-                    Map<String, Object> resultOutput = new FastMap<String, Object>();
+                    Map<String, Object> resultOutput = new HashMap<String, Object>();
                     resultOutput = dispatcher.runSync("getMktgPackagesAvailable", UtilMisc.toMap("productId" ,productId));
                     Debug.logWarning("Error getting available marketing package.", module);
                     

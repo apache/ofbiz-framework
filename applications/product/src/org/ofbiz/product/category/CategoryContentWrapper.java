@@ -21,13 +21,12 @@ package org.ofbiz.product.category;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -145,7 +144,7 @@ public class CategoryContentWrapper implements ContentWrapper {
         GenericValue categoryContent = EntityUtil.getFirst(categoryContentList);
         if (categoryContent != null) {
             // when rendering the category content, always include the Product Category and ProductCategoryContent records that this comes from
-            Map<String, Object> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = new HashMap<String, Object>();
             inContext.put("productCategory", productCategory);
             inContext.put("categoryContent", categoryContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, categoryContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, null, null, true);

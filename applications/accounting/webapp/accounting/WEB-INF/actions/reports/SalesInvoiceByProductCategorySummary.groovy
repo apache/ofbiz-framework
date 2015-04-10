@@ -17,9 +17,6 @@
  * under the License.
  */
 
-import javolution.util.FastList;
-import javolution.util.FastSet;
-import javolution.util.FastMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.condition.*;
@@ -35,12 +32,12 @@ productMemberList = from("ProductCategoryMember").where("productCategoryId", roo
 categoryRollupList = from("ProductCategoryRollup").where("parentProductCategoryId", rootProductCategoryId).orderBy("sequenceNum").queryList();
 
 // for use in the queries
-productIdSet = FastSet.newInstance();
-productCategoryIdSet = FastSet.newInstance();
+productIdSet = [];
+productCategoryIdSet = [];
 
 // for use in the templates
-productList = FastList.newInstance();
-productCategoryList = FastList.newInstance();
+productList = [];
+productCategoryList = [];
 
 productMemberList.each { productMember ->
     if (!productIdSet.contains(productMember.productId)) {
@@ -56,14 +53,14 @@ categoryRollupList.each { categoryRollup ->
 }
 
 //NOTE: tax, etc also have productId on them, so restrict by type INV_PROD_ITEM, INV_FPROD_ITEM, INV_DPROD_ITEM, others?
-baseProductAndExprs = FastList.newInstance();
+baseProductAndExprs = [];
 baseProductAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
 baseProductAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, ["INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM"]));
 baseProductAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["INVOICE_READY", "INVOICE_PAID"]));
 if (organizationPartyId) baseProductAndExprs.add(EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, organizationPartyId));
 if (currencyUomId) baseProductAndExprs.add(EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, currencyUomId));
 
-baseCategoryAndExprs = FastList.newInstance();
+baseCategoryAndExprs = [];
 baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceTypeId", EntityOperator.EQUALS, "SALES_INVOICE"));
 baseCategoryAndExprs.add(EntityCondition.makeCondition("invoiceItemTypeId", EntityOperator.IN, ["INV_PROD_ITEM", "INV_FPROD_ITEM", "INV_DPROD_ITEM"]));
 baseCategoryAndExprs.add(EntityCondition.makeCondition("statusId", EntityOperator.IN, ["INVOICE_READY", "INVOICE_PAID"]));
@@ -83,13 +80,13 @@ nextMonthCal.setTimeInMillis(monthCal.getTimeInMillis());
 nextMonthCal.add(Calendar.MONTH, 1);
 
 // iterate through the days and do the queries
-productResultMapByDayList = FastList.newInstance();
-productNullResultByDayList = FastList.newInstance();
-categoryResultMapByDayList = FastList.newInstance();
+productResultMapByDayList = [];
+productNullResultByDayList = [];
+categoryResultMapByDayList = [];
 
-monthProductResultMap = FastMap.newInstance();
-monthCategoryResultMap = FastMap.newInstance();
-monthProductNullResult = FastMap.newInstance();
+monthProductResultMap = [:];
+monthCategoryResultMap = [:];
+monthProductNullResult = [:];
 
 daysInMonth = monthCal.getActualMaximum(Calendar.DAY_OF_MONTH);
 for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
@@ -101,14 +98,14 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     nextDayBegin = new java.sql.Timestamp(currentDayCal.getTimeInMillis());
 
     // do the product find
-    productAndExprs = FastList.newInstance();
+    productAndExprs = [];
     productAndExprs.addAll(baseProductAndExprs);
     if (productIdSet) productAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.IN, productIdSet));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     productAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
 
     productResultListIterator = select("productId", "quantityTotal", "amountTotal").from("InvoiceItemProductSummary").where(productAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
-    productResultMap = FastMap.newInstance();
+    productResultMap = [:];
     while ((productResult = productResultListIterator.next())) {
         productResultMap[productResult.productId] = productResult;
         monthProductResult = UtilMisc.getMapFromMap(monthProductResultMap, productResult.productId);
@@ -119,13 +116,13 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     productResultMapByDayList.add(productResultMap);
 
     // do the category find
-    categoryAndExprs = FastList.newInstance();
+    categoryAndExprs = [];
     categoryAndExprs.addAll(baseCategoryAndExprs);
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
     categoryAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.LESS_THAN, nextDayBegin));
 
     categoryResultListIterator = select("productCategoryId", "quantityTotal", "amountTotal").from(InvoiceItemCategorySummary).where(categoryAndExprs).cursorScrollInsensitive().cache(true).queryIterator();
-    categoryResultMap = FastMap.newInstance();
+    categoryResultMap = [:];
     while ((categoryResult = categoryResultListIterator.next())) {
         categoryResultMap[categoryResult.productCategoryId] = categoryResult;
         monthCategoryResult = UtilMisc.getMapFromMap(monthCategoryResultMap, categoryResult.productCategoryId);
@@ -136,7 +133,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
     categoryResultMapByDayList.add(categoryResultMap);
 
     // do a find for InvoiceItem with a null productId
-    productNullAndExprs = FastList.newInstance();
+    productNullAndExprs = [];
     productNullAndExprs.addAll(baseProductAndExprs);
     productNullAndExprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, null));
     productNullAndExprs.add(EntityCondition.makeCondition("invoiceDate", EntityOperator.GREATER_THAN_EQUAL_TO, currentDayBegin));
@@ -151,7 +148,7 @@ for (int currentDay = 0; currentDay <= daysInMonth; currentDay++) {
         UtilMisc.addToBigDecimalInMap(monthProductNullResult, "amountTotal", productNullResult.getBigDecimal("amountTotal"));
     } else {
         // no result, add an empty Map place holder
-        productNullResultByDayList.add(FastMap.newInstance());
+        productNullResultByDayList.add([:]);
     }
 }
 

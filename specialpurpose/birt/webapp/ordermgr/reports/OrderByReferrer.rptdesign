@@ -21,7 +21,7 @@ under the License.
     <property name="createdBy">Eclipse BIRT Designer Version 2.5.1.v20090903 Build &lt;2.5.1.v20090917-1447></property>
     <property name="units">in</property>
     <method name="initialize"><![CDATA[importPackage(Packages.org.ofbiz.base.util)
-importPackage(Packages.javolution.util)
+
 importPackage(Packages.org.ofbiz.entity.util)
 module = "OrderByReferrer.rptdesign";]]></method>
     <property name="iconFile">/templates/blank_report.gif</property>

@@ -29,8 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import javolution.util.FastMap;
-
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
@@ -304,7 +302,7 @@ public class CheckOutEvents {
 
         if (paymentMethods != null) {
             for (int i = 0; i < paymentMethods.length; i++) {
-                Map<String, Object> paymentMethodInfo = FastMap.newInstance();
+                Map<String, Object> paymentMethodInfo = new HashMap<String, Object>();
 
                 String securityCode = request.getParameter("securityCode_" + paymentMethods[i]);
                 if (UtilValidate.isNotEmpty(securityCode)) {

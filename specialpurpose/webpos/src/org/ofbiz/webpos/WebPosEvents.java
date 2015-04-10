@@ -18,6 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.webpos;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -25,9 +27,6 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -154,7 +153,7 @@ public class WebPosEvents {
     public static String getProductType(HttpServletRequest request, HttpServletResponse response) {
         Map<String, Object> featureMap = null;
         Map<String, Object> variantTreeMap = null;
-        Map<String, Object> featureTypes = FastMap.newInstance();
+        Map<String, Object> featureTypes = new HashMap<String, Object>();
         WebPosSession webPosSession = getWebPosSession(request, null);
         if (webPosSession != null) {
             Delegator delegator = webPosSession.getDelegator();
@@ -184,7 +183,7 @@ public class WebPosEvents {
                                         if (UtilValidate.isNotEmpty(variantTree)) {
                                             request.setAttribute("variantTree", variantTree);
                                             request.setAttribute("variantTreeSize", variantTree.size());
-                                            List<String> featureOrder = FastList.newInstance();
+                                            List<String> featureOrder = new LinkedList<String>();
                                             featureOrder = UtilMisc.toList(featureSet);
                                             for (int i=0; i < featureOrder.size(); i++) {
                                                 String featureKey = featureOrder.get(i);
@@ -204,7 +203,7 @@ public class WebPosEvents {
                                         }
                                         Map<String, Object> imageMap = UtilGenerics.cast(variantTreeMap.get("variantSample"));
                                         if (UtilValidate.isNotEmpty(imageMap)) {
-                                            List<String> variantSampleList = FastList.newInstance();
+                                            List<String> variantSampleList = new LinkedList<String>();
                                             variantSampleList = UtilMisc.toList(imageMap.keySet());
                                             request.setAttribute("variantSample", imageMap);
                                             request.setAttribute("variantSampleList", variantSampleList);

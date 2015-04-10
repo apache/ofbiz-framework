@@ -19,12 +19,11 @@
 package org.ofbiz.accounting.thirdparty.valuelink;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
-
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.HttpClientException;
@@ -770,7 +769,7 @@ public class ValueLinkServices {
     private static void setTimeoutReversal(DispatchContext dctx, Map<String, Object> ctx, Map<String, Object> request) {
         String vlInterface = (String) request.get("Interface");
         // clone the context
-        Map<String, Object> context = FastMap.newInstance();
+        Map<String, Object> context = new HashMap<String, Object>();
         context.putAll(ctx);
 
         // append the rollback interface
@@ -826,7 +825,7 @@ public class ValueLinkServices {
             currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
-        Map<String, Object> redeemCtx = FastMap.newInstance();
+        Map<String, Object> redeemCtx = new HashMap<String, Object>();
         redeemCtx.put("userLogin", userLogin);
         redeemCtx.put("paymentConfig", paymentConfig);
         redeemCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -919,7 +918,7 @@ public class ValueLinkServices {
             currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
-        Map<String, Object> redeemCtx = FastMap.newInstance();
+        Map<String, Object> redeemCtx = new HashMap<String, Object>();
         redeemCtx.put("userLogin", userLogin);
         redeemCtx.put("paymentConfig", paymentConfig);
         redeemCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -984,7 +983,7 @@ public class ValueLinkServices {
             currency = EntityUtilProperties.getPropertyValue("general.properties", "currency.uom.id.default", "USD", delegator);
         }
 
-        Map<String, Object> refundCtx = FastMap.newInstance();
+        Map<String, Object> refundCtx = new HashMap<String, Object>();
         refundCtx.put("userLogin", userLogin);
         refundCtx.put("paymentConfig", paymentConfig);
         refundCtx.put("cardNumber", giftCard.get("cardNumber"));
@@ -1149,7 +1148,7 @@ public class ValueLinkServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = FastMap.newInstance();
+        Map<String, Object> answerMap = new HashMap<String, Object>();
         if (responseAnswers != null) {
             for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
@@ -1181,7 +1180,7 @@ public class ValueLinkServices {
         int qtyLoop = quantity.intValue();
         for (int i = 0; i < qtyLoop; i++) {
             // activate a gift card
-            Map<String, Object> activateCtx = FastMap.newInstance();
+            Map<String, Object> activateCtx = new HashMap<String, Object>();
             activateCtx.put("paymentConfig", paymentConfig);
             activateCtx.put("vlPromoCode", promoCode);
             activateCtx.put("currency", currency);
@@ -1215,7 +1214,7 @@ public class ValueLinkServices {
             }
 
             // create the fulfillment record
-            Map<String, Object> vlFulFill = FastMap.newInstance();
+            Map<String, Object> vlFulFill = new HashMap<String, Object>();
             vlFulFill.put("typeEnumId", "GC_ACTIVATE");
             vlFulFill.put("merchantId", EntityUtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId", delegator));
             vlFulFill.put("partyId", partyId);
@@ -1271,7 +1270,7 @@ public class ValueLinkServices {
                     }
                 }
 
-                Map<String, Object> emailCtx = FastMap.newInstance();
+                Map<String, Object> emailCtx = new HashMap<String, Object>();
                 String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");
                 if (UtilValidate.isEmpty(bodyScreenLocation)) {
                     bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
@@ -1394,7 +1393,7 @@ public class ValueLinkServices {
         }
 
         // make a map of answer info
-        Map<String, Object> answerMap = FastMap.newInstance();
+        Map<String, Object> answerMap = new HashMap<String, Object>();
         if (responseAnswers != null) {
             for (GenericValue answer : responseAnswers) {
                 GenericValue question = null;
@@ -1419,7 +1418,7 @@ public class ValueLinkServices {
         String pinNumber = (String) answerMap.get(pinNumberKey);
 
         // reload the gift card
-        Map<String, Object> reloadCtx = FastMap.newInstance();
+        Map<String, Object> reloadCtx = new HashMap<String, Object>();
         reloadCtx.put("paymentConfig", paymentConfig);
         reloadCtx.put("currency", currency);
         reloadCtx.put("partyId", partyId);
@@ -1439,7 +1438,7 @@ public class ValueLinkServices {
         }
 
         // create the fulfillment record
-        Map<String, Object> vlFulFill = FastMap.newInstance();
+        Map<String, Object> vlFulFill = new HashMap<String, Object>();
         vlFulFill.put("typeEnumId", "GC_RELOAD");
         vlFulFill.put("merchantId", EntityUtilProperties.getPropertyValue(paymentConfig, "payment.valuelink.merchantId", delegator));
         vlFulFill.put("partyId", partyId);
@@ -1506,7 +1505,7 @@ public class ValueLinkServices {
         if (productStoreEmail == null) {
             Debug.logError("No gift card purchase email setting found for this store; cannot send gift card information", module);
         } else {
-            Map<String, Object> emailCtx = FastMap.newInstance();
+            Map<String, Object> emailCtx = new HashMap<String, Object>();
             answerMap.put("locale", locale);
 
             String bodyScreenLocation = productStoreEmail.getString("bodyScreenLocation");

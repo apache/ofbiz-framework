@@ -21,10 +21,9 @@ import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.product.catalog.*;
 import org.ofbiz.product.category.*;
-import javolution.util.FastList;
 
 catalogId = CatalogWorker.getCurrentCatalogId(request);
-bestSellerCates = FastList.newInstance();
+bestSellerCates = [];
 
 if (UtilValidate.isNotEmpty(catalogId)) {
     prodCatalogCategoryList = CatalogWorker.getProdCatalogCategories(request, catalogId, "PCCT_BEST_SELL");

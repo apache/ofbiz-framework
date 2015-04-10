@@ -20,6 +20,8 @@ package org.ofbiz.scrum;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -27,9 +29,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import javolution.util.FastList;
-import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -57,7 +56,7 @@ public class ScrumEvents {
         HttpSession session = request.getSession();
         Delegator delegator = (Delegator) session.getAttribute("delegator");
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
-        List<Map<String, Object>> noTimeEntryList = FastList.newInstance();
+        List<Map<String, Object>> noTimeEntryList = new LinkedList<Map<String,Object>>();
         String partyId = userLogin.getString("partyId");
         Timestamp now = UtilDateTime.nowTimestamp();
         Timestamp weekStart = UtilDateTime.getWeekStart(now);
@@ -88,7 +87,7 @@ public class ScrumEvents {
                                 //check EmplLeave
                                 List<GenericValue> emplLeaveList = EntityQuery.use(delegator).from("EmplLeave").where("partyId", partyId, "fromDate", realTimeDate).cache(true).queryList();
                                 if (UtilValidate.isEmpty(timeEntryList) && UtilValidate.isEmpty(emplLeaveList)) {
-                                    Map<String, Object> noEntryMap = FastMap.newInstance();
+                                    Map<String, Object> noEntryMap = new HashMap<String, Object>();
                                     noEntryMap.put("timesheetId", timesheetId);
                                     noTimeEntryList.add(noEntryMap);
                                     break;
