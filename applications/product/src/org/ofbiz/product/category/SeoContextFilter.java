@@ -333,7 +333,7 @@ public class SeoContextFilter extends ContextFilter {
                     request.setAttribute("dispatcher", dispatcher);
                     request.setAttribute("security", security);
 
-                    request.setAttribute("tenantId", tenantId);
+                    request.setAttribute("userTenantId", tenantId);
                 }
 
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may

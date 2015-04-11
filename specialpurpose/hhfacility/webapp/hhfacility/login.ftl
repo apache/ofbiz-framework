@@ -36,7 +36,7 @@ under the License.
   <#if ("Y" == useMultitenant)>
     <div data-role="fieldcontainer">
       <label for="tenantId">${uiLabelMap.CommonTenantId}</label>
-      <input type="text" id="tenantId" name="tenantId" value="${parameters.tenantId!}" size="20"/>
+      <input type="text" id="tenantId" name="userTenantId" value="${parameters.userTenantId!}" size="20"/>
     </div>
   </#if>
   <input type="submit" value="${uiLabelMap.CommonLogin}" class="loginButton" />
