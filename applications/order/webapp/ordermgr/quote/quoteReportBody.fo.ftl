@@ -40,6 +40,7 @@ under the License.
                 <fo:table-body>
                     <#assign rowColor = "white">
                     <#assign totalQuoteAmount = 0.0>
+                    <#if quoteItems?has_content>
                     <#list quoteItems as quoteItem>
                         <#if quoteItem.productId??>
                             <#assign product = quoteItem.getRelatedOne("Product", false)>
@@ -105,6 +106,7 @@ under the License.
                             <#assign rowColor = "white">
                         </#if>
                     </#list>
+                    </#if>
                 </fo:table-body>
             </fo:table>
 
