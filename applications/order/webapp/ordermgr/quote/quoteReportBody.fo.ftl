@@ -106,6 +106,12 @@ under the License.
                             <#assign rowColor = "white">
                         </#if>
                     </#list>
+                    <#else>
+                      <fo:table-row>
+                         <fo:table-cell number-columns-spanned="7" padding="2pt" background-color="${rowColor}">
+                             <fo:block>${uiLabelMap.OrderNoItemsQuote}</fo:block>
+                         </fo:table-cell>
+                      </fo:table-row>
                     </#if>
                 </fo:table-body>
             </fo:table>
