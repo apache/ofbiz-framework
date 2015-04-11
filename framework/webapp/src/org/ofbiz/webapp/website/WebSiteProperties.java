@@ -23,11 +23,11 @@ import javax.servlet.http.HttpServletRequest;
 import org.ofbiz.base.lang.ThreadSafe;
 import org.ofbiz.base.start.Start;
 import org.ofbiz.base.util.Assert;
-import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityQuery;
+import org.ofbiz.entity.util.EntityUtilProperties;
 
 /**
  * Web site properties.
@@ -40,8 +40,8 @@ public final class WebSiteProperties {
      * Returns a <code>WebSiteProperties</code> instance initialized to the settings found
      * in the <code>url.properties</code> file.
      */
-    public static WebSiteProperties defaults() {
-        return new WebSiteProperties();
+    public static WebSiteProperties defaults(Delegator delegator) {
+        return new WebSiteProperties(delegator);
     }
 
     /**
@@ -57,13 +57,13 @@ public final class WebSiteProperties {
         Assert.notNull("request", request);
         WebSiteProperties webSiteProps = (WebSiteProperties) request.getAttribute("_WEBSITE_PROPS_");
         if (webSiteProps == null) {
-            WebSiteProperties defaults = new WebSiteProperties();
+            Delegator delegator = (Delegator) request.getAttribute("delegator");
+            WebSiteProperties defaults = new WebSiteProperties(delegator);
             String httpPort = defaults.getHttpPort();
             String httpHost = defaults.getHttpHost();
             String httpsPort = defaults.getHttpsPort();
             String httpsHost = defaults.getHttpsHost();
             boolean enableHttps = defaults.getEnableHttps();
-            Delegator delegator = (Delegator) request.getAttribute("delegator");
             if (delegator != null) {
                 String webSiteId = WebSiteWorker.getWebSiteId(request);
                 if (webSiteId != null) {
@@ -126,7 +126,7 @@ public final class WebSiteProperties {
         if (!"WebSite".equals(webSiteValue.getEntityName())) {
             throw new IllegalArgumentException("webSiteValue is not a WebSite entity value");
         }
-        WebSiteProperties defaults = new WebSiteProperties();
+        WebSiteProperties defaults = new WebSiteProperties(webSiteValue.getDelegator());
         String httpPort = (webSiteValue.get("httpPort") != null) ? webSiteValue.getString("httpPort") : defaults.getHttpPort();
         String httpHost = (webSiteValue.get("httpHost") != null) ? webSiteValue.getString("httpHost") : defaults.getHttpHost();
         String httpsPort = (webSiteValue.get("httpsPort") != null) ? webSiteValue.getString("httpsPort") : defaults.getHttpsPort();
@@ -151,12 +151,12 @@ public final class WebSiteProperties {
     private final String httpsHost;
     private final boolean enableHttps;
 
-    private WebSiteProperties() {
-        this.httpPort = UtilProperties.getPropertyValue("url.properties", "port.http");
-        this.httpHost = UtilProperties.getPropertyValue("url.properties", "force.http.host");
-        this.httpsPort = UtilProperties.getPropertyValue("url.properties", "port.https");
-        this.httpsHost = UtilProperties.getPropertyValue("url.properties", "force.https.host");
-        this.enableHttps = UtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y");
+    private WebSiteProperties(Delegator delegator) {
+        this.httpPort = EntityUtilProperties.getPropertyValue("url.properties", "port.http", delegator);
+        this.httpHost = EntityUtilProperties.getPropertyValue("url.properties", "force.http.host", delegator);
+        this.httpsPort = EntityUtilProperties.getPropertyValue("url.properties", "port.https", delegator);
+        this.httpsHost = EntityUtilProperties.getPropertyValue("url.properties", "force.https.host", delegator);
+        this.enableHttps = EntityUtilProperties.propertyValueEqualsIgnoreCase("url.properties", "port.https.enabled", "Y", delegator);
     }
 
     private WebSiteProperties(String httpPort, String httpHost, String httpsPort, String httpsHost, boolean enableHttps) {
