@@ -59,8 +59,6 @@ import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.party.party.PartyHelper;
 import org.ofbiz.product.category.CategoryContentWrapper;
 
-import com.sun.syndication.feed.atom.Link;
-
 
 /**
  *  Utilities for product search based on various constraints including categories, features and keywords.
