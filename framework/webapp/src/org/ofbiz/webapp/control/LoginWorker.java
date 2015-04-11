@@ -399,9 +399,9 @@ public class LoginWorker {
         ServletContext servletContext = session.getServletContext();
 
         // if a tenantId was passed in, see if the userLoginId is associated with that tenantId (can use any delegator for this, entity is not tenant-specific)
-        String tenantId = request.getParameter("tenantId");
+        String tenantId = request.getParameter("userTenantId");
         if (UtilValidate.isEmpty(tenantId)) {
-            tenantId = (String) request.getAttribute("tenantId");
+            tenantId = (String) request.getAttribute("userTenantId");
         }
         if (UtilValidate.isNotEmpty(tenantId)) {
             // see if we need to activate a tenant delegator, only do if the current delegatorName has a hash symbol in it, and if the passed in tenantId doesn't match the one in the delegatorName

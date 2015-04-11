@@ -299,7 +299,7 @@ public class UrlRegexpContextFilter extends ContextFilter {
                     httpRequest.getSession().setAttribute("dispatcher", dispatcher);
                     httpRequest.getSession().setAttribute("security", security);
 
-                    httpRequest.setAttribute("tenantId", tenantId);
+                    httpRequest.setAttribute("userTenantId", tenantId);
                 }
 
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may

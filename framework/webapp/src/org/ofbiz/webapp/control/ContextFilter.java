@@ -268,10 +268,10 @@ public class ContextFilter implements Filter {
                 }
                 
                 if(UtilValidate.isEmpty(tenantId)) {
-                    tenantId = (String) httpRequest.getAttribute("tenantId");
+                    tenantId = (String) httpRequest.getAttribute("userTenantId");
                 }
                 if(UtilValidate.isEmpty(tenantId)) {
-                    tenantId = (String) httpRequest.getParameter("tenantId");
+                    tenantId = (String) httpRequest.getParameter("userTenantId");
                 }
                 if (UtilValidate.isNotEmpty(tenantId)) {
                     // if the request path is a root mount then redirect to the initial path
@@ -305,7 +305,7 @@ public class ContextFilter implements Filter {
                     request.setAttribute("dispatcher", dispatcher);
                     request.setAttribute("security", security);
                     
-                    request.setAttribute("tenantId", tenantId);
+                    request.setAttribute("userTenantId", tenantId);
                 }
 
                 // NOTE DEJ20101130: do NOT always put the delegator name in the user's session because the user may 

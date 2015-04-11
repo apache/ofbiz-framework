@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
-<#assign tenantId = requestParameters.tenantId!>
+<#assign tenantId = requestParameters.userTenantId!>
 
 <center>
 <div class="screenlet login-screenlet">
@@ -29,7 +29,7 @@ under the License.
     <form method="post" action="<@ofbizUrl>login</@ofbizUrl>" name="loginform">
       <input type="hidden" name="requirePasswordChange" value="Y"/>
       <input type="hidden" name="USERNAME" value="${username}"/>
-      <input type="hidden" name="tenantId" value="${tenantId!}"/>
+      <input type="hidden" name="userTenantId" value="${tenantId!}"/>
       <table cellspacing="0">
         <tr>
           <td class="label">${uiLabelMap.CommonUsername}</td>
