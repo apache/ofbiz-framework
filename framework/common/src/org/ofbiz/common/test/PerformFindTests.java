@@ -103,7 +103,21 @@ public class PerformFindTests extends OFBizTestCase {
         }
     }
 
-    public void testPerformFindConditionFieldEquals() throws Exception {
+    /**
+     * Main test function to call other test.
+     * If each function call by junit, it generate an random error with DBCP
+     * See the issue OFBIZ-6218 Unit tests throw exception in DBCP for more details
+     * @throws Exception
+     */
+    public void testPerformFind() throws Exception {
+         performFindConditionFieldEquals();
+         performFindConditionFieldLike();
+         performFindConditionDistinct();
+         performFindFilterByDate();
+         performFindFilterByDateWithDedicateDateField();
+    }
+
+    private void performFindConditionFieldEquals() throws Exception {
         GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
         prepareData();
 
@@ -140,7 +154,7 @@ public class PerformFindTests extends OFBizTestCase {
         assertEquals("performFind search without condition with equals on testingId", 1, foundElements.size());
     }
 
-    public void testPerformFindConditionFieldLike() throws Exception {
+    private void performFindConditionFieldLike() throws Exception {
         GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
         prepareData();
 
@@ -177,7 +191,7 @@ public class PerformFindTests extends OFBizTestCase {
         assertEquals("performFind search with not like %name% condition", 1, foundElements.size());
     }
 
-    public void testPerformFindConditionDistinct() throws Exception {
+    private void performFindConditionDistinct() throws Exception {
         GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
         prepareData();
 
@@ -198,7 +212,7 @@ public class PerformFindTests extends OFBizTestCase {
         assertEquals("performFind search with distinct Y", 5, foundElements.size());
     }
 
-    public void testPerformFindFilterByDate() throws Exception {
+    private void performFindFilterByDate() throws Exception {
         GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
         prepareData();
 
@@ -218,7 +232,7 @@ public class PerformFindTests extends OFBizTestCase {
         assertEquals("performFind search with filterDate Y", 3, foundElements.size());
     }
 
-    public void testPerformFindFilterByDateWithDedicateDateField() throws Exception {
+    private void performFindFilterByDateWithDedicateDateField() throws Exception {
         GenericValue userLogin = delegator.findOne("UserLogin", true, "userLoginId", "system");
         prepareData();
 
