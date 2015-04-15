@@ -2741,7 +2741,8 @@ under the License.
                 <xs:element ref="result-to-field" minOccurs="0" maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>
-                            Used only when scope="inline". Copies the called method fields to the calling method fields.
+                            Used when scope="function". Copies the called method fields
+                            to the calling method fields.
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
@@ -2769,8 +2770,8 @@ under the License.
             <xs:attribute name="scope">
                 <xs:annotation>
                     <xs:documentation>
-                        The memory scope to use. In an "inline" memory scope, fields declared or modified in the called method
-                        will be reflected back to the calling method - as if the called method was inline. In a "function" memory
+                        The memory scope to use. In an &quot;inline&quot; memory scope, fields declared or modified in the called method
+                        will be reflected back to the calling method - as if the called method was inline. In a &quot;function&quot; memory
                         scope, fields declared or modified in the called method are local to the called method - they are not
                         reflected back to the calling method.
                         
