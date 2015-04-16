@@ -101,7 +101,7 @@ public final class EntityAutoEngine extends GenericAsyncEngine {
                 boolean pkValueInParameters = pkParam.isIn() && UtilValidate.isNotEmpty(parameters.get(pkParam.getFieldName()));
                 if (pkParam.isOut() && !pkValueInParameters) {
                     if (pkFieldNameOutOnly == null) {
-                        pkFieldNameOutOnly = new LinkedList();
+                        pkFieldNameOutOnly = new LinkedList<String>();
                         allPksInOnly = false;
                     }
                     pkFieldNameOutOnly.add(pkField.getName());

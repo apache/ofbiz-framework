@@ -183,7 +183,7 @@ public class Config {
         instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
         // loader classes
-        List loadersTmp = new ArrayList<Map<String, String>>();
+        List<Map<String, String>> loadersTmp = new ArrayList<Map<String, String>>();
         int currentPosition = 1;
         Map<String, String> loader = null;
         while (true) {

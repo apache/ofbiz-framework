@@ -39,7 +39,6 @@ public class SetRequestAttributeMethod implements TemplateMethodModelEx {
     /*
      * @see freemarker.template.TemplateMethodModel#exec(java.util.List)
      */
-    @SuppressWarnings("unchecked")
     public Object exec(List args) throws TemplateModelException {
         if (args == null || args.size() != 2)
             throw new TemplateModelException("Invalid number of arguements");

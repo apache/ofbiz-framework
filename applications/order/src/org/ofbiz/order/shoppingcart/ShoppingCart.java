@@ -2230,9 +2230,9 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
     int result=0;
     for (int i = 0; i <(shipGroupIndex + 1); i++) {
        CartShipInfo csi = this.getShipInfo(i);
-       Iterator it = csi.shipItemInfo.keySet().iterator();
+       Iterator<ShoppingCartItem> it = csi.shipItemInfo.keySet().iterator();
         while (it.hasNext()) {
-            ShoppingCartItem item2 = (ShoppingCartItem) it.next();
+            ShoppingCartItem item2 = it.next();
             if (item.equals(item2) ) {
                 result = i;
             }

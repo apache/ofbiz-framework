@@ -32,6 +32,7 @@ import org.ofbiz.base.conversion.ConverterLoader;
 import org.ofbiz.base.conversion.Converters;
 import org.ofbiz.base.conversion.JSONConverters;
 import org.ofbiz.base.lang.JSON;
+import org.ofbiz.base.util.UtilGenerics;
 
 public class TestJSONConverters  extends TestCase {
     public TestJSONConverters(String name) {
@@ -41,30 +42,30 @@ public class TestJSONConverters  extends TestCase {
     }
 
     public void testJSONToMap() throws Exception {
-        Converter<JSON, Map> converter = Converters.getConverter(JSON.class, Map.class);
-        Map map, convertedMap;
-        map = new HashMap();
+        Converter<JSON, Map<String,String>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, Map.class));
+        Map<String,String> map, convertedMap;
+        map = new HashMap<String,String>();
         map.put("field1", "value1");
         JSON json = JSON.from(map);
-        convertedMap = converter.convert(json);
+        convertedMap = UtilGenerics.toMap(converter.convert(json));
         assertEquals("JSON to Map", map, convertedMap);
     }
 
     public void testJSONToList() throws Exception {
-        Converter<JSON, List> converter = Converters.getConverter(JSON.class, List.class);
-        List list, convertedList;
-        list = new ArrayList();
+        Converter<JSON, List<Object>> converter = UtilGenerics.cast(Converters.getConverter(JSON.class, List.class));
+        List<Object> list, convertedList;
+        list = new ArrayList<Object>();
         list.add("field1");
         list.add("field2");
         JSON json = JSON.from(list);
-        convertedList = converter.convert(json);
+        convertedList = UtilGenerics.toList(converter.convert(json));
         assertEquals("JSON to List", list, convertedList);
     }
 
     public void testMapToJSON() throws Exception {
-        Converter<Map, JSON> converter = Converters.getConverter(Map.class, JSON.class);
+        Converter<Map<String,Object>, JSON> converter = UtilGenerics.cast(Converters.getConverter(Map.class, JSON.class));
         JSON json;
-        Map map = new LinkedHashMap();
+        Map<String,Object> map = new LinkedHashMap<String,Object>();
         map.put("field1", "value1");
         map.put("field2", new BigDecimal("3.7"));
         json = converter.convert(map);
@@ -72,9 +73,9 @@ public class TestJSONConverters  extends TestCase {
     }
 
     public void testListToJSON() throws Exception {
-        Converter<List, JSON> converter = Converters.getConverter(List.class, JSON.class);
+        Converter<List<String>, JSON> converter = UtilGenerics.cast(Converters.getConverter(List.class, JSON.class));
         JSON json;
-        List list = new ArrayList();
+        List<String> list = new ArrayList<String>();
         list.add("field1");
         list.add("field2");
         json = converter.convert(list);

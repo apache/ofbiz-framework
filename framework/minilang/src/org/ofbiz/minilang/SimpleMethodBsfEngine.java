@@ -47,7 +47,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
     /**
      * This is an implementation of the apply() method. It executes the funcBody text in an "anonymous" method call with arguments.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector namesVec, Vector argsVec) throws BSFException {
         // if (namesVec.size() != argsVec.size()) throw new BSFException("number of params/names mismatch");
@@ -100,7 +100,7 @@ public class SimpleMethodBsfEngine extends BSFEngineImpl {
         eval(source, lineNo, columnNo, script);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);

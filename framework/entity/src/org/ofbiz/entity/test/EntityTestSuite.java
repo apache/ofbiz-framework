@@ -1190,8 +1190,8 @@ public class EntityTestSuite extends EntityTestCase {
         final AtomicBoolean nullSeqIdReturned = new AtomicBoolean(false);
 
         List<Future<Void>> futures = new ArrayList<Future<Void>>();
-        Callable getSeqIdTask = new Callable() {
-                    public Callable<Void> call() throws Exception {
+        Callable<Void> getSeqIdTask = new Callable<Void>() {
+                    public Void call() throws Exception {
                         Long seqId = sequencer.getNextSeqId(sequenceName, 1, null);
                         if (seqId == null) {
                             nullSeqIdReturned.set(true);
@@ -1204,15 +1204,15 @@ public class EntityTestSuite extends EntityTestCase {
                         return null;
                     }
                 };
-        Callable refreshTask = new Callable() {
-                            public Callable<Void> call() throws Exception {
+        Callable<Void> refreshTask = new Callable<Void>() {
+                            public Void call() throws Exception {
                                 sequencer.forceBankRefresh(sequenceName, 1);
                                 return null;
                             }
                         };
         double probabilityOfRefresh = 0.1;
         for (int i = 1; i <= 1000; i++) {
-            Callable randomTask = Math.random() < probabilityOfRefresh ? refreshTask : getSeqIdTask;
+            Callable<Void> randomTask = Math.random() < probabilityOfRefresh ? refreshTask : getSeqIdTask;
             futures.add(ExecutionPool.GLOBAL_FORK_JOIN.submit(randomTask));
         }
         long startTime = System.currentTimeMillis();

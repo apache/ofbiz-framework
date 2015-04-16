@@ -160,9 +160,9 @@ public class UtilCodec {
             clean = true;
 
             // try each codec and keep track of which ones work
-            Iterator i = codecs.iterator();
+            Iterator<Codec> i = codecs.iterator();
             while (i.hasNext()) {
-                Codec codec = (Codec) i.next();
+                Codec codec = i.next();
                 String old = working;
                 working = codec.decode(working);
                 if (!old.equals(working)) {
