@@ -36,6 +36,7 @@ import org.ofbiz.entity.model.ModelEntity;
 public class EntityConditionBuilder extends BuilderSupport {
     public static final String module = EntityConditionBuilder.class.getName();
 
+    @SuppressWarnings("serial")
     private static class ConditionHolder extends EntityCondition {
         protected EntityCondition condition;
 

@@ -381,11 +381,10 @@ public class ArtifactInfoFactory {
     }
 
     // private methods
-    @SuppressWarnings("unchecked")
     private Callable<Void> prepareTaskForServiceAnalysis(final String serviceName) {
-        return new Callable() {
+        return new Callable<Void>() {
             @Override
-            public Callable<Void> call() throws Exception {
+            public Void call() throws Exception {
                 try {
                     getServiceArtifactInfo(serviceName);
                 } catch(Exception exc) {
@@ -396,11 +395,10 @@ public class ArtifactInfoFactory {
         };
     }
 
-    @SuppressWarnings("unchecked")
     private Callable<Void> prepareTaskForComponentAnalysis(final ComponentConfig componentConfig) {
-        return new Callable() {
+        return new Callable<Void>() {
             @Override
-            public Callable<Void> call() throws Exception {
+            public Void call() throws Exception {
                 String componentName = componentConfig.getGlobalName();
                 String rootComponentPath = componentConfig.getRootLocation();
                 List<File> screenFiles = new ArrayList<File>();

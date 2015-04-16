@@ -83,7 +83,6 @@ public final class SecurityFactory {
 
     private SecurityFactory() {}
 
-    @SuppressWarnings("deprecation")
     private static final class OFBizSecurity implements Security {
 
         private Delegator delegator = null;

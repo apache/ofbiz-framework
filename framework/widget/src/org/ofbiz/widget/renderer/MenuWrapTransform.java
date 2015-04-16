@@ -70,7 +70,8 @@ public class MenuWrapTransform implements TemplateTransformModel {
     public static final String [] upSaveKeyNames = {"globalNodeTrail"};
     public static final String [] saveKeyNames = {"contentId", "subContentId", "subDataResourceTypeId", "mimeTypeId", "whenMap", "locale",  "wrapTemplateId", "encloseWrapText", "nullThruDatesOnly", "renderOnStart", "renderOnClose", "menuDefFile", "menuName", "associatedContentId", "wrapperClassName"};
 
-    @SuppressWarnings("unchecked")
+    
+    @SuppressWarnings("rawtypes")
     public Writer getWriter(final Writer out, Map args) {
         final Environment env = Environment.getCurrentEnvironment();
         final Delegator delegator = FreeMarkerWorker.getWrappedObject("delegator", env);

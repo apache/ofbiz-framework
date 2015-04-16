@@ -140,10 +140,11 @@ public class JanrainHelper {
         query.put("format", "xml");
         query.put("apiKey", apiKey);
         StringBuffer sb = new StringBuffer();
-        for (Iterator it = query.entrySet().iterator(); it.hasNext();) {
-            if (sb.length() > 0) sb.append('&');
+        for (Iterator<Map.Entry<String, Object>> it = query.entrySet().iterator(); it.hasNext();) {
+            if (sb.length() > 0)
+                sb.append('&');
             try {
-                Map.Entry e = (Map.Entry)it.next();
+                Map.Entry<String, Object> e = it.next();
                 sb.append(URLEncoder.encode(e.getKey().toString(), "UTF-8"));
                 sb.append('=');
                 sb.append(URLEncoder.encode(e.getValue().toString(), "UTF-8"));

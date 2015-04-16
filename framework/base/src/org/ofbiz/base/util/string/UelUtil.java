@@ -79,7 +79,6 @@ public class UelUtil {
      * @return Result object
      * @throws <code>javax.el.*</code> exceptions
      */
-    @SuppressWarnings("unchecked")
     public static Object evaluate(Map<String, ? extends Object> context, String expression, Class expectedType) {
         ELContext elContext = new ReadOnlyContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
@@ -93,7 +92,6 @@ public class UelUtil {
      * @param expectedType The expected object Class to set
      * @throws <code>javax.el.*</code> exceptions
      */
-    @SuppressWarnings("unchecked")
     public static void setValue(Map<String, Object> context, String expression, Class expectedType, Object value) {
         if (Debug.verboseOn()) {
             Debug.logVerbose("UelUtil.setValue invoked, expression = " + expression + ", value = " + value, module);

@@ -40,7 +40,6 @@ public class HumanResEvents {
     public static final String resourceError = "ProductErrorUiLabels";
     
     // Please note : the structure of map in this function is according to the JSON data map of the jsTree
-    @SuppressWarnings("unchecked")
     public static String getChildHRCategoryTree(HttpServletRequest request, HttpServletResponse response){
         Delegator delegator = (Delegator) request.getAttribute("delegator");
         String partyId = request.getParameter("partyId");
@@ -49,7 +48,7 @@ public class HumanResEvents {
         String hrefString = request.getParameter("hrefString");
         String hrefString2 = request.getParameter("hrefString2");
         
-        List categoryList = new ArrayList();
+        List<Map<String,Object>> categoryList = new ArrayList<Map<String,Object>>();
         List<GenericValue> childOfComs;
         //check employee position
         try {

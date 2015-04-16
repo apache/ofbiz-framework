@@ -29,6 +29,7 @@ import java.util.TimeZone;
 
 import org.ofbiz.base.util.Assert;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.minilang.MiniLangUtil;
 
@@ -109,7 +110,7 @@ public abstract class Compare {
                 return false;
             }
             try {
-                Collection collection = (Collection) lValue;
+                Collection<Object> collection = UtilGenerics.checkCollection(lValue);
                 return collection.contains(rValue);
             } catch (ClassCastException e) {
             }
@@ -122,7 +123,6 @@ public abstract class Compare {
 
     private static final class CompareEquals extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -140,7 +140,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) == 0;
             } catch (ClassCastException e) {
             }
@@ -150,7 +150,6 @@ public abstract class Compare {
 
     private static final class CompareGreater extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -163,7 +162,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) > 0;
             } catch (ClassCastException e) {
             }
@@ -173,7 +172,6 @@ public abstract class Compare {
 
     private static final class CompareGreaterEquals extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -186,7 +184,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) >= 0;
             } catch (ClassCastException e) {
             }
@@ -223,7 +221,6 @@ public abstract class Compare {
 
     private static final class CompareLess extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -236,7 +233,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) < 0;
             } catch (ClassCastException e) {
             }
@@ -246,7 +243,6 @@ public abstract class Compare {
 
     private static final class CompareLessEquals extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -259,7 +255,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) <= 0;
             } catch (ClassCastException e) {
             }
@@ -269,7 +265,6 @@ public abstract class Compare {
 
     private static final class CompareNotEquals extends Compare {
 
-        @SuppressWarnings("unchecked")
         @Override
         public boolean doCompare(Object lValue, Object rValue, Class<?> type, Locale locale, TimeZone timeZone, String format) throws Exception {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
@@ -287,7 +282,7 @@ public abstract class Compare {
             } catch (ClassCastException e) {
             }
             try {
-                Comparable comparable = (Comparable) convertedLvalue;
+                Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) != 0;
             } catch (ClassCastException e) {
             }

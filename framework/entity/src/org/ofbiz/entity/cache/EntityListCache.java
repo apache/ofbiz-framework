@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.entity.cache;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +27,11 @@ import java.util.concurrent.ConcurrentMap;
 import javax.transaction.UserTransaction;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.entity.GenericPK;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.util.EntityUtil;
-import org.ofbiz.entity.transaction.GenericTransactionException;
-import org.ofbiz.entity.transaction.TransactionFactoryLoader;
 import org.ofbiz.entity.transaction.TransactionListener;
-import org.ofbiz.entity.transaction.TransactionUtil;
 
 public class EntityListCache extends AbstractEntityConditionCache<Object, List<GenericValue>> implements TransactionListener {
 

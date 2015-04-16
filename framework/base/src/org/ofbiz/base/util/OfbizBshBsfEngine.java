@@ -40,7 +40,6 @@ import org.apache.bsf.BSFDeclaredBean;
 import org.apache.bsf.BSFException;
 import org.apache.bsf.BSFManager;
 import org.apache.bsf.util.BSFEngineImpl;
-
 import org.ofbiz.base.util.cache.UtilCache;
 
 /**
@@ -63,7 +62,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
 
     private static final UtilCache<String, Interpreter.ParsedScript> parsedScripts = UtilCache.createUtilCache("script.BshBsfParsedCache", 0, 0, false);
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public void initialize(BSFManager mgr, String lang, Vector declaredBeans) throws BSFException {
         super.initialize(mgr, lang, declaredBeans);
@@ -137,7 +136,7 @@ public class OfbizBshBsfEngine extends BSFEngineImpl {
      * It executes the funcBody text in an "anonymous" method call with
      * arguments.
      */
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings("rawtypes")
     @Override
     public Object apply(String source, int lineNo, int columnNo, Object funcBody, Vector namesVec, Vector argsVec) throws BSFException {
         if (namesVec.size() != argsVec.size()) throw new BSFException("number of params/names mismatch");

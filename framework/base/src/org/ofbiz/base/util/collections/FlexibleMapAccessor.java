@@ -43,7 +43,6 @@ import org.ofbiz.base.util.string.UelUtil;
 public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     public static final String module = FlexibleMapAccessor.class.getName();
     private static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = UtilCache.createUtilCache("flexibleMapAccessor.ExpressionCache");
-    @SuppressWarnings("unchecked")
     private static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor("");
 
     private final boolean isEmpty;
@@ -219,7 +218,6 @@ public final class FlexibleMapAccessor<T> implements Serializable, IsEmpty {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
