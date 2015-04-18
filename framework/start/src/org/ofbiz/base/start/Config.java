@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -45,6 +46,17 @@ import java.util.Properties;
 import java.util.TimeZone;
 
 public class Config {
+
+    private static final FileFilter componentLoadFilter = new FileFilter() {
+        public boolean accept(File pathname) {
+            return "component-load.xml".equals(pathname.getName());
+        }
+    };
+    private static final FileFilter folderFilter = new FileFilter() {
+        public boolean accept(File pathname) {
+            return pathname.isDirectory();
+        }
+    };
 
     public final InetAddress adminAddress;
     public final String adminKey;
@@ -183,7 +195,7 @@ public class Config {
         instrumenterFile = getProp(props, "ofbiz.instrumenterFile", null);
 
         // loader classes
-        List<Map<String, String>> loadersTmp = new ArrayList<Map<String, String>>();
+        ArrayList<Map<String, String>> loadersTmp = new ArrayList<Map<String, String>>();
         int currentPosition = 1;
         Map<String, String> loader = null;
         while (true) {
@@ -198,6 +210,7 @@ public class Config {
                 currentPosition++;
             }
         }
+        loadersTmp.trimToSize();
         loaders = Collections.unmodifiableList(loadersTmp);
 
         // set the port offset
@@ -302,16 +315,6 @@ public class Config {
         if (!folder.exists() && !folder.isDirectory()) {
             return;
         }
-        FileFilter componentLoadFilter = new FileFilter() {
-            public boolean accept(File pathname) {
-                return "component-load.xml".equals(pathname.getName());
-            }
-        };
-        FileFilter folderFilter = new FileFilter() {
-            public boolean accept(File pathname) {
-                return pathname.isDirectory();
-            }
-        };
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = factory.newDocumentBuilder();
         File[] componentLoadFiles;
