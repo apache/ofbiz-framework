@@ -35,7 +35,6 @@ import java.util.List;
 
 completedTree =  [];
 completedTreeContext = [];
-existParties = [];
 subtopLists = [];
 
 //internalOrg list
@@ -43,7 +42,7 @@ partyRelationships = from("PartyRelationship").where("partyIdFrom", partyId, "pa
 if (partyRelationships) {
     //root
     partyRoot = from("PartyGroup").where("partyId", partyId).queryOne();
-    partyRootMap = [];
+    partyRootMap = [:];
     partyRootMap.put("partyId", partyId);
     partyRootMap.put("groupName", partyRoot.getString("groupName"));
 
