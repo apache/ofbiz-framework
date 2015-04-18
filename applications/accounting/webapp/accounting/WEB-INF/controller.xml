@@ -1566,6 +1566,12 @@ under the License.
         <response name="success" type="view" value="EditTaxAuthorityPartyInfo"/>
         <response name="error" type="view" value="EditTaxAuthorityPartyInfo"/>
     </request-map>
+    <request-map uri="FindTaxAuthorityReport">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="FindTaxAuthorityReport"/>
+        <response name="error" type="view" value="FindTaxAuthorityReport"/>
+    </request-map>
+    
 
     <!-- ================ Administratvie Requests ================ -->
     <request-map uri="ListCompanies">
@@ -2844,7 +2850,8 @@ under the License.
     <view-map name="EditTaxAuthorityRateProducts" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthorityRateProducts"/>
     <view-map name="ListTaxAuthorityParties" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#ListTaxAuthorityParties"/>
     <view-map name="EditTaxAuthorityPartyInfo" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#EditTaxAuthorityPartyInfo"/>
-
+    <view-map name="FindTaxAuthorityReport" type="screen" page="component://accounting/widget/TaxAuthorityScreens.xml#FindTaxAuthorityReport"/>
+    
     <!-- administrative pages -->
     <view-map name="ListCompanies" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListCompanies"/>
     <view-map name="AddCompany" type="screen" page="component://accounting/widget/GlSetupScreens.xml#AddCompany"/>
