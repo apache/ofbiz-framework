@@ -405,4 +405,33 @@ under the License.
         <field use-when="partyTaxAuthInfo!=null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext"><submit button-type="text-link"/></field>
         <field use-when="partyTaxAuthInfo==null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
+    
+    
+    <!-- Tax Authority Tax Reports forms -->
+    <form name="FindTaxAuthorityReport" type="single" target="FindTaxAuthorityReport"
+        title="Find and list VAT report for a tax authority, my month, quater or other period"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="hideSearch"><hidden value="Y"/></field>
+        <field name="taxAuthPartyId"><hidden/></field>
+        <field name="taxAuthGeoId"><hidden/></field>
+        <field name="invoiceDate"><date-find type="date" default-option-from="greaterThanFromDayStart" default-option-thru="upThruDay"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSearch}" widget-style="buttontext" >
+            <submit button-type="button"/>
+        </field>
+    </form>
+    
+    <form name="ListTaxAuthorityReport" list-name="listIt" title="" type="list" 
+        odd-row-style="alternate-row" header-row-style="header-row-2" 
+        default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map="result" result-map-list="listIt">
+                <field-map field-name="inputFields" from-field="parameters"/>
+                <field-map field-name="entityName" value="InvoiceItem"/>
+                <field-map field-name="viewIndex" from-field="viewIndex"/>
+                <field-map field-name="viewSize" from-field="viewSize"/>
+            </service>
+        </actions>
+        <auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
+    </form>
 </forms>

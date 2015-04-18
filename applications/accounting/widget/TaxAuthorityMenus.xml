@@ -59,5 +59,11 @@ under the License.
                 <parameter param-name="taxAuthGeoId"/>
             </link>
         </menu-item>
+        <menu-item name="FindTaxAuthorityReport" title="${uiLabelMap.CommonReport}">
+            <link target="FindTaxAuthorityReport">
+                <parameter param-name="taxAuthPartyId"/>
+                <parameter param-name="taxAuthGeoId"/>
+            </link>
+        </menu-item>
     </menu>
 </menus>

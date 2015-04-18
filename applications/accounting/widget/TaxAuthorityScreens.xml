@@ -264,4 +264,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
+    <!-- reporting -->
+    <screen name="FindTaxAuthorityReport">
+        <section>
+            <actions>
+                <set field="headerItem" value="invoices"/>
+                <set field="titleProperty" value="TaxAuthorityReport"/>
+                <set field="tabButtonItem" value="FindTaxAuthorityReport"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonTaxAuthorityDecorator" location="${parameters.taxAuthDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonFind}">
+                            <include-form name="FindTaxAuthorityReport" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListTaxAuthorityReport">
+                            <include-form name="ListTaxAuthorityReport" location="component://accounting/widget/TaxAuthorityForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
 </screens>
