@@ -19,6 +19,10 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
+    <property key="ContentFopFonts">
+        <value xml:lang="en">FOP fonts in a PDF</value>
+        <value xml:lang="fr">Polices FOP dans un PDF</value>
+    </property>
     <property key="ExampleAjaxExamples">
         <value xml:lang="en">Ajax Examples</value>
         <value xml:lang="fr">Exemples Ajax</value>
@@ -71,6 +75,10 @@
         <value xml:lang="zh">如果选择"specify other"，下拉框旁边会出现本文框。参考form的drop-down元素的other-field-size属性说明</value>
         <value xml:lang="zh-TW">如果選擇"specify other",下拉清單旁邊會出現本文框.參考form的drop-down元素的other-field-size屬性說明</value>
     </property>
+    <property key="ExampleBarChart">
+        <value xml:lang="en">Bar Chart</value>
+        <value xml:lang="fr">Histogramme</value>
+    </property>
     <property key="ExampleBaseNodeVersion">
         <value xml:lang="de">Verion des Content Knoten</value>
         <value xml:lang="en">Version of the base content node</value>
@@ -121,6 +129,10 @@
         <value xml:lang="zh">开源软件OFBiz家族的一部分</value>
         <value xml:lang="zh-CN">OFBiz的一部分</value>
         <value xml:lang="zh-TW">開源軟體OFBiz家族的一部分</value>
+    </property>
+    <property key="ExampleChart">
+        <value xml:lang="en">Chart examples</value>
+        <value xml:lang="fr">Graphes</value>
     </property>
     <property key="ExampleDashboard">
         <value xml:lang="en">Dashboard</value>
@@ -764,6 +776,10 @@
         <value xml:lang="ja">exampleGenericPermission サービスの中の permission-service 要素で、必要な main-action 属性が正しくありません</value>
         <value xml:lang="zh">在用于exampleGenericPermission服务的permission-service元素中，缺少必须的main-action属性</value>
         <value xml:lang="zh-TW">在用於exampleGenericPermission服務的permission-service元素中,缺少必須的main-action屬性</value>
+    </property>
+    <property key="ExamplePieChart">
+        <value xml:lang="en">Pie Chart</value>
+        <value xml:lang="fr">Camembert</value>
     </property>
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>
