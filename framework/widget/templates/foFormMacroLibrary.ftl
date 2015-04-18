@@ -33,8 +33,10 @@ under the License.
         "h2":"font-weight=\"bold\"",
         "h3":"font-weight=\"bold\" font-style=\"italic\"",
         "error":"color=\"red\""}/>
-    <#assign foStyle = foStyles[style]?default("")/>
-    ${foStyle?default("")}
+    <#list style?split(' ') as styleItem>
+        <#assign foStyle = foStyles[styleItem]?default("")/>
+        ${foStyle?default("")}
+    </#list>
 </#macro>
 
 <#escape x as x?xml>

@@ -31,8 +31,10 @@ under the License.
         "h2":"font-weight=\"bold\"",
         "h3":"font-weight=\"bold\" font-style=\"italic\"",
         "error":"color=\"red\""}/>
-    <#assign foStyle = foStyles[style]?default("")/>
-    ${foStyle?default("")}
+    <#list style?split(' ') as styleItem>
+        <#assign foStyle = foStyles[styleItem]?default("")/>
+        ${foStyle?default("")}
+    </#list>
 </#macro>
 
 <#escape x as x?xml>
@@ -59,7 +61,7 @@ under the License.
 <#macro renderSubContentEnd urlString editMode editContainerStyle editRequest enableEditValue></#macro>
 
 <#macro renderHorizontalSeparator id style><fo:block><fo:leader leader-length="100%" leader-pattern="rule" rule-style="solid" rule-thickness="0.1mm" color="black"/></fo:block></#macro>
-<#macro renderLabel text id style><#if text?has_content><fo:block <#if id?has_content> id="${id}"</#if>>${text}</fo:block></#if></#macro>
+<#macro renderLabel text id style><#if text?has_content><fo:block <#if style?has_content><@getFoStyle style/></#if> <#if id?has_content> id="${id}"</#if>>${text}</fo:block></#if></#macro>
 <#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr></#macro>
 <#macro renderImage src id style wid hgt border alt urlString></#macro>
 
