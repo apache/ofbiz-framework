@@ -66,8 +66,12 @@ public final class Debug {
 
         // initialize levelOnCache
         Properties properties = UtilProperties.createProperties("debug.properties");
-        for (int i = 0; i < levelOnCache.length; i++) {
-            levelOnCache[i] = (i == Debug.ALWAYS || "true".equalsIgnoreCase(properties.getProperty(levelProps[i])));
+        if (properties != null) {
+            for (int i = 0; i < levelOnCache.length; i++) {
+                levelOnCache[i] = (i == Debug.ALWAYS || "true".equalsIgnoreCase(properties.getProperty(levelProps[i])));
+            }
+        } else {
+            throw new IllegalStateException("debug.properties file not found");
         }
     }
 

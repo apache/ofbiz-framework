@@ -287,9 +287,10 @@ public class UtilProperties implements Serializable {
      * properties files before OFBiz has been fully initialized.</p>
      * 
      * @param fileName The full name of the properties file ("foo.properties")
-     * @return A new <code>Properties</code> instance created from <code>fileName</code>
+     * @return A new <code>Properties</code> instance created from <code>fileName</code>, or
+     * <code>null</code> if the file was not found
      * @throws IllegalArgumentException if <code>fileName</code> is empty
-     * @throws IllegalStateException if there were any problems reading the file
+     * @throws IllegalStateException if there was a problem reading the file
      */
     public static Properties createProperties(String fileName) {
         Assert.notEmpty("fileName", fileName);
@@ -297,14 +298,14 @@ public class UtilProperties implements Serializable {
         try {
             URL url = Thread.currentThread().getContextClassLoader().getResource(fileName);
             if (url == null) {
-                throw new IllegalStateException(fileName + " not found");
+                return null;
             }
             inStream = url.openStream();
             Properties properties = new Properties();
             properties.load(inStream);
             return properties;
         } catch (Exception e) {
-            throw new IllegalStateException("Exception thrown while reading debug.properties: " + e);
+            throw new IllegalStateException("Exception thrown while reading " + fileName + ": " + e);
         } finally {
             if (inStream != null) {
                 try {
