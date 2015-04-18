@@ -580,7 +580,14 @@ public class Record implements Serializable {
         }
         }
         try {
-        if (textDelimiter != null && (strVal.startsWith(textDelimiter) && strVal.endsWith(textDelimiter))) {
+        if (textDelimiter != null && strVal != null && (strVal.startsWith(textDelimiter) && (!strVal.endsWith(textDelimiter) || strVal.length()==1))) {
+            strVal = strVal.concat(""+delimiter);
+            while (!strVal.endsWith(textDelimiter)) {
+                strVal = strVal.concat(st.nextToken());
+            }
+            st.nextToken();
+        }
+        if (textDelimiter != null && strVal != null && (strVal.startsWith(textDelimiter) && strVal.endsWith(textDelimiter))) {
             strVal = strVal.substring(textDelimiter.length(), strVal.length() - textDelimiter.length());
         }
         record.setString(modelField.name, strVal);
