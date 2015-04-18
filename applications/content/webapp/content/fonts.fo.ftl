@@ -1576,6 +1576,9 @@ Euro symbol in Helvetica 12 ( dec 8364, hex 20AC): &#x20AC;
 Ruppe symbol in NotoSans 12 (dec 8377, hex 20B9): &#x20B9;
   </fo:block>
   <fo:block font-family="NotoSans"  font-size="12pt">
+0 &#x00B0;C = 32 &#x00B0;F :)
+  </fo:block>
+  <fo:block font-family="NotoSans"  font-size="12pt">
 I &#x2665; NotoSans!
   </fo:block>
 

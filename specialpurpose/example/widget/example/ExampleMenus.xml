@@ -42,8 +42,11 @@ under the License.
         <menu-item name="ExampleGeoLocation" title="${uiLabelMap.CommonGeoLocation}">
             <link target="ExampleGeoLocationPointSet1"/>
         </menu-item>
-        <menu-item name="ExampleCharts" title="Chart examples">
+        <menu-item name="ExampleCharts" title="${uiLabelMap.ExampleChart}">
             <link target="ExampleBarChart"/>
+        </menu-item>
+        <menu-item name="ExampleCompleteFop" title="${uiLabelMap.ContentFopFonts}">
+                <link target="fonts.pdf"/>
         </menu-item>
     </menu>
 
@@ -51,7 +54,7 @@ under the License.
         <menu-item name="EditExample" title="${uiLabelMap.ExampleExample}">
             <link target="EditExample">
                 <parameter param-name="exampleId"/>
-            </link>            
+            </link>
         </menu-item>
         <menu-item name="EditExampleItems" title="${uiLabelMap.CommonItems}">
             <link target="EditExampleItems">
@@ -88,7 +91,12 @@ under the License.
     </menu>
 
     <menu name="ExampleCharts" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
-        <menu-item name="ExampleBarChart" title="Bar chart"><link target="ExampleBarChart"/></menu-item>
-        <menu-item name="ExamplePieChart" title="Pie chart"><link target="ExamplePieChart"/></menu-item>
+        <menu-item name="ExampleBarChart" title="${uiLabelMap.ExampleBarChart}"><link target="ExampleBarChart"/></menu-item>
+        <menu-item name="ExamplePieChart" title="${uiLabelMap.ExamplePieChart}"><link target="ExamplePieChart"/></menu-item>
+    </menu>
+
+    <menu name="ExampleFopFonts" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="ExampleSimpleFop" title="${uiLabelMap.ExampleFopFonts}"><link target="printExampleFOPFonts"/></menu-item>
+        <menu-item name="ExampleCompleteFop" title="${uiLabelMap.ContentFopFonts}"><link target="fonts.pdf"/></menu-item>
     </menu>
 </menus>
