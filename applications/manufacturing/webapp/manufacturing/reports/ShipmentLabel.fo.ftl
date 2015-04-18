@@ -36,7 +36,7 @@ under the License.
                         <#if index == 1>
                                <fo:table border="0.5pt solid black">
                                 <fo:table-column column-width="252pt"/>
-                                <fo:table-header>
+                                <fo:table-body>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.ManufacturingShipTo}:</fo:block>
@@ -44,21 +44,20 @@ under the License.
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
-                                            <fo:block font-size="18pt">${record.get("shippingAddressName")}</fo:block>
+                                            <fo:block font-size="18pt">${record.get("shippingAddressName")?if_exists}</fo:block>
                                         </fo:table-cell>
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
-                                            <fo:block>${record.get("shippingAddressAddress")}</fo:block>
+                                            <fo:block>${record.get("shippingAddressAddress")?if_exists}</fo:block>
                                         </fo:table-cell>
                                     </fo:table-row>
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
-                                            <fo:block>${record.get("shippingAddressCity")}</fo:block>
+                                            <fo:block>${record.get("shippingAddressCity")?if_exists}</fo:block>
                                         </fo:table-cell>
                                     </fo:table-row>
-                                </fo:table-header>
-                                <fo:table-body/>
+                                </fo:table-body>
                             </fo:table>
                             <fo:block space-after.optimum="10pt" font-size="10pt"/>
                             <fo:table>
@@ -66,7 +65,7 @@ under the License.
                                 <fo:table-column column-width="63pt"/>
                                 <fo:table-column column-width="93pt"/>
                                 <fo:table-column column-width="33pt"/>
-                                <fo:table-header border="0.5pt solid black">
+                                <fo:table-body border="0.5pt solid black">
                                     <fo:table-row>
                                         <fo:table-cell padding="2pt">
                                             <fo:block>${uiLabelMap.OrderOrderId}</fo:block>
@@ -81,8 +80,7 @@ under the License.
                                             <fo:block>${uiLabelMap.CommonQuantity}</fo:block>
                                         </fo:table-cell>
                                     </fo:table-row>
-                                </fo:table-header>
-                                <fo:table-body/>
+                                </fo:table-body>
                             </fo:table>
                         </#if>
                         <fo:table>
@@ -90,27 +88,26 @@ under the License.
                             <fo:table-column column-width="63pt"/>
                             <fo:table-column column-width="93pt"/>
                             <fo:table-column column-width="33pt"/>
-                            <fo:table-header/>
                             <fo:table-body>
                                 <fo:table-row>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
-                                            ${record.get("orderId")} ${record.get("orderItemSeqId")}
+                                            ${record.get("orderId")?if_exists} ${record.get("orderItemSeqId")?if_exists}
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
-                                            ${record.get("productId")}
+                                            ${record.get("productId")?if_exists}
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block>
-                                            ${record.get("productName")}
+                                            ${record.get("productName")?if_exists}
                                         </fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
                                         <fo:block text-align="right">
-                                            ${record.get("quantity")}
+                                            ${record.get("quantity")?if_exists}
                                         </fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
@@ -141,17 +138,17 @@ under the License.
                             <fo:table-row>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
-                                        ${shipmentIdPar}/${shipmentPackageSeqId}
+                                        ${shipmentIdPar?if_exists}/${shipmentPackageSeqId?if_exists}
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
-                                        ${shipmentIdPar}
+                                        ${shipmentIdPar?if_exists}
                                     </fo:block>
                                 </fo:table-cell>
                                 <fo:table-cell padding="2pt">
                                     <fo:block>
-                                        <#if shipDate?has_content>${shipDate}</#if>
+                                        <#if shipDate?has_content>${shipDate?if_exists}</#if>
                                     </fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
