@@ -103,9 +103,8 @@ document.lookupinventory.productId.focus();
 <table class="basic-table" cellspacing="0">
   <tr>
     <td width='100%'>
-      <#if inventoryList??>
-      <#if 0 < inventoryList?size>
-       <#assign rowClass = "alternate-row">
+      <#if inventoryList?has_content>
+         <#assign rowClass = "alternate-row">
          <table class="basic-table" cellspacing="0">
           <tr>
            <td width="50%" class="boxhead">${uiLabelMap.CommonElementsFound}</td>
@@ -149,7 +148,7 @@ document.lookupinventory.productId.focus();
         <#assign productTmp = "">
         <#list inventoryList[lowIndex..highIndex-1] as inven>
             <#assign product = inven.getRelatedOne("Product", false)>
-            <#if facilityId?? && facilityId?has_content>
+            <#if facilityId?has_content>
             </#if>
             <#if ! product.equals( productTmp )>
                 <#assign quantityAvailableAtDate = 0>
@@ -161,7 +160,7 @@ document.lookupinventory.productId.focus();
                 <#if qohEvents?has_content>
                     <#assign initialQohEvent = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(qohEvents)>
                 </#if>
-                <#if initialQohEvent??>
+                <#if initialQohEvent?has_content>
                     <#if initialQohEvent.quantity?has_content>
                         <#assign quantityAvailableAtDate = initialQohEvent.quantity>
                     </#if>
@@ -227,7 +226,6 @@ document.lookupinventory.productId.focus();
        <div align="center">${uiLabelMap.CommonNoElementFound}</div>
        <br />
       </#if>
-    </#if>
     </td>
   </tr>
 </table>
