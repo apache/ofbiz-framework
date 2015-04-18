@@ -74,7 +74,7 @@ under the License.
     <webapp name="contentimages"
         title="Content Images"
         server="default-server"
-        location="webapp/content/images"
+        location="webapp/contentimages"
         mount-point="/contentimages/"
         app-bar-display="false"/>
 
