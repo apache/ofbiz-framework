@@ -522,7 +522,6 @@ under the License.
           <fileset dir="${ofbiz.home.dir}/specialpurpose/googlecheckout/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/ldap/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/specialpurpose/pos/lib" includes="*.jar"/>
-          <fileset dir="${ofbiz.home.dir}/specialpurpose/jetty/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/content/lib" includes="*.jar"/>
           <fileset dir="${ofbiz.home.dir}/applications/product/lib" includes="*.jar"/>
         </path>
@@ -1311,7 +1310,7 @@ under the License.
 
         <property name="sonar.sources" value="framework/base/src, framework/bi/src,
             framework/catalina/src, framework/common/src, framework/datafile/src, framework/entity/src, framework/entityext/src,
-            framework/example/src, framework/geronimo/src, framework/jetty/src,
+            framework/example/src, framework/geronimo/src, 
             framework/minilang/src, framework/security/src, framework/service/src, framework/start/src,
             framework/testtools/src, framework/webapp/src, framework/webtools/src, framework/widget/src,
             applications/accounting/src, applications/commonext/src, applications/content/src, applications/humanres/src,

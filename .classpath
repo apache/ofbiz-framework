@@ -124,21 +124,6 @@
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaysdkcore.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/helper.jar"/>
     <classpathentry kind="lib" path="specialpurpose/googlecheckout/lib/checkout-sdk-0.8.8.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/com.sun.el-2.2.0.v201108011116.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/javax.servlet.jsp.jstl-1.2.0.v201105211821.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-ajp-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-continuation-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-http-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-io-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-security-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-server-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-servlet-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-util-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-webapp-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/jetty-xml-8.1.2.v20120308.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/org.apache.jasper.glassfish-2.2.2.v201112011158.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/org.apache.taglibs.standard.glassfish-1.2.0.v201112081803.jar"/>
-    <classpathentry kind="lib" path="specialpurpose/jetty/lib/org.eclipse.jdt.core-3.7.1.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.3.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/XuiCoreSwing-v3.2rc2b.jar"/>
     <classpathentry kind="lib" path="specialpurpose/pos/lib/XuiOptional-v3.2rc2b.jar"/>
@@ -182,7 +167,6 @@
     <classpathentry kind="src" path="specialpurpose/googlebase/src"/>
     <classpathentry kind="src" path="specialpurpose/googlecheckout/src"/>
     <classpathentry kind="src" path="specialpurpose/hhfacility/src"/>
-    <classpathentry kind="src" path="specialpurpose/jetty/src"/>
     <classpathentry kind="src" path="specialpurpose/ldap/src"/>
     <classpathentry kind="src" path="specialpurpose/oagis/src"/>
     <classpathentry kind="src" path="specialpurpose/pos/src"/>

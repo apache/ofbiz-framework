@@ -26,7 +26,6 @@ runtime/logs/test-results/*
 runtime/data/derby/*
 runtime/data/utilcache.*
 runtime/catalina/work/*
-runtime/jetty
 runtime/tempfiles/*
 !runtime/tempfiles/README
 runtime/indexes/products/
