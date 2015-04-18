@@ -25,7 +25,7 @@ shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
 context.shipmentIdPar = shipment.shipmentId;
 context.date = new Date();
 Double fixedAssetTime = new Double(0);
-
+records = [];
 if (shipment) {
     shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList();
     shipmentPlans.each { shipmentPlan ->
@@ -51,7 +51,9 @@ if (shipment) {
                     record.taskEstimatedTime = task.getDouble("estimatedMilliSeconds");
                     record.taskEstimatedSetup = task.getDouble("estimatedSetupMillis");
                     records.add(record);
-                    fixedAssetTime = fixedAssetTime + task.getDouble("estimatedMilliSeconds");
+                    if(task.getDouble("estimatedMilliSeconds") != null){
+                        fixedAssetTime = fixedAssetTime + task.getDouble("estimatedMilliSeconds");
+                    }
                 }
             }
         }

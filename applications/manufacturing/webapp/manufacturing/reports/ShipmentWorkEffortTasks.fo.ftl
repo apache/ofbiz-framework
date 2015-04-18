@@ -65,60 +65,48 @@ under the License.
                                 <fo:table-cell padding="2pt">
                                     <fo:block>${uiLabelMap.ManufacturingOperationCodeAndDescription}</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt">
+                                <fo:table-cell padding="2pt" text-align="right">
                                     <fo:block>${uiLabelMap.ManufacturingTaskRunTime}</fo:block>
                                 </fo:table-cell>
-                                <fo:table-cell padding="2pt">
+                                <fo:table-cell padding="2pt" text-align="right">
                                     <fo:block>${uiLabelMap.ManufacturingTaskSetupTime}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-header>
-                        <fo:table-body/>
-                    </fo:table>
-                    <#list records as record>
-                        <fo:table font-size="8pt">
-                            <fo:table-column column-width="45pt"/>
-                               <fo:table-column column-width="45pt"/>
-                            <fo:table-column column-width="60pt"/>
-                            <fo:table-column column-width="90pt"/>
-                            <fo:table-column column-width="90pt"/>
-                            <fo:table-column column-width="60pt"/>
-                            <fo:table-column column-width="60pt"/>
-                            <fo:table-header/>
-                            <fo:table-body>
+                        <fo:table-body>
+                            <#list records as record>
                                 <fo:table-row>
                                     <fo:table-cell padding="2pt">
-                                        <fo:block>${record.get("workEffortId")}</fo:block>
+                                        <fo:block>${record.get("workEffortId")?if_exists}</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
-                                        <fo:block><#if estimatedReadyDatePar?has_content>${record.get("fixedAssetId")}</#if></fo:block>
+                                        <fo:block><#if estimatedReadyDatePar?has_content>${record.get("fixedAssetId")?if_exists}</#if></fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
-                                        <fo:block>${record.get("productId")}</fo:block>
+                                        <fo:block>${record.get("productId")?if_exists}</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
-                                        <fo:block>${record.get("productName")}</fo:block>
+                                        <fo:block>${record.get("productName")?if_exists}</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt">
-                                        <fo:block>${record.get("taskName")} ${record.get("taskDescription")}</fo:block>
+                                        <fo:block>${record.get("taskName")} ${record.get("taskDescription")?if_exists}</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt" text-align="right">
-                                        <fo:block>${record.get("taskEstimatedTime")}</fo:block>
+                                        <fo:block>${record.get("taskEstimatedTime")?if_exists}</fo:block>
                                     </fo:table-cell>
                                     <fo:table-cell padding="2pt" text-align="right">
-                                        <fo:block>${record.get("taskEstimatedSetup")}</fo:block>
+                                        <fo:block>${record.get("taskEstimatedSetup")?if_exists}</fo:block>
                                     </fo:table-cell>
                                 </fo:table-row>
-                            </fo:table-body>
-                        </fo:table>
-                       </#list>
-                       <fo:table font-size="8pt">
+                            </#list>
+                        </fo:table-body>
+                    </fo:table>
+                    <fo:table font-size="8pt">
                         <fo:table-column column-width="450pt"/>
-                        <fo:table-header/>
                         <fo:table-body>
                             <fo:table-row>
                                 <fo:table-cell padding="2pt" text-align="right">
-                                    <fo:block>${fixedAssetTime}</fo:block>
+                                    <fo:block>${fixedAssetTime?if_exists}</fo:block>
                                 </fo:table-cell>
                             </fo:table-row>
                         </fo:table-body>
