@@ -211,10 +211,13 @@ public class InvoiceServices {
 
             // get some price totals
             BigDecimal shippableAmount = orh.getShippableTotal(null);
+            BigDecimal shippableQuantity = orh.getShippableQuantity(null);
             BigDecimal orderSubTotal = orh.getOrderItemsSubTotal();
+            BigDecimal orderQuantity = orh.getTotalOrderItemsQuantity();
 
             // these variables are for pro-rating order amounts across invoices, so they should not be rounded off for maximum accuracy
             BigDecimal invoiceShipProRateAmount = ZERO;
+            BigDecimal invoiceShippableQuantity = ZERO;
             BigDecimal invoiceSubTotal = ZERO;
             BigDecimal invoiceQuantity = ZERO;
 
@@ -457,6 +460,7 @@ public class InvoiceServices {
                 // add to the ship amount only if it applies to this item
                 if (shippingApplies) {
                     invoiceShipProRateAmount = invoiceShipProRateAmount.add(thisAmount).setScale(invoiceTypeDecimals, ROUNDING);
+                    invoiceShippableQuantity = invoiceQuantity.add(billingQuantity).setScale(invoiceTypeDecimals, ROUNDING);
                 }
 
                 // increment the invoice subtotal
@@ -675,7 +679,16 @@ public class InvoiceServices {
                 } else {
                     // these will effect the shipping pro-rate (unless commented)
                     // other adjustment type
-                    calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, orderSubTotal, invoiceSubTotal,
+                    BigDecimal divisor = orderSubTotal;
+                    BigDecimal multiplier = invoiceSubTotal;
+                    if (BigDecimal.ZERO.compareTo(multiplier) == 0 && BigDecimal.ZERO.compareTo(divisor) == 0) {
+                        // if multiplier and divisor are equal to zero then use the quantities instead of the amounts
+                        // this is useful when the order has free items and misc charges
+                        divisor = orderQuantity;
+                        multiplier = invoiceQuantity;
+                    }
+
+                    calcHeaderAdj(delegator, adj, invoiceType, invoiceId, invoiceItemSeqId, divisor, multiplier,
                             adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING), invoiceTypeDecimals, ROUNDING, userLogin, dispatcher, locale);
                     // invoiceShipProRateAmount += adjAmount;
                     // do adjustments compound or are they based off subtotal? Here we will (unless commented)
@@ -708,6 +721,12 @@ public class InvoiceServices {
                     // Pro-rate the shipping amount based on shippable information
                     BigDecimal divisor = shippableAmount;
                     BigDecimal multiplier = invoiceShipProRateAmount;
+                    if (BigDecimal.ZERO.compareTo(multiplier) == 0 && BigDecimal.ZERO.compareTo(divisor) == 0) {
+                        // if multiplier and divisor are equal to zero then use the quantities instead of the amounts
+                        // this is useful when the order has free items and shipping charges
+                        divisor = shippableQuantity;
+                        multiplier = invoiceShippableQuantity;
+                    }
 
                     // The base amount in this case is the adjustment amount, since we want to prorate based on the full amount
                     BigDecimal baseAmount = adj.getBigDecimal("amount").setScale(invoiceTypeDecimals, ROUNDING);
