@@ -516,7 +516,7 @@ under the License.
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="logoImageUrl" value="/images/ofbiz_logo.gif" global="true"/>
-                <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="Arial"/>
+                <property-to-field resource="fop.properties" field="defaultFontFamily" property="fop.font.family" default="NotoSans"/>
             </actions>
             <widgets>
                 <platform-specific><xsl-fo><html-template location="component://common/webcommon/includes/reportTemplate.fo.ftl"/></xsl-fo></platform-specific>
