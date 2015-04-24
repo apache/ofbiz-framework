@@ -36,7 +36,6 @@ import java.util.concurrent.Callable;
 
 import javax.transaction.Transaction;
 
-import org.apache.tools.ant.taskdefs.condition.HasMethod;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.GeneralRuntimeException;
