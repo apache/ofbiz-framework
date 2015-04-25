@@ -23,8 +23,8 @@ import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -367,7 +367,7 @@ public class StringUtil {
      * @return new List
      */
     public static Set<String> toSet(String s) {
-        Set<String> newSet = new HashSet<String>();
+        Set<String> newSet = new LinkedHashSet<String>();
         if (s.startsWith("[") && s.endsWith("]")) {
             s = s.substring(1, s.length() - 1);
             String[] entries = s.split("\\,\\s");
