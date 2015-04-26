@@ -63,12 +63,6 @@ under the License.
     </patternset>
 
     <target name="init">
-        <!-- make sure we have crypto packages available -->
-        <condition property="exclude.crypto" value="org/ofbiz/base/crypto/**">
-            <not>
-                <available classname="javax.crypto.Cipher" classpathref="local.class.path"/>
-            </not>
-        </condition>
         <condition property="exclude.cobertura" value="org/ofbiz/base/config/Cobertura*.java">
             <not>
                 <available classname="net.sourceforge.cobertura.instrument.ClassInstrumenter" classpathref="cobertura.class.path"/>
@@ -76,7 +70,6 @@ under the License.
         </condition>
         <patternset id="src.exc.set">
             <exclude name="${exclude.cobertura}"/>
-            <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </patternset>
     </target>
