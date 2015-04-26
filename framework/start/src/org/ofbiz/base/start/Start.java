@@ -185,13 +185,13 @@ public final class Start {
                 stream = new FileInputStream(globalSystemPropsFileName);
                 System.getProperties().load(stream);
             } catch (IOException e) {
-                throw (StartupException) new StartupException("Couldn't load global system props").initCause(e);
+                throw new StartupException("Couldn't load global system props", e);
             } finally {
                 if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e) {
-                        throw (StartupException) new StartupException("Couldn't close stream").initCause(e);
+                        throw new StartupException("Couldn't close stream", e);
                     }
                 }
             }
@@ -199,7 +199,7 @@ public final class Start {
         try {
             this.config = new Config(args);
         } catch (IOException e) {
-            throw (StartupException) new StartupException("Couldn't not fetch config instance").initCause(e);
+            throw new StartupException("Couldn't fetch config instance", e);
         }
         // parse the startup arguments
         if (args.length > 1) {
@@ -245,7 +245,7 @@ public final class Start {
         try {
             this.config.initClasspath(classPath, libraryPath);
         } catch (Exception e) {
-            throw (StartupException) new StartupException("Couldn't initialized classpath").initCause(e);
+            throw new StartupException("Couldn't initialize classpath", e);
         }
         ClassLoader classloader = classPath.getClassLoader();
         Thread.currentThread().setContextClassLoader(classloader);
@@ -262,11 +262,11 @@ public final class Start {
                     loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));
                     loaders.add(loader);
                 } catch (ClassNotFoundException e) {
-                    throw (StartupException) new StartupException(e.getMessage()).initCause(e);
+                    throw new StartupException(e.getMessage(), e);
                 } catch (InstantiationException e) {
-                    throw (StartupException) new StartupException(e.getMessage()).initCause(e);
+                    throw new StartupException(e.getMessage(), e);
                 } catch (IllegalAccessException e) {
-                    throw (StartupException) new StartupException(e.getMessage()).initCause(e);
+                    throw new StartupException(e.getMessage(), e);
                 }
             }
             this.loaders.trimToSize();
@@ -391,7 +391,7 @@ public final class Start {
             try {
                 this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
             } catch (IOException e) {
-                throw (StartupException) new StartupException("Couldn't create server socket(" + config.adminAddress + ":" + config.adminPort + ")").initCause(e);
+                throw new StartupException("Couldn't create server socket(" + config.adminAddress + ":" + config.adminPort + ")", e);
             }
             setDaemon(false);
         }
