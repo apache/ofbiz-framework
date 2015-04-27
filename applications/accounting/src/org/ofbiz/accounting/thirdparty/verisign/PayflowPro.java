@@ -39,6 +39,7 @@ import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.Delegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.entity.util.EntityUtilProperties;
 import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -89,7 +90,7 @@ public class PayflowPro {
             isPayPal = true;
         }
 
-        Map<String, String> data = new HashMap<String, Object>();
+        Map<String, String> data = new HashMap<String, String>();
 
         boolean isReAuth = false;
         if (isPayPal) {
@@ -432,7 +433,7 @@ public class PayflowPro {
                     "AccountingPayPalShoppingCartIsEmpty", locale));
         }
 
-        Map<String, String> data = new HashMap<String, Object>();
+        Map<String, String> data = new HashMap<String, String>();
 
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
@@ -542,7 +543,7 @@ public class PayflowPro {
         String paymentGatewayConfigId = payPalPaymentSetting.getString("paymentGatewayConfigId");
         String configString = "payment.properties";
 
-        Map<String, String> data = new HashMap<String, Object>();
+        Map<String, String> data = new HashMap<String, String>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("ACTION", "G");
@@ -621,7 +622,7 @@ public class PayflowPro {
         }
         BigDecimal processAmount = paymentPref.getBigDecimal("maxAmount");
 
-        Map<String, String> data = new HashMap<String, Object>();
+        Map<String, String> data = new HashMap<String, String>();
         data.put("TRXTYPE", "O");
         data.put("TENDER", "P");
         data.put("PAYERID", payPalPaymentMethod.getString("payerId"));
@@ -669,7 +670,7 @@ public class PayflowPro {
 
     private static Map<String, String> parseResponse(String resp) {
         Debug.logInfo("Verisign response string: " + resp, module);
-        Map<String, String> parameters = new HashMap<String, Object>();
+        Map<String, String> parameters = new HashMap<String, String>();
         List<String> params = StringUtil.split(resp, "&");
         for (String str : params) {
             if (str.length() > 0) {
