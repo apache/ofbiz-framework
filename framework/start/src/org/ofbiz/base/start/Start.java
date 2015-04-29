@@ -185,13 +185,13 @@ public final class Start {
                 stream = new FileInputStream(globalSystemPropsFileName);
                 System.getProperties().load(stream);
             } catch (IOException e) {
-                throw (StartupException) new StartupException("Couldn't load global system props").initCause(e);
+                throw new StartupException("Couldn't load global system props", e);
             } finally {
                 if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e) {
-                        throw (StartupException) new StartupException("Couldn't close stream").initCause(e);
+                        throw new StartupException("Couldn't close stream", e);
                     }
                 }
             }
@@ -199,7 +199,7 @@ public final class Start {
         try {
             this.config = new Config(args);
         } catch (IOException e) {
-            throw (StartupException) new StartupException("Couldn't not fetch config instance").initCause(e);
+            throw new StartupException("Couldn't not fetch config instance", e);
         }
         // parse the startup arguments
         if (args.length > 1) {
