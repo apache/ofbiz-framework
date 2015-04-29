@@ -29,6 +29,8 @@ import org.ofbiz.base.component.AlreadyLoadedException;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.component.ComponentLoaderConfig;
+import org.ofbiz.base.start.Classpath;
+import org.ofbiz.base.start.NativeLibClassLoader;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilValidate;
@@ -94,21 +96,21 @@ public class ComponentContainer implements Container {
         String parentPath;
         try {
             parentPath = FileUtil.getFile(System.getProperty("ofbiz.home")).getCanonicalFile().toString().replaceAll("\\\\", "/");
+            // load each component
+            if (components != null) {
+                for (ComponentLoaderConfig.ComponentDef def: components) {
+                    loadComponentFromConfig(parentPath, def);
+                }
+            }
         } catch (MalformedURLException e) {
             throw new ComponentException(e.getMessage(), e);
         } catch (IOException e) {
             throw new ComponentException(e.getMessage(), e);
         }
-        // load each component
-        if (components != null) {
-            for (ComponentLoaderConfig.ComponentDef def: components) {
-                this.loadComponentFromConfig(parentPath, def);
-            }
-        }
         Debug.logInfo("All components loaded", module);
     }
 
-    private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) {
+    private void loadComponentFromConfig(String parentPath, ComponentLoaderConfig.ComponentDef def) throws IOException {
         String location;
         if (def.location.startsWith("/")) {
             location = def.location;
@@ -135,7 +137,7 @@ public class ComponentContainer implements Container {
         }
     }
 
-    private void loadComponentDirectory(String directoryName) {
+    private void loadComponentDirectory(String directoryName) throws IOException {
         Debug.logInfo("Auto-Loading component directory : [" + directoryName + "]", module);
         File parentPath = FileUtil.getFile(directoryName);
         if (!parentPath.exists() || !parentPath.isDirectory()) {
@@ -190,13 +192,61 @@ public class ComponentContainer implements Container {
         }
     }
 
-    private void loadComponent(ComponentConfig config) {
+    private void loadComponent(ComponentConfig config) throws IOException {
         // make sure the component is enabled
         if (!config.enabled()) {
-            Debug.logInfo("Not Loaded component : [" + config.getComponentName() + "] (disabled)", module);
+            Debug.logInfo("Not loading component [" + config.getComponentName() + "] because it is disabled", module);
             return;
         }
-        Debug.logInfo("Loaded component : [" + config.getComponentName() + "]", module);
+        List<ComponentConfig.ClasspathInfo> classpathInfos = config.getClasspathInfos();
+        String configRoot = config.getRootLocation();
+        configRoot = configRoot.replace('\\', '/');
+        // set the root to have a trailing slash
+        if (!configRoot.endsWith("/")) {
+            configRoot = configRoot + "/";
+        }
+        if (classpathInfos != null) {
+            Classpath classPath = new Classpath();
+            // TODO: If any components change the class loader, then this will need to be changed.
+            NativeLibClassLoader classloader = (NativeLibClassLoader) Thread.currentThread().getContextClassLoader();
+            for (ComponentConfig.ClasspathInfo cp: classpathInfos) {
+                String location = cp.location.replace('\\', '/');
+                // set the location to not have a leading slash
+                if (location.startsWith("/")) {
+                    location = location.substring(1);
+                }
+                if (!"jar".equals(cp.type) && !"dir".equals(cp.type)) {
+                    Debug.logError("Classpath type '" + cp.type + "' is not supported; '" + location + "' not loaded", module);
+                    continue;
+                }
+                String dirLoc = location;
+                if (dirLoc.endsWith("/*")) {
+                    // strip off the slash splat
+                    dirLoc = location.substring(0, location.length() - 2);
+                }
+                File path = FileUtil.getFile(configRoot + dirLoc);
+                if (path.exists()) {
+                    if (path.isDirectory()) {
+                        if ("dir".equals(cp.type)) {
+                            classPath.addComponent(configRoot + location);
+                        }
+                        classPath.addFilesFromPath(path);
+                    } else {
+                        // add a single file
+                        classPath.addComponent(configRoot + location);
+                    }
+                } else {
+                    Debug.logWarning("Location '" + configRoot + dirLoc + "' does not exist", module);
+                }
+            }
+            for (URL url : classPath.getUrls()) {
+                classloader.addURL(url);
+            }
+            for (File folder : classPath.getNativeFolders()) {
+                classloader.addNativeClassPath(folder);
+            }
+        }
+         Debug.logInfo("Loaded component : [" + config.getComponentName() + "]", module);
     }
 
     /**
