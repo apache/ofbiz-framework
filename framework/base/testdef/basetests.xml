@@ -27,6 +27,7 @@
         <junit-test-suite class-name="org.ofbiz.base.util.test.IndentingWriterTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.ObjectTypeTests"/>
         <!--junit-test-suite class-name="org.ofbiz.base.util.test.ReferenceCleanerTests"/-->
+        <junit-test-suite class-name="org.ofbiz.base.util.test.UtilMiscTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilObjectTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.StringUtilTests"/>
         <junit-test-suite class-name="org.ofbiz.base.util.test.UtilHttpTests"/>
