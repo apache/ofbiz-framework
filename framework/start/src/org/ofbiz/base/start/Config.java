@@ -18,19 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.base.start;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -47,17 +35,6 @@ import java.util.TimeZone;
 
 public class Config {
 
-    private static final FileFilter componentLoadFilter = new FileFilter() {
-        public boolean accept(File pathname) {
-            return "component-load.xml".equals(pathname.getName());
-        }
-    };
-    private static final FileFilter folderFilter = new FileFilter() {
-        public boolean accept(File pathname) {
-            return pathname.isDirectory();
-        }
-    };
-
     public final InetAddress adminAddress;
     public final String adminKey;
     public final int adminPort;
@@ -72,6 +49,8 @@ public class Config {
     public final String splashLogo;
     public final boolean useShutdownHook;
     public final Integer portOffset;
+    public final String classpathAddComponent;
+    public final String classpathAddFilesFromPath;
 
     Config(String[] args) throws IOException {
         String firstArg = args.length > 0 ? args[0] : "";
@@ -102,7 +81,9 @@ public class Config {
         ofbizHome = ofbizHomeTmp;
         System.setProperty("ofbiz.home", ofbizHome);
         System.out.println("Set OFBIZ_HOME to - " + ofbizHome);
-
+        // Class paths
+        classpathAddComponent = props.getProperty("ofbiz.start.classpath.addComponent");
+        classpathAddFilesFromPath = props.getProperty("ofbiz.start.classpath.addFilesFromPath");
         // log directory
         logDir = getOfbizHomeProp(props, "ofbiz.log.dir", "runtime/logs");
 
@@ -298,109 +279,4 @@ public class Config {
         }
         return props;
     }
-
-    void initClasspath(Classpath classPath, Classpath libraryPath) throws Exception {
-        // add OFBIZ_HOME to class path
-        classPath.addClasspath(this.ofbizHome);
-        File home = new File(this.ofbizHome);
-        collectClasspathEntries(new File(home, "framework"), classPath, libraryPath);
-        collectClasspathEntries(new File(home, "applications"), classPath, libraryPath);
-        collectClasspathEntries(new File(home, "specialpurpose"), classPath, libraryPath);
-        collectClasspathEntries(new File(home, "hot-deploy"), classPath, libraryPath);
-        System.setProperty("java.library.path", libraryPath.toString());
-        classPath.instrument(this.instrumenterFile, this.instrumenterClassName);
-    }
-
-    private void collectClasspathEntries(File folder, Classpath classpath, Classpath libraryPath) throws ParserConfigurationException, IOException, SAXException {
-        if (!folder.exists() && !folder.isDirectory()) {
-            return;
-        }
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        File[] componentLoadFiles;
-        List<File> ofbizComponents = new ArrayList<File>();
-        componentLoadFiles = folder.listFiles(componentLoadFilter);
-        if (componentLoadFiles != null && componentLoadFiles.length == 1) {
-            File componentLoadFile = componentLoadFiles[0];
-            // parse and get folder names to be processed
-            Document document = builder.parse(componentLoadFile);
-            Element element = document.getDocumentElement();
-            NodeList loadComponents = element.getElementsByTagName("load-component");
-            for (int i = 0; i < loadComponents.getLength(); i++) {
-                Node loadComponent = loadComponents.item(i);
-                NamedNodeMap attributes = loadComponent.getAttributes();
-                Node componentLocation = attributes.getNamedItem("component-location");
-                if (componentLocation == null) {
-                    continue;
-                }
-                ofbizComponents.add(new File(new File(folder, componentLocation.getNodeValue()), "ofbiz-component.xml"));
-            }
-        } else {
-            File[] componentFolders = folder.listFiles(folderFilter);
-            for (File componentFolder: componentFolders) {
-                File ofbizComponent = new File(componentFolder, "ofbiz-component.xml");
-                if (ofbizComponent.exists()) {
-                    ofbizComponents.add(ofbizComponent);
-                }
-            }
-        }
-        String nativeLibExt = System.mapLibraryName("someLib").replace("someLib", "").toLowerCase();
-        for (File ofbizComponent: ofbizComponents) {
-            Document document = builder.parse(ofbizComponent);
-            Element element = document.getDocumentElement();
-            if (element.hasAttribute("enabled")) {
-                if ("false".equals(element.getAttribute("enabled"))) {
-                    continue;
-                }
-            }
-            NodeList classpathEntries = element.getElementsByTagName("classpath");
-            for (int i = 0; i < classpathEntries.getLength(); i++) {
-                Node classpathEntry = classpathEntries.item(i);
-                NamedNodeMap attributes = classpathEntry.getAttributes();
-                Node type = attributes.getNamedItem("type");
-                if (type == null || !("jar".equals(type.getNodeValue()) || "dir".equals(type.getNodeValue()))) {
-                    continue;
-                }
-                Node location = attributes.getNamedItem("location");
-                String locationValue = location.getNodeValue();
-                locationValue = locationValue.replace('\\', '/');
-                // set the location to not have a leading slash
-                if (locationValue.startsWith("/")) {
-                    locationValue = locationValue.substring(1);
-                }
-                String dirLoc = locationValue;
-                if (dirLoc.endsWith("/*")) {
-                    // strip off the slash splat
-                    dirLoc = locationValue.substring(0, locationValue.length() - 2);
-                }
-
-                String fileNameSeparator = ("\\".equals(File.separator) ? "\\" + File.separator : File.separator);
-                dirLoc = dirLoc.replaceAll("/+|\\\\+", fileNameSeparator);
-                File path = new File(ofbizComponent.getParent(), dirLoc);
-                if (path.exists()) {
-                    if (path.isDirectory()) {
-                        if ("dir".equals(type.getNodeValue())) {
-                            classpath.addComponent(path.toString());
-                        }
-                        // load all .jar, .zip files and native libs in this directory
-                        boolean containsNativeLibs = false;
-                        for (File file: path.listFiles()) {
-                            String fileName = file.getName().toLowerCase();
-                            if (fileName.endsWith(".jar") || fileName.endsWith(".zip")) {
-                                classpath.addComponent(file);
-                            } else if (fileName.endsWith(nativeLibExt)) {
-                                containsNativeLibs = true;
-                            }
-                        }
-                        if (containsNativeLibs) {
-                            libraryPath.addComponent(path);
-                        }
-                    } else {
-                        classpath.addComponent(path.toString());
-                    }
-                }
-            }
-        }
-    }
-
 }

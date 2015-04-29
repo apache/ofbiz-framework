@@ -185,13 +185,13 @@ public final class Start {
                 stream = new FileInputStream(globalSystemPropsFileName);
                 System.getProperties().load(stream);
             } catch (IOException e) {
-                throw new StartupException("Couldn't load global system props", e);
+                throw (StartupException) new StartupException("Couldn't load global system props").initCause(e);
             } finally {
                 if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e) {
-                        throw new StartupException("Couldn't close stream", e);
+                        throw (StartupException) new StartupException("Couldn't close stream").initCause(e);
                     }
                 }
             }
@@ -199,7 +199,7 @@ public final class Start {
         try {
             this.config = new Config(args);
         } catch (IOException e) {
-            throw new StartupException("Couldn't fetch config instance", e);
+            throw (StartupException) new StartupException("Couldn't not fetch config instance").initCause(e);
         }
         // parse the startup arguments
         if (args.length > 1) {
@@ -239,18 +239,75 @@ public final class Start {
         initStartLoaders();
     }
 
-    private void initStartLoaders() throws StartupException {
-        Classpath classPath = new Classpath();
-        Classpath libraryPath = new Classpath(System.getProperty("java.library.path"));
-        try {
-            this.config.initClasspath(classPath, libraryPath);
-        } catch (Exception e) {
-            throw new StartupException("Couldn't initialize classpath", e);
+    /**
+     * Creates a new <code>NativeLibClassLoader</code> instance, and optionally loads it
+     * with base component class paths.
+     * 
+     * @param addBaseClassPaths When set to <code>true</code>, the class loader will be
+     * initialized with the class paths needed to get StartupLoaders to work
+     * @return A new <code>NativeLibClassLoader</code> instance
+     * @throws IOException
+     */
+    private NativeLibClassLoader createClassLoader() throws IOException {
+        ClassLoader parent = Thread.currentThread().getContextClassLoader();
+        if (parent != null) {
+            System.out.println("ClassLoader: " + parent.getClass().getName());
         }
-        ClassLoader classloader = classPath.getClassLoader();
+        if (parent instanceof NativeLibClassLoader) {
+            parent = parent.getParent();
+        }
+        if (parent == null) {
+            parent = Start.class.getClassLoader();
+            if (parent == null) {
+                parent = ClassLoader.getSystemClassLoader();
+            }
+        }
+        Classpath classPath = new Classpath();
+        /*
+         * Class paths needed to get StartupLoaders to work.
+         */
+        classPath.addComponent(config.ofbizHome);
+        String ofbizHomeTmp = config.ofbizHome;
+        if (!ofbizHomeTmp.isEmpty() && !ofbizHomeTmp.endsWith("/")) {
+            ofbizHomeTmp = ofbizHomeTmp.concat("/");
+        }
+        if (config.classpathAddComponent != null) {
+            String[] components = config.classpathAddComponent.split(",");
+            for (String component : components) {
+                classPath.addComponent(ofbizHomeTmp.concat(component.trim()));
+            }
+        }
+        if (config.classpathAddFilesFromPath != null) {
+            String[] paths = config.classpathAddFilesFromPath.split(",");
+            for (String path : paths) {
+                classPath.addFilesFromPath(new File(ofbizHomeTmp.concat(path.trim())));
+            }
+        }
+        NativeLibClassLoader classloader = new NativeLibClassLoader(classPath.getUrls(), parent);
+        if (config.instrumenterFile != null && config.instrumenterClassName != null) {
+            try {
+                classloader = new InstrumentingClassLoader(classPath.getUrls(), parent, config.instrumenterFile,
+                        config.instrumenterClassName);
+            } catch (Exception e) {
+                System.out.println("Instrumenter not enabled - " + e);
+            }
+        }
+        classloader.addNativeClassPath(System.getProperty("java.library.path"));
+        for (File folder : classPath.getNativeFolders()) {
+            classloader.addNativeClassPath(folder);
+        }
+        return classloader;
+    }
+
+    private void initStartLoaders() throws StartupException {
+        NativeLibClassLoader classloader = null;
+        try {
+            classloader = createClassLoader();
+        } catch (IOException e) {
+            throw new StartupException("Couldn't create NativeLibClassLoader", e);
+        }
         Thread.currentThread().setContextClassLoader(classloader);
         synchronized (this.loaders) {
-            // initialize the loaders
             for (Map<String, String> loaderMap : config.loaders) {
                 if (this.serverState.get() == ServerState.STOPPING) {
                     return;
@@ -259,8 +316,8 @@ public final class Start {
                     String loaderClassName = loaderMap.get("class");
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
                     StartupLoader loader = (StartupLoader) loaderClass.newInstance();
+                    loaders.add(loader); // add before loading, so unload can occur if error during loading
                     loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));
-                    loaders.add(loader);
                 } catch (ClassNotFoundException e) {
                     throw new StartupException(e.getMessage(), e);
                 } catch (InstantiationException e) {
@@ -271,7 +328,21 @@ public final class Start {
             }
             this.loaders.trimToSize();
         }
-        return;
+        if (classloader instanceof InstrumentingClassLoader) {
+            try {
+                ((InstrumentingClassLoader)classloader).closeInstrumenter();
+            } catch (IOException e) {
+                throw new StartupException(e.getMessage(), e);
+            }
+        }
+        StringBuilder sb = new StringBuilder();
+        for (String path : classloader.getNativeLibPaths()) {
+            if (sb.length() > 0) {
+                sb.append(File.pathSeparator);
+            }
+            sb.append(path);
+        }
+        System.setProperty("java.library.path", sb.toString());
     }
 
     private String sendSocketCommand(Control control) throws IOException, ConnectException {
@@ -391,7 +462,8 @@ public final class Start {
             try {
                 this.serverSocket = new ServerSocket(config.adminPort, 1, config.adminAddress);
             } catch (IOException e) {
-                throw new StartupException("Couldn't create server socket(" + config.adminAddress + ":" + config.adminPort + ")", e);
+                throw new StartupException("Couldn't create server socket(" + config.adminAddress + ":" + config.adminPort + ")",
+                        e);
             }
             setDaemon(false);
         }
@@ -435,7 +507,8 @@ public final class Start {
             while (!Thread.interrupted()) {
                 try {
                     Socket clientSocket = serverSocket.accept();
-                    System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : " + clientSocket.getPort());
+                    System.out.println("Received connection from - " + clientSocket.getInetAddress() + " : "
+                            + clientSocket.getPort());
                     processClientRequest(clientSocket);
                     clientSocket.close();
                 } catch (IOException e) {
