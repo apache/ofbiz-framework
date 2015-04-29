@@ -746,7 +746,10 @@ public class UtilMisc {
             } else {
                 Locale[] locales = Locale.getAvailableLocales();
                 for (int i = 0; i < locales.length && locales[i] != null; i++) {
-                    localeMap.put(locales[i].getDisplayName(), locales[i]);
+                    String displayName = locales[i].getDisplayName();
+                    if (!displayName.isEmpty()) {
+                        localeMap.put(displayName, locales[i]);
+                    }
                 }
             }
             return Collections.unmodifiableList(new ArrayList<Locale>(localeMap.values()));
