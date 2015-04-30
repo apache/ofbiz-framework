@@ -17,8 +17,6 @@
  * under the License.
  *******************************************************************************/
 
-// NOTE: Portions Originally Copyright 2002 Mort Bay Consulting (Australia) Pty. Ltd. (this was taken from a code base released under the Apache License, though no header was on this file)
-
 package org.ofbiz.base.start;
 
 import java.io.File;
