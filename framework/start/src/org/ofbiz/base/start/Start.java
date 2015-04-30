@@ -240,19 +240,13 @@ public final class Start {
     }
 
     /**
-     * Creates a new <code>NativeLibClassLoader</code> instance, and optionally loads it
-     * with base component class paths.
+     * Creates a new <code>NativeLibClassLoader</code> instance.
      * 
-     * @param addBaseClassPaths When set to <code>true</code>, the class loader will be
-     * initialized with the class paths needed to get StartupLoaders to work
      * @return A new <code>NativeLibClassLoader</code> instance
      * @throws IOException
      */
     private NativeLibClassLoader createClassLoader() throws IOException {
         ClassLoader parent = Thread.currentThread().getContextClassLoader();
-        if (parent != null) {
-            System.out.println("ClassLoader: " + parent.getClass().getName());
-        }
         if (parent instanceof NativeLibClassLoader) {
             parent = parent.getParent();
         }
