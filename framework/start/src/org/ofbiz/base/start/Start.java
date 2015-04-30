@@ -301,6 +301,7 @@ public final class Start {
             throw new StartupException("Couldn't create NativeLibClassLoader", e);
         }
         Thread.currentThread().setContextClassLoader(classloader);
+        String[] argsArray = loaderArgs.toArray(new String[loaderArgs.size()]);
         synchronized (this.loaders) {
             for (Map<String, String> loaderMap : config.loaders) {
                 if (this.serverState.get() == ServerState.STOPPING) {
@@ -311,7 +312,7 @@ public final class Start {
                     Class<?> loaderClass = classloader.loadClass(loaderClassName);
                     StartupLoader loader = (StartupLoader) loaderClass.newInstance();
                     loaders.add(loader); // add before loading, so unload can occur if error during loading
-                    loader.load(config, loaderArgs.toArray(new String[loaderArgs.size()]));
+                    loader.load(config, argsArray);
                 } catch (ClassNotFoundException e) {
                     throw new StartupException(e.getMessage(), e);
                 } catch (InstantiationException e) {
