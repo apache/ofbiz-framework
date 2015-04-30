@@ -143,7 +143,7 @@ public class ComponentContainer implements Container {
         if (!parentPath.exists() || !parentPath.isDirectory()) {
             Debug.logError("Auto-Load Component directory not found : " + directoryName, module);
         } else {
-            File componentLoadConfig = new File(parentPath, "component-load.xml");
+            File componentLoadConfig = new File(parentPath, ComponentLoaderConfig.COMPONENT_LOAD_XML_FILENAME);
             if (componentLoadConfig != null && componentLoadConfig.exists()) {
                 URL configUrl = null;
                 try {
