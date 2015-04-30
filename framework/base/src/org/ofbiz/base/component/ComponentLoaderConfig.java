@@ -21,6 +21,7 @@ package org.ofbiz.base.component;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -101,7 +102,7 @@ public class ComponentLoaderConfig {
                 componentsFromConfig.add(new ComponentDef(name, location, type));
             }
         }
-        return componentsFromConfig;
+        return Collections.unmodifiableList(componentsFromConfig);
     }
 
     public static class ComponentDef {
