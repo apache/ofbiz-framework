@@ -24,8 +24,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.ofbiz.base.component.AlreadyLoadedException;
 import org.ofbiz.base.component.ComponentConfig;
 import org.ofbiz.base.component.ComponentException;
 import org.ofbiz.base.component.ComponentLoaderConfig;
@@ -49,10 +49,13 @@ public class ComponentContainer implements Container {
 
     protected String configFileLocation = null;
     private String name;
-    private boolean loaded = false;
+    private final AtomicBoolean loaded = new AtomicBoolean(false);
 
     @Override
     public void init(String[] args, String name, String configFile) throws ContainerException {
+        if (!loaded.compareAndSet(false, true)) {
+            throw new ContainerException("Components already loaded, cannot start");
+        }
         this.name = name;
         this.configFileLocation = configFile;
 
@@ -68,8 +71,6 @@ public class ComponentContainer implements Container {
         // load the components
         try {
             loadComponents(loaderConfig);
-        } catch (AlreadyLoadedException e) {
-            throw new ContainerException(e);
         } catch (ComponentException e) {
             throw new ContainerException(e);
         }
@@ -79,20 +80,12 @@ public class ComponentContainer implements Container {
      * @see org.ofbiz.base.container.Container#start()
      */
     public boolean start() throws ContainerException {
-        return true;
+        return loaded.get();
     }
 
-    public synchronized void loadComponents(String loaderConfig) throws AlreadyLoadedException, ComponentException {
-        // set the loaded list; and fail if already loaded
-        if (!loaded) {
-            loaded = true;
-        } else {
-            throw new AlreadyLoadedException("Components already loaded, cannot start");
-        }
-
+    public void loadComponents(String loaderConfig) throws ComponentException {
         // get the components to load
         List<ComponentLoaderConfig.ComponentDef> components = ComponentLoaderConfig.getRootComponents(loaderConfig);
-
         String parentPath;
         try {
             parentPath = FileUtil.getFile(System.getProperty("ofbiz.home")).getCanonicalFile().toString().replaceAll("\\\\", "/");
@@ -164,11 +157,11 @@ public class ComponentContainer implements Container {
                 Arrays.sort(fileNames);
                 for (String sub: fileNames) {
                     try {
-                        File componentPath = FileUtil.getFile(parentPath.getCanonicalPath() + "/" + sub);
+                        File componentPath = FileUtil.getFile(parentPath.getCanonicalPath() + File.separator + sub);
                         if (componentPath.isDirectory() && !sub.equals("CVS") && !sub.equals(".svn")) {
                             // make sure we have a component configuration file
                             String componentLocation = componentPath.getCanonicalPath();
-                            File configFile = FileUtil.getFile(componentLocation + "/ofbiz-component.xml");
+                            File configFile = FileUtil.getFile(componentLocation.concat(File.separator).concat(ComponentConfig.OFBIZ_COMPONENT_XML_FILENAME));
                             if (configFile.exists()) {
                                 ComponentConfig config = null;
                                 try {
