@@ -84,9 +84,11 @@ public class ApacheFopWorker {
                     if (userConfigFile.exists()) {
                         fopFactory.setUserConfig(userConfigFile);
                         URL baseUrl = new URL(fopFactory.getBaseURL());
+                        String protocol = baseUrl.getProtocol();
+                        String host = baseUrl.getHost();
                         Integer baseport = baseUrl.getPort();
                         Integer port = baseport + Start.getInstance().getConfig().portOffset;
-                        fopFactory.setBaseURL("http://localhost:" + port);
+                        fopFactory.setBaseURL(protocol + "://" + host + ":" + port);
                     } else {
                         Debug.logWarning("FOP configuration file not found: " + userConfigFile, module);
                     }
