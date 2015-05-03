@@ -50,7 +50,7 @@ public class ObjectType {
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
 
     private static final Map<String, String> classAlias = new HashMap<String, String>();
-    private static final Map<String, Class> primitives = new HashMap<String, Class>();
+    private static final Map<String, Class<?>> primitives = new HashMap<String, Class<?>>();
 
     static {
         classAlias.put("Object", "java.lang.Object");
@@ -422,19 +422,19 @@ public class ObjectType {
     public static Class<?> loadInfoClass(String typeName, ClassLoader loader) {
         //Class infoClass = null;
         try {
-            return ObjectType.loadClass(typeName, loader);
+            return loadClass(typeName, loader);
         } catch (SecurityException se1) {
             throw new IllegalArgumentException("Problems with classloader: security exception (" +
                     se1.getMessage() + ")");
         } catch (ClassNotFoundException e1) {
             try {
-                return ObjectType.loadClass(LANG_PACKAGE + typeName, loader);
+                return loadClass(LANG_PACKAGE + typeName, loader);
             } catch (SecurityException se2) {
                 throw new IllegalArgumentException("Problems with classloader: security exception (" +
                         se2.getMessage() + ")");
             } catch (ClassNotFoundException e2) {
                 try {
-                    return ObjectType.loadClass(SQL_PACKAGE + typeName, loader);
+                    return loadClass(SQL_PACKAGE + typeName, loader);
                 } catch (SecurityException se3) {
                     throw new IllegalArgumentException("Problems with classloader: security exception (" +
                             se3.getMessage() + ")");
@@ -532,7 +532,7 @@ public class ObjectType {
         if (converter != null) {
             LocalizedConverter<Object, Object> localizedConverter = null;
             try {
-                localizedConverter = (LocalizedConverter) converter;
+                localizedConverter = (LocalizedConverter<Object, Object>) converter;
             } catch (ClassCastException e) {}
             if (localizedConverter != null) {
                 if (timeZone == null) {
@@ -580,7 +580,7 @@ public class ObjectType {
 
         try {
             if (!"PlainString".equals(type)) {
-                Class<?> clz = ObjectType.loadClass(type, loader);
+                Class<?> clz = loadClass(type, loader);
                 type = clz.getName();
             }
         } catch (ClassNotFoundException e) {
@@ -611,7 +611,7 @@ public class ObjectType {
                 value2Locale = UtilMisc.parseLocale("en");
             }
             try {
-                convertedValue2 = ObjectType.simpleTypeConvert(value2, type, format, value2Locale);
+                convertedValue2 = simpleTypeConvert(value2, type, format, value2Locale);
             } catch (GeneralException e) {
                 Debug.logError(e, module);
                 messages.add("Could not convert value2 for comparison: " + e.getMessage());
@@ -627,7 +627,7 @@ public class ObjectType {
 
         Object convertedValue1 = null;
         try {
-            convertedValue1 = ObjectType.simpleTypeConvert(value1, type, format, locale);
+            convertedValue1 = simpleTypeConvert(value1, type, format, locale);
         } catch (GeneralException e) {
             Debug.logError(e, module);
             messages.add("Could not convert value1 for comparison: " + e.getMessage());
