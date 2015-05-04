@@ -57,7 +57,6 @@
     <classpathentry kind="lib" path="framework/base/lib/xstream-1.4.6.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xpp3-1.1.4c.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-core-1.8.3.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/commons/commons-cli-1.2.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.10.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/commons/commons-compress-1.4.1.jar"/>

@@ -48,9 +48,6 @@ under the License.
  <patternset id="src.exc.set"/>
 
  <path id="groovy.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/commons/commons-cli-1.0.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/antlr-2.7.6.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-3.2.jar"/>
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-all-2.2.1.jar"/>
  </path>
  <path id="rhino.class.path">
