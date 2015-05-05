@@ -86,25 +86,25 @@ under the License.
                                 <if-compare-field operator="equals" field="custRequest.fromPartyId" to-field="userLogin.partyId"></if-compare-field>
                             </condition>
                             <widgets>
-                        <container style="lefthalf">
-                            <platform-specific>
-                                <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestInfo.ftl"/></html>
-                            </platform-specific>
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
-                            </platform-specific>
-                        </container>
-                        <container style="righthalf">
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
-                            </platform-specific>
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
-                            </platform-specific>
-                            <platform-specific>
-                                <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestRoles.ftl"/></html>
-                            </platform-specific>
-                        </container>
+                                <container style="lefthalf">
+                                    <platform-specific>
+                                        <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestInfo.ftl"/></html>
+                                    </platform-specific>
+                                    <platform-specific>
+                                        <html><html-template location="component://order/webapp/ordermgr/request/ViewRequestItemInfo.ftl"/></html>
+                                    </platform-specific>
+                                </container>
+                                <container style="righthalf">
+                                    <platform-specific>
+                                        <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
+                                    </platform-specific>
+                                    <platform-specific>
+                                        <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
+                                    </platform-specific>
+                                    <platform-specific>
+                                        <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestRoles.ftl"/></html>
+                                    </platform-specific>
+                                </container>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3">${uiLabelMap.OrderNoRequestFound}</label>
