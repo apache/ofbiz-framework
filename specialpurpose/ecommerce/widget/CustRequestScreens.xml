@@ -81,6 +81,11 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonRequestDecorator">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare-field operator="equals" field="custRequest.fromPartyId" to-field="userLogin.partyId"></if-compare-field>
+                            </condition>
+                            <widgets>
                         <container style="lefthalf">
                             <platform-specific>
                                 <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestInfo.ftl"/></html>
@@ -100,6 +105,11 @@ under the License.
                                 <html><html-template location="component://ecommerce/webapp/ecommerce/request/requestRoles.ftl"/></html>
                             </platform-specific>
                         </container>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.OrderNoRequestFound}</label>
+                            </fail-widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
