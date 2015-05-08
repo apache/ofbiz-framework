@@ -50,6 +50,10 @@ under the License.
         <fo:block font-family="Symbol" font-style="normal" font-weight="normal">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
         <fo:block color="red">Zapf Dingbats</fo:block>
         <fo:block font-family="ZapfDingbats" font-style="normal" font-weight="normal">the quick brown fox jumps over the lazy dog 1234657890</fo:block>
+        <fo:block font-size="12pt">
+                We now use the NotoSans font by default, so no need to specify the NotoSans "font-family" to write special characters, like: &#x20AC; &#x20B9; &#x00B0; &#x2665;
+        </fo:block>
+        
      </fo:flow>
   </fo:page-sequence>
 </fo:root>
