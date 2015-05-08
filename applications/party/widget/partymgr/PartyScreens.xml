@@ -717,7 +717,6 @@ under the License.
                                 <set field="dependentKeyName" value="geoId"/>
                                 <set field="descName" value="geoName"/>
                                 <set field="selectedDependentOption" value="_none_"/>
-                                <set field="focusFieldName" value="NewUser_USER_PARTY_ID"/>
                             </actions>
                             <widgets>
                                 <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>

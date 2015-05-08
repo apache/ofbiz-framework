@@ -19,13 +19,10 @@ under the License.
 <script type="text/javascript">
 jQuery(document).ready(function() {
     if (jQuery('#${dependentForm}').length) {
-      jQuery('#${dependentForm}_${mainId}').change(function(e, data) {
+      jQuery("#${dependentForm}_${mainId}").change(function(e, data) {
           getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}');
       });
       getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}', '${selectedDependentOption}');
-      <#if (focusFieldName??)>
-        jQuery('#${focusFieldName}').focus();
-      </#if>
     }
 })
 </script>

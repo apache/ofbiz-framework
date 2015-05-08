@@ -58,7 +58,7 @@ under the License.
                                                 if you need an example with more than one dropdown in a form have a look at 
                                                 EditProductPriceRules screen in PriceScreens.xml-->
                                             <set field="dependentForm" value="DropDownFieldsExampleForm"/>
-                                            <set field="paramKey" value="countryGeoId"/>
+                                            <set field="paramKey" value="countryGeoId"/>                                            
                                             <set field="mainId" value="countryGeoId"/>
                                             <set field="dependentId" value="stateProvinceGeoId"/>
                                             <set field="requestName" value="getAssociatedStateList"/>
@@ -66,14 +66,13 @@ under the License.
                                             <set field="dependentKeyName" value="geoId"/>
                                             <set field="descName" value="geoName"/>
                                             <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
-                                            <set field="focusFieldName" value="DateTimeFieldsExampleForm_field1_i18n"/>
                                             
                                             <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
                                             <set field="asm_multipleSelectForm" value="DropDownMultipleFieldExampleForm"/>
                                             <set field="asm_multipleSelect"  value="DropDownMultipleFieldExampleForm_countryGeoIdMultiple"/>
                                             <set field="asm_formSize" value="600"/>
                                             <set field="asm_asmListItemPercentOfForm" value="95"/>
-                                            <set field="asm_sortable" value="false"/>
+                                            <set field="asm_sortable" value="false"/>                                            
                                         </actions>
                                         <widgets>
                                             <platform-specific><html><html-template location="component://common/webcommon/includes/setDependentDropdownValuesJs.ftl"/></html></platform-specific>
