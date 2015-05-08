@@ -23,7 +23,7 @@ jQuery(document).ready(function() {
           getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}');
       });
       getDependentDropdownValues('${requestName}', '${paramKey}', '${dependentForm}_${mainId}', '${dependentForm}_${dependentId}', '${responseName}', '${dependentKeyName}', '${descName}', '${selectedDependentOption}');
-      <#if (focusFieldName??)>
+      <#if focusFieldName??>
         jQuery('#${focusFieldName}').focus();
       </#if>
     }
