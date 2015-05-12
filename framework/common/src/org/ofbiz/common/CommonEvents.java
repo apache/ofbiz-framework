@@ -342,7 +342,7 @@ public class CommonEvents {
             Debug.logError("No resource and labels found in JSON string: " + jsonString, module);
             return "error";
         }
-        Locale locale = request.getLocale();
+        Locale locale = UtilHttp.getLocale(request);
         Map<String, List<String>> uiLabelMap = new HashMap<String, List<String>>();
         Set<Map.Entry<String, List<String>>> entrySet = uiLabelObject.entrySet();
         for (Map.Entry<String, List<String>> entry : entrySet) {
@@ -376,7 +376,7 @@ public class CommonEvents {
             Debug.logError("More than one resource found, please use the method: getJSONuiLabelArray", module);
             return "error";
         }
-        Locale locale = request.getLocale();
+        Locale locale = UtilHttp.getLocale(request);
         Map<String, String> uiLabelMap = new HashMap<String, String>();
         Set<Map.Entry<String, String>> entrySet = uiLabelObject.entrySet();
         for (Map.Entry<String, String> entry : entrySet) {
