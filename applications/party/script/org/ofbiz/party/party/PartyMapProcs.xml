@@ -22,12 +22,18 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods-v2.xsd">
   <simple-map-processor name="person">
     <process field="firstName"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty></process>
+    <process field="salutation"><copy/></process>
     <process field="middleName"><copy/></process>
     <process field="lastName"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty></process>
     <process field="personalTitle"><copy/></process>
     <process field="suffix"><copy/></process>
     <process field="nickname"><copy/></process>
     <process field="gender"><copy/></process>
+    <process field="firstNameLocal"><copy/></process>
+    <process field="middleNameLocal"><copy/></process>
+    <process field="lastNameLocal"><copy/></process>
+    <process field="otherLocal"><copy/></process>
+    <process field="memberId"><copy/></process>
     <process field="birthDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert></process>
     <process field="deceasedDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyDeceasedDateMissingError"/></convert></process>
     <process field="height"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyHeightNotValidNumber"/></convert></process>
@@ -39,6 +45,13 @@ under the License.
     <process field="passportExpireDate"><convert type="Date"><fail-property resource="PartyUiLabels" property="PartyPassportExpireDateNotValidDate"/></convert></process>
     <process field="totalYearsWorkExperience"><convert type="Double"><fail-property resource="PartyUiLabels" property="PartyTotalYearsWorkNotValidNumber"/></convert></process>
     <process field="comments"><copy/></process>
+    <process field="employmentStatusEnumId"><copy/></process>
+    <process field="residenceStatusEnumId"><copy/></process>
+    <process field="occupation"><copy/></process>
+    <process field="yearsWithEmployer"><copy/></process>
+    <process field="monthsWithEmployer"><copy/></process>
+    <process field="existingCustomer"><copy/></process>
+    <process field="cardId"><copy/></process>
   </simple-map-processor>
 
   <simple-map-processor name="partyGroup">
