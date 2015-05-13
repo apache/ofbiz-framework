@@ -132,6 +132,7 @@ under the License.
                  height: ${height},
                  width: ${width},
                  modal: true,
+                 closeOnEscape: true,
                  open: function() {
                          jQuery.ajax({
                              url: "${target}",
