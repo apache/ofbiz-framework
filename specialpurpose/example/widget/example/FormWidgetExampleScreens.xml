@@ -53,7 +53,7 @@ under the License.
                                         <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/specialpurpose/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="${uiLabelMap.ExampleDefinitionFileTooltip}" style="buttontext"/>
                                     </container>
                                     <section>
-                                        <actions>                                            
+                                        <actions>
                                             <!-- fields for setDependentDropdownValuesJs.ftl, it's a try on generalization, 
                                                 if you need an example with more than one dropdown in a form have a look at 
                                                 EditProductPriceRules screen in PriceScreens.xml-->
@@ -68,7 +68,7 @@ under the License.
                                             <set field="selectedDependentOption" from-field="postalAddress.stateProvinceGeoId" default-value="_none_"/><!-- postalAddress.stateProvinceGeoId does not make much sense here, only to get the idea -->
                                             <set field="focusFieldName" value="DateTimeFieldsExampleForm_field1_i18n"/>
                                             
-                                            <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
+                                            <!-- asmselect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
                                             <set field="asm_multipleSelectForm" value="DropDownMultipleFieldExampleForm"/>
                                             <set field="asm_multipleSelect"  value="DropDownMultipleFieldExampleForm_countryGeoIdMultiple"/>
                                             <set field="asm_formSize" value="600"/>
@@ -83,7 +83,7 @@ under the License.
                                         </widgets>
                                     </section>
                                 </container>
-                                <container style="screenlet-body">                                    
+                                <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">${uiLabelMap.ExampleLookupFieldsTitle}</label></container>
                                         <container style="screenlet-body">
                                             <label style="h3">${uiLabelMap.ExampleSourceCode}</label>
