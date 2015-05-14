@@ -32,7 +32,7 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 starSchemaName = parameters.starSchemaName;
 selectedFieldList = UtilHttp.parseMultiFormData(parameters);
 
-columnNames = [];
+columnNames = [] as Set;
 selectedFieldList.each { selectedField ->
   columnNames.add(selectedField.selectedFieldName);
 }
