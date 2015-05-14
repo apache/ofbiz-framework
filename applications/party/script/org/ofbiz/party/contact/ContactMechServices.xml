@@ -36,18 +36,6 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateContactMech" short-description="Update Contact Mechanism">
-        <!-- NOTE DEJ20101020: commenting these out becuase they make NO sense... the problem is that 
-            updatePostalAddress below in this file calls updateContactMech, so it must be allowed...
-            This was "fixed" by JLR in rev 1023842, so undoing part of that to get things working again.
-        <if-compare field="parameters.contactMechTypeId" operator="equals" value="POSTAL_ADDRESS">
-            <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForPostalAddress"/></add-error>
-        </if-compare>
-        <if-compare field="parameters.contactMechTypeId" operator="equals" value="TELECOM_NUMBER">
-            <add-error><fail-property resource="PartyUiLabels" property="PartyServiceNotForTelecomNumber"/></add-error>
-        </if-compare>
-        <check-errors/>
-        -->
-
         <set field="successMessageProperty" value="PartyContactMechanismSuccessfullyUpdated"/>
         <if-compare field="parameters.contactMechTypeId" operator="equals" value="EMAIL_ADDRESS">
             <set field="successMessageProperty" value="PartyEmailAddressSuccessfullyUpdated"/>
