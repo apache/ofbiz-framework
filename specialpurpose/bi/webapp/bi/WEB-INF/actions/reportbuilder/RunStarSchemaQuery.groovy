@@ -17,17 +17,7 @@
  * under the License.
  */
 
-import java.util.*;
-
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.*;
-import org.ofbiz.entity.condition.*;
-import org.ofbiz.entity.util.*;
-import org.ofbiz.entity.model.ModelReader;
-import org.ofbiz.entity.model.ModelEntity;
-import org.ofbiz.entity.model.ModelField;
-import org.ofbiz.entity.model.ModelViewEntity;
-import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
+import org.ofbiz.base.util.UtilHttp;
 
 starSchemaName = parameters.starSchemaName;
 selectedFieldList = UtilHttp.parseMultiFormData(parameters);
