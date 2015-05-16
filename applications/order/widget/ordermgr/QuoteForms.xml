@@ -189,7 +189,7 @@ under the License.
         <auto-fields-entity entity-name="QuoteItem" default-field-type="display"/>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
-        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo==null}">
+        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy:isPromo==null}">
             <hyperlink also-hidden="false" description="${quoteItemSeqId}" target="EditQuoteItem">
                 <parameter param-name="quoteId"/>
                 <parameter param-name="quoteItemSeqId"/>
@@ -377,13 +377,13 @@ under the License.
         <field name="productFeatureId"><hidden/></field>
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
-        <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" widget-style="buttontext" use-when="${bsh:productPromoId==null}">
+        <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" widget-style="buttontext" use-when="${groovy:productPromoId==null}">
             <hyperlink also-hidden="false" description="${quoteAdjustmentId}" target="EditQuoteAdjustment">
                 <parameter param-name="quoteId"/>
                 <parameter param-name="quoteAdjustmentId"/>
             </hyperlink>
         </field>
-        <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" use-when="${bsh:productPromoId!=null}"><display/></field>
+        <field name="quoteAdjustmentId" title="${uiLabelMap.OrderOrderQuoteAdjustmentId}" use-when="${groovy:productPromoId!=null}"><display/></field>
         <field name="quoteAdjustmentTypeId" title="${uiLabelMap.OrderOrderQuoteAdjustmentType}">
             <display-entity entity-name="OrderAdjustmentType" key-field-name="orderAdjustmentTypeId"/>
         </field>
