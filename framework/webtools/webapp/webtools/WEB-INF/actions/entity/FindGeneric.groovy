@@ -164,7 +164,7 @@ if ("true".equals(find)) {
             fieldsToSelect = null;
 
             if (groupByFields || functionFields) {
-                fieldsToSelect = [];
+                fieldsToSelect = [] as Set;
 
                 for (String groupByField : groupByFields) {
                     fieldsToSelect.add(groupByField);
