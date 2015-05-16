@@ -422,7 +422,7 @@ under the License.
         </field>
         <field name="quoteId"><hidden/></field>
         <field name="quoteItemSeqId"><hidden/></field>
-        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${bsh:isPromo==null}">
+        <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy:isPromo==null}">
             <hyperlink also-hidden="false" target-type="plain" description="${quoteItemSeqId}" target="javascript:set_value('${quoteItemSeqId}')"/>
         </field>
         <field name="quoteItemSeqId" title="${uiLabelMap.OrderOrderQuoteItemSeqId}" widget-style="buttontext" use-when="${groovy: 'N'.equals(isPromo)}">
