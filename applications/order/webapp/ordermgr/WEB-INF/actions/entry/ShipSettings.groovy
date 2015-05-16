@@ -81,7 +81,7 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
 
     companyId = cart.getBillToCustomerPartyId();
     if (companyId) {
-        facilityMaps = [:];
+        facilityMaps = [];
         facilities = from("Facility").where("ownerPartyId", companyId).cache(true).queryList();
 
         // if facilites is null then check the PartyRelationship where there is a relationship set for Parent & Child organization. Then also fetch the value of companyId from there.
