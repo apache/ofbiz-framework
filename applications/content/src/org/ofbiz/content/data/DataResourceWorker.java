@@ -620,29 +620,6 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
             locale = Locale.getDefault();
         }
 
-        // check for a cached template
-        if (cache) {
-            String disableCache = EntityUtilProperties.getPropertyValue("content", "disable.ftl.template.cache", delegator);
-            if (disableCache == null || !disableCache.equalsIgnoreCase("true")) {
-                try {
-                    Template cachedTemplate = FreeMarkerWorker.getTemplate(delegator.getDelegatorName() + ":DataResource:" + dataResourceId);
-                    if (cachedTemplate != null) {
-                        String subContentId = (String) templateContext.get("subContentId");
-                        if (UtilValidate.isNotEmpty(subContentId)) {
-                            templateContext.put("contentId", subContentId);
-                            templateContext.put("subContentId", null);
-                            templateContext.put("globalNodeTrail", null); // Force getCurrentContent to query for subContent
-                        }
-                        FreeMarkerWorker.renderTemplate(cachedTemplate, templateContext, out);
-                    }
-                } catch (TemplateException e) {
-                    Debug.logError("Error rendering FTL template. " + e.getMessage(), module);
-                    throw new GeneralException("Error rendering FTL template", e);
-                }
-                return;
-            }
-        }
-
         // if the target mimeTypeId is not a text type, throw an exception
         if (!targetMimeTypeId.startsWith("text/")) {
             throw new GeneralException("The desired mime-type is not a text type, cannot render as text: " + targetMimeTypeId);
@@ -662,7 +639,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
 
         // no template; or template is NONE; render the data
         if (UtilValidate.isEmpty(dataTemplateTypeId) || "NONE".equals(dataTemplateTypeId)) {
-            DataResourceWorker.writeDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, out, true);
+            DataResourceWorker.writeDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, out, cache);
         } else {
             // a template is defined; render the template first
             templateContext.put("mimeTypeId", targetMimeTypeId);
@@ -687,7 +664,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.content.DataResourc
                     }
 
                     // render the FTL template
-                    FreeMarkerWorker.renderTemplate(delegator.getDelegatorName() + ":DataResource:" + dataResourceId, templateText, templateContext, out);
+                    boolean useTemplateCache = cache && !UtilProperties.getPropertyAsBoolean("content", "disable.ftl.template.cache", false);
+                    FreeMarkerWorker.renderTemplate(delegator.getDelegatorName() + ":DataResource:" + dataResourceId, templateText, templateContext, out, useTemplateCache);
                 } catch (TemplateException e) {
                     throw new GeneralException("Error rendering FTL template", e);
                 }
