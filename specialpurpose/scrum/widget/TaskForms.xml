@@ -535,13 +535,13 @@
     <form name="ListTaskNote" type="list" list-name="workNoteList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="TaskNote">
         <row-actions>
-            <entity-one entity-name="NoteData" auto-field-map="true"/>
+            <entity-one entity-name="NoteData" auto-field-map="true" value-field="note"/>
         </row-actions>
         <field name="noteId"><hidden/> </field>
-        <field name="noteName"><display/></field>
-        <field name="noteInfo"><display/></field>
-        <field name="noteDateTime"><display/></field>
-        <field name="noteParty"><display/></field>
+        <field name="noteName"><display description="${note.noteName}"/></field>
+        <field name="noteInfo"><display description="${note.noteInfo}"/></field>
+        <field name="noteDateTime"><display description="${note.noteDateTime}"/></field>
+        <field name="noteParty"><display description="${note.noteParty}"/></field>
         <field name="removeNote" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteTaskNote">
                 <parameter param-name="noteId" from-field="noteId"/>
