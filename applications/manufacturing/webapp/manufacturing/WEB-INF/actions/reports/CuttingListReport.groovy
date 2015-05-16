@@ -51,13 +51,13 @@ productIdToQuantity = [:]; // key=productId, value=quantity
 productIdToProduct = [:]; // key=productId, value=product
 dimensionToProducts = [:]; // key=Dimension, value=list of products
 dimensionToQuantity = [:]; // key=Dimension, value=tot qty (of products)
-
-shipmentPlans = delegator.findList("OrderShipment", EntityCondition.makeCondition([shipmentId : shipmentId]), null, null, null, false);
+    
+shipmentPlans = from("OrderShipment").where("shipmentId", shipmentId).queryList()
 
 if (shipmentPlans) {
     shipmentPlans.each { shipmentPlan ->
         // Select the production run, if available
-        weIds = delegator.findList("WorkOrderItemFulfillment", EntityCondition.makeCondition([orderId : shipmentPlan.orderId, orderItemSeqId : shipmentPlan.orderItemSeqId]), null, ['workEffortId'], null, false); // TODO: add shipmentId
+        weIds = from("WorkOrderItemFulfillment").where("orderId", shipmentPlan.orderId, "orderItemSeqId", shipmentPlan.orderItemSeqId).orderBy("workEffortId").queryList(); // TODO: add shipmentId
         weId = EntityUtil.getFirst(weIds);
         productionRunTree = [] as ArrayList;
         // TODO
