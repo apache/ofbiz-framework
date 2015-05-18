@@ -530,11 +530,9 @@ public class ObjectType {
             converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
         } catch (ClassNotFoundException e) {}
         if (converter != null) {
-            LocalizedConverter<Object, Object> localizedConverter = null;
-            try {
-                localizedConverter = (LocalizedConverter<Object, Object>) converter;
-            } catch (ClassCastException e) {}
-            if (localizedConverter != null) {
+            if (converter instanceof LocalizedConverter) {
+                @SuppressWarnings("rawtypes")
+                LocalizedConverter<Object, Object> localizedConverter = (LocalizedConverter) converter;
                 if (timeZone == null) {
                     timeZone = TimeZone.getDefault();
                 }

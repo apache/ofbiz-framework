@@ -109,10 +109,9 @@ public abstract class Compare {
             if (lValue == null || lValue == GenericEntity.NULL_FIELD) {
                 return false;
             }
-            try {
+            if (lValue instanceof Collection) {
                 Collection<Object> collection = UtilGenerics.checkCollection(lValue);
                 return collection.contains(rValue);
-            } catch (ClassCastException e) {
             }
             if (lValue instanceof String && rValue instanceof String) {
                 return ((String) lValue).contains((String) rValue);
@@ -133,16 +132,16 @@ public abstract class Compare {
             if (convertedRvalue == null) {
                 return false;
             }
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) == 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) == 0;
-            } catch (ClassCastException e) {
             }
             return convertedLvalue.equals(convertedRvalue);
         }
@@ -155,16 +154,16 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) > 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) > 0;
-            } catch (ClassCastException e) {
             }
             throw new IllegalArgumentException("Cannot compare: l-value is not a comparable type");
         }
@@ -177,16 +176,16 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) >= 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) >= 0;
-            } catch (ClassCastException e) {
             }
             throw new IllegalArgumentException("Cannot compare: l-value is not a comparable type");
         }
@@ -226,16 +225,16 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) < 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) < 0;
-            } catch (ClassCastException e) {
             }
             throw new IllegalArgumentException("Cannot compare: l-value is not a comparable type");
         }
@@ -248,16 +247,16 @@ public abstract class Compare {
             Object convertedLvalue = MiniLangUtil.convertType(lValue, type, locale, timeZone, format);
             Object convertedRvalue = MiniLangUtil.convertType(rValue, type, locale, timeZone, format);
             assertValuesNotNull(convertedLvalue, convertedRvalue);
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) <= 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) <= 0;
-            } catch (ClassCastException e) {
             }
             throw new IllegalArgumentException("Cannot compare: l-value is not a comparable type");
         }
@@ -275,16 +274,16 @@ public abstract class Compare {
             if (convertedRvalue == null) {
                 return true;
             }
-            try {
+            if (convertedLvalue instanceof BigDecimal &&
+                convertedRvalue instanceof BigDecimal) {
                 BigDecimal lBigDecimal = (BigDecimal) convertedLvalue;
                 BigDecimal rBigDecimal = (BigDecimal) convertedRvalue;
                 return compareBigDecimals(lBigDecimal, rBigDecimal) != 0;
-            } catch (ClassCastException e) {
             }
-            try {
+            if (convertedLvalue instanceof Comparable &&
+                convertedRvalue instanceof Comparable) {
                 Comparable<Object> comparable = UtilGenerics.cast(convertedLvalue);
                 return comparable.compareTo(convertedRvalue) != 0;
-            } catch (ClassCastException e) {
             }
             return !convertedLvalue.equals(convertedRvalue);
         }
