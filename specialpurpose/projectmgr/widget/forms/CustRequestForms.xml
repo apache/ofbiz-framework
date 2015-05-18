@@ -198,10 +198,4 @@ under the License.
         <field name="quantity"><ignored/></field>
         <field name="description"><ignored/></field>
     </form>
-    <form name="ListRequestItemNotes" extends="ListRequestItemNotes" extends-resource="component://order/widget/ordermgr/CustRequestForms.xml">
-        <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
-        <field name="noteDateTime"><ignored/></field>
-        <field name="partyId"><ignored/></field>
-        <field name="name"><ignored/></field>
-    </form>
 </forms>
