@@ -169,7 +169,7 @@ public final class MiniLangUtil {
         }
         Converter<Object, Object> converter = (Converter<Object, Object>) Converters.getConverter(sourceClass, targetClass);
         LocalizedConverter<Object, Object> localizedConverter = null;
-        try {
+        if (converter instanceof LocalizedConverter) {
             localizedConverter = (LocalizedConverter) converter;
             if (locale == null) {
                 locale = Locale.getDefault();
@@ -181,7 +181,7 @@ public final class MiniLangUtil {
                 format = null;
             }
             return localizedConverter.convert(obj, locale, timeZone, format);
-        } catch (ClassCastException e) {}
+        }
         return converter.convert(obj);
     }
 
