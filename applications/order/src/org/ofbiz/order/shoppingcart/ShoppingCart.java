@@ -4017,32 +4017,18 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
                 for (String key : orderItemAttributes.keySet()) {
                     String value = orderItemAttributes.get(key);
 
-                    GenericValue orderItemAttribute = getDelegator().makeValue("OrderItemAttribute");
-                    if (UtilValidate.isNotEmpty(orderId)) {
-                        orderItemAttribute.set("orderId", orderId);
-                    }
-
-                    orderItemAttribute.set("orderItemSeqId", item.getOrderItemSeqId());
-                    orderItemAttribute.set("attrName", key);
-                    orderItemAttribute.set("attrValue", value);
-
-                    switch (mode) {
-                    case ALL:
-                        result.add(orderItemAttribute);
-                        break;
-                    case FILLED_ONLY:
-                        if (UtilValidate.isNotEmpty(value)) {
-                            result.add(orderItemAttribute);
+                    if (ALL == mode || (FILLED_ONLY == mode && UtilValidate.isNotEmpty(value)) || (EMPTY_ONLY == mode && UtilValidate.isEmpty(value))
+                            || (mode != ALL && mode != FILLED_ONLY && mode != EMPTY_ONLY)) {
+                            
+                        GenericValue orderItemAttribute = getDelegator().makeValue("OrderItemAttribute");
+                        if (UtilValidate.isNotEmpty(orderId)) {
+                            orderItemAttribute.set("orderId", orderId);
                         }
-                        break;
-                    case EMPTY_ONLY:
-                        if (UtilValidate.isEmpty(value)) {
-                            result.add(orderItemAttribute);
-                        }
-                        break;
-                    default:
+                        orderItemAttribute.set("orderItemSeqId", item.getOrderItemSeqId());
+                        orderItemAttribute.set("attrName", key);
+                        orderItemAttribute.set("attrValue", value);
+
                         result.add(orderItemAttribute);
-                        break;
                     }
                 }
             }
