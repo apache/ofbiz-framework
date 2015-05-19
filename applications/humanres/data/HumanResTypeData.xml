@@ -64,6 +64,8 @@ under the License.
     <EmplPositionType description="Programmer" hasTable="N" parentTypeId="" emplPositionTypeId="PROGRAMMER"/>
     <EmplPositionType description="System Administrator" hasTable="N" parentTypeId="" emplPositionTypeId="SYS_ADMIN"/>
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
+    <EmplPositionType description="Chief Executive Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CEO"/>
+    <EmplPositionType description="Chief Financial Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CFO"/>
 
     <ResponsibilityType description="Finance Management" hasTable="N" parentTypeId="" responsibilityTypeId="FIN_MGMT"/>
     <ResponsibilityType description="Inventory Management" hasTable="N" parentTypeId="" responsibilityTypeId="INV_MGMT"/>
@@ -71,6 +73,7 @@ under the License.
     <ResponsibilityType description="Resource Management" hasTable="N" parentTypeId="" responsibilityTypeId="RES_MGMT"/>
     <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" responsibilityTypeId="PROD_MGMT"/>
     <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" responsibilityTypeId="SALES_MGMT"/>
+    <ResponsibilityType description="General Management" hasTable="N" parentTypeId="" responsibilityTypeId="GENERAL_MGMT"/>
 
     <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
     <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
