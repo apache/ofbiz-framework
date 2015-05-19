@@ -58,8 +58,7 @@ under the License.
         </field>
         <field name="partyId"><hidden/></field>
         <field name="applyingPartyId" title="${uiLabelMap.FormFieldTitle_applyingPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="referredByPartyId" title="${uiLabelMap.FormFieldTitle_referredByPartyId}" use-when="&quot;${referredByPartyId}&quot;.equals(null)"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="referredByPartyId" use-when="referredByPartyId!=null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="referredByPartyId" title="${uiLabelMap.FormFieldTitle_referredByPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="applicationDate" title="${uiLabelMap.FormFieldTitle_applicationDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
             <hyperlink target="deleteEmploymentApp" description="${uiLabelMap.CommonDelete}" also-hidden="true">
