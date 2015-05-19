@@ -600,10 +600,10 @@ under the License.
         <field name="fixedAssetId">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>
         </field>
-        <field name="availabilityStatusId">
-            <drop-down no-current-selected-key="WEFA_IN_USE">
+        <field name="availabilityStatusId" title="">
+            <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
-                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABLE"/>
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
@@ -692,6 +692,14 @@ under the License.
         <field name="fixedAssetId" title="${uiLabelMap.ManufacturingMachine}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]"/>
+            </drop-down>
+        </field>
+        <field name="availabilityStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="statusId">
