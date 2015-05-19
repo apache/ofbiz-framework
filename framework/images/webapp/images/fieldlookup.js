@@ -702,9 +702,10 @@ catch (err) {
 
 function setSourceColor(src) {
     if (src && src != null) {
-        src.css("background-color", "yellow");
+        src.effect("highlight", {}, 3000);
     }
 }
+
 // function passing selected value to calling window, using only in the
 // TimeDuration case
 function set_duration_value(value) {
