@@ -54,17 +54,13 @@ public class MenuFactory {
 
         Map<String, ModelMenu> modelMenuMap = menuWebappCache.get(cacheKey);
         if (modelMenuMap == null) {
-            synchronized (MenuFactory.class) {
-                modelMenuMap = menuWebappCache.get(cacheKey);
-                if (modelMenuMap == null) {
-                    ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
+            ServletContext servletContext = (ServletContext) request.getAttribute("servletContext");
 
-                    URL menuFileUrl = servletContext.getResource(resourceName);
-                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, cacheKey);
-                    menuWebappCache.put(cacheKey, modelMenuMap);
-                }
-            }
+            URL menuFileUrl = servletContext.getResource(resourceName);
+            Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
+            modelMenuMap = readMenuDocument(menuFileDoc, cacheKey);
+            menuWebappCache.putIfAbsent(cacheKey, modelMenuMap);
+            modelMenuMap = menuWebappCache.get(cacheKey);
         }
 
         if (UtilValidate.isEmpty(modelMenuMap)) {
@@ -94,15 +90,11 @@ public class MenuFactory {
     public static ModelMenu getMenuFromLocation(String resourceName, String menuName) throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelMenu> modelMenuMap = menuLocationCache.get(resourceName);
         if (modelMenuMap == null) {
-            synchronized (MenuFactory.class) {
-                modelMenuMap = menuLocationCache.get(resourceName);
-                if (modelMenuMap == null) {
-                    URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
-                    Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
-                    modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
-                    menuLocationCache.put(resourceName, modelMenuMap);
-                }
-            }
+            URL menuFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            Document menuFileDoc = UtilXml.readXmlDocument(menuFileUrl, true, true);
+            modelMenuMap = readMenuDocument(menuFileDoc, resourceName);
+            menuLocationCache.putIfAbsent(resourceName, modelMenuMap);
+            modelMenuMap = menuLocationCache.get(resourceName);
         }
 
         if (UtilValidate.isEmpty(modelMenuMap)) {
