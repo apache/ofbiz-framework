@@ -114,7 +114,6 @@ under the License.
         <field name="qualification" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId" description="${description}">
-                    <entity-constraint name="parentTypeId" operator="equals" value="DEGREE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
