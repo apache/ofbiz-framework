@@ -4350,6 +4350,7 @@
         <value xml:lang="cs">Formát datumu: RRRR-MM-dd</value>
         <value xml:lang="de">Datumsformat: yyyy-MM-dd</value>
         <value xml:lang="en">Format: yyyy-MM-dd</value>
+        <value xml:lang="en-GB">Format: dd/MM/yyyy</value>
         <value xml:lang="es">Formato: dd/mm/aaaa</value>
         <value xml:lang="fr">Format: JJ/MM/AAAA</value>
         <value xml:lang="hi-IN">प्रारूप: yyyy-MM-dd</value>
@@ -4368,6 +4369,7 @@
         <value xml:lang="cs">Jedno z datumových polí je chybné, formát musí být RRRR-MM-dd HH:mm:ss.SSS</value>
         <value xml:lang="de">Der Inhalt eines Datumfeldes ist fehlerhaft. Das Eingabeformat lautet tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">One of the date fields is incorrect, format must be yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="en-GB">One of the date fields is incorrect, format must be dd/MM/yyyy HH:mm:ss.SSS</value>
         <value xml:lang="es">Uno de los campos de fecha es incorrecto; el formato debe ser dd/mm/aaaa hh:mm:ss</value>
         <value xml:lang="fr">La saisie d'un champ de date est incorrecte, le format doit-être JJ/MM/AAAA hh:mm:ss</value>
         <value xml:lang="hi-IN">एक दिनांक क्षेत्र गलत है, प्रारूप yyyy-MM-dd HH: mm: ss.SSS होना चाहिए</value>
@@ -4389,6 +4391,7 @@
         <value xml:lang="cs">DD-MM-RRRR HH:mm:ss</value>
         <value xml:lang="de">tt-MM-JJJJ HH:mm:ss</value>
         <value xml:lang="en">Format: yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="en-GB">Format: dd/MM/yyyy HH:mm:ss.SSS</value>
         <value xml:lang="es">dd/MM/yyyy HH:mm:ss</value>
         <value xml:lang="fr">Format: JJ/MM/AAAA hh:mm:ss.sss</value>
         <value xml:lang="hi-IN">प्रारूप:yyyy-MM-dd HH: mm: ss.SSS</value>
