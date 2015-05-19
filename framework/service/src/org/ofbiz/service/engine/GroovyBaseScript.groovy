@@ -30,6 +30,12 @@ abstract class GroovyBaseScript extends Script {
         if (!inputMap.userLogin) {
             inputMap.userLogin = this.binding.getVariable('parameters').userLogin;
         }
+        if (!inputMap.timeZone) {
+            inputMap.timeZone = this.binding.getVariable('parameters').timeZone;
+        }
+        if (!inputMap.locale) {
+            inputMap.locale = this.binding.getVariable('parameters').locale;
+        }
         Map result = binding.getVariable('dispatcher').runSync(serviceName, inputMap);
         if (ServiceUtil.isError(result)) {
             throw new ExecutionServiceException(ServiceUtil.getErrorMessage(result))
