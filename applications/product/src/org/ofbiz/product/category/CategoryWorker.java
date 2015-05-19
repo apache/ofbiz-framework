@@ -136,7 +136,7 @@ public class CategoryWorker {
     public static List<GenericValue> getRelatedCategoriesRet(ServletRequest request, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
       Delegator delegator = (Delegator) request.getAttribute("delegator");
 
-      return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, false);
+      return getRelatedCategoriesRet(delegator, attributeName, parentId, limitView, excludeEmpty, recursive);
     }
 
     public static List<GenericValue> getRelatedCategoriesRet(Delegator delegator, String attributeName, String parentId, boolean limitView, boolean excludeEmpty, boolean recursive) {
