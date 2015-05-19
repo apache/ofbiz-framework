@@ -66,6 +66,10 @@ under the License.
     <EmplPositionType description="Business Analyst" hasTable="N" parentTypeId="" emplPositionTypeId="BIZ_ANALYST"/>
     <EmplPositionType description="Chief Executive Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CEO"/>
     <EmplPositionType description="Chief Financial Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CFO"/>
+    <EmplPositionType description="Chief Information Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CIO"/>
+    <EmplPositionType description="Chief Marketing Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CMO"/>
+    <EmplPositionType description="Chief Compliance Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CCO"/>
+    <EmplPositionType description="Chief Security Officer" hasTable="N" parentTypeId="" emplPositionTypeId="CSO"/>
 
     <ResponsibilityType description="Finance Management" hasTable="N" parentTypeId="" responsibilityTypeId="FIN_MGMT"/>
     <ResponsibilityType description="Inventory Management" hasTable="N" parentTypeId="" responsibilityTypeId="INV_MGMT"/>
@@ -74,6 +78,10 @@ under the License.
     <ResponsibilityType description="Production Management" hasTable="N" parentTypeId="" responsibilityTypeId="PROD_MGMT"/>
     <ResponsibilityType description="Sales Management" hasTable="N" parentTypeId="" responsibilityTypeId="SALES_MGMT"/>
     <ResponsibilityType description="General Management" hasTable="N" parentTypeId="" responsibilityTypeId="GENERAL_MGMT"/>
+    <ResponsibilityType description="Information Management" hasTable="N" parentTypeId="" responsibilityTypeId="INFO_MGMT"/>
+    <ResponsibilityType description="Marketing Management" hasTable="N" parentTypeId="" responsibilityTypeId="MKTG_MGMT"/>
+    <ResponsibilityType description="Compliance Management" hasTable="N" parentTypeId="" responsibilityTypeId="COMPLI_MGMT"/>
+    <ResponsibilityType description="Security Management" hasTable="N" parentTypeId="" responsibilityTypeId="SECUR_MGMT"/>
 
     <BenefitType description="Health" hasTable="N" parentTypeId="" benefitTypeId="HEALTH"/>
     <BenefitType description="Vacation" hasTable="N" parentTypeId="" benefitTypeId="VACATION"/>
