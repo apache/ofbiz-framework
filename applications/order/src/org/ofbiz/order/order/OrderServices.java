@@ -2611,8 +2611,11 @@ public class OrderServices {
                 bodyScreenLocation = ProductStoreWorker.getDefaultProductStoreEmailScreenLocation(emailType);
             }
             sendMap.put("bodyScreenUri", bodyScreenLocation);
+
             String xslfoAttachScreenLocation = productStoreEmail.getString("xslfoAttachScreenLocation");
             sendMap.put("xslfoAttachScreenLocation", xslfoAttachScreenLocation);
+            // add attachmentName param to get an attachment namend "[oderId].pdf" instead of default "Details.pdf"
+            sendMap.put("attachmentName", orderId + ".pdf");
         } else {
             sendMap.put("bodyScreenUri", screenUri);
         }
