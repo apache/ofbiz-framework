@@ -42,6 +42,7 @@ fromPartyId = parameters.fromPartyId;
 
 if (!orderHeader && orderId) {
     orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
+    response.setHeader("Content-Disposition","attachment; filename=\"" + orderId + ".pdf" + "\";");
 } else if (shipmentId) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
@@ -49,6 +50,7 @@ if (!orderHeader && orderId) {
 
 if (!invoice && invoiceId)    {
     invoice = from("Invoice").where("invoiceId", invoiceId).queryOne();
+    response.setHeader("Content-Disposition","attachment; filename=\"" + invoiceId + ".pdf" + "\";");
 }
 
 if (!returnHeader && returnId) {
