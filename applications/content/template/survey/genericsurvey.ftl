@@ -92,15 +92,14 @@ under the License.
     <#assign formatString = surveyQuestionAndAppl.get("formatString")!/>
     <#assign enums = surveyQuestionAndAppl.getRelated("Enumeration", null, null, false)/>
     <#list enums as enum>
+        <#assign selected = ''/>
         <#if (((answer.textResponse)?has_content && answer.textResponse == enum.enumId) || (defValue == enum.enumId))>
             <#assign selected = 'selected'/>
-        <#else>
-          <#assign selected = ''/>
         </#if>
         <#if (formatString?has_content)>
             <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, enum)/>
         <#else>
-            <#assign description = geo.getString("description")/>
+            <#assign description = enum.getString("description")/>
         </#if>
         <option value='${enum.enumId}' ${selected}>${description}</option>
     </#list>
@@ -111,10 +110,9 @@ under the License.
     <#assign parentGeoId = surveyQuestionAndAppl.get("geoId")!/>
     <#assign geos = Static["org.ofbiz.common.geo.GeoWorker"].expandGeoGroup(parentGeoId, delegator)>
     <#list geos as geo>
+          <#assign selected = ''/>
         <#if (((answer.textResponse)?has_content && answer.textResponse == geo.geoId) || (defValue == geo.geoId))>
           <#assign selected = 'selected'/>
-        <#else>
-          <#assign selected = ''/>
         </#if>
         <#if (formatString?has_content)>
             <#assign description = Static["org.ofbiz.base.util.string.FlexibleStringExpander"].expandString(formatString, geo)/>
