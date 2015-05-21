@@ -1377,6 +1377,9 @@ under the License.
                 </xs:simpleType>
             </xs:attribute>
             <xs:attribute name="read-only" default="false">
+                <xs:annotation>
+                    <xs:documentation>Makes the input field related to this lookup read-only (no edits allowed)</xs:documentation>
+                </xs:annotation>
                 <xs:simpleType>
                     <xs:restriction base="xs:token">
                         <xs:enumeration value="true" />
@@ -1594,6 +1597,17 @@ under the License.
                 <xs:annotation>
                     <xs:documentation>Defines a customized input mask. Use 9 for numeric, a for alpha and * for alphanumeric character.</xs:documentation>
                 </xs:annotation>
+            </xs:attribute>
+            <xs:attribute name="read-only" default="false">
+                <xs:annotation>
+                    <xs:documentation>Makes this text field read-only (no edits allowed)</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="true" />
+                        <xs:enumeration value="false" />
+                    </xs:restriction>
+                </xs:simpleType>
             </xs:attribute>
         </xs:complexType>
     </xs:element>
