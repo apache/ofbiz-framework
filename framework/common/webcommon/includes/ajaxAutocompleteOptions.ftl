@@ -28,7 +28,7 @@ under the License.
                     </#if>
                 </#if>
             </#list>
-            <#if (displayString?trim?has_content )><!-- displayString -->${displayString?trim}<!-- --></#if>
+            <#if (displayString?trim?has_content )>${displayString?trim}</#if>
         </#list>
     </#if>
 <#else>
