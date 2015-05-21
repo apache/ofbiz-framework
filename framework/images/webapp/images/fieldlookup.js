@@ -835,10 +835,7 @@ lookupDescriptionLoaded.prototype.update = function() {
             data : this.allParams,
             async : false,
             success : function(result) {
-                if (result.split("displayString -->")[1]) {
-                    setLookDescription(_fieldId, result.split("displayString -->")[1].trim().split("<!--")[0].trim(),
-                            "", "");
-                }
+                setLookDescription(_fieldId, result.trim(), "", "");
             }
         });
     }
