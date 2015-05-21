@@ -361,6 +361,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         String ajaxUrl = createAjaxParamsFromUpdateAreas(updateAreas, "", context);
         boolean disabled = textField.getDisabled();
+        boolean readonly = textField.getReadonly();
         String tabindex = modelFormField.getTabindex();
         StringWriter sr = new StringWriter();
         sr.append("<@renderTextField ");
@@ -388,6 +389,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         }
         sr.append("\" disabled=");
         sr.append(Boolean.toString(disabled));
+        sr.append(" readonly=");
+        sr.append(Boolean.toString(readonly));
         sr.append(" clientAutocomplete=\"");
         sr.append(clientAutocomplete);
         sr.append("\" ajaxUrl=\"");

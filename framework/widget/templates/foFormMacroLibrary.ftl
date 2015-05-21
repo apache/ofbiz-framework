@@ -50,7 +50,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask><@makeBlock className value /></#macro>
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask  placeholder tabindex readonly><@makeBlock className value /></#macro>
 
 <#macro renderTextareaField name className alert cols rows id readonly value visualEditorEnable language buttons><@makeBlock className value /></#macro>
 

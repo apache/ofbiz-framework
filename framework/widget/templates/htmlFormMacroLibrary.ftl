@@ -48,7 +48,7 @@ under the License.
 </#macro>
 <#macro renderHyperlinkField></#macro>
 
-<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex placeholder="">
+<#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask tabindex  readonly placeholder="">
   <#if mask?has_content>
     <script type="text/javascript">
       jQuery(function($){jQuery("#${id}").mask("${mask}");});
@@ -60,6 +60,7 @@ under the License.
     <#if textSize?has_content> size="${textSize}"</#if><#rt/>
     <#if maxlength?has_content> maxlength="${maxlength}"</#if><#rt/>
     <#if disabled?has_content && disabled> disabled="disabled"</#if><#rt/>
+    <#if readonly?has_content && readonly> readonly="readonly"</#if><#rt/>
     <#if id?has_content> id="${id}"</#if><#rt/>
     <#if event?has_content && action?has_content> ${event}="${action}"</#if><#rt/>
     <#if clientAutocomplete?has_content && clientAutocomplete=="false"> autocomplete="off"</#if><#rt/>
