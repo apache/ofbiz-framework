@@ -102,6 +102,7 @@ public class ModelFormFieldBuilder {
     private FlexibleStringExpander tooltip = FlexibleStringExpander.getInstance("");;
     private String tooltipStyle = "";
     private FlexibleStringExpander useWhen = FlexibleStringExpander.getInstance("");;
+    private FlexibleStringExpander ignoreWhen = FlexibleStringExpander.getInstance("");
     private String widgetAreaStyle = "";
     private String widgetStyle = "";
     private String parentFormName = "";
@@ -152,6 +153,7 @@ public class ModelFormFieldBuilder {
         this.tooltip = FlexibleStringExpander.getInstance(fieldElement.getAttribute("tooltip"));
         this.tooltipStyle = fieldElement.getAttribute("tooltip-style");
         this.useWhen = FlexibleStringExpander.getInstance(fieldElement.getAttribute("use-when"));
+        this.ignoreWhen = FlexibleStringExpander.getInstance(fieldElement.getAttribute("ignore-when"));
         this.widgetAreaStyle = fieldElement.getAttribute("widget-area-style");
         this.widgetStyle = fieldElement.getAttribute("widget-style");
         this.parentFormName = fieldElement.getAttribute("form-name");
@@ -458,6 +460,10 @@ public class ModelFormFieldBuilder {
         return useWhen;
     }
 
+    public FlexibleStringExpander getIgnoreWhen() {
+        return ignoreWhen;
+    }
+
     public String getWidgetAreaStyle() {
         return widgetAreaStyle;
     }
@@ -740,6 +746,8 @@ public class ModelFormFieldBuilder {
             this.action = builder.getAction();
         if (UtilValidate.isNotEmpty(builder.getUseWhen()))
             this.useWhen = builder.getUseWhen();
+        if (UtilValidate.isNotEmpty(builder.getIgnoreWhen()))
+            this.ignoreWhen = builder.getIgnoreWhen();
         if (builder.getFieldInfo() != null)
             this.setFieldInfo(builder.getFieldInfo());
         if (UtilValidate.isNotEmpty(builder.getHeaderLink()))

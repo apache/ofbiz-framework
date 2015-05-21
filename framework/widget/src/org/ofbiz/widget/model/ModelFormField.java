@@ -135,6 +135,7 @@ public class ModelFormField {
     private final FlexibleStringExpander tooltip;
     private final String tooltipStyle;
     private final FlexibleStringExpander useWhen;
+    private final FlexibleStringExpander ignoreWhen;
     private final String widgetAreaStyle;
     private final String widgetStyle;
     private final String parentFormName;
@@ -187,6 +188,7 @@ public class ModelFormField {
         this.tooltip = builder.getTooltip();
         this.tooltipStyle = builder.getTooltipStyle();
         this.useWhen = builder.getUseWhen();
+        this.ignoreWhen = builder.getIgnoreWhen();
         this.widgetAreaStyle = builder.getWidgetAreaStyle();
         this.widgetStyle = builder.getWidgetStyle();
         this.parentFormName = builder.getParentFormName();
@@ -641,6 +643,12 @@ public class ModelFormField {
     public String getUseWhen(Map<String, Object> context) {
         if (UtilValidate.isNotEmpty(this.useWhen))
             return this.useWhen.expandString(context);
+        return "";
+    }
+
+    public String getIgnoreWhen(Map<String, Object> context) {
+        if (UtilValidate.isNotEmpty(this.ignoreWhen))
+            return this.ignoreWhen.expandString(context);
         return "";
     }
 
@@ -3346,6 +3354,36 @@ public class ModelFormField {
             }
             return shouldUse;
         }
+    }
+
+    public boolean shouldIgnore(Map<String, Object> context) {
+        boolean shouldIgnore = true;
+        String ignoreWhen = this.getIgnoreWhen(context);
+        if (UtilValidate.isEmpty(ignoreWhen)) return false;
+
+        try {
+            Interpreter bsh = (Interpreter) context.get("bshInterpreter");
+            if (bsh == null) {
+                bsh = BshUtil.makeInterpreter(context);
+                context.put("bshInterpreter", bsh);
+            }
+
+            Object retVal = bsh.eval(StringUtil.convertOperatorSubstitutions(ignoreWhen));
+
+            if (retVal instanceof Boolean) {
+                shouldIgnore =(Boolean) retVal;
+            } else {
+                throw new IllegalArgumentException("Return value from ignore-when condition eval was not a Boolean: "  + (retVal != null ? retVal.getClass().getName() : "null") + " [" + retVal + "] on the field " + this.name + " of form " + this.modelForm.getName());
+            }
+
+        } catch (EvalError e) {
+            String errMsg = "Error evaluating BeanShell ignore-when condition [" + ignoreWhen + "] on the field " + this.name + " of form " + this.modelForm.getName() + ": " + e.toString();
+            Debug.logError(e, errMsg, module);
+            throw new IllegalArgumentException(errMsg);
+        }
+
+        return shouldIgnore;
+
     }
 
     /**

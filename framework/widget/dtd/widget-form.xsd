@@ -827,6 +827,15 @@ under the License.
             </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
+            <xs:attribute name="ignore-when" type="xs:string">
+                <xs:annotation>
+                    <xs:documentation>
+                        This attribute is defined to enable ignoring a field on a form of type list or multi,
+                        which is not possible using use-when attribute. Like use-when it should be written using java syntax.
+                        The condition should be evaluated in the form context without looking for data coming from list that feeds the form.
+                        </xs:documentation>
+                </xs:annotation>
+            </xs:attribute>
             <xs:attribute name="encode-output" default="true">
                 <xs:annotation>
                     <xs:documentation>
