@@ -340,6 +340,10 @@ public class FormRenderer {
                     continue;
                 }
 
+                if(modelFormField.shouldIgnore(context)) {
+                    continue;
+                }
+
                 if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
                         && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
                         && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
@@ -548,6 +552,11 @@ public class FormRenderer {
             while (innerDisplayHyperlinkFieldIter.hasNext()) {
                 boolean cellOpen = false;
                 ModelFormField modelFormField = innerDisplayHyperlinkFieldIter.next();
+
+                if(modelFormField.shouldIgnore(localContext)) {
+                    continue;
+                }
+
                 // span columns only if this is the last column in the row (not just in this first list)
                 if (fieldCount.get(modelFormField.getName()) < 2) {
                     if ((innerDisplayHyperlinkFieldIter.hasNext() || numOfCells > innerDisplayHyperlinkFieldsBegin.size())) {

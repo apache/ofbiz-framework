@@ -50,6 +50,7 @@ under the License.
                 <field-map field-name="viewIndex" from-field="viewIndex"/>
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
+            <set field="sortField" from-field="parameters.sortField"/>
         </actions>
         <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
         <alt-row-style use-when="&quot;EXST_CANCELLED&quot;.equals(statusId)" style="Warn"/>
@@ -62,6 +63,7 @@ under the License.
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ExampleType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
+        <field name="conditionalDesc" ignore-when="&quot;exampleName&quot;.equals(sortField)" title="my desc"><display description="${description}"/></field>
     </form>
 
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
