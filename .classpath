@@ -38,7 +38,7 @@
     <classpathentry kind="lib" path="framework/base/lib/juel-impl-2.2.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/juel-spi-2.2.7.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/junit-dep-4.10.jar"/>
-    <classpathentry kind="lib" path="framework/base/lib/log4j-api-2.2.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/log4j-api-2.3.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/mail-1.5.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/nekohtml-1.9.16.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
