@@ -170,7 +170,7 @@ public class ContentManagementServices {
         }
         if (contentPurposeList != null) {
             context.put("contentPurposeList", contentPurposeList);
-            context.put("contentPurposeString", module);
+            context.put("contentPurposeString", null);
         }
         
         if (Debug.infoOn()) {
