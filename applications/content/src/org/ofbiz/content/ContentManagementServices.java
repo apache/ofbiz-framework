@@ -156,7 +156,7 @@ public class ContentManagementServices {
         String deactivateString = (String) context.get("deactivateExisting");
         boolean deactivateExisting = "true".equalsIgnoreCase(deactivateString);
 
-        if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, null);
+        if (Debug.infoOn()) Debug.logInfo("in persist... mapKey(0):" + mapKey, module);
 
         // ContentPurposes can get passed in as a delimited string or a list. Combine.
         List<String> contentPurposeList = UtilGenerics.checkList(context.get("contentPurposeList"));
@@ -170,12 +170,12 @@ public class ContentManagementServices {
         }
         if (contentPurposeList != null) {
             context.put("contentPurposeList", contentPurposeList);
-            context.put("contentPurposeString", null);
+            context.put("contentPurposeString", module);
         }
         
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, null);
-            Debug.logInfo("in persist... textData(0):" + context.get("textData"), null);
+            Debug.logInfo("in persist... contentPurposeList(0):" + contentPurposeList, module);
+            Debug.logInfo("in persist... textData(0):" + context.get("textData"), module);
         }
 
         GenericValue content = delegator.makeValue("Content");
@@ -188,7 +188,7 @@ public class ContentManagementServices {
         String origDataResourceId = (String) content.get("dataResourceId");
         
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentId(0):" + contentId, null);
+            Debug.logInfo("in persist... contentId(0):" + contentId, module);
         }
 
         GenericValue dataResource = delegator.makeValue("DataResource");
@@ -203,7 +203,7 @@ public class ContentManagementServices {
         String dataResourceId = (String) dataResource.get("dataResourceId");
         String dataResourceTypeId = (String) dataResource.get("dataResourceTypeId");
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
+            Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
         }
 
         GenericValue contentAssoc = delegator.makeValue("ContentAssoc");
@@ -251,7 +251,7 @@ public class ContentManagementServices {
 
         boolean dataResourceExists = true;
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, null);
+            Debug.logInfo("in persist... dataResourceTypeId(0):" + dataResourceTypeId, module);
         }
         if (UtilValidate.isNotEmpty(dataResourceTypeId)) {
             Map<String, Object> dataResourceResult = new HashMap<String, Object>();
@@ -283,7 +283,7 @@ public class ContentManagementServices {
         context.put("skipPermissionCheck", null);  // Force check here
         boolean contentExists = true;
         if (Debug.infoOn()) {
-            Debug.logInfo("in persist... contentTypeId:" +  contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:" + contentId + " dataResourceId:" + dataResourceId, null);
+            Debug.logInfo("in persist... contentTypeId:" +  contentTypeId + " dataResourceTypeId:" + dataResourceTypeId + " contentId:" + contentId + " dataResourceId:" + dataResourceId, module);
         }
         if (UtilValidate.isNotEmpty(contentTypeId)) {
             if (UtilValidate.isEmpty(contentId)) {
@@ -366,13 +366,12 @@ public class ContentManagementServices {
 
         // If parentContentIdTo or parentContentIdFrom exists, create association with newly created content
         if (Debug.infoOn()) {
-            Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, null);
+            Debug.logInfo("CREATING contentASSOC contentAssocTypeId:" + contentAssocTypeId, module);
         }
         // create content assoc if the key values are present....
-        Debug.logInfo("contentAssoc: " + contentAssoc.toString(), null);
+        if (Debug.infoOn()) Debug.logInfo("contentAssoc: " + contentAssoc.toString(), module);
         if (UtilValidate.isNotEmpty(contentAssocTypeId) && contentAssoc.get("contentId") != null && contentAssoc.get("contentIdTo") != null) {
-            if (Debug.infoOn())
-                Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, null);
+            if (Debug.infoOn()) Debug.logInfo("in persistContentAndAssoc, deactivateExisting:" + deactivateExisting, module);
             Map<String, Object> contentAssocContext = new HashMap<String, Object>();
             contentAssocContext.put("userLogin", userLogin);
             contentAssocContext.put("displayFailCond", bDisplayFailCond);
@@ -602,7 +601,7 @@ public class ContentManagementServices {
       String dataResourceId = (String)dataResource.get("dataResourceId");
       String dataResourceTypeId = (String)dataResource.get("dataResourceTypeId");
       if (Debug.infoOn()) {
-          Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
+          Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
       }
       context.put("skipPermissionCheck", "granted"); // TODO: a temp hack because I don't want to bother with DataResource permissions at this time.
       boolean dataResourceExists = true;
@@ -644,7 +643,7 @@ public class ContentManagementServices {
           }
           dataResourceId = (String)thisResult.get("dataResourceId");
           if (Debug.infoOn()) {
-              Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, null);
+              Debug.logInfo("in persist... dataResourceId(0):" + dataResourceId, module);
           }
           dataResource = (GenericValue)thisResult.get("dataResource");
           Map<String, Object> fileContext = new HashMap<String, Object>();
