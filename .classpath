@@ -117,6 +117,10 @@
     <classpathentry kind="lib" path="specialpurpose/birt/lib/axis-ant-1.4.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/commons-discovery-0.5.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.birt.runtime_4.3.1.v20130918-1142.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.core.runtime_3.9.0.v20130326-1255.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.equinox.registry_3.5.301.v20130717-1549.jar"/>
+    <classpathentry kind="lib" path="specialpurpose/birt/lib/org.eclipse.osgi_3.9.1.v20130814-1242.jar"/>
     <classpathentry kind="lib" path="specialpurpose/birt/lib/viewservlets.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/attributes.jar"/>
     <classpathentry kind="lib" path="specialpurpose/ebaystore/lib/ebaycalls.jar"/>
