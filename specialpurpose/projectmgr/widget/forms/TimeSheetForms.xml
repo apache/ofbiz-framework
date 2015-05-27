@@ -42,7 +42,7 @@
                     <entity-order-by field-name="sequenceNum"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <sub-hyperlink target="taskView" description="${bsh:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
+                <sub-hyperlink target="taskView" description="${groovy:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}">
                     <parameter param-name="workEffortId"/>
                     <parameter param-name="my"/>
                 </sub-hyperlink>
@@ -130,8 +130,8 @@
             <set field="complete" value="${uiLabelMap.ProjectMgrToComplete}"/>
         </actions>
         <row-actions>
-            <set field="actualHours" value="${bsh:org.ofbiz.project.Various.calculateActualHours(delegator, timesheetId)}"/>
-            <set field="completeLink" value="${bsh:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
+            <set field="actualHours" value="${groovy:org.ofbiz.project.Various.calculateActualHours(delegator, timesheetId)}"/>
+            <set field="completeLink" value="${groovy:&quot;TIMESHEET_IN_PROCESS&quot;.equals(statusId)?complete:&quot;&quot;}"/>
         </row-actions>
         <field name="timesheetId" title="${uiLabelMap.WorkEffortTimesheetTimesheetId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${timesheetId}" target="Timesheet">

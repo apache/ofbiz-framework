@@ -526,7 +526,7 @@ under the License.
                 <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
                 <field-map field-name="roleTypeId" value="EBAY_ACCOUNT"/>
             </entity-and>
-            <set field="partyId" value="${bsh:
+            <set field="partyId" value="${groovy:
                 import org.ofbiz.entity.util.EntityUtil;
                 GenericValue partyStore = EntityUtil.getFirst(storeList);
                 if(partyStore!=null) partyId = partyStore.getString(&quot;partyId&quot;);
@@ -760,18 +760,18 @@ under the License.
             <script location="component://ebaystore/webapp/ebaystore/WEB-INF/actions/store/OrderListParameters.groovy"/>
         </row-actions>
         <field name="productStoreId"><hidden value="${productStoreId}"/></field>
-        <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>
-        <field name="orderId" position="1" title="Order ID" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}">
+        <field name="_rowSubmit" position="1" title="${uiLabelMap.CommonSelect}" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><check/></field>
+        <field name="orderId" position="1" title="Order ID" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}">
             <hyperlink target="https://localhost:8443/ordermgr/control/orderview?orderId=${orderId}" description="${orderId}" target-type="plain" target-window="_BLANK"/>
         </field>
-        <field name="externalId" title="External ID" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${externalId}"></display></field>
-        <field name="ebayUserIdBuyer" title="Winning Bidder" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${ebayUserIdBuyer}"></display></field>
+        <field name="externalId" title="External ID" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${externalId}"></display></field>
+        <field name="ebayUserIdBuyer" title="Winning Bidder" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${ebayUserIdBuyer}"></display></field>
         <field name="dummy4" title=" " position="1"><display></display></field>
         <field name="dummy5" title=" " position="1"><display></display></field>
-        <field name="createdDate" title="Invoice Date" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${createdDate}"></display></field>
-        <field name="paymentMethodUsed" title="Payment Type" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${paymentMethodUsed}"></display></field>
+        <field name="createdDate" title="Invoice Date" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${createdDate}"></display></field>
+        <field name="paymentMethodUsed" title="Payment Type" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${paymentMethodUsed}"></display></field>
         <field name="dummy7" title=" " position="1"><display></display></field>
-        <field name="amountPaid" title="Order Total Price" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${amountPaid}"></display></field>
+        <field name="amountPaid" title="Order Total Price" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><display description="${amountPaid}"></display></field>
 
         <field name="dummy1" title=" " position="2"><display></display></field>
         <field name="dummy2" title=" " position="2"><display></display></field>
@@ -785,9 +785,9 @@ under the License.
         <field name="quantity" title="Quantity" position="2"><display description="${quantity}"></display></field>
         <field name="amount" title="Amount price per item" position="2"><display description="${transactionPrice}"></display></field>
         
-        <field name="paidTime" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${paidTime}"></hidden></field>
-        <field name="shippedTime" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${shippedTime}"></hidden></field>
-        <field name="emailBuyer" use-when="${bsh:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${emailBuyer}"></hidden></field>
+        <field name="paidTime" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${paidTime}"></hidden></field>
+        <field name="shippedTime" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${shippedTime}"></hidden></field>
+        <field name="emailBuyer" use-when="${groovy:String prev=(String)previousItem.get(&quot;externalId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(externalId)));}"><hidden value="${emailBuyer}"></hidden></field>
 
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>

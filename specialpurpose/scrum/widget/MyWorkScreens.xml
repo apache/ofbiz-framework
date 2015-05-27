@@ -120,13 +120,13 @@ under the License.
                             <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                         </condition>
                         <widgets>
-                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
                                 navigation-form-name="WeekTimesheet">
                                 <include-form name="WeekTimesheet" location="component://scrum/widget/MyWorkForms.xml"/>
                             </screenlet>
                         </widgets>
                         <fail-widgets>
-                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
                                 navigation-menu-name="TimesheetBar">
                                 <include-menu name="TimesheetBar" location="component://scrum/widget/scrumMenus.xml"/>
                                 <include-form name="EditWeekTimesheet" location="component://scrum/widget/MyWorkForms.xml"/>

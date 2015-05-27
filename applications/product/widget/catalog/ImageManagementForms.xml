@@ -95,10 +95,10 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
-        <field name="statusProductId" title="${uiLabelMap.ProductStatus}" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="statusProductId" title="${uiLabelMap.ProductStatus}" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <radio no-current-selected-key="${checkRadio}">
                 <option key="IM_APPROVED__${productId}" description="${uiLabelMap.FormFieldTitle_approve}"/>
                 <option key="IM_REJECTED__${productId}" description="${uiLabelMap.FormFieldTitle_rejectButton}"/>
@@ -150,7 +150,7 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>
@@ -189,7 +189,7 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="_rowSubmit" position="2" title=" " widget-style="hidden"><check all-checked="true"/></field>
@@ -244,7 +244,7 @@ under the License.
                 <field-map field-name="productCategoryId" from-field="product.primaryProductCategoryId"/>
             </entity-one>
         </row-actions>
-        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${bsh:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
+        <field name="productId" title="${uiLabelMap.ProductProductName} [${uiLabelMap.ProductProductId}] - ${uiLabelMap.FormFieldTitle_categoryName}" entry-name="productId" position="1" use-when="${groovy:String prev=(String)previousItem.get(&quot;productId&quot;);return new Boolean(!(prev!=null&amp;&amp;prev.equals(productId)));}">
             <display-entity entity-name="Product" key-field-name="productId" description="${internalName} [${productId}] - ${productCategory.categoryName}" also-hidden="false"/>
         </field>
         <field name="drObjectInfo" position="2" title="${uiLabelMap.CommonImage}"><image style="cssImgLarge"/></field>

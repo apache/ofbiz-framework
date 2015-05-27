@@ -2039,7 +2039,7 @@ under the License.
             <display-entity entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
         </field>
         <field name="organizationPartyId" title="${uiLabelMap.ProductOrganization}">
-            <display description="${bsh: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, organizationPartyId, true);} [${organizationPartyId}]"/>
+            <display description="${groovy: org.ofbiz.party.party.PartyHelper.getPartyName(delegator, organizationPartyId, true);} [${organizationPartyId}]"/>
         </field>
         <field name="glAccountId" title="${uiLabelMap.ProductGlAccount}">
             <drop-down allow-empty="false">

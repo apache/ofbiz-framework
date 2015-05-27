@@ -60,14 +60,14 @@
     <menu name="ProjectTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-            <set field="hasUpdatePermission" value="${bsh:
+            <set field="hasUpdatePermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
                 &quot;mainAction&quot;, &quot;UPDATE&quot;,
                 &quot;projectId&quot;, projectId));
                 return result.get(&quot;hasPermission&quot;); }" type="Boolean"/>
-            <set field="hasViewPermission" value="${bsh:
+            <set field="hasViewPermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,
@@ -226,7 +226,7 @@
     <menu name="ProjectButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <actions>
             <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
-            <set field="hasUpdatePermission" value="${bsh:
+            <set field="hasUpdatePermission" value="${groovy:
                 result = dispatcher.runSync(&quot;projectMgrPermission&quot;,
                 org.ofbiz.base.util.UtilMisc.toMap(&quot;userLogin&quot;, parameters.get(&quot;userLogin&quot;),
                 &quot;resourceDescription&quot;, &quot;Project&quot;,

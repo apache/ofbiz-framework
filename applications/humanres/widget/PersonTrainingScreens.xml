@@ -36,7 +36,7 @@
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Days.groovy"/>
                     </actions>
                     <widgets>
-                        <screenlet title="${uiLabelMap.WorkEffortDayView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
+                        <screenlet title="${uiLabelMap.WorkEffortDayView}: ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;EEEE MMMM d, yyyy&quot;, timeZone, locale)}" navigation-menu-name="Day">
                             <include-menu name="Day" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>
@@ -56,7 +56,7 @@
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Week.groovy"/>
                     </actions>
                     <widgets>
-                        <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
+                        <screenlet title="${uiLabelMap.WorkEffortWeekView}: ${uiLabelMap.CommonWeek} ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;w&quot;, timeZone, locale)}" navigation-menu-name="Week">
                             <include-menu name="Week" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>
@@ -73,7 +73,7 @@
                         <script location="component://workeffort/webapp/workeffort/WEB-INF/actions/calendar/Month.groovy"/>
                     </actions>
                     <widgets>
-                        <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${bsh:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
+                        <screenlet title="${uiLabelMap.WorkEffortMonthView}: ${groovy:org.ofbiz.base.util.UtilDateTime.timeStampToString(start, &quot;MMMM yyyy&quot;, timeZone, locale)}" navigation-menu-name="Month">
                             <include-menu name="Month" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                             <include-screen name="trainingCalendarDetail"/>
                             <platform-specific>

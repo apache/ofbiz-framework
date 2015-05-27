@@ -58,7 +58,7 @@ under the License.
                     </condition>
                     <actions>
                         <set field="parameters.partyId" from-field="parameters.userLogin.partyId"/>
-                        <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+                        <set field="nowDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
                         <set field="filterByDate" from-field="nowDate"/>
                     </actions>
                     <widgets/>
