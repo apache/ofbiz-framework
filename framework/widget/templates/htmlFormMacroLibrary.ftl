@@ -74,7 +74,7 @@ under the License.
   </#if>
 </#macro>
 
-<#macro renderTextareaField name className alert cols rows id readonly value visualEditorEnable buttons tabindex language="">
+<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable buttons tabindex language="">
   <textarea name="${name}"<#t/>
     <@renderClass className alert />
     <#if cols?has_content> cols="${cols}"</#if><#rt/>

@@ -52,7 +52,7 @@ under the License.
 
 <#macro renderTextField name className alert value textSize maxlength id event action disabled clientAutocomplete ajaxUrl ajaxEnabled mask  placeholder tabindex readonly><@makeBlock className value /></#macro>
 
-<#macro renderTextareaField name className alert cols rows id readonly value visualEditorEnable language buttons><@makeBlock className value /></#macro>
+<#macro renderTextareaField name className alert cols rows maxlength id readonly value visualEditorEnable language buttons><@makeBlock className value /></#macro>
 
 <#macro renderDateTimeField name className alert title value size maxlength step timeValues id event action dateType shortDateInput timeDropdownParamName defaultDateTimeString localizedIconTitle timeDropdown timeHourName classString hour1 hour2 timeMinutesName minutes isTwelveHour ampmName amSelected pmSelected compositeType formName mask><@makeBlock className value /></#macro>
 
