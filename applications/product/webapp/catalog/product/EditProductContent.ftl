@@ -52,7 +52,7 @@ under the License.
                 <td width="20%" align="right" valign="top"><b>${uiLabelMap.ProductProductDescription}</b></td>
                 <td>&nbsp;</td>
                 <td width="80%" colspan="4" valign="top">
-                    <textarea name="description" cols="60" rows="2">${(product.description)!}</textarea>
+                    <textarea name="description" cols="60" rows="2" maxlength="255">${(product.description)!}</textarea>
                 </td>
             </tr>
             <tr>

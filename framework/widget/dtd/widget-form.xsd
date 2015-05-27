@@ -1615,6 +1615,7 @@ under the License.
         <xs:complexType>
             <xs:attribute type="xs:positiveInteger" name="cols" default="60" />
             <xs:attribute type="xs:positiveInteger" name="rows" default="3" />
+            <xs:attribute type="xs:positiveInteger" name="maxlength"/>
             <xs:attribute type="xs:string" name="default-value" />
             <xs:attribute name="read-only" default="false">
                 <xs:annotation>

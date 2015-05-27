@@ -467,6 +467,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append(Integer.toString(textareaField.getRows()));
         writer.append('"');
 
+        Integer maxlength = textareaField.getMaxlength();
+        if(maxlength != null) {
+            writer.append(" maxlength=\"");
+            writer.append(Integer.toString(textareaField.getMaxlength()));
+            writer.append('"');
+        }
+
         String idName = modelFormField.getCurrentContainerId(context);
         if (UtilValidate.isNotEmpty(idName)) {
             writer.append(" id=\"");

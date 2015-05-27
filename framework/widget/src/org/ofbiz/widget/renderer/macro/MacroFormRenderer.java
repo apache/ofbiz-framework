@@ -455,6 +455,10 @@ public final class MacroFormRenderer implements FormStringRenderer {
         if (userLogin != null) {
             language = UtilValidate.isEmpty((String) userLogin.get("lastLocale")) ? "en" : (String) userLogin.get("lastLocale");
         }
+        String maxlength = "";
+        if (textareaField.getMaxlength() != null) {
+            maxlength = Integer.toString(textareaField.getMaxlength());
+        }
         String tabindex = modelFormField.getTabindex();
         String value = modelFormField.getEntry(context, textareaField.getDefaultValue(context));
         StringWriter sr = new StringWriter();
@@ -471,6 +475,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
         sr.append(cols);
         sr.append("\" rows=\"");
         sr.append(rows);
+        sr.append("\" maxlength=\"");
+        sr.append(maxlength);
         sr.append("\" id=\"");
         sr.append(id);
         sr.append("\" readonly=\"");

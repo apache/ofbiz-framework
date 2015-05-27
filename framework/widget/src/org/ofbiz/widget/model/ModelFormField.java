@@ -3503,6 +3503,7 @@ public class ModelFormField {
         private final int rows;
         private final FlexibleStringExpander visualEditorButtons;
         private final boolean visualEditorEnable;
+        private final Integer maxlength;
 
         public TextareaField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
@@ -3534,6 +3535,17 @@ public class ModelFormField {
                 }
             }
             this.rows = rows;
+            Integer maxlength = null;
+            String maxlengthStr = element.getAttribute("maxlength");
+            if (!maxlengthStr.isEmpty()) {
+                try {
+                    maxlength = Integer.valueOf(maxlengthStr);
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr
+                            + "], setting to null; default of no maxlength will be used", module);
+                }
+            }
+            this.maxlength = maxlength;
             this.visualEditorButtons = FlexibleStringExpander.getInstance(element.getAttribute("visual-editor-buttons"));
             this.visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
         }
@@ -3544,6 +3556,7 @@ public class ModelFormField {
             this.defaultValue = FlexibleStringExpander.getInstance("");
             this.readOnly = false;
             this.rows = 2;
+            this.maxlength = null;
             this.visualEditorButtons = FlexibleStringExpander.getInstance("");
             this.visualEditorEnable = false;
         }
@@ -3560,6 +3573,7 @@ public class ModelFormField {
             this.readOnly = original.readOnly;
             this.cols = original.cols;
             this.rows = original.rows;
+            this.maxlength = original.maxlength;
         }
 
         @Override
@@ -3588,8 +3602,10 @@ public class ModelFormField {
             }
         }
 
-        public int getRows() {
-            return rows;
+        public int getRows() { return rows; }
+
+        public Integer getMaxlength() {
+            return maxlength;
         }
 
         public FlexibleStringExpander getVisualEditorButtons() {
