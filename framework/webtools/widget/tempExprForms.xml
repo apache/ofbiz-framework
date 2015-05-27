@@ -24,7 +24,7 @@ under the License.
     <!-- Temporal Expression forms -->
     <form name="FindTemporalExpression" target="findTemporalExpression" type="single">
         <actions>
-            <set field="expressionTypeList" value="${bsh:org.ofbiz.service.calendar.ExpressionUiHelper.getExpressionTypeList(uiLabelMap);}" type="List"/>
+            <set field="expressionTypeList" value="${groovy:org.ofbiz.service.calendar.ExpressionUiHelper.getExpressionTypeList(uiLabelMap);}" type="List"/>
         </actions>
         <field name="tempExprId" title="${uiLabelMap.TemporalExpressionId}"><text-find/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>

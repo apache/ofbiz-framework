@@ -924,7 +924,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><display/></field>
-        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
+        <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${groovy:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${noteDateTime}"/></field>
         <field name="internalNote" title="${uiLabelMap.WorkEffortPrivatePublic}" widget-style="buttontext" use-when="&quot;N&quot;.equals(internalNote)">
             <hyperlink target="updateWorkEffortNote" description="${uiLabelMap.OrderNotesPrivate}">
                 <parameter param-name="workEffortId"/>
@@ -1352,7 +1352,7 @@ under the License.
 
     <form name="EditICalendar" default-map-name="workEffort" target="updateICalendar" type="single">
         <actions>
-            <set field="serverRootUrl" value="${bsh: org.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
+            <set field="serverRootUrl" value="${groovy: org.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
         </actions>
         <alt-target target="createICalendar" use-when="workEffort==null"/>
         <field name="workEffortTypeId"><hidden value="PUBLISH_PROPS"></hidden></field>
@@ -1427,7 +1427,7 @@ under the License.
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="statusId" value="PRTYASGN_ASSIGNED"/>
             </entity-and>
-            <set field="serverRootUrl" value="${bsh: org.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
+            <set field="serverRootUrl" value="${groovy: org.ofbiz.base.util.UtilHttp.getServerRootUrl(request)}"/>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}">
             <hyperlink also-hidden="false" description="${workEffortId}" target="EditICalendar" target-type="plain">

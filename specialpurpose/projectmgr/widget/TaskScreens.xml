@@ -273,7 +273,7 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
-                <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+                <set field="nowDate" value="${groovy:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
                 <service service-name="getProjectIdAndNameFromTask" result-map="result">
                     <field-map field-name="taskId" from-field="parameters.workEffortId"/>
                 </service>

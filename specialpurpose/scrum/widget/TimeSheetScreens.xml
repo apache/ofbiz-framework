@@ -62,8 +62,8 @@ under the License.
                 <decorator-screen name="CommonAdminDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet title="${uiLabelMap.PageTitleTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.CommonWeek}: ${weekNumber} 
-                        ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} 
-                        ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)} ${uiLabelMap.PartyParty} : ${partyNameViewMap.lastName} ${partyNameViewMap.firstName} ${partyNameViewMap.middleName} [${timesheet.partyId}]">
+                        ${uiLabelMap.CommonFrom} ${groovy:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} 
+                        ${groovy:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)} ${uiLabelMap.PartyParty} : ${partyNameViewMap.lastName} ${partyNameViewMap.firstName} ${partyNameViewMap.middleName} [${timesheet.partyId}]">
                             <section>
                                 <condition>
                                     <if-compare field="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>

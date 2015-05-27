@@ -65,7 +65,7 @@ under the License.
                 <parameter param-name="deactivateExisting" value="yes"/>
             </hyperlink>
         </field>
-        <field name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate.toString().substring(0,10)}"/></field>
+        <field name="fromDate" entry-name="caFromDate"><display description="${groovy:caFromDate.toString().substring(0,10)}"/></field>
         <field name="nbrOfMessages" entry-name="childBranchCount"><display/></field>
     </form>
     <form name="AddForum" type="single" target="createForum"
@@ -150,8 +150,8 @@ under the License.
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="messageTitle" entry-name="description" parameter-name="description"><display/></field>
         <field name="createdBy" entry-name="createdByUserLogin"><display/></field>
-        <field name="fromDate" entry-name="caFromDate"><display description="${bsh:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
-        <field name="thruDate" entry-name="caThruDate"><display description="${bsh:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field name="fromDate" entry-name="caFromDate"><display description="${groovy:caFromDate!=null?caFromDate.toString().substring(0,10):&quot;&quot;}"/></field>
+        <field name="thruDate" entry-name="caThruDate"><display description="${groovy:caThruDate!=null?caThruDate.toString().substring(0,10):&quot;&quot;}"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="buttontext"><hyperlink target="updateForumMessage">
                 <parameter param-name="forumGroupId"/>
                 <parameter param-name="forumId"/>

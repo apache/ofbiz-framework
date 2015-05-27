@@ -290,7 +290,7 @@ under the License.
         </field>
         <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
         <field name="mapKey"><display/></field>
-        <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
+        <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
                 <parameter param-name="contentId"/>
@@ -321,7 +321,7 @@ under the License.
         <field name="contentIdTo"><hidden/></field>
         <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
         <field name="mapKey"><display/></field>
-        <field name="fromDate"><display description="${bsh:fromDate.toString().substring(0,10)}"/></field>
+        <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="removeContentAssoc">
                 <parameter param-name="contentId"/>

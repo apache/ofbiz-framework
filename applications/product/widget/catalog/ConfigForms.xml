@@ -32,7 +32,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="typeDescription" value="${bsh: return &quot;SINGLE&quot;.equals(configItemTypeId) ? uiLabelMap.get(&quot;ProductSingleChoice&quot;) : uiLabelMap.get(&quot;ProductMultiChoice&quot;)}"/>
+            <set field="typeDescription" value="${groovy: return &quot;SINGLE&quot;.equals(configItemTypeId) ? uiLabelMap.get(&quot;ProductSingleChoice&quot;) : uiLabelMap.get(&quot;ProductMultiChoice&quot;)}"/>
         </row-actions>
         <field name="configItemId" title="${uiLabelMap.ProductConfigItem}" widget-style="buttontext">
             <hyperlink target="EditProductConfigItem" description="${configItemId}">

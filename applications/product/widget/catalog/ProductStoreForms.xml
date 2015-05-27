@@ -1074,24 +1074,24 @@
         </field>
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
-        <field name="editLink" title=" " use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
+        <field name="editLink" title=" " use-when="${groovy:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}" widget-style="buttontext">
             <hyperlink target="EditProductStorePaySetup" description="${uiLabelMap.CommonEdit}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
                 <parameter param-name="paymentServiceTypeEnumId"/>
             </hyperlink>
         </field>
-        <field name="editLink" title=" " use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}">
+        <field name="editLink" title=" " use-when="${groovy:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_UPDATE&quot;, session);}">
             <display/>
         </field>
-        <field name="deleteLink" title=" " use-when="${bsh:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
+        <field name="deleteLink" title=" " use-when="${groovy:security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}" widget-style="buttontext">
             <hyperlink target="storeRemovePaySetting" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="productStoreId"/>
                 <parameter param-name="paymentMethodTypeId"/>
                 <parameter param-name="paymentServiceTypeEnumId"/>
             </hyperlink>
         </field>
-        <field name="deleteLink" title=" " use-when="${bsh:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}">
+        <field name="deleteLink" title=" " use-when="${groovy:!security.hasEntityPermission(&quot;CATALOG&quot;, &quot;_DELETE&quot;, session);}">
             <display/>
         </field>
     </form>
