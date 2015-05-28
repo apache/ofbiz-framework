@@ -291,6 +291,11 @@ under the License.
             <link target="EditWebSite"/>
         </menu-item>
     </menu>
+    <menu name="websitePathAliasMenu" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+        <menu-item name="EditWebSitePathAlias" title="${uiLabelMap.ContentWebSitePathAliasCreate}" widget-style="buttontext create">
+            <link target="EditWebSitePathAlias?webSiteId=${webSiteId}"/>
+        </menu-item>
+    </menu>    
     <!-- Web Analytics -->
     <menu name="WebAnalyticsConfigButtonBar" extends="CommonButtonBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="EditWebAnalyticsConfig" title="${uiLabelMap.CommonCreate}">

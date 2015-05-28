@@ -3696,6 +3696,11 @@
         <value xml:lang="zh">联系方式列表视图</value>
         <value xml:lang="zh-TW">聯絡清單檢視</value>
     </property>
+    <property key="ContentWebSitePathAliasCreate">
+        <value xml:lang="de">Neuen Pfad Alias erstellen</value>
+        <value xml:lang="en">Create New Path Alias</value>
+        <value xml:lang="nl">Aanmaken Nieuwe Path Alias</value>
+    </property>  
     <property key="ContentWebSiteContent">
         <value xml:lang="da">Webside indhold</value>
         <value xml:lang="de">Webseite Inhalt</value>
@@ -7382,6 +7387,11 @@
         <value xml:lang="zh">站点列表</value>
         <value xml:lang="zh-TW">網站清單</value>
     </property>
+    <property key="PageTitleEditWebSitePathAlias">
+        <value xml:lang="de">WebSite Pfad Alias bearbeiten</value>
+        <value xml:lang="en">Edit WebSite Path Alias</value>
+        <value xml:lang="nl">Wijzigen WebSite Path Alias</value>
+    </property> 
     <property key="PageTitleLookupContent">
         <value xml:lang="ar">البحث عن المحتوى</value>
         <value xml:lang="da">Søg indhold</value>
