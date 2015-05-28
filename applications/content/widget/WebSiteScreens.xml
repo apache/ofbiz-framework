@@ -221,7 +221,7 @@ under the License.
                 <set field="parameters.fromDate" type="Timestamp" from-field="parameters.fromDate"/>
                 <entity-condition list="assocs" entity-name="ContentAssoc">
                     <condition-list>
-                        <condition-expr field-name="contentId" from-field="parameters.contentIdFrom"/>
+                        <condition-expr field-name="contentId" from-field="parameters.contentIdFrom" ignore-if-empty="true"/>
                         <condition-expr field-name="contentIdTo" from-field="parameters.contentId"/>
                         <condition-expr field-name="fromDate" from-field="parameters.fromDate" ignore-if-empty="true"/>
                         <condition-expr field-name="contentAssocTypeId" from-field="parameters.contentAssocTypeId" ignore-if-empty="true"/>
@@ -310,7 +310,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
     <screen name="WebSiteCMSPathAlias">
         <section>
             <actions>
@@ -337,17 +337,45 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditWebSitePathAlias">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditWebSitePathAlias"/>
+                <set field="tabButtonItem" value="PathAlias"/>
+                <set field="labelTitleProperty" value="PageTitleEditWebSitePathAlias"/>
+                <set field="webSiteId" from-field="parameters.webSiteId"/>
+                <entity-one entity-name="WebSitePathAlias" value-field="webSitePathAlias"/>
+                 <entity-one entity-name="WebSite" value-field="webSite"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWebSitePathAliasDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PageTitleEditWebSitePathAlias}">
+                                    <include-form name="EditWebSitePathAlias" location="component://content/widget/website/WebSiteForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen> 
+      
     <screen name="WebSiteAliases">
         <section>
             <actions>
-                <set field="titleProperty" value="ContentPathAlias"/>
+                <set field="titleProperty" value="PageTitleEditWebSitePathAlias"/>
+                <set field="labelTitleProperty" value="PageTitleEditWebSitePathAlias"/>
                 <set field="webSiteId" from-field="parameters.webSiteId"/>
                 <set field="tabButtonItem" value="PathAlias"/>
                 <set field="viewIndex" from-field="requestParameters.VIEW_INDEX" type="Integer"/>
                 <set field="viewSize" from-field="requestParameters.VIEW_SIZE" type="Integer" default-value="30"/>
+                <entity-one entity-name="WebSite" value-field="webSite"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonWebSiteDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonWebSitePathAliasDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="search-options">
@@ -362,6 +390,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    
     <screen name="WebSiteAliasesSearchResults">
         <section>
             <actions>

@@ -351,6 +351,51 @@ under the License.
         </section>
     </screen>
 
+    <screen name="CommonWebSitePathAliasDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="websites"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="component://content/widget/CommonScreens.xml">
+                    <decorator-section name="pre-body">
+                        <section>
+                            <condition>
+                                <and>
+                                    <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                                    <not><if-empty field="parameters.webSiteId"/></not>
+                                </and>
+                            </condition>
+                            <widgets>
+                                <include-menu name="website" location="component://content/widget/content/ContentMenus.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-has-permission permission="CONTENTMGR" action="_VIEW"/>
+                            </condition>
+                            <widgets>
+                                <!--<container style="button-bar">
+                                    <link  text="${uiLabelMap.ContentCreateNewWebSite}" target="EditWebSite" style="buttontext create"/>
+                                </container>-->
+                                <container>
+                                    <include-menu name="websitePathAliasMenu" location="component://content/widget/content/ContentMenus.xml"/>
+                                </container>
+                                <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${webSite.siteName} [${webSite.webSiteId}]  ${${extraFunctionName}}"/>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.ContentViewPermissionError}</label>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="commonLayoutDecorator">
         <section>
             <actions>

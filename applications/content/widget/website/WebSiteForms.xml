@@ -92,8 +92,10 @@ under the License.
                 <field-map field-name="viewSize" from-field="viewSize"/>
             </service>
         </actions>
-        <field name="pathAlias" sort-field="true"><display/></field>
-        <field name="pathAliasTo" sort-field="true"><display/></field>
+        <field name="pathAlias" sort-field="true" widget-style="buttontext">
+            <hyperlink target="EditWebSitePathAlias?webSiteId=${webSiteId}&amp;pathAlias=${pathAlias}" description="${pathAlias}"></hyperlink>
+        </field>        
+        <field name="aliasTo" sort-field="true"><display/></field>
         <field name="mapKey" sort-field="true"><display/></field>
         <field name="contentId" sort-field="true">
             <display-entity entity-name="Content" description="${contentName}">
@@ -102,9 +104,30 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink target="removeWebSitePathAlias" description="${uiLabelMap.CommonDelete}" also-hidden="false">
+              <parameter param-name="webSiteId"/>
+              <parameter param-name="pathAlias"/>
+            </hyperlink>
+        </field>        
         <on-event-update-area event-type="paginate" area-id="search-results" area-target="WebSiteAliasesSearchResults"/>
     </form>
 
+    <form name="EditWebSitePathAlias" type="single" target="updateWebSitePathAlias" title="" default-map-name="webSitePathAlias"
+        header-row-style="header-row" default-table-style="basic-table" default-entity-name="WebSitePathAlias">
+  
+        <alt-target use-when="webSitePathAlias==null" target="createWebSitePathAlias"/>
+
+        <auto-fields-service service-name="updateWebSitePathAlias" map-name=""/>
+        
+        <field name="webSiteId"><display/></field>      
+        <field name="pathAlias" use-when="webSitePathAlias!=null"><display/></field>
+        <field name="pathAlias" use-when="webSitePathAlias==null"><text/></field>
+      
+        <field name="submitButton" use-when="webSitePathAlias!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="webSitePathAlias==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
     <!-- WebSite Content Forms -->
     <form name="ListWebSiteContent" type="list" list-name="webSiteContent" target="UpdateWebSiteContent"
         paginate-target="ListWebSiteContent" paginate="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
