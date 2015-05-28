@@ -330,7 +330,11 @@ public class FindServices {
                 fieldOp = entityOperators.get(operation);
             }
         } else {
-            fieldOp = EntityOperator.EQUALS;
+            if(UtilValidate.isNotEmpty(UtilGenerics.toList(fieldValue))){
+                fieldOp = EntityOperator.IN;
+            } else {
+                fieldOp = EntityOperator.EQUALS;   
+            }
         }
         Object fieldObject = fieldValue;
         if ((fieldOp != EntityOperator.IN && fieldOp != EntityOperator.NOT_IN ) || !(fieldValue instanceof Collection<?>)) {
