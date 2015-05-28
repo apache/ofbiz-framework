@@ -24,9 +24,11 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -267,6 +269,8 @@ public class ModelFormField {
         if (timeZone == null)
             timeZone = TimeZone.getDefault();
 
+        UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
+
         String returnValue;
 
         // if useRequestParameters is TRUE then parameters will always be used, if FALSE then parameters will never be used
@@ -346,6 +350,23 @@ public class ModelFormField {
                 } else if (retVal instanceof java.util.Date) {
                     DateFormat df = UtilDateTime.toDateTimeFormat("EEE MMM dd hh:mm:ss z yyyy", timeZone, null);
                     return df.format((java.util.Date) retVal);
+                } else if (retVal instanceof Collection) {
+                    Collection<Object> col = UtilGenerics.checkCollection(retVal);
+                    Iterator<Object> iter = col.iterator();
+                    ArrayList<Object> newCol = new ArrayList<Object>(col.size());
+                    while (iter.hasNext()) {
+                        Object item = iter.next();
+                        if (item == null) {
+                            continue;
+                        }
+                        if (simpleEncoder != null) {
+                            newCol.add(simpleEncoder.encode(item.toString()));
+                        }
+                        else {
+                            newCol.add(item.toString());
+                        }
+                    }
+                    return newCol.toString();
                 } else {
                     returnValue = retVal.toString();
                 }
@@ -355,7 +376,6 @@ public class ModelFormField {
         }
 
         if (this.getEncodeOutput() && returnValue != null) {
-            UtilCodec.SimpleEncoder simpleEncoder = (UtilCodec.SimpleEncoder) context.get("simpleEncoder");
             if (simpleEncoder != null)
                 returnValue = simpleEncoder.encode(returnValue);
         }
