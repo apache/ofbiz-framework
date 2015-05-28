@@ -330,10 +330,10 @@ public class FindServices {
                 fieldOp = entityOperators.get(operation);
             }
         } else {
-            if(UtilValidate.isNotEmpty(UtilGenerics.toList(fieldValue))){
+            if (UtilValidate.isNotEmpty(UtilGenerics.toList(fieldValue))) {
                 fieldOp = EntityOperator.IN;
             } else {
-                fieldOp = EntityOperator.EQUALS;   
+                fieldOp = EntityOperator.EQUALS;
             }
         }
         Object fieldObject = fieldValue;
