@@ -3880,6 +3880,19 @@ public class ModelFormField {
             return this.defaultOption;
         }
 
+        public String getDefaultOption(Map<String, Object> context) {
+            String defaultOption = getDefaultOption();
+
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
+            if (UtilValidate.isNotEmpty(parameters)) {
+                String fieldName = this.getModelFormField().getName();
+                if (parameters.containsKey(fieldName)) {
+                    defaultOption = (String) parameters.get(fieldName.concat("_op"));
+                }
+            }
+            return defaultOption;
+        }
+
         public boolean getHideIgnoreCase() {
             return this.hideIgnoreCase;
         }
@@ -3890,6 +3903,19 @@ public class ModelFormField {
 
         public boolean getIgnoreCase() {
             return this.ignoreCase;
+        }
+
+        public boolean getIgnoreCase(Map<String, Object> context) {
+            Boolean ignoreCase = getIgnoreCase();
+
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
+            if (UtilValidate.isNotEmpty(parameters)) {
+                String fieldName = this.getModelFormField().getName();
+                if (parameters.containsKey(fieldName)) {
+                    ignoreCase = "Y".equals((String) parameters.get(fieldName.concat("_ic")));
+                }
+            }
+            return ignoreCase;
         }
 
         @Override
