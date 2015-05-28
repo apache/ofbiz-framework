@@ -424,7 +424,7 @@ public class ModelFormField {
         Map<String, ? extends Object> result = null;
         try {
             result = mapAcsr.get(context);
-        } catch (java.lang.ClassCastException e) {
+        } catch (ClassCastException e) {
             String errMsg = "Got an unexpected object type (not a Map) for map-name [" + mapAcsr.getOriginalName()
                     + "] in field with name [" + this.getName() + "]: " + e.getMessage();
             Debug.logError(errMsg, module);
@@ -746,14 +746,14 @@ public class ModelFormField {
         String value = this.getEntry(context, null);
         try {
             timestampVal = java.sql.Timestamp.valueOf(value);
-        } catch (Exception e) {
+        } catch (IllegalArgumentException e) {
             // okay, not a timestamp...
         }
 
         if (timestampVal == null) {
             try {
                 dateVal = java.sql.Date.valueOf(value);
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 // okay, not a date...
             }
         }
@@ -761,7 +761,7 @@ public class ModelFormField {
         if (timestampVal == null && dateVal == null) {
             try {
                 timeVal = java.sql.Time.valueOf(value);
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 // okay, not a time...
             }
         }
@@ -1609,7 +1609,7 @@ public class ModelFormField {
             if (!sizeStr.isEmpty()) {
                 try {
                     otherFieldSize = Integer.parseInt(sizeStr);
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr
                             + "], setting to the default of 0", module);
                 }
@@ -3512,11 +3512,9 @@ public class ModelFormField {
             if (!colsStr.isEmpty()) {
                 try {
                     cols = Integer.parseInt(colsStr);
-                } catch (Exception e) {
-                    if (UtilValidate.isNotEmpty(colsStr)) {
-                        Debug.logError("Could not parse the size value of the text element: [" + colsStr
-                                + "], setting to default of " + cols, module);
-                    }
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the size value of the text element: [" + colsStr
+                            + "], setting to default of " + cols, module);
                 }
             }
             this.cols = cols;
@@ -3527,11 +3525,9 @@ public class ModelFormField {
             if (!rowsStr.isEmpty()) {
                 try {
                     rows = Integer.parseInt(rowsStr);
-                } catch (Exception e) {
-                    if (UtilValidate.isNotEmpty(rowsStr)) {
-                        Debug.logError("Could not parse the size value of the text element: [" + rowsStr
-                                + "], setting to default of " + rows, module);
-                    }
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the size value of the text element: [" + rowsStr
+                            + "], setting to default of " + rows, module);
                 }
             }
             this.rows = rows;
@@ -3658,8 +3654,8 @@ public class ModelFormField {
             if (!maxlengthStr.isEmpty()) {
                 try {
                     maxlength = Integer.valueOf(maxlengthStr);
-                } catch (Exception e) {
-                    Debug.logError("Could not parse the max-length value of the text element: [" + maxlengthStr
+                } catch (NumberFormatException e) {
+                    Debug.logError("Could not parse the maxlength value of the text element: [" + maxlengthStr
                             + "], setting to null; default of no maxlength will be used", module);
                 }
             }
@@ -3671,7 +3667,7 @@ public class ModelFormField {
             if (!sizeStr.isEmpty()) {
                 try {
                     size = Integer.parseInt(sizeStr);
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     Debug.logError("Could not parse the size value of the text element: [" + sizeStr
                             + "], setting to the default of " + size, module);
                 }
