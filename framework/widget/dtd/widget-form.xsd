@@ -924,7 +924,8 @@ under the License.
             <xs:attribute type="xs:string" name="form-name">
                 <xs:annotation>
                     <xs:documentation>
-                        The name of the parent form, needed at least for lookups when using skip-start="true"
+                        The name of the parent form. This is needed for lookups of children forms.
+                        The parent form being the first form with skip-end="true" which precedes the children forms (with skip-start="true").
                         Must be set also on the related field if description-field-name is used.
                     </xs:documentation>
                 </xs:annotation>
