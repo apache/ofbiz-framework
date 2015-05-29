@@ -265,10 +265,14 @@ under the License.
             <link target="FindGeo"/> 
         </menu-item>
         <menu-item name="EditGeo" title="${uiLabelMap.WebtoolsGeoCreateNew}">
-            <link target="EditGeo"/>
+            <link target="EditGeo">
+                <parameter param-name="geoId" from-field="parameters.geoId"/>
+            </link>
         </menu-item>
         <menu-item name="LinkGeos" title="${uiLabelMap.WebtoolsGeosLink}">
-            <link target="LinkGeos"/>
+            <link target="LinkGeos">
+                <parameter param-name="geoId" from-field="parameters.geoId"/>
+            </link>
         </menu-item>
         <menu-item name="GeoPoints" title="${uiLabelMap.WebtoolsGeoPoints}">
             <link target="geoPoints"/>
