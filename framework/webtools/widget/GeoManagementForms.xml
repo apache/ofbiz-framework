@@ -80,8 +80,8 @@
     <form name="EditGeo" type="single" target="updateGeo" title="" default-map-name="geo"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="geo==null" target="createGeo"/>
-        <field name="geoId" title="${uiLabelMap.CommonId}"><text/></field>
-        <field name="geoTypeId" title="${uiLabelMap.CommonType}">
+        <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field>
+        <field name="geoTypeId" title="${uiLabelMap.CommonGeoTypeId}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
                     <entity-order-by field-name="description"/>
