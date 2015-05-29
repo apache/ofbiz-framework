@@ -1974,8 +1974,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             defaultDateTimeString = UtilHttp.encodeBlanks(modelFormField.getEntry(context, dateFindField.getDefaultDateTimeString(context)));
             this.appendContentUrl(imgSrc, "/images/cal.gif");
         }
-        String defaultOptionFrom = dateFindField.getDefaultOptionFrom();
-        String defaultOptionThru = dateFindField.getDefaultOptionThru();
+        String defaultOptionFrom = dateFindField.getDefaultOptionFrom(context);
+        String defaultOptionThru = dateFindField.getDefaultOptionThru(context);
         String value2 = modelFormField.getEntry(context);
         if (value2 == null) {
             value2 = "";

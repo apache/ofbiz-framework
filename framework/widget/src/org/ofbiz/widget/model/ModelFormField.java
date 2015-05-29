@@ -1064,8 +1064,34 @@ public class ModelFormField {
             return this.defaultOptionFrom;
         }
 
+        public String getDefaultOptionFrom(Map<String, Object> context) {
+            String defaultOption = getDefaultOptionFrom();
+
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
+            if (UtilValidate.isNotEmpty(parameters)) {
+                String fieldName = this.getModelFormField().getName();
+                if (parameters.containsKey(fieldName.concat("_fld0_value"))){
+                    defaultOption = (String)parameters.get(fieldName.concat("_fld0_op"));
+                }
+            }
+            return defaultOption;
+        }
+
         public String getDefaultOptionThru() {
             return this.defaultOptionThru;
+        }
+
+        public String getDefaultOptionThru(Map<String, Object> context) {
+            String defaultOption = getDefaultOptionThru();
+
+            Map<String, Object> parameters = UtilGenerics.checkMap(context.get("parameters"), String.class, Object.class);
+            if (UtilValidate.isNotEmpty(parameters)) {
+                String fieldName = this.getModelFormField().getName();
+                if( parameters.containsKey(fieldName.concat("_fld1_value"))) {
+                    defaultOption = (String)parameters.get(fieldName.concat("_fld1_op"));
+                }
+            }
+            return defaultOption;
         }
 
         @Override
