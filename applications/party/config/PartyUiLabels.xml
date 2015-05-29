@@ -2198,6 +2198,7 @@
         <value xml:lang="zh-TW">修改分類群組團體</value>
     </property>
     <property key="PageTitleEditPartyInvitationGroupAssoc">
+        <value xml:lang="de">Gruppenzuweisung Einladung Akteur bearbeiten</value>
         <value xml:lang="en">Edit Party Invitation GroupAssoc</value>
         <value xml:lang="es">Editar asociación de grupo de invitación de participante</value>
         <value xml:lang="fr">Modifier le groupe d'association d'invitation de l'acteur</value>
@@ -2212,7 +2213,7 @@
         <value xml:lang="zh-TW">修改團體邀請群組結合</value>
     </property>
     <property key="PageTitleEditPartyInvitationRoleAssoc">
-        <value xml:lang="de">Verbindung Rolle Einladung Akteur bearbeiten</value>
+        <value xml:lang="de">Rollenzuweisung Einladung Akteur bearbeiten</value>
         <value xml:lang="en">Edit Party Invitation RoleAssoc</value>
         <value xml:lang="es">Editar asociación de rol de invitación de participante</value>
         <value xml:lang="fr">Modifier l'association du rôle d'invitation de l'acteur</value>
@@ -2227,7 +2228,7 @@
         <value xml:lang="zh-TW">修改團體邀請角色結合</value>
     </property>
     <property key="PageTitleEditPartyRates">
-        <value xml:lang="de">Akteur Ansätze bearbeiten</value>
+        <value xml:lang="de">Akteur Sätze bearbeiten</value>
         <value xml:lang="en">Edit Party Rates</value>
         <value xml:lang="es">Editar tasas de participación</value>
         <value xml:lang="fr">Modifier le taux de l'acteur</value>
@@ -3334,6 +3335,7 @@
         <value xml:lang="zh-TW">匹配</value>
     </property>
     <property key="PartyAdjustInAccountingComponent">
+        <value xml:lang="de">Einstellen in Buchhaltungskomponente</value>
         <value xml:lang="en">Adjust in accounting component</value>
         <value xml:lang="fr">Ajuster en comptabilité</value>
         <value xml:lang="hi-IN">लेखांकन घटक(accounting component) में समायोजित करें</value>
@@ -4779,7 +4781,7 @@
     </property>
     <property key="PartyContactNumber">
         <value xml:lang="cs">Kontaktní číslo</value>
-        <value xml:lang="de">kontaktnummer</value>
+        <value xml:lang="de">Kontaktnummer</value>
         <value xml:lang="en">Contact Number</value>
         <value xml:lang="es">Teléfono de Contacto</value>
         <value xml:lang="fr">N° de téléphone</value>
@@ -5564,7 +5566,7 @@
         <value xml:lang="zh-TW">客戶請求</value>
     </property>
     <property key="PartyTemporaryPassword">
-        <value xml:lang="de">Die Person wird ein provisorischen Passwort per E-Mail erhalten.</value>
+        <value xml:lang="de">Die Person wird ein provisorisches Passwort per E-Mail erhalten.</value>
         <value xml:lang="en">The person will receive a temporary password by email.</value>
         <value xml:lang="es">La persona recibirá una contraseña temporal por el email.</value>
         <value xml:lang="fr">La personne recevra un mot de passe provisoire par courriel.</value>
@@ -6174,7 +6176,7 @@
     </property>
     <property key="PartyEnterPasswordTwice">
         <value xml:lang="cs">Heslo musíte zadat dvakrát</value>
-        <value xml:lang="de">Sie müssen Ihr Passwort zwei mal eingeben</value>
+        <value xml:lang="de">Sie müssen Ihr Passwort zweimal eingeben</value>
         <value xml:lang="en">You must enter your password twice</value>
         <value xml:lang="es">Tiene que poner su contraseña dos veces</value>
         <value xml:lang="fr">Vous devez entrer votre mot de passe deux fois</value>
@@ -6719,7 +6721,7 @@
         <value xml:lang="zh-TW">身高</value>
     </property>
     <property key="PartyHeightNotValidNumber">
-        <value xml:lang="de">Grösse ist keine gültige Zahl</value>
+        <value xml:lang="de">Größe ist keine gültige Zahl</value>
         <value xml:lang="en">Height is not a valid number</value>
         <value xml:lang="es">Altura no tiene un valor válido</value>
         <value xml:lang="fr">La taille n'est pas un nombre valide</value>
@@ -6737,7 +6739,7 @@
     </property>
     <property key="PartyHideOld">
         <value xml:lang="cs">Skrýt původní</value>
-        <value xml:lang="de">Altes ausblenden</value>
+        <value xml:lang="de">Alte ausblenden</value>
         <value xml:lang="en">Hide Old</value>
         <value xml:lang="es">Guardar historial</value>
         <value xml:lang="fr">Masquer l'historique</value>
@@ -7359,7 +7361,7 @@
         <value xml:lang="zh-TW">連結團體</value>
     </property>
     <property key="PartyLinkExplanation">
-        <value xml:lang="de">Dies setzt den status des Akteurs auf 'Inaktiv' auch wenn es eine Verbindung im Feld 'partyTo' der Akteur Attribute gibt</value>
+        <value xml:lang="de">Dies setzt den Status des Akteurs auf 'Inaktiv' auch wenn es eine Verbindung im Feld 'partyTo' der Akteur Attribute gibt</value>
         <value xml:lang="en">This will set the status of 'partyId' to disabled however will link it to 'partyTo' in the party Attributes</value>
         <value xml:lang="fr">Désactive l'acteur sélectionné (gauche), et lie ses données vers l'acteur sélectionné à droite</value>
         <value xml:lang="ja">これは'取引先ID'のステータスを無効に設定しますが、取引先属性で'取引先(先)'にリンクします</value>
@@ -9150,6 +9152,7 @@
         <value xml:lang="zh-TW">如果不重新新建安全群組的話,不能修改這個.</value>
     </property>
     <property key="PartyNotificationMailActivated">
+        <value xml:lang="de">Akteur Kontoaktivierung Mailbenachrichtigung</value>
         <value xml:lang="en">Party Account Activated Notification Mail</value>
         <value xml:lang="zh">会员账户激活通知邮件</value>
         <value xml:lang="zh-TW">團體帳戶啓用通知郵件</value>
@@ -9560,7 +9563,7 @@
         <value xml:lang="zh-TW">成功更新團體群組.</value>
     </property>
     <property key="PartyPartyIDUserLoginID">
-        <value xml:lang="de">Akteur ID/Benuterzanmeldung ID</value>
+        <value xml:lang="de">Akteur ID/Benutzeranmeldung ID</value>
         <value xml:lang="en">PartyID/UserLoginID</value>
         <value xml:lang="es">Código / usuario</value>
         <value xml:lang="fr">Acteur / ident. de connexion</value>
@@ -9800,7 +9803,7 @@
         <value xml:lang="zh-TW">護照過期</value>
     </property>
     <property key="PartyPassportExpireDate">
-        <value xml:lang="de">Reisepass/Personalausweis Ablauffrist</value>
+        <value xml:lang="de">Ablauffrist Reisepass/Personalausweis</value>
         <value xml:lang="en">Passport Expire Date</value>
         <value xml:lang="es">Fecha de expiración del pasaporte</value>
         <value xml:lang="fr">Date d'expiration du passeport</value>
@@ -10609,7 +10612,7 @@
         <value xml:lang="zh-TW">數量</value>
     </property>
     <property key="PartyQuantityPurchased">
-        <value xml:lang="de">Menge eingekauft</value>
+        <value xml:lang="de">gekaufte Menge</value>
         <value xml:lang="en">Quantity Purchased</value>
         <value xml:lang="es">Cantidad comprada</value>
         <value xml:lang="fr">Quantité achetée</value>
@@ -10626,7 +10629,7 @@
         <value xml:lang="zh-TW">已購數量</value>
     </property>
     <property key="PartyQuickAddList">
-        <value xml:lang="de">Schnell zur Einkaufliste hinzufügen</value>
+        <value xml:lang="de">Schnell zur Einkaufsliste hinzufügen</value>
         <value xml:lang="en">Quick Add To Shopping List</value>
         <value xml:lang="es">Añadir rápido</value>
         <value xml:lang="fr">Ajout rapide à la liste d'achats</value>
@@ -10656,7 +10659,7 @@
     </property>
     <property key="PartyReceivePasswordByEmail">
         <value xml:lang="cs">Heslo oddržíte e-mailem jakmile bude Váš účet aktivován</value>
-        <value xml:lang="de">Sie werden ein Passwort per E-Mail erhalten, wenn Ihr neues Konto freigegeben wird</value>
+        <value xml:lang="de">Sie werden ein Passwort per E-Mail erhalten, wenn Ihr neues Konto freigeschaltet wird</value>
         <value xml:lang="en">You will receive a password by email when your new account is approved</value>
         <value xml:lang="es">Recibirá la contraseña por email cuando la nueva cuenta sea aprobada</value>
         <value xml:lang="fr">Vous recevrez votre mot de passe par mél quand votre compte sera validé</value>
@@ -10955,7 +10958,7 @@
         <value xml:lang="zh-TW">回覆</value>
     </property>
     <property key="PartyReplyAll">
-        <value xml:lang="de">Allen Antworten</value>
+        <value xml:lang="de">Allen antworten</value>
         <value xml:lang="en">Reply All</value>
         <value xml:lang="fr">Répondre à tous</value>
         <value xml:lang="hi-IN">सभी को जवाब दे</value>
@@ -11072,6 +11075,7 @@
         <value xml:lang="zh-TW">角色類型來自</value>
     </property>
     <property key="PartyRoleTypeNotFoundForTheParty">
+        <value xml:lang="de">Rollentyp ${roleTypeId} für diesen Akteur nicht gefunden.</value>
         <value xml:lang="en">Role Type ${roleTypeId} not found for the party.</value>
         <value xml:lang="fr">Le rôle ${roleTypeId} n'est pas présent pour cet acteur.</value>
     </property>
@@ -11111,6 +11115,7 @@
         <value xml:lang="zh-TW">團體角色類型來自 (新)</value>
     </property>
     <property key="PartyRoleTypeIdMissing">
+        <value xml:lang="de">Rollentyp ID fehlt.</value>
         <value xml:lang="en">Role Type ID is missing.</value>
         <value xml:lang="fr">Rôle manquant</value>
         <value xml:lang="hi-IN">भूमिका प्रकार क्रमांक गायब है|</value>
@@ -11608,7 +11613,7 @@
     </property>
     <property key="PartyShowOld">
         <value xml:lang="cs">Ukázat původní</value>
-        <value xml:lang="de">Altes zeigen</value>
+        <value xml:lang="de">Alte zeigen</value>
         <value xml:lang="en">Show Old</value>
         <value xml:lang="es">Mostrar historial</value>
         <value xml:lang="fr">Historique</value>
@@ -12228,7 +12233,7 @@
         <value xml:lang="zh-TW">收件名稱</value>
     </property>
     <property key="PartyTotal">
-        <value xml:lang="de">Total</value>
+        <value xml:lang="de">Gesamt</value>
         <value xml:lang="en">Total</value>
         <value xml:lang="es">Total</value>
         <value xml:lang="fr">Total</value>

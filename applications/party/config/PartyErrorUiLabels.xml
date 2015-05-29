@@ -68,6 +68,7 @@
         <value xml:lang="zh-TW">錯誤:沒有找到通訊事件識別</value>
     </property>
     <property key="commeventservices.communication_event_role_status">
+        <value xml:lang="de">Fehler: Kein gültiger Statuswechsel; alter Status: ${communicationEventRole.statusId}, neuer Status: ${parameters.statusId}</value>
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEventRole.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="it">ERRORE: Cambio di stato non valido; vecchio stato: ${communicationEventRole.statusId}, nuovo stato: ${parameters.statusId}</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEventRole.statusId}, 新ステータス: ${parameters.statusId}</value>
@@ -75,6 +76,7 @@
         <value xml:lang="zh-TW">錯誤:狀態變化無效;舊的狀態:${communicationEventRole.statusId},新的狀態:${parameters.statusId}</value>
     </property>
     <property key="commeventservices.communication_event_status">
+        <value xml:lang="de">Fehler: Kein gültiger Statuswechsel; alter Status: ${communicationEvent.statusId}, neuer Status: ${parameters.statusId}</value>
         <value xml:lang="en">ERROR: Status is not a valid change; old Status: ${communicationEvent.statusId}, new status: ${parameters.statusId}</value>
         <value xml:lang="fr">ERREUR : Le changement de ${communicationEvent.statusId} à ${parameters.statusId} n'est pas valide</value>
         <value xml:lang="ja">エラー: ステータスの変更が有効ではありません。旧ステータス: ${communicationEvent.statusId}, 新ステータス: ${parameters.statusId}</value>
@@ -158,7 +160,7 @@
         <value xml:lang="zh-TW">在發送電子郵件到聯絡清單服務中有錯誤</value>
     </property>
     <property key="commeventservices.skippingInvalidEmailAddress">
-        <value xml:lang="de">Ungültige E-Mail Adresse ausgelassen</value>
+        <value xml:lang="de">Überspringe ungültige E-Mail Adresse</value>
         <value xml:lang="en">Skipping invalid email address</value>
         <value xml:lang="es">Se ha omitido dirección de correo electrónico invalida</value>
         <value xml:lang="fr">Adresse courriel n'est pas valide</value>
@@ -221,7 +223,7 @@
         <value xml:lang="zh-TW">錯誤:無法修改聯絡資訊 (產生識別時失敗).</value>
     </property>
     <property key="contactmechservices.could_not_change_contact_info_read">
-        <value xml:lang="de">FEHLER: Kontaktinformationen konnten nicht geändert werden (Lesen Zweck Problem): ${errMessage}.</value>
+        <value xml:lang="de">FEHLER: Kontaktinformationen konnten nicht geändert werden (Lesefehler Zweck): ${errMessage}.</value>
         <value xml:lang="en">ERROR: Could not change contact info (read purpose failure): ${errMessage}.</value>
         <value xml:lang="es">Error: No se puede cambiar la información de contacto: ${errMessage}.</value>
         <value xml:lang="fr">ERREUR : Ne peut pas changer l'information de contact (échec à la lecture du but de contact) : ${errMessage.</value>
@@ -253,7 +255,7 @@
         <value xml:lang="zh-TW">錯誤:無法修改聯絡資訊 (寫失敗):${errMessage}.</value>
     </property>
     <property key="contactmechservices.could_not_create_contact_info_id_generation_failure">
-        <value xml:lang="de">FEHLER: Kontaktinformation konnte nicht erstellt werden (id generation failure).</value>
+        <value xml:lang="de">FEHLER: Kontaktinformation konnte nicht erstellt werden (Fehler beim Generieren der Id).</value>
         <value xml:lang="en">ERROR: Could not create contact info (id generation failure).</value>
         <value xml:lang="es">Error: No se ha podido creat la información de contacto (fallo de generación de código).</value>
         <value xml:lang="fr">ERREUR: Impossible de créer l'information de contact (échec de génération d'identifiant).</value>
@@ -455,7 +457,7 @@
         <value xml:lang="zh-TW">沒有改動,所以沒有更新聯絡方式.</value>
     </property>
     <property key="contactmechservices.service_createContactMech_not_be_used_for_POSTAL_ADDRESS">
-        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
+        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Verwenden Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (createContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the createPostalAddress service.</value>
         <value xml:lang="es">El servicio no debe ser usado para dirección postal, use el servicio de actualización de dirección postal</value>
         <value xml:lang="fr">Ce service (createContactMech) ne devrait pas être employé pour le type de coordonnée POSTAL_ADDRESS, utiliser plutôt le service createPostalAddress.</value>
@@ -471,7 +473,7 @@
         <value xml:lang="zh-TW">本服務 (新建聯絡方式) 不應用於通信位址類型的聯絡方式,請使用新建通信位址服務.</value>
     </property>
     <property key="contactmechservices.service_createContactMech_not_be_used_for_TELECOM_NUMBER">
-        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
+        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Verwenden Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (createContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the createTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (createContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le service createTelecomNumber.</value>
@@ -487,7 +489,7 @@
         <value xml:lang="zh-TW">本服務 (新建聯絡方式) 不應用於電話號碼類型的聯絡方式,請使用新建電話號碼服務.</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_POSTAL_ADDRESS">
-        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
+        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Verwenden Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (updateContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the updatePostalAddress service.</value>
         <value xml:lang="es">El servicio no debe ser usado para dirección postal, use el servicio de actualización de dirección postal</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée POSTAL_ADDRESS, utiliser le serviceupdatePostalAddress.</value>
@@ -503,7 +505,7 @@
         <value xml:lang="zh-TW">本服務 (更新聯絡方式) 不應用做通信位址類型的聯絡方式,請使用更新通信位址服務.</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_TELECOM_NUMBER">
-        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
+        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Verwenden Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (updateContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the updateTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le serviceupdateTelecomNumber.</value>
@@ -553,6 +555,7 @@
         <value xml:lang="zh-TW">指定的團體識別不能以數字開始,數字識別為自動產生的識別預留</value>
     </property>
     <property key="partytypehelper.NotPersonType">
+        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PERSON</value>
         <value xml:lang="en">The party ${0} is not a PERSON type party</value>
         <value xml:lang="fr">L`acteur ${0} n'est pas du type personne.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が個人ではありません</value>
@@ -561,6 +564,7 @@
         <value xml:lang="zh-TW">團體${0}不是人員(PERSON)類型的團體</value>
     </property>
     <property key="partytypehelper.NotGroupType">
+        <value xml:lang="de">Der Akteur ${0} ist nicht vom Typ PARTYGROUP</value>
         <value xml:lang="en">The party ${0} is not a PARTYGROUP type party</value>
         <value xml:lang="fr">L`acteur ${0} n'est pas du type groupe.</value> <!-- ` used instead of ' else because ' may interfere with the result from ${0} and prevent it to appears-->
         <value xml:lang="ja">取引先 ${0} の種類が取引先グループではありません</value>
@@ -816,6 +820,7 @@
         <value xml:lang="zh-TW">'姓氏' 和 '名字' 不能為空.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_ID_already_exists">
+        <value xml:lang="de">Anlage nicht möglich, ein Affiliate mit der angegebenen Akteur Id ist bereits vorhanden.</value>
         <value xml:lang="en">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="es">El código especificado se encuentra en uso.</value>
         <value xml:lang="fr">Impossible de créer, un(e) affilié(e), l'acteur spécifié existe déjà.</value>
@@ -831,6 +836,7 @@
         <value xml:lang="zh-TW">不能新建已存在指定團體識別的集團.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_digit">
+        <value xml:lang="de">Kann Affiliate nicht anlegen, die angegebene Akteur ID darf nicht numerisch sein, numerische IDs sind für automatisch generierte Ids reserviert.</value>
         <value xml:lang="en">Cannot create affiliate, specified party ID cannot be a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear afiliado, el código del participante no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
         <value xml:lang="fr">Impossible de créer l'affilié(e), la réf. d'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
@@ -846,6 +852,7 @@
         <value xml:lang="zh-TW">無法新建集團,指定的團體識別不能以數字開始,數字識別為自動產生的識別預留.</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_generation_failure">
+        <value xml:lang="de">FEHLER: Kann Affiliate nicht anlegen (Fehler beim Generieren der Id).</value>
         <value xml:lang="en">ERROR: Could not create affiliate (id generation failure).</value>
         <value xml:lang="es">ERROR: No se pudo crear afiliado (la generación del código fallo)</value>
         <value xml:lang="fr">ERREUR : Impossible de créer l'affilié(e) (échec de génération d'identifiant).</value>
@@ -861,6 +868,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建集團 (產生識別失敗).</value>
     </property>
     <property key="partyservices.cannot_create_affiliate_no_party_entity">
+        <value xml:lang="de">Kann Affiliate nicht anlegen; Akteur nicht gefunden.</value>
         <value xml:lang="en">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="es">No se puede crear afiliación, no se encontro la entidad participante.</value>
         <value xml:lang="fr">Impossible de créer l'affilié(e); aucune entité acteur trouvée.</value>
@@ -940,6 +948,7 @@
         <value xml:lang="zh-TW">無法獲得團體資料資料實體 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_add_affiliate_info_write">
+        <value xml:lang="de">Konnte Affiliate Info nicht hinzufügen (Schreibfehler): ${errMessage}.</value>
         <value xml:lang="en">Could not add affiliate info (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo agregar información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible d'ajouter l'information de filiale (erreur d'écriture) : ${errMessage}.</value>
@@ -971,7 +980,7 @@
         <value xml:lang="zh-TW">無法新建團體群組,指定的團體識別不能以數字開始,數字識別預留為自動產生識別了.</value>
     </property>
     <property key="partyservices.could_not_create_party_group_generation_failure">
-        <value xml:lang="de">FEHLER: Kann Akteurgruppe nicht erstellen (id generation failure).</value>
+        <value xml:lang="de">FEHLER: Kann Akteurgruppe nicht erstellen (Fehler beim Generieren der Id).</value>
         <value xml:lang="en">ERROR: Could not create party group (id generation failure).</value>
         <value xml:lang="es">ERROR: no se pudo crear el grupo participante (error de generación de código)</value>
         <value xml:lang="fr">ERREUR : Impossible de créer le groupe d'acteur (échec de génération d'identifiant).</value>
@@ -987,6 +996,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建團體群組 (產生識別失敗).</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_not_found">
+        <value xml:lang="de">Konnte Affiliate Information nicht aktualisieren (Affiliate nicht gefunden).</value>
         <value xml:lang="en">Could not update affiliate information (affiliate not found).</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (filiale non trouvée).</value>
@@ -1002,6 +1012,7 @@
         <value xml:lang="zh-TW">無法更新集團資訊 (沒有找到集團).</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_read">
+        <value xml:lang="de">Konnte Affiliate Information nicht aktualisieren (Lesefehler): ${errMessage}.</value>
         <value xml:lang="en">Could not update affiliate information (read failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur de lecture) : ${errMessage}.</value>
@@ -1017,6 +1028,7 @@
         <value xml:lang="zh-TW">無法更新集團資訊 (讀失敗):${errMessage}.</value>
     </property>
     <property key="partyservices.could_not_update_affiliate_information_write">
+        <value xml:lang="de">Konnte Affiliate Information nicht aktualisieren (Schreibfehler): ${errMessage}.</value>
         <value xml:lang="en">Could not update affiliate information (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se pudo actualizar la información del afiliado: ${errMessage}</value>
         <value xml:lang="fr">Impossible de mettre à jour l'information de filiale (erreur d'écriture) : ${errMessage}.</value>
