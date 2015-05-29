@@ -708,7 +708,7 @@ under the License.
     <service name="createGeo" default-entity-name="Geo" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Geo</description>
         <permission-service service-name="commonGenericPermission" main-action="CREATE"/>
-        <auto-attributes include="pk" mode="INOUT"/>
+        <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="geoName" optional="false"/>
         <override name="geoTypeId" optional="false"/>

@@ -42,7 +42,7 @@
     <form name="ListGeos" extends-resource="component://common/widget/LookupForms.xml" extends="listLookupGeo" paginate-target="${currentUrl}"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" separate-columns="true" >
         <field name="geoId"  widget-style="buttontext" title="${uiLabelMap.CommonGeoId}">
-            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="LinkGeos">
+            <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="EditGeo">
                 <parameter param-name="geoId"/>
             </hyperlink>
         </field>
@@ -80,7 +80,7 @@
     <form name="EditGeo" type="single" target="updateGeo" title="" default-map-name="geo"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="geo==null" target="createGeo"/>
-        <field name="geoId" title="${uiLabelMap.CommonId}"><lookup target-form-name="LookupGeo"/></field>
+        <field name="geoId" title="${uiLabelMap.CommonId}"><text/></field>
         <field name="geoTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
