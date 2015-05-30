@@ -36,6 +36,7 @@
         <value xml:lang="zh-TW">必須為銷售訂單選擇一個產品店鋪。 </value>
     </property>
     <property key="OrderApproveOrderBeforeQuickDropShip">
+        <value xml:lang="de">Bestellung muss freigegeben werden bevor Streckenlieferung abgeschlossen wird.</value>
         <value xml:lang="en">Order must be approved before completing drop shipment.</value>
     </property>
     <property key="OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId">
@@ -54,7 +55,7 @@
         <value xml:lang="zh-TW">輸入的alternateGwpProductId無效或不再使用了ID：${alternateGwpProductId}</value>
     </property>
     <property key="OrderAnUnSupportedProductPromoCondCondition">
-        <value xml:lang="de">Eine nicht-unterstüzte Promotions-Kondition wurde genutzt: ${operatorEnumId}, deswegen Fehler bei der Verarbeitung</value>
+        <value xml:lang="de">Eine nicht unterstützte Promotion Kondition wurde genutzt: ${operatorEnumId}, deswegen Fehler bei der Verarbeitung</value>
         <value xml:lang="en">An un-supported productPromoCond condition was used: ${operatorEnumId}, returning false, ie check failed</value>
         <value xml:lang="es">La condición promocional que ha sido utilizado: ${operatorEnumId} no es soportada, es decir el control falló</value>
         <value xml:lang="fr">Le besoin promotionnelle qui a été utilisé : ${operatorEnumId} n'est pas supportée, c'est-à-dire que le contrôle a échoué</value>
@@ -69,7 +70,7 @@
         <value xml:lang="zh-TW">使用了不支援的productPromoCond作為條件：${operatorEnumId}，返回false，檢查失敗</value>
     </property>
     <property key="OrderAnUnSupportedProductPromoCondInputParameterLhs">
-        <value xml:lang="de">Ein nicht-unterstüzter Promotions-Kondition-Eingabe-Parameter wurde genutzt: ${inputParamEnumId}, deswegen Fehler bei der Verarbeitung</value>
+        <value xml:lang="de">Ein nicht unterstützter Promotion Kondition Eingabeparameter wurde genutzt: ${inputParamEnumId}, deswegen Fehler bei der Verarbeitung</value>
         <value xml:lang="en">An un-supported productPromoCond input parameter (lhs) was used : ${inputParamEnumId}, returning false, ie check failed</value>
         <value xml:lang="es">Un parámetro de entrada no sostuvo la condición promocional que se utilizó: ${inputParamEnumId}, volviéndolo falso, es decir el chequeo falló</value>
         <value xml:lang="fr">Un paramètre d'entrée n'a pas soutenu l'article promotionnel Cond (lhs) qui a été utilisé : ${inputParamEnumId}, le rendant faux, c'est-à-dire que le chèque a échoué</value>
@@ -132,7 +133,7 @@
         <value xml:lang="zh-TW">無法讀訂單明細實體</value>
     </property>
     <property key="OrderCannotRemoveItemsOnceReturnIsApproved">
-        <value xml:lang="de">Positionen können nicht entfernt werden falls Retoure genehmigt ist</value>
+        <value xml:lang="de">Positionen können nicht entfernt werden sobald Retoure genehmigt ist</value>
         <value xml:lang="en">Cannot remove items once return is approved</value>
         <value xml:lang="es">No puede retirar ítems una vez que se aprueba la devolución</value>
         <value xml:lang="fr">Impossible d'enlever des articles une fois que le retour est approuvé</value>
@@ -180,7 +181,7 @@
         <value xml:lang="zh-TW">無法更新 null 訂單頭 [ ${orderId} ]</value>
     </property>
     <property key="OrderCannotUpdateProblemGettingOrderShipmentPreference">
-        <value xml:lang="de">Änderung nicht möglich; Problem beim laden von OrderShipmentPreference</value>
+        <value xml:lang="de">Änderung nicht möglich; Problem beim Laden von OrderShipmentPreference</value>
         <value xml:lang="en">Cannot update; Problem getting OrderShipmentPreference</value>
         <value xml:lang="es">No se pudo actualizar; problema obteniendo la preferencia de envío del pedido</value>
         <value xml:lang="fr">Impossible de mettre à jour; Problème en obtenant la préférence d'expédition de la commande</value>
@@ -196,7 +197,7 @@
         <value xml:lang="zh-TW">無法更新；獲取OrderShipmentPreference時出現問題</value>
     </property>
     <property key="OrderCannotUpdateProblemSettingOrderShipmentPreference">
-        <value xml:lang="de">Änderung nicht möglich; Problem beim speichern von OrderShipmentPreference</value>
+        <value xml:lang="de">Änderung nicht möglich; Problem beim Speichern von OrderShipmentPreference</value>
         <value xml:lang="en">Cannot update; Problem setting OrderShipmentPreference</value>
         <value xml:lang="es">No se pudo actualizar; problema estableciendo la preferencia de envío del pedido</value>
         <value xml:lang="fr">Impossible de mettre à jour; Problème en mettant la préférence d'expédition de la commande</value>
@@ -212,6 +213,7 @@
         <value xml:lang="zh-TW">無法更新；設置OrderShipmentPreference時出現問題</value>
     </property>
     <property key="OrderCartShipGroupAssocNotFound">
+        <value xml:lang="de">Warenkorb Versandgruppe Verknüpfung nicht gefunden</value>
         <value xml:lang="en">Cart ship group association not found</value>
         <value xml:lang="fr">Association avec le groupe d'expédition non trouvée</value>
     </property>
@@ -232,19 +234,22 @@
         <value xml:lang="zh-TW">沒有找到購物車運輸組 [ ${groupIndex} ]</value>
     </property>
     <property key="OrderCartShipGroupSeqIdIsMandatory">
+        <value xml:lang="de">Warenkorb shipGroupSeqId wird benötigt</value>
         <value xml:lang="en">Cart shipGroupSeqId is mandatory</value>
         <value xml:lang="fr">La reference du groupe d'expédition est obligatoire</value>
     </property>
     <property key="OrderCartShipGroupPartyCarrierNotFound">
+        <value xml:lang="de">Kein Transporteur gefunden für [${partyId}]</value>
         <value xml:lang="en">No Party Carrier found for [${partyId}]</value>
         <value xml:lang="fr">Aucun transporteur trouvé pour la reference [${partyId}]</value>
     </property>
     <property key="OrderCartShipGroupShipmentMethodNotFound">
+        <value xml:lang="de">Keine Liefermethode gefunden für [${shipmentMethodTypeId}]</value>
         <value xml:lang="en">No Shipment Method found for [${shipmentMethodTypeId}]</value>
         <value xml:lang="fr">Aucun mode d'expedition trouvé pour la reference [${shipmentMethodTypeId}]</value>
     </property>
     <property key="OrderCaughtExceptionOnCartUpdate">
-        <value xml:lang="de">Fehler bei Änderung des Warenkorbes. </value>
+        <value xml:lang="de">Fehler bei Änderung des Warenkorbs. </value>
         <value xml:lang="en">Caught exception on cart update. </value>
         <value xml:lang="es">Excepción capturada en la actualización del carro.</value>
         <value xml:lang="fr">Exception attrapée dans la mise à jour du chariot. </value>
@@ -260,7 +265,7 @@
         <value xml:lang="zh-TW">更新購物車時發生意外情況 </value>
     </property>
     <property key="OrderCaughtGenericServiceExceptionWhileGettingOrderId">
-        <value xml:lang="de">Allgemeiner Fehler beim ermitteln der Auftragesnummer. </value>
+        <value xml:lang="de">Allgemeiner Fehler beim Ermitteln der Auftragsnummer. </value>
         <value xml:lang="en">Caught generic service exception while getting order Id </value>
         <value xml:lang="fr">Erreur générique de service lors de l'acquisition de la réf. de commande </value>
         <value xml:lang="ja">注文の取得中にサービス例外が発生しました。ID </value>
@@ -1184,6 +1189,7 @@
         <value xml:lang="zh-TW">錯誤：訂單明細和/或訂單頭不存在</value>
     </property>
     <property key="OrderErrorOrderItemAlreadyRelatedToShipGroup">
+        <value xml:lang="de">Bestellposition ist bereits mit dieser Liefergruppe verknüpft</value>
         <value xml:lang="en">Order Item is already related To This OISG</value>
         <value xml:lang="fr">La ligne de commande est déja associée au groupe d'expédition</value>
     </property>
@@ -1225,7 +1231,7 @@
         <value xml:lang="zh">错误：没有批准订单#${orderId}进行包装</value>
     </property>
     <property key="OrderErrorOrderNotApprovedForPicking">
-        <value xml:lang="de">FEHLER: Auftrag ${orderId} nicht zum Kommisionieren freigegeben</value>
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} nicht zum Kommissionieren freigegeben</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not approved for picking</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas approuvée, le prélèvement n'est pas autorisé</value>
         <value xml:lang="ja">エラー: 注文No ${orderId} はピッキングの承認がされていません</value>
@@ -1256,7 +1262,7 @@
         <value xml:lang="zh">错误：没有验证订单#${orderId}，请点击“包装订单”按钮、而不是“仅包裹称重”来进一步处理</value>
     </property>
     <property key="OrderErrorOrderNotVerifiedForPacking">
-        <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde nicht für die Kommissionierung grprüft</value>
+        <value xml:lang="de">FEHLER: Auftrag ${orderId} wurde nicht für die Kommissionierung geprüft</value>
         <value xml:lang="en">ERROR: Order #${orderId} is not verified for packing</value>
         <value xml:lang="fr">ERREUR : La commande ${orderId} n'est pas vérifiée, colisage non autorisé</value>
         <value xml:lang="ja">エラー: 注文No ${orderId} は梱包の確認がされていません</value>
@@ -1595,7 +1601,7 @@
         <value xml:lang="zh-TW">創建賬單賬戶角色時出錯：</value>
     </property>
     <property key="OrderErrorWritingRecordsToTheDatabase">
-        <value xml:lang="de">Fehler beim Schreiben in der Datenbank</value>
+        <value xml:lang="de">Fehler beim Schreiben in die Datenbank</value>
         <value xml:lang="en">Error writing record(s) to the database</value>
         <value xml:lang="es">Error de escritura de registro(s) en la base de datos</value>
         <value xml:lang="fr">Erreur d'écriture de rapport(s) dans la base de données</value>
@@ -1655,6 +1661,7 @@
         <value xml:lang="zh-TW">啟動 wfDelegateAndAcceptAssignment 服務時失敗。 </value>
     </property>
     <property key="OrderFindOrderProductInvalid">
+        <value xml:lang="de">Produkt ID [${productId}] ist ungültig. Bitte geben Sie eine gültige productId ein, um zugehörige Bestellungen zu sehen (oder keine für alle).</value>
         <value xml:lang="en">Product ID [${productId}] is not valid. Please enter a valid productId to get related orders (or nothing for all).</value>
         <value xml:lang="fr">Le produit [${productId}] n'existe pas. Entrez une réf. de produit existante, ou laissez vide pour obtenir toutes les commandes.</value>
     </property>
@@ -1714,7 +1721,7 @@
         <value xml:lang="zh-TW">在選擇的明細域中有非法字符</value>
     </property>
     <property key="OrderIllegalReturnItemTypePassed">
-        <value xml:lang="de">Ungülter Retouren-Positions-Typ: Entweder wurde Position ${orderItemSeqId} von Auftrag ${orderId} komplett zurück gegebenoder eine andere als manuelle Anpassung wurde zur Retourenposition hinzugefügt </value>
+        <value xml:lang="de">Ungültiger Retouren-Positions-Typ: Entweder wurde Position ${orderItemSeqId} von Auftrag ${orderId} komplett zurück gegeben oder eine andere als manuelle Anpassung wurde zur Retourenposition hinzugefügt </value>
         <value xml:lang="en">Illegal returnItemType: either order ${orderId} item ${orderItemSeqId} has been returned in full, or a return item other than Manual Adjustment or Shipping was being added to the return </value>
         <value xml:lang="es">El último tipo de ítem de devolución es ilegal</value>
         <value xml:lang="fr">Le type de retour d'article passé est illégal. </value>
@@ -1871,7 +1878,7 @@
         <value xml:lang="zh">没有可用的财务账户</value>
     </property>
     <property key="OrderNoCategorySpecifiedToAddFrom">
-        <value xml:lang="de">Keine Kategorie zum hinzufügen ausgewählt. </value>
+        <value xml:lang="de">Keine Kategorie zum Hinzufügen ausgewählt. </value>
         <value xml:lang="en">No category specified to add from. </value>
         <value xml:lang="es">Ninguna categoría especificada a partir de la cual agregar.</value>
         <value xml:lang="fr">Aucune catégorie indiquée à ajouter. </value>
@@ -1901,9 +1908,9 @@
         <value xml:lang="zh-TW">沒有複合稅率： ${fieldName} @ ${zipCode} / ${city} - ${itemAmount}</value>
     </property>
     <property key="OrderNoItemsFoundToAdd">
-        <value xml:lang="de">Keine Positionen zum hinzufügen gefunden. </value>
+        <value xml:lang="de">Keine Positionen zum Hinzufügen gefunden. </value>
         <value xml:lang="en">No items found to add. </value>
-        <value xml:lang="es">Ningunos ítems encontrados para agregar.</value>
+        <value xml:lang="es">Ningunos ítems encontrados para agregar. </value>
         <value xml:lang="fr">Aucuns articles trouvés à ajouter. </value>
         <value xml:lang="it">Nessuna riga trovata da aggiungere.</value>
         <value xml:lang="ja">追加するアイテムがありません。</value>
@@ -2006,7 +2013,7 @@
         <value xml:lang="zh-TW">沒有可用的購物列表</value>
     </property>
     <property key="OrderNoStoreFoundWithIdNotDoingPromotions">
-        <value xml:lang="de">Keine Laden mit Id ${producStoreId} vorhanden, keine Aktion verfügbar</value>
+        <value xml:lang="de">Kein Laden mit Id ${producStoreId} vorhanden, keine Aktion verfügbar</value>
         <value xml:lang="en">No store found with id ${producStoreId}, not doing promotions</value>
         <value xml:lang="es">Ninguna tienda encontrada con el código ${productStoreId}, no hace promociones</value>
         <value xml:lang="fr">Aucun magasin trouvé avec l'identifiant ${productStoreId}, ne fait pas de promotions</value>
@@ -2021,7 +2028,7 @@
         <value xml:lang="zh-TW">沒有找到ID為 ${producStoreId} 的商店，沒有執行促銷</value>
     </property>
     <property key="OrderNoSupplierFoundForThisProduct">
-        <value xml:lang="de">Kein Lieferant für dieses Product gefunden</value>
+        <value xml:lang="de">Kein Lieferant für dieses Produkt gefunden</value>
         <value xml:lang="en">No Supplier Found For This Product</value>
         <value xml:lang="es">Ningún proveedor encontrado para este producto</value>
         <value xml:lang="fr">Aucun fournisseur n'a été trouvé pour cet article</value>
@@ -2080,7 +2087,7 @@
     </property>
     <property key="OrderNosettingsFound">
         <value xml:lang="de">Keine Einstellungen gefunden</value>
-        <value xml:lang="en">No  settings  Found</value>
+        <value xml:lang="en">No settings found</value>
         <value xml:lang="es">Configuraciones no encontradas</value>
         <value xml:lang="fr">Aucune configuration trouvée</value>
         <value xml:lang="it">Nessuna impostazione trovata</value>
@@ -2092,7 +2099,7 @@
         <value xml:lang="zh-TW">沒有找到設置</value>
     </property>
     <property key="OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction">
-        <value xml:lang="de">Gratisbeigabe wird nicht hinzugefügt weil Produkt [ ${productId} ] nicht mehr auf Lager für die Aktion: ${productPromoAction}</value>
+        <value xml:lang="de">Gratisbeigabe wird nicht hinzugefügt, da Produkt [ ${productId} ] nicht mehr auf Lager für die Aktion: ${productPromoAction}</value>
         <value xml:lang="en">Not applying GWP because productId [ ${productId} ] is out of stock for productPromoAction: ${productPromoAction}</value>
         <value xml:lang="es">Gwp no aplicable debido al código del producto [ ${productId} ] que está fuere de stock para la acción promocional del producto: ${productPromoAction}</value>
         <value xml:lang="fr">Gwp non applicable à cause de l'identifiant de l'article [ ${productId} ] qui n'est pas en stock pour l'action promotionnelle de l'article : ${productPromoAction}</value>
@@ -2284,7 +2291,7 @@
         <value xml:lang="zh-TW">請與客戶服務聯絡；未知的支付返回代碼。 </value>
     </property>
     <property key="OrderPleaseSelectEitherSaleOrPurchaseOrder">
-        <value xml:lang="de">Bitten wählen Sie Verkaus- oder Beschaffungsauftrag. </value>
+        <value xml:lang="de">Bitten wählen Sie Verkaufs- oder Beschaffungsauftrag. </value>
         <value xml:lang="en">Please select either sale or purchase order. </value>
         <value xml:lang="es">Por favor, seleccione el pedido de venta o compra</value>
         <value xml:lang="fr">Veuillez sélectionner la vente ou le bon de commande. </value>
@@ -2299,7 +2306,7 @@
         <value xml:lang="zh-TW">請選擇銷售或購物訂單。 </value>
     </property>
     <property key="OrderProblemCreatingFinAccountRoleRecord">
-        <value xml:lang="de">Problem bei der Erstellung von Finanzkonten-Rolle</value>
+        <value xml:lang="de">Problem beim Erstellen der Finanzkonten-Rolle</value>
         <value xml:lang="en">Problem creating FinAccountRole record</value>
         <value xml:lang="fr">Problème lors de la création d'un rôle associé au compte financier</value>
         <value xml:lang="ja">金融アカウントロールレコード作成中にエラー</value>
@@ -2308,7 +2315,7 @@
         <value xml:lang="zh">创建财务账户角色（FinAccountRole）记录时出错</value>
     </property>
     <property key="OrderProblemCreatingFinAccountTransRecord">
-        <value xml:lang="de">Problem bei der Erstellung Finanzkonten-Rolle</value>
+        <value xml:lang="de">Problem beim Erstellen der Finanzkonten-Rolle</value>
         <value xml:lang="en">Problem creating FinAccountTrans record</value>
         <value xml:lang="fr">Problème dans la création d'une transaction sur le compte financier</value>
         <value xml:lang="ja">金融アカウントトランザクションレコード作成中にエラー</value>
@@ -2317,7 +2324,7 @@
         <value xml:lang="zh">创建财务账户交易（FinAccountTrans）记录时出错</value>
     </property>
     <property key="OrderProblemCreatingPaymentApplicationRecord">
-        <value xml:lang="de">Problem beim erstellen der Zahlungszuweisung</value>
+        <value xml:lang="de">Problem beim Erstellen der Zahlungszuweisung</value>
         <value xml:lang="en">Problem creating PaymentApplication record</value>
         <value xml:lang="es">Problema creando el registro de solicitud de pago</value>
         <value xml:lang="fr">Problème en créant l'enregistrement de demande de paiement</value>
@@ -2332,7 +2339,7 @@
         <value xml:lang="zh-TW">創建支付應用記錄時出錯</value>
     </property>
     <property key="OrderProblemCreatingPaymentRecord">
-        <value xml:lang="de">Problem beim erstellen der Zahlung</value>
+        <value xml:lang="de">Problem beim Erstellen der Zahlung</value>
         <value xml:lang="en">Problem creating Payment record</value>
         <value xml:lang="es">Problema creando registro de pago</value>
         <value xml:lang="fr">Problème en créant l'enregistrement de paiement</value>
@@ -2347,7 +2354,7 @@
         <value xml:lang="zh-TW">創建支付記錄時出錯</value>
     </property>
     <property key="OrderProblemCreatingReturnItemResponseRecord">
-        <value xml:lang="de">Problem beim erstellen der Retourenpositions-Antwort</value>
+        <value xml:lang="de">Problem beim Erstellen der Retourenpositions-Antwort</value>
         <value xml:lang="en">Problem creating ReturnItemResponse record</value>
         <value xml:lang="es">Problema creando el registro de la respuesta de la devolución de ítem</value>
         <value xml:lang="fr">Problème en créant l'enregistrement de la réponse du retour d'article</value>
@@ -2362,7 +2369,7 @@
         <value xml:lang="zh-TW">創建退貨明細回答記錄時出現問題</value>
     </property>
     <property key="OrderProblemCreatingTheNoteNoNoteIdReturned">
-        <value xml:lang="de">Problem beim erstellen der Notiz. </value>
+        <value xml:lang="de">Problem beim Erstellen der Notiz. </value>
         <value xml:lang="en">Problem creating the note, no noteId returned. </value>
         <value xml:lang="es">Problema creando la nota, ningún código de nota retornado.</value>
         <value xml:lang="fr">Problème en créant la note, aucun identifiant de note retourné. </value>
@@ -2377,7 +2384,7 @@
         <value xml:lang="zh-TW">創建便箋時出現問題，沒有返回便箋ID。 </value>
     </property>
     <property key="OrderProblemGettingItemDesiredDeliveryDateFor">
-        <value xml:lang="de">Problem beim ermitteln des Wunsch-Liefertermins für ${productId}</value>
+        <value xml:lang="de">Problem beim Ermitteln des Wunsch-Liefertermins für ${productId}</value>
         <value xml:lang="en">Problem getting itemDesiredDeliveryDate for ${productId}</value>
         <value xml:lang="es">Problema obteniendo la fecha de entrega deseada del ítem para ${productId}</value>
         <value xml:lang="fr">Problème en obtenant la date d'expédition de l'article désiré pour ${productId}</value>
@@ -2392,7 +2399,7 @@
         <value xml:lang="zh-TW">獲得 ${productId} 的明細期望送貨日期時出現問題 </value>
     </property>
     <property key="OrderProblemGettingItemShipAfterDateFor">
-        <value xml:lang="de">Problem beim ermitteln des Liefertermin-Nach-Datum für ${productId}</value>
+        <value xml:lang="de">Problem beim Ermitteln des Liefertermin-Nach-Datum für ${productId}</value>
         <value xml:lang="en">Problem getting itemShipAfterDate for ${productId}</value>
         <value xml:lang="es">Problema al obtener la fecha previa a envío para ${productId}</value>
         <value xml:lang="fr">Problème pour obtenir itemShipAfterDate pour ${productId}</value>
@@ -2407,7 +2414,7 @@
         <value xml:lang="zh-TW">獲得 ${productId} 明細運輸最早日期時出現問題</value>
     </property>
     <property key="OrderProblemGettingItemShipBeforeDateFor">
-        <value xml:lang="de">Problem beim ermitteln des Liefertermin-Vor-Datum für ${productId}</value>
+        <value xml:lang="de">Problem beim Ermitteln des Liefertermin-Vor-Datum für ${productId}</value>
         <value xml:lang="en">Problem getting itemShipBeforeDate for ${productId}</value>
         <value xml:lang="es">Problema al obtener la fecha máxima a envío para ${productId}</value>
         <value xml:lang="fr">Problème pour obtenir itemShipBeforeDate pour ${productId}</value>
@@ -2422,7 +2429,7 @@
         <value xml:lang="zh-TW">獲得 ${productId} 明細運輸最遲日期時出現問題</value>
     </property>
     <property key="OrderProblemGettingOrderItemRecords">
-        <value xml:lang="de">Problem beim lesen der Auftragspositionen</value>
+        <value xml:lang="de">Problem beim Lesen der Auftragspositionen</value>
         <value xml:lang="en">Problem getting OrderItem records</value>
         <value xml:lang="es">Problema obteniendo registros de ítems de pedido</value>
         <value xml:lang="fr">Problème en obtenant les rapports des articles de la commande</value>
@@ -2437,7 +2444,7 @@
         <value xml:lang="zh-TW">獲得訂單明細記錄時出現問題</value>
     </property>
     <property key="OrderProblemGettingProductStoreRecords">
-        <value xml:lang="de">Problem beim lesen der Laden-Informationen</value>
+        <value xml:lang="de">Problem beim Lesen der Laden-Informationen</value>
         <value xml:lang="en">Problem getting ProductStore records</value>
         <value xml:lang="es">Hay un problema al obtener entradas de tienda</value>
         <value xml:lang="fr">Problème à l'obtention des données du centre de profit</value>
@@ -2481,7 +2488,7 @@
         <value xml:lang="zh-TW">稅務服務里發生問題</value>
     </property>
     <property key="OrderProblemSendingEmail">
-        <value xml:lang="de">Problem beim senden von Email</value>
+        <value xml:lang="de">Problem beim Senden von Emails</value>
         <value xml:lang="en">Problem sending email</value>
         <value xml:lang="es">Problema enviando email</value>
         <value xml:lang="fr">Problème en envoyant des messages</value>
@@ -2496,7 +2503,7 @@
         <value xml:lang="zh-TW">發送電子郵件時出現問題</value>
     </property>
     <property key="OrderProblemStoringReceivedPaymentInformation">
-        <value xml:lang="de"> Problem beim speichern von erhaltenen Zahlungeinformationen.</value>
+        <value xml:lang="de"> Problem beim Speichern von erhaltenen Zahlungsinformationen.</value>
         <value xml:lang="en"> Problem storing received payment information.</value>
         <value xml:lang="es"> Problema almacenando la información recibida del pago.</value>
         <value xml:lang="fr"> Problème en enregistrant les informations de paiement recus. </value>
@@ -2511,7 +2518,7 @@
         <value xml:lang="zh-TW"> 存儲接收到的支付資訊時出現問題。</value>
     </property>
     <property key="OrderProblemStoringReturnItemUpdates">
-        <value xml:lang="de">Problem beim speichern von Retourenpositionen</value>
+        <value xml:lang="de">Problem beim Speichern von Retourenpositionen</value>
         <value xml:lang="en">Problem storing ReturnItem updates</value>
         <value xml:lang="es">Problema almacenando actualizaciones de los ítems de devolución</value>
         <value xml:lang="fr">Problème en enregistrant les mises à jour des retours d'articles</value>
@@ -2541,7 +2548,7 @@
         <value xml:lang="zh-TW">更新退貨明細 (returnItemResponseId) 時出現問題</value>
     </property>
     <property key="OrderProblemWithEntityLookup">
-        <value xml:lang="de">Problem beim Lesen von der Datenbank</value>
+        <value xml:lang="de">Problem beim Lesen der Datenbank</value>
         <value xml:lang="en">Problem with entity lookup</value>
         <value xml:lang="es">Problema con la consulta de entidades</value>
         <value xml:lang="fr">Problème avec la consultation d'entités</value>
@@ -2556,7 +2563,7 @@
         <value xml:lang="zh-TW">查詢資料實體時出現問題</value>
     </property>
     <property key="OrderProblemWithEntityLookupSeeErrorLog">
-        <value xml:lang="de">Problem beim lesen von der Datenbank, siehe Error-Log</value>
+        <value xml:lang="de">Problem beim Lesen der Datenbank, siehe Error-Log</value>
         <value xml:lang="en">Problem with entity lookup, see error log</value>
         <value xml:lang="es">Problema con la consulta de entidades, observe los registros de errores</value>
         <value xml:lang="fr">Problème avec la consultation d'entités, regardez les logs d'erreurs</value>
@@ -2597,7 +2604,7 @@
         <value xml:lang="zh-TW">隨發票創建服務明細時出錯</value>
     </property>
     <property key="OrderProblemsAddingItemFromListToCart">
-        <value xml:lang="de">Problem beim hinzufügen einer Position aus der Liste zum Warenkorb</value>
+        <value xml:lang="de">Problem beim Hinzufügen einer Position aus der Liste zum Warenkorb</value>
         <value xml:lang="en">Problems adding item from list to cart</value>
         <value xml:lang="es">Problemas agregando ítem de una lista hacia el carro</value>
         <value xml:lang="fr">Problèmes en ajoutant un article dans le chariot</value>
@@ -2651,7 +2658,7 @@
         <value xml:lang="zh-TW">創建退貨明細回答實體時出現問題</value>
     </property>
     <property key="OrderProblemsGettingContactMechFromOrderContactMech">
-        <value xml:lang="de">Problem beim ermitteln einer Kontaktinformation von der Auftrags-Kontaktinformation</value>
+        <value xml:lang="de">Problem beim Ermitteln einer Kontaktinformation von der Auftrags-Kontaktinformation</value>
         <value xml:lang="en">Problems getting contact mech from order contact mech</value>
         <value xml:lang="es">Problemas obteniendo método de contacto del método de contacto del pedido</value>
         <value xml:lang="fr">Problèmes en obtenant le contact mech du contact mech de la commande</value>
@@ -2666,7 +2673,7 @@
         <value xml:lang="zh-TW">從訂單聯絡方式獲得聯絡方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderContactMechs">
-        <value xml:lang="de">Problem beim ermitteln der Auftrags-Kontaktinformation</value>
+        <value xml:lang="de">Problem beim Ermitteln der Auftrags-Kontaktinformation</value>
         <value xml:lang="en">Problems getting order contact mechs</value>
         <value xml:lang="es">Problemas obteniendo métodos de contacto del pedido</value>
         <value xml:lang="fr">Problèmes en obtenant les contact mechs de la commande</value>
@@ -2681,7 +2688,7 @@
         <value xml:lang="zh-TW">獲得訂單聯絡方式時出現問題</value>
     </property>
     <property key="OrderProblemsGettingOrderItemTypeFor">
-        <value xml:lang="de">Problem bei der Ermittlung der Auftrags-Positions-Art für : ${orderItemTypeId}</value>
+        <value xml:lang="de">Problem beim Ermitteln der Auftrags-Positions-Art für : ${orderItemTypeId}</value>
         <value xml:lang="en">Problems getting OrderItemType for : ${orderItemTypeId}</value>
         <value xml:lang="es">Problemas obteniendo el tipo de ítem de pedido para: ${orderItemTypeId}</value>
         <value xml:lang="fr">Problèmes en obtenant le type d'article de la commande pour : ${orderItemTypeId}</value>
@@ -2696,7 +2703,7 @@
         <value xml:lang="zh-TW">獲得訂單明細類型時出錯：${orderItemTypeId}</value>
     </property>
     <property key="OrderProblemsGettingPartyRecord">
-        <value xml:lang="de">Problem beim lesen des Akteurs</value>
+        <value xml:lang="de">Problem beim Lesen des Akteurs</value>
         <value xml:lang="en">Problems getting Party record</value>
         <value xml:lang="es">Problemas obteniendo registro de participante</value>
         <value xml:lang="fr">Problèmes en obtenant l'enregistrement de l'acteur</value>
@@ -2711,7 +2718,7 @@
         <value xml:lang="zh-TW">獲得會員記錄時出現問題</value>
     </property>
     <property key="OrderProblemsGettingTheCartItemByIndex">
-        <value xml:lang="de">Problem beim ermitteln der Warenkorb-Position per Index</value>
+        <value xml:lang="de">Problem beim Ermitteln der Warenkorb-Position per Index</value>
         <value xml:lang="en">Problems getting the cart item by index</value>
         <value xml:lang="es">Problemas obteniendo el ítem del carro por el índice</value>
         <value xml:lang="fr">Problèmes en obtenant l'article du chariot par l'index</value>
@@ -2726,7 +2733,7 @@
         <value xml:lang="zh-TW">通過索引獲得購物車明細時出現問題</value>
     </property>
     <property key="OrderProblemsInvokingTheCompleteAssignmentService">
-        <value xml:lang="de">Problem beim ausführen vom gesamten Zuweisungs-Services</value>
+        <value xml:lang="de">Problem beim Ausführen vom gesamten Zuweisungs-Services</value>
         <value xml:lang="en">Problems invoking the complete assignment service</value>
         <value xml:lang="es">Problemas invocando el servicio completo de asignación</value>
         <value xml:lang="fr">Problèmes à l'invocation du service d'achèvement d'affectation</value>
@@ -2741,7 +2748,7 @@
         <value xml:lang="zh-TW">啟動完成分派服務時出現問題</value>
     </property>
     <property key="OrderProblemsPaymentParsingAmount">
-        <value xml:lang="de"> Probleme beim verarbeiten des Zahlungsbetrages. </value>
+        <value xml:lang="de"> Probleme beim Verarbeiten des Zahlungsbetrages. </value>
         <value xml:lang="en"> Problems payment parsing amount. </value>
         <value xml:lang="es"> Problemas de pago analizando monto.</value>
         <value xml:lang="fr"> Problèmes de paiement en faisant l'analyse syntaxique de quantité. </value>
@@ -2756,7 +2763,7 @@
         <value xml:lang="zh-TW"> 解析支付金額時出現問題。 </value>
     </property>
     <property key="OrderProblemsReadingOrderHeaderInformation">
-        <value xml:lang="de"> Problem beim lesen des Auftragskopfes.</value>
+        <value xml:lang="de"> Problem beim Lesen des Auftragskopfes.</value>
         <value xml:lang="en"> Problems reading order header information.</value>
         <value xml:lang="es"> Problemas leyendo la información del encabezado del pedido.</value>
         <value xml:lang="fr"> Problèmes en lisant les informations de l'en-tête de commande</value>
@@ -2771,7 +2778,7 @@
         <value xml:lang="zh-TW"> 讀取訂單頭資訊時出現問題。</value>
     </property>
     <property key="OrderProblemsReadingOrderItemInformation">
-        <value xml:lang="de">Fehler beim lesen der Auftragsposition: ${errorString}</value>
+        <value xml:lang="de">Fehler beim Lesen der Auftragsposition: ${errorString}</value>
         <value xml:lang="en">Error reading the OrderItem: ${errorString}</value>
         <value xml:lang="fr">Erreur lors de la lecture de la ligne de commande : ${errorString}</value>
         <value xml:lang="it">Errore durante la lettura informazioni della riga ordine: ${errorString}</value>
@@ -2780,7 +2787,7 @@
         <value xml:lang="zh">读取订单明细（OrderItem）时出错：${errorString}</value>
     </property>
     <property key="OrderProblemsStoringOrderEmailContactInformation">
-        <value xml:lang="de">Problem beim speichern der Email-Kontaktinformationen</value>
+        <value xml:lang="de">Problem beim Speichern der Email-Kontaktinformationen</value>
         <value xml:lang="en">Problems storing order email contact information</value>
         <value xml:lang="es">Problemas almacenando la información del contacto de email</value>
         <value xml:lang="fr">Problèmes en stockant les informations des contacts mail</value>
@@ -2806,7 +2813,7 @@
         <value xml:lang="zh-TW">檢查退款支付金額時出現問題</value>
     </property>
     <property key="OrderProblemsWithGetPartyAcctgPreferences">
-        <value xml:lang="de">Problem beim lesen der Akteurs-Konteneinstellungen. </value>
+        <value xml:lang="de">Problem beim Lesen der Akteurs-Konteneinstellungen. </value>
         <value xml:lang="en">Problems with getting PartyAcctgPreference. </value>
         <value xml:lang="es">Hay problemas al obtener preferencias de contabilidad de participante.</value>
         <value xml:lang="fr">Problème à l'obtention des préférences comptabilité de l'acteur</value>
@@ -2818,7 +2825,7 @@
         <value xml:lang="zh-TW">獲取會員優先使用的賬戶時出現問題</value>
     </property>
     <property key="OrderProblemsWithGetReturnAmountByOrder">
-        <value xml:lang="de">Problem beim ermitteln der Retourenmenge zum Auftrag</value>
+        <value xml:lang="de">Problem beim Ermitteln der Retourenmenge zum Auftrag</value>
         <value xml:lang="en">Problems with getting return amount by order</value>
         <value xml:lang="fr">Problème avec la récupération du montant du retour par commande</value>
         <value xml:lang="it">Problema nell'ottenere importo reso dell'ordine</value>
@@ -2829,10 +2836,11 @@
         <value xml:lang="zh-TW">按訂單獲取退貨金額時出現問題</value>
     </property>
     <property key="OrderProblemsWithPaymentMethodLookup">
+        <value xml:lang="de">Probleme beim Lesen der PaymentMethod. </value>
         <value xml:lang="en">Problems with PaymentMethod lookup. </value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
-        <value xml:lang="de">Problem mit Zahlungsart-Suchhilfe. </value>
+        <value xml:lang="de">Probleme beim Lesen der Zahlungsart. </value>
         <value xml:lang="en">Problems with PaymentType lookup. </value>
         <value xml:lang="es">Problemas con la consulta del tipo de pago.</value>
         <value xml:lang="fr">Problèmes à la consultation du type de paiement. </value>
@@ -2907,14 +2915,17 @@
         <value xml:lang="zh-TW">產品店鋪不存在</value>
     </property>
     <property key="OrderQuantityAssociatedCannotBeNullOrNegative">
+        <value xml:lang="de">Zugeordnete Menge darf nicht null oder negativ sein.</value>
         <value xml:lang="en">Quantity associated can not be null or negative.</value>
         <value xml:lang="fr">La quantité associée ne peut être négative ou nulle.</value>
     </property>
     <property key="OrderQuantityAssociatedIsBiggerThanOrderItemQuantity">
+        <value xml:lang="de">Die zugeordnete Menge ist größer als die Bestellmenge.</value>
         <value xml:lang="en">Quantity associated is bigger than order item quantity.</value>
         <value xml:lang="fr">La quantité associée est plus grande que celle commandée.</value>
     </property>
     <property key="OrderQuantityAssociatedIsLessThanOrderItemQuantity">
+        <value xml:lang="de">Die zugeordnete Menge ist kleiner als die Bestellmenge.</value>
         <value xml:lang="en">Quantity associated is less than order item quantity.</value>
         <value xml:lang="fr">La quantité totale associée aux groupe(s) d'expédition(s) est plus petite que celle commandée.</value>
     </property>
@@ -2945,7 +2956,7 @@
         <value xml:lang="zh-TW">詢價百分比</value>
     </property>
     <property key="OrderQuoteStatusChangeIsNotValid">
-        <value xml:lang="de">Die Statusänderung von ${quote.statusId} nach ${parameters.statusId} ist kein gültiger Wechsel</value>
+        <value xml:lang="de">Die Statusänderung von ${quote.statusId} nach ${parameters.statusId} ist ungültig</value>
         <value xml:lang="en">The status change from ${quote.statusId} to ${parameters.statusId} is not a valid change</value>
         <value xml:lang="fr">Le changement de statut de ${quote.statusId} à ${parameters.statusId} n'est pas autorisé</value>
         <value xml:lang="it">Il cambio di stato da ${quote.statusId} a ${parameters.statusId} non è consentito</value>
@@ -3007,7 +3018,7 @@
         <value xml:lang="zh-TW">退款金額超出訂單總額</value>
     </property>
     <property key="OrderRemoveCommunicationEventOrderPermissionError">
-        <value xml:lang="de">Berechtigungsfehler bei löschen eines Kommunikationsereignisses</value>
+        <value xml:lang="de">Berechtigungsfehler beim Löschen eines Kommunikationsereignisses</value>
         <value xml:lang="en">Remove Communication Event Order Permission Error</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à supprimer une communication associée à une commande</value>
         <value xml:lang="it">Errore permesso durante la rimozione di un'evento comunicazione</value>
@@ -3018,7 +3029,7 @@
         <value xml:lang="zh-TW">刪除溝通事件時發生訂單權限錯誤</value>
     </property>
     <property key="OrderRentalOrderItems">
-        <value xml:lang="de">Auftrag enthält Miet-Positionen, jedoch keine Arbeitsaufwände mit Start- und End-Datum mit Personen</value>
+        <value xml:lang="de">Auftrag enthält Miet-Positionen, jedoch keine Arbeitsaufwände mit Start- und End-Datum und Anzahl Personen</value>
         <value xml:lang="en">Rental order items in the order, however no workEfforts with start/end date and number of persons</value>
         <value xml:lang="es">Ítems de alquiler en el pedido</value>
         <value xml:lang="fr">Articles de la commande louée</value>
@@ -3125,7 +3136,7 @@
         <value xml:lang="zh-TW">退貨價格 [ ${parameters.returnPrice} ] 不能超過購買價格 [ ${returnablePrice} ]。</value>
     </property>
     <property key="OrderReturnQuantityCannotExceedTheOrderedQuantity">
-        <value xml:lang="de">Retourenmenge [${parameters.returnQuantity}] darf nicht die bestellte Menge [ ${orderItem.quantity} ].</value>
+        <value xml:lang="de">Retourenmenge [${parameters.returnQuantity}] darf nicht die bestellte Menge [ ${orderItem.quantity} ] übersteigen.</value>
         <value xml:lang="en">Return quantity [ ${parameters.returnQuantity} ] cannot exceed the ordered quantity [ ${orderItem.quantity} ]. </value>
         <value xml:lang="es">La cantidad de retorno  [ ${parameters.returnQuantity} ] no puede exceder [ ${orderItem.quantity} ]</value>
         <value xml:lang="fr">La quantité retournée [ ${parameters.returnQuantity} ] ne peut pas excéder la quantité commandée [ ${orderItem.quantity} ]. </value>
@@ -3173,7 +3184,7 @@
         <value xml:lang="zh-TW">退貨合計 [${returnTotalAmount}] 不能小于零。</value>
     </property>
     <property key="OrderRunServiceGetInventoryAvailableByFacilityError">
-        <value xml:lang="de">Fehler beim ausführen des Service [getInventoryAvailableByFacility] :</value>
+        <value xml:lang="de">Fehler beim Ausführen des Service [getInventoryAvailableByFacility] :</value>
         <value xml:lang="en">Run service [getInventoryAvailableByFacility] error :</value>
         <value xml:lang="es">Ejecutar el servicio [getInventoryAvailableByFacility] da error :</value>
         <value xml:lang="fr">Erreur à l'exécution du service [getInventoryAvailableByFacility] : </value>
@@ -3187,7 +3198,7 @@
         <value xml:lang="zh-TW">運行服務 [getInventoryAvailableByFacility] 出錯：</value>
     </property>
     <property key="OrderRunServiceGetSuppliersForProductError">
-        <value xml:lang="de">Fehler beim ausführen des Service [getSuppliersForProduct] :</value>
+        <value xml:lang="de">Fehler beim Ausführen des Service [getSuppliersForProduct] :</value>
         <value xml:lang="en">Run service [getSuppliersForProduct] error :</value>
         <value xml:lang="es">Error al ejecutar el servicio [getSuppliersForProduct] :</value>
         <value xml:lang="fr">Erreur à l'exécution du service [getSuppliersForProduct] : </value>
@@ -3202,7 +3213,7 @@
         <value xml:lang="zh-TW">運行服務 [getSuppliersForProduct] 時出錯：</value>
     </property>
     <property key="OrderSecurityErrorToRunAddPaymentMethodToOrder">
-        <value xml:lang="de">Berechtigungsfehler: Um 'addPaymentMethodToOrder' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'addPaymentMethodToOrder' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run addPaymentMethodToOrder you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar addPaymentMethodToOrder debe tener permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité: Pour aller à addPaymentMethodToOrder vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
@@ -3238,7 +3249,7 @@
         <value xml:lang="zh-TW">要運行自動創建詢價調整時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunAutoUpdateQuotePrice">
-        <value xml:lang="de">Berechtigungsfehler: Um 'autoUpdateQuotePrice' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'autoUpdateQuotePrice' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run autoUpdateQuotePrice you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar autoUpdateQuotePrice debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter autoUpdateQuotePrice, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3253,7 +3264,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行自動更新詢價價格 (autoUpdateQuotePrice)，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCancelReturnItems">
-        <value xml:lang="de">Berechtigungsfehler: Um 'cancelReturnItems' auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'cancelReturnItems' auszuführen müssen Sie die ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run cancelReturnItems you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar cancelReturnItems debe tener permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter cancelReturnItems, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
@@ -3267,7 +3278,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 cancelReturnItems，你必須具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCheckCreateCustRequest">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createCustRequest' auszuführen muss man ORDERMGR_CRQ_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createCustRequest' auszuführen müssen Sie die ORDERMGR_CRQ_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createCustRequest you must have the ORDERMGR_CRQ_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createCustRequest debe contar con los permisos ORDERMGR_CRQ_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createCustRequest, vous devez avoir l'autorisation ORDERMGR_CRQ_CREATE ou ORDERMGR_ADMIN</value>
@@ -3282,7 +3293,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createCustRequest，你必須具有 ORDERMGR_CRQ_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCheckCreateOrderRequirement">
-        <value xml:lang="de">Berechtigungsfehler: Um 'checkCreateOrderRequirement' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'checkCreateOrderRequirement' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run checkCreateOrderRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar checkCreateOrderRequirement debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter checkCreateOrderRequirement, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3297,7 +3308,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 checkCreateOrderRequirement，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCheckCreateOrderRequirementCommitment">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderRequirementCommitment' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderRequirementCommitment' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run createOrderRequirementCommitment you must have ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createOrderRequirementCommitment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderRequirementCommitmentt, vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
@@ -3312,7 +3323,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createOrderRequirementCommitment，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCheckCreateStockRequirement">
-        <value xml:lang="de">Berechtigungsfehler: Um 'checkCreateStockRequirement' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'checkCreateStockRequirement' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run checkCreateStockRequirement you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar checkCreateStockRequirement debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter checkCreateStockRequirement, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3327,7 +3338,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 checkCreateStockRequirement，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCheckUpdateQuoteStatus">
-        <value xml:lang="de">Fehlende Berechtigung um 'Check Update Quote Status' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Check Update Quote Status' auszuführen</value>
         <value xml:lang="en">Security Error To Run Check Update Quote Status</value>
         <value xml:lang="fr">Erreur de sécurité dans la vérification du statut du devis</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione del controllo dello stato aggiornamento preventivo</value>
@@ -3338,7 +3349,7 @@
         <value xml:lang="zh-TW">要運行檢查更新詢價狀態時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyCustRequestItem">
-        <value xml:lang="de">Fehlende Berechtigung um 'Copy Cust Request Item' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Copy Cust Request Item' auszuführen</value>
         <value xml:lang="en">Security Error To Run Copy Cust Request Item</value>
         <value xml:lang="fr">Erreur de sécurité dans la duplication d'une ligne de demande</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga richiesta cliente</value>
@@ -3349,7 +3360,7 @@
         <value xml:lang="zh-TW">要運行複制客戶請求明細時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyQuote">
-        <value xml:lang="de">Fehlende Berechtigung um 'Copy Quote' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Copy Quote' auszuführen</value>
         <value xml:lang="en">Security Error To Run Copy Quote</value>
         <value xml:lang="fr">Erreur de sécurité dans la duplication d'un devis</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia preventivo</value>
@@ -3360,7 +3371,7 @@
         <value xml:lang="zh-TW">要運行複制詢價時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCopyQuoteItem">
-        <value xml:lang="de">Fehlende Berechtigung um 'Copy Quote Item' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Copy Quote Item' auszuführen</value>
         <value xml:lang="en">Security Error To Run Copy Quote Item</value>
         <value xml:lang="fr">Erreur de sécurité dans la duplication d'une ligne de devis</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della copia riga preventivo</value>
@@ -3371,7 +3382,7 @@
         <value xml:lang="zh-TW">要運行複制詢價明細時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateCustRequest">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Cust Request' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Cust Request' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Cust Request</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'une demande</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione richiesta cliente</value>
@@ -3382,7 +3393,7 @@
         <value xml:lang="zh-TW">要運行創建客戶請求時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateOrderAdjustement">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderAdjustment' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderAdjustment' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createOrderAdjustment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createOrderAdjustment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderAdjustment, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3397,7 +3408,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createOrderAdjustment，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateOrderContactMech">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderContactMech' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderContactMech' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run createOrderContactMech you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar createOrderContactMech debe tener permsis ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderContactMech, vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
@@ -3411,7 +3422,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createOrderContactMech，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateOrderShipment">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderShipment' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createOrderShipment' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createOrderShipment you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createOrderShipment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderShipment, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3426,7 +3437,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createOrderShipment，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateOrderTerm">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Order Term' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Order Term' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Order Term</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'une condition de réglement sur devis</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione termine ordine</value>
@@ -3437,7 +3448,7 @@
         <value xml:lang="zh-TW">要運行創建訂單條件時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuantityBreak">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Quantity Break' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Quantity Break' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Quantity Break</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'un palier de quantité</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione intervallo quantità</value>
@@ -3448,7 +3459,7 @@
         <value xml:lang="zh-TW">要運行創建數量階梯時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuote">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createQuote' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createQuote' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuote, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3463,7 +3474,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuote，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteAdjustment">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote Adjustment' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote Adjustment' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Quote Adjustment</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'un ajustement de devis</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione aggiustamenti preventivo</value>
@@ -3474,7 +3485,7 @@
         <value xml:lang="zh-TW">要運行創建詢價調整時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteAndQuoteItemForRequest">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteAndQuoteItemForRequest' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteAndQuoteItemForRequest' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createQuoteAndQuoteItemForRequest you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuoteAndQuoteItemForRequest debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteAndQuoteItemForRequest, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3489,7 +3500,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuoteAndQuoteItemForRequest，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteAttribute">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteAttribute' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteAttribute' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteAttribute, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3504,7 +3515,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuoteAttribute，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteCoefficient">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteCoefficient' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteCoefficient' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteCoefficient, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3519,7 +3530,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuoteCoefficient，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteFromCart">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote From Cart' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote From Cart' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Quote From Cart</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'un devis depuis le panier</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dal carrello</value>
@@ -3530,7 +3541,7 @@
         <value xml:lang="zh-TW">要運行從購物車創建詢價時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteFromCustRequest">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote From Cust Request' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Quote From Cust Request' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Quote From Cust Request</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'un devis depuis une demande</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione preventivo dalla richiesta cliente</value>
@@ -3541,7 +3552,7 @@
         <value xml:lang="zh-TW">要運行從客戶請求創建詢價時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateQuoteItem">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteItem' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createQuoteItem' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createQuoteItem, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3556,7 +3567,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createQuoteItem，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateRequirementFromItemATP">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createRequirementFromItemATP' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createRequirementFromItemATP' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run createRequirementFromItemATP you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createRequirementFromItemATP debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createRequirementFromItemATP, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3571,7 +3582,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createRequirementFromItemATP，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateReturnHeader">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createReturnHeader' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createReturnHeader' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createReturnHeader you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createReturnHeader debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createReturnHeader, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3586,7 +3597,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createReturnHeader，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateReturnItem">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createReturnItem' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createReturnItem' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createReturnItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createReturnItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createReturnItem, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3601,7 +3612,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createReturnItem，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateReturnItemShipment">
-        <value xml:lang="de">Fehlende Berechtigung um 'Create Return Item Shipment' auzuführen</value>
+        <value xml:lang="de">Fehlende Berechtigung um 'Create Return Item Shipment' auszuführen</value>
         <value xml:lang="en">Security Error To Run Create Return Item Shipment</value>
         <value xml:lang="fr">Erreur de sécurité dans la création d'une réception de ligne de retour</value>
         <value xml:lang="it">Errore sicurezza durante l'esecuzione della creazione riga reso spedizione</value>
@@ -3612,7 +3623,7 @@
         <value xml:lang="zh-TW">要運行創建退貨明細運輸時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateShoppingListForAnotherParty">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createShoppingList' für einen anderen Akteur auszuführen muss man PARTYMGR_CREATE oder PARTYMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createShoppingList' für einen anderen Akteur auszuführen müssen Sie die PARTYMGR_CREATE oder PARTYMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createShoppingList for another party you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createShoppingList debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createShoppingList pour un autre acteur, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3627,7 +3638,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createShoppingList for another party，你必須具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunCreateTaxRate">
-        <value xml:lang="de">Berechtigungsfehler: Um 'createTaxRate' auszuführen muss man TAXRATE_CREATE oder TAXRATE_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'createTaxRate' auszuführen müssen Sie die TAXRATE_CREATE oder TAXRATE_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run createTaxRate you must have the TAXRATE_CREATE or TAXRATE_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createTaxRate debe contar con los permisos TAXRATE_CREATE o TAXRATE_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter createTaxRate, vous devez avoir l'autorisation d'administrer ou de créer le taux fiscal</value>
@@ -3642,7 +3653,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 createTaxRate，你必須具有 TAXRATE_CREATE 或 TAXRATE_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunDeleteOrderAdjustement">
-        <value xml:lang="de">Berechtigungsfehler: Um 'deleteOrderAdjustment' auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'deleteOrderAdjustment' auszuführen müssen Sie die ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run deleteOrderAdjustment you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission </value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter deleteOrderAdjustment, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza : per eseguire il servizio deleteOrderAdjustment tu devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
@@ -3655,7 +3666,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 deleteOrderAdjustment，你必須具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 權限 </value>
     </property>
     <property key="OrderSecurityErrorToRunDeleteOrderShipment">
-        <value xml:lang="de">Berechtigungsfehler: Um 'deleteOrderShipment' auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'deleteOrderShipment' auszuführen müssen Sie die ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run deleteOrderShipment you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar deleteOrderShipment debe contar con los permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter deleteOrderShipment, vous devez avoir l'autorisation d'administrer ou de supprimer la commande</value>
@@ -3670,7 +3681,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 deleteOrderShipment，你必須具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunForAnotherParty">
-        <value xml:lang="de">Berechtigungsfehler: Um '${parentMethodName}' für einen anderen Akteur auszuführen muss man PARTYMGR_${permissionAction} oder PARTYMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um '${parentMethodName}' für einen anderen Akteur auszuführen müssen Sie die PARTYMGR_${permissionAction} oder PARTYMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run ${parentMethodName} for another party you must have the PARTYMGR_${permissionAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar ${parentMethodName} debe contar con los permisos PARTYMGR_${permissionAction} o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${parentMethodName} pour un autre acteur, vous devez avoir l'autorisation d'administrer ou ${permissionAction} la commande</value>
@@ -3685,7 +3696,7 @@
         <value xml:lang="zh-TW">安全錯誤：要為另一個會員運行 ${parentMethodName}，你必須具有 PARTYMGR_${permissionAction} 或 PARTYMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunQuickReturnFromOrder">
-        <value xml:lang="de">Berechtigungsfehler: Um 'quickReturnFromOrder' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'quickReturnFromOrder' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run quickReturnFromOrder you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar quickReturnFromOrder debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter quickReturnFromOrder, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3700,7 +3711,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 quickReturnFromOrder，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveOrderContactMech">
-        <value xml:lang="de">Berechtigungsfehler: Um 'removeOrderContactMech' auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'removeOrderContactMech' auszuführen müssen Sie die ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run removeOrderContactMech you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter removeOrderContactMech, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza: per eseguire il servizio removeOrderContactMech tu devi avere il permesso ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
@@ -3746,7 +3757,7 @@
         <value xml:lang="zh-TW">運行刪除詢價調整時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteAttribute">
-        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteAttribute' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteAttribute' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run removeQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar removeQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteAttribute, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3761,7 +3772,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 removeQuoteAttribute，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteCoefficient">
-        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteCoefficient' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteCoefficient' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run removeQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar removeQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteCoefficient, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3776,7 +3787,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 removeQuoteCoefficient，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveQuoteItem">
-        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteItem' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'removeQuoteItem' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run removeQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar removeQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter removeQuoteItem, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3791,7 +3802,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 removeQuoteItem，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveReturnItem">
-        <value xml:lang="de">Berechtigungsfehler: Um 'removeReturnItem' auszuführen muss man ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'removeReturnItem' auszuführen müssen Sie die ORDERMGR_DELETE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run removeReturnItem you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar removeReturnItem debe contar con los permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter removeReturnItem, vous devez avoir l'autorisation d'administrer ou de supprimer la commande</value>
@@ -3806,7 +3817,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 removeReturnItem，你必須具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunRemoveTaxRate">
-        <value xml:lang="de">Berechtigungsfehler: Um 'RemoveTaxRate' auszuführen muss man TAXRATE_DELETE oder TAXRATE_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'RemoveTaxRate' auszuführen müssen Sie die TAXRATE_DELETE oder TAXRATE_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run RemoveTaxRate you must have the TAXRATE_DELETE or TAXRATE_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar RemoveTaxRate debe contar con los permisos TAXRATE_DELETE o TAXRATE_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter RemoveTaxRate, vous devez avoir l'autorisation d'administrer ou de supprimer le taux fiscal</value>
@@ -3821,7 +3832,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 RemoveTaxRate，你必須具有 TAXRATE_DELETE 或 TAXRATE_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderAdjustement">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderAdjustment' auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderAdjustment' auszuführen müssen Sie die ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateOrderAdjustment you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderAdjustment, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza : per eseguire il servizio updateOrderAdjustment tu devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
@@ -3834,7 +3845,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 updateOrderAdjustment，你必須具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderContactMech">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderContactMech' auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderContactMech' auszuführen müssen Sie die ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run updateOrderContactMech you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderContactMech, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore sicurezza : per eseguire il servizio updateOrderContactMech tu devi avere il permesso ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
@@ -3847,7 +3858,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 updateOrderContactMech，你必須具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderItemShipGroup">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderItemShipGroup' auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderItemShipGroup' auszuführen müssen Sie die ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error: to run updateOrderItemShipGroup you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar updateOrderItemShipGroup debe tener permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderItemShipGroup, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
@@ -3875,7 +3886,7 @@
         <value xml:lang="zh-TW">把便箋做私有/公開切換時發生錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderStatusFromReceipt">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderStatusFromReceipt' auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateOrderStatusFromReceipt' auszuführen müssen Sie die ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateOrderStatusFromReceipt you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateOrderStatusFromReceipt debe contar con los permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderStatusFromReceipt, vous devez avoir l'autorisation d'administrer ou de mettre à jour la commande</value>
@@ -3912,7 +3923,7 @@
         <value xml:lang="zh-TW">運行更新數量階梯時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuote">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuote' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuote' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateQuote you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuote debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuote, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3938,7 +3949,7 @@
         <value xml:lang="zh-TW">運行更新詢價調整服務時發生安全錯誤</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuoteAttribute">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteAttribute' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteAttribute' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateQuoteAttribute you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuoteAttribute debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteAttribute, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3953,7 +3964,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 updateQuoteAttribute，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuoteCoefficient">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteCoefficient' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteCoefficient' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateQuoteCoefficient you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuoteCoefficient debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteCoefficient, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3968,7 +3979,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 updateQuoteCoefficient，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateQuoteItem">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteItem' auszuführen muss man ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateQuoteItem' auszuführen müssen Sie die ORDERMGR_CREATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateQuoteItem you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateQuoteItem debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateQuoteItem, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
@@ -3983,7 +3994,7 @@
         <value xml:lang="zh-TW">安全錯誤：要運行 updateQuoteItem，你必須具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 權限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateReturnHeader">
-        <value xml:lang="de">Berechtigungsfehler: Um 'updateReturnHeader' auszuführen muss man ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
+        <value xml:lang="de">Berechtigungsfehler: Um 'updateReturnHeader' auszuführen müssen Sie die ORDERMGR_UPDATE oder ORDERMGR_ADMIN Berechtigungen haben</value>
         <value xml:lang="en">Security Error : to run updateReturnHeader you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar updateReturnHeader debe contar con los permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter updateReturnHeader, vous devez avoir l'autorisation d'administrer ou de cmettre à jour la commande</value>
@@ -4155,7 +4166,7 @@
         <value xml:lang="zh-TW">需求 [ ${requirementId} ] 已經在購物車里了，沒有添加。 </value>
     </property>
     <property key="OrderThisCannotBeChangedWithoutRecreatingTheSetting">
-        <value xml:lang="de">Dies kann nicht ohne Wiederherstellung der Einstellungen geändert werden</value>
+        <value xml:lang="de">Dies kann nicht ohne Neuerstellung der Einstellung geändert werden</value>
         <value xml:lang="en">This  Cannot  Be  Changed  Without Recreating The Setting</value>
         <value xml:lang="es">Esto no puede ser cambiado sin recrear la configuración</value>
         <value xml:lang="fr">Ceci ne peut être changé sans recréation de la configuration</value>
@@ -4211,6 +4222,7 @@
         <value xml:lang="zh-TW">獲得訂單明細的運輸組相關資源列表時出現問題</value>
     </property>
     <property key="OrderUnableToAddItemToOISG">
+        <value xml:lang="de">Kann Bestellposition nicht zur Versandgruppe hinzufügen: </value>
         <value xml:lang="en">Unable to add order item to ship group: </value>
         <value xml:lang="fr">Impossible d'ajouter la ligne de commande au groupe d'expédition : </value>
     </property>
@@ -4230,6 +4242,7 @@
         <value xml:lang="zh-TW">無法把明細添加到購物列表 - ${shoppingListId}</value>
     </property>
     <property key="OrderUnableToAddOISGToOrder">
+        <value xml:lang="de">Kann Versandgruppe nicht zur Bestellung hinzufügen: </value>
         <value xml:lang="en">Unable to add ship group to order: </value>
         <value xml:lang="fr">Impossible d'ajouter le groupe d'expédition : </value>
     </property>
@@ -4354,7 +4367,7 @@
         <value xml:lang="zh-TW">不能定位訂單 - ${orderId}</value>
     </property>
     <property key="OrderUnableToLocateRuleFileFromLocation">
-        <value xml:lang="de">Rule-Datei konnte nicht gefunden werden : ${ruleFileLocation}</value>
+        <value xml:lang="de">Regel-Datei konnte nicht gefunden werden : ${ruleFileLocation}</value>
         <value xml:lang="en">Unable to locate rule file from location : ${ruleFileLocation}</value>
         <value xml:lang="es">No se pudo ubicar la regla en ${ruleFileLocation}</value>
         <value xml:lang="fr">Impossible de localiser le fichier de règle de l'emplacement : ${ruleFileLocation}</value>
@@ -4369,7 +4382,7 @@
         <value xml:lang="zh-TW">不能定位規則文件：${ruleFileLocation}</value>
     </property>
     <property key="OrderUnableToLocateTaxFileAtLocation">
-        <value xml:lang="de">Tax-Datei konnte nicht gefunden werden : ${taxFileLocation}</value>
+        <value xml:lang="de">Steuer-Datei konnte nicht gefunden werden : ${taxFileLocation}</value>
         <value xml:lang="en">Unable to locate tax file at location : ${taxFileLocation}</value>
         <value xml:lang="es">No se pudo encontrar el impuesto en la ubicación :  ${taxFileLocation}</value>
         <value xml:lang="fr">Impossible de localiser le fichier fiscal à l'emplacement : ${taxFileLocation}</value>
@@ -4473,7 +4486,7 @@
         <value xml:lang="zh-TW">不能設置取消數量：${itemMsgInfo}</value>
     </property>
     <property key="OrderUnableToStoreAutoSaveCart">
-        <value xml:lang="de">Fehler beim atomatischen Speichern des Warenkorbes</value>
+        <value xml:lang="de">Fehler beim automatischen Speichern des Warenkorbes</value>
         <value xml:lang="en">Unable to store auto-save cart</value>
         <value xml:lang="es">No se pudo almacenar el carro automáticamente</value>
         <value xml:lang="fr">Impossible d'enregistrer la sauvegarde automatique du chariot</value>
@@ -4518,6 +4531,7 @@
         <value xml:lang="zh-TW">不能更新明細的評論</value>
     </property>
     <property key="OrderUnableToUpdateOrderItemFromOISG">
+        <value xml:lang="de">Kann Bestellposition nicht aktualisieren für Versandgruppe: </value>
         <value xml:lang="en">Unable to update order item from the ship group: </value>
         <value xml:lang="fr">Impossible de mettre à jour la ligne de commande depuis le groupe d'expédition : </value>
     </property>
@@ -4597,7 +4611,7 @@
         <value xml:lang="zh-TW">不能更新購物列表資訊 - ${shoppinListId}</value>
     </property>
     <property key="OrderUnableToUpdateUnitPriceOfItem">
-        <value xml:lang="de">Der Einheitenpreis kann nicht aktualisiert werden</value>
+        <value xml:lang="de">Der Stückpreis kann nicht aktualisiert werden</value>
         <value xml:lang="en">Unable to update unit price of item</value>
         <value xml:lang="es">No se puede actualizar el precio unitario del ítem</value>
         <value xml:lang="fr">Impossible de mettre à jour le prix unitaire de l'article</value>
@@ -4612,7 +4626,7 @@
         <value xml:lang="zh-TW">不能更新明細的單價</value>
     </property>
     <property key="OrderUnitPriceOrQuantityAreNullUsingForTheItemBasePrice">
-        <value xml:lang="de">[ ${getOrderItemTotal} ] Einheitenpreis oder Menge sind Null, es wird 0 als Basispreis angenommen</value>
+        <value xml:lang="de">[ ${getOrderItemTotal} ] Stückpreis oder Menge sind Null, es wird 0 als Basispreis angenommen</value>
         <value xml:lang="en">[ ${getOrderItemTotal} ] unitPrice or quantity are null, using 0 for the item base price</value>
         <value xml:lang="es">[ ${getOrderItemTotal} ] el precio unitario o la cantidad son nulos, se usó 0 para el precio de la base del ítem\r\n</value>
         <value xml:lang="fr">[ ${getOrderItemTotal} ] le prix unitaire ou la quantité sont nuls, en utilisant 0 comme prix de base de l'article</value>
@@ -4759,7 +4773,7 @@
         <value xml:lang="zh-TW">在添加到購物車之前請輸入數量</value>
     </property>
     <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
-        <value xml:lang="de">Reservationsinformationen erfassen vor dem Hinzufügen zum Warenkorb</value>
+        <value xml:lang="de">Erfassen Sie die Buchungsinformation vor dem Hinzufügen zum Warenkorb</value>
         <value xml:lang="en">Enter Booking Information Before Adding to Cart</value>
         <value xml:lang="es">Introduzca información de reserva antes de añadir al carro</value>
         <value xml:lang="fr">Entrer la réservation avant d'ajouter au panier</value>
@@ -4814,6 +4828,7 @@
         <value xml:lang="zh-TW">配置無效</value>
     </property>
     <property key="cart.addToCart.quantityInDecimalNotAllowed">
+        <value xml:lang="de">Dezimalmenge ist nicht erlaubt.</value>
         <value xml:lang="en">Quantity in decimal is not allowed.</value>
     </property>
     <property key="cart.addToCart.rental.endDate">
@@ -5101,7 +5116,7 @@
         <value xml:lang="zh-TW">為賬單賬戶 #${billingAccountId} 設置的金額無效。</value>
     </property>
     <property key="checkevents.invalid_amount_set_for_payment_method">
-        <value xml:lang="de">Es wurde ein ungültiger Betrag für diese Zahlungsweise eingesetzt.</value>
+        <value xml:lang="de">Es wurde ein ungültiger Betrag für diese Zahlungsmethode eingesetzt.</value>
         <value xml:lang="en">Invalid amount set for Payment method.</value>
         <value xml:lang="es">El importe indicado no es válido para el método de pago.</value>
         <value xml:lang="fr">Montant retenu non valide pour le moyen de paiement.</value>
@@ -5177,7 +5192,7 @@
         <value xml:lang="zh-TW">錯誤：無法創建訂單 (啟動服務時出錯： ${service})</value>
     </property>
     <property key="checkhelper.could_not_create_order_parsing_totals">
-        <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Analysieren der Auftragsgesamtsummen).</value>
+        <value xml:lang="de">FEHLER: Auftrag konnte nicht erstellt werden (Problem beim Interpretieren der Auftragsgesamtsummen).</value>
         <value xml:lang="en">ERROR: Could not create order (problem parsing order totals).</value>
         <value xml:lang="es">ERROR: No se pudo crear el pedido (problema en el análisis de los totales del pedido).</value>
         <value xml:lang="fr">ERREUR : impossible de créer la commande (problème lors de l'analyse des totaux de commandes).</value>
@@ -5209,7 +5224,7 @@
         <value xml:lang="zh-TW">資料庫錯誤。</value>
     </property>
     <property key="checkhelper.did_not_complete_order_following_occurred">
-        <value xml:lang="de">Auftrag nicht vervollständigt, folgender Fehler trat auf:</value>
+        <value xml:lang="de">Auftrag nicht abgeschlossen, folgender Fehler trat auf:</value>
         <value xml:lang="en">Did not complete the order, the following occurred:</value>
         <value xml:lang="es">No se completó el pedido, ocurrió lo siguiente:</value>
         <value xml:lang="fr">La commande ne s'est pas terminée, car s'est produit :</value>
@@ -5383,7 +5398,7 @@
         <value xml:lang="zh-TW">禮品卡資訊有問題。</value>
     </property>
     <property key="checkhelper.problems_getting_order_header">
-        <value xml:lang="de">Auftragskopf konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
+        <value xml:lang="de">Auftragskopf konnte nicht ermittelt werden. Kann externe Gateways nicht prüfen.</value>
         <value xml:lang="en">Problems getting order header. Cannot check external gateways!</value>
         <value xml:lang="es">Problema en la obtención del encabezado del pedido. ¡Gateways externos no se pueden comprobar!</value>
         <value xml:lang="fr">Problème lors de l'obtention de l'entête de commande : ne peut vérifier avec aucune passerelle externe !</value>
@@ -5399,7 +5414,7 @@
         <value xml:lang="zh-TW">獲得訂單頭時出現問題。無法檢查外部閘道！</value>
     </property>
     <property key="checkhelper.problems_getting_payment_preference">
-        <value xml:lang="de">Bevorzugte Zahlweise konnte nicht ermittelt werden. Kann nicht externe Gateways prüfen.</value>
+        <value xml:lang="de">Bevorzugte Zahlweise konnte nicht ermittelt werden. Kann externe Gateways nicht prüfen.</value>
         <value xml:lang="en">Problems getting payment preference. Cannot check external gateways!</value>
         <value xml:lang="es">Problema en la obtención de la preferencia de pago. ¡Gateways externos no se pueden comprobar!</value>
         <value xml:lang="fr">Problème lors de l'obtention de la préférence de paiement : ne peut vérifier avec aucune passerelle externe !</value>
@@ -5747,7 +5762,7 @@
         <value xml:lang="zh-TW">租用這個物件的最大人數是 ${reservMaxPersons} 而你要求的是：${reservPersons} ！</value>
     </property>
     <property key="item.missing_reservation_starting_date">
-        <value xml:lang="de">Das Startdatum der Reservation fehlt....</value>
+        <value xml:lang="de">Das Startdatum der Reservierung fehlt....</value>
         <value xml:lang="en">The starting date of the reservation is missing....</value>
         <value xml:lang="es">La fecha de inicio de la reserva falta ...</value>
         <value xml:lang="fr">La date de départ de la réservation est manquante...</value>
@@ -5873,7 +5888,7 @@
         <value xml:lang="zh-TW">嘗試訂購產品 {0} (ID：{1})。這個產品不再銷售了。請把它從訂單中刪除。</value>
     </property>
     <property key="product.not_found">
-        <value xml:lang="de">Kann das Produkt mit der ID [{0}] nicht finden. Da Produkt kann nicht eingekauft werden.</value>
+        <value xml:lang="de">Kann das Produkt mit der ID [{0}] nicht finden. Da Produkt kann nicht gekauft werden.</value>
         <value xml:lang="en">Could not find the product with ID [{0}], cannot be purchased.</value>
         <value xml:lang="es">No se pudo encontrar el producto con código [{0}], no se puede comprar.</value>
         <value xml:lang="fr">L'article avec la réf. [{0}] n'a pas été trouvé , et ne peut donc être acheté.</value>
@@ -5907,7 +5922,7 @@
         <value xml:lang="zh-TW">嘗試訂購產品 {0} (ID：{1})。這個產品還沒有銷售。請把它從訂單中刪除。</value>
     </property>
     <property key="product.out_of_stock">
-        <value xml:lang="de">Das Produkt {0} mit der ID {1} ist nicht an Lager. Bitte reduzieren Sie die Menge oder entfernen Sie das Produkt komplett aus dem Warenkorb.</value>
+        <value xml:lang="de">Das Produkt {0} mit der ID {1} ist nicht mehr auf Lager. Bitte reduzieren Sie die Menge oder entfernen Sie das Produkt komplett aus dem Warenkorb.</value>
         <value xml:lang="en">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this order.</value>
         <value xml:lang="es">No hay existencias suficientes del producto {0} con el código {1}. Intente reducir la cantidad o elimine el producto de su pedido.</value>
         <value xml:lang="fr">L'article {0} avec ID {1} n'est plus en stock. Essayez, s'il vous plaît, de réduire la quantité ou d'enlever l'article de cette commande, merci.</value>
@@ -5951,7 +5966,7 @@
         <value xml:lang="zh">促销代码 [${productPromoCodeId}] 已经过期了：${thruDate}</value>
     </property>
     <property key="productpromoworker.promotion_code_maximum_limit">
-        <value xml:lang="de">Diser Aktionscode [${productPromoCodeId}] hat sein Nutzungslimit erreicht und kann nicht länger verwendet werden.</value>
+        <value xml:lang="de">Dieser Aktionscode [${productPromoCodeId}] hat sein Nutzungslimit erreicht und kann nicht länger verwendet werden.</value>
         <value xml:lang="en">This promotion code (${productPromoCodeId}) has reached it's maximum use limit for you and can no longer be used.</value>
         <value xml:lang="fr">Ce code de promotion (${productPromoCodeId}) a atteint sa limite d'usage pour vous et ne plus être utilisé.</value>
         <value xml:lang="ja">このプロモーションコード (${productPromoCodeId}) は使用回数の限度に達しています。もう使用することができません。</value>
@@ -5959,7 +5974,7 @@
         <value xml:lang="zh">促销代码(${productPromoCodeId})已经达到了你的最大使用次数限制，不能再用了。</value>
     </property>
     <property key="productpromoworker.promotion_code_no_account_or_email">
-        <value xml:lang="de">Diser Aktionscode [${productPromoCodeId}] muss mit Ihrem Konto oder der Email-Adresse verknüpft sein.</value>
+        <value xml:lang="de">Dieser Aktionscode [${productPromoCodeId}] muss mit Ihrem Konto oder der Email-Adresse verknüpft sein.</value>
         <value xml:lang="en">The promotion code [${productPromoCodeId}] requires you to be associated with it by account or email address and you are not associated with it.</value>
         <value xml:lang="fr">Le code de promotion [${productPromoCodeId}] nécessite que vous y soyez associé par un compte ou une adresse courriel ce qui n'est pas le cas</value>
         <value xml:lang="ja">このプロモーションコード [${productPromoCodeId}] はあなたのアカウントまたはEメールアドレスと関連付けられていないため使用できません。</value>
@@ -6070,7 +6085,7 @@
         <value xml:lang="zh-TW">解析明細期望送貨日期字串時出錯。</value>
     </property>
     <property key="shoppingCartHelper.no_items_found_to_add">
-        <value xml:lang="de">Keine Artikel zum hinzufügen gefunden</value>
+        <value xml:lang="de">Keine Artikel zum Hinzufügen gefunden</value>
         <value xml:lang="en">No items found to add</value>
         <value xml:lang="es">No hay ítems encontrados para agregar</value>
         <value xml:lang="fr">Pas d'articles trouvés à ajouter</value>
@@ -6148,7 +6163,7 @@
         <value xml:lang="zh-TW">請選擇購物列表。</value>
     </property>
     <property key="shoppinglistevents.error_adding_item_to_shopping_list">
-        <value xml:lang="de">Fehler beim Aufnehmen eines Artikels auf Einkaufsliste.</value>
+        <value xml:lang="de">Fehler beim Hinzufügen eines Artikels zur Einkaufsliste.</value>
         <value xml:lang="en">Error adding item to shopping list.</value>
         <value xml:lang="es">Error agregando ítem a la lista de compras.</value>
         <value xml:lang="fr">Erreur lors de l'ajout de l'article à la liste d'achats.</value>
@@ -6212,7 +6227,7 @@
         <value xml:lang="zh-TW">無法把產品 ${productId} 添加到購物車。</value>
     </property>
     <property key="shoppinglistevents.select_items_to_add_to_list">
-        <value xml:lang="de">Bitte wählen Sie Artikel zur Aufnahme in die Einkaufsliste aus.</value>
+        <value xml:lang="de">Bitte wählen Sie Artikel zum Hinzufügen zur Einkaufsliste aus.</value>
         <value xml:lang="en">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="es">Por favor, seleccione ítems para agragar a la lista de compras.</value>
         <value xml:lang="fr">Merci de sélectionner l'article(s) à ajouter à la liste d'achats.</value>
