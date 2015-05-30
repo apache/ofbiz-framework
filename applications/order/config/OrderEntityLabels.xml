@@ -52,7 +52,7 @@
         <value xml:lang="zh-TW">已改正</value>
     </property>
     <property key="CustRequestResolution.description.IMPLEMENTED">
-        <value xml:lang="de">Umgesetzt</value>
+        <value xml:lang="de">Implementiert</value>
         <value xml:lang="en">Implemented</value>
         <value xml:lang="es">Implementado</value>
         <value xml:lang="fr">Implémentée</value>
@@ -421,7 +421,7 @@
         <value xml:lang="zh-TW">保修</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_ADDRESS">
-        <value xml:lang="de">Blackliste Adressen</value>
+        <value xml:lang="de">Blacklist Adressen</value>
         <value xml:lang="en">Blacklist Address</value>
         <value xml:lang="es">Dirección bloqueada</value>
         <value xml:lang="fr">Mettre l'adresse en liste noire</value>
@@ -435,7 +435,7 @@
         <value xml:lang="zh-TW">位址黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_CREDITCARD">
-        <value xml:lang="de">Blackliste Kreditkarte</value>
+        <value xml:lang="de">Blacklist Kreditkarte</value>
         <value xml:lang="en">Blacklist Credit Card</value>
         <value xml:lang="es">Tarjeta de crédito bloqueada</value>
         <value xml:lang="fr">Mettre la carte de crédit en liste noire</value>
@@ -449,7 +449,7 @@
         <value xml:lang="zh-TW">信用卡黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_EMAIL">
-        <value xml:lang="de">Blackliste E-Mail</value>
+        <value xml:lang="de">Blacklist E-Mail</value>
         <value xml:lang="en">Blacklist Email</value>
         <value xml:lang="es">Email bloqueado</value>
         <value xml:lang="fr">Mettre l'addresse de courriel en liste noire</value>
@@ -463,7 +463,7 @@
         <value xml:lang="zh-TW">電子郵件黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_PHONE">
-        <value xml:lang="de">Blackliste Telefon</value>
+        <value xml:lang="de">Blacklist Telefon</value>
         <value xml:lang="en">Blacklist Phone</value>
         <value xml:lang="es">Teléfono bloqueado</value>
         <value xml:lang="fr">Mettre le n° de téléphone en liste noire</value>
@@ -943,7 +943,7 @@
         <value xml:lang="zh-TW">數字責任履行履行失敗</value>
     </property>
     <property key="ReturnReason.description.RTN_MISSHIP_ITEM">
-        <value xml:lang="de">Falsch versandtes Element</value>
+        <value xml:lang="de">Falsch versandter Artikel</value>
         <value xml:lang="en">Mis-Shipped Item</value>
         <value xml:lang="es">Ítem mal enviado</value>
         <value xml:lang="fr">Ligne d'expédition manquante</value>
@@ -1196,7 +1196,7 @@
         <value xml:lang="zh-TW">完成</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_TESTS">
-        <value xml:lang="de">führt Test durch</value>
+        <value xml:lang="de">Testet</value>
         <value xml:lang="en">Tests</value>
         <value xml:lang="es">Prueba</value>
         <value xml:lang="fr">Tests</value>
