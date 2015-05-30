@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AccountingDeleteRateAmount">
+        <value xml:lang="ar">لا يمكن إيجاد سجل مبلغ النسبة لإلغائها</value>
         <value xml:lang="de">Kann die zu löschende Raten-Summe nicht finden</value>
         <value xml:lang="en">Could not find RateAmount record to be deleted</value>
         <value xml:lang="fr">Impossible de supprimer le taux</value>
@@ -30,6 +31,7 @@
         <value xml:lang="zh-TW">找不到要刪除的費率金額(RateAmount)記錄</value>
     </property>
     <property key="AccountingEftAccountCannotBeCreated">
+        <value xml:lang="ar">خطأ: لا يمكن خلق دليل طريقة الدفع (فشل توليد الدليل)</value>
         <value xml:lang="de">FEHLER: Kann die Bezahlmethoden-ID nicht anlegen (ID Generierungsfehler)</value>
         <value xml:lang="en">ERROR: Could not create payment method Id (id generation failure)</value>
         <value xml:lang="fr">Erreur : impossible de créer la méthode de paiement (échec de la génération de sa séquence)</value>
@@ -40,6 +42,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建支付方法標識(產生標識時失敗)</value>
     </property>
     <property key="AccountingEftAccountCannotBeCreatedWriteFailure">
+        <value xml:lang="ar">خطأ: لا يمكن خلق حساب EFT (خطأ كتابي): ${errorString}</value>
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht anlegen (Schreib-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not create EFT account (write failure): ${errorString}</value>
         <value xml:lang="fr">Erreur : Impossible de créer le RIB : ${errorString}</value>
@@ -50,6 +53,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建電子資金轉帳帳戶(寫操作失敗):${errorString}</value>
     </property>
     <property key="AccountingEftAccountCannotBeUpdated">
+        <value xml:lang="ar">خطأ: لا يمكن تحديث حساب EFT (خطأ كتابي): ${errorString}</value>
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht ändern (Schreib-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not update EFT Account (write failure): ${errorString}</value>
         <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
@@ -60,6 +64,7 @@
         <value xml:lang="zh-TW">錯誤:無法更新電子資金轉帳帳戶(寫操作失敗):${errorString}</value>
     </property>
     <property key="AccountingEftAccountCannotBeUpdatedReadFailure">
+        <value xml:lang="ar">خطأ: لا يمكن تحديث حساب EFT (خطأ كتابي): ${errorString}</value>
         <value xml:lang="de">FEHLER: Kann den Elektr. Zahlungsverkehr-Zugang nicht ändern (Lese-Fehler): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not update EFT Account (read error): ${errorString}</value>
         <value xml:lang="fr">Erreur : Impossible de mettre à jour le RIB : ${errorString}</value>
@@ -70,6 +75,7 @@
         <value xml:lang="zh-TW">錯誤:無法更新電子資金轉帳帳戶(讀取時出錯):${errorString}</value>
     </property>
     <property key="AccountingEftPartyNotAuthorized">
+        <value xml:lang="ar">دليل طرف ${partyId} ليس المالك لطيقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="de">Akteur Id ${partyId} ist nicht der Besitzer der Bezahlmethode ${paymentMethodId} und hat keine Berechtigung diese zu ändern.</value>
         <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
@@ -79,6 +85,7 @@
         <value xml:lang="zh-TW">團體標識 ${partyId} 不是支付方法 ${paymentMethodId} 的擁有者,無權修改它.</value>
     </property>
     <property key="AccountingFinAccountAuthorizationExpired">
+        <value xml:lang="ar">انتهت صلاحية عملية التصريح ${paymentGatewayResponseId} منذ ${authExpiration}</value>
         <value xml:lang="de">Authroisierungs-Transaktion ${paymentGatewayResponseId} ist seit ${authExpiration} abgelaufen</value>
         <value xml:lang="en">Authorization transaction ${paymentGatewayResponseId} has expired as of ${authExpiration}</value>
         <value xml:lang="it">Autorizzazione transazione ${paymentGatewayResponseId} ha una scadenza del ${authExpiration}</value>
@@ -88,6 +95,7 @@
         <value xml:lang="zh-TW">授權交易 ${paymentGatewayResponseId} 已過期,原因是 ${authExpiration}</value>
     </property>
     <property key="AccountingFinAccountCancelled">
+        <value xml:lang="ar">تم إلغاء الحساب</value>
         <value xml:lang="de">Zugriff wurde storniert</value>
         <value xml:lang="en">Account has been cancelled</value>
         <value xml:lang="it">Il conto è stato cancellato</value>
@@ -97,6 +105,7 @@
         <value xml:lang="zh-TW">帳戶已被取消了</value>
     </property>
     <property key="AccountingFinAccountCannotBeAuthorized">
+        <value xml:lang="ar">لا يمكن التصريح الحساب المالي بسبب: ${errorString}</value>
         <value xml:lang="de">Kann die Abrechnung nicht durchführen, wegen: ${errorString}</value>
         <value xml:lang="en">Cannot authorize financial account due to: ${errorString}</value>
         <value xml:lang="it">Non è possibile autorizzare il conto finanziario per: ${errorString}</value>
@@ -106,6 +115,7 @@
         <value xml:lang="zh-TW">無法授權財務帳目,原因是:${errorString}</value>
     </property>
     <property key="AccountingFinAccountCannotBeExpired">
+        <value xml:lang="ar">غير ممكن انهاء صلاحية تصريح الحساب المالي</value>
         <value xml:lang="de">Es ist nicht möglich die Abrechnungs-Authorisierung zu stornieren: </value>
         <value xml:lang="en">Unable to expire financial account authorization: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario: </value>
@@ -115,6 +125,7 @@
         <value xml:lang="zh-TW">無法過期財務帳目授權:</value>
     </property>
     <property key="AccountingFinAccountCannotBeRefunded">
+        <value xml:lang="ar">الرصيد المتوفر لا يطابق الرصيد الفعلي: التصاريح متوقفة مؤقتا: لا يمكن اتمام الإسترجاع للحساب المالي حاليا</value>
         <value xml:lang="de">Der verfügbare Betrag ist ungleich dem aktuellen Betrag; Schwebende Authorisierung; Es ist derzeit nicht möglich eine Rückerstattung durchzuführen.</value>
         <value xml:lang="en">Available balance does not match the actual balance; pending authorizations; cannot refund FinAccount at this time.</value>
         <value xml:lang="it">Bilancio disponibilie non corrisponde all'attuale bilancio; autorizzazioni in attesa; non è possibile rimborsare il conto finanziario in questo momento.</value>
@@ -124,6 +135,7 @@
         <value xml:lang="zh-TW">可動用結餘與實際結餘不一致;暫停授權;本次無法退款到財務帳目.</value>
     </property>
     <property key="AccountingFinAccountCannotBeReplenish">
+        <value xml:lang="ar">لا يمكن تحديد محل السلعة من الإيداعات السابقة: محل السلعة لا يمكن أن يكون فارغا</value>
         <value xml:lang="de">Kann das Produkt-Lager nicht in den vorherigen Absätzen zu finden. Produkt-Lager darf nicht leer sein</value>
         <value xml:lang="en">Cannot locate product store from previous deposits; product store cannot be empty</value>
         <value xml:lang="it">Non è possibile localizzare il negozio dei precedenti depositi; il negozio non può essere vuoto</value>
@@ -133,6 +145,7 @@
         <value xml:lang="zh-TW">無法從以前的存款確定產品商店;產品商店不能為空</value>
     </property>
     <property key="AccountingFinAccountCannotCapture">
+        <value xml:lang="ar">لا يمكن إيجاد تصريح عملية لتفضيل دفع أمر البيع/الشراء: لا يمكن الإلتقاط</value>
         <value xml:lang="de">Keine Authorizierungs-Transaktion für die Bestell-Bezahl-Einstellungen gefunden; kann nicht OrderPaymentPreference; keine Erfassung möglich</value>
         <value xml:lang="en">No authorization transaction found for the OrderPaymentPreference; cannot capture</value>
         <value xml:lang="it">Nessuna transazione di autorizzazione trovata per le preferenze pagamento ordine; non è possibile catturare</value>
@@ -142,6 +155,7 @@
         <value xml:lang="zh-TW">找不到用於這個訂單支付參考(OrderPaymentPreference)的授權交易;無法擷取</value>
     </property>
     <property key="AccountingFinAccountCannotCreate">
+        <value xml:lang="ar">غير ممكن خلق الحساب المالي: لا يوجد دليل محل السلعة على رأس أمر البيع/الشراء: ${orderId}</value>
         <value xml:lang="de">Es ist nicht möglich ein Finanz-Konto anzulegen; Keine Product-Laden-Id am Bestell-Kopf: ${orderId}</value>
         <value xml:lang="en">Unable to create financial accout; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile creare conto finanziario; nessun negozio impostato sulla testata ordine: ${orderId}</value>
@@ -151,6 +165,7 @@
         <value xml:lang="zh-TW">無法新建財務帳目;訂單頭(OrderHeader)中沒有產品商店標識(productStoreId),訂單識別:${orderId}</value>
     </property>
     <property key="AccountingFinAccountCannotCreateTransaction">
+        <value xml:lang="ar">غير ممكن خلق عملية الحساب المالي!</value>
         <value xml:lang="de">Es ist nicht möglich ein Finanz-Konto Transaktion anzulegen!</value>
         <value xml:lang="en">Unable to create financial account transaction!</value>
         <value xml:lang="it">Non è possibile creare un transazione di un conto finanziario!</value>
@@ -160,6 +175,7 @@
         <value xml:lang="zh-TW">無法執行新建財務帳目事務！</value>
     </property>
     <property key="AccountingFinAccountCannotCreditAccount">
+        <value xml:lang="ar">لا يمكن إيجاد أو خلق حساب خدمة دائن</value>
         <value xml:lang="de">Es ist nicht möglich ein Dienste-Kredit-Konto anzulegen oder zu finden</value>
         <value xml:lang="en">Could not find or create a service credit account</value>
         <value xml:lang="it">Non è possibile trovare o creare un servizio di accredito conto</value>
@@ -169,6 +185,7 @@
         <value xml:lang="zh-TW">無法找到或新建一個服務信用帳戶</value>
     </property>
     <property key="AccountingFinAccountCannotFindAuthorization">
+        <value xml:lang="ar">لا يمكن إيجاد عملية تصريح</value>
         <value xml:lang="de"> Kann keine Authorisierungs-Transaktion finden.</value>
         <value xml:lang="en"> Could not find authorization transaction.</value>
         <value xml:lang="it"> Non è possibile trovare la transazione di autorizzazione.</value>
@@ -178,6 +195,7 @@
         <value xml:lang="zh-TW">無法找到授權事務.</value>
     </property>
     <property key="AccountingFinAccountCannotLocateItFromAccountCode">
+        <value xml:lang="ar">غير ممكن تحديد الحساب المالي من رمز الحساب</value>
         <value xml:lang="de">Kann kein Finanz-Konto zum Zugangs-Code finden</value>
         <value xml:lang="en">Unable to locate financial account from account code</value>
         <value xml:lang="it">Non è possibile localizzare il conto finanziario dal codice conto</value>
@@ -187,6 +205,7 @@
         <value xml:lang="zh-TW">無法從帳目代碼得到財務帳目</value>
     </property>
     <property key="AccountingFinAccountCannotPost">
+        <value xml:lang="ar">لا يمكن رصد عمليات الحساب المالي ذات الدليل ${parameters.finAccountTransId} إلى GLو لا يمكن إيجاد ${creditDebit} ${requiredField}</value>
         <value xml:lang="en">Cannot post FinAccountTrans with ID ${parameters.finAccountTransId} to GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="it">Non post FinAccountTrans con ID ${parameters.finAccountTransId} in GL, could not find ${creditDebit} ${requiredField}</value>
         <value xml:lang="ja">ID ${parameters.finAccountTransId} の金融アカウントトランザクションを総勘定元帳(GL)に転記できません。${creditDebit} ${requiredField} が見つかりません。</value>
@@ -195,6 +214,7 @@
         <value xml:lang="zh-TW">無法把標識為 ${parameters.finAccountTransId} 的財務帳目交易提交到普通日記帳中,無法找到 ${creditDebit} ${requiredField}</value>
     </property>
     <property key="AccountingFinAccountExpired">
+        <value xml:lang="ar">انتهت صلاحية الحساب منذ ${thruDate}</value>
         <value xml:lang="de">Konto ist zum ${thruDate} abgelaufen</value>
         <value xml:lang="en">Account has expired as of ${thruDate}</value>
         <value xml:lang="it">Conto scaduto dal ${thruDate}</value>
@@ -204,6 +224,7 @@
         <value xml:lang="zh-TW">帳目已過期,過期日期為 ${thruDate}</value>
     </property>
     <property key="AccountingFinAccountFrozen">
+        <value xml:lang="ar">الحساب موقوف حاليا</value>
         <value xml:lang="de">Konto ist derzeit eingefroren</value>
         <value xml:lang="en">Account is currently frozen</value>
         <value xml:lang="it">Il conto è attualmente congelato</value>
@@ -213,6 +234,7 @@
         <value xml:lang="zh-TW">帳目目前已被凍結</value>
     </property>
     <property key="AccountingFinAccountIdAndFinAccountCodeAreNull">
+        <value xml:lang="ar">لا مكن لكل من دليل الحساب المالي ورمز الحساب المالي أن يكون فارغا: على الأقل واحد مطلوب</value>
         <value xml:lang="en">Both finAccountId and finAccountCode cannot be null; at least one is required</value>
         <value xml:lang="it">Entrambi finAccountId e finAccountCode non possono essere nulli; al minimo uno è richiesto</value>
         <value xml:lang="ja">金融アカウントIDと金融アカウントコードの両方とも空にできません。少なくとも１つは必須です</value>
@@ -221,6 +243,7 @@
         <value xml:lang="zh-TW">財務帳目標識(finAccountId)和財務帳目識別(finAccountCode)不能同時為空;至少要提供一個</value>
     </property>
     <property key="AccountingFinAccountIdInvalid">
+        <value xml:lang="ar">حساب مالي غير صحيح: لا يمكن تحديد الحساب</value>
         <value xml:lang="en">Invalid financial account; cannot locate account</value>
         <value xml:lang="it">Conto finanziario invalido; non è possibile localizzare il conto</value>
         <value xml:lang="ja">金融アカウントが無効です。アカウントを設置できません</value>
@@ -229,6 +252,7 @@
         <value xml:lang="zh-TW">不正確財務帳目;無法找到帳目</value>
     </property>
     <property key="AccountingFinAccountInactiveStatusError">
+        <value xml:lang="ar">حالة الحساب المالي يجب أن تكون نشيطة</value>
         <value xml:lang="en">FinAccount must be in active status</value>
         <value xml:lang="fr">Le compte financier doit être dans un état actif</value>
         <value xml:lang="ja">金融アカウントは有効ステータスである必要があります</value>
@@ -237,6 +261,7 @@
         <value xml:lang="zh-TW">財務帳目(FinAccount)必須處於有效狀態</value>
     </property>
     <property key="AccountingFinAccountIsNotRefundable">
+        <value xml:lang="ar">غير ممكن الإسترجاع من هذا الحساب</value>
         <value xml:lang="en">Account is not refunable</value>
         <value xml:lang="it">Il conto non è rimborsabile</value>
         <value xml:lang="ja">アカウントは払出できません</value>
@@ -245,6 +270,7 @@
         <value xml:lang="zh-TW">帳目是不可償還的</value>
     </property>
     <property key="AccountingFinAccountMustBePositive">
+        <value xml:lang="ar">المبلغ يجب أن يكون رقما موجبا</value>
         <value xml:lang="en">Amount should be a positive number.</value>
         <value xml:lang="it">L'importo dovrebbe essere un numero positivo.</value>
         <value xml:lang="ja">金額は正数の必要があります。</value>
@@ -269,6 +295,7 @@
         <value xml:lang="zh-TW">補充帳戶沒有結合支付方法</value>
     </property>
     <property key="AccountingFinAccountNotFound">
+        <value xml:lang="ar">لا يوجد دليل الحساب المالي ${finAccountId}</value>
         <value xml:lang="en">No finAccountId found ${finAccountId}</value>
         <value xml:lang="it">Conto finanziario non trovato ${finAccountId}</value>
         <value xml:lang="ja">金融アカウントが見つかりません ${finAccountId}</value>
@@ -285,6 +312,7 @@
         <value xml:lang="zh-TW">財務帳目(FinAccount)部分還款;補充儲蓄不足以還款！</value>
     </property>
     <property key="AccountingFinAccountPinCodeCombinatorNotFound">
+        <value xml:lang="ar">لا يوجد تركيبة كلمة السر/الرمز للحساب المالي</value>
         <value xml:lang="en">Financial account PIN/CODE combination not found</value>
         <value xml:lang="it">Conto finanziario combinazione PIN/CODE non trovata</value>
         <value xml:lang="ja">金融アカウントのPIN/コードの組み合わせが見つかりません</value>
@@ -293,6 +321,7 @@
         <value xml:lang="zh-TW">無法找到財務帳目的這個密碼/代碼(PIN/代碼)組合</value>
     </property>
     <property key="AccountingFinAccountSetting">
+        <value xml:lang="ar">لا يوجد إعدادات محل ${productStoreId} لنوع الحساب المالي ${finAccountTypeId}</value>
         <value xml:lang="en">No settings found for store ${productStoreId} for fin account type ${finAccountTypeId}</value>
         <value xml:lang="it">Nessuna configurazione trovata per il negozio ${productStoreId} per il tipo conto finanziario ${finAccountTypeId}</value>
         <value xml:lang="ja">店舗 ${productStoreId} に対する金融アカウント種類 ${finAccountTypeId} の設定が見つかりません</value>
@@ -301,6 +330,7 @@
         <value xml:lang="zh-TW">沒有找到店鋪 ${productStoreId} 的設定,用於財務帳目類型 ${finAccountTypeId}</value>
     </property>
     <property key="AccountingFinAccountStatusNotValidError">
+        <value xml:lang="ar">الحالة غير صحيحة للحساب المالي</value>
         <value xml:lang="en">FinAccount not in valid status</value>
         <value xml:lang="fr">Le compte financier n'est pas dans un état valide</value>
         <value xml:lang="ja">金融アカウントは有効ステータスではありません</value>
@@ -317,6 +347,7 @@
         <value xml:lang="zh-TW">找到的補充方法未知</value>
     </property>
     <property key="AccountingGiftCardCannotBeCreated">
+        <value xml:lang="ar">خطأ: لا يمكن خلق بطاقة الهدية (فشل توليد الدليل)</value>
         <value xml:lang="en">ERROR: Could not create GiftCard (id generation failure)</value>
         <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita generazione id)</value>
         <value xml:lang="ja">エラー: ギフトカードを作成できません (ID生成失敗)</value>
@@ -325,6 +356,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建禮物卡 (產生標識時出錯)</value>
     </property>
     <property key="AccountingGiftCardCannotBeCreatedWriteFailure">
+        <value xml:lang="ar">خطأ: لا يمكن خلق بطاقة الهدية (فشل كتابي): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not create GiftCard (write failure): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile creare la carta regalo (fallita scrittura): ${errorString}</value>
         <value xml:lang="ja">エラー: ギフトカードを作成できません (書き込み失敗): ${errorString}</value>
@@ -333,6 +365,7 @@
         <value xml:lang="zh-TW">錯誤:無法新建禮物卡(寫操作失敗):${errorString}</value>
     </property>
     <property key="AccountingGiftCardCannotBeUpdated">
+        <value xml:lang="ar">خطأ: لا يمكن تحديث بطاقة الهدية(خطأ قراءة): ${errorString}</value>
         <value xml:lang="en">ERROR: Could not get GiftCard to update (read error): ${errorString}</value>
         <value xml:lang="it">ERRORE: Non è possibile aggiornare la carta regalo (fallita lettura): ${errorString}</value>
         <value xml:lang="ja">エラー: ギフトカードを更新できません (読み込み失敗): ${errorString}</value>
@@ -341,6 +374,7 @@
         <value xml:lang="zh-TW">錯誤:無法得到要更新的禮物卡(讀取失敗):${errorString}</value>
     </property>
     <property key="AccountingGiftCardPartyNotAuthorized">
+        <value xml:lang="ar">دليل الطرف ${partyId} ليس مالك طريقة الدفع ${paymentMethodId} وليس لديه صلاحية تغييرها</value>
         <value xml:lang="en">Party Id ${partyId} is not the owner of payment method ${paymentMethodId} and does not have permission to change it.</value>
         <value xml:lang="it">Il soggetto ${partyId} non è il propretario del metodo di pagamento ${paymentMethodId} non hai il permesso per cambiarlo.</value>
         <value xml:lang="ja">取引先ID ${partyId} は支払方法 ${paymentMethodId} の所有者ではないため変更する権限がありません。</value>
@@ -349,6 +383,7 @@
         <value xml:lang="zh-TW">標識為 ${partyId} 的團體不是支付方法 ${paymentMethodId} 的擁有者,無權修改它.</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotAuthorize">
+        <value xml:lang="ar">لا يمكن التصريح ببطاقة الهدية بسبب: ${errorString}</value>
         <value xml:lang="en">Cannot authorize gift certificate due to: ${errorString}</value>
         <value xml:lang="it">Non è possibile autorizzare la carta regalo: ${errorString}</value>
         <value xml:lang="ja">ギフトカードの認証ができません: ${errorString}</value>
@@ -357,6 +392,7 @@
         <value xml:lang="zh-TW">無法授權禮券,原因:${errorString}</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotBeExpired">
+        <value xml:lang="ar">غير ممكن انهاء صلاحية تصريح الحساب المالي لشهادة الهدية</value>
         <value xml:lang="en">Unable to expire financial account authorization for Gift Certificate: </value>
         <value xml:lang="it">Non è possibile cancellare l'autorizzazione per il conto finanziario per il certificato regalo: </value>
         <value xml:lang="ja">ギフトカードに対する金融アカウントの認証を失効させることができません: </value>
@@ -365,6 +401,7 @@
         <value xml:lang="zh-TW">無法令禮券的財務帳目授權失效,禮券為:</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotFulfill">
+        <value xml:lang="ar">لا يوجد سلع مرتبطة ببند أمر البيع/الشراء, لا يمكن الوفاء ببطاقة الهدية</value>
         <value xml:lang="en">No product associated with OrderItem, cannot fulfill gift card</value>
         <value xml:lang="it">Nessun prodotto associato alla riga ordine, non è possibile processare l'acquisto con carta regalo</value>
         <value xml:lang="ja">注文アイテムと関連付けられた製品がありません。ギフトカードの執行ができません</value>
@@ -397,6 +434,7 @@
         <value xml:lang="zh-TW">不能從訂單支付偏好中取得禮物卡</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotProcess">
+        <value xml:lang="ar">غير ممكن تفعيل شراء بطاقة الهدية: لا يوجد دليل محل السلعة على رأس أمر البيع/الشراء: ${orderId}</value>
         <value xml:lang="en">Unable to process gift card purchase; no productStoreId on OrderHeader: ${orderId}</value>
         <value xml:lang="it">Non è possibile processare l'acquisto con la carta regalo; nessun negozio impostato sulla testata ordine: ${orderId}</value>
         <value xml:lang="ja">ギフトカードの支払を処理できません。注文ヘッダに製品店舗がありません: ${orderId}</value>
@@ -405,6 +443,7 @@
         <value xml:lang="zh-TW">無法處理禮物卡購物;訂單頭中沒有產品商店標識,訂單標識:${orderId}</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotRelease">
+        <value xml:lang="ar">فشل محاولة إطلاق دفعة بطاقة الهدية: سجل بطاقة الهدية غير صالح</value>
         <value xml:lang="en">Attempt to release GiftCard payment failed; not a valid GiftCard record</value>
         <value xml:lang="it">Tentivo di rilasciare il pagamento carta regalo fallito; non c'è un record valido</value>
         <value xml:lang="ja">ギフトカード支払の解放に失敗しました。ギフトカードレコードが有効ではありません</value>
@@ -429,6 +468,7 @@
         <value xml:lang="zh-TW">無法從調查回應中獲得調查回應的回答;不能重新載入禮物卡</value>
     </property>
     <property key="AccountingGiftCerticateNumberCannotSendEmailNotice">
+        <value xml:lang="ar">خطأ اثناء ارسال بريد الكتروني لتنبيه بطاقة الهدية: ${errorString}</value>
         <value xml:lang="en">Error sending Gift Card notice email:  ${errorString}</value>
         <value xml:lang="it">Non è possibile inviaria email di notifica carta regalo: ${errorString}</value>
         <value xml:lang="ja">ギフトカード通知メール送信エラー: ${errorString}</value>
@@ -445,6 +485,7 @@
         <value xml:lang="zh-TW">無法儲存責任履行履行資訊:${errorString}</value>
     </property>
     <property key="AccountingGiftCerticateNumberCreationError">
+        <value xml:lang="ar">غير ممكن خلق رقم شهادة الهدية</value>
         <value xml:lang="en">Unable to create gift certificate number.</value>
         <value xml:lang="it">Non è possibile creare un numero certificato regalo.</value>
         <value xml:lang="ja">ギフトカード番号が作成できません</value>
@@ -453,6 +494,7 @@
         <value xml:lang="zh-TW">無法新建禮券編號.</value>
     </property>
     <property key="AccountingGiftCerticateNumberExpired">
+        <value xml:lang="ar">انتهت صلاحية شهادة الهدية منذ ${thruDate}</value>
         <value xml:lang="en">Gift certificate has expired as of  ${thruDate}</value>
         <value xml:lang="it">Certificato regalo scaduto dal ${thruDate}</value>
         <value xml:lang="ja">ギフトカードは ${thruDate} に失効しています</value>
@@ -461,6 +503,7 @@
         <value xml:lang="zh-TW">禮券已過期,過期日期是 ${thruDate}</value>
     </property>
     <property key="AccountingGiftCerticateNumberNotFound">
+        <value xml:lang="ar">لا يمكن إيجاد شهادة الهدية ${finAccountId}</value>
         <value xml:lang="en">Gift certificate not found ${finAccountId}</value>
         <value xml:lang="it">Certificato regalo non trovato ${finAccountId}</value>
         <value xml:lang="ja">ギフトカードが見つかりません ${finAccountId}</value>
@@ -469,6 +512,7 @@
         <value xml:lang="zh-TW">找不到禮券 ${finAccountId}</value>
     </property>
     <property key="AccountingGiftCerticateNumberPinNotValid">
+        <value xml:lang="ar">الرمز السري غير صالح</value>
         <value xml:lang="en">PIN number is not valid</value>
         <value xml:lang="it">Numero PIN non è valido</value>
         <value xml:lang="ja">PIN番号が無効です</value>
@@ -477,6 +521,7 @@
         <value xml:lang="zh-TW">PIN密碼無效</value>
     </property>
     <property key="AccountingGiftCerticateNumberRefundCallError">
+        <value xml:lang="ar">غير ممكن الإتصال بخدمة الإسترجاع!</value>
         <value xml:lang="en">Unable to call refund service!</value>
         <value xml:lang="it">Non è possibile eseguire il servizio refund!</value>
         <value xml:lang="ja">返済サービスの呼び出しができません</value>
@@ -485,6 +530,7 @@
         <value xml:lang="zh-TW">無法呼叫償還(refund)服務！</value>
     </property>
     <property key="AccountingOrbital">
+        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
         <value xml:lang="ja">カードの詳細を取得時にエラーが発生しました</value>
@@ -503,6 +549,7 @@
         <value xml:lang="zh-TW">與PayPal通訊時出錯,請重試或選擇其它結帳方式</value>
     </property>
     <property key="AccountingPayPalErrorDuringRetrievingCartDetails">
+        <value xml:lang="ar">حصل خطأ أثناء استرجاع بيانات السلة</value>
         <value xml:lang="de">Beim Auslesen von Details aus dem Einkaufswagen ist ein Fehler aufgetreten</value>
         <value xml:lang="en">An error occurred while retreiving cart details</value>
         <value xml:lang="it">Un'errore è successo mentre ricavavo i dettagli del carrello</value>
@@ -521,6 +568,7 @@
         <value xml:lang="zh-TW">無法獲取用於快速結帳的PayPal支付閘道配置(PaymentGatewayConfigPayPal)記錄,不能繼續.</value>
     </property>
     <property key="AccountingPayPalShoppingCartIsEmpty">
+        <value xml:lang="ar">سلة التسوق فارغة, لا يمكن البدء بالإنهاء السريع</value>
         <value xml:lang="de">Ihr Einkaufswagen ist leer, ich kann PayPal-Express nicht abschließen</value>
         <value xml:lang="en">Shopping cart is empty, cannot proceed with Express Checkout</value>
         <value xml:lang="fr">Votre panier est vide, vous ne pouvez pas effectuer une validation express</value>
@@ -550,6 +598,7 @@
         <value xml:lang="zh-TW">與PayPal聯絡時發生了一個未知的錯誤</value>
     </property>
     <property key="AccountingPaymentAmountIsNegative">
+        <value xml:lang="ar">المبلغ المدخل ${overrideAmount} سالب.</value>
         <value xml:lang="en">Amount entered ${overrideAmount} is negative.</value>
         <value xml:lang="it">Importo inserito ${overrideAmount} è negativo.</value>
         <value xml:lang="ja">入力した金額 ${overrideAmount} がマイナスです。</value>
@@ -558,6 +607,7 @@
         <value xml:lang="zh-TW">輸入的金額 ${overrideAmount} 為負.</value>
     </property>
     <property key="AccountingPaymentAmountIsZero">
+        <value xml:lang="ar">المبلغ المدخل ${overrideAmount} صفر.</value>
         <value xml:lang="en">Amount entered ${overrideAmount} is zero.</value>
         <value xml:lang="it">Importo inserito ${overrideAmount} è zero.</value>
         <value xml:lang="ja">入力した金額 ${overrideAmount} がゼロです。</value>
@@ -566,6 +616,7 @@
         <value xml:lang="zh-TW">輸入的金額 ${overrideAmount} 是零.</value>
     </property>
     <property key="AccountingPaymentCannotBeAuthorized">
+        <value xml:lang="ar">خطأ بمعالجة تصريح الدفع: ${errorString}</value>
         <value xml:lang="en">Error processing payment authorization: ${errorString}</value>
         <value xml:lang="it">Errore esecuione autorizzazione pagamento: ${errorString}</value>
         <value xml:lang="ja">支払認証処理中にエラー: ${errorString}</value>
@@ -574,6 +625,7 @@
         <value xml:lang="zh-TW">處理支付授權時出錯:${errorString}</value>
     </property>
     <property key="AccountingPaymentMethodCannotBeDeleted">
+        <value xml:lang="ar">خطأ: لا يمكن إيجاد طريقة دفع للإلغاء (فشل قراءة ${errorString})</value>
         <value xml:lang="en">ERROR: Could not find Payment Method to delete (read failure ${errorString})</value>
         <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (lettura fallita ${errorString})</value>
         <value xml:lang="ja">エラー: 削除時に支払方法が見つかりません (読み込み失敗 ${errorString})</value>
@@ -582,6 +634,7 @@
         <value xml:lang="zh-TW">錯誤:找不到要刪除的支付方法(讀取錯誤 ${errorString})</value>
     </property>
     <property key="AccountingPaymentMethodCannotBeDeletedWriteFailure">
+        <value xml:lang="ar">خطأ: لا يمكن إيجاد طريقة دفع للإلغاء (فشل كتابة ${errorString})</value>
         <value xml:lang="en">ERROR: Could not find Payment Method to delete (write failure ${errorString})</value>
         <value xml:lang="it">ERRORE: Non è possibile trovare il metodo di pagmento da cancellare (scrittura fallita ${errorString})</value>
         <value xml:lang="ja">エラー: 削除時に支払方法が見つかりません (書き込み失敗 ${errorString})</value>
@@ -590,6 +643,7 @@
         <value xml:lang="zh-TW">錯誤:找不到要刪除的支付方法(寫操作錯誤 ${errorString})</value>
     </property>
     <property key="AccountingPaymentMethodNoPermissionToDelete">
+        <value xml:lang="ar">ليس لديك صلاحية لإلغاء طريقة الدفع لدليل الطرف هذا</value>
         <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
         <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
         <value xml:lang="ja">この取引先IDに対する支払方法を削除する権限がありません</value>
@@ -598,6 +652,7 @@
         <value xml:lang="zh-TW">你無權刪除使用者的支付方法,使用者標識是</value>
     </property>
     <property key="AccountingPaymentReauthorizingError">
+        <value xml:lang="ar">ليس لديك صلاحية لإلغاء طريقة الدفع لدليل الطرف هذا</value>
         <value xml:lang="en">You do not have permission to delete Payment Method for this partyId</value>
         <value xml:lang="it">Non hai il permesso per cancellare il metodo di pagamento per questo soggetto</value>
         <value xml:lang="ja">この取引先IDに対する支払方法を削除する権限がありません</value>
@@ -605,6 +660,7 @@
         <value xml:lang="zh-TW">你無權刪除使用者的支付方法,使用者標識是</value>
     </property>
     <property key="AccountingPaymentStatusUpdatingError">
+        <value xml:lang="ar">خطأ أثناء تحديث معلومات حالة الدفع: ${errorString}</value>
         <value xml:lang="en">Error updating payment status information: ${errorString}</value>
         <value xml:lang="it">Errore aggiornando lo stato del pagamento: ${errorString}</value>
         <value xml:lang="ja">支払ステータス情報の更新中にエラー: ${errorString}</value>
@@ -612,6 +668,7 @@
         <value xml:lang="zh-TW">更新支付狀態資訊時出錯:${errorString}</value>
     </property>
     <property key="AccountingTaxIdInvalidFormat">
+        <value xml:lang="ar">دليل الضريبة ${parameters.partyTaxId} لم يدخل بطريقة صحيحة للمصلحة الضريبية المختارة ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="en">The tax ID ${parameters.partyTaxId} was not in a valid format for the selected tax authority ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="it">Id tasse ${parameters.partyTaxId} non è nel formato valido per l'autorità tasse selezionata ${taxAuthority.taxIdFormatPattern}</value>
         <value xml:lang="ja">税ID ${parameters.partyTaxId} は選択した税務機関 ${taxAuthority.taxIdFormatPattern} に対して有効な書式ではありません</value>
@@ -620,12 +677,14 @@
         <value xml:lang="zh-TW">稅務標識 ${parameters.partyTaxId} 格式無效,不能用於所選定的稅務機構 ${taxAuthority.taxIdFormatPattern}</value>
     </property>
     <property key="AccountingTaxSettingError">
+        <value xml:lang="ar">خطأ معلوماتي بإحضار إعدادات الضريبة: ${errorString}</value>
         <value xml:lang="en">Data error getting tax settings: ${errorString}</value>
         <value xml:lang="it">Errore di lettura impostazioni tasse: ${errorString}</value>
         <value xml:lang="zh">获取税务设置时数据错误：${errorString}</value>
         <value xml:lang="zh-TW">獲取稅務設定時資料錯誤:${errorString}</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="ar">فشل في تنفيذ خدمة createPaymentFromPreference</value>
         <value xml:lang="de">Der Service createPaymentFromPreference konnte nicht ausgeführt werden</value>
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
         <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>
@@ -678,6 +737,7 @@
         <value xml:lang="zh-TW">連接PayPal失敗,請與客戶服務聯絡.</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="ar">مشاكل في صحة بيانات المستخدم</value>
         <value xml:lang="de">Ich kann für den Benutzer keine Authentifizierung erhalten.</value>
         <value xml:lang="en">Problems getting authentication user.</value>
         <value xml:lang="fr">Problèmes d'obtention d'authentification utilisateur</value>
@@ -704,6 +764,7 @@
         <value xml:lang="zh-TW">獲得商家配置時出錯,請與客戶服務聯絡.</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">
+        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
         <value xml:lang="de">Ich kann die Bestelldaten nicht finden.</value>
         <value xml:lang="en">Problems getting order header.</value>
         <value xml:lang="fr">Problèmes d'obtention d'en-tête de commande .</value>
@@ -717,6 +778,7 @@
         <value xml:lang="zh-TW">獲得訂單頭時出錯.</value>
     </property>
     <property key="worldPayEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="ar">فشل تنفيذ خدمة CreatePaymentFromPreference</value>
         <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
         <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
         <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
@@ -727,6 +789,7 @@
         <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
     </property>
     <property key="worldPayEvents.noValidOrderIdReturned">
+        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
         <value xml:lang="de">Es wurde keine valide BestellId zurückgegeben</value>
         <value xml:lang="en">No Valid OrderId Returned</value>
         <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
@@ -748,6 +811,7 @@
         <value xml:lang="zh-TW">連接 WorldPay 時出錯</value>
     </property>
     <property key="worldPayEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
         <value xml:lang="en">Problems Getting Authentication User</value>
         <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
         <value xml:lang="hi-IN">उपयोगकर्ता(user) के प्रमाणीकरण में समस्याएँ हो रही</value>
@@ -778,6 +842,7 @@
         <value xml:lang="zh-TW">獲取實例標識轉為整數時出錯</value>
     </property>
     <property key="worldPayEvents.problemsGettingMerchantConfiguration">
+        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
         <value xml:lang="en">Problems Getting Merchant Configuration</value>
         <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
         <value xml:lang="hi-IN">व्यापारी विन्यास में समस्याएँ हो रही</value>
@@ -788,6 +853,7 @@
         <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
     </property>
     <property key="worldPayEvents.problemsGettingOrderHeader">
+        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
         <value xml:lang="de">Probleme den Bestellkopf zu ermitteln</value>
         <value xml:lang="en">Problems Getting OrderHeader</value>
         <value xml:lang="fr">Problème de récupération de la commande</value>
@@ -799,6 +865,7 @@
         <value xml:lang="zh-TW">獲取訂單頭時出錯</value>
     </property>
     <property key="idealEvents.failedToExecuteServiceCreatePaymentFromPreference">
+        <value xml:lang="ar">فشل في تنفيذ خدمة CreatePaymentFromPreference</value>
         <value xml:lang="en">Failed To Execute Service CreatePaymentFromPreference</value>
         <value xml:lang="fr">Échec sur l'execution du service de création d'un payment suivant les préférence (CreatePaymentFromPreference)</value>
         <value xml:lang="hi-IN">सर्विस CreatePaymentFromPreference पर अमल(execute) करने में असफल</value>
@@ -807,6 +874,7 @@
         <value xml:lang="zh-TW">執行從偏好新建支付(CreatePaymentFromPreference)這個服務時出錯</value>
     </property>
     <property key="idealEvents.noValidOrderIdReturned">
+        <value xml:lang="ar">لا يوجد أمر بيع/شراء صحيح مسترجع</value>
         <value xml:lang="de">Es wurde keine valide BestellId zurückgegeben</value>
         <value xml:lang="en">No Valid OrderId Returned</value>
         <value xml:lang="fr">Référence commande retournée n'est pas valide</value>
@@ -825,6 +893,7 @@
         <value xml:lang="zh-TW">連接 iDEAL 時出錯</value>
     </property>
     <property key="idealEvents.problemsGettingAuthenticationUser">
+        <value xml:lang="ar">مشاكل في مصادقة المستخدم</value>
         <value xml:lang="de">Probleme den berechtigten Benutzer zu ermitteln</value>
         <value xml:lang="en">Problems Getting Authentication User</value>
         <value xml:lang="fr">Problème sur l'authentification de l'utilisateur</value>
@@ -834,6 +903,7 @@
         <value xml:lang="zh-TW">獲取認證使用者時出錯</value>
     </property>
     <property key="idealEvents.problemsGettingMerchantConfiguration">
+        <value xml:lang="ar">مشاكل في ترتيبات التاجر</value>
         <value xml:lang="de">Probleme die Verkaufs-Konfiguration zu ermitteln</value>
         <value xml:lang="en">Problems Getting Merchant Configuration</value>
         <value xml:lang="fr">Problème de récupération de la configuration marchand</value>
@@ -844,6 +914,7 @@
         <value xml:lang="zh-TW">獲取商戶配置時出錯</value>
     </property>
     <property key="idealEvents.problemsGettingOrderHeader">
+        <value xml:lang="ar">مشاكل في رأس أمر البيع/الشراء</value>
         <value xml:lang="de">Probleme den Bestellkopf zu ermitteln</value>
         <value xml:lang="en">Problems Getting OrderHeader</value>
         <value xml:lang="fr">Problème de récupération de la commande</value>
