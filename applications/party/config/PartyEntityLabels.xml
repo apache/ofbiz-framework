@@ -1367,7 +1367,6 @@
     <property key="PartyClassificationType.description.SIC_CODE">
         <value xml:lang="de">SIC Code</value>
         <value xml:lang="es">Código SIC</value>
-        <value xml:lang="es">Código SIC</value>
         <value xml:lang="fr">Code SIC</value>
         <value xml:lang="hi-IN">SIC कोड</value>
         <value xml:lang="it">Codice SIC</value>
@@ -2897,7 +2896,6 @@
     <property key="RoleType.description.FAM_ASSIGNEE">
         <value xml:lang="de">Anlagen Manager Beauftragter</value>
         <value xml:lang="en">Fixed Asset Maint Assignee</value>
-        <value xml:lang="hi-IN">अचल संपत्ति रखरखाव अनुदिष्ट</value>
         <value xml:lang="hi-IN">अचल संपत्ति रखरखाव अनुदिष्ट</value>
         <value xml:lang="it">Assegna manutenzione cespite</value>
         <value xml:lang="ja">固定資産メンテナンス受託者</value>
