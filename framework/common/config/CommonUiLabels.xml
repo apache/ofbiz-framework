@@ -2251,6 +2251,7 @@
         <value xml:lang="zh-TW">國家</value>
     </property>
     <property key="CommonCountryCode">
+        <value xml:lang="ar">رمز الدولة</value>
         <value xml:lang="cs">Mezinárodní předvolba</value>
         <value xml:lang="de">Landesvorwahl</value>
         <value xml:lang="en">Country Code</value>
@@ -2270,6 +2271,7 @@
         <value xml:lang="zh-TW">國碼</value>
     </property>
     <property key="CommonCountryCodeMissing">
+        <value xml:lang="ar">رمز الدولة مفقود</value>
         <value xml:lang="de">Landesvorwahl fehlt</value>
         <value xml:lang="en">Country code is Missing</value>
         <value xml:lang="fr">Le code pays manque</value>
@@ -2283,6 +2285,7 @@
         <value xml:lang="zh-TW">沒有國碼</value>
     </property>
     <property key="CommonCountryMissing">
+        <value xml:lang="ar">الدولة مفقودة</value>
         <value xml:lang="cs">Chybí země</value>
         <value xml:lang="de">Land fehlt</value>
         <value xml:lang="en">Country is Missing</value>

@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AgreementItemType.description.AGREEMENT_COMMISSION">
+        <value xml:lang="ar">معدل العمولة</value>
         <value xml:lang="de">Kommission</value>
         <value xml:lang="en">Commission rate</value>
         <value xml:lang="es">Tasa de comisión</value>
@@ -54,6 +55,7 @@
         <value xml:lang="zh-TW">展覽</value>
     </property>
     <property key="AgreementItemType.description.AGREEMENT_PRICING_PR">
+        <value xml:lang="ar">التسعير</value>
         <value xml:lang="de">Preisgebung</value>
         <value xml:lang="en">Pricing</value>
         <value xml:lang="es">Precio</value>
@@ -71,6 +73,7 @@
         <value xml:lang="zh-TW">價格設定</value>
     </property>
     <property key="AgreementItemType.description.AGREEMENT_SECTION">
+        <value xml:lang="ar">القسم</value>
         <value xml:lang="de">Abschnitt</value>
         <value xml:lang="en">Section</value>
         <value xml:lang="es">Sección</value>
@@ -88,6 +91,7 @@
         <value xml:lang="zh-TW">章節</value>
     </property>
     <property key="AgreementItemType.description.SUBAGREEMENT">
+        <value xml:lang="ar">الإتفاقية الفرعية</value>
         <value xml:lang="de">Untervereinbarung</value>
         <value xml:lang="en">Sub-Agreement</value>
         <value xml:lang="es">Subacuerdo</value>
@@ -105,6 +109,7 @@
         <value xml:lang="zh-TW">子合約</value>
     </property>
     <property key="AgreementType.description.COMMISSION_AGREEMENT">
+        <value xml:lang="ar">العمولة</value>
         <value xml:lang="de">Kommission</value>
         <value xml:lang="en">Commission</value>
         <value xml:lang="es">Comisión</value>
@@ -121,6 +126,7 @@
         <value xml:lang="zh-TW">佣金</value>
     </property>
     <property key="AgreementType.description.EMPLOYMENT_AGREEMENT">
+        <value xml:lang="ar">توظيف</value>
         <value xml:lang="de">Anstellung</value>
         <value xml:lang="en">Employment</value>
         <value xml:lang="es">Empleo</value>
@@ -353,6 +359,7 @@
         <value xml:lang="zh-TW">服務電話</value>
     </property>
     <property key="CommunicationEventType.description.AUTO_EMAIL_COMM">
+        <value xml:lang="ar">بريد الكتروني اوتوماتيكي</value>
         <value xml:lang="de">Automatische E-Mail</value>
         <value xml:lang="en">Auto Email</value>
         <value xml:lang="es">Coreo electrónico automático</value>
@@ -369,6 +376,7 @@
         <value xml:lang="zh-TW">自動電子郵件</value>
     </property>
     <property key="CommunicationEventType.description.COMMENT_NOTE">
+        <value xml:lang="ar">ملاحظة</value>
         <value xml:lang="de">Bemerkung/Hinweis</value>
         <value xml:lang="en">Comment/Note</value>
         <value xml:lang="es">Comentario</value>
@@ -385,6 +393,7 @@
         <value xml:lang="zh-TW">評論/便箋</value>
     </property>
     <property key="CommunicationEventType.description.EMAIL_COMMUNICATION">
+        <value xml:lang="ar">بريد الكتروني</value>
         <value xml:lang="de">E-Mail</value>
         <value xml:lang="en">Email</value>
         <value xml:lang="es">Correo electrónico</value>
@@ -401,6 +410,7 @@
         <value xml:lang="zh-TW">電子郵件</value>
     </property>
     <property key="CommunicationEventType.description.FACE_TO_FACE_COMMUNI">
+        <value xml:lang="ar">مقابلة شخصية</value>
         <value xml:lang="de">Persönlicher Kontakt</value>
         <value xml:lang="en">Face-To-Face</value>
         <value xml:lang="es">Cara a cara</value>
@@ -418,6 +428,7 @@
         <value xml:lang="zh-TW">當面</value>
     </property>
     <property key="CommunicationEventType.description.FAX_COMMUNICATION">
+        <value xml:lang="ar">فاكس</value>
         <value xml:lang="de">Fax</value>
         <value xml:lang="en">Fax</value>
         <value xml:lang="fr">Télécopie</value>
@@ -429,6 +440,7 @@
         <value xml:lang="zh-TW">傳真</value>
     </property>
     <property key="CommunicationEventType.description.LETTER_CORRESPONDENC">
+        <value xml:lang="ar">رسالة بريدية</value>
         <value xml:lang="de">Brief</value>
         <value xml:lang="en">Letter</value>
         <value xml:lang="es">Carta</value>
@@ -446,6 +458,7 @@
         <value xml:lang="zh-TW">信件</value>
     </property>
     <property key="CommunicationEventType.description.PHONE_COMMUNICATION">
+        <value xml:lang="ar">هاتف</value>
         <value xml:lang="de">Telefon</value>
         <value xml:lang="en">Phone</value>
         <value xml:lang="es">Teléfono</value>
@@ -463,6 +476,7 @@
         <value xml:lang="zh-TW">電話</value>
     </property>
     <property key="CommunicationEventType.description.WEB_SITE_COMMUNICATI">
+        <value xml:lang="ar">موقع الكتروني</value>
         <value xml:lang="de">Webseite</value>
         <value xml:lang="en">Web Site</value>
         <value xml:lang="es">Sitio web</value>
@@ -480,6 +494,7 @@
         <value xml:lang="zh-TW">網站</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_EMAIL">
+        <value xml:lang="ar">البريد الالكتروني للفاتورة</value>
         <value xml:lang="de">Rechnungs E-Mail-Adresse</value>
         <value xml:lang="en">Billing (AP) Email</value>
         <value xml:lang="es">Correo electrónico de facturación</value>
@@ -496,6 +511,7 @@
         <value xml:lang="zh-TW">寄送帳單電子郵件</value>
     </property>
     <property key="ContactMechPurposeType.description.BILLING_LOCATION">
+        <value xml:lang="ar">العنوان للفاتورة</value>
         <value xml:lang="de">Rechnungsadresse</value>
         <value xml:lang="en">Billing (AP) Address</value>
         <value xml:lang="es">Dirección de facturación</value>
@@ -974,6 +990,7 @@
         <value xml:lang="zh-TW">貨運發貨位址</value>
     </property>
     <property key="ContactMechType.description.DOMAIN_NAME">
+        <value xml:lang="ar">اسم موقع الكتروني</value>
         <value xml:lang="de">Internet Domain Name</value>
         <value xml:lang="en">Internet Domain Name</value>
         <value xml:lang="es">Nombre de dominio Internet</value>
@@ -991,6 +1008,7 @@
         <value xml:lang="zh-TW">網際網路功能變數名稱</value>
     </property>
     <property key="ContactMechType.description.ELECTRONIC_ADDRESS">
+        <value xml:lang="ar">عنوان بريدي</value>
         <value xml:lang="de">Elektronische Adresse</value>
         <value xml:lang="en">Electronic Address</value>
         <value xml:lang="es">Dirección electrónica</value>
@@ -1008,6 +1026,7 @@
         <value xml:lang="zh-TW">電子位址</value>
     </property>
     <property key="ContactMechType.description.EMAIL_ADDRESS">
+        <value xml:lang="ar">البريد الالكتروني</value>
         <value xml:lang="de">E-Mail-Adresse</value>
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">Correo electrónico</value>
@@ -1025,6 +1044,7 @@
         <value xml:lang="zh-TW">電子郵件位址</value>
     </property>
     <property key="ContactMechType.description.INTERNAL_PARTYID">
+        <value xml:lang="ar">ملاحظة طرف داخلية</value>
         <value xml:lang="de">Interne AKteur Id</value>
         <value xml:lang="en">Internal Party Note</value>
         <value xml:lang="fr">Note Interne</value>
@@ -1034,6 +1054,7 @@
         <value xml:lang="zh-TW">內部團體便箋</value>
     </property>
     <property key="ContactMechType.description.IP_ADDRESS">
+        <value xml:lang="ar">العنوان للشبكة (IP Address)</value>
         <value xml:lang="de">Internet IP Adresse</value>
         <value xml:lang="en">Internet IP Address</value>
         <value xml:lang="es">Dirección IP</value>
@@ -1060,6 +1081,7 @@
         <value xml:lang="zh-TW">LDAP位址</value>
     </property>
     <property key="ContactMechType.description.POSTAL_ADDRESS">
+        <value xml:lang="ar">العنوان البريدي</value>
         <value xml:lang="de">Postadresse</value>
         <value xml:lang="en">Postal Address</value>
         <value xml:lang="es">Dirección postal</value>
@@ -1077,6 +1099,7 @@
         <value xml:lang="zh-TW">郵政位址</value>
     </property>
     <property key="ContactMechType.description.TELECOM_NUMBER">
+        <value xml:lang="ar">رقم الهاتف</value>
         <value xml:lang="de">Telefonnummer</value>
         <value xml:lang="en">Phone Number</value>
         <value xml:lang="es">Número de teléfono</value>
@@ -1094,6 +1117,7 @@
         <value xml:lang="zh-TW">電話號碼</value>
     </property>
     <property key="ContactMechType.description.WEB_ADDRESS">
+        <value xml:lang="ar">عنوان/رابط الموقع</value>
         <value xml:lang="de">Web URL/Adresse</value>
         <value xml:lang="en">Web URL/Address</value>
         <value xml:lang="es">Dirección web (URL)</value>
@@ -1171,6 +1195,7 @@
         <value xml:lang="zh-TW">經理</value>
     </property>
     <property key="PartyClassificationGroup.description.EMPLOYE">
+        <value xml:lang="ar">موظف</value>
         <value xml:lang="de">Angestellter</value>
         <value xml:lang="en">EMPLOYEE</value>
         <value xml:lang="es">Empleado</value>
@@ -1631,6 +1656,7 @@
         <value xml:lang="zh-TW">朋友</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.GROUP_ROLLUP">
+        <value xml:lang="ar">عضو في المجموعة</value>
         <value xml:lang="de">Gruppenmitglied</value>
         <value xml:lang="en">Group Member</value>
         <value xml:lang="es">Miembro de grupo</value>
@@ -1691,6 +1717,7 @@
         <value xml:lang="zh-TW">線索關係</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.MANAGER">
+        <value xml:lang="ar">مدير</value>
         <value xml:lang="de">Manager</value>
         <value xml:lang="en">Manager</value>
         <value xml:lang="es">Gerente</value>
@@ -1708,6 +1735,7 @@
         <value xml:lang="zh-TW">經理</value>
     </property>
     <property key="PartyRelationshipType.partyRelationshipName.OWNER">
+        <value xml:lang="ar">مالك</value>
         <value xml:lang="de">Inhaber</value>
         <value xml:lang="en">Owner</value>
         <value xml:lang="es">Propietario</value>
@@ -1857,6 +1885,7 @@
         <value xml:lang="zh-TW">網站管理者</value>
     </property>
     <property key="PartyType.description.AUTOMATED_AGENT">
+        <value xml:lang="ar">عميل آلي</value>
         <value xml:lang="de">Automatischer Agent</value>
         <value xml:lang="en">Automated Agent</value>
         <value xml:lang="es">Agente automatizado</value>
@@ -1873,6 +1902,7 @@
         <value xml:lang="zh-TW">自動代理人</value>
     </property>
     <property key="PartyType.description.CORPORATION">
+        <value xml:lang="ar">شركة</value>
         <value xml:lang="de">Unternehmung</value>
         <value xml:lang="en">Corporation</value>
         <value xml:lang="es">Empresa</value>
@@ -1890,6 +1920,7 @@
         <value xml:lang="zh-TW">公司</value>
     </property>
     <property key="PartyType.description.FAMILY">
+        <value xml:lang="ar">عائلة</value>
         <value xml:lang="de">Familie</value>
         <value xml:lang="en">Family</value>
         <value xml:lang="es">Familia</value>
@@ -1907,6 +1938,7 @@
         <value xml:lang="zh-TW">家庭</value>
     </property>
     <property key="PartyType.description.GOVERNMENT_AGENCY">
+        <value xml:lang="ar">هيئة حكومية</value>
         <value xml:lang="de">Staatsbetrieb</value>
         <value xml:lang="en">Government Agency</value>
         <value xml:lang="es">Agencia estatal</value>
@@ -1924,6 +1956,7 @@
         <value xml:lang="zh-TW">政府機構</value>
     </property>
     <property key="PartyType.description.INFORMAL_GROUP">
+        <value xml:lang="ar">مجموعة غير رسمية</value>
         <value xml:lang="de">Informelle Gruppe</value>
         <value xml:lang="en">Informal Group</value>
         <value xml:lang="es">Grupo informal</value>
@@ -1941,6 +1974,7 @@
         <value xml:lang="zh-TW">非正式群組</value>
     </property>
     <property key="PartyType.description.LEGAL_ORGANIZATION">
+        <value xml:lang="ar">شركة قانونية</value>
         <value xml:lang="de">Juristische Person</value>
         <value xml:lang="en">Legal Organization</value>
         <value xml:lang="es">Entidad jurídica</value>
@@ -1958,6 +1992,7 @@
         <value xml:lang="zh-TW">法人</value>
     </property>
     <property key="PartyType.description.PARTY_GROUP">
+        <value xml:lang="ar">مجموعة</value>
         <value xml:lang="de">Akteurgruppe</value>
         <value xml:lang="en">Party Group</value>
         <value xml:lang="es">Grupo de participantes</value>
@@ -1975,6 +2010,7 @@
         <value xml:lang="zh-TW">團體群組</value>
     </property>
     <property key="PartyType.description.PERSON">
+        <value xml:lang="ar">شخص</value>
         <value xml:lang="de">Person</value>
         <value xml:lang="en">Person</value>
         <value xml:lang="es">Persona</value>
@@ -1992,6 +2028,7 @@
         <value xml:lang="zh-TW">人員</value>
     </property>
     <property key="PartyType.description.TEAM">
+        <value xml:lang="ar">فريق</value>
         <value xml:lang="de">Team</value>
         <value xml:lang="en">Team</value>
         <value xml:lang="es">Equipo</value>
@@ -2034,6 +2071,7 @@
         <value xml:lang="zh-TW">帳戶線索</value>
     </property>
     <property key="RoleType.description.ADDRESSEE">
+        <value xml:lang="ar">مرسل اليه</value>
         <value xml:lang="de">Addressat</value>
         <value xml:lang="en">Addressee</value>
         <value xml:lang="fr">Destinataire</value>
@@ -2046,6 +2084,7 @@
         <value xml:lang="zh-TW">收信人</value>
     </property>
     <property key="RoleType.description.ADMIN">
+        <value xml:lang="ar">مشرف</value>
         <value xml:lang="de">Administrator</value>
         <value xml:lang="en">Administrator</value>
         <value xml:lang="es">Administrador</value>
@@ -2062,6 +2101,7 @@
         <value xml:lang="zh-TW">管理者</value>
     </property>
     <property key="RoleType.description.AFFILIATE">
+        <value xml:lang="ar">شريك</value>
         <value xml:lang="de">Partner</value>
         <value xml:lang="en">Affiliate</value>
         <value xml:lang="es">Afiliado</value>
@@ -2079,6 +2119,7 @@
         <value xml:lang="zh-TW">集團</value>
     </property>
     <property key="RoleType.description.AGENT">
+        <value xml:lang="ar">وكيل</value>
         <value xml:lang="de">Vertreter</value>
         <value xml:lang="en">Agent</value>
         <value xml:lang="es">Representante</value>
@@ -2096,6 +2137,7 @@
         <value xml:lang="zh-TW">代理人</value>
     </property>
     <property key="RoleType.description.APPROVER">
+        <value xml:lang="ar">المصدق</value>
         <value xml:lang="de">Genehmiger</value>
         <value xml:lang="en">Approver</value>
         <value xml:lang="es">Aprobante</value>
@@ -2130,6 +2172,7 @@
         <value xml:lang="zh-TW">結合</value>
     </property>
     <property key="RoleType.description.AUTOMATED_AGENT_ROLE">
+        <value xml:lang="ar">عميل آلي</value>
         <value xml:lang="de">Automatischer Agent</value>
         <value xml:lang="en">Automated Agent</value>
         <value xml:lang="es">Agente automatizado</value>
@@ -2146,6 +2189,7 @@
         <value xml:lang="zh-TW">自動代理人</value>
     </property>
     <property key="RoleType.description.BCC">
+        <value xml:lang="ar">نسخة مخفية</value>
         <value xml:lang="de">Blindkopie</value>
         <value xml:lang="en">Blind Copy</value>
         <value xml:lang="fr">Copie cachée"</value>
@@ -2317,6 +2361,7 @@
         <value xml:lang="zh-TW">大宗客戶</value>
     </property>
     <property key="RoleType.description.BUYER">
+        <value xml:lang="ar">مشتري</value>
         <value xml:lang="de">Käufer</value>
         <value xml:lang="en">Buyer</value>
         <value xml:lang="es">Comprador</value>
@@ -2443,6 +2488,7 @@
         <value xml:lang="zh-TW">快遞</value>
     </property>
     <property key="RoleType.description.CASHIER">
+        <value xml:lang="ar">الكاشير</value>
         <value xml:lang="de">Kassierer</value>
         <value xml:lang="en">Cashier</value>
         <value xml:lang="es">Cajero</value>
@@ -2472,6 +2518,7 @@
         <value xml:lang="zh-TW">複印</value>
     </property>
     <property key="RoleType.description.CLIENT">
+        <value xml:lang="ar">العميل</value>
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Client</value>
         <value xml:lang="es">Cliente</value>
@@ -2489,6 +2536,7 @@
         <value xml:lang="zh-TW">客戶</value>
     </property>
     <property key="RoleType.description.CLIENT_ANALYST">
+        <value xml:lang="ar">محلل للعميل</value>
         <value xml:lang="de">Kunde Analyst</value>
         <value xml:lang="en">Client Analyst</value>
         <value xml:lang="es">Analista de clientes</value>
@@ -2528,6 +2576,7 @@
         <value xml:lang="zh-TW">客戶經理</value>
     </property>
     <property key="RoleType.description.COMMEVENT_ROLE">
+        <value xml:lang="ar">مشارك في الإتصال</value>
         <value xml:lang="de">Kommunikations Beteiligter</value>
         <value xml:lang="en">Communication Participant</value>
         <value xml:lang="es">Participante de comunicación</value>
@@ -2541,6 +2590,7 @@
         <value xml:lang="zh-TW">通訊參與人</value>
     </property>
     <property key="RoleType.description.COMPETITOR">
+        <value xml:lang="ar">منافس</value>
         <value xml:lang="de">Mitbewerber</value>
         <value xml:lang="en">Competitor</value>
         <value xml:lang="es">Competidor</value>
@@ -2558,6 +2608,7 @@
         <value xml:lang="zh-TW">競爭對手</value>
     </property>
     <property key="RoleType.description.CONSUMER">
+        <value xml:lang="ar">مستهلك</value>
         <value xml:lang="de">Konsument</value>
         <value xml:lang="en">Consumer</value>
         <value xml:lang="es">Consumidor</value>
@@ -2695,6 +2746,7 @@
         <value xml:lang="zh-TW">訂約人</value>
     </property>
     <property key="RoleType.description.CUSTOMER">
+        <value xml:lang="ar">زبون</value>
         <value xml:lang="de">Kunde</value>
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente Comprador</value>

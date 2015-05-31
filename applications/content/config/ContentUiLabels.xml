@@ -1066,6 +1066,7 @@
         <value xml:lang="zh-TW">在${serviceName}中更新內容時出錯</value>
     </property>
     <property key="ContentContents">
+        <value xml:lang="ar">المحتويات</value>
         <value xml:lang="en">Contents</value>
         <value xml:lang="fr">Contenus</value>
         <value xml:lang="ja">コンテンツ</value>
@@ -3455,6 +3456,7 @@
         <value xml:lang="zh-TW">樹</value>
     </property>
     <property key="ContentType">
+        <value xml:lang="ar">نوع المحتوى</value>
         <value xml:lang="da">Indholdstype</value>
         <value xml:lang="de">Inhalt Typ</value>
         <value xml:lang="en">Content Type</value>
@@ -3548,6 +3550,7 @@
         <value xml:lang="zh-TW">上傳檔案類型與你選擇的不符.</value>
     </property>
     <property key="ContentUploadedFile">
+        <value xml:lang="ar">ملف التحميل</value>
         <value xml:lang="da">Uploadet fil</value>
         <value xml:lang="en">Uploaded File</value>
         <value xml:lang="fr">Fichier téléversé</value>

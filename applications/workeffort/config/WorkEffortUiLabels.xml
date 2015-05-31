@@ -2986,6 +2986,7 @@
         <value xml:lang="zh-TW">如果你對某些內容感興趣, 你需要登入系統, 可以嘗試使用者名: admin; 密碼: ofbiz</value>
     </property>
     <property key="WorkEffortInternalNote">
+        <value xml:lang="ar">ملاحظة داخلية</value>
         <value xml:lang="de">interne Notiz</value>
         <value xml:lang="en">Internal Note</value>
         <value xml:lang="fr">Note interne</value>
@@ -4068,6 +4069,7 @@
         <value xml:lang="it">2</value>
     </property>
     <property key="WorkEffortPrivatePublic">
+        <value xml:lang="ar">خاصة/عامة</value>
         <value xml:lang="de">Privat/Öffentlich</value>
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="fr">Public/Privé</value>
@@ -4737,6 +4739,7 @@
         <value xml:lang="zh-TW">狀態</value>
     </property>
     <property key="WorkEffortStatusChangeNotValid">
+        <value xml:lang="ar">إن تحويل الحالة من ${lookedUpValue.currentStatusId} الى ${parameters.currentStatusId} هو تحويل غير مسموح به</value>
         <value xml:lang="en">The status change from ${lookedUpValue.currentStatusId} to ${parameters.currentStatusId} is not a valid change</value>
         <value xml:lang="it">Il cambio di stato da ${lookedUpValue.currentStatusId} a ${parameters.currentStatusId} non è consentito</value>
         <value xml:lang="ja">ステータス ${lookedUpValue.currentStatusId} から ${parameters.currentStatusId} へ変更は正しくありません。</value>

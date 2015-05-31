@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="CustRequestResolution.description.DUPLICATE">
+        <value xml:lang="ar">نسخة مكررة</value>
         <value xml:lang="de">Duplikat</value>
         <value xml:lang="en">Duplicate</value>
         <value xml:lang="es">Duplicado</value>
@@ -36,6 +37,7 @@
         <value xml:lang="zh-TW">複製</value>
     </property>
     <property key="CustRequestResolution.description.FIXED">
+        <value xml:lang="ar">ثابت</value>
         <value xml:lang="de">Gelöst</value>
         <value xml:lang="en">Fixed</value>
         <value xml:lang="es">Resuelto</value>
@@ -52,6 +54,7 @@
         <value xml:lang="zh-TW">已改正</value>
     </property>
     <property key="CustRequestResolution.description.IMPLEMENTED">
+        <value xml:lang="ar">تم التنفيذ</value>
         <value xml:lang="de">Implementiert</value>
         <value xml:lang="en">Implemented</value>
         <value xml:lang="es">Implementado</value>
@@ -68,6 +71,7 @@
         <value xml:lang="zh-TW">已實現</value>
     </property>
     <property key="CustRequestResolution.description.REJECTED">
+        <value xml:lang="ar">مرفوضة</value>
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
@@ -84,6 +88,7 @@
         <value xml:lang="zh-TW">拒絕</value>
     </property>
     <property key="CustRequestResolution.description.WONTFIX">
+        <value xml:lang="ar">لن تصلح</value>
         <value xml:lang="de">Wird nicht behoben</value>
         <value xml:lang="en">Won't Fix</value>
         <value xml:lang="es">No se resuelve</value>
@@ -100,6 +105,7 @@
         <value xml:lang="zh-TW">不改正</value>
     </property>
     <property key="CustRequestResolution.description.WORKS">
+        <value xml:lang="ar">مناسب لي</value>
         <value xml:lang="de">Funktioniert bei mir</value>
         <value xml:lang="en">Works For Me</value>
         <value xml:lang="es">Me funciona</value>
@@ -116,6 +122,7 @@
         <value xml:lang="zh-TW">對我是正確的</value>
     </property>
     <property key="CustRequestType.description.RF_BUGFIX">
+        <value xml:lang="ar">طلب لإصلاح الشائبة</value>
         <value xml:lang="de">Fehlerkorrektur verlangt</value>
         <value xml:lang="en">Request For Bug Fix</value>
         <value xml:lang="es">Petición de corregir error</value>
@@ -132,6 +139,7 @@
         <value xml:lang="zh-TW">除錯請求</value>
     </property>
     <property key="CustRequestType.description.RF_CATALOG">
+        <value xml:lang="ar">طلب للكاتالوج</value>
         <value xml:lang="de">Katalog verlangt</value>
         <value xml:lang="en">Request For Catalog</value>
         <value xml:lang="es">Petición de catálogo</value>
@@ -148,6 +156,7 @@
         <value xml:lang="zh-TW">型錄請求</value>
     </property>
     <property key="CustRequestType.description.RF_FEATURE">
+        <value xml:lang="ar">طلب لميزة</value>
         <value xml:lang="de">Produktmerkmal verlangt</value>
         <value xml:lang="en">Request For Feature</value>
         <value xml:lang="es">Petición de característica</value>
@@ -164,6 +173,7 @@
         <value xml:lang="zh-TW">特性請求</value>
     </property>
     <property key="CustRequestType.description.RF_INFO">
+        <value xml:lang="ar">طلب لمعلومة</value>
         <value xml:lang="de">Informationen verlangt</value>
         <value xml:lang="en">Request For Information</value>
         <value xml:lang="es">Petición de información</value>
@@ -180,6 +190,7 @@
         <value xml:lang="zh-TW">資訊請求</value>
     </property>
     <property key="CustRequestType.description.RF_PROPOSAL">
+        <value xml:lang="ar">طلب لعرض</value>
         <value xml:lang="de">Vorschlag verlangt</value>
         <value xml:lang="en">Request For Proposal</value>
         <value xml:lang="es">Petición de propuesta</value>
@@ -196,6 +207,7 @@
         <value xml:lang="zh-TW">建議請求</value>
     </property>
     <property key="CustRequestType.description.RF_PUR_QUOTE">
+        <value xml:lang="ar">طلب لعرض سعر شراء</value>
         <value xml:lang="de">Einkaufsangebot angefordert</value>
         <value xml:lang="de-CH">Beschaffungsofferte verlangt</value>
         <value xml:lang="en">Request For Purchase Quote</value>
@@ -212,6 +224,7 @@
         <value xml:lang="zh-TW">採購詢價</value>
     </property>
     <property key="CustRequestType.description.RF_QUOTE">
+        <value xml:lang="ar">طلب لعرض سعر</value>
         <value xml:lang="de">Angebot angefordert</value>
         <value xml:lang="de-CH">Offerte verlangt</value>
         <value xml:lang="en">Request For Quote</value>
@@ -229,6 +242,7 @@
         <value xml:lang="zh-TW">詢價請求</value>
     </property>
     <property key="CustRequestType.description.RF_SUPPORT">
+        <value xml:lang="ar">طلب لدعم</value>
         <value xml:lang="de">Support verlangt</value>
         <value xml:lang="en">Request For Support</value>
         <value xml:lang="es">Petición de ayuda</value>
@@ -245,6 +259,7 @@
         <value xml:lang="zh-TW">支援請求</value>
     </property>
     <property key="OrderAdjustmentType.description.ADDITIONAL_FEATURE">
+        <value xml:lang="ar">ميزة إضافية</value>
         <value xml:lang="de">Zusätzliches Merkmal</value>
         <value xml:lang="en">Additional Feature</value>
         <value xml:lang="es">Característica adicional</value>
@@ -261,6 +276,7 @@
         <value xml:lang="zh-TW">附加特性</value>
     </property>
     <property key="OrderAdjustmentType.description.DISCOUNT_ADJUSTMENT">
+        <value xml:lang="ar">خصم</value>
         <value xml:lang="de">Rabatt</value>
         <value xml:lang="en">Discount</value>
         <value xml:lang="es">Descuento</value>
@@ -277,6 +293,7 @@
         <value xml:lang="zh-TW">折扣</value>
     </property>
     <property key="OrderAdjustmentType.description.FEE">
+        <value xml:lang="ar">رسوم</value>
         <value xml:lang="de">Gebühr</value>
         <value xml:lang="en">Fee</value>
         <value xml:lang="es">Tasa</value>
@@ -293,6 +310,7 @@
         <value xml:lang="zh-TW">費用</value>
     </property>
     <property key="OrderAdjustmentType.description.MISCELLANEOUS_CHARGE">
+        <value xml:lang="ar">مصاريف متفرقة</value>
         <value xml:lang="de">Sonstige Gebühren</value>
         <value xml:lang="en">Miscellaneous Charges</value>
         <value xml:lang="es">Gastos diversos</value>
@@ -309,6 +327,7 @@
         <value xml:lang="zh-TW">其他費用</value>
     </property>
     <property key="OrderAdjustmentType.description.MKTG_PKG_AUTO_ADJUST">
+        <value xml:lang="ar">تعديل عرض التسويق</value>
         <value xml:lang="de">Marketingpaket Anpassung</value>
         <value xml:lang="en">Marketing Package Adjustment</value>
         <value xml:lang="es">Ajuste de paquete de marketing</value>
@@ -325,6 +344,7 @@
         <value xml:lang="zh-TW">調整市場促銷方案</value>
     </property>
     <property key="OrderAdjustmentType.description.PROMOTION_ADJUSTMENT">
+        <value xml:lang="ar">ترويج</value>
         <value xml:lang="de">Aktion</value>
         <value xml:lang="en">Promotion</value>
         <value xml:lang="es">Promoción</value>
@@ -341,6 +361,7 @@
         <value xml:lang="zh-TW">促銷</value>
     </property>
     <property key="OrderAdjustmentType.description.REPLACE_ADJUSTMENT">
+        <value xml:lang="ar">تبديل</value>
         <value xml:lang="de">Ersatz</value>
         <value xml:lang="en">Replacement</value>
         <value xml:lang="es">Reemplazo</value>
@@ -357,6 +378,7 @@
         <value xml:lang="zh-TW">替換</value>
     </property>
     <property key="OrderAdjustmentType.description.SALES_TAX">
+        <value xml:lang="ar">ضريبة المبيعات</value>
         <value xml:lang="de">Verkaufssteuer</value>
         <value xml:lang="en">Sales Tax</value>
         <value xml:lang="es">Impuestos de venta</value>
@@ -373,6 +395,7 @@
         <value xml:lang="zh-TW">營業稅</value>
     </property>
     <property key="OrderAdjustmentType.description.SHIPPING_CHARGES">
+        <value xml:lang="ar">شحن ومعالجة</value>
         <value xml:lang="de">Versandkosten</value>
         <value xml:lang="en">Shipping and Handling</value>
         <value xml:lang="es">Envío y seguimiento</value>
@@ -389,6 +412,7 @@
         <value xml:lang="zh-TW">運輸和包裝</value>
     </property>
     <property key="OrderAdjustmentType.description.SURCHARGE_ADJUSTMENT">
+        <value xml:lang="ar">رسوم إضافية</value>
         <value xml:lang="de">Zuschlag</value>
         <value xml:lang="en">Surcharge</value>
         <value xml:lang="es">Recargo</value>
@@ -405,6 +429,7 @@
         <value xml:lang="zh-TW">額外費用</value>
     </property>
     <property key="OrderAdjustmentType.description.WARRANTY_ADJUSTMENT">
+        <value xml:lang="ar">الضمان</value>
         <value xml:lang="de">Garantie</value>
         <value xml:lang="en">Warranty</value>
         <value xml:lang="es">Garantía</value>
@@ -421,6 +446,7 @@
         <value xml:lang="zh-TW">保修</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_ADDRESS">
+        <value xml:lang="ar">عنوان قائمة سوداء</value>
         <value xml:lang="de">Blacklist Adressen</value>
         <value xml:lang="en">Blacklist Address</value>
         <value xml:lang="es">Dirección bloqueada</value>
@@ -435,6 +461,7 @@
         <value xml:lang="zh-TW">位址黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_CREDITCARD">
+        <value xml:lang="ar">بطاقة إئتمانية قائمة سوداء</value>
         <value xml:lang="de">Blacklist Kreditkarte</value>
         <value xml:lang="en">Blacklist Credit Card</value>
         <value xml:lang="es">Tarjeta de crédito bloqueada</value>
@@ -449,6 +476,7 @@
         <value xml:lang="zh-TW">信用卡黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_EMAIL">
+        <value xml:lang="ar">بريد إلكتروني قائمة سوداء</value>
         <value xml:lang="de">Blacklist E-Mail</value>
         <value xml:lang="en">Blacklist Email</value>
         <value xml:lang="es">Email bloqueado</value>
@@ -463,6 +491,7 @@
         <value xml:lang="zh-TW">電子郵件黑名單</value>
     </property>
     <property key="OrderBlacklistType.description.BLACKLIST_PHONE">
+        <value xml:lang="ar">هاتف قائمة سوداء</value>
         <value xml:lang="de">Blacklist Telefon</value>
         <value xml:lang="en">Blacklist Phone</value>
         <value xml:lang="es">Teléfono bloqueado</value>
@@ -477,6 +506,7 @@
         <value xml:lang="zh-TW">電話黑名單</value>
     </property>
     <property key="OrderContentType.description.IMAGE_URL">
+        <value xml:lang="ar">صورة URL</value>
         <value xml:lang="de">Bild URL</value>
         <value xml:lang="en">Image URL</value>
         <value xml:lang="es">URL de Imagen</value>
@@ -547,6 +577,7 @@
         <value xml:lang="zh-TW">作業指令細項</value>
     </property>
     <property key="OrderType.description.PURCHASE_ORDER">
+        <value xml:lang="ar">أمر شراء</value>
         <value xml:lang="de">Beschaffungsauftrag</value>
         <value xml:lang="en">Purchase Order</value>
         <value xml:lang="es">Pedido de Compra</value>
@@ -563,6 +594,7 @@
         <value xml:lang="zh-TW">採購訂單</value>
     </property>
     <property key="OrderType.description.SALES_ORDER">
+        <value xml:lang="ar">أمر بيع</value>
         <value xml:lang="de">Kundenauftrag</value>
         <value xml:lang="en">Sales Order</value>
         <value xml:lang="es">Pedido de Venta</value>
@@ -593,6 +625,7 @@
         <value xml:lang="zh-TW">作業指令單</value>
     </property>
     <property key="QuoteType.description.OTHER_QUOTE">
+        <value xml:lang="ar">أخرى</value>
         <value xml:lang="de">Andere</value>
         <value xml:lang="en">Other</value>
         <value xml:lang="es">Otros</value>
@@ -609,6 +642,7 @@
         <value xml:lang="zh-TW">其他</value>
     </property>
     <property key="QuoteType.description.PRODUCT_QUOTE">
+        <value xml:lang="ar">سلعة</value>
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
         <value xml:lang="es">Producto</value>
@@ -625,6 +659,7 @@
         <value xml:lang="zh-TW">產品</value>
     </property>
     <property key="QuoteType.description.PROPOSAL">
+        <value xml:lang="ar">عرض</value>
         <value xml:lang="de">Vorschlag</value>
         <value xml:lang="en">Proposal</value>
         <value xml:lang="es">Propuesta</value>
@@ -654,6 +689,7 @@
         <value xml:lang="zh-TW">採購建議</value>
     </property>
     <property key="QuoteType.description.PURCHASE_QUOTE">
+        <value xml:lang="ar">شراء سلعة</value>
         <value xml:lang="de">Produkt Beschaffung</value>
         <value xml:lang="en">Product Purchase</value>
         <value xml:lang="es">Presupuesto Compra de producto</value>
@@ -670,6 +706,7 @@
         <value xml:lang="zh-TW">產品採購</value>
     </property>
     <property key="RequirementType.description.CUSTOMER_REQUIREMENT">
+        <value xml:lang="ar">متطلب العميل</value>
         <value xml:lang="de">Kunde Bedarf</value>
         <value xml:lang="en">Customer Requirement</value>
         <value xml:lang="es">Requisito de cliente</value>
@@ -686,6 +723,7 @@
         <value xml:lang="zh-TW">客戶需求</value>
     </property>
     <property key="RequirementType.description.INTERNAL_REQUIREMENT">
+        <value xml:lang="ar">متطلب داخلي</value>
         <value xml:lang="de">Interner Bedarf</value>
         <value xml:lang="en">Internal Requirement</value>
         <value xml:lang="es">Requisito interno</value>
@@ -730,6 +768,7 @@
         <value xml:lang="zh-TW">MRP中採購訂單的物料請求</value>
     </property>
     <property key="RequirementType.description.PRODUCT_REQUIREMENT">
+        <value xml:lang="ar">متطلب السلعة</value>
         <value xml:lang="de">Produkt Bedarf</value>
         <value xml:lang="en">Product Requirement</value>
         <value xml:lang="es">Requisito de producto</value>
@@ -746,6 +785,7 @@
         <value xml:lang="zh-TW">產品需求</value>
     </property>
     <property key="RequirementType.description.WORK_REQUIREMENT">
+        <value xml:lang="ar">متطلب العمل</value>
         <value xml:lang="de">Arbeitsbedarf</value>
         <value xml:lang="en">Work Requirement</value>
         <value xml:lang="es">Requisito de trabajo</value>
@@ -762,6 +802,7 @@
         <value xml:lang="zh-TW">作業需求</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_ADD_FEATURE_ADJ">
+        <value xml:lang="ar">إرجاع الميزة الإضافية</value>
         <value xml:lang="de">Retoure Zusatzmerkmal</value>
         <value xml:lang="en">Return Additional Feature</value>
         <value xml:lang="fr">Caractéristique additionnelle de retour</value>
@@ -774,6 +815,7 @@
         <value xml:lang="zh-TW">退貨的附加特色</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_DISCOUNT_ADJ">
+        <value xml:lang="ar">إرجاع الخصم</value>
         <value xml:lang="de">Retourenrabatt</value>
         <value xml:lang="en">Return Discount</value>
         <value xml:lang="it">Sconto sul reso</value>
@@ -785,6 +827,7 @@
         <value xml:lang="zh-TW">退貨的折扣</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_FEE_ADJ">
+        <value xml:lang="ar">إرجاع الرسوم</value>
         <value xml:lang="de">Retourengebühr</value>
         <value xml:lang="en">Return Fee</value>
         <value xml:lang="it">Commissioni sul reso</value>
@@ -796,6 +839,7 @@
         <value xml:lang="zh-TW">退貨的費用</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MAN_ADJ">
+        <value xml:lang="ar">تعديل يدوي للمسترجع</value>
         <value xml:lang="de">Retoure manuelle Anpassung</value>
         <value xml:lang="en">Return Manual Adjustment</value>
         <value xml:lang="it">Aggiustamento manuale sul reso</value>
@@ -807,6 +851,7 @@
         <value xml:lang="zh-TW">退貨的手冊調整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MISC_ADJ">
+        <value xml:lang="ar">مصاريف متفرقة للمسترجع</value>
         <value xml:lang="de">Retoure sonstige Gebühren</value>
         <value xml:lang="en">Return Miscellaneous Charges</value>
         <value xml:lang="it">Ricarichi vari sul reso</value>
@@ -818,6 +863,7 @@
         <value xml:lang="zh-TW">退貨的雜費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_MKTG_PKG_ADJ">
+        <value xml:lang="ar">تعديل عرض تسويق المسترجع</value>
         <value xml:lang="de">Retoure Marketing Packet Anpassung</value>
         <value xml:lang="en">Return Marketing Package Adjustment</value>
         <value xml:lang="it">Aggiustamento pacco di vendita sul reso</value>
@@ -829,6 +875,7 @@
         <value xml:lang="zh-TW">退貨的行銷包裝調整</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_PROMOTION_ADJ">
+        <value xml:lang="ar">إرجاع الترويج</value>
         <value xml:lang="de">Retoure Aktion</value>
         <value xml:lang="en">Return Promotion</value>
         <value xml:lang="it">Promozione reso</value>
@@ -840,6 +887,7 @@
         <value xml:lang="zh-TW">退貨的促銷</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_REPLACE_ADJ">
+        <value xml:lang="ar">إرجاع بالبدل</value>
         <value xml:lang="de">Retoure Ersatz</value>
         <value xml:lang="en">Return Replacement</value>
         <value xml:lang="it">Reso in sostituzione</value>
@@ -851,6 +899,7 @@
         <value xml:lang="zh-TW">退貨的替代</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SALES_TAX_ADJ">
+        <value xml:lang="ar">إرجاع ضريبة المبيعات</value>
         <value xml:lang="de">Retoure MwSt.</value>
         <value xml:lang="en">Return Sales Tax</value>
         <value xml:lang="fr">Taxe de vente sur retour</value>
@@ -863,6 +912,7 @@
         <value xml:lang="zh-TW">退貨的營業稅</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SHIPPING_ADJ">
+        <value xml:lang="ar">إرجاع الشحن والمعالجة</value>
         <value xml:lang="de">Retoure Versandkosten</value>
         <value xml:lang="en">Return Shipping and Handling</value>
         <value xml:lang="fr">Transport sur retour</value>
@@ -875,6 +925,7 @@
         <value xml:lang="zh-TW">退貨的裝運費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_SURCHARGE_ADJ">
+        <value xml:lang="ar">إرجاع الرسوم الإضافية</value>
         <value xml:lang="de">Retoure Zuschlag</value>
         <value xml:lang="en">Return Surcharge</value>
         <value xml:lang="fr">Supplément sur retour</value>
@@ -887,6 +938,7 @@
         <value xml:lang="zh-TW">退貨的附加費</value>
     </property>
     <property key="ReturnAdjustmentType.description.RET_WARRANTY_ADJ">
+        <value xml:lang="ar">إرجاع الضمان</value>
         <value xml:lang="de">Retoure Garantie</value>
         <value xml:lang="en">Return Warranty</value>
         <value xml:lang="fr">Garantie sur retour</value>
@@ -899,6 +951,7 @@
         <value xml:lang="zh-TW">退貨的保証條款</value>
     </property>
     <property key="ReturnReason.description.RTN_COD_REJECT">
+        <value xml:lang="ar">تم رفض دفعة COD</value>
         <value xml:lang="de">Vereinbarte Zahlung bei Lieferung abgeleht</value>
         <value xml:lang="en">COD Payment Rejected</value>
         <value xml:lang="es">Pago acordado rechazado a la entrega</value>
@@ -913,6 +966,7 @@
         <value xml:lang="zh-TW">貨到付款被拒絕了</value>
     </property>
     <property key="ReturnReason.description.RTN_DEFECTIVE_ITEM">
+        <value xml:lang="ar">بند به عيب</value>
         <value xml:lang="de">Defektes Element</value>
         <value xml:lang="en">Defective Item</value>
         <value xml:lang="es">Producto defectuoso</value>
@@ -958,6 +1012,7 @@
         <value xml:lang="zh-TW">送錯的細項</value>
     </property>
     <property key="ReturnReason.description.RTN_NOT_WANT">
+        <value xml:lang="ar">لم أكن اريد البند</value>
         <value xml:lang="de">Element nicht verlangt</value>
         <value xml:lang="en">Did Not Want Item</value>
         <value xml:lang="es">No quiere el ítem</value>
@@ -974,6 +1029,7 @@
         <value xml:lang="zh-TW">不需要細項</value>
     </property>
     <property key="ReturnReason.description.RTN_SIZE_EXCHANGE">
+        <value xml:lang="ar">تبديل الحجم</value>
         <value xml:lang="de">Umtausch Größe</value>
         <value xml:lang="en">Size Exchange</value>
         <value xml:lang="fr">Mauvaise taille, échange</value>
@@ -985,6 +1041,7 @@
         <value xml:lang="zh-TW">更換尺寸</value>
     </property>
     <property key="ReturnType.description.RTN_CREDIT">
+        <value xml:lang="ar">رصيد من المحل</value>
         <value xml:lang="de">Guthaben</value>
         <value xml:lang="en">Store Credit</value>
         <value xml:lang="es">Crédito de la tienda</value>
@@ -1016,6 +1073,7 @@
         <value xml:lang="zh-TW">郵寄換貨</value>
     </property>
     <property key="ReturnType.description.RTN_REFUND">
+        <value xml:lang="ar">تعويض\رد</value>
         <value xml:lang="de">Rückerstattung</value>
         <value xml:lang="en">Refund</value>
         <value xml:lang="es">Reembolso/Devolución</value>
@@ -1032,6 +1090,7 @@
         <value xml:lang="zh-TW">退款</value>
     </property>
     <property key="ReturnType.description.RTN_REPAIR_REPLACE">
+        <value xml:lang="ar">تصليح البديل</value>
         <value xml:lang="de">Reparatur Ersatz</value>
         <value xml:lang="en">Repair Replacement</value>
         <value xml:lang="es">Reemplazo de reparación</value>
@@ -1046,6 +1105,7 @@
         <value xml:lang="zh-TW">修理替換</value>
     </property>
     <property key="ReturnType.description.RTN_REPLACE">
+        <value xml:lang="ar">البديل</value>
         <value xml:lang="de">Ersatz</value>
         <value xml:lang="en">Replacement</value>
         <value xml:lang="es">Reemplazo</value>
@@ -1061,6 +1121,7 @@
         <value xml:lang="zh-TW">替換</value>
     </property>
     <property key="ShoppingListType.description.SLT_AUTO_REODR">
+        <value xml:lang="ar">إعادة أوامر البيع\الشراء الأوتوماتيكية</value>
         <value xml:lang="de">Automatischer Auftrag</value>
         <value xml:lang="en">Automatic Re-Orders</value>
         <value xml:lang="es">Volver a pedir automáticamente</value>
@@ -1076,6 +1137,7 @@
         <value xml:lang="zh-TW">自動重新下訂單</value>
     </property>
     <property key="ShoppingListType.description.SLT_FREQ_PURCHASES">
+        <value xml:lang="ar">المشتريات المتكررة</value>
         <value xml:lang="de">Häufige Einkäufe</value>
         <value xml:lang="en">Frequent Purchases</value>
         <value xml:lang="es">Compras frecuentes</value>
@@ -1091,6 +1153,7 @@
         <value xml:lang="zh-TW">經常購買</value>
     </property>
     <property key="ShoppingListType.description.SLT_GIFT_REG">
+        <value xml:lang="ar">تسجيل الهدية</value>
         <value xml:lang="de">Geschenkliste</value>
         <value xml:lang="en">Gift Registry</value>
         <value xml:lang="es">Lista de regalos</value>
@@ -1106,6 +1169,7 @@
         <value xml:lang="zh-TW">禮物註冊</value>
     </property>
     <property key="ShoppingListType.description.SLT_SPEC_PURP">
+        <value xml:lang="ar">غرض خاص</value>
         <value xml:lang="de">Spezialfälle</value>
         <value xml:lang="en">Special Purpose</value>
         <value xml:lang="es">Casos especiales</value>
@@ -1121,6 +1185,7 @@
         <value xml:lang="zh-TW">特別目的</value>
     </property>
     <property key="ShoppingListType.description.SLT_WISH_LIST">
+        <value xml:lang="ar">قائمة الأمنيات</value>
         <value xml:lang="de">Wunschliste</value>
         <value xml:lang="en">Wish List</value>
         <value xml:lang="es">Lista de deseos</value>
@@ -1136,6 +1201,7 @@
         <value xml:lang="zh-TW">期望清單</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_DELIVERS">
+        <value xml:lang="ar">يوصل</value>
         <value xml:lang="de">Liefert</value>
         <value xml:lang="en">Delivers</value>
         <value xml:lang="es">Entrega</value>
@@ -1151,6 +1217,7 @@
         <value xml:lang="zh-TW">交付</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_DEPLOYS">
+        <value xml:lang="ar">يطلق</value>
         <value xml:lang="de">Einrichten</value>
         <value xml:lang="en">Deploys</value>
         <value xml:lang="es">Utiliza</value>
@@ -1166,6 +1233,7 @@
         <value xml:lang="zh-TW">部署</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_FIXES">
+        <value xml:lang="ar">يثبت</value>
         <value xml:lang="de">Korrigiert</value>
         <value xml:lang="en">Fixes</value>
         <value xml:lang="es">Arregla</value>
@@ -1181,6 +1249,7 @@
         <value xml:lang="zh-TW">改正</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_IMPLEMENTS">
+        <value xml:lang="ar">ينفذ</value>
         <value xml:lang="de">Implementiert</value>
         <value xml:lang="en">Implements</value>
         <value xml:lang="es">Implementa</value>
@@ -1196,6 +1265,7 @@
         <value xml:lang="zh-TW">完成</value>
     </property>
     <property key="WorkReqFulfType.description.WRF_TESTS">
+        <value xml:lang="ar">يختبر</value>
         <value xml:lang="de">Testet</value>
         <value xml:lang="en">Tests</value>
         <value xml:lang="es">Prueba</value>
