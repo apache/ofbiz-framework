@@ -20,6 +20,7 @@
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="hour.plural">
+        <value xml:lang="ar">ساعات</value>
         <value xml:lang="de">Stunden</value>
         <value xml:lang="en">hours</value>
         <value xml:lang="es">horas</value>
@@ -33,6 +34,7 @@
         <value xml:lang="zh-TW">小時</value>
     </property>
     <property key="hour.singular">
+        <value xml:lang="ar">ساعة</value>
         <value xml:lang="de">Stunde</value>
         <value xml:lang="en">hour</value>
         <value xml:lang="es">hora</value>
@@ -46,6 +48,7 @@
         <value xml:lang="zh-TW">小時</value>
     </property>
     <property key="millisecond.plural">
+        <value xml:lang="ar">واحد للألف ثواني</value>
         <value xml:lang="de">Millisekunden</value>
         <value xml:lang="en">millliseconds</value>
         <value xml:lang="es">milisegundos</value>
@@ -59,6 +62,7 @@
         <value xml:lang="zh-TW">毫秒</value>
     </property>
     <property key="millisecond.singular">
+        <value xml:lang="ar">واحد للألف من الثانية</value>
         <value xml:lang="de">Millisekunde</value>
         <value xml:lang="en">milllisecond</value>
         <value xml:lang="es">milisegundo</value>
@@ -72,6 +76,7 @@
         <value xml:lang="zh-TW">毫秒</value>
     </property>
     <property key="minute.plural">
+        <value xml:lang="ar">دقائق</value>
         <value xml:lang="de">Minuten</value>
         <value xml:lang="en">minutes</value>
         <value xml:lang="es">minutos</value>
@@ -85,6 +90,7 @@
         <value xml:lang="zh-TW">分鐘</value>
     </property>
     <property key="minute.singular">
+        <value xml:lang="ar">دقيقة</value>
         <value xml:lang="de">Minute</value>
         <value xml:lang="en">minute</value>
         <value xml:lang="es">minuto</value>
@@ -98,6 +104,7 @@
         <value xml:lang="zh-TW">分鐘</value>
     </property>
     <property key="second.plural">
+        <value xml:lang="ar">ثواني</value>
         <value xml:lang="de">Sekunden</value>
         <value xml:lang="en">seconds</value>
         <value xml:lang="es">segundos</value>
@@ -111,6 +118,7 @@
         <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="second.singular">
+        <value xml:lang="ar">ثانية</value>
         <value xml:lang="de">Sekunde</value>
         <value xml:lang="en">second</value>
         <value xml:lang="es">segundo</value>
@@ -124,6 +132,7 @@
         <value xml:lang="zh-TW">秒</value>
     </property>
     <property key="week.plural">
+        <value xml:lang="ar">أسابيع</value>
         <value xml:lang="de">Wochen</value>
         <value xml:lang="en">weeks</value>
         <value xml:lang="es">semanas</value>
@@ -137,6 +146,7 @@
         <value xml:lang="zh-TW">週</value>
     </property>
     <property key="week.singular">
+        <value xml:lang="ar">أسبوع</value>
         <value xml:lang="de">Woche</value>
         <value xml:lang="en">week</value>
         <value xml:lang="es">semana</value>
