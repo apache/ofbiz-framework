@@ -179,6 +179,7 @@
         <value xml:lang="zh-TW">小於等於</value>
     </property>
     <property key="not_equal">
+        <value xml:lang="ar">لا يساوي</value>
         <value xml:lang="de">ungleich</value>
         <value xml:lang="cs">Není rovno</value>
         <value xml:lang="en">Not Equal</value>
