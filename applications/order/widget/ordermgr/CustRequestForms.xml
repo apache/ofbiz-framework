@@ -100,6 +100,7 @@ under the License.
         </field>
         <field name="custRequestName" sort-field="true"><display/></field>
         <field name="priority" sort-field="true"><display/></field>
+        <field name="custRequestDate" sort-field="true"><display/></field>
         <field name="responseRequiredDate" sort-field="true"><display/></field>
         <field name="fromPartyId" sort-field="true">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
