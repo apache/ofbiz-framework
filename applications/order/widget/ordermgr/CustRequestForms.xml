@@ -24,12 +24,12 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="CustRequest" default-field-type="find"/>
         <field name="custRequestTypeId" position="2">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" allow-multiple="true">
                 <entity-options description="${description}" entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" allow-multiple="true">
                 <entity-options entity-name="StatusItem" description="${description}">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
@@ -37,7 +37,7 @@ under the License.
             </drop-down>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" position="2">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" allow-multiple="true">
                 <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="sequenceId"/>
@@ -58,7 +58,7 @@ under the License.
         <field name="closedDateTime" position="2"><date-find/></field>
         <field name="responseRequiredDate" position="2"><date-find/></field>
         <field name="productStoreId" title="${uiLabelMap.ProductProductStore}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="true" allow-multiple="true">
                 <entity-options description="${storeName}" entity-name="ProductStore" key-field-name="productStoreId">
                     <entity-order-by field-name="storeName"/>
                 </entity-options>
