@@ -90,6 +90,7 @@ under the License.
                 <parameter param-name="custRequestId"/>
             </hyperlink>
         </field>
+        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" key-field-name="custRequestTypeId" description="${description}"/></field>
         <field name="custRequestName" sort-field="true"><display/></field>
         <field name="priority" sort-field="true"><display/></field>
         <field name="responseRequiredDate" sort-field="true"><display/></field>
