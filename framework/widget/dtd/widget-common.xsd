@@ -583,7 +583,13 @@ under the License.
             <xs:element minOccurs="0" name="image" type="image" />
         </xs:sequence>
         <xs:attribute type="xs:string" name="text" />
-        <xs:attribute type="xs:string" name="id" />
+        <xs:attribute type="xs:string" name="id" >
+            <xs:annotation>
+                 <xs:documentation>
+                     If you use id for link present in list form or multi form, you can use ${itemIndex} to generate an unique id by line. 
+                 </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
         <xs:attribute type="xs:string" name="style" />
         <xs:attribute type="xs:string" name="name" />
         <xs:attribute type="xs:string" name="title" />

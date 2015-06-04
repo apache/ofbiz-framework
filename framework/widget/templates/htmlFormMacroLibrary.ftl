@@ -849,11 +849,12 @@ Parameter: tabindex, String, optional - HTML tabindex number.
     <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>>
       <#if imgSrc?has_content><img src="${imgSrc}" alt=""/></#if>${description}</a>
 </#macro>
-<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title alternate linkUrl targetWindow description confirmation>
+<#macro makeHyperlinkString linkStyle hiddenFormName event action imgSrc title alternate linkUrl targetWindow description confirmation id>
     <a <#if linkStyle?has_content>class="${linkStyle}"</#if> 
       href="${linkUrl}"<#if targetWindow?has_content> target="${targetWindow}"</#if>
       <#if action?has_content && event?has_content> ${event}="${action}"</#if>
       <#if confirmation?has_content> onclick="return confirm('${confirmation?js_string}')"</#if>
+      <#if id?has_content> id="${id}"</#if>
       <#if imgSrc?length == 0 && title?has_content> title="${title}"</#if>>
         <#if imgSrc?has_content><img src="${imgSrc}" alt="${alternate}" title="${title}"/></#if>${description}</a>
   </#macro>
