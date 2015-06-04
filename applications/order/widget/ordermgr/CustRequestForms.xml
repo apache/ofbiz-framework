@@ -91,6 +91,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="custRequestTypeId"><display-entity entity-name="CustRequestType"/></field>
+        <field name="productStoreId">
+            <display-entity entity-name="ProductStore" description="${storeName}">
+                <sub-hyperlink description="[${productStoreId}]" target="/catalog/control/EditProductStore" target-type="inter-app">
+                    <parameter param-name="productStoreId"/>
+                </sub-hyperlink>
+            </display-entity>
+        </field>
         <field name="custRequestName" sort-field="true"><display/></field>
         <field name="priority" sort-field="true"><display/></field>
         <field name="responseRequiredDate" sort-field="true"><display/></field>
