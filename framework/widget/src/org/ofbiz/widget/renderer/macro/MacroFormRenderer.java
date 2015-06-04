@@ -311,6 +311,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
         this.request.setAttribute("alternate", encodedAlternate);
         this.request.setAttribute("imageTitle", encodedImageTitle);
         this.request.setAttribute("descriptionSize", hyperlinkField.getSize());
+        this.request.setAttribute("id", hyperlinkField.getId(context));
         makeHyperlinkByType(writer, hyperlinkField.getLinkType(), modelFormField.getWidgetStyle(), hyperlinkField.getUrlMode(), hyperlinkField.getTarget(context), hyperlinkField.getParameterMap(context), hyperlinkField.getDescription(context), hyperlinkField.getTargetWindow(context),
                 hyperlinkField.getConfirmation(context), modelFormField, this.request, this.response, context);
         this.appendTooltip(writer, context, modelFormField);
@@ -3073,6 +3074,7 @@ public final class MacroFormRenderer implements FormStringRenderer {
             String action = "";
             String imgSrc = "";
             String alt = "";
+            String id = "";
             String imgTitle = "";
             String hiddenFormName = WidgetWorker.makeLinkHiddenFormName(context, modelFormField);
             if (UtilValidate.isNotEmpty(modelFormField.getEvent()) && UtilValidate.isNotEmpty(modelFormField.getAction(context))) {
@@ -3099,6 +3101,9 @@ public final class MacroFormRenderer implements FormStringRenderer {
             if (UtilValidate.isEmpty(imgTitle)) {
                 imgTitle = modelFormField.getTitle(context);
             }
+            if (UtilValidate.isNotEmpty(request.getAttribute("id"))) {
+                id = request.getAttribute("id").toString();
+            }
             StringWriter sr = new StringWriter();
             sr.append("<@makeHyperlinkString ");
             sr.append("linkStyle=\"");
@@ -3123,6 +3128,8 @@ public final class MacroFormRenderer implements FormStringRenderer {
             sr.append(description);
             sr.append("\" confirmation =\"");
             sr.append(confirmation);
+            sr.append("\" id=\"");
+            sr.append(id);
             sr.append("\" />");
             executeMacro(writer, sr.toString());
         }
