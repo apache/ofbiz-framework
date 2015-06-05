@@ -3084,7 +3084,7 @@ public class ModelFormField {
         }
 
         public RangeFindField(int fieldSource, int size, ModelFormField modelFormField) {
-            super(fieldSource, size, null, modelFormField);
+            super(fieldSource, size, null, modelFormField, FieldInfo.RANGEQBE);
             this.defaultOptionFrom = "greaterThanEqualTo";
             this.defaultOptionThru = "lessThanEqualTo";
         }
@@ -3727,6 +3727,19 @@ public class ModelFormField {
             }
         }
 
+        protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField, int fieldType) {
+            super(fieldSource, fieldType == -1 ? FieldInfo.TEXT : fieldType, modelFormField);
+            this.clientAutocompleteField = true;
+            this.defaultValue = FlexibleStringExpander.getInstance("");
+            this.disabled = false;
+            this.mask = "";
+            this.maxlength = maxlength;
+            this.placeholder = FlexibleStringExpander.getInstance("");
+            this.readonly = false;
+            this.size = size;   
+            this.subHyperlink = null;
+        }
+        
         protected TextField(int fieldSource, int size, Integer maxlength, ModelFormField modelFormField) {
             super(fieldSource, FieldInfo.TEXT, modelFormField);
             this.clientAutocompleteField = true;
