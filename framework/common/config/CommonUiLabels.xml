@@ -15114,19 +15114,6 @@
         <value xml:lang="zh-CN">法语</value>
         <value xml:lang="zh-TW">法語</value>
     </property>
-    <property key="fy">
-        <value xml:lang="cs">Frisian</value>
-        <value xml:lang="da">Frisisk</value>
-        <value xml:lang="de">Friesisch</value>
-        <value xml:lang="en">Frisian</value>
-        <value xml:lang="es">Frisio</value>
-        <value xml:lang="fr">Frison</value>
-        <value xml:lang="ja">フリージア語</value>
-        <value xml:lang="pt-BR">Frísio</value>
-        <value xml:lang="ru">Фризский</value>
-        <value xml:lang="zh">弗里斯兰语</value>
-        <value xml:lang="zh-TW">弗裡斯蘭語</value>
-    </property>
     <property key="gr">
         <value xml:lang="ar">يونانية</value>
         <value xml:lang="cs">Řečtina</value>
