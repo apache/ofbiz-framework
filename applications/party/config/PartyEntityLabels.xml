@@ -1366,6 +1366,7 @@
     </property>
     <property key="PartyClassificationType.description.SIC_CODE">
         <value xml:lang="de">SIC Code</value>
+        <value xml:lang="en">SIC Code</value>
         <value xml:lang="es">Código SIC</value>
         <value xml:lang="fr">Code SIC</value>
         <value xml:lang="hi-IN">SIC कोड</value>
