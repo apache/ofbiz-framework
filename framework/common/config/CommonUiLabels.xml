@@ -15114,7 +15114,7 @@
         <value xml:lang="zh-CN">法语</value>
         <value xml:lang="zh-TW">法語</value>
     </property>
-    <property key="gr">
+    <!-- <property key="gr">
         <value xml:lang="ar">يونانية</value>
         <value xml:lang="cs">Řečtina</value>
         <value xml:lang="de">Griechisch</value>
@@ -15133,7 +15133,7 @@
         <value xml:lang="zh">希腊语</value>
         <value xml:lang="zh-CN">希腊语</value>
         <value xml:lang="zh-TW">希臘語</value>
-    </property>
+    </property> -->
     <property key="it">
         <value xml:lang="ar">إيطالية</value>
         <value xml:lang="cs">Italština</value>
