@@ -464,6 +464,14 @@ under the License.
         </field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="expireLink" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonExpire}" target="expireCustRequestParty">
+                <parameter param-name="custRequestId"/>
+                <parameter param-name="partyId"/>
+                <parameter param-name="roleTypeId"/>
+                <parameter param-name="fromDate"/>
+            </hyperlink>
+        </field>
         <field name="deleteLink" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteCustRequestParty">
                 <parameter param-name="custRequestId"/>

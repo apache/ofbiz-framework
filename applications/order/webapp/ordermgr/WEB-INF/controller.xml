@@ -1338,6 +1338,12 @@ under the License.
         <response name="success" type="view" value="RequestRoles"/>
         <response name="error" type="view" value="RequestRoles"/>
     </request-map>
+    <request-map uri="expireCustRequestParty">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="expireCustRequestParty"/>
+        <response name="success" type="view" value="RequestRoles"/>
+        <response name="error" type="view" value="RequestRoles"/>
+    </request-map>
 
     <request-map uri="requestitems"><security https="true" auth="true"/><response name="success" type="view" value="RequestItems"/></request-map>
     <request-map uri="EditRequestItem"><security https="true" auth="true"/><response name="success" type="view" value="EditRequestItem"/></request-map>
