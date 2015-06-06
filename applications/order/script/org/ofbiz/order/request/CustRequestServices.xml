@@ -281,12 +281,18 @@ under the License.
         <store-value value-field="lookedUpValue"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
-    <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
+    <simple-method method-name="expireCustRequestParty" short-description="Expire Customer CustRequestParty">
         <call-simple-method method-name="checkStatusCustRequest"/>
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-field="lookedUpValue"/>
+        <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
+    </simple-method>
+    <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
+        <call-simple-method method-name="checkStatusCustRequest"/>
+        <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
         <call-simple-method method-name="updateCustRequestLastModifiedDate"/>
     </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">

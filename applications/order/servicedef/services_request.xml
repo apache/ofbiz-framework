@@ -125,6 +125,11 @@ under the License.
         <description>Delete a CustRequestParty record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+    <service name="expireCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
+            location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="expireCustRequestParty" auth="true">
+        <description>Delete a CustRequestParty record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
     <service name="createCustRequestNote" engine="simple"
             location="component://order/script/org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
