@@ -453,12 +453,11 @@ under the License.
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
-            <hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
-                <parameter param-name="partyId"/>
-            </hyperlink>
-        </field>
-        <field name="name" entry-name="partyId">
-            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/>
+            <display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}">
+	            <sub-hyperlink description="${partyId}" target-type="inter-app" target="/partymgr/control/viewprofile">
+	                <parameter param-name="partyId"/>
+	            </sub-hyperlink>
+            </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <display-entity also-hidden="true" entity-name="RoleType"/>
