@@ -488,7 +488,7 @@ under the License.
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListRequestItemRequirements" type="list" title="" list-name="custRequestRequirements"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItemRequirements">
