@@ -16,12 +16,14 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-  <fo:block>${postalAddress.address1!}</fo:block>
-  <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2!}</fo:block></#if>
-  <fo:block>${postalAddress.postalCode!} ${postalAddress.city!}</fo:block>
+<#escape x as x?xml>
+  <fo:block>${postalAddress.address1?if_exists}</fo:block>
+  <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2?if_exists}</fo:block></#if>
+  <fo:block>${postalAddress.postalCode?if_exists} ${postalAddress.city?if_exists}</fo:block>
   <#if postalAddress.countryGeoId?has_content>
     <fo:block>
       <#assign country = postalAddress.getRelatedOne("CountryGeo", true)>
       ${country.get("geoName", locale)?default(country.geoId)}
     </fo:block>
   </#if>
+</#escape>
