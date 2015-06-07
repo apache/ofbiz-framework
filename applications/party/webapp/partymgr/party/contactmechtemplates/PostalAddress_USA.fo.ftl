@@ -18,7 +18,7 @@ under the License.
 -->
 <#escape x as x?xml>
   <fo:block>${postalAddress.address1!}</fo:block>
-  <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2!}</fo:block></#if>
+  <#if postalAddress.address2?has_content><fo:block>${postalAddress.address2}</fo:block></#if>
   <fo:block>${postalAddress.city!}<#if postalAddress.stateProvinceGeoId?has_content>, ${postalAddress.stateProvinceGeoId}</#if> ${postalAddress.postalCode!}</fo:block>
   <#if postalAddress.countryGeoId?has_content>
     <fo:block>
