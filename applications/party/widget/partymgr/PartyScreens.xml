@@ -1298,9 +1298,9 @@ under the License.
             </actions>
             <widgets>
                 <platform-specific>
-                    <html>
+                    <xsl-fo>
                         <html-template location="component://party/webapp/partymgr/party/contactmechtemplates/${postalAddressTemplate}"/>
-                    </html>
+                    </xsl-fo>
                 </platform-specific>
             </widgets>
         </section>
