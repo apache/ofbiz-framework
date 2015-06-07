@@ -24,6 +24,7 @@ import java.net.URLEncoder;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class StringUtil {
     protected static final Map<String, Pattern> substitutionPatternMap;
 
     static {
-        substitutionPatternMap = new HashMap<String, Pattern>();
+        substitutionPatternMap = new LinkedHashMap<String, Pattern>();
         substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
         substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
         substitutionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
