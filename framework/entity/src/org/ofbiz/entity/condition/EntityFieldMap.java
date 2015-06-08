@@ -68,7 +68,7 @@ public final class EntityFieldMap extends EntityConditionListBase<EntityExpr> {
         return Collections.unmodifiableSet(this.fieldMap.keySet()).iterator();
     }
 
-    public Iterator<Map.Entry<String, Object>> getFieldEntryIterator() {
+    public Iterator<?> getFieldEntryIterator() {
         return Collections.unmodifiableMap(this.fieldMap).entrySet().iterator();
     }
 
