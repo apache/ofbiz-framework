@@ -1,0 +1,53 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<entity-engine-xml>
+    <Geo abbreviation="CL-02" geoCode="CL-02" geoId="CL-AN" geoName="Antofagasta" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-09" geoCode="CL-09" geoId="CL-AR" geoName="Araucanía" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-15" geoCode="CL-15" geoId="CL-AP" geoName="Arica y Parinacota" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-03" geoCode="CL-03" geoId="CL-AT" geoName="Atacama" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-11" geoCode="CL-11" geoId="CL-AI" geoName="Aysén" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-08" geoCode="CL-08" geoId="CL-BI" geoName="Biobío" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-04" geoCode="CL-04" geoId="CL-CO" geoName="Coquimbo" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-06" geoCode="CL-06" geoId="CL-LI" geoName="Libertador General Bernardo O'Higgins" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-10" geoCode="CL-10" geoId="CL-LL" geoName="Los Lagos" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-14" geoCode="CL-14" geoId="CL-LR" geoName="Los Ríos" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-12" geoCode="CL-12" geoId="CL-MA" geoName="Magallanes" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-07" geoCode="CL-07" geoId="CL-ML" geoName="Maule" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-RM" geoCode="CL-RM" geoId="CL-RM" geoName="Región Metropolitana de Santiago" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-01" geoCode="CL-01" geoId="CL-TA" geoName="Tarapacá" geoTypeId="STATE"/>
+    <Geo abbreviation="CL-05" geoCode="CL-05" geoId="CL-VS" geoName="Valparaíso" geoTypeId="STATE"/>
+    
+    <GeoAssoc geoId="CHL" geoIdTo="CL-AN" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-AR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-AP" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-AT" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-AI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-BI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-CO" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-LI" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-LL" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-LR" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-MA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-ML" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-RM" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-TA" geoAssocTypeId="REGIONS"/>
+    <GeoAssoc geoId="CHL" geoIdTo="CL-VS" geoAssocTypeId="REGIONS"/>
+</entity-engine-xml>
