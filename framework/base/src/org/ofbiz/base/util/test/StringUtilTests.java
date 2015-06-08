@@ -263,9 +263,9 @@ public class StringUtilTests extends GenericTestCaseBase {
     }
 
     public void testConvertOperatorSubstitutions() {
-        assertNull("null pass-thrue", StringUtil.convertOperatorSubstitutions(null));
+        assertNull("null pass-thru", StringUtil.convertOperatorSubstitutions(null));
         assertEquals("none", "abc", StringUtil.convertOperatorSubstitutions("abc"));
-        assertEquals("noe", "a'c", StringUtil.convertOperatorSubstitutions("a'c"));
+        assertEquals("none", "a'c", StringUtil.convertOperatorSubstitutions("a'c"));
         assertEquals("all converions", "one && two || three > four >= five < six <= seven", StringUtil.convertOperatorSubstitutions("one @and two @or three @gt four @gteq five @lt six @lteq seven"));
     }
 

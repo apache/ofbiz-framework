@@ -22,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
@@ -45,17 +46,17 @@ public class StringUtil {
 
     public static final StringUtil INSTANCE = new StringUtil();
     public static final String module = StringUtil.class.getName();
-    // FIXME: Not thread safe
-    protected static final Map<String, Pattern> substitutionPatternMap;
+    private static final Map<String, Pattern> substitutionPatternMap = createSubstitutionPatternMap();
 
-    static {
-        substitutionPatternMap = new LinkedHashMap<String, Pattern>();
+    private static Map<String, Pattern> createSubstitutionPatternMap() {
+        Map<String, Pattern> substitutionPatternMap = new LinkedHashMap<String, Pattern>();  // Preserve insertion order
         substitutionPatternMap.put("&&", Pattern.compile("@and", Pattern.LITERAL));
         substitutionPatternMap.put("||", Pattern.compile("@or", Pattern.LITERAL));
         substitutionPatternMap.put("<=", Pattern.compile("@lteq", Pattern.LITERAL));
         substitutionPatternMap.put(">=", Pattern.compile("@gteq", Pattern.LITERAL));
         substitutionPatternMap.put("<", Pattern.compile("@lt", Pattern.LITERAL));
         substitutionPatternMap.put(">", Pattern.compile("@gt", Pattern.LITERAL));
+        return Collections.unmodifiableMap(substitutionPatternMap);
     }
 
     private StringUtil() {
@@ -523,7 +524,7 @@ public class StringUtil {
      */
     public static String convertOperatorSubstitutions(String expression) {
         String result = expression;
-        if (result != null && (result.contains("@") || result.contains("'"))) {
+        if (result != null && (result.contains("@"))) {
             for (Map.Entry<String, Pattern> entry: substitutionPatternMap.entrySet()) {
                 Pattern pattern = entry.getValue();
                 result = pattern.matcher(result).replaceAll(entry.getKey());
