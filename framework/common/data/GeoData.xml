@@ -359,7 +359,7 @@ under the License.
     <CountryAddressFormat geoId="IND" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="ITA" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="CHE" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
-    <CountryAddressFormat geoId="FRA" geoAssocTypeId="" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="FRA" geoAssocTypeId="" requireStateProvinceId="N" requirePostalCode="Y" postalCodeRegex="^(([0-8][0-9])|(9[0-5]))[0-9]{3}$" hasPostalCodeExt="N" requirePostalCodeExt="N" addressFormat=""/>
     <CountryAddressFormat geoId="MYS" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="THA" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="ISR" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
