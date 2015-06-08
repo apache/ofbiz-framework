@@ -363,4 +363,5 @@ under the License.
     <CountryAddressFormat geoId="MYS" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="THA" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
     <CountryAddressFormat geoId="ISR" geoAssocTypeId="REGIONS" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
+    <CountryAddressFormat geoId="CHL" geoAssocTypeId="" requireStateProvinceId="" requirePostalCode="" postalCodeRegex="" hasPostalCodeExt="" requirePostalCodeExt="" addressFormat=""/>
 </entity-engine-xml>
