@@ -2539,7 +2539,7 @@ under the License.
         <field name="thruDate"><ignored/></field>
         <field name="submitButton"><ignored/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent" request-confirmation="true">
                 <parameter param-name="contentId"/>
                 <parameter param-name="workEffortId"/>
                 <parameter param-name="workEffortContentTypeId"/>
@@ -2609,7 +2609,7 @@ under the License.
         <field name="contentName"><display description="${contentMap.contentName} [${contentId}]"/></field>
         <field name="fromDate"><display/> </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteScrumProductContent">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteScrumProductContent" request-confirmation="true">
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>
                 <parameter param-name="productId"/>
@@ -2671,7 +2671,7 @@ under the License.
             <display-entity entity-name="PartyNameView"  description="${lastName}, ${firstName} ${middleName}" key-field-name="partyId"> </display-entity>
         </field>
         <field name="removeNote" title=" " widget-style="buttontext">
-            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProdBacklogNote">
+            <hyperlink description="${uiLabelMap.CommonDelete}" target="deleteProdBacklogNote" request-confirmation="true">
                 <parameter param-name="noteId" from-field="noteId"/>
                 <parameter param-name="custRequestId" from-field="custRequestId"/>
                 <parameter param-name="productId" from-field="productId"/>
@@ -2716,7 +2716,7 @@ under the License.
         <field name="mimeTypeId"><hidden/></field>
         <field name="fromDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext" >
-           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteBacklogItemContent">
+           <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteBacklogItemContent" request-confirmation="true">
                 <parameter param-name="custRequestId"/>
                 <parameter param-name="contentId"/>
                 <parameter param-name="fromDate"/>
