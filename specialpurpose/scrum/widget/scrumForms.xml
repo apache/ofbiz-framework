@@ -249,7 +249,7 @@ under the License.
         </sort-order>
     </form>
     
-    <form name="ViewSprintItem" type="single" default-entity-name="WorkEffort" target="EditSprintItem?projectId=${parameters.projectId}">
+    <!-- <form name="ViewSprintItem" type="single" default-entity-name="WorkEffort" target="EditSprintItem?projectId=${parameters.projectId}">
     <actions>
         <entity-and entity-name="WorkEffortCustRequestItemView" list="custRequestItems">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -270,7 +270,7 @@ under the License.
         <field name="sprintItemId"><hidden value="${parameters.workEffortId}"/></field>
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ScrumEstimatedHours}"><display></display></field>
         <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
-    </form>
+    </form> -->
     
     <form name="showSprintInfo" type="single" default-entity-name="WorkEffort" target="EditSprint" >
         <actions>
