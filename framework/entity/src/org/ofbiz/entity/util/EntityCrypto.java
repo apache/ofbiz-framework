@@ -25,9 +25,14 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import javax.crypto.SecretKey;
+import java.security.Key;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.shiro.crypto.AesCipherService;
+import org.apache.shiro.crypto.OperationMode;
+import org.apache.shiro.crypto.hash.HashRequest;
+import org.apache.shiro.crypto.hash.HashService;
+import org.apache.shiro.crypto.hash.DefaultHashService;
 import org.ofbiz.base.crypto.DesCrypt;
 import org.ofbiz.base.crypto.HashCrypt;
 import org.ofbiz.base.util.Debug;
@@ -47,22 +52,23 @@ public final class EntityCrypto {
     public static final String module = EntityCrypto.class.getName();
 
     protected final Delegator delegator;
-    protected final ConcurrentMap<String, SecretKey> keyMap = new ConcurrentHashMap<String, SecretKey>();
+    protected final ConcurrentMap<String, byte[]> keyMap = new ConcurrentHashMap<String, byte[]>();
     protected final StorageHandler[] handlers;
 
     public EntityCrypto(Delegator delegator, String kekText) throws EntityCryptoException {
         this.delegator = delegator;
-        SecretKey kek;
-        try {
-            kek = UtilValidate.isNotEmpty(kekText) ? DesCrypt.getDesKey(Base64.decodeBase64(kekText)) : null;
-        } catch (GeneralException e) {
-            throw new EntityCryptoException(e);
-        }
+        byte[] kek;
+        kek = UtilValidate.isNotEmpty(kekText) ? Base64.decodeBase64(kekText) : null;
         handlers = new StorageHandler[] {
+            new ShiroStorageHandler(kek),
             new SaltedBase64StorageHandler(kek),
             NormalHashStorageHandler,
             OldFunnyHashStorageHandler,
         };
+    }
+
+    public void clearKeyCache() {
+        keyMap.clear();
     }
 
     /** Encrypts an Object into an encrypted hex encoded String */
@@ -74,11 +80,11 @@ public final class EntityCrypto {
     /** Encrypts an Object into an encrypted hex encoded String */
     public String encrypt(String keyName, EncryptMethod encryptMethod, Object obj) throws EntityCryptoException {
         try {
-            SecretKey key = this.findKey(keyName, handlers[0]);
+            byte[] key = this.findKey(keyName, handlers[0]);
             if (key == null) {
                 EntityCryptoException caught = null;
                 try {
-                    this.createKey(keyName, handlers[0]);
+                    this.createKey(keyName, handlers[0], encryptMethod);
                 } catch (EntityCryptoException e) {
                     // either a database read error, or a duplicate key insert
                     // if the latter, try to fetch the value created by the
@@ -89,7 +95,7 @@ public final class EntityCrypto {
                         key = this.findKey(keyName, handlers[0]);
                     } catch (EntityCryptoException e) {
                         // this is bad, couldn't lookup the value, some bad juju
-                        // is occuring; rethrow the original exception if available
+                        // is occurring; rethrow the original exception if available
                         throw caught != null ? caught : e;
                     }
                     if (key == null) {
@@ -115,15 +121,15 @@ public final class EntityCrypto {
     */
 
     /** Decrypts a hex encoded String into an Object */
-    public Object decrypt(String keyName, String encryptedString) throws EntityCryptoException {
+    public Object decrypt(String keyName, EncryptMethod encryptMethod, String encryptedString) throws EntityCryptoException {
         try {
-            return doDecrypt(keyName, encryptedString, handlers[0]);
+            return doDecrypt(keyName, encryptMethod, encryptedString, handlers[0]);
         } catch (GeneralException e) {
             Debug.logInfo("Decrypt with DES key from standard key name hash failed, trying old/funny variety of key name hash", module);
             for (int i = 1; i < handlers.length; i++) {
                 try {
                     // try using the old/bad hex encoding approach; this is another path the code may take, ie if there is an exception thrown in decrypt
-                    return doDecrypt(keyName, encryptedString, handlers[i]);
+                    return doDecrypt(keyName, encryptMethod, encryptedString, handlers[i]);
                 } catch (GeneralException e1) {
                     // NOTE: this throws the original exception back, not the new one if it fails using the other approach
                     //throw new EntityCryptoException(e);
@@ -133,12 +139,12 @@ public final class EntityCrypto {
         }
     }
 
-    protected Object doDecrypt(String keyName, String encryptedString, StorageHandler handler) throws GeneralException {
-        SecretKey key = this.findKey(keyName, handler);
+    protected Object doDecrypt(String keyName, EncryptMethod encryptMethod, String encryptedString, StorageHandler handler) throws GeneralException {
+        byte[] key = this.findKey(keyName, handler);
         if (key == null) {
             throw new EntityCryptoException("key(" + keyName + ") not found in database");
         }
-        byte[] decryptedBytes = handler.decryptValue(key, encryptedString);
+        byte[] decryptedBytes = handler.decryptValue(key, encryptMethod, encryptedString);
         try {
             return UtilObject.getObjectException(decryptedBytes);
         } catch (ClassNotFoundException e) {
@@ -148,7 +154,7 @@ public final class EntityCrypto {
         }
     }
 
-    protected SecretKey findKey(String originalKeyName, StorageHandler handler) throws EntityCryptoException {
+    protected byte[] findKey(String originalKeyName, StorageHandler handler) throws EntityCryptoException {
         String hashedKeyName = handler.getHashedKeyName(originalKeyName);
         String keyMapName = handler.getKeyMapPrefix(hashedKeyName) + hashedKeyName;
         if (keyMap.containsKey(keyMapName)) {
@@ -170,8 +176,7 @@ public final class EntityCrypto {
         }
         try {
             byte[] keyBytes = handler.decodeKeyBytes(keyValue.getString("keyText"));
-            SecretKey key = DesCrypt.getDesKey(keyBytes);
-            keyMap.putIfAbsent(keyMapName, key);
+            keyMap.putIfAbsent(keyMapName, keyBytes);
             // Do not remove the next line, it's there to handle the
             // case of multiple threads trying to find the same key
             // both threads will do the findOne call, only one will
@@ -183,17 +188,12 @@ public final class EntityCrypto {
         }
     }
 
-    protected void createKey(String originalKeyName, StorageHandler handler) throws EntityCryptoException {
+    protected void createKey(String originalKeyName, StorageHandler handler, EncryptMethod encryptMethod) throws EntityCryptoException {
         String hashedKeyName = handler.getHashedKeyName(originalKeyName);
-        SecretKey key = null;
-        try {
-            key = DesCrypt.generateKey();
-        } catch (NoSuchAlgorithmException e) {
-            throw new EntityCryptoException(e);
-        }
+        Key key = handler.generateNewKey();
         final GenericValue newValue = delegator.makeValue("EntityKeyStore");
         try {
-            newValue.set("keyText", handler.encodeKey(key));
+            newValue.set("keyText", handler.encodeKey(key.getEncoded()));
         } catch (GeneralException e) {
             throw new EntityCryptoException(e);
         }
@@ -212,35 +212,115 @@ public final class EntityCrypto {
     }
 
     protected abstract static class StorageHandler {
+        protected abstract Key generateNewKey() throws EntityCryptoException;
+
         protected abstract String getHashedKeyName(String originalKeyName);
         protected abstract String getKeyMapPrefix(String hashedKeyName);
 
         protected abstract byte[] decodeKeyBytes(String keyText) throws GeneralException;
-        protected abstract String encodeKey(SecretKey key) throws GeneralException;
+        protected abstract String encodeKey(byte[] key) throws GeneralException;
 
-        protected abstract byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException;
-        protected abstract String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException;
+        protected abstract byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException;
+        protected abstract String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException;
+    }
+
+    protected static final class ShiroStorageHandler extends StorageHandler {
+        private final HashService hashService;
+        private final AesCipherService cipherService;
+        private final AesCipherService saltedCipherService;
+        private final byte[] kek;
+
+        protected ShiroStorageHandler(byte[] kek) {
+            hashService = new DefaultHashService();
+            cipherService = new AesCipherService();
+            cipherService.setMode(OperationMode.ECB);
+            saltedCipherService = new AesCipherService();
+            this.kek = kek;
+        }
+
+        @Override
+        protected Key generateNewKey() {
+            return saltedCipherService.generateNewKey();
+        }
+
+        @Override
+        protected String getHashedKeyName(String originalKeyName) {
+            HashRequest hashRequest = new HashRequest.Builder().setSource(originalKeyName).build();
+            return hashService.computeHash(hashRequest).toBase64();
+        }
+
+        @Override
+        protected String getKeyMapPrefix(String hashedKeyName) {
+            return "{shiro}";
+        }
+
+        @Override
+        protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
+            byte[] keyBytes = Base64.decodeBase64(keyText);
+            if (kek != null) {
+                keyBytes = saltedCipherService.decrypt(keyBytes, kek).getBytes();
+            }
+            return keyBytes;
+        }
+
+        @Override
+        protected String encodeKey(byte[] key) throws GeneralException {
+            if (kek != null) {
+                return saltedCipherService.encrypt(key, kek).toBase64();
+            } else {
+                return Base64.encodeBase64String(key);
+            }
+        }
+
+        @Override
+        protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
+            switch (encryptMethod) {
+                case SALT:
+                    return saltedCipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+                default:
+                    return cipherService.decrypt(Base64.decodeBase64(encryptedString), key).getBytes();
+            }
+        }
+
+        @Override
+        protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
+            switch (encryptMethod) {
+                case SALT:
+                    return saltedCipherService.encrypt(objBytes, key).toBase64();
+                default:
+                    return cipherService.encrypt(objBytes, key).toBase64();
+            }
+        }
     }
 
     protected static abstract class LegacyStorageHandler extends StorageHandler {
+        @Override
+        protected Key generateNewKey() throws EntityCryptoException {
+            try {
+                return DesCrypt.generateKey();
+            } catch (NoSuchAlgorithmException e) {
+                throw new EntityCryptoException(e);
+            }
+        }
+
         @Override
         protected byte[] decodeKeyBytes(String keyText) throws GeneralException {
             return StringUtil.fromHexString(keyText);
         }
 
         @Override
-        protected String encodeKey(SecretKey key) {
-            return StringUtil.toHexString(key.getEncoded());
+        protected String encodeKey(byte[] key) {
+            return StringUtil.toHexString(key);
         }
 
         @Override
-        protected byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException {
-            return DesCrypt.decrypt(key, StringUtil.fromHexString(encryptedString));
+        protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
+            return DesCrypt.decrypt(DesCrypt.getDesKey(key), StringUtil.fromHexString(encryptedString));
         }
 
         @Override
-        protected String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException {
-            return StringUtil.toHexString(DesCrypt.encrypt(key, objBytes));
+        protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
+            return StringUtil.toHexString(DesCrypt.encrypt(DesCrypt.getDesKey(key), objBytes));
         }
     };
 
@@ -269,10 +349,27 @@ public final class EntityCrypto {
     };
 
     protected static final class SaltedBase64StorageHandler extends StorageHandler {
-        private final SecretKey kek;
+        private final Key kek;
 
-        protected SaltedBase64StorageHandler(SecretKey kek) {
-            this.kek = kek;
+        protected SaltedBase64StorageHandler(byte[] kek) throws EntityCryptoException {
+            Key key = null;
+            if (kek != null) {
+                try {
+                    key = DesCrypt.getDesKey(kek);
+                } catch (GeneralException e) {
+                    Debug.logInfo("Invalid key-encryption-key specified for SaltedBase64StorageHandler; the key is probably valid for the newer ShiroStorageHandler", module);
+                }
+            }
+            this.kek = key;
+        }
+
+        @Override
+        protected Key generateNewKey() throws EntityCryptoException {
+            try {
+                return DesCrypt.generateKey();
+            } catch (NoSuchAlgorithmException e) {
+                throw new EntityCryptoException(e);
+            }
         }
 
         @Override
@@ -295,17 +392,16 @@ public final class EntityCrypto {
         }
 
         @Override
-        protected String encodeKey(SecretKey key) throws GeneralException {
-            byte[] keyBytes = key.getEncoded();
+        protected String encodeKey(byte[] key) throws GeneralException {
             if (kek != null) {
-                keyBytes = DesCrypt.encrypt(kek, keyBytes);
+                key = DesCrypt.encrypt(kek, key);
             }
-            return Base64.encodeBase64String(keyBytes);
+            return Base64.encodeBase64String(key);
         }
 
         @Override
-        protected byte[] decryptValue(SecretKey key, String encryptedString) throws GeneralException {
-            byte[] allBytes = DesCrypt.decrypt(key, Base64.decodeBase64(encryptedString));
+        protected byte[] decryptValue(byte[] key, EncryptMethod encryptMethod, String encryptedString) throws GeneralException {
+            byte[] allBytes = DesCrypt.decrypt(DesCrypt.getDesKey(key), Base64.decodeBase64(encryptedString));
             int length = allBytes[0];
             byte[] objBytes = new byte[allBytes.length - 1 - length];
             System.arraycopy(allBytes, 1 + length, objBytes, 0, objBytes.length);
@@ -313,7 +409,7 @@ public final class EntityCrypto {
         }
 
         @Override
-        protected String encryptValue(EncryptMethod encryptMethod, SecretKey key, byte[] objBytes) throws GeneralException {
+        protected String encryptValue(EncryptMethod encryptMethod, byte[] key, byte[] objBytes) throws GeneralException {
             byte[] saltBytes;
             switch (encryptMethod) {
                 case SALT:
@@ -330,7 +426,7 @@ public final class EntityCrypto {
             allBytes[0] = (byte) saltBytes.length;
             System.arraycopy(saltBytes, 0, allBytes, 1, saltBytes.length);
             System.arraycopy(objBytes, 0, allBytes, 1 + saltBytes.length, objBytes.length);
-            String result = Base64.encodeBase64String(DesCrypt.encrypt(key, allBytes));
+            String result = Base64.encodeBase64String(DesCrypt.encrypt(DesCrypt.getDesKey(key), allBytes));
             return result;
         }
     };
