@@ -33,6 +33,26 @@ public class EntityCryptoTestSuite extends EntityTestCase {
         super(name);
     }
 
+    public void testCrypto() throws Exception {
+        String nanoTime = "" + System.nanoTime();
+        delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));
+        delegator.create("TestingCrypto", UtilMisc.toMap("testingCryptoId", "1", "testingCryptoTypeId", "BASIC"));
+        GenericValue entity = EntityQuery.use(delegator).from("TestingCrypto").where("testingCryptoId", "1").queryOne();
+        assertNull(entity.getString("unencryptedValue"));
+        assertNull(entity.getString("encryptedValue"));
+        entity.setString("unencryptedValue", nanoTime);
+        entity.setString("encryptedValue", nanoTime);
+        entity.setString("saltedEncryptedValue", nanoTime);
+        assertEquals(nanoTime, entity.getString("unencryptedValue"));
+        assertEquals(nanoTime, entity.getString("encryptedValue"));
+        assertEquals(nanoTime, entity.getString("saltedEncryptedValue"));
+        entity.store();
+        entity.refresh();
+        assertEquals(nanoTime, entity.getString("unencryptedValue"));
+        assertEquals(nanoTime, entity.getString("encryptedValue"));
+        assertEquals(nanoTime, entity.getString("saltedEncryptedValue"));
+    }
+
     public void testCryptoEncryption() throws Exception {
         // clear out all values
         delegator.removeByAnd("TestingCrypto", UtilMisc.toMap("testingCryptoTypeId", "BASIC"));

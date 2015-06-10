@@ -31,6 +31,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.Base64;
+import org.apache.shiro.crypto.AesCipherService;
+import org.ofbiz.base.crypto.DesCrypt;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralException;
@@ -44,6 +47,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.datasource.GenericHelperInfo;
 import org.ofbiz.entity.jdbc.DatabaseUtil;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityQuery;
 import org.ofbiz.security.Security;
@@ -443,6 +447,97 @@ public class EntityDataServices {
             }
         }
 
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> reencryptPrivateKeys(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
+
+        // check permission
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+        }
+        String oldKey = (String) context.get("oldKey");
+        String newKey = (String) context.get("newKey");
+        AesCipherService cipherService = new AesCipherService();
+        try {
+            List<GenericValue> rows = EntityQuery.use(delegator).from("EntityKeyStore").queryList();
+            for (GenericValue row: rows) {
+                byte[] keyBytes = Base64.decodeBase64(row.getString("keyText"));
+                Debug.logInfo("Processing entry " + row.getString("keyName") + " with key: " + row.getString("keyText"), module);
+                if (oldKey != null) {
+                    Debug.logInfo("Decrypting with old key: " + oldKey, module);
+                    try {
+                        keyBytes = cipherService.decrypt(keyBytes, Base64.decodeBase64(oldKey)).getBytes();
+                    } catch(Exception e) {
+                        Debug.logInfo("Failed to decrypt with Shiro cipher; trying with old cipher", module);
+                        try {
+                            keyBytes = DesCrypt.decrypt(DesCrypt.getDesKey(Base64.decodeBase64(oldKey)), keyBytes);
+                        } catch(Exception e1) {
+                            Debug.logError(e1, module);
+                            return ServiceUtil.returnError(e1.getMessage());
+                        }
+                    }
+                }
+                String newKeyText;
+                if (newKey != null) {
+                    Debug.logInfo("Encrypting with new key: " + oldKey, module);
+                    newKeyText = cipherService.encrypt(keyBytes, Base64.decodeBase64(newKey)).toBase64();
+                } else {
+                    newKeyText = Base64.encodeBase64String(keyBytes);
+                }
+                Debug.logInfo("Storing new encrypted value: " + newKeyText, module);
+                row.setString("keyText", newKeyText);
+                row.store();
+            }
+        } catch(GenericEntityException gee) {
+            Debug.logError(gee, module);
+            return ServiceUtil.returnError(gee.getMessage());
+        }
+        delegator.clearAllCaches();
+        return ServiceUtil.returnSuccess();
+    }
+
+    public static Map<String, Object> reencryptFields(DispatchContext dctx, Map<String, Object> context) {
+        Delegator delegator = dctx.getDelegator();
+        Security security = dctx.getSecurity();
+        Locale locale = (Locale) context.get("locale");
+
+        // check permission
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        if (!security.hasPermission("ENTITY_MAINT", userLogin)) {
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtServicePermissionNotGranted", locale));
+        }
+
+        String groupName = (String) context.get("groupName");
+
+        Map<String, ModelEntity> modelEntities;
+        try {
+            modelEntities = delegator.getModelEntityMapByGroup(groupName);
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Error getting list of entities in group: " + e.toString(), module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource, "EntityExtErrorGettingListOfEntityInGroup", UtilMisc.toMap("errorString", e.toString()), locale));
+        }
+
+        for (ModelEntity modelEntity: modelEntities.values()) {
+            List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
+            for (ModelField field: fields) {
+                if (field.getEncryptMethod().isEncrypted()) {
+                    try {
+                        List<GenericValue> rows = EntityQuery.use(delegator).from(modelEntity.getEntityName()).select(field.getName()).queryList();
+                        for (GenericValue row: rows) {
+                            row.setString(field.getName(), row.getString(field.getName()));
+                            row.store();
+                        }
+                    } catch(GenericEntityException gee) {
+                        return ServiceUtil.returnError(gee.getMessage());
+                    }
+                }
+            }
+        }
         return ServiceUtil.returnSuccess();
     }
 }

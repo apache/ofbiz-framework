@@ -153,6 +153,19 @@ under the License.
         <attribute name="fieldName" type="String" mode="IN" optional="false"/>
     </service>
 
+    <service name="reencryptPrivateKeys" engine="java" auth="true" transaction-timeout="14400"
+        location="org.ofbiz.entityext.data.EntityDataServices" invoke="reencryptPrivateKeys">
+        <description>Re-encrypt the private keys, encrypted in EntityKeyStore with oldKey, using the newKey.</description>
+        <attribute name="oldKey" type="String" mode="IN" optional="true"/>
+        <attribute name="newKey" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="reencryptFields" engine="java" auth="true" transaction-timeout="14400"
+            location="org.ofbiz.entityext.data.EntityDataServices" invoke="reencryptFields">
+        <description>Re-encrypt all the encrypted fields in the data model.</description>
+        <attribute name="groupName" type="String" mode="IN" optional="true" default-value="org.ofbiz"/>
+    </service>
+
     <!-- EntitySync Services -->
     <service name="createEntitySync" default-entity-name="EntitySync" engine="simple"
             location="component://entityext/script/org/ofbiz/entityext/synchronization/EntitySyncServices.xml" invoke="createEntitySync" auth="true">

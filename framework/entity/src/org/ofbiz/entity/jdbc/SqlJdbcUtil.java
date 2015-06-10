@@ -540,7 +540,7 @@ public class SqlJdbcUtil {
             try {
                 Object jdbcValue = handler.getValue(rs, ind);
                 if (jdbcValue instanceof String && curField.getEncryptMethod().isEncrypted()) {
-                    jdbcValue = entity.getDelegator().decryptFieldValue(encryptionKeyName, (String) jdbcValue);
+                    jdbcValue = entity.getDelegator().decryptFieldValue(encryptionKeyName, curField.getEncryptMethod(), (String) jdbcValue);
                 }
                 entity.dangerousSetNoCheckButFast(curField, jdbcValue);
                 return;
@@ -597,7 +597,7 @@ public class SqlJdbcUtil {
                     } else {
                         String value = rs.getString(ind);
                         if (value instanceof String && curField.getEncryptMethod().isEncrypted()) {
-                            value = (String) entity.getDelegator().decryptFieldValue(encryptionKeyName, value);
+                            value = (String) entity.getDelegator().decryptFieldValue(encryptionKeyName, curField.getEncryptMethod(), value);
                         }
                         entity.dangerousSetNoCheckButFast(curField, value);
                     }

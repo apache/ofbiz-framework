@@ -269,7 +269,10 @@ public interface Delegator {
     @Deprecated
     void encryptFields(List<? extends GenericEntity> entities) throws GenericEntityException;
 
+    @Deprecated
     Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException;
+
+    Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException;
 
     @Deprecated
     Object encryptFieldValue(String entityName, Object fieldValue) throws EntityCryptoException;

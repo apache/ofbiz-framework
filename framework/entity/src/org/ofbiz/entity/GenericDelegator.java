@@ -2070,6 +2070,9 @@ public class GenericDelegator implements Delegator {
         if (dcc != null) {
             dcc.clearAllCaches();
         }
+        if (this.crypto != null) {
+            this.crypto.clearKeyCache();
+        }
     }
 
     /* (non-Javadoc)
@@ -2677,13 +2680,22 @@ public class GenericDelegator implements Delegator {
         return fieldValue;
     }
 
+    @Override
+    @Deprecated
+    public Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException {
+        if (UtilValidate.isNotEmpty(encValue)) {
+            return this.crypto.decrypt(entityName, ModelField.EncryptMethod.TRUE, encValue);
+        }
+        return null;
+    }
+
     /* (non-Javadoc)
      * @see org.ofbiz.entity.Delegator#encryptFieldValue(java.lang.String, java.lang.Object)
      */
     @Override
-    public Object decryptFieldValue(String entityName, String encValue) throws EntityCryptoException {
+    public Object decryptFieldValue(String entityName, ModelField.EncryptMethod encryptMethod, String encValue) throws EntityCryptoException {
         if (UtilValidate.isNotEmpty(encValue)) {
-            return this.crypto.decrypt(entityName, encValue);
+            return this.crypto.decrypt(entityName, encryptMethod, encValue);
         }
         return null;
     }
