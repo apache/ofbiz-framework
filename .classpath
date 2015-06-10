@@ -44,6 +44,7 @@
     <classpathentry kind="lib" path="framework/base/lib/esapi-2.1.0.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/resolver-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/serializer-2.9.1.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/shiro-core-1.2.3.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/slf4j-api-1.6.4.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.9.1.jar"/>
     <classpathentry kind="lib" path="framework/base/lib/ws-commons-java5-1.0.1.jar"/>
