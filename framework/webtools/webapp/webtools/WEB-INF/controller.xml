@@ -566,7 +566,7 @@ under the License.
             <redirect-parameter name="noConditionFind"/>
         </response>
         <response name="error" type="view" value="FindGeo"/>
-    </request-map>
+    </request-map>    
     <request-map uri="linkGeos">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="linkGeos"/>
@@ -577,12 +577,11 @@ under the License.
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindUserLogin"/>
     </request-map>
-
-    <request-map uri="WebtoolsLayoutDemo"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemo"/></request-map>
-    <request-map uri="WebtoolsLayoutDemoFop"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoFop"/></request-map>
-    <request-map uri="WebtoolsLayoutDemoText"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoText"/></request-map>
-    <request-map uri="WebtoolsLayoutDemoXml"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoXml"/></request-map>
-    <request-map uri="WebtoolsLayoutDemoCsv"><security https="true" auth="true"/><response name="success" type="view" value="WebtoolsLayoutDemoCsv"/></request-map>
+    
+    <request-map uri="WebtoolsLayoutDemo">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="WebtoolsLayoutDemo"/>
+    </request-map>
 
     <!-- end of request mappings -->
 
@@ -678,13 +677,8 @@ under the License.
     <view-map name="EditGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#EditGeo"/>
     <view-map name="LinkGeos" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LinkGeos"/>
     <view-map name="LookupGeo" type="screen" page="component://webtools/widget/GeoManagementScreens.xml#LookupGeo"/>
-
-    <!-- Layout Demo -->
+    
     <view-map name="WebtoolsLayoutDemo" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemo" type="screen"/>
-    <view-map name="WebtoolsLayoutDemoFop" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoFop" type="screenfop" content-type="application/pdf" encoding="none"/>
-    <view-map name="WebtoolsLayoutDemoText" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" type="screentext"/>
-    <view-map name="WebtoolsLayoutDemoXml" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/xml" type="screenxml"/>
-    <view-map name="WebtoolsLayoutDemoCsv" page="component://webtools/widget/MiscScreens.xml#WebtoolsLayoutDemoText" content-type="text/csv" type="screencsv"/>
 
     <!-- end of view mappings -->
 </site-conf>
