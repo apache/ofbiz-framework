@@ -19,7 +19,7 @@
 
 package org.ofbiz.widget.test;
 
-import org.apache.tika.Tika;
+//import org.apache.tika.Tika;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.SSLUtil;
