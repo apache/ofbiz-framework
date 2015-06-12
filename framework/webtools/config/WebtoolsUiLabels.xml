@@ -5674,14 +5674,6 @@
         <value xml:lang="zh">冗长级别会细颗粒地指出应用程序进行情况的信息，适于调试程序。</value>
         <value xml:lang="zh-TW">冗長級別會細顆粒地指出應用程式進行情況的資訊,適于偵錯程式.</value>
     </property>
-    <property key="WebtoolsViewAsPdfTheHtmlLayoutDemo">
-        <value xml:lang="en">View as Pdf the html layout : testing macro template ftl and global render (but not forcing the screen coherence)</value>
-        <value xml:lang="fr">Voir en Pdf la disposition html : permet de tester les modèles de macro ftl et le rendu global (mais pas forcement la cohérence d'écran)</value>
-    </property>
-    <property key="WebtoolsViewAsTextTheHtmlLayoutDemo">
-        <value xml:lang="en">View as text (xml, csv and text) the html layout : testing macro template ftl and global render (but not forcing the screen coherence)</value>
-        <value xml:lang="fr">Voir en text (xml, csv, text) la disposition html : permet de tester les modèles de macro ftl et le rendu global (mais pas forcement la cohérence d'écran)</value>
-    </property>
     <property key="WebtoolsViewComponents">
         <value xml:lang="de">Komponenten ansehen</value>
         <value xml:lang="en">View Components</value>

@@ -44,7 +44,7 @@ under the License.
         ${text}<#lt/>
     </#if>
 </#macro>
-<#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name height width linkUrl text imgStr></#macro>
+<#macro renderLink parameterList targetWindow target uniqueItemName linkType actionUrl id style name linkUrl text imgStr></#macro>
 <#macro renderImage src id style wid hgt border alt urlString></#macro>
 
 <#macro renderContentFrame fullUrl width height border></#macro>

@@ -296,18 +296,6 @@ under the License.
         </menu-item>
         <menu-item name="Disabled" title="${uiLabelMap.CommonDisabled}" widget-style="disabled">
         </menu-item>
-        <menu-item name="Pdf" title="${uiLabelMap.CommonViewAsPdf}">
-            <link target="${demoTargetUrl}Fop"/>
-        </menu-item>
-        <menu-item name="Text" title="${uiLabelMap.CommonViewAsText}">
-            <link target="${demoTargetUrl}Text" target-window="_blank"/>
-        </menu-item>
-        <menu-item name="Xml" title="${uiLabelMap.CommonViewAsXml}">
-            <link target="${demoTargetUrl}Xml" target-window="_blank"/>
-        </menu-item>
-        <menu-item name="Csv" title="${uiLabelMap.CommonViewAsCsv}">
-            <link target="${demoTargetUrl}Csv" target-window="_blank"/>
-        </menu-item>
     </menu>
 
 </menus>
