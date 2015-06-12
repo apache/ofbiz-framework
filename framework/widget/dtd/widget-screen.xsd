@@ -571,6 +571,8 @@ under the License.
                 <xs:element minOccurs="0" ref="swing" />
                 <xs:element minOccurs="0" ref="xsl-fo" />
                 <xs:element minOccurs="0" ref="xml" />
+                <xs:element minOccurs="0" ref="text" />
+                <xs:element minOccurs="0" ref="csv" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -591,6 +593,20 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:element name="xml">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="text">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="csv">
         <xs:complexType>
             <xs:sequence>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="HtmlWidgets" />

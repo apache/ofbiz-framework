@@ -232,7 +232,7 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
         String linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);
         String linkUrl = "";
         String actionUrl = "";
-        StringBuilder parameters=new StringBuilder();
+        StringBuilder parameters = new StringBuilder();
         String width = link.getWidth();
         if (UtilValidate.isEmpty(width)) {
             width = "300";
@@ -259,7 +259,6 @@ public class MacroScreenRenderer implements ScreenStringRenderer {
                 parameters.append("'}");
             }
             parameters.append("]");
-
         }
         String id = link.getId(context);
         String style = link.getStyle(context);
