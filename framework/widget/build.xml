@@ -44,5 +44,11 @@ under the License.
         <fileset dir="../minilang/build/lib" includes="*.jar"/>
         <fileset dir="../webapp/lib" includes="*.jar"/>
         <fileset dir="../webapp/build/lib" includes="*.jar"/>
+        <fileset dir="../testtools/lib" includes="*.jar"/>
     </path>
+
+    <target name="jar" depends="classes">
+        <main-jar/>
+        <test-jar/>
+    </target>
 </project>

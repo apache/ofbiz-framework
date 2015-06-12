@@ -505,6 +505,8 @@ under the License.
                     <html><html-template location="component://common/webcommon/includes/simple.ftl"/></html>
                     <xsl-fo><html-template location="component://common/webcommon/includes/simple.fo.ftl"/></xsl-fo>
                     <xml><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></xml>
+                    <text><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></text>
+                    <csv><html-template location="component://common/webcommon/includes/minimal-decorator.ftl"/></csv>
                 </platform-specific>
             </widgets>
         </section>

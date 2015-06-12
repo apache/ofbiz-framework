@@ -12453,6 +12453,22 @@
         <value xml:lang="zh-CN">查看</value>
         <value xml:lang="zh-TW">檢視</value>
     </property>
+    <property key="CommonViewAsCsv">
+        <value xml:lang="en">View as csv</value>
+        <value xml:lang="fr">Voir en csv</value>
+    </property>
+    <property key="CommonViewAsPdf">
+        <value xml:lang="en">View as Pdf</value>
+        <value xml:lang="fr">Voir en Pdf</value>
+    </property>
+    <property key="CommonViewAsText">
+        <value xml:lang="en">View as text</value>
+        <value xml:lang="fr">Voir en texte</value>
+    </property>
+    <property key="CommonViewAsXml">
+        <value xml:lang="en">View as xml</value>
+        <value xml:lang="fr">Voir en xml</value>
+    </property>
     <property key="CommonViewBlocked">
         <value xml:lang="ar">تم حظر الدخول على هذه الصفحة</value>
         <value xml:lang="de">Zugriff auf diese Sicht wurde blockiert.</value>
