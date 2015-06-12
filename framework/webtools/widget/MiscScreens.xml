@@ -72,9 +72,10 @@ under the License.
                 <set field="altRowStyle" value=""/>
                 <set field="headerStyle" value="header-row-1"/>
                 <set field="tableStyle" value="basic-table light-grid"/>
+                <set field="mainDecoratorName" from-field="mainDecoratorName" default-value="main-decorator"/>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="${mainDecoratorName}" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="pre-body">
                         <section>
                             <condition>
@@ -237,4 +238,29 @@ under the License.
         </section>
     </screen>
 
+    <screen name="WebtoolsLayoutDemoFop">
+        <section>
+            <actions>
+                <set field="mainDecoratorName" value="SimpleDecorator"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <label style="h1">${uiLabelMap.WebtoolsViewAsPdfTheHtmlLayoutDemo}</label>
+                <include-screen name="WebtoolsLayoutDemo"/>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="WebtoolsLayoutDemoText">
+        <section>
+            <actions>
+                <set field="mainDecoratorName" value="SimpleDecorator"/>
+                <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
+            </actions>
+            <widgets>
+                <label style="h1">${uiLabelMap.WebtoolsViewAsTextTheHtmlLayoutDemo}</label>
+                <include-screen name="WebtoolsLayoutDemo"/>
+            </widgets>
+        </section>
+    </screen>
 </screens>
