@@ -366,7 +366,7 @@ under the License.
   </form><#lt/>
 </#macro>
 
-<#macro renderFormatListWrapperOpen formName style columnStyles>
+<#macro renderFormatListWrapperOpen  style columnStyles>
   <table cellspacing="0" class="<#if style?has_content>${style}<#else>basic-table form-widget-table dark-grid</#if>"><#lt/>
 </#macro>
 
