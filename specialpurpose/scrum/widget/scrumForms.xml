@@ -249,29 +249,6 @@ under the License.
         </sort-order>
     </form>
     
-    <!-- <form name="ViewSprintItem" type="single" default-entity-name="WorkEffort" target="EditSprintItem?projectId=${parameters.projectId}">
-    <actions>
-        <entity-and entity-name="WorkEffortCustRequestItemView" list="custRequestItems">
-            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-        </entity-and>
-        <entity-and entity-name="CustRequestItem" list="custRequestItems">
-            <field-map field-name="custRequestId" from-field="custRequestItems[0].custRequestId"/>
-            <field-map field-name="custRequestItemSeqId" from-field="custRequestItems[0].custRequestItemSeqId"/>
-        </entity-and>
-        <entity-one entity-name="WorkEffort">
-            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
-        </entity-one>
-    </actions>
-        <field name="workEffortName" title="Sprint Item Name"><display></display></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}" use-when="description!=null"><display></display></field>
-        <field name="custRequestItemName" title="${uiLabelMap.ScrumCustomerRequestItemName}"><display description="${custRequestItems[0].description}"></display></field>
-        <field name="custRequestId"><hidden value="${custRequestItems[0].custRequestId}"/></field>
-        <field name="custRequestItemSeqId"><hidden value="${custRequestItems[0].custRequestItemSeqId}"/></field>
-        <field name="sprintItemId"><hidden value="${parameters.workEffortId}"/></field>
-        <field name="estimatedMilliSeconds" title="${uiLabelMap.ScrumEstimatedHours}"><display></display></field>
-        <field name="submitButton" title="${uiLabelMap.CommonEdit}"><submit button-type="button"/></field>
-    </form> -->
-    
     <form name="showSprintInfo" type="single" default-entity-name="WorkEffort" target="EditSprint" >
         <actions>
             <entity-one entity-name="WorkEffort" value-field="sprint">
