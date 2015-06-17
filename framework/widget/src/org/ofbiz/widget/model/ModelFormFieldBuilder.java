@@ -44,16 +44,20 @@ import org.ofbiz.widget.model.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.ofbiz.widget.model.ModelFormField.DropDownField;
 import org.ofbiz.widget.model.ModelFormField.FileField;
+import org.ofbiz.widget.model.ModelFormField.FormField;
+import org.ofbiz.widget.model.ModelFormField.GridField;
 import org.ofbiz.widget.model.ModelFormField.HiddenField;
 import org.ofbiz.widget.model.ModelFormField.HyperlinkField;
 import org.ofbiz.widget.model.ModelFormField.IgnoredField;
 import org.ofbiz.widget.model.ModelFormField.ImageField;
 import org.ofbiz.widget.model.ModelFormField.LookupField;
+import org.ofbiz.widget.model.ModelFormField.MenuField;
 import org.ofbiz.widget.model.ModelFormField.OptionSource;
 import org.ofbiz.widget.model.ModelFormField.PasswordField;
 import org.ofbiz.widget.model.ModelFormField.RadioField;
 import org.ofbiz.widget.model.ModelFormField.RangeFindField;
 import org.ofbiz.widget.model.ModelFormField.ResetField;
+import org.ofbiz.widget.model.ModelFormField.ScreenField;
 import org.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.ofbiz.widget.model.ModelFormField.TextField;
 import org.ofbiz.widget.model.ModelFormField.TextFindField;
@@ -212,6 +216,14 @@ public class ModelFormFieldBuilder {
             this.fieldInfo = new RangeFindField(childElement, null);
         else if ("lookup".equals(this.fieldType))
             this.fieldInfo = new LookupField(childElement, null);
+        else if ("include-menu".equals(this.fieldType))
+            this.fieldInfo = new MenuField(childElement, null);
+        else if ("include-form".equals(this.fieldType))
+            this.fieldInfo = new FormField(childElement, null);
+        else if ("include-grid".equals(this.fieldType))
+            this.fieldInfo = new GridField(childElement, null);
+        else if ("include-screen".equals(this.fieldType))
+            this.fieldInfo = new ScreenField(childElement, null);
         else if ("file".equals(this.fieldType))
             this.fieldInfo = new FileField(childElement, null);
         else if ("password".equals(this.fieldType))

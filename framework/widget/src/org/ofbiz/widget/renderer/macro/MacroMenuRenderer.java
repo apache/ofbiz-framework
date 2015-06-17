@@ -205,11 +205,19 @@ public class MacroMenuRenderer implements MenuStringRenderer {
         parameters.put("name", link.getName(context));
         parameters.put("text", link.getText(context));
         parameters.put("targetWindow", link.getTargetWindow(context));
-        String uniqueItemName = menuItem.getModelMenu().getName() + "_" + menuItem.getName() + "_LF_" + UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE);
-        if(menuItem.getModelMenu().getExtraIndex(context) != null){
-			uniqueItemName += "_" + menuItem.getModelMenu().getExtraIndex(context);
-		}
-        parameters.put("uniqueItemName", uniqueItemName);
+        StringBuffer uniqueItemName = new StringBuffer(menuItem.getModelMenu().getName());
+        uniqueItemName.append("_").append(menuItem.getName()).append("_LF_").append(UtilMisc.<String> addToBigDecimalInMap(context, "menuUniqueItemIndex", BigDecimal.ONE));
+        if (menuItem.getModelMenu().getExtraIndex(context) != null) {
+            uniqueItemName.append("_").append(menuItem.getModelMenu().getExtraIndex(context));
+        }
+        if (context.containsKey("itemIndex")) {
+            if (context.containsKey("parentItemIndex")) {
+                uniqueItemName.append(context.get("parentItemIndex")).append("_").append(context.get("itemIndex"));
+            } else {
+                uniqueItemName.append("_").append(context.get("itemIndex")); 
+            }
+        }
+        parameters.put("uniqueItemName", uniqueItemName.toString());
         String linkType = "";
         if (UtilValidate.isNotEmpty(target)) {
             linkType = WidgetWorker.determineAutoLinkType(link.getLinkType(), target, link.getUrlMode(), request);

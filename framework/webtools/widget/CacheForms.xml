@@ -39,21 +39,7 @@ under the License.
         <field name="useSoftReference" title="${uiLabelMap.WebtoolsUseSoftRef}" sort-field="true"><display/></field>
         <field name="useFileSystemStore" title="${uiLabelMap.WebtoolsUseFileStore}" sort-field="true"><display/></field>
         <field name="cacheMemory" title="${uiLabelMap.WebtoolsCacheMemory}" sort-field="true"><display/></field>
-        <field name="administration" title=" " widget-style="buttontext" use-when="hasUtilCacheEdit">
-            <hyperlink description="${uiLabelMap.WebtoolsElements}" target="FindUtilCacheElements">
-                <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
-            </hyperlink>
-        </field>
-        <field name="admin_edit" title=" " widget-style="buttontext" use-when="hasUtilCacheEdit">
-            <hyperlink description="${uiLabelMap.CommonEdit}" target="EditUtilCache">
-                <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
-            </hyperlink>
-        </field>
-        <field name="admin_clear" title=" " widget-style="buttontext" use-when="hasUtilCacheEdit">
-            <hyperlink description="${uiLabelMap.CommonClear}" target="FindUtilCacheClear">
-                <parameter param-name="UTIL_CACHE_NAME" from-field="cacheName"/>
-            </hyperlink>
-        </field>
+        <field name="cacheMenu" title=" " use-when="hasUtilCacheEdit"><include-menu name="ListCacheForm" location="component://webtools/widget/Menus.xml"/></field>
     </form>
 
     <form name="ListCacheElements" type="list" list-name="cacheElementsList" paginate-target="FindUtilCacheElements" separate-columns="true" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" header-row-style="header-row-2">

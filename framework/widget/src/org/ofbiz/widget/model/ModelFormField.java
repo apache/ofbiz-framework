@@ -70,7 +70,11 @@ import org.ofbiz.widget.model.CommonWidgetModels.Image;
 import org.ofbiz.widget.model.CommonWidgetModels.Link;
 import org.ofbiz.widget.model.CommonWidgetModels.Parameter;
 import org.ofbiz.widget.model.ModelForm.UpdateArea;
+import org.ofbiz.widget.renderer.FormRenderer;
 import org.ofbiz.widget.renderer.FormStringRenderer;
+import org.ofbiz.widget.renderer.MenuStringRenderer;
+import org.ofbiz.widget.renderer.ScreenRenderer;
+import org.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -2100,6 +2104,164 @@ public class ModelFormField {
             formStringRenderer.renderFileField(writer, context, this);
         }
     }
+    
+    /**
+     * Models the &lt;form&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class FormField extends FieldInfo {
+        private final FlexibleStringExpander formName;
+        private final FlexibleStringExpander formLocation;
+
+        public FormField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.formName = FlexibleStringExpander.getInstance(element.getAttribute("name"));
+            this.formLocation = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        }
+
+        private FormField(FormField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.formName = original.formName;
+            this.formLocation = original.formLocation;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new FormField(this, modelFormField);
+        }
+
+        public String getFormName(Map<String, Object> context) {
+            return this.formName.expandString(context);
+        }
+
+        public FlexibleStringExpander getFormName() {
+            return formName;
+        }
+
+        public String getFormLocation(Map<String, Object> context) {
+            return this.formLocation.expandString(context);
+        }
+
+        public FlexibleStringExpander getFormLocation() {
+            return formLocation;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            // Output format might not support menus, so make menu rendering optional.
+            ModelForm modelForm = getModelForm(context);
+            try {
+                FormRenderer renderer = new FormRenderer(modelForm, formStringRenderer);
+                renderer.render(writer, context);
+            } catch (Exception e) {
+                String errMsg = "Error rendering included form named [" + modelForm.getName() + "] at location [" + modelForm.getFormLocation() + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+        }
+
+        public ModelForm getModelForm(Map<String, Object> context) {
+            String name = this.getFormName(context);
+            String location = this.getFormLocation(context);
+            ModelForm modelForm = null;
+            try {
+                org.ofbiz.entity.model.ModelReader entityModelReader = ((org.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
+                org.ofbiz.service.DispatchContext dispatchContext = ((org.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                modelForm = FormFactory.getFormFromLocation(location, name, entityModelReader, dispatchContext);
+            } catch (Exception e) {
+                String errMsg = "Error rendering form named [" + name + "] at location [" + location + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+            return modelForm;
+        }
+    }
+    
+    /**
+     * Models the &lt;grid&gt; element.
+     * 
+     * @see <code>widget-grid.xsd</code>
+     */
+    public static class GridField extends FieldInfo {
+        private final FlexibleStringExpander gridName;
+        private final FlexibleStringExpander gridLocation;
+
+        public GridField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.gridName = FlexibleStringExpander.getInstance(element.getAttribute("name"));
+            this.gridLocation = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        }
+
+        private GridField(GridField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.gridName = original.gridName;
+            this.gridLocation = original.gridLocation;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new GridField(this, modelFormField);
+        }
+
+        public String getGridName(Map<String, Object> context) {
+            return this.gridName.expandString(context);
+        }
+
+        public FlexibleStringExpander getGridName() {
+            return gridName;
+        }
+
+        public String getGridLocation(Map<String, Object> context) {
+            return this.gridLocation.expandString(context);
+        }
+
+        public FlexibleStringExpander getGridLocation() {
+            return gridLocation;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            // Output format might not support menus, so make menu rendering optional.
+            ModelForm modelGrid = getModelGrid(context);
+            try {
+                FormRenderer renderer = new FormRenderer(modelGrid, formStringRenderer);
+                renderer.render(writer, context);
+            } catch (Exception e) {
+                String errMsg = "Error rendering included grid named [" + modelGrid.getName() + "] at location [" + modelGrid.getFormLocation() + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+        }
+
+        public ModelForm getModelGrid(Map<String, Object> context) {
+            String name = this.getGridName(context);
+            String location = this.getGridLocation(context);
+            ModelForm modelForm = null;
+            try {
+                org.ofbiz.entity.model.ModelReader entityModelReader = ((org.ofbiz.entity.Delegator)context.get("delegator")).getModelReader();
+                org.ofbiz.service.DispatchContext dispatchContext = ((org.ofbiz.service.LocalDispatcher)context.get("dispatcher")).getDispatchContext();
+                modelForm = GridFactory.getGridFromLocation(location, name, entityModelReader, dispatchContext);
+            } catch (Exception e) {
+                String errMsg = "Error rendering grid named [" + name + "] at location [" + location + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+            return modelForm;
+        }
+    }
 
     /**
      * Models the &lt;hidden&gt; element.
@@ -2957,6 +3119,81 @@ public class ModelFormField {
         }
     }
 
+    /**
+     * Models the &lt;menu&gt; element.
+     * 
+     * @see <code>widget-form.xsd</code>
+     */
+    public static class MenuField extends FieldInfo {
+        private final FlexibleStringExpander menuName;
+        private final FlexibleStringExpander menuLocation;
+
+        public MenuField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.menuName = FlexibleStringExpander.getInstance(element.getAttribute("name"));
+            this.menuLocation = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        }
+
+        private MenuField(MenuField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.menuName = original.menuName;
+            this.menuLocation = original.menuLocation;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new MenuField(this, modelFormField);
+        }
+
+        public String getMenuName(Map<String, Object> context) {
+            return this.menuName.expandString(context);
+        }
+
+        public FlexibleStringExpander getMenuName() {
+            return menuName;
+        }
+
+        public String getMenuLocation(Map<String, Object> context) {
+            return this.menuLocation.expandString(context);
+        }
+
+        public FlexibleStringExpander getMenuLocation() {
+            return menuLocation;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            // Output format might not support menus, so make menu rendering optional.
+            MenuStringRenderer menuStringRenderer = (MenuStringRenderer) context.get("menuStringRenderer");
+            if (menuStringRenderer == null) {
+                Debug.logVerbose("MenuStringRenderer instance not found in rendering context, menu not rendered.", module);
+                return;
+            }
+            ModelMenu modelMenu = getModelMenu(context);
+            modelMenu.renderMenuString(writer, context, menuStringRenderer);
+        }
+
+        public ModelMenu getModelMenu(Map<String, Object> context) {
+            String name = this.getMenuName(context);
+            String location = this.getMenuLocation(context);
+            ModelMenu modelMenu = null;
+            try {
+                modelMenu = MenuFactory.getMenuFromLocation(location, name);
+            } catch (Exception e) {
+                String errMsg = "Error rendering menu named [" + name + "] at location [" + location + "]: ";
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
+            return modelMenu;
+        }
+    }
+
     public static abstract class OptionSource {
 
         private final ModelFormField modelFormField;
@@ -3157,6 +3394,72 @@ public class ModelFormField {
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
                 throws IOException {
             formStringRenderer.renderResetField(writer, context, this);
+        }
+    }
+    
+    /**
+     * Models the &lt;grid&gt; element.
+     * 
+     * @see <code>widget-grid.xsd</code>
+     */
+    public static class ScreenField extends FieldInfo {
+        private final FlexibleStringExpander screenName;
+        private final FlexibleStringExpander screenLocation;
+
+        public ScreenField(Element element, ModelFormField modelFormField) {
+            super(element, modelFormField);
+            this.screenName = FlexibleStringExpander.getInstance(element.getAttribute("name"));
+            this.screenLocation = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        }
+
+        private ScreenField(ScreenField original, ModelFormField modelFormField) {
+            super(original.getFieldSource(), original.getFieldType(), modelFormField);
+            this.screenName = original.screenName;
+            this.screenLocation = original.screenLocation;
+        }
+
+        @Override
+        public void accept(ModelFieldVisitor visitor) throws Exception {
+            visitor.visit(this);
+        }
+
+        @Override
+        public FieldInfo copy(ModelFormField modelFormField) {
+            return new ScreenField(this, modelFormField);
+        }
+
+        public String getScreenName(Map<String, Object> context) {
+            return this.screenName.expandString(context);
+        }
+
+        public FlexibleStringExpander getScreenName() {
+            return screenName;
+        }
+
+        public String getScreenLocation(Map<String, Object> context) {
+            return this.screenLocation.expandString(context);
+        }
+
+        public FlexibleStringExpander getScreenLocation() {
+            return screenLocation;
+        }
+
+        @Override
+        public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer)
+                throws IOException {
+            String name = this.getScreenName(context);
+            String location = this.getScreenLocation(context);
+            try {
+                ScreenRenderer renderer = (ScreenRenderer)context.get("screens");
+                if (renderer != null) {
+                    ScreenRenderer subRenderer = new ScreenRenderer(writer, (MapStack)UtilGenerics.cast(context), renderer.getScreenStringRenderer());
+                    writer.append(subRenderer.render(location, name));
+                }
+            } catch (Exception e) {
+                String errMsg = "Error rendering included screen named [" + name + "] at location [" + location + "]: " + e.toString();
+                Debug.logError(e, errMsg, module);
+                throw new RuntimeException(errMsg + e);
+            }
         }
     }
 

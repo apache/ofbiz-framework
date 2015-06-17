@@ -60,6 +60,7 @@ import org.ofbiz.widget.model.ModelFormField.HyperlinkField;
 import org.ofbiz.widget.model.ModelFormField.IgnoredField;
 import org.ofbiz.widget.model.ModelFormField.ImageField;
 import org.ofbiz.widget.model.ModelFormField.LookupField;
+import org.ofbiz.widget.model.ModelFormField.MenuField;
 import org.ofbiz.widget.model.ModelFormField.PasswordField;
 import org.ofbiz.widget.model.ModelFormField.RadioField;
 import org.ofbiz.widget.model.ModelFormField.RangeFindField;
@@ -369,6 +370,10 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             value = internalEncoder.encode(value);
         }
         return value;
+    }
+
+    public void renderMenuField(Appendable writer, Map<String, Object> context, MenuField menuField) throws IOException {
+        menuField.renderFieldString(writer, context, null);
     }
 
     /* (non-Javadoc)

@@ -77,4 +77,17 @@ under the License.
         <Example exampleId="EX09"/>
     </delete>
     <Example exampleId="EX10" exampleName="Example 10 after update"/>
+
+    <ExampleItem exampleId="EX01" exampleItemSeqId="00001" description="EX1-001" amount="10"/>
+    <ExampleItem exampleId="EX01" exampleItemSeqId="00002" description="EX1-002" amount="20"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00001" description="EX2-001" amount="10"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00002" description="EX2-002" amount="20"/>
+    <ExampleItem exampleId="EX02" exampleItemSeqId="00003" description="EX2-003" amount="30"/>
+
+    <ExampleStatus exampleId="EX01" statusDate="2010-01-02 00:00:00" statusEndDate="2011-01-02 00:00:00" statusId="EXST_IN_DESIGN"/>
+    <ExampleStatus exampleId="EX01" statusDate="2011-01-02 00:00:01" statusEndDate="2012-01-02 00:00:00" statusId="EXST_DEFINED"/>
+    <ExampleStatus exampleId="EX01" statusDate="2012-01-02 00:00:00" statusEndDate="2013-01-02 00:00:00" statusId="EXST_APPROVED"/>
+    <ExampleStatus exampleId="EX02" statusDate="2010-01-02 00:00:00" statusEndDate="2011-01-02 00:00:00" statusId="EXST_IN_DESIGN"/>
+    <ExampleStatus exampleId="EX02" statusDate="2011-01-02 00:00:01" statusEndDate="2012-01-02 00:00:00" statusId="EXST_DEFINED"/>
+    <ExampleStatus exampleId="EX02" statusDate="2012-01-02 00:00:00" statusEndDate="2013-01-02 00:00:00" statusId="EXST_APPROVED"/>
 </entity-engine-xml>

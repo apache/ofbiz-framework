@@ -1605,6 +1605,24 @@ background-image:url(../images/tab_normal1.png);
 background-color: none;
 }
 
+/* ===== In line bar ===== */
+.in-line-bar ul li ul{
+    position: relative;
+    top: 0em; left: 0;
+    max-height: 0em; 
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: 1.5s max-height 0.3s;
+}
+.in-line-bar > li li {
+    position: relative;
+    display:inline-block;
+}
+tr:hover td div.in-line-bar li ul {
+    max-height: 20em;
+}
+
 /* ===== Button bar decorators ===== */
 .tool-bar {
 background-color: #D4D0C8;

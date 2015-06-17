@@ -30,6 +30,7 @@ import org.ofbiz.widget.model.ModelFormField;
 public interface FormStringRenderer {
     public void renderDisplayField(Appendable writer, Map<String, Object> context, ModelFormField.DisplayField displayField) throws IOException;
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, ModelFormField.HyperlinkField hyperlinkField) throws IOException;
+    public void renderMenuField(Appendable writer, Map<String, Object> context, ModelFormField.MenuField menuField) throws IOException;
 
     public void renderTextField(Appendable writer, Map<String, Object> context, ModelFormField.TextField textField) throws IOException;
     public void renderTextareaField(Appendable writer, Map<String, Object> context, ModelFormField.TextareaField textareaField) throws IOException;

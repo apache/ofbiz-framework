@@ -31,4 +31,6 @@ under the License.
           menu-container-style="button-bar tab-bar" default-selected-style="selected"/>
 
     <menu name="CommonButtonBarMenu" type="simple" menu-container-style="button-bar" default-widget-style="buttontext"/>
+
+    <menu name="CommonInlineBarMenu" type="simple" menu-container-style="in-line-bar" default-widget-style="linktext"/>
 </menus>

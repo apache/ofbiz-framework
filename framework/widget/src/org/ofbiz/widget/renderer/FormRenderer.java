@@ -73,7 +73,10 @@ public class FormRenderer {
         Locale locale = UtilMisc.ensureLocale(context.get("locale"));
         String retVal = FlexibleStringExpander.expandString(modelForm.getContainerId(), context, locale);
         Integer itemIndex = (Integer) context.get("itemIndex");
-        if (itemIndex != null && "list".equals(modelForm.getType())) {
+        if (itemIndex != null/* && "list".equals(modelForm.getType())*/) {
+            if (UtilValidate.isNotEmpty(context.get("parentItemIndex"))) {
+                return retVal + context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + itemIndex.intValue();
+            }
             return retVal + modelForm.getItemIndexSeparator() + itemIndex.intValue();
         }
         return retVal;
@@ -340,13 +343,11 @@ public class FormRenderer {
                     continue;
                 }
 
-                if(modelFormField.shouldIgnore(context)) {
+                if (modelFormField.shouldIgnore(context)) {
                     continue;
                 }
 
-                if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
-                        && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
-                        && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
+                if (FieldInfo.isInputFieldType(fieldInfo.getFieldType())) {
                     inputFieldFound = true;
                     continue;
                 }
@@ -371,9 +372,7 @@ public class FormRenderer {
                 }
 
                 // skip all of the display/hyperlink fields
-                if (fieldInfo.getFieldType() == FieldInfo.DISPLAY
-                        || fieldInfo.getFieldType() == FieldInfo.DISPLAY_ENTITY
-                        || fieldInfo.getFieldType() == FieldInfo.HYPERLINK) {
+                if (!FieldInfo.isInputFieldType(fieldInfo.getFieldType())) {
                     continue;
                 }
 
@@ -708,6 +707,13 @@ public class FormRenderer {
 
         if (iter != null) {
             // render item rows
+            if (UtilValidate.isNotEmpty(context.get("itemIndex"))) {
+                if (UtilValidate.isNotEmpty(context.get("parentItemIndex"))) {
+                    context.put("parentItemIndex", context.get("parentItemIndex") + modelForm.getItemIndexSeparator() + context.get("itemIndex"));
+                } else {
+                    context.put("parentItemIndex", modelForm.getItemIndexSeparator() + context.get("itemIndex"));
+                }
+            }
             int itemIndex = -1;
             Object item = null;
             context.put("wholeFormContext", context);
@@ -819,9 +825,7 @@ public class FormRenderer {
                             continue;
                         }
 
-                        if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
-                                && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
-                                && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
+                        if (FieldInfo.isInputFieldType(fieldInfo.getFieldType())) {
                             // okay, now do the form cell
                             break;
                         }
@@ -846,9 +850,7 @@ public class FormRenderer {
                         }
 
                         // skip all of the display/hyperlink fields
-                        if (fieldInfo.getFieldType() == FieldInfo.DISPLAY
-                                || fieldInfo.getFieldType() == FieldInfo.DISPLAY_ENTITY
-                                || fieldInfo.getFieldType() == FieldInfo.HYPERLINK) {
+                        if (!FieldInfo.isInputFieldType(fieldInfo.getFieldType())) {
                             continue;
                         }
 
@@ -871,9 +873,7 @@ public class FormRenderer {
                         }
 
                         // skip all non-display and non-hyperlink fields
-                        if (fieldInfo.getFieldType() != FieldInfo.DISPLAY
-                                && fieldInfo.getFieldType() != FieldInfo.DISPLAY_ENTITY
-                                && fieldInfo.getFieldType() != FieldInfo.HYPERLINK) {
+                        if (FieldInfo.isInputFieldType(fieldInfo.getFieldType())) {
                             continue;
                         }
 

@@ -256,6 +256,14 @@ under the License.
         </section>
     </screen>
 
+    <screen name="SimpleDecorator">
+        <section>
+            <widgets>
+                 <include-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml"/>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="main">
         <!-- This is the screen for the Main page in the Example component. A common pattern
             in OFBiz is to have each component include a Main page as a starting point for
