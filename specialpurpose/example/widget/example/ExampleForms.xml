@@ -37,6 +37,13 @@ under the License.
                 <entity-options description="${description}" key-field-name="statusId" entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
+        <field name="listOtherElements">
+            <radio>
+                <option key="items"/>
+                <option key="features"/>
+                <option key="status"/>
+            </radio>
+        </field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button" image-location="/images/icons/magnifier.png"/></field>
     </form>
 
@@ -65,6 +72,59 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
         <field name="conditionalDesc" ignore-when="&quot;exampleName&quot;.equals(sortField)" title="my desc"><display description="${description}"/></field>
     </form>
+
+    <!--example form with include an other form -->
+    <form name="ListExamplesWithFeatures" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+        <actions>
+            <call-parent-actions/>
+        </actions>
+        <field name="features"><include-form name="ExampleFeaturesInLine" location="component://example/widget/example/ExampleForms.xml"/></field>
+    </form>
+    <form name="ExampleFeaturesInLine" type="list" default-table-style="basic-table light-grid" default-entity-name="ExampleFeatureAppl">
+        <actions>
+            <entity-condition entity-name="ExampleFeatureAppl">
+                <condition-expr field-name="exampleId" from-field="exampleId"/>
+                <order-by field-name="sequenceNum"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="ExampleFeatureAppl" default-field-type="display"/>
+        <field name="exampleId"><ignored/></field>
+    </form>
+
+    <!--example form with include a screen -->
+    <form name="ListExamplesWithItems" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+        <actions>
+            <call-parent-actions/>
+        </actions>
+        <field name="items"><include-screen name="ExampleItemsInLine" location="component://example/widget/example/ExampleScreens.xml"/></field>
+    </form>
+    <form name="ListExampleItemsInLine" type="list" default-table-style="basic-table light-grid">
+        <actions>
+            <entity-condition entity-name="ExampleItem">
+                <condition-expr field-name="exampleId" from-field="exampleId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="ExampleItem" default-field-type="display"/>
+        <field name="exampleId"><ignored/></field>
+    </form>
+
+    <!--example form with include a grid -->
+    <form name="ListExamplesWithStatus" type="list" extends="ListExamples" extends-resource="component://example/widget/example/ExampleForms.xml">
+        <actions>
+            <call-parent-actions/>
+        </actions>
+        <field name="status"><include-grid name="ExampleStatusInLine" location="component://example/widget/example/ExampleForms.xml"/></field>
+    </form>
+    <grid name="ExampleStatusInLine" type="list" default-table-style="basic-table light-grid" default-entity-name="ExampleStatus">
+        <actions>
+            <entity-condition entity-name="ExampleStatus">
+                <condition-expr field-name="exampleId" from-field="exampleId"/>
+                <order-by field-name="statusDate"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-entity entity-name="ExampleStatus" default-field-type="display"/>
+        <field name="exampleId"><ignored/></field>
+    </grid>
 
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
         have these attributes.

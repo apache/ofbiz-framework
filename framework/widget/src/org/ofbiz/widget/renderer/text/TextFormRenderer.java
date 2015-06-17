@@ -42,6 +42,7 @@ import org.ofbiz.widget.model.ModelFormField.HyperlinkField;
 import org.ofbiz.widget.model.ModelFormField.IgnoredField;
 import org.ofbiz.widget.model.ModelFormField.ImageField;
 import org.ofbiz.widget.model.ModelFormField.LookupField;
+import org.ofbiz.widget.model.ModelFormField.MenuField;
 import org.ofbiz.widget.model.ModelFormField.PasswordField;
 import org.ofbiz.widget.model.ModelFormField.RadioField;
 import org.ofbiz.widget.model.ModelFormField.RangeFindField;
@@ -90,6 +91,10 @@ public class TextFormRenderer implements FormStringRenderer {
     public void renderHyperlinkField(Appendable writer, Map<String, Object> context, HyperlinkField hyperlinkField) throws IOException {
         ModelFormField modelFormField = hyperlinkField.getModelFormField();
         this.makeTextString(writer, modelFormField.getWidgetStyle(), hyperlinkField.getDescription(context));
+    }
+
+    public void renderMenuField(Appendable writer, Map<String, Object> context, MenuField menuField) throws IOException {
+        menuField.renderFieldString(writer, context, null);
     }
 
     public void renderTextField(Appendable writer, Map<String, Object> context, TextField textField) throws IOException {

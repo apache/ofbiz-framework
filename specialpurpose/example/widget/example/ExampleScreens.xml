@@ -28,6 +28,11 @@ under the License.
                 <set field="headerItem" value="ExampleMenuItem"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
                 <set field="exampleCtx" from-field="parameters"/>
+                <set field="formExampleListName" value="${groovy: 
+                    if (parameters.listOtherElements == 'items') return 'ListExamplesWithItems';
+                    else if (parameters.listOtherElements == 'features') return 'ListExamplesWithFeatures';
+                    else if (parameters.listOtherElements == 'status') return 'ListExamplesWithStatus';
+                    else return 'ListExamples'}"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -38,14 +43,14 @@ under the License.
                             </condition>
                             <widgets>
                                 <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
-                                    <decorator-section name="menu-bar">
+                                    <decorator-section name="menu-bar"><label>${formExampleListName}</label>
                                         <container style="button-bar"><link target="EditExampleLayer" link-type="ajax-window" height="500" width="500" text="${uiLabelMap.ExampleNewExample}" style="buttontext create"/></container>
                                     </decorator-section>
                                     <decorator-section name="search-options">
                                         <include-form name="FindExamples" location="component://example/widget/example/ExampleForms.xml"/>
                                     </decorator-section>
                                     <decorator-section name="search-results">
-                                        <include-form name="ListExamples" location="component://example/widget/example/ExampleForms.xml"/>
+                                        <include-form name="${formExampleListName}" location="component://example/widget/example/ExampleForms.xml"/>
                                     </decorator-section>
                                 </decorator-screen>
                             </widgets>
@@ -125,6 +130,17 @@ under the License.
                         <include-form name="AddExampleItem" location="component://example/widget/example/ExampleForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="ExampleItemsInLine">
+        <section>
+            <widgets>
+                 <link text="${uiLabelMap.CommonEdit}" target="EditExampleItems">
+                     <parameter param-name="exampleId" from-field="exampleId"/>
+                 </link>
+                 <include-form name="ListExampleItemsInLine" location="component://example/widget/example/ExampleForms.xml"/>
             </widgets>
         </section>
     </screen>

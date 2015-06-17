@@ -26,15 +26,19 @@ import org.ofbiz.widget.model.ModelFormField.DisplayEntityField;
 import org.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.ofbiz.widget.model.ModelFormField.DropDownField;
 import org.ofbiz.widget.model.ModelFormField.FileField;
+import org.ofbiz.widget.model.ModelFormField.FormField;
+import org.ofbiz.widget.model.ModelFormField.GridField;
 import org.ofbiz.widget.model.ModelFormField.HiddenField;
 import org.ofbiz.widget.model.ModelFormField.HyperlinkField;
 import org.ofbiz.widget.model.ModelFormField.IgnoredField;
 import org.ofbiz.widget.model.ModelFormField.ImageField;
 import org.ofbiz.widget.model.ModelFormField.LookupField;
+import org.ofbiz.widget.model.ModelFormField.MenuField;
 import org.ofbiz.widget.model.ModelFormField.PasswordField;
 import org.ofbiz.widget.model.ModelFormField.RadioField;
 import org.ofbiz.widget.model.ModelFormField.RangeFindField;
 import org.ofbiz.widget.model.ModelFormField.ResetField;
+import org.ofbiz.widget.model.ModelFormField.ScreenField;
 import org.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.ofbiz.widget.model.ModelFormField.TextField;
 import org.ofbiz.widget.model.ModelFormField.TextFindField;
@@ -60,6 +64,10 @@ public interface ModelFieldVisitor {
     void visit(DropDownField dropDownField) throws Exception ;
 
     void visit(FileField textField) throws Exception ;
+    
+    void visit(FormField formField) throws Exception ;
+
+    void visit(GridField gridField) throws Exception ;
 
     void visit(HiddenField hiddenField) throws Exception ;
 
@@ -71,6 +79,8 @@ public interface ModelFieldVisitor {
 
     void visit(LookupField textField) throws Exception ;
 
+    void visit(MenuField menuField) throws Exception ;
+
     void visit(PasswordField textField) throws Exception ;
 
     void visit(RadioField radioField) throws Exception ;
@@ -78,6 +88,8 @@ public interface ModelFieldVisitor {
     void visit(RangeFindField textField) throws Exception ;
 
     void visit(ResetField resetField) throws Exception ;
+
+    void visit(ScreenField screenField) throws Exception ;
 
     void visit(SubmitField submitField) throws Exception ;
 

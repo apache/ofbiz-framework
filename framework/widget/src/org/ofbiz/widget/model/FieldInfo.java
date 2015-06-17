@@ -19,8 +19,10 @@
 package org.ofbiz.widget.model;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -54,6 +56,11 @@ public abstract class FieldInfo {
     public static final int PASSWORD = 18;
     public static final int IMAGE = 19;
     public static final int DISPLAY_ENTITY = 20;
+    public static final int CONTAINER = 21;
+    public static final int MENU = 22;
+    public static final int FORM = 23;
+    public static final int GRID = 24;
+    public static final int SCREEN = 25;
     // the numbering here represents the priority of the source;
     //when setting a new fieldInfo on a modelFormField it will only set
     //the new one if the fieldSource is less than or equal to the existing
@@ -62,6 +69,7 @@ public abstract class FieldInfo {
     public static final int SOURCE_AUTO_ENTITY = 2;
     public static final int SOURCE_AUTO_SERVICE = 3;
     private static Map<String, Integer> fieldTypeByName = createFieldTypeMap();
+    private static List<Integer> nonInputFieldTypeList = createNonInputFieldTypeList();
 
     private static Map<String, Integer> createFieldTypeMap() {
         Map<String, Integer> fieldTypeByName = new HashMap<String, Integer>();
@@ -86,7 +94,25 @@ public abstract class FieldInfo {
         fieldTypeByName.put("image", Integer.valueOf(19));
         fieldTypeByName.put("display-entity", Integer.valueOf(20));
         fieldTypeByName.put("container", Integer.valueOf(21));
+        fieldTypeByName.put("include-menu", Integer.valueOf(22));
+        fieldTypeByName.put("include-form", Integer.valueOf(23));
+        fieldTypeByName.put("include-grid", Integer.valueOf(24));
+        fieldTypeByName.put("include-screen", Integer.valueOf(25));
         return Collections.unmodifiableMap(fieldTypeByName);
+    }
+
+    private static List<Integer> createNonInputFieldTypeList() {
+        List<Integer> nonInputFieldTypeList = new ArrayList<Integer>();
+        nonInputFieldTypeList.add(FieldInfo.IGNORED);
+        nonInputFieldTypeList.add(FieldInfo.HIDDEN);
+        nonInputFieldTypeList.add(FieldInfo.DISPLAY);
+        nonInputFieldTypeList.add(FieldInfo.DISPLAY_ENTITY);
+        nonInputFieldTypeList.add(FieldInfo.HYPERLINK);
+        nonInputFieldTypeList.add(FieldInfo.MENU);
+        nonInputFieldTypeList.add(FieldInfo.FORM);
+        nonInputFieldTypeList.add(FieldInfo.GRID);
+        nonInputFieldTypeList.add(FieldInfo.SCREEN);
+        return Collections.unmodifiableList(nonInputFieldTypeList);
     }
 
     public static int findFieldTypeFromName(String name) {
@@ -96,6 +122,10 @@ public abstract class FieldInfo {
         } else {
             throw new IllegalArgumentException("Could not get fieldType for field type name " + name);
         }
+    }
+
+    public static boolean isInputFieldType(Integer fieldType) {
+        return ! nonInputFieldTypeList.contains(fieldType);
     }
 
     private final int fieldType;

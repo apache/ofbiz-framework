@@ -737,6 +737,15 @@ margin-bottom: 0.5em;
 display: table;
 }
 
+/* ===== In line bar ===== */
+.in-line-bar ul {
+display: inline; /* IE Fix */
+}
+.in-line-bar ul li {
+float : left;
+padding : 0 0.5em;
+}
+
 .tool-bar {
 padding: 0.2em;
 }

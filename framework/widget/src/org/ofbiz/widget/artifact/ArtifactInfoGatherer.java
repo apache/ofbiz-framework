@@ -58,15 +58,19 @@ import org.ofbiz.widget.model.ModelFormField.DisplayField;
 import org.ofbiz.widget.model.ModelFormField.DropDownField;
 import org.ofbiz.widget.model.ModelFormField.FieldInfoWithOptions;
 import org.ofbiz.widget.model.ModelFormField.FileField;
+import org.ofbiz.widget.model.ModelFormField.FormField;
+import org.ofbiz.widget.model.ModelFormField.GridField;
 import org.ofbiz.widget.model.ModelFormField.HiddenField;
 import org.ofbiz.widget.model.ModelFormField.HyperlinkField;
 import org.ofbiz.widget.model.ModelFormField.IgnoredField;
 import org.ofbiz.widget.model.ModelFormField.ImageField;
 import org.ofbiz.widget.model.ModelFormField.LookupField;
+import org.ofbiz.widget.model.ModelFormField.MenuField;
 import org.ofbiz.widget.model.ModelFormField.PasswordField;
 import org.ofbiz.widget.model.ModelFormField.RadioField;
 import org.ofbiz.widget.model.ModelFormField.RangeFindField;
 import org.ofbiz.widget.model.ModelFormField.ResetField;
+import org.ofbiz.widget.model.ModelFormField.ScreenField;
 import org.ofbiz.widget.model.ModelFormField.SubmitField;
 import org.ofbiz.widget.model.ModelFormField.TextField;
 import org.ofbiz.widget.model.ModelFormField.TextFindField;
@@ -453,6 +457,21 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
         }
 
         @Override
+        public void visit(MenuField menuField) {
+            //TODO
+        }
+        
+        @Override
+        public void visit(FormField formField) {
+            //TODO
+        }
+        
+        @Override
+        public void visit(GridField gridField) {
+            //TODO
+        }
+
+        @Override
         public void visit(IgnoredField ignoredField) {
         }
 
@@ -483,6 +502,11 @@ public final class ArtifactInfoGatherer implements ModelWidgetVisitor, ModelActi
 
         @Override
         public void visit(ResetField resetField) {
+        }
+        
+        @Override
+        public void visit(ScreenField screenField) {
+            //TODO
         }
 
         @Override
