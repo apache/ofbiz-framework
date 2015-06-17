@@ -36,8 +36,11 @@ under the License.
         <process field="city"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty></process>
         <process field="stateProvinceGeoId"><copy/></process>
         <process field="postalCode"><copy/><not-empty><fail-property resource="PartyUiLabels" property="PartyPostalCodeMissing"/></not-empty></process>
+        <process field="postalCodeExt"><copy/></process>
         <process field="countryGeoId"><copy/></process>
+        <process field="countyGeoId"><copy/></process>
         <process field="postalCodeGeoId"><copy/></process>
+        <process field="geoPointId"><copy/></process>
         <process field="allowSolicitation"><copy/></process>
     </simple-map-processor>
 
