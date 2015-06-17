@@ -1346,6 +1346,7 @@ under the License.
         <member-entity entity-alias="PCM" entity-name="PartyContactMech"/>
         <member-entity entity-alias="CM" entity-name="ContactMech"/>
         <member-entity entity-alias="PA" entity-name="PostalAddress"/>
+        <alias-all entity-alias="PA"/>
         <alias entity-alias="CM" name="contactMechId"/>
         <alias entity-alias="PTY" name="partyId"/>
         <alias entity-alias="PTY" name="statusId"/>
@@ -1357,17 +1358,6 @@ under the License.
         <alias entity-alias="PCM" name="comments"/>
         <alias entity-alias="PCM" name="extension"/>
         <alias entity-alias="PCM" name="allowSolicitation"/>
-        <alias entity-alias="PA" name="toName"/>
-        <alias entity-alias="PA" name="attnName"/>
-        <alias entity-alias="PA" name="address1"/>
-        <alias entity-alias="PA" name="address2"/>
-        <alias entity-alias="PA" name="directions"/>
-        <alias entity-alias="PA" name="city"/>
-        <alias entity-alias="PA" name="postalCode"/>
-        <alias entity-alias="PA" name="postalCodeExt"/>
-        <alias entity-alias="PA" name="countryGeoId"/>
-        <alias entity-alias="PA" name="stateProvinceGeoId"/>
-        <alias entity-alias="PA" name="postalCodeGeoId"/>
         <view-link entity-alias="PTY" rel-entity-alias="PCM">
             <key-map field-name="partyId"/>
         </view-link>
