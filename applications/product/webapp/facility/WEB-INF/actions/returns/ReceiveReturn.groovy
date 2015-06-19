@@ -71,7 +71,7 @@ if (returnItems) {
 }
 
 if (returnHeader) {
-    context.receivedItems = from("ShipmentReceipt").where("returnId", returnId).queryList();
+    context.receivedItems = from("ShipmentReceiptAndItem").where("returnId", returnId).queryList();
 }
 
 // facilities
