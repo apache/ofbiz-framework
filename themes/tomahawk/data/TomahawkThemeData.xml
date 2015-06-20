@@ -20,17 +20,52 @@ under the License.
 
 <entity-engine-xml>
     <VisualTheme visualThemeId="TOMAHAWK" visualThemeSetId="BACKOFFICE" description="Tomahawk: the evolution of the Dropping Crumbs theme"/>
+    
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAME" resourceValue="TOMAHAWK" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/tomahawk/screenshot.jpg" sequenceId="01"/>
+    
+    <!-- css references -->
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/tomahawk/css/style.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HELPSTYLESHEET" resourceValue="/tomahawk/css/help.css" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_DOCBOOKSTYLESHEET" resourceValue="/tomahawk/webapp/tomahawk/css/docbook.css" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/tomahawk/js/dropdown.js" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SHORTCUT_ICON" resourceValue="/images/ofbiz.ico" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.gif" sequenceId="01"/>
+    
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_STYLESHEET" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.css" sequenceId="02"/>
+    
+    <!-- javascript references -->
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-1.11.0.min.js" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/jquery-migrate-1.2.1.js" sequenceId="02"/>
+    
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/js/jquery-ui-1.10.3.min.js" sequenceId="03"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/ui/i18n/jquery.ui.datepicker-en.js" sequenceId="04"/>
+    
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/asmselect/jquery.asmselect-1.0.4a-beta.js" sequenceId="05"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datejs/date-en-US.js" sequenceId="06"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/jquery-ui-timepicker-addon.min-1.4.3.js" sequenceId="07"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/datetimepicker/localization/jquery-ui-timepicker-en.js" sequenceId="08"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/fjTimer/jquerytimer-min.js" sequenceId="09"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jquery.maskedinput-1.3.1.min.js" sequenceId="10"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/jeditable/jquery.jeditable.js" sequenceId="11"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/jquery.validate.min.js" sequenceId="12"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/jquery/plugins/validate/localization/messages_en.js" sequenceId="13"/>
+    
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/OpenLayers-2.13.1.js" sequenceId="13"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectall.js" sequenceId="15"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/fieldlookup.js" sequenceId="16"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.format-1.2.3-min.js" sequenceId="17"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/date.timezone-min.js" sequenceId="18"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/miscAjaxFunctions.js" sequenceId="19"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/selectMultipleRelatedValues.js" sequenceId="20"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/util.js" sequenceId="21"/>
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/images/date/FromThruDateCheck.js" sequenceId="22"/>
+    
+    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_JAVASCRIPT" resourceValue="/tomahawk/js/dropdown.js" sequenceId="30"/>
+    
+    <!-- ftl references -->
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://tomahawk/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://tomahawk/includes/footer.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_OPEN_TMPLT" resourceValue="component://tomahawk/includes/appbarOpen.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_NAV_CLOSE_TMPLT" resourceValue="component://tomahawk/includes/appbarClose.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_MSG_TMPLT_LOC" resourceValue="component://common/webcommon/includes/messages.ftl" sequenceId="01"/>
-    <VisualThemeResource visualThemeId="TOMAHAWK" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/tomahawk/screenshot.jpg" sequenceId="01"/>
 </entity-engine-xml>
