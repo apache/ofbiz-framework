@@ -35,10 +35,15 @@ themes/flatgrey/webapp/flatgrey/maincss-min.css
 themes/flatgrey/webapp/flatgrey/mainrtl-min.css
 .pc
 .DS_Store
+desktop.ini
 .idea
 *.iml
+*.ipr
+*.iws
 *~
 *#
 .*.swp
 .*.swo
-desktop.ini
+*.patch
+.settings
+.groovy
