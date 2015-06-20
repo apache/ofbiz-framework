@@ -147,6 +147,7 @@
     <classpathentry kind="src" path="applications/securityext/src" excluding="org/ofbiz/securityext/thirdparty/truition/TruitionCoReg.java"/>
     <classpathentry kind="src" path="applications/humanres/src"/>
     <classpathentry kind="src" path="applications/workeffort/src"/>
+    <classpathentry kind="src" path="framework/base/config"/>
     <classpathentry kind="src" path="framework/base/src" excluding="org/ofbiz/base/config/CoberturaInstrumenter.java"/>
     <classpathentry kind="src" path="framework/catalina/src"/>
     <classpathentry kind="src" path="framework/common/src"/>
