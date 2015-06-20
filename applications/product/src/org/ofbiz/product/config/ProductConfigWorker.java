@@ -329,6 +329,7 @@ public class ProductConfigWorker {
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 for (ConfigOption oneOption: selectedOptions) {
+                    Map<String, String>  componentOptions = oneOption.componentOptions;
                     List<GenericValue> toBeStored = new LinkedList<GenericValue>();
                     String configOptionId = oneOption.configOption.getString("configOptionId");
                     String description = oneOption.getComments();
@@ -343,8 +344,8 @@ public class ProductConfigWorker {
                     if (oneOption.hasVirtualComponent()) {
                         List<GenericValue> components = oneOption.getComponents();
                         for (GenericValue component: components) {
-                            if (oneOption.isVirtualComponent(component)) {
-                                String componentOption = oneOption.componentOptions.get(component.getString("productId"));
+                            if (oneOption.isVirtualComponent(component) && UtilValidate.isNotEmpty(componentOptions)) {
+                            	String  componentOption = componentOptions.get(component.getString("productId"));
                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");
                                 configOptionProductOption.put("configId", configId);
                                 configOptionProductOption.put("configItemId", configItemId);
