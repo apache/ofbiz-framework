@@ -146,7 +146,11 @@ public class PriceServices {
         String currencyDefaultUomId = (String) context.get("currencyUomId");
         String currencyUomIdTo = (String) context.get("currencyUomIdTo"); 
         if (UtilValidate.isEmpty(currencyDefaultUomId)) {
+            if (UtilValidate.isNotEmpty(productStore) && UtilValidate.isNotEmpty(productStore.getString("defaultCurrencyUomId"))) {
+                currencyDefaultUomId = productStore.getString("defaultCurrencyUomId");
+            } else {
             currencyDefaultUomId = EntityUtilProperties.getPropertyValue("general", "currency.uom.id.default", "USD", delegator);
+            }
         }
 
         // productPricePurposeId is null assume "PURCHASE", which is equivalent to what prices were before the purpose concept
