@@ -3852,18 +3852,6 @@ public class ShoppingCart implements Iterable<ShoppingCartItem>, Serializable {
             if (billingAccountAvailableAmount.compareTo(getBillingAccountAmount()) < 0) {
                 this.billingAccountAmt = billingAccountAvailableAmount;
             }
-            BigDecimal billingAccountAmountSelected = getBillingAccountAmount();
-            GenericValue opp = delegator.makeValue("OrderPaymentPreference", new HashMap<String, Object>());
-            opp.set("paymentMethodTypeId", "EXT_BILLACT");
-            opp.set("presentFlag", "N");
-            opp.set("overflowFlag", "N");
-            opp.set("maxAmount", billingAccountAmountSelected);
-            opp.set("statusId", "PAYMENT_NOT_RECEIVED");
-            allOpPrefs.add(opp);
-            remainingAmount = remainingAmount.subtract(billingAccountAmountSelected);
-            if (remainingAmount.compareTo(BigDecimal.ZERO) < 0) {
-                remainingAmount = BigDecimal.ZERO;
-            }
         }
         for (CartPaymentInfo inf : paymentInfo) {
             if (inf.amount == null) {
