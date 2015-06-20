@@ -1825,7 +1825,7 @@ under the License.
                     <xs:documentation>The name of the field in the looked up entity that will be used for the key value; if empty defaults to the entry-name of the field this is in.</xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="description" use="required">
+            <xs:attribute type="xs:string" name="description" default="${description}">
                 <xs:annotation>
                     <xs:documentation>Will be presented to the user with field values substituted using the ${} syntax.</xs:documentation>
                 </xs:annotation>
@@ -1964,7 +1964,7 @@ under the License.
                 </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute type="xs:string" name="description">
+            <xs:attribute type="xs:string" name="description" default="${description}">
                 <xs:annotation>
                     <xs:documentation>Will be presented to the user with field values substituted using the ${} syntax.</xs:documentation>
                 </xs:annotation>

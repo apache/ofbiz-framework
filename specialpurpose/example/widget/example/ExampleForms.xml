@@ -27,14 +27,14 @@ under the License.
         <field name="exampleName" title="${uiLabelMap.CommonName}"><text-find/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="exampleTypeId" entity-name="ExampleType">
+                <entity-options key-field-name="exampleTypeId" entity-name="ExampleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="ExampleStatusItem"/>
+                <entity-options key-field-name="statusId" entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
         <field name="listOtherElements">
