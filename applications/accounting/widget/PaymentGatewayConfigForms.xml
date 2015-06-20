@@ -25,7 +25,7 @@ under the License.
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text-find ignore-case="true"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentGatewayConfigType" description="${description}" key-field-name="paymentGatewayConfigTypeId">
+                <entity-options entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -53,7 +53,7 @@ under the License.
             <hyperlink description="${description}" target="EditPaymentGatewayConfig?paymentGatewayConfigId=${paymentGatewayConfigId}"/>
         </field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
-            <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId"/>
         </field>
     </form>
     
@@ -61,7 +61,7 @@ under the License.
         <field name="paymentGatewayConfigId"><hidden/></field>
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigDescription}"><text size="60" maxlength="60"/></field>
         <field name="paymentGatewayConfigTypeId" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeId}">
-            <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
             <submit button-type="button"/>
@@ -439,7 +439,7 @@ under the License.
         <field name="description" title="${uiLabelMap.AccountingPaymentGatewayConfigTypeDescription}"><text size="60" maxlength="60"/></field>
         <field name="parentTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentGatewayConfigType" description="${description}" key-field-name="paymentGatewayConfigTypeId">
+                <entity-options entity-name="PaymentGatewayConfigType" key-field-name="paymentGatewayConfigTypeId">
                     <entity-constraint name="paymentGatewayConfigTypeId" operator="not-equals" env-name="paymentGatewayConfigTypeId"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

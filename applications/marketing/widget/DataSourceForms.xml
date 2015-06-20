@@ -30,7 +30,7 @@ under the License.
 
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="DataSourceType" key-field-name="dataSourceTypeId">
+                <entity-options entity-name="DataSourceType" key-field-name="dataSourceTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -112,7 +112,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="dataSourceTypeId" title="${uiLabelMap.DataSourceDataSourceTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="DataSourceType" key-field-name="dataSourceTypeId">
+                <entity-options entity-name="DataSourceType" key-field-name="dataSourceTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

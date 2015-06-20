@@ -27,7 +27,7 @@ under the License.
         </field>
         <field name="paymentServiceTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PRDS_PAYSVC"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -38,14 +38,14 @@ under the License.
         </field>
         <field name="paymentMethodTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentMethodType" description="${description}" key-field-name="paymentMethodTypeId">
+                <entity-options entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="transCodeEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PGT_CODE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -83,13 +83,13 @@ under the License.
             </hyperlink>
         </field>
         <field name="paymentServiceTypeEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="paymentMethodTypeId">
-            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId"/>
         </field>
         <field name="transCodeEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
     </form>
     
@@ -139,13 +139,13 @@ under the License.
         <field name="submitButton" use-when="paymentGatewayResponse!=null&amp;&amp;paymentGatewayResponse.getString(&quot;gatewayFlag&quot;).equals(&quot;A&quot;)" title="${uiLabelMap.AccountingCapture}" widget-style="smallSubmit"><submit button-type="button"/></field>
         -->
         <field name="paymentServiceTypeEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="paymentMethodTypeId">
-            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId"/>
         </field>
         <field name="transCodeEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
     </form>
     
@@ -156,7 +156,7 @@ under the License.
         <field name="orderPaymentPreferenceId"><text/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType" description="${description}"/>
+                <entity-options entity-name="PaymentMethodType"/>
             </drop-down>
         </field>
         <field name="overrideAmount" title="${uiLabelMap.AccountingAmount}"><text/></field>
@@ -170,12 +170,12 @@ under the License.
         <field name="orderPaymentPreferenceId"><text/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType" description="${description}"/>
+                <entity-options entity-name="PaymentMethodType"/>
             </drop-down>
         </field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentType" description="${description}" key-field-name="paymentTypeId">
+                <entity-options entity-name="PaymentType" key-field-name="paymentTypeId">
                     <entity-constraint name="parentTypeId" operator="equals" value="RECEIPT"/>
                 </entity-options>
             </drop-down>

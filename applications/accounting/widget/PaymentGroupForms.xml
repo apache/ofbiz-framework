@@ -84,11 +84,11 @@ under the License.
         <field use-when="paymentGroup==null @and paymentGroupId!=null" name="paymentGroupId"><display description="${uiLabelMap.CommonCannotBeFound}: [${paymentGroupId}]" also-hidden="false"/></field>
         <field name="paymentGroupId" use-when="display==true"><display/></field>
         <field name="paymentGroupTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="PaymentGroupType" description="${description}"/>
+            <display-entity entity-name="PaymentGroupType"/>
         </field>
         <field name="paymentGroupTypeId" use-when="paymentGroup==null" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentGroupType" description="${description}">
+                <entity-options entity-name="PaymentGroupType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -138,12 +138,12 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType" description="${description}"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType"/></field>
         <field name="paymentMethodTypeId" use-when="cardType!=null">
             <display-entity entity-name="PaymentMethodType" description="${description} (${cardType})"/>
         </field>
         <field name="paymentMethodTypeId" use-when="cardType==null">
-            <display-entity entity-name="PaymentMethodType" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType"/>
         </field>
         <field name="amount"><display currency="${payment.currencyUomId}" type="currency"/></field>
         <field name="fromDate"><display/></field>
@@ -194,7 +194,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType" description="${description}"/></field>
+        <field name="paymentTypeId" title="${uiLabelMap.OrderPaymentType}"><display-entity entity-name="PaymentType"/></field>
         <field name="statusId" title="${uiLabelMap.AccountingPaymentStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="amount"><display also-hidden="false" type="currency" currency="${payment.currencyUomId}"/></field>
         <field name="fromDate"><display/></field>

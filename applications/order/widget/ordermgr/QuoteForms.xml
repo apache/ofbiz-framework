@@ -26,12 +26,12 @@ under the License.
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
+                <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </drop-down>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -43,7 +43,7 @@ under the License.
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="QUOTE_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -112,14 +112,14 @@ under the License.
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"><display/></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId">
+                <entity-options entity-name="QuoteType" key-field-name="quoteTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -176,7 +176,7 @@ under the License.
         <field name="quoteId"><hidden/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -240,14 +240,14 @@ under the License.
         <field name="productFeatureId" title="${uiLabelMap.ProductFeatures}"><lookup target-form-name="LookupProductFeature"/></field>
         <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DeliverableType" key-field-name="deliverableTypeId">
+                <entity-options entity-name="DeliverableType" key-field-name="deliverableTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="skillTypeId" title="${uiLabelMap.OrderOrderQuoteSkillTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType" key-field-name="skillTypeId">
+                <entity-options entity-name="SkillType" key-field-name="skillTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -417,7 +417,7 @@ under the License.
 
         <field name="quoteAdjustmentTypeId" title="${uiLabelMap.OrderOrderQuoteAdjustmentType}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="OrderAdjustmentType" key-field-name="orderAdjustmentTypeId"/>
+                <entity-options entity-name="OrderAdjustmentType" key-field-name="orderAdjustmentTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -460,10 +460,10 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="ListQuoteTerms">
         <auto-fields-entity entity-name="QuoteTerm" default-field-type="display"/>
         <field name="termTypeId" >
-            <display-entity entity-name="TermType" description="${description}" key-field-name="termTypeId"/>
+            <display-entity entity-name="TermType" key-field-name="termTypeId"/>
         </field>
         <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
-            <display-entity entity-name="Uom" description="${description}" key-field-name="uomId"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="editLink" title=" " widget-style="buttontext">
             <hyperlink target="EditQuoteTerm" description="${uiLabelMap.CommonEdit}" also-hidden="false">
@@ -526,7 +526,7 @@ under the License.
         <field name="quoteItemSeqId" use-when="quoteItemSeqId!=null" tooltip="${uiLabelMap.CommonRequired}"><display/></field>
         <field name="termTypeId" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down current-description="">
-                <entity-options description="${description}" entity-name="TermType" key-field-name="termTypeId"/>
+                <entity-options entity-name="TermType" key-field-name="termTypeId"/>
             </drop-down>
         </field>
         <field name="termTypeId" use-when="termTypeId!=null" tooltip="${uiLabelMap.CommonRequired}">
@@ -536,7 +536,7 @@ under the License.
         
         <field name="uomId">
             <drop-down current-description="">
-                <entity-options description="${description}" entity-name="Uom" key-field-name="uomId"/>
+                <entity-options entity-name="Uom" key-field-name="uomId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>

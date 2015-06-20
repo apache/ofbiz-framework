@@ -28,7 +28,7 @@ under the License.
         <field name="fixedAssetName"><text-find/></field>
         <field name="fixedAssetTypeId" title="${uiLabelMap.AccountingFixedAssetTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="FixedAssetType" description="${description}">
+                <entity-options entity-name="FixedAssetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
              </drop-down>
@@ -58,7 +58,7 @@ under the License.
         <field name="budgetId"><text-find/></field>
         <field name="budgetTypeId" title="${uiLabelMap.AccountingBudgetType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="BudgetType" description="${description}">
+                <entity-options entity-name="BudgetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
              </drop-down>
@@ -119,14 +119,14 @@ under the License.
         <field name="accountName" title="${uiLabelMap.CommonName}"><text-find/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" description="${description}">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountClass" description="${description}">
+                <entity-options entity-name="GlAccountClass">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -188,12 +188,12 @@ under the License.
         <field position="1" name="invoiceId" ><text-find/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="InvoiceType"/>
+                <entity-options entity-name="InvoiceType"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -220,7 +220,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${invoiceId}" target="javascript:set_value('${invoiceId}')"/>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="description"><display/></field>
         <field name="partyIdFrom"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
         <field name="partyId" title="${uiLabelMap.AccountingPartyIdTo}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
@@ -263,7 +263,7 @@ under the License.
         <field name="agreementItemSeqId"><text-find/></field>
         <field name="agreementItemTypeId" title="${uiLabelMap.FormFieldTitle_agreementItemType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="AgreementItemType"/>
+                <entity-options entity-name="AgreementItemType"/>
             </drop-down>
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
@@ -348,7 +348,7 @@ under the License.
         <field name="parentPeriodId"><text-find/></field>
         <field name="periodTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PeriodType" description="${description}">
+                <entity-options entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
              </drop-down>

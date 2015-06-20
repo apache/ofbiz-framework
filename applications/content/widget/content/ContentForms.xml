@@ -30,14 +30,14 @@ under the License.
         <field name="description"><text-find ignore-case="true"/></field>
         <field name="contentTypeId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId">
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="mimeTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId">
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -50,7 +50,7 @@ under the License.
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -146,7 +146,7 @@ under the License.
         <field use-when="currentValue==null&amp;&amp;contentId!=null" name="contentId"><display description="${uiLabelMap.CommonCannotBeFound}: [${contentId}]" also-hidden="false"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId">
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -201,7 +201,7 @@ under the License.
         </field>
         <field name="characterSetId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="currentValue==null"><ignored/></field>
@@ -254,14 +254,14 @@ under the License.
         </field>
         <field name="contentAssocTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentAssocType">
+                <entity-options entity-name="ContentAssocType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="metaDataPredicateId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MetaDataPredicate"/>
+                <entity-options entity-name="MetaDataPredicate"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit">
@@ -288,7 +288,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"></display-entity></field>
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
@@ -319,7 +319,7 @@ under the License.
             </display-entity>
         </field>
         <field name="contentIdTo"><hidden/></field>
-        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType" description="${description}"></display-entity></field>
+        <field name="contentAssocTypeId"><display-entity entity-name="ContentAssocType"></display-entity></field>
         <field name="mapKey"><display/></field>
         <field name="fromDate"><display description="${groovy:fromDate.toString().substring(0,10)}"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
@@ -346,7 +346,7 @@ under the License.
         <field name="partyId" widget-style="buttontext"><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -390,7 +390,7 @@ under the License.
         <field name="contentId" title=" " widget-style="buttontext" ><lookup target-form-name="LookupContent"/></field>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId">
+                <entity-options entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -450,7 +450,7 @@ under the License.
         </field>
         <field name="metaDataPredicateId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
+                <entity-options entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -464,7 +464,7 @@ under the License.
         </field>
         <field name="siteName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="httpHost" sort-field="true"><display/></field>
-        <field name="webSiteContentTypeId"><display-entity entity-name="WebSiteContentType" description="${description}"/></field>
+        <field name="webSiteContentTypeId"><display-entity entity-name="WebSiteContentType"/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
     </form>
@@ -515,7 +515,7 @@ under the License.
         </field>
         <field name="workEffortContentTypeId">
             <drop-down no-current-selected-key="">
-                <entity-options entity-name="WorkEffortContentType" description="${description}" key-field-name="workEffortContentTypeId">
+                <entity-options entity-name="WorkEffortContentType" key-field-name="workEffortContentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -538,7 +538,7 @@ under the License.
             </display-entity>
         </field>
         <field name="contentId"><hidden/></field>
-        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
+        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType"/></field>
         <field name="fromDate"><display/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">
@@ -559,13 +559,13 @@ under the License.
             <hyperlink also-hidden="false" description="${contentName} [${contentId}]" target="showContent?contentId=${contentId}" target-window="_blank"/>
         </field>
         <field name="contentTypeId">
-            <display-entity entity-name="ContentType" key-field-name="contentTypeId" description="${description}"/>
+            <display-entity entity-name="ContentType" key-field-name="contentTypeId"/>
         </field>
         <field name="mimeTypeId">
-            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId"/>
         </field>
         <field name="statusId">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="caCreatedDate"><display/></field>
         <field name="delete" title="${uiLabelMap.CommonDelete}">
@@ -589,7 +589,7 @@ under the License.
         <field name="contentName"><text/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentType">
+                <entity-options entity-name="ContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -604,7 +604,7 @@ under the License.
         <field name="leftCoordinate"><text/></field>
         <field name="metaDataPredicateId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MetaDataPredicate"/>
+                <entity-options entity-name="MetaDataPredicate"/>
             </drop-down>
         </field>
         <field name="submit" title="${uiLabelMap.CommonSubmit}"><submit/></field>

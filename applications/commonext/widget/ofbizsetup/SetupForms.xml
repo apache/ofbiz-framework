@@ -79,8 +79,8 @@
     <form name="ViewOrganization" type="single" default-map-name="lookupGroup">
         <field name="partyId" title="${uiLabelMap.SetupOrganizationPartyId}"><display/></field>
         <field name="groupName" title="${uiLabelMap.SetupOrganizationName}"><display/></field>
-        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
     </form>
     
     <form name="EditFacility" type="single" target="UpdateFacility" default-map-name="facility"

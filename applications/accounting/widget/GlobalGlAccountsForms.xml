@@ -112,28 +112,28 @@ under the License.
 
         <field name="glAccountTypeId">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
-                <entity-options entity-name="GlAccountType" description="${description}">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glAccountClassId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccountClass" description="${description}">
+                <entity-options entity-name="GlAccountClass">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glResourceTypeId">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
-                <entity-options entity-name="GlResourceType" description="${description}">
+                <entity-options entity-name="GlResourceType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glXbrlClassId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlXbrlClass" description="${description}">
+                <entity-options entity-name="GlXbrlClass">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -255,14 +255,14 @@ under the License.
         </actions>
         <field name="rateTypeId">
             <drop-down>
-                <entity-options entity-name="RateType" description="${description}">
+                <entity-options entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="periodTypeId" position="2">
             <drop-down>
-                <entity-options entity-name="PeriodType" description="${description}">
+                <entity-options entity-name="PeriodType">
                     <entity-constraint name="periodTypeId" operator="like" value="RATE_%"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -281,7 +281,7 @@ under the License.
         <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"><sub-hyperlink target="ww" description="${workEffortName}"/></lookup></field>
         <field name="emplPositionTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="EmplPositionType" description="${description}">
+                <entity-options entity-name="EmplPositionType">
                     <entity-constraint name="emplPositionTypeId" operator="not-equals" value="_NA_"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

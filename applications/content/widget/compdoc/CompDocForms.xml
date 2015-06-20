@@ -127,7 +127,7 @@ under the License.
         <field name="contentRevisionSeqId" widget-style="inputBox"><text/></field>
 <!--         <field name="contentRevisionSeqId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="" key-field-name="contentRevisionSeqId"/>
+                <entity-options entity-name="" key-field-name="contentRevisionSeqId"/>
             </drop-down>
         </field>
 -->
@@ -231,7 +231,7 @@ under the License.
         <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <!-- <entity-constraint name="parentTypeId" value=""/> -->
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -258,7 +258,7 @@ under the License.
         <field name="partyId" map-name="empty" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <!-- <entity-constraint name="parentTypeId" value=""/> -->
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -280,7 +280,7 @@ under the License.
         <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <!-- <entity-constraint name="parentTypeId" value=""/> -->
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -315,7 +315,7 @@ under the License.
         <field name="partyId" widget-style="inputBox"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -393,7 +393,7 @@ under the License.
             <display description="Survey Response"/>
         </field>
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; !&quot;SURVEY&quot;.equals(templateDataResourceTypeId)">
-            <display-entity entity-name="MimeType" description="${description}"/>
+            <display-entity entity-name="MimeType"/>
         </field>
         <field name="mimeTypeId" title="${uiLabelMap.ContentDocumentType}" use-when="&quot;TEMPLATE&quot;.equals(contentTypeId)" widget-style="smallSelect">
             <drop-down allow-empty="false">
@@ -443,7 +443,7 @@ under the License.
         </field>
         <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; !&quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
-            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId"/>
         </field>
         <field name="mimeTypeId" map-name="dataResource"
             use-when="&quot;DOCUMENT&quot;.equals(contentTypeId) &amp;&amp; mimeTypeId!=null &amp;&amp; &quot;application/vnd.ofbiz.survey&quot;.equals(mimeTypeId)">
@@ -507,7 +507,7 @@ under the License.
         <field name="sequenceNum" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
 
        <field name="mimeTypeId" map-name="dataResource" title="${uiLabelMap.ContentDocumentType}" >
-            <display-entity entity-name="MimeType" key-field-name="mimeTypeId" description="${description}"/>
+            <display-entity entity-name="MimeType" key-field-name="mimeTypeId"/>
         </field>
         <field name="relatedDetailId" map-name="dataResource" title="${uiLabelMap.ContentSurvey}" use-when="dataResource!=null&amp;&amp;&quot;SURVEY&quot;.equals(dataResource.getString(&quot;dataResourceTypeId&quot;))">
             <display/>

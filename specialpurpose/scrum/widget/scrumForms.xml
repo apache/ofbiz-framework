@@ -46,7 +46,7 @@ under the License.
                 <parameter param-name="projectId" from-field="projectWorkEffort.workEffortId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId" title="Current Status"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity></field>
+        <field name="currentStatusId" title="Current Status"><display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity></field>
         <field name="actualStartDate" title="Start Date"><display></display></field>
         <field name="actualCompletionDate" title="End Date"><display></display></field>
         <field name="estimatedHours" title="Sprint Length (hours)"><display></display></field>
@@ -162,7 +162,7 @@ under the License.
             </display-entity>
         </field>
         <field name="custRequest.statusId" title="${uiLabelMap.ScrumStatusBacklog}" position="1" use-when="showPosition1&amp;&amp;&quot;Any&quot;.equals(paraBacklogStatusId)">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="taskId" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumTask}" position="2" parameter-name="workEffortId" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description=" ">
@@ -175,8 +175,8 @@ under the License.
         <field name="taskTypeId" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumTaskType}" position="2" use-when="!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)">
             <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${uiLabelMap.ScrumTab} ${description}"/>
         </field>
-        <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-        <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="alert"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
+        <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(taskCurrentStatusId)&amp;&amp;!&quot;SCRUM_SPRINT&quot;.equals(taskTypeId)" widget-style="alert"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="dummy1" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy2" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy3" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
@@ -336,7 +336,7 @@ under the License.
         <field name="statusName"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down>
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="SPRINT_STATUS" operator="equals"/>
                 </entity-options>
             </drop-down>
@@ -411,7 +411,7 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${description}">
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail">
                     <entity-constraint name="partyId" operator="equals" value="${parameters.partyId}"/>
                     <entity-constraint name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
                 </entity-options>
@@ -444,7 +444,7 @@ under the License.
         <field name="workEffortId"><hidden value="${parameters.sprintId}"/></field>
         <field name="memberName" title="${uiLabelMap.ScrumMembersName}"><hyperlink target="viewprofile" description="${lastName}, ${firstName} ${middleName} [${partyId}]"><parameter param-name="partyId"/></hyperlink></field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
@@ -509,7 +509,7 @@ under the License.
         <field name="description" title="${uiLabelMap.ScrumProjectGoal}"><textarea/></field>
         <field name="currentStatusId" use-when="workEffortId!=null" title="${uiLabelMap.CommonStatus}">
             <drop-down current="first-in-list" current-description="${currentStatus.description}">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="SCRUM_PROJECT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -564,7 +564,7 @@ under the License.
         <field name="description" title="${uiLabelMap.ScrumProjectGoal}"><display/></field>
         <field name="billed" title="${uiLabelMap.ScrumBilled}"><display description="${workEffortAttMap.attrValue}"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="actualStartDate"><display description="${actualStartDate}"/></field>
         <field name="actualCompletionDate"><display type="date"/></field>
@@ -718,7 +718,7 @@ under the License.
             </drop-down>
         </field>
         <field name="custRequestTypeId" title="${uiLabelMap.ScrumUnplanBacklog}" use-when="custRequest!=null&amp;&amp;isTeamMember==true">
-            <display-entity entity-name="CustRequestType" description="${description}" key-field-name="custRequestTypeId"/>
+            <display-entity entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
         </field>
         <field name="unplannedFlag" title="${uiLabelMap.ScrumUnplanBacklog}" use-when="custRequest==null">
             <drop-down allow-empty="false" no-current-selected-key="N">
@@ -727,7 +727,7 @@ under the License.
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="custRequest!=null">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"></display-entity>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"></display-entity>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.ScrumRequestName}" parameter-name="partyIdTo" use-when="custRequest!=null&amp;&amp;isTeamMember==false">
             <drop-down no-current-selected-key="${custRequest.fromPartyId}" allow-empty="false">
@@ -821,7 +821,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="false">
                 <option key="${uiLabelMap.CommonAny}" description=" "/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_PENDING"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_REJECTED"/>
@@ -880,7 +880,7 @@ under the License.
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
                 <option key="${uiLabelMap.CommonAny}" description=" "/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_PENDING"/>
                     <entity-constraint name="statusId" operator="not-equals" value="CRQ_REJECTED"/>
@@ -1232,7 +1232,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="sprintCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="estimatedHrs" title="${uiLabelMap.ScrumSprintLengthWeeks}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
@@ -1304,7 +1304,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="sprintCurrentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="estimatedHrs" title="${uiLabelMap.ScrumSprintLengthWeeks}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlannedHours}" position="2" use-when="&quot;${sprintId}&quot;!=&quot;&quot;"><display/></field>
@@ -1482,7 +1482,7 @@ under the License.
         </field> 
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="product!=null">
             <drop-down>
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="PRODUCT_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -1547,7 +1547,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" use-when="product!=null" map-name="statusMap">
-            <display-entity entity-name="StatusItem" description="${description}"/>
+            <display-entity entity-name="StatusItem"/>
         </field>
         <field name="internalName" title="${uiLabelMap.ScrumProductName}"><display description="${product.internalName} [${product.productId}]"/></field>
         <field name="longDescription" title="${uiLabelMap.CommonDescription}"><display /></field>
@@ -1691,7 +1691,7 @@ under the License.
             <field name="statusId" parameter-name="statusId">
                 <drop-down allow-empty="false">
                     <option key="Any" description="${uiLabelMap.CommonAny}"/>
-                    <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-options entity-name="StatusItem">
                         <entity-constraint name="statusTypeId" operator="equals" value="PRODUCT_STATUS"/>
                     </entity-options>
                 </drop-down>
@@ -1834,7 +1834,7 @@ under the License.
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
-        <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}" position="2"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}" position="2"><display-entity entity-name="RateType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonDate}" position="2"><display type="date"/> </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -2000,7 +2000,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="custRequestCategoryGroupId" position="1" use-when="${groovy:showPosition1==true&amp;&amp;sequence.equals(&quot;N&quot;)}" title="${uiLabelMap.ScrumCategory}" widget-style="h3">
             <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${custRequestName}"/>
@@ -2040,7 +2040,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="parentCustRequestId" position="2" title="${uiLabelMap.ScrumCategory}">
             <display-entity entity-name="CustRequest" description="${custRequestName}" key-field-name="custRequestId"/>
@@ -2121,17 +2121,17 @@ under the License.
             </hyperlink>
         </field>
         <field name="custRequestId" title="${uiLabelMap.ScrumSprintBacklog}">
-            <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${description}">
+            <display-entity entity-name="CustRequest" key-field-name="custRequestId">
                 <sub-hyperlink target="ViewProdBacklogItem" description="[${custRequestId}]">
                     <parameter param-name="custRequestId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="taskTypeId" title="${uiLabelMap.ScrumTaskType}">
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/>
         </field>
         <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
             <drop-down allow-empty="true" no-current-selected-key="${partyId}">
@@ -2240,7 +2240,7 @@ under the License.
         <field name="taskName"><text/></field>
         <field name="taskTypeId" title="${uiLabelMap.ScrumTaskType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
                 </entity-options>
             </drop-down>
@@ -2419,7 +2419,7 @@ under the License.
         <field name="productId"><hidden/></field>
         <field name="name"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" description="${description}"/>
+            <display-entity entity-name="StatusItem"/>
         </field>
         <field name="companyNameId" title="${uiLabelMap.ScrumOwnerCompany}" use-when="!isCurrentCompany">
             <hyperlink target="viewprofile" description="${resultCompanyGroup.groupName} [${companyNameId}]">
@@ -2477,10 +2477,10 @@ under the License.
         </hyperlink>
    </field>
    <field name="taskTypeId" title="Task Type">
-        <display-entity entity-name="WorkEffortType" description="${description}" key-field-name="workEffortTypeId"></display-entity>
+        <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"></display-entity>
    </field> 
    <field name="taskCurrentStatusId" title="Status">
-        <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+        <display-entity entity-name="StatusItem" key-field-name="statusId"/>
    </field>
    <field name="taskActualCompletionDate" title="Completion Date"><display/></field>
    </form>
@@ -2542,12 +2542,12 @@ under the License.
         <field name="workEffortContentTypeId"><hidden value="PROJECT_SPEC"/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType"/>
+                <entity-options entity-name="ContentType"/>
             </drop-down>
         </field>
         <field name="mimeTypeId" >
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
@@ -2560,7 +2560,7 @@ under the License.
                 <field-map field-name="workEffortId" from-field="workEffortId"/>
             </entity-and>
         </actions>
-        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"/></field>
         <field name="contentName" widget-style="buttontext">
             <display description="${contentName}[${contentId}]"/>
         </field>
@@ -2664,14 +2664,14 @@ under the License.
         <field name="custRequestId" map-name="parameters"><hidden/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType">
+                <entity-options entity-name="ContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="mimeTypeId" >
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
@@ -2773,10 +2773,10 @@ under the License.
             </hyperlink>
         </field>
         <field name="taskTypeId" title="${uiLabelMap.ScrumTaskType}">
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/>
         </field>
         <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}">
             <display-entity entity-name="Person" description="${lastName} ${firstName} ${middleName}" key-field-name="partyId"/>
@@ -2892,7 +2892,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}" required-field="true" tooltip="${uiLabelMap.ScrumToolTip100CharsMaximun}"><text/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}" required-field="true">
             <drop-down>
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
                 </entity-options>
             </drop-down>
@@ -3021,7 +3021,7 @@ under the License.
             </display-entity>
         </field>
         <field name="statusId" title="${uiLabelMap.ScrumStatusBacklog}" position="1" use-when="showPosition1&amp;&amp;&quot;Any&quot;.equals(paraBacklogStatusId)">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="workEffortId" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumTask}" position="2" use-when="workEffortId!=null">
             <display-entity entity-name="WorkEffort" key-field-name="workEffortId" description=" ">
@@ -3033,8 +3033,8 @@ under the License.
         <field name="workEffortTypeId" title="${uiLabelMap.ScrumTab} ${uiLabelMap.ScrumTaskType}" position="2" use-when="workEffortId!=null">
             <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${uiLabelMap.ScrumTab} ${description}"/>
         </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(currentStatusId)"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="alert"><display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="!&quot;STS_COMPLETED&quot;.equals(currentStatusId)"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" position="2" use-when="&quot;STS_COMPLETED&quot;.equals(currentStatusId)" widget-style="alert"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="dummy1" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy2" title=" " position="1" use-when="showPosition1"><display description=" "/></field>
         <field name="dummy3" title=" " position="1" use-when="showPosition1"><display description=" "/></field>

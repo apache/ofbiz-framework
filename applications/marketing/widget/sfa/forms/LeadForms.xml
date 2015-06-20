@@ -69,7 +69,7 @@ under the License.
         <field name="contactListTitle" title="${uiLabelMap.MarketingContactList}" title-area-style="group-label"><display/></field>
         <field name="contactListId" title="${uiLabelMap.MarketingContactList}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ContactList" description="${description}" key-field-name="contactListId"/>
+                <entity-options entity-name="ContactList" key-field-name="contactListId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>

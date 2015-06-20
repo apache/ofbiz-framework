@@ -42,7 +42,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="PARTYASSIGN_UNASSIGNED">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -50,7 +50,7 @@ under the License.
         </field>
         <field name="availabilityStatusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="WEPA_AVAILABILITY"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -58,7 +58,7 @@ under the License.
         </field>
         <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -66,7 +66,7 @@ under the License.
         </field>
         <field name="delegateReasonEnumId" title="${uiLabelMap.WorkEffortDelegateReason}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_DEL_REAS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -84,7 +84,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -93,7 +93,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="PRTYASGN_ASSIGNED">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -101,7 +101,7 @@ under the License.
         </field>
         <field name="availabilityStatusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="WEPA_AVAILABILITY"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -109,7 +109,7 @@ under the License.
         </field>
         <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_EXPECT"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -117,7 +117,7 @@ under the License.
         </field>
         <field name="delegateReasonEnumId" title="${uiLabelMap.WorkEffortDelegateReason}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="WORK_EFF_DEL_REAS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

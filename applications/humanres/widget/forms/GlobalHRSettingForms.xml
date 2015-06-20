@@ -93,7 +93,7 @@ under the License.
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
         <field name="emplPositionTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="EmplPositionType" description="${description}" key-field-name="emplPositionTypeId"/>
+                <entity-options entity-name="EmplPositionType" key-field-name="emplPositionTypeId"/>
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
@@ -155,9 +155,9 @@ under the License.
         <field name="emplPositionTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="rateAmountFromDate"><hidden/></field>
-        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
-        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
-        <field name="payGradeId"><display-entity entity-name="PayGrade" description="${description}"/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType"/></field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType"/></field>
+        <field name="payGradeId"><display-entity entity-name="PayGrade"/></field>
         <field name="salaryStepSeqId" title="${uiLabelMap.HumanResSalaryStepSeqId}"><display/></field>
         <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="deleteButton" widget-style="buttontext"><submit/></field>
@@ -170,7 +170,7 @@ under the License.
         <field name="emplPositionTypeId"><hidden value="${parameters.emplPositionTypeId}"/></field>
         <field name="rateTypeId"   tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down>
-                <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
+                <entity-options key-field-name="rateTypeId" entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -178,7 +178,7 @@ under the License.
         <field name="payGradeId" position="2"><lookup target-form-name="LookupPayGrade"/></field>
         <field name="periodTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="RATE_MONTH">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="periodTypeId"/>
                 </entity-options>
             </drop-down>

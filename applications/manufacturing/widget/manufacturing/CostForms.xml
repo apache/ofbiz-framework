@@ -59,7 +59,7 @@ under the License.
         </field>
         <field name="costCustomMethodId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId">
                     <entity-constraint name="customMethodTypeId" operator="equals" value="COST_FORMULA"/>
                 </entity-options>
             </drop-down>

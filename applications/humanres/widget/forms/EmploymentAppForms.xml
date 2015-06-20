@@ -42,7 +42,7 @@ under the License.
         <field name="applicationId" title="${uiLabelMap.HumanResApplicationId}"><display also-hidden="true"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -80,7 +80,7 @@ under the License.
         <field name="applicationId"><lookup target-form-name="LookupEmploymentApp"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -88,7 +88,7 @@ under the License.
         </field>
         <field name="employmentAppSourceTypeId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="employmentAppSourceTypeId" entity-name="EmploymentAppSourceType">
+                <entity-options key-field-name="employmentAppSourceTypeId" entity-name="EmploymentAppSourceType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -115,7 +115,7 @@ under the License.
         <field name="emplPositionId"><lookup target-form-name="LookupEmplPosition"/></field>
         <field name="statusId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -126,7 +126,7 @@ under the License.
         <field name="referredByPartyId" use-when="employmentApp!=null"><hidden/></field>
         <field name="employmentAppSourceTypeId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="employmentAppSourceTypeId" entity-name="EmploymentAppSourceType">
+                <entity-options key-field-name="employmentAppSourceTypeId" entity-name="EmploymentAppSourceType">
                     <entity-order-by field-name="employmentAppSourceTypeId"/>
                 </entity-options>
             </drop-down>

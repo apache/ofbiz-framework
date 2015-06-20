@@ -27,14 +27,14 @@ under the License.
         <field name="partyId" required-field="true"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" required-field="true">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffort" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffort" key-field-name="workEffortId">
                     <entity-constraint name="workEffortParentId" operator="equals" value="${productionRunId}"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -71,7 +71,7 @@ under the License.
         <field name="workEffortId" title="${uiLabelMap.ManufacturingProductionRunId}"><text-find/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PRODUCTION_RUN"/>
                 </entity-options>
              </drop-down>
@@ -123,7 +123,7 @@ under the License.
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
         </field>
         <field name="currentStatusId">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="manufacturerId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${lastName} [${partyId}]"/>
@@ -176,7 +176,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="lotId" map-name="inventoryItem"><display/></field>
-        <field name="statusId" map-name="inventoryItem"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="statusId" map-name="inventoryItem"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="unitCost" map-name="inventoryItem"><display/></field>
         <field name="quantity" entry-name="quantityOnHandDiff"><display/></field>
         <field name="datetimeReceived" map-name="inventoryItem"><display/></field>
@@ -274,7 +274,7 @@ under the License.
             <display-entity entity-name="Product" description="${internalName} [${productId}]"/>
         </field>
         <field name="currentStatusId">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="quantityToProduce" title="${uiLabelMap.ManufacturingQuantityToProduce}">
             <display/>
@@ -301,7 +301,7 @@ under the License.
         <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}"><text/></field>
         <field name="inventoryItemTypeId">
             <drop-down allow-empty="false" no-current-selected-key="NON_SERIAL_INV_ITEM">
-                <entity-options entity-name="InventoryItemType" description="${description}"/>
+                <entity-options entity-name="InventoryItemType"/>
             </drop-down>
         </field>
         <field name="lotId"><text default-value="${lastLotId}"/></field>
@@ -313,7 +313,7 @@ under the License.
         <field name="quantity" title="${uiLabelMap.ManufacturingProduceQuantity}" tooltip="${uiLabelMap.ManufacturingProduceQuantityMessage}"><text/></field>
         <field name="inventoryItemTypeId">
             <drop-down allow-empty="false" no-current-selected-key="NON_SERIAL_INV_ITEM">
-                <entity-options entity-name="InventoryItemType" description="${description}"/>
+                <entity-options entity-name="InventoryItemType"/>
             </drop-down>
         </field>
         <field name="lotId"><text default-value="${lastLotId}"/></field>
@@ -365,7 +365,7 @@ under the License.
         <field name="priority" title="${uiLabelMap.CommonSequenceNum}"><display/></field>
         <field name="workEffortId" title="${uiLabelMap.ManufacturingTaskName}"><display description="${workEffortName} [${workEffortId}]"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="fixedAssetId"  title="${uiLabelMap.ManufacturingMachine}"><display/></field>
         <field name="reservPersons"><display/></field>
@@ -536,8 +536,8 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="contentId"><display/></field>
         <field name="drDataResourceId"><display/></field>
-        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType" description="${description}"/></field>
-        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="workEffortContentTypeId"><display-entity entity-name="WorkEffortContentType"/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"/></field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
         <field name="localeString"><display/></field>
@@ -569,7 +569,7 @@ under the License.
         <field name="workEffortId" entry-name="productionRunId"><hidden/></field>
         <field name="contentId"><display/></field>
         <field name="drDataResourceId"><display/></field>
-        <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
+        <field name="contentTypeId"><display-entity entity-name="ContentType"/></field>
         <field name="contentName"><display/></field>
         <field name="description"><display/></field>
         <field name="localeString"><display/></field>
@@ -586,7 +586,7 @@ under the License.
         <field name="drObjectInfo" title="${uiLabelMap.CommonContent}" entry-name="drDataResourceId" encode-output="true" use-when="${groovy: drDataResourceTypeId != null &amp;&amp; drDataResourceTypeId.equals(&quot;ELECTRONIC_TEXT&quot;)}">
             <display-entity entity-name="ElectronicText" key-field-name="dataResourceId" description="${textData}"></display-entity>
         </field>
-        <field name="workEffortContentTypeId"><drop-down><entity-options description="${description}" entity-name="WorkEffortContentType"></entity-options></drop-down></field>
+        <field name="workEffortContentTypeId"><drop-down><entity-options entity-name="WorkEffortContentType"></entity-options></drop-down></field>
         <field name="_rowSubmit" title="${uiLabelMap.CommonSelected}"><check/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit/></field>
     </form>
@@ -602,7 +602,7 @@ under the License.
         </field>
         <field name="availabilityStatusId" title="">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -670,7 +670,7 @@ under the License.
             <!-- Statuses are not yet defined for the WorkEffortFixedAssetAssign entity
                 so this field will be hidden meanwhile
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS"/>
                 </entity-options>
             </drop-down> -->
@@ -696,7 +696,7 @@ under the License.
         </field>
         <field name="availabilityStatusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -706,7 +706,7 @@ under the License.
             <!-- Statuses are not yet defined for the WorkEffortFixedAssetAssign entity
                 so this field will be hidden meanwhile
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="WORK_EFF_ASSET_STTS"/>
                 </entity-options>
             </drop-down> -->
@@ -758,7 +758,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="estimatedShipDate" sort-field="true"><display/></field>
         <field name="viewShipmentPlanLink" title=" " widget-style="buttontext">
@@ -786,7 +786,7 @@ under the License.
         </field>
         <field name="workFlowSequenceTypeId"  title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORKFLOW"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -984,7 +984,7 @@ under the License.
             <display-entity entity-name="InventoryItem" key-field-name="inventoryItemId" description="${unitCost}"/>
         </field>
         <field name="reasonEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="description"><display/></field>
     </form>
@@ -1008,7 +1008,7 @@ under the License.
         <field name="lotId" title="${uiLabelMap.ProductLotId}"><text /></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="IID_REASON"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

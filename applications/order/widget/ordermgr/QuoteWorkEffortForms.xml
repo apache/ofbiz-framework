@@ -33,10 +33,10 @@ under the License.
                 <parameter param-name="quoteId"/>
             </hyperlink>
         </field>
-        <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType" description="${description}"/></field>
+        <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
         <field name="statusItemDescription"><display/></field>
         <field name="description"><display/></field>
-        <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType" description="${description}"/></field>
+        <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType"/></field>
         <field name="actualStartDate"><display/></field>
         <field name="actualEndDate"><display/></field>
         <field name="deleteLink" title=" " widget-style="buttontext">

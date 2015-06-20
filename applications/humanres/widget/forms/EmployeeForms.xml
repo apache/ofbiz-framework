@@ -70,7 +70,7 @@
         <field name="partyId"><hidden/></field>
         <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down>
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -90,7 +90,7 @@
         </actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>
         <field name="skillTypeId">
-            <display-entity entity-name="SkillType" description="${description}"/>
+            <display-entity entity-name="SkillType"/>
         </field>
         <field name="yearsExperience"><text/></field>
         <field name="rating"><text/></field>
@@ -108,14 +108,14 @@
         <field name="partyId"><hidden/></field>
         <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
+                <entity-options key-field-name="partyQualTypeId" entity-name="PartyQualType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -123,7 +123,7 @@
         </field>
         <field name="verifStatusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -141,13 +141,13 @@
         </actions>
         <auto-fields-service service-name="updatePartyQual"/>
         <field name="partyId"><hidden/></field>
-        <field name="partyQualTypeId"><display-entity entity-name="PartyQualType" description="${description}"/></field>
+        <field name="partyQualTypeId"><display-entity entity-name="PartyQualType"/></field>
         <field name="fromDate"><display/></field>
         <field name="qualificationDesc"><text/></field>
         <field name="title"><text/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -155,7 +155,7 @@
         </field>
         <field name="verifStatusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -175,7 +175,7 @@
         <field name="partyId"><hidden/></field>
         <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="TrainingClassType">
+                <entity-options entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -189,12 +189,12 @@
         <field name="partyId"><hidden/></field>
         <field name="leaveTypeId" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+                <entity-options key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
             </drop-down>
         </field>
         <field name="emplLeaveReasonTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
+                <entity-options key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
             </drop-down>
         </field>
         <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"><date-time type="timestamp"></date-time></field>
@@ -216,7 +216,7 @@
         <field name="approverPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveStatus"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="emplLeaveReasonTypeId"><display/></field>
-        <field name="leaveTypeId"><display-entity description="${description}" entity-name="EmplLeaveType"/></field>
+        <field name="leaveTypeId"><display-entity entity-name="EmplLeaveType"/></field>
         <field name="fromDate"></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
     </form>

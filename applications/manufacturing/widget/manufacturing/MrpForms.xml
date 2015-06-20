@@ -44,7 +44,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
-            <display-entity entity-name="StatusItem" description="${description}"></display-entity>
+            <display-entity entity-name="StatusItem"></display-entity>
         </field>
         <field name="poolId"><hidden/></field>
         <field name="parentJobId"><hidden/></field>
@@ -63,7 +63,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <auto-fields-entity entity-name="JobSandbox" default-field-type="display"/>
         <field name="statusId">
-            <display-entity entity-name="StatusItem" description="${description}"></display-entity>
+            <display-entity entity-name="StatusItem"></display-entity>
         </field>
         <field name="poolId"><hidden/></field>
         <field name="parentJobId"><hidden/></field>

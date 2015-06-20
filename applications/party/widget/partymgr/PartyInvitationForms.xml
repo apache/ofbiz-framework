@@ -30,7 +30,7 @@ under the License.
         <field position="2" name="datefrom" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="statusId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
                     <entity-order-by field-name="statusId"/>
                 </entity-options>
@@ -66,7 +66,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="toName" title="${uiLabelMap.PartyToName}"><display/></field>
         <field name="emailAddress" title="${uiLabelMap.PartyEmailAddress}"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="lastInviteDate"><display/></field>
         <field name="remove" title=" " widget-style="buttontext">
             <hyperlink target="deletePartyInvitation" description="${uiLabelMap.CommonDelete}">
@@ -88,7 +88,7 @@ under the License.
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
                     <entity-order-by field-name="statusId"/>
                 </entity-options>
@@ -169,7 +169,7 @@ under the License.
         <field name="partyInvitationId"><hidden/> </field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
             </drop-down>

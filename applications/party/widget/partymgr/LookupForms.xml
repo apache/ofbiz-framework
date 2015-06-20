@@ -27,7 +27,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
@@ -50,7 +50,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
-            <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
+            <display-entity also-hidden="false" entity-name="PartyType"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
@@ -62,7 +62,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
@@ -99,7 +99,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
@@ -120,7 +120,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
-            <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
+            <display-entity also-hidden="false" entity-name="PartyType"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
@@ -137,7 +137,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><text-find/></field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><text-find/></field>
@@ -161,7 +161,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
-            <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
+            <display-entity also-hidden="false" entity-name="PartyType"/>
         </field>
         <field name="firstName" title="${uiLabelMap.PartyFirstName}"><display/></field>
         <field name="lastName"  title="${uiLabelMap.PartyLastName}"><display/></field>
@@ -285,7 +285,7 @@ under the License.
         <auto-fields-entity entity-name="PartyClassificationGroup" default-field-type="find"/>
         <field name="partyClassificationTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PartyClassificationType" description="${description}">
+                <entity-options entity-name="PartyClassificationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -321,28 +321,28 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -375,10 +375,10 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView" key-field-name="partyId"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="custRequestId" position="1" title="${uiLabelMap.PartyServicemgntCustRequestId}"><display/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
@@ -389,14 +389,14 @@ under the License.
         <field name="contactMechId"><text-find/></field>
         <field name="contactMechTypeId">
             <drop-down allow-empty="true" no-current-selected-key="EMAIL_ADDRESS">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="infoString"><text-find/></field>
@@ -420,7 +420,7 @@ under the License.
             <hyperlink description="${contactMechId}" target-type="plain" target="javascript:set_value('${contactMechId}')" also-hidden="false"/>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.PartyTypeId}">
-            <display-entity also-hidden="false" entity-name="PartyType" description="${description}"/>
+            <display-entity also-hidden="false" entity-name="PartyType"/>
         </field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
         <field name="cmDetail"><display description="[${infoString}] [${tnCountryCode}-${tnAreaCode}-${tnContactNumber}] [${paAddress1}, ${paAddress2}, ${paCity}, ${paStateProvinceGeoId}, ${paPostalCode}, ${paPostalCodeExt} ${paCountryGeoId}]" also-hidden="false"/></field>

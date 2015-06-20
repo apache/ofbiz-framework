@@ -89,8 +89,8 @@ under the License.
             <set field="projectId" from-field="result.projectId"/>
             <set field="projectName" from-field="result.projectName"/>
         </actions>
-        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType" description="${description}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="custRequestTypeId"><display-entity entity-name="CustRequestType"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile" description="[${fromPartyId}]">

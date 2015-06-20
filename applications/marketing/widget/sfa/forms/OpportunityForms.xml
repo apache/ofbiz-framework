@@ -28,14 +28,14 @@ under the License.
         <field name="partyId" title="${uiLabelMap.SfaLead}"><lookup target-form-name="LookupLeads"/></field>
         <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SalesOpportunityStage">
+                <entity-options entity-name="SalesOpportunityStage">
                     <entity-order-by field-name="sequenceNum"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="typeEnumId" title="${uiLabelMap.SfaType}">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                <entity-options key-field-name="enumId" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -73,7 +73,7 @@ under the License.
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
-        <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
+        <field name="opportunityStageId" title="${uiLabelMap.SfaInitialStage}"><display-entity entity-name="SalesOpportunityStage"/></field>
         <field name="partyId" title="${uiLabelMap.SfaLead}">
             <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${middleName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile" description=" [${partyId}]">
@@ -122,14 +122,14 @@ under the License.
         <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}" widget-style="required"><date-time/></field>
         <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}" widget-style="required">
             <drop-down>
-                <entity-options description="${description}" entity-name="SalesOpportunityStage">
+                <entity-options entity-name="SalesOpportunityStage">
                     <entity-order-by field-name="sequenceNum"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                <entity-options key-field-name="enumId" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="SLSOPP_TYP_ENUM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -137,7 +137,7 @@ under the License.
         </field>
         <field name="dataSourceId" use-when="communicationEvent==null" position="1" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
+                <entity-options key-field-name="dataSourceId" entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -145,7 +145,7 @@ under the License.
         </field>
         <field name="dataSourceId" use-when="communicationEvent!=null" position="1" title="${uiLabelMap.SfaDataSourceLabel}">
             <drop-down allow-empty="false" no-current-selected-key="EMAIL">
-                <entity-options key-field-name="dataSourceId" description="${description}" entity-name="DataSource">
+                <entity-options key-field-name="dataSourceId" entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" operator="equals" value="LEAD_SOURCE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -170,7 +170,7 @@ under the License.
         <field name="nextStepDate" position="1" title="${uiLabelMap.SfaNextStepDate}"><display/></field>
         <field name="estimatedCloseDate" position="2" title="${uiLabelMap.SfaCloseDate}"><display/></field>
         <field name="opportunityStageId" position="1" title="${uiLabelMap.SfaInitialStage}">
-            <display-entity entity-name="SalesOpportunityStage" description="${description}"/>
+            <display-entity entity-name="SalesOpportunityStage"/>
         </field>
         <field name="typeEnumId" position="2" title="${uiLabelMap.SfaType}"><display/></field>
         <field name="marketingCampaignId" position="1" title="${uiLabelMap.MarketingCampaign}"><display/></field>

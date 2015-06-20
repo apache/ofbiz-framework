@@ -26,7 +26,7 @@
         <field name="instanceOfProductId" title="${uiLabelMap.AccountingInstanceOfProductId}"><text-find ignore-case="true"/></field>
         <field name="classEnumId" title="${uiLabelMap.AccountingFixedAssetClassEnumId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="FXAST_CLASS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -43,14 +43,14 @@
         <field name="maintHistSeqId"><text-find ignore-case="true"/></field>
         <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductMaintType">
+                <entity-options entity-name="ProductMaintType">
                     <entity-order-by field-name="productMaintTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="FIXEDAST_MNT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -110,7 +110,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="facilityId">
             <drop-down>
-                <entity-options description="${description}" entity-name="Facility">
+                <entity-options entity-name="Facility">
                     <entity-constraint name="facilityTypeId" value="WAREHOUSE"/>
                     <entity-order-by field-name="facilityId"/>
                 </entity-options>

@@ -37,7 +37,7 @@ under the License.
         </field>
         <field name="facilityName"><display/></field>
         <field name="facilityTypeId" title="${uiLabelMap.ProductFacilityType}">
-            <display-entity entity-name="FacilityType" description="${description}"/>
+            <display-entity entity-name="FacilityType"/>
         </field>
         <field name="ownerPartyId" title="${uiLabelMap.ProductFacilityOwner}"><display/></field>
         <field name="FacilitySize" title="${uiLabelMap.ProductFacilitySize}"><display/></field>
@@ -74,10 +74,10 @@ under the License.
         <field name="inventoryItemId"><text-find/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
@@ -197,7 +197,7 @@ under the License.
         <field name="workEffortId"><text/></field>
         <field name="reasonEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="IID_REASON"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -258,7 +258,7 @@ under the License.
         <field name="availableToPromiseDiff" position="2"><display/></field>
 
         <field name="reasonEnumId" position="2">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="description" position="2"><display/></field>
         <field name="orderId" widget-style="buttontext" position="2">
@@ -314,7 +314,7 @@ under the License.
         <field name="availableToPromiseDiff" position="2"><display/></field>
 
         <field name="reasonEnumId" position="2">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="description" position="2"><display/></field>
         <field name="orderId" widget-style="buttontext" position="2">
@@ -366,7 +366,7 @@ under the License.
         <field name="availableToPromiseDiff"><display/></field>
 
         <field name="reasonEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="description"><display/></field>
         <field name="orderId" widget-style="buttontext">
@@ -402,7 +402,7 @@ under the License.
         </field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true" no-current-selected-key="FINISHED_GOOD">
-                <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
+                <entity-options entity-name="ProductType"> <!-- [${productTypeId}] -->
                     <entity-constraint name="isPhysical"  value="Y" operator="equals"/>
                     <entity-constraint name="parentTypeId"  value="GOOD" operator="equals"/>
                     <entity-order-by field-name="description"/>
@@ -420,10 +420,10 @@ under the License.
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
@@ -501,14 +501,14 @@ under the License.
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductShipmentMethodType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType"/>
             </drop-down>
         </field>
         <field name="billingWeight" title="${uiLabelMap.CommonWeight}"><text size="10"/></field>
         <field name="billingWeightUomId"  title="${uiLabelMap.ProductWeightUomId}">
             <drop-down allow-empty="false">
                 <option key="${defaultWeightUom.uomId}" description="${defaultWeightUom.description}"/>
-                <entity-options entity-name="Uom" description="${description}" key-field-name="uomId">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" operator="equals" value="WEIGHT_MEASURE"/>
                 </entity-options>
             </drop-down>
@@ -586,7 +586,7 @@ under the License.
         <field name="productQOH" title="${uiLabelMap.ProductProductQOH}"><display/></field>
         <field name="varianceReasonId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="VarianceReason" description="${description}"/>
+                <entity-options entity-name="VarianceReason"/>
             </drop-down>
         </field>
         <field name="availableToPromiseVar" title="${uiLabelMap.ProductProductATPVar}" event="onchange" action="document.ListPhysicalInventory._rowSubmit_o_${itemIndex}.checked = true"><text size="6"/></field>
@@ -638,7 +638,7 @@ under the License.
             <display-entity description="${groupName} ${firstName} ${lastName} [${partyId}]" entity-name="PartyNameView"/>
         </field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
@@ -660,7 +660,7 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}"/>
+                <entity-options entity-name="RoleType"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
@@ -863,14 +863,14 @@ under the License.
         </field>
         <field name="contentTypeId" title="${uiLabelMap.FormFieldTitle_contentTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType">
+                <entity-options entity-name="ContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -908,7 +908,7 @@ under the License.
         <field name="geoPointId"><hidden/></field>
         <field name="dataSourceId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="DataSource">
+                <entity-options entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" value="GEOPOINT_SUPPLIER"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -919,7 +919,7 @@ under the License.
         <field name="elevation"><text/></field>
         <field name="elevationUomId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="Uom" key-field-name="uomId">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="LENGTH_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

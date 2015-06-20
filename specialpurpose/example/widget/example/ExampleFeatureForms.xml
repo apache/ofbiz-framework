@@ -91,7 +91,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ExampleFeatureApplType" description="${description}">
+                <entity-options entity-name="ExampleFeatureApplType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -125,7 +125,7 @@ under the License.
         </field>
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ExampleFeatureApplType" description="${description}">
+                <entity-options entity-name="ExampleFeatureApplType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

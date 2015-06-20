@@ -29,14 +29,14 @@ under the License.
         <field name="workEffortName"><text-find/></field>
         <field name="workEffortTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortPurposeTypeId" >
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -63,7 +63,7 @@ under the License.
         <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="scopeEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -97,14 +97,14 @@ under the License.
         <field name="workEffortName"><text-find/></field>
         <field name="workEffortTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortPurposeTypeId" >
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

@@ -142,7 +142,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="productPromoContentTypeId" title="${uiLabelMap.ProductProductPromoContentType}">
-            <display-entity entity-name="ProductContentType" key-field-name="productContentTypeId" also-hidden="false" description="${description}"/>
+            <display-entity entity-name="ProductContentType" key-field-name="productContentTypeId" also-hidden="false"/>
         </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>

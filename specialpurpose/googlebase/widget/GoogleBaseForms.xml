@@ -62,7 +62,7 @@ under the License.
         <field name="trackingCodeId">
             <drop-down no-current-selected-key="_NA_">
                 <option key="_NA_" description="${uiLabelMap.GoogleBaseExportNoTrackingRequested}"/>
-                <entity-options entity-name="TrackingCode" description="${description}">
+                <entity-options entity-name="TrackingCode">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

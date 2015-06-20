@@ -28,12 +28,12 @@ under the License.
         <field name="description"><text-find ignore-case="true"/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="InvoiceType"/>
+                <entity-options entity-name="InvoiceType"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -217,7 +217,7 @@ under the License.
         <field name="acctgTransTypeId"><display-entity entity-name="AcctgTransType"/></field>
         <field name="glJournalId"><display-entity entity-name="GlJournal" description="${glJournalName}"/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}"><display-entity entity-name="GlAccountType"/></field>
-        <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}"><display-entity entity-name="GlAccountClass" description="${description}"/></field>
+        <field name="glAccountClassId" title="${uiLabelMap.AccountingGlAccountClass}"><display-entity entity-name="GlAccountClass"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${lastName} ${groupName}"/></field>
         <field name="reconcileStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="origCurrencyUomId"><ignored/></field>
@@ -240,7 +240,7 @@ under the License.
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="2" name="invoiceTypeId">
             <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
-                <entity-options description="${description}" entity-name="InvoiceType">
+                <entity-options entity-name="InvoiceType">
                     <entity-constraint name="parentTypeId" value="SALES_INVOICE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -264,7 +264,7 @@ under the License.
         <field name="currencyUomId"><hidden value="${defaultOrganizationPartyCurrencyUomId}"/></field>
         <field position="2" name="invoiceTypeId">
             <drop-down allow-empty="false" no-current-selected-key="PURCHASE_INVOICE">
-                <entity-options description="${description}" entity-name="InvoiceType">
+                <entity-options entity-name="InvoiceType">
                     <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -289,10 +289,10 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceDate"><date-time/></field>
         <field position="2" name="dueDate"><date-time/></field>
-        <field position="1" name="invoiceTypeId" use-when="invoice!=null"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field position="1" name="invoiceTypeId" use-when="invoice!=null"><display-entity entity-name="InvoiceType"/></field>
         <field position="1" name="invoiceTypeId" use-when="invoice==null">
             <drop-down allow-empty="false" no-current-selected-key="SALES_INVOICE">
-                <entity-options description="${description}" entity-name="InvoiceType">
+                <entity-options entity-name="InvoiceType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -306,22 +306,22 @@ under the License.
         <field position="2" name="partyIdTo" entry-name="partyId" parameter-name="partyId" use-when="invoiceType.getString(&quot;parentTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="roleTypeId" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;invoiceTypeId&quot;).equals(&quot;SALES_INVOICE&quot;)">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="CUSTOMER"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field position="1" name="roleTypeId" use-when="invoice!=null&amp;&amp;invoice.getString(&quot;invoiceTypeId&quot;).equals(&quot;PURCHASE_INVOICE&quot;)">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="VENDOR"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -363,7 +363,7 @@ under the License.
        <field name="quantity"><text size="10"/></field>
        <field name="invoiceItemTypeId">
            <drop-down allow-empty="false">
-               <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
+               <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId"/>
            </drop-down>
        </field>
        <field name="productId"><lookup target-form-name="LookupProduct" size="20"/></field>
@@ -391,7 +391,7 @@ under the License.
         <field name="invoiceId"><hidden/></field>
         <field position="1" name="invoiceItemTypeId">
             <drop-down allow-empty="false">
-                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId" description="${description}"/>
+                <list-options list-name="invoiceItemTypes" key-name="invoiceItemTypeId"/>
             </drop-down>
         </field>
         <field position="1" name="description"><text size="80"/></field>
@@ -535,7 +535,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -608,7 +608,7 @@ under the License.
             </display-entity>
         </field>
         <field name="hours"><display/></field>
-        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType"/></field>
         <field name="workEffortId">
             <display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
                 <sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary" target-type="inter-app">
@@ -625,7 +625,7 @@ under the License.
         <field name="billingAccountId"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -643,7 +643,7 @@ under the License.
         </actions>
         <field name="invoiceId"><hidden/></field>
         <field name="termTypeId">
-            <display-entity entity-name="TermType" description="${description}"/>
+            <display-entity entity-name="TermType"/>
         </field>
         <field name="dueDate"><display/></field>
         <field name="amount"><display type="currency" currency="${invoice.currencyUomId}"/></field>

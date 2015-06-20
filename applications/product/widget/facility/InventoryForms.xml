@@ -44,7 +44,7 @@ under the License.
         <field name="inventoryItemId" tooltip="${uiLabelMap.ProductNotModificationRecrationInventoryItem}"><display/></field>
         <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="InventoryItemType" description="${description}" key-field-name="inventoryItemTypeId"/>
+                <entity-options entity-name="InventoryItemType" key-field-name="inventoryItemTypeId"/>
             </drop-down>
         </field>
         <field name="productId" required-field="true" position="1">
@@ -56,24 +56,24 @@ under the License.
         </field>
         <field name="statusId" use-when="inventoryItem==null">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;SERIALIZED_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="inventoryItem!=null&amp;&amp;&quot;NON_SERIAL_INV_ITEM&quot;.equals(inventoryItem.getString(&quot;inventoryItemTypeId&quot;))">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
             </drop-down>
@@ -160,7 +160,7 @@ under the License.
         <field name="inventoryItemId" map-name="inventoryItem"><hidden/></field>
         <field name="varianceReasonId">
             <drop-down>
-                <entity-options entity-name="VarianceReason" description="${description}">
+                <entity-options entity-name="VarianceReason">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -201,7 +201,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="reasonEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <!-- workEffortId - not sure if it's better to show manufacturing or workeffort app
         itemIssuanceId, receiptId, physicalInventoryId - no natural screens to show these -->

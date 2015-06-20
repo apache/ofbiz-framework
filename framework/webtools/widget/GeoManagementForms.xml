@@ -27,7 +27,7 @@
         <field name="geoPointId" title="${uiLabelMap.CommonId}"><text-find/></field>
         <field name="dataSourceId" title="${uiLabelMap.Source}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="DataSource" description="${description}">
+                <entity-options entity-name="DataSource">
                     <entity-constraint name="dataSourceTypeId" value="GEOPOINT_SUPPLIER"/>
                 </entity-options>
             </drop-down>
@@ -83,7 +83,7 @@
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text/></field>
         <field name="geoTypeId" title="${uiLabelMap.CommonGeoTypeId}">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
+                <entity-options key-field-name="geoTypeId" entity-name="GeoType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -118,7 +118,7 @@
             event="onChange" 
             action="typeValue = jQuery('#${asm_typeField}').val(); selectMultipleRelatedValues('${asm_requestName}', '${asm_paramKey}', '${asm_relatedField}', '${asm_multipleSelect}', '${asm_type}', typeValue, '${asm_responseName}');">
             <drop-down>
-                <entity-options key-field-name="geoAssocTypeId" entity-name="GeoAssocType" description="${description}">
+                <entity-options key-field-name="geoAssocTypeId" entity-name="GeoAssocType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

@@ -73,14 +73,14 @@
         <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}" required-field="true" tooltip="${uiLabelMap.ScrumToolTip100CharsMaximun}"><text/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}" required-field="true">
             <drop-down>
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="custRequestId" use-when="task==null" title="${uiLabelMap.ScrumSprintBacklog}">
             <drop-down>
-                <list-options key-name="custRequestId" list-name="scrumProjectSprintBacklogs" description="${description}"/>
+                <list-options key-name="custRequestId" list-name="scrumProjectSprintBacklogs"/>
             </drop-down>
         </field>
         <field name="custRequestId" use-when="task!=null" title="${uiLabelMap.ScrumSprintBacklog}" map-name="parameters">
@@ -134,7 +134,7 @@
         </field>
         <field name="sprintBacklog"><display description="${custRequest.description}"/></field>
         <field name="currentStatusId">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="estimatedHours"><text size="3" default-value="${groovy: if (estimatedMilliSeconds != null) return estimatedMilliSeconds/3600000}"/></field>
         <field name="actualHours"><text size="3" default-value="${groovy: if (actualMilliSeconds != null) return actualMilliSeconds/3600000}"/></field>
@@ -306,12 +306,12 @@
             </service>
         </actions>
         <field name="workEffortName" title="${uiLabelMap.ScrumTaskName}"><display description="${task.workEffortName}"/></field>
-        <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}"><display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/></field>
+        <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}"><display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/></field>
         <field name="sprintName" title="${uiLabelMap.ScrumSprint}"><hidden value="${sprintName}"/></field>
         <field name="projectName" title="${uiLabelMap.ScrumProject}"><hidden value="${projectName}"/></field>
         <field name="custRequestDesp" title="${uiLabelMap.ScrumProductBacklog}"><display description="${description}"/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><hidden value="${task.description}"/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="planHours"><hidden value="${resultPlanHour.planHours}"/></field>
         <field name="actualHours"><hidden value="${groovy: if (result != null) return result.actualHours}"/></field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}"><hidden value ="${person.lastName} ${person.firstName}"/></field>
@@ -336,7 +336,7 @@
         <field name="lastName"><display/></field>
         <field name="groupName"><display/></field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
@@ -456,7 +456,7 @@
         <field name="workEffortId"><hidden value="${parameters.taskId}"/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.ScrumTaskType}" required-field="true">
             <drop-down>
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
                 </entity-options>
             </drop-down>
@@ -490,7 +490,7 @@
             </display-entity>
         </field>
         <field name="custRequestId" use-when="task!=null&amp;&amp;project==null" title="${uiLabelMap.ScrumSprintBacklog}" map-name="parameters">
-            <display-entity entity-name="CustRequest" key-field-name="custRequestId" description="${description}">
+            <display-entity entity-name="CustRequest" key-field-name="custRequestId">
                 <sub-hyperlink target="ViewProdBacklogItem" description="[${parameters.custRequestId}]">
                     <parameter param-name="custRequestId" from-field="parameters.custRequestId"/>
                     <parameter param-name="productId" from-field="parameters.projectId"/>
@@ -635,14 +635,14 @@
             </hyperlink>
         </field>
         <field name="taskTypeId" title="${uiLabelMap.ScrumTaskType}" use-when="&quot;SCRUM_TASK_ERROR&quot;.equals(taskTypeId)" widget-style="alert">
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/>
         </field>
         <field name="taskTypeId" title="${uiLabelMap.ScrumTaskType}" use-when="!&quot;SCRUM_TASK_ERROR&quot;.equals(taskTypeId)">
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/>
         </field>
         <field name="sprintName" title="${uiLabelMap.ScrumSprint}"><display/></field>
         <field name="productBacklogName" entry-name="description" title="${uiLabelMap.ScrumProductBacklog}" ><display/></field>
-        <field name="taskCurrentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="taskCurrentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="taskActualStartDate" title="${uiLabelMap.CommonActualStartDate}"><display type="date"/></field>
         <field name="actualHours"><display description="${results.actualHours}"/></field>
         <field name="planHours">
@@ -725,10 +725,10 @@
             </display-entity>
         </field>
         <field name="taskTypeId" >
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId"/>
         </field>
         <field name="taskCurrentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" >
@@ -775,7 +775,7 @@
         <field name="taskName" position="2"><text/></field>
         <field name="taskTypeId" title="Task Type">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
+                <entity-options entity-name="WorkEffortType" key-field-name="workEffortTypeId">
                     <entity-constraint name="parentTypeId" value="SCRUM_TASK"/>
                 </entity-options>
             </drop-down>
@@ -788,7 +788,7 @@
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <list-options key-name="statusId" list-name="statusItemList" description="${description}"/>
+                <list-options key-name="statusId" list-name="statusItemList"/>
             </drop-down>
         </field>
         <field name="partyId" title="${uiLabelMap.ScrumAssignedTo}" position="2">
@@ -921,12 +921,12 @@
         </field>
         <field name="roleTypeId" use-when="parameters.get(&quot;partyId&quot;)!=null&amp;&amp;sprint==null">
             <drop-down current="selected" allow-empty="false">
-                <list-options key-name="roleTypeId" list-name="roleTypeList" description="${description}"/>
+                <list-options key-name="roleTypeId" list-name="roleTypeList"/>
             </drop-down>
         </field>
         <field name="roleTypeId" use-when="parameters.get(&quot;partyId&quot;)!=null&amp;&amp;sprint!=null">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="WorkEffortPartyAssignAndRoleType" description="${description}">
+                <entity-options entity-name="WorkEffortPartyAssignAndRoleType">
                     <entity-constraint name="partyId" operator="equals" value="${parameters.partyId}"/>
                     <entity-constraint name="workEffortId" operator="equals" value="${sprint.sprintId}"/>
                 </entity-options>
@@ -954,7 +954,7 @@
             </hyperlink>
         </field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>

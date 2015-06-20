@@ -32,12 +32,12 @@ under the License.
 
         <field name="shipmentTypeId" title="${uiLabelMap.ProductShipmentTypeId}">
             <drop-down allow-empty="false" current="first-in-list">
-                <entity-options entity-name="ShipmentType" description="${description}"/>
+                <entity-options entity-name="ShipmentType"/>
             </drop-down>
         </field>
         <field use-when="shipment==null" name="statusId" title="${uiLabelMap.ProductStatusId}">
             <drop-down allow-empty="false" current="first-in-list">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="${statusItemTypeId}"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>

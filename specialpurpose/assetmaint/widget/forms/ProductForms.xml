@@ -129,14 +129,14 @@
         <field name="productId"><hidden/></field>
         <field name="productMaintSeqId"><hidden/></field>
         <field name="productMaintTypeId">
-            <display-entity entity-name="ProductMaintType" key-field-name="productMaintTypeId" description="${description}"/>
+            <display-entity entity-name="ProductMaintType" key-field-name="productMaintTypeId"/>
         </field>
         <field name="maintName"><display/></field>
         <field name="intervalMeterTypeId">
-            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId" description="${description}"/>
+            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId"/>
         </field>
         <field name="intervalUomId">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="intervalQuantity"><text/></field>
         <field name="repeatCount"><text/></field>

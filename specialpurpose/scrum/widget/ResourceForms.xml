@@ -44,7 +44,7 @@
         <field name="groupId">
             <drop-down allow-empty="false">
                 <option key="" description=" "/>
-                <list-options list-name="securityGroupList" description="${description}" key-name="groupId"/>
+                <list-options list-name="securityGroupList" key-name="groupId"/>
             </drop-down>
         </field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
@@ -80,9 +80,9 @@
         </field>
         <field name="userLoginId"><display/></field>
         <field name="groupId" sort-field="true">
-            <display-entity entity-name="SecurityGroup" key-field-name="groupId" description="${description}"/>
+            <display-entity entity-name="SecurityGroup" key-field-name="groupId"/>
         </field>
-        <field name="rateTypeId" use-when="rateTypeId!=null"><display-entity entity-name="RateType" description="${description}" key-field-name="rateTypeId"/></field>
+        <field name="rateTypeId" use-when="rateTypeId!=null"><display-entity entity-name="RateType" key-field-name="rateTypeId"/></field>
         <field name="rateAmount" use-when="rateTypeId!=null"><display/></field>
         <field name="percentageUsed" use-when="rateTypeId!=null"><display/></field>
         <field name="update" title="${uiLabelMap.CommonUpdate}" widget-style="buttontext" use-when="rateTypeId!=null">
@@ -144,7 +144,7 @@
         </field>
         <field name="groupId">
             <drop-down allow-empty="false">
-                <list-options list-name="securityGroupList" description="${description}" key-name="groupId"/>
+                <list-options list-name="securityGroupList" key-name="groupId"/>
             </drop-down>
         </field>
         <field name="addButton" ><submit  confirmation-message="Are you sure to add this person ?"/></field>
@@ -152,7 +152,7 @@
     <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -270,7 +270,7 @@
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="SCRUM_MEMBER"/>
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
@@ -333,7 +333,7 @@
         </field>
         <field name="roleTypeId">
             <drop-down current="first-in-list" allow-empty="false" >
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="SCRUM_MEMBER"/>
                     <entity-constraint name="roleTypeId" operator="not-equals" value="SCRUM_TEAM"/>
                     <entity-constraint name="roleTypeId" operator="not-equals" value="PRODUCT_OWNER_COMP"/>
@@ -371,7 +371,7 @@
             </hyperlink>
         </field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="fromDate" sort-field="true">
             <display type="date"/>
@@ -395,7 +395,7 @@
         <field name="partyId"><display/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"> 
           <drop-down allow-empty="false">
-              <entity-options entity-name="RateType" description="${description}" key-field-name="rateTypeId"></entity-options>
+              <entity-options entity-name="RateType" key-field-name="rateTypeId"></entity-options>
           </drop-down>
         </field>
         <field name="defaultRate">

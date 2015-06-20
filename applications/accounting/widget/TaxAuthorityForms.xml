@@ -86,7 +86,7 @@ under the License.
         <field name="taxAuthPartyId"><hidden/></field>
         <field name="taxAuthGeoId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategory}">
-            <display-entity entity-name="ProductCategory" description="${description}">
+            <display-entity entity-name="ProductCategory">
                 <sub-hyperlink description="${productCategoryId}" target="/catalog/control/EditCategory" target-type="inter-app" link-style="buttontext">
                     <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>
@@ -138,7 +138,7 @@ under the License.
 
         <field name="taxAuthorityAssocTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="TaxAuthorityAssocType" description="${description}">
+                <entity-options entity-name="TaxAuthorityAssocType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -165,7 +165,7 @@ under the License.
 
         <field name="taxAuthorityAssocTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="TaxAuthorityAssocType" description="${description}">
+                <entity-options entity-name="TaxAuthorityAssocType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -241,7 +241,7 @@ under the License.
 
         <field name="taxAuthorityRateTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TaxAuthorityRateType" description="${description}">
+                <entity-options entity-name="TaxAuthorityRateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -283,7 +283,7 @@ under the License.
 
         <field name="taxAuthorityRateTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TaxAuthorityRateType" description="${description}">
+                <entity-options entity-name="TaxAuthorityRateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

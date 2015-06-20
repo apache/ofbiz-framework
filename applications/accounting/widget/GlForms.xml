@@ -29,14 +29,14 @@ under the License.
         </field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="AcctgTransType" description="${description}">
+                <entity-options entity-name="AcctgTransType">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -206,14 +206,14 @@ under the License.
         </field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="AcctgTransType" description="${description}">
+                <entity-options entity-name="AcctgTransType">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -430,14 +430,14 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="1">
             <drop-down>
-                <entity-options entity-name="AcctgTransType" description="${description}">
+                <entity-options entity-name="AcctgTransType">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -447,7 +447,7 @@ under the License.
         </field>
         <field name="roleTypeId" parameter-name="roleTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
             </drop-down>
@@ -511,21 +511,21 @@ under the License.
         <field name="organizationPartyId" map-name="parameter"><hidden/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.AccountingTransactionType}">
             <drop-down>
-                <entity-options entity-name="AcctgTransType" description="${description}">
+                <entity-options entity-name="AcctgTransType">
                     <entity-order-by field-name="acctgTransTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>
             </drop-down>
@@ -547,7 +547,7 @@ under the License.
         <field name="inventoryItemId"><text/></field>
         <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -572,7 +572,7 @@ under the License.
         <field name="acctgTransEntryTypeId" ><hidden value="_NA_"/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" description="${description}">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="glAccountTypeId"/>
                 </entity-options>
             </drop-down>
@@ -603,7 +603,7 @@ under the License.
         </field>
         <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -613,7 +613,7 @@ under the License.
         <field name="productId" position="1"><text size="20"/></field>
         <field name="reconcileStatusId" position="2" title="${uiLabelMap.FormFieldTitle_reconcileStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
                     <entity-order-by field-name="statusId"/>
                 </entity-options>
@@ -631,7 +631,7 @@ under the License.
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" description="${description}">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="glAccountTypeId"/>
                 </entity-options>
             </drop-down>
@@ -647,7 +647,7 @@ under the License.
         <!--
         <field name="acctgTransEntryTypeId" title="${uiLabelMap.AccountingTransactionEntryType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="AcctgTransEntryType" description="${description}">
+                <entity-options entity-name="AcctgTransEntryType">
                     <entity-order-by field-name="acctgTransEntryTypeId"/>
                 </entity-options>
             </drop-down>
@@ -664,7 +664,7 @@ under the License.
         </field>
         <field name="reconcileStatusId" title="${uiLabelMap.FormFieldTitle_reconcileStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
                     <entity-order-by field-name="statusId"/>
                 </entity-options>
@@ -694,14 +694,14 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="acctgTransTypeId" title="${uiLabelMap.FormFieldTitle_acctgTransType}" position="1">
             <drop-down no-current-selected-key="_NA_">
-                <entity-options entity-name="AcctgTransType" description="${description}">
+                <entity-options entity-name="AcctgTransType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}" position="2">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}" key-field-name="glFiscalTypeId">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -716,7 +716,7 @@ under the License.
         </field>
         <field name="groupStatusId" title="${uiLabelMap.FormFieldTitle_groupStatus}" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ACCTG_ENREC_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -728,7 +728,7 @@ under the License.
         </field>
         <field name="roleTypeId" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -854,7 +854,7 @@ under the License.
         <field name="statusId" use-when="glReconciliationId == null"><hidden value="GLREC_CREATED"/></field>
         <field name="statusId" use-when="glReconciliationId != null" title="${uiLabelMap.CommonStatus}">
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="GLREC_STATUS"/>
                 </entity-options>
             </drop-down>

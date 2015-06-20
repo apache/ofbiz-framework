@@ -45,7 +45,7 @@
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -70,7 +70,7 @@
         </field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
         <field name="hours" title="${uiLabelMap.ScrumActualHours}"><display/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
@@ -98,7 +98,7 @@
             </hyperlink>
         </field>
         <field name="weekNumber" title="${uiLabelMap.ScrumWeekNumber}"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="hours"><display/></field>
@@ -144,7 +144,7 @@
         <field name="taskId" title="${uiLabelMap.ScrumTaskName}" parameter-name="workEffortId" encode-output="true">
             <drop-down allow-empty="true" current-description="${result.projectId} ${product.productId} - ${result.projectName}${product.internalName} - ${result.sprintName} - ${groovy:result.backlogName.toString().substring(0,Math.min(result.backlogName.toString().length(),30))}[${result.backlogId}] - ${groovy:result.taskName.toString().substring(0,Math.min(result.taskName.toString().length(),30))}[${result.taskId}]">
                 <list-options key-name="taskId" list-name="taskListDropdown" description="${projectId}${productId} - ${projectName} ${productName} - ${sprintName} - ${groovy: if (description) description.substring(0,Math.min(description.length(),30))} [${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
-                <entity-options description="${description}" entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
+                <entity-options entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
                 <sub-hyperlink target="taskView" description="${groovy:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}" target-window="_blank">
                     <parameter param-name="taskId" from-field="workEffortId"/>
                 </sub-hyperlink>
@@ -153,7 +153,7 @@
         <field name="checkComplete" title="${uiLabelMap.ScrumCheckComplete}"><check/></field>
         <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
-                <entity-options entity-name="RateType" description="${description}"/>
+                <entity-options entity-name="RateType"/>
             </drop-down>
         </field>
         <field name="planHours" title="${uiLabelMap.ScrumPlanHrs}"><text size="2"/></field>

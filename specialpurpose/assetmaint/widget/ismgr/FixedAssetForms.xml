@@ -33,7 +33,7 @@ under the License.
         <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_HARDWARE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -74,7 +74,7 @@ under the License.
         <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="FXAST_COMPU_SOFTWARE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

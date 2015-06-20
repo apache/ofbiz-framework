@@ -113,7 +113,7 @@
         </field>
         <field name="reserveOrderEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="INV_RES_ORDER"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -130,7 +130,7 @@
         </field>
         <field name="requirementMethodEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="PROD_REQ_METHOD"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -152,7 +152,7 @@
         </field>
         <field name="defaultSalesChannelEnumId">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                <entity-options key-field-name="enumId" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -230,7 +230,7 @@
         </field>
         <field name="storeCreditAccountEnumId">
             <drop-down allow-empty="false">
-                <entity-options key-field-name="enumId" description="${description}" entity-name="Enumeration">
+                <entity-options key-field-name="enumId" entity-name="Enumeration">
                     <entity-constraint name="enumTypeId" operator="equals" value="STR_CRDT_ACT"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -423,10 +423,10 @@
         <auto-fields-service service-name="updateProductStoreFinActSetting" default-field-type="display"/>
         <field name="productStoreId"><ignored/></field>
         <field name="finAccountTypeId">
-            <display-entity entity-name="FinAccountType" description="${description}" key-field-name="finAccountTypeId"/>
+            <display-entity entity-name="FinAccountType" key-field-name="finAccountTypeId"/>
         </field>
         <field name="replenishMethodEnumId">
-            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="remove" title=" " widget-style="buttontext">
             <hyperlink target="RemoveProductStoreFinAccountSettings" description="${uiLabelMap.CommonRemove}">
@@ -448,17 +448,17 @@
 
         <field name="productStoreId"><hidden/></field>
         <field name="finAccountTypeId" use-when="finAccountSetting!=null">
-            <display-entity entity-name="FinAccountType" also-hidden="true" description="${description}" key-field-name="finAccountTypeId"/>
+            <display-entity entity-name="FinAccountType" also-hidden="true" key-field-name="finAccountTypeId"/>
         </field>
         <field name="finAccountTypeId" use-when="finAccountSetting==null">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FinAccountType" description="${description}" key-field-name="finAccountTypeId"/>
+                <entity-options entity-name="FinAccountType" key-field-name="finAccountTypeId"/>
             </drop-down>
         </field>
 
         <field name="replenishMethodEnumId">
             <drop-down allow-empty="false" no-current-selected-key="FARP_TOP_OFF">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="FARP_METHOD"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -511,7 +511,7 @@
         <field name="productStoreId" map-name="productStore"><hidden/></field>
         <field name="emailType" title="${uiLabelMap.CommonEmailType}">
             <drop-down>
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="in" value="PRDS_EMAIL,PARTY_EMAIL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -528,7 +528,7 @@
         <auto-fields-service service-name="updateProductStoreEmailSetting"/>
         <field name="productStoreId"><hidden/></field>
         <field name="emailType" title="${uiLabelMap.CommonEmailType}">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}" cache="true" also-hidden="true"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId" cache="true" also-hidden="true"/>
         </field>
         <field name="bodyScreenLocation" title="${uiLabelMap.ProductBodyScreenLocation}"></field>
         <field name="xslfoAttachScreenLocation" title="${uiLabelMap.ProductAttachmentScreenLocation}"></field>
@@ -549,7 +549,7 @@
         <field name="productStoreId" map-name="productStore"><hidden/></field>
         <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetTypeEnumId}">
             <drop-down>
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="KWOVRD_TRGT_TYPE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -565,7 +565,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display description="${fromDate}"/></field>
         <field name="targetTypeEnumId" title="${uiLabelMap.ProductTargetType}">
             <drop-down>
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="KWOVRD_TRGT_TYPE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -611,7 +611,7 @@
             </hyperlink>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
-            <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
+            <display-entity entity-name="ShipmentMethodType" cache="true" also-hidden="true"/>
         </field>
         <field name="roleTypeId"><hidden/></field>
         <field name="includeGeoId">
@@ -630,7 +630,7 @@
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description} (${customMethodName})"/>
         </field>
         <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}">
-            <display-entity entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId"  description="${description}"/>
+            <display-entity entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId" />
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="storeRemoveShipMeth" description="${uiLabelMap.CommonRemove}" also-hidden="false">
@@ -646,7 +646,7 @@
         <field name="productStoreId"><hidden/></field>
         <field name="productStoreShipMethId" use-when="productStoreShipmentMeth!=null"><display/></field>
         <field name="shipmentMethodTypeId">
-            <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
+            <display-entity entity-name="ShipmentMethodType" cache="true" also-hidden="true"/>
         </field>
         <field name="roleTypeId"><display/></field>
         <field name="partyId"><display/></field>
@@ -695,7 +695,7 @@
         </field>
         <field name="shipmentGatewayConfigId" title="${uiLabelMap.FacilityShipmentGatewayConfigId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId" description="${description}">
+                <entity-options entity-name="ShipmentGatewayConfig" key-field-name="shipmentGatewayConfigId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -717,7 +717,7 @@
             </hyperlink>
         </field>
         <field name="shipmentMethodTypeId" title="${uiLabelMap.ProductMethod}">
-            <display-entity entity-name="ShipmentMethodType" description="${description}" cache="true" also-hidden="true"/>
+            <display-entity entity-name="ShipmentMethodType" cache="true" also-hidden="true"/>
         </field>
         <field name="geoIdFrom" title="${uiLabelMap.ProductFromGeo}">
             <display-entity entity-name="Geo" key-field-name="geoId" description="${geoName} [${geoId}]"/>
@@ -729,19 +729,19 @@
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity} [${quantityBreakId}]"/>
         </field>
         <field name="weightUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="quantityBreakId">
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity} [${quantityBreakId}]"/>
         </field>
         <field name="quantityUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="priceBreakId">
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity} [${quantityBreakId}]"/>
         </field>
         <field name="priceUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="storeRemoveShipRate" description="${uiLabelMap.CommonRemove}" also-hidden="false">
@@ -796,7 +796,7 @@
 
         <field name="wuom" title="${uiLabelMap.ProductUnitOfMeasure}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="WEIGHT_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -817,7 +817,7 @@
         </field>
         <field name="quom" title="${uiLabelMap.ProductUnitOfMeasure}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" operator="not-equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -934,7 +934,7 @@
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
         </field>
         <field name="weightUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="weightUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
 
@@ -944,7 +944,7 @@
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
         </field>
         <field name="quantityUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="quantityUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
 
@@ -954,7 +954,7 @@
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
         </field>
         <field name="priceUomId" title="${uiLabelMap.ProductUnitOfMeasure}">
-            <display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/>
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
         </field>
         <field name="priceUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
     </form>
@@ -963,10 +963,10 @@
         <field name="productStoreId"><hidden/></field>
         <field name="vendorPartyId"><display/></field>
         <field name="paymentMethodTypeId">
-            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId"/>
         </field>
         <field name="creditCardEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -976,7 +976,7 @@
         <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="paymentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId" description="${description}"/>
+                <entity-options entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId"/>
             </drop-down>
         </field>
         <field name="creditCardEnumId">
@@ -994,7 +994,7 @@
         <field name="carrierPartyId"><display/></field>
         <field name="vendorPartyId"><display/></field>
         <field name="shipmentMethodTypeId">
-            <display-entity entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+            <display-entity entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -1005,7 +1005,7 @@
         <field name="vendorPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="shipmentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -1060,17 +1060,17 @@
         </actions>
         <field name="productStoreId"><hidden/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}">
-            <display-entity entity-name="PaymentMethodType" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType"/>
         </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="paymentService" title="${uiLabelMap.ProductServiceName}"><display/></field>
         <field name="paymentCustomMethodId" title="${uiLabelMap.ProductCustomMethod}">
             <display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description} (${customMethodName})"/>
         </field>
         <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
-            <display-entity entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId"  description="${description}"/>
+            <display-entity entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId" />
         </field>
         <field name="paymentPropertiesPath" title="${uiLabelMap.ProductPaymentProps}"><display/></field>
         <field name="applyToAllProducts" title="${uiLabelMap.ProductApplyToAll}"><display/></field>
@@ -1101,21 +1101,21 @@
         <alt-target use-when="productStorePaymentSetting==null" target="storeCreatePaySetting"/>
         <field name="productStoreId"><hidden/></field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting!=null">
-            <display-entity entity-name="PaymentMethodType" also-hidden="true" description="${description}" key-field-name="paymentMethodTypeId"/>
+            <display-entity entity-name="PaymentMethodType" also-hidden="true" key-field-name="paymentMethodTypeId"/>
         </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonPaymentMethodType}" use-when="productStorePaymentSetting==null">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType" description="${description}">
+                <entity-options entity-name="PaymentMethodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}" use-when="productStorePaymentSetting!=null">
-            <display-entity entity-name="Enumeration" also-hidden="true" description="${description}" key-field-name="enumId"/>
+            <display-entity entity-name="Enumeration" also-hidden="true" key-field-name="enumId"/>
         </field>
         <field name="paymentServiceTypeEnumId" title="${uiLabelMap.ProductServiceType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="PRDS_PAYSVC"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -1129,7 +1129,7 @@
         </field>
         <field name="paymentGatewayConfigId" title="${uiLabelMap.AccountingPaymentGatewayConfigId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId" description="${description}">
+                <entity-options entity-name="PaymentGatewayConfig" key-field-name="paymentGatewayConfigId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

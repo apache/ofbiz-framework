@@ -56,7 +56,7 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
@@ -199,11 +199,11 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}" position="2"><display/></field>
         <field name="fromDate" position="2"><display/></field>
         <field name="statusId" position="2" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="description" position="2" title="${uiLabelMap.ImageManagementRejectedReason}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="IMAGE_REJECT_REASON"/>
                 </entity-options>
             </drop-down>
@@ -254,7 +254,7 @@ under the License.
         <field name="fromDate" position="2"><display/></field>
         <field name="thruDate" position="2"><display/></field>
         <field name="statusId" position="2" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="rejectedBy" position="2" title="${uiLabelMap.ImageManagementRejectedBy}"><display/></field>
         <field name="description" position="2" title="${uiLabelMap.ImageManagementRejectedReason}"><display/></field>
@@ -336,7 +336,7 @@ under the License.
             </display>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
@@ -470,7 +470,7 @@ under the License.
         <field name="previewButton" title=" " widget-style="buttontext" widget-area-style="preview"><hyperlink target="#" target-type="plain" description="${uiLabelMap.CommonPreview}"/></field>
         <field name="colorWatermark" title="${uiLabelMap.ImageManagementTextColor}" widget-area-style="txt_color">
             <drop-down allow-empty="true" no-current-selected-key="TEXT_BLACK">
-                <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
+                <entity-options entity-name="ProductFeature" key-field-name="productFeatureId">
                     <entity-constraint name="productFeatureTypeId" value="COLOR"/>
                     <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
                     <entity-order-by field-name="defaultSequenceNum"/>
@@ -479,7 +479,7 @@ under the License.
         </field>
         <field name="sizeWatermark" title="${uiLabelMap.ImageManagementTextSize}" widget-area-style="txt_size">
             <drop-down allow-empty="true" no-current-selected-key="TEXT_MIDDLE">
-                <entity-options description="${description}" entity-name="ProductFeature" key-field-name="productFeatureId">
+                <entity-options entity-name="ProductFeature" key-field-name="productFeatureId">
                     <entity-constraint name="productFeatureTypeId" value="SIZE"/>
                     <entity-constraint name="productFeatureCategoryId" value="TEXT"/>
                     <entity-order-by field-name="defaultSequenceNum"/>
@@ -668,7 +668,7 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
         <field name="fromDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
@@ -716,7 +716,7 @@ under the License.
         <field name="contentId"><display/></field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="purchaseFromDate" title="${uiLabelMap.ImageManagementApprovedDate}"><display/></field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
@@ -758,7 +758,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>
@@ -801,7 +801,7 @@ under the License.
         </field>
         <field name="fromDate"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="viewButton" title="${uiLabelMap.CommonView}" widget-style="buttontext">
             <hyperlink target="${origContentDataResourceViews[0].drObjectInfo}" target-window="_blank" description="${uiLabelMap.CommonView}" also-hidden="false" target-type="content"/>

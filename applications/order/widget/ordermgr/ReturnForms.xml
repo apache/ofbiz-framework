@@ -34,12 +34,12 @@ under the License.
         <field use-when="returnHeader==null&amp;&amp;returnId==null" name="returnId"><ignored/></field>
         <field name="returnHeaderTypeId" id-name="returnHeaderTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ReturnHeaderType" description="${description}"/>
+                <entity-options entity-name="ReturnHeaderType"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="returnHeader==null" id-name="statusId">
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="ORDER_RETURN_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -123,7 +123,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="returnHeaderTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ReturnHeaderType" description="${description}"/>
+                <entity-options entity-name="ReturnHeaderType"/>
             </drop-down>
         </field>
         <field name="returnId" title="${uiLabelMap.OrderReturnId}"><text-find/></field>
@@ -135,7 +135,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
                 </entity-options>
             </drop-down>
@@ -181,7 +181,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
     </form>
 
@@ -189,7 +189,7 @@ under the License.
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
         <field name="returnItemSeqId"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="statusDatetime" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changeByUserLoginId" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
     </form>
@@ -205,10 +205,10 @@ under the License.
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
-            <display-entity entity-name="ReturnReason" description="${description}" key-field-name="returnReasonId"/>
+            <display-entity entity-name="ReturnReason" key-field-name="returnReasonId"/>
         </field>
         <field name="newValueText">
-            <display-entity entity-name="ReturnReason" description="${description}" key-field-name="returnReasonId"/>
+            <display-entity entity-name="ReturnReason" key-field-name="returnReasonId"/>
         </field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>
@@ -217,10 +217,10 @@ under the License.
             odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="returnId"><display description="${returnId}"/></field>
         <field name="oldValueText">
-            <display-entity entity-name="ReturnType" description="${description}" key-field-name="returnTypeId"/>
+            <display-entity entity-name="ReturnType" key-field-name="returnTypeId"/>
         </field>
         <field name="newValueText">
-            <display-entity entity-name="ReturnType" description="${description}" key-field-name="returnTypeId"/>
+            <display-entity entity-name="ReturnType" key-field-name="returnTypeId"/>
         </field>
         <field name="changedDate" title="${uiLabelMap.CommonDate}"><display/></field>
         <field name="changedByInfo" title="${uiLabelMap.FormFieldTitle_modifiedByUserLoginId}"><display/></field>

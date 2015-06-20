@@ -48,7 +48,7 @@
         <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
         <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="SCRUM_MEMBER"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -83,10 +83,10 @@
             </hyperlink>
         </field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="priority" widget-area-style="centered"><display description="${Priority}"/></field>
         <field name="estimatedStartDate" widget-area-style="centered"><display type="date"/></field>

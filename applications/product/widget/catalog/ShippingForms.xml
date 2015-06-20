@@ -43,7 +43,7 @@
         <field name="quantityBreakId"><hidden/></field>
         <field name="quantityBreakTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="QuantityBreakType" description="${description}">
+                <entity-options entity-name="QuantityBreakType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -110,7 +110,7 @@
         <field name="roleTypeId" use-when="carrierShipmentMethod!=null"><display/></field>
         <field name="roleTypeId" use-when="carrierShipmentMethod==null">
             <drop-down allow-empty="false" no-current-selected-key="CARRIER">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

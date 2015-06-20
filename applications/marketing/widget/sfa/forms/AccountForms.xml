@@ -76,7 +76,7 @@ under the License.
         <field name="contactMechTypeId" event="onchange" action="javascript:ajaxUpdateAreas('contactMechContainer,ContactMechTypeOnly,contactMechTypeId=' + this.value);">
             <drop-down>
                 <option key="" description="${uiLabelMap.CommonNone}"/>
-                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId" description="${description}"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
         <field name="contactMechContainer" id-name="contactMechContainer" title=" "><container/></field>

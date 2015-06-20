@@ -26,14 +26,14 @@ under the License.
         <field position="1" name="invoiceId"><text-find/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true" no-current-selected-key="PURCHASE_INVOICE">
-                <entity-options description="${description}" entity-name="InvoiceType" key-field-name="invoiceTypeId">
+                <entity-options entity-name="InvoiceType" key-field-name="invoiceTypeId">
                     <entity-constraint name="parentTypeId" operator="equals" value="PURCHASE_INVOICE"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                     <entity-constraint name="statusId" operator="not-equals" value="INVOICE_SENT"/>
                 </entity-options>
@@ -54,7 +54,7 @@ under the License.
         <field name="paymentId" title="${uiLabelMap.AccountingPaymentID}"><text-find/></field>
         <field name="paymentTypeId">
             <drop-down allow-empty="true" no-current-selected-key="VENDOR_PAYMENT">
-                <entity-options description="${description}" entity-name="PaymentType" key-field-name="paymentTypeId">
+                <entity-options entity-name="PaymentType" key-field-name="paymentTypeId">
                     <entity-constraint name="parentTypeId" operator="equals" value="DISBURSEMENT"/>
                 </entity-options>
             </drop-down>

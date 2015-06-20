@@ -26,17 +26,17 @@
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+                <entity-options key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
             </drop-down>
         </field>
         <field name="emplLeaveReasonTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
+                <entity-options key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
             </drop-down>
         </field>
         <field name="leaveStatus">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="LEAVE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -100,12 +100,12 @@
         <field name="approverPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveTypeId" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+                <entity-options key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
             </drop-down>
         </field>
         <field name="emplLeaveReasonTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
+                <entity-options key-field-name="emplLeaveReasonTypeId" entity-name="EmplLeaveReasonType"/>
             </drop-down>
         </field>
         <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"><date-time type="date"/></field>
@@ -121,7 +121,7 @@
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveStatus">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="LEAVE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -175,7 +175,7 @@
         <field name="description"><display/></field>
         <field name="leaveStatus" title="${uiLabelMap.HumanResLeaveStatus}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="LEAVE_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

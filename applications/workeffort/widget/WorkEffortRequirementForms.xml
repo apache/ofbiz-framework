@@ -50,7 +50,7 @@ under the License.
         <field name="requirementId"><lookup target-form-name="/ordermgr/control/LookupRequirement"/></field>
         <field name="workReqFulfTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkReqFulfType" description="${description}">
+                <entity-options entity-name="WorkReqFulfType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

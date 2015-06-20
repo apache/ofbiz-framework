@@ -28,14 +28,14 @@ under the License.
         <field name="jobRequisitionId"><lookup target-form-name="LookupJobRequisition"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="jobPostingTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -44,7 +44,7 @@ under the License.
         <field name="jobLocation"><text-find ignore-case="true"/></field>
         <field name="examTypeEnumId">
              <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -77,7 +77,7 @@ under the License.
         </field>
         <field name="jobRequisitionId" use-when="!hasAdminPermission"><display/></field>
         <field name="skillTypeId">
-            <display-entity entity-name="SkillType" description="${description}"/>
+            <display-entity entity-name="SkillType"/>
         </field>
         <field name="jobPostingTypeEnumId"><display/></field>
         <field name="examTypeEnumId"><display/></field>
@@ -113,14 +113,14 @@ under the License.
         <field name="durationMonths"><text/></field>
         <field name="qualification" widget-style="required" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId" description="${description}">
+                <entity-options entity-name="PartyQualType" key-field-name="partyQualTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="examTypeEnumId">
              <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="EXAM_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -129,7 +129,7 @@ under the License.
         <field name="skillCriteria" title="${uiLabelMap.HumanResSkills} ${uiLabelMap.CommonRequired}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -147,7 +147,7 @@ under the License.
         <field name="applyingPartyId" use-when="!hasAdminPermission"><hidden value="${partyId}"/></field>
         <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -246,7 +246,7 @@ under the License.
         </field>
         <field name="gradeSecuredEnumId">
              <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="INTR_RATNG"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -303,7 +303,7 @@ under the License.
         <field name="jobInterviewerPartyId" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="gradeSecuredEnumId">
              <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="INTR_RATNG"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -336,7 +336,7 @@ under the License.
         <field name="referredByPartyId"><hidden/></field>
         <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -388,7 +388,7 @@ under the License.
         <field name="approverPartyId"><display/></field>
         <field name="statusId" title="${uiLabelMap.HumanResInternalJobPosting} ${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="IJP_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

@@ -32,7 +32,7 @@ under the License.
         <field name="comments" title="${uiLabelMap.MarketingTrackingCodeComments}"><textarea/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
+                <entity-options entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -102,7 +102,7 @@ under the License.
         <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><display/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
+                <entity-options entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -123,7 +123,7 @@ under the License.
         <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><lookup target-form-name="LookupOrderName"/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
+                <entity-options entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -145,7 +145,7 @@ under the License.
 
         <field name="trackingCodeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeId}"><display/></field>
         <field name="orderId" title="${uiLabelMap.MarketingTrackingCodeOrderOrderId}"><display-entity entity-name="OrderHeader" description="${orderDate} [${orderId}]"/></field>
-        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType" description="${description}"/></field>
+        <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}"><display-entity entity-name="TrackingCodeType"/></field>
         <field name="isBillable" title="${uiLabelMap.MarketingTrackingCodeOrderIsBilliable}"><display/></field>
     </form>
 
@@ -158,7 +158,7 @@ under the License.
 
         <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value=" TRACKINGCODE_SRC"/>
                 </entity-options>
             </drop-down>
@@ -173,7 +173,7 @@ under the License.
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="sourceEnumId" title="${uiLabelMap.MarketingTrackingCodeVisitSourceEnumId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value=" TRACKINGCODE_SRC"/>
                 </entity-options>
             </drop-down>
@@ -209,7 +209,7 @@ under the License.
         <field name="description" title="${uiLabelMap.MarketingTrackingCodeDescription}"><text-find/></field>
         <field name="trackingCodeTypeId" title="${uiLabelMap.MarketingTrackingCodeTrackingCodeTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
+                <entity-options entity-name="TrackingCodeType" key-field-name="trackingCodeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -276,8 +276,8 @@ under the License.
         <field name="visitorId" title="${uiLabelMap.MarketingTrackingCodeVisitVisitorId}">
             <display-entity description="${partyId} ${userLoginId} [${visitorId}]" entity-name="Visitor" key-field-name="visitorId"/>
         </field>
-        <field name="contactMechTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitRoleTypeId}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitContactMechTypeId}"><display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeId" title="${uiLabelMap.MarketingTrackingCodeVisitRoleTypeId}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="userLoginId" title="${uiLabelMap.MarketingTrackingCodeVisitUserLoginId}"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>

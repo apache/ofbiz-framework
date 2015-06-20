@@ -39,7 +39,7 @@
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
         <field name="terminationTypeId">
             <drop-down allow-empty="true" current-description="">
-                <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
+                <entity-options key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -130,14 +130,14 @@
         <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
-                <entity-options description="${description}" key-field-name="terminationReasonId" entity-name="TerminationReason">
+                <entity-options key-field-name="terminationReasonId" entity-name="TerminationReason">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="terminationTypeId" use-when="employment!=null">
             <drop-down allow-empty="true" no-current-selected-key="------">
-                <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
+                <entity-options key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -170,7 +170,7 @@
         <field name="payGradeId" title="${uiLabelMap.HumanResPayGradeID}"><lookup target-form-name="LookupPayGrade" size="20"/></field>
         <field name="periodTypeId" title="${uiLabelMap.FormFieldTitle_periodTypeId}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -196,11 +196,11 @@
         <field name="roleTypeIdTo"><hidden/></field>
         <field name="partyIdFrom"><hidden/></field>
         <field name="partyIdTo"><hidden/></field>
-        <field name="benefitTypeId"><display-entity entity-name="BenefitType" description="${description}"/></field>
+        <field name="benefitTypeId"><display-entity entity-name="BenefitType"/></field>
         <field name="fromDate"><display/></field>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -229,7 +229,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="benefitTypeId" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="benefitTypeId" entity-name="BenefitType">
+                <entity-options key-field-name="benefitTypeId" entity-name="BenefitType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -237,7 +237,7 @@
         <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}"/>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -257,10 +257,10 @@
         </actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePayrollPreference"/>
         <field name="partyId"><display/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="payrollPreferenceSeqId" title="${uiLabelMap.HumanResPayrollPreferenceSeqId}"><display also-hidden="true"/></field>
-        <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType" description="${description}"/></field>
-        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
+        <field name="paymentMethodTypeId"><display-entity entity-name="PaymentMethodType"/></field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
@@ -282,21 +282,21 @@
         <field name="fromDate"><hidden/></field>
         <field name="deductionTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="deductionTypeId" entity-name="DeductionType">
+                <entity-options key-field-name="deductionTypeId" entity-name="DeductionType">
                     <entity-order-by field-name="deductionTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="paymentMethodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="paymentMethodTypeId" entity-name="PaymentMethodType">
+                <entity-options key-field-name="paymentMethodTypeId" entity-name="PaymentMethodType">
                     <entity-order-by field-name="paymentMethodTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="periodTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
+                <entity-options key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="periodTypeId"/>
                 </entity-options>
             </drop-down>
@@ -323,7 +323,7 @@
         <field name="partyId"><hidden/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
+                <entity-options key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -353,7 +353,7 @@
         <field name="description"><text size="12"/></field>
         <field name="statusId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -378,7 +378,7 @@
         <field name="unemploymentClaimId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupUnemploymentClaim"/></field>
         <field name="statusId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                <entity-options key-field-name="statusId" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="EMPL_POSITION_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -428,14 +428,14 @@
         <field name="partyIdTo" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeIdFrom" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
+                <entity-options key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdTo" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="roleTypeId" entity-name="RoleType">
+                <entity-options key-field-name="roleTypeId" entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

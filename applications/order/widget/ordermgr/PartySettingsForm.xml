@@ -27,9 +27,7 @@ under the License.
         </field>
         <field name="optionalRoleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="RoleType"
-                    key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">

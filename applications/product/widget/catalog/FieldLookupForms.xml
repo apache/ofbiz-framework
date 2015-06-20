@@ -28,14 +28,14 @@ under the License.
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductType" description="${description}">
+                <entity-options entity-name="ProductType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="primaryProductCategoryId" title="${uiLabelMap.ProductPrimaryCategory}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductCategory" key-field-name="productCategoryId">
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -78,7 +78,7 @@ under the License.
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductType" description="${description}">
+                <entity-options entity-name="ProductType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -135,7 +135,7 @@ under the License.
         <field name="internalName" title="${uiLabelMap.ProductInternalName}"><text-find/></field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductType" description="${description}">
+                <entity-options entity-name="ProductType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
              </drop-down>
@@ -143,7 +143,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="primaryProductCategoryId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductCategory" key-field-name="productCategoryId">
+                <entity-options entity-name="ProductCategory" key-field-name="productCategoryId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -158,13 +158,13 @@ under the License.
         </field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
             <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
-                <entity-options description="${description}" entity-name="ProductPriceType" key-field-name="productPriceTypeId">
+                <entity-options entity-name="ProductPriceType" key-field-name="productPriceTypeId">
                 </entity-options>
             </drop-down>
         </field>
         <field name="productPricePurposeId">
             <drop-down allow-empty="false" no-current-selected-key="PURCHASE">
-                <entity-options description="${description}" entity-name="ProductPricePurpose" key-field-name="productPricePurposeId">
+                <entity-options entity-name="ProductPricePurpose" key-field-name="productPricePurposeId">
                 </entity-options>
             </drop-down>
         </field>
@@ -215,7 +215,7 @@ under the License.
         <auto-fields-entity entity-name="ProductCategory" default-field-type="find"/>
         <field name="productCategoryTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductCategoryType">
+                <entity-options entity-name="ProductCategoryType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -274,14 +274,14 @@ under the License.
         <auto-fields-entity entity-name="ProductFeature" default-field-type="find"/>
         <field name="productFeatureTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductFeatureType">
+                <entity-options entity-name="ProductFeatureType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="productFeatureCategoryId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductFeatureCategory">
+                <entity-options entity-name="ProductFeatureCategory">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -344,14 +344,14 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><text-find/></field>
         <field name="costGlAccountTypeId" title="${uiLabelMap.ProductCostGlAccountTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="offsettingGlAccountTypeId" title="${uiLabelMap.ProductOffsettingGlAccountTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

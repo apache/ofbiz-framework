@@ -427,8 +427,7 @@ under the License.
         </field>
         <field name="drDataTemplateTypeId" >
             <drop-down no-current-selected-key="NONE">
-                <entity-options description="${description}"
-                    entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
         <field name="drMimeTypeId">

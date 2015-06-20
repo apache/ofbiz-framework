@@ -26,7 +26,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -50,7 +50,7 @@ under the License.
         </actions>
         <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>
         <field name="skillTypeId">
-            <display-entity entity-name="SkillType" description="${description}"/>
+            <display-entity entity-name="SkillType"/>
         </field>
         <field name="yearsExperience"><text/></field>
         <field name="rating"><text/></field>
@@ -73,7 +73,7 @@ under the License.
         <field name="partyId" use-when="partySkill == null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupPartyName"/></field>
         <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down>
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

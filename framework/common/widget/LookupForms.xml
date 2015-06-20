@@ -25,7 +25,7 @@ under the License.
         <field name="geoId" title="${uiLabelMap.CommonGeoId}"><text-find/></field>
         <field name="geoTypeId" title="${uiLabelMap.CommonGeoTypeId}">
             <drop-down allow-empty="true">
-                <entity-options key-field-name="geoTypeId" entity-name="GeoType" description="${description}">
+                <entity-options key-field-name="geoTypeId" entity-name="GeoType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -51,7 +51,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${geoId}"  target="javascript:set_value('${geoId}')"/>
         </field>
         <field name="geoTypeId" title="${uiLabelMap.CommonGeoTypeId}">
-            <display-entity key-field-name="geoTypeId" entity-name="GeoType" description="${description}"/>
+            <display-entity key-field-name="geoTypeId" entity-name="GeoType"/>
         </field>
         <field name="geoName" title="${uiLabelMap.CommonGeoName}"><display/></field>
         <field name="geoCode" title="${uiLabelMap.CommonGeoCode}"><display/></field>

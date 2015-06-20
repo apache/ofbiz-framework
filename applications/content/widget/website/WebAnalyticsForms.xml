@@ -61,7 +61,7 @@ under the License.
         </field>
         <field use-when="webAnalyticsConfig==null&amp;&amp;webAnalyticsTypeId==null" name="webAnalyticsTypeId" title="${uiLabelMap.CatalogWebAnalyticsType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WebAnalyticsType" description="${description}">
+                <entity-options entity-name="WebAnalyticsType">
                     <entity-order-by field-name="webAnalyticsTypeId"/>
                 </entity-options>
             </drop-down>

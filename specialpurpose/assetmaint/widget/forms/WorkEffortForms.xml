@@ -38,27 +38,27 @@
         <field name="workEffortIdTo"><hidden value="${parameters.workEffortId}"/></field>
         <field name="fromDate"><hidden value="${parameters.fromDate}"/></field>
         <field map-name="workEffortAssoc" name="workEffortAssocTypeId" title="${uiLabelMap.FormFieldTitle_workEffortAssocTypeId}" use-when="workEffortIdFrom!=null">
-            <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
+            <display-entity entity-name="WorkEffortAssocType"/>
         </field>
         <!-- End of child workeffort fields -->
         <field map-name="workEffort" name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="workEffortPurposeTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field map-name="workEffort" name="currentStatusId" title="${uiLabelMap.CommonStatus}*" position="1">
             <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="EVENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusId" value="CAL_CANCELLED"/>
                 </entity-options>
             </drop-down>
@@ -87,7 +87,7 @@
         </actions>
         <field name="roleTypeId">
             <drop-down>
-                <list-options list-name="listMaintRoles" key-name="roleTypeId" description="${description}"/>
+                <list-options list-name="listMaintRoles" key-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="fromDate"><date-time default-value="${nowTimestamp}"/></field>
@@ -123,7 +123,7 @@
 
         <field name="workEffortAssocTypeId">
             <drop-down>
-                <entity-options entity-name="WorkEffortAssocType" description="${description}">
+                <entity-options entity-name="WorkEffortAssocType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -134,18 +134,18 @@
         <field name="workEffortName" title="${uiLabelMap.CommonName}"><text size="30"/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TASK_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusId" value="CAL_CANCELLED"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
+                <entity-options entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -171,13 +171,13 @@
             </hyperlink>
         </field>
         <field name="workEffortAssocTypeId">
-            <display-entity entity-name="WorkEffortAssocType" description="${description}"/>
+            <display-entity entity-name="WorkEffortAssocType"/>
         </field>
         <field name="currentStatusId" entry-name="workEffortToCurrentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="workEffortPurposeTypeId" entry-name="workEffortToWorkEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
-            <display-entity entity-name="WorkEffortPurposeType" description="${description}"/>
+            <display-entity entity-name="WorkEffortPurposeType"/>
         </field>
         <field name="actualStartDate" entry-name="workEffortToActualStartDate"><display/></field>
         <field name="actualCompletionDate"  entry-name="workEffortToActualCompletionDate"><display/></field>

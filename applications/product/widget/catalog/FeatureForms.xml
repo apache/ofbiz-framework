@@ -34,7 +34,7 @@
 
         <field name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}">
             <drop-down>
-                <entity-options entity-name="ProductFeatureType" description="${description}">
+                <entity-options entity-name="ProductFeatureType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -133,7 +133,7 @@
         </field>
         <field name="description"><display/></field>
         <field name="parentTypeId">
-            <display-entity entity-name="ProductFeatureType" description="${description}" key-field-name="productFeatureTypeId">
+            <display-entity entity-name="ProductFeatureType" key-field-name="productFeatureTypeId">
                 <sub-hyperlink target="EditFeatureType" description="${parentTypeId}">
                     <parameter param-name="productFeatureTypeId" from-field="parentTypeId"/>
                 </sub-hyperlink>
@@ -153,7 +153,7 @@
         <field use-when="productFeatureType==null&amp;&amp;productFeatureTypeId!=null" name="productFeatureTypeId" title="${uiLabelMap.ProductFeatureType}" tooltip="${uiLabelMap.ProductCouldNotFindProductFeatureType} [${productFeatureTypeId}]"><text size="20" maxlength="20"/></field>
         <field name="parentTypeId" title="${uiLabelMap.ProductParentType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProductFeatureType" key-field-name="productFeatureTypeId" description="${description}">
+                <entity-options entity-name="ProductFeatureType" key-field-name="productFeatureTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -181,14 +181,14 @@
             </actions>
 
         <field name="productFeatureId">
-            <display-entity entity-name="ProductFeature" description="${description}">
+            <display-entity entity-name="ProductFeature">
                 <sub-hyperlink target="EditFeature" description="[${productFeatureId}]">
                 <parameter param-name="productFeatureId"/>
             </sub-hyperlink>
             </display-entity>
         </field>
         <field name="productFeatureIdTo">
-            <display-entity entity-name="ProductFeature" description="${description}" key-field-name="productFeatureId">
+            <display-entity entity-name="ProductFeature" key-field-name="productFeatureId">
                 <sub-hyperlink target="EditFeature" description="[${productFeatureIdTo}]">
                 <parameter param-name="productFeatureId" from-field="productFeatureIdTo"/>
             </sub-hyperlink>
@@ -223,7 +223,7 @@
         </field>
         <field name="productFeatureIactnTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ProductFeatureIactnType">
+                <entity-options entity-name="ProductFeatureIactnType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -267,7 +267,7 @@
         <field name="productFeatureGroupId"><hidden/></field>
         <field name="productFeatureCategoryId">
             <drop-down>
-                <list-options key-name="productFeatureCategoryId" list-name="productFeatureCategories" description="${description}"/>
+                <list-options key-name="productFeatureCategoryId" list-name="productFeatureCategories"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonContinue}" widget-style="smallSubmit">
@@ -322,7 +322,7 @@
         <field name="description" title="${uiLabelMap.CommonDescription}*"><text size="25"></text></field>
         <field name="parentCategory" title="${uiLabelMap.ProductParentCategory}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductFeatureCategory" key-field-name="description">
+                <entity-options entity-name="ProductFeatureCategory" key-field-name="description">
                 </entity-options>
             </drop-down>
         </field>
@@ -360,7 +360,7 @@
         <field name="productFeatureId"><hidden/></field>
         <field name="productPriceTypeId" title="${uiLabelMap.ProductPriceType}">
             <drop-down allow-empty="false" no-current-selected-key="DEFAULT_PRICE">
-                <entity-options entity-name="ProductPriceType" description="${description}">
+                <entity-options entity-name="ProductPriceType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

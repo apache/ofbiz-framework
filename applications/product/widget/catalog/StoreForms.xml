@@ -27,7 +27,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="fromDate" position="1"><date-time/></field>
@@ -84,7 +84,7 @@ under the License.
         <field name="productStoreId"><hidden/></field>
         <field name="roleTypeId" use-when="productStoreRole==null" title="${uiLabelMap.PartyRoleTypeId}" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="roleTypeId" use-when="productStoreRole!=null" title="${uiLabelMap.PartyRoleTypeId}"><display-entity entity-name="RoleType"/></field>
@@ -179,7 +179,7 @@ under the License.
         <field name="productStoreGroupId"><hidden/></field>
         <field name="productStoreGroupTypeId">
             <drop-down>
-                <entity-options description="${description}" entity-name="ProductStoreGroupType"/>
+                <entity-options entity-name="ProductStoreGroupType"/>
             </drop-down>
         </field>
         <field name="primaryParentGroupId" use-when="productStoreGroup == null"><ignored/></field>

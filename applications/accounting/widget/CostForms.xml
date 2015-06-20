@@ -26,16 +26,16 @@ under the License.
         <field name="costComponentCalcId" widget-style="buttontext"></field>
         <field name="costGlAccountTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
             </drop-down>
         </field>
         <field name="offsettingGlAccountTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
             </drop-down>
         </field>
         <field name="updateCostComponentCalc" title="${uiLabelMap.CommonUpdate}"><submit/></field>
-        <field name="costCustomMethodId"><display-entity entity-name="CustomMethod" key-field-name="customMethodId" description="${description}"/></field>
+        <field name="costCustomMethodId"><display-entity entity-name="CustomMethod" key-field-name="customMethodId"/></field>
         <field name="deleteCostComponentCalc" title=" " widget-style="buttontext">
             <hyperlink target="deleteCostComponentCalc" description="${uiLabelMap.CommonDelete}" also-hidden="false">
                 <parameter param-name="costComponentCalcId"/>
@@ -47,12 +47,12 @@ under the License.
         <auto-fields-service service-name="createCostComponentCalc"/>
         <field name="costGlAccountTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
             </drop-down>
         </field>
         <field name="offsettingGlAccountTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId"/>
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
@@ -65,7 +65,7 @@ under the License.
         </field>
         <field name="costCustomMethodId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId">
                     <entity-constraint name="customMethodTypeId" operator="equals" value="COST_FORMULA"/>
                 </entity-options>
             </drop-down>

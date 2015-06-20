@@ -28,7 +28,7 @@ under the License.
         </actions>
         <field name="paymentMethodTypeId" title="${uiLabelMap.FormFieldTitle_paymentMethodTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentMethodType" description="${description}">
+                <entity-options entity-name="PaymentMethodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -57,7 +57,7 @@ under the License.
         <field name="parentTypeId"><hidden value="RECEIPT"/></field>
         <field name="paymentTypeId" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PaymentType" description="${description}">
+                <entity-options entity-name="PaymentType">
                     <entity-constraint name="parentTypeId" value="RECEIPT"/>
                 </entity-options>
             </drop-down>

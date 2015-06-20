@@ -82,14 +82,14 @@ under the License.
     <form name="TransactionSelectionForm" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
             <drop-down allow-empty="true">
-                <list-options list-name="monthList" key-name="value" description="${description}"/>
+                <list-options list-name="monthList" key-name="value"/>
             </drop-down>
         </field>
         <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -138,14 +138,14 @@ under the License.
         <field name="period2ThruDate" title="${uiLabelMap.FormFieldTitle_period2ThruDate}" required-field="true" position="2"><date-time type="timestamp"/></field>
         <field name="period1GlFiscalTypeId" position="1">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="period2GlFiscalTypeId" position="2">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -159,7 +159,7 @@ under the License.
         <field name="period1ThruDate" title="${uiLabelMap.FormFieldTitle_period1ThruDate}" required-field="true"><date-time type="timestamp"/></field>
         <field name="period1GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -168,7 +168,7 @@ under the License.
         <field name="period2ThruDate" title="${uiLabelMap.FormFieldTitle_period2ThruDate}" required-field="true"><date-time type="timestamp"/></field>
         <field name="period2GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -218,7 +218,7 @@ under the License.
         <field name="thruDate"><date-time default-value="${nowTimestamp}"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -273,14 +273,14 @@ under the License.
         <field name="period2ThruDate" position="2"><date-time/></field>
         <field name="period1GlFiscalTypeId" position="1">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="period2GlFiscalTypeId" position="2">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -294,7 +294,7 @@ under the License.
         <field name="period1ThruDate"><date-time/></field>
         <field name="period1GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -302,7 +302,7 @@ under the License.
         <field name="period2ThruDate"><date-time/></field>
         <field name="period2GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -360,7 +360,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -375,7 +375,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -559,14 +559,14 @@ under the License.
     <form name="CashFlowStatementParameters" type="single" header-row-style="header-row" default-table-style="basic-table">
         <field name="selectedMonth" title="${uiLabelMap.CommonMonth}">
             <drop-down allow-empty="true">
-                <list-options list-name="monthList" key-name="value" description="${description}"/>
+                <list-options list-name="monthList" key-name="value"/>
             </drop-down>
         </field>
         <field name="fromDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="thruDate" required-field="false"><date-time type="timestamp"/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -625,7 +625,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="glFiscalTypeId" title="${uiLabelMap.FormFieldTitle_glFiscalType}">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" description="${description}">
+                <entity-options entity-name="GlFiscalType">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -640,14 +640,14 @@ under the License.
         <field name="period2ThruDate" title="${uiLabelMap.FormFieldTitle_period2ThruDate}" required-field="true" position="2"><date-time type="timestamp"/></field>
         <field name="period1GlFiscalTypeId" position="1">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="period2GlFiscalTypeId" position="2">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -710,7 +710,7 @@ under the License.
         <field name="period1ThruDate" title="${uiLabelMap.FormFieldTitle_period1ThruDate}" required-field="true"><date-time type="timestamp"/></field>
         <field name="period1GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>
@@ -719,7 +719,7 @@ under the License.
         <field name="period2ThruDate" title="${uiLabelMap.FormFieldTitle_period2ThruDate}" required-field="true"><date-time type="timestamp"/></field>
         <field name="period2GlFiscalTypeId">
             <drop-down>
-                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId" description="${description}">
+                <entity-options entity-name="GlFiscalType" key-field-name="glFiscalTypeId">
                     <entity-order-by field-name="glFiscalTypeId"/>
                 </entity-options>
             </drop-down>

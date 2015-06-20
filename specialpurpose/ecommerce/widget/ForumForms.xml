@@ -81,12 +81,12 @@ under the License.
         </field>
         <field name="section" >
             <drop-down no-current-selected-key="${targetSection}" allow-empty="true">
-                <list-options list-name="sectionList" key-name="contentId" description="${description}"/>
+                <list-options list-name="sectionList" key-name="contentId"/>
             </drop-down>
         </field>
         <field name="topic" position="1">
             <drop-down  no-current-selected-key="${targetTopic}" allow-empty="true">
-                <entity-options entity-name="Content" key-field-name="contentId" description="${description}">
+                <entity-options entity-name="Content" key-field-name="contentId">
                     <entity-constraint name="contentTypeId" value="TOPIC"/>
                     <entity-order-by field-name="contentId"/>
                 </entity-options>
@@ -256,22 +256,22 @@ under the License.
         <field name="textData" title="${uiLabelMap.ContentText}" id-name="textData"><textarea rows="20" cols="60"/></field>
         <field name="statusId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <list-options list-name="statusList" key-name="statusId" description="${description}"/>
+                <list-options list-name="statusList" key-name="statusId"/>
             </drop-down>
         </field>
         <field name="privilegeEnumId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <list-options list-name="privilegeList" key-name="enumId" description="${description}"/>
+                <list-options list-name="privilegeList" key-name="enumId"/>
             </drop-down>
         </field>
         <field name="section" >
             <drop-down no-current-selected-key="${targetSection}" allow-empty="true">
-                <list-options list-name="sectionList" key-name="contentId" description="${description}"/>
+                <list-options list-name="sectionList" key-name="contentId"/>
             </drop-down>
         </field>
         <field name="topic" position="1">
             <drop-down  no-current-selected-key="${targetTopic}" allow-empty="true">
-                <list-options list-name="topicList" key-name="contentId" description="${description}"/>
+                <list-options list-name="topicList" key-name="contentId"/>
             </drop-down>
         </field>
         <!--
@@ -334,7 +334,7 @@ under the License.
         <field name="contentId"><display/></field>
         <field name="contentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId"/>
             </drop-down>
         </field>
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}">
@@ -356,12 +356,12 @@ under the License.
         </field>
         <field name="characterSetId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -389,17 +389,17 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
             </drop-down>
         </field>
         <field name="dataTemplateTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -419,7 +419,7 @@ under the License.
         </field>
         <field name="characterSetId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="createdDate"><display/></field>
