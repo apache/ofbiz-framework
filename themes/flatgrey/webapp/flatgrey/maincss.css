@@ -1167,6 +1167,10 @@ width: auto;
 margin-bottom: 1em;
 }
 
+.basic-form table.condensed-table{
+   width: 0%;
+}
+
 /* ------------------------------- */
 /*      List Navigation Style      */
 /* ------------------------------- */
