@@ -1263,22 +1263,6 @@ under the License.
                         <xs:documentation>Specifies the string to display, can use the ${} syntax to insert context values; if empty the value of the field will be printed for a default.</xs:documentation>
                     </xs:annotation>
                 </xs:attribute>
-                <xs:attribute name="request-confirmation" default="false">
-                    <xs:annotation>
-                        <xs:documentation>If true then the user is presented with a dialog box, if confirmation-message is empty, use default</xs:documentation>
-                    </xs:annotation>
-                    <xs:simpleType>
-                        <xs:restriction base="xs:token">
-                            <xs:enumeration value="true" />
-                            <xs:enumeration value="false" />
-                        </xs:restriction>
-                    </xs:simpleType>
-                </xs:attribute>
-                <xs:attribute name="confirmation-message" type="xs:string">
-                    <xs:annotation>
-                        <xs:documentation>The message displayed in confirmation box</xs:documentation>
-                    </xs:annotation>
-                </xs:attribute>
                 <xs:attribute name="also-hidden" default="true">
                     <xs:annotation>
                         <xs:documentation>If set to true, an hidden form field is also rendered, with the name of the field and its content.</xs:documentation>

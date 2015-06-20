@@ -583,11 +583,11 @@ under the License.
             <xs:element minOccurs="0" name="image" type="image" />
         </xs:sequence>
         <xs:attribute type="xs:string" name="text" />
-        <xs:attribute type="xs:string" name="id" >
+        <xs:attribute type="xs:string" name="id">
             <xs:annotation>
-                 <xs:documentation>
-                     If you use id for link present in list form or multi form, you can use ${itemIndex} to generate an unique id by line. 
-                 </xs:documentation>
+                <xs:documentation>
+                    If you use id for link present in list form or multi form, you can use ${itemIndex} to generate an unique id by line.
+                </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="style" />
@@ -651,6 +651,22 @@ under the License.
                     <xs:enumeration value="false" />
                 </xs:restriction>
             </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="request-confirmation" default="false">
+            <xs:annotation>
+                <xs:documentation>If true then the user is presented with a dialog box, if confirmation-message is empty, use default</xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true" />
+                    <xs:enumeration value="false" />
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="confirmation-message" type="xs:string">
+            <xs:annotation>
+                <xs:documentation>The message displayed in confirmation box</xs:documentation>
+            </xs:annotation>
         </xs:attribute>
     </xs:complexType>
     <xs:complexType name="image" mixed="true">
