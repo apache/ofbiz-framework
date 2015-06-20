@@ -66,11 +66,11 @@ under the License.
                     <br /><a href="javascript:popUp('<@ofbizUrl>geoLocation?geoPointId=${postalAddress.geoPointId}</@ofbizUrl>', '${popUptitle!}', '450', '550')" class="buttontext">${uiLabelMap.CommonGeoLocation}</a>
                   </#if>
               <#elseif "TELECOM_NUMBER" = contactMech.contactMechTypeId>
-                  <#assign telecomNumber = contactMechMap.telecomNumber>
+                  <#assign telecomNumber = contactMechMap.telecomNumber!>
                     ${telecomNumber.countryCode!}
                     <#if telecomNumber.areaCode?has_content>${telecomNumber.areaCode}-</#if>${telecomNumber.contactNumber!}
                     <#if facilityContactMech.extension?has_content>${uiLabelMap.CommonExt} ${facilityContactMech.extension}</#if>
-                    <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode = "011">
+                    <#if (telecomNumber?has_content && !telecomNumber.countryCode?has_content) || telecomNumber.countryCode! = "011">
                       <br /><a target='_blank' href='${uiLabelMap.CommonLookupAnywhoLink}' class='buttontext'>${uiLabelMap.CommonLookupAnywho}</a>
                       <a target='_blank' href='${uiLabelMap.CommonLookupWhitepagesTelNumberLink}' class='buttontext'>${uiLabelMap.CommonLookupWhitepages}</a>
                     </#if>
