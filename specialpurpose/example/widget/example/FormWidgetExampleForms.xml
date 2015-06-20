@@ -187,9 +187,7 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField3Title}"
                tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
-                <entity-options entity-name="ExampleType"
-                                key-field-name="exampleTypeId"
-                                description="${description}">
+                <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
                     <entity-order-by field-name="-description"/>
                 </entity-options>
             </drop-down>
@@ -215,8 +213,7 @@ under the License.
                title="${uiLabelMap.ExampleDropDownField6Title}"
                tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
-                <entity-options entity-name="ExampleType"
-                                description="${description}"/>
+                <entity-options entity-name="ExampleType"/>
             </drop-down>
         </field>
         <!-- ***************** -->
@@ -226,9 +223,7 @@ under the License.
             title="${uiLabelMap.ExampleDropDownField7Title}"
             tooltip="${uiLabelMap.ExampleToDo}" tooltip-style="button-text">
             <drop-down>
-                <entity-options entity-name="ExampleType"
-                    key-field-name="exampleTypeId"
-                    description="${description}">
+                <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
                     <entity-constraint name="exampleTypeId"
                         value="INSPIRED"
                         operator="greater"/>
@@ -394,7 +389,7 @@ under the License.
     <form name="SelectionBoxesExampleForm" type="single">
         <field name="ExampleTypeId">
            <check>
-              <entity-options key-field-name="exampleTypeId" description="${description}" entity-name="ExampleType"/>
+              <entity-options key-field-name="exampleTypeId" entity-name="ExampleType"/>
            </check>
         </field>
     </form>

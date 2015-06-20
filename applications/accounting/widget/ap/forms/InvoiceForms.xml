@@ -69,7 +69,7 @@ under the License.
         <field name="parentTypeId"><hidden value="PURCHASE_INVOICE"/></field>
         <field position="1" name="invoiceTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceType" description="${description}">
+                <entity-options entity-name="InvoiceType">
                     <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
                 </entity-options>
             </drop-down>
@@ -83,7 +83,7 @@ under the License.
         <field name="partyIdFrom" title="${uiLabelMap.AccountingVendorParty}" position="1"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="2">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="INVOICE_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -95,7 +95,7 @@ under the License.
         <field name="thruDueDate" position="2"><date-time/></field>
         <field name="invoiceTypeId" position="1">
             <drop-down allow-empty="false">
-                <entity-options entity-name="InvoiceType" description="${description}">
+                <entity-options entity-name="InvoiceType">
                     <entity-constraint name="parentTypeId" value="PURCHASE_INVOICE"/>
                 </entity-options>
             </drop-down>

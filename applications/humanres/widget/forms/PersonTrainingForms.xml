@@ -41,7 +41,7 @@ under the License.
         <field name="currentStatusId"><hidden value="CAL_TENTATIVE"/></field>
         <field name="workEffortName" title="${uiLabelMap.HumanResTrainings} ${uiLabelMap.CommonName}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
+                <entity-options key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -89,7 +89,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.FormFieldTitle_employeePartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
+                <entity-options key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -142,7 +142,7 @@ under the License.
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}"/>
         <field name="approvalStatus">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="TRAINING_STATUS"/>
                         <entity-order-by field-name="description"/>
                 </entity-options>
@@ -158,7 +158,7 @@ under the License.
         <field name="partyId"><hidden value="${loginPartyId}"/></field>
         <field name="trainingClassTypeId" title="${uiLabelMap.HumanResTrainingClassType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
+                <entity-options key-field-name="trainingClassTypeId" entity-name="TrainingClassType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>  

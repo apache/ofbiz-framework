@@ -48,7 +48,7 @@ under the License.
         </field>
         <field name="prodCatContentTypeId">
             <drop-down>
-                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                <entity-options entity-name="ProductCategoryContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -62,7 +62,7 @@ under the License.
         <field name="productCategoryId" map-name="productCategory"><hidden/></field>
         <field name="prodCatContentTypeId">
             <drop-down>
-                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                <entity-options entity-name="ProductCategoryContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -75,7 +75,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table">
         <field name="productCategoryId"><hidden/></field>
         <field name="contentId" title="${uiLabelMap.ProductContent}">
-            <display-entity entity-name="Content" description="${description}" also-hidden="true">
+            <display-entity entity-name="Content" also-hidden="true">
                 <sub-hyperlink target="EditCategoryContentContent" description="${contentId}" link-style="buttontext">
                     <parameter param-name="productCategoryId"/>
                     <parameter param-name="contentId"/>
@@ -85,7 +85,7 @@ under the License.
             </display-entity>
         </field>
         <field name="prodCatContentTypeId" title="${uiLabelMap.ProductType}">
-            <display-entity entity-name="ProductCategoryContentType" also-hidden="false" description="${description}"/>
+            <display-entity entity-name="ProductCategoryContentType" also-hidden="false"/>
         </field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
@@ -94,7 +94,7 @@ under the License.
         <field name="thruDate"><date-time type="timestamp"/></field>
         <field name="prodCatContentTypeId">
             <drop-down>
-                <entity-options entity-name="ProductCategoryContentType" description="${description}">
+                <entity-options entity-name="ProductCategoryContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -250,7 +250,7 @@ under the License.
             </hyperlink>
         </field>
         
-        <field name="productCategoryTypeId" sort-field="true"><display-entity entity-name="ProductCategoryType" description="${description}"/></field>
+        <field name="productCategoryTypeId" sort-field="true"><display-entity entity-name="ProductCategoryType"/></field>
         <field name="primaryParentCategoryId" sort-field="true"><display/></field>
         <field name="categoryName" sort-field="true"><display/></field>
         <field name="description" sort-field="true"><display/></field>

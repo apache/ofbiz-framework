@@ -50,7 +50,7 @@ under the License.
         </field>
         <field name="visualThemeSetId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="VisualThemeSet" description="${description}">
+                <entity-options entity-name="VisualThemeSet">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -183,7 +183,7 @@ under the License.
         <field name="contentId"><lookup target-form-name="LookupContent"/></field>
         <field name="webSiteContentTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WebSiteContentType" description="${description}">
+                <entity-options entity-name="WebSiteContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -199,7 +199,7 @@ under the License.
         <field name="webSiteId" map-name="webSite"><hidden/></field>
         <field name="roleTypeId">
             <drop-down no-current-selected-key="_NA_">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -236,7 +236,7 @@ under the License.
         <field name="webSiteId"><hidden/></field>
         <field name="webSiteContentTypeId">
             <check all-checked="false">
-                <entity-options entity-name="WebSiteContentType" description="${description}">
+                <entity-options entity-name="WebSiteContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </check>

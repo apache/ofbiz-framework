@@ -552,7 +552,7 @@ under the License.
         <field name="statusId" title="Status">
             <drop-down>
                 <option key="" description="All Status"/>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>

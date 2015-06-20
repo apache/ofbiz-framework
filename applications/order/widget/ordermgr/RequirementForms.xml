@@ -26,12 +26,12 @@ under the License.
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RequirementType" description="${description}"/>
+                <entity-options entity-name="RequirementType"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="REQUIREMENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -81,7 +81,7 @@ under the License.
                 <parameter param-name="requirementId"/>
             </hyperlink>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="requirementTypeId">
             <display-entity entity-name="RequirementType"/>
         </field>
@@ -117,12 +117,12 @@ under the License.
         <field name="requirementId"><hidden/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RequirementType" description="${description}"/>
+                <entity-options entity-name="RequirementType"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="false" no-current-selected-key="REQ_CREATED">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="REQUIREMENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -200,7 +200,7 @@ under the License.
         <field name="roleTypeId" use-when="requirementRole!=null"><display-entity entity-name="RoleType"/></field>
         <field name="roleTypeId" use-when="requirementRole==null">
             <drop-down allow-empty="false" no-current-selected-key="SUPPLIER">
-                <entity-options entity-name="RoleType" description="${description}"/>
+                <entity-options entity-name="RoleType"/>
             </drop-down>
         </field>
         <field name="fromDate" use-when="requirementRole!=null"><display/></field>
@@ -215,7 +215,7 @@ under the License.
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RequirementType" description="${description}"/>
+                <entity-options entity-name="RequirementType"/>
             </drop-down>
         </field>
         <field name="facilityId">

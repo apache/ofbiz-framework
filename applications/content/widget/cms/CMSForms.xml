@@ -108,22 +108,22 @@ under the License.
         <field name="textData" id-name="textData"><textarea rows="20" cols="60"/></field>
         <field name="statusId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <list-options list-name="statusList" key-name="statusId" description="${description}"/>
+                <list-options list-name="statusList" key-name="statusId"/>
             </drop-down>
         </field>
         <field name="privilegeEnumId" >
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <list-options list-name="privilegeList" key-name="enumId" description="${description}"/>
+                <list-options list-name="privilegeList" key-name="enumId"/>
             </drop-down>
         </field>
         <field name="section" >
             <drop-down no-current-selected-key="${targetSection}" allow-empty="true">
-                <list-options list-name="sectionList" key-name="contentId" description="${description}"/>
+                <list-options list-name="sectionList" key-name="contentId"/>
             </drop-down>
         </field>
         <field name="topic" position="1">
             <drop-down  no-current-selected-key="${targetTopic}" allow-empty="true">
-                <list-options list-name="topicList" key-name="contentId" description="${description}"/>
+                <list-options list-name="topicList" key-name="contentId"/>
             </drop-down>
         </field>
         <!--
@@ -199,27 +199,24 @@ under the License.
         <auto-fields-service service-name="createContentPurposeOperation"/>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
+                <entity-options entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
             </drop-down>
         </field>
         <field name="contentOperationId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="ContentOperation" key-field-name="contentOperationId"/>
+                <entity-options entity-name="ContentOperation" key-field-name="contentOperationId"/>
             </drop-down>
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
                 <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
-                <entity-options description="${description}"
-                    entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="false">
                 <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
-                <entity-options description="${description}"
+                <entity-options
                     entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PUBLISH_STATUS"/>
                 </entity-options>
@@ -228,8 +225,7 @@ under the License.
         <field name="privilegeEnumId">
             <drop-down allow-empty="false">
                 <option key="_NA_" description="${uiLabelMap.CommonNA}"/>
-                <entity-options description="${description}"
-                    entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="SUBSCRIPTION_TYPE"/>
                 </entity-options>
             </drop-down>
@@ -416,12 +412,12 @@ under the License.
         <field name="caContentAssocTypeId" position="1"
             use-when="&quot;${caContentAssocTypeId}&quot;.length()==0" >
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentAssocType" key-field-name="contentAssocTypeId"/>
+                <entity-options entity-name="ContentAssocType" key-field-name="contentAssocTypeId"/>
             </drop-down>
         </field>
         <field name="caContentAssocPredicateId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
+                <entity-options entity-name="MetaDataPredicate" key-field-name="metaDataPredicateId"/>
             </drop-down>
         </field>
         <field name="caFromDate" title="${uiLabelMap.CommonFromDate}" widget-style="buttontext" position="1" use-when="&quot;${caFromDate}&quot;.length()>0">
@@ -454,7 +450,7 @@ under the License.
         </field>
         <field name="contentTypeId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContentType" key-field-name="contentTypeId"/>
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId"/>
             </drop-down>
         </field>
         <field name="ownerContentId" position="2">
@@ -475,7 +471,7 @@ under the License.
         </field>
         <field name="characterSetId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="localeString" position="3">
@@ -483,7 +479,7 @@ under the License.
         </field>
         <field name="statusId" position="1">
             <drop-down allow-empty="true" >
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="PUBLISH_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -491,7 +487,7 @@ under the License.
         </field>
         <field name="privilegeEnumId" position="2">
             <drop-down allow-empty="false" no-current-selected-key="SUBSCRIBE_BRONZE">
-                <list-options list-name="privilegeList" key-name="enumId" description="${description}"/>
+                <list-options list-name="privilegeList" key-name="enumId"/>
             </drop-down>
         </field>
 
@@ -515,7 +511,7 @@ under the License.
         </field>
         <field name="drDataResourceTypeId" position="1">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
             </drop-down>
         </field>
         <field name="drObjectInfo" title="${uiLabelMap.ContentFilePath}" position="2">
@@ -523,7 +519,7 @@ under the License.
         </field>
         <field name="drDataTemplateTypeId" position="3">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
         <field name="drMimeTypeId" position="1">
@@ -535,7 +531,7 @@ under the License.
         </field>
         <field name="drCharacterSetId" position="2">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="drLocaleString" position="3">

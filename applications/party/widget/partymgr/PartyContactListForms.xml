@@ -49,7 +49,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTACTLST_PARTY"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -75,7 +75,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="statusId">
             <drop-down no-current-selected-key="CLPT_PENDING">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="CONTACTLST_PARTY" operator="equals"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -101,8 +101,8 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${contactListId}" target="javascript:set_value('${contactListId}')"/>
         </field>
         <field name="contactListName"><display/></field>
-        <field name="contactListTypeId"><display-entity description="${description}" entity-name="ContactListType"/></field>
-        <field name="contactMechTypeId" title="${uiLabelMap.PartyContactMechType}"><display-entity description="${description}" entity-name="ContactMechType"/></field>
+        <field name="contactListTypeId"><display-entity entity-name="ContactListType"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.PartyContactMechType}"><display-entity entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId"><display-entity entity-name="MarketingCampaign" description="${campaignName}"/></field>
     </form>
 </forms>

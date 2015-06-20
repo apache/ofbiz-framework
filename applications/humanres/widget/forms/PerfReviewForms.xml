@@ -78,7 +78,7 @@ under the License.
         <field name="managerPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="managerRoleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="paymentId" title="${uiLabelMap.FormFieldTitle_paymentId}"><lookup target-form-name="LookupPayment"/></field>
@@ -118,14 +118,14 @@ under the License.
         <field name="employeeRoleTypeId"><hidden/></field>
         <field name="perfReviewItemTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="perfReviewItemTypeId" entity-name="PerfReviewItemType">
+                <entity-options key-field-name="perfReviewItemTypeId" entity-name="PerfReviewItemType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="perfRatingTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" key-field-name="perfRatingTypeId" entity-name="PerfRatingType">
+                <entity-options key-field-name="perfRatingTypeId" entity-name="PerfRatingType">
                     <entity-order-by field-name="-perfRatingTypeId"/><!-- order from good to bad -->
                 </entity-options>
             </drop-down>

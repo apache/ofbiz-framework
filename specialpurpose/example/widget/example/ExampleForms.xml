@@ -169,14 +169,14 @@ under the License.
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}" id-name="exampleTypeId" widget-style="required">
             <drop-down allow-empty="false">
                 <!-- this is a neat feature, but not good for the type because the user would have to know the possible types in order to enter at least the first letter, so leaving it out by default; just uncomment to enable: <auto-complete/> -->
-                <entity-options entity-name="ExampleType" description="${description}">
+                <entity-options entity-name="ExampleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId"  use-when="example==null" title="${uiLabelMap.CommonStatus}" widget-style="required">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ExampleStatusItem" description="${description}"/>
+                <entity-options entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="example!=null" title="${uiLabelMap.CommonStatus}" widget-style="required">
@@ -192,7 +192,7 @@ under the License.
         <field name="anotherText">
             <drop-down allow-empty="true">
                 <option key="Explicit Option" description="${uiLabelMap.ExampleExplicitOption}"/>
-                <entity-options entity-name="ExampleType" description="${description}" key-field-name="exampleTypeId">
+                <entity-options entity-name="ExampleType" key-field-name="exampleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -210,7 +210,7 @@ under the License.
         <alt-target use-when="example==null" target="createExampleAjax"/>
         <field name="statusId" use-when="example==null" title="${uiLabelMap.CommonStatus}" id-name="statusId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ExampleStatusItem" description="${description}"/>
+                <entity-options entity-name="ExampleStatusItem"/>
             </drop-down>
         </field>
         <on-event-update-area event-type="submit" area-id="ListExamplesAjax" area-target="ListExampleFormOnly"/>
@@ -272,7 +272,7 @@ under the License.
         <auto-fields-service service-name="updateExampleFeatureAppl"/>
         <field name="exampleId"><hidden/></field>
         <field name="exampleFeatureId" title="${uiLabelMap.ExampleFeature}">
-            <display-entity entity-name="ExampleFeature" description="${description}">
+            <display-entity entity-name="ExampleFeature">
                 <sub-hyperlink target="EditExampleFeature" description="${exampleFeatureId}" link-style="buttontext">
                     <parameter param-name="exampleFeatureId"/>
                 </sub-hyperlink>
@@ -281,7 +281,7 @@ under the License.
         <field name="fromDate"><display/></field>
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ExampleFeatureApplType" description="${description}">
+                <entity-options entity-name="ExampleFeatureApplType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -304,7 +304,7 @@ under the License.
         </field>
         <field name="exampleFeatureApplTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ExampleFeatureApplType" description="${description}">
+                <entity-options entity-name="ExampleFeatureApplType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

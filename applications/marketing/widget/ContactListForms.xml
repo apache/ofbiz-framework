@@ -31,7 +31,7 @@ under the License.
         <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}"><text/></field>
         <field name="contactListTypeId" title="${uiLabelMap.MarketingContactListContactListTypeId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
+                <entity-options entity-name="ContactListType" key-field-name="contactListTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -49,7 +49,7 @@ under the License.
 
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down no-current-selected-key="EMAIL_ADDRESS">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -88,14 +88,14 @@ under the License.
         <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.MarketingContactListContactListTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
+                <entity-options entity-name="ContactListType" key-field-name="contactListTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -155,7 +155,7 @@ under the License.
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CLPT_ACCEPTED">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="CONTACTLST_PARTY" operator="equals"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -182,7 +182,7 @@ under the License.
 
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTACTLST_PARTY"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -252,7 +252,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.MarketingContactListPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="PartyType" description="${description}">
+                <entity-options entity-name="PartyType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -260,7 +260,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
                 <option key="" description="${uiLabelMap.CommonAnyRoleType}"/>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -336,7 +336,7 @@ under the License.
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" use-when="communicationEvent==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false" no-current-selected-key="COM_PENDING">
-                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                      <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                      <entity-order-by field-name="sequenceId"/>
                  </entity-options>
@@ -353,30 +353,30 @@ under the License.
 
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}" use-when="commEventContactMechType!=null&amp;&amp;parentCommEventContactMechType==null">
             <drop-down>
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}" use-when="commEventContactMechType==null&amp;&amp;parentCommEventContactMechType!=null">
             <drop-down>
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}" use-when="commEventContactMechType==null&amp;&amp;parentCommEventContactMechType==null">
             <drop-down>
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
 
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}" use-when="commEventRoleTypeIdFrom!=null">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}" use-when="commEventRoleTypeIdTo!=null">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -441,7 +441,7 @@ under the License.
         <field name="commEventId" title="${uiLabelMap.MarketingContactListCommEventId}"><lookup target-form-name="LookupCommEvent"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -473,10 +473,10 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="custReqestId" position="1"><display/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
@@ -489,14 +489,14 @@ under the License.
         <field name="contactListName" title="${uiLabelMap.MarketingContactListContactListName}"><text-find/></field>
         <field name="contactListTypeId" title="${uiLabelMap.MarketingContactListContactListTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactListType" key-field-name="contactListTypeId">
+                <entity-options entity-name="ContactListType" key-field-name="contactListTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId">
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -537,19 +537,19 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="COM_EVENT_STATUS"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
+                <entity-options entity-name="ContactMechType" key-field-name="contactMechTypeId"/>
             </drop-down>
         </field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="custRequestId"><lookup size="20" target-form-name="LookupCustRequest"/></field>
@@ -577,10 +577,10 @@ under the License.
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="contactMechTypeId" title="${uiLabelMap.MarketingContactListContactMechTypeId}"><display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyRoleTypeIdFrom}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.PartyRoleTypeIdTo}"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="custReqestId" position="1"><text size="20"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
@@ -618,7 +618,7 @@ under the License.
         </field>
         <field name="contactMechId" title="${uiLabelMap.CommonEmailTo}"><display-entity entity-name="ContactMech" description="${infoString}"/></field>
         <field name="lastUpdatedStamp" title="${uiLabelMap.FormFieldTitle_lastModifiedDate}"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
     </form>    
     <form name="CreateWebSiteContactList" type="single" target="createWebSiteContactList" 
             default-map-name="contactList" title="" header-row-style="header-row" default-table-style="basic-table">

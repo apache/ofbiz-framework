@@ -70,7 +70,7 @@ under the License.
         <field name="parentTypeId"><hidden value="SALES_INVOICE"/></field>
         <field name="invoiceTypeId" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceType" description="${description}">
+                <entity-options entity-name="InvoiceType">
                     <entity-constraint name="parentTypeId" value="SALES_INVOICE"/>
                 </entity-options>
             </drop-down>

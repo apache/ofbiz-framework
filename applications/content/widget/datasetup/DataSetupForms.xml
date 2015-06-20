@@ -53,8 +53,7 @@ under the License.
         <auto-fields-service service-name="createDataResourceTypeAttr"/>
         <field entity-name="DataResource" name="dataResourceTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
@@ -153,7 +152,7 @@ under the License.
         <auto-fields-service service-name="createFileExtension"/>
         <field name="mimeTypeId" title=" ">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
+                <entity-options
                     entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
@@ -172,8 +171,7 @@ under the License.
         </field>
         <field name="mimeTypeId" title=" ">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit">
@@ -246,7 +244,7 @@ under the License.
         <auto-fields-service service-name="createMimeTypeHtmlTemplate"/>
         <field name="mimeTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">

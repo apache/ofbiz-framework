@@ -25,7 +25,7 @@ under the License.
         <auto-fields-entity entity-name="ShoppingList"/>
         <field name="shoppingListTypeId">
             <drop-down>
-                <entity-options entity-name="ShoppingListType" description="${description}">
+                <entity-options entity-name="ShoppingListType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

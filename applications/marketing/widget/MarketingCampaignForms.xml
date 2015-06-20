@@ -42,7 +42,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                      <entity-constraint name="statusTypeId" value="MKTG_CAMP_STATUS"/>
                      <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -75,7 +75,7 @@ under the License.
         </field>
         <field name="campaignName" title="${uiLabelMap.MarketingCampaignName}"><display/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" description="${description}" also-hidden="true"/>
+            <display-entity entity-name="StatusItem" also-hidden="true"/>
         </field>
         <field name="parentCampaignId" title="${uiLabelMap.MarketingParentCampaignId}"><display/></field>
     </form>
@@ -107,7 +107,7 @@ under the License.
         </field>
         -->
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
-            <display-entity entity-name="RoleType" description="${description}" also-hidden="true"/>
+            <display-entity entity-name="RoleType" also-hidden="true"/>
                 <!--<sub-hyperlink target="/partymgr/control/viewProfile" description="${partyId}" link-style="buttontext">
                     <parameter param-name="partyId"/>
                 </sub-hyperlink>
@@ -133,7 +133,7 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down>
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                 </entity-options>
             </drop-down>
         </field>

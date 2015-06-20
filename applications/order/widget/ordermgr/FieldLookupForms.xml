@@ -27,14 +27,14 @@ under the License.
         <field name="orderHeaderId"><text-find/></field>
         <field name="orderTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="OrderType" key-field-name="orderTypeId">
+                <entity-options entity-name="OrderType" key-field-name="orderTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="salesChannelEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -42,7 +42,7 @@ under the License.
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -83,13 +83,13 @@ under the License.
         <field name="orderId"><text-find/></field>
         <field name="orderTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="OrderType" description="${description}"/>
+                <entity-options entity-name="OrderType"/>
              </drop-down>
         </field>
         <field name="partyId"><text-find/></field>
         <field name="shipmentMethodTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ShipmentMethodType" description="${description}">
+                <entity-options entity-name="ShipmentMethodType">
                 </entity-options>
              </drop-down>
         </field>
@@ -156,7 +156,7 @@ under the License.
         <field name="partyId"><text-find/></field>
         <field name="shipmentMethodTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ShipmentMethodType" description="${description}">
+                <entity-options entity-name="ShipmentMethodType">
                 </entity-options>
              </drop-down>
         </field>
@@ -193,12 +193,12 @@ under the License.
         <auto-fields-entity entity-name="CustRequest" default-field-type="hidden"/>
         <field name="custRequestTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
+                <entity-options entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -215,7 +215,7 @@ under the License.
         <!--
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -260,7 +260,7 @@ under the License.
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="find"/>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -268,7 +268,7 @@ under the License.
         </field>
         <field name="custRequestResolutionId" >
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustRequestResolution" description="${description}">
+                <entity-options entity-name="CustRequestResolution">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -305,14 +305,14 @@ under the License.
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
+                <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </drop-down>
         </field>
         <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
         <field name="issueDate" title="${uiLabelMap.OrderOrderQuoteIssueDate}"></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="QUOTE_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -375,12 +375,12 @@ under the License.
         <field name="productFeatureId"><lookup  target-form-name="LookupProductFeature"/></field>
         <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
+                <entity-options entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
             </drop-down>
         </field>
         <field name="skillTypeId" title="${uiLabelMap.OrderOrderQuoteSkillTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType" key-field-name="skillTypeId"/>
+                <entity-options entity-name="SkillType" key-field-name="skillTypeId"/>
             </drop-down>
         </field>
         <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
@@ -454,12 +454,12 @@ under the License.
         <field name="requirementId"><text-find/></field>
         <field name="requirementTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RequirementType" description="${description}"/>
+                <entity-options entity-name="RequirementType"/>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.OrderRequirementStatusId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="REQUIREMENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -506,7 +506,7 @@ under the License.
         <field name="shoppingListId"><text-find/></field>
         <field name="shoppingListTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ShoppingListType" description="${description}"/>
+                <entity-options entity-name="ShoppingListType"/>
             </drop-down>
         </field>
 

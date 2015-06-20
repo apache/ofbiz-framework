@@ -202,7 +202,7 @@ under the License.
         <field name="shipmentMethodName"><display/></field>
         <field name="methodTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -211,7 +211,7 @@ under the License.
         <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="shipmentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
             </drop-down>
         </field>
         <field name="deleteEbayShippingMethod" title="" widget-style="buttontext">
@@ -227,7 +227,7 @@ under the License.
         <auto-fields-service service-name="createEbayShippingMethod"/>
         <field name="methodTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="EBAY_SHIP_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -244,7 +244,7 @@ under the License.
         <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="shipmentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>

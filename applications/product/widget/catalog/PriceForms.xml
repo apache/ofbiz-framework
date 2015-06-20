@@ -80,14 +80,14 @@
         <field name="productPriceCondSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
         <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
             <drop-down allow-empty="false" current="selected">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PROD_PRICE_IN_PARAM"/>
                 </entity-options>
             </drop-down>
         </field>        
         <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
             <drop-down allow-empty="false" current="selected">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PROD_PRICE_COND"/>
                 </entity-options>
             </drop-down>
@@ -112,14 +112,14 @@
         <field name="new" title="${uiLabelMap.CommonNew}"><display default-value="${uiLabelMap.ProductPriceRulesNewCond}"/></field>
         <field name="inputParamEnumId" title="${uiLabelMap.ProductInput}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PROD_PRICE_IN_PARAM"/>
                 </entity-options>
             </drop-down>
         </field>        
         <field name="operatorEnumId" title="${uiLabelMap.ProductOperator}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="PROD_PRICE_COND"/>
                 </entity-options>
             </drop-down>
@@ -138,7 +138,7 @@
         <field name="productPriceActionSeqId"><hidden/></field><!-- Users don't need this information there, the screen is already sufficiently complex! -->
         <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
             <drop-down allow-empty="false" current="selected">
-                <entity-options entity-name="ProductPriceActionType" description="${description}" key-field-name="productPriceActionTypeId"/>
+                <entity-options entity-name="ProductPriceActionType" key-field-name="productPriceActionTypeId"/>
             </drop-down>
         </field>        
         <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>
@@ -156,7 +156,7 @@
         <field name="new" title="${uiLabelMap.CommonNew}"><display default-value="${uiLabelMap.ProductPriceRulesNewAction}"/></field>
         <field name="productPriceActionTypeId" title="${uiLabelMap.ProductActionType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProductPriceActionType" description="${description}" key-field-name="productPriceActionTypeId"/>
+                <entity-options entity-name="ProductPriceActionType" key-field-name="productPriceActionTypeId"/>
             </drop-down>
         </field>        
         <field name="amount" title="${uiLabelMap.ProductValue}"><text/></field>

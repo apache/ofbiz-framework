@@ -28,7 +28,7 @@ under the License.
         </field>
         <field name="bomType" title="${uiLabelMap.ManufacturingBomType}">
             <drop-down allow-empty="false" no-current-selected-key="MANUF_COMPONENT">
-                <entity-options entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}">
+                <entity-options entity-name="ProductAssocType" key-field-name="productAssocTypeId">
                     <entity-constraint name="parentTypeId" value="PRODUCT_COMPONENT"/>
                 </entity-options>
             </drop-down>
@@ -149,7 +149,7 @@ under the License.
         </field>
         <field name="internalName" title="${uiLabelMap.ProductProductName}"><display/></field>
         <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
-            <display-entity entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}"/>
+            <display-entity entity-name="ProductAssocType" key-field-name="productAssocTypeId"/>
         </field>
     </form>
 </forms>

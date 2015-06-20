@@ -49,7 +49,7 @@ under the License.
         <auto-fields-service service-name="updateOagisMessageInfo" default-field-type="edit"/>
          <field name="processingStatusId">
               <drop-down allow-empty="true" >
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
+                <entity-options entity-name="StatusItem" key-field-name="statusId"/>
             </drop-down>
          </field>
          <field name="orderId" >

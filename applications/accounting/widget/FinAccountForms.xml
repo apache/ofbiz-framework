@@ -27,7 +27,7 @@ under the License.
         <field name="finAccountId"><text-find ignore-case="true"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FinAccountType">
+                <entity-options entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -98,7 +98,7 @@ under the License.
         <field name="finAccountPin"><text size="10"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down no-current-selected-key="DEPOSIT_ACCOUNT">
-                <entity-options description="${description}" entity-name="FinAccountType">
+                <entity-options entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -116,7 +116,7 @@ under the License.
         <field name="postToGlAccountId"><lookup target-form-name="LookupGlAccount"/></field>
         <field name="statusId" use-when="finAccount==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="FINACCT_STATUS"/>
 
                 </entity-options>
@@ -169,7 +169,7 @@ under the License.
         <field name="partyId"> <lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -189,7 +189,7 @@ under the License.
         <field name="finAccountTransId"><hidden/></field>
         <field name="finAccountTransTypeId">
             <drop-down no-current-selected-key="ADJUSTMENT">
-                <entity-options description="${description}" entity-name="FinAccountTransType">
+                <entity-options entity-name="FinAccountTransType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -201,7 +201,7 @@ under the License.
         <field name="orderId"><lookup target-form-name="LookupOrderHeader"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -300,7 +300,7 @@ under the License.
         <field name="finAccountId"><text-find ignore-case="true"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FinAccountType">
+                <entity-options entity-name="FinAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -320,14 +320,14 @@ under the License.
         <field name="finAccountId"><hidden value="${finAccountId}"/></field>
         <field name="finAccountTransTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FinAccountTransType">
+                <entity-options entity-name="FinAccountTransType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="FINACT_TRNS_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -363,7 +363,7 @@ under the License.
         </actions>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentType" description="${description}">
+                <entity-options entity-name="PaymentType">
                     <entity-constraint name="parentTypeId" operator="equals" env-name="parentTypeId"/>
                 </entity-options>
             </drop-down>
@@ -449,7 +449,7 @@ under the License.
         <field name="glReconciliationName"><text/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="GLREC_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

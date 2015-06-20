@@ -178,7 +178,7 @@ under the License.
         <field name="surveyQuestionSeqId" title="${uiLabelMap.ContentSurveyQuestionNumber}"><display/></field>
         <field name="surveyQuestionTypeId">
             <drop-down allow-empty="false">
-               <entity-options entity-name="SurveyQuestionType" description="${description}"/>
+               <entity-options entity-name="SurveyQuestionType"/>
             </drop-down>
         </field>
 
@@ -196,12 +196,12 @@ under the License.
         <field name="surveyQuestionSeqId"><ignored/></field>
         <field name="surveyQuestionCategoryId">
             <drop-down allow-empty="false">
-               <entity-options entity-name="SurveyQuestionCategory" description="${description}"/>
+               <entity-options entity-name="SurveyQuestionCategory"/>
             </drop-down>
         </field>
         <field name="surveyQuestionTypeId">
             <drop-down allow-empty="false">
-               <entity-options entity-name="SurveyQuestionType" description="${description}"/>
+               <entity-options entity-name="SurveyQuestionType"/>
             </drop-down>
         </field>
 

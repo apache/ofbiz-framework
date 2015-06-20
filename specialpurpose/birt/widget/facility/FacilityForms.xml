@@ -33,7 +33,7 @@ under the License.
         </field>
         <field name="productTypeId" title="${uiLabelMap.ProductProductType}">
             <drop-down allow-empty="true" no-current-selected-key="FINISHED_GOOD">
-                <entity-options entity-name="ProductType" description="${description}"> <!-- [${productTypeId}] -->
+                <entity-options entity-name="ProductType"> <!-- [${productTypeId}] -->
                     <entity-constraint name="isPhysical"  value="Y" operator="equals"/>
                     <entity-constraint name="parentTypeId"  value="GOOD" operator="equals"/>
                     <entity-order-by field-name="description"/>
@@ -51,10 +51,10 @@ under the License.
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_NON_SER_STTS"/>
                 </entity-options>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="INV_SERIALIZED_STTS"/>
                 </entity-options>
             </drop-down>

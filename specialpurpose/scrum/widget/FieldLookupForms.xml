@@ -28,7 +28,7 @@ under the License.
         <field name="description" title="Product Backlog Item"><text-find/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>

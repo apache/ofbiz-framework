@@ -80,7 +80,7 @@ under the License.
 
         <field name="fixedAssetTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAssetType" description="${description}">
+                <entity-options entity-name="FixedAssetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -88,7 +88,7 @@ under the License.
         <field name="instanceOfProductId"><lookup target-form-name="LookupProduct"/></field>
         <field name="classEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="FXAST_CLASS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -97,7 +97,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -151,7 +151,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct"/></field>
         <field name="fixedAssetProductTypeId" title="${uiLabelMap.AccountingFixedAssetProductTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="FixedAssetProductType" description="${description}">
+                <entity-options entity-name="FixedAssetProductType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -172,13 +172,13 @@ under the License.
         <field name="workEffortId"><display/></field>
         <field name="workEffortName" title="${uiLabelMap.CommonName}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="WorkEffortType" description="${description}"/>
+            <display-entity entity-name="WorkEffortType"/>
         </field>
         <field name="workEffortPurposeTypeId" title="${uiLabelMap.CommonPurpose}">
-            <display-entity entity-name="WorkEffortPurposeType" description="${description}"/>
+            <display-entity entity-name="WorkEffortPurposeType"/>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="percentComplete"><display/></field>
         <field name="estimatedStartDate"><display/></field>
@@ -224,7 +224,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="fixedAssetStdCostTypeId" title="${uiLabelMap.AccountingFixedAssetStdCostTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FixedAssetStdCostType" key-field-name="fixedAssetStdCostTypeId"/>
+                <entity-options entity-name="FixedAssetStdCostType" key-field-name="fixedAssetStdCostTypeId"/>
             </drop-down>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"/>
@@ -269,7 +269,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="fixedAssetIdentTypeId" title="${uiLabelMap.AccountingFixedAssetIdentType}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAssetIdentType" description="${description}">
+                <entity-options entity-name="FixedAssetIdentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -353,7 +353,7 @@ under the License.
         <field use-when="fixedAssetMaint!=null" title="${uiLabelMap.CommonCreated}" name="createdStamp"><display/></field>
         <field name="statusId" use-when="fixedAssetMaint==null" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="FIXEDAST_MNT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -369,7 +369,7 @@ under the License.
         </field>
         <field name="productMaintTypeId" title="${uiLabelMap.AccountingFixedAssetMaintType}" tooltip="${uiLabelMap.AccountingFixedAssetMaintMessage1}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductMaintType">
+                <entity-options entity-name="ProductMaintType">
                     <entity-order-by field-name="productMaintTypeId"/>
                 </entity-options>
             </drop-down>
@@ -387,7 +387,7 @@ under the License.
         </field>
         <field name="intervalMeterTypeId" title="${uiLabelMap.AccountingFixedAssetMaintIntervalMeterType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductMeterType" key-field-name="productMeterTypeId">
+                <entity-options entity-name="ProductMeterType" key-field-name="productMeterTypeId">
                     <entity-order-by field-name="productMeterTypeId"/>
                 </entity-options>
             </drop-down>
@@ -430,7 +430,7 @@ under the License.
         </actions>
         <field name="fixedAssetId"><hidden/></field>
         <field name="productMeterTypeId">
-            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId" description="${description}"/>
+            <display-entity entity-name="ProductMeterType" key-field-name="productMeterTypeId"/>
         </field>
         <field name="readingDate"><display/></field>
         <field name="meterValue" title="${uiLabelMap.AccountingFixedAssetMeterValue}"><text/></field>
@@ -459,7 +459,7 @@ under the License.
         <field name="maintHistSeqId" use-when="maintHistSeqId == null"><ignored/></field>
         <field name="productMeterTypeId" >
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductMeterType" key-field-name="productMeterTypeId">
+                <entity-options entity-name="ProductMeterType" key-field-name="productMeterTypeId">
                     <entity-order-by field-name="productMeterTypeId"/>
                 </entity-options>
             </drop-down>
@@ -530,7 +530,7 @@ under the License.
         <field name="allocatedDate"><date-time/></field>
         <field name="statusId" title="${uiLabelMap.FormFieldTitle_statusId}">
             <drop-down allow-empty="false">
-                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                      <entity-constraint name="statusTypeId" value="PRTYASGN_STATUS"/>
                      <entity-order-by field-name="statusId"/>
                  </entity-options>
@@ -559,14 +559,14 @@ under the License.
          </field>
          <field name="roleTypeId">
              <drop-down allow-empty="true">
-                 <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                 <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                      <entity-order-by field-name="roleTypeId"/>
                  </entity-options>
              </drop-down>
          </field>
          <field name="statusId">
              <drop-down allow-empty="false">
-                 <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                 <entity-options entity-name="StatusItem" key-field-name="statusId">
                      <entity-constraint name="statusTypeId" value="PRTYASGN_STATUS"/>
                      <entity-order-by field-name="statusId"/>
                  </entity-options>
@@ -581,7 +581,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="depreciationCustomMethodId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId">
                     <entity-constraint name="customMethodTypeId" operator="equals" value="DEPRECIATION_FORMULA"/>
                 </entity-options>
             </drop-down>

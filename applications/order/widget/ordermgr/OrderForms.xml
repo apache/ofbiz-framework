@@ -34,14 +34,14 @@ under the License.
         <field name="orderId" use-when="orderHeader==null" ><ignored/></field>
         <field name="orderTypeId">
             <drop-down>
-                <entity-options description="${description}" entity-name="OrderType" key-field-name="orderTypeId">
+                <entity-options entity-name="OrderType" key-field-name="orderTypeId">
                 </entity-options>
             </drop-down>
         </field>
 
         <field name="statusId" use-when="orderHeader==null" title="${uiLabelMap.CommonStatus}">
             <drop-down>
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -57,7 +57,7 @@ under the License.
 
         <field name="salesChannelEnumId">
             <drop-down>
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -126,7 +126,7 @@ under the License.
         <field name="orderId"><hidden value="${parameters.orderId}"/></field>
         <field name="termTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TermType" description="${description}">
+                <entity-options entity-name="TermType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -237,7 +237,7 @@ under the License.
             </entity-and>
         </actions>
         <field name="orderTypeId" title="${uiLabelMap.FormFieldTitle_orderTypeId}">
-            <display-entity entity-name="OrderType" description="${description}"/>
+            <display-entity entity-name="OrderType"/>
         </field>
         <field name="orderId" title="${uiLabelMap.OrderOrderId}">
             <hyperlink target="orderview" description="${orderId}">
@@ -247,13 +247,13 @@ under the License.
         <field name="orderName" title="${uiLabelMap.OrderOrderName}"><display/></field>
         <field name="remainingSubTotal" title="${uiLabelMap.FormFieldTitle_remainingSubTotal}"><display/></field>
         <field name="grandTotal" title="${uiLabelMap.OrderGrandTotal}"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="orderDate" title="${uiLabelMap.OrderOrderDate}"><display/></field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
             <display-entity entity-name="PartyNameView" description="${groupName}"/>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
     </form>
 

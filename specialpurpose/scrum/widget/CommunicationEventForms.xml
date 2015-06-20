@@ -66,7 +66,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="statusId">
-            <display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.CommonFrom}">
             <display-entity description="${firstName} ${middleName} ${lastName} ${groupName}" entity-name="PartyNameView" key-field-name="partyId">

@@ -94,7 +94,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"></lookup></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
             <drop-down no-current-selected-key="_NA_">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -166,7 +166,7 @@ under the License.
         <auto-fields-service service-name="updateProductCategoryToProdCatalog"/>
         <field name="prodCatalogId"><hidden/></field>
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}">
-            <display-entity entity-name="ProductCategory" description="${description}" also-hidden="true" cache="true">
+            <display-entity entity-name="ProductCategory" also-hidden="true" cache="true">
                 <sub-hyperlink link-style="buttontext" target="EditCategory" description="${productCategoryId}">
                     <parameter param-name="productCategoryId"/>
                 </sub-hyperlink>
@@ -200,7 +200,7 @@ under the License.
         <field name="productCategoryId" title="${uiLabelMap.ProductCategoryId}"><lookup target-form-name="LookupProductCategory"></lookup></field>
         <field name="prodCatalogCategoryTypeId" title="${uiLabelMap.ProductCatalogCategoryType}">
             <drop-down>
-                <entity-options entity-name="ProdCatalogCategoryType" description="${description}">
+                <entity-options entity-name="ProdCatalogCategoryType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

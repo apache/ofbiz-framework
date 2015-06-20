@@ -25,12 +25,12 @@ under the License.
         <auto-fields-entity entity-name="CustRequest" default-field-type="find"/>
         <field name="custRequestTypeId" position="2">
             <drop-down allow-empty="true" allow-multiple="true">
-                <entity-options description="${description}" entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
+                <entity-options entity-name="CustRequestType" key-field-name="custRequestTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true" allow-multiple="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -38,7 +38,7 @@ under the License.
         </field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}" position="2">
             <drop-down allow-empty="true" allow-multiple="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -204,7 +204,7 @@ under the License.
         <auto-fields-entity entity-name="CustRequestStatus" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestStatusId"><hidden/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
     </form>
 
     <form name="ViewRequestRoles" type="list"
@@ -217,8 +217,8 @@ under the License.
         </actions>
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><display type="date"/></field>
     </form>
@@ -231,7 +231,7 @@ under the License.
                 <parameter param-name="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="startDate"><display type="date"/></field>
         <field name="completionDate"><display type="date"/></field>
     </form>
@@ -246,13 +246,13 @@ under the License.
         <field name="communicationEventId"><hidden value="${communicationEvent.communicationEventId}"/></field>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="CustRequestType" description="${description}"/>
+                <entity-options entity-name="CustRequestType"/>
             </drop-down>
         </field>
         <field name="custRequestName" encode-output="false"><text default-value="${communicationEvent.subject}"/></field>
         <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="ORDER_SALES_CHANNEL"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -260,7 +260,7 @@ under the License.
         </field>
         <field name="custRequestCategoryId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustRequestCategory" description="${description}"/>
+                <entity-options entity-name="CustRequestCategory"/>
             </drop-down>
         </field>
 
@@ -343,7 +343,7 @@ under the License.
         <field name="custRequestResolutionId"><hidden/></field>
         <field use-when="custRequestItem==null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -394,12 +394,12 @@ under the License.
         </field>
         <field name="deliverableTypeId" title="${uiLabelMap.OrderOrderQuoteDeliverableTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
+                <entity-options entity-name="DeliverableType" key-field-name="deliverableTypeId"/>
             </drop-down>
         </field>
         <field name="skillTypeId" title="${uiLabelMap.OrderOrderQuoteSkillTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType" key-field-name="skillTypeId"/>
+                <entity-options entity-name="SkillType" key-field-name="skillTypeId"/>
             </drop-down>
         </field>
         <field name="uomId" title="${uiLabelMap.OrderOrderQuoteUomId}">
@@ -549,8 +549,8 @@ under the License.
             </service>
         </actions>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}">
             <hyperlink target="/partymgr/control/viewprofile" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]">
                 <parameter param-name="partyId" from-field="custRequest.fromPartyId"/>
@@ -584,14 +584,14 @@ under the License.
         </field>
         <field name="contentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType">
+                <entity-options entity-name="ContentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" use-when="contentId==void">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -607,7 +607,7 @@ under the License.
         </field>
         <!--field name="mimeTypeId" >
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field-->
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
@@ -675,7 +675,7 @@ under the License.
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${fromPartyId}])"/>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="priority" use-when="statusGroup!=&quot;OPEN&quot;"><display also-hidden="false"/></field>
         <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.MyPortalTaskPlanStartDate}"><display type="date"/></field>
@@ -698,7 +698,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="custRequestDate" title="${uiLabelMap.CommonDate}"><display type="date"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="priority" use-when="!statusId.equals(&quot;CRQ_COMPLETED&quot;)">
             <drop-down allow-empty="true">
                 <option key="1" description="${uiLabelMap.WorkEffortPriorityOne}"/>
@@ -740,7 +740,7 @@ under the License.
     <form name="EditCustRetStatusId" extends="CommonPortletEdit" extends-resource="component://common/widget/PortletEditForms.xml">
         <field name="statusId" entry-name="attributeMap.statusId">
             <drop-down>
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_RETURN_STTS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

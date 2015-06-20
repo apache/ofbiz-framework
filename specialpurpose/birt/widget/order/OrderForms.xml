@@ -78,7 +78,7 @@ under the License.
         <field name="SalesChannel" title="${uiLabelMap.OrderSalesChannel}">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="description">
+                <entity-options entity-name="Enumeration" key-field-name="description">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SALES_CHANNEL"/>
                 </entity-options>
             </drop-down>

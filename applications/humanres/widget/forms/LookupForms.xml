@@ -26,7 +26,7 @@ under the License.
         <field name="budgetId" title="${uiLabelMap.HumanResBudgetID}"><text-find/></field>
         <field name="budgetTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="budgetTypeId" entity-name="BudgetType"></entity-options>
+                <entity-options key-field-name="budgetTypeId" entity-name="BudgetType"></entity-options>
             </drop-down>
         </field>
         <!-- This lookup does not exist, is there for a long time? (I did not find its date of introduction, the older I found is r615322) and I can't see anything close -->
@@ -55,7 +55,7 @@ under the License.
         <field name="budgetItemSeqId" title="${uiLabelMap.HumanResBudgetItemSeqId}"><text-find/></field>
         <field name="budgetItemTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="budgetItemTypeId" entity-name="BudgetItemType"></entity-options>
+                <entity-options key-field-name="budgetItemTypeId" entity-name="BudgetItemType"></entity-options>
             </drop-down>
         </field>
         <field name="budgetId"><lookup  target-form-name="LookupBudget"/></field>
@@ -83,12 +83,12 @@ under the License.
         <field name="emplPositionId" title="${uiLabelMap.HumanResEmplPositionId}"><text-find/></field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem"></entity-options>
+                <entity-options key-field-name="statusId" entity-name="StatusItem"></entity-options>
             </drop-down>
         </field>
         <field name="emplPositionTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" key-field-name="emplPositionTypeId" entity-name="EmplPositionType"></entity-options>
+                <entity-options key-field-name="emplPositionTypeId" entity-name="EmplPositionType"></entity-options>
             </drop-down>
         </field>
         <field name="partyId"><lookup  target-form-name="LookupPartyName"/></field>
@@ -320,14 +320,14 @@ under the License.
         <field name="location"><text-find ignore-case="true"/></field>
         <field name="skillTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="SkillType">
+                <entity-options entity-name="SkillType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="jobPostingTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="JOB_POSTING"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

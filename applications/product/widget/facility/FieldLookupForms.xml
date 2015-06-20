@@ -28,7 +28,7 @@ under the License.
         <field name="parentFacilityId"><text-find/></field>
         <field name="facilityTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="FacilityType" key-field-name="facilityTypeId">
+                <entity-options entity-name="FacilityType" key-field-name="facilityTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -65,7 +65,7 @@ under the License.
         </field>
         <field name="locationTypeEnumId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="FACLOC_TYPE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -91,7 +91,7 @@ under the License.
         </field>
         <field name="facilityId"><hidden/></field>
         <field name="locationTypeEnumId">
-            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
     </form>
 
@@ -100,12 +100,12 @@ under the License.
         <field position="1" name="shipmentId"><text-find/></field>
         <field position="1" name="shipmentTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ShipmentType"/>
+                <entity-options entity-name="ShipmentType"/>
             </drop-down>
         </field>
         <field position="2" name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="SHIPMENT_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -131,7 +131,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${shipmentId}" target="javascript:set_value('${shipmentId}')"/>
         </field>
         <field name="shipmentTypeId"><display-entity entity-name="ShipmentType"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyPartyFrom}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName}[${partyId}]"/></field>
     </form>
@@ -142,7 +142,7 @@ under the License.
             <hyperlink also-hidden="false" target-type="plain" description="${locationSeqId}" target="javascript:set_value('${locationSeqId}')"/>
         </field> 
         <field name="locationTypeEnumId">
-            <display-entity entity-name="Enumeration" description="${description}" key-field-name="enumId"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="quantityOnHandTotal" title="${uiLabelMap.ProductQoh}"><display/></field>
         <field name="availableToPromiseTotal" title="${uiLabelMap.ProductAtp}"><display/></field>

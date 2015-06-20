@@ -32,7 +32,7 @@ under the License.
         <field name="productStoreId"><display/></field>
         <field name="envEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="GOOGLE_ENV_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -80,7 +80,7 @@ under the License.
         </field>
         <field name="envEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="GOOGLE_ENV_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -124,7 +124,7 @@ under the License.
         <field name="shipmentMethodName"><display/></field>
         <field name="methodTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="GOOGLE_SHIP_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -133,7 +133,7 @@ under the License.
         <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="shipmentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType" key-field-name="shipmentMethodTypeId"/>
             </drop-down>
         </field>
         <field name="deleteGoogleCheckoutShippingMethod" title="" widget-style="buttontext">
@@ -149,7 +149,7 @@ under the License.
         <auto-fields-service service-name="createGoogleCheckoutShippingMethod"/>
         <field name="methodTypeEnumId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="GOOGLE_SHIP_TYPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -166,7 +166,7 @@ under the License.
         <field name="carrierPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="shipmentMethodTypeId">
             <drop-down current="selected" allow-empty="false">
-                <entity-options entity-name="ShipmentMethodType" description="${description}"/>
+                <entity-options entity-name="ShipmentMethodType"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>

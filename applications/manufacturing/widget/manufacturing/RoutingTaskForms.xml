@@ -123,7 +123,7 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.ManufacturingTaskName}"><text/></field>
         <field name="workEffortPurposeTypeId" title="${uiLabelMap.ManufacturingTaskPurpose}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="WorkEffortPurposeType">
+                <entity-options entity-name="WorkEffortPurposeType">
                     <entity-constraint name="workEffortPurposeTypeId" operator="like" value="ROU%"/>
                 </entity-options>
             </drop-down>
@@ -140,7 +140,7 @@ under the License.
         <field name="estimatedMilliSeconds" title="${uiLabelMap.ManufacturingTaskEstimatedMilliSeconds}"><text/></field>
         <field name="estimateCalcMethod">
             <drop-down allow-empty="true">
-                <entity-options entity-name="CustomMethod" key-field-name="customMethodId" description="${description}">
+                <entity-options entity-name="CustomMethod" key-field-name="customMethodId">
                     <entity-constraint name="customMethodTypeId" operator="equals" value="TASK_FORMULA"/>
                 </entity-options>
             </drop-down>
@@ -182,14 +182,14 @@ under the License.
         <field name="workEffortId"><hidden/></field>
         <field name="costComponentTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="CostComponentType" description="${description}">
+                <entity-options entity-name="CostComponentType">
                     <entity-constraint name="parentTypeId" operator="equals" env-name="nullField"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="costComponentCalcId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="CostComponentCalc" description="${description}">
+                <entity-options entity-name="CostComponentCalc">
                 </entity-options>
             </drop-down>
         </field>
@@ -381,7 +381,7 @@ under the License.
         <field name="workEffortId"><hidden /></field>
         <field name="fixedAssetTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="FixedAssetType" description="${description}"/>
+                <entity-options entity-name="FixedAssetType"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}">

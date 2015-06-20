@@ -86,7 +86,7 @@ under the License.
         <auto-fields-entity entity-name="ContentPurpose" default-field-type="edit"/>
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
-        <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType" description="${description}"/></field>
+        <field name="contentPurposeTypeId"><display-entity entity-name="ContentPurposeType"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddForumGroupPurpose" type="single" target="createForumGroupPurpose" title=""
@@ -96,7 +96,7 @@ under the License.
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentPurposeTypeId">
             <drop-down>
-                <entity-options entity-name="ContentPurposeType" description="${description}"></entity-options>
+                <entity-options entity-name="ContentPurposeType"></entity-options>
             </drop-down></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
@@ -107,7 +107,7 @@ under the License.
         <field name="forumGroupId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="contentId"><hidden value="${parameters.forumGroupId}"/></field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${groupName}${firstName} ${lastName}"/></field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate"><display/></field>
         <field name="updateButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="text-link"/></field>
         <field name="deleteButton" title="${uiLabelMap.CommonDelete}"><hyperlink target="deleteForumGroupRole">
@@ -129,7 +129,7 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}"></entity-options>
+                <entity-options entity-name="RoleType"></entity-options>
             </drop-down></field>
         <field name="addButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>

@@ -28,21 +28,21 @@ under the License.
         <field name="orderItemSeqId"><hidden/></field>
         <field name="totalWeightUomId">
             <drop-down>
-                <entity-options key-field-name="uomId" entity-name="Uom" description="${description}">
+                <entity-options key-field-name="uomId" entity-name="Uom">
                     <entity-constraint name="uomTypeId" value="WEIGHT_MEASURE"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="totalCubicUomId">
             <drop-down>
-                <entity-options key-field-name="uomId" entity-name="Uom" description="${description}">
+                <entity-options key-field-name="uomId" entity-name="Uom">
                     <entity-constraint name="uomTypeId" value="VOLUME_DRY_MEASURE"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="ORDER_DEL_SCH"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>

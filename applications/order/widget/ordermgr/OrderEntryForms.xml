@@ -58,7 +58,7 @@ under the License.
         <field name="quoteId" title="${uiLabelMap.OrderOrderQuoteId}"></field>
         <field name="quoteTypeId" title="${uiLabelMap.OrderOrderQuoteTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="QuoteType" key-field-name="quoteTypeId"/>
+                <entity-options entity-name="QuoteType" key-field-name="quoteTypeId"/>
             </drop-down>
         </field>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">

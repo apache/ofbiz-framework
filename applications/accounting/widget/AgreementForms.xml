@@ -28,7 +28,7 @@ under the License.
         </field>
         <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="AgreementType"/>
+                <entity-options entity-name="AgreementType"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
@@ -120,7 +120,7 @@ under the License.
         </field>
         <field name="agreementTypeId" title="${uiLabelMap.AccountingAgreementTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="AgreementType" key-field-name="agreementTypeId"/>
+                <entity-options entity-name="AgreementType" key-field-name="agreementTypeId"/>
             </drop-down>
         </field>
         <field name="partyIdFrom" title="${uiLabelMap.AccountingPartyIdFrom}">
@@ -128,12 +128,12 @@ under the License.
         </field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.AccountingRoleTypeIdFrom}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="roleTypeIdTo" title="${uiLabelMap.AccountingRoleTypeIdTo}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="partyIdTo" title="${uiLabelMap.AccountingPartyIdTo}">
@@ -175,7 +175,7 @@ under the License.
         <field name="agreementItemSeqId" use-when="agreementItem==null" ><ignored/></field>
         <field name="agreementItemTypeId" title="${uiLabelMap.AccountingAgreementItemTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="AgreementItemType" key-field-name="agreementItemTypeId"/>
+                <entity-options entity-name="AgreementItemType" key-field-name="agreementItemTypeId"/>
             </drop-down>
         </field>
         <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
@@ -235,7 +235,7 @@ under the License.
         </field>
         <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceItemType" description="${description}">
+                <entity-options entity-name="InvoiceItemType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -254,7 +254,7 @@ under the License.
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TermType" description="${description}">
+                <entity-options entity-name="TermType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -263,7 +263,7 @@ under the License.
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
         <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceItemType" description="${description}">
+                <entity-options entity-name="InvoiceItemType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -279,14 +279,14 @@ under the License.
         <field name="agreementTermId" title="${uiLabelMap.AccountingAgreementTermId}"><display/></field>
         <field name="termTypeId" title="${uiLabelMap.AccountingTermTypeId}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="TermType" description="${description}"/>
+                <entity-options entity-name="TermType"/>
             </drop-down>
         </field>
         <field name="agreementId" title="${uiLabelMap.AccountingAgreementId}"><hidden/></field>
         <field name="agreementItemSeqId" title="${uiLabelMap.AccountingAgreementItemSeqId}"><hidden/></field>
         <field name="invoiceItemTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="InvoiceItemType" description="${description}">
+                <entity-options entity-name="InvoiceItemType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -465,14 +465,14 @@ under the License.
         <field name="productId" use-when="agreementProductAppl!=null"><display/></field>
         <field name="supplierPrefOrderId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SupplierPrefOrder" key-field-name="supplierPrefOrderId" description="${description}">
+                <entity-options entity-name="SupplierPrefOrder" key-field-name="supplierPrefOrderId">
                     <entity-order-by field-name="supplierPrefOrderId"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="supplierRatingTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SupplierRatingType" key-field-name="supplierRatingTypeId" description="${description}">
+                <entity-options entity-name="SupplierRatingType" key-field-name="supplierRatingTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -669,7 +669,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>

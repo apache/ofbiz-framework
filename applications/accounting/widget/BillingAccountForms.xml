@@ -176,7 +176,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
 
@@ -196,7 +196,7 @@ under the License.
         <field name="billingAccountId"><hidden/></field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="BILL_TO_CUSTOMER">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -214,11 +214,11 @@ under the License.
         </actions>
         <field name="billingAccountId"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.PartyTermType}">
-            <display-entity entity-name="TermType" description="${description}"/>
+            <display-entity entity-name="TermType"/>
         </field>
         <field name="termValue" title="${uiLabelMap.CommonValue}"><display/></field>
         <field name="uomId" title="${uiLabelMap.CommonUom}">
-            <display-entity entity-name="Uom" description="${description}"/>
+            <display-entity entity-name="Uom"/>
         </field>
         <field name="billingAccountTermId" title=" " widget-style="buttontext">
             <hyperlink description="${uiLabelMap.CommonEdit}" target="EditBillingAccountTerms">
@@ -240,7 +240,7 @@ under the License.
         <field use-when="billingAccountTermId!=null" name="billingAccountTermId"><hidden/></field>
         <field name="termTypeId" title="${uiLabelMap.PartyTermType}">
             <drop-down>
-                <entity-options entity-name="TermType" description="${description}">
+                <entity-options entity-name="TermType">
                     <entity-constraint name="parentTypeId" value="FINANCIAL_TERM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -248,7 +248,7 @@ under the License.
         </field>
         <field name="uomId" title="${uiLabelMap.CommonUom}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" description="${description}">
+                <entity-options entity-name="Uom">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -269,7 +269,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="paymentMethodTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="PaymentMethodType" description="${description}"/>
+            <display-entity entity-name="PaymentMethodType"/>
         </field>
         <field name="invoiceId"><display/></field>
         <field name="invoiceItemSeqId"><display/></field>
@@ -300,14 +300,14 @@ under the License.
         </field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
             <drop-down allow-empty="false" no-current-selected-key="CUSTOMER_DEPOSIT">
-                <entity-options description="${description}" entity-name="PaymentType">
+                <entity-options entity-name="PaymentType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="paymentMethodTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="PaymentMethodType" description="${description}">
+                <entity-options entity-name="PaymentMethodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

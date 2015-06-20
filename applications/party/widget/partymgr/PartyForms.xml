@@ -46,20 +46,20 @@ under the License.
         <field name="partyGroupName" title="${uiLabelMap.PartyGroupName}"><text size="15"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="partyTypeId" title="${uiLabelMap.CommonType}">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyType"/>
+                <entity-options entity-name="PartyType"/>
             </drop-down>
         </field>
         <field name="idValue"><text size="15"/></field>
         <field name="partyIdentificationTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyIdentificationType"/>
+                <entity-options entity-name="PartyIdentificationType"/>
             </drop-down>
         </field>
         <field name="address1"><text size="15"/></field>
@@ -79,7 +79,7 @@ under the License.
         </field>
         <field name="partyClassificationGroupId" title=" " use-when="parentTypeId == null">
             <drop-down allow-multiple="true" size="20" allow-empty="true">
-                <entity-options description="${description}" entity-name="PartyClassificationGroupAndType">
+                <entity-options entity-name="PartyClassificationGroupAndType">
                     <entity-order-by field-name="partyClassificationTypeId"/>
                 </entity-options>
             </drop-down>
@@ -236,7 +236,7 @@ under the License.
         <field name="statusId" use-when="person==null"><hidden/></field>
         <field name="statusId" use-when="person!=null &amp;&amp; leadDescription==null">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="PARTY_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -244,7 +244,7 @@ under the License.
         </field>
         <field name="statusId" use-when="person!=null &amp;&amp; leadDescription!=null">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusId" operator="in" value="LEAD_ASSIGNED,PARTY_ENABLED,PARTY_DISABLED"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -279,7 +279,7 @@ under the License.
         <field name="statusId" use-when="partyGroup==null"><hidden/></field>
         <field name="statusId" use-when="partyGroup!=null">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="PARTY_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -300,9 +300,9 @@ under the License.
         <field name="comments"><ignored/></field>
         <field name="logoImageUrl"><ignored/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
+        <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
         <field name="externalId"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <sort-order>
             <sort-field name="logo"/>
             <sort-field name="partyId"/>
@@ -325,7 +325,7 @@ under the License.
         <field name="name" title="${uiLabelMap.PartyName}"><display description="${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName}"/></field>
         <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>
         <field name="externalId"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
     </form>
 
     <form name="ViewPartyPersonHistory" type="list" list-name="partyNameHistoryList"
@@ -425,14 +425,14 @@ under the License.
         </field>
         <field name="roleTypeIdValidFrom" title="${uiLabelMap.PartyRelationshipValidFromRoleType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="roleTypeIdValidTo" title="${uiLabelMap.PartyRelationshipValidToRoleType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -538,7 +538,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD" allow-empty="false">
-                <entity-options entity-name="RateType" description="${description}">
+                <entity-options entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -581,7 +581,7 @@ under the License.
         <field name="rateAmountFromDate"><hidden/></field>
         <field name="rateCurrencyUomId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
-        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType"/></field>
         <field name="rateDefaultAmount" use-when="&quot;workEffort&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromWorkEffortLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="rateDefaultAmount" use-when="&quot;party&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromPartyLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
         <field name="rateDefaultAmount" use-when="&quot;rateType&quot;.equals(rateLevel)" tooltip="${uiLabelMap.PartyValueFromRateTypeLevel}"><display type="currency" currency="${rateCurrencyUomId}"/></field>
@@ -677,7 +677,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRole}">
-            <display-entity entity-name="RoleType" description="${description}"/>
+            <display-entity entity-name="RoleType"/>
         </field>
         <field name="deleteLink" title=" " widget-style="smallSubmit">
             <hyperlink target="deleteSegmentGroupRole" description="${uiLabelMap.CommonDelete}" also-hidden="false">
@@ -696,7 +696,7 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="roleTypeId">
             <drop-down>
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -743,7 +743,7 @@ under the License.
         <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="partyContentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="PartyContentType"/>
+                <entity-options entity-name="PartyContentType"/>
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
@@ -752,12 +752,12 @@ under the License.
         -->
         <field name="contentTypeId">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType"/>
+                <entity-options entity-name="ContentType"/>
             </drop-down>
         </field>
         <field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -773,7 +773,7 @@ under the License.
         </field>
         <field name="mimeTypeId" >
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="MimeType"/>
+                <entity-options entity-name="MimeType"/>
             </drop-down>
         </field>
         <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
@@ -912,17 +912,17 @@ under the License.
 
     <form name="ListSubscriptions" type="list" list-name="subscriptionList" default-table-style="basic-table">
         <field name="subscriptionId">
-            <display-entity entity-name="Subscription" description="${description}">
+            <display-entity entity-name="Subscription">
                 <sub-hyperlink description="[${subscriptionId}]" target="/catalog/control/EditSubscription" target-type="inter-app">
                     <parameter param-name="subscriptionId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscription} ${uiLabelMap.CommonType}">
-            <display-entity entity-name="SubscriptionType" description="${description}"/>
+            <display-entity entity-name="SubscriptionType"/>
         </field>
         <field name="subscriptionResourceId">
-            <display-entity entity-name="SubscriptionResource" description="${description}"/>
+            <display-entity entity-name="SubscriptionResource"/>
         </field>
         <field name="description"><display/></field>
         <field name="productId">
@@ -970,7 +970,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
-            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="partyRelationshipTypeId" title="${uiLabelMap.PartyIsA}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.PartyOfParty}">
@@ -981,7 +981,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyPartyInTheRoleOf}">
-            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="fromDate"><display type="date"/></field>
         <field name="thruDate"><date-time/></field>
@@ -1002,7 +1002,7 @@ under the License.
         <field name="partyIdTo" entry-name="parameters.partyId"><display/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
-                <entity-options entity-name="RoleTypeAndParty" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleTypeAndParty" key-field-name="roleTypeId">
                     <entity-constraint name="partyId" value="${partyId}"/>
                     <entity-order-by field-name="description"/>
                     <entity-order-by field-name="roleTypeId"/>
@@ -1019,14 +1019,14 @@ under the License.
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <drop-down allow-empty="false" no-current-selected-key="_NA_">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" value="PARTY_REL_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -1036,7 +1036,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="groupId" title="${uiLabelMap.CommonSecurityGroupId}">
             <drop-down allow-empty="true" text-size="60">
-                <entity-options entity-name="SecurityGroup" description="${description}">
+                <entity-options entity-name="SecurityGroup">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1080,7 +1080,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType"/></field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="total"><display type="currency" currency="${actualCurrencyUomId}"/></field>
         <field name="amountToApply"><display type="currency" currency="${actualCurrencyUomId}"/></field>
@@ -1104,14 +1104,14 @@ under the License.
             <script location="component://party/webapp/partymgr/WEB-INF/actions/party/UnAppliedInvoicesForParty.groovy"/>
         </actions>
         <field name="invoiceId">
-            <display-entity entity-name="Invoice" description="${description}">
+            <display-entity entity-name="Invoice">
                 <sub-hyperlink target="/accounting/control/invoiceOverview" description="[${invoiceId}]" target-type="inter-app">
                     <parameter param-name="invoiceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="invoiceParentTypeId">
-            <display-entity entity-name="InvoiceType" key-field-name="invoiceTypeId" description="${description}"/>
+            <display-entity entity-name="InvoiceType" key-field-name="invoiceTypeId"/>
         </field>
         <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${invoiceCurrencyUomId}"/></field>
@@ -1134,10 +1134,10 @@ under the License.
         </field>
         <field name="effectiveDate"><display type="date"/></field>
         <field name="paymentTypeId">
-            <display-entity entity-name="PaymentType" description="${description}"/>
+            <display-entity entity-name="PaymentType"/>
         </field>
         <field name="paymentParentTypeId">
-            <display-entity entity-name="PaymentType" key-field-name="paymentTypeId" description="${description}"/>
+            <display-entity entity-name="PaymentType" key-field-name="paymentTypeId"/>
         </field>
         <field name="amount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
         <field name="unAppliedAmount"><display type="currency" currency="${paymentCurrencyUomId}"/></field>
@@ -1164,7 +1164,7 @@ under the License.
        >
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
         <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
-        <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>
+        <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="remove">
             <hyperlink target="deleterole" description="${uiLabelMap.CommonRemove}">
                 <parameter param-name="partyId"/>
@@ -1193,7 +1193,7 @@ under the License.
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" event="onChange" action="ajaxUpdateArea('addPartySecondaryRole', 'addsecondaryroles', jQuery('#AddPartyMainRole').serialize());" entry-name="dummy">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1204,7 +1204,7 @@ under the License.
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId" entry-name="dummy">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="${parameters.roleTypeId}"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -1248,7 +1248,7 @@ under the License.
     </form>
     <form name="PartyReturns" type="list" list-name="returnList" default-table-style="basic-table hover-bar">
         <field name="returnId"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromPartyId"><display/></field>
         <field name="toPartyId"><display/></field>
     </form>
@@ -1258,7 +1258,7 @@ under the License.
                 <parameter param-name="salesOpportunityId"/>
             </hyperlink>
         </field>
-        <field name="opportunityStageId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="SalesOpportunityStage" description="${description}"/></field>
+        <field name="opportunityStageId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="SalesOpportunityStage"/></field>
         <field name="estimatedAmount" title="${uiLabelMap.SfaEstimatedAmount}"><display/></field>
         <field name="partyId"><display/></field>
     </form>
@@ -1288,7 +1288,7 @@ under the License.
         <alt-target use-when="partyIdentification !=null" target="updatePartyIdentification"/>
         <field name="partyIdentificationTypeId" use-when="partyIdentification == null">
             <drop-down>
-                <entity-options description="${description}" entity-name="PartyIdentificationType">
+                <entity-options entity-name="PartyIdentificationType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

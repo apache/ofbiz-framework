@@ -24,7 +24,7 @@ under the License.
     <form name="FilterCalendarEvents" type="single" target="calendar">
         <field name="calendarType">
             <drop-down allow-empty="false">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="CALENDAR_TYPE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -35,7 +35,7 @@ under the License.
         </field>
         <field name="workEffortTypeId" title="${uiLabelMap.PartyEventType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="WorkEffortType" description="${description}">
+                <entity-options entity-name="WorkEffortType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -91,7 +91,7 @@ under the License.
         <!-- This is wrong. A calendar item work effort type is an EVENT. "Meeting" is a work effort purpose. -->
         <field name="workEffortTypeId" use-when="parentTypeId!=void" title="${uiLabelMap.PartyEventType}">
             <drop-down no-current-selected-key="MEETING">
-                <entity-options entity-name="WorkEffortType" description="${description}">
+                <entity-options entity-name="WorkEffortType">
                     <entity-constraint name="parentTypeId" env-name="parentTypeId" />
                     <entity-order-by field-name="description" />
                 </entity-options>
@@ -99,21 +99,21 @@ under the License.
         </field>
         <field name="workEffortTypeId" use-when="parentTypeId==void" title="${uiLabelMap.PartyEventType}">
             <drop-down>
-                <entity-options entity-name="WorkEffortType" description="${description}">
+                <entity-options entity-name="WorkEffortType">
                     <entity-order-by field-name="description" />
                 </entity-options>
             </drop-down>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down no-current-selected-key="CAL_TENTATIVE">
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="in" env-name="statusTypeIds"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="scopeEnumId">
             <drop-down no-current-selected-key="WES_PRIVATE">
-                <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE" />
                     <entity-order-by field-name="description" />
                 </entity-options>
@@ -137,13 +137,13 @@ under the License.
         <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="workEffortTypeId" title="${uiLabelMap.PartyEventType}">
-            <display-entity entity-name="WorkEffortType" description="${description}"/>
+            <display-entity entity-name="WorkEffortType"/>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" description="${description}" key-field-name="statusId"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="scopeEnumId">
-            <display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/>
+            <display-entity entity-name="Enumeration" key-field-name="enumId"/>
         </field>
         <field name="estimatedStartDate"><display type="date-time"></display></field>
         <field name="estimatedCompletionDate"><display type="date-time"></display></field>
@@ -163,9 +163,9 @@ under the License.
         <field name="partyId" >
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${lastName} ${firstName} ${middleName}"/>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="statusId" use-when="workEffort!=null">
-            <display-entity entity-name="StatusItem" description="${description}"/>
+            <display-entity entity-name="StatusItem"/>
         </field>
     </form>
     <form name="showCalEventRolesDel" type="list" extends="showCalEventRoles" target="deleteWorkEffortPartyAssign">
@@ -177,7 +177,7 @@ under the License.
         <field name="partyId" position="1"><lookup target-form-name="LookupPartyName" size="10"></lookup></field>
         <field name="roleTypeId" position="2">
             <drop-down no-current-selected-key="CAL_ATTENDEE">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="CALENDAR_ROLE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

@@ -40,7 +40,7 @@ under the License.
         <field name="facilityGroupId" use-when="facilityGroup==null"><hidden/></field>
         <field name="facilityGroupTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="FacilityGroupType" key-field-name="facilityGroupTypeId" description="${description}">
+                <entity-options entity-name="FacilityGroupType" key-field-name="facilityGroupTypeId">
                 </entity-options>
             </drop-down>
         </field>
@@ -171,7 +171,7 @@ under the License.
             </display-entity>
         </field>
         <field name="roleTypeId">
-            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId"/>
         </field>
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink target="removePartyFromFacilityGroup" description="${uiLabelMap.CommonRemove}" also-hidden="false">

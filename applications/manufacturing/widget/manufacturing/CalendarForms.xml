@@ -130,7 +130,7 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" position="2" ></field>
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}" position="3" >
             <drop-down>
-                <entity-options entity-name="TechDataCalendarWeek" description="${description}">
+                <entity-options entity-name="TechDataCalendarWeek">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -150,7 +150,7 @@ under the License.
         <field name="exceptionDateStart" title="${uiLabelMap.ManufacturingExceptionDateStart}" ><date-time type="date"/></field>
         <field name="calendarWeekId" title="${uiLabelMap.ManufacturingCalendarWeekId}">
             <drop-down>
-                <entity-options entity-name="TechDataCalendarWeek" description="${description}">
+                <entity-options entity-name="TechDataCalendarWeek">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

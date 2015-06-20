@@ -53,8 +53,7 @@ under the License.
         <auto-fields-service service-name="createContentTypeAttr"/>
         <field entity-name="ContentType" name="contentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}"
-                    entity-name="ContentType" key-field-name="contentTypeId"/>
+                <entity-options entity-name="ContentType" key-field-name="contentTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">
@@ -194,20 +193,18 @@ under the License.
         <auto-fields-service service-name="createContentPurposeOperation"/>
         <field name="contentPurposeTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}"
+                <entity-options
                     entity-name="ContentPurposeType" key-field-name="contentPurposeTypeId"/>
             </drop-down>
         </field>
         <field name="contentOperationId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}"
-                    entity-name="ContentOperation" key-field-name="contentOperationId"/>
+                <entity-options entity-name="ContentOperation" key-field-name="contentOperationId"/>
             </drop-down>
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}"
-                    entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit">

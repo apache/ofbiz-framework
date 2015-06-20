@@ -70,7 +70,7 @@
         <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -81,7 +81,7 @@
     <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/widget/partymgr/PartyForms.xml">
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>

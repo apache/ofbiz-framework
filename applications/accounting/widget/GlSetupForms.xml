@@ -193,7 +193,7 @@ under the License.
             tooltip="${groovy: import org.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('taxFormId')!=null)return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="TAX_FORMS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -202,7 +202,7 @@ under the License.
         <field name="cogsMethodId" use-when="partyAcctgPreference==null"
             tooltip="${groovy: import org.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('cogsMethodId')!=null)return (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="COGS_METHODS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -227,7 +227,7 @@ under the License.
             tooltip="${groovy: import org.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('oldInvoiceSequenceEnumId')!=null)return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="INVOICE_SEQMD"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -249,7 +249,7 @@ under the License.
             tooltip="${groovy: import org.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('oldQuoteSequenceEnumId')!=null)return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="QUOTE_SEQMD"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -263,7 +263,7 @@ under the License.
             tooltip="${groovy: import org.ofbiz.base.util.UtilProperties; if(aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('oldOrderSequenceEnumId')!=null)return
             (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="ORDER_SEQMD"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -362,7 +362,7 @@ under the License.
                 (partyAcctgPreference!=null&amp;&amp;partyAcctgPreference.get('refundPaymentMethodId')==null&amp;&amp;aggregatedPartyAcctgPreference!= null&amp;&amp;aggregatedPartyAcctgPreference.get('refundPaymentMethodId')!=null))return
                 (UtilProperties.getMessage('AccountingUiLabels', 'AccountingInheritedValue', locale))}">
             <drop-down>
-                <entity-options entity-name="PaymentMethod" description="${description}" key-field-name="paymentMethodId">
+                <entity-options entity-name="PaymentMethod" key-field-name="paymentMethodId">
                     <entity-constraint name="partyId" operator="equals" env-name="organizationPartyId"/>
                 </entity-options>
             </drop-down>
@@ -412,7 +412,7 @@ under the License.
         </field>
         <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -457,7 +457,7 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
             <drop-down>
-                <entity-options entity-name="GlAccountType" description="${description}">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -507,7 +507,7 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId">
             <drop-down allow-empty="false" >
-                <entity-options description="${description}" entity-name="InvoiceItemType">
+                <entity-options entity-name="InvoiceItemType">
                     <entity-constraint name="invoiceItemTypeId" operator="like" value="INV_%"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -561,7 +561,7 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="invoiceItemTypeId" title="${uiLabelMap.AccountingInvoicePurchaseItemType}">
             <drop-down allow-empty="false" >
-                <entity-options description="${description}" entity-name="InvoiceItemType">
+                <entity-options entity-name="InvoiceItemType">
                     <entity-constraint name="invoiceItemTypeId" operator="like" value="PINV%"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -605,14 +605,14 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="paymentTypeId" title="${uiLabelMap.AccountingPaymentType}">
             <drop-down>
-                <entity-options entity-name="PaymentType" description="${description}" key-field-name="paymentTypeId">
+                <entity-options entity-name="PaymentType" key-field-name="paymentTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountType}">
             <drop-down>
-                <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -663,7 +663,7 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="paymentMethodTypeId">
             <drop-down>
-                <entity-options entity-name="PaymentMethodType" description="${description}" key-field-name="paymentMethodTypeId">
+                <entity-options entity-name="PaymentMethodType" key-field-name="paymentMethodTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -727,7 +727,7 @@ under the License.
         </field>
         <field name="periodTypeId">
             <drop-down>
-                <entity-options entity-name="PeriodType" description="${description}">
+                <entity-options entity-name="PeriodType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -791,7 +791,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="GlAccountType">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -836,7 +836,7 @@ under the License.
         <field name="organizationPartyId"><hidden value="${organizationPartyId}"/></field>
         <field name="finAccountTypeId" title="${uiLabelMap.FormFieldTitle_finAccountTypeId}">
             <drop-down allow-empty="false">
-                <list-options key-name="finAccountTypeId" list-name="finAccountTypes" description="${description}"/>
+                <list-options key-name="finAccountTypeId" list-name="finAccountTypes"/>
             </drop-down>
         </field>
         <field name="glAccountId" title="${uiLabelMap.AccountingGlAccountId}">
@@ -876,7 +876,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="glAccountTypeId" title="${uiLabelMap.ProductAccountType}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="GlAccountType">
+                <entity-options entity-name="GlAccountType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -921,7 +921,7 @@ under the License.
         <field name="organizationPartyId"><hidden/></field>
         <field name="varianceReasonId" title="${uiLabelMap.FormFieldTitle_varianceReasonId}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="VarianceReason" description="${description}">
+                <entity-options entity-name="VarianceReason">
                     <entity-order-by field-name="varianceReasonId"/>
                 </entity-options>
             </drop-down>
@@ -1065,14 +1065,14 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId" title="${uiLabelMap.FormFieldTitle_roleTypeId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="glAccountTypeId" title="${uiLabelMap.FormFieldTitle_glAccountTypeId}">
             <drop-down>
-                <entity-options entity-name="GlAccountType" description="${description}" key-field-name="glAccountTypeId">
+                <entity-options entity-name="GlAccountType" key-field-name="glAccountTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1113,7 +1113,7 @@ under the License.
         <field name="glAccountCategoryId"><text-find/></field>
         <field name="glAccountCategoryTypeId" title="${uiLabelMap.FormFieldTitle_glAccountCategoryType}">
             <drop-down>
-                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId"/>
             </drop-down>
         </field>
         <field name="searchButton" title="${uiLabelMap.CommonFind}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -1146,7 +1146,7 @@ under the License.
         <field name="glAccountCategoryId" use-when="glAccountCategoryId==null"><hidden/></field>
         <field name="glAccountCategoryTypeId" title="${uiLabelMap.FormFieldTitle_glAccountCategoryType}">
             <drop-down>
-                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId" description="${description}"/>
+                <entity-options entity-name="GlAccountCategoryType" key-field-name="glAccountCategoryTypeId"/>
             </drop-down>
         </field>
         <field name="submit" use-when="glAccountCategory==null" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
@@ -1202,7 +1202,7 @@ under the License.
         <field name="fixedAssetTypeId">
             <drop-down allow-empty="false">
                 <option key="_NA_" description="${uiLabelMap.CommonAll}"/>
-                <entity-options entity-name="FixedAssetType" description="${description}">
+                <entity-options entity-name="FixedAssetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

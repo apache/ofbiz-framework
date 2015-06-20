@@ -33,7 +33,7 @@ under the License.
         <field name="orderTypeId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
-                <entity-options entity-name="OrderType" description="${description}">
+                <entity-options entity-name="OrderType">
                     <entity-order-by field-name="orderTypeId"/>
                 </entity-options>
             </drop-down>
@@ -51,7 +51,7 @@ under the License.
         <field name="statusId">
             <drop-down allow-empty="false" no-current-selected-key="ORDER_COMPLETED">
                 <option key="" description="- ${uiLabelMap.CommonAny} -"/>
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint value="ORDER_STATUS" name="statusTypeId"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -87,7 +87,7 @@ under the License.
         <field name="orderStatusId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -117,7 +117,7 @@ under the License.
         <field name="orderStatusId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
             </drop-down>
@@ -186,7 +186,7 @@ under the License.
         <field name="orderStatusId">
             <drop-down allow-empty="false">
                 <option key="" description="- ${uiLabelMap.CommonSelectAny} -"/>
-                <entity-options entity-name="StatusItem" description="${description}" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" operator="equals" value="ORDER_STATUS"/>
                 </entity-options>
             </drop-down>

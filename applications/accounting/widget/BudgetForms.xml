@@ -60,7 +60,7 @@ under the License.
         <field use-when="budget != null" name="budgetId"><display/></field>
         <field name="budgetTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="BudgetType" description="${description}">
+                <entity-options entity-name="BudgetType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -83,7 +83,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="budgetId"><hidden/></field>
         <field name="statusDate"><display/></field>
-        <field name="statusId" title="${uiLabelMap.AccountingBudgetStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.AccountingBudgetStatus}"><display-entity entity-name="StatusItem"/></field>
     </form>
     
     <form name="BudgetRoles" type="list" use-row-submit="true" title="" list-name="budgetRoles" paginate-target="BudgetOverview"
@@ -144,7 +144,7 @@ under the License.
         </field>
        <field name="budgetItemTypeId">
            <drop-down allow-empty="false">
-               <entity-options entity-name="BudgetItemType" description="${description}" key-field-name="budgetItemTypeId"/>
+               <entity-options entity-name="BudgetItemType" key-field-name="budgetItemTypeId"/>
            </drop-down>
        </field>
        <field name="amount" ><text size="10"/></field>
@@ -166,7 +166,7 @@ under the License.
         <field name="budgetId"><hidden/></field>
        <field name="budgetItemTypeId">
            <drop-down allow-empty="false">
-               <entity-options entity-name="BudgetItemType" description="${description}" key-field-name="budgetItemTypeId"/>
+               <entity-options entity-name="BudgetItemType" key-field-name="budgetItemTypeId"/>
            </drop-down>
        </field>
        <field name="amount" ><text size="10"/></field>
@@ -187,7 +187,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="RoleType">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -226,7 +226,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="budgetReviewResultTypeId" title="${uiLabelMap.AccountingBudgetReviewResult}">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="BudgetReviewResultType">
+                <entity-options entity-name="BudgetReviewResultType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

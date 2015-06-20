@@ -26,7 +26,7 @@ under the License.
         <field name="productId" title="${uiLabelMap.ProductId}"><text-find/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" description="${description}">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PRODUCT_REVIEW_STTS"/>
                 </entity-options>
             </drop-down>

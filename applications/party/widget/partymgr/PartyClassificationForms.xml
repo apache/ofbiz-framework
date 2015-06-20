@@ -55,7 +55,7 @@ under the License.
             </hyperlink>
         </field>
         <field name="partyClassificationTypeId">
-            <display-entity entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId" description="${description}"/>
+            <display-entity entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId"/>
         </field>
         <field name="parentGroupId"><display/></field>
         <field name="description" title=" "><display/></field>
@@ -74,7 +74,7 @@ under the License.
         <field use-when="partyClassificationGroup==null&amp;&amp;partyClassificationGroupId!=null" name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}" tooltip="${uiLabelMap.CommonCannotBeFound}: [${partyClassificationGroupId}]"><display/></field>
         <field name="partyClassificationTypeId">
             <drop-down>
-                <entity-options description="${description}" entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId">
+                <entity-options entity-name="PartyClassificationType" key-field-name="partyClassificationTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -89,7 +89,7 @@ under the License.
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"><display/></field>
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
             <drop-down>
-                <entity-options description="${description}" entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId">
+                <entity-options entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -107,7 +107,7 @@ under the License.
     <form name="AddPartyClassificationParty" type="single" target="createPartyClassificationParty" default-map-name="partyClassification"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyClassificationGroupId" title="${uiLabelMap.PartyClassificationGroupId}">
-            <display-entity entity-name="PartyClassificationGroup" description="${description}" key-field-name="partyClassificationGroupId"/>
+            <display-entity entity-name="PartyClassificationGroup" key-field-name="partyClassificationGroupId"/>
         </field>
         <field name="partyId"  title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>

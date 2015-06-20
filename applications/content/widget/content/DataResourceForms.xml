@@ -28,7 +28,7 @@ under the License.
         <field name="dataResourceName"><text-find ignore-case="true"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId">
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -42,7 +42,7 @@ under the License.
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem">
+                <entity-options entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -88,9 +88,9 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="dataResourceTypeId" sort-field="true"><display-entity entity-name="DataResourceType" description="${description}"></display-entity></field>
-        <field name="mimeTypeId" sort-field="true"><display-entity entity-name="MimeType" description="${description}"></display-entity></field>
-        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem" description="${description}"></display-entity></field>
+        <field name="dataResourceTypeId" sort-field="true"><display-entity entity-name="DataResourceType"></display-entity></field>
+        <field name="mimeTypeId" sort-field="true"><display-entity entity-name="MimeType"></display-entity></field>
+        <field name="statusId" sort-field="true"><display-entity entity-name="StatusItem"></display-entity></field>
         <field name="localeString" sort-field="true"><display-entity entity-name="CountryCode" description="${countryName}[${countryCode}]" key-field-name="countryCode"></display-entity></field>
         <field name="createdByUserLogin" sort-field="true"><display-entity also-hidden="false" entity-name="PartyNameView" key-field-name="partyId" description="${groupName}${firstName} ${lastName}"/></field>
         <field name="dataCategoryId" sort-field="true"><display-entity entity-name="DataCategory" description="${categoryName}[${dataCategoryId}]"></display-entity></field>
@@ -167,14 +167,14 @@ under the License.
         <field use-when="currentValue==null&amp;&amp;dataResourceId!=null" name="dataResourceId"><display description="${uiLabelMap.CommonCannotBeFound}: [${dataResourceId}]" also-hidden="false"/></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId">
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="dataTemplateTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId">
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -205,7 +205,7 @@ under the License.
         </field>
         <field name="characterSetId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
 
@@ -241,17 +241,17 @@ under the License.
         <field name="dataResourceId" title="${uiLabelMap.ContentDataResourceId}"></field>
         <field name="dataResourceTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
+                <entity-options entity-name="DataResourceType" key-field-name="dataResourceTypeId"/>
             </drop-down>
         </field>
         <field name="dataTemplateTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
+                <entity-options entity-name="DataTemplateType" key-field-name="dataTemplateTypeId"/>
             </drop-down>
         </field>
         <field name="statusId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -274,7 +274,7 @@ under the License.
         </field>
         <field name="characterSetId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="CharacterSet" key-field-name="characterSetId"/>
+                <entity-options entity-name="CharacterSet" key-field-name="characterSetId"/>
             </drop-down>
         </field>
         <field name="createdDate"><display/></field>
@@ -390,7 +390,7 @@ under the License.
         <field name="partyId" title=" "><lookup target-form-name="LookupPerson"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/>
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -449,14 +449,14 @@ under the License.
         <auto-fields-entity entity-name="ProductFeature" default-field-type="find"/>
         <field name="productFeatureTypeId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductFeatureType">
+                <entity-options entity-name="ProductFeatureType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="productFeatureCategoryId">
             <drop-down allow-empty="true">
-                <entity-options description="${description}" entity-name="ProductFeatureCategory">
+                <entity-options entity-name="ProductFeatureCategory">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>

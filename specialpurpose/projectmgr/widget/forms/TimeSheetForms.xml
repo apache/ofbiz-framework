@@ -51,7 +51,7 @@
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
-                <entity-options entity-name="RateType" description="${description}"/>
+                <entity-options entity-name="RateType"/>
             </drop-down>
         </field>
         <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrMon}"><text size="2"/></field>
@@ -79,7 +79,7 @@
             </hyperlink>
         </field>
         <field name="weekNumber" title="${uiLabelMap.ProjectMgrWeekNumber}"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="hours"><display/></field>
@@ -108,7 +108,7 @@
         </field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}" position="1">
             <drop-down allow-empty="true">
-                <entity-options entity-name="StatusItem" key-field-name="statusId" description="${description}">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="TIMESHEET_STATUS"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -140,7 +140,7 @@
         </field>
         <field name="partyId" title="${uiLabelMap.PartyParty}"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}"/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
@@ -184,7 +184,7 @@
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
-                <entity-options entity-name="RateType" description="${description}">
+                <entity-options entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -214,7 +214,7 @@
         <field name="partyId" map-name="userLogin"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD" >
-                <entity-options entity-name="RateType" description="${description}">
+                <entity-options entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -250,7 +250,7 @@
         <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup size="12" target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.WorkEffortTimesheetRateType}">
             <drop-down>
-                <entity-options entity-name="RateType" description="${description}">
+                <entity-options entity-name="RateType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -296,7 +296,7 @@
             </hyperlink>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><display/></field>
-        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}"><display-entity entity-name="RateType"/></field>
         <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ProjectMgrMon}"><display/></field>
         <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ProjectMgrTue}"><display/></field>
         <field name="d2" parameter-name="hoursDay2" title="${uiLabelMap.ProjectMgrWen}"><display/></field>

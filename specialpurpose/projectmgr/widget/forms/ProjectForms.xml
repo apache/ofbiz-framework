@@ -78,7 +78,7 @@
         </field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
             <drop-down allow-empty="false" no-current-selected-key="WES_PRIVATE">
-                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId">
+                <entity-options entity-name="Enumeration" key-field-name="enumId">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -148,7 +148,7 @@
         </field>
         <field name="hours" position="2"><display/></field>
         <field name="timesheetPartyId" position="2"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}" key-field-name="partyId"/></field>
-        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}" position="2"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}" position="2"><display-entity entity-name="RateType"/></field>
         <field name="fromDate" position="2"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="listIt" paginate-target="FindProject"
@@ -177,7 +177,7 @@
                 <parameter param-name="projectId" from-field="resultProject.projectInfo.projectId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedStartDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
@@ -199,7 +199,7 @@
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
         <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
@@ -225,7 +225,7 @@
                 <parameter param-name="projectId" from-field="workEffortId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="estimatedStartDate"><display type="date"/></field>
         <field name="estimatedCompletionDate"><display type="date"/></field>
@@ -240,7 +240,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><display/></field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="parentProjectId" title="${uiLabelMap.ProjectMgrParentProjectName}">
@@ -329,10 +329,10 @@
             <text/>
         </field>
          <field name="workEffortTypeId" title="${uiLabelMap.CommonType}">
-            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" description="${description}" also-hidden="false"/>
+            <display-entity entity-name="WorkEffortType" key-field-name="workEffortTypeId" also-hidden="false"/>
          </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}" also-hidden="false"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId" also-hidden="false"/>
          </field>
         <field name="plannedHours" parameter-name="estimatedDuration" title="${uiLabelMap.ProjectMgrPlannedHours}"><text size="3"/></field>
         <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
@@ -419,7 +419,7 @@
                 <parameter param-name="projectId"/>
             </hyperlink>
         </field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"><display/></field>
         <field name="startDate"><display type="date"/></field>
         <field name="completionDate"><display type="date"/></field>
@@ -441,7 +441,7 @@
         </field>
         <field name="phaseName"><display/></field>
         <field name="firstResource"><display description="${resources[0].lastName},${resources[0].firstName} ${resources[0].middleName}"/></field>
-        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority"  title="${uiLabelMap.ProjectMgrProrityAbbr}"><display/></field>
         <field name="startDate"><display type="date"/></field>
         <field name="estimatedCompletionDate" title="${uiLabelMap.ProjectMgrEstimatedCompletionDateAbbr}"><display type="date"/></field>
@@ -462,8 +462,8 @@
             </hyperlink>
         </field>
         <field name="orderName"><display/></field>
-        <field name="orderTypeId"><display-entity entity-name="OrderType" description="${description}"/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="orderTypeId"><display-entity entity-name="OrderType"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="orderDate"><display/></field>
         <field name="entryDate"><display/></field>
         <field name="linkProjectOrder" title=" " widget-style="buttontext" use-when="headerItem.equals(&quot;editProjectOrders&quot;)">
@@ -520,7 +520,7 @@
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
         <field name="actualHours" entry-name="actualHours" map-name="result.projectInfo"><display/></field>
@@ -534,7 +534,7 @@
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
     </form>
@@ -552,10 +552,10 @@
                 <parameter param-name="partyId"/>
             </hyperlink>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date-time"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date-time"/></field>
-        <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
+        <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId"/></field>
     </form>
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
@@ -642,7 +642,7 @@
         </field>
         <field entry-name="xx" name="roleTypeId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${description}">
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-constraint name="partyId" env-name="parameters.partyId"/>
                 </entity-options>
@@ -650,7 +650,7 @@
         </field>
         <field entry-name="xx" name="roleTypeId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="WorkEffortPartyAssignAndRoleType" description="${description}">
+                <entity-options entity-name="WorkEffortPartyAssignAndRoleType">
                     <entity-constraint name="workEffortId" env-name="projectId"/>
                     <entity-constraint name="partyId" env-name="parameters.partyId"/>
                 </entity-options>
@@ -701,8 +701,8 @@
                 <parameter param-name="projectId" from-field="resultProject.projectId"/>
             </hyperlink>
         </field>
-        <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field entry-name="statusId" name="Status" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field entry-name="currentStatusId" name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field entry-name="statusId" name="Status" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}" widget-area-style="centered">
             <display description="${priority}"/>
@@ -754,7 +754,7 @@
             </hyperlink>
         </field>
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
-            <display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/>
+            <display-entity entity-name="StatusItem" key-field-name="statusId"/>
         </field>
         <field name="priority" widget-area-style="centered"><display description="${Priority}"/></field>
         <field name="estimatedStartDate" widget-area-style="centered"><display type="date"/></field>
@@ -784,7 +784,7 @@
         <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
         <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -812,7 +812,7 @@
         </field>
         <field entry-name="test" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -903,11 +903,11 @@
             <lookup target-form-name="LookupTreeContent"/>
         </field>
         <field name="workEffortContentTypeId" use-when="workEffortContent!=null" map-name="workEffortContent">
-            <display-entity entity-name="WorkEffortContentType" description="${description}"/>
+            <display-entity entity-name="WorkEffortContentType"/>
         </field>
         <field name="workEffortContentTypeId" use-when="workEffortContent==null">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="WorkEffortContentType"/>
+                <entity-options entity-name="WorkEffortContentType"/>
             </drop-down>
         </field>
         <!-- note sure if these two are necessray, but they are kind of confusing in this context:
@@ -916,12 +916,12 @@
         -->
         <field name="contentTypeId" use-when="workEffortContent!=null">
             <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
-                <entity-options description="${description}" entity-name="ContentType"/>
+                <entity-options entity-name="ContentType"/>
             </drop-down>
         </field>
         <!--field name="statusId" use-when="content==null">
             <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
-                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                <entity-options entity-name="StatusItem" key-field-name="statusId">
                     <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
                     <entity-order-by field-name="sequenceId"/>
                 </entity-options>
@@ -937,7 +937,7 @@
         </field-->
         <field name="mimeTypeId" >
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+                <entity-options entity-name="MimeType" key-field-name="mimeTypeId"/>
             </drop-down>
         </field>
         <field name="dataResourceName" use-when="workEffortContent==null" title="${uiLabelMap.CommonUpload}"><file/></field>

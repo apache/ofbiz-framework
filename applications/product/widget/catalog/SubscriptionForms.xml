@@ -28,14 +28,14 @@ under the License.
 
         <field name="subscriptionResourceId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SubscriptionResource" description="${description}">
+                <entity-options entity-name="SubscriptionResource">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscriptionType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SubscriptionType" description="${description}">
+                <entity-options entity-name="SubscriptionType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -44,7 +44,7 @@ under the License.
         <field name="originatedFromPartyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="originatedFromRoleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -53,7 +53,7 @@ under the License.
         <field name="partyId"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -107,14 +107,14 @@ under the License.
         <auto-fields-entity entity-name="Subscription" default-field-type="display"/>
 
         <field name="subscriptionResourceId">
-            <display-entity entity-name="SubscriptionResource" description="${description}">
+            <display-entity entity-name="SubscriptionResource">
                 <sub-hyperlink target="EditSubscriptionResource" description="${subscriptionResourceId}" link-style="buttontext">
                     <parameter param-name="subscriptionResourceId"/>
                 </sub-hyperlink>
             </display-entity>
         </field>
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscriptionType}">
-            <display-entity entity-name="SubscriptionType" description="${description}"/>
+            <display-entity entity-name="SubscriptionType"/>
         </field>
 
         <field name="originatedFromPartyId">
@@ -124,7 +124,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="originatedFromRoleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/></field>
+        <field name="originatedFromRoleTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
 
         <field name="partyId">
             <display-entity entity-name="PartyNameView" description="${groupName} ${firstName} ${lastName}">
@@ -133,7 +133,7 @@ under the License.
                 </sub-hyperlink>
             </display-entity>
         </field>
-        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
 
         <field name="orderId" widget-style="buttontext">
             <hyperlink target="/ordermgr/control/orderview" target-type="inter-app" description="${orderId}">
@@ -194,14 +194,14 @@ under the License.
 
         <field name="subscriptionResourceId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="SubscriptionResource" description="${description}">
+                <entity-options entity-name="SubscriptionResource">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
         <field name="subscriptionTypeId" title="${uiLabelMap.ProductSubscriptionType}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="SubscriptionType" description="${description}">
+                <entity-options entity-name="SubscriptionType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -216,7 +216,7 @@ under the License.
         </field>
         <field name="originatedFromRoleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -231,7 +231,7 @@ under the License.
         </field>
         <field name="roleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -246,7 +246,7 @@ under the License.
         </field>
         <field name="needTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="NeedType" description="${description}">
+                <entity-options entity-name="NeedType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -275,7 +275,7 @@ under the License.
         </field>
         <field name="useTimeUomId" title="${uiLabelMap.ProductUseTimeUom}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -290,7 +290,7 @@ under the License.
         <field name="canclAutmExtTime" title="Cancel time"></field>
         <field name="canclAutmExtTimeUomId" title="Cancel UOM time">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -298,7 +298,7 @@ under the License.
         </field>
         <field name="gracePeriodOnExpiryUomId" title="${uiLabelMap.ProductGracePeriodUomId}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -390,7 +390,7 @@ under the License.
         </field>
         <field name="useRoleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -403,7 +403,7 @@ under the License.
         </field>
         <field name="canclAutmExtTimeUomId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -434,7 +434,7 @@ under the License.
         </field>
         <field name="useRoleTypeId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="RoleType" description="${description}" key-field-name="roleTypeId">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -447,7 +447,7 @@ under the License.
         </field>
         <field name="canclAutmExtTimeUomId">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Uom" key-field-name="uomId" description="${description}">
+                <entity-options entity-name="Uom" key-field-name="uomId">
                     <entity-constraint name="uomTypeId" value="TIME_FREQ_MEASURE"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -490,11 +490,11 @@ under the License.
         <field name="partyIdTo">
             <display-entity description="${firstName} ${lastName} [${partyId}]" entity-name="Person" key-field-name="partyId"/>
         </field>
-        <field name="communicationEventTypeId" ><display-entity description="${description}" entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
-        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="contactMechTypeId"><display-entity description="${description}" entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
-        <field name="roleTypeIdFrom"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
-        <field name="roleTypeIdTo"><display-entity description="${description}" entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="communicationEventTypeId" ><display-entity entity-name="CommunicationEventType" key-field-name="communicationEventTypeId"/></field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="contactMechTypeId"><display-entity entity-name="ContactMechType" key-field-name="contactMechTypeId"/></field>
+        <field name="roleTypeIdFrom"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
+        <field name="roleTypeIdTo"><display-entity entity-name="RoleType" key-field-name="roleTypeId"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonStartDate}"><display/></field>
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">

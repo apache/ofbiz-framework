@@ -30,7 +30,7 @@
                 <parameter param-name="timesheetId"/>
             </hyperlink>
         </field>
-        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="hours"><display/></field>
@@ -86,7 +86,7 @@
             </hyperlink>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ScrumCheckComplete}"><display/></field>
-        <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}"><display-entity entity-name="RateType"/></field>
         <field name="planHours" title="${uiLabelMap.ScrumPlanHours}"><display/></field>
         <field name="d0" parameter-name="hoursDay0" title="${uiLabelMap.ScrumMon}"><display/></field>
         <field name="d1" parameter-name="hoursDay1" title="${uiLabelMap.ScrumTue}"><display/></field>
@@ -131,7 +131,7 @@
         <field name="taskId" title="${uiLabelMap.ScrumTaskName}" parameter-name="workEffortId" encode-output="true">
             <drop-down allow-empty="true" current-description="${result.projectId} ${product.productId} - ${result.projectName}${product.internalName} - ${result.sprintName} - ${groovy:result.backlogName.toString().substring(0,Math.min(result.backlogName.toString().length(),30))}[${result.backlogId}] - ${groovy:result.taskName.toString().substring(0,Math.min(result.taskName.toString().length(),30))}[${result.taskId}]">
                 <list-options key-name="taskId" list-name="taskListDropdown" description="${projectId}${productId} - ${projectName} ${productName} - ${sprintName} - ${groovy: if (description) description.substring(0,Math.min(description.length(),30))} [${custRequestId}] - ${groovy:taskName.substring(0,Math.min(taskName.length(),20))}[${taskId}]"/>
-                <entity-options description="${description}" entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
+                <entity-options entity-name="EmplLeaveType" key-field-name="leaveTypeId"/>
                 <sub-hyperlink target="taskView" description="${groovy:workEffortId!=void&amp;&amp;!&quot;Totals&quot;.equals(workEffortId)?workEffortId:&quot;&quot;}" target-window="_blank">
                     <parameter param-name="taskId" from-field="workEffortId"/>
                 </sub-hyperlink>
@@ -140,7 +140,7 @@
         <field name="checkComplete" title="${uiLabelMap.ScrumCheckComplete}"><check/></field>
         <field name="rateTypeId" title="${uiLabelMap.ScrumRateTypeId}">
             <drop-down allow-empty="false" no-current-selected-key="${defaultRateTypeId}">
-                <entity-options entity-name="RateType" description="${description}"/>
+                <entity-options entity-name="RateType"/>
             </drop-down>
         </field>
         <field name="planHours" title="${uiLabelMap.ScrumPlanHrs}"><text size="2"/></field>
