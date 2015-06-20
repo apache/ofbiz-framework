@@ -110,6 +110,16 @@ under the License.
             </hyperlink>
         </field>
     </form>
+    <grid name="ListOrderRoles" target="" title=""
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="OrderRole">
+                <condition-expr field-name="orderId" from-field="orderId"/>
+            </entity-condition>
+        </actions>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="[${roleTypeId}] ${description}"/></field>
+        <field name="partyId"><display-entity entity-name="PartyNameView" description="[${partyId}] ${firstName} ${lastName} ${groupName}"/></field>
+    </grid>
     <form name="AddOrderTerm" type="single" target="createOrderTerm" title=""
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="OrderTerm" default-field-type="edit"/>

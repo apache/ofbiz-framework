@@ -92,6 +92,7 @@ under the License.
                     </container>
                     <container style="righthalf">
                         <include-screen name="ordercontactinfo"/>
+                        <include-screen name="OrderRoleInfo"/>
                         <include-screen name="ordershippinginfo"/>
                         <include-screen name="OrderSalesReps"/>
                     </container>
@@ -165,6 +166,15 @@ under the License.
                 <platform-specific>
                     <html><html-template location="component://order/webapp/ordermgr/order/ordercontactinfo.ftl"/></html>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="OrderRoleInfo">
+        <section>
+            <widgets>
+                <screenlet name="OrderRoles" title="${uiLabelMap.CommonRoles}" initially-collapsed="true">
+                    <include-grid name="ListOrderRoles" location="component://order/widget/ordermgr/OrderForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
