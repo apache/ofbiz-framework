@@ -836,13 +836,22 @@ under the License.
         <key-map field-name="inventoryItemId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="ItemIssuanceQuantitySum"
+            package-name="org.ofbiz.order.order"
+            never-cache="true"
+            title="Sum item issuance quantity to use directly in OrderItemQuantityReportGroupByItem and OrderItemQuantityReportGroupByProduct entities">
+      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <alias entity-alias="II" name="issuedQuantitySum" field="quantity" function="sum"/>
+      <alias entity-alias="II" name="orderId" field="orderId" group-by="true"/>
+      <alias entity-alias="II" name="orderItemSeqId" field="orderItemSeqId" group-by="true"/>
+    </view-entity>
     <view-entity entity-name="OrderItemQuantityReportGroupByItem"
             package-name="org.ofbiz.order.order"
             never-cache="true"
             title="Reports quantity ordered, issued and open by item for OrderItems.">
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
-      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <member-entity entity-alias="II" entity-name="ItemIssuanceQuantitySum"/>
       <alias entity-alias="OH" name="productStoreId" group-by="false"/>
       <alias entity-alias="OH" name="orderId" group-by="true"/>
       <alias entity-alias="OH" name="orderTypeId" group-by="false"/>
@@ -860,12 +869,12 @@ under the License.
               <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
           </complex-alias>
       </alias>
-      <alias entity-alias="II" name="quantityIssued" field="quantity" function="sum"/>
-      <alias entity-alias="OI" name="quantityOpen" function="sum">
+      <alias entity-alias="II" name="quantityIssued" field="issuedQuantitySum" function="min" />
+      <alias entity-alias="OI" name="quantityOpen" function="sum" >
           <complex-alias operator="-">
               <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
               <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
-              <complex-alias-field entity-alias="II" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="II" field="issuedQuantitySum" default-value="0"/>
           </complex-alias>
       </alias>
       <view-link entity-alias="OI" rel-entity-alias="OH">
@@ -886,7 +895,7 @@ under the License.
             title="Reports quantity ordered, issued and open by product for OrderItems.">
       <member-entity entity-alias="OH" entity-name="OrderHeader"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
-      <member-entity entity-alias="II" entity-name="ItemIssuance"/>
+      <member-entity entity-alias="II" entity-name="ItemIssuanceQuantitySum"/>
       <alias entity-alias="OH" name="orderTypeId" group-by="true"/>
       <alias entity-alias="OH" name="orderStatusId" field="statusId" group-by="false"/>
       <alias entity-alias="OH" name="orderDate" group-by="false"/>
@@ -899,12 +908,12 @@ under the License.
               <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
           </complex-alias>
       </alias>
-      <alias entity-alias="II" name="quantityIssued" field="quantity" function="sum"/>
+      <alias entity-alias="II" name="quantityIssued" field="issuedQuantitySum" function="min"/>
       <alias entity-alias="OI" name="quantityOpen" function="sum">
           <complex-alias operator="-">
               <complex-alias-field entity-alias="OI" field="quantity" default-value="0"/>
               <complex-alias-field entity-alias="OI" field="cancelQuantity" default-value="0"/>
-              <complex-alias-field entity-alias="II" field="quantity" default-value="0"/>
+              <complex-alias-field entity-alias="II" field="issuedQuantitySum" default-value="0"/>
           </complex-alias>
       </alias>
       <view-link entity-alias="OI" rel-entity-alias="OH">
