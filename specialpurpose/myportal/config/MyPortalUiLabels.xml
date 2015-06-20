@@ -261,7 +261,9 @@
         <value xml:lang="zh">门户页面管理</value>
         <value xml:lang="zh-TW">入口網頁面管理</value>
     </property>
-    
+    <property key="PortalPageViewPermissionError">
+        <value xml:lang="en">Security Error : To view this page you must have PORTALPAGE permission.</value>
+    </property>
     <property key="AdminPortalPage">
         <value xml:lang="en">Portal page Admin.</value>
         <value xml:lang="fr">Admin. Page portail</value>
