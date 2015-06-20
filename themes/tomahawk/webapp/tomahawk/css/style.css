@@ -2029,6 +2029,10 @@ color: #333366;
 text-decoration: none;
 }
 
+.basic-form table.condensed-table{
+   width: 0%;
+}
+
 /* ===== Form decorator - Form Widget ===== */
 .form-widget table tr .label,.form-widget-table tr .label {
 /* Added for backward compatibility */

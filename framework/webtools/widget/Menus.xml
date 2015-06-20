@@ -215,6 +215,31 @@ under the License.
             <link target="EntityPerformanceTest"/>
         </menu-item>
     </menu>
+    <menu name="ListEntitiesAction" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="createLink" title="${uiLabelMap.WebtoolsCreate}">
+            <condition>
+                <and>
+                    <if-compare field="entityPermissionView" operator="equals" value="Y"/>
+                    <if-compare field="viewEntity" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="ViewGeneric">
+                <parameter param-name="entityName"/>
+                <parameter param-name="enableEdit" value="true"/>
+            </link>
+        </menu-item>
+        <menu-item name="relation" title="${uiLabelMap.WebtoolsReln}">
+            <link target="ViewRelations">
+                <parameter param-name="entityName"/>
+            </link>
+        </menu-item>
+        <menu-item name="all" title="${uiLabelMap.WebtoolsAll}">
+            <link target="FindGeneric">
+                <parameter param-name="entityName"/>
+                <parameter param-name="find" value="true"/>
+            </link>
+        </menu-item>
+    </menu>
 
     <menu name="StatsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
           selected-menuitem-context-field-name="tabButtonItem">

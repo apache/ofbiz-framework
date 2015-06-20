@@ -27,6 +27,7 @@ import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.base.util.UtilProperties;
 
 if (delegator.getDelegatorTenantId() == null) {
     mgr = delegator.getModelGroupReader();
@@ -34,6 +35,12 @@ if (delegator.getDelegatorTenantId() == null) {
 } else {
     Delegator baseDelegator = DelegatorFactory.getDelegator(delegator.getDelegatorBaseName());
     entityGroups = EntityUtil.getFieldListFromEntityList(baseDelegator.findList("TenantDataSource", EntityCondition.makeCondition("tenantId", EntityComparisonOperator.EQUALS, delegator.getDelegatorTenantId()), ['entityGroupName'] as Set, ['entityGroupName'], null, false), 'entityGroupName', false);
+}
+
+context.entityGroups = [];
+context.entityGroups.add(["name" : UtilProperties.getMessage("WebtoolsUiLabels", "WebtoolsAll", locale), "value" : ""]);
+for (String entityGroup : entityGroups) {
+    context.entityGroups.add(["name" : entityGroup, "value" : entityGroup]);
 }
 
 filterByGroupName = parameters.filterByGroupName;
@@ -45,9 +52,9 @@ context.filterByEntityName = filterByEntityName;
 reader = delegator.getModelReader();
 entities = new TreeSet(reader.getEntityNames());
 
-int colSize = entities.size()/3 + 1;
-int kIdx = 0;
 entitiesList = [];
+firstChars = [];
+firstChar = "";
 entities.each { entityName ->
     entity = reader.getModelEntity(entityName);
     entityGroupName = delegator.getEntityGroupName(entity.getEntityName());
@@ -76,21 +83,18 @@ entities.each { entityName ->
         entityPermissionCreate = "Y";
     }
 
-    changeColumn = "N";
-    kIdx++;
-    if (kIdx >= colSize) {
-        colSize += colSize;
-        changeColumn = "Y";
-    }
-
     entityMap = [:];
     entityMap.entityName = entity.getEntityName();
     entityMap.entityPermissionView = entityPermissionView;
     entityMap.entityPermissionCreate = entityPermissionCreate;
     entityMap.viewEntity = viewEntity;
-    entityMap.changeColumn = changeColumn;
+
+    if (firstChar != entityName.substring(0, 1)) {
+        firstChar = entityName.substring(0, 1);
+        firstChars.add(firstChar);
+    }
 
     entitiesList.add(entityMap);
 }
-context.entityGroups = entityGroups;
+context.firstChars = firstChars;
 context.entitiesList = entitiesList;

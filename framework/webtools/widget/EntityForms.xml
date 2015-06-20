@@ -42,4 +42,29 @@ under the License.
         <field name="secsPerCall" title="${uiLabelMap.WebtoolsPerformanceSecondsCall}"><display/></field>
         <field name="callsPerSecond" title="${uiLabelMap.WebtoolsPerformanceCallsSecond}"><display/></field>
     </form>
+    
+    <form name="FilterEntities" default-table-style="condensed-table">
+        <field name="filterByGroupName">
+            <drop-down>
+                <list-options key-name="value" list-name="entityGroups" description="${name}"/>
+            </drop-down>
+        </field>
+        <field name="filterByEntityName" position="2"><text/></field>
+        <field name="submitButton" position="3" title="${uiLabelMap.CommonApply}"><submit/></field>
+    </form>
+    
+    <grid name="ListEntities" list-name="entitiesList" paginate="false"
+          odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <set field="firstChar" value="${groovy: entityName.substring(0, 1)}"/>
+        </row-actions>
+        <field name="entityName">
+            <hyperlink id="${firstChar}" description="${entityName}" target="FindGeneric">
+               <parameter param-name="entityName"/>
+            </hyperlink>
+        </field>
+        <field name="actions" title=" ">
+            <include-menu name="ListEntitiesAction" location="component://webtools/widget/Menus.xml"/>
+        </field>
+    </grid>
 </forms>
