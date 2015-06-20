@@ -1176,7 +1176,7 @@ under the License.
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeId">
             <drop-down allow-empty="false">
-                <entity-options entity-name="RoleType" description="${description}">
+                <entity-options entity-name="RoleType">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
@@ -1217,7 +1217,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" required-field="true" entry-name="dummy" position="1"><text/></field>
         <field name="parentTypeId" position="2">
             <drop-down allow-empty="true">
-                <list-options list-name="parentRoleList" key-name="roleTypeId" description="${description}"/>
+                <list-options list-name="parentRoleList" key-name="roleTypeId"/>
             </drop-down>
         </field>
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
