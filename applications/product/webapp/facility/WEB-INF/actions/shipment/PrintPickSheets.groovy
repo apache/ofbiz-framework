@@ -126,4 +126,5 @@ if (toPrintOrders) {
             }
         }
     }
+    response.setHeader("Content-Disposition","attachment; filename=\"orderPickSheet.pdf" + "\";");
 }
