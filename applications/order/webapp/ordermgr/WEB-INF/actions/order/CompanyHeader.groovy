@@ -42,7 +42,11 @@ fromPartyId = parameters.fromPartyId;
 
 if (!orderHeader && orderId) {
     orderHeader = from("OrderHeader").where("orderId", orderId).queryOne();
-    response.setHeader("Content-Disposition","attachment; filename=\"" + orderId + ".pdf" + "\";");
+    if (parameters.facilityId) {
+        response.setHeader("Content-Disposition","attachment; filename=\"PickSheet" + orderId + ".pdf" + "\";");
+    } else {
+    	response.setHeader("Content-Disposition","attachment; filename=\"" + orderId + ".pdf" + "\";");
+    }
 } else if (shipmentId) {
     shipment = from("Shipment").where("shipmentId", shipmentId).queryOne();
     orderHeader = shipment.getRelatedOne("PrimaryOrderHeader", false);
