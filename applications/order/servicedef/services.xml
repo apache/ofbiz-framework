@@ -849,11 +849,11 @@ under the License.
 
         <!-- ship to country fields -->
         <attribute name="countryGeoId" type="String" mode="IN" optional="true"/>
-        <attribute name="includeCountry" type="String" mode="IN" optional="true"/>        
+        <attribute name="includeCountry" type="String" mode="IN" optional="true"/>
 
         <!-- view and page fields -->
-        <attribute name="viewIndex" type="Integer" mode="INOUT" optional="false"/>
-        <attribute name="viewSize" type="Integer" mode="INOUT" optional="false"/>
+        <attribute name="viewIndex" type="Integer" mode="INOUT" optional="true" default-value="0"/>
+        <attribute name="viewSize" type="Integer" mode="INOUT" optional="true" default-value="20"/>
         <attribute name="showAll" type="String" mode="INOUT" optional="true"/>
 
         <!-- index fields -->

@@ -265,6 +265,42 @@
             </link>
         </menu-item>
     </menu>
+    <menu name="ListPartyAction" extends="CommonInlineBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="searchorders" title="${uiLabelMap.OrderOrders}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+            </condition>
+            <link target="/ordermgr/control/searchorders" url-mode="inter-app" link-type="hidden-form">
+                <parameter param-name="lookupFlag" value="Y"/>
+                <parameter param-name="hideFields" value="Y"/>
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="findQuote" title="${uiLabelMap.OrderOrderQuotes}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+            </condition>
+            <link target="/ordermgr/control/FindQuote" url-mode="inter-app">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="newQuote" title="${uiLabelMap.OrderNewQuote}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+            </condition>
+            <link target="/ordermgr/control/EditQuote" url-mode="inter-app">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+        <menu-item name="newOrder" title="${uiLabelMap.OrderNewOrder}">
+            <condition>
+                <if-has-permission permission="ORDERMGR" action="_CREATE"/>
+            </condition>
+            <link target="/ordermgr/control/checkinits" url-mode="inter-app">
+                <parameter param-name="partyId"/>
+            </link>
+        </menu-item>
+    </menu>
 
     <menu name="groupUpdate">
         <menu-item name="update" title="${uiLabelMap.CommonUpdate}">
