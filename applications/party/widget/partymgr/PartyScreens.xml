@@ -28,8 +28,8 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindParty"/>
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="findparty"/>
-
-                <service service-name="findParty" auto-field-map="parameters"/>
+                <set field="initialyCollapsed" value="${groovy:'Y'.equals(parameters.hideFields)}" type="String"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindParty.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -40,9 +40,12 @@ under the License.
                                 <if-service-permission service-name="partyBasePermissionCheck" main-action="VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://party/webapp/partymgr/party/findparty.ftl"/></html>
-                                </platform-specific>
+                                <screenlet id="FindPartyPanel" title="${uiLabelMap.PartyFindParty}" navigation-form-name="lookupparty" save-collapsed="false" collapsible="true" initially-collapsed="${initialyCollapsed}">
+                                    <include-form name="lookupparty" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.CommonSearchResults}" navigation-form-name="ListParty">
+                                    <include-grid name="ListParty${extInfo}" location="component://party/widget/partymgr/PartyForms.xml"/>
+                                </screenlet>
                             </widgets>
                             <fail-widgets>
                                 <label style="h3" text="${uiLabelMap.PartyMgrViewPermissionError}"/>
@@ -53,7 +56,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-
     <!-- Party Profile Screens -->
 
     <screen name="viewprofile">

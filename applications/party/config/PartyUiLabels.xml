@@ -4890,6 +4890,10 @@
         <value xml:lang="zh">联系信息</value>
         <value xml:lang="zh-TW">聯絡資訊</value>
     </property>
+    <property key="PartyContactInformationOther">
+        <value xml:lang="en">Other Contact Information</value>
+        <value xml:lang="fr">Autres Coordonnées</value>
+    </property>
     <property key="PartyContactListPartyCreate">
         <value xml:lang="ar">إضافة طرف لقائمة الإتصال</value>
         <value xml:lang="de">Akteur zur Kontaktliste hinzufügen</value>
