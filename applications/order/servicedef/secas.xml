@@ -451,4 +451,7 @@ under the License.
         <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
         <action service="checkOrderItemForProductGroupOrder" mode="sync"/>
     </eca>
+    <eca service="updateShipGroupShipInfo" event="commit">
+        <action service="resetGrandTotal" mode="sync"/>
+    </eca>
 </service-eca>

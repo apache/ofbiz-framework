@@ -353,7 +353,7 @@ under the License.
          <br class="clear"/>
       </div>
       <div class="screenlet-body" id="ShipGroupScreenletBody_${shipGroup.shipGroupSeqId}">
-          <form name="updateOrderItemShipGroup" method="post" action="<@ofbizUrl>updateOrderItemShipGroup</@ofbizUrl>">
+          <form name="updateOrderItemShipGroup" method="post" action="<@ofbizUrl>updateShipGroupShipInfo</@ofbizUrl>">
         <input type="hidden" name="orderId" value="${orderId!}"/>
         <input type="hidden" name="shipGroupSeqId" value="${shipGroup.shipGroupSeqId!}"/>
         <input type="hidden" name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -404,7 +404,7 @@ under the License.
                                   <#if shipGroup.shipmentMethodTypeId?has_content>
                                   <option value="${shipGroup.shipmentMethodTypeId}@${shipGroup.carrierPartyId!}@${shipGroup.carrierRoleTypeId!}"><#if shipGroup.carrierPartyId?? && shipGroup.carrierPartyId != "_NA_">${shipGroup.carrierPartyId!}</#if>&nbsp;${shipmentMethodType.get("description",locale)!}</option>
                                   </#if>
-                                  <#list productStoreShipmentMethList as productStoreShipmentMethod>
+                                  <#list shipGroupShippingMethods[shipGroup.shipGroupSeqId] as productStoreShipmentMethod>
                                     <#assign shipmentMethodTypeAndParty = productStoreShipmentMethod.shipmentMethodTypeId + "@" + productStoreShipmentMethod.partyId + "@" + productStoreShipmentMethod.roleTypeId>
                                     <#if productStoreShipmentMethod.partyId?has_content || productStoreShipmentMethod?has_content>
                                     <option value="${shipmentMethodTypeAndParty!}"><#if productStoreShipmentMethod.partyId != "_NA_">${productStoreShipmentMethod.partyId!}</#if>&nbsp;${productStoreShipmentMethod.get("description",locale)?default("")}</option>

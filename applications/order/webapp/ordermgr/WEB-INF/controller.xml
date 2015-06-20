@@ -1701,7 +1701,7 @@ under the License.
     <request-map uri="addShippingAddress">
         <security https="true" auth="true"/>
         <event type="service" invoke="createUpdateShippingAddress"/>
-        <response name="success" type="request" value="updateOrderItemShipGroup"/>
+        <response name="success" type="request" value="updateShipGroupShipInfo"/>
         <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="getAssociatedStateList">
@@ -1887,6 +1887,13 @@ under the License.
         <event type="service" invoke="setCartShippingOptions"/>
         <response name="success" type="view" value="splitship"/>
         <response name="error" type="request" value="splitship"/>
+    </request-map>
+    
+    <request-map uri="updateShipGroupShipInfo">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateShipGroupShipInfo"/>
+        <response name="success" type="view" value="orderview"/>
+        <response name="error" type="view" value="orderview"/>
     </request-map>
 
     <!--

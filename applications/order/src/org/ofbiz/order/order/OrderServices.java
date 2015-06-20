@@ -6371,4 +6371,110 @@ public class OrderServices {
 
         return ServiceUtil.returnSuccess();
     }
+
+    /**
+     * This service runs when you update shipping method of Order from order view page.
+     */
+    public static Map<String, Object> updateShipGroupShipInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        Delegator delegator = dctx.getDelegator();
+        Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin  = (GenericValue)context.get("userLogin");
+        String orderId = (String)context.get("orderId");
+        String shipGroupSeqId = (String)context.get("shipGroupSeqId");
+        String contactMechId = (String)context.get("contactMechId");
+        String oldContactMechId = (String)context.get("oldContactMechId");
+        String shipmentMethod = (String)context.get("shipmentMethod");
+
+        //load cart from order to update new shipping method or address
+        ShoppingCart shoppingCart = null;
+        try {
+            shoppingCart = loadCartForUpdate(dispatcher, delegator, userLogin, orderId);
+        } catch(GeneralException e) {
+            Debug.logError(e, module);
+        }
+
+        String message = null;
+        if (UtilValidate.isNotEmpty(shipGroupSeqId)) {
+            OrderReadHelper orh = new OrderReadHelper(delegator, orderId);
+            List<GenericValue> shippingMethods = null;
+            String shipmentMethodTypeId = null;
+            String carrierPartyId = null;
+
+            // get shipment method from OrderItemShipGroup, if not available in parameters
+            if (UtilValidate.isNotEmpty(shipmentMethod)) {
+                String[] arr = shipmentMethod.split( "@" );
+                shipmentMethodTypeId = arr[0];
+                carrierPartyId = arr[1];
+            } else {
+                GenericValue orderItemshipGroup = orh.getOrderItemShipGroup(shipGroupSeqId);
+                shipmentMethodTypeId = orderItemshipGroup.getString("shipmentMethodTypeId");
+                carrierPartyId = orderItemshipGroup.getString("carrierPartyId");
+            }
+            int groupIdx =Integer.parseInt(shipGroupSeqId);
+
+            /* check whether new selected contact address is same as old contact.
+               If contact address is different, get applicable ship methods for changed contact */
+            if (UtilValidate.isNotEmpty(oldContactMechId) && oldContactMechId.equals(contactMechId)) {
+                shoppingCart.setShipmentMethodTypeId(groupIdx - 1, shipmentMethodTypeId);
+                shoppingCart.setCarrierPartyId(groupIdx - 1, carrierPartyId);
+            } else {
+                Map<String, BigDecimal> shippableItemFeatures = orh.getFeatureIdQtyMap(shipGroupSeqId);
+                BigDecimal shippableTotal = orh.getShippableTotal(shipGroupSeqId);
+                BigDecimal shippableWeight = orh.getShippableWeight(shipGroupSeqId);
+                List<BigDecimal> shippableItemSizes = orh.getShippableSizes(shipGroupSeqId);
+
+                GenericValue shippingAddress = null;
+                if(UtilValidate.isEmpty(shippingAddress)) {
+                    shippingAddress = orh.getShippingAddress(shipGroupSeqId);
+                }
+
+                shippingMethods = ProductStoreWorker.getAvailableStoreShippingMethods(delegator, orh.getProductStoreId(),
+                        shippingAddress, shippableItemSizes, shippableItemFeatures, shippableWeight, shippableTotal);
+
+                boolean isShippingMethodAvailable = false;
+                // search shipping method for ship group is applicable to new address or not.
+                for (GenericValue shippingMethod : shippingMethods) {
+                    isShippingMethodAvailable = shippingMethod.getString("partyId").equals(carrierPartyId) && shippingMethod.getString("shipmentMethodTypeId").equals(shipmentMethodTypeId);
+                    if (isShippingMethodAvailable) {
+                        shoppingCart.setShipmentMethodTypeId(groupIdx - 1, shipmentMethodTypeId);
+                        shoppingCart.setCarrierPartyId(groupIdx - 1, carrierPartyId);
+                        break;
+                    }
+                }
+
+                // set first shipping method from list, if shipping method for ship group is not applicable to new ship address.
+                if(!isShippingMethodAvailable) {
+                    shoppingCart.setShipmentMethodTypeId(groupIdx - 1, shippingMethods.get(0).getString("shipmentMethodTypeId"));
+                    shoppingCart.setCarrierPartyId(groupIdx - 1, shippingMethods.get(0).getString("carrierPartyId"));
+
+                    String newShipMethTypeDesc =null;
+                    String shipMethTypeDesc=null;
+                    try {
+                        shipMethTypeDesc = delegator.findOne("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", shipmentMethodTypeId), false).getString("description");
+                        newShipMethTypeDesc = delegator.findOne("ShipmentMethodType", UtilMisc.toMap("shipmentMethodTypeId", shippingMethods.get(0).getString("shipmentMethodTypeId")), false).getString("description");
+                    } catch(GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                    // message to notify user for not applicability of shipping method
+                    message= "Shipping Method "+carrierPartyId+" "+shipMethTypeDesc+" is not applicable to shipping address. "+shippingMethods.get(0).getString("carrierPartyId")+" "+newShipMethTypeDesc+" has been set for shipping address.";
+                }
+                shoppingCart.setShippingContactMechId(groupIdx-1, contactMechId);
+            }
+        }
+
+        // save cart after updating shipping method and shipping address.
+        Map<String, Object> changeMap = new HashMap<String, Object>();
+        try {
+            saveUpdatedCartToOrder(dispatcher, delegator, shoppingCart, locale, userLogin, orderId, changeMap, true, false);
+        } catch(GeneralException e) {
+            Debug.logError(e, module);
+        }
+
+        if (UtilValidate.isNotEmpty(message)) {
+            return ServiceUtil.returnSuccess(message);
+        } else {
+            return ServiceUtil.returnSuccess();
+        }
+    }
 }
