@@ -1187,4 +1187,12 @@ under the License.
         <attribute name="quantity" type="BigDecimal" mode="IN"/>
     </service>
     
+    <service name="updateShipGroupShipInfo" engine="java" location="org.ofbiz.order.order.OrderServices" invoke="updateShipGroupShipInfo" auth="true">
+            <description>Update Shipping Information on Order View</description>
+         <attribute name="contactMechId" type="String" mode="IN" optional="false"/>
+         <attribute name="orderId" type="String" mode="IN" optional="true"/>
+         <attribute name="oldContactMechId" type="String" mode="IN" optional="true"/>
+         <attribute name="shipGroupSeqId" type="String" mode="IN" optional="true"/>
+         <attribute name="shipmentMethod" type="String" mode="IN" optional="true"/>
+    </service>
 </services>
