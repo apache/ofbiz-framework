@@ -329,6 +329,8 @@ public final class CommonWidgetModels {
         private final FlexibleStringExpander targetWindowExdr;
         private final FlexibleStringExpander textExdr;
         private final String urlMode;
+        private final boolean requestConfirmation;
+        private final FlexibleStringExpander confirmationMsgExdr;
         // FIXME: These don't belong in this class (might have been used for image)
         private final String height;
         private final String width;
@@ -386,6 +388,8 @@ public final class CommonWidgetModels {
                 size = Integer.valueOf(sizeAttr);
             }
             this.size = size;
+            this.requestConfirmation = "true".equals(linkElement.getAttribute("request-confirmation"));
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(linkElement.getAttribute("confirmation-message"));
             this.width = linkElement.getAttribute("width");
             this.height = linkElement.getAttribute("height");
         }
@@ -409,6 +413,8 @@ public final class CommonWidgetModels {
             this.textExdr = FlexibleStringExpander.getInstance((String) portalPage.get("portalPageName", locale));
             this.urlMode = "intra-app";
             this.size = null;
+            this.requestConfirmation = false;
+            this.confirmationMsgExdr = FlexibleStringExpander.getInstance("");
             this.width = "";
             this.height = "";
         }
@@ -419,6 +425,14 @@ public final class CommonWidgetModels {
 
         public AutoServiceParameters getAutoServiceParameters() {
             return autoServiceParameters;
+        }
+
+        public String getConfirmationMsg(Map<String, Object> context) {
+            return this.confirmationMsgExdr.expandString(context);
+        }
+
+        public FlexibleStringExpander getConfirmationMsgExdr() {
+            return confirmationMsgExdr;
         }
 
         public boolean getEncode() {
@@ -485,6 +499,10 @@ public final class CommonWidgetModels {
 
         public FlexibleStringExpander getPrefixExdr() {
             return prefixExdr;
+        }
+
+        public boolean getRequestConfirmation() {
+            return this.requestConfirmation;
         }
 
         public boolean getSecure() {

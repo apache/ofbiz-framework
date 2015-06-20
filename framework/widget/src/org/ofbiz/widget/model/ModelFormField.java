@@ -74,7 +74,6 @@ import org.ofbiz.widget.renderer.FormRenderer;
 import org.ofbiz.widget.renderer.FormStringRenderer;
 import org.ofbiz.widget.renderer.MenuStringRenderer;
 import org.ofbiz.widget.renderer.ScreenRenderer;
-import org.ofbiz.widget.renderer.ScreenStringRenderer;
 import org.w3c.dom.Element;
 
 import bsh.EvalError;
@@ -2333,17 +2332,13 @@ public class ModelFormField {
     public static class HyperlinkField extends FieldInfo {
 
         private final boolean alsoHidden;
-        private final FlexibleStringExpander confirmationMsgExdr;
         private final FlexibleStringExpander description;
-        private final boolean requestConfirmation;
         private final Link link;
 
         public HyperlinkField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
-            this.confirmationMsgExdr = FlexibleStringExpander.getInstance(element.getAttribute("confirmation-message"));
             this.description = FlexibleStringExpander.getInstance(element.getAttribute("description"));
-            this.requestConfirmation = "true".equals(element.getAttribute("request-confirmation"));
             // Backwards-compatible fix
             element.setAttribute("url-mode", element.getAttribute("target-type"));
             this.link = new Link(element);
@@ -2352,9 +2347,7 @@ public class ModelFormField {
         private HyperlinkField(HyperlinkField original, ModelFormField modelFormField) {
             super(original.getFieldSource(), original.getFieldType(), modelFormField);
             this.alsoHidden = original.alsoHidden;
-            this.confirmationMsgExdr = original.confirmationMsgExdr;
             this.description = original.description;
-            this.requestConfirmation = original.requestConfirmation;
             this.link = original.link;
         }
 
@@ -2406,11 +2399,11 @@ public class ModelFormField {
         }
 
         public String getConfirmationMsg(Map<String, Object> context) {
-            return this.confirmationMsgExdr.expandString(context);
+            return link.getConfirmationMsg(context);
         }
 
         public FlexibleStringExpander getConfirmationMsgExdr() {
-            return confirmationMsgExdr;
+            return link.getConfirmationMsgExdr();
         }
 
         public FlexibleStringExpander getDescription() {
@@ -2422,7 +2415,7 @@ public class ModelFormField {
         }
 
         public boolean getRequestConfirmation() {
-            return this.requestConfirmation;
+            return link.getRequestConfirmation();
         }
 
         public Link getLink() {
