@@ -1048,70 +1048,12 @@ public class WorkEffortServices {
                     Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
                 }
             } else {
-                // TODO: Remove this block after the next release 2010-11-29
-                String screenLocation = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation", delegator);
-                String fromAddress = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress", delegator);
-                String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
-                Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);
-                try {
-                    dispatcher.runAsync("sendMailFromScreen", emailCtx);
-                } catch (Exception e) {
-                    Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
-                }
+                Debug.logError("No email template (WEFF_EVENT_REMINDER) has been configured, reminder cannot be send.", module);
             }
             return ServiceUtil.returnSuccess();
         }
         // TODO: Other contact mechanism types
         Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
-        return ServiceUtil.returnSuccess();
-    }
-
-    @Deprecated
-    protected static void processEventReminder(DispatchContext ctx, GenericValue reminder, Map<String, Object> parameters) throws GenericEntityException {
-        LocalDispatcher dispatcher = ctx.getDispatcher();
-        Delegator delegator = ctx.getDelegator();
-        GenericValue contactMech = reminder.getRelatedOne("ContactMech", false);
-        if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
-            String screenLocation = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation", delegator);
-            String fromAddress = EntityUtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress", delegator);
-            String toAddress = contactMech.getString("infoString");
-            String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
-            Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);
-            try {
-                dispatcher.runAsync("sendMailFromScreen", emailCtx);
-            } catch (Exception e) {
-                Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
-            }
-            return;
-        }
-        // TODO: Other contact mechanism types
-        Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
-    }
-
-    /** Migrate work effort event reminders.
-     * @param ctx the dispatch context
-     * @param context the context
-     * @return returns the result of the service execution
-     */
-    public static Map<String, Object> migrateWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
-        Delegator delegator = ctx.getDelegator();
-        Locale locale = (Locale) context.get("locale");
-        ModelEntity modelEntity = delegator.getModelEntity("WorkEffortEventReminder");
-        if (modelEntity != null && modelEntity.getField("recurrenceOffset") != null) {
-            List<GenericValue> eventReminders = null;
-            try {
-                eventReminders = EntityQuery.use(delegator).from("WorkEffortEventReminder").queryList();
-                for (GenericValue reminder : eventReminders) {
-                    if (UtilValidate.isNotEmpty(reminder.get("recurrenceOffset"))) {
-                        reminder.set("reminderOffset", reminder.get("recurrenceOffset"));
-                        reminder.store();
-                    }
-                }
-            } catch (GenericEntityException e) {
-                return ServiceUtil.returnError(UtilProperties.getMessage(resourceError, 
-                        "WorkEffortEventRemindersMigrationError", UtilMisc.toMap("errorString", e), locale));
-            }
-        }
         return ServiceUtil.returnSuccess();
     }
 
