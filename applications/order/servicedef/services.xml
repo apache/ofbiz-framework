@@ -852,8 +852,8 @@ under the License.
         <attribute name="includeCountry" type="String" mode="IN" optional="true"/>
 
         <!-- view and page fields -->
-        <attribute name="viewIndex" type="Integer" mode="INOUT" optional="true" default-value="0"/>
-        <attribute name="viewSize" type="Integer" mode="INOUT" optional="true" default-value="20"/>
+        <attribute name="viewIndex" type="Integer" mode="INOUT" optional="true"/>
+        <attribute name="viewSize" type="Integer" mode="INOUT" optional="true"/>
         <attribute name="showAll" type="String" mode="INOUT" optional="true"/>
 
         <!-- index fields -->

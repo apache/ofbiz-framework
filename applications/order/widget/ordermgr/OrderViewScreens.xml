@@ -247,7 +247,7 @@ under the License.
                 <set field="headerItem" value="findorders"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/order/FindOrders.groovy"/>
                 <script location="component://content/webapp/content/WEB-INF/actions/print/FindPrinters.groovy"/>
-                
+
                 <!-- asmslect parameters, must be prefixed by asm_ for setMultipleSelectJs.ftl -->
                 <set field="asm_multipleSelectForm"  value="lookuporder"/>
                 <set field="asm_multipleSelect"  value="roleTypeId"/>
@@ -255,8 +255,7 @@ under the License.
                 <set field="asm_asmListItemPercentOfForm" value="95"/>
                 <set field="asm_sortable" value="false"/>
                 <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/>                
-                
+                <set field="asm_title" value="${uiLabelMap.OrderPartySelectRoleForParty}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonOrderViewDecorator">
