@@ -269,7 +269,8 @@ public class CategoryServices {
             lowIndex = 0;
             highIndex = 0;
         }
-        Boolean filterOutOfStock = false ;
+        
+        boolean filterOutOfStock = false;
         try {
             String productStoreId = (String) context.get("productStoreId");
             if (UtilValidate.isNotEmpty(productStoreId)) {
@@ -281,8 +282,10 @@ public class CategoryServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
         }
+
         List<GenericValue> productCategoryMembers = null;
         if (productCategory != null) {
+            EntityListIterator pli = null;
             try {
                 if (useCacheForMembers) {
                     productCategoryMembers = EntityQuery.use(delegator).from(entityName).where("productCategoryId", productCategoryId).orderBy(orderByFields).cache(true).queryList();
@@ -309,22 +312,26 @@ public class CategoryServices {
                         } catch (GeneralException e) {
                             Debug.logWarning("Problem filtering out of stock products :"+e.getMessage(), module);
                         }
-                        
                     }
                     // filter out the view allow before getting the sublist
                     if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
                         productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
-                        listSize = productCategoryMembers.size();
                     }
 
                     // set the index and size
-                    listSize = productCategoryMembers.size();
-                    if (highIndex > listSize) {
-                        highIndex = listSize;
-                    }
-
-                    // get only between low and high indexes
+                    listSize = productCategoryMembers.size();         
                     if (limitView) {
+                        // limit high index to (filtered) listSize
+                        if (highIndex > listSize) {
+                            highIndex = listSize;
+                        }
+                        // if lowIndex > listSize, the input is wrong => reset to first page
+                        if (lowIndex > listSize) {
+                            viewIndex = 0;
+                            lowIndex = 1;
+                            highIndex = Math.min(viewSize, highIndex);
+                        }
+                        // get only between low and high indexes
                         if (UtilValidate.isNotEmpty(productCategoryMembers)) {
                             productCategoryMembers = productCategoryMembers.subList(lowIndex-1, highIndex);
                         }
@@ -349,7 +356,7 @@ public class CategoryServices {
 
                     // set distinct on
                     // using list iterator
-                    EntityListIterator pli = EntityQuery.use(delegator).from(entityName).where(mainCond).orderBy(orderByFields).cursorScrollInsensitive().maxRows(highIndex).queryIterator();
+                    pli = EntityQuery.use(delegator).from(entityName).where(mainCond).orderBy(orderByFields).cursorScrollInsensitive().maxRows(highIndex).queryIterator();
 
                     // get the partial list for this page
                     if (limitView) {
@@ -372,13 +379,12 @@ public class CategoryServices {
                             }
                         } else {
                             productCategoryMembers = pli.getPartialList(lowIndex, viewSize);
-
                             listSize = pli.getResultsSizeAfterPartialList();
                         }
                     } else {
                         productCategoryMembers = pli.getCompleteList();
                         if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
-                            // fiter out the view allow
+                            // filter out the view allow
                             productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                         }
 
@@ -386,6 +392,7 @@ public class CategoryServices {
                         lowIndex = 1;
                         highIndex = listSize;
                     }
+
                     // filter out of stock products
                     if (filterOutOfStock) {
                         try {
@@ -395,6 +402,7 @@ public class CategoryServices {
                             Debug.logWarning("Problem filtering out of stock products :"+e.getMessage(), module);
                         }
                     }
+
                     // null safety
                     if (productCategoryMembers == null) {
                         productCategoryMembers = new LinkedList<GenericValue>();
@@ -403,12 +411,19 @@ public class CategoryServices {
                     if (highIndex > listSize) {
                         highIndex = listSize;
                     }
-
-                    // close the list iterator
-                    pli.close();
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
+            }
+            finally {
+                // close the list iterator, if used
+                if (pli != null) {
+                    try {
+                        pli.close();
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, module);
+                    }
+                }
             }
         }
 
