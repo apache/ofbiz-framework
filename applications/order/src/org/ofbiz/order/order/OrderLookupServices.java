@@ -67,7 +67,9 @@ public class OrderLookupServices {
 
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Integer viewIndex = (Integer) context.get("viewIndex");
+        if (viewIndex == null) viewIndex = 1;
         Integer viewSize = (Integer) context.get("viewSize");
+        if (viewSize == null) viewSize = UtilProperties.getPropertyAsInteger("widget", "widget.form.defaultViewSize", 20);
         String showAll = (String) context.get("showAll");
         String useEntryDate = (String) context.get("useEntryDate");
         Locale locale = (Locale) context.get("locale");
