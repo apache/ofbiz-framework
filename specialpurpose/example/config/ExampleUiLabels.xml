@@ -22,6 +22,7 @@
     <property key="ContentFopFonts">
         <value xml:lang="en">FOP fonts in a PDF</value>
         <value xml:lang="fr">Polices FOP dans un PDF</value>
+        <value xml:lang="zh">PDF中的FOP字体</value>
     </property>
     <property key="ExampleAjaxExamples">
         <value xml:lang="en">Ajax Examples</value>
@@ -78,6 +79,7 @@
     <property key="ExampleBarChart">
         <value xml:lang="en">Bar Chart</value>
         <value xml:lang="fr">Histogramme</value>
+        <value xml:lang="zh">柱图</value>
     </property>
     <property key="ExampleBaseNodeVersion">
         <value xml:lang="de">Verion des Content Knoten</value>
@@ -133,6 +135,7 @@
     <property key="ExampleChart">
         <value xml:lang="en">Chart examples</value>
         <value xml:lang="fr">Graphes</value>
+        <value xml:lang="zh">绘图样例</value>
     </property>
     <property key="ExampleDashboard">
         <value xml:lang="en">Dashboard</value>
@@ -780,6 +783,7 @@
     <property key="ExamplePieChart">
         <value xml:lang="en">Pie Chart</value>
         <value xml:lang="fr">Camembert</value>
+        <value xml:lang="zh">饼图</value>
     </property>
     <property key="ExamplePointAddress">
         <value xml:lang="en">Geolocation via address</value>

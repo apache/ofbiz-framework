@@ -21,6 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/ofbiz-properties.xsd">
     <property key="AddParty">
         <value xml:lang="en">Add Party</value>
+        <value xml:lang="zh">添加会员</value>
     </property>
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="de">Verrechnete Kosten</value>
@@ -2377,6 +2378,7 @@
     <property key="ManufacturingLinkProductionRun">
         <value xml:lang="en">Link to Production Run</value>
         <value xml:lang="nl">Aan productierun koppelen</value>
+        <value xml:lang="zh">链接到生产运行</value>
     </property>
     <property key="ManufacturingListCalendarWeek">
         <value xml:lang="de">Kalenderwochen anzeigen</value>
@@ -3590,6 +3592,7 @@
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado unitario no es correcto</value>
         <value xml:lang="fr">Le champ Temps de production estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato esecuzione non è formattato correttamente</value>
+        <value xml:lang="zh">生产运行预计单位运行时间数据项格式不正确</value>
     </property>
     <property key="ManufacturingProductionRunEstimatedSetupMillisNotCorrect">
         <value xml:lang="de">Geschätzte Rüstzeit für Produktionsauftrag ist falsch formatiert</value>
@@ -3597,6 +3600,7 @@
         <value xml:lang="es">El formato usado para indicar la Tiempo estimado de preparación no es correcto</value>
         <value xml:lang="fr">Le champ Temps d'installation estimé de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Tempo stimato configur non è formattato correttamente</value>
+        <value xml:lang="zh">生产运行预计建立时间数据项格式不正确</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
@@ -3792,6 +3796,7 @@
     <property key="ManufacturingProductionRunParties">
         <value xml:lang="en">Parties</value>
         <value xml:lang="nl">Partijen</value>
+        <value xml:lang="zh">会员</value>
     </property>
     <property key="ManufacturingProductionRunPrintDocuments">
         <value xml:lang="de">Dokumente für Produktionsauftrage drucken</value>
@@ -3890,6 +3895,7 @@
         <value xml:lang="es">El formato usado para indicar la Reservar para cuántas personas no es correcto</value>
         <value xml:lang="fr">Le champ Personnes réservées de l'ordre de fabrication n'est pas formatté correctement</value>
         <value xml:lang="it">Ordine di Produzione campo Persone Riserva non è formattato correttamente</value>
+        <value xml:lang="zh">生产运行预留人员数据项格式不正确</value>
     </property>
     <property key="ManufacturingProductionRunStartDateMissing">
         <value xml:lang="de">Start-Datum für Produktionsauftrag fehlt</value>
@@ -5152,6 +5158,7 @@
     <property key="ManufacturingUsedCapacity">
         <value xml:lang="en">Manufacturing Used Capacity</value>
         <value xml:lang="fr">Capacité de fabrication utilisée</value>
+        <value xml:lang="zh">正在制造中的产能占用</value>
     </property>
     <property key="ManufacturingViewPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung um diese Seite anzuzeigen. ("MANUFACTURING_VIEWW oder WMANUFACTURING_ADMINW wird benötigt)</value>
@@ -5757,6 +5764,7 @@
     <property key="PagetitleProductionRunLink">
         <value xml:lang="en">Link Production Run</value>
         <value xml:lang="nl">Productierun koppelen</value>
+        <value xml:lang="zh">链接到生产运行</value>
         <value xml:lang="zh-TW">連結生產運行</value>
     </property>
 </resource>

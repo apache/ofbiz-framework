@@ -2681,6 +2681,7 @@
     </property>
     <property key="InvoiceItemType.description.CRT_RPROD_ITEM">
         <value xml:lang="en">Return Raw Material Good Item</value>
+        <value xml:lang="zh">退货的原料商品明细</value>
     </property>
     <property key="InvoiceItemType.description.CRT_FEE_ADJ">
         <value xml:lang="ar">رسوم المسترجع</value>
@@ -4429,6 +4430,7 @@
     </property>
     <property key="InvoiceItemType.description.SRT_RPROD_ITEM">
         <value xml:lang="en">Return Raw Material Good Item</value>
+        <value xml:lang="zh">退货的原料商品明细</value>
     </property>
     <property key="InvoiceItemType.description.SRT_FEE_ADJ">
         <value xml:lang="ar">رسوم المسترجع</value>
@@ -4946,6 +4948,7 @@
         <value xml:lang="ar">eBay</value>
         <value xml:lang="en">eBay</value>
         <value xml:lang="th">อีเบย์</value>
+        <value xml:lang="zh">eBay</value>
     </property>
     <property key="PaymentMethodType.description.EXT_OFFLINE">
         <value xml:lang="ar">دفعة offline</value>
@@ -4974,6 +4977,7 @@
     <property key="PaymentMethodType.description.EXT_WORLDPAY">
         <value xml:lang="de">RBS WorldPay-Konto</value>
         <value xml:lang="en">RBS WorldPay</value>
+        <value xml:lang="zh">环球付</value>
         <value xml:lang="zh-TW">RBS WorldPay</value>
     </property>
     <property key="PaymentMethodType.description.FIN_ACCOUNT">
@@ -5062,6 +5066,7 @@
         <value xml:lang="en">PIN Payment</value>
         <value xml:lang="fr">Paiement par code confidentiel</value>
         <value xml:lang="nl">PIN betaling</value>
+        <value xml:lang="zh">PIN支付</value>
     </property>
     <property key="PaymentType.description.COMMISSION_PAYMENT">
         <value xml:lang="ar">دفعة العمولة</value>
@@ -5557,5 +5562,6 @@
     <property key="TaxAuthorityRateType.description.EXCISE_TAX">
         <value xml:lang="en">Excise Tax</value>
         <value xml:lang="nl">Belasting - Accijns</value>
+        <value xml:lang="zh">特种税</value>
     </property>
 </resource>

@@ -3273,6 +3273,7 @@
     <property key="ProductType.description.ASSET_USAGE_OUT_IN">
         <value xml:lang="en">Asset Rental</value>
         <value xml:lang="nl">Verhuur productiemiddel</value>
+        <value xml:lang="zh">资产出租</value>
     </property>
     <property key="ProductType.description.DIGITAL_GOOD">
         <value xml:lang="de">Digitales Produkt</value>
@@ -3668,6 +3669,7 @@
         <value xml:lang="de">Andere Sendung</value>
         <value xml:lang="en">Other shipment</value>
         <value xml:lang="nl">Andere zending</value>
+        <value xml:lang="zh">其它运输</value>
     </property>
     <property key="ShipmentType.description.PURCHASE_RETURN">
         <value xml:lang="de">Ausgehend - Einkauf Retoure</value>

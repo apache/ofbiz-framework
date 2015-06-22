@@ -1191,6 +1191,7 @@
         <value xml:lang="de">Retourenposition Seq Id</value>
         <value xml:lang="en">Return Item Seq Id</value>
         <value xml:lang="nl">Retour Itemnr Id</value>
+        <value xml:lang="zh">退货明细序号</value>
     </property>
     <property key="FormFieldTitle_salesChannelEnumId">
         <value xml:lang="ar">دليل تعداد قناة المبيعات</value>
@@ -3185,6 +3186,7 @@
         <value xml:lang="de">Promotion entfernen</value>
         <value xml:lang="en">Remove Promotion</value>
         <value xml:lang="fr">Supprimer la promotion</value>
+        <value xml:lang="zh">删除促销</value>
     </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="ar">الإستمرار إلى المراجعة النهائية لأمر البيع\الشراء</value>
@@ -5996,6 +5998,7 @@
     <property key="OrderNoItemsQuote">
        <value xml:lang="de">Keine Artikel im Angebot</value>
        <value xml:lang="en">No Items in quote</value>
+        <value xml:lang="zh">询价中没有明细</value>
     </property>
     <property key="OrderNOTEMultipleShipmentsExist">
         <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
@@ -6022,6 +6025,7 @@
         <value xml:lang="ja">No</value>
         <value xml:lang="pt-BR">Nº</value>
         <value xml:lang="ru">№</value>
+        <value xml:lang="zh">#</value>
         <value xml:lang="zh-TW">#</value>
     </property>
     <property key="OrderNbrPersons">
@@ -14004,26 +14008,31 @@
         <value xml:lang="de">Versandgruppe löschen</value>
         <value xml:lang="en">Delete this ship group</value>
         <value xml:lang="fr">Supprimer le groupe d'expédition</value>
+        <value xml:lang="zh">删除这个运输组</value>
     </property>
     <property key="OrderAddToshipGroup">
         <value xml:lang="de">Zur Versandgruppe hinzufügen</value>
         <value xml:lang="en">Add to ship group</value>
         <value xml:lang="fr">Ajouter au groupe d'expédition</value>
+        <value xml:lang="zh">添加到运输组</value>
     </property>
     <property key="OrderItemId">
         <value xml:lang="de">Bestellpos. Id</value>
         <value xml:lang="en">Ref</value>
         <value xml:lang="fr">N° ligne</value>
+        <value xml:lang="zh">参考</value>
     </property>
     <property key="OrderShipmentInformationByOISG">
         <value xml:lang="de">Ansicht nach Versandgruppe</value>
         <value xml:lang="en">View by ship group</value>
         <value xml:lang="fr">Voir par groupe d'expédition</value>
+        <value xml:lang="zh">按运输组浏览</value>
     </property>
     <property key="OrderShipmentInformationByOrderItem">
         <value xml:lang="de">Ansicht Versandgruppe nach Bestellposition</value>
         <value xml:lang="en">View ship group by order item</value>
         <value xml:lang="fr">Voir les groupes d'expédition par ligne de commandes</value>
+        <value xml:lang="zh">按订单明细浏览运输组</value>
     </property>
     <property key="OrderSupplierData">
         <value xml:lang="ar">بيانات المورد</value>

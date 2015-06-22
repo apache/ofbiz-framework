@@ -944,6 +944,7 @@
     <property key="WebPosShortcutF5">
         <value xml:lang="en">Pay Pin</value>
         <value xml:lang="nl">PIN / CHIP</value>
+        <value xml:lang="zh">付芯片卡</value>
     </property>
     <property key="WebPosShortcutF6">
         <value xml:lang="en">PAY GIFT CARD</value>

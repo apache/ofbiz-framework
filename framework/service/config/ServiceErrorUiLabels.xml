@@ -276,6 +276,7 @@
         <value xml:lang="en">Value found (with ids ${pkFields}), cannot create a new one</value>
         <value xml:lang="fr">La valeur a été trouvée (avec les réfs. ${pkFields}), une nouvelle ne peut donc pas être créée</value>
         <value xml:lang="it">Valore troavato, non è possibile creare</value>
+        <value xml:lang="zh">发现了数值(标识为${pkFields})，不能新建</value>
     </property>
     <property key="ServiceValueNotFound">
         <value xml:lang="en">Value not found, cannot update</value>
@@ -289,5 +290,6 @@
         <value xml:lang="en">Value not found, cannot remove</value>
         <value xml:lang="fr">La valeur n'a pas été trouvée, suppression impossible</value>
         <value xml:lang="it">Valore non troavato, non è possibile sopprimere</value>
+        <value xml:lang="zh">没有找到数值，不能删除</value>
     </property>
 </resource>

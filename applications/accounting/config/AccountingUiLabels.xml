@@ -2493,62 +2493,77 @@
     </property>
     <property key="AccountingBudgetFind">
         <value xml:lang="en">Find</value>
+        <value xml:lang="zh">查找</value>
         <value xml:lang="zh-TW">尋找</value>
     </property>
     <property key="AccountingBudgetHeader">
         <value xml:lang="en">Header</value>
+        <value xml:lang="zh">表头</value>
         <value xml:lang="zh-TW">表頭</value>
     </property>
     <property key="AccountingBudgetItems">
         <value xml:lang="en">Items</value>
+        <value xml:lang="zh">明细</value>
         <value xml:lang="zh-TW">細項</value>
     </property>
     <property key="AccountingBudgetItemsAdd">
         <value xml:lang="en">Add a new budget Item</value>
+        <value xml:lang="zh">新增一行预算明细</value>
         <value xml:lang="zh-TW">增加預算細項</value>
     </property>
     <property key="AccountingBudgetOverview">
         <value xml:lang="en">Overview</value>
+        <value xml:lang="zh">总揽</value>
         <value xml:lang="zh-TW">大網</value>
     </property>
     <property key="AccountingBudgetReviewAdd">
         <value xml:lang="en">Add a new Budget Review</value>
+        <value xml:lang="zh">新增一行预算审核</value>
         <value xml:lang="zh-TW">增加預算查核</value>
     </property>
     <property key="AccountingBudgetReviewResult">
         <value xml:lang="en">Budget Review Result</value>
-        <value xml:lang="zh-TW">預算查核結果</value>
+        <value xml:lang="zh">预算审核结果</value>
+        <value xml:lang="zh-TW">預算审核結果</value>
     </property>
     <property key="AccountingBudgetReviews">
         <value xml:lang="en">Reviews</value>
+        <value xml:lang="zh">审核</value>
         <value xml:lang="zh-TW">查核</value>
     </property>
     <property key="AccountingBudgetRoles">
         <value xml:lang="en">Roles</value>
+        <value xml:lang="zh">角色</value>
         <value xml:lang="zh-TW">角色</value>
     </property>
     <property key="AccountingBudgets">
         <value xml:lang="en">Budgets</value>
+        <value xml:lang="zh">预算</value>
         <value xml:lang="zh-TW">預算</value>
     </property>
     <property key="AccountingBudgetStatus">
         <value xml:lang="en">Status</value>
+        <value xml:lang="zh">状态</value>
         <value xml:lang="zh-TW">狀態</value>
     </property>
     <property key="AccountingBudgetStatusToApproved">
         <value xml:lang="en">Status To 'Approved'</value>
+        <value xml:lang="zh">状态变为“已批准”</value>
         <value xml:lang="zh-TW">變更狀態成已核准</value>
     </property>
     <property key="AccountingBudgetStatusToReviewed">
         <value xml:lang="en">Status To 'Reviewed'</value>
+        <value xml:lang="zh">状态变为“已审核”</value>
         <value xml:lang="zh-TW">變更狀態成已查核</value>
     </property>
     <property key="AccountingBudgetStatusToRejected">
         <value xml:lang="en">Status To 'Rejected'</value>
+        <value xml:lang="zh">状态变为“已拒绝”</value>
         <value xml:lang="zh-TW">變更狀態成已拒絶</value>
     </property>
     <property key="AccountingBudgetType">
         <value xml:lang="en">Budget Type</value>
+        <value xml:lang="zh">预算类型</value>
         <value xml:lang="zh-TW">預算類型</value>
     </property>
     <property key="AccountingByAccount">
@@ -4838,6 +4853,7 @@
     </property>
     <property key="AccountingEditBudget">
         <value xml:lang="en">Edit Budget</value>
+        <value xml:lang="zh">编辑预算</value>
     </property>
     <property key="AccountingEditCreditCard">
         <value xml:lang="ar">تعديل البطاقة الائتمانية</value>
@@ -5391,6 +5407,7 @@
     </property>
     <property key="AccountingExportInvoices">
         <value xml:lang="en">Export Invoices</value>
+        <value xml:lang="zh">导出发票</value>
     </property>
     <property key="AccountingExpenses">
         <value xml:lang="ar">المصروفات</value>
@@ -5717,6 +5734,7 @@
     </property>
     <property key="AccountingFindBudgets">
         <value xml:lang="en">Find Budgets</value>
+        <value xml:lang="zh">查找预算</value>
     </property>
     <property key="AccountingFindDepositSlip">
         <value xml:lang="ar">إيجاد سندات الإيداع للحساب المالي : ${finAccount.finAccountName} [${finAccountId}]</value>
@@ -8278,6 +8296,7 @@
         <value xml:lang="ar">PDF</value>
         <value xml:lang="en">PDF</value>
         <value xml:lang="hi-IN">पीडीऍफ़(PDF)</value>
+        <value xml:lang="zh">PDF</value>
     </property>
     <property key="AccountingInvoicePDFDefaultCur">
         <value xml:lang="ar">عملة PDF الافتراضية</value>
@@ -9220,6 +9239,7 @@
     </property>
     <property key="AccountingMissingPaymentMethod">
         <value xml:lang="en">Cannot change the status to '${statusItem.description}' when the  mandatory payment method is missing.</value>
+        <value xml:lang="zh">缺少强制支付方式时，不能把状态改为“${statusItem.description}”。</value>
     </property>
     <property key="AccountingMiddleNameCard">
         <value xml:lang="ar">بطاقة الإسم الأوسط</value>
@@ -9492,9 +9512,11 @@
     </property>
     <property key="AccountingNewBudget">
         <value xml:lang="en">Create New Budget</value>
+        <value xml:lang="zh">新建预算</value>
     </property>
     <property key="AccountingNewCompany">
         <value xml:lang="en">Create new accounting company</value>
+        <value xml:lang="zh">新建记账公司</value>
     </property>
     <property key="AccountingNewBillingAccount">
         <value xml:lang="ar">جساب فوترة جديد</value>
@@ -15956,6 +15978,7 @@
     </property>
     <property key="AccountingVat">
         <value xml:lang="en">VAT</value>
+        <value xml:lang="zh">增值税</value>
         <value xml:lang="nl">BTW</value>
     </property>
     <property key="AccountingVendorParty">
@@ -21229,6 +21252,7 @@
     </property>
     <property key="PageTitleBudgetOverview">
         <value xml:lang="en">Budget Overview</value>
+        <value xml:lang="zh">预算总揽</value>
     </property>
     <property key="PageTitleCopyAgreement">
         <value xml:lang="ar">نسخ الإتفاقية</value>
@@ -21514,6 +21538,7 @@
     </property>
     <property key="PageTitleEditBudget">
         <value xml:lang="en">Edit Budget</value>
+        <value xml:lang="zh">编辑预算</value>
     </property>
     <property key="PageTitleEditFinAccount">
         <value xml:lang="ar">تعديل الحساب المالي</value>
@@ -22401,12 +22426,15 @@
     </property>
     <property key="PageTitleListBudget">
         <value xml:lang="en">List Budget</value>
+        <value xml:lang="zh">预算列表</value>
     </property>
     <property key="PageTitleListBudgetReviews">
         <value xml:lang="en">List Budget Reviews</value>
+        <value xml:lang="zh">预算审查列表</value>
     </property>
     <property key="PageTitleListBudgetRoles">
         <value xml:lang="en">List Budget Roles</value>
+        <value xml:lang="zh">预算角色列表</value>
     </property>
     <property key="PageTitleListEditInvoiceApplications">
         <value xml:lang="ar">قائمة تطبيقات تعديل الفاتورة</value>
@@ -22719,6 +22747,7 @@
     </property>
     <property key="PageTitleLookupCustomTimePeriod">
         <value xml:lang="en">Lookup Custom Time Period</value>
+        <value xml:lang="zh">查找定制时间段</value>
     </property>
     <property key="PageTitleLookupFixedAsset">
         <value xml:lang="ar">بحث الأصل الثابت</value>

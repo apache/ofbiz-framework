@@ -637,6 +637,7 @@
     </property>
     <property key="PageTitleProgramExport">
         <value xml:lang="en">Programmable Export</value>
+        <value xml:lang="zh">可编程导出</value>
     </property>
     <property key="PageTitleRunService">
         <value xml:lang="de">Dienst starten</value>
@@ -830,6 +831,7 @@
         <value xml:lang="en">(may take some time to load)</value>
         <value xml:lang="fr">(cela peut prendre un certain temps à charger)</value>
         <value xml:lang="vi">(đợi chút thời gian)</value>
+        <value xml:lang="zh">(可能会花些时间载入)</value>
     </property>
     <property key="WebtoolsAsync">
         <value xml:lang="de">Asynchron</value>
@@ -2443,6 +2445,7 @@
     </property>
     <property key="WebtoolsGeoPoints">
         <value xml:lang="en">GEO Points</value>
+        <value xml:lang="zh">地理点</value>
     </property>
     <property key="WebtoolsGeosSelect">
         <value xml:lang="en">Select Geos to associate</value>
@@ -5677,10 +5680,12 @@
     <property key="WebtoolsViewAsPdfTheHtmlLayoutDemo">
         <value xml:lang="en">View as Pdf the html layout : testing macro template ftl and global render (but not forcing the screen coherence)</value>
         <value xml:lang="fr">Voir en Pdf la disposition html : permet de tester les modèles de macro ftl et le rendu global (mais pas forcement la cohérence d'écran)</value>
+        <value xml:lang="zh">按PDF浏览网页版式：测试宏模版FTL和全局渲染程序(但是不强制页面一致)</value>
     </property>
     <property key="WebtoolsViewAsTextTheHtmlLayoutDemo">
         <value xml:lang="en">View as text (xml, csv and text) the html layout : testing macro template ftl and global render (but not forcing the screen coherence)</value>
         <value xml:lang="fr">Voir en text (xml, csv, text) la disposition html : permet de tester les modèles de macro ftl et le rendu global (mais pas forcement la cohérence d'écran)</value>
+        <value xml:lang="zh">按文本(XML，逗号分隔格式和文本)浏览网页版式：测试宏模版FTL和全局渲染程序(但是不强制页面一致)</value>
     </property>
     <property key="WebtoolsViewComponents">
         <value xml:lang="de">Komponenten ansehen</value>

@@ -61,6 +61,7 @@
     <property key="RateType.description.FLC">
         <value xml:lang="en">Hourly rate - Fully loaded costprice</value>
         <value xml:lang="nl">Uurtarief - FLC</value>
+        <value xml:lang="zh">小时价格——全负荷成本价格</value>
     </property>
     <property key="WorkEffortAssocType.description.ROUTING_COMPONENT">
         <value xml:lang="en">Routing and Routing Task Association</value>

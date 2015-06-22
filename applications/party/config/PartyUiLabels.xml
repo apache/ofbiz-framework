@@ -11759,6 +11759,7 @@
         <value xml:lang="de">Rollentyp ${roleTypeId} für diesen Akteur nicht gefunden.</value>
         <value xml:lang="en">Role Type ${roleTypeId} not found for the party.</value>
         <value xml:lang="fr">Le rôle ${roleTypeId} n'est pas présent pour cet acteur.</value>
+        <value xml:lang="zh">没有找到这个会员的角色类型${roleTypeId}。</value>
     </property>
     <property key="PartyRoleTypeId">
         <value xml:lang="ar">دليل نوع الدور</value>
@@ -13085,6 +13086,7 @@
         <value xml:lang="ar">الرابط</value>
         <value xml:lang="en">URI</value>
         <value xml:lang="hi-IN">यूआरआइ(URI)</value>
+        <value xml:lang="zh">URI</value>
     </property>
     <property key="PartyUnknown">
         <value xml:lang="ar">مجهول</value>
