@@ -53,58 +53,72 @@
     <property key="BirtFacilityReportLastIntMonth">
         <value xml:lang="en">Number of last month to sold out</value>
         <value xml:lang="fr">Ruptures de stock, pour le nombre de derniers mois : </value>
+        <value xml:lang="zh">上月脱销的数量</value>
     </property>
     <property key="BirtOrderReportAllReferrer">
         <value xml:lang="en">All Referrer</value>
         <value xml:lang="fr">Tous apporteurs d'affaires</value>
+        <value xml:lang="zh">所有访问来源</value>
     </property>
     <property key="BirtOrderReportAllOrderItemsWithDiscountCode">
         <value xml:lang="en">All order items with discount code</value>
         <value xml:lang="fr">Tous les lignes de commandes ayant des codes promotionels</value>
+        <value xml:lang="zh">所有带有折扣优惠码的订单明细</value>
     </property>
     <property key="BirtOrderReportCouponSalesReport">
         <value xml:lang="en">Coupon Sales Report</value>
         <value xml:lang="fr">Ventes promotionelles</value>
+        <value xml:lang="zh">优惠券销售报告</value>
     </property>
     <property key="BirtOrderReportFormatType">
         <value xml:lang="en">Format Type</value>
         <value xml:lang="fr">Format : </value>
+        <value xml:lang="zh">格式类型</value>
     </property>
     <property key="BirtOrderReportLast3MonthsSalesReport">
         <value xml:lang="en">Last 3 Months Sales Report</value>
         <value xml:lang="fr">Ventes des 3 derniers mois</value>
+        <value xml:lang="zh">最近3个月的销售报告</value>
     </property>
     <property key="BirtOrderReportNetBeforeOverheadReport">
         <value xml:lang="en">Net Before Overhead Report</value>
         <value xml:lang="fr">Net avant frais généraux</value>
+        <value xml:lang="zh">计入制造费用前的净值报表</value>
     </property>
     <property key="BirtOrderReportOrderByReferrer">
         <value xml:lang="en">Order By Referrer</value>
         <value xml:lang="fr">Commandes par apporteurs d'affaires</value>
+        <value xml:lang="zh">按访问来源排序</value>
     </property>
     <property key="BirtOrderReportProductDemandReport">
         <value xml:lang="en">Product Demand Report</value>
         <value xml:lang="fr">Demandes par produit</value>
+        <value xml:lang="zh">产品需求报告</value>
     </property>
     <property key="BirtOrderReportReportBy">
         <value xml:lang="en">Report By</value>
         <value xml:lang="fr">Par : </value>
+        <value xml:lang="zh">制表人</value>
     </property>
     <property key="BirtOrderReportSalesReport">
         <value xml:lang="en">Sales Report</value>
         <value xml:lang="fr">Ventes depuis :</value>
+        <value xml:lang="zh">销售报表</value>
     </property>
     <property key="BirtOrderReportSaleOrderDiscountCode">
         <value xml:lang="en">Sales Order Discount Code</value>
         <value xml:lang="fr">Ventes par codes promotionels</value>
+        <value xml:lang="zh">销售订单折扣优惠码</value>
     </property>
     <property key="BirtOrderReportSaleOrdersByChannel">
         <value xml:lang="en">Sale Orders By Channel</value>
         <value xml:lang="fr">Ventes par canaux</value>
+        <value xml:lang="zh">按渠道的销售订单</value>
     </property>
     <property key="BirtOrderReportsWarning">
         <value xml:lang="en">Four Birt reports (Last 3 Months Sales, Sales, Sales Order Discount Code, Product Demand) require to feed the BI data base (note that the bi.properties file will need to be updated after September 2023). Then only new approved orders will be taken into account.</value>
         <value xml:lang="fr">Quatre tableau créés par Birt (Ventes des 3 derniers mois, Ventes, Ventes par codes promotionels, Demandes par produit) nécessitent d'alimenter la base de données d'Inform. décis. (notez aussi la nécessaire màj du fichier bi.properties après septembre 2023). Ensuite seules les commandes nouvellement approuvées seront prises en compte.</value>
+        <value xml:lang="zh">4个Birt报告（最近3个月销售、销售、销售订单折扣优惠码、产品需求）要求提供BI数据库（注意：bi.properites文件需要在2023年9月后进行更新）。只会统计新批准的那些订单。</value>
     </property>
     <property key="ExampleBirtExamples">
         <value xml:lang="en">BIRT Examples</value>

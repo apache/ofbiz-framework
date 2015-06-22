@@ -89,6 +89,7 @@
     -->
     <property key="EntityDescription.Example">
         <value xml:lang="en">Example Entity</value>
+        <value xml:lang="zh">样例实体</value>
     </property>
   <!-- Entity field descriptions. The Web Tools component will use these properties
         for online documentation. Field description property keys have two forms:

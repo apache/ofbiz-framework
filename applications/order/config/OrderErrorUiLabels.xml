@@ -39,6 +39,7 @@
     <property key="OrderApproveOrderBeforeQuickDropShip">
         <value xml:lang="de">Bestellung muss freigegeben werden bevor Streckenlieferung abgeschlossen wird.</value>
         <value xml:lang="en">Order must be approved before completing drop shipment.</value>
+        <value xml:lang="zh">必须在完成厂家直送之前批准订单。</value>
     </property>
     <property key="OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId">
         <value xml:lang="de">Ein alternative Gratisbeigabe ist vorhanden, aber entweder nicht mehr gültig oder nicht mehr auf Lager : ${alternateGwpProductId}</value>
@@ -225,6 +226,7 @@
         <value xml:lang="de">Warenkorb Versandgruppe Verknüpfung nicht gefunden</value>
         <value xml:lang="en">Cart ship group association not found</value>
         <value xml:lang="fr">Association avec le groupe d'expédition non trouvée</value>
+        <value xml:lang="zh">没有找到购物车和运输组之间的关联</value>
     </property>
     <property key="OrderCartShipGroupNotFound">
         <value xml:lang="ar">لا يمكن إيجاد مجموعة شحن العربة [ ${groupIndex} ]</value>
@@ -247,16 +249,19 @@
         <value xml:lang="de">Warenkorb shipGroupSeqId wird benötigt</value>
         <value xml:lang="en">Cart shipGroupSeqId is mandatory</value>
         <value xml:lang="fr">La reference du groupe d'expédition est obligatoire</value>
+        <value xml:lang="zh">购物车必须有运输组序号(shipGroupSeqId)</value>
     </property>
     <property key="OrderCartShipGroupPartyCarrierNotFound">
         <value xml:lang="de">Kein Transporteur gefunden für [${partyId}]</value>
         <value xml:lang="en">No Party Carrier found for [${partyId}]</value>
         <value xml:lang="fr">Aucun transporteur trouvé pour la reference [${partyId}]</value>
+        <value xml:lang="zh">没有找到[${partyId}]的承运商</value>
     </property>
     <property key="OrderCartShipGroupShipmentMethodNotFound">
         <value xml:lang="de">Keine Liefermethode gefunden für [${shipmentMethodTypeId}]</value>
         <value xml:lang="en">No Shipment Method found for [${shipmentMethodTypeId}]</value>
         <value xml:lang="fr">Aucun mode d'expedition trouvé pour la reference [${shipmentMethodTypeId}]</value>
+        <value xml:lang="zh">没有找到[${shipmentMethodTypeId}]的运输方式</value>
     </property>
     <property key="OrderCaughtExceptionOnCartUpdate">
         <value xml:lang="ar">يوجد استثناء في تحديث العربة.</value>
@@ -1268,6 +1273,7 @@
         <value xml:lang="de">Bestellposition ist bereits mit dieser Liefergruppe verknüpft</value>
         <value xml:lang="en">Order Item is already related To This OISG</value>
         <value xml:lang="fr">La ligne de commande est déja associée au groupe d'expédition</value>
+        <value xml:lang="zh">订单明细已经关联到了这个运输组</value>
     </property>
     <property key="OrderErrorOrderItemCantBeModified">
         <value xml:lang="ar">خطأ: لا يمكن تعديل بند أمر البيع\الشراء</value>
@@ -1773,6 +1779,7 @@
         <value xml:lang="de">Produkt ID [${productId}] ist ungültig. Bitte geben Sie eine gültige productId ein, um zugehörige Bestellungen zu sehen (oder keine für alle).</value>
         <value xml:lang="en">Product ID [${productId}] is not valid. Please enter a valid productId to get related orders (or nothing for all).</value>
         <value xml:lang="fr">Le produit [${productId}] n'existe pas. Entrez une réf. de produit existante, ou laissez vide pour obtenir toutes les commandes.</value>
+        <value xml:lang="zh">产品标识[${productId}]无效。请输入一个有效的产品标识(productId)来得到相关订单。</value>
     </property>
     <property key="OrderFixedAssetNotFoundFixedAssetId">
         <value xml:lang="ar">الأصل_الثابت_غير_موجود. دليل الأصل الثابت : ${fixedAssetId}</value>
@@ -3026,6 +3033,7 @@
     <property key="OrderProblemsWithPaymentMethodLookup">
         <value xml:lang="de">Probleme beim Lesen der PaymentMethod. </value>
         <value xml:lang="en">Problems with PaymentMethod lookup. </value>
+        <value xml:lang="zh">查找支付方式时出现问题。</value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
         <value xml:lang="ar">مشاكل مع استطلاع نوع الدفعة.</value>
@@ -3111,16 +3119,19 @@
         <value xml:lang="de">Zugeordnete Menge darf nicht null oder negativ sein.</value>
         <value xml:lang="en">Quantity associated can not be null or negative.</value>
         <value xml:lang="fr">La quantité associée ne peut être négative ou nulle.</value>
+        <value xml:lang="zh">关联的数量不能是null或负数。</value>
     </property>
     <property key="OrderQuantityAssociatedIsBiggerThanOrderItemQuantity">
         <value xml:lang="de">Die zugeordnete Menge ist größer als die Bestellmenge.</value>
         <value xml:lang="en">Quantity associated is bigger than order item quantity.</value>
         <value xml:lang="fr">La quantité associée est plus grande que celle commandée.</value>
+        <value xml:lang="zh">关联的数量大于订单明细的数量了。</value>
     </property>
     <property key="OrderQuantityAssociatedIsLessThanOrderItemQuantity">
         <value xml:lang="de">Die zugeordnete Menge ist kleiner als die Bestellmenge.</value>
         <value xml:lang="en">Quantity associated is less than order item quantity.</value>
         <value xml:lang="fr">La quantité totale associée aux groupe(s) d'expédition(s) est plus petite que celle commandée.</value>
+        <value xml:lang="zh">关联的数量小于订单明细数量了。</value>
     </property>
     <property key="OrderQuickAddOrderItemError">
         <value xml:lang="ar">إضافة سريعة لبند أمر البيع\الشراء</value>
@@ -4513,6 +4524,7 @@
         <value xml:lang="de">Kann Bestellposition nicht zur Versandgruppe hinzufügen: </value>
         <value xml:lang="en">Unable to add order item to ship group: </value>
         <value xml:lang="fr">Impossible d'ajouter la ligne de commande au groupe d'expédition : </value>
+        <value xml:lang="zh">无法向运输组添加订单明细：</value>
     </property>
     <property key="OrderUnableToAddItemToShoppingList">
         <value xml:lang="ar">لا يمكن إضافة البند لقائمة التسوق - ${shoppingListId}</value>
@@ -4534,6 +4546,7 @@
         <value xml:lang="de">Kann Versandgruppe nicht zur Bestellung hinzufügen: </value>
         <value xml:lang="en">Unable to add ship group to order: </value>
         <value xml:lang="fr">Impossible d'ajouter le groupe d'expédition : </value>
+        <value xml:lang="zh">无法把运输组添加到订单：</value>
     </property>
     <property key="OrderUnableToCancelItemInventoryReservation">
         <value xml:lang="ar">غير ممكن إلغاء حجز مخزون البند</value>
@@ -4842,6 +4855,7 @@
         <value xml:lang="de">Kann Bestellposition nicht aktualisieren für Versandgruppe: </value>
         <value xml:lang="en">Unable to update order item from the ship group: </value>
         <value xml:lang="fr">Impossible de mettre à jour la ligne de commande depuis le groupe d'expédition : </value>
+        <value xml:lang="zh">不能更新来自这个运输组的订单明细</value>
     </property>
     <property key="OrderUnableToUpdateInventoryReservations">
         <value xml:lang="ar">غير ممكن تحديث حجوزات المخزون : ${itemMsgInfo}</value>
@@ -5158,6 +5172,7 @@
     <property key="cart.addToCart.quantityInDecimalNotAllowed">
         <value xml:lang="de">Dezimalmenge ist nicht erlaubt.</value>
         <value xml:lang="en">Quantity in decimal is not allowed.</value>
+        <value xml:lang="zh">数量不能有小数。</value>
     </property>
     <property key="cart.addToCart.rental.endDate">
         <value xml:lang="de">Probleme beim Verarbeiten der Reservierungszeichenkette.</value>

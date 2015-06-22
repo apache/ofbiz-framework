@@ -309,6 +309,7 @@
     <property key="uploadContentAndImage.noRootDirProvided">
         <value xml:lang="en">No root dir provided, please fill path in the data resource objectInfo field</value>
         <value xml:lang="fr">Aucun répertoire racine fourni. Veuillez indiquer le chemin dans le champ objectInfo de la ressource de donnée</value>
+        <value xml:lang="zh">没有提供根目录，请在数据资源对象信息数据项中填写路径</value>
     </property>
 
 </resource>

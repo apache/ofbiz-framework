@@ -35,6 +35,7 @@
         <value xml:lang="it">Aggiungi componente</value>
         <value xml:lang="pt-BR">Adicionar componente de produto</value>
         <value xml:lang="ro">Adauga Componente Produs</value>
+        <value xml:lang="zh">添加产品组件</value>
     </property>
     <property key="CatalogWebAnalytics">
         <value xml:lang="de">Web Analytik</value>
@@ -100,6 +101,7 @@
         <value xml:lang="de">Kat.</value>
         <value xml:lang="en">CAT</value>
         <value xml:lang="nl">Cat.</value>
+        <value xml:lang="zh">分类</value>
     </property>
     <property key="FacilityCompanyName">
         <value xml:lang="de">OFBiz: Anlagen Verwaltung</value>
@@ -184,6 +186,7 @@
     <property key="FacilityGroupFirst">
         <value xml:lang="de">Group First</value>
         <value xml:lang="en">Group First</value>
+        <value xml:lang="zh">分组首批</value>
     </property>
     <property key="FacilityGroupName">
         <value xml:lang="de">Guppen Name</value>
@@ -198,6 +201,7 @@
         <value xml:lang="de">INV</value>
         <value xml:lang="en">INV</value>
         <value xml:lang="nl">VOOR</value>
+        <value xml:lang="zh">库存</value>
     </property>
     <property key="FacilityReturnHeaderTypeNotSupported">
         <value xml:lang="de">${returnHeader.returnHeaderTypeId} wird nicht unterstützt</value>
@@ -8793,6 +8797,7 @@
     <property key="InventoryFacilityIdRequired">
         <value xml:lang="de">"Lager Id benötigt"</value>
         <value xml:lang="en">"Inventory Facility Id Required"</value>
+        <value xml:lang="zh">必须有库存场所标识</value>
     </property>
     <property key="MetaDescription">
         <value xml:lang="de">Meta Beschreibung</value>
@@ -11214,6 +11219,7 @@
     <property key="PageTitleLookupCostComponentCalc">
         <value xml:lang="de">Lookup Kostenkalkulation</value>
         <value xml:lang="en">Lookup Cost Component Calculation</value>
+        <value xml:lang="zh">查找成本组成计算</value>
     </property>
     <property key="PageTitleLookupFacility">
         <value xml:lang="de">Einrichtung nachschlagen</value>
@@ -13131,6 +13137,7 @@
         <value xml:lang="de">beliebige Warenidentifizierung</value>
         <value xml:lang="en">Any good identification</value>
         <value xml:lang="fr">Tous Identifiants</value>
+        <value xml:lang="zh">任一商品标识</value>
         <value xml:lang="zh-TW">Any good identification</value>
     </property>
     <property key="ProductAnyFacility">
@@ -15301,10 +15308,12 @@
     <property key="ProductCostComponentCalcId">
         <value xml:lang="de">Kostenkomponente Kalkulations Id</value>
         <value xml:lang="en">Cost Component Calc Id</value>
+        <value xml:lang="zh">成本组成计算标识</value>
     </property>
     <property key="ProductCostGlAccountTypeId">
         <value xml:lang="de">Kosten Hauptbuch Konto Typ Id</value>
         <value xml:lang="en">Cost Gl Account Type Id</value>
+        <value xml:lang="zh">成本总账账户类型标识</value>
         <value xml:lang="zh-TW">Cost Gl Account Type Id</value>
     </property>
     <property key="ProductCostPrice">
@@ -18333,6 +18342,7 @@
     <property key="ProductFromDateSellThrough">
         <value xml:lang="de">Ab Verkaufsdatum</value>
         <value xml:lang="en">From Date Sell Through</value>
+        <value xml:lang="zh">开始日期的销售任务</value>
         <value xml:lang="zh-TW">From Date Sell Through</value>
     </property>
     <property key="ProductFromGeo">
@@ -18607,6 +18617,7 @@
     <property key="ProductGracePeriodUomId">
         <value xml:lang="de">Karenzzeit UOM Id</value>
         <value xml:lang="en">Grace Period UOM Id</value>
+        <value xml:lang="zh">免息期度量单位标识</value>
         <value xml:lang="zh-TW">Grace Period UOM Id</value>
     </property>
     <property key="ProductGrams">
@@ -23038,6 +23049,7 @@
     <property key="ProductOffsettingGlAccountTypeId">
         <value xml:lang="de">Ausgleichskonto Typ Id</value>
         <value xml:lang="en">Off Setting GL Account Type Id</value>
+        <value xml:lang="zh">抵扣总账账户类型标识</value>
         <value xml:lang="zh-TW">Off Setting GL Account Type Id</value>
     </property>
     <property key="ProductOneInventoryFacility">
@@ -30586,6 +30598,7 @@
         <value xml:lang="de">Bis Verkaufsdatum</value>
         <value xml:lang="en">Through Date Sell Through</value>
         <value xml:lang="zh-TW">Through Date Sell Through</value>
+        <value xml:lang="zh">结束日期的销售任务</value>
     </property>
     <property key="ProductThruDateTimePrice">
         <value xml:lang="de">Bis Datum/Zeit, Preis</value>
@@ -32202,60 +32215,72 @@
         <value xml:lang="de">Virtuelle und Varianten</value>
         <value xml:lang="en">Virtuals and Variants</value>
         <value xml:lang="nl">Sectie 1: Virtuelen en varianten</value>
+        <value xml:lang="zh">虚拟和可变</value>
     </property>
     <property key="ProductDatesSection">
         <value xml:lang="de">Termine</value>
         <value xml:lang="en">Dates</value>
         <value xml:lang="nl">Sectie 2: Data</value>
+        <value xml:lang="zh">日期</value>
     </property>
     <property key="ProductInventorySection">
         <value xml:lang="de">Bestand</value>
         <value xml:lang="en">Inventory</value>
         <value xml:lang="nl">Sectie 3: Voorraad</value>
+        <value xml:lang="zh">库存</value>
     </property>
     <property key="ProductMeasuresSection">
         <value xml:lang="de">Maße</value>
         <value xml:lang="en">Measures</value>
         <value xml:lang="nl">Sectie 4: Maten</value>
+        <value xml:lang="zh">度量</value>
     </property>
     <property key="ProductShippingSection">
         <value xml:lang="de">Lieferung</value>
         <value xml:lang="en">Shipping</value>
         <value xml:lang="nl">Sectie 5: Zending</value>
+        <value xml:lang="zh">运输</value>
     </property>
     <property key="ProductCatFacSection">
         <value xml:lang="de">Prim. Kategorie und Einrichtung</value>
         <value xml:lang="en">Prim. Category and Facility</value>
         <value xml:lang="nl">Sectie 6: Category en faciliteit</value>
+        <value xml:lang="zh">主要分类和场所</value>
     </property>
     <property key="ProductAmountSection">
         <value xml:lang="de">Mengen</value>
         <value xml:lang="en">Amounts</value>
         <value xml:lang="nl">Sectie 7: Bedragen</value>
+        <value xml:lang="zh">数量</value>
     </property>
     <property key="ProductRatingsSetion">
         <value xml:lang="de">Bewertungen</value>
         <value xml:lang="en">Ratings</value>
         <value xml:lang="nl">Sectie 8: Waarderingen</value>
+        <value xml:lang="zh">评分</value>
     </property>
     <property key="ProductMiscellaneousSection">
         <value xml:lang="de">Verschiedenes</value>
         <value xml:lang="en">Miscellaneous</value>
         <value xml:lang="nl">Sectie 9: Diversen</value>
+        <value xml:lang="zh">杂项</value>
     </property>
     <property key="LotUsageReport">
         <value xml:lang="de">Los Verwendungsbericht</value>
         <value xml:lang="en">Lot Usage Report</value>
         <value xml:lang="nl">Batch rapport</value>
+        <value xml:lang="zh">批次用途报表</value>
     </property>
     <property key="Manufacturer">
         <value xml:lang="de">Hersteller</value>
         <value xml:lang="en">Manufacturer</value>
         <value xml:lang="nl">Producent</value>
+        <value xml:lang="zh">制造商</value>
     </property>
     <property key="ManufacturerRef">
         <value xml:lang="de">Los Ref.</value>
         <value xml:lang="en">Lot Ref.</value>
         <value xml:lang="nl">Batch ref.</value>
+        <value xml:lang="zh">批次参考</value>
     </property>
 </resource>

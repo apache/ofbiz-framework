@@ -1761,6 +1761,7 @@
     </property>
     <property key="EcommerceLayeredNavigation">
         <value xml:lang="en">Layered Navigation</value>
+        <value xml:lang="zh">分层导航</value>
     </property>
     <property key="EcommerceLength">
         <value xml:lang="da">Længde</value>
@@ -5161,5 +5162,6 @@
     </property>
     <property key="ThankYouForContactingUs">
         <value xml:lang="en">Thank You for contacting us.</value>
+        <value xml:lang="zh">感谢您与我们联系！</value>
     </property>
 </resource>

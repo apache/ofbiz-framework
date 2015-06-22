@@ -3715,10 +3715,12 @@
     <property key="Enumeration.description.WF_PREDECESSOR">
         <value xml:lang="en">Preceding</value>
         <value xml:lang="nl">Voorafgaand</value>
+        <value xml:lang="zh">预处理</value>
     </property>
     <property key="Enumeration.description.WF_SUCCESSOR">
         <value xml:lang="en">Succeeding</value>
         <value xml:lang="nl">Opvolgend</value>
+        <value xml:lang="zh">后处理</value>
     </property>
     <property key="Enumeration.description.WFI_MULTIPLE">
         <value xml:lang="en">WFI_MULTIPLE</value>
@@ -11769,6 +11771,7 @@
     </property>
     <property key="StatusItem.description.PMNT_VOID">
         <value xml:lang="en">Voided</value>
+        <value xml:lang="zh">已作废</value>
         <value xml:lang="zh-TW">已作廢</value>
     </property>
     <property key="StatusItem.description.POSTX_ACTIVE">
