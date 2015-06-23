@@ -1087,7 +1087,7 @@ public class OrderServices {
                             GenericValue productFacility = null;
 
                             try {
-                                productFacilities = product.getRelated("ProductFacility", product, null, true);
+                                productFacilities = product.getRelated("ProductFacility", null, null, true);
                             } catch (GenericEntityException e) {
                                 Debug.logWarning(e, "Error invoking getRelated in isCatalogInventoryAvailable", module);
                             }
