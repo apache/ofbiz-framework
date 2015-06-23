@@ -2105,7 +2105,7 @@ public class ModelFormField {
     }
     
     /**
-     * Models the &lt;form&gt; element.
+     * Models the &lt;include-form&gt; element.
      * 
      * @see <code>widget-form.xsd</code>
      */
@@ -2184,9 +2184,9 @@ public class ModelFormField {
     }
     
     /**
-     * Models the &lt;grid&gt; element.
+     * Models the &lt;include-grid&gt; element.
      * 
-     * @see <code>widget-grid.xsd</code>
+     * @see <code>widget-form.xsd</code>
      */
     public static class GridField extends FieldInfo {
         private final FlexibleStringExpander gridName;
@@ -3113,7 +3113,7 @@ public class ModelFormField {
     }
 
     /**
-     * Models the &lt;menu&gt; element.
+     * Models the &lt;include-menu&gt; element.
      * 
      * @see <code>widget-form.xsd</code>
      */
@@ -3391,9 +3391,9 @@ public class ModelFormField {
     }
     
     /**
-     * Models the &lt;grid&gt; element.
+     * Models the &lt;include-screen&gt; element.
      * 
-     * @see <code>widget-grid.xsd</code>
+     * @see <code>widget-form.xsd</code>
      */
     public static class ScreenField extends FieldInfo {
         private final FlexibleStringExpander screenName;
