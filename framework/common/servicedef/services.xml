@@ -725,7 +725,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     <service name="deleteGeoAssoc" default-entity-name="GeoAssoc" engine="entity-auto" invoke="delete" auth="true">
-        <description>Delete a Geo</description>
+        <description>Delete a GeoAssoc</description>
         <permission-service service-name="commonGenericPermission" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
