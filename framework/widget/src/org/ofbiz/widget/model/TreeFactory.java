@@ -48,26 +48,15 @@ public class TreeFactory {
             throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelTree> modelTreeMap = treeLocationCache.get(resourceName);
         if (modelTreeMap == null) {
-            synchronized (TreeFactory.class) {
-                modelTreeMap = treeLocationCache.get(resourceName);
-                if (modelTreeMap == null) {
-                    ClassLoader loader = Thread.currentThread().getContextClassLoader();
-                    if (loader == null) {
-                        loader = TreeFactory.class.getClassLoader();
-                    }
-
-                    URL treeFileUrl = null;
-                    treeFileUrl = FlexibleLocation.resolveLocation(resourceName); //, loader);
-                    Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
-                    modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
-                    treeLocationCache.put(resourceName, modelTreeMap);
-                }
-            }
+            URL treeFileUrl = FlexibleLocation.resolveLocation(resourceName);
+            Document treeFileDoc = UtilXml.readXmlDocument(treeFileUrl, true, true);
+            modelTreeMap = readTreeDocument(treeFileDoc, delegator, dispatcher, resourceName);
+            modelTreeMap = treeLocationCache.putIfAbsentAndGet(resourceName, modelTreeMap);
         }
-
         ModelTree modelTree = modelTreeMap.get(treeName);
         if (modelTree == null) {
-            throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in class resource [" + resourceName + "]");
+            throw new IllegalArgumentException("Could not find tree with name [" + treeName + "] in class resource ["
+                    + resourceName + "]");
         }
         return modelTree;
     }
